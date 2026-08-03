@@ -157,6 +157,11 @@ show up on the LFCA syllabus:
   enabling it inside a container with Docker's networking does not behave like a real host
   firewall. Learn the commands here; don't trust the behaviour.
 - **Time and NTP.** `timedatectl` cannot set the clock — that's the host's job.
+- **Some `/proc` values are the host's, not the box's.** `uptime` reports how long the
+  Docker VM has been up, not your container, so it can read as hours right after
+  `./lab start`. `free`, `nproc`, and load average likewise describe the VM. Use
+  `systemctl show -p ActiveEnterTimestamp` or `journalctl -b` when you want the box's own
+  start time.
 
 For those topics: read the docs, use the Linux Foundation course material, and if you want
 hands-on practice, a real VM (UTM or VirtualBox on Apple Silicon) or a throwaway cloud
