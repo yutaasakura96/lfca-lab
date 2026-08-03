@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+#
+# lab — control script for the LFCA practice lab.
+#
+#   ./lab start           bring node1 and node2 up (keeping any previous state)
+#   ./lab stop            shut both boxes down cleanly; state is preserved
+#   ./lab status          show what is running and whether systemd is healthy
+#   ./lab shell [node]    log in as student  (default node1)
+#   ./lab root  [node]    log in as root     (default node1)
+#   ./lab reset           destroy both boxes and rebuild from the Dockerfile
+#   ./lab rebuild         rebuild the image, then reset (use after editing Dockerfile)
+#
+set -euo pipefail
+
+# Always operate on the project next to this script, whatever directory you
+# happen to be standing in.
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+NODES=(node1 node2)
+
+# --- pretty output ------------------------------------------------------------
+if [[ -t 1 ]]; then
+  BOLD=$'\033[1m'; DIM=$'\033[2m'; RED=$'\033[31m'; GREEN=$'\033[32m'; RESET=$'\033[0m'
+else
+  BOLD=''; DIM=''; RED=''; GREEN=''; RESET=''
+fi
+say()  { printf '%s==>%s %s\n' "$BOLD" "$RESET" "$*"; }
+warn() { printf '%s==>%s %s\n' "$RED" "$RESET" "$*" >&2; }
+
+# --- helpers ------------------------------------------------------------------
+
+# True if a container with this name exists at all (running or stopped).
+container_exists() {
+  docker container inspect "$1" >/dev/null 2>&1
+}
+
+# Reject typos like `./lab shell node3` before handing them to docker.
+validate_node() {
+  local n="$1"
+  for known in "${NODES[@]}"; do
+    [[ "$n" == "$known" ]] && return 0
+  done
+  warn "unknown node '$n' (expected: ${NODES[*]})"
+  exit 1
+}
+
+# Block until systemd inside a box has finished booting, so that the first
+# thing you type after ./lab start isn't "Failed to connect to bus".
+wait_for_systemd() {
+  local node="$1" state
+  for _ in $(seq 30); do
+    state="$(docker exec "$node" systemctl is-system-running 2>/dev/null || true)"
+    case "$state" in
+      running|degraded) printf '    %s: systemd %s\n' "$node" "$state"; return 0 ;;
+    esac
+    sleep 1
+  done
+  warn "$node: systemd did not reach a ready state in 30s (last: ${state:-unknown})"
+  warn "     try: docker logs $node"
+  return 1
+}
+
+# --- commands -----------------------------------------------------------------
+
+cmd_start() {
+  # Two different paths on purpose:
+  #
+  #   `docker compose start` resumes the existing containers with their
+  #   filesystems intact — installed packages, edited configs, new users.
+  #
+  #   `docker compose up -d` is only used when the containers don't exist yet,
+  #   because up will happily *recreate* (and therefore wipe) a container if it
+  #   thinks the config drifted. Use ./lab rebuild when you actually want that.
+  local existing=0
+  for n in "${NODES[@]}"; do
+    container_exists "$n" && existing=$((existing + 1))
+  done
+
+  if (( existing == ${#NODES[@]} )); then
+    say "Resuming existing boxes (state preserved)..."
+    docker compose start
+  else
+    say "Creating boxes for the first time..."
+    docker compose up -d
+  fi
+
+  say "Waiting for systemd..."
+  for n in "${NODES[@]}"; do wait_for_systemd "$n"; done
+  say "Ready. ${DIM}./lab shell node1${RESET}"
+}
+
+cmd_stop() {
+  # `stop`, never `down`. down deletes the containers and everything you
+  # installed in them; stop just powers them off.
+  say "Powering off (state preserved)..."
+  docker compose stop
+  say "Stopped. ${DIM}./lab start${RESET} to resume."
+}
+
+cmd_status() {
+  docker compose ps
+  echo
+  for n in "${NODES[@]}"; do
+    if ! container_exists "$n"; then
+      printf '  %-6s %s\n' "$n" "does not exist — run ./lab start"
+    elif [[ "$(docker container inspect -f '{{.State.Running}}' "$n")" != "true" ]]; then
+      printf '  %-6s %s\n' "$n" "stopped"
+    else
+      printf '  %-6s systemd=%-9s uptime=%s\n' \
+        "$n" \
+        "$(docker exec "$n" systemctl is-system-running 2>&1 | head -1)" \
+        "$(docker exec "$n" uptime -p 2>/dev/null || echo '?')"
+    fi
+  done
+}
+
+cmd_shell() {
+  local node="${1:-node1}" user="${2:-student}"
+  validate_node "$node"
+  if ! container_exists "$node" || \
+     [[ "$(docker container inspect -f '{{.State.Running}}' "$node")" != "true" ]]; then
+    warn "$node is not running — run ./lab start first"
+    exit 1
+  fi
+  # `su -` rather than plain bash: it runs a full login session through PAM, so
+  # you get the real login environment, /etc/motd, and a correct $HOME — which
+  # is what you'd get over SSH, and what the exam assumes.
+  exec docker exec -it "$node" su - "$user"
+}
+
+cmd_reset() {
+  cat <<EOF
+${RED}${BOLD}This destroys both boxes.${RESET}
+
+  Lost:  everything installed or changed inside node1 and node2
+         (packages, configs, users, /home/student outside labs/)
+  Kept:  ./labs on your Mac, which is bind-mounted, not stored in the boxes
+
+EOF
+  read -r -p "Type 'yes' to rebuild from the Dockerfile: " reply
+  if [[ "$reply" != "yes" ]]; then
+    say "Cancelled — nothing changed."
+    return 0
+  fi
+
+  say "Destroying containers and network..."
+  docker compose down --remove-orphans
+
+  say "Recreating from the Dockerfile..."
+  docker compose up -d
+
+  say "Waiting for systemd..."
+  for n in "${NODES[@]}"; do wait_for_systemd "$n"; done
+  say "Clean slate. ${DIM}./labs is untouched.${RESET}"
+}
+
+cmd_rebuild() {
+  # Use this after editing the Dockerfile — reset alone reuses the cached image.
+  say "Rebuilding the image from the Dockerfile..."
+  docker compose build
+  cmd_reset
+}
+
+usage() {
+  sed -n '3,12p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+}
+
+# --- dispatch -----------------------------------------------------------------
+case "${1:-}" in
+  start)   shift; cmd_start "$@" ;;
+  stop)    shift; cmd_stop "$@" ;;
+  status)  shift; cmd_status "$@" ;;
+  shell)   shift; cmd_shell "${1:-node1}" student ;;
+  root)    shift; cmd_shell "${1:-node1}" root ;;
+  reset)   shift; cmd_reset "$@" ;;
+  rebuild) shift; cmd_rebuild "$@" ;;
+  ""|-h|--help|help) usage ;;
+  *) warn "unknown command: $1"; echo; usage; exit 1 ;;
+esac
