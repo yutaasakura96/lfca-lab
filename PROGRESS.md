@@ -91,6 +91,14 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
 
+### Tooling defect found and fixed during stage 1
+
+`package.json`'s test script was `node --test tools/test/`. On Node 25 a bare directory path is
+resolved as a module, so the command crashed with `MODULE_NOT_FOUND` and `npm test` had never
+actually run. It went unnoticed because every task up to that point invoked the tests with
+explicit file paths. Changed to `node --test`, which uses Node's own test discovery. Verified:
+24/24 passing.
+
 ### Source problems
 
 - The archived pre-2025 page rendered "System Security:" with a trailing colon. Treated as a

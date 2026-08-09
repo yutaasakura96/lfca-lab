@@ -2,9 +2,10 @@
   "exam_version": "2025-09-16",
   "source": "lf-objectives-2025",
   "objective_granularity": "competency",
-  "objective_granularity_note": "The Linux Foundation publishes no official text finer than the competency name for LFCA. Verified 2026-08-09 in a browser: the certification page's Domains & Competencies accordion yields zero additional characters when fully expanded, and the program-changes page claims per-domain change outlines that do not exist on the page. Concepts therefore carry their competency name as objective_verbatim, and all finer structure is marked inferred. LFS200 learning objectives are attached separately in stage 4 as a course-derived tier, never as exam-derived official text.",
+  "objective_granularity_note": "The Linux Foundation publishes no official text finer than the competency name for LFCA. Verified 2026-08-09 in a browser: the certification page's Domains & Competencies accordion yields zero additional characters when fully expanded, and the program-changes page claims per-domain change outlines that do not exist on the page. Concepts therefore carry their competency name as objective_verbatim, and all finer structure is marked inferred. LFS200 learning objectives are attached separately in stage 4 as a course-derived tier, never as exam-derived official text. An 'objectives' array was present in the original schema to hold finer official bullets; it was removed rather than left permanently empty, because no such bullets exist to put in it.",
   "previous_exam_version": "pre-2025-09-16",
   "previous_syllabus_source": "wayback-lfca-2025-08",
+  "rewording_significance_note": "A competency marked 'reworded' carries rewording_significance. 'substantive' means the scope or emphasis plausibly changed. 'formatting' means only punctuation or whitespace differs between the two page renders, so pre-2025 material on that competency remains valid.",
   "domains": [
     {
       "id": "linux",
@@ -24,15 +25,15 @@
       "competencies": [
         {
           "name": "Linux Operating System",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Linux Operating System"
+          "previous_name": "Linux Operating System",
+          "rewording_significance": null
         },
         {
           "name": "Command Line",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         }
       ]
     },
@@ -50,33 +51,33 @@
       "competencies": [
         {
           "name": "System Administration",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "System Administration Tasks"
+          "previous_name": "System Administration Tasks",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Best Practices",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         },
         {
           "name": "Networking",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Networking"
+          "previous_name": "Networking",
+          "rewording_significance": null
         },
         {
           "name": "Troubleshooting",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Troubleshooting"
+          "previous_name": "Troubleshooting",
+          "rewording_significance": null
         },
         {
           "name": "Disaster Recovery",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         }
       ]
     },
@@ -94,33 +95,33 @@
       "competencies": [
         {
           "name": "Cloud Computing",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Cloud Computing Fundamentals"
+          "previous_name": "Cloud Computing Fundamentals",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Performance/Availability",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Performance / Availability"
+          "previous_name": "Performance / Availability",
+          "rewording_significance": "formatting"
         },
         {
           "name": "Budgeting",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Cloud Costs and Budgeting"
+          "previous_name": "Cloud Costs and Budgeting",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Best Practices",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         },
         {
           "name": "Networking",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         }
       ]
     },
@@ -138,21 +139,21 @@
       "competencies": [
         {
           "name": "Security",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Security Basics"
+          "previous_name": "Security Basics",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Sensitive Data",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Data Security"
+          "previous_name": "Data Security",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Compliance",
-          "objectives": [],
           "sept_2025_status": "added",
-          "previous_name": null
+          "previous_name": null,
+          "rewording_significance": null
         }
       ]
     },
@@ -170,21 +171,21 @@
       "competencies": [
         {
           "name": "DevOps Basics",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "DevOps Basics"
+          "previous_name": "DevOps Basics",
+          "rewording_significance": null
         },
         {
           "name": "Git Concepts",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Git Concepts"
+          "previous_name": "Git Concepts",
+          "rewording_significance": null
         },
         {
           "name": "Containers",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Containers"
+          "previous_name": "Containers",
+          "rewording_significance": null
         }
       ]
     },
@@ -202,27 +203,27 @@
       "competencies": [
         {
           "name": "Project Management",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Software Project Management"
+          "previous_name": "Software Project Management",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Software Application Architecture",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Software Application Architecture"
+          "previous_name": "Software Application Architecture",
+          "rewording_significance": null
         },
         {
           "name": "Functional Analysis",
-          "objectives": [],
           "sept_2025_status": "unchanged",
-          "previous_name": "Functional Analysis"
+          "previous_name": "Functional Analysis",
+          "rewording_significance": null
         },
         {
           "name": "Open Source Software and Licensing",
-          "objectives": [],
           "sept_2025_status": "reworded",
-          "previous_name": "Open-source Software and Licensing"
+          "previous_name": "Open-source Software and Licensing",
+          "rewording_significance": "formatting"
         }
       ]
     }

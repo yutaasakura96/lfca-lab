@@ -51,7 +51,9 @@ Pure logic is separated from IO so every check and every view is unit-testable w
 
 ### Task 1: Scaffolding and the official competency index
 
-Creates the repo skeleton and seeds `data/competencies.json` with the domain weights and competency names already verified from the Linux Foundation program-changes page. The `objectives` arrays stay empty here; Task 3 fills them with verbatim bullets.
+Creates the repo skeleton and seeds `data/competencies.json` with the domain weights and competency names already verified from the Linux Foundation program-changes page.
+
+> **Schema superseded by Task 5.** The `objectives: []` arrays shown throughout this task were removed during Task 5, which established that the Linux Foundation publishes no objective text below the competency name. Competencies now carry `sept_2025_status`, `previous_name`, and `rewording_significance` instead, and domains carry `previous_weight` and `changes_2025`. This section is retained as the record of what Task 1 built at the time; see Task 5 for the current shape.
 
 **Files:**
 - Create: `package.json`
@@ -281,6 +283,8 @@ Do not modify `.gitignore`. `research/` and `coverage-matrix.md` are committed d
 ### Task 2: Dataset loader
 
 The single reader of `data/`. Everything else takes plain objects, which is what makes the checks and views testable without disk access.
+
+> **Fixtures updated by Task 5.** The fixture content shown below reflects the pre-Task-5 schema. `tools/test/fixtures/competencies.json` was later updated to mirror the real schema (no `objectives`; `sept_2025_status`, `previous_name`, `rewording_significance`, `previous_weight`, `changes_2025` added), and `tools/test/fixtures/topics/01-linux-fundamentals.json` had `objective_verbatim` changed to the competency name. The loader itself is unchanged — it passes JSON through untouched, which is why the schema change required no code edit.
 
 **Files:**
 - Create: `tools/lib/load.mjs`
@@ -962,52 +966,44 @@ git commit -m "feat: add validation checks and CLI gate"
 
 ### Task 5: Official objectives capture (stage 1)
 
-Fills `objectives` arrays in `data/competencies.json` with verbatim bullets, and records the September 2025 change annotations. Performed manually in the in-app browser — the content is JS-rendered and not retrievable by HTTP fetch.
+**COMPLETED 2026-08-09. This section was rewritten after execution to record what was actually done, because the task's original premise turned out to be false.**
 
-**Files:**
-- Modify: `data/competencies.json`
-- Modify: `data/sources.json` (update `accessed` dates)
-- Modify: `PROGRESS.md`
+**Original premise, now known to be wrong:** that `data/competencies.json` would be filled with verbatim per-competency objective bullets scraped from the certification page's accordions.
 
-**Interfaces:**
-- Consumes: `data/competencies.json` shape from Task 1.
-- Produces: every `competencies[].objectives` array non-empty; each domain object gains `"changes_2025": {"added": string[], "removed": string[], "reworded": Array<{from: string, to: string}>}`.
+**What stage 1 established instead.** No such bullets exist. Verified in the browser:
+- The certification page's "Domains & Competencies" accordion yields **zero** additional characters when fully expanded — container text is 1,930 characters either way.
+- The program-changes page states changes are "outlined below each domain heading", but no outlines are present; the entire page is 2,556 characters.
+- The Candidate Handbook is generic across all Linux Foundation exams and contains no LFCA objectives.
 
-- [ ] **Step 1: Open the certification page in the in-app browser**
+The competency name is therefore the finest published granularity. This was escalated and the approach change was approved before proceeding.
 
-```
-preview_start with url https://training.linuxfoundation.org/certification/certified-it-associate/
-```
+**Second finding: the Linux Foundation's change notice is inaccurate.** It states the domains "will remain unchanged". The archived pre-update certification page (Wayback, 2025-08-01) shows all six domain weights changed and one domain renamed. Recorded as a documented source disagreement on `lf-objectives-2025` in `data/sources.json`, not silently resolved.
 
-Then `read_page` to locate the "Domains & Competencies" accordion, and click each domain heading to expand it. Use `get_page_text` after each expansion.
+**Files changed:**
+- `data/competencies.json` — per-domain `previous_weight` and `changes_2025`; per-competency `sept_2025_status`, `previous_name`, `rewording_significance`. The `objectives` array was removed rather than left permanently empty.
+- `data/sources.json` — added `wayback-lfca-2025-08` and `lf-candidate-handbook`; rewrote the `lf-objectives-2025` note to record the dispute.
+- `PROGRESS.md` — stage 1 complete, with the full change set and study implications.
+- `package.json` — fixed the `test` script (see below).
+- This plan — Global Constraints, Task 5, Task 7, Task 8.
 
-- [ ] **Step 2: Transcribe every competency bullet verbatim**
+**Actual produced interface:**
+- Each domain gains `previous_weight: number` and `changes_2025: {renamed_from: string|null, removed_competencies: string[], note: string}`.
+- Each competency gains `sept_2025_status`, `previous_name: string|null`, and `rewording_significance: "substantive"|"formatting"|null`.
+- `objectives` no longer exists on competencies.
 
-For each of the 6 domains and 20 competencies, record the exact bullet text into the matching `objectives` array in `data/competencies.json`. Do not paraphrase, reorder, or merge bullets — this text is the traceability anchor for the whole dataset.
+**Outcome:** 22 competencies — 8 `unchanged`, 8 `reworded`, 6 `added`; 7 competencies removed outright. **Zero** left `unknown`. Both the current and previous weight sets sum independently to 100, which cross-checks the archived transcription.
 
-- [ ] **Step 3: Capture the September 2025 change annotations**
+**Incidental fix:** `package.json`'s test script was `node --test tools/test/`, which on Node 25 resolves the bare directory as a module and crashes with `MODULE_NOT_FOUND`. `npm test` had therefore never run — every implementer used explicit file paths, so it went unnoticed. Changed to `node --test`, which uses Node's test discovery. Verified: 24/24 passing.
 
-Open `https://training.linuxfoundation.org/lfca-program-changes-2025/` and expand the per-domain change sections. Record into each domain's `changes_2025` object.
-
-- [ ] **Step 4: Cross-verify the two pages**
-
-Any competency bullet appearing on one page but not the other is a discrepancy. Record it in that domain's `changes_2025.reworded` if it is a wording difference, or in `PROGRESS.md` under "Unresolved questions" if it cannot be reconciled. Do not silently pick one.
-
-- [ ] **Step 5: Verify structurally**
-
-Run: `node -e "const c=JSON.parse(require('fs').readFileSync('data/competencies.json','utf8')); const empty=c.domains.flatMap(d=>d.competencies.filter(k=>k.objectives.length===0).map(k=>d.name+'/'+k.name)); console.log(empty.length===0?'all competencies have objectives':'EMPTY: '+empty.join(', ')); console.log('total objectives:', c.domains.flatMap(d=>d.competencies).reduce((n,k)=>n+k.objectives.length,0))"`
-Expected: `all competencies have objectives` and a total objective count greater than 20.
-
-- [ ] **Step 6: Update PROGRESS.md**
-
-Set stage 1 to `complete`. Record the total objective count, any discrepancies between the two pages, and the capture date.
-
-- [ ] **Step 7: Commit**
+**Verification actually run:**
 
 ```bash
-git add data/competencies.json data/sources.json PROGRESS.md
-git commit -m "research: capture verbatim LFCA objectives and 2025 change annotations"
+node --input-type=module -e "const {loadDataset}=await import('./tools/lib/load.mjs'); const d=await loadDataset('data'); const doms=d.competencies.domains; const comps=doms.flatMap(x=>x.competencies); const st={}; for(const c of comps) st[c.sept_2025_status]=(st[c.sept_2025_status]||0)+1; console.log('weights',doms.reduce((n,x)=>n+x.weight,0),'previous',doms.reduce((n,x)=>n+x.previous_weight,0),'competencies',comps.length,JSON.stringify(st))"
 ```
+
+Expected and observed: `weights 100 previous 100 competencies 22 {"unchanged":8,"added":6,"reworded":8}`
+
+**Commit:** `research: capture LFCA objectives and derive 2025 competency change set`
 
 ---
 
@@ -1067,7 +1063,7 @@ The judgment-heavy stage. Every official objective bullet is exploded into leaf 
 - Modify: `PROGRESS.md`
 
 **Interfaces:**
-- Consumes: `data/competencies.json` with populated `objectives` from Task 5; `computeImportance` from Task 3.
+- Consumes: `data/competencies.json` as produced by Task 5 — competency names, `sept_2025_status`, `previous_name`, `rewording_significance`, and per-domain `changes_2025`. There is no `objectives` array; the competency name is the objective. Also `computeImportance` from Task 3.
 - Produces: populated `topics` arrays. Every record carries every field in the Task 2 fixture shape. At this stage `lfs200_sources`, `additional_sources`, and `candidate_evidence` remain empty and `coverage_status` is `NOT COVERED`; those are filled by Tasks 9–11.
 
 - [ ] **Step 1: Expand one domain into concepts**
@@ -1177,12 +1173,21 @@ test('every renderer emits a do-not-edit banner', async () => {
   }
 });
 
-test('objectives view lists domains with weights and verbatim bullets', async () => {
+test('objectives view lists domains with weights and competencies', async () => {
   const d = await loadDataset(fixtureRoot);
   const md = renderObjectives(d);
   assert.match(md, /Linux Fundamentals/);
   assert.match(md, /16%/);
-  assert.match(md, /Describe the Linux kernel/);
+  assert.match(md, /Linux Operating System/);
+  assert.match(md, /Command Line/);
+});
+
+test('objectives view surfaces the 2025 weight shift and change set', async () => {
+  const d = await loadDataset(fixtureRoot);
+  const md = renderObjectives(d);
+  assert.match(md, /was 20%/);
+  assert.match(md, /added/);
+  assert.match(md, /Removed in 2025.*System Commands/);
 });
 
 test('gap analysis includes uncovered concepts and excludes covered ones', async () => {
@@ -1245,14 +1250,28 @@ function domainOf(competencies, name) {
 
 export function renderObjectives({ competencies }) {
   const lines = [BANNER, '# Official LFCA Objectives', '',
-    `Exam version: **${competencies.exam_version}**`, ''];
+    `Exam version: **${competencies.exam_version}**`, '',
+    competencies.objective_granularity_note ?? '', ''];
   for (const d of competencies.domains) {
-    lines.push(`## ${d.name} — ${d.weight}%`, '');
-    for (const c of d.competencies) {
-      lines.push(`### ${c.name}`, '');
-      for (const o of c.objectives) lines.push(`- ${o}`);
-      lines.push('');
+    const shift = d.previous_weight != null && d.previous_weight !== d.weight
+      ? ` (was ${d.previous_weight}%)` : '';
+    lines.push(`## ${d.name} — ${d.weight}%${shift}`, '');
+    if (d.changes_2025?.renamed_from) {
+      lines.push(`Renamed from **${d.changes_2025.renamed_from}**.`, '');
     }
+    lines.push('| Competency | 2025 status | Previously |', '| --- | --- | --- |');
+    for (const c of d.competencies) {
+      const status = c.rewording_significance
+        ? `${c.sept_2025_status} (${c.rewording_significance})`
+        : c.sept_2025_status;
+      lines.push(`| ${esc(c.name)} | ${esc(status)} | ${esc(c.previous_name ?? '—')} |`);
+    }
+    lines.push('');
+    const removed = d.changes_2025?.removed_competencies ?? [];
+    if (removed.length > 0) {
+      lines.push(`Removed in 2025: ${removed.map((r) => `**${r}**`).join(', ')}.`, '');
+    }
+    if (d.changes_2025?.note) lines.push(d.changes_2025.note, '');
   }
   return lines.join('\n');
 }

@@ -1,15 +1,33 @@
 {
   "exam_version": "2025-09-16",
   "source": "tier1-example",
+  "objective_granularity": "competency",
+  "previous_exam_version": "pre-2025-09-16",
   "domains": [
     {
       "id": "linux",
       "name": "Linux Fundamentals",
       "weight": 16,
+      "previous_weight": 20,
       "file": "01-linux-fundamentals.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": ["System Commands"],
+        "note": "Fixture domain: one competency removed, one reworded, one unchanged."
+      },
       "competencies": [
-        { "name": "Linux Operating System", "objectives": ["Describe the Linux kernel"] },
-        { "name": "Command Line", "objectives": ["Use basic shell commands"] }
+        {
+          "name": "Linux Operating System",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Linux Operating System",
+          "rewording_significance": null
+        },
+        {
+          "name": "Command Line",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
       ]
     }
   ]
