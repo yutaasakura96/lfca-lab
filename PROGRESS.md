@@ -29,17 +29,17 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
   stated in official sources** anywhere checked across two stages — recorded as such rather than
   guessed.
 
-- Stage 3: all 22 competencies expanded into **493 leaf concepts**. Zero `empty-competency`
+- Stage 3: all 22 competencies expanded into **537 leaf concepts**. Zero `empty-competency`
   errors remain — every official competency now has concepts attached.
 
 | Domain | Weight | Concepts | Share of corpus |
 | --- | --- | --- | --- |
-| Linux Fundamentals | 16% | 57 | 11.6% |
-| System Administration Fundamentals | 30% | 162 | 32.9% |
-| Cloud Computing Fundamentals | 18% | 70 | 14.2% |
-| Security Fundamentals | 14% | 61 | 12.4% |
-| DevOps Fundamentals | 12% | 67 | 13.6% |
-| IT Project Management Fundamentals | 10% | 76 | 15.4% |
+| Linux Fundamentals | 16% | 66 | 12.3% |
+| System Administration Fundamentals | 30% | 173 | 32.2% |
+| Cloud Computing Fundamentals | 18% | 82 | 15.3% |
+| Security Fundamentals | 14% | 65 | 12.1% |
+| DevOps Fundamentals | 12% | 71 | 13.2% |
+| IT Project Management Fundamentals | 10% | 80 | 14.9% |
 
 Concept count deliberately does not track exam weight exactly. Much material a candidate would
 call "Linux" (permissions, processes, filesystem, packages) sits under System Administration
@@ -118,6 +118,54 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Stage 3 review outcome
+
+An independent review of the 493-concept first draft returned "Needs fixes" and found three
+things worth recording:
+
+1. **Command Line was mis-mapped.** `data/competencies.json` records that the Linux Foundation
+   collapsed *File Management Commands*, *System Commands* and *General Networking Commands*
+   into the new Command Line competency, but the first draft filed every system and networking
+   command under System Administration instead — so Command Line contained neither `ps` nor
+   `ping`. Fixed by adding command-family concepts to Command Line that reference, rather than
+   duplicate, the System Administration concepts they operate on. This also removed the
+   Linux-vs-SysAdmin imbalance that the original rationale had explained away.
+2. **Twelve descriptions were factually wrong**, five of them in ways that would have seeded
+   confidently incorrect exam questions: `well-known-ports` mislabelled registered ports 3306
+   and 5432 as well-known; `merge` claimed a merge commit is always created (fast-forward
+   merges create none); `snapshot` claimed losing the volume always loses the snapshot (false
+   for cloud provider snapshots, and self-contradictory with the Cloud domain);
+   `linux-history` said the Linux Foundation governs kernel development (it sponsors and hosts
+   — Torvalds and the maintainers govern); `dockerfile` said one layer per instruction (only
+   RUN, COPY and ADD create layers). Also corrected: `/etc/passwd` and `/etc/group` field
+   counts, `/etc/shadow` permissions, `nice` privilege rules, cloud control planes, copyleft
+   "viral" framing, and PUT vs PATCH.
+3. **The three thinnest competencies were all newly added in 2025** — SysAdmin Best Practices,
+   Cloud Best Practices, Cloud Networking — with zero HIGH-confidence concepts between them.
+   That inverted the project's purpose, since those are exactly the competencies no
+   pre-2025 material covers. Expanded to 20, 15 and 14 concepts respectively.
+
+44 concepts were added in total, including named gaps the review identified: port ranges,
+reading `ls -l` mode strings, hot/warm/cold standby sites, SELinux/AppArmor, package signature
+verification, semantic versioning, work breakdown structure, IPv4 address classes, cloud
+storage tiers, route tables and bastion hosts.
+
+`confused_with` was converted from free-text names to concept ids. Seventeen entries had been
+silently pointing at nothing, and two were ambiguous between domains.
+
+### Validator extended beyond the planned ten checks
+
+Three separate reviews found integrity gaps the original ten checks could not catch, so three
+were added (owner-approved deviation from the plan):
+
+- `dangling-related-topic` — nine hand-written cross-domain links were broken and nothing caught them
+- `dangling-confused-with` — also enforces that `confused_with` holds ids rather than free text
+- `source-schema` — a source record missing `authority_tier` would let a concept citing only
+  that source pass `weak-sources` unnoticed, a latent hole that would have widened as stages 5
+  and 6 add many sources
+
+Thirteen checks now. 33 tests passing.
 
 ### Tooling defect found and fixed during stage 1
 

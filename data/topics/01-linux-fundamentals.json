@@ -26,7 +26,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "kernel"
+        "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -59,7 +59,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "operating system"
+        "linux.linux-operating-system.operating-system"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -90,7 +90,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "kernel"
+        "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -152,7 +152,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "terminal"
+        "linux.linux-operating-system.terminal"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -183,7 +183,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "shell"
+        "linux.linux-operating-system.shell"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -276,7 +276,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "kernel"
+        "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -307,7 +307,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "Linux distribution"
+        "linux.linux-operating-system.linux-distribution"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Knowing which package manager belongs to which family is commonly tested."
@@ -367,7 +367,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "kernel"
+        "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -382,7 +382,7 @@
       ],
       "domain": "Linux Fundamentals",
       "competency": "Linux Operating System",
-      "description": "Begun by Linus Torvalds in 1991 as a free Unix-like kernel, developed openly ever since and now governed under the Linux Foundation.",
+      "description": "Begun by Linus Torvalds in 1991 as a free Unix-like kernel and developed openly ever since. The Linux Foundation sponsors and hosts the work; technical direction remains with Torvalds and the kernel maintainer hierarchy.",
       "objective_verbatim": "Linux Operating System",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -554,7 +554,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "RAM"
+        "linux.linux-operating-system.ram"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -649,7 +649,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "device drivers and kernel modules"
+        "linux.linux-operating-system.device-drivers-and-kernel-modules"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -680,7 +680,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "shell"
+        "linux.linux-operating-system.shell"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1008,6 +1008,41 @@
       "notes": ""
     },
     {
+      "id": "linux.command-line.root-directory-vs-root-vs-home",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Navigation",
+        "root directory vs /root vs home"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "/ is the root of the filesystem, /root is the superuser’s home directory, and ~ is the current user’s home. Three different things sharing a name.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "cd /",
+        "cd /root",
+        "cd ~"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.and"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "linux.command-line.creating-and-removing-files-and-directories",
       "path": [
         "Linux Fundamentals",
@@ -1108,8 +1143,141 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "grep"
+        "linux.command-line.grep"
       ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "linux.command-line.file-type-and-metadata",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "file type and metadata"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Determining what a file actually is and when it changed, rather than trusting its extension.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "file",
+        "stat",
+        "ls -l"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "linux.command-line.file-management-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "file management commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The file-handling command family folded into this competency in 2025: listing, copying, moving, removing, linking and inspecting files.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -la",
+        "cp -r",
+        "mv",
+        "rm -i",
+        "ln -s",
+        "stat",
+        "file"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Folded in from the retired \"File Management Commands\" competency."
+    },
+    {
+      "id": "linux.command-line.reading-ls-l-output",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "reading ls -l output"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The ten-character mode string: a leading type character (- file, d directory, l symlink) then three permission triads for owner, group and other. drwxr-xr-x is a directory the owner may write and everyone may read and traverse.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l",
+        "ls -ld"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.system-administration.symbolic-vs-numeric-chmod"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Reading a mode string, and converting it to and from octal such as 644 or 755, is a staple multiple-choice item."
+    },
+    {
+      "id": "linux.command-line.case-sensitivity",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "case sensitivity"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Linux filenames and commands are case-sensitive: File.txt and file.txt are different files. A frequent stumbling block for people arriving from Windows.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -1172,104 +1340,6 @@
       "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": "Unquoted variables containing spaces are a frequent scripting bug."
-    },
-    {
-      "id": "linux.command-line.standard-streams",
-      "path": [
-        "Linux Fundamentals",
-        "Command Line",
-        "Redirection",
-        "standard streams"
-      ],
-      "domain": "Linux Fundamentals",
-      "competency": "Command Line",
-      "description": "stdin, stdout and stderr — file descriptors 0, 1 and 2. Errors travel separately from output, which is why 2> exists.",
-      "objective_verbatim": "Command Line",
-      "sept_2025_status": "added",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 2,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [],
-      "related_topics": [],
-      "confused_with": [
-        "pipes"
-      ],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
-    },
-    {
-      "id": "linux.command-line.redirection",
-      "path": [
-        "Linux Fundamentals",
-        "Command Line",
-        "Redirection",
-        "redirection"
-      ],
-      "domain": "Linux Fundamentals",
-      "competency": "Command Line",
-      "description": "> writes to a file and truncates it, >> appends, < reads from a file, 2> captures errors, and /dev/null discards.",
-      "objective_verbatim": "Command Line",
-      "sept_2025_status": "added",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 2,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [
-        ">",
-        ">>",
-        "2>",
-        "&>"
-      ],
-      "related_topics": [],
-      "confused_with": [],
-      "coverage_status": "NOT COVERED",
-      "notes": "> silently destroys the existing contents of the target file."
-    },
-    {
-      "id": "linux.command-line.pipes",
-      "path": [
-        "Linux Fundamentals",
-        "Command Line",
-        "Redirection",
-        "pipes"
-      ],
-      "domain": "Linux Fundamentals",
-      "competency": "Command Line",
-      "description": "Connects one command’s stdout to the next command’s stdin, letting small tools be composed. stderr is not carried by default.",
-      "objective_verbatim": "Command Line",
-      "sept_2025_status": "added",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 2,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [
-        "|"
-      ],
-      "related_topics": [],
-      "confused_with": [
-        "redirection"
-      ],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
     },
     {
       "id": "linux.command-line.command-chaining",
@@ -1433,6 +1503,137 @@
       "notes": ""
     },
     {
+      "id": "linux.command-line.command-exit-status",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "command exit status"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Every command returns a status: 0 for success, non-zero for failure. It drives && and || and is how scripts detect problems.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "echo $?"
+      ],
+      "related_topics": [
+        "sysadmin.troubleshooting.exit-status"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "linux.command-line.standard-streams",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "standard streams"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "stdin, stdout and stderr — file descriptors 0, 1 and 2. Errors travel separately from output, which is why 2> exists.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.pipes"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "linux.command-line.redirection",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "redirection"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "> writes to a file and truncates it, >> appends, < reads from a file, 2> captures errors, and /dev/null discards.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        ">",
+        ">>",
+        "2>",
+        "&>"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "> silently destroys the existing contents of the target file."
+    },
+    {
+      "id": "linux.command-line.pipes",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "pipes"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Connects one command’s stdout to the next command’s stdin, letting small tools be composed. stderr is not carried by default.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "|"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.redirection"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "linux.command-line.grep",
       "path": [
         "Linux Fundamentals",
@@ -1463,7 +1664,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "finding files"
+        "linux.command-line.finding-files"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "grep searches inside files; find locates files. A commonly confused pair."
@@ -1526,7 +1727,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "awk"
+        "linux.command-line.awk"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1560,7 +1761,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "sed"
+        "linux.command-line.sed"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1697,7 +1898,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "backup"
+        "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1801,16 +2002,16 @@
       "notes": ""
     },
     {
-      "id": "linux.command-line.file-type-and-metadata",
+      "id": "linux.command-line.system-commands",
       "path": [
         "Linux Fundamentals",
         "Command Line",
-        "File operations",
-        "file type and metadata"
+        "System commands",
+        "system commands"
       ],
       "domain": "Linux Fundamentals",
       "competency": "Command Line",
-      "description": "Determining what a file actually is and when it changed, rather than trusting its extension.",
+      "description": "The command family folded into this competency in 2025: inspecting processes, memory, disk and uptime from the shell. The underlying concepts live under System Administration; what belongs here is knowing which command answers which question.",
       "objective_verbatim": "Command Line",
       "sept_2025_status": "added",
       "inferred": true,
@@ -1824,14 +2025,129 @@
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
-        "file",
-        "stat",
-        "ls -l"
+        "ps aux",
+        "top",
+        "kill",
+        "free -h",
+        "df -h",
+        "du -sh",
+        "uptime",
+        "uname -a"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.process"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "One of three command families the Linux Foundation collapsed into Command Line in the 2025 update."
+    },
+    {
+      "id": "linux.command-line.who-is-logged-in",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "System commands",
+        "who is logged in"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Inspecting current sessions and login history, which is both an operational and a security question.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "who",
+        "w",
+        "last",
+        "id",
+        "whoami"
       ],
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
+    },
+    {
+      "id": "linux.command-line.general-networking-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Networking commands",
+        "general networking commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The networking command family folded into this competency in 2025: checking addresses, reachability, name resolution and listening sockets from the shell.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip addr",
+        "ip route",
+        "ping",
+        "ss -tulpn",
+        "dig",
+        "traceroute",
+        "curl -I",
+        "hostname"
+      ],
+      "related_topics": [
+        "sysadmin.networking.ip-and-ifconfig"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Folded in from the retired \"General Networking Commands\" competency."
+    },
+    {
+      "id": "linux.command-line.port-ranges",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Networking commands",
+        "port ranges"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Well-known or system ports are 0-1023 and need privilege to bind; registered ports are 1024-49151; dynamic or ephemeral ports are 49152-65535 and are used for the client end of a connection.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.networking.well-known-ports"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "The reason a non-root process cannot bind port 80 but can bind 8080."
     }
   ]
 }

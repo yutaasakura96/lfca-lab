@@ -25,9 +25,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
-      "confused_with": [
-        "operations"
-      ],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -115,7 +113,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "triple constraint"
+        "pm.project-management.triple-constraint"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -175,7 +173,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "agile"
+        "pm.project-management.agile"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -206,7 +204,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "waterfall"
+        "pm.project-management.waterfall"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison and reliably examined."
@@ -237,7 +235,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "Kanban"
+        "pm.project-management.kanban"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -386,7 +384,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "Scrum"
+        "pm.project-management.scrum"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -448,7 +446,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "definition of done"
+        "pm.project-management.definition-of-done"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -479,7 +477,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "acceptance criteria"
+        "pm.project-management.acceptance-criteria"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -601,6 +599,37 @@
       "notes": ""
     },
     {
+      "id": "pm.project-management.work-breakdown-structure",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Planning",
+        "work breakdown structure"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Decomposing the deliverable hierarchically into work packages small enough to estimate and assign.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "pm.project-management.gantt-chart"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "pm.project-management.risk-management",
       "path": [
         "IT Project Management Fundamentals",
@@ -688,7 +717,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "scope creep"
+        "pm.project-management.scope-creep"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -752,6 +781,99 @@
       "notes": ""
     },
     {
+      "id": "pm.project-management.project-budget-and-resource-management",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "project budget and resource management"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Planning and tracking cost and people against the plan, the cost leg of the triple constraint made concrete.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.project-management.triple-constraint"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.communication-plan",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "communication plan"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Deciding in advance who needs what information, how often, and by what channel.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.project-management.stakeholder"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.project-closure-and-lessons-learned",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "project closure and lessons learned"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Formally ending a project: confirming acceptance, releasing resources, and recording what should be done differently next time.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "pm.project-management.scrum-ceremonies"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "pm.software-application-architecture.client-server-model",
       "path": [
         "IT Project Management Fundamentals",
@@ -776,9 +898,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
-      "confused_with": [
-        "peer-to-peer"
-      ],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -837,7 +957,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "microservices"
+        "pm.software-application-architecture.microservices"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -870,7 +990,7 @@
         "devops.devops-basics.monolith-vs-microservices"
       ],
       "confused_with": [
-        "monolithic architecture"
+        "pm.software-application-architecture.monolithic-architecture"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -901,7 +1021,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "three-tier architecture"
+        "pm.software-application-architecture.three-tier-architecture"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -932,7 +1052,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "REST"
+        "pm.software-application-architecture.rest"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -963,7 +1083,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "API"
+        "pm.software-application-architecture.api"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -978,7 +1098,7 @@
       ],
       "domain": "IT Project Management Fundamentals",
       "competency": "Software Application Architecture",
-      "description": "GET reads, POST creates, PUT and PATCH update, DELETE removes; 2xx succeeded, 4xx the client erred, 5xx the server erred.",
+      "description": "GET reads, POST creates, PUT replaces a resource entirely (creating it if absent), PATCH updates part of it, DELETE removes it. 2xx succeeded, 3xx redirected, 4xx the client erred, 5xx the server erred.",
       "objective_verbatim": "Software Application Architecture",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -1083,7 +1203,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "NoSQL database"
+        "pm.software-application-architecture.nosql-database"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1114,7 +1234,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "relational database"
+        "pm.software-application-architecture.relational-database"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison; choosing between them for a scenario is likely."
@@ -1294,7 +1414,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "non-functional requirements"
+        "pm.functional-analysis.non-functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1325,7 +1445,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "functional requirements"
+        "pm.functional-analysis.functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison; classifying a given requirement is a likely question."
@@ -1385,7 +1505,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "user story"
+        "pm.project-management.user-story"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1650,7 +1770,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "free software"
+        "pm.open-source-software-and-licensing.free-software-and-foss"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1681,7 +1801,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "open source software"
+        "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "The free-as-in-speech distinction is frequently tested."
@@ -1741,7 +1861,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "open source software"
+        "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1801,7 +1921,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "copyleft licenses"
+        "pm.open-source-software-and-licensing.copyleft-licenses"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Permissive versus copyleft is the central comparison in this competency."
@@ -1816,7 +1936,7 @@
       ],
       "domain": "IT Project Management Fundamentals",
       "competency": "Open Source Software and Licensing",
-      "description": "GPL and similar require derivative works distributed to others to be released under the same terms, which is why copyleft is called viral.",
+      "description": "GPL and similar require that derivative works, when distributed to others, are released under the same terms. This reciprocal obligation is the defining feature; critics call it \"viral\", which is a pejorative rather than a term of art.",
       "objective_verbatim": "Open Source Software and Licensing",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -1832,7 +1952,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "permissive licenses"
+        "pm.open-source-software-and-licensing.permissive-licenses"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1894,7 +2014,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "GPL"
+        "pm.open-source-software-and-licensing.gpl"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1925,7 +2045,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "GPL"
+        "pm.open-source-software-and-licensing.gpl"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1956,7 +2076,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "Apache License 2.0"
+        "pm.open-source-software-and-licensing.apache-license-2-0"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1987,7 +2107,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "MIT and BSD licenses"
+        "pm.open-source-software-and-licensing.mit-and-bsd-licenses"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2254,7 +2374,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "clone vs fork"
+        "devops.git-concepts.clone-vs-fork"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""

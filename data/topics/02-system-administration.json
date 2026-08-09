@@ -34,7 +34,7 @@
         "sysadmin.system-administration.uid-and-gid"
       ],
       "confused_with": [
-        "group"
+        "sysadmin.system-administration.group"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -72,7 +72,7 @@
         "sysadmin.system-administration.primary-vs-supplementary-group"
       ],
       "confused_with": [
-        "user account"
+        "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -105,7 +105,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "user account"
+        "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -141,7 +141,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "group"
+        "sysadmin.system-administration.group"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "usermod -G without -a silently replaces every supplementary group; a classic destructive mistake."
@@ -157,7 +157,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "World-readable account database: username, UID, GID, comment, home directory, login shell. Despite the name it no longer holds passwords.",
+      "description": "World-readable account database with seven colon-separated fields: username, password placeholder (x), UID, GID, comment/GECOS, home directory, login shell. Despite the name it no longer holds passwords — the placeholder points at /etc/shadow.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -175,10 +175,10 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "/etc/shadow"
+        "sysadmin.system-administration.etc-shadow"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Field count and order are standard recall items; the password placeholder is easy to forget when counting."
     },
     {
       "id": "sysadmin.system-administration.etc-shadow",
@@ -191,7 +191,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "Restricted file holding password hashes and ageing policy. Readable only by root, which is why password hashes moved here out of /etc/passwd.",
+      "description": "Holds password hashes and ageing policy. Typically owned root:shadow with mode 0640, so it is readable by root and the shadow group rather than root alone — which is why hashes moved here out of the world-readable /etc/passwd.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -209,7 +209,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "/etc/passwd"
+        "sysadmin.system-administration.etc-passwd"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -225,7 +225,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "Group database: group name, GID, and the supplementary member list.",
+      "description": "Group database with four colon-separated fields: group name, password placeholder, GID, and the comma-separated supplementary member list.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -243,7 +243,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "/etc/passwd"
+        "sysadmin.system-administration.etc-passwd"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -309,7 +309,7 @@
         "sysadmin.system-administration.login-shell"
       ],
       "confused_with": [
-        "user account"
+        "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -437,7 +437,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "umask"
+        "sysadmin.system-administration.umask"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -502,7 +502,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "symbolic vs numeric chmod"
+        "sysadmin.system-administration.symbolic-vs-numeric-chmod"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Frequently confused with chmod because both use octal."
@@ -537,7 +537,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "SGID"
+        "sysadmin.system-administration.sgid"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -571,7 +571,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "SUID"
+        "sysadmin.system-administration.suid"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -605,7 +605,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "SGID"
+        "sysadmin.system-administration.sgid"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -673,7 +673,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "root and least privilege"
+        "sysadmin.system-administration.root-and-least-privilege"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "The auditability difference is the point, not the convenience."
@@ -739,7 +739,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "service"
+        "sysadmin.system-administration.service"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -854,7 +854,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "The nice value biases CPU scheduling. Lower is greedier; only root can lower it below zero.",
+      "description": "The nice value biases CPU scheduling, from -20 (greediest) to 19. An unprivileged user may only ever raise its own niceness; lowering it at all requires root or CAP_SYS_NICE.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -873,7 +873,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "signals"
+        "sysadmin.system-administration.signals"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -906,7 +906,7 @@
         "sysadmin.system-administration.service"
       ],
       "confused_with": [
-        "process"
+        "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -939,7 +939,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "process"
+        "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -972,7 +972,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "process"
+        "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "process vs service is one of the named comparisons an LFCA candidate should be able to make."
@@ -1006,7 +1006,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "SysV init"
+        "sysadmin.system-administration.runlevel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1105,7 +1105,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "runlevel"
+        "sysadmin.system-administration.runlevel"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1138,7 +1138,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "systemd target"
+        "sysadmin.system-administration.systemd-target"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1200,7 +1200,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "repository"
+        "sysadmin.system-administration.repository"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1231,7 +1231,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "package"
+        "sysadmin.system-administration.package"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "package vs repository is a named comparison for this exam."
@@ -1301,7 +1301,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "dnf, yum and rpm"
+        "sysadmin.system-administration.dnf-yum-and-rpm"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1337,7 +1337,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "apt and dpkg"
+        "sysadmin.system-administration.apt-and-dpkg"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1431,7 +1431,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "filesystem type"
+        "sysadmin.system-administration.filesystem-type"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1619,7 +1619,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "/dev"
+        "sysadmin.system-administration.dev"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1651,7 +1651,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "/proc and /sys"
+        "sysadmin.system-administration.proc-and-sys"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1686,7 +1686,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "Filesystem Hierarchy Standard"
+        "sysadmin.system-administration.filesystem-hierarchy-standard"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1722,7 +1722,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "partition"
+        "sysadmin.system-administration.partition"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1789,7 +1789,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "mounting"
+        "sysadmin.system-administration.mounting"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1857,7 +1857,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "inode"
+        "sysadmin.system-administration.inode"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1991,7 +1991,7 @@
         "sysadmin.disaster-recovery.snapshot"
       ],
       "confused_with": [
-        "backup"
+        "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption."
@@ -2025,7 +2025,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "systemd timer"
+        "sysadmin.system-administration.systemd-timer"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2089,7 +2089,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "cron"
+        "sysadmin.system-administration.cron"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2154,7 +2154,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "journald"
+        "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2190,7 +2190,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "syslog and severity levels"
+        "sysadmin.system-administration.syslog-and-severity-levels"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2256,7 +2256,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "bootloader"
+        "sysadmin.system-administration.bootloader-and-grub"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2287,7 +2287,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "bootloader"
+        "sysadmin.system-administration.bootloader-and-grub"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2320,7 +2320,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "BIOS vs UEFI"
+        "sysadmin.system-administration.bios-vs-uefi"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2413,7 +2413,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "version control"
+        "devops.git-concepts.version-control"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2504,7 +2504,7 @@
         "devops.devops-basics.infrastructure-as-code"
       ],
       "confused_with": [
-        "configuration management"
+        "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2535,7 +2535,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "automation and idempotency"
+        "sysadmin.best-practices.automation-and-idempotency"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2628,7 +2628,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "logging"
+        "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2750,8 +2750,219 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "documentation"
+        "sysadmin.best-practices.documentation"
       ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.asset-and-inventory-management",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "asset and inventory management"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Maintaining an accurate record of what systems exist, what runs on them, and who owns them. You cannot patch, secure, or decommission what you do not know about.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.security-baselines",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "security baselines"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "A defined minimum secure configuration applied to every system of a given type, so security does not depend on who built the machine.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.system-hardening"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.user-onboarding-and-offboarding",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "user onboarding and offboarding"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Defined procedures for granting access on joining and — more importantly — revoking every credential on departure. Orphaned accounts are a standing risk.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.backup-before-change",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "backup before change"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Capturing a restorable copy or snapshot before a risky change, so rollback does not depend on the change going as planned.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.backup"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.patch-cadence",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "patch cadence"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "A regular, scheduled rhythm for applying updates, with an expedited path for critical security fixes — distinct from the mechanics of patching itself.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.system-administration.patch-management"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.principle-of-least-astonishment",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "principle of least astonishment"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Configuring systems so they behave as an experienced administrator would expect, because surprising setups fail during incidents when nobody has time to read.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "LOW",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.service-ownership",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "service ownership"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Every service having a named owner responsible for its health, cost and lifecycle, so nothing is silently unmaintained.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -2781,7 +2992,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "TCP/IP model"
+        "sysadmin.networking.tcp-ip-model"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Layer numbering and what lives at each layer are commonly tested."
@@ -2812,7 +3023,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "OSI model"
+        "sysadmin.networking.osi-model"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2845,7 +3056,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "MAC address"
+        "sysadmin.networking.mac-address"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2878,7 +3089,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "IPv4 address"
+        "sysadmin.networking.ipv4-address"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2940,7 +3151,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "subnet mask and CIDR"
+        "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -2971,7 +3182,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "NAT"
+        "sysadmin.networking.nat"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison for this exam."
@@ -3033,7 +3244,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "DHCP"
+        "sysadmin.networking.dhcp"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3066,7 +3277,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "IPv4 address"
+        "sysadmin.networking.ipv4-address"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3100,7 +3311,38 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "DNS"
+        "sysadmin.networking.dns"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ipv4-address-classes",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "IPv4 address classes"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The legacy classful scheme: class A /8, class B /16, class C /24, with class D reserved for multicast. Superseded by CIDR, but the vocabulary persists and is still examined.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3195,7 +3437,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "MAC address"
+        "sysadmin.networking.mac-address"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison."
@@ -3226,7 +3468,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "private vs public IP addresses"
+        "sysadmin.networking.private-vs-public-ip-addresses"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3290,7 +3532,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "DHCP"
+        "sysadmin.networking.dhcp"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "DNS vs DHCP is a named comparison and a common confusion."
@@ -3354,7 +3596,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "/etc/hosts"
+        "sysadmin.networking.etc-hosts"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3385,7 +3627,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "/etc/resolv.conf"
+        "sysadmin.networking.etc-resolv-conf"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3511,7 +3753,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "DNS"
+        "sysadmin.networking.dns"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error."
@@ -3573,7 +3815,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "static vs dynamic addressing"
+        "sysadmin.networking.static-vs-dynamic-addressing"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3681,7 +3923,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "Networking",
-      "description": "The conventional assignments: 22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 143 IMAP, 3306 MySQL, 5432 PostgreSQL, 3389 RDP.",
+      "description": "The conventional service assignments an administrator should recognise on sight: 22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 143 IMAP, 3306 MySQL, 5432 PostgreSQL, 3389 RDP. Strictly, only 0-1023 are IANA \"well-known\"; 3306, 5432 and 3389 are registered ports.",
       "objective_verbatim": "Networking",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -3700,7 +3942,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Direct recall of the common ones is very likely to be tested."
+      "notes": "Direct recall of the common assignments is very likely to be tested. Note the terminology trap: \"well-known\" strictly means 0-1023, so 3306 and 5432 are registered ports, not well-known ones."
     },
     {
       "id": "sysadmin.networking.listening-vs-established-connections",
@@ -3830,7 +4072,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "load balancer"
+        "sysadmin.networking.load-balancer"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3863,7 +4105,7 @@
         "cloud.performance-availability.horizontal-scaling"
       ],
       "confused_with": [
-        "proxy"
+        "sysadmin.networking.proxy"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -3922,9 +4164,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
-      "confused_with": [
-        "bandwidth"
-      ],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -3992,7 +4232,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "firewall"
+        "sysadmin.networking.firewall"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -4257,6 +4497,37 @@
       "notes": ""
     },
     {
+      "id": "sysadmin.networking.network-interface-naming",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "network interface naming"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Traditional names such as eth0 have largely given way to predictable names such as enp0s3 derived from hardware topology, so interfaces keep their names across reboots.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip link"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "sysadmin.troubleshooting.structured-troubleshooting-method",
       "path": [
         "System Administration Fundamentals",
@@ -4311,7 +4582,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "structured troubleshooting method"
+        "sysadmin.troubleshooting.structured-troubleshooting-method"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -4435,6 +4706,69 @@
       "commands": [
         "echo $?"
       ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.using-documentation",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "using documentation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Consulting man pages, --help, and /usr/share/doc rather than guessing at options.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "man",
+        "man -k",
+        "apropos",
+        "info"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.escalation",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "escalation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Knowing when to hand a problem on, with the evidence gathered so far, rather than continuing past your authority or competence.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
@@ -4677,69 +5011,6 @@
       "notes": ""
     },
     {
-      "id": "sysadmin.troubleshooting.using-documentation",
-      "path": [
-        "System Administration Fundamentals",
-        "Troubleshooting",
-        "Method",
-        "using documentation"
-      ],
-      "domain": "System Administration Fundamentals",
-      "competency": "Troubleshooting",
-      "description": "Consulting man pages, --help, and /usr/share/doc rather than guessing at options.",
-      "objective_verbatim": "Troubleshooting",
-      "sept_2025_status": "unchanged",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 4,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [
-        "man",
-        "man -k",
-        "apropos",
-        "info"
-      ],
-      "related_topics": [],
-      "confused_with": [],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
-    },
-    {
-      "id": "sysadmin.troubleshooting.escalation",
-      "path": [
-        "System Administration Fundamentals",
-        "Troubleshooting",
-        "Method",
-        "escalation"
-      ],
-      "domain": "System Administration Fundamentals",
-      "competency": "Troubleshooting",
-      "description": "Knowing when to hand a problem on, with the evidence gathered so far, rather than continuing past your authority or competence.",
-      "objective_verbatim": "Troubleshooting",
-      "sept_2025_status": "unchanged",
-      "inferred": true,
-      "confidence": "MEDIUM",
-      "required_depth": null,
-      "importance": 4,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [],
-      "related_topics": [],
-      "confused_with": [],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
-    },
-    {
       "id": "sysadmin.disaster-recovery.backup",
       "path": [
         "System Administration Fundamentals",
@@ -4768,7 +5039,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "snapshot"
+        "sysadmin.disaster-recovery.snapshot"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "backup vs snapshot is a named comparison."
@@ -4812,7 +5083,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "Disaster Recovery",
-      "description": "A point-in-time view of a volume, usually stored alongside the original. Fast to take, but not an independent copy — losing the volume loses the snapshots.",
+      "description": "A point-in-time view of a volume. Local snapshots (LVM, filesystem) are stored alongside the original, so losing the volume loses them — they are not an independent copy. Cloud provider snapshots are typically written to separate storage and do survive deletion of the source volume.",
       "objective_verbatim": "Disaster Recovery",
       "sept_2025_status": "added",
       "inferred": true,
@@ -4828,7 +5099,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "backup"
+        "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -4859,7 +5130,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "backup"
+        "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -4979,7 +5250,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "RTO"
+        "sysadmin.disaster-recovery.rto"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration."
@@ -5010,7 +5281,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "RPO"
+        "sysadmin.disaster-recovery.rpo"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -5041,7 +5312,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "business continuity"
+        "sysadmin.disaster-recovery.business-continuity"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -5072,7 +5343,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "disaster recovery plan"
+        "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -5105,7 +5376,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "confused_with": [
-        "disaster recovery plan"
+        "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison for this exam."
@@ -5167,7 +5438,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "high availability vs disaster recovery"
+        "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -5229,6 +5500,68 @@
         "cloud.cloud-computing.region-and-availability-zone"
       ],
       "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "hot, warm and cold sites"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "A hot site is fully running and can take over immediately; a warm site has hardware and data but needs bringing up; a cold site is space and power only. Cost falls and recovery time rises as you move from hot to cold.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.disaster-recovery.rto"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Matching a site type to an RTO requirement is a textbook question shape."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.disaster-recovery-drill",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "disaster recovery drill"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "A rehearsed exercise — full failover or tabletop — proving the plan works and that people know their roles, as distinct from merely testing that a backup restores.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.disaster-recovery.restore-testing"
+      ],
       "coverage_status": "NOT COVERED",
       "notes": ""
     }

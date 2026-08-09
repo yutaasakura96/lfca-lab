@@ -26,7 +26,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "virtualization"
+        "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -61,6 +61,35 @@
       "notes": ""
     },
     {
+      "id": "cloud.cloud-computing.major-cloud-providers",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Fundamentals",
+        "major cloud providers"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Amazon Web Services, Microsoft Azure and Google Cloud Platform are the three hyperscalers; the same service categories appear across all of them under different names.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The exam is vendor-neutral, but recognising the providers and mapping equivalent service categories is reasonable."
+    },
+    {
       "id": "cloud.cloud-computing.iaas",
       "path": [
         "Cloud Computing Fundamentals",
@@ -86,7 +115,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "PaaS"
+        "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content."
@@ -117,7 +146,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "IaaS"
+        "cloud.cloud-computing.iaas"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -148,7 +177,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "PaaS"
+        "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -179,7 +208,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "PaaS"
+        "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing."
@@ -210,7 +239,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "private cloud"
+        "cloud.cloud-computing.private-cloud"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -241,7 +270,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "public cloud"
+        "cloud.cloud-computing.public-cloud"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -272,7 +301,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "multi-cloud"
+        "cloud.cloud-computing.multi-cloud"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -303,7 +332,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "hybrid cloud"
+        "cloud.cloud-computing.hybrid-cloud"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -334,7 +363,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "containerization"
+        "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -365,7 +394,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "virtualization"
+        "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -396,7 +425,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "container"
+        "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -429,7 +458,7 @@
         "devops.containers.container"
       ],
       "confused_with": [
-        "virtual machine"
+        "cloud.cloud-computing.virtual-machine"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison and very commonly tested."
@@ -520,7 +549,69 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "PaaS"
+        "cloud.cloud-computing.paas"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.cloud-control-planes",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "cloud control planes"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Web console, CLI, API and infrastructure-as-code are four ways to drive the same platform. Console work leaves no record; scripted CLI is repeatable; infrastructure-as-code adds declarative desired state and drift detection on top.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.service-level-agreement",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "service level agreement"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "The provider’s contractual commitment, typically an availability percentage with remedies if missed.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -615,68 +706,6 @@
       "notes": ""
     },
     {
-      "id": "cloud.cloud-computing.cloud-control-planes",
-      "path": [
-        "Cloud Computing Fundamentals",
-        "Cloud Computing",
-        "Operating model",
-        "cloud control planes"
-      ],
-      "domain": "Cloud Computing Fundamentals",
-      "competency": "Cloud Computing",
-      "description": "Web console, CLI, API and infrastructure-as-code are four ways to drive the same platform; only the last is reproducible.",
-      "objective_verbatim": "Cloud Computing",
-      "sept_2025_status": "reworded",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 2,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [],
-      "related_topics": [
-        "devops.devops-basics.infrastructure-as-code"
-      ],
-      "confused_with": [],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
-    },
-    {
-      "id": "cloud.cloud-computing.service-level-agreement",
-      "path": [
-        "Cloud Computing Fundamentals",
-        "Cloud Computing",
-        "Operating model",
-        "service level agreement"
-      ],
-      "domain": "Cloud Computing Fundamentals",
-      "competency": "Cloud Computing",
-      "description": "The provider’s contractual commitment, typically an availability percentage with remedies if missed.",
-      "objective_verbatim": "Cloud Computing",
-      "sept_2025_status": "reworded",
-      "inferred": true,
-      "confidence": "HIGH",
-      "required_depth": null,
-      "importance": 2,
-      "official_sources": [
-        "lf-objectives-2025"
-      ],
-      "lfs200_sources": [],
-      "additional_sources": [],
-      "candidate_evidence": [],
-      "commands": [],
-      "related_topics": [],
-      "confused_with": [
-        "high availability"
-      ],
-      "coverage_status": "NOT COVERED",
-      "notes": ""
-    },
-    {
       "id": "cloud.performance-availability.availability",
       "path": [
         "Cloud Computing Fundamentals",
@@ -702,7 +731,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "reliability"
+        "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Translating nines into real downtime is a likely question."
@@ -735,7 +764,7 @@
         "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
       ],
       "confused_with": [
-        "fault tolerance"
+        "cloud.performance-availability.fault-tolerance"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -766,7 +795,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "high availability"
+        "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -828,7 +857,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "load balancing"
+        "cloud.performance-availability.load-balancing"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -888,7 +917,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "horizontal scaling"
+        "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -919,7 +948,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "vertical scaling"
+        "cloud.performance-availability.vertical-scaling"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Scaling up versus scaling out is a named comparison."
@@ -983,7 +1012,7 @@
         "sysadmin.networking.load-balancer"
       ],
       "confused_with": [
-        "failover"
+        "cloud.performance-availability.failover"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1014,7 +1043,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "horizontal scaling"
+        "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1076,7 +1105,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "CDN"
+        "cloud.performance-availability.content-delivery-network"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1107,7 +1136,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "caching"
+        "cloud.performance-availability.caching"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1169,7 +1198,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "service level agreement"
+        "cloud.cloud-computing.service-level-agreement"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1260,7 +1289,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "reserved capacity"
+        "cloud.budgeting.on-demand-reserved-and-spot-pricing"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1305,6 +1334,35 @@
       "domain": "Cloud Computing Fundamentals",
       "competency": "Budgeting",
       "description": "The full cost including staff, power, licensing and opportunity cost, not just the invoice.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.free-tier-and-pricing-calculators",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost models",
+        "free tier and pricing calculators"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Provider allowances and estimation tools that let cost be modelled before commitment rather than discovered on the invoice.",
       "objective_verbatim": "Budgeting",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -1380,7 +1438,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "rightsizing"
+        "cloud.budgeting.rightsizing"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1529,7 +1587,38 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "budgets and cost alerts"
+        "cloud.budgeting.budgets-and-cost-alerts"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "storage tiers and lifecycle policies"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Hot, cool and archive tiers trade retrieval speed and cost; lifecycle rules move objects between them automatically as they age.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "cloud.cloud-computing.object-block-and-file-storage"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1653,8 +1742,37 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "automation over manual configuration"
+        "cloud.best-practices.automation-over-manual-configuration"
       ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.well-architected-review",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Architecture",
+        "well-architected review"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Assessing a design against the recognised pillars — operational excellence, security, reliability, performance efficiency and cost optimisation — rather than only against whether it works.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -1752,6 +1870,68 @@
       "notes": ""
     },
     {
+      "id": "cloud.best-practices.least-privilege-for-cloud-identities",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Security posture",
+        "least privilege for cloud identities"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Granting roles and service identities only the permissions they need, instead of broad administrative policies that are convenient at setup and dangerous thereafter.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.avoid-hardcoded-credentials",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Security posture",
+        "avoid hardcoded credentials"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Using instance roles or workload identity so that code never carries long-lived keys, which are the most commonly leaked cloud secret.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.sensitive-data.secrets-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "cloud.best-practices.backup-and-recovery-in-cloud",
       "path": [
         "Cloud Computing Fundamentals",
@@ -1843,6 +2023,68 @@
       "notes": ""
     },
     {
+      "id": "cloud.best-practices.right-size-before-you-scale",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Operations",
+        "right-size before you scale"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Correcting oversized or idle resources before adding capacity, since scaling an inefficient design multiplies the waste.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.budgeting.rightsizing"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.health-checks-and-graceful-shutdown",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Operations",
+        "health checks and graceful shutdown"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Letting the platform detect unhealthy instances and drain connections before termination, so scaling and replacement do not drop requests.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.load-balancing"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "cloud.networking.virtual-private-cloud",
       "path": [
         "Cloud Computing Fundamentals",
@@ -1868,7 +2110,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "subnet"
+        "cloud.networking.cloud-subnets"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1930,7 +2172,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "NAT gateway"
+        "cloud.networking.internet-gateway-and-nat-gateway"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1961,7 +2203,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "firewall"
+        "sysadmin.networking.firewall"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "The stateful/stateless difference is the crux and is easy to get backwards."
@@ -2147,8 +2389,132 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "VPC peering and private connectivity"
+        "cloud.networking.vpc-peering-and-private-connectivity"
       ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.cloud-route-tables",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "cloud route tables"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Per-subnet rules determining where traffic leaves for. Associating a subnet with a table that has an internet gateway route is what actually makes it public.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.routing-table"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.bastion-and-jump-hosts",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "bastion and jump hosts"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "A single hardened, audited entry point for administrative access, so private instances need no direct inbound exposure.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.ssh"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.cidr-planning-for-cloud-networks",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "CIDR planning for cloud networks"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Choosing non-overlapping address ranges up front, because overlapping ranges block later peering and hybrid connectivity and are painful to change.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.subnet-mask-and-cidr"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.private-service-endpoints",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "private service endpoints"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Reaching managed provider services over the private network rather than the public internet, improving both security and egress cost.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.budgeting.data-egress-charges"
+      ],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     }

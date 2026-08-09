@@ -84,7 +84,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "authentication vs authorization"
+        "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -146,7 +146,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "principle of least privilege"
+        "security.security.principle-of-least-privilege"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -206,7 +206,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "vulnerability"
+        "security.security.vulnerabilities-cves-and-patching"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -266,7 +266,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "authentication vs authorization"
+        "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -297,7 +297,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "encryption"
+        "security.security.symmetric-vs-asymmetric-encryption"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Hashing is one-way and is not encryption; conflating them is a common error."
@@ -452,7 +452,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "symmetric vs asymmetric encryption"
+        "security.security.symmetric-vs-asymmetric-encryption"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -483,7 +483,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "TLS"
+        "security.security.tls-and-https"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -545,8 +545,39 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "digital certificates and certificate authorities"
+        "security.security.digital-certificates-and-certificate-authorities"
       ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "security.security.full-disk-encryption",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "full disk encryption"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Encrypting a whole block device, commonly with LUKS on Linux, so that data is unreadable if the hardware is lost or stolen.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.encryption-at-rest-vs-in-transit"
+      ],
+      "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
     },
@@ -636,7 +667,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "malware and ransomware"
+        "security.security.malware-and-ransomware"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -698,7 +729,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "phishing and social engineering"
+        "security.security.phishing-and-social-engineering"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1039,6 +1070,105 @@
       "notes": ""
     },
     {
+      "id": "security.security.selinux-and-apparmor",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "SELinux and AppArmor"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Linux mandatory access control: policy confines what a process may do even when file permissions would allow it, so a compromised service is contained.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "getenforce",
+        "aa-status"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "security.sensitive-data.access-control-models"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "security.security.package-and-download-verification",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "package and download verification"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Checking GPG signatures and published checksums before trusting software, which is what makes a repository or a downloaded image trustworthy.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "sha256sum",
+        "gpg --verify"
+      ],
+      "related_topics": [
+        "security.security.hashing"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Applies the hashing primitive to a concrete supply-chain defence."
+    },
+    {
+      "id": "security.security.vulnerability-scanning",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "vulnerability scanning"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Systematically probing systems and images for known weaknesses, as a routine practice distinct from detecting an intrusion in progress.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.intrusion-detection-and-prevention"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "security.sensitive-data.personally-identifiable-information",
       "path": [
         "Security Fundamentals",
@@ -1064,7 +1194,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "data classification"
+        "security.sensitive-data.data-classification"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1126,7 +1256,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "personally identifiable information"
+        "security.sensitive-data.personally-identifiable-information"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1459,7 +1589,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "security"
+        "security.security.cia-triad"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure."
@@ -1519,7 +1649,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "audit"
+        "security.compliance.audit"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1550,7 +1680,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "controls and evidence"
+        "security.compliance.controls-and-evidence"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1670,7 +1800,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "GDPR"
+        "security.compliance.gdpr"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Contractual rather than governmental, unlike GDPR and HIPAA."
@@ -1761,7 +1891,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "data retention and disposal"
+        "security.sensitive-data.data-retention-and-disposal"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""

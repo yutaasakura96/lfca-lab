@@ -15,6 +15,9 @@ import {
   checkOrphanSources,
   checkUnknownCurrency,
   checkInferredRatio,
+  checkDanglingRelatedTopics,
+  checkDanglingConfusedWith,
+  checkSourceSchema,
 } from '../lib/checks.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -125,4 +128,75 @@ test('inferred ratio below threshold produces nothing', async () => {
   const d = await dataset();
   const noneInferred = withTopics(d, d.topics.map((t) => ({ ...t, inferred: false })));
   assert.deepEqual(checkInferredRatio(noneInferred, { inferredWarnRatio: 0.6 }), []);
+});
+
+test('a related_topics id that matches no concept is an error', async () => {
+  const d = await dataset();
+  const bad = withTopics(d, [{ ...d.topics[0], related_topics: ['linux.nope.missing'] }, d.topics[1]]);
+  const findings = checkDanglingRelatedTopics(bad);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].severity, 'error');
+  assert.match(findings[0].message, /linux\.nope\.missing/);
+});
+
+test('a concept listing itself as related is an error', async () => {
+  const d = await dataset();
+  const selfRef = withTopics(d, [{ ...d.topics[0], related_topics: [d.topics[0].id] }, d.topics[1]]);
+  const findings = checkDanglingRelatedTopics(selfRef);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /itself/);
+});
+
+test('a confused_with id that matches no concept is an error', async () => {
+  const d = await dataset();
+  const bad = withTopics(d, [{ ...d.topics[0], confused_with: ['linux.nope.missing'] }, d.topics[1]]);
+  const findings = checkDanglingConfusedWith(bad);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].severity, 'error');
+});
+
+test('confused_with holding a free-text name rather than an id is an error', async () => {
+  const d = await dataset();
+  const freeText = withTopics(d, [{ ...d.topics[0], confused_with: ['pipes'] }, d.topics[1]]);
+  const findings = checkDanglingConfusedWith(freeText);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /pipes/);
+});
+
+test('valid id links produce no findings', async () => {
+  const d = await dataset();
+  const linked = withTopics(d, [
+    { ...d.topics[0], related_topics: [d.topics[1].id], confused_with: [d.topics[1].id] },
+    d.topics[1],
+  ]);
+  assert.deepEqual(checkDanglingRelatedTopics(linked), []);
+  assert.deepEqual(checkDanglingConfusedWith(linked), []);
+});
+
+test('a source record missing authority_tier is an error', async () => {
+  const d = await dataset();
+  const broken = { ...d, sources: { sources: [{ ...d.sources.sources[0], authority_tier: undefined }] } };
+  const findings = checkSourceSchema(broken);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].severity, 'error');
+  assert.match(findings[0].message, /authority_tier/);
+});
+
+test('a source record with an out-of-range authority_tier is an error', async () => {
+  const d = await dataset();
+  const broken = { ...d, sources: { sources: [{ ...d.sources.sources[0], authority_tier: 7 }] } };
+  assert.equal(checkSourceSchema(broken).length, 1);
+});
+
+test('a source record missing an accessed date is an error', async () => {
+  const d = await dataset();
+  const broken = { ...d, sources: { sources: [{ ...d.sources.sources[0], accessed: '' }] } };
+  const findings = checkSourceSchema(broken);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /accessed/);
+});
+
+test('well-formed source records produce no findings', async () => {
+  const d = await dataset();
+  assert.deepEqual(checkSourceSchema(d), []);
 });

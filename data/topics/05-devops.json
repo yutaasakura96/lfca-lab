@@ -171,7 +171,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "continuous delivery"
+        "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "CI is about integrating and verifying, not about releasing."
@@ -202,7 +202,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "continuous deployment"
+        "devops.devops-basics.continuous-deployment"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate."
@@ -233,7 +233,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "continuous delivery"
+        "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -264,7 +264,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "continuous integration"
+        "devops.devops-basics.continuous-integration"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -359,6 +359,68 @@
       "notes": ""
     },
     {
+      "id": "devops.devops-basics.semantic-versioning",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "semantic versioning"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "MAJOR.MINOR.PATCH, where a major increment signals a breaking change. It is what makes a version number carry information rather than just increase.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.containers.image-tags"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Underpins image tagging, dependency pinning and release communication."
+    },
+    {
+      "id": "devops.devops-basics.ci-cd-tooling",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "CI/CD tooling"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Common implementations: GitHub Actions, GitLab CI, Jenkins for pipelines; Terraform and Ansible for infrastructure and configuration. Recognition of the category each belongs to is what matters.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "devops.devops-basics.deployment-environments",
       "path": [
         "DevOps Fundamentals",
@@ -413,7 +475,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "canary release"
+        "devops.devops-basics.canary-release"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -444,7 +506,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "blue-green deployment"
+        "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -475,7 +537,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "blue-green deployment"
+        "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -512,6 +574,70 @@
       "notes": ""
     },
     {
+      "id": "devops.devops-basics.developer-environments-and-parity",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "developer environments and parity"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Keeping development environments close to production so that \"works on my machine\" stops being a defence. Containers are one common way to achieve it.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.deployment-environments"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Residual subject matter from the retired \"Supporting Applications and Developers\" domain."
+    },
+    {
+      "id": "devops.devops-basics.language-package-managers",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "language package managers"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "npm, pip, Maven and similar resolve application-level dependencies, distinct from the OS package manager that installs system software.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.package"
+      ],
+      "confused_with": [
+        "sysadmin.system-administration.package"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
       "id": "devops.devops-basics.infrastructure-as-code",
       "path": [
         "DevOps Fundamentals",
@@ -539,7 +665,7 @@
         "sysadmin.best-practices.configuration-management"
       ],
       "confused_with": [
-        "configuration management"
+        "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -601,7 +727,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "monitoring and metrics"
+        "cloud.performance-availability.monitoring-and-metrics"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -663,7 +789,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "backup"
+        "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -897,7 +1023,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Git Concepts",
-      "description": "Combining two branches, creating a merge commit and preserving the true history.",
+      "description": "Combining two branches. Where the branches have diverged this creates a merge commit preserving both lines of history; where the target has not moved, Git fast-forwards the pointer instead and creates no merge commit.",
       "objective_verbatim": "Git Concepts",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -915,10 +1041,10 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "rebase"
+        "devops.git-concepts.rebase"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "The claim \"merging always creates a merge commit\" is false, and is a plausible-sounding distractor."
     },
     {
       "id": "devops.git-concepts.rebase",
@@ -948,7 +1074,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "merge"
+        "devops.git-concepts.merge"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "A named comparison; the rewriting-history property is the crux."
@@ -1136,7 +1262,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "merge"
+        "devops.git-concepts.merge"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1232,7 +1358,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "rebase"
+        "devops.git-concepts.rebase"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1360,7 +1486,7 @@
         "cloud.cloud-computing.container-vs-virtual-machine"
       ],
       "confused_with": [
-        "virtual machine"
+        "cloud.cloud-computing.virtual-machine"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1394,7 +1520,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "container"
+        "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "image vs container is a named comparison — image is the class, container the instance."
@@ -1457,7 +1583,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "container image"
+        "devops.containers.container-image"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1501,7 +1627,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Containers",
-      "description": "The declarative recipe for building an image, one instruction per layer.",
+      "description": "The declarative recipe for building an image. RUN, COPY and ADD each add a filesystem layer; instructions such as ENV, LABEL, WORKDIR, EXPOSE and CMD set metadata only.",
       "objective_verbatim": "Containers",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -1519,7 +1645,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "container image"
+        "devops.containers.container-image"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1775,7 +1901,7 @@
       ],
       "related_topics": [],
       "confused_with": [
-        "container orchestration"
+        "devops.containers.container-orchestration"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1837,7 +1963,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "Docker Compose"
+        "devops.containers.docker-compose"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1926,7 +2052,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "container"
+        "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
       "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed."
@@ -1957,7 +2083,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "pod"
+        "devops.containers.pod"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""
@@ -1988,7 +2114,7 @@
       "commands": [],
       "related_topics": [],
       "confused_with": [
-        "deployment"
+        "devops.containers.deployment"
       ],
       "coverage_status": "NOT COVERED",
       "notes": ""

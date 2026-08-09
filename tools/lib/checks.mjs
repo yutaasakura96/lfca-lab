@@ -121,6 +121,57 @@ export function checkInferredRatio({ competencies, topics }, options = {}) {
   return out;
 }
 
+function checkIdLinks({ topics }, field, checkName) {
+  const ids = new Set(topics.map((t) => t.id));
+  const out = [];
+  for (const t of topics) {
+    for (const ref of t[field] ?? []) {
+      if (ref === t.id) {
+        out.push(finding(checkName, 'error', t.id,
+          `${t.id} lists itself in ${field}`));
+      } else if (!ids.has(ref)) {
+        out.push(finding(checkName, 'error', t.id,
+          `${t.id} ${field} references unknown concept id: ${ref}`));
+      }
+    }
+  }
+  return out;
+}
+
+export function checkDanglingRelatedTopics(dataset) {
+  return checkIdLinks(dataset, 'related_topics', 'dangling-related-topic');
+}
+
+/**
+ * confused_with must hold concept ids, not free-text names. A free-text name
+ * simply fails the id lookup, so this catches both dangling ids and the older
+ * name-based form in one rule.
+ */
+export function checkDanglingConfusedWith(dataset) {
+  return checkIdLinks(dataset, 'confused_with', 'dangling-confused-with');
+}
+
+const REQUIRED_SOURCE_FIELDS = ['id', 'title', 'url', 'organization', 'accessed', 'category'];
+
+export function checkSourceSchema({ sources }) {
+  const out = [];
+  for (const src of sources.sources) {
+    for (const field of REQUIRED_SOURCE_FIELDS) {
+      if (!src[field] || String(src[field]).trim() === '') {
+        out.push(finding('source-schema', 'error', src.id ?? '(no id)',
+          `Source ${src.id ?? '(no id)'} is missing required field: ${field}`));
+      }
+    }
+    if (!Number.isInteger(src.authority_tier) || src.authority_tier < 1 || src.authority_tier > 4) {
+      out.push(finding('source-schema', 'error', src.id ?? '(no id)',
+        `Source ${src.id ?? '(no id)'} has invalid authority_tier: ${src.authority_tier}. ` +
+        `Must be an integer 1-4. Without it, checkOnlyTier4Sources cannot judge the source ` +
+        `and a concept citing only this source would pass unsourced.`));
+    }
+  }
+  return out;
+}
+
 export function runAllChecks(dataset, options = {}) {
   return [
     ...checkDuplicateIds(dataset),
@@ -133,5 +184,8 @@ export function runAllChecks(dataset, options = {}) {
     ...checkOrphanSources(dataset),
     ...checkUnknownCurrency(dataset),
     ...checkInferredRatio(dataset, options),
+    ...checkDanglingRelatedTopics(dataset),
+    ...checkDanglingConfusedWith(dataset),
+    ...checkSourceSchema(dataset),
   ];
 }
