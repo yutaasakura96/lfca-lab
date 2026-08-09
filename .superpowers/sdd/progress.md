@@ -30,3 +30,8 @@ Task 6: complete (commits 85ec0c2..bc59159 + calibration fix, review clean)
   Minor (carry to final review): task-6-report.md self-review wording overstates the
     exclusion of the third-party "60 questions" figure (the file does name it, correctly
     labelled unverified). Report-file wording only; the dataset is correct.
+Task 7: complete (commits f7a760c..77506cc + test gap fix, review clean after 1 fix round)
+  537 concepts across 22 competencies. Zero empty-competency errors.
+  Fix round addressed: Command Line mis-mapping (Critical), 12 factual errors (Critical),
+    3 under-built new-2025 competencies (Critical), confused_with -> ids, group contiguity.
+  Validator extended to 13 checks (owner-approved deviation from plan's ten).

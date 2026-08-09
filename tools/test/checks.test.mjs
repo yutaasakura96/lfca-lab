@@ -188,6 +188,17 @@ test('a source record with an out-of-range authority_tier is an error', async ()
   assert.equal(checkSourceSchema(broken).length, 1);
 });
 
+test('a non-integer authority_tier inside the valid range is still an error', async () => {
+  const d = await dataset();
+  // 1.5 and "2" both fall inside 1..4, so only the Number.isInteger guard catches them.
+  for (const tier of [1.5, '2']) {
+    const broken = { ...d, sources: { sources: [{ ...d.sources.sources[0], authority_tier: tier }] } };
+    const findings = checkSourceSchema(broken);
+    assert.equal(findings.length, 1, `tier ${JSON.stringify(tier)} should be rejected`);
+    assert.match(findings[0].message, /authority_tier/);
+  }
+});
+
 test('a source record missing an accessed date is an error', async () => {
   const d = await dataset();
   const broken = { ...d, sources: { sources: [{ ...d.sources.sources[0], accessed: '' }] } };
