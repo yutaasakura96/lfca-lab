@@ -86,3 +86,21 @@ Minor findings still open, for the final whole-branch review to triage:
   - checks.test.mjs has no test for checkInferredRatio on a zero-concept domain
   - .superpowers/sdd/task-6-report.md self-review wording overstates a claim (scratch file)
   - 57 concepts lack a per-concept primary-doc citation (PMBOK/BABOK/ISO paywalled)
+FINAL WHOLE-BRANCH REVIEW (opus, 36 tool calls, 180k tokens): "Needs fixes before merge".
+  Found 1 Critical + 11 Important. All fixed in commit 50b9020 and follow-ups.
+  Most important catch: my PROGRESS claim "8 corrections refuted" was OVERSTATED. The
+  controller bug meant those 8 auto-rejected with no verdict; only 3 had real refutation
+  grounds, and 4 of the 8 were GENUINE errors left in the data. Now fixed and the narrative
+  corrected in PROGRESS.md rather than quietly patched.
+  Critical: cloud-control-planes claimed "console work leaves no record" - false on all three
+  hyperscalers and self-contradictory with this dataset's own logging-and-auditing concept.
+  Also fixed: sticky-bit, hot/warm/cold sites, well-architected pillars, /etc/shadow, phishing
+  superlative, nice/RLIMIT_NICE, risk-assessment, and the degenerate id `linux.command-line.and`.
+  Depth rule: confused_with graph was DIRECTED and the rule read only outgoing edges, so 32
+  comparison TARGETS were never lifted; and the importance>=4 floor was single-domain - the
+  same defect I had just claimed to fix. Both corrected; guardrails now clean.
+  Tooling: 3 of 13 checks were dead against this dataset, making the DoD sourcing row vacuous.
+  Added 5 checks (18 total, 49 tests) incl. independent-sourcing with an explicit named waiver
+  file for the 57, plus derived-importance, objective-mismatch, unknown-competency, enums.
+  Reviewer confirmed independently: generated files byte-identical on regeneration, both
+  hand-written files untouched, 0 malformed table rows, all derived-field invariants clean.

@@ -199,7 +199,11 @@ bug had silently discarded:
    guardrail checks that nothing reaches level 1 by accident instead.
 
 Revised distribution: **L1 39 (7.3%), L2 156 (29.1%), L3 321 (59.8%), L4 15 (2.8%), L5 6
-(1.1%)**. Above-Application stays at 3.9%, so there is still no LFCS/CKA drift. Security's mean
+(1.1%)**. Seven concepts are members of a confusable pair yet still sit below Application:
+`firmware`, `zombie-and-orphan-processes`, `sla-slo-and-sli`, `observability`, `gantt-chart`,
+`lgpl` and `agpl`. That is deliberate, not a leak — the reviewed peripheral list takes
+precedence over the mechanical rule, because being confusable with something does not make a
+specialist topic worth studying to Application level on an entry-level exam. Above-Application stays at 3.9%, so there is still no LFCS/CKA drift. Security's mean
 depth rose from 2.31 to 2.52 once its comparison targets were lifted.
 
 **Three of the thirteen checks could not fire.** Every concept carries exactly
