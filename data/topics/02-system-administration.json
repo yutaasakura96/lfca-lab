@@ -1399,7 +1399,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
-        "security.security.vulnerability"
+        "security.security.vulnerabilities-cves-and-patching"
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
@@ -1988,7 +1988,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
-        "sysadmin.disaster-recovery.backup-vs-snapshot-vs-replication"
+        "sysadmin.disaster-recovery.snapshot"
       ],
       "confused_with": [
         "backup"
@@ -3322,7 +3322,7 @@
         "getent hosts"
       ],
       "related_topics": [
-        "sysadmin.networking.-etc-hosts"
+        "sysadmin.networking.etc-hosts"
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
@@ -3761,7 +3761,7 @@
         "curl -I"
       ],
       "related_topics": [
-        "security.security.tls"
+        "security.security.tls-and-https"
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
@@ -4947,7 +4947,7 @@
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
-        "security.compliance.data-retention"
+        "security.compliance.data-retention-obligations"
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",

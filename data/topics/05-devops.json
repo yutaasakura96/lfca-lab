@@ -1,3 +1,2086 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "id": "devops.devops-basics.devops",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Culture",
+        "DevOps"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "A practice uniting development and operations around shared responsibility for delivery, emphasising automation and fast feedback. It is a culture first and a toolchain second.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Answers framing DevOps purely as a tool or a job title are usually wrong."
+    },
+    {
+      "id": "devops.devops-basics.silos-and-shared-responsibility",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Culture",
+        "silos and shared responsibility"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "The problem DevOps addresses: teams optimising separately for change and for stability, in conflict.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.feedback-loops",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Culture",
+        "feedback loops"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Shortening the time between making a change and learning its effect, which is what makes small frequent releases safer.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.shift-left",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Culture",
+        "shift left"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Moving testing and security earlier in the lifecycle, where defects are cheaper to fix.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.site-reliability-engineering",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Culture",
+        "site reliability engineering"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "An operations discipline applying software engineering to reliability, using error budgets to balance change against stability.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "LOW",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.continuous-integration",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "continuous integration"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Merging work to a shared branch frequently, with an automated build and test run on every change.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "continuous delivery"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "CI is about integrating and verifying, not about releasing."
+    },
+    {
+      "id": "devops.devops-basics.continuous-delivery",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "continuous delivery"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Every change that passes the pipeline is releasable, but promotion to production remains a human decision.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "continuous deployment"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate."
+    },
+    {
+      "id": "devops.devops-basics.continuous-deployment",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "continuous deployment"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Every change that passes the pipeline goes to production automatically, with no human gate.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "continuous delivery"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.pipeline",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "pipeline"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "The automated sequence of stages a change passes through: build, test, package, deploy.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "continuous integration"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.build-and-artifact",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "build and artifact"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Compiling or packaging source into a deployable artifact, which is then promoted unchanged between environments.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Building separately per environment defeats the purpose; build once, deploy many."
+    },
+    {
+      "id": "devops.devops-basics.automated-testing",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "automated testing"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Unit, integration and end-to-end tests run by the pipeline, forming the safety net that makes frequent deployment tolerable.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.artifact-registry",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "CI/CD",
+        "artifact registry"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "A store for built artifacts and container images, versioned so a specific build can be redeployed.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.containers.registry"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.deployment-environments",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "deployment environments"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Development, testing, staging and production, each closer to real conditions than the last.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Removed as a named competency in 2025 but still squarely within DevOps Basics."
+    },
+    {
+      "id": "devops.devops-basics.blue-green-deployment",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "blue-green deployment"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Two identical environments with traffic switched between them, making rollback near-instant.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "canary release"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.canary-release",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "canary release"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Exposing a new version to a small share of traffic first, so problems surface at limited blast radius.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "blue-green deployment"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.rolling-deployment",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "rolling deployment"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Replacing instances in batches so the service stays up throughout.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "blue-green deployment"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.rollback",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Delivery",
+        "rollback"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Returning to the previous known-good version. A deployment strategy without a rehearsed rollback is incomplete.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.testing-before-production"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.infrastructure-as-code",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Automation",
+        "infrastructure as code"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Defining infrastructure in version-controlled declarative files so environments are reproducible and reviewable.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.configuration-management"
+      ],
+      "confused_with": [
+        "configuration management"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.idempotency-in-automation",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Automation",
+        "idempotency in automation"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "An operation that produces the same result whether run once or many times — the property that makes automation re-runnable.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.automation-and-idempotency"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.observability",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Automation",
+        "observability"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "Logs, metrics and traces together, allowing questions about a system to be answered without shipping new code.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "monitoring and metrics"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.devops-basics.monolith-vs-microservices",
+      "path": [
+        "DevOps Fundamentals",
+        "DevOps Basics",
+        "Architecture",
+        "monolith vs microservices"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "DevOps Basics",
+      "description": "One deployable unit versus many independently deployable services. Microservices ease independent scaling and release at the cost of operational complexity.",
+      "objective_verbatim": "DevOps Basics",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.software-application-architecture.microservices"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.version-control",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "version control"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Recording changes over time so any prior state can be recovered and authorship is attributable.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "backup"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.distributed-vs-centralized-version-control",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "distributed vs centralized version control"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Git gives every clone the full history and allows offline work; centralized systems keep one authoritative server copy.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.repository",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "repository"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "The project together with its complete history, held in the .git directory.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git init",
+        "git clone"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.working-directory-staging-area-and-repository",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "working directory, staging area and repository"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Git’s three states: files you are editing, changes marked for the next commit, and committed history. The staging area is what distinguishes Git from simpler tools.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git status",
+        "git add",
+        "git commit"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The three-stage model is the single most important Git concept to hold clearly."
+    },
+    {
+      "id": "devops.git-concepts.commit",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "commit"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "An immutable snapshot with an author, timestamp, message and parent, identified by a hash.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git commit -m",
+        "git log"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.commit-messages",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Fundamentals",
+        "commit messages"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A concise imperative summary explaining why a change was made; the diff already shows what.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.branch",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Branching",
+        "branch"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A movable pointer to a commit, allowing parallel lines of work that do not disturb the main line.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git branch",
+        "git switch",
+        "git checkout -b"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.head",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Branching",
+        "HEAD"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A pointer to the currently checked-out commit or branch.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git log HEAD"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.merge",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Branching",
+        "merge"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Combining two branches, creating a merge commit and preserving the true history.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git merge"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "rebase"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.rebase",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Branching",
+        "rebase"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Replaying commits onto a new base, producing linear history by rewriting it — which is why rebasing shared branches is discouraged.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git rebase"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "merge"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; the rewriting-history property is the crux."
+    },
+    {
+      "id": "devops.git-concepts.merge-conflict",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Branching",
+        "merge conflict"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Occurs when two branches change the same lines and Git cannot choose; resolution is manual.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git status",
+        "git diff"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.remote-and-origin",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "remote and origin"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A named reference to another copy of the repository; origin is the conventional name for the one you cloned from.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git remote -v"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.push",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "push"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Sending local commits to a remote.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git push"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.fetch-vs-pull",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "fetch vs pull"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "fetch downloads remote changes without touching your working branch; pull fetches and immediately merges. pull can surprise you, fetch cannot.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git fetch",
+        "git pull"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison."
+    },
+    {
+      "id": "devops.git-concepts.clone-vs-fork",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "clone vs fork"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Cloning copies a repository locally; forking creates your own server-side copy, the usual route to contributing where you lack write access.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git clone"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison."
+    },
+    {
+      "id": "devops.git-concepts.pull-request",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "pull request"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A proposal to merge a branch, providing the place where review and automated checks happen. Called a merge request on some platforms.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "merge"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.tag",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Collaboration",
+        "tag"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "A fixed label on a commit, conventionally used to mark releases.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git tag"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.gitignore",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Practice",
+        ".gitignore"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Patterns for files Git should not track — build output, local config, and above all secrets.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.sensitive-data.secrets-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Adding a secret to .gitignore after committing it does not remove it from history."
+    },
+    {
+      "id": "devops.git-concepts.revert-vs-reset",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Practice",
+        "revert vs reset"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "revert adds a new commit undoing an old one and is safe on shared branches; reset moves the branch pointer and rewrites history.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git revert",
+        "git reset"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "rebase"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.git-diff-and-git-log",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Practice",
+        "git diff and git log"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Inspecting what changed and what happened, the two questions most often asked of a repository.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git diff",
+        "git log --oneline"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.stash",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Practice",
+        "stash"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Setting aside uncommitted work temporarily so the working directory is clean.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "git stash"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.git-concepts.branching-strategies",
+      "path": [
+        "DevOps Fundamentals",
+        "Git Concepts",
+        "Practice",
+        "branching strategies"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Git Concepts",
+      "description": "Conventions such as trunk-based development or feature branching that govern how work reaches the main line.",
+      "objective_verbatim": "Git Concepts",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Fundamentals",
+        "container"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "An isolated process using the host kernel, packaged with its dependencies so it runs identically wherever it is started.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker run",
+        "docker ps"
+      ],
+      "related_topics": [
+        "cloud.cloud-computing.container-vs-virtual-machine"
+      ],
+      "confused_with": [
+        "virtual machine"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-image",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Fundamentals",
+        "container image"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The immutable read-only template from which containers are created. One image, many containers.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker images",
+        "docker build"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "container"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "image vs container is a named comparison — image is the class, container the instance."
+    },
+    {
+      "id": "devops.containers.image-layers",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Fundamentals",
+        "image layers"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Images are built as stacked layers which are cached and shared, which is why a small change rebuilds quickly.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.registry",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Fundamentals",
+        "registry"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "A server storing and distributing images; Docker Hub is the best-known public one.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker pull",
+        "docker push"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "container image"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.image-tags",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Fundamentals",
+        "image tags"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Labels identifying image versions. The latest tag is a moving pointer, not a guarantee of the newest build.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Relying on latest in production is a widely-cited mistake."
+    },
+    {
+      "id": "devops.containers.dockerfile",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Building",
+        "Dockerfile"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The declarative recipe for building an image, one instruction per layer.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker build -t"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "container image"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-lifecycle",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "container lifecycle"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Created, running, paused, stopped, removed. Stopping is not removing, and stopped containers still consume disk.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker start",
+        "docker stop",
+        "docker rm"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.port-mapping",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "port mapping"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Publishing a container port on the host so the service is reachable from outside.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker run -p"
+      ],
+      "related_topics": [
+        "sysadmin.networking.ports-and-sockets"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.volumes-and-bind-mounts",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "volumes and bind mounts"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Containers are ephemeral; anything that must survive removal has to live in a volume or a bind mount.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker volume",
+        "docker run -v"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Assuming data written inside a container persists is a very common beginner error."
+    },
+    {
+      "id": "devops.containers.environment-variables-in-containers",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "environment variables in containers"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The standard way to configure an image at run time without rebuilding it.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker run -e"
+      ],
+      "related_topics": [
+        "linux.linux-operating-system.environment-variables"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-logs-and-exec",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "container logs and exec"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Reading a container’s output and opening a shell inside it — the first two diagnostic steps.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker logs",
+        "docker exec -it"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.stateless-vs-stateful-containers",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Running",
+        "stateless vs stateful containers"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Stateless containers can be replaced freely; stateful ones need persistent storage and careful handling.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.stateless-design"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-runtime-and-oci",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Ecosystem",
+        "container runtime and OCI"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The component that actually runs containers — containerd, CRI-O — under open standards, so images are portable across tools.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.docker-compose",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Ecosystem",
+        "Docker Compose"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Defines and runs a multi-container application from a single declarative file. Single-host, unlike an orchestrator.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "docker compose up"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "container orchestration"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-security-basics",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Ecosystem",
+        "container security basics"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Using trusted base images, avoiding root inside the container, scanning for vulnerabilities, and keeping secrets out of images.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.sensitive-data.secrets-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.container-orchestration",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "container orchestration"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "Automating scheduling, scaling, networking, and restart of containers across many hosts — the problem Kubernetes exists to solve.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "Docker Compose"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.kubernetes",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "Kubernetes"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The dominant open source container orchestrator, governed by the CNCF. LFCA needs the vocabulary and purpose, not operational skill.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth here should stay at recognition and understanding; CKA-level detail is out of scope for LFCA."
+    },
+    {
+      "id": "devops.containers.cluster-and-node",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "cluster and node"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "A Kubernetes cluster is a set of machines; each machine is a node running workloads.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.pod",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "pod"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The smallest deployable unit in Kubernetes: one or more containers sharing network and storage, scheduled together.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "container"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed."
+    },
+    {
+      "id": "devops.containers.deployment",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "deployment"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "A Kubernetes object declaring the desired number and version of pod replicas, and reconciling reality toward it.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "pod"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.kubernetes-service",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "Kubernetes service"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "A stable network endpoint and load balancer for a changing set of pods, since pod addresses are ephemeral.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "deployment"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.control-plane",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "control plane"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The components deciding cluster state — API server, scheduler, controller manager, etcd — as distinct from the worker nodes running the workloads.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.declarative-configuration-and-desired-state",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "declarative configuration and desired state"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "You declare what should exist and the orchestrator continuously reconciles toward it, rather than issuing imperative steps.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "devops.containers.cncf",
+      "path": [
+        "DevOps Fundamentals",
+        "Containers",
+        "Orchestration",
+        "CNCF"
+      ],
+      "domain": "DevOps Fundamentals",
+      "competency": "Containers",
+      "description": "The Cloud Native Computing Foundation, part of the Linux Foundation, which hosts Kubernetes and much of the cloud-native ecosystem.",
+      "objective_verbatim": "Containers",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    }
+  ]
 }

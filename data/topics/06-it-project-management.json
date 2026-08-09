@@ -1,3 +1,2292 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "id": "pm.project-management.project",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Fundamentals",
+        "project"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "A temporary effort with a defined start, end, and objective — distinct from ongoing operations.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "operations"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.triple-constraint",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Fundamentals",
+        "triple constraint"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Scope, time and cost, bounding quality. Changing one forces a change in another; pretending otherwise is how projects fail.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A staple of project-management questions."
+    },
+    {
+      "id": "pm.project-management.stakeholder",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Fundamentals",
+        "stakeholder"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Anyone affected by or able to affect the project, whose expectations must be actively managed.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.deliverable-and-milestone",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Fundamentals",
+        "deliverable and milestone"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "A tangible output, and a significant checkpoint in the schedule.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "triple constraint"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.software-development-lifecycle",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Fundamentals",
+        "software development lifecycle"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The phases from requirements through design, implementation, testing, deployment and maintenance.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.waterfall",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "waterfall"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Sequential phases, each completed before the next. Predictable when requirements are genuinely stable, brittle when they are not.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "agile"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.agile",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "agile"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Iterative delivery in short cycles with continuous feedback, valuing responsiveness to change over following a fixed plan.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "waterfall"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and reliably examined."
+    },
+    {
+      "id": "pm.project-management.scrum",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "Scrum"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "An agile framework built on fixed-length sprints, a prioritised backlog, and defined roles and ceremonies.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "Kanban"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.sprint",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "sprint"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "A fixed-length iteration, commonly two weeks, producing a potentially shippable increment.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.project-management.scrum"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.scrum-roles",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "Scrum roles"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Product owner owns priority, scrum master owns the process and removes impediments, and the development team owns delivery.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.scrum-ceremonies",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "Scrum ceremonies"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Sprint planning, daily standup, review and retrospective — the retrospective being where the process itself improves.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.product-and-sprint-backlog",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "product and sprint backlog"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The ordered list of everything wanted, and the subset committed to the current sprint.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.kanban",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Methodologies",
+        "Kanban"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Continuous flow visualised on a board with work-in-progress limits, rather than fixed iterations.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "Scrum"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.user-story",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Requirements",
+        "user story"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "A short statement of need from the user’s perspective, in the form as a role, I want a capability, so that a benefit.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.functional-analysis.functional-requirements"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.acceptance-criteria",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Requirements",
+        "acceptance criteria"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The conditions that must hold for work to be considered complete, agreed before work starts.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "definition of done"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.definition-of-done",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Requirements",
+        "definition of done"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The team-wide standard every item must meet — tested, reviewed, documented — as distinct from criteria specific to one story.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "acceptance criteria"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.minimum-viable-product",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Requirements",
+        "minimum viable product"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The smallest release that delivers real value and produces learning.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.estimation-and-velocity",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Planning",
+        "estimation and velocity"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Sizing work relatively, and measuring how much a team completes per sprint to forecast. Velocity is a planning aid, not a productivity score.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.gantt-chart",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Planning",
+        "Gantt chart"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "A bar chart of tasks against time showing durations and dependencies, associated with plan-driven approaches.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.critical-path",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Planning",
+        "critical path"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The longest chain of dependent tasks, which determines the earliest possible finish. Delay here delays everything.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.risk-management",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "risk management"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Identifying risks, assessing likelihood and impact, and planning responses before they materialise.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.risk-assessment"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.scope-creep",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "scope creep"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Uncontrolled growth of scope without matching adjustment to time or cost — the most common project failure mode.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.project-management.triple-constraint"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.change-control",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "change control"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "The formal process by which scope changes are proposed, assessed and approved.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "scope creep"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.raci",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "RACI"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Clarifying who is responsible, accountable, consulted and informed for each activity.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.project-management.issue-tracking",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Project Management",
+        "Control",
+        "issue tracking"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Project Management",
+      "description": "Recording work and defects in a shared system so status is visible without asking.",
+      "objective_verbatim": "Project Management",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.client-server-model",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Patterns",
+        "client-server model"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Clients request, servers respond — the basic shape of nearly all networked applications.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "peer-to-peer"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.three-tier-architecture",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Patterns",
+        "three-tier architecture"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Presentation, application logic, and data tiers separated so each can be scaled and changed independently.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Identifying which tier a component belongs to is a likely question."
+    },
+    {
+      "id": "pm.software-application-architecture.monolithic-architecture",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Patterns",
+        "monolithic architecture"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "One deployable unit containing the whole application. Simple to run, harder to scale or change in parts.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "microservices"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.microservices",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Patterns",
+        "microservices"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Independently deployable services communicating over the network, each owning its data.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.monolith-vs-microservices"
+      ],
+      "confused_with": [
+        "monolithic architecture"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.web-server-vs-application-server",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Components",
+        "web server vs application server"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "A web server serves static content and proxies requests; an application server executes the application code.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "three-tier architecture"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.api",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Interfaces",
+        "API"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "A defined contract by which one piece of software calls another, hiding the implementation behind it.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "REST"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.rest",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Interfaces",
+        "REST"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "An architectural style using HTTP methods and URLs to act on resources, typically exchanging JSON.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "API"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.http-methods-and-status-codes",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Interfaces",
+        "HTTP methods and status codes"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "GET reads, POST creates, PUT and PATCH update, DELETE removes; 2xx succeeded, 4xx the client erred, 5xx the server erred.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "curl -X"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The 4xx-versus-5xx distinction locates fault and is commonly tested."
+    },
+    {
+      "id": "pm.software-application-architecture.json-and-xml",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Interfaces",
+        "JSON and XML"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Structured text formats for exchanging data between systems, JSON being the current default for web APIs.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.message-queue",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Interfaces",
+        "message queue"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "A buffer decoupling producers from consumers so components need not be available simultaneously.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.relational-database",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Data",
+        "relational database"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Data in tables with defined schema and relationships, queried with SQL and offering transactional guarantees.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "NoSQL database"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.nosql-database",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Data",
+        "NoSQL database"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Non-relational stores — document, key-value, column, graph — trading strict schema and joins for scale and flexibility.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "relational database"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; choosing between them for a scenario is likely."
+    },
+    {
+      "id": "pm.software-application-architecture.sql-basics",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Data",
+        "SQL basics"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "SELECT, INSERT, UPDATE, DELETE, and JOIN — enough to read a query and understand what it does.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.schema-table-and-index",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Data",
+        "schema, table and index"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "The structure of the data, the relation holding rows, and the structure that makes lookups fast at the cost of write speed and space.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.transactions-and-acid",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Data",
+        "transactions and ACID"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Atomicity, consistency, isolation and durability — the guarantees that make a transaction all-or-nothing and durable.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.caching-in-applications",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Performance",
+        "caching in applications"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Holding frequently used results in fast storage, accepting staleness in exchange for speed.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.caching"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.software-application-architecture.stateless-vs-stateful-applications",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Software Application Architecture",
+        "Performance",
+        "stateless vs stateful applications"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Software Application Architecture",
+      "description": "Whether a server retains client state between requests, which determines how easily instances can be added or replaced.",
+      "objective_verbatim": "Software Application Architecture",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.stateless-design"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.functional-requirements",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Requirements",
+        "functional requirements"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "What the system must do — the behaviours and features users can observe.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "non-functional requirements"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.non-functional-requirements",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Requirements",
+        "non-functional requirements"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "How well it must do it: performance, availability, security, usability, maintainability. Often decisive for architecture.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "functional requirements"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; classifying a given requirement is a likely question."
+    },
+    {
+      "id": "pm.functional-analysis.requirements-elicitation",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "requirements elicitation"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Drawing out real needs through interviews, workshops, observation and document study, since stated wants and actual needs differ.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.use-case",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "use case"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "A description of how an actor interacts with the system to achieve a goal, including alternate paths.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "user story"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.process-mapping",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "process mapping"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Diagramming the current or intended workflow so inefficiencies and hand-offs become visible.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.gap-analysis",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "gap analysis"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Comparing current state to desired state and defining the work that closes the difference.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.feasibility-study",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "feasibility study"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Assessing whether a proposal is technically, operationally and economically achievable before committing.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.requirements-prioritization",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Analysis",
+        "requirements prioritization"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Ordering requirements by value and necessity, MoSCoW being a common scheme.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.traceability",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Quality",
+        "traceability"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Linking each requirement to its design, implementation and test, so coverage can be demonstrated.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.verification-vs-validation",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Quality",
+        "verification vs validation"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Verification asks whether it was built right; validation asks whether the right thing was built.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and easy to invert."
+    },
+    {
+      "id": "pm.functional-analysis.user-acceptance-testing",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Quality",
+        "user acceptance testing"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Testing by the people who will use the system, against their real needs rather than the specification alone.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.functional-analysis.specification-documentation",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Functional Analysis",
+        "Quality",
+        "specification documentation"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Functional Analysis",
+      "description": "Writing requirements down unambiguously so they can be agreed, built against, and tested.",
+      "objective_verbatim": "Functional Analysis",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.documentation"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.open-source-software",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Fundamentals",
+        "open source software"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Software distributed with source code and the rights to use, study, modify and redistribute it.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "free software"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.free-software-and-foss",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Fundamentals",
+        "free software and FOSS"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "The Free Software Foundation’s framing emphasising user freedom rather than development method. Free as in freedom, not price.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "open source software"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "The free-as-in-speech distinction is frequently tested."
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Fundamentals",
+        "Open Source Initiative and the Open Source Definition"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "The body and criteria determining whether a licence genuinely qualifies as open source.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.proprietary-software",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Fundamentals",
+        "proprietary software"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Software distributed without source or redistribution rights, licensed under terms set by the vendor.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "open source software"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.source-code-and-binaries",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Fundamentals",
+        "source code and binaries"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Human-readable code versus compiled machine code. Some licences require source to accompany distributed binaries.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.permissive-licenses",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "License families",
+        "permissive licenses"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "MIT, Apache 2.0 and BSD allow reuse in proprietary products, typically requiring only attribution.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "copyleft licenses"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Permissive versus copyleft is the central comparison in this competency."
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.copyleft-licenses",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "License families",
+        "copyleft licenses"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "GPL and similar require derivative works distributed to others to be released under the same terms, which is why copyleft is called viral.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "permissive licenses"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.gpl",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "GPL"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "The strong copyleft licence used by the Linux kernel (v2), requiring source availability for distributed derivatives.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "linux.linux-operating-system.open-source-licensing-of-linux"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.lgpl",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "LGPL"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "A weaker copyleft permitting linking from proprietary software without imposing the licence on the whole work.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "GPL"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.agpl",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "AGPL"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Extends copyleft to software offered over a network, closing the gap where a service is used but never distributed.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "GPL"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "MIT and BSD licenses"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Short permissive licences requiring little more than preservation of the copyright notice.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "Apache License 2.0"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.apache-license-2-0",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "Apache License 2.0"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "A permissive licence that additionally grants patent rights and requires notice of modifications.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "MIT and BSD licenses"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Specific licenses",
+        "Creative Commons and public domain"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Licences for content rather than code, and the status of work with no reserved rights.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.license-compatibility",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Compliance",
+        "license compatibility"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Whether differently-licensed components may lawfully be combined; permissive code can generally enter copyleft projects but not the reverse.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The asymmetry is the point and is commonly examined."
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.license-compliance",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Compliance",
+        "license compliance"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Meeting obligations for attribution, notice, and source availability when distributing software built on open source.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.licensing-compliance"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.dual-licensing",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Compliance",
+        "dual licensing"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Offering the same software under both an open source and a commercial licence.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.contributor-license-agreement",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Compliance",
+        "contributor license agreement"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "An agreement clarifying the rights a contributor grants to a project.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.software-bill-of-materials",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Compliance",
+        "software bill of materials"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "An inventory of components and their licences, increasingly required for supply-chain transparency.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.open-source-community-roles",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Community",
+        "open source community roles"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Users, contributors, committers and maintainers, with responsibility increasing along the chain.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.contributing-to-open-source",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Community",
+        "contributing to open source"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Issues, pull requests, code review and codes of conduct as the normal contribution path.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.git-concepts.pull-request"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.forking-a-project",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Community",
+        "forking a project"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Taking a copy in a new independent direction, a right open source licences explicitly protect.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "clone vs fork"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "pm.open-source-software-and-licensing.governance-and-foundations",
+      "path": [
+        "IT Project Management Fundamentals",
+        "Open Source Software and Licensing",
+        "Community",
+        "governance and foundations"
+      ],
+      "domain": "IT Project Management Fundamentals",
+      "competency": "Open Source Software and Licensing",
+      "description": "Neutral bodies such as the Linux Foundation and Apache Software Foundation holding assets and setting governance so no single vendor controls a project.",
+      "objective_verbatim": "Open Source Software and Licensing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 1,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    }
+  ]
 }

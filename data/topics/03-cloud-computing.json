@@ -1,3 +1,2156 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "id": "cloud.cloud-computing.cloud-computing",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Fundamentals",
+        "cloud computing"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "On-demand delivery of computing resources over a network, billed by consumption rather than bought outright.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "virtualization"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.essential-characteristics",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Fundamentals",
+        "essential characteristics"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "On-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service — the NIST definition.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.iaas",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Service models",
+        "IaaS"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Infrastructure as a Service: you rent virtual machines, storage and networks, and remain responsible for the OS upward.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "PaaS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content."
+    },
+    {
+      "id": "cloud.cloud-computing.paas",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Service models",
+        "PaaS"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Platform as a Service: you deploy application code and the provider runs the OS, runtime and scaling beneath it.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "IaaS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.saas",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Service models",
+        "SaaS"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Software as a Service: you consume a finished application and manage only your data and users.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "PaaS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.serverless-and-faas",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Service models",
+        "serverless and FaaS"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Code runs in response to events with no server management and no charge when idle. Servers still exist; you simply do not manage them.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "PaaS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing."
+    },
+    {
+      "id": "cloud.cloud-computing.public-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Deployment models",
+        "public cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Shared provider-owned infrastructure available to any customer.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "private cloud"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.private-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Deployment models",
+        "private cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Cloud infrastructure dedicated to one organisation, on-premises or hosted.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "public cloud"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.hybrid-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Deployment models",
+        "hybrid cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Public and private used together with workloads placed deliberately in each.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "multi-cloud"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.multi-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Deployment models",
+        "multi-cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Using more than one public provider, often to avoid dependence on a single vendor.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "hybrid cloud"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.virtualization",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Virtualization",
+        "virtualization"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Running multiple isolated virtual machines on one physical host, the technology cloud infrastructure is built on.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "containerization"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.hypervisor",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Virtualization",
+        "hypervisor"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "The layer creating and running VMs. Type 1 runs directly on hardware; type 2 runs atop a host OS.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "virtualization"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.virtual-machine",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Virtualization",
+        "virtual machine"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "A complete emulated computer with its own kernel and OS, isolated from its neighbours.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "container"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.container-vs-virtual-machine",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Virtualization",
+        "container vs virtual machine"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "A VM virtualizes hardware and runs its own kernel; a container shares the host kernel and isolates only the process view. Containers start faster and cost less; VMs isolate more strongly.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.containers.container"
+      ],
+      "confused_with": [
+        "virtual machine"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and very commonly tested."
+    },
+    {
+      "id": "cloud.cloud-computing.shared-responsibility-model",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "shared responsibility model"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "The provider secures the cloud; the customer secures what they put in it. The boundary moves with the service model.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Candidates routinely over-estimate what the provider covers, particularly for IaaS."
+    },
+    {
+      "id": "cloud.cloud-computing.region-and-availability-zone",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "region and availability zone"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "A region is a geographic location; availability zones are isolated datacentres within it. Spreading across zones is the basic availability technique.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.high-availability"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.managed-services",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "managed services"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Provider-operated components — databases, queues, caches — trading control for reduced operational burden.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "PaaS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.object-block-and-file-storage",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Storage",
+        "object, block and file storage"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Object storage holds whole items addressed by key and scales enormously; block storage backs filesystems and VM disks; file storage presents a shared network filesystem.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Choosing the right one for a scenario is a likely question shape."
+    },
+    {
+      "id": "cloud.cloud-computing.cloud-migration-approaches",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Adoption",
+        "cloud migration approaches"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Rehost (lift and shift), replatform, refactor, and replace — increasing effort for increasing cloud benefit.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.vendor-lock-in",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Adoption",
+        "vendor lock-in"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Dependence on provider-specific services that makes moving away costly.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.cloud-computing.multi-cloud"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.cloud-control-planes",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "cloud control planes"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "Web console, CLI, API and infrastructure-as-code are four ways to drive the same platform; only the last is reproducible.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.cloud-computing.service-level-agreement",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Cloud Computing",
+        "Operating model",
+        "service level agreement"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Cloud Computing",
+      "description": "The provider’s contractual commitment, typically an availability percentage with remedies if missed.",
+      "objective_verbatim": "Cloud Computing",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "high availability"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.availability",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Availability",
+        "availability"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "The proportion of time a service is usable, usually quoted in nines. 99.9% permits about 8.7 hours of downtime a year.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "reliability"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Translating nines into real downtime is a likely question."
+    },
+    {
+      "id": "cloud.performance-availability.high-availability",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Availability",
+        "high availability"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Designing so that no single component failure takes the service down, typically through redundancy and automatic failover.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+      ],
+      "confused_with": [
+        "fault tolerance"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.fault-tolerance",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Availability",
+        "fault tolerance"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Continuing to operate correctly despite a failure, with no interruption at all — a stronger property than high availability.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "high availability"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.redundancy",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Availability",
+        "redundancy"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Duplicate components standing ready so that one failure is survivable.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.failover",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Availability",
+        "failover"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Automatic transfer of work to a healthy component when one fails.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "load balancing"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.scalability-vs-elasticity",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "scalability vs elasticity"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Scalability is the ability to grow to meet demand; elasticity is doing so automatically in both directions as demand changes.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; the automatic-and-bidirectional part is what distinguishes elasticity."
+    },
+    {
+      "id": "cloud.performance-availability.vertical-scaling",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "vertical scaling"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Making one machine bigger. Simple, but bounded by the largest available machine and usually needs a restart.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "horizontal scaling"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.horizontal-scaling",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "horizontal scaling"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Adding more machines. Effectively unbounded, but requires the workload to be distributable and ideally stateless.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "vertical scaling"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Scaling up versus scaling out is a named comparison."
+    },
+    {
+      "id": "cloud.performance-availability.auto-scaling",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "auto-scaling"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Adding and removing instances automatically against a metric or schedule.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.scalability-vs-elasticity"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.load-balancing",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "load balancing"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Distributing requests across backends, with health checks so failed instances stop receiving traffic.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.load-balancer"
+      ],
+      "confused_with": [
+        "failover"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.stateless-design",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Scaling",
+        "stateless design"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Keeping no client-specific state on the server so any instance can serve any request — the precondition for easy horizontal scaling.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "horizontal scaling"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.latency-and-throughput",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "latency and throughput"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Delay per operation versus volume per unit time. Optimising one can worsen the other.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.bandwidth-latency-and-throughput"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.caching",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "caching"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Storing computed or fetched results closer to the consumer to cut latency and load, at the cost of possible staleness.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "CDN"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.content-delivery-network",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "content delivery network"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Geographically distributed caches serving static content from near the user.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "caching"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.monitoring-and-metrics",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "monitoring and metrics"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Collecting quantitative signals continuously so degradation is visible before it becomes an outage.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.monitoring-and-alerting"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.sla-slo-and-sli",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "SLA, SLO and SLI"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "The contractual promise, the internal target, and the measurement the target is judged on.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "service level agreement"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.performance-availability.bottleneck-identification",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Performance/Availability",
+        "Performance",
+        "bottleneck identification"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Performance/Availability",
+      "description": "Locating the constraining resource — CPU, memory, disk, or network — before attempting to optimise.",
+      "objective_verbatim": "Performance/Availability",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.troubleshooting.structured-troubleshooting-method"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.capex-vs-opex",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost models",
+        "CapEx vs OpEx"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Capital expenditure buys assets up front; operational expenditure pays as you consume. Cloud shifts spending from the first to the second.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and a favourite of business-oriented questions."
+    },
+    {
+      "id": "cloud.budgeting.pay-as-you-go",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost models",
+        "pay-as-you-go"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Billing strictly by consumption, with no charge for capacity you do not use.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "reserved capacity"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost models",
+        "on-demand, reserved and spot pricing"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Full price and full flexibility; discounted in exchange for commitment; cheapest but reclaimable at short notice and only safe for interruptible work.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Matching a pricing model to a workload is a likely scenario question."
+    },
+    {
+      "id": "cloud.budgeting.total-cost-of-ownership",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost models",
+        "total cost of ownership"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "The full cost including staff, power, licensing and opportunity cost, not just the invoice.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.rightsizing",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "rightsizing"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Matching provisioned capacity to actual usage, the most common source of avoidable cloud spend.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.budgeting.orphaned-resources"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.orphaned-resources",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "orphaned resources"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Unattached disks, idle load balancers, and forgotten instances that continue billing after their purpose ends.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "rightsizing"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.data-egress-charges",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "data egress charges"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Providers typically charge for data leaving their network while inbound is free — a cost that surprises people repeatedly.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The asymmetry between ingress and egress pricing is worth knowing explicitly."
+    },
+    {
+      "id": "cloud.budgeting.resource-tagging",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "resource tagging"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Labelling resources with owner, environment and purpose so that spend can be attributed and cleaned up.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.naming-conventions"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.budgets-and-cost-alerts",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "budgets and cost alerts"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Thresholds that notify before a bill becomes a problem, rather than after it arrives.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.chargeback-and-showback",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "chargeback and showback"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Billing internal teams for their consumption, or merely reporting it to them to influence behaviour.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.budgeting.cost-monitoring",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Budgeting",
+        "Cost control",
+        "cost monitoring"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Budgeting",
+      "description": "Tracking spend continuously and against forecast, since cloud costs change with usage rather than staying fixed.",
+      "objective_verbatim": "Budgeting",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "budgets and cost alerts"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.design-for-failure",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Architecture",
+        "design for failure"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Assuming components will fail and building so that failure is survivable rather than exceptional.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.fault-tolerance"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.multi-zone-deployment",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Architecture",
+        "multi-zone deployment"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Spreading instances across availability zones so one datacentre failure does not end the service.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.cloud-computing.region-and-availability-zone"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.automation-over-manual-configuration",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Architecture",
+        "automation over manual configuration"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Provisioning through code rather than console clicks, so environments are reproducible and reviewable.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.immutable-infrastructure",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Architecture",
+        "immutable infrastructure"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Replacing instances rather than modifying them, eliminating configuration drift.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "automation over manual configuration"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.identity-and-access-management",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Security posture",
+        "identity and access management"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Cloud-native accounts, roles and policies, applied with least privilege rather than shared credentials.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.secrets-management-in-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Security posture",
+        "secrets management in cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Storing credentials in a managed secret store rather than in code, images, or environment files.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.sensitive-data.secrets-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.encryption-by-default",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Security posture",
+        "encryption by default"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Enabling encryption at rest and in transit as the standing configuration rather than an exception.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.encryption-at-rest-vs-in-transit"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.backup-and-recovery-in-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Operations",
+        "backup and recovery in cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Provider snapshots and backup services still require a tested restore path and retention policy.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.restore-testing"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.logging-and-auditing-in-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Operations",
+        "logging and auditing in cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Recording who did what to which resource, which is the basis of both security investigation and change correlation.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.best-practices.documentation-and-tagging-standards",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Best Practices",
+        "Operations",
+        "documentation and tagging standards"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Best Practices",
+      "description": "Consistent metadata and written architecture so that ownership and intent survive staff changes.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.documentation"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.virtual-private-cloud",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "virtual private cloud"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "A logically isolated network within the provider, in which you define your own address ranges and subnets.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "subnet"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.cloud-subnets",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "cloud subnets"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Subdivisions of a VPC, usually placed one per availability zone.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.subnet-mask-and-cidr"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.public-vs-private-subnet",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "public vs private subnet"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "A public subnet routes to an internet gateway; a private one does not and reaches out only via NAT.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "NAT gateway"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.security-group-vs-network-acl",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "security group vs network ACL"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Security groups are stateful and attach to instances; network ACLs are stateless and attach to subnets. Statefulness is the distinction that matters.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "firewall"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "The stateful/stateless difference is the crux and is easy to get backwards."
+    },
+    {
+      "id": "cloud.networking.internet-gateway-and-nat-gateway",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "internet gateway and NAT gateway"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "The first gives a subnet two-way internet reachability; the second lets private instances reach out without being reachable inbound.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.nat"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.public-and-elastic-ip-addresses",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "public and elastic IP addresses"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Provider-assigned reachable addresses, optionally static so they survive instance replacement.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.static-vs-dynamic-addressing"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.cloud-dns",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "cloud DNS"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Managed authoritative DNS, often integrated with load balancers and health checks for failover.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.dns"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.cloud-load-balancer-types",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "cloud load balancer types"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Layer 4 balancers forward by address and port; layer 7 balancers can route on hostname or URL path.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.load-balancer"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.vpc-peering-and-private-connectivity",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "VPC peering and private connectivity"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "Connecting networks privately, whether two cloud networks or a cloud network and an on-premises site.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.vpn"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "cloud.networking.hybrid-connectivity",
+      "path": [
+        "Cloud Computing Fundamentals",
+        "Networking",
+        "Cloud network",
+        "hybrid connectivity"
+      ],
+      "domain": "Cloud Computing Fundamentals",
+      "competency": "Networking",
+      "description": "VPN over the internet, or a dedicated private circuit, joining on-premises networks to the cloud.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "VPC peering and private connectivity"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    }
+  ]
 }
