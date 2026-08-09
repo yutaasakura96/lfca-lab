@@ -46,7 +46,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -58,7 +58,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A staple of project-management questions. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "A staple of project-management questions. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.stakeholder",
@@ -118,7 +118,7 @@
         "pm.project-management.triple-constraint"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.software-development-lifecycle",
@@ -180,7 +180,7 @@
         "pm.project-management.agile"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.agile",
@@ -216,7 +216,7 @@
         "pm.project-management.waterfall"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "A named comparison and reliably examined. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison and reliably examined. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.scrum",
@@ -249,7 +249,7 @@
         "pm.project-management.kanban"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.sprint",
@@ -332,7 +332,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -346,7 +346,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.product-and-sprint-backlog",
@@ -410,7 +410,7 @@
         "pm.project-management.scrum"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.user-story",
@@ -427,7 +427,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -441,7 +441,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.acceptance-criteria",
@@ -474,7 +474,7 @@
         "pm.project-management.definition-of-done"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.definition-of-done",
@@ -507,7 +507,7 @@
         "pm.project-management.acceptance-criteria"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.minimum-viable-product",
@@ -656,7 +656,7 @@
         "pm.project-management.gantt-chart"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.risk-management",
@@ -704,7 +704,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -718,7 +718,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.change-control",
@@ -749,7 +749,7 @@
         "pm.project-management.scope-creep"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.raci",
@@ -900,7 +900,7 @@
         "pm.project-management.scrum-ceremonies"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.client-server-model",
@@ -946,7 +946,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -958,7 +958,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Identifying which tier a component belongs to is a likely question. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Identifying which tier a component belongs to is a likely question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.monolithic-architecture",
@@ -989,7 +989,7 @@
         "pm.software-application-architecture.microservices"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.microservices",
@@ -1024,7 +1024,7 @@
         "pm.software-application-architecture.monolithic-architecture"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.web-server-vs-application-server",
@@ -1055,7 +1055,7 @@
         "pm.software-application-architecture.three-tier-architecture"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.api",
@@ -1088,7 +1088,7 @@
         "pm.software-application-architecture.rest"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.rest",
@@ -1123,7 +1123,7 @@
         "pm.software-application-architecture.api"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.http-methods-and-status-codes",
@@ -1251,7 +1251,7 @@
         "pm.software-application-architecture.nosql-database"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.nosql-database",
@@ -1282,7 +1282,7 @@
         "pm.software-application-architecture.relational-database"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; choosing between them for a scenario is likely. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison; choosing between them for a scenario is likely. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.sql-basics",
@@ -1468,7 +1468,7 @@
         "pm.functional-analysis.non-functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.non-functional-requirements",
@@ -1499,7 +1499,7 @@
         "pm.functional-analysis.functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; classifying a given requirement is a likely question. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison; classifying a given requirement is a likely question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.requirements-elicitation",
@@ -1559,7 +1559,7 @@
         "pm.project-management.user-story"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.process-mapping",
@@ -1828,7 +1828,7 @@
         "pm.open-source-software-and-licensing.free-software-and-foss"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.free-software-and-foss",
@@ -1861,7 +1861,7 @@
         "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The free-as-in-speech distinction is frequently tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "The free-as-in-speech distinction is frequently tested. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
@@ -1928,7 +1928,7 @@
         "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.source-code-and-binaries",
@@ -1997,7 +1997,7 @@
         "pm.open-source-software-and-licensing.copyleft-licenses"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Permissive versus copyleft is the central comparison in this competency. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Permissive versus copyleft is the central comparison in this competency. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.copyleft-licenses",
@@ -2033,7 +2033,7 @@
         "pm.open-source-software-and-licensing.permissive-licenses"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.gpl",
@@ -2050,7 +2050,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2070,7 +2070,7 @@
       ],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.lgpl",
@@ -2173,7 +2173,7 @@
         "pm.open-source-software-and-licensing.apache-license-2-0"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.apache-license-2-0",
@@ -2208,7 +2208,7 @@
         "pm.open-source-software-and-licensing.mit-and-bsd-licenses"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain",
@@ -2498,7 +2498,7 @@
         "devops.git-concepts.clone-vs-fork"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.governance-and-foundations",

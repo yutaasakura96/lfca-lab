@@ -190,7 +190,7 @@
         "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "CI is about integrating and verifying, not about releasing. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "CI is about integrating and verifying, not about releasing. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.continuous-delivery",
@@ -225,7 +225,7 @@
         "devops.devops-basics.continuous-deployment"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.continuous-deployment",
@@ -260,7 +260,7 @@
         "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.pipeline",
@@ -295,7 +295,7 @@
         "devops.devops-basics.continuous-integration"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.build-and-artifact",
@@ -523,7 +523,7 @@
         "devops.devops-basics.canary-release"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.canary-release",
@@ -556,7 +556,7 @@
         "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.rolling-deployment",
@@ -590,7 +590,7 @@
         "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.rollback",
@@ -691,7 +691,7 @@
         "sysadmin.system-administration.package"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.infrastructure-as-code",
@@ -728,7 +728,7 @@
         "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.idempotency-in-automation",
@@ -862,7 +862,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.git-concepts.distributed-vs-centralized-version-control",
@@ -1375,7 +1375,7 @@
         "devops.git-concepts.merge"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.git-concepts.tag",
@@ -2134,7 +2134,7 @@
         "devops.containers.docker-compose"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.kubernetes",
@@ -2232,7 +2232,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.deployment",
@@ -2265,7 +2265,7 @@
         "devops.containers.pod"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.kubernetes-service",
@@ -2298,7 +2298,7 @@
         "devops.containers.deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.control-plane",

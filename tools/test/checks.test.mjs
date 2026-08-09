@@ -18,6 +18,11 @@ import {
   checkDanglingRelatedTopics,
   checkDanglingConfusedWith,
   checkSourceSchema,
+  checkIndependentSourcing,
+  checkDerivedImportance,
+  checkObjectiveMatchesCompetency,
+  checkKnownCompetency,
+  checkEnums,
 } from '../lib/checks.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -210,4 +215,65 @@ test('a source record missing an accessed date is an error', async () => {
 test('well-formed source records produce no findings', async () => {
   const d = await dataset();
   assert.deepEqual(checkSourceSchema(d), []);
+});
+
+test('a concept sourced only by the shared objectives source is an error', async () => {
+  const d = await dataset();
+  const shared = { ...d, sources: { sources: [...d.sources.sources,
+    { ...d.sources.sources[0], id: 'lf-objectives-2025' }] } };
+  const bare = withTopics(shared, [{ ...d.topics[0],
+    official_sources: ['lf-objectives-2025'], additional_sources: [], candidate_evidence: [] }, d.topics[1]]);
+  const findings = checkIndependentSourcing(bare);
+  assert.equal(findings.filter((f) => f.check === 'unsourced-concept').length, 1);
+  assert.match(findings[0].message, /independent of lf-objectives-2025/);
+});
+
+test('an explicitly waived concept is not reported as unsourced', async () => {
+  const d = await dataset();
+  const shared = { ...d, sources: { sources: [...d.sources.sources,
+    { ...d.sources.sources[0], id: 'lf-objectives-2025' }] }, waivers: { waived: [d.topics[0].id] } };
+  const bare = withTopics(shared, [{ ...d.topics[0],
+    official_sources: ['lf-objectives-2025'], additional_sources: [], candidate_evidence: [] }, d.topics[1]]);
+  assert.deepEqual(checkIndependentSourcing(bare).filter((f) => f.check === 'unsourced-concept'), []);
+});
+
+test('a waiver for a concept that now has a source is a stale-waiver warning', async () => {
+  const d = await dataset();
+  const withWaiver = { ...d, waivers: { waived: [d.topics[0].id] } };
+  const findings = checkIndependentSourcing(withWaiver);
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].severity, 'warn');
+  assert.match(findings[0].message, /now has an independent source/);
+});
+
+test('a hand-set importance that disagrees with the formula is an error', async () => {
+  const d = await dataset();
+  const wrong = withTopics(d, [{ ...d.topics[0], importance: 5 }, d.topics[1]]);
+  const findings = checkDerivedImportance(wrong);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /derived, never hand-set/);
+});
+
+test('objective_verbatim not equal to the competency is an error', async () => {
+  const d = await dataset();
+  const wrong = withTopics(d, [{ ...d.topics[0], objective_verbatim: 'something else' }, d.topics[1]]);
+  assert.equal(checkObjectiveMatchesCompetency(wrong).length, 1);
+});
+
+test('a competency not present in competencies.json is an error', async () => {
+  const d = await dataset();
+  const typo = withTopics(d, [{ ...d.topics[0], competency: 'Comand Line' }, d.topics[1]]);
+  const findings = checkKnownCompetency(typo);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /silently invents a competency/);
+});
+
+test('an out-of-set enum value is an error', async () => {
+  const d = await dataset();
+  for (const [field, bad] of [['coverage_status', 'SORT OF COVERED'], ['confidence', 'PROBABLY'], ['sept_2025_status', 'maybe']]) {
+    const wrong = withTopics(d, [{ ...d.topics[0], [field]: bad }, d.topics[1]]);
+    const findings = checkEnums(wrong);
+    assert.equal(findings.length, 1, `${field} should be rejected`);
+    assert.match(findings[0].message, new RegExp(field));
+  }
 });

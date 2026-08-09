@@ -15,7 +15,7 @@
       "inferred": false,
       "confidence": "HIGH",
       "required_depth": 2,
-      "importance": 3,
+      "importance": 2,
       "official_sources": [
         "tier1-example"
       ],

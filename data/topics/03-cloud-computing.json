@@ -33,7 +33,7 @@
         "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.essential-characteristics",
@@ -131,7 +131,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.paas",
@@ -164,7 +164,7 @@
         "cloud.cloud-computing.iaas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.saas",
@@ -197,7 +197,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.serverless-and-faas",
@@ -231,7 +231,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.public-cloud",
@@ -264,7 +264,7 @@
         "cloud.cloud-computing.private-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.private-cloud",
@@ -297,7 +297,7 @@
         "cloud.cloud-computing.public-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.hybrid-cloud",
@@ -332,7 +332,7 @@
         "cloud.cloud-computing.multi-cloud"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.multi-cloud",
@@ -365,7 +365,7 @@
         "cloud.cloud-computing.hybrid-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.virtualization",
@@ -399,7 +399,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.hypervisor",
@@ -433,7 +433,7 @@
         "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.virtual-machine",
@@ -467,7 +467,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.container-vs-virtual-machine",
@@ -502,7 +502,7 @@
         "cloud.cloud-computing.virtual-machine"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and very commonly tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison and very commonly tested. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.shared-responsibility-model",
@@ -600,7 +600,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.cloud-control-planes",
@@ -612,7 +612,7 @@
       ],
       "domain": "Cloud Computing Fundamentals",
       "competency": "Cloud Computing",
-      "description": "Web console, CLI, API and infrastructure-as-code are four ways to drive the same platform. Console work leaves no record; scripted CLI is repeatable; infrastructure-as-code adds declarative desired state and drift detection on top.",
+      "description": "Web console, CLI, API and infrastructure-as-code are four ways to drive the same platform. All of them are audit-logged by the provider; what differs is reproducibility — console work leaves no artifact you can review, re-run or diff, while infrastructure-as-code adds declarative desired state and drift detection.",
       "objective_verbatim": "Cloud Computing",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -666,7 +666,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.object-block-and-file-storage",
@@ -683,7 +683,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -697,7 +697,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Choosing the right one for a scenario is a likely question shape. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Choosing the right one for a scenario is a likely question shape. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.cloud-migration-approaches",
@@ -794,7 +794,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Translating nines into real downtime is a likely question. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Translating nines into real downtime is a likely question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.high-availability",
@@ -829,7 +829,7 @@
         "cloud.performance-availability.fault-tolerance"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.fault-tolerance",
@@ -862,7 +862,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.redundancy",
@@ -929,7 +929,7 @@
         "cloud.performance-availability.load-balancing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.scalability-vs-elasticity",
@@ -994,7 +994,7 @@
         "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.horizontal-scaling",
@@ -1027,7 +1027,7 @@
         "cloud.performance-availability.vertical-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Scaling up versus scaling out is a named comparison. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Scaling up versus scaling out is a named comparison. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.auto-scaling",
@@ -1095,7 +1095,7 @@
         "cloud.performance-availability.failover"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.stateless-design",
@@ -1128,7 +1128,7 @@
         "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.latency-and-throughput",
@@ -1194,7 +1194,7 @@
         "cloud.performance-availability.content-delivery-network"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.content-delivery-network",
@@ -1227,7 +1227,7 @@
         "cloud.performance-availability.caching"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.monitoring-and-metrics",
@@ -1244,7 +1244,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1260,7 +1260,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.sla-slo-and-sli",
@@ -1391,7 +1391,7 @@
         "cloud.budgeting.on-demand-reserved-and-spot-pricing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
@@ -1408,7 +1408,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1422,7 +1422,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Matching a pricing model to a workload is a likely scenario question. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Matching a pricing model to a workload is a likely scenario question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.total-cost-of-ownership",
@@ -1501,7 +1501,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1517,7 +1517,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.orphaned-resources",
@@ -1550,7 +1550,7 @@
         "cloud.budgeting.rightsizing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.data-egress-charges",
@@ -1631,7 +1631,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1645,7 +1645,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.chargeback-and-showback",
@@ -1709,7 +1709,7 @@
         "cloud.budgeting.budgets-and-cost-alerts"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
@@ -1743,7 +1743,7 @@
         "cloud.cloud-computing.object-block-and-file-storage"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.best-practices.design-for-failure",
@@ -1827,7 +1827,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1843,7 +1843,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.best-practices.immutable-infrastructure",
@@ -1876,7 +1876,7 @@
         "cloud.best-practices.automation-over-manual-configuration"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.best-practices.well-architected-review",
@@ -1888,7 +1888,7 @@
       ],
       "domain": "Cloud Computing Fundamentals",
       "competency": "Best Practices",
-      "description": "Assessing a design against the recognised pillars — operational excellence, security, reliability, performance efficiency and cost optimisation — rather than only against whether it works.",
+      "description": "Assessing a design against a recognised set of pillars rather than only against whether it works. AWS names six — operational excellence, security, reliability, performance efficiency, cost optimisation and sustainability; other providers publish comparable frameworks.",
       "objective_verbatim": "Best Practices",
       "sept_2025_status": "added",
       "inferred": true,
@@ -2271,7 +2271,7 @@
         "cloud.networking.cloud-subnets"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.cloud-subnets",
@@ -2288,7 +2288,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2304,7 +2304,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.public-vs-private-subnet",
@@ -2338,7 +2338,7 @@
         "cloud.networking.internet-gateway-and-nat-gateway"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.security-group-vs-network-acl",
@@ -2371,7 +2371,7 @@
         "sysadmin.networking.firewall"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The stateful/stateless difference is the crux and is easy to get backwards. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "The stateful/stateless difference is the crux and is easy to get backwards. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.internet-gateway-and-nat-gateway",
@@ -2388,7 +2388,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2405,7 +2405,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.public-and-elastic-ip-addresses",
@@ -2521,7 +2521,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2538,7 +2538,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.hybrid-connectivity",
@@ -2571,7 +2571,7 @@
         "cloud.networking.vpc-peering-and-private-connectivity"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.cloud-route-tables",

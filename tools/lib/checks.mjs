@@ -1,4 +1,5 @@
 import { sourceIndex, competencyKey } from './load.mjs';
+import { computeImportance } from './importance.mjs';
 
 const DEFAULTS = { inferredWarnRatio: 0.6 };
 
@@ -172,6 +173,86 @@ export function checkSourceSchema({ sources }) {
   return out;
 }
 
+/**
+ * The official-objectives source is attached to every concept, so a check that merely
+ * requires "a tier 1 or 2 source" is satisfied by a constant and proves nothing. This
+ * requires a primary source INDEPENDENT of it, with waivers named explicitly in
+ * data/sourcing-waivers.json rather than passing invisibly.
+ */
+const SHARED_OBJECTIVES_SOURCE = 'lf-objectives-2025';
+
+export function checkIndependentSourcing({ topics, sources, waivers }) {
+  const idx = sourceIndex(sources);
+  const waived = new Set(waivers?.waived ?? []);
+  const out = [];
+  for (const t of topics) {
+    const independent = allSourceRefs(t)
+      .filter((r) => r !== SHARED_OBJECTIVES_SOURCE)
+      .some((r) => (idx.get(r)?.authority_tier ?? 9) <= 2);
+    if (independent || waived.has(t.id)) continue;
+    out.push(finding('unsourced-concept', 'error', t.id,
+      `${t.id} cites no tier 1 or 2 source independent of ${SHARED_OBJECTIVES_SOURCE}, ` +
+      `and is not listed in data/sourcing-waivers.json`));
+  }
+  // A waiver that is no longer needed should be removed, or it hides a future regression.
+  for (const id of waived) {
+    const t = topics.find((x) => x.id === id);
+    if (!t) { out.push(finding('stale-waiver', 'warn', id, `Sourcing waiver names an unknown concept: ${id}`)); continue; }
+    const independent = allSourceRefs(t)
+      .filter((r) => r !== SHARED_OBJECTIVES_SOURCE)
+      .some((r) => (idx.get(r)?.authority_tier ?? 9) <= 2);
+    if (independent) out.push(finding('stale-waiver', 'warn', id,
+      `${id} now has an independent source; remove it from data/sourcing-waivers.json`));
+  }
+  return out;
+}
+
+export function checkDerivedImportance({ competencies, topics }) {
+  const weight = new Map(competencies.domains.map((d) => [d.name, d.weight]));
+  return topics
+    .filter((t) => t.importance !== computeImportance(weight.get(t.domain) ?? 0, 1))
+    .map((t) => finding('derived-importance', 'error', t.id,
+      `${t.id} stores importance ${t.importance}, but the formula yields ` +
+      `${computeImportance(weight.get(t.domain) ?? 0, 1)}. importance is derived, never hand-set.`));
+}
+
+export function checkObjectiveMatchesCompetency({ topics }) {
+  return topics
+    .filter((t) => t.objective_verbatim !== t.competency)
+    .map((t) => finding('objective-mismatch', 'error', t.id,
+      `${t.id} objective_verbatim ("${t.objective_verbatim}") does not equal its competency ` +
+      `("${t.competency}"). The competency name is the finest published objective text.`));
+}
+
+export function checkKnownCompetency({ competencies, topics }) {
+  const known = new Set(
+    competencies.domains.flatMap((d) => d.competencies.map((c) => competencyKey(d.name, c.name))));
+  return topics
+    .filter((t) => !known.has(competencyKey(t.domain, t.competency)))
+    .map((t) => finding('unknown-competency', 'error', t.id,
+      `${t.id} claims competency "${t.domain} :: ${t.competency}", which is not in ` +
+      `data/competencies.json. A typo here silently invents a competency.`));
+}
+
+const ENUMS = {
+  coverage_status: ['FULLY COVERED', 'PARTIALLY COVERED', 'MENTIONED ONLY', 'NOT COVERED', 'POSSIBLY OUTDATED'],
+  confidence: ['HIGH', 'MEDIUM', 'LOW'],
+  sept_2025_status: ['added', 'removed', 'reworded', 'unchanged', 'unknown'],
+};
+
+export function checkEnums({ topics }) {
+  const out = [];
+  for (const t of topics) {
+    for (const [field, allowed] of Object.entries(ENUMS)) {
+      if (!allowed.includes(t[field])) {
+        out.push(finding('invalid-enum', 'error', t.id,
+          `${t.id} has ${field}="${t[field]}", which is not one of: ${allowed.join(', ')}`));
+      }
+    }
+  }
+  return out;
+}
+
 export function runAllChecks(dataset, options = {}) {
   return [
     ...checkDuplicateIds(dataset),
@@ -187,5 +268,10 @@ export function runAllChecks(dataset, options = {}) {
     ...checkDanglingRelatedTopics(dataset),
     ...checkDanglingConfusedWith(dataset),
     ...checkSourceSchema(dataset),
+    ...checkIndependentSourcing(dataset),
+    ...checkDerivedImportance(dataset),
+    ...checkObjectiveMatchesCompetency(dataset),
+    ...checkKnownCompetency(dataset),
+    ...checkEnums(dataset),
   ];
 }

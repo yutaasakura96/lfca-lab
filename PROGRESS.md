@@ -135,7 +135,7 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
 
 ### Competency change set
 
-22 competencies: 8 unchanged, 8 reworded, 6 added. Six removed outright.
+22 competencies: 8 unchanged, 8 reworded, 6 added. **Seven** removed outright.
 
 - **Added** (no pre-2025 study material covers these): Command Line; Best Practices
   (System Administration); Disaster Recovery; Best Practices (Cloud); Networking (Cloud);
@@ -154,6 +154,71 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Corrections from the final whole-branch review
+
+An independent review of all 29 commits found one Critical and several Important defects that
+the per-task reviews had missed. All are fixed:
+
+**Factual errors still in the data** — four of them the stage-5 corrections that the controller
+bug had silently discarded:
+
+- `cloud.cloud-computing.cloud-control-planes` — **Critical.** Claimed "console work leaves no
+  record". False: AWS CloudTrail, Azure Activity Log and GCP Cloud Audit Logs all record console
+  actions by default, and the claim contradicted this dataset's own
+  `cloud.best-practices.logging-and-auditing-in-cloud`. A question bank built on it would have
+  taught that console changes are unauditable — a security misconception, not a trivia slip.
+  Now: console work leaves no *reproducible artifact*, which was the intended point and is true.
+- `sysadmin.system-administration.sticky-bit` — omitted the directory's owner and privileged
+  processes, who can also delete (`inode(7)`, POSIX.1-2008).
+- `sysadmin.disaster-recovery.hot-warm-and-cold-sites` — said a warm site has hardware **and
+  data**. Per NIST SP 800-34r1 a warm site is partially equipped and data must be restored. As
+  written, warm and hot were indistinguishable on exactly the axis the question tests.
+- `cloud.best-practices.well-architected-review` — five pillars given as "the recognised
+  pillars"; AWS has had six since Sustainability was added in December 2021.
+- `sysadmin.system-administration.etc-shadow` — `0640 root:shadow` is Debian-family only; Red
+  Hat ships `0000 root:root`. Now states both.
+- Three lesser ones: the phishing "most common initial access route" superlative (DBIR 2025
+  ranks credential abuse higher), `nice` ignoring `RLIMIT_NICE`, and `risk-assessment` folding
+  risk *response* into risk *assessment*.
+- `linux.command-line.and` — a degenerate id: the concept ". .. and ~" slugged to `and`, so a
+  study guide keyed on ids would have rendered a topic called "and". Renamed.
+
+**The depth rule was not applied as this document claimed.** It said "any concept with a
+`confused_with` entry is Application level". Two defects:
+
+1. The `confused_with` graph is directed, and the rule read only the *outgoing* edge. 32
+   concepts that were merely the **target** of a named pair were never lifted — including
+   `authentication-vs-authorization`, `cia-triad`, `tls-and-https` and
+   `principle-of-least-privilege`, all in a 14%-weight domain and all textbook comparison
+   targets. The graph is now treated as undirected.
+2. The downward floor rule was gated on `importance >= 4` — which, because `importance` derives
+   from domain weight, is reachable **only** by System Administration. This is the identical
+   defect this document congratulates itself on having fixed one paragraph earlier, repeated in
+   the guardrail meant to catch it. Recognition is now a single reviewed editorial list, and the
+   guardrail checks that nothing reaches level 1 by accident instead.
+
+Revised distribution: **L1 39 (7.3%), L2 156 (29.1%), L3 321 (59.8%), L4 15 (2.8%), L5 6
+(1.1%)**. Above-Application stays at 3.9%, so there is still no LFCS/CKA drift. Security's mean
+depth rose from 2.31 to 2.52 once its comparison targets were lifted.
+
+**Three of the thirteen checks could not fire.** Every concept carries exactly
+`official_sources: ["lf-objectives-2025"]`, so `missing-sources`, `weak-sources` and
+`unknown-currency` were dead, and the definition-of-done row "every concept cites a tier-1/2
+source — 537/537" was measuring that a constant had been written 537 times. Five checks were
+added (18 total, 49 tests):
+
+- `unsourced-concept` — requires a tier-1/2 source **independent of** the shared objectives
+  source. The 57 concepts that cannot meet it are now waived **by name** in
+  `data/sourcing-waivers.json` with the reason recorded, instead of passing invisibly.
+  `stale-waiver` warns when a waiver is no longer needed.
+- `derived-importance` — the stored `importance` must equal the formula. The whole argument for
+  that field is that it is derived and reproducible, and nothing was checking it.
+- `objective-mismatch`, `unknown-competency`, `invalid-enum` — three more load-bearing
+  invariants that held by luck rather than by enforcement, and would not have survived three
+  more cycles of edits to `data/`.
+
+`tools/lib/load.mjs` now names the offending file in IO and JSON parse errors.
 
 ### Stage 7: depth assigned, with the guardrail run in both directions
 
@@ -199,14 +264,23 @@ against primary sources (RFCs, NIST, kernel.org, GNU, systemd, git-scm, kubernet
 NIST SP 800-145, OSI/SPDX, the Scrum Guide). Every claimed error was then handed to an
 independent agent instructed to **refute** it, defaulting to "the original was fine".
 
-**11 corrections were proposed. 8 were refuted and discarded. 3 survived and were applied.**
+**11 corrections were proposed. 3 were confirmed by adversarial review and applied. 8 were
+recorded as rejected — but that number was, as first written, overstated.**
 
-That ratio is the point of the exercise. Several refutations caught corrections that would
-have made the dataset actively worse — most notably a proposed rewrite of `/etc/shadow` that
-asserted "not readable by ordinary users" and then, in its own next clause, said Debian ships
-it group-readable to `shadow`. The refuter also correctly rejected corrections that were true
-but at the wrong altitude for an entry-level exam (per-distribution octal modes, the sixth AWS
-Well-Architected pillar, Verizon DBIR initial-access rankings).
+The correction is worth stating plainly, because the first version of this section took credit
+the process had not earned. A controller bug (documented in the ledger) keyed verdicts off a
+content hash rather than the agent label, so the pairing was lost and all 8 fell through to
+"rejected" with `"no verdict recorded"` in `.superpowers/sdd/stage5-results.json`. Genuine
+refutation reasoning exists for only three of them. The refuter did do real work — it caught a
+proposed `/etc/shadow` rewrite that asserted "not readable by ordinary users" and then
+contradicted itself in its own next clause — but "8 were refuted" implied eight reasoned
+judgements when there were three.
+
+The final whole-branch review re-checked the eight against primary sources and found **four
+were genuine errors that had survived**. All four have now been fixed (see "Corrections from
+the final review" below). The lesson recorded here for later cycles: an adversarial layer only
+counts the verdicts it actually returns, and a silent default-to-reject looks exactly like a
+confident refutation in the summary.
 
 **The three corrections that survived**, all genuine and all exam-relevant:
 
@@ -365,7 +439,7 @@ were added (owner-approved deviation from the plan):
   that source pass `weak-sources` unnoticed, a latent hole that would have widened as stages 5
   and 6 add many sources
 
-Thirteen checks now. 33 tests passing.
+Eighteen checks now. 49 tests passing.
 
 ### Tooling defect found and fixed during stage 1
 

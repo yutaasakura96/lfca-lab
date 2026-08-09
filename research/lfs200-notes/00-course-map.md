@@ -40,8 +40,12 @@ Three passes:
 
 ## Structure
 
-12 sections, 47 lessons, **158,185 characters** of instructional text. Ten lessons are
-quiz-only "Knowledge Check" pages with no text.
+12 sections, 47 lessons, **158,185 characters** of instructional text.
+
+The table below lists the **25 lessons carrying substantive content**, which account for
+149,989 characters. The remaining 22 lessons are 10 quiz-only "Knowledge Check" pages with no
+text at all, and 12 short chapter "Introduction" and course-completion pages totalling 8,196
+characters. 149,989 + 8,196 = 158,185.
 
 | Ref | Section :: Lesson | Chars |
 | --- | --- | ---: |
@@ -197,8 +201,11 @@ the clearest example of the lower-bound caveat: ch7.l3 genuinely teaches trouble
 1. **Completing LFS200 is not sufficient**, and the gap is structural rather than a matter of
    depth. Six competencies have no lesson, and four of those six are new in 2025.
 2. **The highest-risk areas are Disaster Recovery, Compliance, Cloud Performance/Availability,
-   Cloud Networking, and both Best Practices competencies.** Together these are 93 concepts, and
-   the course addresses essentially none of them.
+   Cloud Networking, and both Best Practices competencies.** Together these are **98 concepts**
+   (Disaster Recovery 18, Compliance 14, Cloud Performance/Availability 17, Cloud Networking 14,
+   SysAdmin Best Practices 20, Cloud Best Practices 15), and the course addresses essentially
+   none of them. The six competencies with literally no lesson are 92 of those 98; Disaster
+   Recovery has a lesson of one character.
 3. **Cloud is the worst weight-to-coverage ratio on the exam:** 18% of marks, one lesson.
 4. **Containers need outside study.** The course's Containers lesson never mentions Docker,
    images, registries, or orchestration.

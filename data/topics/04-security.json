@@ -15,7 +15,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -30,7 +30,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Mapping a given control or incident onto the right leg of the triad is a likely question. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Mapping a given control or incident onto the right leg of the triad is a likely question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.authentication-vs-authorization",
@@ -47,7 +47,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -62,7 +62,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and among the most commonly confused pairs on this exam. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "A named comparison and among the most commonly confused pairs on this exam. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.accounting-and-auditing",
@@ -96,7 +96,7 @@
         "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.principle-of-least-privilege",
@@ -113,7 +113,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -130,7 +130,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.defense-in-depth",
@@ -164,7 +164,7 @@
         "security.security.principle-of-least-privilege"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.zero-trust",
@@ -181,7 +181,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 1,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -196,7 +196,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.attack-surface",
@@ -230,7 +230,7 @@
         "security.security.vulnerabilities-cves-and-patching"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.risk-threat-and-vulnerability",
@@ -295,7 +295,7 @@
         "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.password-hashing-and-salting",
@@ -329,7 +329,7 @@
         "security.security.symmetric-vs-asymmetric-encryption"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Hashing is one-way and is not encryption; conflating them is a common error. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Hashing is one-way and is not encryption; conflating them is a common error. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.single-sign-on",
@@ -346,7 +346,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 1,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -360,7 +360,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.public-key-authentication",
@@ -415,7 +415,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -430,7 +430,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; the reason both exist together in TLS is the insight. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "A named comparison; the reason both exist together in TLS is the insight. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.encryption-at-rest-vs-in-transit",
@@ -532,7 +532,7 @@
         "security.security.tls-and-https"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.tls-and-https",
@@ -549,7 +549,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -568,7 +568,7 @@
       ],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.certificate-expiry-and-validation",
@@ -601,7 +601,7 @@
         "security.security.digital-certificates-and-certificate-authorities"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.full-disk-encryption",
@@ -647,12 +647,12 @@
       ],
       "domain": "Security Fundamentals",
       "competency": "Security",
-      "description": "Manipulating people rather than technology, and the most common initial access route in practice.",
+      "description": "Manipulating people rather than technology, and one of the most common routes to initial access. Technical controls only partly mitigate it, which is why user awareness is the named defence.",
       "objective_verbatim": "Security",
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -667,7 +667,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Technical controls do not fully mitigate this; user awareness is the named defence. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Technical controls do not fully mitigate this; user awareness is the named defence. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.malware-and-ransomware",
@@ -684,7 +684,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -700,7 +700,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.denial-of-service",
@@ -733,7 +733,7 @@
         "security.security.malware-and-ransomware"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.man-in-the-middle",
@@ -801,7 +801,7 @@
         "security.security.phishing-and-social-engineering"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.injection-attacks",
@@ -915,7 +915,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -932,7 +932,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.system-hardening",
@@ -1016,7 +1016,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1030,7 +1030,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.security-logging-and-monitoring",
@@ -1273,7 +1273,7 @@
         "security.security.intrusion-detection-and-prevention"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.personally-identifiable-information",
@@ -1307,7 +1307,7 @@
         "security.sensitive-data.data-classification"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.protected-health-and-payment-data",
@@ -1374,7 +1374,7 @@
         "security.sensitive-data.personally-identifiable-information"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.data-states",
@@ -1425,7 +1425,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1440,7 +1440,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.encryption-key-management",
@@ -1587,7 +1587,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1604,7 +1604,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.secure-deletion",
@@ -1736,7 +1736,7 @@
         "security.security.cia-triad"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.policy-standard-and-procedure",
@@ -1800,7 +1800,7 @@
         "security.compliance.audit"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.audit",
@@ -1834,7 +1834,7 @@
         "security.compliance.controls-and-evidence"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.risk-assessment",
@@ -1846,7 +1846,7 @@
       ],
       "domain": "Security Fundamentals",
       "competency": "Compliance",
-      "description": "Identifying risks and deciding whether to mitigate, transfer, accept, or avoid each.",
+      "description": "Identifying risks and estimating their likelihood and impact so they can be prioritised. Deciding what to do about each — mitigate, transfer, accept or avoid — is risk response, a separate activity that follows from the assessment.",
       "objective_verbatim": "Compliance",
       "sept_2025_status": "added",
       "inferred": true,
@@ -1885,7 +1885,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1899,7 +1899,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.hipaa",
@@ -1963,7 +1963,7 @@
         "security.compliance.gdpr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Contractual rather than governmental, unlike GDPR and HIPAA. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Contractual rather than governmental, unlike GDPR and HIPAA. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.soc-2-and-iso-27001",
@@ -2061,7 +2061,7 @@
         "security.sensitive-data.data-retention-and-disposal"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.consent-and-lawful-basis",

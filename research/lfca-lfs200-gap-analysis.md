@@ -22,7 +22,7 @@
 | sysadmin.system-administration.suid | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.sgid | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.sticky-bit | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
-| sysadmin.system-administration.root-and-least-privilege | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
+| sysadmin.system-administration.root-and-least-privilege | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.sudo-vs-su | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.etc-sudoers-and-visudo | System Administration Fundamentals | System Administration | NOT COVERED | 5 | 4 |
 | sysadmin.system-administration.pid-and-ppid | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
@@ -30,7 +30,7 @@
 | sysadmin.system-administration.signals | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.process-priority-and-nice | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.daemon | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
-| sysadmin.system-administration.zombie-and-orphan-processes | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
+| sysadmin.system-administration.zombie-and-orphan-processes | System Administration Fundamentals | System Administration | NOT COVERED | 1 | 4 |
 | sysadmin.system-administration.unit-and-unit-file | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.systemd-target | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.runlevel | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
@@ -39,14 +39,14 @@
 | sysadmin.system-administration.apt-and-dpkg | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.dnf-yum-and-rpm | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.update-vs-upgrade | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
-| sysadmin.system-administration.patch-management | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
+| sysadmin.system-administration.patch-management | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.etc | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
 | sysadmin.system-administration.var | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
 | sysadmin.system-administration.dev | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.etc-fstab | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.hard-link-vs-symbolic-link | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.disk-usage-vs-free-space | System Administration Fundamentals | System Administration | NOT COVERED | 4 | 4 |
-| sysadmin.system-administration.lvm | System Administration Fundamentals | System Administration | NOT COVERED | 2 | 4 |
+| sysadmin.system-administration.lvm | System Administration Fundamentals | System Administration | NOT COVERED | 1 | 4 |
 | sysadmin.system-administration.raid-levels | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.cron | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.crontab-syntax | System Administration Fundamentals | System Administration | NOT COVERED | 5 | 4 |
@@ -58,7 +58,7 @@
 | sysadmin.system-administration.bios-vs-uefi | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.bootloader-and-grub | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
 | sysadmin.system-administration.kernel | System Administration Fundamentals | System Administration | NOT COVERED | 3 | 4 |
-| sysadmin.best-practices.documentation | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
+| sysadmin.best-practices.documentation | System Administration Fundamentals | Best Practices | NOT COVERED | 3 | 4 |
 | sysadmin.best-practices.change-management | System Administration Fundamentals | Best Practices | NOT COVERED | 3 | 4 |
 | sysadmin.best-practices.standardization | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
 | sysadmin.best-practices.naming-conventions | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
@@ -76,8 +76,8 @@
 | sysadmin.best-practices.user-onboarding-and-offboarding | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
 | sysadmin.best-practices.backup-before-change | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
 | sysadmin.best-practices.patch-cadence | System Administration Fundamentals | Best Practices | NOT COVERED | 3 | 4 |
-| sysadmin.best-practices.principle-of-least-astonishment | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
-| sysadmin.best-practices.service-ownership | System Administration Fundamentals | Best Practices | NOT COVERED | 2 | 4 |
+| sysadmin.best-practices.principle-of-least-astonishment | System Administration Fundamentals | Best Practices | NOT COVERED | 1 | 4 |
+| sysadmin.best-practices.service-ownership | System Administration Fundamentals | Best Practices | NOT COVERED | 1 | 4 |
 | sysadmin.networking.osi-model | System Administration Fundamentals | Networking | NOT COVERED | 3 | 4 |
 | sysadmin.networking.tcp-ip-model | System Administration Fundamentals | Networking | NOT COVERED | 3 | 4 |
 | sysadmin.networking.ipv4-address | System Administration Fundamentals | Networking | NOT COVERED | 3 | 4 |
@@ -116,7 +116,7 @@
 | sysadmin.networking.ss-and-netstat | System Administration Fundamentals | Networking | NOT COVERED | 4 | 4 |
 | sysadmin.networking.dig-and-nslookup | System Administration Fundamentals | Networking | NOT COVERED | 4 | 4 |
 | sysadmin.networking.curl-and-wget | System Administration Fundamentals | Networking | NOT COVERED | 3 | 4 |
-| sysadmin.networking.tcpdump | System Administration Fundamentals | Networking | NOT COVERED | 2 | 4 |
+| sysadmin.networking.tcpdump | System Administration Fundamentals | Networking | NOT COVERED | 1 | 4 |
 | sysadmin.networking.network-interface-naming | System Administration Fundamentals | Networking | NOT COVERED | 3 | 4 |
 | sysadmin.troubleshooting.structured-troubleshooting-method | System Administration Fundamentals | Troubleshooting | NOT COVERED | 4 | 4 |
 | sysadmin.troubleshooting.narrowing-scope | System Administration Fundamentals | Troubleshooting | NOT COVERED | 3 | 4 |
@@ -138,7 +138,7 @@
 | sysadmin.disaster-recovery.snapshot | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.replication | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.3-2-1-rule | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
-| sysadmin.disaster-recovery.restore-testing | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
+| sysadmin.disaster-recovery.restore-testing | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.backup-retention | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
 | sysadmin.disaster-recovery.rpo | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.rto | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
@@ -147,7 +147,7 @@
 | sysadmin.disaster-recovery.high-availability-vs-disaster-recovery | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.redundancy-and-single-points-of-failure | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
 | sysadmin.disaster-recovery.failover-and-failback | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
-| sysadmin.disaster-recovery.mttr-and-mtbf | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
+| sysadmin.disaster-recovery.mttr-and-mtbf | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 1 | 4 |
 | sysadmin.disaster-recovery.off-site-and-geographic-redundancy | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 2 | 4 |
 | sysadmin.disaster-recovery.hot-warm-and-cold-sites | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
 | sysadmin.disaster-recovery.disaster-recovery-drill | System Administration Fundamentals | Disaster Recovery | NOT COVERED | 3 | 4 |
@@ -176,7 +176,7 @@
 | linux.linux-operating-system.system-information-commands | Linux Fundamentals | Linux Operating System | NOT COVERED | 3 | 2 |
 | linux.command-line.getting-help | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
 | linux.command-line.absolute-vs-relative-paths | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
-| linux.command-line.and | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
+| linux.command-line.dot-dotdot-and-tilde | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
 | linux.command-line.navigating-the-filesystem | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
 | linux.command-line.root-directory-vs-root-vs-home | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
 | linux.command-line.creating-and-removing-files-and-directories | Linux Fundamentals | Command Line | NOT COVERED | 3 | 2 |
@@ -227,7 +227,7 @@
 | cloud.cloud-computing.managed-services | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 3 | 2 |
 | cloud.cloud-computing.cloud-control-planes | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 2 | 2 |
 | cloud.cloud-computing.service-level-agreement | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 3 | 2 |
-| cloud.cloud-computing.object-block-and-file-storage | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 2 | 2 |
+| cloud.cloud-computing.object-block-and-file-storage | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 3 | 2 |
 | cloud.cloud-computing.cloud-migration-approaches | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 2 | 2 |
 | cloud.cloud-computing.vendor-lock-in | Cloud Computing Fundamentals | Cloud Computing | NOT COVERED | 2 | 2 |
 | cloud.performance-availability.availability | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 3 | 2 |
@@ -244,25 +244,25 @@
 | cloud.performance-availability.latency-and-throughput | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 2 | 2 |
 | cloud.performance-availability.caching | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 3 | 2 |
 | cloud.performance-availability.content-delivery-network | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 3 | 2 |
-| cloud.performance-availability.monitoring-and-metrics | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 2 | 2 |
+| cloud.performance-availability.monitoring-and-metrics | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 3 | 2 |
 | cloud.performance-availability.sla-slo-and-sli | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 1 | 2 |
 | cloud.performance-availability.bottleneck-identification | Cloud Computing Fundamentals | Performance/Availability | NOT COVERED | 2 | 2 |
 | cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
 | cloud.budgeting.pay-as-you-go | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
-| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
+| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.budgeting.total-cost-of-ownership | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 1 | 2 |
 | cloud.budgeting.free-tier-and-pricing-calculators | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
-| cloud.budgeting.rightsizing | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
+| cloud.budgeting.rightsizing | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.budgeting.orphaned-resources | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.budgeting.data-egress-charges | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
 | cloud.budgeting.resource-tagging | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
-| cloud.budgeting.budgets-and-cost-alerts | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 2 | 2 |
+| cloud.budgeting.budgets-and-cost-alerts | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.budgeting.chargeback-and-showback | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 1 | 2 |
 | cloud.budgeting.cost-monitoring | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.budgeting.storage-tiers-and-lifecycle-policies | Cloud Computing Fundamentals | Budgeting | NOT COVERED | 3 | 2 |
 | cloud.best-practices.design-for-failure | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
 | cloud.best-practices.multi-zone-deployment | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
-| cloud.best-practices.automation-over-manual-configuration | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
+| cloud.best-practices.automation-over-manual-configuration | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 3 | 2 |
 | cloud.best-practices.immutable-infrastructure | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 3 | 2 |
 | cloud.best-practices.well-architected-review | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
 | cloud.best-practices.identity-and-access-management | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
@@ -276,49 +276,49 @@
 | cloud.best-practices.right-size-before-you-scale | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
 | cloud.best-practices.health-checks-and-graceful-shutdown | Cloud Computing Fundamentals | Best Practices | NOT COVERED | 2 | 2 |
 | cloud.networking.virtual-private-cloud | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
-| cloud.networking.cloud-subnets | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
+| cloud.networking.cloud-subnets | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
 | cloud.networking.public-vs-private-subnet | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
 | cloud.networking.security-group-vs-network-acl | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
-| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
+| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
 | cloud.networking.public-and-elastic-ip-addresses | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
 | cloud.networking.cloud-dns | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
 | cloud.networking.cloud-load-balancer-types | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
-| cloud.networking.vpc-peering-and-private-connectivity | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
+| cloud.networking.vpc-peering-and-private-connectivity | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
 | cloud.networking.hybrid-connectivity | Cloud Computing Fundamentals | Networking | NOT COVERED | 3 | 2 |
 | cloud.networking.cloud-route-tables | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
 | cloud.networking.bastion-and-jump-hosts | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
 | cloud.networking.cidr-planning-for-cloud-networks | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
 | cloud.networking.private-service-endpoints | Cloud Computing Fundamentals | Networking | NOT COVERED | 2 | 2 |
-| security.security.cia-triad | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
-| security.security.authentication-vs-authorization | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.cia-triad | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
+| security.security.authentication-vs-authorization | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.accounting-and-auditing | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
-| security.security.principle-of-least-privilege | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.principle-of-least-privilege | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.defense-in-depth | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
-| security.security.zero-trust | Security Fundamentals | Security | NOT COVERED | 1 | 2 |
+| security.security.zero-trust | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.attack-surface | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.risk-threat-and-vulnerability | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.multi-factor-authentication | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.password-hashing-and-salting | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
-| security.security.single-sign-on | Security Fundamentals | Security | NOT COVERED | 1 | 2 |
+| security.security.single-sign-on | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.public-key-authentication | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
-| security.security.symmetric-vs-asymmetric-encryption | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.symmetric-vs-asymmetric-encryption | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.hashing | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.certificate-expiry-and-validation | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.full-disk-encryption | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
-| security.security.phishing-and-social-engineering | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
-| security.security.malware-and-ransomware | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.phishing-and-social-engineering | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
+| security.security.malware-and-ransomware | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.denial-of-service | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.man-in-the-middle | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.brute-force-and-credential-stuffing | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.injection-attacks | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.privilege-escalation | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.insider-threat | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
-| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.system-hardening | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.firewalls-and-network-segmentation | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
-| security.security.intrusion-detection-and-prevention | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
+| security.security.intrusion-detection-and-prevention | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.security-logging-and-monitoring | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.incident-response | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.physical-security | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
@@ -328,12 +328,12 @@
 | security.sensitive-data.protected-health-and-payment-data | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.data-classification | Security Fundamentals | Sensitive Data | NOT COVERED | 3 | 2 |
 | security.sensitive-data.data-states | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
-| security.sensitive-data.access-control-models | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
+| security.sensitive-data.access-control-models | Security Fundamentals | Sensitive Data | NOT COVERED | 3 | 2 |
 | security.sensitive-data.encryption-key-management | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.secrets-management | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.masking-anonymization-and-pseudonymization | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.data-loss-prevention | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
-| security.sensitive-data.data-retention-and-disposal | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
+| security.sensitive-data.data-retention-and-disposal | Security Fundamentals | Sensitive Data | NOT COVERED | 3 | 2 |
 | security.sensitive-data.secure-deletion | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.data-breach-and-notification | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
 | security.sensitive-data.backups-of-sensitive-data | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |
@@ -342,7 +342,7 @@
 | security.compliance.controls-and-evidence | Security Fundamentals | Compliance | NOT COVERED | 3 | 2 |
 | security.compliance.audit | Security Fundamentals | Compliance | NOT COVERED | 3 | 2 |
 | security.compliance.risk-assessment | Security Fundamentals | Compliance | NOT COVERED | 2 | 2 |
-| security.compliance.gdpr | Security Fundamentals | Compliance | NOT COVERED | 2 | 2 |
+| security.compliance.gdpr | Security Fundamentals | Compliance | NOT COVERED | 3 | 2 |
 | security.compliance.hipaa | Security Fundamentals | Compliance | NOT COVERED | 2 | 2 |
 | security.compliance.pci-dss | Security Fundamentals | Compliance | NOT COVERED | 3 | 2 |
 | security.compliance.soc-2-and-iso-27001 | Security Fundamentals | Compliance | NOT COVERED | 1 | 2 |
@@ -409,16 +409,16 @@
 | devops.containers.control-plane | DevOps Fundamentals | Containers | NOT COVERED | 2 | 1 |
 | devops.containers.declarative-configuration-and-desired-state | DevOps Fundamentals | Containers | NOT COVERED | 2 | 1 |
 | devops.containers.cncf | DevOps Fundamentals | Containers | NOT COVERED | 2 | 1 |
-| pm.project-management.triple-constraint | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
+| pm.project-management.triple-constraint | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.stakeholder | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
 | pm.project-management.deliverable-and-milestone | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.software-development-lifecycle | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
 | pm.project-management.scrum | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.scrum-roles | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
-| pm.project-management.scrum-ceremonies | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
+| pm.project-management.scrum-ceremonies | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.product-and-sprint-backlog | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
 | pm.project-management.kanban | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
-| pm.project-management.user-story | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
+| pm.project-management.user-story | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.acceptance-criteria | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.definition-of-done | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.minimum-viable-product | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
@@ -427,7 +427,7 @@
 | pm.project-management.critical-path | IT Project Management Fundamentals | Project Management | NOT COVERED | 1 | 1 |
 | pm.project-management.work-breakdown-structure | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.risk-management | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
-| pm.project-management.scope-creep | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
+| pm.project-management.scope-creep | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.change-control | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.project-management.raci | IT Project Management Fundamentals | Project Management | NOT COVERED | 1 | 1 |
 | pm.project-management.issue-tracking | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
@@ -435,7 +435,7 @@
 | pm.project-management.communication-plan | IT Project Management Fundamentals | Project Management | NOT COVERED | 2 | 1 |
 | pm.project-management.project-closure-and-lessons-learned | IT Project Management Fundamentals | Project Management | NOT COVERED | 3 | 1 |
 | pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 2 | 1 |
-| pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 2 | 1 |
+| pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 3 | 1 |
 | pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 3 | 1 |
 | pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 3 | 1 |
 | pm.software-application-architecture.api | IT Project Management Fundamentals | Software Application Architecture | NOT COVERED | 3 | 1 |
@@ -511,4 +511,4 @@
 | devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | DevOps Basics | PARTIALLY COVERED | 3 | 1 |
 | pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 1 |
 | pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 1 |
-| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | Open Source Software and Licensing | PARTIALLY COVERED | 2 | 1 |
+| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 1 |

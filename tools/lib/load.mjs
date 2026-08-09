@@ -2,7 +2,17 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 async function readJson(path) {
-  return JSON.parse(await readFile(path, 'utf8'));
+  let raw;
+  try {
+    raw = await readFile(path, 'utf8');
+  } catch (cause) {
+    throw new Error(`Could not read dataset file: ${path}`, { cause });
+  }
+  try {
+    return JSON.parse(raw);
+  } catch (cause) {
+    throw new Error(`Malformed JSON in dataset file: ${path}`, { cause });
+  }
 }
 
 export function competencyKey(domainName, competencyName) {
@@ -16,6 +26,9 @@ export function sourceIndex(sources) {
 export async function loadDataset(rootDir) {
   const competencies = await readJson(join(rootDir, 'competencies.json'));
   const sources = await readJson(join(rootDir, 'sources.json'));
+  // Optional: absent in the fixtures, present in the real dataset.
+  let waivers = { waived: [] };
+  try { waivers = await readJson(join(rootDir, 'sourcing-waivers.json')); } catch { /* none */ }
 
   const topics = [];
   for (const domain of competencies.domains) {
@@ -25,5 +38,5 @@ export async function loadDataset(rootDir) {
     }
   }
 
-  return { competencies, sources, topics };
+  return { competencies, sources, topics, waivers };
 }

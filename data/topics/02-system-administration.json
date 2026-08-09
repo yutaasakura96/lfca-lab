@@ -208,7 +208,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "Holds password hashes and ageing policy. Typically owned root:shadow with mode 0640, so it is readable by root and the shadow group rather than root alone — which is why hashes moved here out of the world-readable /etc/passwd.",
+      "description": "Holds password hashes and ageing policy, and is never world-readable — which is why hashes moved here out of /etc/passwd. Exact permissions are distribution-specific: Debian-family systems ship it 0640 root:shadow, so the shadow group can read it, while Red Hat-family systems ship it 0000 root:root.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -340,7 +340,7 @@
         "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.password-policy-and-ageing",
@@ -636,7 +636,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "On a shared-writable directory, restricts deletion to the file’s owner. This is why /tmp is world-writable yet users cannot delete each other’s files.",
+      "description": "On a shared-writable directory, restricts deletion and renaming of a file to the file's owner, the directory's owner, or a privileged process. This is why /tmp is world-writable yet users cannot delete each other's files.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -678,7 +678,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -695,7 +695,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.sudo-vs-su",
@@ -928,7 +928,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "The nice value biases CPU scheduling, from -20 (greediest) to 19. An unprivileged user may only ever raise its own niceness; lowering it at all requires root or CAP_SYS_NICE.",
+      "description": "The nice value biases CPU scheduling, from -20 (greediest) to 19. Raising your own niceness is always allowed; lowering it requires root or CAP_SYS_NICE unless the administrator has raised RLIMIT_NICE, which defaults to no allowance.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -988,7 +988,7 @@
         "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.zombie-and-orphan-processes",
@@ -1005,7 +1005,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1024,7 +1024,7 @@
         "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.system-administration.service",
@@ -1312,7 +1312,7 @@
         "sysadmin.system-administration.repository"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.repository",
@@ -1346,7 +1346,7 @@
         "sysadmin.system-administration.package"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "package vs repository is a named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "package vs repository is a named comparison for this exam. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.dependency",
@@ -1514,7 +1514,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1531,7 +1531,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.filesystem-hierarchy-standard",
@@ -1566,7 +1566,7 @@
         "sysadmin.system-administration.filesystem-type"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.etc",
@@ -1810,7 +1810,7 @@
         "sysadmin.system-administration.proc-and-sys"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.filesystem-type",
@@ -2130,7 +2130,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2148,7 +2148,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.system-administration.raid-levels",
@@ -2184,7 +2184,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.cron",
@@ -2358,7 +2358,7 @@
         "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.journald",
@@ -2504,7 +2504,7 @@
         "sysadmin.system-administration.bootloader-and-grub"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.bootloader-and-grub",
@@ -2592,7 +2592,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2606,7 +2606,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.change-management",
@@ -2639,7 +2639,7 @@
         "devops.git-concepts.version-control"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.standardization",
@@ -2732,7 +2732,7 @@
         "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.configuration-management",
@@ -2765,7 +2765,7 @@
         "sysadmin.best-practices.automation-and-idempotency"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.version-control-for-configuration",
@@ -2864,7 +2864,7 @@
         "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.capacity-planning",
@@ -2990,7 +2990,7 @@
         "sysadmin.best-practices.documentation"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.asset-and-inventory-management",
@@ -3152,7 +3152,7 @@
         "sysadmin.system-administration.patch-management"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.principle-of-least-astonishment",
@@ -3169,7 +3169,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "LOW",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3181,7 +3181,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.best-practices.service-ownership",
@@ -3198,7 +3198,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3210,7 +3210,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.networking.osi-model",
@@ -3243,7 +3243,7 @@
         "sysadmin.networking.tcp-ip-model"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Layer numbering and what lives at each layer are commonly tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Layer numbering and what lives at each layer are commonly tested. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.tcp-ip-model",
@@ -3277,7 +3277,7 @@
         "sysadmin.networking.osi-model"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.ipv4-address",
@@ -3421,7 +3421,7 @@
         "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.private-vs-public-ip-addresses",
@@ -3455,7 +3455,7 @@
         "sysadmin.networking.nat"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison for this exam. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.loopback-address",
@@ -3523,7 +3523,7 @@
         "sysadmin.networking.dhcp"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.mac-address",
@@ -3630,7 +3630,7 @@
         "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.default-gateway",
@@ -3736,7 +3736,7 @@
         "sysadmin.networking.mac-address"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.nat",
@@ -3770,7 +3770,7 @@
         "sysadmin.networking.private-vs-public-ip-addresses"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.vlan",
@@ -3910,7 +3910,7 @@
         "sysadmin.networking.etc-hosts"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.etc-hosts",
@@ -3944,7 +3944,7 @@
         "sysadmin.networking.etc-resolv-conf"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.dns-record-types",
@@ -4082,7 +4082,7 @@
         "sysadmin.networking.dns"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.dhcp-lease",
@@ -4149,7 +4149,7 @@
         "sysadmin.networking.static-vs-dynamic-addressing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.tcp-vs-udp",
@@ -4434,7 +4434,7 @@
         "sysadmin.networking.load-balancer"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.load-balancer",
@@ -4469,7 +4469,7 @@
         "sysadmin.networking.proxy"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.vpn",
@@ -4865,7 +4865,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4881,7 +4881,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.networking.network-interface-naming",
@@ -5525,7 +5525,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.replication",
@@ -5558,7 +5558,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.3-2-1-rule",
@@ -5606,7 +5606,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": 2,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5620,7 +5620,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The most commonly skipped step, and the one that turns a backup into a recovery. Depth rationale: conceptual: explain what it is and why it exists."
+      "notes": "The most commonly skipped step, and the one that turns a backup into a recovery. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.backup-retention",
@@ -5687,7 +5687,7 @@
         "sysadmin.disaster-recovery.rto"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.rto",
@@ -5721,7 +5721,7 @@
         "sysadmin.disaster-recovery.rpo"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.disaster-recovery-plan",
@@ -5755,7 +5755,7 @@
         "sysadmin.disaster-recovery.business-continuity"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.business-continuity",
@@ -5789,7 +5789,7 @@
         "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
@@ -5824,7 +5824,7 @@
         "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "A named comparison for this exam. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure",
@@ -5890,7 +5890,7 @@
         "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.mttr-and-mtbf",
@@ -5907,7 +5907,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": 2,
+      "required_depth": 1,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5919,7 +5919,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy",
@@ -5964,7 +5964,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "Disaster Recovery",
-      "description": "A hot site is fully running and can take over immediately; a warm site has hardware and data but needs bringing up; a cold site is space and power only. Cost falls and recovery time rises as you move from hot to cold.",
+      "description": "A hot site is fully equipped and running with current data, so it can take over almost immediately; a warm site is partially equipped and holds hardware but not current data, which must be restored before it can serve; a cold site is space, power and connectivity only. Cost falls and recovery time rises as you move from hot to cold.",
       "objective_verbatim": "Disaster Recovery",
       "sept_2025_status": "added",
       "inferred": true,
@@ -5986,7 +5986,7 @@
         "sysadmin.disaster-recovery.rto"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Matching a site type to an RTO requirement is a textbook question shape. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Matching a site type to an RTO requirement is a textbook question shape. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.disaster-recovery-drill",
@@ -6019,7 +6019,7 @@
         "sysadmin.disaster-recovery.restore-testing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     }
   ]
 }
