@@ -10,7 +10,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | 2 | Exam mechanics | **complete** |
 | 3 | Taxonomy expansion | **complete** |
 | 4 | LFS200 crawl | **complete** |
-| 5 | Per-concept documentation research | not started |
+| 5 | Per-concept documentation research | **complete** |
 | 6 | Candidate experience research | **complete (negative result)** |
 | 7 | Depth assignment | not started |
 | 8 | View generation | not started |
@@ -53,7 +53,7 @@ field and the domain weights, not the concept counts.
 
 ## Pending
 
-- Stages 5 through 8.
+- Stages 7 and 8.
 
 ## Unresolved questions
 
@@ -124,6 +124,55 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Stage 5: primary documentation attached, and the adversarial layer earned its keep
+
+Nine research agents, one per documentation corpus, checked all 537 concept descriptions
+against primary sources (RFCs, NIST, kernel.org, GNU, systemd, git-scm, kubernetes.io, OCI,
+NIST SP 800-145, OSI/SPDX, the Scrum Guide). Every claimed error was then handed to an
+independent agent instructed to **refute** it, defaulting to "the original was fine".
+
+**11 corrections were proposed. 8 were refuted and discarded. 3 survived and were applied.**
+
+That ratio is the point of the exercise. Several refutations caught corrections that would
+have made the dataset actively worse — most notably a proposed rewrite of `/etc/shadow` that
+asserted "not readable by ordinary users" and then, in its own next clause, said Debian ships
+it group-readable to `shadow`. The refuter also correctly rejected corrections that were true
+but at the wrong altitude for an entry-level exam (per-distribution octal modes, the sixth AWS
+Well-Architected pillar, Verizon DBIR initial-access rankings).
+
+**The three corrections that survived**, all genuine and all exam-relevant:
+
+| Concept | Was | Now |
+| --- | --- | --- |
+| `device-drivers-and-kernel-modules` | drivers are "loadable at runtime as modules **rather than compiled in**" | either compiled into the kernel image **or** built as a loadable module — Kconfig is tristate |
+| `networking.vlan` | "a logical segmentation of **one physical switch**" | a broadcast domain independent of physical location; 802.1Q trunking lets one VLAN span **many** switches |
+| `containers.kubernetes` | "**governed by** the CNCF" | **hosted by** the CNCF as a graduated project, governed by its own Steering Committee |
+
+The Kubernetes one is the same class of error as the Linux Foundation/kernel governance mistake
+caught in stage 3, and it contradicted this dataset's own `cncf` concept, which already said
+"hosts". Two agents independently converged on the hosts-versus-governs distinction.
+
+**Sourcing.** The registry grew from 11 to **274** sources: 19 tier 1, 252 tier 2 primary
+documentation, 2 tier 3, 1 tier 4. **480 of 537 concepts** now cite at least one tier-1/2
+primary document.
+
+**Known shortfall — 57 concepts have no primary-documentation citation**, concentrated as:
+
+| Concepts | Competency |
+| ---: | --- |
+| 19 | IT Project Management :: Project Management |
+| 12 | IT Project Management :: Functional Analysis |
+| 9 | IT Project Management :: Software Application Architecture |
+| 7 | System Administration :: Best Practices |
+| 10 | (Troubleshooting, Networking, Disaster Recovery, DevOps — 1-4 each) |
+
+The cause is structural rather than an oversight: the authoritative references for classical
+project management and business analysis — the PMBOK Guide, PMI Lexicon, ISO 21500/21502,
+BABOK, ISO/IEC/IEEE 12207 and 29148 — are **paywalled**, and both pmi.org and gao.gov refused
+automated fetches during the pass. These concepts still carry the tier-1 official objectives
+source, so they clear the validator, but they lack the per-concept primary citation the rest of
+the dataset has. Recorded rather than papered over.
 
 ### Stage 6: there is no public candidate evidence for the current exam
 

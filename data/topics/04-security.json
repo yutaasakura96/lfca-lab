@@ -21,7 +21,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -50,7 +53,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-63b-4"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -79,7 +85,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -110,7 +119,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -141,7 +153,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -172,7 +187,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-207",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -201,7 +219,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -232,7 +253,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-30r1",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -261,7 +285,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-63b-4"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -292,7 +318,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-63b-4",
+        "owasp-password-storage"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -323,7 +352,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -352,7 +383,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-4252-ssh-auth",
+        "openssh-ssh-keygen",
+        "rfc-4251-ssh-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ssh-keygen",
@@ -386,7 +421,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "nist-sp-800-57p1r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -415,7 +453,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -444,7 +485,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "owasp-password-storage"
+      ],
       "candidate_evidence": [],
       "commands": [
         "sha256sum",
@@ -478,7 +522,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-5280-x509"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -511,7 +557,10 @@
       "lfs200_sources": [
         "ch9.l3"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "rfc-7568-ssl3-deprecation"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -542,7 +591,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-5280-x509"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -573,7 +624,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cryptsetup-luks-faq",
+        "nist-sp-800-57p1r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -604,7 +658,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "verizon-dbir"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -633,7 +690,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -664,7 +723,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -695,7 +756,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -726,7 +790,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "owasp-credential-stuffing",
+        "nist-sp-800-63b-4"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -757,7 +824,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "owasp-top10-injection"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -786,7 +855,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -817,7 +888,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -848,7 +921,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cve-program-overview",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -879,7 +955,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -910,7 +989,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -941,7 +1022,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-94"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -970,7 +1053,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-sp-800-61r3"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1001,7 +1087,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-61r3"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1030,7 +1118,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1059,7 +1149,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "openssh-sshd-config",
+        "rfc-4252-ssh-auth"
+      ],
       "candidate_evidence": [],
       "commands": [
         "sshd_config"
@@ -1094,7 +1187,10 @@
       "lfs200_sources": [
         "ch9.l3"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "selinux-man8",
+        "apparmor-wiki"
+      ],
       "candidate_evidence": [],
       "commands": [
         "getenforce",
@@ -1130,7 +1226,9 @@
       "lfs200_sources": [
         "ch9.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnupg-verify-docs"
+      ],
       "candidate_evidence": [],
       "commands": [
         "sha256sum",
@@ -1164,7 +1262,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "cve-program-overview"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1195,7 +1296,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-122",
+        "gdpr-eurlex"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1226,7 +1330,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "hipaa-45-cfr-164",
+        "pci-dss-standards"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1257,7 +1364,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-122"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1288,7 +1397,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1319,7 +1431,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-162",
+        "nist-csrc-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1348,7 +1463,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1379,7 +1496,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1410,7 +1530,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-122"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1439,7 +1562,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1468,7 +1593,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-88r1",
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1499,7 +1627,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-88r1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1528,7 +1658,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-61r3"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1559,7 +1692,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1590,7 +1725,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "lf-lfca-program"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1621,7 +1759,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1650,7 +1790,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1681,7 +1823,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "aicpa-soc2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1712,7 +1857,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-30r1",
+        "nist-sp-800-39"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1743,7 +1891,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1772,7 +1922,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "hipaa-45-cfr-164"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1801,7 +1953,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "pci-dss-standards"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1832,7 +1986,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aicpa-soc2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1861,7 +2017,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1892,7 +2050,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-88r1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1923,7 +2084,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1952,7 +2115,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "lf-lfca-program"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1983,7 +2148,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],

@@ -23,7 +23,9 @@
       "lfs200_sources": [
         "ch8.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -54,7 +56,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -85,7 +89,10 @@
       "lfs200_sources": [
         "ch8.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-regions-and-azs",
+        "azure-availability-zones"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -114,7 +121,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -145,7 +154,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -176,7 +187,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -207,7 +220,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary-serverless",
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -238,7 +254,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -269,7 +287,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -302,7 +322,9 @@
       "lfs200_sources": [
         "ch8.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -333,7 +355,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -364,7 +388,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary-virtualization",
+        "vmware-hypervisor"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -395,7 +422,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "vmware-hypervisor",
+        "cncf-glossary-virtualization"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -426,7 +456,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary-virtualization",
+        "vmware-hypervisor"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -457,7 +490,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary-virtualization"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -490,7 +525,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-shared-responsibility-model"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -519,7 +556,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-regions-and-azs",
+        "azure-availability-zones"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -550,7 +590,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -581,7 +623,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-cloudtrail"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -612,7 +656,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-slos"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -643,7 +689,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "azure-storage-introduction"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -672,7 +720,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-migration-7rs"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -701,7 +751,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-migration-7rs"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -732,7 +784,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-slos"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -763,7 +817,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -796,7 +852,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -827,7 +885,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -858,7 +918,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar",
+        "aws-route53"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -889,7 +952,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145",
+        "aws-ec2-auto-scaling"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -918,7 +984,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-ec2-auto-scaling"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -949,7 +1017,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-ec2-auto-scaling"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -980,7 +1050,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-ec2-auto-scaling"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1011,7 +1083,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-elastic-load-balancing"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1044,7 +1118,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1075,7 +1151,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-pillars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1106,7 +1184,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-cloudfront"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1137,7 +1217,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-cloudfront"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1168,7 +1250,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-pillars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1199,7 +1283,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-slos"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1230,7 +1316,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-pillars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1261,7 +1349,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145",
+        "aws-rightsizing-whitepaper"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1290,7 +1381,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-145"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1321,7 +1414,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-spot-instances"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1350,7 +1445,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-rightsizing-whitepaper"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1379,7 +1476,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-budgets"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1408,7 +1507,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-rightsizing-whitepaper"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1439,7 +1540,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-rightsizing-whitepaper"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1470,7 +1573,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "azure-bandwidth-pricing"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1499,7 +1604,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-tagging-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1530,7 +1637,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-budgets"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1559,7 +1668,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-tagging-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1588,7 +1699,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-budgets"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1619,7 +1732,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "azure-blob-access-tiers",
+        "azure-blob-lifecycle-management"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1650,7 +1766,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1681,7 +1799,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-regions-and-azs",
+        "azure-availability-zones"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1712,7 +1833,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-pillars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1743,7 +1866,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-reliability-pillar"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1774,7 +1899,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-well-architected-pillars",
+        "azure-well-architected-pillars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1803,7 +1931,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-iam-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1834,7 +1964,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-secrets-manager"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1865,7 +1997,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-kms"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1896,7 +2030,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-iam-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1927,7 +2063,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-iam-best-practices",
+        "aws-secrets-manager"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1958,7 +2097,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-backup"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1989,7 +2130,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-cloudtrail"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2018,7 +2161,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-tagging-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2049,7 +2194,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-rightsizing-whitepaper"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2080,7 +2227,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-elastic-load-balancing"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2111,7 +2260,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-configure-subnets",
+        "azure-virtual-network"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2142,7 +2294,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-configure-subnets"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2173,7 +2327,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-configure-subnets",
+        "aws-vpc-route-tables"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2204,7 +2361,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-security-groups-vs-nacls"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2235,7 +2394,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-internet-gateway",
+        "aws-vpc-nat-gateway"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2266,7 +2428,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-elastic-ip-addresses"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2297,7 +2461,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-route53"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2328,7 +2494,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-elastic-load-balancing"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2359,7 +2527,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-peering",
+        "aws-privatelink"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2390,7 +2561,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "azure-expressroute"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2421,7 +2594,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-route-tables"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2452,7 +2627,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "azure-bastion"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2483,7 +2660,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-vpc-peering",
+        "azure-virtual-network"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2514,7 +2694,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-privatelink"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [

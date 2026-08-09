@@ -23,7 +23,10 @@
       "lfs200_sources": [
         "ch2.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "man-syscalls-2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -56,7 +59,11 @@
       "lfs200_sources": [
         "ch2.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "man-syscalls-2",
+        "man-uname-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "uname -r"
@@ -89,7 +96,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-syscalls-2",
+        "kernel-license-rules",
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -122,7 +133,10 @@
       "lfs200_sources": [
         "ch2.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-syscalls-2",
+        "kernel-license-rules"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -151,7 +165,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-bash-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "echo $SHELL"
@@ -184,7 +200,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-bash-1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -215,7 +233,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "fhs-3.0",
+        "man-syscalls-2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -246,7 +268,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -275,7 +299,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-os-release-5",
+        "gnu-linux-and-gnu",
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [
         "cat /etc/os-release"
@@ -308,7 +336,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-os-release-5",
+        "ubuntu-release-cycle",
+        "archwiki-arch-linux"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -339,7 +371,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "ubuntu-release-cycle",
+        "archwiki-arch-linux"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -368,7 +403,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-linux-and-gnu",
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -399,7 +437,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "lf-about"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -428,7 +469,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "posix-env-vars"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -457,7 +501,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-license-rules",
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -490,7 +537,9 @@
       "lfs200_sources": [
         "ch2.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-lscpu-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "lscpu",
@@ -522,7 +571,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-free-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "free -h"
@@ -555,7 +606,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-lsblk-8"
+      ],
       "candidate_evidence": [],
       "commands": [
         "lsblk"
@@ -588,7 +641,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-uname-1",
+        "kernel-readme"
+      ],
       "candidate_evidence": [],
       "commands": [
         "uname -m",
@@ -609,7 +665,7 @@
       ],
       "domain": "Linux Fundamentals",
       "competency": "Linux Operating System",
-      "description": "Kernel code that drives hardware, loadable at runtime as modules rather than compiled in.",
+      "description": "Kernel code that drives hardware, either compiled into the kernel image or built as a module that loads and unloads at runtime.",
       "objective_verbatim": "Linux Operating System",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -620,7 +676,12 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-kconfig-language",
+        "kernel-kbuild-modules",
+        "man-modprobe-8",
+        "man-lsmod-8"
+      ],
       "candidate_evidence": [],
       "commands": [
         "lsmod",
@@ -629,7 +690,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Corrected in stage 5 against primary documentation (https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html); the correction survived independent adversarial review."
     },
     {
       "id": "linux.linux-operating-system.firmware",
@@ -652,7 +713,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-firmware-api"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -683,7 +746,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-bash-1",
+        "xorg-wiki"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -714,7 +780,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "xorg-wiki",
+        "wayland-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -743,7 +812,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "xorg-wiki",
+        "wayland-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -772,7 +844,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-environ-7",
+        "posix-env-vars",
+        "man-bash-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "env",
@@ -805,7 +881,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-bash-1",
+        "posix-env-vars",
+        "fhs-3.0"
+      ],
       "candidate_evidence": [],
       "commands": [
         "echo $PATH",
@@ -838,7 +918,12 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-uname-1",
+        "man-os-release-5",
+        "man-hostnamectl-1",
+        "man-uptime-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "uname -a",
@@ -874,7 +959,10 @@
       "lfs200_sources": [
         "ch6.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "posix-utility-conventions",
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ls -l",
@@ -906,7 +994,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-pages-7",
+        "man-man-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "man",
@@ -941,7 +1032,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         "pwd",
@@ -973,7 +1067,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "gnu-bash-manual",
+        "fhs-3-0"
+      ],
       "candidate_evidence": [],
       "commands": [
         "cd ..",
@@ -1005,7 +1103,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual",
+        "gnu-bash-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "pwd",
@@ -1038,7 +1139,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "fhs-3-0",
+        "gnu-bash-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "cd /",
@@ -1073,7 +1177,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "touch",
@@ -1109,7 +1215,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "cat",
@@ -1145,7 +1253,11 @@
       "lfs200_sources": [
         "ch5.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-find-man",
+        "gnu-locate-man",
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "find",
@@ -1181,7 +1293,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-file-1",
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "file",
@@ -1214,7 +1329,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ls -la",
@@ -1251,7 +1368,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ls -l",
@@ -1285,7 +1404,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1314,7 +1436,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ls *.txt"
@@ -1345,7 +1470,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1374,7 +1502,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         ";",
@@ -1409,7 +1540,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1438,7 +1572,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         "export"
@@ -1471,7 +1608,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "history",
@@ -1504,7 +1643,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "alias"
@@ -1535,7 +1676,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         "echo $?"
@@ -1568,7 +1712,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1599,7 +1746,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         ">",
@@ -1633,7 +1783,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [
         "|"
@@ -1666,7 +1819,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-grep-man"
+      ],
       "candidate_evidence": [],
       "commands": [
         "grep -i",
@@ -1704,7 +1859,10 @@
       "lfs200_sources": [
         "ch6.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-grep-man",
+        "gnu-sed-manual"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1733,7 +1891,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-sed-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "sed",
@@ -1767,7 +1927,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-gawk-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "awk",
@@ -1801,7 +1963,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "cut -d",
@@ -1836,7 +2000,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-diffutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "diff",
@@ -1868,7 +2034,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "posix-vi"
+      ],
       "candidate_evidence": [],
       "commands": [
         "vi",
@@ -1901,7 +2069,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-tar-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "tar czf",
@@ -1938,7 +2108,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rsync-man",
+        "openssh-scp-man"
+      ],
       "candidate_evidence": [],
       "commands": [
         "scp",
@@ -1973,7 +2146,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "man-execve-2"
+      ],
       "candidate_evidence": [],
       "commands": [
         "#!/bin/bash",
@@ -2007,7 +2183,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2036,7 +2215,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "man-ps-1",
+        "gnu-coreutils-manual"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ps aux",
@@ -2076,7 +2258,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual",
+        "man-w-1"
+      ],
       "candidate_evidence": [],
       "commands": [
         "who",
@@ -2111,7 +2296,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "iproute2-ip-address-man",
+        "iproute2-ss-man"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ip addr",
@@ -2151,7 +2339,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc-6335",
+        "man-ip-7",
+        "kernel-ip-sysctl"
+      ],
       "candidate_evidence": [],
       "commands": [
         "ss -tulpn"

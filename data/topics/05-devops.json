@@ -23,7 +23,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -52,7 +54,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -81,7 +85,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -110,7 +116,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -139,7 +147,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -170,7 +180,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -203,7 +215,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -236,7 +250,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -269,7 +285,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -300,7 +318,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -329,7 +349,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -358,7 +380,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -389,7 +414,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "semver"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -422,7 +449,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -453,7 +482,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -482,7 +513,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -513,7 +546,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -544,7 +579,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary",
+        "k8s-deployment"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -575,7 +613,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-deployment",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -606,7 +647,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -672,7 +716,9 @@
       "lfs200_sources": [
         "ch10.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -705,7 +751,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -736,7 +784,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -767,7 +817,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -800,7 +852,9 @@
       "lfs200_sources": [
         "ch10.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -831,7 +885,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -862,7 +918,9 @@
       "lfs200_sources": [
         "ch10.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git init",
@@ -894,7 +952,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git status",
@@ -929,7 +989,9 @@
       "lfs200_sources": [
         "ch10.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git commit -m",
@@ -961,7 +1023,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -992,7 +1056,9 @@
       "lfs200_sources": [
         "ch10.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-branching-basics"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git branch",
@@ -1025,7 +1091,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-branching-basics"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git log HEAD"
@@ -1058,7 +1126,10 @@
       "lfs200_sources": [
         "ch10.l5"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-merge",
+        "progit-branching-basics"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git merge"
@@ -1091,7 +1162,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-rebase"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git rebase"
@@ -1124,7 +1197,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-merge",
+        "progit-branching-basics"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git status",
@@ -1156,7 +1232,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git",
+        "git-pull"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git remote -v"
@@ -1187,7 +1266,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git push"
@@ -1218,7 +1299,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-pull",
+        "git-merge"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git fetch",
@@ -1250,7 +1334,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git clone"
@@ -1312,7 +1398,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-tagging"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git tag"
@@ -1343,7 +1431,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gitignore"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1374,7 +1464,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-revert",
+        "git-reset"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git revert",
@@ -1408,7 +1501,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-what-is-git"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git diff",
@@ -1440,7 +1535,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "git-stash"
+      ],
       "candidate_evidence": [],
       "commands": [
         "git stash"
@@ -1471,7 +1568,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "progit-branching-basics"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1502,7 +1601,10 @@
       "lfs200_sources": [
         "ch10.l3"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker run",
@@ -1538,7 +1640,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview",
+        "oci-image-spec-config",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker images",
@@ -1572,7 +1678,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-image-layers",
+        "oci-image-spec-config"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1601,7 +1710,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker pull",
@@ -1635,7 +1746,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview",
+        "dockerfile-reference"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1664,7 +1778,11 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "dockerfile-reference",
+        "docker-build-best-practices",
+        "oci-image-spec-config"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker build -t"
@@ -1697,7 +1815,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-container-ls"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker start",
@@ -1730,7 +1850,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "dockerfile-reference",
+        "docker-overview"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker run -p"
@@ -1763,7 +1886,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-volumes"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker volume",
@@ -1795,7 +1920,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "dockerfile-reference",
+        "docker-overview"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker run -e"
@@ -1828,7 +1956,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-overview"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker logs",
@@ -1860,7 +1990,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1891,7 +2023,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "oci-overview",
+        "k8s-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1920,7 +2055,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-compose-features"
+      ],
       "candidate_evidence": [],
       "commands": [
         "docker compose up"
@@ -1953,7 +2090,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "docker-build-best-practices"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1984,7 +2123,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary",
+        "k8s-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2004,7 +2146,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Containers",
-      "description": "The dominant open source container orchestrator, governed by the CNCF. LFCA needs the vocabulary and purpose, not operational skill.",
+      "description": "The dominant open source container orchestrator, hosted by the CNCF as a graduated project while governing itself through its own community structures. LFCA needs the vocabulary and purpose, not operational skill.",
       "objective_verbatim": "Containers",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -2015,13 +2157,18 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-steering-charter",
+        "cncf-charter",
+        "cncf-who-we-are",
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth here should stay at recognition and understanding; CKA-level detail is out of scope for LFCA."
+      "notes": "Depth here should stay at recognition and understanding; CKA-level detail is out of scope for LFCA. Corrected in stage 5 against primary documentation (https://github.com/kubernetes/steering/blob/master/charter.md); the correction survived independent adversarial review."
     },
     {
       "id": "devops.containers.cluster-and-node",
@@ -2044,7 +2191,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2073,7 +2222,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-pods"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2104,7 +2255,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-deployment"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2135,7 +2288,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-service"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2166,7 +2321,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2195,7 +2352,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "k8s-deployment",
+        "k8s-architecture"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2226,7 +2386,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-who-we-are",
+        "cncf-charter"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],

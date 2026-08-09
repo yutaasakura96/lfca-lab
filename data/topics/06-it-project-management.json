@@ -205,7 +205,10 @@
       "lfs200_sources": [
         "ch11.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "agile-manifesto",
+        "agile-principles"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -236,7 +239,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -269,7 +274,9 @@
       "lfs200_sources": [
         "ch11.l2"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -300,7 +307,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -329,7 +338,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -358,7 +369,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -387,7 +400,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "kanban-guide"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -449,7 +464,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -480,7 +497,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -540,7 +559,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "scrum-guide-2020"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1057,7 +1078,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9110"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1090,7 +1113,9 @@
       "lfs200_sources": [
         "ch11.l3"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9110"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1121,7 +1146,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9110",
+        "rfc5789"
+      ],
       "candidate_evidence": [],
       "commands": [
         "curl -X"
@@ -1152,7 +1180,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc8259"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1210,7 +1240,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "postgresql-transactions",
+        "postgresql-indexes"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1301,7 +1334,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "postgresql-indexes"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1330,7 +1365,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "postgresql-transactions"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1390,7 +1427,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9110"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1779,7 +1818,9 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "osi-osd"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1810,7 +1851,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-free-sw"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1841,7 +1884,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "osi-osd"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1872,7 +1917,10 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "osi-osd",
+        "gnu-free-sw"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1903,7 +1951,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "osi-osd",
+        "gnu-gpl-faq"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1934,7 +1985,11 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "apache-license-2",
+        "spdx-license-list",
+        "osi-osd"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1967,7 +2022,10 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-gpl-faq",
+        "gnu-free-sw"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2000,7 +2058,11 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "kernel-license-rules",
+        "gnu-gpl-faq",
+        "spdx-license-list"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2031,7 +2093,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-lgpl-3",
+        "gnu-gpl-faq"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2062,7 +2127,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-agpl-3"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2095,7 +2162,10 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "spdx-license-list",
+        "osi-osd"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2128,7 +2198,9 @@
       "lfs200_sources": [
         "ch11.l4"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "apache-license-2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2159,7 +2231,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cc-faq",
+        "spdx-license-list"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2188,7 +2263,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-gpl-faq",
+        "spdx-license-list"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2217,7 +2295,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "apache-license-2",
+        "gnu-gpl-faq"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2248,7 +2329,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "gnu-gpl-faq"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2277,7 +2360,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "apache-license-2",
+        "asf-how-it-works"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2306,7 +2392,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "ntia-sbom-minimum-elements",
+        "spdx-license-list"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2335,7 +2424,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "asf-how-it-works"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2364,7 +2455,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "asf-how-it-works"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -2395,7 +2488,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "osi-osd"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -2426,7 +2521,10 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "asf-how-it-works",
+        "linux-foundation-about"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
