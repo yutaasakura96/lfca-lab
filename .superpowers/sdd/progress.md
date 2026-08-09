@@ -41,3 +41,14 @@ Task 8: complete (commits bdc1fc2..6ad83c3, verified by controller not subagent 
   537 rows in both coverage-matrix and gap-analysis, 11 tables with 0 ragged rows,
   0 literal "null" cells, pipe-escaping proven on the 2 concepts containing raw pipes.
   42 tests passing.
+Task 9: complete (commit f1c43fc). LFS200 crawled via owner's own authenticated session.
+  DEVIATION from plan: the plan specified per-chapter notes files written by reading each
+  lesson page in turn. Instead the portal's own course endpoint returned all 47 lessons in
+  one authenticated response, so analysis was done over the whole corpus at once and written
+  to a single research/lfs200-notes/00-course-map.md. Same evidence, far fewer round trips,
+  and it made whole-corpus term-absence measurement possible - which produced the strongest
+  finding. Course prose was never reproduced.
+  HEADLINE: LFS200 still follows the pre-2025 syllabus. 6 competencies have no lesson at all
+  (4 of them new in 2025); Disaster Recovery's only lesson is 1 character. 43 key terms
+  measured absent across 158,185 chars, including Docker, TLS, GDPR, Scrum, cron, RTO.
+  Per-concept coverage figures are an explicit LOWER BOUND, not a measurement.
