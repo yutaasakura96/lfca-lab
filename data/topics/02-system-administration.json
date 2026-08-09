@@ -15,7 +15,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -42,7 +42,7 @@
         "sysadmin.system-administration.group"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.group",
@@ -59,7 +59,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -83,7 +83,7 @@
         "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.uid-and-gid",
@@ -100,7 +100,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -119,7 +119,7 @@
         "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.primary-vs-supplementary-group",
@@ -136,7 +136,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -159,7 +159,7 @@
         "sysadmin.system-administration.group"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "usermod -G without -a silently replaces every supplementary group; a classic destructive mistake."
+      "notes": "usermod -G without -a silently replaces every supplementary group; a classic destructive mistake. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.etc-passwd",
@@ -177,7 +177,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -195,7 +195,7 @@
         "sysadmin.system-administration.etc-shadow"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Field count and order are standard recall items; the password placeholder is easy to forget when counting."
+      "notes": "Field count and order are standard recall items; the password placeholder is easy to forget when counting. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.etc-shadow",
@@ -213,7 +213,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -232,7 +232,7 @@
         "sysadmin.system-administration.etc-passwd"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.etc-group",
@@ -250,7 +250,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -268,7 +268,7 @@
         "sysadmin.system-administration.etc-passwd"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.login-shell",
@@ -285,7 +285,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -304,7 +304,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.service-account",
@@ -321,7 +321,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -340,7 +340,7 @@
         "sysadmin.system-administration.user-account"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.password-policy-and-ageing",
@@ -357,7 +357,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -374,7 +374,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.read-write-execute-permissions",
@@ -391,7 +391,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -409,7 +409,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The directory semantics are the most commonly missed part of this topic."
+      "notes": "The directory semantics are the most commonly missed part of this topic. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.owner-group-other",
@@ -426,7 +426,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -443,7 +443,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "First-match-wins is counter-intuitive and is a classic exam distinction."
+      "notes": "First-match-wins is counter-intuitive and is a classic exam distinction. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
@@ -460,7 +460,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -479,7 +479,7 @@
         "sysadmin.system-administration.umask"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "sysadmin.system-administration.chown-and-chgrp",
@@ -496,7 +496,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -515,7 +515,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.umask",
@@ -532,7 +532,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -550,7 +550,7 @@
         "sysadmin.system-administration.symbolic-vs-numeric-chmod"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Frequently confused with chmod because both use octal."
+      "notes": "Frequently confused with chmod because both use octal. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.suid",
@@ -568,7 +568,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -587,7 +587,7 @@
         "sysadmin.system-administration.sgid"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.sgid",
@@ -605,7 +605,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -623,7 +623,7 @@
         "sysadmin.system-administration.suid"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.sticky-bit",
@@ -641,7 +641,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -660,7 +660,7 @@
         "sysadmin.system-administration.sgid"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.root-and-least-privilege",
@@ -678,7 +678,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -695,7 +695,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.sudo-vs-su",
@@ -713,7 +713,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -734,7 +734,7 @@
         "sysadmin.system-administration.root-and-least-privilege"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The auditability difference is the point, not the convenience."
+      "notes": "The auditability difference is the point, not the convenience. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.etc-sudoers-and-visudo",
@@ -752,7 +752,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -769,7 +769,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Editing sudoers directly with a text editor is the mistake visudo exists to prevent."
+      "notes": "Editing sudoers directly with a text editor is the mistake visudo exists to prevent. Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "sysadmin.system-administration.process",
@@ -786,7 +786,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -808,7 +808,7 @@
         "sysadmin.system-administration.service"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.pid-and-ppid",
@@ -825,7 +825,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -844,7 +844,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.foreground-and-background-jobs",
@@ -861,7 +861,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -880,7 +880,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.signals",
@@ -897,7 +897,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -916,7 +916,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Reaching for kill -9 first is the classic beginner error."
+      "notes": "Reaching for kill -9 first is the classic beginner error. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.process-priority-and-nice",
@@ -933,7 +933,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -952,7 +952,7 @@
         "sysadmin.system-administration.signals"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.daemon",
@@ -969,7 +969,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -988,7 +988,7 @@
         "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.zombie-and-orphan-processes",
@@ -1005,7 +1005,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1024,7 +1024,7 @@
         "sysadmin.system-administration.process"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.system-administration.service",
@@ -1041,7 +1041,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1062,7 +1062,7 @@
         "sysadmin.system-administration.process"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "process vs service is one of the named comparisons an LFCA candidate should be able to make."
+      "notes": "process vs service is one of the named comparisons an LFCA candidate should be able to make. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.systemd",
@@ -1079,7 +1079,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1100,7 +1100,7 @@
         "sysadmin.system-administration.runlevel"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.unit-and-unit-file",
@@ -1117,7 +1117,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1134,7 +1134,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.systemctl-start-vs-enable",
@@ -1151,7 +1151,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1171,7 +1171,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "A very commonly tested distinction, and a common real-world outage cause."
+      "notes": "A very commonly tested distinction, and a common real-world outage cause. Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "sysadmin.system-administration.systemd-target",
@@ -1188,7 +1188,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1208,7 +1208,7 @@
         "sysadmin.system-administration.runlevel"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.runlevel",
@@ -1225,7 +1225,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1243,7 +1243,7 @@
         "sysadmin.system-administration.systemd-target"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.daemon-reload",
@@ -1260,7 +1260,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1276,7 +1276,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.package",
@@ -1293,7 +1293,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1312,7 +1312,7 @@
         "sysadmin.system-administration.repository"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.repository",
@@ -1329,7 +1329,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1346,7 +1346,7 @@
         "sysadmin.system-administration.package"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "package vs repository is a named comparison for this exam."
+      "notes": "package vs repository is a named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.dependency",
@@ -1363,7 +1363,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1382,7 +1382,7 @@
       ],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.apt-and-dpkg",
@@ -1400,7 +1400,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1424,7 +1424,7 @@
         "sysadmin.system-administration.dnf-yum-and-rpm"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.dnf-yum-and-rpm",
@@ -1442,7 +1442,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1463,7 +1463,7 @@
         "sysadmin.system-administration.apt-and-dpkg"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.update-vs-upgrade",
@@ -1480,7 +1480,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1497,7 +1497,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A frequent point of confusion worth knowing precisely."
+      "notes": "A frequent point of confusion worth knowing precisely. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.patch-management",
@@ -1514,7 +1514,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1531,7 +1531,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.filesystem-hierarchy-standard",
@@ -1548,7 +1548,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1566,7 +1566,7 @@
         "sysadmin.system-administration.filesystem-type"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.etc",
@@ -1584,7 +1584,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1598,7 +1598,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.var",
@@ -1616,7 +1616,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1632,7 +1632,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.home",
@@ -1650,7 +1650,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1666,7 +1666,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.usr",
@@ -1684,7 +1684,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1700,7 +1700,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.tmp",
@@ -1718,7 +1718,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1737,7 +1737,7 @@
       ],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.system-administration.proc-and-sys",
@@ -1755,7 +1755,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1776,7 +1776,7 @@
         "sysadmin.system-administration.dev"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.dev",
@@ -1794,7 +1794,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1810,7 +1810,7 @@
         "sysadmin.system-administration.proc-and-sys"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.filesystem-type",
@@ -1828,7 +1828,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1850,7 +1850,7 @@
         "sysadmin.system-administration.filesystem-hierarchy-standard"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.mounting",
@@ -1868,7 +1868,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1890,7 +1890,7 @@
         "sysadmin.system-administration.partition"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.etc-fstab",
@@ -1908,7 +1908,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1925,7 +1925,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A malformed entry can prevent a machine from booting."
+      "notes": "A malformed entry can prevent a machine from booting. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.partition",
@@ -1943,7 +1943,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -1964,7 +1964,7 @@
         "sysadmin.system-administration.mounting"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.inode",
@@ -1982,7 +1982,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2001,7 +2001,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "The \"disk full but df shows space\" scenario is an inode exhaustion classic."
+      "notes": "The \"disk full but df shows space\" scenario is an inode exhaustion classic. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.hard-link-vs-symbolic-link",
@@ -2019,7 +2019,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2038,7 +2038,7 @@
         "sysadmin.system-administration.inode"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.disk-usage-vs-free-space",
@@ -2056,7 +2056,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2074,7 +2074,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A deleted-but-still-open file is the usual explanation for the discrepancy."
+      "notes": "A deleted-but-still-open file is the usual explanation for the discrepancy. Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.system-administration.swap",
@@ -2092,7 +2092,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2112,7 +2112,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.lvm",
@@ -2130,7 +2130,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2148,7 +2148,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.system-administration.raid-levels",
@@ -2166,7 +2166,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2184,7 +2184,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption."
+      "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.cron",
@@ -2201,7 +2201,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2220,7 +2220,7 @@
         "sysadmin.system-administration.systemd-timer"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.crontab-syntax",
@@ -2237,7 +2237,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2253,7 +2253,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The sparse environment is the usual reason a script works interactively but fails under cron."
+      "notes": "The sparse environment is the usual reason a script works interactively but fails under cron. Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "sysadmin.system-administration.systemd-timer",
@@ -2270,7 +2270,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2289,7 +2289,7 @@
         "sysadmin.system-administration.cron"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.var-log",
@@ -2306,7 +2306,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2325,7 +2325,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.syslog-and-severity-levels",
@@ -2342,7 +2342,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2358,7 +2358,7 @@
         "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.journald",
@@ -2375,7 +2375,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2396,7 +2396,7 @@
         "sysadmin.system-administration.syslog-and-severity-levels"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.system-administration.log-rotation",
@@ -2413,7 +2413,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2432,7 +2432,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.boot-process",
@@ -2449,7 +2449,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2470,7 +2470,7 @@
         "sysadmin.system-administration.bootloader-and-grub"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.bios-vs-uefi",
@@ -2487,7 +2487,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2504,7 +2504,7 @@
         "sysadmin.system-administration.bootloader-and-grub"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.system-administration.bootloader-and-grub",
@@ -2521,7 +2521,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2539,7 +2539,7 @@
         "sysadmin.system-administration.bios-vs-uefi"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.system-administration.kernel",
@@ -2556,7 +2556,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2575,7 +2575,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.best-practices.documentation",
@@ -2592,7 +2592,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2606,7 +2606,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.change-management",
@@ -2623,7 +2623,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2639,7 +2639,7 @@
         "devops.git-concepts.version-control"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.standardization",
@@ -2656,7 +2656,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2670,7 +2670,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.naming-conventions",
@@ -2687,7 +2687,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2699,7 +2699,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.automation-and-idempotency",
@@ -2716,7 +2716,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2732,7 +2732,7 @@
         "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.configuration-management",
@@ -2749,7 +2749,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2765,7 +2765,7 @@
         "sysadmin.best-practices.automation-and-idempotency"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.version-control-for-configuration",
@@ -2782,7 +2782,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2798,7 +2798,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.testing-before-production",
@@ -2815,7 +2815,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2831,7 +2831,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.monitoring-and-alerting",
@@ -2848,7 +2848,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2864,7 +2864,7 @@
         "sysadmin.system-administration.journald"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.capacity-planning",
@@ -2881,7 +2881,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2893,7 +2893,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.maintenance-windows",
@@ -2910,7 +2910,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2926,7 +2926,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.separation-of-duties",
@@ -2943,7 +2943,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2957,7 +2957,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.runbooks",
@@ -2974,7 +2974,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -2990,7 +2990,7 @@
         "sysadmin.best-practices.documentation"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.asset-and-inventory-management",
@@ -3007,7 +3007,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3021,7 +3021,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.security-baselines",
@@ -3038,7 +3038,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3054,7 +3054,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.user-onboarding-and-offboarding",
@@ -3071,7 +3071,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3085,7 +3085,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.backup-before-change",
@@ -3102,7 +3102,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3119,7 +3119,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.best-practices.patch-cadence",
@@ -3136,7 +3136,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3152,7 +3152,7 @@
         "sysadmin.system-administration.patch-management"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.best-practices.principle-of-least-astonishment",
@@ -3169,7 +3169,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "LOW",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3181,7 +3181,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.best-practices.service-ownership",
@@ -3198,7 +3198,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3210,7 +3210,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.networking.osi-model",
@@ -3227,7 +3227,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3243,7 +3243,7 @@
         "sysadmin.networking.tcp-ip-model"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Layer numbering and what lives at each layer are commonly tested."
+      "notes": "Layer numbering and what lives at each layer are commonly tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.tcp-ip-model",
@@ -3260,7 +3260,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3277,7 +3277,7 @@
         "sysadmin.networking.osi-model"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.ipv4-address",
@@ -3294,7 +3294,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3313,7 +3313,7 @@
         "sysadmin.networking.mac-address"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ipv6-address",
@@ -3330,7 +3330,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3351,7 +3351,7 @@
         "sysadmin.networking.ipv4-address"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.subnet-mask-and-cidr",
@@ -3368,7 +3368,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3387,7 +3387,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Being able to move between dotted-decimal and prefix notation is expected."
+      "notes": "Being able to move between dotted-decimal and prefix notation is expected. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.network-host-and-broadcast-addresses",
@@ -3404,7 +3404,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3421,7 +3421,7 @@
         "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.private-vs-public-ip-addresses",
@@ -3438,7 +3438,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3455,7 +3455,7 @@
         "sysadmin.networking.nat"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison for this exam."
+      "notes": "A named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.loopback-address",
@@ -3472,7 +3472,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3489,7 +3489,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.static-vs-dynamic-addressing",
@@ -3506,7 +3506,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3523,7 +3523,7 @@
         "sysadmin.networking.dhcp"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.mac-address",
@@ -3540,7 +3540,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3559,7 +3559,7 @@
         "sysadmin.networking.ipv4-address"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.arp",
@@ -3576,7 +3576,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3596,7 +3596,7 @@
         "sysadmin.networking.dns"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ipv4-address-classes",
@@ -3613,7 +3613,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3630,7 +3630,7 @@
         "sysadmin.networking.subnet-mask-and-cidr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.default-gateway",
@@ -3647,7 +3647,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3667,7 +3667,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "One of the highest-yield troubleshooting concepts on the exam."
+      "notes": "One of the highest-yield troubleshooting concepts on the exam. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.routing-table",
@@ -3684,7 +3684,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3702,7 +3702,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.router-vs-switch",
@@ -3719,7 +3719,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3736,7 +3736,7 @@
         "sysadmin.networking.mac-address"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison."
+      "notes": "A named comparison. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.nat",
@@ -3753,7 +3753,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3770,7 +3770,7 @@
         "sysadmin.networking.private-vs-public-ip-addresses"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.vlan",
@@ -3787,7 +3787,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3801,7 +3801,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Corrected in stage 5 against primary documentation (https://standards.ieee.org/ieee/802.1Q/10323/); the correction survived independent adversarial review."
+      "notes": "Corrected in stage 5 against primary documentation (https://standards.ieee.org/ieee/802.1Q/10323/); the correction survived independent adversarial review. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.networking.dns",
@@ -3818,7 +3818,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3839,7 +3839,7 @@
         "sysadmin.networking.dhcp"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "DNS vs DHCP is a named comparison and a common confusion."
+      "notes": "DNS vs DHCP is a named comparison and a common confusion. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.dns-resolution-order",
@@ -3856,7 +3856,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3875,7 +3875,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.etc-resolv-conf",
@@ -3892,7 +3892,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3910,7 +3910,7 @@
         "sysadmin.networking.etc-hosts"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.etc-hosts",
@@ -3927,7 +3927,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3944,7 +3944,7 @@
         "sysadmin.networking.etc-resolv-conf"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.dns-record-types",
@@ -3961,7 +3961,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -3979,7 +3979,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A vs CNAME and the purpose of MX and PTR are commonly tested."
+      "notes": "A vs CNAME and the purpose of MX and PTR are commonly tested. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.fqdn-and-hostname",
@@ -3996,7 +3996,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4013,7 +4013,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ttl-and-dns-caching",
@@ -4030,7 +4030,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4047,7 +4047,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.dhcp",
@@ -4064,7 +4064,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4082,7 +4082,7 @@
         "sysadmin.networking.dns"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error."
+      "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.dhcp-lease",
@@ -4099,7 +4099,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4115,7 +4115,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.networking.dhcp-reservation",
@@ -4132,7 +4132,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4149,7 +4149,7 @@
         "sysadmin.networking.static-vs-dynamic-addressing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.tcp-vs-udp",
@@ -4166,7 +4166,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4183,7 +4183,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "A named comparison and a near-certain topic."
+      "notes": "A named comparison and a near-certain topic. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.networking.tcp-three-way-handshake",
@@ -4200,7 +4200,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4218,7 +4218,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ports-and-sockets",
@@ -4235,7 +4235,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4254,7 +4254,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.well-known-ports",
@@ -4271,7 +4271,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4288,7 +4288,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Direct recall of the common assignments is very likely to be tested. Note the terminology trap: \"well-known\" strictly means 0-1023, so 3306 and 5432 are registered ports, not well-known ones."
+      "notes": "Direct recall of the common assignments is very likely to be tested. Note the terminology trap: \"well-known\" strictly means 0-1023, so 3306 and 5432 are registered ports, not well-known ones. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.listening-vs-established-connections",
@@ -4305,7 +4305,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4323,7 +4323,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.http-and-https",
@@ -4340,7 +4340,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4359,7 +4359,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ssh",
@@ -4376,7 +4376,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4401,7 +4401,7 @@
       ],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.proxy",
@@ -4418,7 +4418,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4434,7 +4434,7 @@
         "sysadmin.networking.load-balancer"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.load-balancer",
@@ -4451,7 +4451,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4469,7 +4469,7 @@
         "sysadmin.networking.proxy"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.networking.vpn",
@@ -4486,7 +4486,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4498,7 +4498,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.networking.bandwidth-latency-and-throughput",
@@ -4515,7 +4515,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4527,7 +4527,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.networking.firewall",
@@ -4544,7 +4544,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4563,7 +4563,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ufw-firewalld-and-iptables",
@@ -4580,7 +4580,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4601,7 +4601,7 @@
         "sysadmin.networking.firewall"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.open-closed-and-filtered-ports",
@@ -4618,7 +4618,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4636,7 +4636,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "This distinction turns a vague \"cannot connect\" into a specific cause."
+      "notes": "This distinction turns a vague \"cannot connect\" into a specific cause. Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.networking.ping-and-icmp",
@@ -4653,7 +4653,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4671,7 +4671,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "Treating ping failure as proof of a dead host is a classic wrong conclusion."
+      "notes": "Treating ping failure as proof of a dead host is a classic wrong conclusion. Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.networking.traceroute",
@@ -4688,7 +4688,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4707,7 +4707,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.networking.ip-and-ifconfig",
@@ -4724,7 +4724,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4744,7 +4744,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "ifconfig is deprecated and absent by default on many current distributions."
+      "notes": "ifconfig is deprecated and absent by default on many current distributions. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.ss-and-netstat",
@@ -4761,7 +4761,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4778,7 +4778,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.networking.dig-and-nslookup",
@@ -4795,7 +4795,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4813,7 +4813,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.networking.curl-and-wget",
@@ -4830,7 +4830,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4848,7 +4848,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.networking.tcpdump",
@@ -4865,7 +4865,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4881,7 +4881,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.networking.network-interface-naming",
@@ -4898,7 +4898,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4914,7 +4914,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.troubleshooting.structured-troubleshooting-method",
@@ -4931,7 +4931,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4943,7 +4943,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Questions asking what to do FIRST are testing this ordering."
+      "notes": "Questions asking what to do FIRST are testing this ordering. Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.narrowing-scope",
@@ -4960,7 +4960,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -4974,7 +4974,7 @@
         "sysadmin.troubleshooting.structured-troubleshooting-method"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.change-correlation",
@@ -4991,7 +4991,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5007,7 +5007,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.reproducing-the-fault",
@@ -5024,7 +5024,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5036,7 +5036,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.checking-logs-first",
@@ -5053,7 +5053,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5071,7 +5071,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.exit-status",
@@ -5088,7 +5088,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5104,7 +5104,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.using-documentation",
@@ -5121,7 +5121,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5140,7 +5140,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.escalation",
@@ -5157,7 +5157,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5169,7 +5169,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: troubleshooting method applied to a scenario."
     },
     {
       "id": "sysadmin.troubleshooting.service-will-not-start",
@@ -5186,7 +5186,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5206,7 +5206,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.disk-full",
@@ -5223,7 +5223,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5243,7 +5243,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
@@ -5260,7 +5260,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5281,7 +5281,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.high-cpu-load",
@@ -5298,7 +5298,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5317,7 +5317,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Load average is widely misread as a percentage."
+      "notes": "Load average is widely misread as a percentage. Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.permission-denied",
@@ -5334,7 +5334,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5354,7 +5354,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
@@ -5371,7 +5371,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5392,7 +5392,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Binding to 127.0.0.1 instead of 0.0.0.0 is a frequent cause of \"works locally, fails remotely\"."
+      "notes": "Binding to 127.0.0.1 instead of 0.0.0.0 is a frequent cause of \"works locally, fails remotely\". Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.troubleshooting.name-resolution-failure",
@@ -5409,7 +5409,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 4,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5427,7 +5427,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: diagnostic: the exam can present symptoms and ask for the cause or the first check."
     },
     {
       "id": "sysadmin.disaster-recovery.backup",
@@ -5444,7 +5444,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5463,7 +5463,7 @@
         "sysadmin.disaster-recovery.snapshot"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "backup vs snapshot is a named comparison."
+      "notes": "backup vs snapshot is a named comparison. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "sysadmin.disaster-recovery.full-incremental-and-differential-backups",
@@ -5480,7 +5480,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5494,7 +5494,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The restore-side difference between incremental and differential is the point."
+      "notes": "The restore-side difference between incremental and differential is the point. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.snapshot",
@@ -5511,7 +5511,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5525,7 +5525,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.replication",
@@ -5542,7 +5542,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5558,7 +5558,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.3-2-1-rule",
@@ -5575,7 +5575,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5589,7 +5589,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.restore-testing",
@@ -5606,7 +5606,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5620,7 +5620,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The most commonly skipped step, and the one that turns a backup into a recovery."
+      "notes": "The most commonly skipped step, and the one that turns a backup into a recovery. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.backup-retention",
@@ -5637,7 +5637,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5653,7 +5653,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.rpo",
@@ -5670,7 +5670,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5687,7 +5687,7 @@
         "sysadmin.disaster-recovery.rto"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration."
+      "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.rto",
@@ -5704,7 +5704,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5721,7 +5721,7 @@
         "sysadmin.disaster-recovery.rpo"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.disaster-recovery-plan",
@@ -5738,7 +5738,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5755,7 +5755,7 @@
         "sysadmin.disaster-recovery.business-continuity"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.business-continuity",
@@ -5772,7 +5772,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5789,7 +5789,7 @@
         "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
@@ -5806,7 +5806,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5824,7 +5824,7 @@
         "sysadmin.disaster-recovery.disaster-recovery-plan"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison for this exam."
+      "notes": "A named comparison for this exam. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure",
@@ -5841,7 +5841,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5857,7 +5857,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.failover-and-failback",
@@ -5874,7 +5874,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5890,7 +5890,7 @@
         "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.mttr-and-mtbf",
@@ -5907,7 +5907,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5919,7 +5919,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient, raised to Understanding because it sits in the heaviest-weighted domain."
     },
     {
       "id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy",
@@ -5936,7 +5936,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5952,7 +5952,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites",
@@ -5969,7 +5969,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -5986,7 +5986,7 @@
         "sysadmin.disaster-recovery.rto"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Matching a site type to an RTO requirement is a textbook question shape."
+      "notes": "Matching a site type to an RTO requirement is a textbook question shape. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "sysadmin.disaster-recovery.disaster-recovery-drill",
@@ -6003,7 +6003,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 4,
       "official_sources": [
         "lf-objectives-2025"
@@ -6019,7 +6019,7 @@
         "sysadmin.disaster-recovery.restore-testing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     }
   ]
 }

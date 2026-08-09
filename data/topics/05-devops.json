@@ -15,7 +15,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -31,7 +31,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "Answers framing DevOps purely as a tool or a job title are usually wrong."
+      "notes": "Answers framing DevOps purely as a tool or a job title are usually wrong. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.silos-and-shared-responsibility",
@@ -48,7 +48,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -62,7 +62,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.feedback-loops",
@@ -79,7 +79,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -93,7 +93,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.shift-left",
@@ -110,7 +110,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -124,7 +124,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.site-reliability-engineering",
@@ -141,7 +141,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "LOW",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -155,7 +155,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "devops.devops-basics.continuous-integration",
@@ -172,7 +172,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -190,7 +190,7 @@
         "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "CI is about integrating and verifying, not about releasing."
+      "notes": "CI is about integrating and verifying, not about releasing. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.continuous-delivery",
@@ -207,7 +207,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -225,7 +225,7 @@
         "devops.devops-basics.continuous-deployment"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate."
+      "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.continuous-deployment",
@@ -242,7 +242,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -260,7 +260,7 @@
         "devops.devops-basics.continuous-delivery"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.pipeline",
@@ -277,7 +277,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -295,7 +295,7 @@
         "devops.devops-basics.continuous-integration"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.build-and-artifact",
@@ -312,7 +312,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -326,7 +326,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Building separately per environment defeats the purpose; build once, deploy many."
+      "notes": "Building separately per environment defeats the purpose; build once, deploy many. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.automated-testing",
@@ -343,7 +343,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -357,7 +357,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.artifact-registry",
@@ -374,7 +374,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -391,7 +391,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.semantic-versioning",
@@ -408,7 +408,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -424,7 +424,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Underpins image tagging, dependency pinning and release communication."
+      "notes": "Underpins image tagging, dependency pinning and release communication. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.ci-cd-tooling",
@@ -441,7 +441,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -459,7 +459,7 @@
       ],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.deployment-environments",
@@ -476,7 +476,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -490,7 +490,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Removed as a named competency in 2025 but still squarely within DevOps Basics."
+      "notes": "Removed as a named competency in 2025 but still squarely within DevOps Basics. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.blue-green-deployment",
@@ -507,7 +507,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -523,7 +523,7 @@
         "devops.devops-basics.canary-release"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.canary-release",
@@ -540,7 +540,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -556,7 +556,7 @@
         "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.rolling-deployment",
@@ -573,7 +573,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -590,7 +590,7 @@
         "devops.devops-basics.blue-green-deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.rollback",
@@ -607,7 +607,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -624,7 +624,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.developer-environments-and-parity",
@@ -641,7 +641,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -658,7 +658,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Residual subject matter from the retired \"Supporting Applications and Developers\" domain."
+      "notes": "Residual subject matter from the retired \"Supporting Applications and Developers\" domain. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.language-package-managers",
@@ -675,7 +675,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -691,7 +691,7 @@
         "sysadmin.system-administration.package"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.infrastructure-as-code",
@@ -708,7 +708,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -728,7 +728,7 @@
         "sysadmin.best-practices.configuration-management"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.devops-basics.idempotency-in-automation",
@@ -745,7 +745,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -761,7 +761,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.devops-basics.observability",
@@ -778,7 +778,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -794,7 +794,7 @@
         "cloud.performance-availability.monitoring-and-metrics"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "devops.devops-basics.monolith-vs-microservices",
@@ -811,7 +811,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -827,7 +827,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.git-concepts.version-control",
@@ -844,7 +844,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -862,7 +862,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.git-concepts.distributed-vs-centralized-version-control",
@@ -879,7 +879,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -893,7 +893,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.git-concepts.repository",
@@ -910,7 +910,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -929,7 +929,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.working-directory-staging-area-and-repository",
@@ -946,7 +946,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -964,7 +964,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The three-stage model is the single most important Git concept to hold clearly."
+      "notes": "The three-stage model is the single most important Git concept to hold clearly. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.commit",
@@ -981,7 +981,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1000,7 +1000,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.commit-messages",
@@ -1017,7 +1017,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1031,7 +1031,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.git-concepts.branch",
@@ -1048,7 +1048,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1068,7 +1068,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.head",
@@ -1085,7 +1085,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1101,7 +1101,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "devops.git-concepts.merge",
@@ -1118,7 +1118,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1139,7 +1139,7 @@
         "devops.git-concepts.rebase"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "The claim \"merging always creates a merge commit\" is false, and is a plausible-sounding distractor."
+      "notes": "The claim \"merging always creates a merge commit\" is false, and is a plausible-sounding distractor. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.rebase",
@@ -1156,7 +1156,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1174,7 +1174,7 @@
         "devops.git-concepts.merge"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; the rewriting-history property is the crux."
+      "notes": "A named comparison; the rewriting-history property is the crux. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.merge-conflict",
@@ -1191,7 +1191,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1209,7 +1209,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.remote-and-origin",
@@ -1226,7 +1226,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1243,7 +1243,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.push",
@@ -1260,7 +1260,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1276,7 +1276,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.fetch-vs-pull",
@@ -1293,7 +1293,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1311,7 +1311,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison."
+      "notes": "A named comparison. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.clone-vs-fork",
@@ -1328,7 +1328,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1344,7 +1344,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison."
+      "notes": "A named comparison. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.pull-request",
@@ -1361,7 +1361,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1375,7 +1375,7 @@
         "devops.git-concepts.merge"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.git-concepts.tag",
@@ -1392,7 +1392,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1408,7 +1408,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.gitignore",
@@ -1425,7 +1425,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1441,7 +1441,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Adding a secret to .gitignore after committing it does not remove it from history."
+      "notes": "Adding a secret to .gitignore after committing it does not remove it from history. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.git-concepts.revert-vs-reset",
@@ -1458,7 +1458,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1478,7 +1478,7 @@
         "devops.git-concepts.rebase"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.git-diff-and-git-log",
@@ -1495,7 +1495,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1512,7 +1512,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.git-concepts.stash",
@@ -1529,7 +1529,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1545,7 +1545,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "devops.git-concepts.branching-strategies",
@@ -1562,7 +1562,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1576,7 +1576,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "devops.containers.container",
@@ -1593,7 +1593,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1617,7 +1617,7 @@
         "cloud.cloud-computing.virtual-machine"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.container-image",
@@ -1634,7 +1634,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1655,7 +1655,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "image vs container is a named comparison — image is the class, container the instance."
+      "notes": "image vs container is a named comparison — image is the class, container the instance. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.image-layers",
@@ -1672,7 +1672,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1687,7 +1687,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.registry",
@@ -1704,7 +1704,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1723,7 +1723,7 @@
         "devops.containers.container-image"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.image-tags",
@@ -1740,7 +1740,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1755,7 +1755,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Relying on latest in production is a widely-cited mistake."
+      "notes": "Relying on latest in production is a widely-cited mistake. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.dockerfile",
@@ -1772,7 +1772,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1792,7 +1792,7 @@
         "devops.containers.container-image"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.container-lifecycle",
@@ -1809,7 +1809,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1827,7 +1827,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.port-mapping",
@@ -1844,7 +1844,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1863,7 +1863,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.volumes-and-bind-mounts",
@@ -1880,7 +1880,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1897,7 +1897,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Assuming data written inside a container persists is a very common beginner error."
+      "notes": "Assuming data written inside a container persists is a very common beginner error. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.environment-variables-in-containers",
@@ -1914,7 +1914,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1933,7 +1933,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.container-logs-and-exec",
@@ -1950,7 +1950,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1967,7 +1967,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.stateless-vs-stateful-containers",
@@ -1984,7 +1984,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2000,7 +2000,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.container-runtime-and-oci",
@@ -2017,7 +2017,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2032,7 +2032,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.docker-compose",
@@ -2049,7 +2049,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2067,7 +2067,7 @@
         "devops.containers.container-orchestration"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "devops.containers.container-security-basics",
@@ -2084,7 +2084,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2100,7 +2100,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.container-orchestration",
@@ -2117,7 +2117,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2134,7 +2134,7 @@
         "devops.containers.docker-compose"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.kubernetes",
@@ -2151,7 +2151,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2168,7 +2168,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Depth here should stay at recognition and understanding; CKA-level detail is out of scope for LFCA. Corrected in stage 5 against primary documentation (https://github.com/kubernetes/steering/blob/master/charter.md); the correction survived independent adversarial review."
+      "notes": "Depth here should stay at recognition and understanding; CKA-level detail is out of scope for LFCA. Corrected in stage 5 against primary documentation (https://github.com/kubernetes/steering/blob/master/charter.md); the correction survived independent adversarial review. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.cluster-and-node",
@@ -2185,7 +2185,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2199,7 +2199,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.pod",
@@ -2216,7 +2216,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2232,7 +2232,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed."
+      "notes": "Kubernetes schedules pods, not containers directly — the distinction most often missed. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.deployment",
@@ -2249,7 +2249,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2265,7 +2265,7 @@
         "devops.containers.pod"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.kubernetes-service",
@@ -2282,7 +2282,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2298,7 +2298,7 @@
         "devops.containers.deployment"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "devops.containers.control-plane",
@@ -2315,7 +2315,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2329,7 +2329,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.declarative-configuration-and-desired-state",
@@ -2346,7 +2346,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2363,7 +2363,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "devops.containers.cncf",
@@ -2380,7 +2380,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2395,7 +2395,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     }
   ]
 }

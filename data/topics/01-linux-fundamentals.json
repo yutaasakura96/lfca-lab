@@ -15,7 +15,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -34,7 +34,7 @@
         "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.kernel",
@@ -51,7 +51,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -73,7 +73,7 @@
         "linux.linux-operating-system.operating-system"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.kernel-space-vs-user-space",
@@ -90,7 +90,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -108,7 +108,7 @@
         "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.system-call",
@@ -125,7 +125,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -142,7 +142,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "linux.linux-operating-system.shell",
@@ -159,7 +159,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -177,7 +177,7 @@
         "linux.linux-operating-system.terminal"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.terminal",
@@ -194,7 +194,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -210,7 +210,7 @@
         "linux.linux-operating-system.shell"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.everything-is-a-file",
@@ -227,7 +227,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -245,7 +245,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.multi-user-and-multitasking",
@@ -262,7 +262,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -276,7 +276,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.linux-distribution",
@@ -293,7 +293,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -313,7 +313,7 @@
         "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.distribution-families",
@@ -330,7 +330,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -348,7 +348,7 @@
         "linux.linux-operating-system.linux-distribution"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Knowing which package manager belongs to which family is commonly tested."
+      "notes": "Knowing which package manager belongs to which family is commonly tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.lts-vs-rolling-release",
@@ -365,7 +365,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -380,7 +380,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.gnu-and-the-linux-kernel",
@@ -397,7 +397,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -414,7 +414,7 @@
         "linux.linux-operating-system.kernel"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.linux-history",
@@ -431,7 +431,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -446,7 +446,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.unix-heritage-and-posix",
@@ -463,7 +463,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -478,7 +478,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "linux.linux-operating-system.open-source-licensing-of-linux",
@@ -495,7 +495,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -512,7 +512,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.cpu",
@@ -529,7 +529,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -548,7 +548,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.ram",
@@ -565,7 +565,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -583,7 +583,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.storage-devices",
@@ -600,7 +600,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -618,7 +618,7 @@
         "linux.linux-operating-system.ram"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.cpu-architecture",
@@ -635,7 +635,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -653,7 +653,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
@@ -670,7 +670,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -690,7 +690,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Corrected in stage 5 against primary documentation (https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html); the correction survived independent adversarial review."
+      "notes": "Corrected in stage 5 against primary documentation (https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html); the correction survived independent adversarial review. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.firmware",
@@ -707,7 +707,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -723,7 +723,7 @@
         "linux.linux-operating-system.device-drivers-and-kernel-modules"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "linux.linux-operating-system.gui-vs-cli",
@@ -740,7 +740,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -757,7 +757,7 @@
         "linux.linux-operating-system.shell"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.linux-operating-system.desktop-environments",
@@ -774,7 +774,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -789,7 +789,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.linux-operating-system.x11-and-wayland",
@@ -806,7 +806,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "LOW",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -821,7 +821,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "linux.linux-operating-system.environment-variables",
@@ -838,7 +838,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -858,7 +858,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.path",
@@ -875,7 +875,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -895,7 +895,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A very common cause of confusing command-not-found errors."
+      "notes": "A very common cause of confusing command-not-found errors. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.linux-operating-system.system-information-commands",
@@ -912,7 +912,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -934,7 +934,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.command-syntax",
@@ -951,7 +951,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -971,7 +971,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.getting-help",
@@ -988,7 +988,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1009,7 +1009,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Knowing man sections exist, and that section 5 documents file formats, is worth having."
+      "notes": "Knowing man sections exist, and that section 5 documents file formats, is worth having. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.absolute-vs-relative-paths",
@@ -1026,7 +1026,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1044,7 +1044,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.and",
@@ -1061,7 +1061,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1080,7 +1080,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.navigating-the-filesystem",
@@ -1097,7 +1097,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1116,7 +1116,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.root-directory-vs-root-vs-home",
@@ -1133,7 +1133,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1154,7 +1154,7 @@
         "linux.command-line.and"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.creating-and-removing-files-and-directories",
@@ -1171,7 +1171,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1192,7 +1192,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "rm -rf with a wrong path is the classic catastrophic mistake."
+      "notes": "rm -rf with a wrong path is the classic catastrophic mistake. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.viewing-file-contents",
@@ -1209,7 +1209,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1228,7 +1228,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.finding-files",
@@ -1245,7 +1245,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1270,7 +1270,7 @@
         "linux.command-line.grep"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.file-type-and-metadata",
@@ -1287,7 +1287,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1306,7 +1306,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.file-management-commands",
@@ -1323,7 +1323,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1345,7 +1345,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Folded in from the retired \"File Management Commands\" competency."
+      "notes": "Folded in from the retired \"File Management Commands\" competency. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.reading-ls-l-output",
@@ -1362,7 +1362,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1381,7 +1381,7 @@
         "sysadmin.system-administration.symbolic-vs-numeric-chmod"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Reading a mode string, and converting it to and from octal such as 644 or 755, is a staple multiple-choice item."
+      "notes": "Reading a mode string, and converting it to and from octal such as 644 or 755, is a staple multiple-choice item. Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "linux.command-line.case-sensitivity",
@@ -1398,7 +1398,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1413,7 +1413,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.command-line.wildcards-and-globbing",
@@ -1430,7 +1430,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1447,7 +1447,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Expansion happens in the shell, not the command — which is why quoting changes behaviour."
+      "notes": "Expansion happens in the shell, not the command — which is why quoting changes behaviour. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.quoting",
@@ -1464,7 +1464,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1479,7 +1479,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Unquoted variables containing spaces are a frequent scripting bug."
+      "notes": "Unquoted variables containing spaces are a frequent scripting bug. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.command-line.command-chaining",
@@ -1496,7 +1496,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1517,7 +1517,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.command-substitution",
@@ -1534,7 +1534,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1549,7 +1549,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.command-line.shell-variables-and-export",
@@ -1566,7 +1566,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1585,7 +1585,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.history-and-tab-completion",
@@ -1602,7 +1602,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1620,7 +1620,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.aliases",
@@ -1637,7 +1637,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1653,7 +1653,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.command-exit-status",
@@ -1670,7 +1670,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1689,7 +1689,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.standard-streams",
@@ -1706,7 +1706,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1723,7 +1723,7 @@
         "linux.command-line.pipes"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "linux.command-line.redirection",
@@ -1740,7 +1740,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1760,7 +1760,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "> silently destroys the existing contents of the target file."
+      "notes": "> silently destroys the existing contents of the target file. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.pipes",
@@ -1777,7 +1777,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1796,7 +1796,7 @@
         "linux.command-line.redirection"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.grep",
@@ -1813,7 +1813,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1834,7 +1834,7 @@
         "linux.command-line.finding-files"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "grep searches inside files; find locates files. A commonly confused pair."
+      "notes": "grep searches inside files; find locates files. A commonly confused pair. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.regular-expressions",
@@ -1851,7 +1851,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1868,7 +1868,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.command-line.sed",
@@ -1885,7 +1885,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1904,7 +1904,7 @@
         "linux.command-line.awk"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.awk",
@@ -1921,7 +1921,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1940,7 +1940,7 @@
         "linux.command-line.sed"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.cut-sort-uniq-and-wc",
@@ -1957,7 +1957,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1977,7 +1977,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "uniq without a preceding sort is a classic mistake."
+      "notes": "uniq without a preceding sort is a classic mistake. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.diff-and-comparison",
@@ -1994,7 +1994,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2011,7 +2011,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.text-editors",
@@ -2028,7 +2028,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2046,7 +2046,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Being trapped in vi is a rite of passage; :q! exits without saving."
+      "notes": "Being trapped in vi is a rite of passage; :q! exits without saving. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.archiving-and-compression",
@@ -2063,7 +2063,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2085,7 +2085,7 @@
         "sysadmin.disaster-recovery.backup"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.file-transfer",
@@ -2102,7 +2102,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2123,7 +2123,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.shell-scripting-basics",
@@ -2140,7 +2140,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2160,7 +2160,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.script-control-flow",
@@ -2177,7 +2177,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2192,7 +2192,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "linux.command-line.system-commands",
@@ -2209,7 +2209,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2235,7 +2235,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "One of three command families the Linux Foundation collapsed into Command Line in the 2025 update."
+      "notes": "One of three command families the Linux Foundation collapsed into Command Line in the 2025 update. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.who-is-logged-in",
@@ -2252,7 +2252,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2273,7 +2273,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.general-networking-commands",
@@ -2290,7 +2290,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2316,7 +2316,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Folded in from the retired \"General Networking Commands\" competency."
+      "notes": "Folded in from the retired \"General Networking Commands\" competency. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "linux.command-line.port-ranges",
@@ -2333,7 +2333,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2353,7 +2353,7 @@
         "sysadmin.networking.well-known-ports"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The reason a non-root process cannot bind port 80 but can bind 8080."
+      "notes": "The reason a non-root process cannot bind port 80 but can bind 8080. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     }
   ]
 }

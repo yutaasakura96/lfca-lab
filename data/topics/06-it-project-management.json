@@ -15,7 +15,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -29,7 +29,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.triple-constraint",
@@ -46,7 +46,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -58,7 +58,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A staple of project-management questions."
+      "notes": "A staple of project-management questions. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.stakeholder",
@@ -75,7 +75,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -87,7 +87,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.deliverable-and-milestone",
@@ -104,7 +104,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -118,7 +118,7 @@
         "pm.project-management.triple-constraint"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.software-development-lifecycle",
@@ -135,7 +135,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -147,7 +147,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.waterfall",
@@ -164,7 +164,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -180,7 +180,7 @@
         "pm.project-management.agile"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.agile",
@@ -197,7 +197,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -216,7 +216,7 @@
         "pm.project-management.waterfall"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": "A named comparison and reliably examined."
+      "notes": "A named comparison and reliably examined. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.scrum",
@@ -233,7 +233,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -249,7 +249,7 @@
         "pm.project-management.kanban"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.sprint",
@@ -266,7 +266,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -284,7 +284,7 @@
       ],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.scrum-roles",
@@ -301,7 +301,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -315,7 +315,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.scrum-ceremonies",
@@ -332,7 +332,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -346,7 +346,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.product-and-sprint-backlog",
@@ -363,7 +363,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -377,7 +377,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.kanban",
@@ -394,7 +394,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -410,7 +410,7 @@
         "pm.project-management.scrum"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.user-story",
@@ -427,7 +427,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -441,7 +441,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.acceptance-criteria",
@@ -458,7 +458,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -474,7 +474,7 @@
         "pm.project-management.definition-of-done"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.definition-of-done",
@@ -491,7 +491,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -507,7 +507,7 @@
         "pm.project-management.acceptance-criteria"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.minimum-viable-product",
@@ -524,7 +524,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -536,7 +536,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.estimation-and-velocity",
@@ -553,7 +553,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -567,7 +567,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.gantt-chart",
@@ -584,7 +584,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -596,7 +596,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.project-management.critical-path",
@@ -613,7 +613,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -625,7 +625,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.project-management.work-breakdown-structure",
@@ -642,7 +642,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -656,7 +656,7 @@
         "pm.project-management.gantt-chart"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.risk-management",
@@ -673,7 +673,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -687,7 +687,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.scope-creep",
@@ -704,7 +704,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -718,7 +718,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.change-control",
@@ -735,7 +735,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -749,7 +749,7 @@
         "pm.project-management.scope-creep"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.project-management.raci",
@@ -766,7 +766,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -778,7 +778,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.project-management.issue-tracking",
@@ -795,7 +795,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -807,7 +807,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.project-budget-and-resource-management",
@@ -824,7 +824,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -838,7 +838,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.communication-plan",
@@ -855,7 +855,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -869,7 +869,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.project-management.project-closure-and-lessons-learned",
@@ -886,7 +886,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -900,7 +900,7 @@
         "pm.project-management.scrum-ceremonies"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.client-server-model",
@@ -917,7 +917,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -929,7 +929,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.software-application-architecture.three-tier-architecture",
@@ -946,7 +946,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -958,7 +958,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Identifying which tier a component belongs to is a likely question."
+      "notes": "Identifying which tier a component belongs to is a likely question. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.software-application-architecture.monolithic-architecture",
@@ -975,7 +975,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -989,7 +989,7 @@
         "pm.software-application-architecture.microservices"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.microservices",
@@ -1006,7 +1006,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1024,7 +1024,7 @@
         "pm.software-application-architecture.monolithic-architecture"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.web-server-vs-application-server",
@@ -1041,7 +1041,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1055,7 +1055,7 @@
         "pm.software-application-architecture.three-tier-architecture"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.api",
@@ -1072,7 +1072,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1088,7 +1088,7 @@
         "pm.software-application-architecture.rest"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.rest",
@@ -1105,7 +1105,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1123,7 +1123,7 @@
         "pm.software-application-architecture.api"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.http-methods-and-status-codes",
@@ -1140,7 +1140,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1157,7 +1157,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The 4xx-versus-5xx distinction locates fault and is commonly tested."
+      "notes": "The 4xx-versus-5xx distinction locates fault and is commonly tested. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "pm.software-application-architecture.json-and-xml",
@@ -1174,7 +1174,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1188,7 +1188,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.software-application-architecture.message-queue",
@@ -1205,7 +1205,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1217,7 +1217,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.software-application-architecture.relational-database",
@@ -1234,7 +1234,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1251,7 +1251,7 @@
         "pm.software-application-architecture.nosql-database"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.nosql-database",
@@ -1268,7 +1268,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1282,7 +1282,7 @@
         "pm.software-application-architecture.relational-database"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; choosing between them for a scenario is likely."
+      "notes": "A named comparison; choosing between them for a scenario is likely. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.software-application-architecture.sql-basics",
@@ -1299,7 +1299,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1311,7 +1311,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.software-application-architecture.schema-table-and-index",
@@ -1328,7 +1328,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1342,7 +1342,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.software-application-architecture.transactions-and-acid",
@@ -1359,7 +1359,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1373,7 +1373,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.software-application-architecture.caching-in-applications",
@@ -1390,7 +1390,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1404,7 +1404,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.software-application-architecture.stateless-vs-stateful-applications",
@@ -1421,7 +1421,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1437,7 +1437,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.functional-requirements",
@@ -1454,7 +1454,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1468,7 +1468,7 @@
         "pm.functional-analysis.non-functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.non-functional-requirements",
@@ -1485,7 +1485,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1499,7 +1499,7 @@
         "pm.functional-analysis.functional-requirements"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; classifying a given requirement is a likely question."
+      "notes": "A named comparison; classifying a given requirement is a likely question. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.requirements-elicitation",
@@ -1516,7 +1516,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1528,7 +1528,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.use-case",
@@ -1545,7 +1545,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1559,7 +1559,7 @@
         "pm.project-management.user-story"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.functional-analysis.process-mapping",
@@ -1576,7 +1576,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1588,7 +1588,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.gap-analysis",
@@ -1605,7 +1605,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1617,7 +1617,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.feasibility-study",
@@ -1634,7 +1634,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1646,7 +1646,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.functional-analysis.requirements-prioritization",
@@ -1663,7 +1663,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1675,7 +1675,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.traceability",
@@ -1692,7 +1692,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1704,7 +1704,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.functional-analysis.verification-vs-validation",
@@ -1721,7 +1721,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1733,7 +1733,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and easy to invert."
+      "notes": "A named comparison and easy to invert. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.user-acceptance-testing",
@@ -1750,7 +1750,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1762,7 +1762,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.functional-analysis.specification-documentation",
@@ -1779,7 +1779,7 @@
       "sept_2025_status": "unchanged",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1793,7 +1793,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.open-source-software",
@@ -1810,7 +1810,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1828,7 +1828,7 @@
         "pm.open-source-software-and-licensing.free-software-and-foss"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.free-software-and-foss",
@@ -1845,7 +1845,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1861,7 +1861,7 @@
         "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The free-as-in-speech distinction is frequently tested."
+      "notes": "The free-as-in-speech distinction is frequently tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
@@ -1878,7 +1878,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1892,7 +1892,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.proprietary-software",
@@ -1909,7 +1909,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1928,7 +1928,7 @@
         "pm.open-source-software-and-licensing.open-source-software"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.source-code-and-binaries",
@@ -1945,7 +1945,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1960,7 +1960,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.permissive-licenses",
@@ -1977,7 +1977,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -1997,7 +1997,7 @@
         "pm.open-source-software-and-licensing.copyleft-licenses"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": "Permissive versus copyleft is the central comparison in this competency."
+      "notes": "Permissive versus copyleft is the central comparison in this competency. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.copyleft-licenses",
@@ -2014,7 +2014,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2033,7 +2033,7 @@
         "pm.open-source-software-and-licensing.permissive-licenses"
       ],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.gpl",
@@ -2050,7 +2050,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2070,7 +2070,7 @@
       ],
       "confused_with": [],
       "coverage_status": "PARTIALLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.lgpl",
@@ -2087,7 +2087,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2104,7 +2104,7 @@
         "pm.open-source-software-and-licensing.gpl"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.agpl",
@@ -2121,7 +2121,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2137,7 +2137,7 @@
         "pm.open-source-software-and-licensing.gpl"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
@@ -2154,7 +2154,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2173,7 +2173,7 @@
         "pm.open-source-software-and-licensing.apache-license-2-0"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.apache-license-2-0",
@@ -2190,7 +2190,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2208,7 +2208,7 @@
         "pm.open-source-software-and-licensing.mit-and-bsd-licenses"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain",
@@ -2225,7 +2225,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2240,7 +2240,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.license-compatibility",
@@ -2257,7 +2257,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2272,7 +2272,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The asymmetry is the point and is commonly examined."
+      "notes": "The asymmetry is the point and is commonly examined. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.license-compliance",
@@ -2289,7 +2289,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2306,7 +2306,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.dual-licensing",
@@ -2323,7 +2323,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2337,7 +2337,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.contributor-license-agreement",
@@ -2354,7 +2354,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2369,7 +2369,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.software-bill-of-materials",
@@ -2386,7 +2386,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2401,7 +2401,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.open-source-community-roles",
@@ -2418,7 +2418,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2432,7 +2432,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "pm.open-source-software-and-licensing.contributing-to-open-source",
@@ -2449,7 +2449,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2465,7 +2465,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "pm.open-source-software-and-licensing.forking-a-project",
@@ -2482,7 +2482,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2498,7 +2498,7 @@
         "devops.git-concepts.clone-vs-fork"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "pm.open-source-software-and-licensing.governance-and-foundations",
@@ -2515,7 +2515,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 1,
       "official_sources": [
         "lf-objectives-2025"
@@ -2530,7 +2530,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     }
   ]
 }

@@ -12,7 +12,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | 4 | LFS200 crawl | **complete** |
 | 5 | Per-concept documentation research | **complete** |
 | 6 | Candidate experience research | **complete (negative result)** |
-| 7 | Depth assignment | not started |
+| 7 | Depth assignment | **complete** |
 | 8 | View generation | not started |
 
 ## Completed
@@ -53,7 +53,21 @@ field and the domain weights, not the concept counts.
 
 ## Pending
 
-- Stages 7 and 8.
+- Stage 8.
+
+## Remaining warnings, and why each is expected
+
+`tools/validate.mjs` exits 0. Sixteen warnings remain, in two classes, both correct:
+
+- **10 × `orphan-source`** — meta-sources that document the exam or the course as a whole
+  (certification page, LFS200 course, Candidate Handbook, Wayback snapshot, the MC-exam FAQ,
+  the learning-path PDF, the pre-update candidate report). They are cited by `PROGRESS.md` and
+  the research notes rather than by an individual concept, which is correct: they describe the
+  exam, not any one idea within it.
+- **6 × `inferred-ratio`** — 100% of concepts in every domain are `inferred: true`. This is
+  true by construction, not a defect: stage 1 established that the Linux Foundation publishes
+  no text below the competency name, so every concept beneath one is inference. The warning is
+  worth keeping precisely because it keeps that fact visible.
 
 ## Unresolved questions
 
@@ -124,6 +138,43 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Stage 7: depth assigned, with the guardrail run in both directions
+
+Every concept carries a `required_depth` assigned by explicit rule rather than per-concept
+opinion, so each rating is reproducible and its rationale is recorded in the concept's `notes`.
+
+| Level | | Concepts | Share |
+| --- | --- | ---: | ---: |
+| 1 | Recognition | 35 | 6.5% |
+| 2 | Understanding | 191 | 35.6% |
+| 3 | Application | 290 | 54.0% |
+| 4 | Troubleshooting | 15 | 2.8% |
+| 5 | Administration | 6 | 1.1% |
+
+**Upward guardrail — no drift toward LFCS, CKA or RHCSA.** Only 3.9% of concepts sit above
+Application. Level 5 is deliberately restricted to six concepts where the specific
+configuration syntax is itself examinable (`chmod` notation, sudoers/visudo, systemctl
+start-vs-enable, crontab syntax, reading `ls -l` modes, SSH hardening). A 90-minute
+multiple-choice exam with no practical component cannot test hands-on administration, and the
+ratings reflect that.
+
+**Downward guardrail — nothing important parked at recognition.** The first pass left six
+concepts at level 1 despite sitting in the 30%-weighted System Administration domain. A floor
+rule now raises anything with importance ≥ 4 to at least Understanding. Downward drift is zero.
+
+**Two flaws in the first rule set were found by the guardrail and fixed:**
+
+1. The comparison rule was gated on `importance >= 3`, but because `importance` is derived from
+   domain weight, that threshold is only ever reachable by System Administration. The rule was
+   therefore silently applying to one domain out of six, under-rating every named confusable
+   pair in Cloud, Security, DevOps and Project Management. Now any concept with a
+   `confused_with` entry is Application level, since a named confusable pair is precisely the
+   shape a multiple-choice comparison question takes.
+2. Domain means were spread 1.77–2.92 before the fix and 2.13–2.92 after, which is a much
+   tighter band and no longer suggests whole domains being systematically under-rated.
+
+**The validator now exits 0 — zero errors across all 537 concepts.**
 
 ### Stage 5: primary documentation attached, and the adversarial layer earned its keep
 

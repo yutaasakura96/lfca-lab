@@ -15,7 +15,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -30,7 +30,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Mapping a given control or incident onto the right leg of the triad is a likely question."
+      "notes": "Mapping a given control or incident onto the right leg of the triad is a likely question. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.authentication-vs-authorization",
@@ -47,7 +47,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -62,7 +62,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and among the most commonly confused pairs on this exam."
+      "notes": "A named comparison and among the most commonly confused pairs on this exam. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.accounting-and-auditing",
@@ -79,7 +79,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -96,7 +96,7 @@
         "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.principle-of-least-privilege",
@@ -113,7 +113,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -130,7 +130,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.defense-in-depth",
@@ -147,7 +147,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -164,7 +164,7 @@
         "security.security.principle-of-least-privilege"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.zero-trust",
@@ -181,7 +181,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -196,7 +196,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "security.security.attack-surface",
@@ -213,7 +213,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -230,7 +230,7 @@
         "security.security.vulnerabilities-cves-and-patching"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.risk-threat-and-vulnerability",
@@ -247,7 +247,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -262,7 +262,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "These three are constantly used loosely in conversation and precisely in exams."
+      "notes": "These three are constantly used loosely in conversation and precisely in exams. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.multi-factor-authentication",
@@ -279,7 +279,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -295,7 +295,7 @@
         "security.security.authentication-vs-authorization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.password-hashing-and-salting",
@@ -312,7 +312,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -329,7 +329,7 @@
         "security.security.symmetric-vs-asymmetric-encryption"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Hashing is one-way and is not encryption; conflating them is a common error."
+      "notes": "Hashing is one-way and is not encryption; conflating them is a common error. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.single-sign-on",
@@ -346,7 +346,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -360,7 +360,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "security.security.public-key-authentication",
@@ -377,7 +377,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -398,7 +398,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "security.security.symmetric-vs-asymmetric-encryption",
@@ -415,7 +415,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -430,7 +430,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; the reason both exist together in TLS is the insight."
+      "notes": "A named comparison; the reason both exist together in TLS is the insight. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.encryption-at-rest-vs-in-transit",
@@ -447,7 +447,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -462,7 +462,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison."
+      "notes": "A named comparison. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.hashing",
@@ -479,7 +479,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -499,7 +499,7 @@
         "security.security.symmetric-vs-asymmetric-encryption"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "security.security.digital-certificates-and-certificate-authorities",
@@ -516,7 +516,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -532,7 +532,7 @@
         "security.security.tls-and-https"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.tls-and-https",
@@ -549,7 +549,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -568,7 +568,7 @@
       ],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.certificate-expiry-and-validation",
@@ -585,7 +585,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -601,7 +601,7 @@
         "security.security.digital-certificates-and-certificate-authorities"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.full-disk-encryption",
@@ -618,7 +618,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -635,7 +635,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.phishing-and-social-engineering",
@@ -652,7 +652,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -667,7 +667,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Technical controls do not fully mitigate this; user awareness is the named defence."
+      "notes": "Technical controls do not fully mitigate this; user awareness is the named defence. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.malware-and-ransomware",
@@ -684,7 +684,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -700,7 +700,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.denial-of-service",
@@ -717,7 +717,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -733,7 +733,7 @@
         "security.security.malware-and-ransomware"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.man-in-the-middle",
@@ -750,7 +750,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -767,7 +767,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.brute-force-and-credential-stuffing",
@@ -784,7 +784,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -801,7 +801,7 @@
         "security.security.phishing-and-social-engineering"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.security.injection-attacks",
@@ -818,7 +818,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -832,7 +832,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.privilege-escalation",
@@ -849,7 +849,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -865,7 +865,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.insider-threat",
@@ -882,7 +882,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -898,7 +898,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.vulnerabilities-cves-and-patching",
@@ -915,7 +915,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -932,7 +932,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.system-hardening",
@@ -949,7 +949,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -966,7 +966,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.firewalls-and-network-segmentation",
@@ -983,7 +983,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -999,7 +999,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.intrusion-detection-and-prevention",
@@ -1016,7 +1016,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1030,7 +1030,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.security-logging-and-monitoring",
@@ -1047,7 +1047,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1064,7 +1064,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.incident-response",
@@ -1081,7 +1081,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1095,7 +1095,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Containment precedes eradication; acting out of order is a common wrong answer."
+      "notes": "Containment precedes eradication; acting out of order is a common wrong answer. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.physical-security",
@@ -1112,7 +1112,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1126,7 +1126,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.security.ssh-hardening",
@@ -1143,7 +1143,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 5,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1162,7 +1162,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: specific configuration syntax is itself examinable."
     },
     {
       "id": "security.security.selinux-and-apparmor",
@@ -1179,7 +1179,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1201,7 +1201,7 @@
         "security.sensitive-data.access-control-models"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "security.security.package-and-download-verification",
@@ -1218,7 +1218,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1239,7 +1239,7 @@
       ],
       "confused_with": [],
       "coverage_status": "FULLY COVERED",
-      "notes": "Applies the hashing primitive to a concrete supply-chain defence."
+      "notes": "Applies the hashing primitive to a concrete supply-chain defence. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
     {
       "id": "security.security.vulnerability-scanning",
@@ -1256,7 +1256,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1273,7 +1273,7 @@
         "security.security.intrusion-detection-and-prevention"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.personally-identifiable-information",
@@ -1290,7 +1290,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1307,7 +1307,7 @@
         "security.sensitive-data.data-classification"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.protected-health-and-payment-data",
@@ -1324,7 +1324,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1341,7 +1341,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.data-classification",
@@ -1358,7 +1358,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1374,7 +1374,7 @@
         "security.sensitive-data.personally-identifiable-information"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.sensitive-data.data-states",
@@ -1391,7 +1391,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1408,7 +1408,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.access-control-models",
@@ -1425,7 +1425,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1440,7 +1440,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.encryption-key-management",
@@ -1457,7 +1457,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1473,7 +1473,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.secrets-management",
@@ -1490,7 +1490,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1507,7 +1507,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Committing a secret to Git is a frequent real-world breach cause; rotating it is the only true fix."
+      "notes": "Committing a secret to Git is a frequent real-world breach cause; rotating it is the only true fix. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
@@ -1524,7 +1524,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1539,7 +1539,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Pseudonymized data is still personal data under GDPR; anonymized data is not."
+      "notes": "Pseudonymized data is still personal data under GDPR; anonymized data is not. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.data-loss-prevention",
@@ -1556,7 +1556,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1570,7 +1570,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.data-retention-and-disposal",
@@ -1587,7 +1587,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1604,7 +1604,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.secure-deletion",
@@ -1621,7 +1621,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1635,7 +1635,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "That rm does not erase data is the key insight here."
+      "notes": "That rm does not erase data is the key insight here. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.data-breach-and-notification",
@@ -1652,7 +1652,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1669,7 +1669,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.sensitive-data.backups-of-sensitive-data",
@@ -1686,7 +1686,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1702,7 +1702,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.compliance",
@@ -1719,7 +1719,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1736,7 +1736,7 @@
         "security.security.cia-triad"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure."
+      "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.policy-standard-and-procedure",
@@ -1753,7 +1753,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1767,7 +1767,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.controls-and-evidence",
@@ -1784,7 +1784,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1800,7 +1800,7 @@
         "security.compliance.audit"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.audit",
@@ -1817,7 +1817,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1834,7 +1834,7 @@
         "security.compliance.controls-and-evidence"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.risk-assessment",
@@ -1851,7 +1851,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1868,7 +1868,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.gdpr",
@@ -1885,7 +1885,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1899,7 +1899,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.hipaa",
@@ -1916,7 +1916,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1930,7 +1930,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.pci-dss",
@@ -1947,7 +1947,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1963,7 +1963,7 @@
         "security.compliance.gdpr"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Contractual rather than governmental, unlike GDPR and HIPAA."
+      "notes": "Contractual rather than governmental, unlike GDPR and HIPAA. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.soc-2-and-iso-27001",
@@ -1980,7 +1980,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1994,7 +1994,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "security.compliance.data-sovereignty-and-residency",
@@ -2011,7 +2011,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2027,7 +2027,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.data-retention-obligations",
@@ -2044,7 +2044,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2061,7 +2061,7 @@
         "security.sensitive-data.data-retention-and-disposal"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "security.compliance.consent-and-lawful-basis",
@@ -2078,7 +2078,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2092,7 +2092,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "security.compliance.licensing-compliance",
@@ -2109,7 +2109,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2125,7 +2125,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "security.compliance.consequences-of-non-compliance",
@@ -2142,7 +2142,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2156,7 +2156,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     }
   ]
 }

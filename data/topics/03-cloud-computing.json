@@ -15,7 +15,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -33,7 +33,7 @@
         "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "FULLY COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.essential-characteristics",
@@ -50,7 +50,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -64,7 +64,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.major-cloud-providers",
@@ -81,7 +81,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -98,7 +98,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "MENTIONED ONLY",
-      "notes": "The exam is vendor-neutral, but recognising the providers and mapping equivalent service categories is reasonable."
+      "notes": "The exam is vendor-neutral, but recognising the providers and mapping equivalent service categories is reasonable. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.iaas",
@@ -115,7 +115,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -131,7 +131,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content."
+      "notes": "IaaS/PaaS/SaaS is a named comparison and near-certain content. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.paas",
@@ -148,7 +148,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -164,7 +164,7 @@
         "cloud.cloud-computing.iaas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.saas",
@@ -181,7 +181,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -197,7 +197,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.serverless-and-faas",
@@ -214,7 +214,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -231,7 +231,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing."
+      "notes": "Removed as a named competency in the 2025 update, but still meaningful under Cloud Computing. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.public-cloud",
@@ -248,7 +248,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -264,7 +264,7 @@
         "cloud.cloud-computing.private-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.private-cloud",
@@ -281,7 +281,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -297,7 +297,7 @@
         "cloud.cloud-computing.public-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.hybrid-cloud",
@@ -314,7 +314,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -332,7 +332,7 @@
         "cloud.cloud-computing.multi-cloud"
       ],
       "coverage_status": "MENTIONED ONLY",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.multi-cloud",
@@ -349,7 +349,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -365,7 +365,7 @@
         "cloud.cloud-computing.hybrid-cloud"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.virtualization",
@@ -382,7 +382,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -399,7 +399,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.hypervisor",
@@ -416,7 +416,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -433,7 +433,7 @@
         "cloud.cloud-computing.virtualization"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.virtual-machine",
@@ -450,7 +450,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -467,7 +467,7 @@
         "devops.containers.container"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.container-vs-virtual-machine",
@@ -484,7 +484,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -502,7 +502,7 @@
         "cloud.cloud-computing.virtual-machine"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and very commonly tested."
+      "notes": "A named comparison and very commonly tested. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.shared-responsibility-model",
@@ -519,7 +519,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -533,7 +533,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Candidates routinely over-estimate what the provider covers, particularly for IaaS."
+      "notes": "Candidates routinely over-estimate what the provider covers, particularly for IaaS. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.region-and-availability-zone",
@@ -550,7 +550,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -567,7 +567,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.managed-services",
@@ -584,7 +584,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -600,7 +600,7 @@
         "cloud.cloud-computing.paas"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.cloud-control-planes",
@@ -617,7 +617,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -633,7 +633,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.service-level-agreement",
@@ -650,7 +650,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -666,7 +666,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.cloud-computing.object-block-and-file-storage",
@@ -683,7 +683,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -697,7 +697,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Choosing the right one for a scenario is a likely question shape."
+      "notes": "Choosing the right one for a scenario is a likely question shape. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.cloud-migration-approaches",
@@ -714,7 +714,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -728,7 +728,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.cloud-computing.vendor-lock-in",
@@ -745,7 +745,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -761,7 +761,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.availability",
@@ -778,7 +778,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -794,7 +794,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Translating nines into real downtime is a likely question."
+      "notes": "Translating nines into real downtime is a likely question. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.high-availability",
@@ -811,7 +811,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -829,7 +829,7 @@
         "cloud.performance-availability.fault-tolerance"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.fault-tolerance",
@@ -846,7 +846,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -862,7 +862,7 @@
         "cloud.performance-availability.high-availability"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.redundancy",
@@ -879,7 +879,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -895,7 +895,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.failover",
@@ -912,7 +912,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -929,7 +929,7 @@
         "cloud.performance-availability.load-balancing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.scalability-vs-elasticity",
@@ -946,7 +946,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -961,7 +961,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison; the automatic-and-bidirectional part is what distinguishes elasticity."
+      "notes": "A named comparison; the automatic-and-bidirectional part is what distinguishes elasticity. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.vertical-scaling",
@@ -978,7 +978,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -994,7 +994,7 @@
         "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.horizontal-scaling",
@@ -1011,7 +1011,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1027,7 +1027,7 @@
         "cloud.performance-availability.vertical-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "Scaling up versus scaling out is a named comparison."
+      "notes": "Scaling up versus scaling out is a named comparison. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.auto-scaling",
@@ -1044,7 +1044,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1060,7 +1060,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.load-balancing",
@@ -1077,7 +1077,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1095,7 +1095,7 @@
         "cloud.performance-availability.failover"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.stateless-design",
@@ -1112,7 +1112,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1128,7 +1128,7 @@
         "cloud.performance-availability.horizontal-scaling"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.latency-and-throughput",
@@ -1145,7 +1145,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1161,7 +1161,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.caching",
@@ -1178,7 +1178,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1194,7 +1194,7 @@
         "cloud.performance-availability.content-delivery-network"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.content-delivery-network",
@@ -1211,7 +1211,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1227,7 +1227,7 @@
         "cloud.performance-availability.caching"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.performance-availability.monitoring-and-metrics",
@@ -1244,7 +1244,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1260,7 +1260,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.performance-availability.sla-slo-and-sli",
@@ -1277,7 +1277,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1293,7 +1293,7 @@
         "cloud.cloud-computing.service-level-agreement"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "cloud.performance-availability.bottleneck-identification",
@@ -1310,7 +1310,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1326,7 +1326,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.capex-vs-opex",
@@ -1343,7 +1343,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1358,7 +1358,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "A named comparison and a favourite of business-oriented questions."
+      "notes": "A named comparison and a favourite of business-oriented questions. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.pay-as-you-go",
@@ -1375,7 +1375,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1391,7 +1391,7 @@
         "cloud.budgeting.on-demand-reserved-and-spot-pricing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
@@ -1408,7 +1408,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1422,7 +1422,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "Matching a pricing model to a workload is a likely scenario question."
+      "notes": "Matching a pricing model to a workload is a likely scenario question. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.total-cost-of-ownership",
@@ -1439,7 +1439,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1453,7 +1453,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "cloud.budgeting.free-tier-and-pricing-calculators",
@@ -1470,7 +1470,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1484,7 +1484,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.rightsizing",
@@ -1501,7 +1501,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1517,7 +1517,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.orphaned-resources",
@@ -1534,7 +1534,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1550,7 +1550,7 @@
         "cloud.budgeting.rightsizing"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.data-egress-charges",
@@ -1567,7 +1567,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1581,7 +1581,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": "The asymmetry between ingress and egress pricing is worth knowing explicitly."
+      "notes": "The asymmetry between ingress and egress pricing is worth knowing explicitly. Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.resource-tagging",
@@ -1598,7 +1598,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1614,7 +1614,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.budgets-and-cost-alerts",
@@ -1631,7 +1631,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1645,7 +1645,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.budgeting.chargeback-and-showback",
@@ -1662,7 +1662,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 1,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1676,7 +1676,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
     },
     {
       "id": "cloud.budgeting.cost-monitoring",
@@ -1693,7 +1693,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1709,7 +1709,7 @@
         "cloud.budgeting.budgets-and-cost-alerts"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
@@ -1726,7 +1726,7 @@
       "sept_2025_status": "reworded",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1743,7 +1743,7 @@
         "cloud.cloud-computing.object-block-and-file-storage"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.best-practices.design-for-failure",
@@ -1760,7 +1760,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1776,7 +1776,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.multi-zone-deployment",
@@ -1793,7 +1793,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1810,7 +1810,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.automation-over-manual-configuration",
@@ -1827,7 +1827,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1843,7 +1843,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.immutable-infrastructure",
@@ -1860,7 +1860,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1876,7 +1876,7 @@
         "cloud.best-practices.automation-over-manual-configuration"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.best-practices.well-architected-review",
@@ -1893,7 +1893,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1908,7 +1908,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.identity-and-access-management",
@@ -1925,7 +1925,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1941,7 +1941,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.secrets-management-in-cloud",
@@ -1958,7 +1958,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -1974,7 +1974,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.encryption-by-default",
@@ -1991,7 +1991,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2007,7 +2007,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.least-privilege-for-cloud-identities",
@@ -2024,7 +2024,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2040,7 +2040,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.avoid-hardcoded-credentials",
@@ -2057,7 +2057,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2074,7 +2074,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.backup-and-recovery-in-cloud",
@@ -2091,7 +2091,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2107,7 +2107,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.logging-and-auditing-in-cloud",
@@ -2124,7 +2124,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2138,7 +2138,7 @@
       "related_topics": [],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.documentation-and-tagging-standards",
@@ -2155,7 +2155,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2171,7 +2171,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.right-size-before-you-scale",
@@ -2188,7 +2188,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2204,7 +2204,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.best-practices.health-checks-and-graceful-shutdown",
@@ -2221,7 +2221,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2237,7 +2237,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.virtual-private-cloud",
@@ -2254,7 +2254,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2271,7 +2271,7 @@
         "cloud.networking.cloud-subnets"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.cloud-subnets",
@@ -2288,7 +2288,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2304,7 +2304,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.public-vs-private-subnet",
@@ -2321,7 +2321,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2338,7 +2338,7 @@
         "cloud.networking.internet-gateway-and-nat-gateway"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.security-group-vs-network-acl",
@@ -2355,7 +2355,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2371,7 +2371,7 @@
         "sysadmin.networking.firewall"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": "The stateful/stateless difference is the crux and is easy to get backwards."
+      "notes": "The stateful/stateless difference is the crux and is easy to get backwards. Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.internet-gateway-and-nat-gateway",
@@ -2388,7 +2388,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2405,7 +2405,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.public-and-elastic-ip-addresses",
@@ -2422,7 +2422,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2438,7 +2438,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.cloud-dns",
@@ -2455,7 +2455,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2471,7 +2471,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.cloud-load-balancer-types",
@@ -2488,7 +2488,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2504,7 +2504,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.vpc-peering-and-private-connectivity",
@@ -2521,7 +2521,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2538,7 +2538,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.hybrid-connectivity",
@@ -2555,7 +2555,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 3,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2571,7 +2571,7 @@
         "cloud.networking.vpc-peering-and-private-connectivity"
       ],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
     },
     {
       "id": "cloud.networking.cloud-route-tables",
@@ -2588,7 +2588,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2604,7 +2604,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.bastion-and-jump-hosts",
@@ -2621,7 +2621,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2637,7 +2637,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.cidr-planning-for-cloud-networks",
@@ -2654,7 +2654,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "HIGH",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2671,7 +2671,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
     {
       "id": "cloud.networking.private-service-endpoints",
@@ -2688,7 +2688,7 @@
       "sept_2025_status": "added",
       "inferred": true,
       "confidence": "MEDIUM",
-      "required_depth": null,
+      "required_depth": 2,
       "importance": 2,
       "official_sources": [
         "lf-objectives-2025"
@@ -2704,7 +2704,7 @@
       ],
       "confused_with": [],
       "coverage_status": "NOT COVERED",
-      "notes": ""
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     }
   ]
 }
