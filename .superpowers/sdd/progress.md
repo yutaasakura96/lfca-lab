@@ -52,3 +52,12 @@ Task 9: complete (commit f1c43fc). LFS200 crawled via owner's own authenticated 
   (4 of them new in 2025); Disaster Recovery's only lesson is 1 character. 43 key terms
   measured absent across 158,185 chars, including Docker, TLS, GDPR, Scrum, cron, RTO.
   Per-concept coverage figures are an explicit LOWER BOUND, not a measurement.
+Task 11: complete (commit e08e11c). NEGATIVE RESULT, which is the honest outcome.
+  No post-2025-09-16 LFCA candidate reports exist publicly. The one substantive report
+  (dev.to, 2025-09-03) predates the update by 13 days and describes the retired exam --
+  registered tier 4, deliberately NOT attached to any concept. Search space otherwise
+  dominated by braindump sites, all excluded unread and logged by name.
+  Consequence: candidate_evidence is empty on all 537 concepts, truthfully. The MEDIUM
+  confidence tier ("corroborated by 2+ candidate reports") cannot currently be satisfied
+  by anything -- MEDIUM concepts rest on official material and inference alone.
+  Third-party "60 questions" figure noted as UNVERIFIED, not adopted.
