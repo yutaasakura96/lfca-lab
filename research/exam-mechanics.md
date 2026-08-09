@@ -71,6 +71,16 @@ Multiple Choice Exam category; LFCA is confirmed to be in that category by the c
 page's own "Multiple Choice Exam" label (source: `lf-lfca-cert-page`), so the 75% threshold is
 attributed to LFCA at HIGH confidence rather than treated as merely suggestive.
 
+**Caveat on this particular HIGH label.** Unlike the 90-minute duration and the 2-year validity
+— both of which appear on the LFCA certification page *itself* as well as in the generic FAQ —
+the 75% figure appears **only** in the generic FAQ. The certification page's "Includes" box
+lists Online, Certification Valid for 2 Years, 12 Month Exam Eligibility, One Retake, Multiple
+Choice Exam, Duration of Exam 90 minutes, and Beginner, but states no passing score anywhere.
+This value therefore carries one more inferential step than the others rated HIGH here: it
+depends on the classification chain holding, not on a direct LFCA-specific statement. It is
+recorded as HIGH because the chain is short and both links are official, but a reader should
+know it is the least directly-attested of the HIGH values on this page.
+
 **Corroborating anecdotal data point (confidence: MEDIUM, does not substitute for the stated
 number above):** the repository owner sat the LFCA exam and scored 71%, and did not pass. This
 is consistent with — and bounds the passing threshold above — the stated 75% figure; it does not

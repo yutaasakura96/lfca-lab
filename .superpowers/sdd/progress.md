@@ -23,3 +23,10 @@ Task 4: complete (commits ecc5cb4..f34e5d2, review clean)
   - checks.test.mjs has no test for checkInferredRatio on a zero-concept domain,
     though checks.mjs:131 guards exactly that case.
 Task 5: complete (commits f34e5d2..f363271, review clean after 1 fix round)
+Task 6: complete (commits 85ec0c2..bc59159 + calibration fix, review clean)
+  Established HIGH: 90 min duration, 75% pass, multiple choice, PSI Bridge online proctoring,
+    2-year validity, one retake included, $250/$299/$495. Question count NOT stated anywhere.
+  Reviewer independently re-fetched all 3 cited pages and confirmed figures are real.
+  Minor (carry to final review): task-6-report.md self-review wording overstates the
+    exclusion of the third-party "60 questions" figure (the file does name it, correctly
+    labelled unverified). Report-file wording only; the dataset is correct.
