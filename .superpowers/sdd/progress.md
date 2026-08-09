@@ -72,3 +72,17 @@ Task 10: complete (commits 503be23, 9058dcb). Workflow wf_f403b4b3-07a: 20 agent
   CONTROLLER BUG FOUND AND FIXED: my first merge script keyed verdicts off journal `key`,
   which is a content hash not the agent label, so all 11 corrections fell through to
   "rejected" and 0 were applied. Caught by cross-checking against the workflow's own tally.
+Task 12: complete (commit f9bbc4c). Depth assigned by explicit rule. Guardrail run both ways
+  and caught two flaws in my own first rule set: (1) the comparison rule was gated on
+  importance>=3, which the formula makes reachable ONLY by System Administration, so it was
+  silently applying to 1 domain of 6; (2) six concepts sat at Recognition inside the 30%
+  domain. Both fixed. Distribution: L1 6.5 / L2 35.6 / L3 54.0 / L4 2.8 / L5 1.1.
+Task 13: complete (commit 76be67f). All 10 definition-of-done checks PASS. validator exit 0,
+  42/42 tests, regeneration idempotent, README section added.
+CYCLE 1 COMPLETE. 28 commits, 35 files, 537 concepts, 274 sources, 13 checks, 42 tests.
+Minor findings still open, for the final whole-branch review to triage:
+  - tools/lib/load.mjs:4-6 readJson has no error handling (bad path -> raw ENOENT)
+  - tools/lib/load.mjs:21-26 sequential awaits over 6 domain files (immaterial)
+  - checks.test.mjs has no test for checkInferredRatio on a zero-concept domain
+  - .superpowers/sdd/task-6-report.md self-review wording overstates a claim (scratch file)
+  - 57 concepts lack a per-concept primary-doc citation (PMBOK/BABOK/ISO paywalled)
