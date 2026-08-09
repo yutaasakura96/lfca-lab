@@ -13,14 +13,14 @@
       "changes_2025": {
         "renamed_from": null,
         "removed_competencies": ["System Commands"],
-        "note": "Fixture domain: one competency removed, one reworded, one unchanged."
+        "note": "Fixture domain: one competency removed, one reworded, one added."
       },
       "competencies": [
         {
           "name": "Linux Operating System",
-          "sept_2025_status": "unchanged",
-          "previous_name": "Linux Operating System",
-          "rewording_significance": null
+          "sept_2025_status": "reworded",
+          "previous_name": "Linux OS Basics",
+          "rewording_significance": "substantive"
         },
         {
           "name": "Command Line",

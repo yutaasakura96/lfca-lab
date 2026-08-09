@@ -22,3 +22,4 @@ Task 4: complete (commits ecc5cb4..f34e5d2, review clean)
     with no schema check enforcing the field. DECISION NEEDED before Task 6.
   - checks.test.mjs has no test for checkInferredRatio on a zero-concept domain,
     though checks.mjs:131 guards exactly that case.
+Task 5: complete (commits f34e5d2..f363271, review clean after 1 fix round)
