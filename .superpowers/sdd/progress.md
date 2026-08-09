@@ -61,3 +61,14 @@ Task 11: complete (commit e08e11c). NEGATIVE RESULT, which is the honest outcome
   confidence tier ("corroborated by 2+ candidate reports") cannot currently be satisfied
   by anything -- MEDIUM concepts rest on official material and inference alone.
   Third-party "60 questions" figure noted as UNVERIFIED, not adopted.
+Task 10: complete (commits 503be23, 9058dcb). Workflow wf_f403b4b3-07a: 20 agents, 1.36M
+  subagent tokens, 311 tool calls, 15 min. 9 research + 11 adversarial verifiers.
+  11 corrections proposed -> 8 REFUTED, 3 applied. The refuter caught corrections that would
+  have made the dataset worse (an /etc/shadow rewrite that contradicted itself) and several
+  that were true but at LFCS/professional altitude rather than LFCA.
+  Registry 11 -> 274 sources (252 tier-2 primary docs). 480/537 concepts cite a tier-1/2 doc.
+  KNOWN SHORTFALL: 57 concepts (40 of them in the PM domain) have no primary-doc citation
+  because PMBOK/BABOK/ISO are paywalled and pmi.org+gao.gov refused automated fetch.
+  CONTROLLER BUG FOUND AND FIXED: my first merge script keyed verdicts off journal `key`,
+  which is a content hash not the agent label, so all 11 corrections fell through to
+  "rejected" and 0 were applied. Caught by cross-checking against the workflow's own tally.
