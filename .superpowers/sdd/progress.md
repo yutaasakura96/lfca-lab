@@ -35,3 +35,9 @@ Task 7: complete (commits f7a760c..77506cc + test gap fix, review clean after 1 
   Fix round addressed: Command Line mis-mapping (Critical), 12 factual errors (Critical),
     3 under-built new-2025 competencies (Critical), confused_with -> ids, group contiguity.
   Validator extended to 13 checks (owner-approved deviation from plan's ten).
+Task 8: complete (commits bdc1fc2..6ad83c3, verified by controller not subagent —
+  user declined the review dispatch). Checks run: scope (9 files, exam-mechanics.md
+  untouched), views.mjs purity (imports only sourceIndex), banners on all 6 outputs,
+  537 rows in both coverage-matrix and gap-analysis, 11 tables with 0 ragged rows,
+  0 literal "null" cells, pipe-escaping proven on the 2 concepts containing raw pipes.
+  42 tests passing.
