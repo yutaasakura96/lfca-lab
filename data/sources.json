@@ -59,6 +59,54 @@
       "category": "official-course",
       "authority_tier": 1,
       "notes": "Public overview page. Course content itself requires authenticated access."
+    },
+    {
+      "id": "lf-faq-mc",
+      "title": "Multiple Choice Exams: Frequently Asked Questions",
+      "url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-mc",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-handbook",
+      "authority_tier": 1,
+      "notes": "Generic FAQ across all LF multiple-choice-format exams (LFCA is one of them, confirmed via lf-lfca-cert-page labelling LFCA a 'Multiple Choice Exam'). Source for stage 2 exam mechanics: 90-minute duration, 75% passing score, remote proctoring description, 24-hour automated scoring turnaround, 2-year certification validity, renewal mechanics, ID requirements. Does not state a question count; defers pricing questions to the training catalog."
+    },
+    {
+      "id": "lf-important-instructions-mc",
+      "title": "Multiple Choice Exams: Important Instructions",
+      "url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-handbook",
+      "authority_tier": 1,
+      "notes": "Generic instructions across LF multiple-choice exams. Source for proctoring platform detail (PSI Bridge, PSI Secure Browser), system/testing-location requirements, ID requirements, and the sanctioned-countries list. No question count or per-question format detail. Links to a page at /tc-docs/certification/faq-lfca which returned HTTP 404 when checked 2026-08-09 -- dead link, not used as a source."
+    },
+    {
+      "id": "lf-lfca-learning-path-pdf",
+      "title": "LFCA Sample Curriculum Path (PDF)",
+      "url": "https://training.linuxfoundation.org/wp-content/uploads/2024/10/LFCA.pdf",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-handbook",
+      "authority_tier": 1,
+      "notes": "One-page infographic listing suggested free/paid preparatory courses and a rough 3-6 month self-paced prep estimate; explicitly states no course is a prerequisite for the exam. Consulted for stage 2 exam mechanics but yielded nothing on question count, duration, price, or scoring -- recorded here so it is not re-checked."
+    },
+    {
+      "id": "lf-lfca-free-resources",
+      "title": "LFCA Free Resources",
+      "url": "https://training.linuxfoundation.org/resources/lfca-free-resources/",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-handbook",
+      "authority_tier": 1,
+      "notes": "Landing page linking to free introductory courses (Introduction to Linux, etc.). Consulted for stage 2 exam mechanics but contains no exam logistics or scoring content -- recorded here so it is not re-checked."
     }
   ]
 }

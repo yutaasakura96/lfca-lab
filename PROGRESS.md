@@ -7,7 +7,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | Stage | Description | Status |
 | --- | --- | --- |
 | 1 | Official objectives capture | **complete** |
-| 2 | Exam mechanics | not started |
+| 2 | Exam mechanics | **complete** |
 | 3 | Taxonomy expansion | not started |
 | 4 | LFS200 crawl | not started |
 | 5 | Per-concept documentation research | not started |
@@ -21,17 +21,27 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
   `tools/validate.mjs` gate.
 - Stage 1: official objectives captured, and the full pre/post 2025-09-16 change set derived
   and recorded. All 22 competencies carry a real `sept_2025_status` — none left `unknown`.
+- Stage 2: exam mechanics recorded in `research/exam-mechanics.md` (hand-written). Established
+  at HIGH confidence: duration (90 min), question format (multiple choice, no finer detail
+  stated), passing score (75%), delivery/proctoring (online, PSI Bridge), certification validity
+  (2 years), price ($250 / $299 / $495 across three purchase options), and retake policy (one
+  retake included with purchase, exact mechanics not spelled out). Question count is **not
+  stated in official sources** anywhere checked across two stages — recorded as such rather than
+  guessed.
 
 ## Pending
 
-- Stages 2 through 8.
+- Stages 3 through 8.
 
 ## Unresolved questions
 
-- Exam question count, duration, and passing score not yet retrieved (stage 2). The Candidate
-  Handbook was checked during stage 1 and contains none of these; it is generic across all
-  Linux Foundation exams and was last updated roughly two years ago. Remaining candidates:
-  the LFCA learning-path PDF, the free-resources page, and the docs.linuxfoundation.org FAQ.
+- LFCA question count is not stated in any official source checked (certification page,
+  Candidate Handbook, Multiple Choice Exams FAQ, Multiple Choice Exams Important Instructions,
+  free-resources page, learning-path PDF). Third-party figures exist but are unverified
+  tier-3/4 and were not used. See `research/exam-mechanics.md` for the full account.
+- The relationship between the certification page's "12 Month Exam Eligibility" and "One
+  Retake" attributes (does the 12-month window bound the retake specifically, or the whole
+  purchase-to-attempt period?) is not spelled out by the source.
 
 ## Access problems
 
