@@ -1,0 +1,2359 @@
+{
+  "topics": [
+    {
+      "id": "linux.linux-operating-system.operating-system",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "operating system"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The software layer that manages hardware and provides services to programs, so applications need not address devices directly.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
+      "additional_sources": [
+        "kernel-readme",
+        "man-syscalls-2"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.kernel"
+      ],
+      "coverage_status": "FULLY COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.kernel",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "kernel"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The core of the OS. It schedules the CPU, manages memory, drives devices, and enforces permissions. Everything else is userspace.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
+      "additional_sources": [
+        "kernel-readme",
+        "man-syscalls-2",
+        "man-uname-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "uname -r"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.operating-system"
+      ],
+      "coverage_status": "FULLY COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.kernel-space-vs-user-space",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "kernel space vs user space"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Privileged kernel execution versus unprivileged application execution. The boundary is what stops one program corrupting another.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-syscalls-2",
+        "kernel-license-rules",
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.kernel"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.system-call",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "system call"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The controlled entry point by which a userspace program asks the kernel to do privileged work such as opening a file.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
+      "additional_sources": [
+        "man-syscalls-2",
+        "kernel-license-rules"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "PARTIALLY COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "linux.linux-operating-system.shell",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "shell"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The program interpreting typed commands and turning them into process execution. Bash is the common default.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-bash-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "echo $SHELL"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.terminal"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.terminal",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "terminal"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The interface presenting a shell. The terminal displays; the shell interprets. They are routinely conflated.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-bash-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.shell"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.everything-is-a-file",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "everything is a file"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The Unix design principle by which devices, sockets, and kernel state are all reached through the filesystem interface.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "fhs-3.0",
+        "man-syscalls-2"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.proc-and-sys"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.multi-user-and-multitasking",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Fundamentals",
+        "multi-user and multitasking"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Linux runs many users and many processes concurrently, isolating each — which is why permissions and process ownership exist at all.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.linux-distribution",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Distributions",
+        "Linux distribution"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The kernel packaged with GNU tools, a package manager, defaults, and a release policy. The kernel alone is not a usable system.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-os-release-5",
+        "gnu-linux-and-gnu",
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "cat /etc/os-release"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.kernel"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.distribution-families",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Distributions",
+        "distribution families"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Debian family (Debian, Ubuntu, Mint) using .deb and apt; Red Hat family (RHEL, Fedora, CentOS Stream, Rocky) using .rpm and dnf; SUSE; Arch.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-os-release-5",
+        "ubuntu-release-cycle",
+        "archwiki-arch-linux"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.linux-distribution"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Knowing which package manager belongs to which family is commonly tested. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.lts-vs-rolling-release",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Distributions",
+        "LTS vs rolling release"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Long-term-support releases freeze versions and backport fixes for years; rolling releases ship continuously. Stability against currency.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "ubuntu-release-cycle",
+        "archwiki-arch-linux"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.gnu-and-the-linux-kernel",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "History and licensing",
+        "GNU and the Linux kernel"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Linux is the kernel; most of the surrounding userland is GNU. This is why the combination is sometimes called GNU/Linux.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-linux-and-gnu",
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.kernel"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.linux-history",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "History and licensing",
+        "Linux history"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Begun by Linus Torvalds in 1991 as a free Unix-like kernel and developed openly ever since. The Linux Foundation sponsors and hosts the work; technical direction remains with Torvalds and the kernel maintainer hierarchy.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "lf-about"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.unix-heritage-and-posix",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "History and licensing",
+        "Unix heritage and POSIX"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Linux is Unix-like and largely POSIX-conformant, which is why skills and scripts port across Unix systems.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-readme",
+        "posix-env-vars"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "linux.linux-operating-system.open-source-licensing-of-linux",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "History and licensing",
+        "open source licensing of Linux"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The kernel is released under GPLv2, which is why distributions may redistribute and modify it under the same terms.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-license-rules",
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.open-source-software-and-licensing.gpl"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.cpu",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "CPU"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Executes instructions. Core count and architecture determine how much work runs genuinely in parallel.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch2.l4"
+      ],
+      "additional_sources": [
+        "man-lscpu-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "lscpu",
+        "nproc"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "PARTIALLY COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.ram",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "RAM"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Volatile working memory. When it is exhausted the system swaps to disk and slows sharply, or begins killing processes.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-free-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "free -h"
+      ],
+      "related_topics": [
+        "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.storage-devices",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "storage devices"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Persistent block devices — HDD, SSD, NVMe — that hold filesystems and survive power loss.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-lsblk-8"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "lsblk"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.ram"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.cpu-architecture",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "CPU architecture"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "x86_64 and ARM64 are the common ones. Binaries and container images are architecture-specific.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-uname-1",
+        "kernel-readme"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "uname -m",
+        "arch"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "device drivers and kernel modules"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Kernel code that drives hardware, either compiled into the kernel image or built as a module that loads and unloads at runtime.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-kconfig-language",
+        "kernel-kbuild-modules",
+        "man-modprobe-8",
+        "man-lsmod-8"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "lsmod",
+        "modprobe"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Corrected in stage 5 against primary documentation (https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html); the correction survived independent adversarial review. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.firmware",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Hardware",
+        "firmware"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Low-level software embedded in a device, distinct from the operating system that runs above it.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "kernel-firmware-api"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.device-drivers-and-kernel-modules"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "linux.linux-operating-system.gui-vs-cli",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Interfaces",
+        "GUI vs CLI"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Graphical and command-line interfaces. Servers are usually administered by CLI because it is scriptable, remotable, and cheap in resources.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-bash-1",
+        "xorg-wiki"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.linux-operating-system.shell"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.linux-operating-system.desktop-environments",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Interfaces",
+        "desktop environments"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "GNOME, KDE Plasma, XFCE and others provide the graphical desktop; the choice is independent of the distribution.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "xorg-wiki",
+        "wayland-architecture"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.linux-operating-system.x11-and-wayland",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Interfaces",
+        "X11 and Wayland"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The display server protocols underlying Linux graphics, Wayland being the newer replacement. Recognition-level.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "LOW",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "xorg-wiki",
+        "wayland-architecture"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "linux.linux-operating-system.environment-variables",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Environment",
+        "environment variables"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Named values inherited by processes, configuring behaviour without changing code.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-environ-7",
+        "posix-env-vars",
+        "man-bash-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "env",
+        "export",
+        "echo $HOME"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.path",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Environment",
+        "PATH"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The ordered list of directories the shell searches for commands. Explains \"command not found\" for an installed program.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-bash-1",
+        "posix-env-vars",
+        "fhs-3.0"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "echo $PATH",
+        "which",
+        "type"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A very common cause of confusing command-not-found errors. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.linux-operating-system.system-information-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "Environment",
+        "system information commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "Identifying what a machine is: kernel version, distribution, hostname, uptime, architecture.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-uname-1",
+        "man-os-release-5",
+        "man-hostnamectl-1",
+        "man-uptime-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "uname -a",
+        "hostnamectl",
+        "cat /etc/os-release",
+        "uptime"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.command-syntax",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Basics",
+        "command syntax"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "A command, its options (flags), and its arguments. Short options take one dash, long options two.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
+      "additional_sources": [
+        "posix-utility-conventions",
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l",
+        "ls --all"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "MENTIONED ONLY",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.getting-help",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Basics",
+        "getting help"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Man pages, --help, apropos, and info. Man pages have numbered sections; section 5 covers file formats, which is where config syntax lives.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-pages-7",
+        "man-man-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "man",
+        "man 5 crontab",
+        "man -k",
+        "apropos",
+        "info"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Knowing man sections exist, and that section 5 documents file formats, is worth having. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.absolute-vs-relative-paths",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Navigation",
+        "absolute vs relative paths"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "An absolute path starts at / and is unambiguous; a relative path is interpreted from the current directory.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "pwd",
+        "cd"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.dot-dotdot-and-tilde",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Navigation",
+        ". .. and ~"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Current directory, parent directory, and the current user’s home.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "gnu-bash-manual",
+        "fhs-3-0"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "cd ..",
+        "cd ~"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.navigating-the-filesystem",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Navigation",
+        "navigating the filesystem"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Moving around and listing contents, including hidden dotfiles which ls omits by default.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual",
+        "gnu-bash-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "pwd",
+        "cd",
+        "ls -la"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.root-directory-vs-root-vs-home",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Navigation",
+        "root directory vs /root vs home"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "/ is the root of the filesystem, /root is the superuser’s home directory, and ~ is the current user’s home. Three different things sharing a name.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "fhs-3-0",
+        "gnu-bash-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "cd /",
+        "cd /root",
+        "cd ~"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.dot-dotdot-and-tilde"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.creating-and-removing-files-and-directories",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "creating and removing files and directories"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "touch, mkdir, cp, mv, rm. rm is immediate and unrecoverable; there is no recycle bin.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "touch",
+        "mkdir -p",
+        "cp -r",
+        "mv",
+        "rm -r",
+        "rmdir"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "rm -rf with a wrong path is the classic catastrophic mistake. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.viewing-file-contents",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "viewing file contents"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "cat for short files, less for paging, head and tail for the ends, tail -f to follow a growing log.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "cat",
+        "less",
+        "head",
+        "tail -f"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.finding-files",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "finding files"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "find walks the tree live and filters on name, size, time, or permission; locate queries a prebuilt index and is faster but can be stale.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch5.l5"
+      ],
+      "additional_sources": [
+        "gnu-find-man",
+        "gnu-locate-man",
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "find",
+        "locate",
+        "which",
+        "whereis"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.grep"
+      ],
+      "coverage_status": "MENTIONED ONLY",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.file-type-and-metadata",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "file type and metadata"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Determining what a file actually is and when it changed, rather than trusting its extension.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-file-1",
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "file",
+        "stat",
+        "ls -l"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.file-management-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "file management commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The file-handling command family folded into this competency in 2025: listing, copying, moving, removing, linking and inspecting files.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -la",
+        "cp -r",
+        "mv",
+        "rm -i",
+        "ln -s",
+        "stat",
+        "file"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Folded in from the retired \"File Management Commands\" competency. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.reading-ls-l-output",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "reading ls -l output"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The ten-character mode string: a leading type character (- file, d directory, l symlink) then three permission triads for owner, group and other. drwxr-xr-x is a directory the owner may write and everyone may read and traverse.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 5,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l",
+        "ls -ld"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.system-administration.symbolic-vs-numeric-chmod"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Reading a mode string, and converting it to and from octal such as 644 or 755, is a staple multiple-choice item. Depth rationale: specific configuration syntax is itself examinable."
+    },
+    {
+      "id": "linux.command-line.case-sensitivity",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "File operations",
+        "case sensitivity"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Linux filenames and commands are case-sensitive: File.txt and file.txt are different files. A frequent stumbling block for people arriving from Windows.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-path-resolution-7",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.command-line.wildcards-and-globbing",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "wildcards and globbing"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The shell expands * ? and [] into matching filenames before the command ever runs.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ls *.txt"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Expansion happens in the shell, not the command — which is why quoting changes behaviour. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.quoting",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "quoting"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Double quotes preserve spacing but still expand variables; single quotes suppress all expansion; a backslash escapes one character.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Unquoted variables containing spaces are a frequent scripting bug. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.command-line.command-chaining",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "command chaining"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "; runs sequentially regardless, && runs only on success, || runs only on failure.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        ";",
+        "&&",
+        "||"
+      ],
+      "related_topics": [
+        "sysadmin.troubleshooting.exit-status"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.command-substitution",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "command substitution"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Substitutes a command’s output into another command, written $(...).",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.command-line.shell-variables-and-export",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "shell variables and export"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Variables are local to the shell until exported, at which point child processes inherit them.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "export"
+      ],
+      "related_topics": [
+        "linux.linux-operating-system.environment-variables"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.history-and-tab-completion",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "history and tab completion"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Recalling previous commands and completing names, both of which reduce typing errors.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "history",
+        "!!",
+        "Ctrl-R"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.aliases",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "aliases"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Short names for longer commands, defined in shell startup files.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "alias"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.command-exit-status",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Shell features",
+        "command exit status"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Every command returns a status: 0 for success, non-zero for failure. It drives && and || and is how scripts detect problems.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "echo $?"
+      ],
+      "related_topics": [
+        "sysadmin.troubleshooting.exit-status"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.standard-streams",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "standard streams"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "stdin, stdout and stderr — file descriptors 0, 1 and 2. Errors travel separately from output, which is why 2> exists.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.pipes"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "linux.command-line.redirection",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "redirection"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "> writes to a file and truncates it, >> appends, < reads from a file, 2> captures errors, and /dev/null discards.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        ">",
+        ">>",
+        "2>",
+        "&>"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "> silently destroys the existing contents of the target file. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.pipes",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Redirection",
+        "pipes"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Connects one command’s stdout to the next command’s stdin, letting small tools be composed. stderr is not carried by default.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "|"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.redirection"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.grep",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "grep"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Searches input for lines matching a pattern. The single most-used text tool on a Linux system.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-grep-man"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "grep -i",
+        "grep -r",
+        "grep -v",
+        "grep -n"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.finding-files"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "grep searches inside files; find locates files. A commonly confused pair. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.regular-expressions",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "regular expressions"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Pattern syntax used by grep, sed, and others. Basic anchors, character classes and quantifiers are enough at this level.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
+      "additional_sources": [
+        "gnu-grep-man",
+        "gnu-sed-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "MENTIONED ONLY",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.command-line.sed",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "sed"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Stream editor, most often used for search-and-replace across a file or pipeline.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-sed-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "sed",
+        "sed 's/a/b/g'"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.awk"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.awk",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "awk"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Field-aware text processor, natural for columnar output such as printing the third column of a report.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-gawk-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "awk",
+        "awk '{print $3}'"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "linux.command-line.sed"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.cut-sort-uniq-and-wc",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "cut, sort, uniq and wc"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Extract fields, order lines, collapse duplicates, and count. uniq only collapses adjacent duplicates, so sort usually precedes it.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "cut -d",
+        "sort",
+        "sort -u",
+        "uniq -c",
+        "wc -l"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "uniq without a preceding sort is a classic mistake. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.diff-and-comparison",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Text processing",
+        "diff and comparison"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Shows differences between files, the basis of patches and code review.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-diffutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "diff",
+        "diff -u"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.text-editors",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Editors",
+        "text editors"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "vi/vim is present on essentially every Unix system; nano is simpler. Knowing how to save and quit vi is a practical necessity.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "posix-vi"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "vi",
+        "nano",
+        ":wq"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Being trapped in vi is a rite of passage; :q! exits without saving. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.archiving-and-compression",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Archiving",
+        "archiving and compression"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "tar bundles many files into one archive; gzip, bzip2 and xz compress. tar czf creates a compressed archive in one step.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-tar-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "tar czf",
+        "tar xzf",
+        "gzip",
+        "zip",
+        "unzip"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.disaster-recovery.backup"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.file-transfer",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Archiving",
+        "file transfer"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Moving files between hosts with scp, sftp, or rsync; rsync transfers only differences and can resume.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rsync-man",
+        "openssh-scp-man"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "scp",
+        "rsync -av",
+        "sftp"
+      ],
+      "related_topics": [
+        "sysadmin.networking.ssh"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.shell-scripting-basics",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Scripting",
+        "shell scripting basics"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "A file of commands made executable, beginning with a shebang naming the interpreter.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "man-execve-2"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "#!/bin/bash",
+        "chmod +x"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.read-write-execute-permissions"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.script-control-flow",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Scripting",
+        "script control flow"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Conditionals and loops — if, for, while — plus positional parameters for arguments.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-bash-manual",
+        "posix-shell-command-language"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "linux.command-line.system-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "System commands",
+        "system commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The command family folded into this competency in 2025: inspecting processes, memory, disk and uptime from the shell. The underlying concepts live under System Administration; what belongs here is knowing which command answers which question.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "man-ps-1",
+        "gnu-coreutils-manual"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ps aux",
+        "top",
+        "kill",
+        "free -h",
+        "df -h",
+        "du -sh",
+        "uptime",
+        "uname -a"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.process"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "One of three command families the Linux Foundation collapsed into Command Line in the 2025 update. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.who-is-logged-in",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "System commands",
+        "who is logged in"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Inspecting current sessions and login history, which is both an operational and a security question.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gnu-coreutils-manual",
+        "man-w-1"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "who",
+        "w",
+        "last",
+        "id",
+        "whoami"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.general-networking-commands",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Networking commands",
+        "general networking commands"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "The networking command family folded into this competency in 2025: checking addresses, reachability, name resolution and listening sockets from the shell.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "iproute2-ip-address-man",
+        "iproute2-ss-man"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ip addr",
+        "ip route",
+        "ping",
+        "ss -tulpn",
+        "dig",
+        "traceroute",
+        "curl -I",
+        "hostname"
+      ],
+      "related_topics": [
+        "sysadmin.networking.ip-and-ifconfig"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Folded in from the retired \"General Networking Commands\" competency. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "linux.command-line.port-ranges",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "Networking commands",
+        "port ranges"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Well-known or system ports are 0-1023 and need privilege to bind; registered ports are 1024-49151; dynamic or ephemeral ports are 49152-65535 and are used for the client end of a connection.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-6335",
+        "man-ip-7",
+        "kernel-ip-sysctl"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "sysadmin.networking.well-known-ports"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "The reason a non-root process cannot bind port 80 but can bind 8080. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    }
+  ]
+}

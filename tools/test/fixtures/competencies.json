@@ -1,0 +1,34 @@
+{
+  "exam_version": "2025-09-16",
+  "source": "tier1-example",
+  "objective_granularity": "competency",
+  "previous_exam_version": "pre-2025-09-16",
+  "domains": [
+    {
+      "id": "linux",
+      "name": "Linux Fundamentals",
+      "weight": 16,
+      "previous_weight": 20,
+      "file": "01-linux-fundamentals.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": ["System Commands"],
+        "note": "Fixture domain: one competency removed, one reworded, one added."
+      },
+      "competencies": [
+        {
+          "name": "Linux Operating System",
+          "sept_2025_status": "reworded",
+          "previous_name": "Linux OS Basics",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Command Line",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
+      ]
+    }
+  ]
+}

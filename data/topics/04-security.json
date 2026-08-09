@@ -1,0 +1,2162 @@
+{
+  "topics": [
+    {
+      "id": "security.security.cia-triad",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "CIA triad"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Confidentiality, integrity and availability — the three properties every security control ultimately serves.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Mapping a given control or incident onto the right leg of the triad is a likely question. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.authentication-vs-authorization",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "authentication vs authorization"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Authentication establishes who you are; authorization determines what you may do. Authentication always precedes authorization.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-63b-4"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and among the most commonly confused pairs on this exam. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.accounting-and-auditing",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "accounting and auditing"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Recording what was done and by whom, completing the AAA triad alongside authentication and authorization.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.authentication-vs-authorization"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.principle-of-least-privilege",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "principle of least privilege"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Granting only the access required for the task, and no more, so a compromise has limited reach.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.root-and-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.defense-in-depth",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "defense in depth"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Layering independent controls so that no single failure exposes the system.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.zero-trust",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "zero trust"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Trusting no request implicitly by network location, and verifying every one instead.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-207",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.attack-surface",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "attack surface"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "The total set of points where a system can be attacked; hardening is the practice of reducing it.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.vulnerabilities-cves-and-patching"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.risk-threat-and-vulnerability",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Principles",
+        "risk, threat and vulnerability"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "A vulnerability is a weakness, a threat is what might exploit it, and risk is the likelihood and impact combined.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-30r1",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "These three are constantly used loosely in conversation and precisely in exams. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.multi-factor-authentication",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Authentication",
+        "multi-factor authentication"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Requiring two or more of something you know, have, or are — so a stolen password alone is insufficient.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-63b-4"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.authentication-vs-authorization"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.password-hashing-and-salting",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Authentication",
+        "password hashing and salting"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Passwords are stored as one-way hashes, with a per-user salt so identical passwords do not produce identical hashes.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-63b-4",
+        "owasp-password-storage"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.symmetric-vs-asymmetric-encryption"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Hashing is one-way and is not encryption; conflating them is a common error. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.single-sign-on",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Authentication",
+        "single sign-on"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "One authentication event granting access to many systems.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.public-key-authentication",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Authentication",
+        "public key authentication"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "A key pair where the private key stays with the user and the public key is installed on servers — the standard for SSH and stronger than passwords.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-4252-ssh-auth",
+        "openssh-ssh-keygen",
+        "rfc-4251-ssh-architecture"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "ssh-keygen",
+        "ssh-copy-id"
+      ],
+      "related_topics": [
+        "sysadmin.networking.ssh"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "security.security.symmetric-vs-asymmetric-encryption",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "symmetric vs asymmetric encryption"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Symmetric uses one shared key and is fast; asymmetric uses a key pair and solves key distribution. TLS uses asymmetric to agree a symmetric key.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "nist-sp-800-57p1r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison; the reason both exist together in TLS is the insight. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.encryption-at-rest-vs-in-transit",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "encryption at rest vs in transit"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Protecting stored data versus protecting data moving across a network. They are separate controls and both are needed.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.hashing",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "hashing"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "A one-way fixed-length digest used for integrity checking and password storage. It cannot be reversed.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "owasp-password-storage"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "sha256sum",
+        "md5sum"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.symmetric-vs-asymmetric-encryption"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "security.security.digital-certificates-and-certificate-authorities",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "digital certificates and certificate authorities"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "A certificate binds a public key to an identity; a CA vouches for that binding, and trust flows down the chain.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-5280-x509"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.tls-and-https"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.tls-and-https",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "TLS and HTTPS"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "TLS encrypts and authenticates a connection; HTTPS is HTTP carried inside it. SSL is the obsolete predecessor.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch9.l3"
+      ],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "rfc-7568-ssl3-deprecation"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.http-and-https"
+      ],
+      "confused_with": [],
+      "coverage_status": "FULLY COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.certificate-expiry-and-validation",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "certificate expiry and validation"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Certificates have a validity window; an expired or mismatched certificate produces browser warnings and failed connections.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-5280-x509"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.digital-certificates-and-certificate-authorities"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.full-disk-encryption",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Cryptography",
+        "full disk encryption"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Encrypting a whole block device, commonly with LUKS on Linux, so that data is unreadable if the hardware is lost or stolen.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "cryptsetup-luks-faq",
+        "nist-sp-800-57p1r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.encryption-at-rest-vs-in-transit"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.phishing-and-social-engineering",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "phishing and social engineering"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Manipulating people rather than technology, and one of the most common routes to initial access. Technical controls only partly mitigate it, which is why user awareness is the named defence.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary",
+        "verizon-dbir"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Technical controls do not fully mitigate this; user awareness is the named defence. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.malware-and-ransomware",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "malware and ransomware"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Malicious software generally, and specifically software that encrypts data and demands payment — the threat that makes tested offline backups a security control.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.3-2-1-rule"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.denial-of-service",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "denial of service"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Exhausting a resource so legitimate users cannot be served; distributed when mounted from many sources.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.malware-and-ransomware"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.man-in-the-middle",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "man-in-the-middle"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Intercepting traffic between two parties, the attack TLS and certificate validation exist to prevent.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "rfc-8446-tls13",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.tls-and-https"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.brute-force-and-credential-stuffing",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "brute force and credential stuffing"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Guessing credentials exhaustively, or replaying credentials leaked from elsewhere. Rate limiting, lockout and MFA are the defences.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "owasp-credential-stuffing",
+        "nist-sp-800-63b-4"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.phishing-and-social-engineering"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.injection-attacks",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "injection attacks"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Supplying input that is executed as code or query, SQL injection being the classic. Input validation and parameterised queries are the defence.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "owasp-top10-injection"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.privilege-escalation",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "privilege escalation"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Turning limited access into greater access, whether horizontally to a peer account or vertically to root.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.suid"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.insider-threat",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Threats",
+        "insider threat"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Harm caused by someone with legitimate access, whether deliberate or accidental.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.separation-of-duties"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.vulnerabilities-cves-and-patching",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "vulnerabilities, CVEs and patching"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Known weaknesses are catalogued with CVE identifiers and scored; timely patching is the primary remediation.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "cve-program-overview",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.patch-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.system-hardening",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "system hardening"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Removing unnecessary software, closing ports, disabling unused accounts, and tightening defaults.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.attack-surface"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.firewalls-and-network-segmentation",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "firewalls and network segmentation"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Filtering traffic and dividing networks so a compromise in one segment does not reach the rest.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.firewall"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.intrusion-detection-and-prevention",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "intrusion detection and prevention"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Systems that detect suspicious activity, and those that additionally block it.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-94"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.security.security-logging-and-monitoring",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "security logging and monitoring"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Retaining and reviewing logs, without which an intrusion cannot be detected or reconstructed.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "nist-sp-800-61r3"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.journald"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.incident-response",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "incident response"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "The prepared sequence: prepare, identify, contain, eradicate, recover, and learn.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-61r3"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Containment precedes eradication; acting out of order is a common wrong answer. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.physical-security",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "physical security"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Controlling physical access, since an attacker at the console can bypass most software controls.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.security.ssh-hardening",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "SSH hardening"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Disabling root login and password authentication, and preferring keys — the standard baseline for an internet-facing host.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 5,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "openssh-sshd-config",
+        "rfc-4252-ssh-auth"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "sshd_config"
+      ],
+      "related_topics": [
+        "security.security.public-key-authentication"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: specific configuration syntax is itself examinable."
+    },
+    {
+      "id": "security.security.selinux-and-apparmor",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "SELinux and AppArmor"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Linux mandatory access control: policy confines what a process may do even when file permissions would allow it, so a compromised service is contained.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch9.l3"
+      ],
+      "additional_sources": [
+        "selinux-man8",
+        "apparmor-wiki"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "getenforce",
+        "aa-status"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "security.sensitive-data.access-control-models"
+      ],
+      "coverage_status": "FULLY COVERED",
+      "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "security.security.package-and-download-verification",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "package and download verification"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Checking GPG signatures and published checksums before trusting software, which is what makes a repository or a downloaded image trustworthy.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [
+        "ch9.l2"
+      ],
+      "additional_sources": [
+        "gnupg-verify-docs"
+      ],
+      "candidate_evidence": [],
+      "commands": [
+        "sha256sum",
+        "gpg --verify"
+      ],
+      "related_topics": [
+        "security.security.hashing"
+      ],
+      "confused_with": [],
+      "coverage_status": "FULLY COVERED",
+      "notes": "Applies the hashing primitive to a concrete supply-chain defence. Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
+    },
+    {
+      "id": "security.security.vulnerability-scanning",
+      "path": [
+        "Security Fundamentals",
+        "Security",
+        "Defences",
+        "vulnerability scanning"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Security",
+      "description": "Systematically probing systems and images for known weaknesses, as a routine practice distinct from detecting an intrusion in progress.",
+      "objective_verbatim": "Security",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "cve-program-overview"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.intrusion-detection-and-prevention"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.sensitive-data.personally-identifiable-information",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Classification",
+        "personally identifiable information"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Data that identifies a person directly or in combination, attracting legal obligations wherever it is held.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-122",
+        "gdpr-eurlex"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.sensitive-data.data-classification"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.sensitive-data.protected-health-and-payment-data",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Classification",
+        "protected health and payment data"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Health information and cardholder data carry their own regimes — HIPAA and PCI-DSS respectively.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "hipaa-45-cfr-164",
+        "pci-dss-standards"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.hipaa"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.data-classification",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Classification",
+        "data classification"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Labelling data by sensitivity — public, internal, confidential, restricted — so controls can be applied proportionately.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-122"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.sensitive-data.personally-identifiable-information"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.sensitive-data.data-states",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Classification",
+        "data states"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "At rest, in transit, and in use. Each state needs its own protection, and data in use is the hardest.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.encryption-at-rest-vs-in-transit"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.access-control-models",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Controls",
+        "access control models"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Discretionary, mandatory, and role-based access control. RBAC is the common organisational choice.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-162",
+        "nist-csrc-glossary"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.sensitive-data.encryption-key-management",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Controls",
+        "encryption key management"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Generating, storing, rotating and revoking keys. Encryption is only as strong as key custody.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.symmetric-vs-asymmetric-encryption"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.secrets-management",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Controls",
+        "secrets management"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Keeping credentials, API keys and tokens out of source code and images, in a purpose-built store.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-57p1r5",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.git-concepts.gitignore"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Committing a secret to Git is a frequent real-world breach cause; rotating it is the only true fix. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Controls",
+        "masking, anonymization and pseudonymization"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Obscuring data, removing identifiability irreversibly, or replacing identifiers with reversible tokens. Only anonymization is one-way.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-122"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Pseudonymized data is still personal data under GDPR; anonymized data is not. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.data-loss-prevention",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Controls",
+        "data loss prevention"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Controls that detect and block sensitive data leaving the organisation.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.data-retention-and-disposal",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Lifecycle",
+        "data retention and disposal"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Keeping data only as long as needed and destroying it verifiably afterwards.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-88r1",
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.data-retention-obligations"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.sensitive-data.secure-deletion",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Lifecycle",
+        "secure deletion"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Ordinary deletion unlinks a file without erasing its blocks; secure disposal requires overwriting, cryptographic erasure, or physical destruction.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-88r1"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "That rm does not erase data is the key insight here. Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.data-breach-and-notification",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Lifecycle",
+        "data breach and notification"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Unauthorised exposure of protected data, usually carrying a legal duty to notify within a defined window.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-61r3"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.gdpr"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.sensitive-data.backups-of-sensitive-data",
+      "path": [
+        "Security Fundamentals",
+        "Sensitive Data",
+        "Lifecycle",
+        "backups of sensitive data"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Sensitive Data",
+      "description": "Backups inherit the sensitivity of their contents and require the same encryption and access control as the original.",
+      "objective_verbatim": "Sensitive Data",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.backup"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.compliance",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Fundamentals",
+        "compliance"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Demonstrably meeting obligations imposed by law, regulation, or contract — with evidence, not merely intent.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "lf-lfca-program"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.security.cia-triad"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Compliance and security overlap but are not the same; a system can be compliant and insecure. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.policy-standard-and-procedure",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Fundamentals",
+        "policy, standard and procedure"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Policy states intent, a standard sets the measurable requirement, and a procedure gives the steps.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.controls-and-evidence",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Fundamentals",
+        "controls and evidence"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "A control is a safeguard; evidence proves it operated. Audits examine evidence, not assurances.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.compliance.audit"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.audit",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Fundamentals",
+        "audit"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "A formal examination against a standard, internal or by an external assessor.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5",
+        "aicpa-soc2"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.compliance.controls-and-evidence"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.risk-assessment",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Fundamentals",
+        "risk assessment"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Identifying risks and estimating their likelihood and impact so they can be prioritised. Deciding what to do about each — mitigate, transfer, accept or avoid — is risk response, a separate activity that follows from the assessment.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "nist-sp-800-30r1",
+        "nist-sp-800-39"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.risk-threat-and-vulnerability"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.gdpr",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Regulations",
+        "GDPR"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "EU regulation governing personal data, with lawful-basis, minimisation, subject-access and erasure requirements, and extraterritorial reach.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.hipaa",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Regulations",
+        "HIPAA"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "US regulation protecting health information.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "hipaa-45-cfr-164"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.pci-dss",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Regulations",
+        "PCI-DSS"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "A contractual card-industry standard for anyone handling payment card data.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "pci-dss-standards"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.compliance.gdpr"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Contractual rather than governmental, unlike GDPR and HIPAA. Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.soc-2-and-iso-27001",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Regulations",
+        "SOC 2 and ISO 27001"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Voluntary attestation and certification frameworks organisations adopt to evidence their security posture.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "aicpa-soc2"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "security.compliance.data-sovereignty-and-residency",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Regulations",
+        "data sovereignty and residency"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Data is subject to the laws of where it is stored, which constrains which cloud regions may be used.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.cloud-computing.region-and-availability-zone"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.data-retention-obligations",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Obligations",
+        "data retention obligations"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Rules requiring data be kept for a minimum period, which can conflict with deletion rights and must be reconciled deliberately.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex",
+        "nist-sp-800-88r1"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "security.sensitive-data.data-retention-and-disposal"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: either end of a named confusable pair, which is exactly the shape a multiple-choice comparison question takes."
+    },
+    {
+      "id": "security.compliance.consent-and-lawful-basis",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Obligations",
+        "consent and lawful basis"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "The justification for processing personal data; consent is only one of several, and must be freely given.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 1,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: peripheral or specialist for an entry-level exam; recognition of the term is sufficient."
+    },
+    {
+      "id": "security.compliance.licensing-compliance",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Obligations",
+        "licensing compliance"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Meeting the obligations of software licences, including open source attribution and source-provision duties.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "lf-lfca-program"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.open-source-software-and-licensing.license-compliance"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    },
+    {
+      "id": "security.compliance.consequences-of-non-compliance",
+      "path": [
+        "Security Fundamentals",
+        "Compliance",
+        "Obligations",
+        "consequences of non-compliance"
+      ],
+      "domain": "Security Fundamentals",
+      "competency": "Compliance",
+      "description": "Fines, contractual loss, mandatory notification, and reputational damage.",
+      "objective_verbatim": "Compliance",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [
+        "gdpr-eurlex"
+      ],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Depth rationale: conceptual: explain what it is and why it exists."
+    }
+  ]
+}

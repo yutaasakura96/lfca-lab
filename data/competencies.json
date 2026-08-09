@@ -1,0 +1,231 @@
+{
+  "exam_version": "2025-09-16",
+  "source": "lf-objectives-2025",
+  "objective_granularity": "competency",
+  "objective_granularity_note": "The Linux Foundation publishes no official text finer than the competency name for LFCA. Verified 2026-08-09 in a browser: the certification page's Domains & Competencies accordion yields zero additional characters when fully expanded, and the program-changes page claims per-domain change outlines that do not exist on the page. Concepts therefore carry their competency name as objective_verbatim, and all finer structure is marked inferred. LFS200 learning objectives are attached separately in stage 4 as a course-derived tier, never as exam-derived official text. An 'objectives' array was present in the original schema to hold finer official bullets; it was removed rather than left permanently empty, because no such bullets exist to put in it.",
+  "previous_exam_version": "pre-2025-09-16",
+  "previous_syllabus_source": "wayback-lfca-2025-08",
+  "rewording_significance_note": "A competency marked 'reworded' carries rewording_significance. 'substantive' means the scope or emphasis plausibly changed. 'formatting' means only punctuation or whitespace differs between the two page renders, so pre-2025 material on that competency remains valid.",
+  "domains": [
+    {
+      "id": "linux",
+      "name": "Linux Fundamentals",
+      "weight": 16,
+      "previous_weight": 20,
+      "file": "01-linux-fundamentals.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": [
+          "File Management Commands",
+          "System Commands",
+          "General Networking Commands"
+        ],
+        "note": "The three command-oriented competencies were collapsed into the single competency 'Command Line'."
+      },
+      "competencies": [
+        {
+          "name": "Linux Operating System",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Linux Operating System",
+          "rewording_significance": null
+        },
+        {
+          "name": "Command Line",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
+      ]
+    },
+    {
+      "id": "sysadmin",
+      "name": "System Administration Fundamentals",
+      "weight": 30,
+      "previous_weight": 20,
+      "file": "02-system-administration.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": [],
+        "note": "Largest weight increase of any domain (20% to 30%), and now the heaviest domain on the exam. Gained two entirely new competencies."
+      },
+      "competencies": [
+        {
+          "name": "System Administration",
+          "sept_2025_status": "reworded",
+          "previous_name": "System Administration Tasks",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Best Practices",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        },
+        {
+          "name": "Networking",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Networking",
+          "rewording_significance": null
+        },
+        {
+          "name": "Troubleshooting",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Troubleshooting",
+          "rewording_significance": null
+        },
+        {
+          "name": "Disaster Recovery",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud Computing Fundamentals",
+      "weight": 18,
+      "previous_weight": 20,
+      "file": "03-cloud-computing.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": ["Serverless"],
+        "note": "Serverless is no longer a named competency. Two new competencies appeared, one of which ('Networking') duplicates a System Administration competency name and must be kept distinct by domain."
+      },
+      "competencies": [
+        {
+          "name": "Cloud Computing",
+          "sept_2025_status": "reworded",
+          "previous_name": "Cloud Computing Fundamentals",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Performance/Availability",
+          "sept_2025_status": "reworded",
+          "previous_name": "Performance / Availability",
+          "rewording_significance": "formatting"
+        },
+        {
+          "name": "Budgeting",
+          "sept_2025_status": "reworded",
+          "previous_name": "Cloud Costs and Budgeting",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Best Practices",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        },
+        {
+          "name": "Networking",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security Fundamentals",
+      "weight": 14,
+      "previous_weight": 16,
+      "file": "04-security.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": ["Network Security", "System Security"],
+        "note": "Four competencies reduced to three. The archived pre-2025 page rendered 'System Security:' with a trailing colon; treated here as a typographic artifact of that page, not part of the competency name."
+      },
+      "competencies": [
+        {
+          "name": "Security",
+          "sept_2025_status": "reworded",
+          "previous_name": "Security Basics",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Sensitive Data",
+          "sept_2025_status": "reworded",
+          "previous_name": "Data Security",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Compliance",
+          "sept_2025_status": "added",
+          "previous_name": null,
+          "rewording_significance": null
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps Fundamentals",
+      "weight": 12,
+      "previous_weight": 16,
+      "file": "05-devops.json",
+      "changes_2025": {
+        "renamed_from": null,
+        "removed_competencies": ["Deployment Environments"],
+        "note": "All three surviving competency names are unchanged; only the removal and the weight drop distinguish this domain from its predecessor."
+      },
+      "competencies": [
+        {
+          "name": "DevOps Basics",
+          "sept_2025_status": "unchanged",
+          "previous_name": "DevOps Basics",
+          "rewording_significance": null
+        },
+        {
+          "name": "Git Concepts",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Git Concepts",
+          "rewording_significance": null
+        },
+        {
+          "name": "Containers",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Containers",
+          "rewording_significance": null
+        }
+      ]
+    },
+    {
+      "id": "pm",
+      "name": "IT Project Management Fundamentals",
+      "weight": 10,
+      "previous_weight": 8,
+      "file": "06-it-project-management.json",
+      "changes_2025": {
+        "renamed_from": "Supporting Applications and Developers",
+        "removed_competencies": [],
+        "note": "This domain was renamed outright and reweighted from 8% to 10%. Its renaming is the clearest single contradiction of the Linux Foundation's published claim that the domains were unchanged."
+      },
+      "competencies": [
+        {
+          "name": "Project Management",
+          "sept_2025_status": "reworded",
+          "previous_name": "Software Project Management",
+          "rewording_significance": "substantive"
+        },
+        {
+          "name": "Software Application Architecture",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Software Application Architecture",
+          "rewording_significance": null
+        },
+        {
+          "name": "Functional Analysis",
+          "sept_2025_status": "unchanged",
+          "previous_name": "Functional Analysis",
+          "rewording_significance": null
+        },
+        {
+          "name": "Open Source Software and Licensing",
+          "sept_2025_status": "reworded",
+          "previous_name": "Open-source Software and Licensing",
+          "rewording_significance": "formatting"
+        }
+      ]
+    }
+  ]
+}

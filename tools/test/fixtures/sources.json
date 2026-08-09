@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "id": "tier1-example",
+      "title": "Official Example",
+      "url": "https://example.org/official",
+      "organization": "The Linux Foundation",
+      "published": "2025-07",
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-objectives",
+      "authority_tier": 1,
+      "notes": ""
+    },
+    {
+      "id": "tier4-example",
+      "title": "Forum Thread",
+      "url": "https://example.org/forum",
+      "organization": "Community",
+      "published": "2025-11",
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "candidate-report",
+      "authority_tier": 4,
+      "notes": ""
+    }
+  ]
+}

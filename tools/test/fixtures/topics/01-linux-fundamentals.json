@@ -1,0 +1,66 @@
+{
+  "topics": [
+    {
+      "id": "linux.os.kernel",
+      "path": [
+        "Linux Fundamentals",
+        "Linux Operating System",
+        "kernel"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Linux Operating System",
+      "description": "The core of the operating system.",
+      "objective_verbatim": "Linux Operating System",
+      "sept_2025_status": "unchanged",
+      "inferred": false,
+      "confidence": "HIGH",
+      "required_depth": 2,
+      "importance": 2,
+      "official_sources": [
+        "tier1-example"
+      ],
+      "lfs200_sources": [
+        "ch2.l1"
+      ],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "uname"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "FULLY COVERED",
+      "notes": ""
+    },
+    {
+      "id": "linux.cli.pipes",
+      "path": [
+        "Linux Fundamentals",
+        "Command Line",
+        "pipes"
+      ],
+      "domain": "Linux Fundamentals",
+      "competency": "Command Line",
+      "description": "Connect stdout of one process to stdin of another.",
+      "objective_verbatim": "Command Line",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 3,
+      "importance": 2,
+      "official_sources": [
+        "tier1-example"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [
+        "tier4-example"
+      ],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    }
+  ]
+}

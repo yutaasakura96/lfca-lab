@@ -199,3 +199,55 @@ when you actually do want a recreate.
 Docker Desktop on macOS. Built and verified on Apple Silicon (arm64) with Docker 29.6.1 and
 Compose v5.3.0 — no `--platform` flag, native arm64 images throughout. Nothing here is
 Apple-Silicon-specific, so it should work on Intel and on Linux too, but that's untested.
+
+---
+
+## The research dataset
+
+Alongside the lab, this repo holds a source-traceable map of what the **current** LFCA exam
+requires — the one updated on 16 September 2025. 537 concepts across all 22 official
+competencies, each with a required depth, a coverage status against the official LFS200 course,
+and primary-documentation citations.
+
+```
+data/            canonical, hand-maintained
+  competencies.json    6 domains, 22 competencies, current + previous weights, 2025 change set
+  sources.json         274 sources, each with an authority tier
+  topics/*.json        537 concepts, one file per domain
+research/        generated — do not hand-edit
+  official-lfca-objectives.md    the syllabus, with what changed in 2025
+  lfs200-map.md                  which course lessons cover which concepts
+  lfca-lfs200-gap-analysis.md    everything LFS200 does not fully cover
+  candidate-experience.md
+  sources.md
+  exam-mechanics.md              the one hand-written file here; it says so at the top
+  lfs200-notes/00-course-map.md  hand-written: LFS200 structure and measured gaps
+tools/           validate.mjs (13 checks), generate-views.mjs
+coverage-matrix.md  generated — the full join, one row per concept
+PROGRESS.md      what was found, what is still missing, and how confident each claim is
+```
+
+```bash
+npm test && npm run validate && npm run generate
+```
+
+Zero dependencies; plain Node. `npm run validate` exits non-zero if any concept lacks a depth,
+an objective, or a tier-1/2 source, if any official competency has no concepts, or if any
+cross-reference dangles.
+
+**Everything in `research/` and `coverage-matrix.md` is generated from `data/`.** Edit the JSON
+and regenerate; don't edit the markdown. The two exceptions carry a notice at the top of the
+file.
+
+### Three findings worth knowing before you study
+
+1. **The Linux Foundation's own change notice is wrong.** It says the domains were unchanged in
+   September 2025. Their archived page shows every weight changed and one domain renamed.
+   System Administration went from 20% to **30%** and is now the heaviest domain by far.
+2. **Six competencies are new**, so no pre-September-2025 material covers them: Command Line,
+   Best Practices (twice), Disaster Recovery, Networking (Cloud), and Compliance.
+3. **LFS200 alone is not sufficient**, and the shortfall is structural rather than a matter of
+   depth. Six competencies have no lesson at all, and `disaster recovery`, `Docker`, `TLS`,
+   `GDPR`, `Scrum` and `cron` each appear **zero times** in the entire course.
+
+See `PROGRESS.md` for the evidence and the confidence attached to each claim.
