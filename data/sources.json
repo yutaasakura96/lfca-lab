@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "id": "lf-objectives-2025",
+      "title": "LFCA Program Changes",
+      "url": "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+      "organization": "The Linux Foundation",
+      "published": "2025-07",
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-objectives",
+      "authority_tier": 1,
+      "notes": "States domains unchanged, competencies revised, effective 2025-09-16."
+    },
+    {
+      "id": "lf-lfca-cert-page",
+      "title": "Linux Foundation Certified IT Associate (LFCA)",
+      "url": "https://training.linuxfoundation.org/certification/certified-it-associate/",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-certification",
+      "authority_tier": 1,
+      "notes": "Detailed competency bullets are JS-rendered behind accordions; requires a browser."
+    },
+    {
+      "id": "lf-lfs200-overview",
+      "title": "Fundamentals of Open Source IT and Cloud Computing (LFS200)",
+      "url": "https://training.linuxfoundation.org/training/fundamentals-of-open-source-it-and-cloud-computing-lfs200/",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-09",
+      "category": "official-course",
+      "authority_tier": 1,
+      "notes": "Public overview page. Course content itself requires authenticated access."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "exam_version": "2025-09-16",
+  "source": "lf-objectives-2025",
+  "domains": [
+    {
+      "id": "linux",
+      "name": "Linux Fundamentals",
+      "weight": 16,
+      "file": "01-linux-fundamentals.json",
+      "competencies": [
+        { "name": "Linux Operating System", "objectives": [] },
+        { "name": "Command Line", "objectives": [] }
+      ]
+    },
+    {
+      "id": "sysadmin",
+      "name": "System Administration Fundamentals",
+      "weight": 30,
+      "file": "02-system-administration.json",
+      "competencies": [
+        { "name": "System Administration", "objectives": [] },
+        { "name": "Best Practices", "objectives": [] },
+        { "name": "Networking", "objectives": [] },
+        { "name": "Troubleshooting", "objectives": [] },
+        { "name": "Disaster Recovery", "objectives": [] }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud Computing Fundamentals",
+      "weight": 18,
+      "file": "03-cloud-computing.json",
+      "competencies": [
+        { "name": "Cloud Computing", "objectives": [] },
+        { "name": "Performance/Availability", "objectives": [] },
+        { "name": "Budgeting", "objectives": [] },
+        { "name": "Best Practices", "objectives": [] },
+        { "name": "Networking", "objectives": [] }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security Fundamentals",
+      "weight": 14,
+      "file": "04-security.json",
+      "competencies": [
+        { "name": "Security", "objectives": [] },
+        { "name": "Sensitive Data", "objectives": [] },
+        { "name": "Compliance", "objectives": [] }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps Fundamentals",
+      "weight": 12,
+      "file": "05-devops.json",
+      "competencies": [
+        { "name": "DevOps Basics", "objectives": [] },
+        { "name": "Git Concepts", "objectives": [] },
+        { "name": "Containers", "objectives": [] }
+      ]
+    },
+    {
+      "id": "pm",
+      "name": "IT Project Management Fundamentals",
+      "weight": 10,
+      "file": "06-it-project-management.json",
+      "competencies": [
+        { "name": "Project Management", "objectives": [] },
+        { "name": "Software Application Architecture", "objectives": [] },
+        { "name": "Functional Analysis", "objectives": [] },
+        { "name": "Open Source Software and Licensing", "objectives": [] }
+      ]
+    }
+  ]
+}
