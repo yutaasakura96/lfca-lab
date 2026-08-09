@@ -6,7 +6,7 @@
 
 **Architecture:** Two JSON datasets are canonical — a source registry and a per-domain concept spine. All six markdown deliverables plus the coverage matrix are generated views over them, never hand-edited. Pure logic lives in `tools/lib/` and is unit-tested against fixtures; file IO happens only in the two CLI entry points. Research tasks are gated by the validator rather than by unit tests: each research task ends when a specific validator check goes green.
 
-**Tech Stack:** Plain ES modules on Node 25 (verified: `v25.1.0`). Built-in `node:test` runner. Zero dependencies — no `package.json` beyond a `{"type": "module"}` marker.
+**Tech Stack:** Plain ES modules on Node 25 (verified: `v25.1.0`). Built-in `node:test` runner. Zero third-party dependencies; `package.json` carries only the `"type": "module"` marker and script aliases, and no `dependencies` or `devDependencies` block.
 
 ## Global Constraints
 
@@ -57,7 +57,6 @@ Creates the repo skeleton and seeds `data/competencies.json` with the domain wei
 - Create: `data/competencies.json`
 - Create: `data/sources.json`
 - Create: `PROGRESS.md`
-- Create: `.gitignore` entry (modify existing `.gitignore`)
 
 **Interfaces:**
 - Consumes: nothing.
@@ -258,16 +257,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 - The 2025-09-16 update changed competencies only; domains were unchanged.
 ```
 
-- [ ] **Step 5: Ignore generated output from accidental edits**
-
-Append to `.gitignore`:
-
-```
-# Nothing generated is ignored — research/ and coverage-matrix.md are committed
-# deliberately so their diffs are reviewable. This block is a marker only.
-```
-
-- [ ] **Step 6: Verify the JSON parses**
+- [ ] **Step 5: Verify the JSON parses**
 
 Run: `node -e "for (const f of ['data/competencies.json','data/sources.json']) { JSON.parse(require('fs').readFileSync(f,'utf8')); console.log(f, 'ok') }"`
 Expected:
@@ -276,12 +266,14 @@ data/competencies.json ok
 data/sources.json ok
 ```
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add package.json data/competencies.json data/sources.json PROGRESS.md .gitignore
+git add package.json data/competencies.json data/sources.json PROGRESS.md
 git commit -m "setup: scaffold LFCA research datasets and progress log"
 ```
+
+Do not modify `.gitignore`. `research/` and `coverage-matrix.md` are committed deliberately so their diffs are reviewable; that fact is documented in the README section added by Task 13.
 
 ---
 
@@ -293,7 +285,7 @@ The single reader of `data/`. Everything else takes plain objects, which is what
 - Create: `tools/lib/load.mjs`
 - Create: `tools/test/fixtures/competencies.json`
 - Create: `tools/test/fixtures/sources.json`
-- Create: `tools/test/fixtures/topics-linux.json`
+- Create: `tools/test/fixtures/topics/01-linux-fundamentals.json`
 - Create: `tools/test/load.test.mjs`
 
 **Interfaces:**
@@ -399,7 +391,7 @@ test('competencyKey joins domain and competency unambiguously', () => {
 }
 ```
 
-`tools/test/fixtures/topics-linux.json` — note the loader looks for `topics/<file>` per the competency index, so this fixture is copied to `tools/test/fixtures/topics/01-linux-fundamentals.json`:
+`tools/test/fixtures/topics/01-linux-fundamentals.json` — the path matters: the loader resolves `topics/<file>` using the `file` field from the competency index, so the fixture must sit at exactly this path. Create the `topics/` subdirectory first with `mkdir -p tools/test/fixtures/topics`.
 
 ```json
 {
@@ -450,13 +442,6 @@ test('competencyKey joins domain and competency unambiguously', () => {
     }
   ]
 }
-```
-
-Create the fixture directory and copy:
-
-```bash
-mkdir -p tools/test/fixtures/topics
-cp tools/test/fixtures/topics-linux.json tools/test/fixtures/topics/01-linux-fundamentals.json
 ```
 
 - [ ] **Step 3: Run the test to verify it fails**
