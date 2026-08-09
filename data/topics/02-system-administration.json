@@ -20,7 +20,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -36,7 +38,7 @@
       "confused_with": [
         "sysadmin.system-administration.group"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -462,7 +464,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -471,7 +475,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -730,7 +734,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -741,7 +747,7 @@
       "confused_with": [
         "sysadmin.system-administration.service"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -964,7 +970,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -974,7 +982,7 @@
       "confused_with": [
         "sysadmin.system-administration.process"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "process vs service is one of the named comparisons an LFCA candidate should be able to make."
     },
     {
@@ -997,7 +1005,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1008,7 +1018,7 @@
       "confused_with": [
         "sysadmin.system-administration.runlevel"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1063,7 +1073,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1073,7 +1085,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "A very commonly tested distinction, and a common real-world outage cause."
     },
     {
@@ -1194,7 +1206,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1202,7 +1216,7 @@
       "confused_with": [
         "sysadmin.system-administration.repository"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1256,7 +1270,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1264,7 +1280,7 @@
         "sysadmin.system-administration.package"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -1425,7 +1441,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1433,7 +1451,7 @@
       "confused_with": [
         "sysadmin.system-administration.filesystem-type"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1519,13 +1537,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1549,13 +1569,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1579,7 +1601,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1587,7 +1611,7 @@
         "sysadmin.system-administration.sticky-bit"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1611,7 +1635,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1621,7 +1647,7 @@
       "confused_with": [
         "sysadmin.system-administration.dev"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1677,7 +1703,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1688,7 +1716,7 @@
       "confused_with": [
         "sysadmin.system-administration.filesystem-hierarchy-standard"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -1712,7 +1740,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1724,7 +1754,7 @@
       "confused_with": [
         "sysadmin.system-administration.partition"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -1780,7 +1810,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1791,7 +1823,7 @@
       "confused_with": [
         "sysadmin.system-administration.mounting"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1815,7 +1847,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1824,7 +1858,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "The \"disk full but df shows space\" scenario is an inode exhaustion classic."
     },
     {
@@ -1916,7 +1950,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1925,7 +1961,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -2248,7 +2284,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -2258,7 +2296,7 @@
       "confused_with": [
         "sysadmin.system-administration.bootloader-and-grub"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -3081,7 +3119,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -3091,7 +3131,7 @@
       "confused_with": [
         "sysadmin.networking.ipv4-address"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -3114,7 +3154,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -3122,7 +3164,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": "Being able to move between dotted-decimal and prefix notation is expected."
     },
     {
@@ -3367,7 +3409,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -3376,7 +3420,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": "One of the highest-yield troubleshooting concepts on the exam."
     },
     {
@@ -3590,7 +3634,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -3598,7 +3644,7 @@
       "confused_with": [
         "sysadmin.networking.etc-hosts"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -3747,7 +3793,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -3755,7 +3803,7 @@
       "confused_with": [
         "sysadmin.networking.dns"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error."
     },
     {
@@ -3840,13 +3888,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": "A named comparison and a near-certain topic."
     },
     {
@@ -3902,7 +3952,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -3910,7 +3962,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -4029,7 +4081,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -4043,7 +4097,7 @@
         "security.security.public-key-authentication"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -4289,7 +4343,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch7.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -4297,7 +4353,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "Treating ping failure as proof of a dead host is a classic wrong conclusion."
     },
     {

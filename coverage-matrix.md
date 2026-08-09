@@ -4,10 +4,10 @@
 
 | Concept | Domain | Weight | Competency | Objective | LFS200 | External docs | Candidate | Depth | Confidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| linux.linux-operating-system.operating-system | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.linux-operating-system.kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
+| linux.linux-operating-system.operating-system | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | FULLY COVERED | 0 | 0 |  | HIGH |
+| linux.linux-operating-system.kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | FULLY COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.kernel-space-vs-user-space | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.linux-operating-system.system-call | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | MEDIUM |
+| linux.linux-operating-system.system-call | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | PARTIALLY COVERED | 0 | 0 |  | MEDIUM |
 | linux.linux-operating-system.shell | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.terminal | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.everything-is-a-file | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
@@ -19,7 +19,7 @@
 | linux.linux-operating-system.linux-history | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | MEDIUM |
 | linux.linux-operating-system.unix-heritage-and-posix | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | MEDIUM |
 | linux.linux-operating-system.open-source-licensing-of-linux | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.linux-operating-system.cpu | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
+| linux.linux-operating-system.cpu | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.ram | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.storage-devices | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.cpu-architecture | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
@@ -31,7 +31,7 @@
 | linux.linux-operating-system.environment-variables | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.path | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.linux-operating-system.system-information-commands | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.command-line.command-syntax | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
+| linux.command-line.command-syntax | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | linux.command-line.getting-help | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.absolute-vs-relative-paths | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.and | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
@@ -39,7 +39,7 @@
 | linux.command-line.root-directory-vs-root-vs-home | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.creating-and-removing-files-and-directories | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.viewing-file-contents | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.command-line.finding-files | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
+| linux.command-line.finding-files | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | linux.command-line.file-type-and-metadata | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.file-management-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.reading-ls-l-output | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
@@ -56,7 +56,7 @@
 | linux.command-line.redirection | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.pipes | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.grep | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
-| linux.command-line.regular-expressions | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | MEDIUM |
+| linux.command-line.regular-expressions | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 0 | 0 |  | MEDIUM |
 | linux.command-line.sed | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.awk | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.cut-sort-uniq-and-wc | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
@@ -70,7 +70,7 @@
 | linux.command-line.who-is-logged-in | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.general-networking-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
 | linux.command-line.port-ranges | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.user-account | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.user-account | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.group | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.uid-and-gid | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.primary-vs-supplementary-group | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
@@ -83,7 +83,7 @@
 | sysadmin.system-administration.read-write-execute-permissions | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.owner-group-other | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.symbolic-vs-numeric-chmod | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.chown-and-chgrp | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.chown-and-chgrp | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.umask | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.suid | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.sgid | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
@@ -91,43 +91,43 @@
 | sysadmin.system-administration.root-and-least-privilege | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.sudo-vs-su | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.etc-sudoers-and-visudo | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.process | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.process | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.pid-and-ppid | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.foreground-and-background-jobs | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.signals | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.process-priority-and-nice | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.daemon | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.zombie-and-orphan-processes | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.service | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.systemd | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.service | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.systemd | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.unit-and-unit-file | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.systemctl-start-vs-enable | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.systemctl-start-vs-enable | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.systemd-target | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.runlevel | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | MEDIUM |
 | sysadmin.system-administration.daemon-reload | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.package | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.package | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.repository | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.dependency | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.dependency | System Administration Fundamentals | 30% | System Administration | System Administration | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.apt-and-dpkg | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.dnf-yum-and-rpm | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.update-vs-upgrade | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.patch-management | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.filesystem-hierarchy-standard | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.filesystem-hierarchy-standard | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.etc | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.var | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.home | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.usr | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.tmp | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.proc-and-sys | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.home | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.usr | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.tmp | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.proc-and-sys | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.dev | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.filesystem-type | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.mounting | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.filesystem-type | System Administration Fundamentals | 30% | System Administration | System Administration | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.mounting | System Administration Fundamentals | 30% | System Administration | System Administration | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.etc-fstab | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.partition | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.inode | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.partition | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.inode | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.hard-link-vs-symbolic-link | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.disk-usage-vs-free-space | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.swap | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.swap | System Administration Fundamentals | 30% | System Administration | System Administration | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.lvm | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | MEDIUM |
 | sysadmin.system-administration.raid-levels | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.cron | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
@@ -137,7 +137,7 @@
 | sysadmin.system-administration.syslog-and-severity-levels | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.journald | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.log-rotation | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.system-administration.boot-process | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.system-administration.boot-process | System Administration Fundamentals | 30% | System Administration | System Administration | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.bios-vs-uefi | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.bootloader-and-grub | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.system-administration.kernel | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 0 | 0 |  | HIGH |
@@ -164,8 +164,8 @@
 | sysadmin.networking.osi-model | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.tcp-ip-model | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ipv4-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.ipv6-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.subnet-mask-and-cidr | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.ipv6-address | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.subnet-mask-and-cidr | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.network-host-and-broadcast-addresses | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.private-vs-public-ip-addresses | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.loopback-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
@@ -173,28 +173,28 @@
 | sysadmin.networking.mac-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.arp | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ipv4-address-classes | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | MEDIUM |
-| sysadmin.networking.default-gateway | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.default-gateway | System Administration Fundamentals | 30% | Networking | Networking | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.networking.routing-table | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.router-vs-switch | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.nat | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.vlan | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | MEDIUM |
 | sysadmin.networking.dns | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.dns-resolution-order | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.etc-resolv-conf | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.etc-resolv-conf | System Administration Fundamentals | 30% | Networking | Networking | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | sysadmin.networking.etc-hosts | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.dns-record-types | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.fqdn-and-hostname | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ttl-and-dns-caching | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.dhcp | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.dhcp | System Administration Fundamentals | 30% | Networking | Networking | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.dhcp-lease | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.dhcp-reservation | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.tcp-vs-udp | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.tcp-vs-udp | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.tcp-three-way-handshake | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.ports-and-sockets | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.ports-and-sockets | System Administration Fundamentals | 30% | Networking | Networking | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.well-known-ports | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.listening-vs-established-connections | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.http-and-https | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.ssh | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.ssh | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.proxy | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | MEDIUM |
 | sysadmin.networking.load-balancer | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.vpn | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | MEDIUM |
@@ -202,7 +202,7 @@
 | sysadmin.networking.firewall | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ufw-firewalld-and-iptables | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.open-closed-and-filtered-ports | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
-| sysadmin.networking.ping-and-icmp | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
+| sysadmin.networking.ping-and-icmp | System Administration Fundamentals | 30% | Networking | Networking | FULLY COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.traceroute | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ip-and-ifconfig | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.networking.ss-and-netstat | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 |  | HIGH |
@@ -243,16 +243,16 @@
 | sysadmin.disaster-recovery.off-site-and-geographic-redundancy | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 0 | 0 |  | MEDIUM |
 | sysadmin.disaster-recovery.hot-warm-and-cold-sites | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 0 | 0 |  | HIGH |
 | sysadmin.disaster-recovery.disaster-recovery-drill | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 0 | 0 |  | MEDIUM |
-| cloud.cloud-computing.cloud-computing | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
+| cloud.cloud-computing.cloud-computing | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | FULLY COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.essential-characteristics | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | MEDIUM |
-| cloud.cloud-computing.major-cloud-providers | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | MEDIUM |
+| cloud.cloud-computing.major-cloud-providers | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 0 | 0 |  | MEDIUM |
 | cloud.cloud-computing.iaas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.paas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.saas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.serverless-and-faas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | MEDIUM |
 | cloud.cloud-computing.public-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.private-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
-| cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
+| cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.multi-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
 | cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 0 | 0 |  | HIGH |
@@ -341,7 +341,7 @@
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
 | security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
-| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
+| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 0 | 0 |  | HIGH |
 | security.security.certificate-expiry-and-validation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
 | security.security.full-disk-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | MEDIUM |
 | security.security.phishing-and-social-engineering | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
@@ -360,8 +360,8 @@
 | security.security.incident-response | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
 | security.security.physical-security | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | MEDIUM |
 | security.security.ssh-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
-| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | MEDIUM |
-| security.security.package-and-download-verification | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | HIGH |
+| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 0 | 0 |  | MEDIUM |
+| security.security.package-and-download-verification | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 0 | 0 |  | HIGH |
 | security.security.vulnerability-scanning | Security Fundamentals | 14% | Security | Security | NOT COVERED | 0 | 0 |  | MEDIUM |
 | security.sensitive-data.personally-identifiable-information | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 0 | 0 |  | HIGH |
 | security.sensitive-data.protected-health-and-payment-data | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 0 | 0 |  | MEDIUM |
@@ -390,20 +390,20 @@
 | security.compliance.consent-and-lawful-basis | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 0 | 0 |  | MEDIUM |
 | security.compliance.licensing-compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 0 | 0 |  | HIGH |
 | security.compliance.consequences-of-non-compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.devops-basics.devops | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.devops | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.silos-and-shared-responsibility | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.feedback-loops | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.shift-left | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.site-reliability-engineering | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | LOW |
-| devops.devops-basics.continuous-integration | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.devops-basics.continuous-delivery | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.devops-basics.continuous-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.devops-basics.pipeline | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.continuous-integration | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.continuous-delivery | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | FULLY COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.continuous-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.pipeline | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | devops.devops-basics.build-and-artifact | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.automated-testing | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.artifact-registry | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.semantic-versioning | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.devops-basics.ci-cd-tooling | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
+| devops.devops-basics.ci-cd-tooling | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.deployment-environments | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.blue-green-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.canary-release | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
@@ -411,19 +411,19 @@
 | devops.devops-basics.rollback | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.developer-environments-and-parity | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.devops-basics.monolith-vs-microservices | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.distributed-vs-centralized-version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.git-concepts.repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.git-concepts.repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.working-directory-staging-area-and-repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
-| devops.git-concepts.commit | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.git-concepts.commit | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.commit-messages | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.git-concepts.branch | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.git-concepts.branch | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.head | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.git-concepts.merge | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.git-concepts.merge | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.rebase | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.merge-conflict | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.remote-and-origin | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
@@ -437,7 +437,7 @@
 | devops.git-concepts.git-diff-and-git-log | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.git-concepts.stash | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.git-concepts.branching-strategies | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 |  | MEDIUM |
-| devops.containers.container | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | HIGH |
+| devops.containers.container | DevOps Fundamentals | 12% | Containers | Containers | FULLY COVERED | 0 | 0 |  | HIGH |
 | devops.containers.container-image | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | HIGH |
 | devops.containers.image-layers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.containers.registry | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | HIGH |
@@ -461,15 +461,15 @@
 | devops.containers.control-plane | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.containers.declarative-configuration-and-desired-state | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | MEDIUM |
 | devops.containers.cncf | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.project-management.project | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.project-management.project | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 |  | HIGH |
 | pm.project-management.triple-constraint | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.project-management.stakeholder | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.project-management.deliverable-and-milestone | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.project-management.software-development-lifecycle | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.project-management.waterfall | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.project-management.agile | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.project-management.waterfall | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 |  | HIGH |
+| pm.project-management.agile | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 |  | HIGH |
 | pm.project-management.scrum | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.project-management.sprint | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.project-management.sprint | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 |  | HIGH |
 | pm.project-management.scrum-roles | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.project-management.scrum-ceremonies | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.project-management.product-and-sprint-backlog | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 |  | MEDIUM |
@@ -493,10 +493,10 @@
 | pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.api | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.software-application-architecture.rest | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.software-application-architecture.rest | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.http-methods-and-status-codes | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.software-application-architecture.json-and-xml | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.software-application-architecture.message-queue | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 |  | MEDIUM |
@@ -519,18 +519,18 @@
 | pm.functional-analysis.verification-vs-validation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.functional-analysis.user-acceptance-testing | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.functional-analysis.specification-documentation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.open-source-software-and-licensing.open-source-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.open-source-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | FULLY COVERED | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.free-software-and-foss | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.open-source-software-and-licensing.proprietary-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.proprietary-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.source-code-and-binaries | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.lgpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.open-source-software-and-licensing.agpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | MEDIUM |
-| pm.open-source-software-and-licensing.mit-and-bsd-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
-| pm.open-source-software-and-licensing.apache-license-2-0 | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.mit-and-bsd-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 0 | 0 |  | HIGH |
+| pm.open-source-software-and-licensing.apache-license-2-0 | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.creative-commons-and-public-domain | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | MEDIUM |
 | pm.open-source-software-and-licensing.license-compatibility | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |
 | pm.open-source-software-and-licensing.license-compliance | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 0 | 0 |  | HIGH |

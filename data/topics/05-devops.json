@@ -20,13 +20,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "Answers framing DevOps purely as a tool or a job title are usually wrong."
     },
     {
@@ -165,7 +167,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -173,7 +177,7 @@
       "confused_with": [
         "devops.devops-basics.continuous-delivery"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": "CI is about integrating and verifying, not about releasing."
     },
     {
@@ -196,7 +200,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -204,7 +210,7 @@
       "confused_with": [
         "devops.devops-basics.continuous-deployment"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "A named comparison; the difference from continuous deployment is exactly the manual gate."
     },
     {
@@ -227,7 +233,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -235,7 +243,7 @@
       "confused_with": [
         "devops.devops-basics.continuous-delivery"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -258,7 +266,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -266,7 +276,7 @@
       "confused_with": [
         "devops.devops-basics.continuous-integration"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -409,7 +419,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -417,7 +429,7 @@
         "devops.devops-basics.infrastructure-as-code"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -657,7 +669,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -667,7 +681,7 @@
       "confused_with": [
         "sysadmin.best-practices.configuration-management"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -783,7 +797,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -791,7 +807,7 @@
       "confused_with": [
         "sysadmin.disaster-recovery.backup"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -843,7 +859,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -852,7 +870,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -908,7 +926,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -917,7 +937,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -969,7 +989,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -979,7 +1001,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1033,7 +1055,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1043,7 +1067,7 @@
       "confused_with": [
         "devops.git-concepts.rebase"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "The claim \"merging always creates a merge commit\" is false, and is a plausible-sounding distractor."
     },
     {
@@ -1475,7 +1499,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch10.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1488,7 +1514,7 @@
       "confused_with": [
         "cloud.cloud-computing.virtual-machine"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {

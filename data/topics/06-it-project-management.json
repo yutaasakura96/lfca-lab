@@ -20,13 +20,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -167,7 +169,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -175,7 +179,7 @@
       "confused_with": [
         "pm.project-management.agile"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -198,7 +202,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -206,7 +212,7 @@
       "confused_with": [
         "pm.project-management.waterfall"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "A named comparison and reliably examined."
     },
     {
@@ -260,7 +266,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -268,7 +276,7 @@
         "pm.project-management.scrum"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -982,7 +990,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -992,7 +1002,7 @@
       "confused_with": [
         "pm.software-application-architecture.monolithic-architecture"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1077,7 +1087,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1085,7 +1097,7 @@
       "confused_with": [
         "pm.software-application-architecture.api"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1764,7 +1776,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1772,7 +1786,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.free-software-and-foss"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1855,7 +1869,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1863,7 +1879,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.open-source-software"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1915,7 +1931,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1923,7 +1941,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.copyleft-licenses"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": "Permissive versus copyleft is the central comparison in this competency."
     },
     {
@@ -1946,7 +1964,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1954,7 +1974,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.permissive-licenses"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -1977,7 +1997,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -1985,7 +2007,7 @@
         "linux.linux-operating-system.open-source-licensing-of-linux"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -2070,7 +2092,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -2078,7 +2102,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.apache-license-2-0"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -2101,7 +2125,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch11.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -2109,7 +2135,7 @@
       "confused_with": [
         "pm.open-source-software-and-licensing.mit-and-bsd-licenses"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {

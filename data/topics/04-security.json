@@ -508,7 +508,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch9.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -516,7 +518,7 @@
         "sysadmin.networking.http-and-https"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1089,7 +1091,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch9.l3"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1100,7 +1104,7 @@
       "confused_with": [
         "security.sensitive-data.access-control-models"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -1123,7 +1127,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch9.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1134,7 +1140,7 @@
         "security.security.hashing"
       ],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": "Applies the hashing primitive to a concrete supply-chain defence."
     },
     {

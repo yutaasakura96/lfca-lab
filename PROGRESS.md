@@ -9,7 +9,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | 1 | Official objectives capture | **complete** |
 | 2 | Exam mechanics | **complete** |
 | 3 | Taxonomy expansion | **complete** |
-| 4 | LFS200 crawl | not started |
+| 4 | LFS200 crawl | **complete** |
 | 5 | Per-concept documentation research | not started |
 | 6 | Candidate experience research | not started |
 | 7 | Depth assignment | not started |
@@ -47,9 +47,13 @@ because that is where the official competencies place it. Networking and Contain
 extra depth at the repository owner's request. Study effort should follow the `importance`
 field and the domain weights, not the concept counts.
 
+- Stage 4: LFS200 crawled through the owner's own authenticated enrolment. 12 sections,
+  47 lessons, 158,185 characters of instructional text mapped against the taxonomy. Full
+  analysis in `research/lfs200-notes/00-course-map.md`.
+
 ## Pending
 
-- Stages 4 through 8.
+- Stages 5 through 8.
 
 ## Unresolved questions
 
@@ -63,7 +67,9 @@ field and the domain weights, not the concept counts.
 
 ## Access problems
 
-- None. LFS200 portal login not yet attempted (stage 4).
+- None. The owner signed in to the LFS200 portal personally on 2026-08-10; no credentials were
+  handled on their behalf and no access control was bypassed. Course content was read through
+  the portal's own course endpoint using that session.
 
 ## Coverage gaps
 
@@ -118,6 +124,52 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Stage 4: LFS200 does not cover the current exam
+
+This is the finding the project existed to test, and it is worse than "insufficient depth" —
+the shortfall is structural.
+
+**The course is still built on the pre-September-2025 syllabus.** Its chapter is named
+"Supporting Applications and Developers" (a domain renamed in 2025), and it still carries
+lessons for "Deployment Environments" and "Network Security" — both competencies removed in
+2025. It has not been restructured for the current exam.
+
+**Six competencies have no lesson at all**, four of them new in 2025:
+
+| Competency | Concepts | New in 2025? |
+| --- | ---: | --- |
+| System Administration :: Best Practices | 20 | yes |
+| Cloud Computing :: Performance/Availability | 17 | no |
+| Cloud Computing :: Best Practices | 15 | yes |
+| Cloud Computing :: Networking | 14 | yes |
+| Security :: Compliance | 14 | yes |
+| IT Project Management :: Functional Analysis | 12 | no |
+
+A seventh, Disaster Recovery, has a lesson in name only: the `Backup` page contains **one
+character**.
+
+**Measured absences.** Each of these occurs zero times in the entire 158,185 characters:
+`disaster recovery`, `business continuity`, `failover`, `redundancy`, `high availability`,
+`replication`, `RTO`, `RAID`, `GDPR`, `HIPAA`, `ISO 27001`, `SOC 2`, `serverless`,
+`elasticity`, `scalability`, `load balancer`, `CDN`, `VPC`, `region`, `availability zone`,
+`Docker`, `pod`, `registry`, `orchestration`, `Scrum`, `Kanban`, `Gantt`, `MVP`, `cron`,
+`crontab`, `journalctl`, `umask`, `SUID`, `SGID`, `sticky bit`, `ufw`, `/etc/fstab`,
+`/etc/hosts`, `/var/log`, `authorization`, `multi-factor`, `TLS`, `VPN`.
+
+Note the last: the course teaches `SSL` but never `TLS`, the term that superseded it.
+
+**Cloud Computing is 18% of the exam and has one lesson** of 6,242 characters — about 4% of
+the course — with three of its five competencies untaught.
+
+**What the course does do well**, and is worth re-reading: `Linux Commands` (24,959 chars, the
+largest lesson by far), `Network Troubleshooting` (14,657, the strongest material in the
+course), `Securing Linux` (12,484), and `Git Concepts` (8,727).
+
+**Confidence.** The structural findings and the measured absences are HIGH confidence — they
+are counts. The per-concept coverage percentages are a deliberate **lower bound**: a concept
+can be taught without its name appearing, so the automated matching understates true coverage.
+It errs toward telling the candidate to study something rather than away from it.
 
 ### Stage 3 review outcome
 

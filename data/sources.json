@@ -25,6 +25,18 @@
       "notes": "Canonical current syllabus. The Domains & Competencies accordion is JS-rendered and requires a browser, but it contains only domain names, weights and the 22 competency names: fully expanding it adds zero characters (container text is 1,930 characters either way, verified 2026-08-09). This is the basis for recording competency name as the finest published objective granularity."
     },
     {
+      "id": "lfs200-course",
+      "title": "Fundamentals of Open Source IT and Cloud Computing (LFS200) \u2014 course content",
+      "url": "https://trainingportal.linuxfoundation.org/learn/course/fundamentals-of-open-source-it-and-cloud-computing-lfs200",
+      "organization": "The Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-10",
+      "category": "official-course",
+      "authority_tier": 1,
+      "notes": "Authenticated course content, read via the repository owner's own enrolment. 12 sections, 47 lessons, 158,185 characters of instructional text. Course structure still reflects the pre-2025-09-16 syllabus: the chapter is named 'Supporting Applications and Developers' (a domain renamed in 2025) and it retains lessons for 'Deployment Environments' and 'Network Security' (competencies removed in 2025). Six current competencies have no lesson at all. Coverage analysis and measured term absences are recorded in research/lfs200-notes/00-course-map.md. Course prose is not reproduced in this repository."
+    },
+    {
       "id": "wayback-lfca-2025-08",
       "title": "LFCA certification page, archived snapshot (pre-2025-09-16 syllabus)",
       "url": "https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/",

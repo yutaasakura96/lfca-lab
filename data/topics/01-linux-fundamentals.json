@@ -20,7 +20,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -28,7 +30,7 @@
       "confused_with": [
         "linux.linux-operating-system.kernel"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -51,7 +53,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -61,7 +65,7 @@
       "confused_with": [
         "linux.linux-operating-system.operating-system"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -115,13 +119,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch2.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -481,7 +487,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch2.l4"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -490,7 +498,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "PARTIALLY COVERED",
       "notes": ""
     },
     {
@@ -863,7 +871,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -872,7 +882,7 @@
       ],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1132,7 +1142,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch5.l5"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [
@@ -1145,7 +1157,7 @@
       "confused_with": [
         "linux.command-line.grep"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
@@ -1689,13 +1701,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch6.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {

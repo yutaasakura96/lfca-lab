@@ -20,7 +20,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch8.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -28,7 +30,7 @@
       "confused_with": [
         "cloud.cloud-computing.virtualization"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "FULLY COVERED",
       "notes": ""
     },
     {
@@ -80,13 +82,15 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch8.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
       "confused_with": [],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": "The exam is vendor-neutral, but recognising the providers and mapping equivalent service categories is reasonable."
     },
     {
@@ -295,7 +299,9 @@
       "official_sources": [
         "lf-objectives-2025"
       ],
-      "lfs200_sources": [],
+      "lfs200_sources": [
+        "ch8.l2"
+      ],
       "additional_sources": [],
       "candidate_evidence": [],
       "commands": [],
@@ -303,7 +309,7 @@
       "confused_with": [
         "cloud.cloud-computing.multi-cloud"
       ],
-      "coverage_status": "NOT COVERED",
+      "coverage_status": "MENTIONED ONLY",
       "notes": ""
     },
     {
