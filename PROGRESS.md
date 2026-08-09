@@ -11,7 +11,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | 3 | Taxonomy expansion | **complete** |
 | 4 | LFS200 crawl | **complete** |
 | 5 | Per-concept documentation research | not started |
-| 6 | Candidate experience research | not started |
+| 6 | Candidate experience research | **complete (negative result)** |
 | 7 | Depth assignment | not started |
 | 8 | View generation | not started |
 
@@ -124,6 +124,38 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
    low-yield study targets.
 4. "Best Practices" and "Networking" each appear under two different domains and mean
    different things in each. They are kept distinct by a `Domain::Competency` key throughout.
+
+### Stage 6: there is no public candidate evidence for the current exam
+
+Searched for post-2025-09-16 LFCA candidate reports across general web search, Reddit, blogs,
+and the Linux Foundation community. **None were found.**
+
+What exists instead:
+
+- **One substantive candidate report**, on DEV Community, published **2025-09-03** — thirteen
+  days *before* the update. Its own content confirms it describes the retired exam: it lists
+  the old weights (20/20/20/16/16/8) and the old $200 price. Registered as `devto-lfca-2025-09`
+  at tier 4, and deliberately **not** attached to any concept as evidence, because it cannot
+  speak to the current exam.
+- **Third-party study guides publishing stale weights.** At least one prominent syllabus site
+  still shows the pre-2025 20/20/20 split as current.
+- **A large volume of braindump sites.** These dominate the search results and were excluded on
+  sight, unread, per the project's exam-security rule (see the exclusion list below).
+
+**Consequence for the dataset.** `candidate_evidence` is empty on all 537 concepts, and this is
+a true reflection of the evidence rather than an omission. It also means the MEDIUM confidence
+tier as originally defined — "inferred from official material and corroborated by two or more
+independent candidate reports" — cannot currently be satisfied by anything. Concepts marked
+MEDIUM rest on official material and reasoned inference alone, and should be read that way.
+
+**Braindump sites excluded on sight** (logged rather than silently dropped, and never opened):
+itexams.com, certempire.com, validexamdumps.com, passitexams.com, certlibrary.com,
+certgod.com, exam-labs.com, p2pexams.com, marks4sure.com, certstest.com.
+
+One incidental corroboration worth recording: several third-party sources state the exam has
+**60 questions**. This remains **unverified** — the Linux Foundation states no question count
+anywhere, and these sources are tier 3/4 and demonstrably stale on other facts. It is recorded
+here as an unverified figure, not adopted as the official value.
 
 ### Stage 4: LFS200 does not cover the current exam
 

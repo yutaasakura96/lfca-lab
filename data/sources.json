@@ -37,6 +37,18 @@
       "notes": "Authenticated course content, read via the repository owner's own enrolment. 12 sections, 47 lessons, 158,185 characters of instructional text. Course structure still reflects the pre-2025-09-16 syllabus: the chapter is named 'Supporting Applications and Developers' (a domain renamed in 2025) and it retains lessons for 'Deployment Environments' and 'Network Security' (competencies removed in 2025). Six current competencies have no lesson at all. Coverage analysis and measured term absences are recorded in research/lfs200-notes/00-course-map.md. Course prose is not reproduced in this repository."
     },
     {
+      "id": "devto-lfca-2025-09",
+      "title": "Cleared Linux Foundation Certified IT Associate (LFCA) + Preparation Guide",
+      "url": "https://dev.to/shivansh_barapatre_7/cleared-linux-foundation-certified-it-associate-lfca-preparation-guide-fd6",
+      "organization": "DEV Community (individual author)",
+      "published": "2025-09-03",
+      "updated": null,
+      "accessed": "2026-08-10",
+      "category": "candidate-report",
+      "authority_tier": 4,
+      "notes": "ANECDOTAL and PRE-UPDATE. Published 2025-09-03, thirteen days before the 2025-09-16 exam revision, so it describes the RETIRED exam. Confirmed by its own content: it lists the old six domains with the old weights (Linux 20, SysAdmin 20, Cloud 20, Security 16, DevOps 16, Supporting Applications and Developers 8) and the old $200 price. Retained as corroboration of the pre-2025 syllabus and as evidence that circulating candidate advice is stale. NOT attached as candidate_evidence to any concept, because it cannot speak to the current exam."
+    },
+    {
       "id": "wayback-lfca-2025-08",
       "title": "LFCA certification page, archived snapshot (pre-2025-09-16 syllabus)",
       "url": "https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/",
