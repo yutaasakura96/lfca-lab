@@ -8,7 +8,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | --- | --- | --- |
 | 1 | Official objectives capture | **complete** |
 | 2 | Exam mechanics | **complete** |
-| 3 | Taxonomy expansion | not started |
+| 3 | Taxonomy expansion | **complete** |
 | 4 | LFS200 crawl | not started |
 | 5 | Per-concept documentation research | not started |
 | 6 | Candidate experience research | not started |
@@ -29,9 +29,27 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
   stated in official sources** anywhere checked across two stages — recorded as such rather than
   guessed.
 
+- Stage 3: all 22 competencies expanded into **493 leaf concepts**. Zero `empty-competency`
+  errors remain — every official competency now has concepts attached.
+
+| Domain | Weight | Concepts | Share of corpus |
+| --- | --- | --- | --- |
+| Linux Fundamentals | 16% | 57 | 11.6% |
+| System Administration Fundamentals | 30% | 162 | 32.9% |
+| Cloud Computing Fundamentals | 18% | 70 | 14.2% |
+| Security Fundamentals | 14% | 61 | 12.4% |
+| DevOps Fundamentals | 12% | 67 | 13.6% |
+| IT Project Management Fundamentals | 10% | 76 | 15.4% |
+
+Concept count deliberately does not track exam weight exactly. Much material a candidate would
+call "Linux" (permissions, processes, filesystem, packages) sits under System Administration
+because that is where the official competencies place it. Networking and Containers were given
+extra depth at the repository owner's request. Study effort should follow the `importance`
+field and the domain weights, not the concept counts.
+
 ## Pending
 
-- Stages 3 through 8.
+- Stages 4 through 8.
 
 ## Unresolved questions
 
