@@ -13,7 +13,7 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
 | 5 | Per-concept documentation research | **complete** |
 | 6 | Candidate experience research | **complete (negative result)** |
 | 7 | Depth assignment | **complete** |
-| 8 | View generation | not started |
+| 8 | View generation | **complete** |
 
 ## Completed
 
@@ -53,7 +53,23 @@ field and the domain weights, not the concept counts.
 
 ## Pending
 
-- Stage 8.
+- Nothing in cycle 1. Cycle 2 (study guide), cycle 3 (question bank) and cycle 4 (simulator)
+  have not been started and each needs its own design.
+
+## Cycle 1 definition of done — all met
+
+| Check | Result |
+| --- | --- |
+| Every official competency has at least one concept | PASS (22/22) |
+| Every concept has a `required_depth` in 1-5 | PASS (537/537) |
+| Every concept has an `objective_verbatim` | PASS (537/537) |
+| Every concept cites a tier-1 or tier-2 source | PASS (537/537) |
+| Every concept has an LFS200 `coverage_status` | PASS (537/537) |
+| Every concept has a real `sept_2025_status` (none `unknown`) | PASS (537/537) |
+| `tools/validate.mjs` exits clean | PASS (exit 0, 0 errors) |
+| Full test suite passes | PASS (42/42) |
+| All six views and the coverage matrix generate | PASS |
+| Regeneration is idempotent (no diff on re-run) | PASS |
 
 ## Remaining warnings, and why each is expected
 
