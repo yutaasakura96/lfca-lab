@@ -1,3 +1,5236 @@
 {
-  "topics": []
+  "topics": [
+    {
+      "id": "sysadmin.system-administration.user-account",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "user account"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A named identity the system uses to control what a person or service may do. Each has a numeric UID; the name is for humans, the UID is what the kernel enforces on.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "useradd",
+        "usermod",
+        "userdel",
+        "id",
+        "whoami"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.uid-and-gid"
+      ],
+      "confused_with": [
+        "group"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.group",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "group"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A named collection of users, used to grant a permission once to many accounts instead of repeating it per user.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "groupadd",
+        "groupdel",
+        "groups",
+        "usermod -aG"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.primary-vs-supplementary-group"
+      ],
+      "confused_with": [
+        "user account"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.uid-and-gid",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "UID and GID"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The numeric user and group identifiers the kernel actually checks. UID 0 is root, and it is the number rather than the name \"root\" that confers privilege.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "id"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "user account"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.primary-vs-supplementary-group",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "primary vs supplementary group"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A user has exactly one primary group, applied to files they create, plus any number of supplementary groups that add access.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "id",
+        "groups",
+        "usermod -g",
+        "usermod -aG"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "group"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "usermod -G without -a silently replaces every supplementary group; a classic destructive mistake."
+    },
+    {
+      "id": "sysadmin.system-administration.etc-passwd",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "Account files",
+        "/etc/passwd"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "World-readable account database: username, UID, GID, comment, home directory, login shell. Despite the name it no longer holds passwords.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "getent passwd"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "/etc/shadow"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.etc-shadow",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "Account files",
+        "/etc/shadow"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Restricted file holding password hashes and ageing policy. Readable only by root, which is why password hashes moved here out of /etc/passwd.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chage"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "/etc/passwd"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.etc-group",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "Account files",
+        "/etc/group"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Group database: group name, GID, and the supplementary member list.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "getent group"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "/etc/passwd"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.login-shell",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "login shell"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The program started when a user logs in. Setting it to /usr/sbin/nologin is the standard way to create an account that owns files but cannot log in.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chsh"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.service-account"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.service-account",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "service account"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "An unprivileged account that exists to run a daemon rather than to be logged into, limiting the damage a compromised service can do.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.login-shell"
+      ],
+      "confused_with": [
+        "user account"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.password-policy-and-ageing",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Users and groups",
+        "password policy and ageing"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Rules governing password expiry, minimum age, and warning periods, enforced from /etc/shadow fields.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chage",
+        "passwd -e"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.read-write-execute-permissions",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "read, write, execute permissions"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The three permission bits. On a directory they mean something different from a file: execute means \"may traverse into\", and write means \"may create or delete entries\".",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l",
+        "chmod"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The directory semantics are the most commonly missed part of this topic."
+    },
+    {
+      "id": "sysadmin.system-administration.owner-group-other",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "owner, group, other"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The three permission classes. The kernel checks them in order and stops at the first match, so a more permissive \"other\" cannot rescue a restrictive \"group\".",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "First-match-wins is counter-intuitive and is a classic exam distinction."
+    },
+    {
+      "id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "symbolic vs numeric chmod"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Two notations for the same thing: u+x style symbolic changes are relative; 755 style octal is absolute and replaces all bits.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chmod"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "umask"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.chown-and-chgrp",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "chown and chgrp"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Change the owning user and owning group of a file. Only root can give a file away to another user.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chown",
+        "chgrp"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.umask",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "umask"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A mask of bits removed from the default permissions of newly created files. It subtracts; it does not set.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "umask"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "symbolic vs numeric chmod"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Frequently confused with chmod because both use octal."
+    },
+    {
+      "id": "sysadmin.system-administration.suid",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Special bits",
+        "SUID"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Runs an executable with the file owner’s privileges rather than the caller’s. This is how passwd lets an ordinary user write to /etc/shadow.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chmod u+s",
+        "find / -perm -4000"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "SGID"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.sgid",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Special bits",
+        "SGID"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "On a binary, runs with the group’s privileges. On a directory, makes new files inherit the directory’s group — the usual way to build a shared team folder.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chmod g+s"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "SUID"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.sticky-bit",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Special bits",
+        "sticky bit"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "On a shared-writable directory, restricts deletion to the file’s owner. This is why /tmp is world-writable yet users cannot delete each other’s files.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "chmod +t"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "SGID"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.root-and-least-privilege",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Privilege",
+        "root and least privilege"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Root bypasses permission checks entirely. The operating principle is to grant the minimum privilege sufficient for the task rather than working as root.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.sudo-vs-su",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Privilege",
+        "sudo vs su"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "sudo runs a single command as another user under a policy and logs it; su starts a whole shell as that user and requires the target account’s password.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "sudo",
+        "su",
+        "sudo -i"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "root and least privilege"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "The auditability difference is the point, not the convenience."
+    },
+    {
+      "id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Permissions",
+        "Privilege",
+        "/etc/sudoers and visudo"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The sudo policy file, edited via visudo so a syntax error cannot lock everyone out.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "visudo"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Editing sudoers directly with a text editor is the mistake visudo exists to prevent."
+    },
+    {
+      "id": "sysadmin.system-administration.process",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "process"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A running instance of a program, with its own PID, memory, and open files.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ps",
+        "top"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "service"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.pid-and-ppid",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "PID and PPID"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The process identifier and its parent’s. PID 1 is the init system and is the ancestor of everything else.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ps -ef",
+        "pgrep"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.foreground-and-background-jobs",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "foreground and background jobs"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Shell job control: & starts a job in the background, Ctrl-Z suspends, bg and fg move jobs between states.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "jobs",
+        "bg",
+        "fg",
+        "nohup"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.signals",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "signals"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Asynchronous notifications sent to processes. SIGTERM asks politely and can be caught; SIGKILL cannot be caught and gives no chance to clean up.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "kill",
+        "kill -9",
+        "killall",
+        "pkill"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Reaching for kill -9 first is the classic beginner error."
+    },
+    {
+      "id": "sysadmin.system-administration.process-priority-and-nice",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "process priority and nice"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The nice value biases CPU scheduling. Lower is greedier; only root can lower it below zero.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "nice",
+        "renice"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "signals"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.daemon",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "daemon"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A long-running background process, usually started at boot and not attached to a terminal.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.service"
+      ],
+      "confused_with": [
+        "process"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.zombie-and-orphan-processes",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Processes",
+        "zombie and orphan processes"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A zombie has exited but its parent has not reaped its status; an orphan’s parent died and it is re-parented to PID 1.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ps"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "process"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.service",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "service"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A managed, usually long-running facility the system starts, stops, and supervises — as opposed to a bare process you launch by hand.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "process"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "process vs service is one of the named comparisons an LFCA candidate should be able to make."
+    },
+    {
+      "id": "sysadmin.system-administration.systemd",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "systemd"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The init system and service manager on most modern distributions. Runs as PID 1 and supervises everything else.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl",
+        "systemd-analyze"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "SysV init"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.unit-and-unit-file",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "unit and unit file"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "systemd’s unit of management. Types include .service, .socket, .timer, .mount, and .target; the unit file declares how it behaves.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl cat",
+        "systemctl list-units"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.systemctl-start-vs-enable",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "systemctl start vs enable"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "start affects the running system now; enable affects whether it comes up at boot. Neither implies the other.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl start",
+        "systemctl enable",
+        "systemctl enable --now"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A very commonly tested distinction, and a common real-world outage cause."
+    },
+    {
+      "id": "sysadmin.system-administration.systemd-target",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "systemd target"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A grouping of units representing a system state, the modern replacement for the older runlevel concept.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl get-default",
+        "systemctl isolate"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "runlevel"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.runlevel",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "runlevel"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The older SysV notion of system state (0 halt, 1 single-user, 3 multi-user, 5 graphical, 6 reboot), now mapped onto systemd targets.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "runlevel"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "systemd target"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.daemon-reload",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Services and init",
+        "daemon-reload"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Tells systemd to re-read unit files after they change. Editing a unit without it leaves systemd acting on the old definition.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl daemon-reload"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.package",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "package"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A distributable archive bundling software with its metadata, dependency list, and install scripts.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "repository"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.repository",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "repository"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A server-hosted collection of packages the package manager can search and install from.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "package"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "package vs repository is a named comparison for this exam."
+    },
+    {
+      "id": "sysadmin.system-administration.dependency",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "dependency"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A package another package requires. The manager resolves these automatically; a broken dependency tree is a common failure symptom.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.package"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.apt-and-dpkg",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "Debian family",
+        "apt and dpkg"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "dpkg installs a single local .deb and does not resolve dependencies; apt works with repositories and does.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "apt install",
+        "apt update",
+        "apt upgrade",
+        "dpkg -i",
+        "dpkg -l",
+        "dpkg -L"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "dnf, yum and rpm"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.dnf-yum-and-rpm",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "Red Hat family",
+        "dnf, yum and rpm"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The Red Hat equivalents: rpm handles a single local package, dnf (formerly yum) handles repositories and dependencies.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dnf install",
+        "rpm -q",
+        "rpm -ql"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "apt and dpkg"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.update-vs-upgrade",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "update vs upgrade"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "On Debian systems apt update only refreshes the package index; apt upgrade actually installs newer versions. The names mislead.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "apt update",
+        "apt upgrade"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A frequent point of confusion worth knowing precisely."
+    },
+    {
+      "id": "sysadmin.system-administration.patch-management",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Package management",
+        "patch management"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The disciplined practice of tracking, testing, and applying updates — particularly security updates — on a schedule rather than ad hoc.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.vulnerability"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.filesystem-hierarchy-standard",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Filesystem Hierarchy Standard"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The convention defining what lives where on a Linux system, which is what makes /etc mean the same thing across distributions.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "filesystem type"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.etc",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/etc"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "System-wide configuration files. Host-specific and, by convention, text.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.var",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/var"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Variable data that grows at runtime: logs, spools, caches. A full /var is a very common cause of service failure.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.troubleshooting.disk-full"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.home",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/home"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "User home directories.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.usr",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/usr"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Read-only user-land programs and libraries installed by the distribution.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.tmp",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/tmp"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "World-writable temporary space, typically cleared on reboot and protected by the sticky bit.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.system-administration.sticky-bit"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.proc-and-sys",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/proc and /sys"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Virtual filesystems exposing kernel and process state as files rather than occupying disk.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "cat /proc/cpuinfo"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "/dev"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.dev",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Key directories",
+        "/dev"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Device nodes representing hardware and pseudo-devices such as /dev/null.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "/proc and /sys"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.filesystem-type",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "filesystem type"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The on-disk format — ext4, XFS, Btrfs, vFAT, NTFS — determining features such as journaling and maximum file size.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "mkfs",
+        "blkid"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "Filesystem Hierarchy Standard"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.mounting",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "mounting"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Attaching a filesystem into the single unified directory tree at a mount point, rather than exposing it as a separate drive letter.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "mount",
+        "umount",
+        "findmnt"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "partition"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.etc-fstab",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "/etc/fstab"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Declares which filesystems mount where at boot, and with what options.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "mount -a"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A malformed entry can prevent a machine from booting."
+    },
+    {
+      "id": "sysadmin.system-administration.partition",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "partition"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A subdivision of a block device, which then holds a filesystem.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "lsblk",
+        "fdisk -l"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "mounting"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.inode",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "inode"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The structure holding a file’s metadata and block pointers. A filesystem can exhaust inodes while still showing free space.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "df -i",
+        "ls -i"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The \"disk full but df shows space\" scenario is an inode exhaustion classic."
+    },
+    {
+      "id": "sysadmin.system-administration.hard-link-vs-symbolic-link",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "hard link vs symbolic link"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "A hard link is another name for the same inode; a symlink is a small file pointing at a path and can dangle if the target moves.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ln",
+        "ln -s"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "inode"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.disk-usage-vs-free-space",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "disk usage vs free space"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "df reports per-filesystem free space; du walks a directory tree adding up file sizes. They routinely disagree, and the reason matters.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "df -h",
+        "du -sh"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A deleted-but-still-open file is the usual explanation for the discrepancy."
+    },
+    {
+      "id": "sysadmin.system-administration.swap",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "swap"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Disk space used to extend memory under pressure. Heavy swapping is a symptom of memory shortage, not a solution to it.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "swapon",
+        "free"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.lvm",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "LVM"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Logical Volume Management: an abstraction over physical devices allowing volumes to be resized and spanned. Recognition-level for LFCA.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "pvs",
+        "vgs",
+        "lvs"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.raid-levels",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Filesystem",
+        "Storage",
+        "RAID levels"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Combining disks for redundancy or speed: RAID 0 stripes with no redundancy, 1 mirrors, 5 uses parity, 10 mirrors and stripes.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.disaster-recovery.backup-vs-snapshot-vs-replication"
+      ],
+      "confused_with": [
+        "backup"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "RAID is not a backup — it protects against drive failure, not deletion or corruption."
+    },
+    {
+      "id": "sysadmin.system-administration.cron",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Scheduled tasks",
+        "cron"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The traditional time-based job scheduler, configured per user via crontab or system-wide in /etc/cron.d.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "crontab -e",
+        "crontab -l"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "systemd timer"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.crontab-syntax",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Scheduled tasks",
+        "crontab syntax"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Five time fields — minute, hour, day of month, month, day of week — then the command. Cron jobs run with a minimal environment and a different PATH from your shell.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "crontab -e"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The sparse environment is the usual reason a script works interactively but fails under cron."
+    },
+    {
+      "id": "sysadmin.system-administration.systemd-timer",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Scheduled tasks",
+        "systemd timer"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The systemd alternative to cron, with logging through the journal, dependency handling, and the ability to catch up on missed runs.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl list-timers"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "cron"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.var-log",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Logging",
+        "/var/log"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The conventional location for plain-text log files.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "tail -f",
+        "less"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.journald"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.syslog-and-severity-levels",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Logging",
+        "syslog and severity levels"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The traditional logging protocol and its severity scale from emergency down to debug, used for filtering.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "journald"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.journald",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Logging",
+        "journald"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "systemd’s structured, binary, queryable log store, read with journalctl rather than a pager.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "journalctl -u",
+        "journalctl -f",
+        "journalctl -p err",
+        "journalctl -b"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "syslog and severity levels"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.log-rotation",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Logging",
+        "log rotation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Rotating, compressing, and expiring logs so they cannot fill the disk.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "logrotate"
+      ],
+      "related_topics": [
+        "sysadmin.troubleshooting.disk-full"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.boot-process",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Boot",
+        "boot process"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "Firmware, then bootloader, then kernel, then the init system, then services — knowing the order is what makes boot failures diagnosable.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemd-analyze blame"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "bootloader"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.bios-vs-uefi",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Boot",
+        "BIOS vs UEFI"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The two firmware generations. UEFI adds an EFI system partition, GPT partitioning, larger disk support, and Secure Boot.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "bootloader"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.bootloader-and-grub",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Boot",
+        "bootloader and GRUB"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The stage that loads the kernel and passes it parameters. GRUB is the common Linux implementation.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "update-grub"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "BIOS vs UEFI"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.system-administration.kernel",
+      "path": [
+        "System Administration Fundamentals",
+        "System Administration",
+        "Boot",
+        "kernel"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "System Administration",
+      "description": "The core of the operating system: it mediates access to CPU, memory, devices, and enforces permissions.",
+      "objective_verbatim": "System Administration",
+      "sept_2025_status": "reworded",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "uname -r"
+      ],
+      "related_topics": [
+        "linux.linux-operating-system.kernel"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.documentation",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "documentation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Recording what a system does, why it was configured that way, and how to recover it. Undocumented systems fail badly precisely when the person who built them is unavailable.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.change-management",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "change management"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Reviewing, scheduling, and recording changes before applying them, so that an incident can be correlated with what changed.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "version control"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.standardization",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "standardization"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Keeping machines configured alike so that a fix, a script, or a runbook applies everywhere rather than to one snowflake host.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.naming-conventions",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "naming conventions"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Predictable names for hosts, users, and resources, so that identity and purpose can be inferred without a lookup.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.automation-and-idempotency",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "automation and idempotency"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Scripting repeated work, and writing it so that running it twice is safe and leaves the same result.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.infrastructure-as-code"
+      ],
+      "confused_with": [
+        "configuration management"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.configuration-management",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "configuration management"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Declaring desired system state in version-controlled files and having a tool enforce it — Ansible, Puppet, Chef, Salt.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "automation and idempotency"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.version-control-for-configuration",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "version control for configuration"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Keeping configuration in Git so changes are reviewable, attributable, and revertible.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.git-concepts.repository"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.testing-before-production",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "testing before production"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Validating changes in a non-production environment first, and having a rollback path before you need one.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "devops.devops-basics.deployment-environments"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.monitoring-and-alerting",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "monitoring and alerting"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Collecting metrics and logs continuously, and notifying a human when a threshold or condition is breached. Monitoring observes; alerting interrupts.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "logging"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.capacity-planning",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "capacity planning"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Projecting resource growth so that expansion is planned rather than triggered by an outage.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.maintenance-windows",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "maintenance windows"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Agreed periods for disruptive work, communicated in advance to the people affected.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "pm.project-management.stakeholder"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.separation-of-duties",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "separation of duties"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Splitting a sensitive workflow so no single person can both make and approve a change.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.security.principle-of-least-privilege"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.best-practices.runbooks",
+      "path": [
+        "System Administration Fundamentals",
+        "Best Practices",
+        "Operational discipline",
+        "runbooks"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Best Practices",
+      "description": "Step-by-step procedures for known operational tasks and incidents, written to be followed under pressure.",
+      "objective_verbatim": "Best Practices",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "documentation"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.osi-model",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Models",
+        "OSI model"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A seven-layer reference model. Its value for an administrator is as a fault-isolation ladder: establish which layer is broken before touching anything.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "TCP/IP model"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "Layer numbering and what lives at each layer are commonly tested."
+    },
+    {
+      "id": "sysadmin.networking.tcp-ip-model",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Models",
+        "TCP/IP model"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The four-layer model networks are actually built on: link, internet, transport, application.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "OSI model"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ipv4-address",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "IPv4 address"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A 32-bit address written as four dotted decimal octets, split by the subnet mask into a network portion and a host portion.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip addr"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "MAC address"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ipv6-address",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "IPv6 address"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A 128-bit address in hexadecimal groups, introduced because IPv4 space was exhausted. Recognition-level for LFCA.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip -6 addr"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "IPv4 address"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.subnet-mask-and-cidr",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "subnet mask and CIDR"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Marks where the network portion of an address ends. /24 and 255.255.255.0 say the same thing in two notations.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip addr"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Being able to move between dotted-decimal and prefix notation is expected."
+    },
+    {
+      "id": "sysadmin.networking.network-host-and-broadcast-addresses",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "network, host and broadcast addresses"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Within a subnet the lowest address identifies the network and the highest is the broadcast; neither can be assigned to a host.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "subnet mask and CIDR"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.private-vs-public-ip-addresses",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "private vs public IP addresses"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "RFC 1918 ranges — 10/8, 172.16/12, 192.168/16 — are not routable on the internet and must be translated to reach it.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "NAT"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison for this exam."
+    },
+    {
+      "id": "sysadmin.networking.loopback-address",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "loopback address"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "127.0.0.1, the interface a host uses to talk to itself. Reaching a service on loopback but not from outside localises the fault sharply.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ping 127.0.0.1"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.static-vs-dynamic-addressing",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "static vs dynamic addressing"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "An address configured by hand and permanent, versus one leased from DHCP. Servers usually want static or a DHCP reservation.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "DHCP"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.mac-address",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "MAC address"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The 48-bit hardware address used within a single link. It does not cross routers, which is the key difference from an IP address.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip link"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "IPv4 address"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.arp",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "IP addressing",
+        "ARP"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Resolves an IPv4 address to a MAC address on the local segment — the join between layer 3 and layer 2.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip neigh",
+        "arp -n"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "DNS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.default-gateway",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Routing",
+        "default gateway"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The router a host sends traffic to when the destination is not on its own subnet. A missing or wrong gateway looks like \"local works, internet does not\".",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip route",
+        "ip route show default"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "One of the highest-yield troubleshooting concepts on the exam."
+    },
+    {
+      "id": "sysadmin.networking.routing-table",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Routing",
+        "routing table"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The ordered rules a host consults to decide which interface and next hop to use, most specific prefix first.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip route",
+        "route -n"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.router-vs-switch",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Routing",
+        "router vs switch"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A switch forwards frames by MAC within one network; a router forwards packets by IP between networks.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "MAC address"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison."
+    },
+    {
+      "id": "sysadmin.networking.nat",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Routing",
+        "NAT"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Rewrites private source addresses to a public one so many internal hosts can share it. The reason inbound connections need explicit port forwarding.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "private vs public IP addresses"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.vlan",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Routing",
+        "VLAN"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A logical segmentation of one physical switch into separate broadcast domains. Recognition-level.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.dns",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "DNS"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The distributed system translating names into IP addresses. Very many \"the network is down\" reports are actually DNS failures.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dig",
+        "nslookup",
+        "host"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "DHCP"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "DNS vs DHCP is a named comparison and a common confusion."
+    },
+    {
+      "id": "sysadmin.networking.dns-resolution-order",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "DNS resolution order"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A lookup consults /etc/hosts before querying a nameserver, which is why a stale hosts entry can override a correct DNS record.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "getent hosts"
+      ],
+      "related_topics": [
+        "sysadmin.networking.-etc-hosts"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.etc-resolv-conf",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "/etc/resolv.conf"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Lists the nameservers the resolver queries. On modern systems it is often generated rather than hand-edited.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "/etc/hosts"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.etc-hosts",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "/etc/hosts"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A local static name-to-address file, consulted before DNS.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "/etc/resolv.conf"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.dns-record-types",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "DNS record types"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A maps a name to IPv4, AAAA to IPv6, CNAME aliases one name to another, MX directs mail, PTR does reverse lookup, TXT carries arbitrary text such as SPF.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dig A",
+        "dig MX"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A vs CNAME and the purpose of MX and PTR are commonly tested."
+    },
+    {
+      "id": "sysadmin.networking.fqdn-and-hostname",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "FQDN and hostname"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A fully qualified domain name locates a host absolutely within the DNS hierarchy; a bare hostname does not.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "hostname",
+        "hostnamectl"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ttl-and-dns-caching",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Name resolution",
+        "TTL and DNS caching"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Records carry a time-to-live governing how long resolvers cache them, which is why a DNS change is not visible everywhere at once.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dig"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.dhcp",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Address assignment",
+        "DHCP"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Automatically issues addressing configuration — address, mask, gateway, DNS servers — to clients, removing per-host manual setup.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "DNS"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "DHCP hands out addresses; DNS resolves names. Conflating them is the classic error."
+    },
+    {
+      "id": "sysadmin.networking.dhcp-lease",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Address assignment",
+        "DHCP lease"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A time-bounded allocation of an address which the client must renew, allowing addresses to be reclaimed.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.networking.dhcp"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.dhcp-reservation",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Address assignment",
+        "DHCP reservation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Binds a specific MAC address to a fixed IP, giving stability without configuring the host by hand.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "static vs dynamic addressing"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.tcp-vs-udp",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Transport",
+        "TCP vs UDP"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "TCP is connection-oriented, ordered, and retransmits lost data; UDP is connectionless and does none of that, trading reliability for latency.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison and a near-certain topic."
+    },
+    {
+      "id": "sysadmin.networking.tcp-three-way-handshake",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Transport",
+        "TCP three-way handshake"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "SYN, SYN-ACK, ACK — the exchange establishing a TCP connection.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "tcpdump"
+      ],
+      "related_topics": [
+        "sysadmin.networking.tcp-vs-udp"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ports-and-sockets",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Transport",
+        "ports and sockets"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A port identifies a service on a host; combined with the IP address it forms the socket that identifies one end of a connection.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.well-known-ports",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Transport",
+        "well-known ports"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The conventional assignments: 22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 143 IMAP, 3306 MySQL, 5432 PostgreSQL, 3389 RDP.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Direct recall of the common ones is very likely to be tested."
+    },
+    {
+      "id": "sysadmin.networking.listening-vs-established-connections",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Transport",
+        "listening vs established connections"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "A listening socket waits for clients; an established one is an active conversation. Distinguishing them is central to \"is the service actually running?\".",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn",
+        "ss -t state established"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.http-and-https",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Application protocols",
+        "HTTP and HTTPS"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The web transfer protocol, and the same protocol carried inside TLS on port 443.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "curl -I"
+      ],
+      "related_topics": [
+        "security.security.tls"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ssh",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Application protocols",
+        "SSH"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Encrypted remote shell and file transfer on port 22, and the standard way to administer a Linux host remotely.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ssh",
+        "scp",
+        "sftp",
+        "ssh-keygen",
+        "ssh-copy-id"
+      ],
+      "related_topics": [
+        "security.security.public-key-authentication"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.proxy",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Application protocols",
+        "proxy"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "An intermediary that forwards requests on a client’s behalf; a reverse proxy does the same in front of servers.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "load balancer"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.load-balancer",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Application protocols",
+        "load balancer"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Distributes incoming requests across several backends for capacity and availability.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.horizontal-scaling"
+      ],
+      "confused_with": [
+        "proxy"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.vpn",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Application protocols",
+        "VPN"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "An encrypted tunnel making a remote host behave as though it were on the private network.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.bandwidth-latency-and-throughput",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Performance",
+        "bandwidth, latency and throughput"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Capacity, delay, and achieved rate. A high-bandwidth link can still feel slow if latency is high.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "bandwidth"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.firewall",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Filtering",
+        "firewall"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Filters traffic by address, port, and protocol. Default-deny inbound with explicit allows is the standard posture.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ufw status",
+        "firewall-cmd --list-all"
+      ],
+      "related_topics": [
+        "security.security.defense-in-depth"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ufw-firewalld-and-iptables",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Filtering",
+        "ufw, firewalld and iptables"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Front-ends and the underlying packet filter: ufw on Debian family, firewalld on Red Hat family, both driving netfilter beneath.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ufw allow",
+        "firewall-cmd",
+        "iptables -L"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "firewall"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.open-closed-and-filtered-ports",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Filtering",
+        "open, closed and filtered ports"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Open accepts, closed actively refuses, filtered silently drops. The difference is diagnostic: refused means reachable-but-nothing-listening, timeout suggests a firewall.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn",
+        "nc -zv"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "This distinction turns a vague \"cannot connect\" into a specific cause."
+    },
+    {
+      "id": "sysadmin.networking.ping-and-icmp",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "ping and ICMP"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Tests basic reachability. A failed ping does not prove the host is down, because ICMP is frequently blocked.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ping"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Treating ping failure as proof of a dead host is a classic wrong conclusion."
+    },
+    {
+      "id": "sysadmin.networking.traceroute",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "traceroute"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Shows the path packets take hop by hop, localising where connectivity stops.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "traceroute",
+        "tracepath",
+        "mtr"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.ip-and-ifconfig",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "ip and ifconfig"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "The modern iproute2 command set and the deprecated net-tools it replaced.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ip addr",
+        "ip link",
+        "ip route",
+        "ifconfig"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "ifconfig is deprecated and absent by default on many current distributions."
+    },
+    {
+      "id": "sysadmin.networking.ss-and-netstat",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "ss and netstat"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "List sockets and listening services; ss is the current tool, netstat the legacy one.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ss -tulpn",
+        "netstat -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.dig-and-nslookup",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "dig and nslookup"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Query DNS directly, which separates a name-resolution failure from a connectivity failure.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dig",
+        "dig +short",
+        "nslookup"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.curl-and-wget",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "curl and wget"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Fetch URLs from the command line; curl -I retrieves headers only, which is often enough to confirm a service responds.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "curl -I",
+        "curl -v",
+        "wget"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.networking.tcpdump",
+      "path": [
+        "System Administration Fundamentals",
+        "Networking",
+        "Diagnostics",
+        "tcpdump"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Networking",
+      "description": "Captures packets on an interface for inspection when higher-level tools do not explain the behaviour.",
+      "objective_verbatim": "Networking",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "tcpdump -i"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.structured-troubleshooting-method",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "structured troubleshooting method"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Identify the problem, form a theory, test it, plan and implement a fix, verify, then document. The discipline matters more than any single command.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Questions asking what to do FIRST are testing this ordering."
+    },
+    {
+      "id": "sysadmin.troubleshooting.narrowing-scope",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "narrowing scope"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Establishing whether a fault affects one user, one host, or everything — which eliminates whole categories of cause immediately.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "structured troubleshooting method"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.change-correlation",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "change correlation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Asking what changed recently, since most faults follow a change rather than arising spontaneously.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "sysadmin.best-practices.change-management"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.reproducing-the-fault",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "reproducing the fault"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Confirming you can trigger the problem on demand, without which you cannot know a fix worked.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.checking-logs-first",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "checking logs first"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Consulting journalctl and /var/log early, because the system has usually already recorded the cause.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "journalctl -u",
+        "journalctl -p err",
+        "tail -f"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.exit-status",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "exit status"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "A command’s return code: 0 means success, non-zero means failure. This is how scripts detect problems.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "echo $?"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.service-will-not-start",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "service will not start"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Work from systemctl status to the journal for that unit; typical causes are a config syntax error, a port already bound, or a permissions problem.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl status",
+        "journalctl -u",
+        "ss -tulpn"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.disk-full",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "disk full"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Symptoms range from failed writes to services refusing to start. Check df, then du to find the consumer, and remember inodes can exhaust independently.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "df -h",
+        "df -i",
+        "du -sh /*"
+      ],
+      "related_topics": [
+        "sysadmin.system-administration.inode"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "out of memory and the OOM killer"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Under memory exhaustion the kernel kills a process by score. A service that \"died for no reason\" is often an OOM kill recorded in the journal.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "free -h",
+        "dmesg",
+        "journalctl -k"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.high-cpu-load",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "high CPU load"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Load average counts runnable and uninterruptible processes, so it must be read relative to core count rather than as a percentage.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "top",
+        "uptime",
+        "nproc"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Load average is widely misread as a percentage."
+    },
+    {
+      "id": "sysadmin.troubleshooting.permission-denied",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "permission denied"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Check ownership and mode, then group membership, then whether the path itself is traversable — a restrictive parent directory blocks access to a readable file.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "ls -l",
+        "ls -ld",
+        "id",
+        "namei -l"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "cannot connect to a service"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Separate the layers: is the process running, is it listening on the expected address, does the firewall permit it, does the name resolve.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "systemctl status",
+        "ss -tulpn",
+        "ping",
+        "dig",
+        "curl -v"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "Binding to 127.0.0.1 instead of 0.0.0.0 is a frequent cause of \"works locally, fails remotely\"."
+    },
+    {
+      "id": "sysadmin.troubleshooting.name-resolution-failure",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Common faults",
+        "name resolution failure"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Distinguish a DNS fault from a connectivity fault by testing an IP address directly and querying the resolver explicitly.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "dig",
+        "ping",
+        "cat /etc/resolv.conf"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.using-documentation",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "using documentation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Consulting man pages, --help, and /usr/share/doc rather than guessing at options.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "man",
+        "man -k",
+        "apropos",
+        "info"
+      ],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.troubleshooting.escalation",
+      "path": [
+        "System Administration Fundamentals",
+        "Troubleshooting",
+        "Method",
+        "escalation"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Troubleshooting",
+      "description": "Knowing when to hand a problem on, with the evidence gathered so far, rather than continuing past your authority or competence.",
+      "objective_verbatim": "Troubleshooting",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.backup",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "backup"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "An independent copy of data kept so it can be restored after loss, corruption, or deletion.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [
+        "tar",
+        "rsync"
+      ],
+      "related_topics": [],
+      "confused_with": [
+        "snapshot"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "backup vs snapshot is a named comparison."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.full-incremental-and-differential-backups",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "full, incremental and differential backups"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Full copies everything; incremental copies what changed since the last backup of any kind; differential copies what changed since the last full. The trade is backup time against restore complexity.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The restore-side difference between incremental and differential is the point."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.snapshot",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "snapshot"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "A point-in-time view of a volume, usually stored alongside the original. Fast to take, but not an independent copy — losing the volume loses the snapshots.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "backup"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.replication",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "replication"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Continuously copying data to another system for availability. It faithfully replicates deletions too, which is why it is not a backup.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "backup"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.3-2-1-rule",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "3-2-1 rule"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Three copies, on two media types, with one off-site. A compact expression of what makes backups actually survive disasters.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.restore-testing",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "restore testing"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Periodically proving a backup can be restored. An untested backup is an assumption, not a safeguard.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": "The most commonly skipped step, and the one that turns a backup into a recovery."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.backup-retention",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Backups",
+        "backup retention"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "How long copies are kept and when they expire, balancing recovery reach against storage cost and compliance obligations.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "security.compliance.data-retention"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.rpo",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "RPO"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Recovery Point Objective: how much data loss is acceptable, which dictates backup frequency.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "RTO"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "RPO looks backwards to the last good copy; RTO looks forwards to service restoration."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.rto",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "RTO"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Recovery Time Objective: how long restoration may take, which dictates the recovery method and standby capacity.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "RPO"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.disaster-recovery-plan",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "disaster recovery plan"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "The documented, tested procedure for restoring service after a major failure, including who does what and in what order.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "business continuity"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.business-continuity",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "business continuity"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "The broader discipline of keeping the organisation operating through disruption, of which IT disaster recovery is one part.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "disaster recovery plan"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "high availability vs disaster recovery"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "HA avoids downtime from component failure within a site; DR recovers service after a site or system is lost. They solve different problems and are not substitutes.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.high-availability"
+      ],
+      "confused_with": [
+        "disaster recovery plan"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": "A named comparison for this exam."
+    },
+    {
+      "id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "redundancy and single points of failure"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Duplicating components so no one failure stops the service, and identifying where no such duplicate exists.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.performance-availability.fault-tolerance"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.failover-and-failback",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "failover and failback"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Switching to a standby when the primary fails, and returning once it is healthy. Failback is the step most often left untested.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [
+        "high availability vs disaster recovery"
+      ],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "MTTR and MTBF"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Mean time to repair and mean time between failures: how quickly service returns, and how often it breaks.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy",
+      "path": [
+        "System Administration Fundamentals",
+        "Disaster Recovery",
+        "Planning",
+        "off-site and geographic redundancy"
+      ],
+      "domain": "System Administration Fundamentals",
+      "competency": "Disaster Recovery",
+      "description": "Keeping copies or capacity far enough away that one physical event cannot destroy both.",
+      "objective_verbatim": "Disaster Recovery",
+      "sept_2025_status": "added",
+      "inferred": true,
+      "confidence": "MEDIUM",
+      "required_depth": null,
+      "importance": 4,
+      "official_sources": [
+        "lf-objectives-2025"
+      ],
+      "lfs200_sources": [],
+      "additional_sources": [],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [
+        "cloud.cloud-computing.region-and-availability-zone"
+      ],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    }
+  ]
 }
