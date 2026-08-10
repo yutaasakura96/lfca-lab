@@ -25,7 +25,7 @@ names one vendor's product is nearly always asking about the mechanism in the le
 | Reserved public address | Elastic IP | Static public IP | Static external IP address |
 | Managed authoritative DNS | Route 53 | Azure DNS | Cloud DNS |
 | Layer 4 load balancer | Network Load Balancer | Load Balancer | Network Load Balancer |
-| Layer 7 load balancer | Application Load Balancer | Application Gateway | HTTP(S) Load Balancer |
+| Layer 7 load balancer | Application Load Balancer | Application Gateway | Application Load Balancer |
 | Network-to-network private link | VPC Peering | VNet Peering | VPC Network Peering |
 | Dedicated circuit to on-premises | Direct Connect | ExpressRoute | Cloud Interconnect |
 | Private reach to managed services | PrivateLink | Private Link | Private Service Connect |
@@ -235,7 +235,7 @@ of the two would drop a reply that never came back.
 | Where it is enforced | In the provider's network fabric, outside the guest operating system | Anywhere the mechanism is implemented — a host's own kernel, an appliance, or a cloud layer |
 | Configured through | The provider's control plane; no access to the instance is needed | Whatever owns the implementation — host tooling for a host firewall, the vendor's console for an appliance |
 | Stateful | Security group yes, network ACL no | Depends entirely on the implementation |
-| Default posture | Default-deny inbound, and the security group has no way to express a deny | Default-deny inbound with explicit allows is the standard posture |
+| Default posture | Security group: default-deny inbound, and no way to express a deny. Network ACL: the default ACL every VPC and subnet gets allows all traffic in and out; a custom ACL denies anything unmatched. | Default-deny inbound with explicit allows is the standard posture |
 
 The separating axis is generality: a firewall is the mechanism, while security groups and
 network ACLs are two particular cloud implementations of it that happen to differ from each
@@ -354,8 +354,8 @@ the application protocol at all. A layer 7 (application-layer) load balancer par
 request and can therefore make decisions on hostname, URL path, headers, or cookies. AWS
 places its Network Load Balancer at the fourth layer of the OSI model and its Application
 Load Balancer at the application layer, the seventh; Azure splits the same way between Load
-Balancer and Application Gateway, and Google Cloud between its Network and HTTP(S) load
-balancers.
+Balancer and Application Gateway, and Google Cloud between its Network and Application Load
+Balancers (formerly HTTP(S) Load Balancing).
 
 **Why it matters** Requirements map onto the split cleanly, and the exam states them as
 requirements rather than as layer numbers. "Route `/api` to one group of servers and

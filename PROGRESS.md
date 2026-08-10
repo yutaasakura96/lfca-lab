@@ -63,13 +63,24 @@ field and the domain weights, not the concept counts.
 | Every official competency has at least one concept | PASS (22/22) |
 | Every concept has a `required_depth` in 1-5 | PASS (537/537) |
 | Every concept has an `objective_verbatim` | PASS (537/537) |
-| Every concept cites a tier-1 or tier-2 source | PASS (537/537) |
+| Every concept cites a tier-1 or tier-2 source* | PASS (537/537) |
 | Every concept has an LFS200 `coverage_status` | PASS (537/537) |
 | Every concept has a real `sept_2025_status` (none `unknown`) | PASS (537/537) |
 | `tools/validate.mjs` exits clean | PASS (exit 0, 0 errors) |
-| Full test suite passes | PASS (42/42) |
+| Full test suite passes** | PASS (42/42, at end of cycle 1) |
 | All six views and the coverage matrix generate | PASS |
 | Regeneration is idempotent (no diff on re-run) | PASS |
+
+\* As recorded at the end of cycle 1. Stage 5's "Corrections from the final whole-branch
+review" below shows this row was not measuring what it claims: every concept carried the
+shared `lf-objectives-2025` source, so `missing-sources` could never fail regardless of any
+concept's real sourcing, and the true count — a concept-specific tier-1/2 source independent of
+that shared one — is 485 of 537, with the remaining 52 waived by name in
+`data/sourcing-waivers.json`. Superseded by the corrections recorded later in this document; not
+an unqualified pass if read against the current dataset.
+
+\** Cycle-1 count. The suite has grown since; `npm test` currently reports 163/163 (see "Ran the
+harness against the current tree" below).
 
 ## Remaining warnings, and why each is expected
 
@@ -160,7 +171,7 @@ contradicts this. Recorded as a documented source disagreement in `data/sources.
 An independent review of all 29 commits found one Critical and several Important defects that
 the per-task reviews had missed. All are fixed:
 
-**Factual errors still in the data** — four of them the stage-5 corrections that the controller
+**Factual errors still in the data** — eight of them the stage-5 corrections that the controller
 bug had silently discarded:
 
 - `cloud.cloud-computing.cloud-control-planes` — **Critical.** Claimed "console work leaves no
@@ -237,6 +248,13 @@ opinion, so each rating is reproducible and its rationale is recorded in the con
 | 4 | Troubleshooting | 15 | 2.8% |
 | 5 | Administration | 6 | 1.1% |
 
+**This distribution is the first-pass measurement, superseded by "Corrections from the final
+whole-branch review" above.** The revised distribution is L1 39 (7.3%), L2 156 (29.1%), L3 321
+(59.8%), L4 15 (2.8%), L5 6 (1.1%); `npm test` on the current tree reproduces it. The paragraphs
+below describe the first-pass rules as they stood before that review, including the downward
+floor's `importance >= 4` gate, which the review replaced with a reviewed editorial list — see
+above for why.
+
 **Upward guardrail — no drift toward LFCS, CKA or RHCSA.** Only 3.9% of concepts sit above
 Application. Level 5 is deliberately restricted to six concepts where the specific
 configuration syntax is itself examinable (`chmod` notation, sudoers/visudo, systemctl
@@ -244,9 +262,11 @@ start-vs-enable, crontab syntax, reading `ls -l` modes, SSH hardening). A 90-min
 multiple-choice exam with no practical component cannot test hands-on administration, and the
 ratings reflect that.
 
-**Downward guardrail — nothing important parked at recognition.** The first pass left six
-concepts at level 1 despite sitting in the 30%-weighted System Administration domain. A floor
-rule now raises anything with importance ≥ 4 to at least Understanding. Downward drift is zero.
+**Downward guardrail — nothing important parked at recognition (first-pass rule).** The first
+pass left six concepts at level 1 despite sitting in the 30%-weighted System Administration
+domain. A floor rule raised anything with importance ≥ 4 to at least Understanding. Downward
+drift was zero under that rule; the final review replaced the rule itself (see above), not this
+result.
 
 **Two flaws in the first rule set were found by the guardrail and fixed:**
 
@@ -268,21 +288,25 @@ against primary sources (RFCs, NIST, kernel.org, GNU, systemd, git-scm, kubernet
 NIST SP 800-145, OSI/SPDX, the Scrum Guide). Every claimed error was then handed to an
 independent agent instructed to **refute** it, defaulting to "the original was fine".
 
-**11 corrections were proposed. 3 were confirmed by adversarial review and applied. 8 were
-recorded as rejected — but that number was, as first written, overstated.**
+**11 corrections were proposed. The committed adversarial-review artifact records 0
+confirmations and 11 verdict-less rejections.**
 
 The correction is worth stating plainly, because the first version of this section took credit
 the process had not earned. A controller bug (documented in the ledger) keyed verdicts off a
-content hash rather than the agent label, so the pairing was lost and all 8 fell through to
-"rejected" with `"no verdict recorded"` in `.superpowers/sdd/stage5-results.json`. Genuine
-refutation reasoning exists for only three of them. The refuter did do real work — it caught a
-proposed `/etc/shadow` rewrite that asserted "not readable by ordinary users" and then
-contradicted itself in its own next clause — but "8 were refuted" implied eight reasoned
-judgements when there were three.
+content hash rather than the agent label, so the pairing was lost: `confirmed` is empty in
+`.superpowers/sdd/stage5-results.json`, and all 11 proposed corrections — including the three
+that were in fact applied (`device-drivers-and-kernel-modules`, `containers.kubernetes`,
+`networking.vlan`) — sit in `rejected`, each carrying the identical string `"no verdict
+recorded — treated as unverified and not applied"` and no reasoning field at all. No count of
+corrections "confirmed by adversarial review" can be evidenced from this repository. The
+refuter did do real work — including catching a proposed `/etc/shadow` rewrite that asserted
+"not readable by ordinary users" and then contradicted itself in its own next clause — but that
+reasoning survives only in a workflow transcript that is not committed to this repository; the
+JSON artifact this document cites by name records no reasoning for any of the 11.
 
-The final whole-branch review re-checked the eight against primary sources and found **four
-were genuine errors that had survived**. All four have now been fixed (see "Corrections from
-the final review" below). The lesson recorded here for later cycles: an adversarial layer only
+The final whole-branch review re-checked the eight against primary sources and found **all
+eight were genuine errors that had survived**. All eight have now been fixed (see "Corrections
+from the final review" below). The lesson recorded here for later cycles: an adversarial layer only
 counts the verdicts it actually returns, and a silent default-to-reject looks exactly like a
 confident refutation in the summary.
 
@@ -298,11 +322,12 @@ The Kubernetes one is the same class of error as the Linux Foundation/kernel gov
 caught in stage 3, and it contradicted this dataset's own `cncf` concept, which already said
 "hosts". Two agents independently converged on the hosts-versus-governs distinction.
 
-**Sourcing.** The registry grew from 11 to **274** sources: 19 tier 1, 252 tier 2 primary
-documentation, 2 tier 3, 1 tier 4. **480 of 537 concepts** now cite at least one tier-1/2
-primary document.
+**Sourcing, as recorded at the end of Stage 5.** The registry grew from 11 to **274** sources:
+19 tier 1, 252 tier 2 primary documentation, 2 tier 3, 1 tier 4. **480 of 537 concepts** cited at
+least one tier-1/2 primary document at that point.
 
-**Known shortfall — 57 concepts have no primary-documentation citation**, concentrated as:
+**Known shortfall at the time — 57 concepts had no primary-documentation citation**, concentrated
+as:
 
 | Concepts | Competency |
 | ---: | --- |
@@ -318,6 +343,12 @@ BABOK, ISO/IEC/IEEE 12207 and 29148 — are **paywalled**, and both pmi.org and 
 automated fetches during the pass. These concepts still carry the tier-1 official objectives
 source, so they clear the validator, but they lack the per-concept primary citation the rest of
 the dataset has. Recorded rather than papered over.
+
+**Superseded by the later write-back** (see "Dataset corrections" below): the registry now
+holds **282** sources (20 tier 1, 259 tier 2, 2 tier 3, 1 tier 4), **485 of 537 concepts** cite
+an independent tier-1/2 source, and the shortfall is **52** concepts, split 19 / 12 / 6 / 5 / 10
+across the same five groupings. `data/sources.json` and `data/sourcing-waivers.json` are
+authoritative; the figures above are the Stage 5 snapshot, not the current state.
 
 ### Stage 6: there is no public candidate evidence for the current exam
 
@@ -346,10 +377,12 @@ MEDIUM rest on official material and reasoned inference alone, and should be rea
 itexams.com, certempire.com, validexamdumps.com, passitexams.com, certlibrary.com,
 certgod.com, exam-labs.com, p2pexams.com, marks4sure.com, certstest.com.
 
-One incidental corroboration worth recording: several third-party sources state the exam has
-**60 questions**. This remains **unverified** — the Linux Foundation states no question count
-anywhere, and these sources are tier 3/4 and demonstrably stale on other facts. It is recorded
-here as an unverified figure, not adopted as the official value.
+One incidental observation worth recording: several third-party sources state a specific
+question count for the exam. This remains **unverified** — the Linux Foundation states no
+question count anywhere, and these sources are tier 3/4 and demonstrably stale on other facts.
+It is recorded here only as evidence that an unverified figure circulates; the figure itself is
+deliberately not repeated in this document, consistent with the project rule that no question
+count is stated or implied anywhere.
 
 ### Stage 4: LFS200 does not cover the current exam
 
@@ -866,7 +899,7 @@ generate` was re-run and left the working tree with no diff — `research/**` an
 `check-guide` runs 14 checks over the guide text and proves, mechanically, that:
 
 - every one of the 537 concept ids has exactly one definition site, and none is defined twice;
-- every one of the 156 undirected `confused_with` edges is covered by exactly one of the 130
+- every one of the 158 undirected `confused_with` edges is covered by exactly one of the 130
   comparison blocks, each block's `compares:` membership matches what `tools/lib/comparisons.mjs`
   computes from `data/` exactly, and every non-owning member of a block links back to it —
   either a standalone pointer sentence for a topic-defined concept or the matching in-row link
@@ -990,17 +1023,68 @@ recorded accurately as such above.
 
 ### What remains unverified or unresolved
 
-- **The final whole-branch adversarial review has not run.** The design's definition of done
-  (item 10) and the ledger's own task list (Task 36) both call for one; `git log` shows no
-  commit after `4bcfa89` (`fix: write back dataset corrections found while writing the study
-  guide`) and no such review's findings are recorded anywhere in the repository.
+- **The final whole-branch adversarial review has now run.** It used six independent lenses —
+  every number in the guide recomputed from `data/` and the tooling; prose accuracy in the eight
+  competency files with no commands and no waived concepts, checked against primary sources;
+  whether the project's own process documents claim more than their artifacts support; whether
+  the harness (`check-guide` and its 14 checks) can be satisfied by prose that does not teach;
+  cross-file self-consistency across all 32 study-guide files; and whether the guide teaches the
+  distinction and respects the project's constraints — followed by a synthesis pass that
+  re-derived every numeric claim, re-read every cited line, and re-ran `check-guide`, `validate`,
+  the test suite and `guide-plan`.
+  Six lenses returned 69 raw findings; synthesis confirmed **29** (2 Critical, 10 Important, 17
+  Minor) and rejected 5 that did not survive checking. All 29 confirmed findings have been
+  applied; see the correction log this section leads into.
+  **The 5 rejected findings**, and why: (1) Appendix A's "502 and 503 characteristically emitted
+  by a proxy" against networking.md's "502 and 504 are gateway codes by definition" — not a
+  contradiction, both hold under their own modality (practice versus RFC 9110 definition). (2)
+  54 of 100 Scenario blocks exceeding 150 words — STYLE.md section 6 states a target, not a
+  bound, and none is under 80 words or split across paragraphs, so there is nothing to fix. (3)
+  networking.md coming out at the corpus word-count average despite being marked "Weak area —
+  write denser" in the plan — a process observation about plan execution, not a content defect;
+  close reading found the file discrimination-first and technically accurate regardless. (4) "IT
+  Project Management is at 14 of 80 non-NOT-COVERED concepts", used as supporting evidence in
+  one lens's rank table — recomputation gives 13 of 80; the rank conclusion the evidence
+  supported is unaffected, but the number itself was wrong and was not carried into the
+  confirmed set. (5) Extending the network-ACL default-posture finding to two further
+  `03-cloud-computing/networking.md` passages — rejected because those passages already frame
+  the symptom as presupposing a stateless layer with a missing outbound rule, which is correct
+  as written; only the comparison-table cell needed the fix.
+  **Coverage gaps the review itself reported**, for the next cycle: no network fetch was
+  performed in this synthesis pass, so every external fact it confirmed (AWS default network
+  ACL behaviour, Google Cloud's load-balancer rename, NIST SP 800-53r5's PM-1 title, Apache-2.0's
+  combination limb, LGPL-2.1 section 6, the Nevada/Washington/Minnesota PCI statutes) was
+  assessed from knowledge against reviewer-quoted evidence, not re-fetched, and should be
+  confirmed against primary text before further edits; the Linux Foundation's own published
+  pages were never fetched by any lens, so the fixed exam facts and the no-published-question-
+  count claim rest on cycle-1 browser work with no capture artifact in the repository; LFS200
+  course content is unverifiable here — the course is paid and only `00-course-map.md` (the
+  assertion itself) is in the repository, and this pass found that file's own Security row
+  already out of sync with `data/`, direct evidence the research layer can drift unnoticed; no
+  command in the guide was executed (docker, kubectl, ss, ufw, firewall-cmd, ip and nmap are not
+  on the review host), and three command claims were flagged as needing a targeted check on the
+  right systems — `crontab -T FILE` (cronie) versus `crontab -n FILE` (Debian cron) in
+  `system-administration.md`, the `postgres:18`-only volume path in `containers.md`, and the
+  BSD-vs-macOS `man` section-order string in `command-line.md`; prose factual accuracy across
+  most of the corpus remains unchecked outside the sampled files — the fact-check lens read 8 of
+  22 competency files and the teaching lens read roughly 65 of 537 concepts in full; no
+  Knowledge-check answer was verified against a source; 107 of 130 comparison blocks were not
+  read for same-file self-consistency; the dataset itself (`depth`, `importance`,
+  `coverage_status`, source ids, the `confused_with` graph) was treated as ground truth
+  throughout, not re-derived against the published objectives; `npm run generate` was not run
+  during the review, so a stale generated view could not be fully ruled out (checked indirectly
+  instead); and documents outside the four audited (`PROGRESS.md`, `README.md`,
+  `study-guide/README.md`, `STYLE.md`) — `coverage-matrix.md`, the domain indexes as documents,
+  `docs/`, `labs/`, `lab/`, `Dockerfile`, `compose.yml` — were not reviewed end to end.
 - **83 Minor findings from Wave 2's review have no individual disposition on record** (see
   above) — only the aggregate count survives.
 - **Minor findings carried forward from Tasks 2, 4, and 7** were never revisited by a later task,
   because the final review that was supposed to carry them has not run:
   - Task 2: 113 of 156 `confused_with` edges (72%) tie through the ownership rule and resolve
     lexicographically rather than by importance; `undirectedEdges`' two-key sort comparator is
-    verified only on the real 156-edge array, not by a dedicated multi-edge unit test.
+    verified only on the real edge array, not by a dedicated multi-edge unit test. That ratio
+    was measured at Task 2, against the 156-edge array of the time; the dataset now carries 158
+    edges and the ratio has not been recomputed against the current array.
   - Task 4: `checkDuplicateDefinition`'s outside-any-section detection keys on concept id, so a
     stray duplicate outside a section is masked by a properly-placed copy of the same id — the
     ensemble of checks still errors regardless, so this is a check-design note, not a known gap

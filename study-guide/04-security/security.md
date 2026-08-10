@@ -3,13 +3,13 @@
 Security is the largest of the three competencies in Security Fundamentals, the domain that
 carries 14% of the exam — 4th largest of 6 domains — under the current (2025-09-16)
 blueprint; the 2025 update left the competency in place but reworded it. LFS200 barely
-reaches this material: of its 38 concepts, 35 are NOT COVERED and 3 FULLY COVERED — 3/38
-(8%) are not NOT COVERED — and the course's own security vocabulary diverges from the exam's
-in places (it discusses SSL, never TLS), so the three covered concepts are still written
-here from primary sources (`research/lfs200-notes/00-course-map.md`). Everything below is
-sourced from NIST publications, IETF RFCs, OWASP guidance, and manual pages. The material is
-conceptual rather than command-heavy: five of 38 concepts carry commands at all, so most
-questions turn on discriminating between terms that sound interchangeable and are not.
+reaches this material: of its 38 concepts, 37 are NOT COVERED and 1 FULLY COVERED — 1/38
+(3%) is not NOT COVERED — and the course's own security vocabulary diverges from the exam's
+in places (it discusses SSL, never TLS), so the material is written here from primary
+sources (`research/lfs200-notes/00-course-map.md`). Everything below is sourced from NIST
+publications, IETF RFCs, OWASP guidance, and manual pages. The material is conceptual rather
+than command-heavy: five of 38 concepts carry commands at all, so most questions turn on
+discriminating between terms that sound interchangeable and are not.
 
 <a id="s-security-principles"></a>
 ## Principles
@@ -691,10 +691,13 @@ peer. TLS is the conversation; the certificate is the identity document presente
 ### TLS and HTTPS
 *id: `security.security.tls-and-https` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: rfc-8446-tls13, rfc-7568-ssl3-deprecation*
 
-**What it is** TLS is the transport-layer protocol that encrypts a connection, protects it
-from tampering, and authenticates the server (and optionally the client) using certificates.
-HTTPS is not a separate protocol: it is ordinary HTTP carried inside a TLS connection,
-conventionally on port 443. SSL is TLS's obsolete predecessor.
+**What it is** Despite its name, TLS is not a transport protocol: RFC 8446 specifies it as
+running over an established, reliable transport — in practice, on top of an already-completed
+TCP connection — to encrypt that connection, protect it from tampering, and authenticate the
+server (and optionally the client) using certificates. In TCP/IP terms it sits inside the
+application layer; in OSI terms it is conventionally placed at layers 5-6, between transport
+and application. HTTPS is not a separate protocol: it is ordinary HTTP carried inside a TLS
+connection, conventionally on port 443. SSL is TLS's obsolete predecessor.
 
 **Why it matters** TLS is the concrete instance of nearly every cryptographic idea in this
 competency — asymmetric key agreement, symmetric bulk encryption, certificates, chain

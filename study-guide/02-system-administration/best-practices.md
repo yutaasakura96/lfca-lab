@@ -5,7 +5,7 @@ the exam's largest domain at 30% of the exam — 1st largest of 6 domains — un
 effective 2025-09-16, and the competency was added in the 2025 update, so no pre-2025 study
 material covers it at all. LFS200 does not help here either: all 20 of its concepts are NOT
 COVERED — 0/20 (0%) are not NOT COVERED (`research/lfs200-notes/00-course-map.md`) — so every
-topic below is sourced independently, and 7 of the 20 have no primary documentation source
+topic below is sourced independently, and 5 of the 20 have no primary documentation source
 even so and carry an explicit marker saying so. The competency is process rather than
 mechanism: nothing in it is settled by typing a command, and every question about it is a
 question about which discipline a described situation actually calls for.
@@ -648,8 +648,8 @@ exception, that sits inside patch management, and never a synonym for the practi
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `sysadmin.best-practices.principle-of-least-astonishment` | Principle of least astonishment | Configure systems so they behave the way an experienced administrator would expect, because surprising setups fail during incidents when nobody has time to read. | Recognition only — it argues for conventional defaults over clever ones, which is the opposite trade-off from optimisation, and it is a design preference rather than an enforceable control. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
-| `sysadmin.best-practices.service-ownership` | Service ownership | Every service has a named owner accountable for its health, cost, and lifecycle, so nothing is silently unmaintained. | Recognition only — distinguish the owner (accountable for the service over its life) from the on-call responder (handling one incident) and from the asset record (which stores the name rather than the accountability). *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
+| `sysadmin.best-practices.principle-of-least-astonishment` | Principle of least astonishment | Configure systems so they behave the way an experienced administrator would expect, because surprising setups fail during incidents when nobody has time to read. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Recognition only — it argues for conventional defaults over clever ones, which is the opposite trade-off from optimisation, and it is a design preference rather than an enforceable control. |
+| `sysadmin.best-practices.service-ownership` | Service ownership | Every service has a named owner accountable for its health, cost, and lifecycle, so nothing is silently unmaintained. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Recognition only — distinguish the owner (accountable for the service over its life) from the on-call responder (handling one incident) and from the asset record (which stores the name rather than the accountability). |
 
 #### Scenario
 

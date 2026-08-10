@@ -891,7 +891,7 @@ for disaster recovery or residency rather than routine redundancy.
 
 <a id="c-cloud.cloud-computing.managed-services"></a>
 ### Managed services
-*id: `cloud.cloud-computing.managed-services` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-145*
+*id: `cloud.cloud-computing.managed-services` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-shared-responsibility-model*
 
 **What it is** Standard infrastructure components — relational and NoSQL databases, message
 queues, caches, search indexes, load balancers — that the provider installs, patches, backs

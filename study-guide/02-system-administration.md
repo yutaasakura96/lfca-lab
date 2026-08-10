@@ -182,7 +182,7 @@ is downstream of the other files — and by where the 2025 additions sit.
    wholly unfamiliar material need spacing before the exam, not a final-week cram — and because
    the pre-2025 material a repeat candidate is likely to reuse will not remind them it exists.
 5. **[Best Practices](02-system-administration/best-practices.md).** Added in 2025, zero LFS200
-   coverage, and 7 of its 20 concepts are waived for want of a primary documentation source, so
+   coverage, and 5 of its 20 concepts are waived for want of a primary documentation source, so
    they are stated as consensus practice rather than citable fact. It goes last because it is
    the most abstract file in the domain and the one that most needs concrete referents already
    in memory: its patch cadence topic is the discipline around System Administration's patch

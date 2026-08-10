@@ -107,11 +107,12 @@ appearing — so read them as "the course demonstrably names this" rather than a
 what it teaches.
 
 One more structural warning, from `data/sourcing-waivers.json` by way of the `Waived` line in
-each brief: 40 of the domain's 80 concepts carry no primary documentation source, split 19 of
-29 in Project Management, 12 of 12 in Functional Analysis, 9 of 17 in Software Application
-Architecture, and 0 of 22 in Open Source Software and Licensing. Half this domain is written as
-hedged consensus practice because the authoritative references are paywalled. The exam still
-asks about it; the hedging is about provenance, not about whether it is examinable.
+each brief: 37 of the domain's 80 concepts carry no primary documentation source, split 19 of
+29 in Project Management, 12 of 12 in Functional Analysis, 6 of 17 in Software Application
+Architecture, and 0 of 22 in Open Source Software and Licensing. Just under half this domain —
+37 of 80 — is written as hedged consensus practice because the authoritative references are
+paywalled. The exam still asks about it; the hedging is about provenance, not about whether it
+is examinable.
 
 ## Section map
 
@@ -171,7 +172,7 @@ Application Architecture, Open Source Software and Licensing.**
 3. **Software Application Architecture third.** It is fully self-contained — all four of its
    comparison blocks are internal, and no concept in it points into or out of another file — so
    it can be dropped anywhere in the order without breaking a dependency. Third is where it
-   costs least: it breaks the run of heavily waived material (9 of 17 waived, against 19 of 29
+   costs least: it breaks the run of heavily waived material (6 of 17 waived, against 19 of 29
    and 12 of 12 before it) before that register becomes tiring to read.
 4. **Open Source Software and Licensing last**, for two reasons. It is the only file in the
    domain with a concept that is a member of a block owned outside the domain — forking, in the

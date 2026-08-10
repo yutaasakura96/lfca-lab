@@ -86,12 +86,14 @@ there is nothing to tag, push, pull or schedule.
 <a id="b-step-2"></a>
 ### 2. Layers, and which instructions make them
 
-**Mechanism.** Only `RUN`, `COPY` and `ADD` create a filesystem
-[layer](05-devops/containers.md#c-devops.containers.image-layers). Every other instruction —
-`FROM` aside, which selects the base image whose layers you inherit — writes metadata into the
-image configuration: `ENV`, `LABEL`, `WORKDIR`, `EXPOSE`, `USER`, `ARG`, `CMD`, `ENTRYPOINT`.
-That single fact answers two different exam questions: how many layers a shown Dockerfile
-adds, and why an instruction that "changes the image" left the filesystem untouched.
+**Mechanism.** `RUN`, `COPY` and `ADD` create a filesystem
+[layer](05-devops/containers.md#c-devops.containers.image-layers). Most other instructions —
+`FROM` aside, which selects the base image whose layers you inherit — write metadata into the
+image configuration only: `ENV`, `LABEL`, `EXPOSE`, `USER`, `ARG`, `CMD`, `ENTRYPOINT`.
+`WORKDIR` writes metadata too, but also creates its directory when that directory is missing,
+so it too can add a layer. That single fact answers two different exam questions: how many
+layers a shown Dockerfile adds, and why an instruction that "changes the image" left the
+filesystem untouched.
 
 Instructions execute in order and each layer's result is cached. A change invalidates its own
 layer and every layer after it, which is the entire argument for copying a dependency
@@ -402,8 +404,9 @@ the place it lives.
 ## Knowledge check
 
 1. Which Dockerfile instructions create a filesystem layer, and what do the rest do?
-   `RUN`, `COPY` and `ADD` create layers; every other instruction records configuration
-   metadata in the image config.
+   `RUN`, `COPY` and `ADD` create layers; most other instructions record configuration
+   metadata in the image config only. `WORKDIR` is the edge case: it sets metadata but also
+   creates its directory when that directory is missing, so it can add a layer too.
 2. What is the trailing `.` in `docker build -t api:1.4.2 .`, and what does it constrain?
    The build context directory. `COPY` and `ADD` may only read paths inside it, so a source
    outside the context fails the build.

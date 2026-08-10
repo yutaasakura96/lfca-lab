@@ -40,8 +40,8 @@ immediately followed by a metadata line in this exact form:
 - `<concept-id>` is the dataset id, verbatim, in backticks.
 - `<N>` for depth and importance are single digits, taken from `data/` — never invented,
   never rounded.
-- `<STATUS>` is one of `FULLY COVERED`, `PARTIALLY COVERED`, `NOT COVERED`, exactly as
-  `data/` gives it.
+- `<STATUS>` is one of `FULLY COVERED`, `PARTIALLY COVERED`, `MENTIONED ONLY`, `NOT COVERED`,
+  exactly as `data/` gives it.
 - `sources:` lists source ids from `data/sources.json`, comma-separated, or the literal word
   `none`.
 - The middle dot between fields is `·` (U+00B7), not a hyphen or a colon.
@@ -330,8 +330,8 @@ stated as settled fact.
 - **The weight, 2025 status, and LFS200 coverage figures in that paragraph must be copied
   verbatim from `npm run guide-plan`'s header output, never computed by hand.** The pilot
   file got this wrong twice by eyeballing it: it called Linux Fundamentals "the exam's
-  smallest domain" when it is the fourth-smallest (System Administration, Cloud, and
-  Security are all larger, and IT Project Management is the true smallest at 10%), and it
+  smallest domain" when it is the fourth-smallest (System Administration and Cloud Computing
+  are larger, and IT Project Management is the true smallest at 10%), and it
   claimed LFS200 "covers roughly half" of the Linux Operating System competency when the
   actual figure — 4 of 27 concepts FULLY or PARTIALLY covered — is 15%. `guide-plan` now
   prints the domain weight and its rank, the competency's 2025 status, and the LFS200

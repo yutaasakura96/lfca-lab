@@ -57,8 +57,8 @@ non-zero coverage, and still a 24-point internal range:
   behind only IT Project Management :: Open Source Software and Licensing at 32%.
 - **Git Concepts, 23% (5/22), 1 lesson** — fourth-highest. That lesson, `ch10.l5` at 8,727
   characters, is one of only four the course map names as material the course covers *well*.
-- **Containers, 4% (1/24), 1 lesson** — twelfth, and the lowest non-zero figure in the table;
-  every one of the ten competencies ranked below it sits at 0%.
+- **Containers, 4% (1/24), 1 lesson** — eleventh of the 22, and the second-lowest non-zero
+  figure; only Security :: Security at 3% sits below it, and the remaining ten are all at 0%.
 
 The structural evidence behind the Containers figure is stronger than a percentage. The course
 map's measured-absence pass records that `Docker`, `pod`, `registry`, `orchestration` and
@@ -140,7 +140,7 @@ block's axis is not the same as being able to place the term. And one block reac
 domain entirely: `Clone vs fork vs Forking a project` compares a Git concept against a concept
 belonging to IT Project Management :: Open Source Software and Licensing.
 
-Seven concepts in this domain are compared inside blocks **owned elsewhere**. The canonical
+Five concepts in this domain are compared inside seven blocks **owned elsewhere**. The canonical
 treatment of each lives in the other domain's file, and the DevOps-side concept carries only a
 pointer to it, so these are the comparisons most easily missed by reading this domain alone:
 

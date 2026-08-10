@@ -85,7 +85,8 @@ guideline — the fourth term, and the usual distractor — is recommended, not 
 **Why it matters** Findings are written against standards, because a standard is the only tier
 with something testable in it. A policy alone cannot be failed on evidence; it has no
 threshold. This hierarchy is not documentation hygiene either: NIST SP 800-53 places a
-Policy and Procedures control at the head of each of its 20 control families, so having the
+Policy and Procedures control at the head of 19 of its 20 control families (the exception is
+Program Management, whose PM-1 is Information Security Program Plan), so having the
 documents is itself a control an assessor will look for.
 
 **How it works** The tiers change at different costs and by different authority. Rewriting a
@@ -313,7 +314,8 @@ recognising that "store it in the EU" is not what GDPR actually requires.
 
 The separating axis is statute versus contract: breaking GDPR makes you answerable to a
 government regulator, breaking PCI-DSS makes you answerable to the bank and card brands you
-signed with — which is why PCI-DSS applies worldwide without being a law anywhere.
+signed with — PCI-DSS binds through the merchant agreement, not general legislation, though a
+few US states have written compliance with it into their own statutes.
 
 <a id="c-security.compliance.hipaa"></a>
 ### HIPAA
@@ -526,7 +528,7 @@ keep — and how the destruction is actually carried out and verified.
 
 <a id="c-security.compliance.licensing-compliance"></a>
 ### Licensing compliance
-*id: `security.compliance.licensing-compliance` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: lf-lfca-program*
+*id: `security.compliance.licensing-compliance` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: gnu-gpl-faq*
 
 **What it is** Meeting the obligations attached to the software an organisation uses or ships —
 open source and proprietary alike. Open source removes the fee, not the licence: permissive

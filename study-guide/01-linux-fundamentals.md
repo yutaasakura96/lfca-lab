@@ -67,8 +67,8 @@ concepts the course touches at all, not how deeply.
 | Command Line | 3 MENTIONED ONLY, 36 NOT COVERED — 3/39 (8%) are not NOT COVERED | 8%, 3/39, marked new 2025 | 3 |
 
 Position, stated exactly. In the course map's 22-row per-competency table, ordered by coverage,
-Linux Operating System is the sixth row at 15% and Command Line is the tenth at 8%, sharing that
-figure with Security :: Security. Neither competency appears in the course map's Finding 2 list
+Linux Operating System is the sixth row at 15% and Command Line is the tenth at 8%, the sole
+holder of that figure. Neither competency appears in the course map's Finding 2 list
 of six competencies with no lesson at all, and neither is the one-character `Backup` lesson
 case: both have real lessons, four and three respectively.
 

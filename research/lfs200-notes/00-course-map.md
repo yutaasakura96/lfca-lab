@@ -177,8 +177,8 @@ Percentages are a floor, for the reasons given under Method.
 | 13% | 3/23 | 1 | Cloud Computing :: Cloud Computing |
 | 12% | 2/17 | 1 | IT Project Management :: Software Application Architecture |
 | 8% | 3/39 | 3 | Linux :: Command Line **[new 2025]** |
-| 8% | 3/38 | 2 | Security :: Security |
 | 4% | 1/24 | 1 | DevOps :: Containers |
+| 3% | 1/38 | 2 | Security :: Security |
 | 0% | 0/20 | 0 | System Administration :: Best Practices **[new 2025]** |
 | 0% | 0/15 | 1 | System Administration :: Troubleshooting |
 | 0% | 0/18 | 1 | System Administration :: Disaster Recovery **[new 2025]** |

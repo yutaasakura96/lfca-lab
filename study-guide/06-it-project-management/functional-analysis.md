@@ -354,7 +354,7 @@ effort; priority versus estimate.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.functional-analysis.feasibility-study` | Feasibility study | An assessment, made before commitment, of whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. | Confused with gap analysis: a gap analysis says how far apart the current and desired states are, while a feasibility study asks whether closing that distance is achievable and worth committing to at all. Recognition of the term and its dimensions is enough at this level. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
+| `pm.functional-analysis.feasibility-study` | Feasibility study | An assessment, made before commitment, of whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Confused with gap analysis: a gap analysis says how far apart the current and desired states are, while a feasibility study asks whether closing that distance is achievable and worth committing to at all. Recognition of the term and its dimensions is enough at this level. |
 
 #### Scenario
 
@@ -491,7 +491,7 @@ per requirement; design document.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.functional-analysis.traceability` | Traceability | Linking each requirement forward to its design, implementation and tests, and back to the need that justified it, so coverage and impact can both be demonstrated. | Confused with testing itself: traceability shows that every requirement has a test and that every piece of work has a reason, not that anything passed. It is also what makes impact analysis possible when a requirement changes. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
+| `pm.functional-analysis.traceability` | Traceability | Linking each requirement forward to its design, implementation and tests, and back to the need that justified it, so coverage and impact can both be demonstrated. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Confused with testing itself: traceability shows that every requirement has a test and that every piece of work has a reason, not that anything passed. It is also what makes impact analysis possible when a requirement changes. |
 
 #### Scenario
 

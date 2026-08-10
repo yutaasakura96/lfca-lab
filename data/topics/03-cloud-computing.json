@@ -592,7 +592,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "aws-shared-responsibility-model"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1351,7 +1351,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145",
         "aws-rightsizing-whitepaper"
       ],
       "candidate_evidence": [],

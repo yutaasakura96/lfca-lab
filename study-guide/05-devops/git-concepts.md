@@ -794,10 +794,6 @@ commit shipped.
 6. A contributor with no write access wants to submit a change. What is the order of operations?
    Fork on the platform, clone the fork, branch and commit locally, push to the fork, then open a
    pull request against the original repository.
-7. Which command marks a specific commit as release `v2.0`, and which variant records who made
-   the mark?
-   `git tag`; the annotated form (`git tag -a v2.0 -m "..."`) creates a tag object carrying the
-   tagger's name, email, date and message, where a lightweight tag carries none.
 
 <a id="s-git-concepts-practice"></a>
 ## Practice

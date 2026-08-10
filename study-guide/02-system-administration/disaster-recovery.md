@@ -706,7 +706,7 @@ that does only one has an untested half.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | Usually stated as: mean time to repair is the average time a fix takes once something has broken, and mean time between failures the average interval between breakages. | Both are observed averages, not targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is a frequency and says nothing about recovery speed — reliability work raises MTBF, recovery work lowers MTTR, and improving one does not improve the other. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
+| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | Usually stated as: mean time to repair is the average time a fix takes once something has broken, and mean time between failures the average interval between breakages. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Both are observed averages, not targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is a frequency and says nothing about recovery speed — reliability work raises MTBF, recovery work lowers MTTR, and improving one does not improve the other. |
 
 #### Scenario
 

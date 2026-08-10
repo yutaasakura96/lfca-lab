@@ -283,7 +283,7 @@
 | cloud.performance-availability.monitoring-and-metrics | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.performance-availability.sla-slo-and-sli | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | cloud.performance-availability.bottleneck-identification | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 2 | HIGH |
+| cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.pay-as-you-go | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.budgeting.total-cost-of-ownership | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 1 | MEDIUM |

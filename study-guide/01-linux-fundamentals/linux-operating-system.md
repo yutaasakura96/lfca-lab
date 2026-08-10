@@ -1,7 +1,7 @@
 # Linux Operating System
 
-Linux Operating System anchors the Linux Fundamentals domain, the exam's fourth-smallest
-domain at 16% of the current (2025-09-16) blueprint — IT Project Management Fundamentals is
+Linux Operating System anchors the Linux Fundamentals domain — 16% of the exam, 3rd largest of
+6 domains under the current (2025-09-16) blueprint — IT Project Management Fundamentals is
 the smallest, at 10% — and this competency was unchanged by the 2025 update. LFS200 covers
 this competency thinly: of its 27 concepts, only 2 are FULLY COVERED (the operating system
 and the kernel) and 2 more are PARTIALLY COVERED (the system call and the CPU) — 4 of 27,

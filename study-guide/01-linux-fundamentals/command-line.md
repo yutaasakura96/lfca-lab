@@ -75,7 +75,7 @@ conventions, 8 system administration commands. `man name` shows the first page f
 configured section search order, not the lowest-numbered section that has a page. Both common
 implementations search 1 first and 8 before 2, 3 and 5 — man-db's default is
 `SECTION 1 n l 8 3 0 2 3type 5 4 9 6 7` in `man_db.conf`, and the BSD man on macOS defaults to
-`1:8:2:3:3lua:n:4:5:6:7:9:l`. That order is why `man crontab` opens the section-1 command page
+`1:1p:8:2:3:3p:4:5:6:7:9:0p:tcl:n:l:p:o` in `/etc/man.conf`. That order is why `man crontab` opens the section-1 command page
 rather than the section-5 file format, and equally why `man mount` opens mount(8), the
 administration command, rather than the lower-numbered mount(2) system call. `man 5 crontab`
 asks for the file-format page explicitly. `man -k` and `apropos` are the same search: both scan

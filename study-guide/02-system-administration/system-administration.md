@@ -2746,9 +2746,6 @@ mirrors a deletion just as faithfully as a write.
    RAID protects only against a drive failing — a deletion, corruption or ransomware write is
    mirrored or parity-protected just as faithfully. During a rebuild after one failure the array
    has no redundancy left, so a second failure in that period loses everything.
-7. A server shows 4 GB of swap in use. Is that a problem?
-   Not by itself. Pages evicted during an earlier spike remain in swap until they are needed
-   again; what indicates memory pressure is a sustained rate of swapping in and out now.
 
 <a id="s-system-administration-scheduled-tasks"></a>
 ## Scheduled tasks

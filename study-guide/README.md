@@ -1,8 +1,11 @@
 # LFCA study guide
 
-Complete coverage of the Linux Foundation Certified IT Associate exam as it stands after the
-2025-09-16 update: 537 leaf concepts across the 22 official competencies, each written to a
-depth the dataset assigned in advance, each verified mechanically against that dataset.
+Complete coverage of this project's 537-concept expansion of the 22 official Linux Foundation
+Certified IT Associate competencies as they stand after the 2025-09-16 update — the Linux
+Foundation publishes competency names only, so the 537 concepts are this project's own inferred
+breakdown, not the Linux Foundation's — each written to a depth the dataset assigned in
+advance, each checked mechanically against that dataset for structural completeness. See "What
+this guide does not claim" below for what that inference means and does not mean.
 
 The reader this is written for has already sat the exam and come out under the line — close
 enough that the gap is a handful of discriminations rather than a missing subject. So nothing
@@ -13,7 +16,7 @@ tests the boundary between plausible options, not recall of a definition sitting
 
 The prose sits on top of a dataset built in an earlier cycle. That cycle took the Linux
 Foundation's published objectives — which stop at the competency name — expanded the 22
-competencies into 537 leaf concepts, attached primary documentation to all but 57 of them (RFCs,
+competencies into 537 leaf concepts, attached primary documentation to all but 52 of them (RFCs,
 NIST publications, kernel.org, GNU and systemd manuals, git-scm, kubernetes.io, the OCI specs,
 the Scrum Guide, and AWS and Azure product documentation), assigned every concept a
 depth rating and a derived importance, recorded which concepts LFS200 actually teaches, and
@@ -128,7 +131,7 @@ The guide is hand-written and machine-checked. From the repository root:
 
 It also checks that each topic's stated depth, importance, and LFS200 coverage match the
 dataset, that every cited source id exists, that every section with a definition has a scenario
-and a knowledge check, that every cross-file link resolves, and that each of the 57 waived
+and a knowledge check, that every cross-file link resolves, and that each of the 52 waived
 concepts carries its waiver marker. `--scope "<Domain> :: <Competency>"` narrows a run to one
 file while writing; the unscoped run is the one that counts.
 
@@ -152,12 +155,12 @@ itself: `candidate_evidence` is empty on all 537 concepts. Nothing in this guide
 anyone reports having been asked, and nothing here should be read as a report of what appeared
 on a real exam.
 
-**57 concepts have no primary-documentation citation, and they are marked where they sit.**
+**52 concepts have no primary-documentation citation, and they are marked where they sit.**
 The authoritative references for classical project management and business analysis — the PMBOK
 Guide, the PMI Lexicon, ISO 21500/21502, BABOK, ISO/IEC/IEEE 12207 and 29148 — are paywalled,
 and pmi.org and gao.gov refuse automated fetches. The shortfall is concentrated in IT Project
-Management (19 in Project Management, 12 in Functional Analysis, 9 in Software Application
-Architecture) and System Administration :: Best Practices (7), with the remaining 10 scattered
+Management (19 in Project Management, 12 in Functional Analysis, 6 in Software Application
+Architecture) and System Administration :: Best Practices (5), with the remaining 10 scattered
 across Troubleshooting, Networking, Disaster Recovery, and DevOps. Every one of them carries a
 marker in place saying so, and its claims are hedged as consensus practice rather than stated as
 citable fact. Read the difference between the two registers as real: a hedged claim is the
@@ -169,3 +172,17 @@ exam FAQ and instructions, the free-resources page, and the learning-path PDF. T
 sites state a figure; those sites are also still publishing the retired domain weights as
 current, and their number is unverified. Any study plan built on a per-question value is built
 on a number nobody has confirmed. Budget by domain weight and by the clock instead.
+
+**`npm run check-guide`'s green result is structural and referential only, and proves nothing
+about whether any sentence in this guide is true.** No check reads a byte of prose between the
+markers — it confirms that a definition site exists once, that a comparison block's membership
+matches the dataset, that a required command string appears verbatim, that depth, importance
+and LFS200 coverage tags match `data/`, and that links resolve. None of that is a check on
+content: a topic could state the wrong fact about the right concept and every one of these
+checks would still pass. The one adversarial fact-check layer that did read prose against
+primary sources covered two claim classes only — command strings and waived-concept hedging —
+in the 14 competency files that carry either. The other eight competency files
+(`cloud-computing.md`, `performance-availability.md`, `budgeting.md`, `best-practices.md` and
+`networking.md` under Cloud Computing, `sensitive-data.md` and `compliance.md` under Security,
+`open-source-software-and-licensing.md` under IT Project Management), all six domain indexes,
+and both appendices carry no claim checked against a primary source by that layer.

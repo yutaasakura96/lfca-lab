@@ -56,38 +56,33 @@ pre-2025 notes on either competency are a starting point, not a substitute.
 
 ## LFS200 coverage position
 
-Only one domain is served worse by the course. `guide-plan`'s LFS200 lines, verbatim:
+Security Fundamentals is the least-covered domain on the exam by LFS200. `guide-plan`'s LFS200
+lines, verbatim:
 
 | Competency | LFS200 coverage (which concepts LFS200 touches at all, not how deeply) |
 | --- | --- |
-| Security | 35 NOT COVERED, 3 FULLY COVERED — 3/38 (8%) are not NOT COVERED |
+| Security | 37 NOT COVERED, 1 FULLY COVERED — 1/38 (3%) are not NOT COVERED |
 | Sensitive Data | 13 NOT COVERED — 0/13 (0%) are not NOT COVERED |
 | Compliance | 14 NOT COVERED — 0/14 (0%) are not NOT COVERED |
 
-Three concepts out of the domain's 65. Of the six domains, only Cloud Computing sits lower (3
-of 82); Security Fundamentals is the second-least-covered domain on the exam.
+One concept out of the domain's 65. Security Fundamentals is the least-covered domain on the
+exam at 1 of 65, with Cloud Computing next at 3 of 82.
 
 `research/lfs200-notes/00-course-map.md` adds four structural facts worth holding:
 
 - The domain has two substantive lessons: ch9.l2 `Securing Linux` (12,484 characters) and
   ch9.l3 `Network Security` (5,809 characters).
 - ch9.l3's name is one of the competencies the 2025 update **removed**, which the course map
-  lists among its evidence that LFS200 is still built on the pre-September-2025 syllabus.
-  Two of the domain's three covered concepts — TLS and HTTPS, SELinux and AppArmor — are
-  credited to that lesson in `data/topics/04-security.json`; the third, package and download
-  verification, comes from ch9.l2.
+  lists among its evidence that LFS200 is still built on the pre-September-2025 syllabus. The
+  domain's one covered concept — package and download verification — is credited to ch9.l2 in
+  `data/topics/04-security.json`; ch9.l3 credits none of the current dataset's concepts.
 - **Security :: Compliance has no lesson at all.** It is one of six competencies in that
   position, and one of the four of those six that are new in 2025.
 - Measured absences, checked as exact strings across all 158,185 characters and occurring zero
   times: `GDPR`, `HIPAA`, `ISO 27001`, `SOC 2` under Compliance; `authorization`,
   `multi-factor`, `TLS`, `VPN` under Security. The course discusses `SSL` (7 occurrences) and
-  never `TLS`.
-
-Read the last two bullets against each other before trusting any FULLY COVERED mark in this
-domain. The per-concept percentages are a lower bound by the course map's own method note,
-but `TLS` and `SELinux` both appear in its zero-occurrence list while the corresponding
-concepts are marked FULLY COVERED — the two records do not agree, and where they disagree the
-safe reading for an exam is the pessimistic one. Study all three from the competency files.
+  never `TLS`. Both `TLS` and `SELinux` are tagged NOT COVERED in the dataset, which agrees
+  with this measured absence rather than contradicting it.
 
 ## Section map
 

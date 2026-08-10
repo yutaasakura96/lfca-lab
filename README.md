@@ -207,12 +207,13 @@ Apple-Silicon-specific, so it should work on Intel and on Linux too, but that's 
 Alongside the lab, this repo holds a source-traceable map of what the **current** LFCA exam
 requires — the one updated on 16 September 2025. 537 concepts across all 22 official
 competencies, each with a required depth, a coverage status against the official LFS200 course,
-and primary-documentation citations.
+and primary-documentation citations for 485 of them; the remaining 52 are waived by name in
+`data/sourcing-waivers.json`.
 
 ```
 data/            canonical, hand-maintained
   competencies.json    6 domains, 22 competencies, current + previous weights, 2025 change set
-  sources.json         274 sources, each with an authority tier
+  sources.json         282 sources, each with an authority tier
   topics/*.json        537 concepts, one file per domain
 research/        generated — do not hand-edit
   official-lfca-objectives.md    the syllabus, with what changed in 2025
@@ -229,7 +230,7 @@ study-guide/     hand-written prose that studies FROM the dataset above
   NN-<domain>/*.md     22 competency files, one per official competency
   appendix-a-*.md      packet's-life narrative linking concept anchors end to end
   appendix-b-*.md      container-to-cluster narrative, same purpose
-tools/           validate.mjs (13 checks), generate-views.mjs, check-guide.mjs, guide-plan.mjs
+tools/           validate.mjs (18 checks), generate-views.mjs, check-guide.mjs, guide-plan.mjs
 coverage-matrix.md  generated — the full join, one row per concept
 PROGRESS.md      what was found, what is still missing, and how confident each claim is
 ```

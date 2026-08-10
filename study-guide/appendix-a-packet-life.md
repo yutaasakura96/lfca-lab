@@ -551,3 +551,37 @@ The exam splits this material between System Administration Fundamentals and Sec
 Fundamentals, and asks about the pieces one at a time. The pieces are only memorable as a
 sequence, which is what this appendix is for: not a summary of the competency files, but the
 thread they are cut from.
+
+---
+
+## Knowledge check
+
+1. A client gets an instant "connection refused" rather than a timeout. Does that prove the
+   destination host is up?
+   No. It proves something on the path answered — the destination host itself, or a firewall
+   configured to REJECT rather than DROP, which sources the RST or ICMP reply from the
+   destination's own address without the packet ever reaching it. Only the response time, not
+   the fact of a response, narrows which.
+2. Why is a TLS handshake failure never evidence of a routing or connectivity problem?
+   TLS runs over an already-established TCP connection, so reaching the TLS step at all proves
+   the three-way handshake completed, which proves ARP resolved the next hop and the routing
+   table produced one. A TLS error is a failure above a proven-working transport, not instead
+   of one.
+3. `ip neigh` shows a destination's entry as FAILED. Is this a routing fault or a resolution
+   fault?
+   Neither in the DNS sense. ARP resolves the *next hop's* link-layer address for a destination
+   already selected by the routing table, so a FAILED entry means that specific next hop is not
+   answering on the local segment — the routing decision that pointed at it was already made.
+4. Two requests to the same load balancer return 502 and 504. What does each imply about the
+   backend, and what do both imply about the intermediary?
+   Both mean the intermediary itself is up and answering. A 502 typically means the backend
+   sent back an invalid or unreadable response (or none, before the connection was even
+   accepted); a 504 means the intermediary reached the backend but the backend did not respond
+   in time. Either way, the fault is at or beyond the backend, not on the path to the
+   intermediary.
+5. `getent hosts example.com` and `dig example.com` disagree. Is this confusing evidence, or
+   does it localise the fault?
+   It localises the fault immediately: `getent hosts` reflects the full resolver order
+   (`/etc/hosts` and NSS configuration included), while `dig` queries a nameserver directly and
+   bypasses local overrides. A disagreement between them means the fault is local — a stale
+   `/etc/hosts` entry or NSS misconfiguration — not a problem with DNS itself.

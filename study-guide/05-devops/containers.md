@@ -6,8 +6,8 @@ competency was unchanged by the 2025 update. Course support is thin: of its 24 c
 FULLY COVERED and 23 are NOT COVERED — 1/24 (4%) that LFS200 touches at all. The course's
 Containers lesson stays at the level of what an isolated process is and never reaches Docker,
 images, registries, or orchestration (`research/lfs200-notes/00-course-map.md`), so everything
-from the container image onward is sourced independently below and written denser than the rest
-of the guide on purpose. The chain
+from the container image onward is sourced independently below and written to a fuller
+treatment than its 1/24 LFS200 coverage would suggest. The chain
 this file has to make mechanical, because a question can enter it at any link, is: Dockerfile →
 image (layers, tag) → registry → runtime on a node → pod → Deployment → Service.
 
@@ -1073,6 +1073,3 @@ is unsatisfied, and reconciliation is continuous.
 6. The control plane is unavailable for ten minutes. Do running applications stop?
    No — pods already running on healthy nodes keep serving; what stops is scheduling, updates and
    any other change to cluster state.
-7. What distinguishes orchestration from Docker Compose in one sentence?
-   Orchestration schedules across many hosts and keeps reconciling toward a declared state;
-   Compose applies a file to a single host once.

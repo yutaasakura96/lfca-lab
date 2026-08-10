@@ -402,7 +402,7 @@ network and linking variants.
 | --- | --- | --- | --- |
 | Strength of copyleft | Strong — the whole conveyed work | Strong, plus a network trigger | Weak — confined to the library |
 | What triggers the source obligation | Conveying a copy of the work | Conveying, or remote network interaction with a modified version (section 13) | Conveying the library or a work based on it |
-| Proprietary application may link to it | Not while staying proprietary | Not while staying proprietary | Yes, under section 4's relink conditions |
+| Proprietary application may link to it | Not while staying proprietary | Not while staying proprietary | Yes, under LGPLv3 section 4's relink conditions (LGPL-2.1 section 6) |
 | Covers a hosted, never-distributed service | No — network interaction without transferring a copy is not conveying | Yes, this is the gap it closes | No |
 | SPDX identifier | `GPL-2.0-only`, `GPL-3.0-or-later` | `AGPL-3.0-only` | `LGPL-3.0-only`, `LGPL-2.1-only` |
 
@@ -462,8 +462,9 @@ section 4's notice requirements, of which the NOTICE file is the most commonly m
 
 **How it works** Section 3 grants each recipient a perpetual, worldwide, royalty-free,
 irrevocable patent licence covering the claims a contributor's own contribution necessarily
-infringes — and terminates that grant for anyone who files patent litigation alleging the
-work infringes. Section 4 conditions redistribution on four things: give recipients a copy of
+infringes, alone or in combination with the Work to which it was submitted — but not the
+contributor's whole patent portfolio — and terminates that grant for anyone who files patent
+litigation alleging the work infringes. Section 4 conditions redistribution on four things: give recipients a copy of
 the licence; cause modified files to carry prominent notices stating that you changed them;
 retain the copyright, patent, trademark, and attribution notices found in the source; and, if
 the work includes a NOTICE text file, include a readable copy of its attribution notices in
@@ -477,7 +478,8 @@ the contributor states otherwise.
 **Traps** The NOTICE file is not the licence file, and the obligation only exists if the
 upstream work ships one — a NOTICE requirement invented for a project that has no NOTICE file
 is a distractor. The patent grant is limited to claims infringed by the contributor's own
-contribution, not to the contributor's whole patent portfolio. And Apache-2.0 is not a
+contribution, alone or in combination with the work it was submitted to — not to the
+contributor's whole patent portfolio. And Apache-2.0 is not a
 copyleft licence: none of section 4's conditions reaches the licence of the derivative work
 as a whole. The Free Software Foundation treats Apache-2.0 as compatible with GPLv3 but not
 with GPLv2.
@@ -534,9 +536,10 @@ obliged nothing at all.
    An obligation to offer Corresponding Source to users interacting with a modified version
    remotely over a network; the trigger is that interaction, not distribution.
 3. How does the LGPL let proprietary software link to a copyleft library?
-   Section 4 permits conveying the combined work under your own terms if users can replace the
-   library with a modified version — via a suitable shared-library mechanism, or by supplying
-   relinkable object code — with notice and a copy of the licence.
+   LGPLv3 section 4 (LGPL-2.1 section 6) permits conveying the combined work under your own
+   terms if users can replace the library with a modified version — via a suitable
+   shared-library mechanism, or by supplying relinkable object code — with notice and a copy of
+   the licence.
 4. Name the two things Apache-2.0 requires that MIT does not.
    An express patent grant with litigation termination (section 3), and section 4's notices:
    marking modified files and propagating the NOTICE file's attributions.

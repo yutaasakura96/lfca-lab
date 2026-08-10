@@ -18,7 +18,7 @@ transfer is the one that costs money.
 
 <a id="c-cloud.budgeting.capex-vs-opex"></a>
 ### CapEx vs OpEx
-*id: `cloud.budgeting.capex-vs-opex` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-145, aws-rightsizing-whitepaper*
+*id: `cloud.budgeting.capex-vs-opex` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper*
 
 **What it is** Two accounting categories for the same computing capability. Capital
 expenditure (CapEx) buys an asset outright — servers, storage arrays, a rack, a perpetual

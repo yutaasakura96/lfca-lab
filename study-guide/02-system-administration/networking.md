@@ -309,8 +309,9 @@ directed broadcasts unless explicitly configured otherwise.
 **Traps** 255.255.255.255 is the *limited* broadcast — local link only, never routed — and is
 a different thing from a subnet's directed broadcast. The broadcast address depends on the
 mask, not on the address ending in 255: in 10.0.0.0/16 the broadcast is 10.0.255.255, while in
-10.0.1.0/24 an address ending in 255 (10.0.1.255) is a broadcast but 10.0.0.255 is an ordinary
-usable host address. IPv6 has no broadcast address of any kind.
+10.0.1.0/24 the address ending in 255 (10.0.1.255) is the broadcast, whereas under the /16 the
+same-looking 10.0.0.255 is an ordinary usable host address — a different subnet from
+10.0.1.0/24 entirely, not a value inside it. IPv6 has no broadcast address of any kind.
 
 **What the exam may test** Producing the network address, broadcast address and usable range
 for a given CIDR block, and recognising that a host assigned the block's first or last address
@@ -2058,7 +2059,10 @@ which address.
 **Traps** "Closed" is not "blocked": a closed port is a cooperative answer from a working host,
 and it proves layer 3 reachability. A firewall configured to REJECT rather than DROP produces
 the refused response too, so an immediate refusal does not conclusively prove that nothing is
-listening — but it does prove the host is reachable. UDP defeats the whole scheme: with no
+listening — but it does prove that something on the path answered, which is not the same as
+proving the destination host is up: a REJECT rule sources its RST or ICMP reply from the
+original packet's destination address without the destination host itself ever seeing the
+packet. UDP defeats the whole scheme: with no
 handshake, silence is ambiguous between open and filtered, which is why UDP scanning is
 unreliable by nature.
 

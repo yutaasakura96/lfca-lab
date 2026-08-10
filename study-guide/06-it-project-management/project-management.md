@@ -7,9 +7,10 @@ previously been titled "Software Project Management" inside a domain then called
 Applications and Developers. LFS200 barely touches it: 4 FULLY COVERED, 25 NOT COVERED —
 4/29 (14%) are not NOT COVERED, and the four it does reach (project, waterfall, agile,
 sprint) sit in a single lesson (`research/lfs200-notes/00-course-map.md`). One structural
-warning that applies to no other file in this guide: 19 of these 29 concepts are waived from
-the independent-sourcing requirement because the authoritative references for classical
-project management — PMBOK, the PMI Lexicon, ISO 21500/21502 — are paywalled. Every waived
+warning, and this file carries the heaviest concentration of it in the guide: 19 of these 29
+concepts are waived from the independent-sourcing requirement because the authoritative
+references for classical project management — PMBOK, the PMI Lexicon, ISO 21500/21502 — are
+paywalled. Every waived
 concept below carries an explicit marker and is written as consensus practice, deliberately
 hedged. Where a primary source does exist (the Agile Manifesto, the 2020 Scrum Guide, the
 Kanban Guide) the language is firm, and the difference between the two registers is

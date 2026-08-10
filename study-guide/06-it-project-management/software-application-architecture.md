@@ -7,7 +7,7 @@ domain is worth 10% of the exam — 6th largest of 6 domains — under the curre
 blueprint, and this competency was unchanged by the 2025 update. LFS200 barely reaches it: 15
 NOT COVERED, 2 MENTIONED ONLY — 2/17 (12%) are not NOT COVERED, and those two (microservices
 and REST) are named in a single lesson rather than taught
-(`research/lfs200-notes/00-course-map.md`). Nine of the seventeen concepts also have no primary
+(`research/lfs200-notes/00-course-map.md`). Six of the seventeen concepts also have no primary
 documentation source at all, because the architecture vocabulary is industry consensus rather
 than a published standard; each of those carries the waiver marker in its own block, and its
 claims are hedged accordingly.
