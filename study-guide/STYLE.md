@@ -242,13 +242,46 @@ prompt, so a fenced walkthrough may show `$ uname -r` and still credit `uname -r
 Never invent an option, flag, or example that is not true of the real command. A later task
 fact-checks every command adversarially against the man page or official documentation.
 
+**Placement: the Commands table goes immediately after Key terms and before Traps.** This is
+the order every body label in section 2's table already implies, but it is stated here
+explicitly because the table's position was previously left for a writer to infer from the
+pilot file alone.
+
 ---
 
-## 6. Knowledge checks
+## 6. Scenarios
+
+`#### Scenario` is one short worked narrative per section — a candidate walking through a
+concrete situation that touches the section's concepts in combination, not a restatement of
+any one topic's definition. Target 80-150 words, one paragraph. It does not need to exercise
+every concept the section defines; it needs to exercise enough of them, in combination, that
+the reader has to apply discrimination rather than recall a single fact. A scenario that only
+ever tests one concept at a time belongs in that concept's Traps or What the exam may test,
+not here.
+
+Worked example, at the shape and length a real one should be:
+
+```markdown
+#### Scenario
+
+A candidate SSHes into a server, types `ls`, and gets a directory listing. Trace it layer by
+layer: the terminal accepts the keystrokes and hands the line to the shell; the shell resolves
+`ls` against PATH and forks a child process; that process issues system calls, crossing from
+user space into kernel space each time; the kernel performs the actual read and returns
+control; the shell prints the result back through the terminal.
+```
+
+---
+
+## 7. Knowledge checks
 
 **Never multiple choice.** A later cycle owns the multiple-choice question bank; this cycle's
 knowledge checks are recall and discrimination prompts with their answers written directly
 underneath, inside the same file.
+
+**3 to 6 prompts per section**, each a recall or discrimination question with its answer
+written directly beneath it. Fewer than 3 under-tests a section with multiple definition
+sites; more than 6 stops being a check and starts being a second pass through the material.
 
 ```markdown
 #### Knowledge check
@@ -268,7 +301,7 @@ once per file.
 
 ---
 
-## 7. Waived concepts
+## 8. Waived concepts
 
 A concept named in `data/sourcing-waivers.json` carries, inside its block, this sentence
 verbatim — `check-guide` checks for the opening and closing clause literally:
@@ -284,7 +317,7 @@ stated as settled fact.
 
 ---
 
-## 8. Formatting
+## 9. Formatting
 
 - No emojis, anywhere, in any file this style guide governs.
 - No question count anywhere, ever — the Linux Foundation does not publish one.
@@ -294,3 +327,12 @@ stated as settled fact.
   what the competency is, its domain's exam weight, whether the competency is new in the
   2025 update, and its LFS200 coverage position — four facts, not a sales pitch for the
   material that follows.
+- **The weight, 2025 status, and LFS200 coverage figures in that paragraph must be copied
+  verbatim from `npm run guide-plan`'s header output, never computed by hand.** The pilot
+  file got this wrong twice by eyeballing it: it called Linux Fundamentals "the exam's
+  smallest domain" when it is the fourth-smallest (System Administration, Cloud, and
+  Security are all larger, and IT Project Management is the true smallest at 10%), and it
+  claimed LFS200 "covers roughly half" of the Linux Operating System competency when the
+  actual figure — 4 of 27 concepts FULLY or PARTIALLY covered — is 15%. `guide-plan` now
+  prints the domain weight and its rank, the competency's 2025 status, and the LFS200
+  coverage breakdown in its header specifically so this arithmetic is never redone by eye.
