@@ -2393,12 +2393,22 @@ Move the three `import` lines to the top of the file, alongside the existing `co
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-checks.test.mjs`
-Expected: PASS, 21 tests in that file (10 from Task 4 plus 11 new).
+Expected: PASS, 37 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
+covering that `runAllGuideChecks` calls `assertKnownScope` before running any check).
+
+**Note (post-implementation):** Task 4 went through a fix round after this task was drafted,
+which changed the actual test count (25, not 10) and added a second competency plus depth-4/5
+concepts to the fixture. The `FULL` sample string above was re-verified against the fixture as
+it now stands — the `.replace()` targets (the metadata lines for `fx.fixture.shallow` and
+`fx.fixture.waived`, and the first occurrence of `**What the exam may test** ...`, which is
+Deep's) still match verbatim, so no adaptation to the sample text itself was needed. This task
+also calls `assertKnownScope(dataset, options)` as the first line of `runAllGuideChecks`, per
+the interface note above.
 
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 96 tests.
+Expected: both exit 0; 142 tests.
 
 - [ ] **Step 6: Commit**
 
