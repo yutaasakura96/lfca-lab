@@ -425,3 +425,221 @@ test('ROUND 3: header and separator rows alone produce no entries', () => {
   assert.equal(f.malformed.length, 0);
   assert.equal(f.definitions.length, 0);
 });
+
+// --- Fix round 4 ------------------------------------------------------------
+//
+// No pass had any fenced-code-block awareness: a documentation example of
+// the marker grammar, shown inside a ``` or ~~~ fence, was parsed as if it
+// were real. `study-guide/STYLE.md` exists specifically to show fenced
+// examples of this grammar, so this was live, not hypothetical — a fenced
+// example naming a real concept id could satisfy the "every concept has a
+// definition site" coverage check for a concept never actually written up.
+// `computeFenceLines` now decides fence membership once, up front, and
+// every marker-recognition pass consults it before recognising anything.
+// Round 4 also fixes a second, unrelated bug: a Quick reference row
+// prefixed by a blockquote or list marker (`> | ... |`, `- | ... |`) was
+// silently dropped by `trimStart()`, which strips only whitespace — and the
+// comment directly above that code claimed the opposite. Such a row now
+// reports `malformed` naming the offending prefix.
+
+test('CRITICAL 1: a fenced concept-anchor example produces no definition, no anchor, and no malformed entry', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    'Here is what the anchor grammar looks like:',
+    '',
+    '```',
+    '<a id="c-a.b.c"></a>',
+    '### Thing',
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    '',
+    'body',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0, 'a fenced example must not become a real definition');
+  assert.equal(f.malformed.length, 0, 'a fenced example must not be reported as malformed either');
+  assert.ok(!f.anchors.has('c-a.b.c'));
+  assert.ok(f.anchors.has('s-a'), 'the real, unfenced anchor must still be recognised');
+});
+
+test('CRITICAL 2: a fenced comparison block produces no comparison and no malformed entry', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '```',
+    '<a id="cmp-a.b"></a>',
+    '#### Something',
+    '*compares: `a.b`, `a.c`*',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.comparisons.length, 0);
+  assert.equal(f.malformed.length, 0);
+  assert.ok(!f.anchors.has('cmp-a.b'));
+});
+
+test('CRITICAL 3: a fenced pointer produces no pointer and no link', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '```',
+    '*Not to be confused with [hosts file](system-administration.md#cmp-x.y).*',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.pointers.length, 0);
+  assert.equal(f.links.length, 0);
+});
+
+test('CRITICAL 4: a fenced glossary row produces no definition and no malformed entry', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '#### Quick reference',
+    '',
+    '| Concept | Term |',
+    '| --- | --- |',
+    '```',
+    '| `a.b.c` | Term |',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 0);
+});
+
+test('IMPORTANT 1: a ~~~ fence suppresses marker recognition the same as a ``` fence', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '~~~',
+    '<a id="c-a.b.c"></a>',
+    '### Thing',
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    '',
+    'body',
+    '~~~',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 0);
+  assert.ok(!f.anchors.has('c-a.b.c'));
+});
+
+test('IMPORTANT 2: a fence opened with four backticks is not closed by three, and reopens correctly after the real close', () => {
+  const lines = [
+    '<a id="s-a"></a>',              // 0
+    '## A',                          // 1
+    '',                              // 2
+    '````',                          // 3 open with 4 backticks
+    '<a id="c-a.b.c"></a>',          // 4 still inside fence
+    '### Thing',                     // 5
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*', // 6
+    '```',                           // 7 only 3 backticks -> does NOT close
+    'still inside the fence',        // 8
+    '````',                          // 9 closes with 4
+    '',                              // 10
+    '<a id="c-x.y.z"></a>',          // 11 real anchor, outside any fence
+    '### Thing2',                    // 12
+    '*id: `x.y.z` · depth 1 · importance 1 · LFS200: NOT COVERED · sources: none*', // 13
+    '',                              // 14
+    'body2',                         // 15
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.deepEqual(f.definitions.map((d) => d.id), ['x.y.z']);
+  assert.equal(f.malformed.length, 0);
+  assert.ok(!f.anchors.has('c-a.b.c'));
+  assert.ok(f.anchors.has('c-x.y.z'));
+});
+
+test('IMPORTANT 3: an unterminated fence swallows everything to end of file', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '```',
+    '<a id="c-a.b.c"></a>',
+    '### Thing',
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    '',
+    'body',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 0);
+  assert.ok(!f.anchors.has('c-a.b.c'));
+});
+
+test('IMPORTANT 4: a command inside a fence still appears in the enclosing concept\'s blockText', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '<a id="c-a.b.c"></a>',
+    '### Thing',
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    '',
+    '**Commands**',
+    '',
+    '```bash',
+    'dig +short example.com',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  const def = f.definitions.find((d) => d.id === 'a.b.c');
+  assert.ok(def, 'the real, unfenced concept anchor must still be recognised');
+  assert.equal(f.malformed.length, 0);
+  assert.match(def.blockText, /dig \+short example\.com/);
+});
+
+test('MINOR 5: a blockquote-prefixed Quick reference row reports malformed naming the prefix', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '> | `a.b.c` | Term |',              // 7 -> malformed line 8
+    '',                                  // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 8);
+  assert.match(f.malformed[0].reason, /">"/);
+  assert.match(f.malformed[0].reason, /blockquote|list/);
+});
+
+test('MINOR 6: a list-prefixed Quick reference row reports malformed naming the prefix', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '- | `a.b.c` | Term |',              // 7 -> malformed line 8
+    '',                                  // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 8);
+  assert.match(f.malformed[0].reason, /"-"/);
+  assert.match(f.malformed[0].reason, /blockquote|list/);
+});

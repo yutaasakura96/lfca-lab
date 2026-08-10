@@ -9,6 +9,17 @@ const RE_COMPARES = /^\*compares: (.+)\*$/;
 const RE_GLOSSARY_ROW = /^\| *`([^`]+)` *\|/;
 const RE_POINTER = /^\*Not to be confused with \[[^\]]*\]\(([^)]+)\)\.\*$/;
 const RE_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+// A row that trims to a blockquote or list marker directly followed by a
+// pipe — e.g. "> | `id` | Term |" or "- | `id` | Term |" — is an attempted
+// Quick reference row that `RE_GLOSSARY_ROW` cannot see, because it never
+// reaches the leading "|". Captured group 1 is the offending prefix, used
+// to name it in the `malformed` entry.
+const RE_ROW_PREFIX = /^(>|[-*+]|\d+\.) *\|/;
+// A fence opener/closer: up to three leading spaces, then a run of three or
+// more backticks or tildes, then the rest of the line (an info string on an
+// opener, or nothing but whitespace on a genuine closer — checked by the
+// caller, not by this regex, since the same shape matches both roles).
+const RE_FENCE = /^ {0,3}(`{3,}|~{3,})(.*)$/;
 
 function headingLevel(line) {
   const m = RE_HEADING.exec(line);
@@ -21,6 +32,41 @@ function parseSources(raw) {
   return text.split(',').map((s) => s.trim()).filter(Boolean);
 }
 
+// Fence membership is computed once, up front, over the whole file, so
+// every pass consults the same answer instead of each re-deriving (or
+// forgetting to derive) it. A line is "in fence" if it is a fence
+// delimiter line itself, or falls strictly between an opening and a
+// matching closing delimiter.
+//
+// A closing delimiter must use the same character as the opener (backtick
+// closes only backtick, tilde only tilde), must be at least as long as the
+// opener (four backticks are not closed by three), and must have nothing
+// but whitespace after the delimiter run (so an opener's info string, e.g.
+// "```bash", is accepted on open but a line that merely starts with a
+// matching-length run followed by other text does not close the fence). A
+// fence that is opened but never validly closed stays open to end of file.
+function computeFenceLines(matchLines) {
+  const inFence = new Array(matchLines.length).fill(false);
+  let openChar = null;
+  let openLen = 0;
+  for (let i = 0; i < matchLines.length; i += 1) {
+    const m = RE_FENCE.exec(matchLines[i]);
+    if (openChar === null) {
+      if (!m) continue;
+      inFence[i] = true;
+      openChar = m[1][0];
+      openLen = m[1].length;
+      continue;
+    }
+    inFence[i] = true;
+    if (m && m[1][0] === openChar && m[1].length >= openLen && m[2].trim() === '') {
+      openChar = null;
+      openLen = 0;
+    }
+  }
+  return inFence;
+}
+
 export function parseGuideFile(path, text) {
   // Split on \r?\n so a CRLF-saved file does not leave a trailing \r on every
   // line (which would otherwise defeat every $-anchored regex below). Marker
@@ -31,8 +77,21 @@ export function parseGuideFile(path, text) {
   // still benefits from it, because it should be written against
   // `matchLines`. `blockText` and other captured prose still read from
   // `lines` so it keeps its exact original bytes.
+  //
+  // `inFence` is the same kind of shared, once-computed answer, for a
+  // different question: whether marker recognition should even look at a
+  // given line. A fenced code block is where the guide's own style
+  // documentation shows worked examples of the marker grammar — an anchor,
+  // a compares line, a pointer sentence, a glossary row — and those
+  // examples must never be mistaken for the real thing. Every pass that
+  // recognises a marker checks `inFence` first, so a pass added later
+  // cannot forget to. Fence status never affects `blockText`: block extent
+  // and text capture read `lines`/`matchLines` exactly as before, so a
+  // command shown inside a fence inside a concept's own body still appears
+  // in that concept's `blockText` verbatim.
   const lines = text.split(/\r?\n/);
   const matchLines = lines.map((l) => l.replace(/[ \t]+$/, ''));
+  const inFence = computeFenceLines(matchLines);
   const definitions = [];
   const comparisons = [];
   const pointers = [];
@@ -43,6 +102,11 @@ export function parseGuideFile(path, text) {
 
   // Pass 1: anchors, definitions, comparisons.
   for (let i = 0; i < lines.length; i += 1) {
+    // A fenced anchor line is a documentation example, not a real marker:
+    // skip it before it can register in `anchors`, become a definition or
+    // comparison, or even generate a `malformed` entry — an example that
+    // deliberately shows the malformed form is still just an example.
+    if (inFence[i]) continue;
     const anchorMatch = RE_ANCHOR.exec(matchLines[i]);
     if (!anchorMatch) continue;
     const anchorId = anchorMatch[1];
@@ -145,14 +209,26 @@ export function parseGuideFile(path, text) {
   //     second one is itself a format violation, not a false positive.
   //
   // Whether a line "is a table row" is judged after stripping leading
-  // whitespace, so a row indented by hand-editing, or nested in a list or
-  // blockquote, is still recognised as a row instead of being silently
-  // skipped by the scanner. Blank lines, HTML comments and whitespace-only
+  // whitespace only: `trimStart()` removes indentation added by
+  // hand-editing, so an indented row is still recognised as one. It does
+  // NOT remove a leading blockquote or list marker (`>`, `-`, `*`, `+`, an
+  // ordered `1.`) — those are real characters, not whitespace, so a row
+  // nested in a list or blockquote still fails the "starts with |" test
+  // after trimming and is not, on its own, recognised as a row. That case
+  // is not silently dropped, though: a line that trims to one of those
+  // prefixes directly followed by a pipe is recognised as an attempted row
+  // and reported in `malformed`, naming the offending prefix, rather than
+  // vanishing with no trace. Blank lines, HTML comments and whitespace-only
   // lines are simply not table rows: they are ignored without ending or
   // interrupting anything. A marker the parser fails to recognise must
   // always surface in `malformed` — never vanish silently.
   let inQuickReference = false;
   for (let i = 0; i < lines.length; i += 1) {
+    // A fenced line is inert here too: it cannot open, close, or belong to
+    // a Quick reference section, and a backticked row shown inside a fence
+    // as a style example produces neither a definition nor a `malformed`
+    // entry.
+    if (inFence[i]) continue;
     const level = headingLevel(matchLines[i]);
     if (level > 0) {
       const headingText = RE_HEADING.exec(matchLines[i])[2];
@@ -177,7 +253,21 @@ export function parseGuideFile(path, text) {
     }
     if (!inQuickReference) continue;
     const trimmed = matchLines[i].trimStart();
-    if (!trimmed.startsWith('|')) continue;
+    if (!trimmed.startsWith('|')) {
+      // Whitespace-only indentation was already stripped above, so if the
+      // line still doesn't start with "|" it's either genuinely unrelated
+      // content (blank, prose, an HTML comment — ignored) or a row wrapped
+      // in a blockquote/list marker, which must be reported rather than
+      // dropped.
+      const prefixed = RE_ROW_PREFIX.exec(trimmed);
+      if (prefixed) {
+        malformed.push({
+          line: i + 1,
+          reason: `Quick reference row is prefixed by "${prefixed[1]}" (a blockquote or list marker), which is not recognised as part of the table row: "${matchLines[i]}"`,
+        });
+      }
+      continue;
+    }
     const row = RE_GLOSSARY_ROW.exec(trimmed);
     if (row) {
       definitions.push({
@@ -227,6 +317,10 @@ export function parseGuideFile(path, text) {
   // Pass 4: pointers and links.
   const dir = posix.dirname(path);
   for (let i = 0; i < lines.length; i += 1) {
+    // A fenced pointer sentence is a style-guide example, not a real
+    // cross-reference: skip the whole line so it registers neither as a
+    // pointer nor as a generic link.
+    if (inFence[i]) continue;
     const pointer = RE_POINTER.exec(matchLines[i]);
     if (pointer) {
       const [rel, anchor] = pointer[1].split('#');
