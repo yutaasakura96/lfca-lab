@@ -85,6 +85,11 @@ use the relative path the writing brief gives verbatim (e.g.
 `linux-operating-system.md#cmp-...`). Copy the brief's line exactly — do not recompute the
 path.
 
+**This form is only recognised inside a `### ` topic block.** A depth-1 concept has no topic
+block — its only definition site is one Quick reference row — so a depth-1 member of a
+comparison block cannot write the standalone sentence above. See "Quick reference row pointer"
+below for the depth-1 form.
+
 ### Quick reference glossary row
 
 A depth-1 concept's only definition site is one row of the Quick reference table, first cell
@@ -100,6 +105,33 @@ a backticked concept id:
 
 The Quick reference heading must read exactly `Quick reference` at heading level 4 — a
 different capitalisation or level is reported as malformed, not silently accepted.
+
+### Quick reference row pointer
+
+A depth-1 concept that is a *member* (not the owner) of a comparison block cannot write the
+standalone "Cross-reference pointer" sentence above — a Quick reference row is one table row,
+with no enclosing block for a separate sentence to live in. Instead, put a markdown link to
+the same `path#cmp-owner-id` the brief gives inside the row's own **"Why it is examinable"**
+cell — its natural home, since that is exactly where the row already explains what the
+concept is confused with:
+
+```markdown
+#### Quick reference
+
+| Concept | Term | In one sentence | Why it is examinable |
+| --- | --- | --- | --- |
+| `linux.linux-operating-system.firmware` | Firmware | Low-level software embedded in a device. | Confused with a kernel driver — firmware runs on the device itself, the driver runs in the kernel. [Not to be confused with device drivers and kernel modules](linux-operating-system.md#cmp-linux.linux-operating-system.device-drivers-and-kernel-modules). |
+```
+
+`check-guide` requires the link's href to be the exact `path#cmp-owner-id` the brief gives —
+the same value a topic-defined member's standalone sentence would use. A link to the wrong
+file, the wrong anchor, or no link at all still fails `guide-comparison-pointer`; only "any
+link is present somewhere in the row" is not enough. Keep the row's other three cells exactly
+as they would be without the pointer — the link is additional content inside the fourth cell,
+not a replacement for the explanation already there. (This example is safe to leave in this
+document: it sits inside a fenced code block, and the parser skips fenced lines entirely — see
+the note at the top of this section — so it registers as neither a real definition nor a real
+pointer.)
 
 ---
 

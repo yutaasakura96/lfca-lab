@@ -751,7 +751,7 @@ running before and independent of any OS.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `linux.linux-operating-system.firmware` | Firmware | Low-level software embedded in a device, distinct from the operating system that runs above it. | Confused with a kernel driver — firmware runs on the device itself; the driver runs in the kernel and talks to that firmware. Loading a module never fixes a firmware problem, and updating firmware never substitutes for a missing driver. |
+| `linux.linux-operating-system.firmware` | Firmware | Low-level software embedded in a device, distinct from the operating system that runs above it. | Confused with a kernel driver — firmware runs on the device itself; the driver runs in the kernel and talks to that firmware. Loading a module never fixes a firmware problem, and updating firmware never substitutes for a missing driver. [Not to be confused with device drivers and kernel modules](linux-operating-system.md#cmp-linux.linux-operating-system.device-drivers-and-kernel-modules). |
 
 #### Scenario
 

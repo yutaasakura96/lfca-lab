@@ -118,7 +118,7 @@ whether it is new in 2025, and its LFS200 coverage position from cycle 1>
 1. Every concept in the brief gets exactly one definition site — a `### ` topic for depth ≥ 2, a Quick reference row for depth 1.
 2. Body labels by depth: depth 2 needs What it is / Why it matters / How it works / Key terms. Depth 3+ adds Traps and What the exam may test, plus a Commands table where the concept has a non-empty `commands` array. Depth 4 adds `**Symptoms and diagnostic order**`. Depth 5 adds `**Syntax worth memorising**`.
 3. Every string in a concept's `commands` array appears **verbatim** inside a code span or fence in that concept's block.
-4. Every owned comparison block is written once, with `compares:` exactly as the brief gives it, owner first. Every block the file must point to gets a one-line `*Not to be confused with [X](path#cmp-id).*` inside the relevant concept's block.
+4. Every owned comparison block is written once, with `compares:` exactly as the brief gives it, owner first. Every block the file must point to gets, inside the relevant concept's own definition site, a link with the exact `path#cmp-id` the brief gives: for a depth ≥ 2 concept (a `### ` topic), a one-line `*Not to be confused with [X](path#cmp-id).*` sentence inside its block; for a depth-1 concept (a Quick reference row), a markdown link to the same `path#cmp-id` inside the row's "Why it is examinable" cell — a Quick reference row has no block for the standalone sentence to live in, so the link lives in the row itself instead.
 5. Every section containing a definition site has a `#### Scenario` and a `#### Knowledge check`.
 6. **Knowledge checks are never multiple choice.** Recall and discrimination prompts with answers. Cycle 3 owns MCQs.
 7. Concepts named in `data/sourcing-waivers.json` carry, inside their block, verbatim:
@@ -2282,10 +2282,33 @@ export function checkComparisonMembership(dataset, files, options) {
   return out;
 }
 
+// A depth-1 concept's only definition site is a single Quick reference table
+// row (kind 'glossary') — there is no enclosing block for a standalone
+// `*Not to be confused with [X](path#cmp-id).*` line to live in, and
+// `guide-parse.mjs` only ever attributes such a line to an enclosing
+// `kind: 'topic'` definition (`RE_POINTER`'s owner lookup filters on
+// `d.kind === 'topic'`). For a glossary-defined concept the pointer instead
+// lives as a markdown link inside the row itself — the row's last column
+// ("Why it is examinable") is its natural home — and `blockText` on a
+// glossary definition is exactly that row's own line, so the link is found
+// by scanning the row text directly rather than by consulting `f.pointers`.
+// The match must still be the exact expected href, never merely "a link is
+// present": `RE_ROW_LINK` extracts every markdown link target in the row,
+// and only an exact hit against `wanted` satisfies the requirement, so a
+// row linking the wrong path or the wrong anchor still fails. A concept
+// with no definition at all is left alone here — `checkMissingConcept`
+// already reports that, and this check has nothing to look inside.
+const RE_ROW_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+
+function rowLinkHrefs(text) {
+  return [...text.matchAll(RE_ROW_LINK)].map((m) => m[1]);
+}
+
 export function checkComparisonPointer(dataset, files, options) {
   const expected = assignBlocks(dataset);
   const index = guideIndex(dataset);
   const byId = new Map(dataset.topics.map((t) => [t.id, t]));
+  const definitionsById = new Map(allDefinitions(files).map((d) => [d.id, d]));
   const pointersByConcept = new Map();
   for (const f of files) {
     for (const p of f.pointers) {
@@ -2304,6 +2327,14 @@ export function checkComparisonPointer(dataset, files, options) {
         guidePathFor(ownerTopic, index),
         block.anchor,
       );
+      const def = definitionsById.get(topic.id);
+      if (def && def.kind === 'glossary') {
+        if (!rowLinkHrefs(def.blockText).includes(wanted)) {
+          out.push(finding('guide-comparison-pointer', 'error', topic.id,
+            `${topic.id} is compared in cmp-${block.owner} but its Quick reference row does not link to it; expected a link to ${wanted}`));
+        }
+        continue;
+      }
       const have = pointersByConcept.get(topic.id) ?? [];
       if (!have.some((p) => p.href === wanted)) {
         out.push(finding('guide-comparison-pointer', 'error', topic.id,
@@ -2504,9 +2535,10 @@ Move the three `import` lines to the top of the file, alongside the existing `co
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-checks.test.mjs`
-Expected: PASS, 51 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
+Expected: PASS, 58 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
 covering that `runAllGuideChecks` calls `assertKnownScope` before running any check — plus 12
-more added in "Fix round 1" below, plus 2 more added in "Fix round 2" below).
+more added in "Fix round 1" below, plus 2 more added in "Fix round 2" below, plus 7 more added
+in "Fix round 3" below).
 
 **Note (post-implementation):** Task 4 went through a fix round after this task was drafted,
 which changed the actual test count (25, not 10) and added a second competency plus depth-4/5
@@ -2565,10 +2597,41 @@ passed all of them. The two new tests build a block whose owner and sole member 
 competencies and prove scoping follows the owner in both directions.
 `tools/test/guide-checks.test.mjs` grew from 49 to 51 tests.
 
+**Note (Fix round 3, task 8):** Writing the pilot competency file surfaced a design
+contradiction between two checks this task ships: `checkDepthTreatment` requires a depth-1
+concept's only definition site to be a Quick reference glossary row, never a `### ` topic —
+but `checkComparisonPointer` required a non-owning comparison member to carry the standalone
+`*Not to be confused with [X](path#cmp-id).*` sentence, a form `guide-parse.mjs` only ever
+attributes to an enclosing `kind: 'topic'` definition (`RE_POINTER`'s owner lookup filters on
+`d.kind === 'topic'`). A glossary row is one table row with no enclosing block for that
+sentence to live in, so a depth-1 concept that is also a non-owning comparison member — seven
+of them in the corpus (`linux.linux-operating-system.firmware`,
+`sysadmin.system-administration.zombie-and-orphan-processes`,
+`cloud.performance-availability.sla-slo-and-sli`, `devops.devops-basics.observability`,
+`pm.project-management.gantt-chart`, `pm.open-source-software-and-licensing.lgpl`,
+`pm.open-source-software-and-licensing.agpl`) — could satisfy neither check without breaking
+the other. Resolved by keeping both rules and changing only where the pointer may live for a
+glossary-defined concept: `checkComparisonPointer` now looks up the concept's own definition,
+and if its `kind` is `'glossary'`, accepts the requirement as met when the row's `blockText`
+(a glossary definition's `blockText` is exactly its one row line, already returned by the
+parser with no changes needed there) contains a markdown link whose href is the exact expected
+`path#cmp-id` — not merely any link. The topic-defined branch (a `kind: 'topic'` definition
+consulting `f.pointers`, itself unchanged) still requires the standalone sentence exactly as
+before. Seven new tests: a glossary row whose link matches passes; one with the wrong file,
+one with the wrong anchor, and one with no link at all each still fail; one integration test
+drives the real `parseGuideFile` parser end to end to prove the row's link survives with no
+parser change; and two prove the topic-defined branch is untouched — a link merely mentioned
+inside a topic's `blockText` (not as the recognised standalone sentence) still fails, and a
+recognised pointer entry still passes. `study-guide/01-linux-fundamentals/linux-operating-system.md`
+(written in Task 8) had its `firmware` glossary row updated with the missing pointer link, the
+one concrete instance the pilot file's own `check-guide` run had been failing on. Full report:
+`.superpowers/sdd/task-8-report.md`, under "Fix round 1". `tools/test/guide-checks.test.mjs`
+grew from 51 to 58 tests.
+
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 156 tests.
+Expected: both exit 0; 163 tests.
 
 - [ ] **Step 6: Commit**
 

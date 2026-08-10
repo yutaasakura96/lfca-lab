@@ -177,11 +177,38 @@ exactly the backticked concept id:
 *compares: `sysadmin.system-administration.sgid`, `sysadmin.system-administration.suid`, `sysadmin.system-administration.sticky-bit`*
 ```
 
-**Pointer from a non-owning member:**
+**Pointer from a non-owning member, depth ≥ 2 (topic-defined):**
 
 ```markdown
 *Not to be confused with [SGID](system-administration.md#cmp-sysadmin.system-administration.sgid).*
 ```
+
+This standalone sentence is only ever attributed to an enclosing `### ` topic block — the
+parser looks for it inside a `kind: 'topic'` definition and nowhere else.
+
+**Pointer from a non-owning member, depth 1 (glossary-defined):** a depth-1 concept's only
+definition site is a single Quick reference row, which has no enclosing block for the
+standalone sentence above to live in. The pointer is instead a markdown link placed inside the
+row itself, in the "Why it is examinable" cell — its href must be the exact same relative path
+and anchor a topic-defined concept would use:
+
+```markdown
+| `sysadmin.system-administration.sgid-owned-row` | Term | ... | Confused with SUID. [Not to be confused with SUID](system-administration.md#cmp-sysadmin.system-administration.suid). |
+```
+
+`check-guide` accepts this as satisfying `guide-comparison-pointer` for a `kind: 'glossary'`
+definition only if the row's link href is exactly the expected path and anchor — a link to a
+different file, a different anchor, or no link at all is still an error. This is the resolution
+to a design contradiction found while writing the pilot competency (Task 8): `checkDepthTreatment`
+requires a depth-1 concept's only definition site to be a glossary row, while
+`checkComparisonPointer` required a non-owning comparison member to carry the standalone pointer
+sentence — a form only a topic block can hold. Seven concepts across the corpus are depth-1 and
+a non-owning comparison member (`linux.linux-operating-system.firmware`,
+`sysadmin.system-administration.zombie-and-orphan-processes`,
+`cloud.performance-availability.sla-slo-and-sli`, `devops.devops-basics.observability`,
+`pm.project-management.gantt-chart`, `pm.open-source-software-and-licensing.lgpl`,
+`pm.open-source-software-and-licensing.agpl`); the in-row link resolves all seven without
+relaxing either rule.
 
 Explicit HTML anchors — rather than heading-derived slugs — make every link target
 deterministic and stable under rewording, and let a writer link to a file that has not been
@@ -275,7 +302,7 @@ Exits non-zero on any error.
 | 3 | `guide-unknown-concept` | error | No definition site names an id absent from `data/` |
 | 4 | `guide-comparison-coverage` | error | All 156 undirected edges are covered, each by exactly one block |
 | 5 | `guide-comparison-membership` | error | Every block's `compares:` list equals its computed assignment, in full |
-| 6 | `guide-comparison-pointer` | error | Every non-owning member links to the block that covers its edge |
+| 6 | `guide-comparison-pointer` | error | Every non-owning member links to the block that covers its edge — a standalone pointer sentence for a topic-defined member, or the exact same link inside the row for a glossary-defined one |
 | 7 | `guide-command-coverage` | error | Every string in `commands` appears verbatim in its concept's block |
 | 8 | `guide-section-apparatus` | error | Every section containing a definition site has a Scenario and a Knowledge check |
 | 9 | `guide-depth-treatment` | error | Depth-appropriate body labels are present |

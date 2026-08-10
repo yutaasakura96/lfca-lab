@@ -286,10 +286,33 @@ export function checkComparisonMembership(dataset, files, options) {
   return out;
 }
 
+// A depth-1 concept's only definition site is a single Quick reference table
+// row (kind 'glossary') — there is no enclosing block for a standalone
+// `*Not to be confused with [X](path#cmp-id).*` line to live in, and
+// `guide-parse.mjs` only ever attributes such a line to an enclosing
+// `kind: 'topic'` definition (`RE_POINTER`'s owner lookup filters on
+// `d.kind === 'topic'`). For a glossary-defined concept the pointer instead
+// lives as a markdown link inside the row itself — the row's last column
+// ("Why it is examinable") is its natural home — and `blockText` on a
+// glossary definition is exactly that row's own line, so the link is found
+// by scanning the row text directly rather than by consulting `f.pointers`.
+// The match must still be the exact expected href, never merely "a link is
+// present": `RE_ROW_LINK` extracts every markdown link target in the row,
+// and only an exact hit against `wanted` satisfies the requirement, so a
+// row linking the wrong path or the wrong anchor still fails. A concept
+// with no definition at all is left alone here — `checkMissingConcept`
+// already reports that, and this check has nothing to look inside.
+const RE_ROW_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+
+function rowLinkHrefs(text) {
+  return [...text.matchAll(RE_ROW_LINK)].map((m) => m[1]);
+}
+
 export function checkComparisonPointer(dataset, files, options) {
   const expected = assignBlocks(dataset);
   const index = guideIndex(dataset);
   const byId = new Map(dataset.topics.map((t) => [t.id, t]));
+  const definitionsById = new Map(allDefinitions(files).map((d) => [d.id, d]));
   const pointersByConcept = new Map();
   for (const f of files) {
     for (const p of f.pointers) {
@@ -308,6 +331,14 @@ export function checkComparisonPointer(dataset, files, options) {
         guidePathFor(ownerTopic, index),
         block.anchor,
       );
+      const def = definitionsById.get(topic.id);
+      if (def && def.kind === 'glossary') {
+        if (!rowLinkHrefs(def.blockText).includes(wanted)) {
+          out.push(finding('guide-comparison-pointer', 'error', topic.id,
+            `${topic.id} is compared in cmp-${block.owner} but its Quick reference row does not link to it; expected a link to ${wanted}`));
+        }
+        continue;
+      }
       const have = pointersByConcept.get(topic.id) ?? [];
       if (!have.some((p) => p.href === wanted)) {
         out.push(finding('guide-comparison-pointer', 'error', topic.id,

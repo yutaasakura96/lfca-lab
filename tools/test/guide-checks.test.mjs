@@ -808,3 +808,188 @@ test('runAllGuideChecks calls assertKnownScope before running any check', () => 
     /Unknown scope "Other Domain :: Other Competency"/,
   );
 });
+
+// --- Fix round 1 (task 8): checkComparisonPointer's glossary-row branch ---
+//
+// A depth-1 concept's only definition site is a single Quick reference row
+// (kind 'glossary') — there is no enclosing block for the standalone
+// `*Not to be confused with [X](path#cmp-id).*` line the topic-defined
+// branch requires, since `guide-parse.mjs` only ever attributes that line
+// to an enclosing `kind: 'topic'` definition. These tests build a small
+// local dataset — not the shared fixture, since the shared fixture's
+// `confused_with` graph is reused verbatim by `FULL` and dozens of other
+// tests — with one depth-3 owner and one depth-1 glossary member, and drive
+// `checkComparisonPointer` directly against synthetic `files` (as the
+// existing scope tests above already do), so no `parseGuideFile` call is
+// needed to prove the check's own logic. One additional test below goes
+// through the real parser to prove the row's link survives end to end with
+// no parser change.
+
+function glossaryPointerDataset() {
+  return {
+    competencies: {
+      domains: [
+        {
+          name: 'Fixture Domain',
+          file: '01-fixture-domain.json',
+          competencies: [{ name: 'Fixture Competency' }],
+        },
+      ],
+    },
+    topics: [
+      { id: 'fx.fixture.glossary-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.glossary-member'] },
+      { id: 'fx.fixture.glossary-member', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 1, required_depth: 1, confused_with: [] },
+    ],
+  };
+}
+
+// The owner and member share a competency, so both resolve to
+// `study-guide/01-fixture-domain/fixture-competency.md` and the expected
+// same-file link is `fixture-competency.md#cmp-fx.fixture.glossary-owner`
+// (per `relativeGuideLink`, which — same as every same-file pointer already
+// written in this guide, e.g. `linux-operating-system.md#cmp-...` inside
+// `linux-operating-system.md` itself — includes the file's own name, not an
+// empty path).
+const GLOSSARY_WANTED_HREF = 'fixture-competency.md#cmp-fx.fixture.glossary-owner';
+
+function glossaryMemberFiles(rowLastCell) {
+  return [{
+    path: 'study-guide/01-fixture-domain/fixture-competency.md',
+    definitions: [{
+      id: 'fx.fixture.glossary-member',
+      kind: 'glossary',
+      line: 1,
+      blockText: `| \`fx.fixture.glossary-member\` | Member | A small thing. | ${rowLastCell} |`,
+    }],
+    pointers: [],
+  }];
+}
+
+test('a depth-1 glossary row whose "Why it is examinable" cell links to the correct block passes', () => {
+  const found = checkComparisonPointer(
+    glossaryPointerDataset(),
+    glossaryMemberFiles(`Confused with the owner. [Owner](${GLOSSARY_WANTED_HREF}).`),
+    {},
+  );
+  assert.deepEqual(found, []);
+});
+
+test('a glossary row linking to the wrong file is still an error', () => {
+  const found = checkComparisonPointer(
+    glossaryPointerDataset(),
+    glossaryMemberFiles('Confused with the owner. [Owner](wrong-file.md#cmp-fx.fixture.glossary-owner).'),
+    {},
+  );
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.glossary-member');
+  assert.match(found[0].message, /fixture-competency\.md#cmp-fx\.fixture\.glossary-owner/);
+});
+
+test('a glossary row linking to the wrong anchor is still an error', () => {
+  const found = checkComparisonPointer(
+    glossaryPointerDataset(),
+    glossaryMemberFiles('Confused with the owner. [Owner](fixture-competency.md#cmp-fx.fixture.wrong-owner).'),
+    {},
+  );
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.glossary-member');
+});
+
+test('a glossary row with no link at all is an error', () => {
+  const found = checkComparisonPointer(
+    glossaryPointerDataset(),
+    glossaryMemberFiles('Confused with the owner, but no link is given.'),
+    {},
+  );
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.glossary-member');
+});
+
+test('checkComparisonPointer accepts a real Quick reference row link parsed end to end by parseGuideFile', () => {
+  const path = 'study-guide/01-fixture-domain/fixture-competency.md';
+  const text = [
+    '# Fixture Competency',
+    '',
+    '<a id="s-fixture-competency-section-one"></a>',
+    '## Section One',
+    '',
+    '<a id="c-fx.fixture.glossary-owner"></a>',
+    '### Owner',
+    '*id: `fx.fixture.glossary-owner` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: fx-source*',
+    '',
+    '**What it is** ...',
+    '**Why it matters** ...',
+    '**How it works** ...',
+    '**Key terms** ...',
+    '**Traps** ...',
+    '**What the exam may test** ...',
+    '',
+    '<a id="cmp-fx.fixture.glossary-owner"></a>',
+    '#### Not to be confused with: Owner vs Member',
+    '*compares: `fx.fixture.glossary-owner`, `fx.fixture.glossary-member`*',
+    '',
+    '| Axis | Owner | Member |',
+    '| --- | --- | --- |',
+    '',
+    '#### Quick reference',
+    '',
+    '| Concept | Term | In one sentence | Why it is examinable |',
+    '| --- | --- | --- | --- |',
+    `| \`fx.fixture.glossary-member\` | Member | A small thing. | Confused with the owner. [Owner](${GLOSSARY_WANTED_HREF}). |`,
+    '',
+    '#### Scenario',
+    '',
+    'Something happens.',
+    '',
+    '#### Knowledge check',
+    '',
+    '1. Question.',
+    '',
+  ].join('\n');
+  const found = checkComparisonPointer(glossaryPointerDataset(), [parseGuideFile(path, text)], {});
+  assert.deepEqual(found, []);
+});
+
+// The topic-defined branch (a standalone `*Not to be confused with...*` line
+// recognised by the parser into `f.pointers`) must still work exactly as
+// before, and must NOT be satisfiable by a link merely mentioned somewhere
+// inside a topic's blockText — the glossary branch only applies to
+// `kind: 'glossary'` definitions, never to `kind: 'topic'` ones.
+
+function topicPointerDataset() {
+  return {
+    competencies: glossaryPointerDataset().competencies,
+    topics: [
+      { id: 'fx.fixture.topic-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.topic-member'] },
+      { id: 'fx.fixture.topic-member', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+}
+
+const TOPIC_WANTED_HREF = 'fixture-competency.md#cmp-fx.fixture.topic-owner';
+
+test('a depth 2+ topic-defined member is still required to carry a recognised pointer line, not just a link in its blockText', () => {
+  const files = [{
+    path: 'study-guide/01-fixture-domain/fixture-competency.md',
+    definitions: [{
+      id: 'fx.fixture.topic-member',
+      kind: 'topic',
+      line: 1,
+      blockText: `Mentions [owner](${TOPIC_WANTED_HREF}) inline, not as a standalone pointer sentence.`,
+    }],
+    pointers: [],
+  }];
+  const found = checkComparisonPointer(topicPointerDataset(), files, {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.topic-member');
+});
+
+test('a depth 2+ topic-defined member with a recognised pointer entry still passes checkComparisonPointer', () => {
+  const files = [{
+    path: 'study-guide/01-fixture-domain/fixture-competency.md',
+    definitions: [{ id: 'fx.fixture.topic-member', kind: 'topic', line: 1, blockText: '...' }],
+    pointers: [{ href: TOPIC_WANTED_HREF, conceptId: 'fx.fixture.topic-member' }],
+  }];
+  const found = checkComparisonPointer(topicPointerDataset(), files, {});
+  assert.deepEqual(found, []);
+});
