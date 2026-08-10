@@ -1,0 +1,6 @@
+{
+  "reason": "Fixture waiver.",
+  "established": "2026-08-10",
+  "by_competency": { "Fixture Domain :: Fixture Competency": 1 },
+  "waived": ["fx.fixture.waived"]
+}
