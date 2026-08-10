@@ -500,12 +500,15 @@ list, managed load balancer (layer 4 vs. layer 7), managed DNS, private connecti
 circuit, route table, bastion/jump host, CIDR planning, private service endpoint — with AWS,
 Azure, and Google Cloud terms kept only as examples, named together rather than in isolation.
 No AWS term was deleted; each was demoted from the definition to an example, since a candidate
-will still meet it. Cross-provider terminology was verified against current documentation
-(Microsoft Learn, Google Cloud/AWS product pages) rather than assumed, in particular that Azure
-Network Security Groups and Google Cloud VPC firewall rules are both stateful with no separate
+will still meet it. Two specific cross-provider claims were checked directly against current
+documentation (Microsoft Learn, Google Cloud product pages) before writing: that Azure Network
+Security Groups and Google Cloud VPC firewall rules are both stateful with no separate
 stateless-ACL layer (unlike AWS's Security Group / NACL split), and that Google Cloud's route
 model is defined at the network level rather than per-subnet like AWS's and Azure's route
-tables. Only descriptions were changed for these 14; `commands`, `confused_with`,
+tables. The rest of the rewrite was not individually checked against current documentation at
+this stage — three of the "vendor-neutral" claims turned out to still be AWS-specific, caught by
+a later review and corrected in a second pass (see "Errors a review caught after the first
+pass" below). Only descriptions were changed for these 14; `commands`, `confused_with`,
 `additional_sources`, and every locked field (`id`, `path`, `domain`, `competency`,
 `objective_verbatim`, `sept_2025_status`, `required_depth`) were left untouched, as the brief
 scoped this step to `description` only.
@@ -522,6 +525,52 @@ Affected: `cloud.networking.virtual-private-cloud`, `cloud.networking.cloud-subn
 
 No source citations were added or changed for the 14 networking concepts — the brief did not
 ask for that in this step, and each concept's existing AWS/Azure sourcing was left as-is.
+
+### Errors a review caught after the first pass
+
+A follow-up review found that three of the "vendor-neutral" rewrites above still stated an
+AWS-specific behavior as if it were the shared model across all three providers — exactly the
+defect this task set out to fix. All three were corrected in a second pass, each checked
+directly against current vendor documentation:
+
+- `cloud.networking.cloud-subnets` (CRITICAL). The description said cloud subnets are
+  "typically one subnet per zone" as the shared model. That is true only for AWS: AWS's docs
+  state a subnet "must reside entirely within one Availability Zone and cannot span zones"
+  (docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html). Azure states the opposite
+  for its own platform — "Virtual networks and subnets span all availability zones in a region"
+  (learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). Google Cloud
+  classifies a subnet as a regional resource, not a zonal one — "Subnets are regional resources"
+  (cloud.google.com/vpc/docs/vpc, Specifications section). The description now states AWS's
+  zone-scoping as the AWS-specific detail it is, not a shared rule.
+- `cloud.networking.cidr-planning-for-cloud-networks` (IMPORTANT). The description claimed a
+  virtual network's address range is "fixed at creation on every major provider." False on all
+  three: AWS supports associating additional (secondary) IPv4 CIDR blocks with an existing VPC
+  (docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html); Google Cloud supports
+  expanding a subnet's primary IPv4 range via the `subnetworks.expandIpCidrRange` API
+  (cloud.google.com/vpc/docs/create-modify-vpc-networks); Azure supports adding an address range
+  to an existing virtual network (learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network).
+  The description now keeps the genuine exam point — overlapping ranges break peering and hybrid
+  connectivity, and a range already in use by other subnets or connections is painful to change
+  — without the false absolute.
+- `cloud.networking.internet-gateway-and-nat-gateway` (MINOR). The description implied Azure and
+  Google Cloud have no named equivalent to an AWS internet gateway. Google Cloud's own routing
+  documentation names a "default internet gateway" as the next hop of its system-generated
+  default route (cloud.google.com/vpc/docs/routes), though it is not a resource you provision
+  the way an AWS internet gateway is. Azure genuinely has no separately named equivalent —
+  outbound internet reachability is an inherent virtual-network property rather than a routed
+  resource (learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). The
+  description now reflects that split instead of a blanket "no equivalent."
+
+The other 11 `cloud.networking.*` concepts were re-checked for the same failure mode during this
+fix, with particular attention to the security-group-vs-network-acl statefulness claim and to
+gateway/regional-vs-zonal claims elsewhere. `cloud.networking.security-group-vs-network-acl`'s
+claims held up: Azure NSGs are confirmed stateful ("The flow record allows a network security
+group to be stateful,"
+learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview), and Google
+Cloud VPC firewall rules are confirmed stateful and configured at the network level rather than
+per subnet ("VPC firewall rules are stateful"; rule configuration "is associated with a VPC
+network," cloud.google.com/firewall/docs/firewalls). No further errors of this kind were found
+in the remaining 11.
 
 ### Verification
 
