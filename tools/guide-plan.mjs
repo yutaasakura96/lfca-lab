@@ -3,6 +3,12 @@ import { loadDataset, competencyKey } from './lib/load.mjs';
 import { assignBlocks, blocksMentioning } from './lib/comparisons.mjs';
 import { guideIndex, guidePathFor, relativeGuideLink } from './lib/guide-paths.mjs';
 
+function ordinal(n) {
+  const suffixes = ['th', 'st', 'nd', 'rd'];
+  const mod100 = n % 100;
+  return `${n}${suffixes[(mod100 - 20) % 10] ?? suffixes[mod100] ?? suffixes[0]}`;
+}
+
 const target = process.argv[2];
 const dataset = await loadDataset('data');
 const index = guideIndex(dataset);
@@ -33,6 +39,35 @@ console.log(`# Writing brief: ${entry.domain} :: ${entry.competency}`);
 console.log(`\nFile: ${entry.path}`);
 console.log(`Concepts: ${topics.length}`);
 console.log(`Waived (no primary source): ${topics.filter((t) => waived.has(t.id)).length}`);
+
+// These three lines exist so a writer never computes them by eye: the pilot
+// file's orientation paragraph got the domain's weight rank and the LFS200
+// coverage share wrong by doing exactly that. Take the weight from
+// data/competencies.json, never hardcode it.
+const domain = dataset.competencies.domains.find((d) => d.name === entry.domain);
+const competencyMeta = domain?.competencies.find((c) => c.name === entry.competency);
+const rankedDomains = [...dataset.competencies.domains].sort((a, b) => b.weight - a.weight);
+const weightRank = rankedDomains.findIndex((d) => d.id === domain?.id) + 1;
+console.log(
+  `Domain weight: ${domain?.weight}% of the exam — ${ordinal(weightRank)} largest of ${rankedDomains.length} domains`,
+);
+
+console.log(`2025 status: ${competencyMeta?.sept_2025_status}`);
+if (competencyMeta?.sept_2025_status === 'added') {
+  console.log('  Consequence: this competency is new in the 2025 update — no pre-2025 material covers it.');
+}
+
+const coverageCounts = new Map();
+for (const t of topics) {
+  coverageCounts.set(t.coverage_status, (coverageCounts.get(t.coverage_status) ?? 0) + 1);
+}
+const notNotCovered = topics.length - (coverageCounts.get('NOT COVERED') ?? 0);
+const coveredShare = topics.length ? Math.round((notNotCovered / topics.length) * 100) : 0;
+const breakdown = [...coverageCounts.entries()].map(([status, count]) => `${count} ${status}`).join(', ');
+console.log(
+  `LFS200 coverage (which concepts LFS200 touches at all, not how deeply): ${breakdown} — ` +
+    `${notNotCovered}/${topics.length} (${coveredShare}%) are not NOT COVERED`,
+);
 
 const sections = [...new Set(topics.map((t) => t.path[2]))];
 for (const section of sections) {
