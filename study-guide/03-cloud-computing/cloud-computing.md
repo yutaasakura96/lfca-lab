@@ -526,7 +526,7 @@ can be both at once, and neither implies the other.
 
 <a id="c-cloud.cloud-computing.multi-cloud"></a>
 ### Multi-cloud
-*id: `cloud.cloud-computing.multi-cloud` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-145*
+*id: `cloud.cloud-computing.multi-cloud` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-145, aws-what-is-multicloud*
 
 **What it is** Deliberately using more than one public cloud provider. It is an industry
 term, not one of NIST SP 800-145's four deployment models — those are private, community,
@@ -1157,14 +1157,15 @@ mechanically impossible, not merely slow.
 ### Cloud migration approaches
 *id: `cloud.cloud-computing.cloud-migration-approaches` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-migration-7rs*
 
-**What it is** A spectrum of strategies for moving a workload, ordered by effort and by how
+**What it is** A spectrum of strategies for moving a workload, differing in effort and in how
 much cloud benefit the result actually gets. Rehost — lift and shift — moves the workload
 essentially unchanged. Replatform makes targeted changes, such as swapping a self-managed
 database for a managed one, without redesigning the application. Refactor or re-architect
-rebuilds it around cloud-native patterns. Replace retires the application in favour of a
-different product, usually SaaS. AWS's prescriptive guidance names seven strategies in total,
-the *7 Rs*: retire, retain, rehost, relocate, repurchase, replatform, and refactor or
-re-architect.
+rebuilds it around cloud-native patterns, trading the most effort for the most benefit.
+Repurchase — AWS's term, sometimes called drop and shop — replaces the application with a
+different product or version, typically SaaS, rather than migrating the existing one. AWS's
+prescriptive guidance names seven strategies in total, the *7 Rs*: retire, retain, rehost,
+relocate, repurchase, replatform, and refactor or re-architect.
 
 **Why it matters** The exam tests the trade-off, not the vocabulary: rehosting is fastest and
 lowest-risk but carries the least benefit, because a VM moved unchanged still costs what a VM

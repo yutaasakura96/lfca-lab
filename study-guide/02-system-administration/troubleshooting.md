@@ -568,7 +568,7 @@ of the reserved-block allowance.
 
 <a id="c-sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"></a>
 ### Out of memory and the OOM killer
-*id: `sysadmin.troubleshooting.out-of-memory-and-the-oom-killer` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-proc-pid-oom-score, kernel-sysctl-vm, man-dmesg, man-journalctl*
+*id: `sysadmin.troubleshooting.out-of-memory-and-the-oom-killer` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-proc-pid-oom-score, man-proc-pid-oom-score-adj, kernel-docs-proc-rst, kernel-sysctl-vm, man-dmesg, man-journalctl*
 
 **What it is** When the kernel cannot satisfy an allocation and cannot reclaim enough memory,
 it selects a process and kills it. This is a deliberate kernel action recorded in the kernel

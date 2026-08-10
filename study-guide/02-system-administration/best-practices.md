@@ -413,10 +413,7 @@ window existed to schedule.
 
 <a id="c-sysadmin.best-practices.separation-of-duties"></a>
 ### Separation of duties
-*id: `sysadmin.best-practices.separation-of-duties` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.best-practices.separation-of-duties` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-128*
 
 **What it is** Splitting a sensitive workflow across two or more people so that no single person
 can both make and approve a change, or both initiate and complete a transaction. It is a
@@ -427,9 +424,12 @@ for the friction it adds: a malicious insider needs a collaborator, and an hones
 administrator's mistake meets a second pair of eyes before it reaches production. Both benefits
 come from the same structure, and both disappear the moment one person holds both roles.
 
-**How it works** In most implementations of this practice, the sensitive workflow is decomposed
-so that the person who requests a change is not the person who approves it, and often not the
-person who reviews the resulting audit record either. The discipline it is routinely confused
+**How it works** NIST SP 800-128 states the control directly for configuration change control:
+changes must be vetted by at least one authorized individual independent of the requestor, so
+that system administrators and developers are not given authority to unilaterally propose and
+approve changes to a system's configuration. In most implementations of this practice, the
+sensitive workflow is decomposed so that the person who requests a change is not the person who
+approves it, and often not the person who reviews the resulting audit record either. The discipline it is routinely confused
 with is least privilege, and the exam can offer both as answers to the same scenario. Least
 privilege is about the size of one identity's authority — give this account only what it needs.
 Separation of duties is about how many identities a workflow requires — even an account with
@@ -530,14 +530,15 @@ non-compliant by definition, no matter how well it happens to be running.
 
 <a id="c-sysadmin.best-practices.user-onboarding-and-offboarding"></a>
 ### User onboarding and offboarding
-*id: `sysadmin.best-practices.user-onboarding-and-offboarding` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.best-practices.user-onboarding-and-offboarding` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
 
 **What it is** Defined procedures for granting access when someone joins, changes role, or
 leaves. Onboarding grants; offboarding revokes — and offboarding is the half that carries the
-risk, because an account that should have been closed leaves no symptom to notice.
+risk, because an account that should have been closed leaves no symptom to notice. NIST SP
+800-53 Rev. 5 control AC-2 (Account Management) states this directly: accounts are created,
+enabled, modified, disabled and removed under policy, account managers are notified when users
+are terminated or transferred, and account management processes must be aligned with personnel
+termination and transfer processes.
 
 **Why it matters** An orphaned account is a standing exposure: a credential still valid,
 attached to nobody, and therefore watched by nobody. Onboarding failures announce themselves

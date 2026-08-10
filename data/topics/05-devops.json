@@ -1771,7 +1771,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Containers",
-      "description": "The declarative recipe for building an image. RUN, COPY and ADD each add a filesystem layer; instructions such as ENV, LABEL, WORKDIR, EXPOSE and CMD set metadata only.",
+      "description": "The declarative recipe for building an image. RUN, COPY and ADD add filesystem layers; ENV, LABEL, EXPOSE and CMD record configuration metadata and add nothing to the filesystem. WORKDIR looks like pure metadata and is not — it creates its directory when that directory is missing, which is a filesystem change like any other.",
       "objective_verbatim": "Containers",
       "sept_2025_status": "unchanged",
       "inferred": true,

@@ -923,7 +923,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9110"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -981,7 +983,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1014,7 +1018,9 @@
       "lfs200_sources": [
         "ch11.l3"
       ],
-      "additional_sources": [],
+      "additional_sources": [
+        "cncf-glossary"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [

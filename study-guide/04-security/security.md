@@ -689,7 +689,7 @@ peer. TLS is the conversation; the certificate is the identity document presente
 
 <a id="c-security.security.tls-and-https"></a>
 ### TLS and HTTPS
-*id: `security.security.tls-and-https` · depth 3 · importance 2 · LFS200: FULLY COVERED · sources: rfc-8446-tls13, rfc-7568-ssl3-deprecation*
+*id: `security.security.tls-and-https` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: rfc-8446-tls13, rfc-7568-ssl3-deprecation*
 
 **What it is** TLS is the transport-layer protocol that encrypts a connection, protects it
 from tampering, and authenticates the server (and optionally the client) using certificates.
@@ -1131,7 +1131,7 @@ undoes the encryption but not the breach of confidentiality.
 
 <a id="c-security.security.vulnerabilities-cves-and-patching"></a>
 ### Vulnerabilities, CVEs and patching
-*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-csrc-glossary*
+*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-csrc-glossary, verizon-dbir*
 
 **What it is** A publicly known software weakness is catalogued under the CVE Program with a
 unique identifier of the form CVE-YYYY-NNNN, assigned by a CVE Numbering Authority. Severity
@@ -1289,7 +1289,7 @@ seen.
 
 <a id="c-security.security.incident-response"></a>
 ### Incident response
-*id: `security.security.incident-response` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-61r3*
+*id: `security.security.incident-response` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-61r3, sans-picerl*
 
 **What it is** The prepared sequence an organisation follows when an incident occurs:
 Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned. Name its
@@ -1437,7 +1437,7 @@ effective configuration when a drop-in file may be overriding what you just edit
 
 <a id="c-security.security.selinux-and-apparmor"></a>
 ### SELinux and AppArmor
-*id: `security.security.selinux-and-apparmor` · depth 3 · importance 2 · LFS200: FULLY COVERED · sources: selinux-man8, apparmor-wiki*
+*id: `security.security.selinux-and-apparmor` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: selinux-man8, apparmor-wiki*
 
 **What it is** Linux's two mainstream mandatory access control implementations. Policy —
 written by the distribution, not by the file's owner — confines what a process may do,
@@ -1480,10 +1480,11 @@ not let a confined process touch it.
 **What the exam may test** Recognising MAC as a distinct layer above file permissions,
 knowing which implementation belongs to which distribution family, and choosing the command
 that reports the current mode. Note that LFS200 never uses the term SELinux
-(`research/lfs200-notes/00-course-map.md` records it as a measured absence), so the FULLY
-COVERED tag reflects the lesson-level mapping to ch9.l3 rather than the course actually
-naming this material; everything here is written from `selinux(8)` and the AppArmor
-documentation.
+(`research/lfs200-notes/00-course-map.md` records it as a measured absence across the whole
+158,185-character course, not just a gap in one lesson), which is why this concept is tagged
+NOT COVERED rather than FULLY COVERED despite ch9.l3's general Network Security material —
+a concept whose defining term never appears cannot be credited as fully covered by it;
+everything here is written from `selinux(8)` and the AppArmor documentation.
 
 <a id="cmp-security.security.selinux-and-apparmor"></a>
 #### Not to be confused with: SELinux and AppArmor vs Access control models

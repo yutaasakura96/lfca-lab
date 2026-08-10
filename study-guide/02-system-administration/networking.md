@@ -283,7 +283,7 @@ host counts, and judging whether two addresses fall in the same subnet under a s
 
 <a id="c-sysadmin.networking.network-host-and-broadcast-addresses"></a>
 ### Network, host and broadcast addresses
-*id: `sysadmin.networking.network-host-and-broadcast-addresses` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-919-broadcasting-internet-datagrams, rfc-1122-host-requirements*
+*id: `sysadmin.networking.network-host-and-broadcast-addresses` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-919-broadcasting-internet-datagrams, rfc-1122-host-requirements, rfc-2644-bcp34*
 
 **What it is** Within any IPv4 subnet, the address whose host bits are all zero identifies the
 network itself, and the address whose host bits are all one is the directed broadcast for that

@@ -17,15 +17,13 @@ claims are hedged accordingly.
 
 <a id="c-pm.software-application-architecture.client-server-model"></a>
 ### Client-server model
-*id: `pm.software-application-architecture.client-server-model` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.client-server-model` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc9110*
 
 **What it is** The interaction shape in which one program (the client) initiates a request and
-another program (the server) waits for requests and returns responses. Client and server are
-usually described as roles taken for a particular exchange, not as machine types: the same
-process can typically be a server to a browser and a client to a database in the same second.
+another program (the server) waits for requests and returns responses. RFC 9110 defines both
+terms exactly this way — as roles a program performs for a particular connection, not as
+machine types: "the same program might act as a client on some connections and a server on
+others."
 
 **Why it matters** Almost every other concept in this competency is a refinement of this one
 shape — tiers, web and application servers, APIs, and REST all describe who requests and who
@@ -87,10 +85,7 @@ store to data — and recognising that physical host count is irrelevant to the 
 
 <a id="c-pm.software-application-architecture.monolithic-architecture"></a>
 ### Monolithic architecture
-*id: `pm.software-application-architecture.monolithic-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.monolithic-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
 
 **What it is** An application built and released as one deployable unit: all of its modules
 compile, package, and ship together, and a change to any one of them typically requires
@@ -125,10 +120,7 @@ having made it something else.
 
 <a id="c-pm.software-application-architecture.microservices"></a>
 ### Microservices
-*id: `pm.software-application-architecture.microservices` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.microservices` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary*
 
 **What it is** An architecture in which an application is split into services that are
 independently deployable, communicate over the network, and each own their data. LFS200 names

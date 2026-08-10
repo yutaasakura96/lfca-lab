@@ -2,7 +2,7 @@
 
 # LFCA / LFS200 Gap Analysis
 
-506 of 537 concepts are not fully covered by LFS200.
+508 of 537 concepts are not fully covered by LFS200.
 
 | Concept | Domain | Competency | Status | Depth | Importance |
 | --- | --- | --- | --- | --- | --- |
@@ -305,6 +305,7 @@
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.hashing | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
+| security.security.tls-and-https | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.certificate-expiry-and-validation | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.full-disk-encryption | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.phishing-and-social-engineering | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
@@ -323,6 +324,7 @@
 | security.security.incident-response | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.physical-security | Security Fundamentals | Security | NOT COVERED | 2 | 2 |
 | security.security.ssh-hardening | Security Fundamentals | Security | NOT COVERED | 5 | 2 |
+| security.security.selinux-and-apparmor | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.security.vulnerability-scanning | Security Fundamentals | Security | NOT COVERED | 3 | 2 |
 | security.sensitive-data.personally-identifiable-information | Security Fundamentals | Sensitive Data | NOT COVERED | 3 | 2 |
 | security.sensitive-data.protected-health-and-payment-data | Security Fundamentals | Sensitive Data | NOT COVERED | 2 | 2 |

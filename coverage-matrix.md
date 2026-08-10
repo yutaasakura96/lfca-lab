@@ -152,11 +152,11 @@
 | sysadmin.best-practices.monitoring-and-alerting | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.capacity-planning | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.maintenance-windows | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| sysadmin.best-practices.separation-of-duties | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| sysadmin.best-practices.separation-of-duties | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.runbooks | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.asset-and-inventory-management | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.security-baselines | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| sysadmin.best-practices.user-onboarding-and-offboarding | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| sysadmin.best-practices.user-onboarding-and-offboarding | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.backup-before-change | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | HIGH |
 | sysadmin.best-practices.patch-cadence | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.principle-of-least-astonishment | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 1 | LOW |
@@ -166,7 +166,7 @@
 | sysadmin.networking.ipv4-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.ipv6-address | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.subnet-mask-and-cidr | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 2 | 0 | 3 | HIGH |
-| sysadmin.networking.network-host-and-broadcast-addresses | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
+| sysadmin.networking.network-host-and-broadcast-addresses | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 3 | 0 | 3 | HIGH |
 | sysadmin.networking.private-vs-public-ip-addresses | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.loopback-address | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.static-vs-dynamic-addressing | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -220,7 +220,7 @@
 | sysadmin.troubleshooting.escalation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 0 | 0 | 3 | MEDIUM |
 | sysadmin.troubleshooting.service-will-not-start | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 3 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.disk-full | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
-| sysadmin.troubleshooting.out-of-memory-and-the-oom-killer | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 4 | 0 | 4 | HIGH |
+| sysadmin.troubleshooting.out-of-memory-and-the-oom-killer | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 6 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.high-cpu-load | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.permission-denied | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.cannot-connect-to-a-service | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
@@ -253,7 +253,7 @@
 | cloud.cloud-computing.public-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.private-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.multi-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.cloud-computing.multi-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -315,7 +315,7 @@
 | cloud.networking.cloud-subnets | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | cloud.networking.public-vs-private-subnet | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | cloud.networking.security-group-vs-network-acl | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | cloud.networking.public-and-elastic-ip-addresses | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | cloud.networking.cloud-dns | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | cloud.networking.cloud-load-balancer-types | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
@@ -341,7 +341,7 @@
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
-| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 2 | 0 | 3 | HIGH |
+| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.certificate-expiry-and-validation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
 | security.security.full-disk-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | security.security.phishing-and-social-engineering | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -352,15 +352,15 @@
 | security.security.injection-attacks | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | security.security.privilege-escalation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.security.insider-threat | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
 | security.security.system-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.firewalls-and-network-segmentation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.security.intrusion-detection-and-prevention | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | security.security.security-logging-and-monitoring | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
-| security.security.incident-response | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
+| security.security.incident-response | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.physical-security | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | security.security.ssh-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 5 | HIGH |
-| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 2 | 0 | 3 | MEDIUM |
+| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | security.security.package-and-download-verification | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 1 | 0 | 3 | HIGH |
 | security.security.vulnerability-scanning | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | security.sensitive-data.personally-identifiable-information | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -490,10 +490,10 @@
 | pm.project-management.project-budget-and-resource-management | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.communication-plan | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.project-closure-and-lessons-learned | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | MEDIUM |
-| pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 2 | HIGH |
+| pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |
 | pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 0 | 0 | 3 | HIGH |
+| pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
+| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
 | pm.software-application-architecture.api | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.rest | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |

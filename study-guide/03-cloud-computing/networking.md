@@ -244,7 +244,7 @@ asking about a host firewall, not about either of these.
 
 <a id="c-cloud.networking.internet-gateway-and-nat-gateway"></a>
 ### Internet gateway and NAT gateway
-*id: `cloud.networking.internet-gateway-and-nat-gateway` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-internet-gateway, aws-vpc-nat-gateway*
+*id: `cloud.networking.internet-gateway-and-nat-gateway` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-internet-gateway, aws-vpc-nat-gateway, ms-azure-default-outbound-access*
 
 **What it is** Two routing targets with opposite reachability. An internet gateway gives a
 subnet's traffic two-way internet reachability: resources with a public address can be

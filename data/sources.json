@@ -674,15 +674,15 @@
     },
     {
       "id": "owasp-top10-injection",
-      "title": "OWASP Top 10:2021 — A03 Injection",
-      "url": "https://owasp.org/Top10/A03_2021-Injection/",
+      "title": "OWASP Top 10:2025 — A05 Injection",
+      "url": "https://owasp.org/Top10/2025/A05_2025-Injection/",
       "organization": "OWASP",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-10",
+      "accessed": "2026-08-11",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Retitled from Top 10:2021 A03 to Top 10:2025 A05 after the 2025 edition moved Injection from A03 to A05 and put Software Supply Chain Failures at A03. Verified against https://owasp.org/Top10/2025/ (2026-08-11)."
     },
     {
       "id": "owasp-password-storage",
@@ -818,15 +818,15 @@
     },
     {
       "id": "verizon-dbir",
-      "title": "Verizon Data Breach Investigations Report (DBIR)",
-      "url": "https://www.verizon.com/business/resources/reports/dbir/",
+      "title": "Verizon 2026 Data Breach Investigations Report (DBIR)",
+      "url": "https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf",
       "organization": "Verizon Business",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-10",
+      "accessed": "2026-08-11",
       "category": "primary-documentation",
       "authority_tier": 3,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Was the year-agnostic landing page, which lets cited figures drift silently as the page is updated each year. Pinned to the 2026 edition PDF, the edition the guide's prose actually cites figures from (31% vulnerability exploitation as initial access)."
     },
     {
       "id": "progit-what-is-git",
@@ -2026,7 +2026,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "This page (oom_score, not oom_score_adj) does not itself carry the stale 3% root-process bonus claim. That claim lives on the sibling page proc_pid_oom_score_adj(5), registered separately as man-proc-pid-oom-score-adj, which as of 2026-08-11 still says \"root processes are given 3% extra memory over other tasks\" — a factor removed from the kernel in commit d46078b28889 and absent from mm/oom_kill.c since v4.17. Paired with kernel-docs-proc-rst (Documentation/filesystems/proc.rst 3.1), which is actively maintained and does not repeat the stale figure."
     },
     {
       "id": "kernel-sysctl-vm",
@@ -3311,6 +3311,78 @@
       "category": "primary-documentation",
       "authority_tier": 1,
       "notes": "Primary documentation consulted during stage 5 concept verification."
+    },
+    {
+      "id": "man-proc-pid-oom-score-adj",
+      "title": "proc_pid_oom_score_adj(5) — Linux manual page",
+      "url": "https://man7.org/linux/man-pages/man5/proc_pid_oom_score_adj.5.html",
+      "organization": "Linux man-pages project",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "As of 2026-08-11 this page still documents a badness-score factor removed from the kernel in commit d46078b28889 and absent from mm/oom_kill.c since Linux 4.17: \"root processes are given 3% extra memory over other tasks.\" The guide's own Traps paragraph for sysadmin.troubleshooting.out-of-memory-and-the-oom-killer already states this correctly (\"that bias was removed in Linux 4.17, although proc_pid_oom_score_adj(5) still documents it\"); this source record backs that claim, which the previous man-proc-pid-oom-score record (a different page) did not carry."
+    },
+    {
+      "id": "kernel-docs-proc-rst",
+      "title": "Linux kernel Documentation/filesystems/proc.rst",
+      "url": "https://raw.githubusercontent.com/torvalds/linux/master/Documentation/filesystems/proc.rst",
+      "organization": "Linux kernel project",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 1,
+      "notes": "Actively maintained in-tree kernel documentation. Section 3.1 covers /proc/<pid>/oom_adj and /proc/<pid>/oom_score_adj; unlike the man-pages project's proc_pid_oom_score_adj(5) page, it does not repeat the removed 3% root-process bonus."
+    },
+    {
+      "id": "rfc-2644-bcp34",
+      "title": "RFC 2644 / BCP 34: Changing the Default for Directed Broadcasts in Routers",
+      "url": "https://www.rfc-editor.org/rfc/rfc2644.html",
+      "organization": "IETF",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Updates RFC 1812. Changes the required router default for directed-broadcast receipt and forwarding from permit to block. RFC 919 (1984) alone, previously the sole cited source for this concept's broadcast-forwarding claim, predates this default change by 15 years and is not authority for any modern router default."
+    },
+    {
+      "id": "ms-azure-default-outbound-access",
+      "title": "Default outbound access in Azure",
+      "url": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access",
+      "organization": "Microsoft",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that the Azure portal already defaults new subnets to private, and that in the API version released after 2026-03-31, defaultOutboundAccess for subnets in new VNETs defaults to false across ARM templates, PowerShell and CLI too — contradicting the older claim that outbound reachability is an inherent, unrouted property of an Azure virtual network."
+    },
+    {
+      "id": "sans-picerl",
+      "title": "SANS Institute: Incident Response (glossary) — the six-step PICERL framework",
+      "url": "https://www.sans.org/security-resources/glossary-of-terms/incident-response",
+      "organization": "SANS Institute",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States verbatim: \"SANS Incident Response Framework: Details a tactical six-step process encompassing Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned.\" This is the PICERL sequence previously cited only to nist-sp-800-61r3, which no revision of NIST SP 800-61 has ever published — Rev. 2 used a four-phase life cycle and Rev. 3 (April 2025) reorganised around six CSF 2.0 Functions (Govern, Identify, Protect, Detect, Respond, Recover), a different list."
+    },
+    {
+      "id": "aws-what-is-multicloud",
+      "title": "What is Multicloud? Multicloud Explained",
+      "url": "https://aws.amazon.com/what-is/multicloud/",
+      "organization": "Amazon Web Services",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Defines multicloud (\"the use of at least two CSPs at once\") and explicitly contrasts it with hybrid cloud, matching this concept's confused_with pairing. Added alongside nist-sp-800-145, which was previously the sole source despite never mentioning multi-cloud — kept because the concept's own pedagogical point is that multi-cloud is conspicuously absent from NIST's four deployment models."
     }
   ]
 }

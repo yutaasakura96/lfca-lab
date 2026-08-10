@@ -605,3 +605,235 @@ directly during this task. Nothing was cited without having been read.
 
 No exam dumps or leaked-question sites were searched for, opened, or used as sources at any
 point in this task.
+
+### Dataset corrections found while writing the guide
+
+Task 34: writing the guide (Tasks 8–33) surfaced dataset defects the writers, reviewers, and
+the wave-4 adversarial fact-check pass reported but had no mandate to fix in `data/`. This
+task verified every reported finding against its primary source directly — fetching and
+reading the actual document, not trusting the report — before changing anything, per the
+brief's instruction that a finding is a report, not an instruction. Every finding below was
+independently confirmed; none was found to be wrong. A number of them turned out to already be
+reflected correctly in the guide's prose (written or fixed by an earlier wave) while `data/`
+still carried the old, wrong claim — exactly the divergence this task exists to close.
+
+**Sourcing that did not support the claim, now re-sourced or reworded:**
+
+- `security.security.incident-response` — cited only `nist-sp-800-61r3` for the six-step
+  prepare/identify/contain/eradicate/recover/learn sequence. Fetched and read SP 800-61 Rev. 3
+  (April 2025) directly: it contains zero occurrences of "PICERL," "lifecycle," or the six-step
+  phase list, and 32 occurrences of "CSF 2.0." Its own Table 1 is titled "Previous incident
+  response life cycle model's phases and corresponding CSF 2.0 Functions" — Rev. 3 replaced
+  the old phase model with the six CSF 2.0 Functions (Govern, Identify, Protect, Detect,
+  Respond, Recover), a different six-item list. The six-step sequence is SANS's PICERL model.
+  Added a new source `sans-picerl` (SANS Institute glossary page, which states verbatim:
+  "SANS Incident Response Framework: Details a tactical six-step process encompassing
+  Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned") and
+  cited it alongside `nist-sp-800-61r3` (kept, since the guide's own prose correctly discusses
+  the Rev. 2→Rev. 3 reorganisation, which that source does support). Settled by:
+  https://csrc.nist.gov/pubs/sp/800/61/r3/final (fetched and read in full) and
+  https://www.sans.org/security-resources/glossary-of-terms/incident-response.
+- `cloud.cloud-computing.multi-cloud` and `cloud.cloud-computing.managed-services` both cited
+  only `nist-sp-800-145`. Fetched and read the actual PDF text (not just its metadata): it
+  defines exactly three service models (SaaS, PaaS, IaaS) and four deployment models (private,
+  community, public, hybrid) and contains the word "multi-cloud" nowhere and "managed
+  services" nowhere. For `multi-cloud`, added a new source `aws-what-is-multicloud` (AWS's "What
+  is Multicloud?" page, which defines the term directly and explicitly contrasts it with hybrid
+  cloud — the same pairing this concept's own comparison block uses) and kept `nist-sp-800-145`
+  alongside it, since the guide's prose makes multi-cloud's absence from NIST's four deployment
+  models the actual pedagogical point ("that absence is itself examinable") — a true, sourced
+  claim NIST 800-145 does support, just not a definition of the term. For `managed-services`, no
+  equally strong first-party definitional source could be found (AWS's "Managed Services" page
+  turned out to be a specific commercial product, not a general definition); reworded the
+  description instead so the source is cited for what it actually documents — the same
+  consumer/provider control-tradeoff NIST 800-145 states for SaaS/PaaS/IaaS — matching what the
+  guide's own comparison table already says ("NIST service model: Not defined as one — it is a
+  consumption pattern"). Settled by:
+  https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf (fetched and
+  extracted in full) and https://aws.amazon.com/what-is/multicloud/.
+- `cloud.cloud-computing.hybrid-cloud` omitted NIST's definitional binding condition. Confirmed
+  NIST's exact wording from the same PDF extraction: "bound together by standardized or
+  proprietary technology that enables data and application portability... (e.g., cloud
+  bursting for load balancing between clouds)." The description named only "public and private
+  used together with workloads placed deliberately in each" — deliberate placement, not the
+  binding condition. Description now states the binding condition. (The guide's own prose
+  already stated this correctly; only `data/`'s short description was out of date.)
+- `cloud.cloud-computing.cloud-migration-approaches` named four strategies and used "replace."
+  Fetched AWS's migration-strategies page directly: it names seven strategies, the "7 Rs" —
+  Retire, Retain, Rehost, Relocate, Repurchase, Replatform, Refactor or re-architect — and uses
+  "Repurchase," not "replace." Description rewritten to name all seven and use "repurchase."
+  The guide's own "What it is" paragraph had already listed all seven Rs correctly in its
+  second sentence but led with an informal four-item "Replace" framing in its first sentence,
+  which contradicted its own next sentence; fixed to "Repurchase" there too. Settled by:
+  https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html
+  (fetched and read in full).
+- `sysadmin.networking.network-host-and-broadcast-addresses` was sourced to RFC 919 (1984)
+  alone for broadcast-forwarding behaviour. RFC 919 is no authority for any modern router
+  default — RFC 2644 / BCP 34 (1999) is the one that changed it, confirmed by fetching the RFC
+  directly: it updates RFC 1812 and states routers "MUST default to blocking receipt and
+  blocking forwarding of network-prefix-directed broadcasts." Registered a new source
+  `rfc-2644-bcp34` and added it. The guide's own "How it works" paragraph already named RFC
+  2644 (BCP 34) by name and described this default change correctly — it was simply citing an
+  unregistered source. Settled by: https://www.rfc-editor.org/rfc/rfc2644.html.
+- `sysadmin.disaster-recovery.hot-warm-and-cold-sites` said a hot site is "running with current
+  data" and a cold site is "space, power and connectivity only." Fetched and read NIST SP
+  800-34 Rev. 1 directly: section 5.1.5 states a hot site "should have the most recent version
+  of backed-up data loaded, requiring only updating with data since the last backup" — real-time
+  currency belongs to the separate "Mirrored Site," described as "fully redundant facilities
+  with automated real-time information mirroring." Table 3-3 records a Cold Site's Hardware
+  Equipment as "None" and Telecommunications as "None," not "connectivity only." Description
+  rewritten to match both points. (The guide's own prose already stated this correctly, quoting
+  the same NIST language; only `data/`'s description was stale.) Settled by:
+  https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf (fetched and
+  extracted in full, section 5.1.5 and Table 3-3 read directly).
+- `cloud.networking.internet-gateway-and-nat-gateway` said Azure outbound reachability is "an
+  inherent property of a virtual network rather than a routed resource." Fetched Microsoft's
+  default-outbound-access page directly: "Azure portal already defaults to subnets as private by
+  default," and "In the API version released after March 31, 2026, the defaultOutboundAccess
+  property for subnets in new VNETs will be set to 'false' by default... across all other
+  configuration methods." Description rewritten to state that outbound reachability now
+  requires an explicit method. Added a new source `ms-azure-default-outbound-access`. (The
+  guide's own prose already stated this correctly, including the 31 March 2026 date; only
+  `data/`'s description and the guide's metadata `sources:` line were out of sync.) Settled by:
+  https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access.
+
+**Source records fixed or added in `data/sources.json`:**
+
+- `owasp-top10-injection` pointed at Top 10:2021 A03. Fetched https://owasp.org/Top10/2025/
+  directly: the current edition is Top 10:2025, where Injection is A05 and A03 is now "Software
+  Supply Chain Failures." Retitled and re-pointed to
+  `https://owasp.org/Top10/2025/A05_2025-Injection/`.
+- `verizon-dbir` was a year-agnostic landing page. Confirmed the 2026 DBIR exists and is the
+  edition the guide's prose actually cites (the 31% vulnerability-exploitation figure). Pinned
+  to `https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf`.
+  Also added `verizon-dbir` to `security.security.vulnerabilities-cves-and-patching`'s
+  `additional_sources` — the guide's prose cited the DBIR by name but the source array omitted
+  it.
+- `man-proc-pid-oom-score` — checked whether it still documents the removed 3% root-process
+  memory bonus (kernel commit `d46078b28889`, absent from `mm/oom_kill.c` since v4.17). Fetched
+  the actual cited page directly: `proc_pid_oom_score(5)` does **not** contain the 3% claim at
+  all — it only says "whether the process is privileged (−)," with no figure. The stale 3%
+  text lives on a different, easily-confused page, `proc_pid_oom_score_adj(5)`, which as of
+  2026-08-11 still reads "root processes are given 3% extra memory over other tasks." This is
+  exactly what the guide's own Traps paragraph for
+  `sysadmin.troubleshooting.out-of-memory-and-the-oom-killer` already says
+  ("that bias was removed in Linux 4.17, although `proc_pid_oom_score_adj(5)` still documents
+  it") — but no source record existed for that page. Added notes to `man-proc-pid-oom-score`
+  clarifying it is not itself stale, registered a new source `man-proc-pid-oom-score-adj` for
+  the page that actually carries the stale claim, and registered `kernel-docs-proc-rst`
+  (`Documentation/filesystems/proc.rst`, section 3.1 — confirmed to exist and to omit the 3%
+  figure) as the actively-maintained pairing the task suggested. Both new sources were added to
+  the OOM concept's `additional_sources` and to its guide metadata line.
+- Registered `rfc-2644-bcp34`, `ms-azure-default-outbound-access`, and `sans-picerl` — see
+  above.
+
+**`coverage_status` contradicting cycle 1's own course map:**
+
+- `security.security.tls-and-https` and `security.security.selinux-and-apparmor` were both
+  FULLY COVERED via lesson `ch9.l3`. `research/lfs200-notes/00-course-map.md` records both
+  terms as measured absences across the whole 158,185-character course (TLS: SSL appears 7
+  times, TLS never; SELinux: zero occurrences), and separately records that the "Network
+  Security" competency `ch9.l3` maps to was itself removed in the 2025 syllabus update. A
+  concept whose defining term never appears cannot be fully covered by the lesson. Per the
+  brief, the derived field was not hand-edited directly — its input, `lfs200_sources`, was
+  changed from `["ch9.l3"]` to `[]` for both concepts, and `coverage_status` was changed to
+  NOT COVERED to match, consistent with how every other concept with an empty `lfs200_sources`
+  in this dataset is marked. The guide's SELinux block already flagged this exact
+  contradiction in its own "What the exam may test" paragraph ("the FULLY COVERED tag reflects
+  the lesson-level mapping to ch9.l3 rather than the course actually naming this material") —
+  that paragraph and both metadata lines were updated to match the corrected status.
+
+**Waivers no longer justified, removed from `data/sourcing-waivers.json` with a source added:**
+
+- `sysadmin.best-practices.separation-of-duties` — fetched and read NIST SP 800-128 directly.
+  Page 30, section 3.1, states the control verbatim: "best practices for configuration change
+  control require that changes to the system be vetted by at least one authorized individual
+  who is independent of the requestor – in other words, in order to maintain adequate
+  separation of duties, system administrators, developers, etc., are not given the authority to
+  unilaterally propose and approve changes to the configuration of a system." Un-waived; added
+  `nist-sp-800-128` (already a registered source, already cited by the neighbouring
+  `backup-before-change` concept in this competency) to `additional_sources`, and updated the
+  guide's waiver marker and metadata line to match.
+- `sysadmin.best-practices.user-onboarding-and-offboarding` — a wave-4 fact-check finding
+  flagged this as "worth a second look," lower confidence than separation-of-duties. Fetched
+  and read NIST SP 800-53 Rev. 5 control AC-2 (Account Management) directly: it requires
+  organisations to "Create, enable, modify, disable, and remove accounts," to notify account
+  managers "when users are terminated or transferred," and to "Align account management
+  processes with personnel termination and transfer processes" — a direct match for this
+  concept's description ("granting access on joining and — more importantly — revoking every
+  credential on departure"). Un-waived; added `nist-sp-800-53r5` to `additional_sources` and
+  updated the guide's waiver marker and metadata line.
+- `pm.software-application-architecture.client-server-model` — waived under the "classical
+  project management / business analysis references are paywalled" rationale, which does not
+  apply here. RFC 9110 section 3.3 ("Connections, Clients, and Servers") defines the term
+  exactly as the concept describes it: "The terms client and server refer only to the roles
+  that these programs perform for a particular connection." `rfc9110` was already a registered
+  source and already cited by four sibling concepts in this same competency (`api`, `rest`,
+  `http-methods-and-status-codes`, `stateless-vs-stateful-applications`). Un-waived; added
+  `rfc9110` to `additional_sources`; the guide's "What it is" paragraph now quotes RFC 9110
+  directly.
+- `pm.software-application-architecture.microservices` and
+  `pm.software-application-architecture.monolithic-architecture` — same over-broad waiver
+  rationale. The CNCF Cloud Native Glossary (`cncf-glossary`, already registered, tier 1) has
+  direct entries for both: "Microservices Architecture" ("an architectural approach that breaks
+  applications into individual independent (micro) services...") and "Monolithic Apps" ("A
+  monolithic application contains all functionality in a single deployable program"), fetched
+  and confirmed directly. Un-waived both; added `cncf-glossary` to each's `additional_sources`
+  and removed the waiver markers from the guide.
+- `sourcing-waivers.json`'s `by_competency` counts updated to match: `System Administration
+  Fundamentals :: Best Practices` 7 → 5, `IT Project Management Fundamentals :: Software
+  Application Architecture` 9 → 6.
+
+**Other dataset defect fixed (found by the wave-4 fact-check pass, not previously in the
+ledger):**
+
+- `devops.containers.dockerfile` (`data/topics/05-devops.json`) described WORKDIR as
+  metadata-only alongside ENV, LABEL, EXPOSE and CMD. Per the Dockerfile reference: "If the
+  WORKDIR doesn't exist, it will be created even if it's not used in any subsequent Dockerfile
+  instruction" — a filesystem change like any other. This had already been corrected in the
+  guide's prose (`study-guide/05-devops/containers.md`) by an earlier fix round; only the
+  dataset's own `description` field still carried the old claim. Description corrected to
+  match.
+
+**Rejected findings — verified but judged insufficient to act on:**
+
+- `sysadmin.best-practices.naming-conventions` — reported as a weaker case than
+  separation-of-duties; judgement was requested. Fetched and read all four occurrences of
+  "naming" in NIST SP 800-128 directly: Configuration Item Identification ("methodology for
+  selecting and naming configuration items"), Media Library Procedures ("naming conventions for
+  media, labeling procedures"), a CPE reference ("a standard naming convention for operating
+  systems, hardware, and applications" for vulnerability matching), and an Appendix D template
+  heading, "Configuration Item Labeling [Naming convention for CIs]." None of these develops
+  guidance on the concept's actual scope — "predictable names for hosts, users, and resources."
+  Judged too narrow to support independent sourcing; left waived, no source added.
+- `sysadmin.best-practices.capacity-planning` — the brief explicitly instructed not to un-waive
+  on the reported evidence (NIST SP 800-128 names it once, too narrowly). Not investigated
+  further; left waived, no source added.
+
+No finding in this task's scope was found to be factually wrong when checked against its
+primary source — every correction above was independently confirmed by fetching and reading
+the actual document (RFC, NIST Special Publication, AWS/Microsoft documentation, SANS page, or
+CNCF glossary entry) before any file was changed, not by trusting the report that raised it.
+
+**What could not be independently verified:** the SANS Institute's overall standing as a
+citable authority for this dataset was not separately investigated beyond confirming the exact
+quoted text exists on its site; it was registered as `authority_tier: 2`, consistent with how
+this dataset treats other vendor/organisation documentation (AWS, Microsoft, man-pages
+project) rather than government/IETF-standard tier 1 sources.
+
+### Verification (Task 34)
+
+1. `npm run validate` — exit 0. 537 concepts checked, 0 errors, 16 warnings — the same 16
+   pre-existing `orphan-source` (10) and `inferred-ratio` (6) warnings as before this task.
+   `stale-waiver` did not fire: every un-waived concept was removed from
+   `data/sourcing-waivers.json` in the same change that added its independent source, rather
+   than left in the list with a source added.
+2. `npm run generate`, then `npm run validate && npm test` — all exit 0. 163/163 tests passing.
+3. `npm run generate` a second time, then diffed the regenerated files against the first run's
+   output directly (not against git HEAD, which also contains this task's other changes) —
+   byte-identical. Regeneration is idempotent.
+4. `npm run check-guide` — 0 errors, 0 warnings across all 32 guide files and 537 concepts.
+   Several data corrections (coverage_status for TLS/SELinux, the un-waived concepts) changed
+   what the guide was required to state; the guide prose was updated in the same change
+   (metadata lines, the SELinux exam-note paragraph, and the removed waiver markers for the 5
+   un-waived concepts) so no new guide errors were introduced.
