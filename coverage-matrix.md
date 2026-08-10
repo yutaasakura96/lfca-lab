@@ -115,7 +115,7 @@
 | sysadmin.system-administration.filesystem-hierarchy-standard | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
 | sysadmin.system-administration.etc | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 1 | 0 | 2 | HIGH |
 | sysadmin.system-administration.var | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 1 | 0 | 2 | HIGH |
-| sysadmin.system-administration.home | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 1 | 0 | 2 | HIGH |
+| sysadmin.system-administration.home | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 2 | 0 | 2 | HIGH |
 | sysadmin.system-administration.usr | System Administration Fundamentals | 30% | System Administration | System Administration | FULLY COVERED | 1 | 0 | 2 | HIGH |
 | sysadmin.system-administration.tmp | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 2 | 0 | 2 | HIGH |
 | sysadmin.system-administration.proc-and-sys | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
@@ -427,7 +427,7 @@
 | devops.git-concepts.rebase | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
 | devops.git-concepts.merge-conflict | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.remote-and-origin | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.push | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
+| devops.git-concepts.push | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.fetch-vs-pull | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.clone-vs-fork | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
 | devops.git-concepts.pull-request | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 | 3 | HIGH |

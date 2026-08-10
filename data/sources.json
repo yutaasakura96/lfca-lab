@@ -949,6 +949,18 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
+      "id": "git-push",
+      "title": "git-push(1) — \"Update remote refs along with associated objects\"",
+      "url": "https://git-scm.com/docs/git-push",
+      "organization": "Git project (git-scm.com)",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-10",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Primary documentation consulted during stage 5 concept verification."
+    },
+    {
       "id": "docker-overview",
       "title": "Docker overview — the Docker platform, images and containers",
       "url": "https://docs.docker.com/get-started/docker-overview/",
@@ -1174,6 +1186,18 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 1,
+      "notes": "Primary documentation consulted during stage 5 concept verification."
+    },
+    {
+      "id": "man-hier-7",
+      "title": "hier(7) — description of the filesystem hierarchy",
+      "url": "https://man7.org/linux/man-pages/man7/hier.7.html",
+      "organization": "Linux man-pages project",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-10",
+      "category": "primary-documentation",
+      "authority_tier": 2,
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {

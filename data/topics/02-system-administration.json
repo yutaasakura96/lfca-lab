@@ -1645,7 +1645,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "User home directories.",
+      "description": "The directory beneath which regular users' personal home directories usually live (for example /home/alice), each serving as that user's default working directory and $HOME at login; hier(7) notes the exact structure beneath /home is a local administration decision. The superuser's home directory, /root, is a separate, optional directory kept outside /home — the FHS's stated rationale is that if root's home directory were not stored on the root partition, the system would need a fallback default in case that location could not be found, exactly the risk /home carries when it is mounted from a separate partition that fails to come up. Assuming root's home is /home/root, rather than /root, is the recurring mistake.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -1659,12 +1659,15 @@
         "ch6.l2"
       ],
       "additional_sources": [
-        "fhs-3-0"
+        "fhs-3-0",
+        "man-hier-7"
       ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
-      "confused_with": [],
+      "confused_with": [
+        "linux.command-line.root-directory-vs-root-vs-home"
+      ],
       "coverage_status": "FULLY COVERED",
       "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },

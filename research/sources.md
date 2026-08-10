@@ -88,6 +88,7 @@
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
 | git-merge | git-merge(1) — including the FAST-FORWARD MERGE and MERGE COMMIT sections | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-merge |
 | git-pull | git-pull(1) — "Fetch from and integrate with another repository or a local branch" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-pull |
+| git-push | git-push(1) — "Update remote refs along with associated objects" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-push |
 | git-rebase | git-rebase(1) — "Reapply commits on top of another base tip" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-rebase |
 | git-reset | git-reset(1) — "Set HEAD or the index to a known state" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-reset |
 | git-revert | git-revert(1) — "Revert some existing commits" by recording new commits | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-revert |
@@ -144,6 +145,7 @@
 | man-free-1 | free(1) — display amount of free and used memory in the system | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/free.1.html |
 | man-fstab-5 | fstab(5) — static information about filesystems | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/fstab.5.html |
 | man-group-5 | group(5) — user group file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/group.5.html |
+| man-hier-7 | hier(7) — description of the filesystem hierarchy | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/hier.7.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |

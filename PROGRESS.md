@@ -459,3 +459,100 @@ explicit file paths. Changed to `node --test`, which uses Node's own test discov
   typographic artifact of that page rather than part of the competency name.
 - The Candidate Handbook carries no LFCA-specific content despite being linked from the
   certification page as a candidate resource.
+
+## Cycle 2
+
+Cycle 2 turns the verified 537-concept dataset into a study guide. Task 7 fixes two known
+dataset problems before any prose is written, so writers never have to work around them.
+
+### Dataset corrections
+
+**Two concepts were too thin to teach from.**
+
+- `sysadmin.system-administration.home` (`data/topics/02-system-administration.json`). Said:
+  "User home directories." Now: states /home is the parent directory of regular users' personal
+  home directories (each user's default working directory and $HOME), and explains the
+  contrast with /root — kept outside /home per the FHS's rationale that root's home directory
+  needs a location that resolves even if it is not on the same partition as the rest of /home
+  (which is commonly split onto its own mount), plus the recurring exam-relevant mistake of
+  assuming root's home is `/home/root` rather than `/root`. Added `confused_with`:
+  `linux.command-line.root-directory-vs-root-vs-home` (an existing concept that already
+  compares `/`, `/root`, and `~`). Primary sources: `fhs-3-0` (already cited) plus a newly
+  registered `man-hier-7` (hier(7) — Linux man-pages project), both fetched and read directly
+  to confirm the /home and /root text before writing the description.
+- `devops.git-concepts.push` (`data/topics/05-devops.json`). Said: "Sending local commits to a
+  remote." Now: distinguishes push from commit (commit only records a snapshot locally; nothing
+  reaches the remote until a push), explains that the pushed remote/branch default to the
+  branch's configured upstream and that `git push -u origin main` both pushes and sets that
+  upstream, and states the non-fast-forward rejection rule (a push that would discard remote
+  commits is refused unless `--force` is used). Added command `git push -u origin main` and
+  `confused_with`: `devops.git-concepts.commit`. Primary source: newly registered `git-push`
+  (git-push(1) — git-scm.com), read directly to confirm the description, defaulting behavior,
+  and upstream-tracking mechanics before writing.
+
+**The `Cloud Computing Fundamentals :: Networking` competency was written in AWS vocabulary as
+if it were vendor-neutral — a cycle-1 defect found in cycle 2.** All 14 `cloud.networking.*`
+concepts described AWS-specific product names (VPC, Elastic IP, Security Group / NACL, Route
+53, Elastic Load Balancer, Direct Connect) as though they were generic industry terms. The LFCA
+is not an AWS exam. Every description was rewritten so the vendor-neutral concept comes first —
+virtual network, subnet, static/reserved public IP, security group vs. network access control
+list, managed load balancer (layer 4 vs. layer 7), managed DNS, private connectivity, dedicated
+circuit, route table, bastion/jump host, CIDR planning, private service endpoint — with AWS,
+Azure, and Google Cloud terms kept only as examples, named together rather than in isolation.
+No AWS term was deleted; each was demoted from the definition to an example, since a candidate
+will still meet it. Cross-provider terminology was verified against current documentation
+(Microsoft Learn, Google Cloud/AWS product pages) rather than assumed, in particular that Azure
+Network Security Groups and Google Cloud VPC firewall rules are both stateful with no separate
+stateless-ACL layer (unlike AWS's Security Group / NACL split), and that Google Cloud's route
+model is defined at the network level rather than per-subnet like AWS's and Azure's route
+tables. Only descriptions were changed for these 14; `commands`, `confused_with`,
+`additional_sources`, and every locked field (`id`, `path`, `domain`, `competency`,
+`objective_verbatim`, `sept_2025_status`, `required_depth`) were left untouched, as the brief
+scoped this step to `description` only.
+
+Affected: `cloud.networking.virtual-private-cloud`, `cloud.networking.cloud-subnets`,
+`cloud.networking.public-vs-private-subnet`, `cloud.networking.security-group-vs-network-acl`,
+`cloud.networking.internet-gateway-and-nat-gateway`,
+`cloud.networking.public-and-elastic-ip-addresses`, `cloud.networking.cloud-dns`,
+`cloud.networking.cloud-load-balancer-types`,
+`cloud.networking.vpc-peering-and-private-connectivity`, `cloud.networking.hybrid-connectivity`,
+`cloud.networking.cloud-route-tables`, `cloud.networking.bastion-and-jump-hosts`,
+`cloud.networking.cidr-planning-for-cloud-networks`,
+`cloud.networking.private-service-endpoints` (all in `data/topics/03-cloud-computing.json`).
+
+No source citations were added or changed for the 14 networking concepts — the brief did not
+ask for that in this step, and each concept's existing AWS/Azure sourcing was left as-is.
+
+### Verification
+
+1. `npm run validate` — exit 0, 0 errors, 16 warnings (same 16 as before this task; all
+   pre-existing `orphan-source` and `inferred-ratio` warnings). `derived-importance`,
+   `invalid-enum`, `dangling-confused-with`, and `unsourced-concept` all clean.
+2. `npm run generate` — regenerated `research/**` and `coverage-matrix.md`; exit 0.
+3. `npm run validate && npm test` — both exit 0; 156/156 tests passing (unchanged count).
+4. `npm run check-guide` — total error count went from 822 to 825 (537 missing-concept, 130
+   comparison-coverage, 158 comparison-pointer; was 537/129/156). The two new `confused_with`
+   edges account for the entire +3: `sysadmin.system-administration.home` →
+   `linux.command-line.root-directory-vs-root-vs-home` adds the home concept as a member of an
+   *existing* comparison block (that concept already owned a block comparing it with
+   `linux.command-line.dot-dotdot-and-tilde`, since its id contains "-vs-" and wins ownership),
+   so it adds one new required pointer but no new block. `devops.git-concepts.push` →
+   `devops.git-concepts.commit` is a genuinely new pair with no prior block on either side;
+   ownership ties on the "-vs-" naming rank, importance (1 each), and required_depth (3 each),
+   so it resolves lexicographically to `commit` (`c` < `p`), creating one new comparison block
+   (+1 comparison-coverage) that `push` must point to (+1 comparison-pointer), plus the +1
+   pointer from the home/root edge above (+2 comparison-pointer total). No guide files exist
+   yet, so every concept still reports `guide-missing-concept` (unchanged at 537) and every
+   comparison block still reports `guide-comparison-coverage` as unwritten — expected until
+   prose is written.
+
+### Sources not independently verifiable
+
+Every primary source cited above (`fhs-3-0`, `man-hier-7`, `git-push`, and the AWS/Azure/Google
+Cloud product documentation consulted for the vendor-neutrality rewrite) was fetched and read
+directly during this task. Nothing was cited without having been read.
+
+### No exam-dump exposure
+
+No exam dumps or leaked-question sites were searched for, opened, or used as sources at any
+point in this task.
