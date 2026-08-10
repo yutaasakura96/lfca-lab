@@ -6,7 +6,10 @@
       "name": "Fixture Domain",
       "weight": 100,
       "file": "01-fixture-domain.json",
-      "competencies": [{ "name": "Fixture Competency", "sept_2025_status": "unchanged" }]
+      "competencies": [
+        { "name": "Fixture Competency", "sept_2025_status": "unchanged" },
+        { "name": "Second Competency", "sept_2025_status": "unchanged" }
+      ]
     }
   ]
 }

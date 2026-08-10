@@ -1186,11 +1186,16 @@ Create `tools/test/fixtures/guide/competencies.json`:
       "name": "Fixture Domain",
       "weight": 100,
       "file": "01-fixture-domain.json",
-      "competencies": [{ "name": "Fixture Competency", "sept_2025_status": "unchanged" }]
+      "competencies": [
+        { "name": "Fixture Competency", "sept_2025_status": "unchanged" },
+        { "name": "Second Competency", "sept_2025_status": "unchanged" }
+      ]
     }
   ]
 }
 ```
+
+`Second Competency` exists solely so the scope tests (Step 2, "Fix round 1" below) can tell working scoping from `inScope` stubbed to `return false` or `return true`: a scope naming it must exclude the other competency's concepts, and a scope naming the fixture's actual competency must still report them.
 
 Create `tools/test/fixtures/guide/sources.json`:
 
@@ -1316,10 +1321,78 @@ Create `tools/test/fixtures/guide/topics/01-fixture-domain.json`:
       "confused_with": [],
       "coverage_status": "NOT COVERED",
       "notes": ""
+    },
+    {
+      "id": "fx.fixture.other",
+      "path": ["Fixture Domain", "Second Competency", "Section One", "other"],
+      "domain": "Fixture Domain",
+      "competency": "Second Competency",
+      "description": "A depth 1 concept belonging to a different competency, used to test scoping.",
+      "objective_verbatim": "Second Competency",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 1,
+      "importance": 1,
+      "official_sources": ["fx-source"],
+      "lfs200_sources": [],
+      "additional_sources": ["fx-source"],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "fx.fixture.diagnostic",
+      "path": ["Fixture Domain", "Fixture Competency", "Section One", "diagnostic"],
+      "domain": "Fixture Domain",
+      "competency": "Fixture Competency",
+      "description": "A depth 4 concept, used to exercise the Symptoms and diagnostic order label.",
+      "objective_verbatim": "Fixture Competency",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 4,
+      "importance": 3,
+      "official_sources": ["fx-source"],
+      "lfs200_sources": [],
+      "additional_sources": ["fx-source"],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
+    },
+    {
+      "id": "fx.fixture.advanced",
+      "path": ["Fixture Domain", "Fixture Competency", "Section One", "advanced"],
+      "domain": "Fixture Domain",
+      "competency": "Fixture Competency",
+      "description": "A depth 5 concept, used to exercise the Syntax worth memorising label.",
+      "objective_verbatim": "Fixture Competency",
+      "sept_2025_status": "unchanged",
+      "inferred": true,
+      "confidence": "HIGH",
+      "required_depth": 5,
+      "importance": 5,
+      "official_sources": ["fx-source"],
+      "lfs200_sources": [],
+      "additional_sources": ["fx-source"],
+      "candidate_evidence": [],
+      "commands": [],
+      "related_topics": [],
+      "confused_with": [],
+      "coverage_status": "NOT COVERED",
+      "notes": ""
     }
   ]
 }
 ```
+
+`fx.fixture.other`, `fx.fixture.diagnostic` and `fx.fixture.advanced` were added in "Fix round 1" (see below): the first to make scoping testable against a second real competency, the other two so the depth-4 (`Symptoms and diagnostic order`) and depth-5 (`Syntax worth memorising`) label requirements are exercised at all.
 
 - [ ] **Step 2: Write the failing test**
 
@@ -1340,6 +1413,8 @@ import {
   checkDepthTreatment,
   checkMetadataAccuracy,
   checkSourceIds,
+  inScope,
+  assertKnownScope,
 } from '../lib/guide-checks.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -1389,11 +1464,37 @@ const COMPLETE = [
   '**How it works** ...',
   '**Key terms** ...',
   '',
+  '<a id="c-fx.fixture.diagnostic"></a>',
+  '### Diagnostic',
+  '*id: `fx.fixture.diagnostic` · depth 4 · importance 3 · LFS200: NOT COVERED · sources: fx-source*',
+  '',
+  '**What it is** ...',
+  '**Why it matters** ...',
+  '**How it works** ...',
+  '**Key terms** ...',
+  '**Traps** ...',
+  '**What the exam may test** ...',
+  '**Symptoms and diagnostic order** ...',
+  '',
+  '<a id="c-fx.fixture.advanced"></a>',
+  '### Advanced',
+  '*id: `fx.fixture.advanced` · depth 5 · importance 5 · LFS200: NOT COVERED · sources: fx-source*',
+  '',
+  '**What it is** ...',
+  '**Why it matters** ...',
+  '**How it works** ...',
+  '**Key terms** ...',
+  '**Traps** ...',
+  '**What the exam may test** ...',
+  '**Symptoms and diagnostic order** ...',
+  '**Syntax worth memorising** ...',
+  '',
   '#### Quick reference',
   '',
   '| Concept | Term | In one sentence | Why it is examinable |',
   '| --- | --- | --- | --- |',
   '| `fx.fixture.tiny` | Tiny | A small thing. | It is confused with Deep. |',
+  '| `fx.fixture.other` | Other | A concept from a different competency. | It anchors the scope tests. |',
   '',
   '#### Scenario',
   '',
@@ -1451,6 +1552,33 @@ test('a section with definitions but no knowledge check is an error', () => {
   assert.match(found[0].message, /Knowledge check/);
 });
 
+test('a section with definitions but no Scenario is an error', () => {
+  const text = COMPLETE.replace('#### Scenario', '#### Setup');
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /Scenario/);
+});
+
+test('a definition anchored outside any section is an error', () => {
+  const text = [
+    '# Fixture Competency',
+    '',
+    '<a id="c-fx.fixture.shallow"></a>',
+    '### Shallow',
+    '*id: `fx.fixture.shallow` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: fx-source*',
+    '',
+    '**What it is** ...',
+    '**Why it matters** ...',
+    '**How it works** ...',
+    '**Key terms** ...',
+    '',
+  ].join('\n');
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /fx\.fixture\.shallow/);
+  assert.match(found[0].message, /outside any section/);
+});
+
 test('a depth 3 concept missing Traps is an error', () => {
   const text = COMPLETE.replace('**Traps** ...', '');
   const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
@@ -1463,11 +1591,132 @@ test('a depth 2 concept is not required to carry Traps', () => {
   assert.deepEqual(found, []);
 });
 
+test('a depth 4 concept missing Symptoms and diagnostic order is an error', () => {
+  // Non-global replace hits the first occurrence only, which is Diagnostic's
+  // (it appears before Advanced's identical line in file order).
+  const text = COMPLETE.replace('**Symptoms and diagnostic order** ...\n', '');
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.diagnostic');
+  assert.match(found[0].message, /Symptoms and diagnostic order/);
+});
+
+test('a depth 5 concept missing Syntax worth memorising is an error', () => {
+  const text = COMPLETE.replace('**Syntax worth memorising** ...', '');
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.advanced');
+  assert.match(found[0].message, /Syntax worth memorising/);
+});
+
+test('a concept with commands in data/ but no Commands section is an error', () => {
+  const text = COMPLETE.replace('**Commands**', '');
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.deep');
+  assert.match(found[0].message, /Commands/);
+});
+
+test('a depth 1 concept stubbed as a topic instead of a glossary row is an error', () => {
+  const text = [
+    '# Fixture Competency',
+    '',
+    '<a id="s-fixture-competency-section-one"></a>',
+    '## Section One',
+    '',
+    '<a id="c-fx.fixture.tiny"></a>',
+    '### Tiny',
+    '*id: `fx.fixture.tiny` · depth 1 · importance 1 · LFS200: NOT COVERED · sources: fx-source*',
+    '',
+    '**What it is** ...',
+    '',
+    '#### Scenario',
+    '',
+    'Something happens.',
+    '',
+    '#### Knowledge check',
+    '',
+    '1. Question.',
+    '',
+  ].join('\n');
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.tiny');
+  assert.match(found[0].message, /depth 1/);
+  assert.match(found[0].message, /glossary/);
+  assert.match(found[0].message, /topic/);
+});
+
+test('a depth 2+ concept stubbed as a glossary row instead of a topic is an error', () => {
+  const text = COMPLETE
+    .replace(
+      [
+        '<a id="c-fx.fixture.deep"></a>',
+        '### Deep',
+        '*id: `fx.fixture.deep` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: fx-source*',
+        '',
+        '**What it is** ...',
+        '**Why it matters** ...',
+        '**How it works** ...',
+        '**Key terms** ...',
+        '**Commands**',
+        '',
+        '| Command | Purpose |',
+        '| --- | --- |',
+        '| `uname -r` | Show the running kernel release |',
+        '',
+        '**Traps** ...',
+        '**What the exam may test** ...',
+        '',
+      ].join('\n'),
+      '',
+    )
+    .replace(
+      '| `fx.fixture.tiny` | Tiny | A small thing. | It is confused with Deep. |',
+      '| `fx.fixture.tiny` | Tiny | A small thing. | It is confused with Deep. |\n| `fx.fixture.deep` | Deep | A stubbed row. | It should be a topic. |',
+    );
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.deep');
+  assert.match(found[0].message, /depth 3/);
+  assert.match(found[0].message, /glossary/);
+  assert.match(found[0].message, /topic/);
+});
+
+test('a body label mentioned incidentally inside a Commands cell does not satisfy the check', () => {
+  const text = COMPLETE.replace(
+    '| `uname -r` | Show the running kernel release |',
+    '| `uname -r` | Show the running kernel release (see **Traps** and **What the exam may test**) |',
+  ).replace('**Traps** ...\n**What the exam may test** ...\n', '');
+  const found = checkDepthTreatment(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 2);
+  assert.ok(found.every((f) => f.id === 'fx.fixture.deep'));
+  assert.ok(found.some((f) => /Traps/.test(f.message)));
+  assert.ok(found.some((f) => /What the exam may test/.test(f.message)));
+});
+
 test('a metadata line disagreeing with the dataset is an error', () => {
   const text = COMPLETE.replace('depth 3 · importance 4', 'depth 2 · importance 4');
   const found = checkMetadataAccuracy(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
   assert.equal(found.length, 1);
   assert.match(found[0].message, /depth/);
+});
+
+test('an importance value disagreeing with the dataset is an error', () => {
+  const text = COMPLETE.replace('depth 3 · importance 4', 'depth 3 · importance 3');
+  const found = checkMetadataAccuracy(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /importance/);
+});
+
+test('an LFS200 coverage value disagreeing with the dataset is an error', () => {
+  const text = COMPLETE.replace(
+    '*id: `fx.fixture.deep` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: fx-source*',
+    '*id: `fx.fixture.deep` · depth 3 · importance 4 · LFS200: COVERED · sources: fx-source*',
+  );
+  const found = checkMetadataAccuracy(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /LFS200/);
 });
 
 test('a metadata line citing an unregistered source is an error', () => {
@@ -1481,7 +1730,59 @@ test('scope restricts missing-concept reporting to one competency', () => {
   const found = checkMissingConcept(dataset, [], { scope: 'Other Domain :: Other Competency' });
   assert.deepEqual(found, []);
 });
+
+test('a scope naming the fixture\'s actual competency still reports a genuinely missing concept', () => {
+  const text = COMPLETE.replace('| `fx.fixture.tiny` | Tiny | A small thing. | It is confused with Deep. |', '');
+  const found = checkMissingConcept(dataset, [parseGuideFile(GUIDE_PATH, text)], {
+    scope: 'Fixture Domain :: Fixture Competency',
+  });
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.tiny');
+});
+
+test('a scope naming a different real competency excludes concepts outside it', () => {
+  // fx.fixture.tiny (Fixture Competency) is missing here, and fx.fixture.other
+  // (Second Competency) is fully defined. A scope of "Second Competency" must
+  // report neither the excluded missing concept nor a false positive for the
+  // in-scope, already-defined one — proving the scope genuinely filters
+  // rather than passing everything through (or nothing, per the mutation
+  // this guards against: `inScope` stubbed to always return false or true).
+  const text = COMPLETE.replace('| `fx.fixture.tiny` | Tiny | A small thing. | It is confused with Deep. |', '');
+  const found = checkMissingConcept(dataset, [parseGuideFile(GUIDE_PATH, text)], {
+    scope: 'Fixture Domain :: Second Competency',
+  });
+  assert.deepEqual(found, []);
+});
+
+test('inScope matches only the named competency', () => {
+  const topic = { domain: 'Fixture Domain', competency: 'Fixture Competency' };
+  assert.equal(inScope(topic, { scope: 'Fixture Domain :: Fixture Competency' }), true);
+  assert.equal(inScope(topic, { scope: 'Fixture Domain :: Second Competency' }), false);
+  assert.equal(inScope(topic, {}), true);
+});
+
+test('assertKnownScope throws on a scope naming an unknown competency', () => {
+  assert.throws(
+    () => assertKnownScope(dataset, { scope: 'Other Domain :: Other Competency' }),
+    /Unknown scope "Other Domain :: Other Competency"/,
+  );
+  try {
+    assertKnownScope(dataset, { scope: 'Other Domain :: Other Competency' });
+  } catch (err) {
+    assert.match(err.message, /Fixture Domain :: Fixture Competency/);
+    assert.match(err.message, /Fixture Domain :: Second Competency/);
+  }
+});
+
+test('assertKnownScope does not throw for a known scope or no scope', () => {
+  assert.doesNotThrow(() => assertKnownScope(dataset, { scope: 'Fixture Domain :: Fixture Competency' }));
+  assert.doesNotThrow(() => assertKnownScope(dataset, { scope: 'Fixture Domain :: Second Competency' }));
+  assert.doesNotThrow(() => assertKnownScope(dataset, {}));
+  assert.doesNotThrow(() => assertKnownScope(dataset, undefined));
+});
 ```
+
+The block above is the shipped state after "Fix round 1" (see the note at the end of this task). The tests from `'a section with definitions but no Scenario is an error'` onward, `inScope`/`assertKnownScope` in the import list, and the `Diagnostic`/`Advanced` concepts and second Quick reference row in `COMPLETE`, were not part of the original Step 2 draft — they were added to close the gaps a branch review found in the first cut of these checks.
 
 - [ ] **Step 3: Run the test to verify it fails**
 
@@ -1504,6 +1805,26 @@ export function inScope(topic, options) {
   return competencyKey(topic.domain, topic.competency) === options.scope.replace(' :: ', '::');
 }
 
+// Throws when `options.scope` names a competency that does not exist anywhere
+// in the dataset. A scoped check run that silently matches nothing (typo'd
+// domain, renamed competency, stale scope string left over from a previous
+// cycle) reports zero errors over zero concepts — a green light that means
+// nothing. This turns that silent no-op into an explicit failure, naming the
+// bad scope and listing every valid competency key so the caller can fix it.
+export function assertKnownScope(dataset, options) {
+  if (!options?.scope) return;
+  const validKeys = dataset.competencies.domains.flatMap((domain) =>
+    domain.competencies.map((c) => competencyKey(domain.name, c.name)),
+  );
+  const normalizedScope = options.scope.replace(' :: ', '::');
+  if (!validKeys.includes(normalizedScope)) {
+    const readable = validKeys.map((k) => k.replace('::', ' :: '));
+    throw new Error(
+      `Unknown scope "${options.scope}". Valid competencies: ${readable.join(', ')}`,
+    );
+  }
+}
+
 export function allDefinitions(files) {
   return files.flatMap((f) => f.definitions.map((d) => ({ ...d, file: f.path })));
 }
@@ -1514,6 +1835,20 @@ const LABELS_BY_DEPTH = {
   4: ['What it is', 'Why it matters', 'How it works', 'Key terms', 'Traps', 'What the exam may test', 'Symptoms and diagnostic order'],
   5: ['What it is', 'Why it matters', 'How it works', 'Key terms', 'Traps', 'What the exam may test', 'Symptoms and diagnostic order', 'Syntax worth memorising'],
 };
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// A body label (e.g. "**Traps**") only counts if it begins a line. The naive
+// `blockText.includes('**' + label + '**')` also matched an incidental
+// mention anywhere in the block, including inside a Commands-table cell
+// (which always starts with "|"), so a label string could be satisfied by
+// accident. Anchoring to line-start closes that: a markdown table row always
+// begins with "|", never with the label markup itself.
+function blockHasLabel(blockText, label) {
+  return new RegExp(`^\\*\\*${escapeRegExp(label)}\\*\\*`, 'm').test(blockText);
+}
 
 export function checkMissingConcept({ topics }, files, options) {
   const defined = new Set(allDefinitions(files).map((d) => d.id));
@@ -1561,6 +1896,7 @@ export function checkUnknownConcept({ topics }, files) {
 export function checkSectionApparatus(dataset, files) {
   const out = [];
   for (const f of files) {
+    const coveredIds = new Set(f.sections.flatMap((s) => s.definitionIds));
     for (const s of f.sections) {
       if (s.definitionIds.length === 0) continue;
       if (!s.hasScenario) {
@@ -1568,6 +1904,22 @@ export function checkSectionApparatus(dataset, files) {
       }
       if (!s.hasKnowledgeCheck) {
         out.push(finding('guide-section-apparatus', 'error', s.heading, `${f.path}:${s.line} section "${s.heading}" has no Knowledge check`));
+      }
+    }
+    // A definition anchored directly under the H1 title, with no enclosing
+    // `##` section, never appears in any section's `definitionIds` — the
+    // loop above can't see it, so it silently skipped Scenario/Knowledge
+    // check verification entirely. Report it explicitly instead.
+    for (const d of f.definitions) {
+      if (!coveredIds.has(d.id)) {
+        out.push(
+          finding(
+            'guide-section-apparatus',
+            'error',
+            d.id,
+            `${f.path}:${d.line} ${d.id} is defined outside any section, so it cannot be checked for Scenario or Knowledge check apparatus`,
+          ),
+        );
       }
     }
   }
@@ -1579,9 +1931,30 @@ export function checkDepthTreatment({ topics }, files) {
   const out = [];
   for (const d of allDefinitions(files)) {
     const topic = index.get(d.id);
-    if (!topic || d.kind !== 'topic') continue;
+    if (!topic) continue;
+
+    // A concept's definition kind must match its required depth: depth 1 is
+    // written as a single Quick reference row (kind 'glossary'); depth 2+
+    // must be written as a full topic (kind 'topic'). Without this, any
+    // concept — regardless of depth — could be stubbed as a one-line
+    // glossary row and every check below, which only looks at 'topic'
+    // definitions, would have nothing left to complain about.
+    const expectedKind = topic.required_depth === 1 ? 'glossary' : 'topic';
+    if (d.kind !== expectedKind) {
+      out.push(
+        finding(
+          'guide-depth-treatment',
+          'error',
+          d.id,
+          `${d.file}:${d.line} ${d.id} is depth ${topic.required_depth} and must be defined as a ${expectedKind}, but is defined as a ${d.kind}`,
+        ),
+      );
+      continue;
+    }
+    if (d.kind !== 'topic') continue;
+
     for (const label of LABELS_BY_DEPTH[topic.required_depth] ?? []) {
-      if (!d.blockText.includes(`**${label}**`)) {
+      if (!blockHasLabel(d.blockText, label)) {
         out.push(
           finding(
             'guide-depth-treatment',
@@ -1592,7 +1965,7 @@ export function checkDepthTreatment({ topics }, files) {
         );
       }
     }
-    if (topic.commands.length > 0 && !d.blockText.includes('**Commands**')) {
+    if (topic.commands.length > 0 && !blockHasLabel(d.blockText, 'Commands')) {
       out.push(
         finding('guide-depth-treatment', 'error', d.id, `${d.file}:${d.line} ${d.id} has commands in data/ but no Commands section`),
       );
@@ -1636,15 +2009,17 @@ export function checkSourceIds({ sources }, files) {
 }
 ```
 
+The block above is the shipped state after "Fix round 1": `assertKnownScope`, the `blockHasLabel`/`escapeRegExp` line-anchored label matcher, the kind-vs-depth check inside `checkDepthTreatment`, and the outside-any-section branch inside `checkSectionApparatus` were not part of the original Step 4 draft. See "Fix round 1" below for why.
+
 - [ ] **Step 5: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-checks.test.mjs`
-Expected: PASS, 10 tests.
+Expected: PASS, 25 tests (10 from the original Step 2 draft, 15 added in "Fix round 1").
 
 - [ ] **Step 6: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 85 tests.
+Expected: both exit 0; `npm test` 130 tests; `npm run validate` 537 concepts checked, 0 errors.
 
 - [ ] **Step 7: Commit**
 
@@ -1652,6 +2027,20 @@ Expected: both exit 0; 85 tests.
 git add tools/lib/guide-checks.mjs tools/test/guide-checks.test.mjs tools/test/fixtures/guide
 git commit -m "feat: add structural study guide checks"
 ```
+
+### Fix round 1
+
+A branch review of the shipped Task 4 code found three critical and two important gaps, all in `tools/lib/guide-checks.mjs` / `tools/test/guide-checks.test.mjs`:
+
+1. **Depth vs. kind was never checked.** `checkDepthTreatment` and `checkMetadataAccuracy` both skipped any definition whose `kind !== 'topic'`, so any concept — regardless of `required_depth` — could be stubbed as a one-line Quick reference row and pass every check. Fixed inside `checkDepthTreatment`: depth 1 must be `kind: 'glossary'`, depth 2+ must be `kind: 'topic'`, and a mismatch in either direction is now an error naming the depth and both kinds.
+2. **Body-label matching was a naive substring match.** `blockText.includes('**Traps**')` was satisfied by an incidental mention anywhere in the block, including inside a Commands-table cell. Fixed with `blockHasLabel`, which anchors the label to the start of a line (a table row always starts with `|`), applied to both the per-depth label loop and the `**Commands**` check.
+3. **The only scope test couldn't distinguish working scoping from `inScope` stubbed to `return false`.** Fixed in two parts: (a) the fixture dataset gained a second competency (`Second Competency`, concept `fx.fixture.other`) so a scope naming the fixture's actual competency can be asserted to still report a genuinely missing concept, and a scope naming the other competency can be asserted to exclude it; (b) `assertKnownScope(dataset, options)` is now exported — it throws when `options.scope` names a competency absent from the dataset, rather than silently matching nothing. Task 5 must call it from `runAllGuideChecks` and the CLI before running the scoped checks.
+4. **`checkSectionApparatus` couldn't see a definition outside every section.** It only iterated over parsed sections, so a concept anchored directly under the H1 title (no enclosing `##`) was silently never checked for Scenario/Knowledge check apparatus. Fixed by tracking every definition id covered by some section and reporting the ones that aren't, naming the concept and file.
+5. **Coverage gaps.** Added tests for: `checkSectionApparatus`'s missing-Scenario branch on its own; `checkDepthTreatment`'s missing-`**Commands**` branch; `checkMetadataAccuracy`'s importance-mismatch and coverage-mismatch branches; and two new fixture concepts (`fx.fixture.diagnostic`, depth 4; `fx.fixture.advanced`, depth 5) so the `Symptoms and diagnostic order` and `Syntax worth memorising` labels are exercised at all.
+
+Verification for the fix round: `node --test tools/test/guide-checks.test.mjs` (25 pass), `npm test` (130 pass, was 115 before the fixture additions), `npm run validate` (exit 0, 537 concepts, 0 errors). A mutation check — stubbing `inScope` to `return false` — turned 3 tests red (`a concept with no definition site anywhere is an error`, `a scope naming the fixture's actual competency still reports a genuinely missing concept`, `inScope matches only the named competency`), confirming the scope tests actually exercise `inScope` rather than passing by construction.
+
+Full report: `.superpowers/sdd/task-4-report.md`, under "Fix round 1".
 
 ---
 
@@ -1662,8 +2051,9 @@ git commit -m "feat: add structural study guide checks"
 - Modify: `tools/test/guide-checks.test.mjs` (append)
 
 **Interfaces:**
-- Consumes: `assignBlocks`, `blocksMentioning` from `tools/lib/comparisons.mjs`; `guideIndex`, `guidePathFor`, `relativeGuideLink` from `tools/lib/guide-paths.mjs`; the helpers `finding`, `inScope`, `allDefinitions` exported by Task 4.
+- Consumes: `assignBlocks`, `blocksMentioning` from `tools/lib/comparisons.mjs`; `guideIndex`, `guidePathFor`, `relativeGuideLink` from `tools/lib/guide-paths.mjs`; the helpers `finding`, `inScope`, `allDefinitions`, `assertKnownScope` exported by Task 4.
 - Produces: `checkComparisonCoverage`, `checkComparisonMembership`, `checkComparisonPointer`, `checkCommandCoverage`, `checkWaiverMarker`, `checkDanglingXref`, `checkVendorNeutrality`, and `runAllGuideChecks(dataset, files, options) -> Finding[]` running all fourteen in the spec's order.
+- `runAllGuideChecks` must call `assertKnownScope(dataset, options)` before running any check (it throws on an unknown `options.scope`, so an unrecognised scope aborts the run instead of silently reporting zero findings over zero concepts). The CLI entry point that calls `runAllGuideChecks` with a user-supplied `--scope` must let that error surface as a hard failure, not a swallowed warning.
 
 - [ ] **Step 1: Write the failing test**
 
