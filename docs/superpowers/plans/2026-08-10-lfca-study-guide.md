@@ -2369,6 +2369,7 @@ export function checkVendorNeutrality(dataset, files) {
 }
 
 export function runAllGuideChecks(dataset, files, options = {}) {
+  assertKnownScope(dataset, options);
   return [
     ...checkMissingConcept(dataset, files, options),
     ...checkDuplicateDefinition(dataset, files, options),
@@ -2393,8 +2394,9 @@ Move the three `import` lines to the top of the file, alongside the existing `co
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-checks.test.mjs`
-Expected: PASS, 37 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
-covering that `runAllGuideChecks` calls `assertKnownScope` before running any check).
+Expected: PASS, 49 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
+covering that `runAllGuideChecks` calls `assertKnownScope` before running any check — plus 12
+more added in "Fix round 1" below).
 
 **Note (post-implementation):** Task 4 went through a fix round after this task was drafted,
 which changed the actual test count (25, not 10) and added a second competency plus depth-4/5
@@ -2405,10 +2407,33 @@ Deep's) still match verbatim, so no adaptation to the sample text itself was nee
 also calls `assertKnownScope(dataset, options)` as the first line of `runAllGuideChecks`, per
 the interface note above.
 
+**Note (Fix round 1):** A mutation-testing review of the seven checks this task adds found the
+test suite green under mutations that should have failed it: `checkVendorNeutrality`'s only
+trigger condition (`used.length > 0 && !hasMapping`) was exercised by no test, since the one
+test naming it only hits the early-return path; the scope gates in
+`checkComparisonCoverage`, `checkComparisonMembership`, `checkComparisonPointer`,
+`checkCommandCoverage` and `checkWaiverMarker` were never exercised with a real `scope` value;
+`checkCommandCoverage` credited a substring match (`uname -r` satisfied by a guide that only
+ever showed `uname -rV`); `checkDanglingXref` skipped every anchor-only href unconditionally,
+so a same-file link to a nonexistent anchor passed unconditionally; and `checkWaiverMarker`
+matched only the waiver disclaimer's opening sentence, letting a truncated marker pass. Fixed by
+tightening `checkCommandCoverage` to require a complete invocation (not immediately adjacent, on
+either side, to a letter, digit, hyphen, underscore, `=` or `/`), resolving anchor-only links in
+`checkDanglingXref` against the containing file's own anchors, and requiring both the opening
+sentence and the phrase `not citable fact` in `checkWaiverMarker` — plus twelve new tests: three
+building a synthetic Cloud Computing Fundamentals :: Networking dataset to exercise
+`checkVendorNeutrality`'s real trigger in both directions; five, one per under-tested check,
+each building a small local dataset (not the shared fixture, to avoid rippling into every other
+test that reads `dataset.topics` unscoped) with an equivalent violation in two real competencies
+and proving scope filtering both reports the in-scope one and excludes the other; two for the
+command-boundary fix (`uname -r` vs `uname -rV`, and a fenced command followed by a pipe still
+counting); one for the anchor-only dangling-link fix; and one for the truncated-waiver-marker
+fix. `tools/test/guide-checks.test.mjs` grew from 37 to 49 tests.
+
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 142 tests.
+Expected: both exit 0; 154 tests.
 
 - [ ] **Step 6: Commit**
 

@@ -513,6 +513,241 @@ test('vendor neutrality warns only on cloud networking files', () => {
   assert.deepEqual(found, []);
 });
 
+// --- Fix round 1: CRITICAL 1 — checkVendorNeutrality's real trigger path ---
+//
+// The test above only exercises the early return (no Cloud Computing
+// Fundamentals :: Networking competency in the fixture dataset), so the
+// check's actual trigger condition — `used.length > 0 && !hasMapping` — was
+// never run by any test. These three build a synthetic dataset that does
+// have that competency, so the real path executes.
+
+function cloudDataset(topicOverrides = {}) {
+  return {
+    competencies: {
+      domains: [
+        {
+          name: 'Cloud Computing Fundamentals',
+          file: '03-cloud-computing.json',
+          competencies: [{ name: 'Networking' }],
+        },
+      ],
+    },
+    topics: [
+      {
+        id: 'cloud.networking.vpc',
+        domain: 'Cloud Computing Fundamentals',
+        competency: 'Networking',
+        ...topicOverrides,
+      },
+    ],
+  };
+}
+
+const CLOUD_NETWORKING_PATH = 'study-guide/03-cloud-computing/networking.md';
+
+test('vendor neutrality warns when AWS-only vocabulary appears with no vendor mapping table', () => {
+  const files = [{
+    path: CLOUD_NETWORKING_PATH,
+    definitions: [{ blockText: 'Configuring a VPC alongside a Security Group for isolation.' }],
+  }];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.equal(found.length, 1);
+  assert.equal(found[0].check, 'guide-vendor-neutrality');
+  assert.equal(found[0].severity, 'warn');
+  assert.match(found[0].message, /VPC/);
+  assert.match(found[0].message, /Security Group/);
+});
+
+test('vendor neutrality is silent when a vendor mapping table accompanies the same vocabulary', () => {
+  const files = [{
+    path: CLOUD_NETWORKING_PATH,
+    definitions: [{
+      blockText: [
+        'Configuring a VPC alongside a Security Group for isolation.',
+        '| AWS | Azure |',
+        '| --- | --- |',
+      ].join('\n'),
+    }],
+  }];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.deepEqual(found, []);
+});
+
+test('vendor neutrality is silent when no AWS-only vocabulary is used', () => {
+  const files = [{
+    path: CLOUD_NETWORKING_PATH,
+    definitions: [{ blockText: 'Discusses subnets and routing tables in vendor-neutral terms.' }],
+  }];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.deepEqual(found, []);
+});
+
+// --- Fix round 1: IMPORTANT 2 — scope filtering in the five untested checks ---
+//
+// No existing test passes a real, non-empty `scope` to any of these five
+// checks, so their scope gates (`ownedInScope` / `inScope`) run only ever
+// under `{}`, where they are a no-op. Each test below builds a small local
+// dataset — not the shared, fixture-loaded `dataset` used everywhere else in
+// this file, since extending the shared fixture with additional topics
+// would ripple into every other test that reads `dataset.topics` unscoped —
+// mirroring the same two real competency names the fixture itself uses
+// ("Fixture Domain :: Fixture Competency" and "Fixture Domain :: Second
+// Competency"), with an equivalent violation planted in each. Scoping to
+// Fixture Competency must report the in-scope violation and exclude the
+// out-of-scope one — both directions, in one assertion pair.
+
+function scopeCompetencies() {
+  return {
+    domains: [
+      {
+        name: 'Fixture Domain',
+        file: '01-fixture-domain.json',
+        competencies: [{ name: 'Fixture Competency' }, { name: 'Second Competency' }],
+      },
+    ],
+  };
+}
+
+test('checkComparisonCoverage scope filtering reports the scoped owner and excludes the other', () => {
+  const localDataset = {
+    competencies: scopeCompetencies(),
+    topics: [
+      { id: 'fx.fixture.scope-a-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-a-member'] },
+      { id: 'fx.fixture.scope-a-member', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 2, required_depth: 2, confused_with: [] },
+      { id: 'fx.fixture.scope-b-owner', domain: 'Fixture Domain', competency: 'Second Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-b-member'] },
+      { id: 'fx.fixture.scope-b-member', domain: 'Fixture Domain', competency: 'Second Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+  // No files write either owner's comparison block, so both are "missing" —
+  // the scope must keep only the in-scope owner's finding.
+  const found = checkComparisonCoverage(localDataset, [], { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(found.some((f) => f.id === 'fx.fixture.scope-a-owner'));
+  assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-b-owner'));
+});
+
+test('checkComparisonMembership scope filtering reports the scoped owner and excludes the other', () => {
+  const localDataset = {
+    competencies: scopeCompetencies(),
+    topics: [
+      { id: 'fx.fixture.scope-a-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-a-member'] },
+      { id: 'fx.fixture.scope-a-member', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 2, required_depth: 2, confused_with: [] },
+      { id: 'fx.fixture.scope-b-owner', domain: 'Fixture Domain', competency: 'Second Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-b-member'] },
+      { id: 'fx.fixture.scope-b-member', domain: 'Fixture Domain', competency: 'Second Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+  const files = [{
+    path: 'x.md',
+    comparisons: [
+      { owner: 'fx.fixture.scope-a-owner', line: 1, compares: ['fx.fixture.scope-a-owner', 'fx.fixture.scope-wrong'] },
+      { owner: 'fx.fixture.scope-b-owner', line: 2, compares: ['fx.fixture.scope-b-owner', 'fx.fixture.scope-wrong'] },
+    ],
+  }];
+  const found = checkComparisonMembership(localDataset, files, { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(found.some((f) => f.id === 'fx.fixture.scope-a-owner'));
+  assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-b-owner'));
+});
+
+test('checkComparisonPointer scope filtering reports the scoped member and excludes the other', () => {
+  const localDataset = {
+    competencies: scopeCompetencies(),
+    topics: [
+      { id: 'fx.fixture.scope-a-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-a-member'] },
+      { id: 'fx.fixture.scope-a-member', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 2, required_depth: 2, confused_with: [] },
+      { id: 'fx.fixture.scope-b-owner', domain: 'Fixture Domain', competency: 'Second Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.scope-b-member'] },
+      { id: 'fx.fixture.scope-b-member', domain: 'Fixture Domain', competency: 'Second Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+  // No files carry any pointer, so both members are missing theirs — the
+  // scope must keep only the in-scope member's finding.
+  const found = checkComparisonPointer(localDataset, [], { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(found.some((f) => f.id === 'fx.fixture.scope-a-member'));
+  assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-b-member'));
+});
+
+test('checkCommandCoverage scope filtering reports the scoped concept and excludes the other', () => {
+  const localDataset = {
+    topics: [
+      { id: 'fx.fixture.scope-cmd-a', domain: 'Fixture Domain', competency: 'Fixture Competency', commands: ['ps aux'] },
+      { id: 'fx.fixture.scope-cmd-b', domain: 'Fixture Domain', competency: 'Second Competency', commands: ['ps aux'] },
+    ],
+  };
+  const files = [{
+    path: 'x.md',
+    definitions: [
+      { id: 'fx.fixture.scope-cmd-a', kind: 'topic', line: 1, blockText: 'No commands shown here.' },
+      { id: 'fx.fixture.scope-cmd-b', kind: 'topic', line: 2, blockText: 'No commands shown here either.' },
+    ],
+  }];
+  const found = checkCommandCoverage(localDataset, files, { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(found.some((f) => f.id === 'fx.fixture.scope-cmd-a'));
+  assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-cmd-b'));
+});
+
+test('checkWaiverMarker scope filtering reports the scoped waived concept and excludes the other', () => {
+  const localDataset = {
+    topics: [
+      { id: 'fx.fixture.scope-waived-a', domain: 'Fixture Domain', competency: 'Fixture Competency' },
+      { id: 'fx.fixture.scope-waived-b', domain: 'Fixture Domain', competency: 'Second Competency' },
+    ],
+    waivers: { waived: ['fx.fixture.scope-waived-a', 'fx.fixture.scope-waived-b'] },
+  };
+  const files = [{
+    path: 'x.md',
+    definitions: [
+      { id: 'fx.fixture.scope-waived-a', line: 1, blockText: 'No marker here.' },
+      { id: 'fx.fixture.scope-waived-b', line: 2, blockText: 'No marker here either.' },
+    ],
+  }];
+  const found = checkWaiverMarker(localDataset, files, { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(found.some((f) => f.id === 'fx.fixture.scope-waived-a'));
+  assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-waived-b'));
+});
+
+// --- Fix round 1: IMPORTANT 3 — checkCommandCoverage credited a substring match ---
+
+test('a command shown only as a prefix of a longer flag combination is not credited', () => {
+  // The dataset requires `uname -r`; the guide only ever shows `uname -rV`.
+  // A plain substring check would credit this, since "uname -r" is a
+  // substring of "uname -rV" — but the shorter command was never actually
+  // demonstrated.
+  const text = FULL.replace(
+    '| `uname -r` | Show the running kernel release |',
+    '| `uname -rV` | Show the running kernel release and version |',
+  );
+  const found = checkCommandCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /uname -r\b/);
+});
+
+test('a command inside a fenced block, followed by a pipe, still counts as a complete invocation', () => {
+  const text = FULL.replace(
+    '| `uname -r` | Show the running kernel release |',
+    ['| `uname` | Show the kernel |', '', '```bash', 'uname -r | tee /tmp/out.txt', '```'].join('\n'),
+  );
+  assert.deepEqual(checkCommandCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {}), []);
+});
+
+// --- Fix round 1: MINOR 5 — anchor-only links were never validated ---
+
+test('a same-file anchor-only link to a nonexistent anchor is an error', () => {
+  const text = FULL.replace(
+    '*Not to be confused with [Deep](fixture-competency.md#cmp-fx.fixture.deep).*',
+    '*Not to be confused with [Deep](fixture-competency.md#cmp-fx.fixture.deep).* See also [Ghost](#c-fx.fixture.ghost).',
+  );
+  const found = checkDanglingXref(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.ok(found.some((f) => /#c-fx\.fixture\.ghost/.test(f.message) && /fixture-competency\.md does not define/.test(f.message)));
+});
+
+// --- Fix round 1: MINOR 6 — the waiver marker was matched by its opening sentence only ---
+
+test('a waiver marker truncated to its opening sentence is still an error', () => {
+  const truncated = '*No primary documentation source.*';
+  const text = FULL.replace(WAIVER_MARKER, truncated);
+  const found = checkWaiverMarker(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.waived');
+});
+
 test('runAllGuideChecks calls assertKnownScope before running any check', () => {
   assert.throws(
     () => runAllGuideChecks(dataset, [], { scope: 'Other Domain :: Other Competency' }),

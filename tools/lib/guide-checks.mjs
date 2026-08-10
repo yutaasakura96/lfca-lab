@@ -215,7 +215,14 @@ export function checkSourceIds({ sources }, files) {
   return out;
 }
 
-const WAIVER_MARKER = 'No primary documentation source.';
+// The full disclaimer is a three-clause sentence ending in "not citable
+// fact". Matching only the opening clause let a truncated marker (opening
+// sentence present, the rest silently dropped) pass. Both pieces must be
+// present in the concept's block; exact whole-sentence equality is not
+// required, since the marker contains a path and may be line-wrapped by an
+// author.
+const WAIVER_OPENING = 'No primary documentation source.';
+const WAIVER_CLOSING_PHRASE = 'not citable fact';
 
 const AWS_ONLY_TERMS = ['VPC', 'Security Group', 'Route 53', 'Elastic Load Balancer', 'Direct Connect', 'NACL'];
 
@@ -311,6 +318,20 @@ export function checkComparisonPointer(dataset, files, options) {
   return out;
 }
 
+// A command counts as shown only when it appears as a complete invocation,
+// not as a prefix of a longer one: `blockText.includes('uname -r')` would be
+// satisfied by a guide that only ever shows `uname -rV`, crediting a command
+// that was never actually demonstrated. An occurrence is valid only when it
+// is not immediately adjacent, on either side, to a character that would
+// extend it into a different command or flag combination — a letter, digit,
+// hyphen, underscore, equals sign or slash. Short-flag pairs like `ps` vs
+// `ps aux` or `rm -r` vs `rm -rf` are exactly the case this guards against.
+function commandShownVerbatim(blockText, command) {
+  const boundary = '[A-Za-z0-9_=/-]';
+  const re = new RegExp(`(?<!${boundary})${escapeRegExp(command)}(?!${boundary})`);
+  return re.test(blockText);
+}
+
 export function checkCommandCoverage(dataset, files, options) {
   const defs = new Map(allDefinitions(files).filter((d) => d.kind === 'topic').map((d) => [d.id, d]));
   const out = [];
@@ -319,7 +340,7 @@ export function checkCommandCoverage(dataset, files, options) {
     const def = defs.get(topic.id);
     if (!def) continue;
     for (const command of topic.commands) {
-      if (!def.blockText.includes(command)) {
+      if (!commandShownVerbatim(def.blockText, command)) {
         out.push(finding('guide-command-coverage', 'error', topic.id,
           `${def.file}:${def.line} ${topic.id} does not show its dataset command verbatim: ${command}`));
       }
@@ -338,7 +359,7 @@ export function checkWaiverMarker({ topics, waivers }, files, options) {
     if (topic && !inScope(topic, options)) continue;
     const def = defs.get(id);
     if (!def) continue;
-    if (!def.blockText.includes(WAIVER_MARKER)) {
+    if (!def.blockText.includes(WAIVER_OPENING) || !def.blockText.includes(WAIVER_CLOSING_PHRASE)) {
       out.push(finding('guide-waiver-marker', 'error', id,
         `${def.file}:${def.line} ${id} is waived in data/sourcing-waivers.json but carries no no-primary-source marker`));
     }
@@ -358,7 +379,20 @@ export function checkDanglingXref(dataset, files, options) {
   const out = [];
   for (const f of files) {
     for (const link of f.links) {
-      if (/^[a-z]+:/i.test(link.href) || link.href.startsWith('#')) continue;
+      if (/^[a-z]+:/i.test(link.href)) continue;
+      // An anchor-only href (`#c-some-id`) is a same-file link. It was
+      // previously skipped outright, which let a same-file link to a
+      // nonexistent anchor pass unconditionally. Resolve it against the
+      // containing file's own anchors instead, and report it exactly like
+      // any other dangling anchor.
+      if (link.href.startsWith('#')) {
+        const anchor = link.href.slice(1);
+        if (anchor && !f.anchors.has(anchor)) {
+          out.push(finding('guide-dangling-xref', severity, f.path,
+            `${f.path}:${link.line} links to anchor #${anchor}, which ${f.path} does not define`));
+        }
+        continue;
+      }
       const [rel, anchor] = link.href.split('#');
       const target = rel === '' ? f.path : posix.normalize(posix.join(posix.dirname(f.path), rel));
       const targetFile = byPath.get(target);
