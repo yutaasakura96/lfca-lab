@@ -870,8 +870,18 @@ export function parseGuideFile(path, text) {
       // The block ends at the next anchor or at any heading of level 4 or shallower.
       // Level 4 must terminate too: a following "#### Quick reference" table would otherwise
       // be swallowed into this concept's blockText and could satisfy a command check by accident.
+      //
+      // The scan itself must skip fenced lines: a `#` shell comment inside a
+      // fenced Commands example (e.g. "# show the running kernel") matches
+      // RE_HEADING and would otherwise be mistaken for a real terminator,
+      // truncating the block before content that legitimately follows the
+      // fence (more commands, **Traps**, **What the exam may test**). This
+      // is purely a question of where the scan is allowed to *terminate* —
+      // `blockText` below still captures `lines.slice(i, end + 1)` verbatim,
+      // fenced content included, once the real end is found.
       let end = lines.length - 1;
       for (let j = i + 3; j < lines.length; j += 1) {
+        if (inFence[j]) continue;
         const level = headingLevel(matchLines[j]);
         if (RE_ANCHOR.test(matchLines[j]) || (level > 0 && level <= 4)) {
           end = j - 1;
@@ -1033,14 +1043,23 @@ export function parseGuideFile(path, text) {
   }
 
   // Pass 3: sections (h2), their contents and their apparatus.
+  //
+  // Both the h2 scan and the apparatus detection below must consult
+  // `inFence`, the same array every other pass already uses: a fenced
+  // "## Something" is a style-guide example, not a real section boundary,
+  // and would otherwise create a phantom section (or split a real one); a
+  // fenced "#### Scenario" / "#### Knowledge check" inside a real section is
+  // likewise just documentation of the marker grammar and must not satisfy
+  // that section's apparatus check.
   const h2Lines = [];
   for (let i = 0; i < lines.length; i += 1) {
-    if (headingLevel(matchLines[i]) === 2) h2Lines.push(i);
+    if (!inFence[i] && headingLevel(matchLines[i]) === 2) h2Lines.push(i);
   }
   for (let s = 0; s < h2Lines.length; s += 1) {
     const start = h2Lines[s];
     const end = s + 1 < h2Lines.length ? h2Lines[s + 1] - 1 : lines.length - 1;
     const body = matchLines.slice(start, end + 1);
+    const bodyFence = inFence.slice(start, end + 1);
     sections.push({
       heading: RE_HEADING.exec(matchLines[start])[2],
       line: start + 1,
@@ -1048,8 +1067,8 @@ export function parseGuideFile(path, text) {
       definitionIds: definitions
         .filter((d) => d.blockStart >= start && d.blockStart <= end)
         .map((d) => d.id),
-      hasScenario: body.some((l) => /^#### +Scenario\s*$/.test(l)),
-      hasKnowledgeCheck: body.some((l) => /^#### +Knowledge check\s*$/.test(l)),
+      hasScenario: body.some((l, k) => !bodyFence[k] && /^#### +Scenario\s*$/.test(l)),
+      hasKnowledgeCheck: body.some((l, k) => !bodyFence[k] && /^#### +Knowledge check\s*$/.test(l)),
     });
   }
 
@@ -1117,15 +1136,17 @@ Fix round 3 replaces the round-2 "first contiguous run of table rows" rule outri
 
 Fix round 4 closes two gaps. First, no pass had any fenced-code-block awareness: a documentation example of the marker grammar — a `<a id="c-...">` block, a `cmp-` comparison block, a `*Not to be confused with...*` pointer, or a glossary row — shown inside a ` ``` ` or `~~~` fence was parsed as if it were real, which matters because `study-guide/STYLE.md` exists specifically to show such fenced examples and a fenced example naming a real concept id could satisfy the "every concept has a definition site" coverage check for a concept never actually written up. `computeFenceLines` now computes fence membership once, over the whole file, and every marker-recognition pass (anchors/definitions/comparisons, Quick reference rows, pointers/links) checks it before recognising anything; `blockText` and block extent are deliberately left reading `lines`/`matchLines` exactly as before, so a command shown inside a fence inside a concept's own body still appears in that concept's `blockText` verbatim. Second, a Quick reference row prefixed by a blockquote or list marker (`> | ... |`, `- | ... |`) was silently dropped — `trimStart()` strips only whitespace, not those characters — while the comment directly above the code claimed such a row "is still recognised as a row instead of being silently skipped." That comment was false and has been corrected; the row itself now reports `malformed`, naming the offending prefix. `tools/test/guide-parse.test.mjs` grew from 26 to 36 tests: a fenced concept-anchor example, a fenced comparison block, a fenced pointer, and a fenced glossary row each produce no definition/comparison/pointer/anchor and no `malformed` entry; a `~~~` fence behaves like a ` ``` ` fence; a fence opened with four backticks is not closed by three; an unterminated fence swallows to end of file; a command inside a fence still appears in the enclosing concept's `blockText`; and a blockquote-prefixed and a list-prefixed glossary row each report `malformed` naming the prefix.
 
+Fix round 4 made marker *recognition* fence-aware but left two structural *computations* fence-blind, and round 5 closes both. First, the concept-block terminator scan (Pass 1) treated any line matching the heading regex as a terminator regardless of fence status, so a `#` shell comment inside a fenced Commands example (e.g. `# show the running kernel`) was mistaken for the block's real end, truncating `blockText` before content that legitimately follows the fence (more commands, `**Traps**`, `**What the exam may test**`) — a near-universal failure mode, since most Commands examples are fenced bash blocks with comments. The scan now skips lines where `inFence` is true when looking for the terminator, while `blockText` still captures `lines.slice(blockStart, blockEnd + 1)` verbatim, fenced content included, exactly as before. Second, Pass 3 (section detection) was left fence-blind: a fenced `## Something` created a phantom section, and a fenced `#### Scenario` / `#### Knowledge check` inside a real section falsely satisfied that section's apparatus check. Both the h2 scan and the apparatus detection now consult `inFence`. `tools/test/guide-parse.test.mjs` grew from 36 to 40 tests: a `#` comment inside a fenced Commands block no longer truncates the concept block, and `blockText` still contains both the command and the `**Traps**` label that follows the fence; a fenced `## heading` creates no section; a fenced `#### Scenario` does not satisfy a real section's apparatus; and a real `#### Scenario` outside a fence still sets `hasScenario` true.
+
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-parse.test.mjs`
-Expected: PASS, 36 tests.
+Expected: PASS, 40 tests.
 
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 101 tests.
+Expected: both exit 0; 105 tests.
 
 - [ ] **Step 6: Commit**
 

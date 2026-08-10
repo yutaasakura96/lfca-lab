@@ -131,8 +131,18 @@ export function parseGuideFile(path, text) {
       // The block ends at the next anchor or at any heading of level 4 or shallower.
       // Level 4 must terminate too: a following "#### Quick reference" table would otherwise
       // be swallowed into this concept's blockText and could satisfy a command check by accident.
+      //
+      // The scan itself must skip fenced lines: a `#` shell comment inside a
+      // fenced Commands example (e.g. "# show the running kernel") matches
+      // RE_HEADING and would otherwise be mistaken for a real terminator,
+      // truncating the block before content that legitimately follows the
+      // fence (more commands, **Traps**, **What the exam may test**). This
+      // is purely a question of where the scan is allowed to *terminate* —
+      // `blockText` below still captures `lines.slice(i, end + 1)` verbatim,
+      // fenced content included, once the real end is found.
       let end = lines.length - 1;
       for (let j = i + 3; j < lines.length; j += 1) {
+        if (inFence[j]) continue;
         const level = headingLevel(matchLines[j]);
         if (RE_ANCHOR.test(matchLines[j]) || (level > 0 && level <= 4)) {
           end = j - 1;
@@ -294,14 +304,23 @@ export function parseGuideFile(path, text) {
   }
 
   // Pass 3: sections (h2), their contents and their apparatus.
+  //
+  // Both the h2 scan and the apparatus detection below must consult
+  // `inFence`, the same array every other pass already uses: a fenced
+  // "## Something" is a style-guide example, not a real section boundary,
+  // and would otherwise create a phantom section (or split a real one); a
+  // fenced "#### Scenario" / "#### Knowledge check" inside a real section is
+  // likewise just documentation of the marker grammar and must not satisfy
+  // that section's apparatus check.
   const h2Lines = [];
   for (let i = 0; i < lines.length; i += 1) {
-    if (headingLevel(matchLines[i]) === 2) h2Lines.push(i);
+    if (!inFence[i] && headingLevel(matchLines[i]) === 2) h2Lines.push(i);
   }
   for (let s = 0; s < h2Lines.length; s += 1) {
     const start = h2Lines[s];
     const end = s + 1 < h2Lines.length ? h2Lines[s + 1] - 1 : lines.length - 1;
     const body = matchLines.slice(start, end + 1);
+    const bodyFence = inFence.slice(start, end + 1);
     sections.push({
       heading: RE_HEADING.exec(matchLines[start])[2],
       line: start + 1,
@@ -309,8 +328,8 @@ export function parseGuideFile(path, text) {
       definitionIds: definitions
         .filter((d) => d.blockStart >= start && d.blockStart <= end)
         .map((d) => d.id),
-      hasScenario: body.some((l) => /^#### +Scenario\s*$/.test(l)),
-      hasKnowledgeCheck: body.some((l) => /^#### +Knowledge check\s*$/.test(l)),
+      hasScenario: body.some((l, k) => !bodyFence[k] && /^#### +Scenario\s*$/.test(l)),
+      hasKnowledgeCheck: body.some((l, k) => !bodyFence[k] && /^#### +Knowledge check\s*$/.test(l)),
     });
   }
 

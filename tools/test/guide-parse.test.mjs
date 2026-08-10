@@ -643,3 +643,85 @@ test('MINOR 6: a list-prefixed Quick reference row reports malformed naming the 
   assert.match(f.malformed[0].reason, /"-"/);
   assert.match(f.malformed[0].reason, /blockquote|list/);
 });
+
+// --- Fix round 5 -------------------------------------------------------------
+//
+// Round 4 made marker *recognition* fence-aware but left two structural
+// *computations* fence-blind: the concept-block terminator scan (Pass 1) and
+// section detection (Pass 3). A `#` shell comment inside a fenced Commands
+// example matches the heading regex and was mistaken for the block's real
+// terminator, truncating `blockText` before content that legitimately
+// follows the fence. A fenced "## heading" was mistaken for a real section,
+// and a fenced "#### Scenario" / "#### Knowledge check" inside a real
+// section falsely satisfied that section's apparatus check.
+
+test('CRITICAL: a "#" comment inside a fenced Commands block does not truncate the concept block', () => {
+  const lines = [
+    '<a id="c-a.b.c"></a>',
+    '### Thing',
+    '*id: `a.b.c` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*',
+    '',
+    '**Commands**',
+    '',
+    '```bash',
+    '# show the running kernel',
+    'uname -r',
+    '```',
+    '',
+    '**Traps** t',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  const def = f.definitions.find((d) => d.id === 'a.b.c');
+  assert.ok(def, 'the concept must still be recognised');
+  assert.match(def.blockText, /uname -r/);
+  assert.match(def.blockText, /\*\*Traps\*\*/);
+});
+
+test('a fenced "## heading" creates no section', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    'text',
+    '',
+    '```',
+    '## Fake section inside a fence',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections.length, 1);
+  assert.equal(f.sections[0].heading, 'A');
+});
+
+test('a fenced "#### Scenario" does not satisfy a real section\'s apparatus', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    'Here is what a scenario heading looks like:',
+    '',
+    '```',
+    '#### Scenario',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections.length, 1);
+  assert.equal(f.sections[0].hasScenario, false);
+});
+
+test('a real "#### Scenario" outside a fence still sets hasScenario true', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    '#### Scenario',
+    '',
+    'A host resolves example.com.',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections.length, 1);
+  assert.equal(f.sections[0].hasScenario, true);
+});
