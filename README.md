@@ -222,7 +222,14 @@ research/        generated — do not hand-edit
   sources.md
   exam-mechanics.md              the one hand-written file here; it says so at the top
   lfs200-notes/00-course-map.md  hand-written: LFS200 structure and measured gaps
-tools/           validate.mjs (13 checks), generate-views.mjs
+study-guide/     hand-written prose that studies FROM the dataset above
+  README.md            entry point, study order, what the guide claims and does not
+  STYLE.md             the marker grammar every file is machine-checked against
+  NN-<domain>.md       6 domain index files
+  NN-<domain>/*.md     22 competency files, one per official competency
+  appendix-a-*.md      packet's-life narrative linking concept anchors end to end
+  appendix-b-*.md      container-to-cluster narrative, same purpose
+tools/           validate.mjs (13 checks), generate-views.mjs, check-guide.mjs, guide-plan.mjs
 coverage-matrix.md  generated — the full join, one row per concept
 PROGRESS.md      what was found, what is still missing, and how confident each claim is
 ```
@@ -234,6 +241,25 @@ npm test && npm run validate && npm run generate
 Zero dependencies; plain Node. `npm run validate` exits non-zero if any concept lacks a depth,
 an objective, or a tier-1/2 source, if any official competency has no concepts, or if any
 cross-reference dangles.
+
+### The study guide
+
+`study-guide/` is hand-written prose, checked by a separate harness that proves it covers the
+dataset above — it does not re-verify that the prose is factually correct, only that it is
+structurally complete.
+
+```bash
+npm run check-guide                                    # checks the whole guide
+npm run check-guide -- --scope "Linux Fundamentals :: Command Line"   # one competency
+npm run guide-plan -- "Linux Fundamentals :: Command Line"            # writing brief for one competency
+```
+
+`npm run check-guide` exits non-zero if any of the 537 concepts lacks a definition site, if any
+`confused_with` comparison is missing, misattributed, or missing a pointer, if any dataset
+command is absent from its concept's block, or if a concept's guide metadata (depth, importance,
+`coverage_status`, sources) disagrees with `data/`. `npm run guide-plan` prints the writing brief
+a competency's section needs — its concepts, depth targets, and the comparison blocks it owns or
+must link out to — computed from `data/`, not maintained by hand.
 
 **Everything in `research/` and `coverage-matrix.md` is generated from `data/`.** Edit the JSON
 and regenerate; don't edit the markdown. The two exceptions carry a notice at the top of the

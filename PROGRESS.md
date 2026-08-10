@@ -837,3 +837,184 @@ project) rather than government/IETF-standard tier 1 sources.
    what the guide was required to state; the guide prose was updated in the same change
    (metadata lines, the SELinux exam-note paragraph, and the removed waiver markers for the 5
    un-waived concepts) so no new guide errors were introduced.
+
+### What cycle 2 built
+
+A `study-guide/` tree: 32 files, 285,385 words (`find study-guide -name '*.md' | wc -l`;
+`find study-guide -name '*.md' -exec cat {} + | wc -w`, run directly against the working tree,
+not recalled from an earlier task's log). That is 6 domain index files, 22 competency files, 2
+appendices, `README.md`, and `STYLE.md`. It covers all 537 concepts in `data/`, the same 537
+`npm run validate` checks. 130 canonical comparison blocks are written (131 `<a id="cmp-…">`
+anchors in the tree; the 131st is inside `STYLE.md`'s fenced grammar example, which
+`guide-parse.mjs` deliberately treats as non-prose and does not count — confirmed by excluding
+`STYLE.md` from the grep and getting 130). That is one more than the design's original 129:
+Task 7's dataset enrichment of `sysadmin.system-administration.home` and
+`devops.git-concepts.push` added one genuinely new `confused_with` edge between them and
+existing concepts, and one of the two ties resolved into a brand-new block rather than joining
+an existing one. 171 concepts carry a non-empty `commands` array totalling 380 command strings
+(one more than the design's original 379 count, added by the same Task 7 enrichment).
+
+### The harness — what `npm run check-guide` proves and what it does not
+
+Run directly against the current tree: `32 guide file(s), 537 concept(s) — 0 error(s), 0
+warning(s)`. `npm test`: 163 tests, 163 passing. `npm run validate`: `537 concept(s) checked —
+0 error(s), 16 warning(s)` (all 16 are the same pre-existing `orphan-source` and
+`inferred-ratio` warnings carried since before cycle 2 started; none is new). `npm run
+generate` was re-run and left the working tree with no diff — `research/**` and
+`coverage-matrix.md` are current.
+
+`check-guide` runs 14 checks over the guide text and proves, mechanically, that:
+
+- every one of the 537 concept ids has exactly one definition site, and none is defined twice;
+- every one of the 156 undirected `confused_with` edges is covered by exactly one of the 130
+  comparison blocks, each block's `compares:` membership matches what `tools/lib/comparisons.mjs`
+  computes from `data/` exactly, and every non-owning member of a block links back to it —
+  either a standalone pointer sentence for a topic-defined concept or the matching in-row link
+  for a glossary-defined one;
+- every string in a concept's `commands` array appears verbatim, as a code span or fenced code
+  line, inside that concept's block — not merely somewhere in the surrounding prose;
+- every section holding a definition site has a Scenario and a Knowledge check, and every
+  definition site carries the body labels its `required_depth` requires;
+- all 57-that-were, now 52, waived concepts (see below) carry the no-primary-source marker;
+- every metadata line (depth, importance, `coverage_status`, source ids) matches `data/`
+  exactly, and every relative link and anchor resolves.
+
+**What it does not prove: that anything the guide says is true.** Check-guide is a structural
+and referential proof, not a factual one. A concept block can satisfy every one of the 14
+checks while stating something false, so long as the false statement sits next to the required
+labels and the correct command string appears verbatim somewhere in the block. That gap is
+exactly what the adversarial fact-check below exists to narrow, and it narrows it over two
+specific claim classes only — commands and waived-concept sourcing — not the prose as a whole.
+
+### The adversarial fact-check
+
+**First attempt failed wholesale.** Workflow `wjvrws8fy` / `wf_13d3eef9-ad6` dispatched 22
+agents, one per competency file; all 22 hit the session usage limit within 31 seconds. Zero
+files were checked, zero claims examined, zero verdicts recorded. This is recorded here as a
+pass that did not run, not as a pass that found nothing — the distinction the design
+(`docs/superpowers/specs/2026-08-10-lfca-study-guide-design.md`, "Layer 2") calls out by name
+as the failure mode cycle 1 hit.
+
+**Re-run in two parts** after the usage limit reset. A probe on `command-line.md` — the
+command-heaviest file — examined 64 command claims against man7.org, manpages.debian.org,
+POSIX, RFC 6335, FHS 3.0, `ip-sysctl.txt`, `capabilities(7)`, GNU coreutils source, and several
+empirically against real BSD and GNU binaries on this machine; 0 refuted. A second run
+(`webnn54s2` / `wf_93a47e4e-924`) then covered the remaining 13 competency files that carry
+either a command or a waived concept. Together the two runs produced verdicts for all 14
+competency files that had anything to check, recorded in `docs/verification/factcheck-*.json`
+(committed, 14 files) as `{claim_id, concept_id, kind, claim, verdict, reasoning, source}`.
+
+Counted directly from those 14 files: **765 claims examined — 710 confirmed, 55 refuted.**
+Split by kind: 655 command claims (45 refuted) and 110 waiver claims (10 refuted) — the same
+45-and-10 split named in the commit that fixed them (`29dd050`).
+
+**Eight competency files were never checked at all**, because they carry no command and no
+waived concept: Cloud Computing, Performance/Availability, Budgeting, Cloud Best Practices,
+Cloud Networking, Sensitive Data, Compliance, and Open Source Software and Licensing (verified
+directly from `data/topics/*.json`: each of these eight has zero concepts with a non-empty
+`commands` array and zero concepts in `data/sourcing-waivers.json`). This is scoping, not
+coverage — the fact-check layer was designed to examine exactly two claim classes, and these
+eight files contain neither. No other claim in their prose — descriptions, exam-trap framing,
+comparison text — has been adversarially checked by this pass or any other.
+
+### Defects the process caught
+
+**The adversarial layer caught what the per-task reviews had already passed.** All 55 refuted
+findings above were in files that had already been through Layer-1 review (writer → reviewer →
+fixer) and passed. Two concrete examples from the refuted set: `linux-os` claimed `chsh -l`
+lists the shells in `/etc/shells` — true only for util-linux's `chsh`; Ubuntu 24.04 ships
+shadow-utils `chsh`, which rejects `-l` outright. `git-concepts` claimed a commit "carries a
+link to its parent commit, two parents, for a merge commit" — an octopus merge has three or
+more. Both read as correct prose and cite a real command; both were platform- or case-specific
+claims stated as universal, the exact shape of error a structural check cannot catch and a
+single reviewer reading for plausibility did not catch either. All 55 were fixed in commit
+`29dd050`, touching the 12 guide files that actually had a refuted finding (the other two of
+the 14 checked files, `command-line.md` and `devops-basics.md`, had none).
+
+**Earlier waves, from the ledger (`.superpowers/sdd/progress.md`), for scale:**
+
+- Task 3 (the guide parser): review found 5 rounds of real defects, including a CRLF or trailing
+  space silently producing zero definitions for a whole file, an indented Quick-reference row
+  vanishing, and two separate fence-blindness bugs where a `# comment` inside a fenced example
+  terminated a concept block early.
+- Task 4 (structural checks): review found 3 Critical accidental-pass paths in the check design
+  itself — a depth-3 concept stubbed as a one-line glossary row satisfied coverage, depth, and
+  metadata checks at once; a body-label match was a substring over the whole block rather than
+  line-anchored; an unknown `--scope` silently matched nothing rather than erroring.
+- Task 5 (remaining checks): review found the command-coverage check credited a substring match
+  (`uname -rV` would have satisfied a required `uname -r`), and that the dataset's own concept
+  `linux.command-line.pipes` — whose command is literally `|` — was satisfied by any markdown
+  table's own `|` syntax, not by the concept naming its command as code.
+- Task 8 (pilot competency): review found a spec-level contradiction between the depth-1
+  glossary-row rule and the comparison-pointer rule (resolved in the design), and 2 Critical
+  errors in the one orientation paragraph all 22 competency files copy — a wrong claim about
+  Linux's domain rank and a wrong LFS200 coverage fraction, one of which contradicted a
+  metadata line 20 lines below it in the same file. Fixed systemically by having `guide-plan`
+  print the correct figures rather than leaving a writer to compute them.
+- Wave 1 (20 competency files, background workflow): 40 agents dispatched, 19 died on the
+  session usage limit (17 reviews, 2 writes); only 2 of the files that did get reviewed were
+  approved on first pass.
+- Wave 2 (finished the 22 files): 36 agents, 0 failures. 1 Critical, 34 Important, 83 Minor
+  findings; only 3 of 19 reviews approved first pass. The Critical and Important findings were
+  fixed by the fix stage — the ledger confirms this explicitly. **The 83 Minor findings are
+  recorded only as an aggregate count; nothing in the ledger or the repository records which of
+  them were fixed, deferred, or rejected.** This report does not claim they were resolved.
+- Wave 3 (domain indexes, README, appendices): 26 agents, 0 failures. 1 Critical, 11 Important;
+  only 1 of 9 approved first pass. Findings were almost entirely hand-computed arithmetic and
+  rank claims stated with confidence and wrong — a domain claimed "ranked second largest" when
+  it was joint-largest, a claimed dependency between two topics that named a file section
+  neither topic actually appeared in, a README comparison-block count off by one. All Critical
+  and Important findings were fixed.
+
+### Dataset corrections
+
+Already written above under "Dataset corrections" (Task 7) and "Dataset corrections found while
+writing the guide" (Task 34). Checked against `data/` directly rather than re-summarized: the 5
+un-waiving corrections, the `coverage_status` correction for TLS/HTTPS and SELinux/AppArmor, and
+the two source-record fixes are all present in the current `data/sourcing-waivers.json`,
+`data/sources.json`, and `data/topics/*.json` exactly as described. `data/sourcing-waivers.json`
+currently lists **52 waived concepts**, down from the 57 cycle 1 recorded — the 5 removed are
+`sysadmin.best-practices.separation-of-duties`, `sysadmin.best-practices.user-onboarding-and-offboarding`,
+`pm.software-application-architecture.client-server-model`,
+`pm.software-application-architecture.microservices`, and
+`pm.software-application-architecture.monolithic-architecture`, each un-waived only after a
+primary source was fetched and read directly (NIST SP 800-128, NIST SP 800-53 Rev. 5, RFC 9110,
+and the CNCF Cloud Native Glossary respectively). Two candidates were investigated for
+un-waiving and explicitly left waived because the evidence was judged too narrow:
+`sysadmin.best-practices.naming-conventions` and `sysadmin.best-practices.capacity-planning`.
+
+Separately, the adversarial fact-check's 10 refuted waiver claims (see above) were about hedging
+and phrasing inside the waiver marker's surrounding prose, not about whether a concept should
+still be waived — a different question from the write-back's un-waiving decisions, and both are
+recorded accurately as such above.
+
+### What remains unverified or unresolved
+
+- **The final whole-branch adversarial review has not run.** The design's definition of done
+  (item 10) and the ledger's own task list (Task 36) both call for one; `git log` shows no
+  commit after `4bcfa89` (`fix: write back dataset corrections found while writing the study
+  guide`) and no such review's findings are recorded anywhere in the repository.
+- **83 Minor findings from Wave 2's review have no individual disposition on record** (see
+  above) — only the aggregate count survives.
+- **Minor findings carried forward from Tasks 2, 4, and 7** were never revisited by a later task,
+  because the final review that was supposed to carry them has not run:
+  - Task 2: 113 of 156 `confused_with` edges (72%) tie through the ownership rule and resolve
+    lexicographically rather than by importance; `undirectedEdges`' two-key sort comparator is
+    verified only on the real 156-edge array, not by a dedicated multi-edge unit test.
+  - Task 4: `checkDuplicateDefinition`'s outside-any-section detection keys on concept id, so a
+    stray duplicate outside a section is masked by a properly-placed copy of the same id — the
+    ensemble of checks still errors regardless, so this is a check-design note, not a known gap
+    in what is actually caught.
+  - Task 7: `cloud.networking.public-vs-private-subnet` frames public/private purely as a
+    route-table property; Google Cloud's actual mechanism (a per-instance external IP against a
+    network-level default route) does not map onto that framing as cleanly as AWS's or Azure's
+    does.
+- **Only 14 of the 22 competency files were adversarially fact-checked at all**, and only for
+  commands and waiver hedging within those 14 — no other prose claim, in any of the 32 files,
+  has been checked against a primary source by this layer.
+- **`candidate_evidence` is empty on all 537 concepts, and no exam question count is stated
+  anywhere in the guide or this document** — verified by direct query
+  (`node` script over `data/topics/*.json` found zero concepts with a non-empty
+  `candidate_evidence` array; a repository-wide grep for a stated question count found none).
+  Both are by design, not oversight: no public post-2025 candidate evidence exists to record,
+  and the Linux Foundation does not publish a question count for this exam.
