@@ -1,4 +1,7 @@
+import { posix } from 'node:path';
 import { competencyKey } from './load.mjs';
+import { assignBlocks, blocksMentioning } from './comparisons.mjs';
+import { guideIndex, guidePathFor, relativeGuideLink } from './guide-paths.mjs';
 
 export function finding(check, severity, id, message) {
   return { check, severity, id, message };
@@ -210,4 +213,204 @@ export function checkSourceIds({ sources }, files) {
     }
   }
   return out;
+}
+
+const WAIVER_MARKER = 'No primary documentation source.';
+
+const AWS_ONLY_TERMS = ['VPC', 'Security Group', 'Route 53', 'Elastic Load Balancer', 'Direct Connect', 'NACL'];
+
+// A comparison block's owner may fall outside `options.scope` while some of
+// its members are inside it (or vice versa). Coverage and membership are
+// properties of the block itself, so both are gated on the *owner's* scope
+// membership, not the member being iterated — a scoped run must neither
+// demand a block it has no mandate to see written, nor silently accept a
+// wrong one just because the file in view belongs to a different competency.
+function ownedInScope(dataset, block, options) {
+  const topic = dataset.topics.find((t) => t.id === block.owner);
+  return topic ? inScope(topic, options) : true;
+}
+
+export function checkComparisonCoverage(dataset, files, options) {
+  const expected = assignBlocks(dataset);
+  const written = new Map();
+  const out = [];
+  for (const f of files) {
+    for (const c of f.comparisons) {
+      if (written.has(c.owner)) {
+        out.push(
+          finding('guide-comparison-coverage', 'error', c.owner,
+            `Comparison block cmp-${c.owner} is written more than once: ${written.get(c.owner)} and ${f.path}:${c.line}`),
+        );
+        continue;
+      }
+      written.set(c.owner, `${f.path}:${c.line}`);
+    }
+  }
+  for (const block of expected.values()) {
+    if (!ownedInScope(dataset, block, options)) continue;
+    if (!written.has(block.owner)) {
+      out.push(
+        finding('guide-comparison-coverage', 'error', block.owner,
+          `No comparison block for ${block.owner}, which must distinguish it from ${block.members.join(', ')}`),
+      );
+    }
+  }
+  return out;
+}
+
+export function checkComparisonMembership(dataset, files, options) {
+  const expected = assignBlocks(dataset);
+  const out = [];
+  for (const f of files) {
+    for (const c of f.comparisons) {
+      const block = expected.get(c.owner);
+      if (!block) {
+        out.push(finding('guide-comparison-membership', 'error', c.owner,
+          `${f.path}:${c.line} defines cmp-${c.owner}, which is not an assigned comparison owner`));
+        continue;
+      }
+      if (!ownedInScope(dataset, block, options)) continue;
+      if (c.compares.join('|') !== block.compares.join('|')) {
+        out.push(finding('guide-comparison-membership', 'error', c.owner,
+          `${f.path}:${c.line} compares [${c.compares.join(', ')}] but the assignment is [${block.compares.join(', ')}]`));
+      }
+    }
+  }
+  return out;
+}
+
+export function checkComparisonPointer(dataset, files, options) {
+  const expected = assignBlocks(dataset);
+  const index = guideIndex(dataset);
+  const byId = new Map(dataset.topics.map((t) => [t.id, t]));
+  const pointersByConcept = new Map();
+  for (const f of files) {
+    for (const p of f.pointers) {
+      if (!p.conceptId) continue;
+      if (!pointersByConcept.has(p.conceptId)) pointersByConcept.set(p.conceptId, []);
+      pointersByConcept.get(p.conceptId).push(p);
+    }
+  }
+  const out = [];
+  for (const topic of dataset.topics) {
+    if (!inScope(topic, options)) continue;
+    for (const block of blocksMentioning(expected, topic.id)) {
+      const ownerTopic = byId.get(block.owner);
+      const wanted = relativeGuideLink(
+        guidePathFor(topic, index),
+        guidePathFor(ownerTopic, index),
+        block.anchor,
+      );
+      const have = pointersByConcept.get(topic.id) ?? [];
+      if (!have.some((p) => p.href === wanted)) {
+        out.push(finding('guide-comparison-pointer', 'error', topic.id,
+          `${topic.id} is compared in cmp-${block.owner} but does not point to it; expected a line linking ${wanted}`));
+      }
+    }
+  }
+  return out;
+}
+
+export function checkCommandCoverage(dataset, files, options) {
+  const defs = new Map(allDefinitions(files).filter((d) => d.kind === 'topic').map((d) => [d.id, d]));
+  const out = [];
+  for (const topic of dataset.topics) {
+    if (!inScope(topic, options)) continue;
+    const def = defs.get(topic.id);
+    if (!def) continue;
+    for (const command of topic.commands) {
+      if (!def.blockText.includes(command)) {
+        out.push(finding('guide-command-coverage', 'error', topic.id,
+          `${def.file}:${def.line} ${topic.id} does not show its dataset command verbatim: ${command}`));
+      }
+    }
+  }
+  return out;
+}
+
+export function checkWaiverMarker({ topics, waivers }, files, options) {
+  const waived = new Set(waivers?.waived ?? []);
+  const defs = new Map(allDefinitions(files).map((d) => [d.id, d]));
+  const byId = new Map(topics.map((t) => [t.id, t]));
+  const out = [];
+  for (const id of waived) {
+    const topic = byId.get(id);
+    if (topic && !inScope(topic, options)) continue;
+    const def = defs.get(id);
+    if (!def) continue;
+    if (!def.blockText.includes(WAIVER_MARKER)) {
+      out.push(finding('guide-waiver-marker', 'error', id,
+        `${def.file}:${def.line} ${id} is waived in data/sourcing-waivers.json but carries no no-primary-source marker`));
+    }
+  }
+  return out;
+}
+
+export function checkDanglingXref(dataset, files, options) {
+  // A dangling link is an error in a full-corpus run, but only a warning
+  // when `options.scope` is set: a scoped run is exactly one writing task's
+  // output, and that file's cross-references legitimately point at sibling
+  // competency files a later task has not written yet. Treating those as
+  // errors would make every mid-cycle scoped check fail on links that are
+  // correct, just early.
+  const severity = options?.scope ? 'warn' : 'error';
+  const byPath = new Map(files.map((f) => [f.path, f]));
+  const out = [];
+  for (const f of files) {
+    for (const link of f.links) {
+      if (/^[a-z]+:/i.test(link.href) || link.href.startsWith('#')) continue;
+      const [rel, anchor] = link.href.split('#');
+      const target = rel === '' ? f.path : posix.normalize(posix.join(posix.dirname(f.path), rel));
+      const targetFile = byPath.get(target);
+      if (!targetFile) {
+        out.push(finding('guide-dangling-xref', severity, f.path,
+          `${f.path}:${link.line} links to ${target}, which is not a guide file`));
+        continue;
+      }
+      if (anchor && !targetFile.anchors.has(anchor)) {
+        out.push(finding('guide-dangling-xref', severity, f.path,
+          `${f.path}:${link.line} links to anchor #${anchor}, which ${target} does not define`));
+      }
+    }
+  }
+  return out;
+}
+
+export function checkVendorNeutrality(dataset, files) {
+  const cloudNetworking = dataset.topics.filter(
+    (t) => t.domain === 'Cloud Computing Fundamentals' && t.competency === 'Networking',
+  );
+  if (cloudNetworking.length === 0) return [];
+  const index = guideIndex(dataset);
+  const path = guidePathFor(cloudNetworking[0], index);
+  const file = files.find((f) => f.path === path);
+  if (!file) return [];
+  const text = file.definitions.map((d) => d.blockText).join('\n');
+  const hasMapping = /\|\s*AWS\s*\|/.test(text) || /\bAzure\b/.test(text);
+  const used = AWS_ONLY_TERMS.filter((term) => text.includes(term));
+  if (used.length > 0 && !hasMapping) {
+    return [finding('guide-vendor-neutrality', 'warn', path,
+      `${path} uses AWS-specific vocabulary (${used.join(', ')}) with no vendor mapping table; the exam is not AWS-specific`)];
+  }
+  return [];
+}
+
+export function runAllGuideChecks(dataset, files, options = {}) {
+  assertKnownScope(dataset, options);
+  return [
+    ...checkMissingConcept(dataset, files, options),
+    ...checkDuplicateDefinition(dataset, files, options),
+    ...checkUnknownConcept(dataset, files, options),
+    ...checkComparisonCoverage(dataset, files, options),
+    ...checkComparisonMembership(dataset, files, options),
+    ...checkComparisonPointer(dataset, files, options),
+    ...checkCommandCoverage(dataset, files, options),
+    ...checkSectionApparatus(dataset, files, options),
+    ...checkDepthTreatment(dataset, files, options),
+    ...checkWaiverMarker(dataset, files, options),
+    ...checkMetadataAccuracy(dataset, files, options),
+    ...checkDanglingXref(dataset, files, options),
+    ...checkSourceIds(dataset, files, options),
+    ...checkVendorNeutrality(dataset, files, options),
+  ];
 }

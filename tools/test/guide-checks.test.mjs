@@ -12,6 +12,14 @@ import {
   checkDepthTreatment,
   checkMetadataAccuracy,
   checkSourceIds,
+  checkComparisonCoverage,
+  checkComparisonMembership,
+  checkComparisonPointer,
+  checkCommandCoverage,
+  checkWaiverMarker,
+  checkDanglingXref,
+  checkVendorNeutrality,
+  runAllGuideChecks,
   inScope,
   assertKnownScope,
 } from '../lib/guide-checks.mjs';
@@ -378,4 +386,136 @@ test('assertKnownScope does not throw for a known scope or no scope', () => {
   assert.doesNotThrow(() => assertKnownScope(dataset, { scope: 'Fixture Domain :: Second Competency' }));
   assert.doesNotThrow(() => assertKnownScope(dataset, {}));
   assert.doesNotThrow(() => assertKnownScope(dataset, undefined));
+});
+
+const WAIVER_MARKER =
+  '*No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*';
+
+// COMPLETE plus the one comparison block the fixture's confused_with graph
+// requires (fx.fixture.deep owns it, fx.fixture.shallow is the member — see
+// tools/test/fixtures/guide/topics/01-fixture-domain.json) and the waiver
+// marker fx.fixture.waived needs. The first `.replace` targets Deep's "What
+// the exam may test" line specifically: it is the first of three identical
+// occurrences in COMPLETE (Deep, Diagnostic, Advanced), and `.replace`
+// (non-global) always hits the first.
+const FULL = COMPLETE
+  .replace(
+    '**What the exam may test** ...',
+    [
+      '**What the exam may test** ...',
+      '',
+      '<a id="cmp-fx.fixture.deep"></a>',
+      '#### Not to be confused with: Deep vs Shallow',
+      '*compares: `fx.fixture.deep`, `fx.fixture.shallow`*',
+      '',
+      '| Axis | Deep | Shallow |',
+      '| --- | --- | --- |',
+    ].join('\n'),
+  )
+  .replace(
+    '*id: `fx.fixture.shallow` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: fx-source*',
+    [
+      '*id: `fx.fixture.shallow` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: fx-source*',
+      '',
+      '*Not to be confused with [Deep](fixture-competency.md#cmp-fx.fixture.deep).*',
+    ].join('\n'),
+  )
+  .replace(
+    '*id: `fx.fixture.waived` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    [
+      '*id: `fx.fixture.waived` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+      '',
+      WAIVER_MARKER,
+    ].join('\n'),
+  );
+
+const full = () => [parseGuideFile(GUIDE_PATH, FULL)];
+
+test('a fully written fixture guide passes all fourteen checks', () => {
+  const found = runAllGuideChecks(dataset, full(), {});
+  assert.deepEqual(found.filter((f) => f.severity === 'error'), []);
+});
+
+test('an uncovered edge is an error', () => {
+  const text = FULL.replace('<a id="cmp-fx.fixture.deep"></a>', '<a id="x-none"></a>');
+  const found = checkComparisonCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /fx\.fixture\.deep/);
+});
+
+test('an edge covered by two blocks is an error', () => {
+  const files = [parseGuideFile(GUIDE_PATH, FULL), parseGuideFile('study-guide/dup.md', FULL)];
+  const found = checkComparisonCoverage(dataset, files, {});
+  assert.ok(found.some((f) => /twice|more than once/.test(f.message)));
+});
+
+test('a compares list that does not match the computed assignment is an error', () => {
+  const text = FULL.replace(
+    '*compares: `fx.fixture.deep`, `fx.fixture.shallow`*',
+    '*compares: `fx.fixture.deep`, `fx.fixture.tiny`*',
+  );
+  const found = checkComparisonMembership(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+});
+
+test('a member with no pointer to its block is an error', () => {
+  const text = FULL.replace('*Not to be confused with [Deep](fixture-competency.md#cmp-fx.fixture.deep).*', '');
+  const found = checkComparisonPointer(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.shallow');
+});
+
+test('a command string absent from its concept block is an error', () => {
+  const text = FULL.replace('| `uname -r` | Show the running kernel release |', '| `uname` | Show the kernel |');
+  const found = checkCommandCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /uname -r/);
+});
+
+test('a command string in a fenced block counts', () => {
+  const text = FULL.replace(
+    '| `uname -r` | Show the running kernel release |',
+    ['| `uname` | Show the kernel |', '', '```bash', 'uname -r', '```'].join('\n'),
+  );
+  assert.deepEqual(checkCommandCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {}), []);
+});
+
+test('a waived concept without the marker is an error', () => {
+  const text = FULL.replace(WAIVER_MARKER, '');
+  const found = checkWaiverMarker(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.waived');
+});
+
+test('a link to a file that does not exist is an error in full mode and a warning in scoped mode', () => {
+  const text = FULL.replace('fixture-competency.md#cmp-fx.fixture.deep', 'ghost.md#cmp-fx.fixture.deep');
+  const files = [parseGuideFile(GUIDE_PATH, text)];
+  const fullMode = checkDanglingXref(dataset, files, {});
+  assert.ok(fullMode.some((f) => f.severity === 'error' && /ghost\.md/.test(f.message)));
+  const scoped = checkDanglingXref(dataset, files, { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(scoped.every((f) => f.severity === 'warn'));
+});
+
+test('a link to an anchor that is not defined in the target file is an error', () => {
+  const text = FULL.replace('#cmp-fx.fixture.deep).*', '#cmp-fx.fixture.ghost).*');
+  const found = checkDanglingXref(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.ok(found.some((f) => /cmp-fx\.fixture\.ghost/.test(f.message)));
+});
+
+test('vendor neutrality warns only on cloud networking files', () => {
+  // The fixture dataset has no Cloud Computing Fundamentals :: Networking
+  // competency, so checkVendorNeutrality always returns [] regardless of
+  // what the fixture guide's prose says — this proves the check does not
+  // fire on a non-cloud-networking file even when it contains AWS-specific
+  // vocabulary.
+  const text = FULL.replace('**What it is** ...', '**What it is** A VPC with a Security Group.');
+  const found = checkVendorNeutrality(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.deepEqual(found, []);
+});
+
+test('runAllGuideChecks calls assertKnownScope before running any check', () => {
+  assert.throws(
+    () => runAllGuideChecks(dataset, [], { scope: 'Other Domain :: Other Competency' }),
+    /Unknown scope "Other Domain :: Other Competency"/,
+  );
 });
