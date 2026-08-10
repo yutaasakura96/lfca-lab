@@ -5,7 +5,28 @@ import { runAllGuideChecks } from './lib/guide-checks.mjs';
 
 const args = process.argv.slice(2);
 const scopeAt = args.indexOf('--scope');
-const scope = scopeAt >= 0 ? args[scopeAt + 1] : undefined;
+let scope;
+
+// Validate --scope argument
+if (scopeAt >= 0) {
+  if (scopeAt + 1 >= args.length) {
+    console.error('ERROR  --scope requires a value');
+    process.exit(1);
+  }
+  scope = args[scopeAt + 1];
+  if (scope.startsWith('--')) {
+    console.error('ERROR  --scope requires a value');
+    process.exit(1);
+  }
+}
+
+// Detect unrecognized arguments
+for (const arg of args) {
+  if (arg.startsWith('--') && arg !== '--scope') {
+    console.error(`ERROR  unrecognized argument: ${arg}`);
+    process.exit(1);
+  }
+}
 
 const dataset = await loadDataset('data');
 const files = await loadGuide('study-guide');
