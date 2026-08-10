@@ -2074,7 +2074,13 @@ import {
 const WAIVER_MARKER =
   '*No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*';
 
-// COMPLETE plus the comparison block the fixture requires and the waiver marker.
+// COMPLETE plus the one comparison block the fixture's confused_with graph
+// requires (fx.fixture.deep owns it, fx.fixture.shallow is the member — see
+// tools/test/fixtures/guide/topics/01-fixture-domain.json) and the waiver
+// marker fx.fixture.waived needs. The first `.replace` targets Deep's "What
+// the exam may test" line specifically: it is the first of three identical
+// occurrences in COMPLETE (Deep, Diagnostic, Advanced), and `.replace`
+// (non-global) always hits the first.
 const FULL = COMPLETE
   .replace(
     '**What the exam may test** ...',
@@ -2180,6 +2186,11 @@ test('a link to an anchor that is not defined in the target file is an error', (
 });
 
 test('vendor neutrality warns only on cloud networking files', () => {
+  // The fixture dataset has no Cloud Computing Fundamentals :: Networking
+  // competency, so checkVendorNeutrality always returns [] regardless of
+  // what the fixture guide's prose says — this proves the check does not
+  // fire on a non-cloud-networking file even when it contains AWS-specific
+  // vocabulary.
   const text = FULL.replace('**What it is** ...', '**What it is** A VPC with a Security Group.');
   const found = checkVendorNeutrality(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
   assert.deepEqual(found, []);
@@ -2200,10 +2211,23 @@ import { posix } from 'node:path';
 import { assignBlocks, blocksMentioning } from './comparisons.mjs';
 import { guideIndex, guidePathFor, relativeGuideLink } from './guide-paths.mjs';
 
-const WAIVER_MARKER = 'No primary documentation source.';
+// The full disclaimer is a three-clause sentence ending in "not citable
+// fact". Matching only the opening clause let a truncated marker (opening
+// sentence present, the rest silently dropped) pass. Both pieces must be
+// present in the concept's block; exact whole-sentence equality is not
+// required, since the marker contains a path and may be line-wrapped by an
+// author.
+const WAIVER_OPENING = 'No primary documentation source.';
+const WAIVER_CLOSING_PHRASE = 'not citable fact';
 
 const AWS_ONLY_TERMS = ['VPC', 'Security Group', 'Route 53', 'Elastic Load Balancer', 'Direct Connect', 'NACL'];
 
+// A comparison block's owner may fall outside `options.scope` while some of
+// its members are inside it (or vice versa). Coverage and membership are
+// properties of the block itself, so both are gated on the *owner's* scope
+// membership, not the member being iterated — a scoped run must neither
+// demand a block it has no mandate to see written, nor silently accept a
+// wrong one just because the file in view belongs to a different competency.
 function ownedInScope(dataset, block, options) {
   const topic = dataset.topics.find((t) => t.id === block.owner);
   return topic ? inScope(topic, options) : true;
@@ -2290,6 +2314,73 @@ export function checkComparisonPointer(dataset, files, options) {
   return out;
 }
 
+// A command counts as shown only if it appears verbatim inside a code span
+// or a fenced code block — never by searching the block's raw prose. Two
+// failures forced this design, and both are failures of *where* the search
+// looked, not of how forgiving its boundary rule was:
+//
+//   - The dataset records concepts whose command is itself markdown table
+//     syntax (`linux.command-line.pipes` requires `|`; `.command-chaining`
+//     requires `||`). Every Commands table row is delimited by `|`, and
+//     every commands-bearing concept is required to render one — so a raw
+//     `blockText` search was satisfied by the table's own markup, with no
+//     genuine pipe example ever needed.
+//   - A concept that lists both a bare command and a flagged variant (`man`
+//     and `man -k`, `sed` and `sed 's/a/b/g'`, `kill` and `kill -9`, and
+//     others) could show only the longer form and still credit the shorter
+//     one, because nothing in raw prose marks where one command ends and
+//     unrelated surrounding text begins.
+//
+// Restricting the search to code spans and fenced lines, and requiring an
+// exact match rather than a substring, closes both gaps at once: a table
+// cell's pipe characters are markup, not a code span's content, and `man`
+// only matches literal `man`, never `man -k`. This is also, by construction,
+// exactly what a writer's Commands table already gives them: its first
+// column holds each command as its own inline code span, verbatim.
+const RE_FENCE_LINE = /^ {0,3}(`{3,}|~{3,})(.*)$/;
+const RE_INLINE_CODE_SPAN = /`([^`]+)`/g;
+
+// Walks `blockText` once, tracking fence open/close state the same way
+// `guide-parse.mjs` does (matching fence character and length, closer must
+// carry no trailing content), and buckets every line into either inline code
+// span contents (outside any fence) or raw fenced lines (inside one). A line
+// that opens or closes a fence contributes neither.
+function collectCodeSpansAndFencedLines(blockText) {
+  const spans = [];
+  const fencedLines = [];
+  let openChar = null;
+  let openLen = 0;
+  for (const line of blockText.split('\n')) {
+    const fenceMatch = RE_FENCE_LINE.exec(line);
+    if (openChar === null) {
+      if (fenceMatch) {
+        openChar = fenceMatch[1][0];
+        openLen = fenceMatch[1].length;
+        continue;
+      }
+      for (const m of line.matchAll(RE_INLINE_CODE_SPAN)) spans.push(m[1]);
+      continue;
+    }
+    if (fenceMatch && fenceMatch[1][0] === openChar && fenceMatch[1].length >= openLen && fenceMatch[2].trim() === '') {
+      openChar = null;
+      openLen = 0;
+      continue;
+    }
+    fencedLines.push(line);
+  }
+  return { spans, fencedLines };
+}
+
+function stripShellPrompt(line) {
+  return line.trim().replace(/^\$\s*/, '').trim();
+}
+
+function commandShownVerbatim(blockText, command) {
+  const { spans, fencedLines } = collectCodeSpansAndFencedLines(blockText);
+  if (spans.some((span) => span.trim() === command)) return true;
+  return fencedLines.some((line) => stripShellPrompt(line) === command);
+}
+
 export function checkCommandCoverage(dataset, files, options) {
   const defs = new Map(allDefinitions(files).filter((d) => d.kind === 'topic').map((d) => [d.id, d]));
   const out = [];
@@ -2298,7 +2389,7 @@ export function checkCommandCoverage(dataset, files, options) {
     const def = defs.get(topic.id);
     if (!def) continue;
     for (const command of topic.commands) {
-      if (!def.blockText.includes(command)) {
+      if (!commandShownVerbatim(def.blockText, command)) {
         out.push(finding('guide-command-coverage', 'error', topic.id,
           `${def.file}:${def.line} ${topic.id} does not show its dataset command verbatim: ${command}`));
       }
@@ -2317,7 +2408,7 @@ export function checkWaiverMarker({ topics, waivers }, files, options) {
     if (topic && !inScope(topic, options)) continue;
     const def = defs.get(id);
     if (!def) continue;
-    if (!def.blockText.includes(WAIVER_MARKER)) {
+    if (!def.blockText.includes(WAIVER_OPENING) || !def.blockText.includes(WAIVER_CLOSING_PHRASE)) {
       out.push(finding('guide-waiver-marker', 'error', id,
         `${def.file}:${def.line} ${id} is waived in data/sourcing-waivers.json but carries no no-primary-source marker`));
     }
@@ -2326,12 +2417,31 @@ export function checkWaiverMarker({ topics, waivers }, files, options) {
 }
 
 export function checkDanglingXref(dataset, files, options) {
+  // A dangling link is an error in a full-corpus run, but only a warning
+  // when `options.scope` is set: a scoped run is exactly one writing task's
+  // output, and that file's cross-references legitimately point at sibling
+  // competency files a later task has not written yet. Treating those as
+  // errors would make every mid-cycle scoped check fail on links that are
+  // correct, just early.
   const severity = options?.scope ? 'warn' : 'error';
   const byPath = new Map(files.map((f) => [f.path, f]));
   const out = [];
   for (const f of files) {
     for (const link of f.links) {
-      if (/^[a-z]+:/i.test(link.href) || link.href.startsWith('#')) continue;
+      if (/^[a-z]+:/i.test(link.href)) continue;
+      // An anchor-only href (`#c-some-id`) is a same-file link. It was
+      // previously skipped outright, which let a same-file link to a
+      // nonexistent anchor pass unconditionally. Resolve it against the
+      // containing file's own anchors instead, and report it exactly like
+      // any other dangling anchor.
+      if (link.href.startsWith('#')) {
+        const anchor = link.href.slice(1);
+        if (anchor && !f.anchors.has(anchor)) {
+          out.push(finding('guide-dangling-xref', severity, f.path,
+            `${f.path}:${link.line} links to anchor #${anchor}, which ${f.path} does not define`));
+        }
+        continue;
+      }
       const [rel, anchor] = link.href.split('#');
       const target = rel === '' ? f.path : posix.normalize(posix.join(posix.dirname(f.path), rel));
       const targetFile = byPath.get(target);
@@ -2394,9 +2504,9 @@ Move the three `import` lines to the top of the file, alongside the existing `co
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-checks.test.mjs`
-Expected: PASS, 49 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
+Expected: PASS, 51 tests in that file (25 from Task 4 plus 12 new — the 11 above plus one
 covering that `runAllGuideChecks` calls `assertKnownScope` before running any check — plus 12
-more added in "Fix round 1" below).
+more added in "Fix round 1" below, plus 2 more added in "Fix round 2" below).
 
 **Note (post-implementation):** Task 4 went through a fix round after this task was drafted,
 which changed the actual test count (25, not 10) and added a second competency plus depth-4/5
@@ -2430,10 +2540,35 @@ command-boundary fix (`uname -r` vs `uname -rV`, and a fenced command followed b
 counting); one for the anchor-only dangling-link fix; and one for the truncated-waiver-marker
 fix. `tools/test/guide-checks.test.mjs` grew from 37 to 49 tests.
 
+**Note (Fix round 2):** A second review found `checkCommandCoverage`'s complete-invocation
+boundary rule was still self-satisfying: the dataset records concepts whose command is itself
+markdown table syntax (`linux.command-line.pipes` requires `|`; `.command-chaining` requires
+`||`), and every Commands table row is delimited by `|`, so the check passed on the table's own
+markup with no genuine pipe example ever shown; separately, a concept listing both a bare
+command and a flagged variant (`man` and `man -k`, `sed` and `sed 's/a/b/g'`, `kill` and
+`kill -9`, and ten more) could credit the bare form by showing only the longer one, since a space
+does not extend a boundary match. Fixed by replacing the boundary-rule search over raw
+`blockText` with `commandShownVerbatim`, which now searches only inline code spans and fenced
+code block lines (stripping an optional leading shell prompt) and requires exact equality, not a
+substring or boundary match — closing both gaps by construction, since a table cell's pipes are
+markup, not code-span content, and `man` can never match `man -k`. Verified satisfiable over the
+whole real dataset: all 379 commands across 171 concepts pass both as an inline code span and as
+a bare fenced line. One existing test's sample text moved (not its assertion): "a command inside
+a fenced block, followed by a pipe, still counts as a complete invocation" showed the command
+only as `uname -r | tee /tmp/out.txt`, which the exact-equality fenced-line rule no longer
+self-satisfies (that line reads as `uname -r | tee ...`, not `uname -r`); the fixture now also
+shows the bare invocation on its own fenced line first, so the assertion (findings stay empty) is
+unchanged. Two new tests also close a scope-mixup gap: `ownedInScope` gates a comparison block's
+scope membership on the block's *owner*, but every existing scope test gave a block's owner and
+member the same competency, so a mutant gating on `block.members[0]` instead would still have
+passed all of them. The two new tests build a block whose owner and sole member sit in different
+competencies and prove scoping follows the owner in both directions.
+`tools/test/guide-checks.test.mjs` grew from 49 to 51 tests.
+
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 154 tests.
+Expected: both exit 0; 156 tests.
 
 - [ ] **Step 6: Commit**
 

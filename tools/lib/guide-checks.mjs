@@ -318,18 +318,71 @@ export function checkComparisonPointer(dataset, files, options) {
   return out;
 }
 
-// A command counts as shown only when it appears as a complete invocation,
-// not as a prefix of a longer one: `blockText.includes('uname -r')` would be
-// satisfied by a guide that only ever shows `uname -rV`, crediting a command
-// that was never actually demonstrated. An occurrence is valid only when it
-// is not immediately adjacent, on either side, to a character that would
-// extend it into a different command or flag combination — a letter, digit,
-// hyphen, underscore, equals sign or slash. Short-flag pairs like `ps` vs
-// `ps aux` or `rm -r` vs `rm -rf` are exactly the case this guards against.
+// A command counts as shown only if it appears verbatim inside a code span
+// or a fenced code block — never by searching the block's raw prose. Two
+// failures forced this design, and both are failures of *where* the search
+// looked, not of how forgiving its boundary rule was:
+//
+//   - The dataset records concepts whose command is itself markdown table
+//     syntax (`linux.command-line.pipes` requires `|`; `.command-chaining`
+//     requires `||`). Every Commands table row is delimited by `|`, and
+//     every commands-bearing concept is required to render one — so a raw
+//     `blockText` search was satisfied by the table's own markup, with no
+//     genuine pipe example ever needed.
+//   - A concept that lists both a bare command and a flagged variant (`man`
+//     and `man -k`, `sed` and `sed 's/a/b/g'`, `kill` and `kill -9`, and
+//     others) could show only the longer form and still credit the shorter
+//     one, because nothing in raw prose marks where one command ends and
+//     unrelated surrounding text begins.
+//
+// Restricting the search to code spans and fenced lines, and requiring an
+// exact match rather than a substring, closes both gaps at once: a table
+// cell's pipe characters are markup, not a code span's content, and `man`
+// only matches literal `man`, never `man -k`. This is also, by construction,
+// exactly what a writer's Commands table already gives them: its first
+// column holds each command as its own inline code span, verbatim.
+const RE_FENCE_LINE = /^ {0,3}(`{3,}|~{3,})(.*)$/;
+const RE_INLINE_CODE_SPAN = /`([^`]+)`/g;
+
+// Walks `blockText` once, tracking fence open/close state the same way
+// `guide-parse.mjs` does (matching fence character and length, closer must
+// carry no trailing content), and buckets every line into either inline code
+// span contents (outside any fence) or raw fenced lines (inside one). A line
+// that opens or closes a fence contributes neither.
+function collectCodeSpansAndFencedLines(blockText) {
+  const spans = [];
+  const fencedLines = [];
+  let openChar = null;
+  let openLen = 0;
+  for (const line of blockText.split('\n')) {
+    const fenceMatch = RE_FENCE_LINE.exec(line);
+    if (openChar === null) {
+      if (fenceMatch) {
+        openChar = fenceMatch[1][0];
+        openLen = fenceMatch[1].length;
+        continue;
+      }
+      for (const m of line.matchAll(RE_INLINE_CODE_SPAN)) spans.push(m[1]);
+      continue;
+    }
+    if (fenceMatch && fenceMatch[1][0] === openChar && fenceMatch[1].length >= openLen && fenceMatch[2].trim() === '') {
+      openChar = null;
+      openLen = 0;
+      continue;
+    }
+    fencedLines.push(line);
+  }
+  return { spans, fencedLines };
+}
+
+function stripShellPrompt(line) {
+  return line.trim().replace(/^\$\s*/, '').trim();
+}
+
 function commandShownVerbatim(blockText, command) {
-  const boundary = '[A-Za-z0-9_=/-]';
-  const re = new RegExp(`(?<!${boundary})${escapeRegExp(command)}(?!${boundary})`);
-  return re.test(blockText);
+  const { spans, fencedLines } = collectCodeSpansAndFencedLines(blockText);
+  if (spans.some((span) => span.trim() === command)) return true;
+  return fencedLines.some((line) => stripShellPrompt(line) === command);
 }
 
 export function checkCommandCoverage(dataset, files, options) {

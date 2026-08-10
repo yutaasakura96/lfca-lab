@@ -703,6 +703,53 @@ test('checkWaiverMarker scope filtering reports the scoped waived concept and ex
   assert.ok(!found.some((f) => f.id === 'fx.fixture.scope-waived-b'));
 });
 
+// --- Fix round 2: IMPORTANT 2 — ownedInScope must gate on the block's
+// owner, not on any member ---
+//
+// Every scope test above gives a block's owner and its member the same
+// competency, so scoping never has to choose between them: a mutant that
+// gated `ownedInScope` on `block.members[0]` instead of `block.owner` (as
+// its own comment says it must) would still pass every one of them. These
+// two tests build a block whose owner and sole member sit in *different*
+// competencies and prove scoping follows the owner in both directions:
+// scoping to the owner's competency reports the block, scoping to the
+// member's competency does not.
+
+test('checkComparisonCoverage scopes on the block owner\'s competency, not the member\'s', () => {
+  const localDataset = {
+    competencies: scopeCompetencies(),
+    topics: [
+      { id: 'fx.fixture.cross-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.cross-member'] },
+      { id: 'fx.fixture.cross-member', domain: 'Fixture Domain', competency: 'Second Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+  // No file writes the block, so it is reported as missing wherever it falls in scope.
+  const ownerScoped = checkComparisonCoverage(localDataset, [], { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(ownerScoped.some((f) => f.id === 'fx.fixture.cross-owner'));
+  const memberScoped = checkComparisonCoverage(localDataset, [], { scope: 'Fixture Domain :: Second Competency' });
+  assert.ok(!memberScoped.some((f) => f.id === 'fx.fixture.cross-owner'));
+});
+
+test('checkComparisonMembership scopes on the block owner\'s competency, not the member\'s', () => {
+  const localDataset = {
+    competencies: scopeCompetencies(),
+    topics: [
+      { id: 'fx.fixture.cross-owner', domain: 'Fixture Domain', competency: 'Fixture Competency', importance: 4, required_depth: 3, confused_with: ['fx.fixture.cross-member'] },
+      { id: 'fx.fixture.cross-member', domain: 'Fixture Domain', competency: 'Second Competency', importance: 2, required_depth: 2, confused_with: [] },
+    ],
+  };
+  const files = [{
+    path: 'x.md',
+    comparisons: [
+      { owner: 'fx.fixture.cross-owner', line: 1, compares: ['fx.fixture.cross-owner', 'fx.fixture.scope-wrong'] },
+    ],
+  }];
+  const ownerScoped = checkComparisonMembership(localDataset, files, { scope: 'Fixture Domain :: Fixture Competency' });
+  assert.ok(ownerScoped.some((f) => f.id === 'fx.fixture.cross-owner'));
+  const memberScoped = checkComparisonMembership(localDataset, files, { scope: 'Fixture Domain :: Second Competency' });
+  assert.ok(!memberScoped.some((f) => f.id === 'fx.fixture.cross-owner'));
+});
+
 // --- Fix round 1: IMPORTANT 3 — checkCommandCoverage credited a substring match ---
 
 test('a command shown only as a prefix of a longer flag combination is not credited', () => {
@@ -720,9 +767,16 @@ test('a command shown only as a prefix of a longer flag combination is not credi
 });
 
 test('a command inside a fenced block, followed by a pipe, still counts as a complete invocation', () => {
+  // Fix round 2: the code-span/fenced-line rule requires a fenced line to
+  // equal the command exactly, so a line reading `uname -r | tee ...` no
+  // longer self-satisfies (that trailing pipe is real: it makes the line
+  // read as `uname -r | tee ...`, not `uname -r`). The fixture now shows the
+  // bare invocation on its own fenced line first, with the piped usage kept
+  // right after as a realistic second example — the assertion (findings
+  // stay empty) is unchanged; only this sample text moved.
   const text = FULL.replace(
     '| `uname -r` | Show the running kernel release |',
-    ['| `uname` | Show the kernel |', '', '```bash', 'uname -r | tee /tmp/out.txt', '```'].join('\n'),
+    ['| `uname` | Show the kernel |', '', '```bash', 'uname -r', 'uname -r | tee /tmp/out.txt', '```'].join('\n'),
   );
   assert.deepEqual(checkCommandCoverage(dataset, [parseGuideFile(GUIDE_PATH, text)], {}), []);
 });
