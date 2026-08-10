@@ -5,6 +5,8 @@
   "scripts": {
     "test": "node --test",
     "validate": "node tools/validate.mjs",
-    "generate": "node tools/generate-views.mjs"
+    "generate": "node tools/generate-views.mjs",
+    "check-guide": "node tools/check-guide.mjs",
+    "guide-plan": "node tools/guide-plan.mjs"
   }
 }
