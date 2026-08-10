@@ -861,54 +861,64 @@ export function parseGuideFile(path, text) {
     }
   }
 
-  // Pass 2: glossary rows, but only inside a Quick reference table.
+  // Pass 2: glossary rows, but only inside a Quick reference section.
   //
-  // The glossary table is scoped to the *first contiguous run of table rows*
-  // that follows a "#### Quick reference" heading: blank/other lines before
-  // the first row are skipped without consequence, the run starts at that
-  // first row, and ends at the first line after that which is not a table
-  // row. A second table appearing later under the same heading (e.g. after
-  // a blank line) falls outside that run, so its rows are neither parsed as
-  // glossary definitions nor flagged as malformed — they simply are not
-  // glossary rows.
+  // Round 3 replaces the round-2 "first contiguous run of table rows" state
+  // machine outright. That rule could not tell a genuinely separate second
+  // table from the *same* table interrupted by a blank line, an HTML
+  // comment, or a whitespace-only line: any of those ended the run, so a
+  // well-formed backticked row after the interruption was dropped with no
+  // definition and no `malformed` entry.
+  //
+  // There is no run state and no positional adjacency test now. Membership
+  // is decided purely by (a) which section a line sits in — a Quick
+  // reference section runs from its heading to the next heading of any
+  // level — and (b) the line's own shape:
+  //   - the header row (first cell "Concept") is skipped;
+  //   - a separator row (first cell only dashes/colons) is skipped;
+  //   - a row whose first cell is a backticked concept id becomes a
+  //     glossary definition;
+  //   - every other table row is reported as malformed — including a row
+  //     belonging to a second table under the same heading, since this
+  //     guide's format holds exactly one glossary table per section and a
+  //     second one is itself a format violation, not a false positive.
   //
   // Whether a line "is a table row" is judged after stripping leading
   // whitespace, so a row indented by hand-editing, or nested in a list or
   // blockquote, is still recognised as a row instead of being silently
-  // skipped by the scanner. A marker the parser fails to recognise must
+  // skipped by the scanner. Blank lines, HTML comments and whitespace-only
+  // lines are simply not table rows: they are ignored without ending or
+  // interrupting anything. A marker the parser fails to recognise must
   // always surface in `malformed` — never vanish silently.
-  let currentH4 = null;
-  let glossaryRun = 'before'; // 'before': run not started yet; 'active': inside the run; 'ended': run finished, later rows are not glossary rows
+  let inQuickReference = false;
   for (let i = 0; i < lines.length; i += 1) {
     const level = headingLevel(matchLines[i]);
     if (level > 0) {
       const headingText = RE_HEADING.exec(matchLines[i])[2];
-      if (headingText === 'Quick reference' && level !== 4) {
-        malformed.push({
-          line: i + 1,
-          reason: `"Quick reference" heading must be level 4, found level ${level}: "${matchLines[i]}"`,
-        });
+      // Matched case-insensitively so a capitalisation typo (e.g. "Quick
+      // Reference") is still recognised as an attempted Quick reference
+      // heading and reported, rather than silently setting no section and
+      // dropping every row beneath it.
+      const isQuickReferenceHeading = headingText.toLowerCase() === 'quick reference';
+      if (isQuickReferenceHeading) {
+        const isWellFormed = headingText === 'Quick reference' && level === 4;
+        if (!isWellFormed) {
+          malformed.push({
+            line: i + 1,
+            reason: `"Quick reference" heading must read exactly "Quick reference" at level 4, found "${headingText}" at level ${level}: "${matchLines[i]}"`,
+          });
+        }
+        inQuickReference = isWellFormed;
+      } else {
+        inQuickReference = false;
       }
-      if (level <= 4) {
-        currentH4 = level === 4 ? headingText : null;
-        glossaryRun = 'before';
-      }
+      continue;
     }
-    if (currentH4 !== 'Quick reference') continue;
+    if (!inQuickReference) continue;
     const trimmed = matchLines[i].trimStart();
-    const isRow = trimmed.startsWith('|');
-    if (glossaryRun === 'before') {
-      if (!isRow) continue;
-      glossaryRun = 'active';
-    } else if (glossaryRun === 'ended') {
-      continue;
-    } else if (!isRow) {
-      glossaryRun = 'ended';
-      continue;
-    }
+    if (!trimmed.startsWith('|')) continue;
     const row = RE_GLOSSARY_ROW.exec(trimmed);
     if (row) {
-      if (row[1] === 'Concept') continue;
       definitions.push({
         id: row[1],
         kind: 'glossary',
@@ -1009,15 +1019,17 @@ Also add, to `tools/test/guide-parse.test.mjs`, tests for the seven review findi
 
 Also add, for the two fix-round-2 findings on the Quick reference glossary scanner: an indented but otherwise valid glossary row still parses as a definition, and an indented un-backticked row still surfaces in `malformed` with the correct line (Important 1); a second table under the same `Quick reference` heading, separated from the first by a blank line, produces no `malformed` entries for its header, separator, or data rows (Minor 2).
 
+Fix round 3 replaces the round-2 "first contiguous run of table rows" rule outright, because it could not distinguish a genuinely separate second table from the *same* table interrupted by a blank line, an HTML comment, or a whitespace-only line — any of those silently dropped a well-formed row after the interruption. `tools/test/guide-parse.test.mjs` grew from 21 to 26 tests: the round-2 `Minor 2` test asserting "no malformed entries" for a second table is replaced (that was exactly the reversed behaviour), and five new tests are added — a row after a blank-line interruption still parses; the same after an HTML comment and after a whitespace-only line; a second table's rows are now reported malformed rather than dropped; a `#### Quick Reference` heading with wrong capitalisation is reported malformed (matched case-insensitively so the typo is recognised, then reported exact-mismatch); header and separator rows alone still produce no entries.
+
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-parse.test.mjs`
-Expected: PASS, 21 tests.
+Expected: PASS, 26 tests.
 
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 86 tests.
+Expected: both exit 0; 91 tests.
 
 - [ ] **Step 6: Commit**
 

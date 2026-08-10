@@ -288,7 +288,24 @@ test('IMPORTANT 1: an indented un-backticked Quick reference row is reported as 
   assert.match(f.malformed[0].reason, /backticked/);
 });
 
-test('MINOR 2: a second table under the same Quick reference heading produces no malformed entries', () => {
+// --- Fix round 3 -----------------------------------------------------------
+//
+// Round 2's "first contiguous run of table rows" rule is replaced outright
+// (not patched) because it could not distinguish a genuinely separate
+// second table from the *same* table interrupted by a blank line, an HTML
+// comment, or a whitespace-only line — any of those silently ended the run
+// and dropped a well-formed row after it. The new rule has no run state: a
+// line's membership in the Quick reference section is decided by which
+// section it sits in and by its own shape, never by adjacency to other
+// rows.
+
+test('ROUND 3: a second table under the same Quick reference heading has its rows reported as malformed', () => {
+  // This replaces "MINOR 2: a second table under the same Quick reference
+  // heading produces no malformed entries" from round 2. That test asserted
+  // the round-2 behaviour this round deliberately reverses: in this guide's
+  // format a Quick reference section holds exactly one glossary table, so a
+  // second table's rows are themselves a format violation and reporting
+  // them is correct, not a false positive.
   const lines = [
     '<a id="s-a"></a>',                  // 0
     '## A',                              // 1
@@ -298,13 +315,113 @@ test('MINOR 2: a second table under the same Quick reference heading produces no
     '| Concept | Term |',                // 5 glossary header, not malformed
     '| --- | --- |',                     // 6 glossary separator, not malformed
     '| `a.b.c` | Term text |',           // 7 glossary row -> definition
-    '',                                  // 8 blank line ends the glossary run
-    '| Other | Header |',                // 9 second table header, not glossary
-    '| --- | --- |',                     // 10 second table separator
-    '| some data | more |',              // 11 second table row, not glossary or malformed
+    '',                                  // 8 blank line, not a row, does not end anything
+    '| Other | Header |',                // 9 second table header -> malformed line 10
+    '| --- | --- |',                     // 10 separator shape, skipped regardless of table
+    '| some data | more |',              // 11 second table row -> malformed line 12
     '',                                  // 12
   ];
   const f = parseGuideFile('x.md', lines.join('\n'));
-  assert.equal(f.malformed.length, 0);
+  assert.equal(f.malformed.length, 2);
+  assert.equal(f.malformed[0].line, 10);
+  assert.match(f.malformed[0].reason, /backticked/);
+  assert.equal(f.malformed[1].line, 12);
+  assert.match(f.malformed[1].reason, /backticked/);
   assert.deepEqual(f.definitions.map((d) => d.id), ['a.b.c']);
+});
+
+test('ROUND 3: a well-formed row after a blank-line interruption still parses', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '| `a.b.c` | First |',               // 7 -> line 8
+    '',                                  // 8 blank line inside the table
+    '| `a.b.d` | Second |',              // 9 -> line 10
+    '',                                  // 10
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.deepEqual(f.definitions.map((d) => d.id), ['a.b.c', 'a.b.d']);
+  assert.equal(f.malformed.length, 0);
+});
+
+test('ROUND 3: a well-formed row after an HTML comment interruption still parses', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '| `a.b.c` | First |',               // 7 -> line 8
+    '<!-- a comment -->',                // 8
+    '| `a.b.d` | Second |',              // 9 -> line 10
+    '',                                  // 10
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.deepEqual(f.definitions.map((d) => d.id), ['a.b.c', 'a.b.d']);
+  assert.equal(f.malformed.length, 0);
+});
+
+test('ROUND 3: a well-formed row after a whitespace-only line interruption still parses', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '| `a.b.c` | First |',               // 7 -> line 8
+    '   ',                               // 8 whitespace-only line
+    '| `a.b.d` | Second |',              // 9 -> line 10
+    '',                                  // 10
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.deepEqual(f.definitions.map((d) => d.id), ['a.b.c', 'a.b.d']);
+  assert.equal(f.malformed.length, 0);
+});
+
+test('ROUND 3: a Quick reference heading with wrong capitalisation is reported as malformed', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick Reference',              // 3 -> malformed line 4
+    '',                                  // 4
+    '| Concept | Term |',                // 5
+    '| --- | --- |',                     // 6
+    '| `a.b.c` | Term |',                // 7
+    '',                                  // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 4);
+  assert.match(f.malformed[0].reason, /Quick reference/i);
+  assert.match(f.malformed[0].reason, /"Quick Reference"/);
+  // The heading was never recognised as the well-formed level-4 opener, so
+  // the row beneath it must not be silently absorbed as a glossary
+  // definition either — same symmetry as the wrong-level case.
+  assert.equal(f.definitions.length, 0);
+});
+
+test('ROUND 3: header and separator rows alone produce no entries', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5 header row
+    '| --- | --- |',                     // 6 separator row
+    '',                                  // 7
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 0);
+  assert.equal(f.definitions.length, 0);
 });
