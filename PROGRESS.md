@@ -224,9 +224,10 @@ source — 537/537" was measuring that a constant had been written 537 times. Fi
 added (18 total, 49 tests):
 
 - `unsourced-concept` — requires a tier-1/2 source **independent of** the shared objectives
-  source. The 57 concepts that cannot meet it are now waived **by name** in
-  `data/sourcing-waivers.json` with the reason recorded, instead of passing invisibly.
-  `stale-waiver` warns when a waiver is no longer needed.
+  source. The 57 concepts that could not meet it at the end of cycle 1 were waived **by name**
+  in `data/sourcing-waivers.json` with the reason recorded, instead of passing invisibly.
+  `stale-waiver` warns when a waiver is no longer needed. Cycle 2 removed five of those
+  waivers after finding free primary sources for them, so the list now holds 52.
 - `derived-importance` — the stored `importance` must equal the formula. The whole argument for
   that field is that it is derived and reproducible, and nothing was checking it.
 - `objective-mismatch`, `unknown-competency`, `invalid-enum` — three more load-bearing
