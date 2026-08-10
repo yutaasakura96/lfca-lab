@@ -1,13 +1,14 @@
 # Linux Operating System
 
-Linux Operating System anchors the Linux Fundamentals domain, the exam's smallest domain at
-16% of the current (2025-09-16) blueprint, and this competency was unchanged by the 2025
-update. LFS200 covers roughly half of it directly — the kernel, the operating-system layer,
-and the kernel/user space boundary are taught explicitly in the course — while distribution
-families, hardware identification, interface history, and environment mechanics are not
-covered there and are sourced independently below (`research/lfs200-notes/00-course-map.md`).
-Nothing here assumes a beginner: every topic is written to the point where the reader can
-name the trap, not just the term.
+Linux Operating System anchors the Linux Fundamentals domain, the exam's fourth-smallest
+domain at 16% of the current (2025-09-16) blueprint — IT Project Management Fundamentals is
+the smallest, at 10% — and this competency was unchanged by the 2025 update. LFS200 covers
+this competency thinly: of its 27 concepts, only 2 are FULLY COVERED (the operating system
+and the kernel) and 2 more are PARTIALLY COVERED (the system call and the CPU) — 4 of 27,
+15%, that LFS200 touches at all, not deeply. The other 23, including the kernel/user-space
+boundary itself, are NOT COVERED and sourced independently below
+(`research/lfs200-notes/00-course-map.md`). Nothing here assumes a beginner: every topic is
+written to the point where the reader can name the trap, not just the term.
 
 <a id="s-linux-operating-system-fundamentals"></a>
 ## Fundamentals
@@ -744,8 +745,6 @@ connection).
 The separating axis is which side of the hardware boundary the code runs on: the driver is
 the kernel's side of talking to the device; firmware is the device's own embedded software,
 running before and independent of any OS.
-
-*Not to be confused with [device drivers and kernel modules](linux-operating-system.md#cmp-linux.linux-operating-system.device-drivers-and-kernel-modules).*
 
 #### Quick reference
 
