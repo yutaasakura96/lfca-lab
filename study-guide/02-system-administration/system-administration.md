@@ -732,8 +732,9 @@ file executable — it can only prevent bits from appearing.
 
 **Why it matters** It is routinely confused with `chmod` because both are written in octal and
 both are three digits. They point in opposite directions: `chmod 644` means "end up with 644",
-`umask 644` means "remove read/write from everyone but the owner's read/write", producing far more
-restrictive results than the same digits in `chmod`.
+whereas `umask 644` removes read and write from the *owner* and read from group and other, leaving
+a new file at mode `022` (`----w--w-`) — the owner cannot even read what they just created, far
+more restrictive than `chmod 644`.
 
 **How it works** `umask(2)` sets the calling process's file mode creation mask; the resulting mode
 is the mode the creating program asked for, ANDed with the complement of the mask. Programs
@@ -940,7 +941,7 @@ with the *target account's* password.
 **Why it matters** The exam's interest is the audit trail, not the convenience. `sudo` records who
 ran what, and can be scoped to individual commands; `su` hands over a shell and everything after
 that is anonymous within that shell. That difference is why shared root passwords are discouraged
-and why Debian-family installers lock the root password entirely.
+and why Ubuntu ships with root's password locked, routing all administration through `sudo`.
 
 **How it works** `sudo` consults the sudoers policy, prompts for the invoking user's password by
 default, caches that authentication briefly, logs the command through syslog, and executes it as
@@ -959,8 +960,11 @@ login shell with the target's full environment and home directory.
 | `su` | Substitute user and start a shell as them | `-`/`-l`/`--login` full login shell, `-c` run one command, `-s` shell to use | `su - alice` | Running plain `su` and inheriting a mixed environment: the current directory is kept and most variables are not reset |
 | `sudo -i` | Start a root login shell through sudo, with root's environment and home | contrast with `sudo -s`, which starts a shell without simulating a full login | `sudo -i` | Treating it as safer than `su -` — the privilege held is identical; only the authentication and the log entry differ |
 
-**Traps** On a default Debian or Ubuntu install, root's password is locked, so `su` to root simply
-fails no matter what is typed — the answer is `sudo -i`, not a forgotten password. And `sudo -i`
+**Traps** On Ubuntu, and on a Debian install where no root password was set, root's password is
+locked, so `su` to root simply fails no matter what is typed — the answer is `sudo -i`, not a
+forgotten password. Debian's installer does prompt for a root password; it is only when that field
+is left empty that the account is disabled and the first user is added to the `sudo` group
+instead. And `sudo -i`
 versus `sudo -s` matters: `-i` simulates an initial login (root's environment, root's home,
 root's shell startup files), while `-s` runs a shell that keeps much of the invoking user's
 environment.
@@ -1239,7 +1243,7 @@ and often uses SIGHUP as "re-read your configuration."
 | --- | --- | --- | --- | --- |
 | `kill` | Send a signal to a process by PID | default signal is SIGTERM; `-l` list signal names; `-s NAME` or `-NUMBER` choose one | `kill 4821` | Believing `kill` always terminates — it sends a signal, and which signal decides what happens |
 | `kill -9` | Send SIGKILL, which cannot be caught, blocked, or ignored | none — the point of SIGKILL is that it takes no cooperation | `kill -9 4821` | Reaching for it first, so the process never gets to flush data or release its lock file |
-| `killall` | Signal every process whose *name* matches exactly | `-i` confirm each, `-u USER` restrict by owner, `-s` choose the signal | `killall nginx` | Passing a path or a partial name — the match is against the command name, so `killall /usr/sbin/nginx` matches nothing |
+| `killall` | Signal every process whose command *name* matches exactly — or, when the argument contains a slash, every process executing that particular file | `-e` require an exact match for names over 15 characters, `-i` confirm each, `-u USER` restrict by owner, `-s` choose the signal | `killall nginx` | Passing a partial name — the match is against the whole command name, so `killall ngin` matches nothing; and for a name longer than 15 characters only the first 15 are compared unless `-e` is given |
 | `pkill` | Signal processes selected by pattern and attribute | `-f` match the full command line, `-u` by user, `-x` require an exact match, `-e` echo what was killed | `pkill -u deploy -f 'python3 worker'` | Forgetting that the pattern is a substring by default, so `pkill ssh` can also kill `sshd` |
 
 **Traps** SIGKILL cannot fix a process stuck in uninterruptible sleep (state `D` in `ps`), because

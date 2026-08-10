@@ -18,10 +18,12 @@ often than any list of its clauses.
 *id: `security.compliance.compliance` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, lf-lfca-program*
 
 **What it is** Demonstrably meeting obligations imposed by law, regulation or contract — with
-evidence, not merely intent. Compliance is a claim about an organisation, assessed by an
-outside party against a written standard that outside party did not let the organisation
-choose. Security is a claim about a system, assessed against whether an attacker can actually
-defeat it. The two overlap heavily and are not the same thing.
+evidence, not merely intent. Compliance is a claim about an organisation, measured against
+criteria written outside the team that runs the system — a statute, a sector rule, a contract,
+or a framework the organisation has voluntarily adopted — and tested either by an internal
+reviewer or by an independent assessor. Security is a claim about a system, assessed against
+whether an attacker can actually defeat it. The two overlap heavily and are not the same
+thing.
 
 **Why it matters** The exam will offer "compliant" and "secure" as alternative answers to the
 same scenario, and both will look reasonable. A system can be fully compliant and insecure —

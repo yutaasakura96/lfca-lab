@@ -588,7 +588,3 @@ and a lifecycle rule tiering backups older than 90 days to colder storage.
    Colder tiers shift cost from storage to access and transactions, each transition is a
    billable operation, and the move starts a minimum retention clock — deleting or promoting
    the data early incurs the remaining days as an early deletion charge.
-7. The bill rose but the resource count did not change. Name at least two explanations that
-   are consistent with both facts.
-   More usage of the same resources (egress or request volume), a free-tier allowance
-   expiring, or a reservation reaching the end of its term and reverting to on-demand rates.

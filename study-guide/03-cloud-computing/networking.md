@@ -20,7 +20,7 @@ names one vendor's product is nearly always asking about the mechanism in the le
 | Subdivision of that network | Subnet — confined to one Availability Zone | Subnet — spans every availability zone in the region | Subnet — a regional resource spanning zones in its region |
 | Stateful, resource-attached filtering | Security group | Network security group (NSG) | VPC firewall rule |
 | Stateless, subnet-attached filtering | Network ACL | No separate equivalent | No separate equivalent |
-| Two-way internet path | Internet gateway (created and attached) | Inherent to the virtual network | Default internet gateway (next hop of the default route) |
+| Two-way internet path | Internet gateway (created and attached) | No named gateway resource — outbound requires an explicit method (NAT gateway, load-balancer outbound rules, or public IP) | Default internet gateway (next hop of the default route) |
 | Outbound-only internet path | NAT gateway | Azure NAT Gateway | Cloud NAT |
 | Reserved public address | Elastic IP | Static public IP | Static external IP address |
 | Managed authoritative DNS | Route 53 | Azure DNS | Cloud DNS |
@@ -266,10 +266,16 @@ subnets it serves route their default traffic to it, from where it is routed on 
 internet gateway. The other providers arrange the same two directions differently: Google
 Cloud's routing documentation names a "default internet gateway" next hop, which is what its
 system-generated default route points at rather than something you provision, and offers
-Cloud NAT for the outbound-only case; Azure has no separately named internet gateway at all,
-because outbound internet connectivity is an inherent property of a virtual network, with
-Azure NAT Gateway available to control outbound connections and a public IP or public load
-balancer required to be reachable inbound.
+Cloud NAT for the outbound-only case; Azure has no separately named internet-gateway resource
+at all, so outbound reachability comes from an explicit method attached to the deployment — a
+NAT gateway associated with the subnet, outbound rules on a Standard Load Balancer, or a
+public IP on the virtual machine — while inbound reachability still requires a public IP or a
+public load balancer. Do not read that as "Azure gives it to you for free": Azure formerly
+granted an implicit "default outbound access" to a virtual machine deployed without any
+explicit method, and Microsoft is retiring it. Its documentation states that for the API
+released after 31 March 2026 new virtual networks default to using private subnets, meaning
+an explicit outbound method must be enabled in order to reach public endpoints, and the
+portal already creates subnets as private by default.
 
 **Key terms** routing target; two-way reachability; outbound-only; address translation.
 
@@ -392,10 +398,15 @@ overlaps the other side's range causes the request to fail.
 **Traps** Non-transitivity is the trap the exam reaches for first, because a hub-and-spoke
 diagram makes the wrong answer look obvious; a full mesh, or a transit/hub gateway service,
 is what actually connects three or more networks. The second trap is treating peering as a
-VPN: peering carries private traffic over the provider's backbone but it is not a tunnel you
-established and does not encrypt anything by virtue of being peering. The third is expecting
-connectivity the moment the connection is accepted — without routes on both sides, nothing
-flows.
+VPN: peering is not a tunnel you established, and it exposes no encryption setting you own,
+terminate, or key-manage. That is not the same as saying the traffic is unencrypted — the
+provider may encrypt the underlying transport, and AWS documents that all inter-Region
+peering traffic is encrypted before leaving AWS facilities and always stays on the global AWS
+backbone rather than traversing the public internet. The examinable difference is ownership:
+with a VPN the encryption is the mechanism you built and terminate, whereas with peering it
+is a property of the provider's fabric that you neither configure nor control. The third trap
+is expecting connectivity the moment the connection is accepted — without routes on both
+sides, nothing flows.
 
 **What the exam may test** Whether a described three-network topology needs additional
 peerings or a transit service, and why a peering request between two given address ranges
@@ -454,7 +465,7 @@ that the choice is independent of which provider is named.
 | Path | Encrypted tunnel over the public internet, or a dedicated circuit that avoids it | The provider's own private backbone |
 | How it is provisioned | A VPN device plus a cloud VPN gateway, or a circuit ordered through a connectivity provider | A request from one network, accepted by the other, plus routes on both sides |
 | Lead time | Hours for a VPN; weeks for a dedicated circuit | Minutes — it is a control-plane operation |
-| Encryption | Inherent to the VPN case; a separate decision on a dedicated circuit | Not a property of peering; traffic is private, not encrypted by peering |
+| Encryption | Inherent to the VPN case; a separate decision on a dedicated circuit | Not something you configure or control; the provider may encrypt the underlying transport — AWS encrypts inter-Region peering traffic — but peering is not a tunnel you established |
 | Blocked by overlapping address ranges | Yes | Yes — the connection cannot be created at all |
 
 The separating axis is which side of the cloud boundary the far end sits on: peering joins two

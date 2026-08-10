@@ -71,8 +71,13 @@ syntax rather than the command's options.
 
 **How it works** Manual sections are fixed: 1 user commands, 2 system calls, 3 library calls, 4
 special files (devices), 5 file formats and configuration files, 6 games, 7 overviews and
-conventions, 8 system administration commands. `man name` shows the lowest-numbered section that
-has a page, which for a name existing in both 1 and 5 means the command page. `man 5 crontab`
+conventions, 8 system administration commands. `man name` shows the first page found in the
+configured section search order, not the lowest-numbered section that has a page. Both common
+implementations search 1 first and 8 before 2, 3 and 5 — man-db's default is
+`SECTION 1 n l 8 3 0 2 3type 5 4 9 6 7` in `man_db.conf`, and the BSD man on macOS defaults to
+`1:8:2:3:3lua:n:4:5:6:7:9:l`. That order is why `man crontab` opens the section-1 command page
+rather than the section-5 file format, and equally why `man mount` opens mount(8), the
+administration command, rather than the lower-numbered mount(2) system call. `man 5 crontab`
 asks for the file-format page explicitly. `man -k` and `apropos` are the same search: both scan
 the short descriptions in the manual index, not the page bodies, so they need that index
 (`mandb`) to have been built.
@@ -83,7 +88,7 @@ the short descriptions in the manual index, not the page bodies, so they need th
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `man` | Display a manual page | a leading section number selects the section | `man ls` | Assuming `man name` shows every page for that name — it shows one, the lowest-numbered section available |
+| `man` | Display a manual page | a leading section number selects the section | `man ls` | Assuming `man name` shows every page for that name — it shows one, the first match in the configured section order (`-a` shows them all) |
 | `man 5 crontab` | Display the section-5 page: the crontab *file format*, not the crontab command | section number precedes the name | `man 5 crontab` | Running `man crontab` and reading the section-1 command page while looking for the five time fields' syntax |
 | `man -k` | Search manual page short descriptions for a keyword | `-k` keyword search, same as `apropos` | `man -k` | Expecting it to search inside page text — it searches descriptions only; `man -K` searches full text and is far slower |
 | `apropos` | Identical to `man -k`: keyword search of page descriptions | (takes the keyword as an operand) | `apropos` | Getting "nothing appropriate" and concluding no page exists, when the `mandb` index simply has not been generated |
@@ -528,8 +533,9 @@ a standing exam discrimination.
 
 **How it works** A hard link is an additional directory entry pointing at the same inode: there is
 no "original", the link count in `ls -l`'s second column rises, deleting either name leaves the data
-reachable through the other, and it cannot cross a filesystem boundary or (for ordinary users)
-point at a directory. A symbolic link created with `ln -s` is a small separate file whose contents
+reachable through the other, and it cannot cross a filesystem boundary and cannot point at a
+directory at all — `link(2)` on Linux lists `EPERM` for a directory operand with no exception for
+root, and GNU `ln` refuses with "hard link not allowed for directory". A symbolic link created with `ln -s` is a small separate file whose contents
 are a path: it can cross filesystems, can point at a directory, shows as type `l` in a listing with
 an arrow to its target, and breaks silently into a dangling link if the target is moved or deleted.
 `rm -i` prompts before each removal, `stat` and `file` inspect, and `ls -la` lists everything
@@ -916,10 +922,12 @@ name.
 | `!!` | Re-run the previous command line | `!n` run line `n`, `!$` reuse the previous line's last argument | `sudo !!` | Putting it in a script: history expansion is off in non-interactive shells |
 | `Ctrl-R` | Search backwards through history incrementally | press again for the next older match; Ctrl-G cancels | `Ctrl-R` | Pressing Enter when the intention was to edit the recalled line first — Enter runs it immediately |
 
-**Traps** Because history expansion runs first, an exclamation mark inside double quotes is expanded
-at an interactive prompt: `echo "it works!"` can fail with "event not found", while the same line in
-a script is fine. Single quotes suppress it. And `history -c` clears the in-memory list only; the
-history file on disk is a separate thing.
+**Traps** Because history expansion runs first, and because double quotes do not suppress it the way
+single quotes do, an exclamation mark inside double quotes is expanded at an interactive prompt:
+`echo "hello!world"` fails with "event not found", while the same line in a script is fine. The
+position of the `!` decides it — since bash 4.3 a `!` immediately before the closing double quote no
+longer expands, so `echo "Done!"` is safe while `echo "Done!now"` is not. And `history -c` clears the
+in-memory list only; the history file on disk is a separate thing.
 
 **What the exam may test** Recognising history expansion and `Ctrl-R` as interactive-shell features,
 and knowing where the history is stored and when it is written.

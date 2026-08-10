@@ -571,7 +571,3 @@ anyone unauthorised could have read it.
    Only when the breach is likely to result in a high risk to their rights and freedoms, and
    even then the communication is excused where measures such as encryption had rendered the
    data unintelligible to anyone unauthorised.
-7. A production database is encrypted at rest and its nightly dump lands unencrypted in object
-   storage. What is wrong with that, in one sentence?
-   The control belongs to the data, not the server: the backup is now the weakest copy of a
-   restricted dataset and is where the data will actually be taken from.

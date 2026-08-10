@@ -116,7 +116,9 @@ whose access is legitimate.
 privilege escalations, file access, configuration changes — with a subject, an object, an
 action, an outcome, and a synchronised timestamp. Those records are retained for a defined
 period and shipped somewhere the acting identity cannot edit, because a log an attacker can
-rewrite is not evidence.
+rewrite is not evidence. The shipping, clock synchronisation, and retention themselves belong
+to security logging and monitoring, covered in the Defences section; accounting is the
+property that pipeline exists to preserve.
 
 **Key terms** audit record; non-repudiation; retention; log integrity.
 
@@ -426,12 +428,20 @@ many separate applications, without the user re-entering credentials at each one
 
 **Why it matters** SSO reduces credential sprawl — fewer passwords to choose, reuse, and
 leak — and it centralises the control point: disabling one account at the identity provider
-removes access everywhere at once, which is what makes offboarding reliable.
+removes access everywhere at once, which is what makes offboarding reliable. What it is not
+is multi-factor authentication, and the exam offers the two as alternatives: SSO changes how
+many times you authenticate, not how strongly. Putting every application behind one login
+concentrates the risk in that login, which is why MFA is enforced at the identity provider
+alongside SSO rather than replaced by it.
 
 **How it works** The user authenticates once to an identity provider, which issues a signed
 assertion or token that each participating application validates instead of running its own
 login. The applications trust the identity provider's statement about who the user is;
-they never see the password.
+they never see the password. That is also the boundary against same-sign-on, sometimes called
+password synchronisation, where the same password is merely replicated to each application
+and each still runs a login of its own: under SSO there is no password at the application to
+change or forget, only an assertion to validate, which is what makes revocation at the
+identity provider immediate rather than a per-application cleanup task.
 
 **Key terms** identity provider; federation; assertion; session token.
 
@@ -845,8 +855,11 @@ activity hard to distinguish from legitimate use in logs.
 phishing-resistant authenticator.
 
 **Traps** Do not claim phishing is the single most common route to initial access. The
-Verizon 2025 DBIR ranks credential abuse highest at 22% of breaches, exploitation of
-vulnerabilities next at 20%, with phishing at 16% — common, but not first. Second trap:
+Verizon 2026 DBIR puts exploitation of vulnerabilities first at 31% of initial access — up
+from 20%, and the first time in the report's 19-year history that it has displaced
+credentials — with phishing second at 16% and credential abuse third at 13%. Credential abuse
+still leads at 39% when counted anywhere in the breach chain rather than only as the first
+step, but phishing is not first on either measure. Second trap:
 MFA reduces phishing damage but does not end it, since a real-time relay can capture and
 replay a one-time code; only a phishing-resistant authenticator, such as a FIDO2 security
 key, breaks that. Third: filters and DMARC reduce delivery, not susceptibility.
@@ -1013,9 +1026,12 @@ with rate limits and the other with training.
 *id: `security.security.injection-attacks` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: owasp-top10-injection*
 
 **What it is** Supplying input that the receiving system interprets as code or query
-structure rather than as data. SQL injection is the classic form; OWASP's Top 10:2021 places
-injection at A03 and folds cross-site scripting into the same category, since it is the same
-mistake against a different interpreter.
+structure rather than as data. SQL injection is the classic form; OWASP's Top 10:2025 places
+injection at A05, down two places from A03 in the 2021 edition, and folds cross-site
+scripting into the same category, since it is the same mistake against a different
+interpreter. Cross-site scripting (CWE-79) is the largest single CWE in A05:2025 by CVE
+count — high frequency, low impact — which is why the category's weighted impact is lower
+than SQL injection considered alone would suggest.
 
 **Why it matters** The root cause is a single design error — concatenating untrusted input
 into a string that something else will parse — so the fix generalises across databases,
@@ -1090,8 +1106,10 @@ undoes the encryption but not the breach of confidentiality.
    somewhere, so it never approaches the threshold — and lockout adds a denial-of-service
    vector against real users.
 2. Is it safe to say phishing is the most common route to initial access?
-   No. The Verizon 2025 DBIR puts credential abuse first at 22% and exploitation of
-   vulnerabilities at 20%, ahead of phishing at 16%.
+   No. The Verizon 2026 DBIR puts exploitation of vulnerabilities first at 31% of initial
+   access, ahead of phishing at 16% and credential abuse at 13%. Credential abuse is still
+   the most pervasive technique overall at 39% of breaches when counted anywhere in the
+   chain, but phishing leads on neither measure.
 3. Which CIA leg does a DDoS attack target, and what does it tell you about the data?
    Availability; nothing was necessarily read or altered, so a data-breach conclusion does
    not follow.
@@ -1120,9 +1138,9 @@ unique identifier of the form CVE-YYYY-NNNN, assigned by a CVE Numbering Authori
 is expressed separately, through CVSS, on a 0.0 to 10.0 scale. Patching — applying the
 vendor's corrected version — is the primary remediation.
 
-**Why it matters** Exploitation of vulnerabilities is one of the leading initial-access
-routes in the Verizon 2025 DBIR, second only to credential abuse, and unlike most threats it
-is defeated by a fully mechanical action: install the update. Patch latency is therefore one
+**Why it matters** Exploitation of vulnerabilities is the leading initial-access route in the
+Verizon 2026 DBIR at 31%, ahead of phishing at 16% and credential abuse at 13%, and unlike
+most threats it is defeated by a fully mechanical action: install the update. Patch latency is therefore one
 of the few security metrics that maps directly onto exposure.
 
 **How it works** A CNA assigns the identifier and publishes a record describing the affected
@@ -1246,7 +1264,14 @@ Neither substitutes for the other.
 
 **What it is** Generating, retaining, centralising, and actively reviewing records of
 security-relevant events, so that an intrusion can be detected while it is happening and
-reconstructed afterwards.
+reconstructed afterwards. It is not a second name for accounting, defined earlier in
+Principles, and the two definitions are close enough that the exam can separate them:
+accounting is the AAA-triad property, the per-identity record of what an authenticated
+subject did, which is what makes non-repudiation possible; security logging and monitoring is
+the operational pipeline that makes such records survive and get seen — generation on every
+host, shipping off-box, clock synchronisation, retention, alerting, and correlation across
+systems. A question asking "which A of AAA is this" is accounting; a question asking "why
+ship logs to a SIEM" or "why synchronise clocks" is this topic.
 
 **Why it matters** Without it, an incident is invisible during and unexplainable after. Every
 question about scope — which accounts, which systems, how long, what was taken — is answered
@@ -1267,8 +1292,11 @@ seen.
 *id: `security.security.incident-response` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-61r3*
 
 **What it is** The prepared sequence an organisation follows when an incident occurs:
-prepare, identify, contain, eradicate, recover, and learn. The order is the substance —
-acting out of sequence is the characteristic wrong answer.
+Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned. Name its
+origin, because the exam's phrasing borrows it and its provenance is routinely misattributed:
+this six-step sequence is the SANS model, commonly abbreviated PICERL from its initials, and
+it is SANS's, not NIST's. The order is the substance — acting out of sequence is the
+characteristic wrong answer.
 
 **Why it matters** Containment precedes eradication for a reason. Stopping the spread limits
 damage while investigation is still possible; wiping and rebuilding first destroys the
@@ -1280,9 +1308,15 @@ lets the same root cause recur.
 authority to disconnect a system, and tested backups. Identification confirms that an event
 is an incident and establishes scope. Containment isolates affected systems, eradication
 removes the attacker's access and artefacts, and recovery restores service and verifies it is
-clean before the post-incident review. Note that NIST's current revision, SP 800-61 Rev. 3,
-organises incident response around the Cybersecurity Framework 2.0 functions rather than a
-fixed phase list; the six-step sequence above remains the form the exam's vocabulary uses.
+clean before the post-incident review. No revision of NIST SP 800-61 has ever published that
+six-step list. Rev. 2 used a *four*-phase life cycle — Preparation; Detection and Analysis;
+Containment, Eradication and Recovery; Post-Incident Activity — and Rev. 3 (April 2025)
+replaced that model entirely, reorganising incident response around the six Cybersecurity
+Framework 2.0 Functions: Govern, Identify, Protect, Detect, Respond, Recover. CSF 2.0's six
+Functions and PICERL's six steps are different six-item lists and must not be conflated: the
+Functions are outcome categories spanning cybersecurity risk management as a whole, while the
+PICERL steps are the tactical order of handling one incident. The six-step sequence above
+remains the form the exam's vocabulary uses.
 
 **Key terms** containment; eradication; scope; evidence preservation; post-incident review.
 
@@ -1315,8 +1349,8 @@ disable direct root login, disable password authentication in favour of public k
 restrict who may connect at all. It is configured in `sshd_config`, read by the server from
 `/etc/ssh/sshd_config`.
 
-**Why it matters** SSH is the most consistently attacked service on a public Linux host, and
-the default configuration is deliberately permissive so that a fresh install is usable. Two
+**Why it matters** SSH is exposed to continuous untargeted scanning on any public Linux host,
+and the default configuration is deliberately permissive so that a fresh install is usable. Two
 defaults do most of the damage: `PasswordAuthentication` defaults to `yes`, which makes the
 host a valid target for brute force and credential stuffing, and `PermitRootLogin` defaults to
 `prohibit-password`, which still lets root in by key when policy usually wants named accounts
@@ -1445,7 +1479,11 @@ not let a confined process touch it.
 
 **What the exam may test** Recognising MAC as a distinct layer above file permissions,
 knowing which implementation belongs to which distribution family, and choosing the command
-that reports the current mode.
+that reports the current mode. Note that LFS200 never uses the term SELinux
+(`research/lfs200-notes/00-course-map.md` records it as a measured absence), so the FULLY
+COVERED tag reflects the lesson-level mapping to ch9.l3 rather than the course actually
+naming this material; everything here is written from `selinux(8)` and the AppArmor
+documentation.
 
 <a id="cmp-security.security.selinux-and-apparmor"></a>
 #### Not to be confused with: SELinux and AppArmor vs Access control models
@@ -1566,19 +1604,16 @@ mode, would have limited what the compromise reached in the first place.
 3. Why does containment precede eradication in incident response?
    Containment stops the spread while investigation is still possible; eradicating first
    destroys the evidence needed to establish scope and confirm the attacker is gone.
-4. `sha256sum -c` reports OK for a downloaded ISO. What has that proved, and what has it not?
-   That the bytes match the digest you compared against. It proves nothing about origin, and
-   nothing at all if the digest came from the same source that supplied the file.
-5. Which of an IDS and a vulnerability scanner would notice an exploit attempt in progress,
+4. Which of an IDS and a vulnerability scanner would notice an exploit attempt in progress,
    and which would have listed the weakness beforehand?
    The IDS notices the live activity; the scanner would have listed the known weakness in
    advance. Neither does the other's job.
-6. You disabled `PasswordAuthentication` in `sshd_config` and users are still prompted for a
+5. You disabled `PasswordAuthentication` in `sshd_config` and users are still prompted for a
    password. What are the two likely causes?
    `KbdInteractiveAuthentication` is still at its default `yes` and PAM is supplying the
    prompt, or an included drop-in file provided the first — and therefore winning — value for
    the directive.
-7. Why is a host firewall a genuine additional layer rather than a duplicate of the network
+6. Why is a host firewall a genuine additional layer rather than a duplicate of the network
    firewall?
    It fails for different reasons and enforces at a different boundary, so a rule error or
    bypass at the network edge does not disable it — and it constrains lateral movement

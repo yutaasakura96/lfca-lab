@@ -299,8 +299,10 @@ the network or broadcast address will not communicate.
 addresses: 192.168.10.0 through 192.168.10.63. The network address is 192.168.10.0, the
 broadcast is 192.168.10.63, and the usable range is 192.168.10.1 to 192.168.10.62 — 62
 addresses. The next block of the same size starts at 192.168.10.64. A packet sent to the
-broadcast address is delivered to every host in that subnet and, per RFC 919, is not forwarded
-by routers into other subnets by default.
+broadcast address is delivered to every host in that subnet. RFC 919 defined a directed
+broadcast as something gateways forward toward the target network; RFC 2644 (BCP 34) later
+changed the required router default, so modern routers block receipt and forwarding of
+directed broadcasts unless explicitly configured otherwise.
 
 **Key terms** network address; directed broadcast; usable range; block boundary.
 
@@ -1540,7 +1542,8 @@ zero clients, or have many established connections while its listener has been m
 to the wrong address.
 
 **How it works** `ss -tulpn` shows listening sockets; the state column reads LISTEN for TCP,
-and UDP sockets show UNCONN because UDP has no connection state to report. `ss -t state
+and UDP sockets show UNCONN because UDP has no listen state and a server socket has no peer.
+`ss -t state
 established` filters to TCP connections in the ESTAB state, showing both peers. Between the
 two lie transient states worth recognising: SYN-SENT (the client's SYN is unanswered),
 SYN-RECV (a half-open connection), TIME-WAIT (a recently closed connection held briefly by the
@@ -1556,9 +1559,11 @@ which usually indicates an application bug rather than a network one).
 | `ss -tulpn` | Show what is listening | `-l` restricts to listening sockets, so established connections are excluded | `ss -tulpn` | Expecting established connections in this output — `-l` deliberately excludes them |
 | `ss -t state established` | Show TCP connections currently established | `state` takes any TCP state name; add `-p` for the owning process | `ss -t state established` | Combining it with `-l`; listening and established are mutually exclusive views of the same table |
 
-**Traps** A UDP entry never says ESTABLISHED, because UDP has no such state — a UDP socket is
-UNCONN whether or not traffic is flowing. A large number of TIME-WAIT entries is normal on a
-busy server and is not a leak. And a listening socket bound to 127.0.0.1 will show up in
+**Traps** A UDP socket bound with no fixed peer shows UNCONN; one whose application has called
+`connect()` to a single peer shows ESTAB. That ESTAB is only a local socket property — a
+default destination the kernel records — not a negotiated connection, so unlike TCP it proves
+nothing about the far end and involved no handshake. A large number of TIME-WAIT entries is
+normal on a busy server and is not a leak. And a listening socket bound to 127.0.0.1 will show up in
 `ss -tulpn` exactly like one bound to 0.0.0.0, so a service that "is listening" can still be
 unreachable from every other host.
 
@@ -1578,8 +1583,8 @@ as "connection refused" rather than as a timeout. Had the symptom been a timeout
 SYN would have been silently dropped and a firewall, not a bind address, would be the
 hypothesis. `ss -t state established` on the fixed server then confirms real client
 connections rather than merely a listener, and the balancer's health check — an HTTP request
-over TCP — succeeds. Note that none of this would apply to a UDP service: with no handshake and
-no ESTAB state, the same fault would produce silence in both directions.
+over TCP — succeeds. Note that none of this would apply to a UDP service: with no handshake to
+refuse, the same fault would produce silence in both directions.
 
 #### Knowledge check
 
@@ -1595,8 +1600,10 @@ no ESTAB state, the same fault would produce silence in both directions.
 4. `ss -tulpn` shows the service listening on `127.0.0.1:8080`. Why can no other host connect?
    It is bound to loopback only; it must bind 0.0.0.0 (or a routable address) to accept
    connections from other hosts.
-5. Why does a UDP socket never appear as ESTABLISHED?
-   UDP is connectionless and has no connection state; `ss` reports it as UNCONN.
+5. Why does a listening UDP service show UNCONN rather than LISTEN in `ss -tulpn`?
+   UDP has no handshake and no listen state, so an unconnected UDP socket is reported UNCONN;
+   a UDP socket connected to one peer does show ESTAB, but that only records a fixed local
+   destination, not an established conversation.
 6. What identifies a single TCP connection uniquely?
    The four-tuple of source address, source port, destination address and destination port.
 

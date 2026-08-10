@@ -270,11 +270,13 @@ the application server — and recognising that the two roles usually coexist on
 | How many parts | Two, and both are processes you can point at | Three layers of responsibility, each possibly many processes |
 | Covers the database | No — neither role is the data store | Yes — the data tier is one of the three |
 | Kind of statement | Operational: what is running and what it does | Design: where a responsibility belongs |
-| Where they meet | The web server typically fronts the presentation tier; the application server implements the application tier | The tiers those two roles between them implement |
+| Where they meet | The web server serves presentation-tier content and reverse-proxies the rest; the application server implements the application tier | The layering those two roles serve, with the data tier behind them |
 
 The separating axis is design versus deployment: three-tier names where responsibilities belong,
-web server versus application server names which running process is doing the serving — and the
-second pair implements only the first two of the three tiers.
+web server versus application server names which running process is doing the serving — the
+application server implements the application tier, while the web server delivers
+presentation-tier content and reverse-proxies without being a tier of its own, and neither role
+touches the data tier.
 
 #### Scenario
 

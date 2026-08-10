@@ -41,9 +41,12 @@ non-functional side has to be elicited deliberately rather than waited for.
 **How it works** In most practice each behaviour is written as its own statement, in a "the
 system shall ..." or equivalent form, phrased as an observable outcome rather than an
 implementation. "The system shall store customer records in PostgreSQL" is not usually treated
-as a functional requirement: it names a solution. The requirement is "the system shall retain
-customer records for seven years"; the database is a design decision, or a constraint imposed
-from outside. Keeping those apart is what leaves a designer room to design, and it is a
+as a functional requirement: it names a solution. The requirement is "the system shall let a
+service agent retrieve any customer record by account number"; the database is a design
+decision, or a constraint imposed from outside. Note what the rewrite does not do — it states a
+behaviour and stops, adding no threshold, because the moment a bound is attached the sentence
+has crossed into the non-functional side. Keeping those apart is what leaves a designer room to
+design, and it is a
 distinction an exam item can present from either direction — a requirement disguised as a
 solution, or a solution offered as a requirement.
 
@@ -110,7 +113,9 @@ available" is not. The same treatment applies across attributes — response tim
 percentile and load, recovery time after a failure, a maximum time for a new administrator to
 complete a named task. Security and compliance requirements often arrive as externally imposed
 constraints rather than stakeholder wishes, and are commonly non-negotiable in a way performance
-targets are not.
+targets are not: "customer records shall be retained for seven years" is typically fixed by a
+records or tax rule rather than chosen, and like every other statement in this topic it bounds a
+behaviour rather than adding one.
 
 **Key terms** quality attribute; threshold and measurement condition; availability target;
 percentile response time; imposed constraint.

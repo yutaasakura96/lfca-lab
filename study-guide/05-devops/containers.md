@@ -2,12 +2,12 @@
 
 Containers is the technical core of the DevOps Fundamentals domain, which is worth 12% of the
 exam and is the 5th largest of 6 domains under the current (2025-09-16) blueprint; the
-competency was unchanged by the 2025 update. It is also the worst-supported competency in this
-guide by the course: of its 24 concepts, 1 is FULLY COVERED and 23 are NOT COVERED — 1/24 (4%)
-that LFS200 touches at all. The course's Containers lesson stays at the level of what an
-isolated process is and never reaches Docker, images, registries, or orchestration
-(`research/lfs200-notes/00-course-map.md`), so everything from the container image onward is
-sourced independently below and written denser than the rest of the guide on purpose. The chain
+competency was unchanged by the 2025 update. Course support is thin: of its 24 concepts, 1 is
+FULLY COVERED and 23 are NOT COVERED — 1/24 (4%) that LFS200 touches at all. The course's
+Containers lesson stays at the level of what an isolated process is and never reaches Docker,
+images, registries, or orchestration (`research/lfs200-notes/00-course-map.md`), so everything
+from the container image onward is sourced independently below and written denser than the rest
+of the guide on purpose. The chain
 this file has to make mechanical, because a question can enter it at any link, is: Dockerfile →
 image (layers, tag) → registry → runtime on a node → pod → Deployment → Service.
 
@@ -71,7 +71,7 @@ the Kubernetes pod that may wrap it.
 | Cardinality | Many containers from one image | One image serves any number of containers | One pod holds one container in the common case, several when tightly coupled |
 | Where the idea exists | Any runtime — Docker, containerd, CRI-O | A local image store or a registry | Kubernetes only; Docker has no pods |
 | Writable state | Yes — a writable layer that dies with the container | No — read-only, shared by every container using it | Its containers have their own; the pod adds a shared network namespace and shared volumes |
-| Brought into being by | `docker run` | `docker build`, or a pull from a registry | The Kubernetes scheduler, from a pod spec |
+| Brought into being by | `docker run` | `docker build`, or a pull from a registry | Created through the Kubernetes API from a pod spec — normally by a workload controller such as a Deployment; the scheduler then assigns it to a node |
 
 The separating axis is template, instance, wrapper: the image is the template, the container is
 one running instance of it, and the pod is Kubernetes' wrapper around one or more of those
@@ -524,9 +524,12 @@ order matters too — logs work on a container that has already exited, and exec
 
 **How it works** The runtime captures the main process's stdout and stderr through a logging
 driver, and `docker logs` replays that captured stream, with `-f` to follow it live and `--tail`
-to show only the end. Under a driver that ships logs elsewhere, such as syslog, `docker logs`
-may return nothing at all — the logs are not lost, they are simply somewhere else. `docker exec
--it` runs a new command in a running container with stdin kept open (`-i`) and a terminal
+to show only the end. Docker Engine keeps a local cache of that stream, called dual logging, so
+`docker logs` still works even when the configured driver ships the logs elsewhere, as `syslog`
+and `splunk` do; where that cache is explicitly disabled the command returns an error rather
+than empty output, and under the `none` driver nothing is captured to read at all. Under a
+remote driver the logs are not lost, they are simply somewhere else. `docker exec -it` runs a
+new command in a running container with stdin kept open (`-i`) and a terminal
 allocated (`-t`); it requires both that the container is running and that the image actually
 contains the shell being asked for, which minimal images often do not.
 

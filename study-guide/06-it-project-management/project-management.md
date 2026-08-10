@@ -245,7 +245,7 @@ approved before the next one starts, and the whole scope moves through the phase
 one batch. Waterfall is not the phase list itself — the phases belong to the lifecycle — it is
 the rule that you finish one before beginning the next.
 
-**Why it matters** Half of the methodology questions in this competency are really a
+**Why it matters** Methodology questions in this competency are routinely a
 waterfall-or-agile judgement dressed in a scenario, and the exam expects a candidate to pick
 waterfall on genuinely stable requirements rather than to treat it as an obsolete mistake.
 Fixed regulatory scope, a fixed-price contract with a specified deliverable, or a dependency

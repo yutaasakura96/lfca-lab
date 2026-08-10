@@ -591,12 +591,16 @@ right distance is the smallest one that breaks the shared hazard.
 ### Hot, warm and cold sites
 *id: `sysadmin.disaster-recovery.hot-warm-and-cold-sites` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-34r1, nist-glossary-warm-site*
 
-**What it is** Three levels of readiness at an alternate facility. A cold site is space,
-power, environmental controls and connectivity with no IT equipment in place. A warm site is
-partially equipped: it holds some or all of the hardware, software, telecommunications and
-power, but not current data, so data must still be restored before it can serve. A hot site is
-fully equipped and configured, with supporting infrastructure and personnel, and can take over
-quickly. Cost falls and recovery time rises as you move from hot to cold.
+**What it is** Three levels of readiness at an alternate facility. A cold site is space, power
+and environmental controls with no computer equipment and no telecommunications service in
+place — NIST's alternate-site criteria table records hardware and telecommunications alike as
+"None" — so it is a shell ready to receive replacement equipment. A warm site is partially
+equipped: hardware and telecommunications are installed and available, but that equipment is
+not loaded with the software or data needed to run the system, so a restore must run before it
+can serve. A hot site is fully equipped and configured, with the current production software
+installed and the most recent backup already loaded, so it needs only the data written since
+that backup and can take over quickly. Cost falls and recovery time rises as you move from hot
+to cold.
 
 **Why it matters** Matching a site type to an RTO and a budget is a textbook question shape,
 and it is decidable only if the three definitions are held apart precisely. The wrong mental
@@ -610,14 +614,20 @@ time. Hot: medium-to-high cost, full hardware, full telecommunications, short se
 NIST CSRC glossary reinforces the warm site's position — an environmentally conditioned work
 space *partially* equipped with systems and telecommunications equipment — and the cold site's:
 a facility with the electrical and physical components of a computer facility but without the
-computer equipment in place, ready to receive replacement equipment.
+computer equipment in place, ready to receive replacement equipment. The guide's narrative
+settles what each tier holds by way of data: a hot site should have the most recent version of
+backed-up data loaded, requiring only updating with data since the last backup; a warm site's
+equipment is installed but *not* loaded with the software or data required to operate the
+system; a cold site has no equipment or telecommunications established or in place at all, so
+everything — hardware, links, software, data — is acquired and loaded during the recovery.
 
 **Key terms** alternate site; setup time; partially equipped; readiness tier.
 
-**Traps** The warm site is where the marks are lost. It is partially equipped and does not
-hold current data; the restore still has to happen before it can serve, which is exactly why
-its setup time is "medium" rather than "short." Treating it as a hot site that takes longer to
-switch on inverts the reason for the delay. Note too that NIST's fully redundant,
+**Traps** The warm site is where the marks are lost. It is partially equipped and its
+equipment carries neither the operating software nor the data; the restore still has to happen
+before it can serve, which is exactly why its setup time is "medium" rather than "short."
+Treating it as a hot site that takes longer to switch on inverts the reason for the delay.
+Note too that NIST's fully redundant,
 real-time-mirrored facility is a separate variation — a *mirrored* site, identical to the
 primary in all technical respects and the most expensive option — not a synonym for a hot
 site.
@@ -702,10 +712,11 @@ that does only one has an untested half.
 
 A retailer sets an RTO of four hours and an RPO of 15 minutes for its order system, and is
 offered three options. A cold site is cheapest but has no equipment at all, so its setup time
-runs to days — it cannot meet a four-hour RTO. A warm site holds partial hardware but no
-current data, so the restore has to run before it serves; whether it fits depends entirely on
-how long that restore takes, which only a timed restore test can answer. A hot site is fully
-equipped with a short setup time and clears the RTO, at the highest cost. The RPO is a
+runs to days — it cannot meet a four-hour RTO. A warm site holds partial hardware but nothing
+loaded on it, so the software and data have to be restored before it serves; whether it fits
+depends entirely on how long that restore takes, which only a timed restore test can answer. A
+hot site already has the last backup loaded and a short setup time, so it clears the RTO with
+only the writes since that backup to make up, at the highest cost. The RPO is a
 separate decision: 15 minutes rules out nightly backups and forces replication, and the
 replica is not a backup, so independent copies must still be kept off-site under the 3-2-1
 rule. Finally, the team schedules a tabletop drill — which will validate who declares the
@@ -727,8 +738,10 @@ the media.
    Site loss and logical corruption — corruption propagates through the redundant copies, so
    HA is not a substitute for backups or for a disaster recovery capability.
 4. What exactly is a warm site missing that a hot site has, and what follows from that?
-   Full equipment and current data. Data must be restored before a warm site can serve, which
-   is why its setup time is medium rather than short — it is not a hot site with a delay.
+   Installed equipment carrying the production software with the most recent backup already
+   loaded — a hot site needs only the data written since that backup, while a warm site has no
+   software or data loaded at all, so a full restore must run first. That is why its setup time
+   is medium rather than short, not because it is a hot site with a delay.
 5. Which half of failover/failback is usually untested, and why is that dangerous?
    Failback. The standby has accumulated data the primary never saw, so returning without
    resynchronising risks losing the outage's work or causing a second outage.

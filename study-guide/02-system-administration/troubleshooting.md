@@ -21,17 +21,18 @@ symptom walk that says what every outcome rules *out*, not merely what to run ne
 *No primary documentation source. The authoritative references are paywalled (see
 `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
 
-**What it is** An ordered procedure, not a toolbox: identify the problem, establish a theory
-of probable cause, test that theory, plan and implement a fix, verify full functionality,
-then document what happened. The value is in the ordering. A candidate who knows every
+**What it is** An ordered procedure, not a toolbox. Most statements of the practice give six
+steps: identify the problem, establish a theory of probable cause, test that theory, plan and
+implement a fix, verify full functionality, then document what happened. The value is in the
+ordering. A candidate who knows every
 command in this file and applies them in an arbitrary sequence will still, typically, fix
 symptoms rather than causes and be unable to say afterwards which action worked.
 
-**Why it matters** Any exam question phrased "what should you do FIRST" is testing this
-ordering and nothing else. The distractors in such a question are usually all *legitimate
-troubleshooting actions* — they are simply steps that belong later. Reading the question as
-"which of these is a good idea" produces a defensible wrong answer every time; reading it as
-"which of these is earliest in the sequence" produces the intended one.
+**Why it matters** A question phrased "what should you do FIRST" is typically testing this
+ordering rather than the merit of each action. The distractors in such a question are usually
+all *legitimate troubleshooting actions* — they are simply steps that belong later. Reading
+the question as "which of these is a good idea" tends to produce a defensible wrong answer;
+reading it as "which of these is earliest in the sequence" produces the intended one.
 
 **How it works** Each step gates the next, and in most descriptions of the practice the gate
 is what makes the step meaningful. Identification establishes what the symptom actually is,
@@ -57,8 +58,8 @@ if time allows.
 **What the exam may test** Placing a described action in the sequence. Given "you have
 confirmed the service fails only for one user on one host," the next step is to form a theory
 about what is specific to that user or host — not to restart the service, not to escalate,
-and not to edit a config file. Expect at least one item where the tempting answer is a real
-diagnostic command that belongs two steps later.
+and not to edit a config file. The tempting answer in such items is often a real diagnostic
+command that belongs two steps later.
 
 **Symptoms and diagnostic order** The "symptom" here is the state of the investigation
 itself, and each outcome eliminates a class of next action.
@@ -413,13 +414,10 @@ eliminations attached, not a unilateral remount.
 4. Why is reproducing a reported fault as `root` usually invalid?
    The superuser is exempt from ordinary permission checks, so a permission fault will not
    reproduce and gets wrongly eliminated as a cause.
-5. `journalctl -p err` is described as showing errors. What exactly does it show?
-   Priority `err` (3) and every more severe priority — `crit`, `alert`, and `emerg` — not
-   only level 3.
-6. A command exits 126 and another exits 127. What distinguishes them?
+5. A command exits 126 and another exits 127. What distinguishes them?
    127 means the command was not found at all (PATH or a typo); 126 means it was found but
    could not be executed (missing execute bit, or a `noexec` filesystem).
-7. You know how to restart the production database and are confident that is the fix, but
+6. You know how to restart the production database and are confident that is the fix, but
    your role does not permit it. Is escalating the right call?
    Yes — the limit is authority, not competence, and both are valid triggers. The handover
    carries the symptom, scope, recent changes, tested theories, impact, and any workaround.
@@ -582,8 +580,10 @@ responsible for the exhaustion: a small leaking utility can trigger the death of
 Diagnosing from the victim's identity alone therefore points at the wrong cause by design.
 
 **How it works** Each candidate task is scored from 0 (never kill) to 1000 (always kill), the
-units being roughly the proportion of allowed memory the task is using; root-owned processes
-receive a 3% allowance discount. `/proc/<pid>/oom_score_adj`, in the range -1000 to +1000, is
+units being roughly the proportion of allowed memory the task is using; older kernels
+discounted root-owned processes by 3%, but that bias was removed in Linux 4.17, although
+`proc_pid_oom_score_adj(5)` still documents it.
+`/proc/<pid>/oom_score_adj`, in the range -1000 to +1000, is
 added to that score, so -1000 exempts a process entirely. "Allowed memory" depends on the
 context that triggered the kill: for a system-wide exhaustion it is all allocatable memory,
 but for a container or cgroup hitting its own limit it is that limit — which is why a
@@ -940,32 +940,28 @@ message.
    It rules out a signal kill and an OOM kill, both of which report a signal result or the
    `oom-kill` state. The daemon exited under its own control, so its message is in
    `journalctl -u <unit> -b`, not in the ten-line tail `systemctl status` prints.
-2. A write fails with "No space left on device" but `df -h` shows free space. What is the next
-   command and why?
-   `df -i` — the inode pool can be exhausted independently of blocks, and the remedy is to
-   remove file count rather than file size.
-3. `df` reports a filesystem full but `du` over the same tree accounts for far less. What is
-   happening?
-   Space is held by files that were deleted while still open by a running process; the blocks
-   are not freed until the last descriptor closes, and no file search will find them.
-4. Why is the process killed by the OOM killer usually a poor guide to the cause?
+2. Two filesystems refuse writes. On one, `df -h` shows free space; on the other, `df -h`
+   shows 100% used while `du` over the same tree accounts for far less. Which cause does each
+   observation indicate, and what does each imply about the remedy?
+   Free blocks with writes still failing indicates inode exhaustion — confirm with `df -i`,
+   and the remedy is to remove file *count*, not file size. A `df`/`du` gap indicates space
+   held by files deleted while still open by a running process; the blocks are not freed until
+   the last descriptor closes, so no file search will find them and the remedy is to restart
+   the holding process.
+3. Why is the process killed by the OOM killer usually a poor guide to the cause?
    The victim is chosen by a badness score roughly proportional to memory in use, so it is
    normally the largest consumer — which is frequently not the process whose growth caused the
    exhaustion.
-5. A host shows a load average of 24 with mostly idle CPUs. What is that, and what does it
+4. A host shows a load average of 24 with mostly idle CPUs. What is that, and what does it
    rule out?
    Load counts uninterruptible (D-state) processes as well as runnable ones, so this is an
    I/O-blocked queue. It rules out a CPU shortage; adding CPUs will not help.
-6. A file is mode `644` and owned by the user, yet they get "Permission denied" opening it.
+5. A file is mode `644` and owned by the user, yet they get "Permission denied" opening it.
    Name two causes and the command that distinguishes them.
    A parent directory without search (`x`) permission, or a session whose group membership
    predates a group change. `namei -l <path>` exposes the first; comparing `id` in the failing
    session against `id <user>` exposes the second.
-7. What is the difference between a connection that is refused and one that times out?
-   Refused means a host was reached and actively rejected the connection — nothing listening
-   on that address, or a REJECT rule. Timed out means nothing answered at all — a DROP rule,
-   the wrong address, or a routing failure.
-8. `dig` returns NXDOMAIN for a name that `ping` and `curl` resolve without trouble. What does
+6. `dig` returns NXDOMAIN for a name that `ping` and `curl` resolve without trouble. What does
    that tell you?
    The name is not coming from DNS at all — `dig` queries DNS directly and ignores
    `/etc/hosts` and the name service switch that applications use.

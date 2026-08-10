@@ -1062,12 +1062,12 @@ removal was never noticed.
    Infrastructure as code. The CLI and API are imperative — they state actions to take, not
    the state that should exist, so there is nothing to compare reality against.
 6. A provider publishes a 99.99% availability SLA. Does using that provider make your
-   application highly available?
-   No. The SLA prices the provider's shortfall; availability at your layer comes from your
-   own redundancy and failover design.
-7. What is the usual remedy when an SLA is missed?
-   A service credit against future billing, proportional to the shortfall — not
-   compensation for business losses.
+   application highly available, and what does the agreement actually hand you when the
+   target is missed?
+   No. The SLA prices the provider's shortfall — the remedy is characteristically a service
+   credit against future billing, proportional to the shortfall, not compensation for the
+   business losses the outage caused. Availability at your layer comes from your own
+   redundancy and failover design.
 
 <a id="s-cloud-computing-storage"></a>
 ## Storage
