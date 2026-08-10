@@ -123,7 +123,23 @@ export function parseGuideFile(path, text) {
   }
 
   // Pass 2: glossary rows, but only inside a Quick reference table.
+  //
+  // The glossary table is scoped to the *first contiguous run of table rows*
+  // that follows a "#### Quick reference" heading: blank/other lines before
+  // the first row are skipped without consequence, the run starts at that
+  // first row, and ends at the first line after that which is not a table
+  // row. A second table appearing later under the same heading (e.g. after
+  // a blank line) falls outside that run, so its rows are neither parsed as
+  // glossary definitions nor flagged as malformed — they simply are not
+  // glossary rows.
+  //
+  // Whether a line "is a table row" is judged after stripping leading
+  // whitespace, so a row indented by hand-editing, or nested in a list or
+  // blockquote, is still recognised as a row instead of being silently
+  // skipped by the scanner. A marker the parser fails to recognise must
+  // always surface in `malformed` — never vanish silently.
   let currentH4 = null;
+  let glossaryRun = 'before'; // 'before': run not started yet; 'active': inside the run; 'ended': run finished, later rows are not glossary rows
   for (let i = 0; i < lines.length; i += 1) {
     const level = headingLevel(matchLines[i]);
     if (level > 0) {
@@ -134,11 +150,24 @@ export function parseGuideFile(path, text) {
           reason: `"Quick reference" heading must be level 4, found level ${level}: "${matchLines[i]}"`,
         });
       }
-      if (level <= 4) currentH4 = level === 4 ? headingText : null;
+      if (level <= 4) {
+        currentH4 = level === 4 ? headingText : null;
+        glossaryRun = 'before';
+      }
     }
     if (currentH4 !== 'Quick reference') continue;
-    if (!matchLines[i].startsWith('|')) continue;
-    const row = RE_GLOSSARY_ROW.exec(matchLines[i]);
+    const trimmed = matchLines[i].trimStart();
+    const isRow = trimmed.startsWith('|');
+    if (glossaryRun === 'before') {
+      if (!isRow) continue;
+      glossaryRun = 'active';
+    } else if (glossaryRun === 'ended') {
+      continue;
+    } else if (!isRow) {
+      glossaryRun = 'ended';
+      continue;
+    }
+    const row = RE_GLOSSARY_ROW.exec(trimmed);
     if (row) {
       if (row[1] === 'Concept') continue;
       definitions.push({
@@ -156,7 +185,7 @@ export function parseGuideFile(path, text) {
     // Not header ("| Concept | ..."), not the "| --- |" separator, and not a
     // backticked id: a data row the parser cannot recognise. Report it
     // rather than silently dropping the concept it would have defined.
-    const firstCell = (matchLines[i].split('|')[1] ?? '').trim();
+    const firstCell = (trimmed.split('|')[1] ?? '').trim();
     if (firstCell === 'Concept' || /^:?-{1,}:?$/.test(firstCell)) continue;
     malformed.push({
       line: i + 1,

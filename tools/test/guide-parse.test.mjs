@@ -245,3 +245,66 @@ test('MINOR 7: loadGuide throws an explicit error for an absolute rootDir', asyn
     /absolute/,
   );
 });
+
+// --- Fix round 2 -----------------------------------------------------------
+
+test('IMPORTANT 1: a valid but indented Quick reference row still parses as a glossary definition', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5 header row
+    '| --- | --- |',                     // 6 separator row
+    '  | `a.b.c` | Term text |',         // 7 indented valid row -> line 8
+    '',                                  // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  const def = f.definitions.find((d) => d.id === 'a.b.c');
+  assert.ok(def, 'the indented row must still be recognised as a glossary definition');
+  assert.equal(def.kind, 'glossary');
+  assert.equal(def.line, 8);
+  assert.equal(def.meta, null);
+  assert.equal(f.malformed.length, 0);
+});
+
+test('IMPORTANT 1: an indented un-backticked Quick reference row is reported as malformed', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5 header row
+    '| --- | --- |',                     // 6 separator row
+    '   | unbacked-id | Term |',         // 7 indented invalid row -> line 8
+    '',                                  // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 8);
+  assert.match(f.malformed[0].reason, /backticked/);
+});
+
+test('MINOR 2: a second table under the same Quick reference heading produces no malformed entries', () => {
+  const lines = [
+    '<a id="s-a"></a>',                  // 0
+    '## A',                              // 1
+    '',                                  // 2
+    '#### Quick reference',              // 3
+    '',                                  // 4
+    '| Concept | Term |',                // 5 glossary header, not malformed
+    '| --- | --- |',                     // 6 glossary separator, not malformed
+    '| `a.b.c` | Term text |',           // 7 glossary row -> definition
+    '',                                  // 8 blank line ends the glossary run
+    '| Other | Header |',                // 9 second table header, not glossary
+    '| --- | --- |',                     // 10 second table separator
+    '| some data | more |',              // 11 second table row, not glossary or malformed
+    '',                                  // 12
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 0);
+  assert.deepEqual(f.definitions.map((d) => d.id), ['a.b.c']);
+});
