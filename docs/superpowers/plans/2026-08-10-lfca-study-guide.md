@@ -574,7 +574,7 @@ git commit -m "feat: read the confused_with graph undirected and assign comparis
 - Create: `tools/test/guide-parse.test.mjs`
 
 **Interfaces:**
-- Produces: `parseGuideFile(path, text) -> ParsedFile` and `loadGuide(rootDir) -> Promise<ParsedFile[]>` (recursive over `*.md`, sorted by path; returns `[]` if `rootDir` does not exist).
+- Produces: `parseGuideFile(path, text) -> ParsedFile` and `loadGuide(rootDir) -> Promise<ParsedFile[]>` (recursive over `*.md`, sorted by path; returns `[]` if `rootDir` does not exist; throws if `rootDir` is absolute, since the returned paths are only repo-relative when `rootDir` is relative to the process cwd).
 
 `ParsedFile` is:
 
@@ -761,7 +761,17 @@ function parseSources(raw) {
 }
 
 export function parseGuideFile(path, text) {
-  const lines = text.split('\n');
+  // Split on \r?\n so a CRLF-saved file does not leave a trailing \r on every
+  // line (which would otherwise defeat every $-anchored regex below). Marker
+  // regexes match against `matchLines` (right-trimmed) rather than `lines`
+  // (verbatim) so trailing whitespace on a marker line cannot silently drop
+  // it either. This is the single normalisation point for both: a regex
+  // added later that forgets to handle CRLF/trailing-whitespace on its own
+  // still benefits from it, because it should be written against
+  // `matchLines`. `blockText` and other captured prose still read from
+  // `lines` so it keeps its exact original bytes.
+  const lines = text.split(/\r?\n/);
+  const matchLines = lines.map((l) => l.replace(/[ \t]+$/, ''));
   const definitions = [];
   const comparisons = [];
   const pointers = [];
@@ -772,14 +782,14 @@ export function parseGuideFile(path, text) {
 
   // Pass 1: anchors, definitions, comparisons.
   for (let i = 0; i < lines.length; i += 1) {
-    const anchorMatch = RE_ANCHOR.exec(lines[i]);
+    const anchorMatch = RE_ANCHOR.exec(matchLines[i]);
     if (!anchorMatch) continue;
     const anchorId = anchorMatch[1];
     anchors.add(anchorId);
 
     if (anchorId.startsWith('c-')) {
-      const headingLine = lines[i + 1] ?? '';
-      const metaLine = lines[i + 2] ?? '';
+      const headingLine = matchLines[i + 1] ?? '';
+      const metaLine = matchLines[i + 2] ?? '';
       const heading = RE_HEADING.exec(headingLine);
       const meta = RE_META.exec(metaLine);
       if (!heading) {
@@ -787,7 +797,10 @@ export function parseGuideFile(path, text) {
         continue;
       }
       if (!meta) {
-        malformed.push({ line: i + 3, reason: `Anchor ${anchorId} is not followed by a metadata line` });
+        malformed.push({
+          line: i + 3,
+          reason: `Anchor ${anchorId} is not followed by a metadata line that matches the required form: "${lines[i + 2] ?? ''}"`,
+        });
         continue;
       }
       // The block ends at the next anchor or at any heading of level 4 or shallower.
@@ -795,8 +808,8 @@ export function parseGuideFile(path, text) {
       // be swallowed into this concept's blockText and could satisfy a command check by accident.
       let end = lines.length - 1;
       for (let j = i + 3; j < lines.length; j += 1) {
-        const level = headingLevel(lines[j]);
-        if (RE_ANCHOR.test(lines[j]) || (level > 0 && level <= 4)) {
+        const level = headingLevel(matchLines[j]);
+        if (RE_ANCHOR.test(matchLines[j]) || (level > 0 && level <= 4)) {
           end = j - 1;
           break;
         }
@@ -820,12 +833,22 @@ export function parseGuideFile(path, text) {
     }
 
     if (anchorId.startsWith('cmp-')) {
-      const headingLine = lines[i + 1] ?? '';
-      const comparesLine = lines[i + 2] ?? '';
+      const headingLine = matchLines[i + 1] ?? '';
+      const comparesLine = matchLines[i + 2] ?? '';
       const heading = RE_HEADING.exec(headingLine);
       const compares = RE_COMPARES.exec(comparesLine);
-      if (!heading || !compares) {
-        malformed.push({ line: i + 1, reason: `Comparison anchor ${anchorId} lacks a heading or a compares line` });
+      if (!heading) {
+        malformed.push({
+          line: i + 2,
+          reason: `Comparison anchor ${anchorId} is not followed by a heading`,
+        });
+        continue;
+      }
+      if (!compares) {
+        malformed.push({
+          line: i + 3,
+          reason: `Comparison anchor ${anchorId} is not followed by a compares line that matches the required form: "${lines[i + 2] ?? ''}"`,
+        });
         continue;
       }
       comparisons.push({
@@ -841,34 +864,56 @@ export function parseGuideFile(path, text) {
   // Pass 2: glossary rows, but only inside a Quick reference table.
   let currentH4 = null;
   for (let i = 0; i < lines.length; i += 1) {
-    const level = headingLevel(lines[i]);
-    if (level > 0 && level <= 4) currentH4 = level === 4 ? RE_HEADING.exec(lines[i])[2] : null;
+    const level = headingLevel(matchLines[i]);
+    if (level > 0) {
+      const headingText = RE_HEADING.exec(matchLines[i])[2];
+      if (headingText === 'Quick reference' && level !== 4) {
+        malformed.push({
+          line: i + 1,
+          reason: `"Quick reference" heading must be level 4, found level ${level}: "${matchLines[i]}"`,
+        });
+      }
+      if (level <= 4) currentH4 = level === 4 ? headingText : null;
+    }
     if (currentH4 !== 'Quick reference') continue;
-    const row = RE_GLOSSARY_ROW.exec(lines[i]);
-    if (!row || row[1] === 'Concept') continue;
-    definitions.push({
-      id: row[1],
-      kind: 'glossary',
+    if (!matchLines[i].startsWith('|')) continue;
+    const row = RE_GLOSSARY_ROW.exec(matchLines[i]);
+    if (row) {
+      if (row[1] === 'Concept') continue;
+      definitions.push({
+        id: row[1],
+        kind: 'glossary',
+        line: i + 1,
+        term: (lines[i].split('|')[2] ?? '').trim(),
+        meta: null,
+        blockStart: i,
+        blockEnd: i,
+        blockText: lines[i],
+      });
+      continue;
+    }
+    // Not header ("| Concept | ..."), not the "| --- |" separator, and not a
+    // backticked id: a data row the parser cannot recognise. Report it
+    // rather than silently dropping the concept it would have defined.
+    const firstCell = (matchLines[i].split('|')[1] ?? '').trim();
+    if (firstCell === 'Concept' || /^:?-{1,}:?$/.test(firstCell)) continue;
+    malformed.push({
       line: i + 1,
-      term: (lines[i].split('|')[2] ?? '').trim(),
-      meta: null,
-      blockStart: i,
-      blockEnd: i,
-      blockText: lines[i],
+      reason: `Quick reference row's first cell is not a backticked concept id: "${matchLines[i]}"`,
     });
   }
 
   // Pass 3: sections (h2), their contents and their apparatus.
   const h2Lines = [];
   for (let i = 0; i < lines.length; i += 1) {
-    if (headingLevel(lines[i]) === 2) h2Lines.push(i);
+    if (headingLevel(matchLines[i]) === 2) h2Lines.push(i);
   }
   for (let s = 0; s < h2Lines.length; s += 1) {
     const start = h2Lines[s];
     const end = s + 1 < h2Lines.length ? h2Lines[s + 1] - 1 : lines.length - 1;
-    const body = lines.slice(start, end + 1);
+    const body = matchLines.slice(start, end + 1);
     sections.push({
-      heading: RE_HEADING.exec(lines[start])[2],
+      heading: RE_HEADING.exec(matchLines[start])[2],
       line: start + 1,
       endLine: end + 1,
       definitionIds: definitions
@@ -882,7 +927,7 @@ export function parseGuideFile(path, text) {
   // Pass 4: pointers and links.
   const dir = posix.dirname(path);
   for (let i = 0; i < lines.length; i += 1) {
-    const pointer = RE_POINTER.exec(lines[i]);
+    const pointer = RE_POINTER.exec(matchLines[i]);
     if (pointer) {
       const [rel, anchor] = pointer[1].split('#');
       const owner = definitions.find(
@@ -896,13 +941,23 @@ export function parseGuideFile(path, text) {
         conceptId: owner ? owner.id : null,
       });
     }
-    for (const m of lines[i].matchAll(RE_LINK)) links.push({ href: m[1], line: i + 1 });
+    for (const m of matchLines[i].matchAll(RE_LINK)) links.push({ href: m[1], line: i + 1 });
   }
 
   return { path, definitions, comparisons, pointers, sections, anchors, links, malformed };
 }
 
 export async function loadGuide(rootDir) {
+  // Paths are built with posix.relative('.', ...), so the returned paths are
+  // only repo-relative — the shape downstream checks compare by string
+  // equality — when rootDir is itself relative to the process cwd. An
+  // absolute rootDir would silently produce paths in the wrong shape, so
+  // reject it outright instead of returning nonsense.
+  if (posix.isAbsolute(rootDir)) {
+    throw new Error(
+      `loadGuide(rootDir) requires a path relative to the process cwd; got an absolute path: ${rootDir}`,
+    );
+  }
   let entries;
   try {
     entries = await readdir(rootDir, { withFileTypes: true, recursive: true });
@@ -921,15 +976,17 @@ export async function loadGuide(rootDir) {
 }
 ```
 
+Also add, to `tools/test/guide-parse.test.mjs`, tests for the seven review findings fixed above: CRLF and trailing-whitespace anchor lines still parse (Critical 1, 2); a `Quick reference` heading at the wrong level and an un-backticked glossary row both surface in `malformed` with the correct line (Important 3, 4); the metadata-line malformed message names the offending text (Minor 5); a `cmp-` anchor missing its heading vs. its compares line is reported at the actual offending line, not the anchor line (Minor 6); an absolute `rootDir` makes `loadGuide` throw (Minor 7).
+
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test tools/test/guide-parse.test.mjs`
-Expected: PASS, 10 tests.
+Expected: PASS, 18 tests.
 
 - [ ] **Step 5: Run the full gates**
 
 Run: `npm test && npm run validate`
-Expected: both exit 0; 75 tests.
+Expected: both exit 0; 83 tests.
 
 - [ ] **Step 6: Commit**
 

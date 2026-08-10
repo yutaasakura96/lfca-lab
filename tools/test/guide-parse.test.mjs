@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseGuideFile } from '../lib/guide-parse.mjs';
+import { parseGuideFile, loadGuide } from '../lib/guide-parse.mjs';
 
 const SAMPLE = [
   '# Networking',
@@ -124,4 +124,124 @@ test('anchors are collected for cross-reference resolution', () => {
   assert.ok(f.anchors.has('c-sysadmin.networking.dns'));
   assert.ok(f.anchors.has('cmp-sysadmin.networking.dns'));
   assert.ok(f.anchors.has('s-networking-dns'));
+});
+
+// --- Fix round 1 -----------------------------------------------------------
+
+test('CRITICAL 1: a well-formed file still parses when saved with CRLF line endings', () => {
+  const crlf = SAMPLE.replace(/\n/g, '\r\n');
+  const f = parseGuideFile('study-guide/02-system-administration/networking.md', crlf);
+  const def = f.definitions.find((d) => d.id === 'sysadmin.networking.dns');
+  assert.ok(def, 'the DNS concept must still be recognised under CRLF');
+  assert.deepEqual(def.meta, {
+    depth: 3,
+    importance: 4,
+    coverage: 'PARTIALLY COVERED',
+    sources: ['rfc-1035', 'man-dig-1'],
+  });
+  assert.equal(f.comparisons.length, 1);
+  assert.ok(f.anchors.has('s-networking-dns'));
+  assert.equal(f.malformed.length, 0, 'a well-formed CRLF file must report no malformed entries');
+});
+
+test('CRITICAL 2: a well-formed block still parses when its anchor line has trailing whitespace', () => {
+  const text = [
+    '<a id="c-a.b.c"></a> ',
+    '### Thing',
+    '*id: `a.b.c` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: none*',
+    '',
+    'body text',
+  ].join('\n');
+  const f = parseGuideFile('x.md', text);
+  assert.equal(f.definitions.length, 1);
+  assert.equal(f.definitions[0].id, 'a.b.c');
+  assert.equal(f.malformed.length, 0);
+  assert.ok(f.anchors.has('c-a.b.c'));
+});
+
+test('IMPORTANT 3: a Quick reference heading at a level other than 4 is reported as malformed', () => {
+  const lines = [
+    '<a id="s-a"></a>',       // 0
+    '## A',                   // 1
+    '',                       // 2
+    '### Quick reference',    // 3 -> malformed line 4
+    '',                       // 4
+    '| Concept | Term |',     // 5
+    '| --- | --- |',          // 6
+    '| `a.b.c` | Term |',     // 7
+    '',                       // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 4);
+  assert.match(f.malformed[0].reason, /Quick reference/);
+  assert.match(f.malformed[0].reason, /level 3/);
+  // Because the heading was never recognised as the level-4 opener, the row
+  // beneath it must not be silently absorbed as a glossary definition either.
+  assert.equal(f.definitions.length, 0);
+});
+
+test('IMPORTANT 4: an un-backticked glossary row inside Quick reference is reported as malformed', () => {
+  const lines = [
+    '<a id="s-a"></a>',            // 0
+    '## A',                        // 1
+    '',                            // 2
+    '#### Quick reference',        // 3
+    '',                            // 4
+    '| Concept | Term |',          // 5 header row, not malformed
+    '| --- | --- |',               // 6 separator row, not malformed
+    '| unbacked-id | Term |',      // 7 -> malformed line 8
+    '',                            // 8
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 8);
+  assert.match(f.malformed[0].reason, /backticked/);
+  assert.equal(f.definitions.length, 0);
+});
+
+test('MINOR 5: a metadata line present but not matching the required form names the offending text', () => {
+  const text = ['<a id="c-a.b.c"></a>', '### Thing', '*id: bad-form*', '', 'body'].join('\n');
+  const f = parseGuideFile('x.md', text);
+  assert.equal(f.definitions.length, 0);
+  assert.equal(f.malformed.length, 1);
+  assert.match(f.malformed[0].reason, /metadata line/);
+  assert.match(f.malformed[0].reason, /does not match|not.*match/i);
+  assert.ok(
+    f.malformed[0].reason.includes('*id: bad-form*'),
+    'the reason should include the offending line text',
+  );
+});
+
+test('MINOR 6: a cmp- anchor missing its heading is reported at the heading line, not the anchor line', () => {
+  const lines = [
+    '<a id="cmp-a.b"></a>',        // 0
+    'not a heading',               // 1 -> malformed line 2
+    '*compares: `a.b`, `a.c`*',    // 2
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 2);
+  assert.match(f.malformed[0].reason, /heading/);
+});
+
+test('MINOR 6: a cmp- anchor missing its compares line is reported at the compares line, not the anchor line', () => {
+  const lines = [
+    '<a id="cmp-a.b"></a>',   // 0
+    '#### Something',        // 1
+    'not a compares line',   // 2 -> malformed line 3
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.malformed.length, 1);
+  assert.equal(f.malformed[0].line, 3);
+  assert.match(f.malformed[0].reason, /compares/);
+});
+
+test('MINOR 7: loadGuide throws an explicit error for an absolute rootDir', async () => {
+  await assert.rejects(
+    () => loadGuide('/tmp/definitely-absolute-guide-root'),
+    /absolute/,
+  );
 });
