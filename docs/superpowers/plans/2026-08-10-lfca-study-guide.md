@@ -2159,7 +2159,7 @@ git commit -m "docs: add container to cluster deep dive appendix"
 ## Task 33: Adversarial fact-check — every command
 
 **Files:**
-- Create: `.superpowers/sdd/cycle2-factcheck-commands.json`
+- Create: `docs/verification/cycle2-factcheck-commands.json`
 - Modify: any `study-guide/**` file with a confirmed error
 
 Every command, option, flag and example in the guide is checked against its man page or official documentation. 171 concepts carry 379 dataset command strings, and writers will have added options and examples beyond those.
@@ -2174,7 +2174,7 @@ Fan out across agents, one per competency file that has commands. Each agent ver
 
 - [ ] **Step 3: Record every verdict, keyed by agent label**
 
-Write `.superpowers/sdd/cycle2-factcheck-commands.json` as an array of `{claim_id, agent_label, verdict, reasoning, source}` where `verdict` is `confirmed` or `refuted`.
+Write `docs/verification/cycle2-factcheck-commands.json` as an array of `{claim_id, agent_label, verdict, reasoning, source}` where `verdict` is `confirmed` or `refuted`.
 
 **A claim with no verdict from a named agent is an error, not a pass.** This is the cycle-1 defect being fixed: a controller keyed verdicts off a content hash, the pairing was lost, and eight findings defaulted to "rejected" — which read as eight confident refutations when only three had reasoning. Assert before continuing that every extracted `claim_id` appears exactly once in the results file with a non-empty `agent_label` and non-empty `reasoning`.
 
@@ -2188,7 +2188,7 @@ Run: `npm run check-guide && npm test && npm run validate`
 Expected: all exit 0.
 
 ```bash
-git add study-guide .superpowers/sdd/cycle2-factcheck-commands.json
+git add study-guide docs/verification/cycle2-factcheck-commands.json
 git commit -m "fix: correct command errors found by adversarial fact-check"
 ```
 
@@ -2197,7 +2197,7 @@ git commit -m "fix: correct command errors found by adversarial fact-check"
 ## Task 34: Adversarial fact-check — the 57 unsourced concepts, then write-back
 
 **Files:**
-- Create: `.superpowers/sdd/cycle2-factcheck-waived.json`
+- Create: `docs/verification/cycle2-factcheck-waived.json`
 - Modify: `study-guide/**` where a claim is refuted
 - Modify: `data/**` where a dataset error was found during Tasks 8–33
 - Modify: `PROGRESS.md`
@@ -2208,7 +2208,9 @@ For each concept in `data/sourcing-waivers.json`, an agent checks that the prose
 
 - [ ] **Step 2: Record every verdict**
 
-Same format and the same completeness assertion as Task 33. `.superpowers/sdd/cycle2-factcheck-waived.json`.
+Same format and the same completeness assertion as Task 33. `docs/verification/cycle2-factcheck-waived.json`.
+
+These files live under `docs/` rather than `.superpowers/sdd/`, whose `.gitignore` is `*`. Cycle 1 wrote its verdicts to the ignored directory and `PROGRESS.md` cites `stage5-results.json`, a file that was never committed — the evidence for a verdict claim must be in the repository that makes the claim.
 
 - [ ] **Step 3: Apply dataset write-backs**
 
@@ -2222,7 +2224,7 @@ Expected: all exit 0. Check 11 will fail if a write-back changed a depth, import
 - [ ] **Step 5: Commit**
 
 ```bash
-git add data study-guide research coverage-matrix.md PROGRESS.md .superpowers/sdd/cycle2-factcheck-waived.json
+git add data study-guide research coverage-matrix.md PROGRESS.md docs/verification/cycle2-factcheck-waived.json
 git commit -m "fix: apply dataset write-backs found while writing the study guide"
 ```
 
