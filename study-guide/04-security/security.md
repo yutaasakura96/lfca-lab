@@ -475,7 +475,7 @@ passphrase adds a "something you know" factor to the "something you have."
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `ssh-keygen` | Generate and manage SSH authentication keys | `-t` key type, `-b` bits (RSA default 3072), `-C` comment, `-f` output file, `-l` show a key's fingerprint | `ssh-keygen -t ed25519 -C "laptop"` | Using `-b` with Ed25519 — that key type has a fixed length and the flag is ignored, so it does not produce a "stronger" key |
-| `ssh-copy-id` | Install a local public key into a remote account's authorized_keys | `-i` use this identity file, `-p` remote port, `-n` dry run, `-f` skip the already-installed check | `ssh-copy-id -i ~/.ssh/id_ed25519.pub user@host` | Pointing `-i` at the private key file, or copying the private key to the server — only the `.pub` half belongs there |
+| `ssh-copy-id` | Install a local public key into a remote account's authorized_keys | `-i` use this identity file (`.pub` is appended when the name does not already end in it), `-p` remote port, `-n` dry run, `-f` skip the already-installed check | `ssh-copy-id -i ~/.ssh/id_ed25519.pub user@host` | Omitting `-i` — with no identity file it installs whatever `ssh-add -L` lists, so every key loaded in the agent lands in the remote `authorized_keys` rather than the one you meant |
 
 **Traps** The private key is never transmitted and never installed on the server. Copying
 `id_ed25519` instead of `id_ed25519.pub` is the classic error, and it compromises the key
@@ -1398,8 +1398,8 @@ change, work outward from the configuration rather than restarting things at ran
 3. *Permission denied (publickey).* The daemon is running and has rejected you: either the
    public key is not in the account's `AuthorizedKeysFile` (default
    `.ssh/authorized_keys .ssh/authorized_keys2`), or the client offered a different key, or
-   restrictive permissions on the home directory and `.ssh` are causing the server to ignore
-   the file.
+   the home directory, `.ssh`, or `authorized_keys` is writable by other users, which makes
+   `StrictModes` (default `yes`) refuse to use the file.
 4. *Password prompt appears when it should not.* `PasswordAuthentication no` is set but
    `KbdInteractiveAuthentication` is still `yes`, or a drop-in file included earlier in the
    file supplied the first — and therefore winning — value.
@@ -1510,10 +1510,12 @@ publisher released: comparing a published checksum against the bytes you receive
 verifying a cryptographic signature made with the publisher's private key.
 
 **Why it matters** This is where the hashing and asymmetric-cryptography primitives become a
-concrete supply-chain control. It is also what makes a package repository trustworthy: `apt`
-and `dnf` verify repository metadata signatures against the distribution's keys on every
-update, which is why adding a third-party repository means adding its signing key and
-extending trust to whoever holds it.
+concrete supply-chain control. It is also what makes a package repository trustworthy, though
+the two families check different objects: `apt` verifies the signature on every repository's
+`Release` file as a matter of course, while `dnf` verifies each package's own signature
+through the repository's `gpgcheck` setting — its separate metadata check, `repo_gpgcheck`,
+is off by default. Either way, adding a third-party repository means adding its signing key
+and extending trust to whoever holds it.
 
 **How it works** A checksum answers only "are these the bytes that were hashed." `sha256sum`
 with `-c` reads a digest file and reports OK or FAILED per entry. A signature answers "who

@@ -1,0 +1,578 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "linux.command-line.command-syntax",
+    "claim": "Short options take one hyphen and may be clustered (`ls -la` = `ls -l -a`); long options take two hyphens and may never be clustered; `--` marks end of options; GNU tools accept `--width=80` or `--width 80` and permit options after operands by default, which strict POSIX ordering does not.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "POSIX Utility Syntax Guidelines (chap 12) define options as a hyphen plus a single letter/digit, with option-arguments as separate tokens or attached; no mention of double-hyphen long options (a GNU extension). This matches the article's framing that long options and lenient permute-in-place ordering are GNU behavior, not POSIX.",
+    "source": "https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "linux.command-line.command-syntax",
+    "claim": "`ls -l` produces a long listing (mode, links, owner, group, size, time, name); plain `ls` prints names only.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "POSIX ls specification gives the exact -l record format as file mode, number of links, owner name, group name, size, date and time, pathname - matching the claimed column order exactly.",
+    "source": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/ls.html"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "linux.command-line.command-syntax",
+    "claim": "`ls --all` is the GNU long-option equivalent of `-a`, and is a GNU coreutils extension that BSD/macOS `ls` rejects while accepting `-a`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org GNU ls(1) lists '-a, --all: do not ignore entries starting with .'. Empirically tested on this machine's real BSD ls: `/bin/ls --all` fails with 'ls: unrecognized option --all'; GNU ls (`gls --all` via Homebrew coreutils) accepts it.",
+    "source": "https://man7.org/linux/man-pages/man1/ls.1.html; empirical test on macOS /bin/ls and Homebrew gls"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "linux.command-line.getting-help",
+    "claim": "Manual sections are 1 user commands, 2 system calls, 3 library calls, 4 special files, 5 file formats/config, 6 games, 7 overviews/conventions, 8 sysadmin commands, 9 kernel routines; `man name` shows the first page found in the configured section search order.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org man(1) DESCRIPTION lists the section table verbatim matching the article's list, and states 'The default action is to search in all of the available sections following a pre-defined order (see DEFAULTS), and to show only the first page found'.",
+    "source": "https://man7.org/linux/man-pages/man1/man.1.html"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "linux.command-line.getting-help",
+    "claim": "man-db's default section search order is `SECTION 1 n l 8 3 0 2 3type 5 4 9 6 7`, which is why `man crontab` opens the section-1 page and `man mount` opens mount(8) before mount(2).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org man(1) DEFAULTS section states verbatim: 'The order of sections to search may be overridden by the environment variable $MANSECT or by the SECTION directive in .../man_db.conf. By default it is as follows: 1 n l 8 3 0 2 3type 5 4 9 6 7' - exact match, including the ordering that puts 1 and 8 ahead of 2 and 3.",
+    "source": "https://man7.org/linux/man-pages/man1/man.1.html (DEFAULTS section)"
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "linux.command-line.getting-help",
+    "claim": "BSD man on macOS defaults to `1:8:2:3:3lua:n:4:5:6:7:9:l`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified directly against the local BSD man(1) manual page on this machine (macOS/Darwin, running the actual BSD man, not GNU man-db): the -S/MANSECT description states verbatim 'Defaults to \"1:8:2:3:3lua:n:4:5:6:7:9:l\".' - an exact character-for-character match to the claim.",
+    "source": "local `man man` (BSD man(1), macOS/Darwin 25.5.0) -S/MANSECT option description"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "linux.command-line.getting-help",
+    "claim": "`man -k` and `apropos` both search short descriptions in the manual index, not page bodies, and need `mandb` to have built that index; `man -K` searches full text and is far slower.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org apropos(1) confirms keyword matching against 'page names and the descriptions'. man7.org man(1) confirms -k is 'Approximately equivalent to apropos. Search the short manual page descriptions for keywords' and -K/--global-apropos is 'Search for text in all manual pages. This is a brute-force search, and is likely to take some time'.",
+    "source": "https://man7.org/linux/man-pages/man1/apropos.1.html; https://man7.org/linux/man-pages/man1/man.1.html"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "linux.command-line.getting-help",
+    "claim": "crontab has both a section-1 command page and a section-5 file-format page (`man 5 crontab` gives the five time fields).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org hosts both crontab(1) and crontab(5) as distinct pages; crontab(5)'s EXAMPLE CRON FILE section shows the standard five whitespace-separated time fields (minute hour day month weekday) before the command.",
+    "source": "https://man7.org/linux/man-pages/man1/crontab.1.html; https://man7.org/linux/man-pages/man5/crontab.5.html"
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "linux.command-line.absolute-vs-relative-paths",
+    "claim": "`pwd -P` prints the physical path with symlinks resolved; `pwd -L` (default) prints the logical path.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) SHELL BUILTIN COMMANDS: 'pwd [-LP] Print the absolute pathname of the current working directory. The pathname printed contains no symbolic links if the -P option is supplied ... If the -L option is used, the pathname printed may contain symbolic links.'",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "linux.command-line.absolute-vs-relative-paths",
+    "claim": "`cd` with no argument goes to `$HOME`; a script's `cd` cannot change the calling shell's working directory because the script runs as a child process.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'cd [-L][-@][dir] ... Change the current directory to dir. if dir is not supplied, the value of the HOME shell variable is used as dir.' Child-process working-directory isolation is standard process semantics (execve/fork inheritance), consistent with bash's COMMAND EXECUTION ENVIRONMENT description that a separate execution environment 'cannot affect the shell's execution environment.'",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "linux.command-line.dot-dotdot-and-tilde",
+    "claim": "`cd -P ..` follows the physical parent; default `cd ..` is logical (strips the last component from `$PWD` textually).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): '-P option causes cd to use the physical directory structure by resolving symbolic links while traversing dir and before processing instances of .. in dir ... If neither -L nor -P is supplied, cd behaves as if -L had been specified.' -L processes .. by removing the last pathname component from the logical $PWD string, matching the article's description.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "linux.command-line.dot-dotdot-and-tilde",
+    "claim": "`cd ~` moves to the current user's home directory; quoting the tilde (`cd '~'`) suppresses expansion.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Tilde expansion is a documented bash word-expansion that applies only to unquoted leading tildes; general bash behavior (tilde expansion section of bash(1)) confirms expansion is suppressed inside single quotes, consistent with the article.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "linux.command-line.navigating-the-filesystem",
+    "claim": "`ls -a` includes dotfiles plus `.`/`..`; `ls -A` includes dotfiles but suppresses `.`/`..`; `ls -la` combines long format with all entries.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ls(1): '-a, --all: do not ignore entries starting with .' and '-A, --almost-all: do not list implied . and ..'. Combining with -l is standard option composition.",
+    "source": "https://man7.org/linux/man-pages/man1/ls.1.html"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "linux.command-line.navigating-the-filesystem",
+    "claim": "`cd` with no argument goes to `$HOME`, and `cd -` returns to the previous directory.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) confirms no-argument cd goes to $HOME (see CL-010). OLDPWD is documented in bash(1) as 'The previous working directory as set by the cd command', and `cd -` returning to/printing OLDPWD is bash's standard documented cd behavior.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "linux.command-line.root-directory-vs-root-vs-home",
+    "claim": "`cd /root` reaches the superuser's home directory, which the FHS places outside `/home` as a recommended default rather than a hard requirement.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "FHS 3.0 section 3.14 '/root: Home directory for the root user (optional)' states: 'The root account's home directory may be determined by developer or local preference, but this is the recommended default location.'",
+    "source": "https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html (section 3.14)"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "linux.command-line.creating-and-removing-files-and-directories",
+    "claim": "`mkdir -p a/b/c` creates every missing parent and does not fail if the directory already exists.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org mkdir(1): '-p, --parents: no error if existing, make parent directories as needed'. Empirically verified with Homebrew's real GNU mkdir (gmkdir): first `gmkdir -p a/b/c` succeeds, a second identical call also succeeds with no error, and plain `gmkdir` on a nested path with missing parent fails with 'No such file or directory'.",
+    "source": "https://man7.org/linux/man-pages/man1/mkdir.1.html; empirical test with Homebrew gmkdir"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "linux.command-line.creating-and-removing-files-and-directories",
+    "claim": "`cp -r` walks a directory tree; plain `cp` refuses a directory outright; `cp -a` is archive mode (recursive, preserves mode/ownership/timestamps/symlinks); `cp -i` prompts before overwrite.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org cp(1): '-a, --archive: same as -dR --preserve=all' and '-d: same as --no-dereference --preserve=links' and '-i, --interactive: prompt before overwrite'. Empirically verified with Homebrew gcp: plain `cp` on a symlink copies the target's contents as a regular file, while `cp -a` preserves the symlink itself (shown as lrwxr-xr-x -> target in the listing).",
+    "source": "https://man7.org/linux/man-pages/man1/cp.1.html; empirical test with Homebrew gcp"
+  },
+  {
+    "claim_id": "CL-018",
+    "concept_id": "linux.command-line.creating-and-removing-files-and-directories",
+    "claim": "`mv` within one filesystem is a rename (instant, atomic); across filesystems it is copy-then-delete; `mv -i` prompts, `mv -n` never overwrites.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org mv(1): '-i, --interactive: prompt before overwrite' and '-n, --no-clobber: do not overwrite an existing file'. Same-filesystem rename vs cross-filesystem copy-and-remove is standard, well-documented Unix mv/rename(2) semantics.",
+    "source": "https://man7.org/linux/man-pages/man1/mv.1.html"
+  },
+  {
+    "claim_id": "CL-019",
+    "concept_id": "linux.command-line.creating-and-removing-files-and-directories",
+    "claim": "`rm -r` recurses; `rm -f` forces (no prompts, no error on missing); `rm -i` prompts per file; `rm -I` prompts once for more than three files or recursive removal; GNU `rm` refuses to act on `/` by default (`--preserve-root`).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org rm(1): '-f, --force: ignore nonexistent files and arguments, never prompt'; '-i: prompt before every removal'; '-I: prompt once before removing more than three files, or when removing recursively'; '--preserve-root[=all]: do not remove / (default)'. Empirically verified: Homebrew's real GNU rm (`grm -rf /`) refuses with 'it is dangerous to operate recursively on /' and 'use --no-preserve-root to override this failsafe'.",
+    "source": "https://man7.org/linux/man-pages/man1/rm.1.html; empirical test with Homebrew grm"
+  },
+  {
+    "claim_id": "CL-020",
+    "concept_id": "linux.command-line.creating-and-removing-files-and-directories",
+    "claim": "`rmdir` removes a directory only if it is empty, failing on any directory with contents; `-p` also removes now-empty parents.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org rmdir(1): 'Remove the DIRECTORY(ies), if they are empty.' and '-p, --parents: remove DIRECTORY and its ancestors; e.g., rmdir -p a/b is similar to rmdir a/b a'.",
+    "source": "https://man7.org/linux/man-pages/man1/rmdir.1.html"
+  },
+  {
+    "claim_id": "CL-021",
+    "concept_id": "linux.command-line.viewing-file-contents",
+    "claim": "`touch` creates an empty file or updates existing timestamps; `-c` does not create if missing, `-m` modification time only.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org touch(1): 'A FILE argument that does not exist is created empty, unless -c or -h is supplied.' '-c, --no-create: do not create any files.' '-m: change only the modification time.'",
+    "source": "https://man7.org/linux/man-pages/man1/touch.1.html"
+  },
+  {
+    "claim_id": "CL-022",
+    "concept_id": "linux.command-line.viewing-file-contents",
+    "claim": "`cat -n` numbers lines, `-A` shows non-printing characters; `less` reads lazily with `/` search, `G` end, `q` quit; `head -n N`/`-c N`; `tail -n N`/`-c N`, `-f` follows the descriptor (default), `-F` follows the name and reopens after rotation.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org cat(1): '-A, --show-all: equivalent to -vET' and '-n, --number: number all output lines'. man7.org less(1) confirms 'q or Q ... Exits less' among its documented commands. man7.org head(1)/tail(1): '-n, --lines[=NUM]' and '-c, --bytes[=NUM]'; tail(1): '-f, --follow[={name|descriptor}]: an absent option argument means descriptor' and '-F: same as --follow=name --retry'.",
+    "source": "https://man7.org/linux/man-pages/man1/cat.1.html; https://man7.org/linux/man-pages/man1/less.1.html; https://man7.org/linux/man-pages/man1/head.1.html; https://man7.org/linux/man-pages/man1/tail.1.html"
+  },
+  {
+    "claim_id": "CL-023",
+    "concept_id": "linux.command-line.finding-files",
+    "claim": "`find` walks a directory tree live using `-name`/`-type f|d`/`-mtime`/`-size`/`-exec`/`-delete`; `locate` queries a database refreshed by `updatedb`; `which` reports the file on `PATH`; `whereis` searches only a fixed set of standard directories.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org find(1) examples show -name/-type usage. man7.org locate(1): 'locate searches one or more databases of file names'; the database is described as refreshed periodically elsewhere in the same page. man7.org whereis(1): 'whereis locates the binary, source and manual files ... attempts to locate the desired program in the standard Linux places'.",
+    "source": "https://man7.org/linux/man-pages/man1/find.1.html; https://man7.org/linux/man-pages/man1/locate.1.html; https://man7.org/linux/man-pages/man1/whereis.1.html"
+  },
+  {
+    "claim_id": "CL-024",
+    "concept_id": "linux.command-line.file-type-and-metadata",
+    "claim": "`file` inspects content (filesystem/magic/language tests in order); `stat` reports inode metadata including atime/mtime/ctime; `ls -l` shows mtime by default, `ls -lc` ctime, `ls -lu` atime.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ls(1): '--time=WORD: ... access time (-u): atime ...; metadata change time (-c): ctime ...; modified time (default): mtime'. man7.org file(1) documents the -h/--no-dereference and magic-based type detection consistent with the article's three-tier test description.",
+    "source": "https://man7.org/linux/man-pages/man1/ls.1.html; https://man7.org/linux/man-pages/man1/file.1.html"
+  },
+  {
+    "claim_id": "CL-025",
+    "concept_id": "linux.command-line.file-management-commands",
+    "claim": "A hard link cannot point at a directory: `link(2)` returns `EPERM` for a directory operand with no root exception, and GNU `ln` refuses with the exact message 'hard link not allowed for directory'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org link(2) ERRORS section lists 'EPERM: oldpath is a directory.' with no exception carved out for root. GNU coreutils source (src/ln.c) contains the literal format string _(\"%s: hard link not allowed for directory\") emitted when link_errno is set and the source is a directory and hard_dir_link is false - an exact match.",
+    "source": "https://man7.org/linux/man-pages/man2/link.2.html; https://github.com/coreutils/coreutils/raw/master/src/ln.c"
+  },
+  {
+    "claim_id": "CL-026",
+    "concept_id": "linux.command-line.file-management-commands",
+    "claim": "`ln -s` creates a symbolic link; the target comes first and the new link name second.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ln(1): 'create a link to TARGET with the name LINK_NAME ... Create hard links by default, symbolic links with --symbolic' - target-then-name argument order confirmed.",
+    "source": "https://man7.org/linux/man-pages/man1/ln.1.html"
+  },
+  {
+    "claim_id": "CL-027",
+    "concept_id": "linux.command-line.reading-ls-l-output",
+    "claim": "GNU `ls -l` prints an eleventh character after the ten-character mode: space when no alternate access method applies, `.` when the file has a security context (SELinux) and no other alternate method, `+` for any other combination (ACL being the usual case).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU coreutils source (src/ls.c) contains the exact logic: 'if (! any_has_acl) modebuf[10] = little; else if (f->acl_type == ACL_T_LSM_CONTEXT_ONLY) modebuf[10] = \\'.\\'; else if (f->acl_type == ACL_T_YES) modebuf[10] = \\'+\\'; else if (f->acl_type == ACL_T_UNKNOWN) modebuf[10] = \\'?\\';' - this is a precise, primary-source match for the dot/plus/space distinction described.",
+    "source": "https://github.com/coreutils/coreutils/raw/master/src/ls.c"
+  },
+  {
+    "claim_id": "CL-028",
+    "concept_id": "linux.command-line.reading-ls-l-output",
+    "claim": "`ls -ld` shows a directory's own line rather than listing its contents.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ls(1): '-d, --directory: list directories themselves, not their contents' - combined with -l this is standard documented option composition.",
+    "source": "https://man7.org/linux/man-pages/man1/ls.1.html"
+  },
+  {
+    "claim_id": "CL-029",
+    "concept_id": "linux.command-line.reading-ls-l-output",
+    "claim": "Octal mode conversions: `-rw-r--r--`=644, `-rwxr-xr-x`=755, `drwxr-xr-x`=755, `-rw-------`=600, `drwx------`=700, `-rwsr-xr-x`=4755 (setuid), `drwxrwxrwt`=1777 (sticky).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Standard octal-permission arithmetic (r=4, w=2, x=1 per triad, plus 4000/1000 special-bit prefixes) verified by direct calculation against each mode string; all seven conversions in the table are arithmetically correct.",
+    "source": "arithmetic verification against POSIX chmod(1) permission-bit semantics"
+  },
+  {
+    "claim_id": "CL-030",
+    "concept_id": "linux.command-line.wildcards-and-globbing",
+    "claim": "`ls *.txt` never passes `*.txt` to `ls`; the shell expands the glob first; if nothing matches, bash passes the unexpanded word through by default.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Standard bash pathname-expansion semantics: an unquoted glob is expanded by the shell before argv is built, and with nullglob unset (bash default) a non-matching pattern is passed through literally - consistent with bash(1)'s documented Pathname Expansion behavior.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html (Pathname Expansion / nullglob)"
+  },
+  {
+    "claim_id": "CL-031",
+    "concept_id": "linux.command-line.redirection",
+    "claim": "`>` truncates the target when the redirection is set up (before the command runs), `>>` appends, `2>` redirects standard error, `&>` sends both streams to one file (bash/zsh, not POSIX); with `set -o noclobber`, `>` refuses to overwrite an existing regular file and `>|` overrides that.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) Redirecting Output: 'If the redirection operator is >, and the noclobber option to the set builtin command has been enabled, the redirection fails if the file whose name results from the expansion of word exists and is a regular file. If the redirection operator is >|, or ... noclobber ... is not enabled, bash attempts the redirection even if the file named by word exists.' - exact match for the noclobber/>| behavior described.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-032",
+    "concept_id": "linux.command-line.command-exit-status",
+    "claim": "Exit statuses fall between 0 and 255; a command not found returns 127; found but not executable returns 126; a command killed by signal N returns 128+N.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) EXIT STATUS section: 'Exit statuses fall between 0 and 255 ... When a command terminates on a fatal signal N, bash uses the value of 128+N as the exit status. If a command is not found ... returns a status of 127. If a command is found but is not executable, the return status is 126.' Exact match.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html (EXIT STATUS)"
+  },
+  {
+    "claim_id": "CL-033",
+    "concept_id": "linux.command-line.command-exit-status",
+    "claim": "`grep` returns 1 for no matching line and 2 for a real error; `diff` returns 1 when files differ (its normal successful outcome) and 2 on trouble; in a pipeline `$?` reports only the last command's status, individual statuses are in `PIPESTATUS`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org grep(1) EXIT STATUS: 'the exit status is 0 if a line is selected, 1 if no lines were selected, and 2 if an error occurred.' man7.org diff(1): 'Exit status is 0 if inputs are the same, 1 if different, 2 if trouble' (cmp(1) states the identical convention). bash(1) documents PIPESTATUS as 'a list of exit status values from the commands in the most-recently-executed foreground pipeline'.",
+    "source": "https://man7.org/linux/man-pages/man1/grep.1.html; https://man7.org/linux/man-pages/man1/diff.1.html; https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-034",
+    "concept_id": "linux.command-line.aliases",
+    "claim": "Bash does not expand aliases in a non-interactive shell unless `expand_aliases` is set with `shopt`; `~/.bashrc` is read for interactive non-login shells.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'Aliases are not expanded when the shell is not interactive, unless the expand_aliases shell option is set using shopt' - exact match.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-035",
+    "concept_id": "linux.command-line.history-and-tab-completion",
+    "claim": "History is written to `~/.bash_history` (`$HISTFILE`) at session exit; `history -c` clears the in-memory list, `-a` appends this session's lines to the history file now; a `!` immediately before a closing double quote does not expand since bash 4.3, so `echo \"Done!\"` is safe while `echo \"Done!now\"` is not.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org bash(1) HISTORY section documents HISTFILE defaulting to ~/.bash_history and history -c/-a per synopsis. Bash's official CHANGES file (git.savannah.gnu.org/cgit/bash.git) contains the entry: 'The history expansion character (!) does not cause history expansion when followed by the closing quote in a double-quoted string.' Empirically confirmed the pre-fix behavior on this machine's bash 3.2.57 (which predates the fix): both `echo \"Done!\"` and `echo \"Done!now\"` fail with 'event not found' under bash 3.2, consistent with the fix being introduced later (4.3).",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html; https://git.savannah.gnu.org/cgit/bash.git/plain/CHANGES; empirical test on bash 3.2.57"
+  },
+  {
+    "claim_id": "CL-036",
+    "concept_id": "linux.command-line.shell-variables-and-export",
+    "claim": "`export NAME` marks a variable for the environment of child processes; `set` lists all shell variables/functions, `env`/`printenv` list only exported ones; `export -n` removes the export mark without unsetting.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org env(1): 'If no COMMAND, print the resulting environment' (i.e., the exported set). bash(1) documents export/-n/-p and set as builtins with exactly this division of scope.",
+    "source": "https://man7.org/linux/man-pages/man1/env.1.html; https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "CL-037",
+    "concept_id": "linux.command-line.grep",
+    "claim": "`grep -i` ignores case; `grep -r` is recursive and follows symlinks only when named on the command line (with no file operand it searches the working directory rather than stdin); `-R` follows all symlinks; `grep -v` inverts selection; `grep -n` prefixes line numbers.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org grep(1): '-r, --recursive: Read all files under each directory, recursively, following symbolic links only if they are on the command line. Note that if no file operand is given, grep searches the working directory.' and '-R, --dereference-recursive: ... Follow all symbolic links, unlike -r.' Exact match, including the working-directory-not-stdin nuance.",
+    "source": "https://man7.org/linux/man-pages/man1/grep.1.html"
+  },
+  {
+    "claim_id": "CL-038",
+    "concept_id": "linux.command-line.grep",
+    "claim": "grep's pattern is a basic regular expression by default; `-E` switches to extended, `-F` treats the pattern as a literal string.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org grep(1) REGULAR EXPRESSIONS: 'grep understands three different versions of regular expression syntax: basic (BRE), extended (ERE) and perl (PCRE) ... In GNU grep, basic and extended regular expressions are merely different notations for the same pattern-matching functionality.'",
+    "source": "https://man7.org/linux/man-pages/man1/grep.1.html"
+  },
+  {
+    "claim_id": "CL-039",
+    "concept_id": "linux.command-line.regular-expressions",
+    "claim": "In POSIX BRE, `+ ? | ( ) { }` are literal unless backslashed; in POSIX ERE those characters are operators and a backslash makes them literal.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org grep(1) states extended vs basic regex differ exactly in this way ('the following description applies to extended regular expressions; differences for basic regular expressions are summarized afterwards'), consistent with POSIX's Regular Expressions chapter defining BRE/ERE as distinct dialects with this operator-vs-literal inversion.",
+    "source": "https://man7.org/linux/man-pages/man1/grep.1.html; https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap09.html"
+  },
+  {
+    "claim_id": "CL-040",
+    "concept_id": "linux.command-line.sed",
+    "claim": "sed's `s/pattern/replacement/flags` supports a custom delimiter, `-n` suppresses automatic printing, `g` replaces every match per line (default only replaces the first); GNU `sed -i` edits in place with an optional attached suffix, while BSD sed (including macOS) requires the suffix as a separate argument, so `sed -i '' 's/a/b/g' file` is needed there.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org sed(1) documents -n, -e, -i and the s command with g flag. Empirically confirmed the GNU/BSD -i divergence directly on this machine's real BSD sed: `sed -i 's/test/TEST/' file` errors ('unescaped newline inside substitute pattern' - BSD sed reads the script text as the suffix argument), while `sed -i '' 's/test2/TEST2/' file` succeeds, exactly matching the article's claim.",
+    "source": "https://man7.org/linux/man-pages/man1/sed.1.html; empirical test on macOS's native BSD sed"
+  },
+  {
+    "claim_id": "CL-041",
+    "concept_id": "linux.command-line.awk",
+    "claim": "`awk 'pattern { action }'` runs the action on matching records; `-F` sets an explicit field separator; `-v` assigns a variable before the program runs.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org gawk(1): '-F fs, --field-separator fs: Use fs for the input field separator (the value of the FS predefined variable).' and '-v var=val, --assign var=val: Assign the value val to the variable var, before execution of the program begins.'",
+    "source": "https://man7.org/linux/man-pages/man1/gawk.1.html"
+  },
+  {
+    "claim_id": "CL-042",
+    "concept_id": "linux.command-line.cut-sort-uniq-and-wc",
+    "claim": "`cut -d` sets a one-character delimiter (default TAB), `-f` selects fields, `-c` selects character positions; `cut` cannot reorder fields (`-f2,1` still prints field 1 before field 2).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org cut(1): '-d, --delimiter=DELIM: use DELIM instead of TAB for field delimiter' and '-f, --fields=LIST' and '-c, --characters=LIST'. Empirically confirmed the non-reordering behavior with Homebrew's real GNU cut: `printf 'a:b:c\\n' | gcut -d: -f2,1` prints 'a:b' (field 1 before field 2), identical output to `-f1,2`.",
+    "source": "https://man7.org/linux/man-pages/man1/cut.1.html; empirical test with Homebrew gcut"
+  },
+  {
+    "claim_id": "CL-043",
+    "concept_id": "linux.command-line.cut-sort-uniq-and-wc",
+    "claim": "`sort` orders lexicographically by default (so `10` sorts before `9` until `-n` is added); `-n` numeric, `-k` key, `-t` field separator, `-r` reverse, `-u` unique.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org sort(1) documents -n/-k/-t/-r/-u exactly as described. Empirically confirmed the lexicographic-vs-numeric distinction with Homebrew's real GNU sort: `printf '9\\n10\\n' | gsort` outputs '10' before '9' (default lexicographic order), while `gsort -n` outputs '9' before '10'.",
+    "source": "https://man7.org/linux/man-pages/man1/sort.1.html; empirical test with Homebrew gsort"
+  },
+  {
+    "claim_id": "CL-044",
+    "concept_id": "linux.command-line.cut-sort-uniq-and-wc",
+    "claim": "`uniq` merges only adjacent duplicate lines; `-c` prefixes each with its count, `-d` shows only duplicated lines, `-u` shows only non-repeated lines; `sort -u` and `uniq -u` mean opposite things.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org uniq(1): 'uniq does not detect repeated lines unless they are adjacent. You may want to sort the input first' and '-c, --count', '-d, --repeated: only print duplicate lines', '-u, --unique: only print unique lines'. This confirms sort -u (keep one of every distinct line) and uniq -u (keep only lines that never repeated) are opposite selections.",
+    "source": "https://man7.org/linux/man-pages/man1/uniq.1.html"
+  },
+  {
+    "claim_id": "CL-045",
+    "concept_id": "linux.command-line.cut-sort-uniq-and-wc",
+    "claim": "`wc -l` counts newline characters (a final line with no trailing newline is not counted); `-w` words, `-c` bytes, `-m` characters.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org wc(1): '-l, --lines: print the newline counts', '-w, --words', '-c, --bytes', '-m, --chars' - matches exactly, including that -l counts newlines rather than lines-of-text per se.",
+    "source": "https://man7.org/linux/man-pages/man1/wc.1.html"
+  },
+  {
+    "claim_id": "CL-046",
+    "concept_id": "linux.command-line.diff-and-comparison",
+    "claim": "Default diff output uses `<`/`>` for file-1/file-2 lines; `-u` produces unified output with `---`/`+++` headers and `-`/`+` line prefixes; `-r` recursive, `-q` brief, `-i` ignore case, `-w` ignore whitespace; exit status 0/1/2 for same/different/trouble; `cmp` gives the first differing byte.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org diff(1): '-q, --brief: report only whether files differ', '-u, -U NUM, --unified[=NUM]', 'Exit status is 0 if inputs are the same, 1 if different, 2 if trouble.' cmp(1) confirms the identical exit-status convention and documents byte-level comparison, consistent with 'cmp gives the first differing byte' (cmp's -l option lists differing byte offsets and values).",
+    "source": "https://man7.org/linux/man-pages/man1/diff.1.html; https://man7.org/linux/man-pages/man1/cmp.1.html"
+  },
+  {
+    "claim_id": "CL-047",
+    "concept_id": "linux.command-line.text-editors",
+    "claim": "vi is modal (normal/insert/command-line modes) and POSIX-standardized; `:w` writes, `:q` quits, `:wq` writes-and-quits, `:q!` discards changes; `nano` is modeless and a separate package that a minimal system may lack.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "POSIX vi(1p) documents modal editing and the ex command language it shares; the POSIX ex(1p) spec states explicitly: 'The command wq shall be equivalent to a write command followed by a quit command; wq! shall be equivalent to write! followed by quit.' and separately documents the write and quit commands. ZZ is documented as a vi exit command in vi(1p).",
+    "source": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/vi.html; https://pubs.opengroup.org/onlinepubs/9699919799/utilities/ex.html"
+  },
+  {
+    "claim_id": "CL-048",
+    "concept_id": "linux.command-line.text-editors",
+    "claim": "`:x` writes only if the buffer was modified.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "POSIX ex(1p) references the 'xit' command (aliased :x) alongside write/wq/quit as one of the commands after which the argument-list-advance rule applies, consistent with xit being a conditional-write-then-quit command distinct from unconditional wq.",
+    "source": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/ex.html"
+  },
+  {
+    "claim_id": "CL-049",
+    "concept_id": "linux.command-line.archiving-and-compression",
+    "claim": "`tar czf archive.tar.gz dir` creates a gzip-compressed archive (`f` must be the last clustered letter since it takes an argument); `tar xzf` extracts; `tar tzf` lists without extracting; GNU tar detects compression format on read; `gzip file` compresses in place and removes the original unless `-k`/`-c`; `-d` decompresses, `-9` is best compression.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org tar(1) documents the c/x/t/z/f option letters. manpages.debian.org gzip(1) OPTIONS: '-c --stdout --to-stdout: Write output on standard output; keep original files unchanged.' '-d --decompress --uncompress: Decompress.' '-k --keep: Keep (don't delete) input files during compression or decompression.' and '-9 or --best indicates the slowest compression method (best compression).'",
+    "source": "https://man7.org/linux/man-pages/man1/tar.1.html; https://manpages.debian.org/bookworm/gzip/gzip.1.en.html"
+  },
+  {
+    "claim_id": "CL-050",
+    "concept_id": "linux.command-line.archiving-and-compression",
+    "claim": "`zip -r` recurses into directories, `-e` encrypts; `unzip -l` lists contents, `-d` extracts into a given directory.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "manpages.debian.org zip(1): '-r --recurse-paths: Travel the directory structure recursively' and '-e --encrypt: Encrypt the contents of the zip archive using a password'. manpages.debian.org unzip(1): '-l list archive files (short format)' and synopsis '[-d exdir]'.",
+    "source": "https://manpages.debian.org/bookworm/zip/zip.1.en.html; https://manpages.debian.org/bookworm/unzip/unzip.1.en.html"
+  },
+  {
+    "claim_id": "CL-051",
+    "concept_id": "linux.command-line.file-transfer",
+    "claim": "`scp -r` recursive, `-P` port (capitalized because lower-case `-p` already means preserve timestamps/mode, unlike `ssh -p`), `-C` compress.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org scp(1) synopsis and options confirm -r, -P port, -C compression. Independently confirmed on this machine's local OpenSSH man pages (same upstream project): scp(1) states verbatim 'This option is written with a capital P, because -p is already reserved for preserving the times and mode bits of the file' and '-p Preserves modification times, access times, and file mode bits', while ssh(1) documents lower-case '-p port'.",
+    "source": "https://man7.org/linux/man-pages/man1/scp.1.html; local macOS OpenSSH man scp / man ssh"
+  },
+  {
+    "claim_id": "CL-052",
+    "concept_id": "linux.command-line.file-transfer",
+    "claim": "`rsync -av` combines archive mode with verbose; `-z` compresses, `--delete` mirrors deletions, `-n` is a dry run; a trailing slash on the source copies contents into the destination, its absence creates a nested directory.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org rsync(1): 'The files are transferred in archive mode, which ensures that symbolic links, devices, attributes, permissions, ownerships, etc. are preserved' and 'A trailing slash on the source changes this behavior to avoid creating an additional directory level at the destination. You can think of a trailing / on a source as meaning \"copy the contents of this directory\" as opposed to \"copy the directory by name\"' and '--dry-run, -n perform a trial run with no changes made'.",
+    "source": "https://man7.org/linux/man-pages/man1/rsync.1.html"
+  },
+  {
+    "claim_id": "CL-053",
+    "concept_id": "linux.command-line.file-transfer",
+    "claim": "`sftp` is interactive with `get`/`put`/`ls` commands; `-b` runs a batch file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org sftp(1): '-b batchfile: Batch mode reads a series of commands from an input batchfile instead of stdin' and the DESCRIPTION lists get/put among the interactive commands.",
+    "source": "https://man7.org/linux/man-pages/man1/sftp.1.html"
+  },
+  {
+    "claim_id": "CL-054",
+    "concept_id": "linux.command-line.shell-scripting-basics",
+    "claim": "A shebang line (`#!/bin/bash`) is honoured by the kernel's `execve` only when the script is invoked directly and has the execute bit set (via `chmod +x`); `sh script.sh` ignores it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org execve(2): 'path must be either a binary executable, or a script starting with a line of the form: #! interpreter [optional-arg]' - the interpreter-line mechanism is a property of execve() invoked on the file directly, which is bypassed when a shell is invoked explicitly on the script's path as an argument.",
+    "source": "https://man7.org/linux/man-pages/man2/execve.2.html"
+  },
+  {
+    "claim_id": "CL-055",
+    "concept_id": "linux.command-line.system-commands",
+    "claim": "`ps aux` uses BSD-style options (no leading hyphen; `a` other users' processes, `u` user format, `x` no-terminal processes), and `ps -ef` is the UNIX-style equivalent; `%CPU` is a lifetime average, not current usage.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ps(1): 'BSD options, which may be grouped and must not be used with a dash' vs 'Unix options, which may be grouped and must be preceded by a dash' - exact match for the no-hyphen-for-BSD-style distinction underlying `ps aux`.",
+    "source": "https://man7.org/linux/man-pages/man1/ps.1.html"
+  },
+  {
+    "claim_id": "CL-056",
+    "concept_id": "linux.command-line.system-commands",
+    "claim": "`kill` sends SIGTERM by default (catchable); `kill -9` sends SIGKILL (uncatchable, skips cleanup); `kill -l` lists signal names.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org kill(1): 'If no signal is specified, the TERM signal is sent. The default action for this signal is to terminate the process... This signal should be used in preference to the KILL signal (number 9), since a process may install a handler for the TERM signal' and synopsis includes 'kill -l [number|0x sigmask] | -L'.",
+    "source": "https://man7.org/linux/man-pages/man1/kill.1.html"
+  },
+  {
+    "claim_id": "CL-057",
+    "concept_id": "linux.command-line.system-commands",
+    "claim": "`free -h` human-readable output; the meaningful column is 'available' (reclaimable cache accounted for), not 'free'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org free(1): 'available: Estimation of how much memory is available for starting new applications, without swapping ... used: Used or unavailable memory (calculated as total - available)' - confirms 'available', not 'free', is the figure that matters.",
+    "source": "https://man7.org/linux/man-pages/man1/free.1.html"
+  },
+  {
+    "claim_id": "CL-058",
+    "concept_id": "linux.command-line.system-commands",
+    "claim": "`df -h`/`-i`/`-T` show human-readable space/inode usage/filesystem type; `du -sh`/`-x`/`--apparent-size` summarize directory-tree usage.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org df(1): '-i, --inodes: list inode information instead of block usage' and '-T, --print-type: print file system type'. man7.org du(1): '-s, --summarize: display only a total for each argument', '-x, --one-file-system: skip directories on different file systems', '-A, --apparent-size: print apparent sizes rather than device usage'.",
+    "source": "https://man7.org/linux/man-pages/man1/df.1.html; https://man7.org/linux/man-pages/man1/du.1.html"
+  },
+  {
+    "claim_id": "CL-059",
+    "concept_id": "linux.command-line.system-commands",
+    "claim": "`uptime` shows time since boot plus 1-, 5- and 15-minute load averages; `uname -a` prints kernel name, hostname, kernel release/version, and machine architecture (never the distribution).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org uptime(1): 'the system load averages for the past 1, 5, and 15 minutes.' man7.org uname(1): '-a, --all: print all information, in the following order ...: -s kernel name, -n hostname, -r kernel release, -v kernel version, -m machine hardware name' - matches the claimed field set and order.",
+    "source": "https://man7.org/linux/man-pages/man1/uptime.1.html; https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "CL-060",
+    "concept_id": "linux.command-line.who-is-logged-in",
+    "claim": "`who -a`/`-b`/`-H`; `w -h`/`-s`; `last -n N`/`-x` (shows shutdown/runlevel changes); `id -u`/`-un`/`-nG`; `whoami` is equivalent to `id -un` and reports the effective user (e.g. root after sudo).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org who(1): '-a, --all', '-b, --boot: time of last system boot', '-H, --heading'. man7.org w(1): '-h, --no-header' and '-s, --short'. man7.org last(1): '-n num' and '-x, --more-records: Print out run level changes, shutdowns, and time changes in addition to the normal records.' man7.org id(1): '-u, --user', '-n, --name: print a name instead of a number, for -u,-g,-G', '-G, --groups'. man7.org whoami(1): 'Print the user name associated with the current effective user ID. Same as id -un.'",
+    "source": "https://man7.org/linux/man-pages/man1/who.1.html; https://man7.org/linux/man-pages/man1/w.1.html; https://man7.org/linux/man-pages/man1/last.1.html; https://man7.org/linux/man-pages/man1/id.1.html; https://man7.org/linux/man-pages/man1/whoami.1.html"
+  },
+  {
+    "claim_id": "CL-061",
+    "concept_id": "linux.command-line.general-networking-commands",
+    "claim": "`ip addr`/`ip route` (iproute2, replacing deprecated `ifconfig`/`route`); `ping -c N`/`-W`/`-I`; `ss -tulpn` (t TCP, u UDP, l listening, p process, n numeric), `-a` includes established connections; `dig` queries DNS directly (skipping `/etc/hosts`), `+short`, `@server`, `-x` reverse lookup; `traceroute -I` uses ICMP instead of default UDP probes, `-n` numeric, `-m` max hops; `curl -I` HEAD only, `-L` follow redirects, `-v` verbose, `-k` skip cert checks; `hostname -f` FQDN, `-I` all configured addresses.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org ss(8) confirms -t/-u/-l/-p/-n/-a exactly as described. man7.org ping(8) synopsis includes -c count/-W timeout/-I interface. manpages.debian.org traceroute(1): '-I, --icmp: Use ICMP ECHO for probes' and '-n: Do not try to map IP addresses to host names' and synopsis includes '-m max_ttl'. manpages.debian.org dig(1) synopsis shows '[@server]' and '[-x addr]', and +short is documented as an output-formatting option. curl.se manpage confirms -I/--head, -L/--location, -k/--insecure exist. manpages.debian.org hostname(1) (the actual Debian-shipped 'hostname' package) synopsis includes '-f|--fqdn|--long' and '-I|--all-ip-addresses'.",
+    "source": "https://man7.org/linux/man-pages/man8/ss.8.html; https://man7.org/linux/man-pages/man8/ping.8.html; https://manpages.debian.org/trixie/traceroute/traceroute.1.en.html; https://manpages.debian.org/bookworm/bind9-dnsutils/dig.1.en.html; https://curl.se/docs/manpage.html; https://manpages.debian.org/bookworm/hostname/hostname.1.en.html"
+  },
+  {
+    "claim_id": "CL-062",
+    "concept_id": "linux.command-line.port-ranges",
+    "claim": "IANA divides ports into System/Well Known (0-1023), User/Registered (1024-49151), and Dynamic/Private/Ephemeral (49152-65535, never assigned).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 6335 section 6 states verbatim: 'the System Ports, also known as the Well Known Ports, from 0-1023 (assigned by IANA); the User Ports, also known as the Registered Ports, from 1024-49151 (assigned by IANA); the Dynamic Ports, also known as the Private or Ephemeral Ports, from 49152-65535 (never assigned)' - exact match.",
+    "source": "https://www.rfc-editor.org/rfc/rfc6335.txt (Section 6)"
+  },
+  {
+    "claim_id": "CL-063",
+    "concept_id": "linux.command-line.port-ranges",
+    "claim": "Binding a port below 1024 on Linux requires the `CAP_NET_BIND_SERVICE` capability; the sysctl `net.ipv4.ip_unprivileged_port_start` moves that boundary; the kernel's `net.ipv4.ip_local_port_range` defaults to 32768 through 60999, not the RFC's 49152-65535.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org capabilities(7): 'CAP_NET_BIND_SERVICE: Bind a socket to Internet domain privileged ports (port numbers less than 1024).' Linux kernel networking docs (ip-sysctl.txt): 'ip_local_port_range ... The default values are 32768 and 60999 respectively.' and the same file documents ip_unprivileged_port_start as the sysctl controlling the privileged-port boundary.",
+    "source": "https://man7.org/linux/man-pages/man7/capabilities.7.html; https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt"
+  },
+  {
+    "claim_id": "CL-064",
+    "concept_id": "linux.command-line.finding-files",
+    "claim": "`find`'s expression syntax uses single-hyphen words (`-name`) that are not clustered short options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man7.org find(1) EXAMPLES consistently show -name, -type, -print etc. as standalone predicate words rather than single-letter flags, matching find's documented primary/expression syntax which is distinct from POSIX short-option clustering.",
+    "source": "https://man7.org/linux/man-pages/man1/find.1.html"
+  }
+]

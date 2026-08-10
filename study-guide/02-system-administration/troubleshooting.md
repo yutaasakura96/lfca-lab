@@ -249,9 +249,9 @@ a reproduction attempt produce its own log lines in real time.
 **Traps** `journalctl` does not read `/var/log/*.log`, and `tail -f` does not read the
 journal — a system without persistent journal storage loses its journal at reboot while
 `/var/log` survives, and a system with journald only has no text files to tail. Journal access
-is privileged: an unprivileged user typically sees only their own user units unless they
-belong to `systemd-journal` or `adm`. And a unit name is required by `-u` — `journalctl -u`
-with no argument is not "all units," it is a usage error.
+is privileged: an unprivileged user typically sees only their own user journal unless they
+belong to `systemd-journal`, `adm`, or `wheel`. And a unit name is required by `-u` —
+`journalctl -u` with no argument is not "all units," it is a usage error.
 
 **What the exam may test** Choosing the command that shows this unit's errors from this boot,
 and knowing that `-p err` is inclusive upward in severity rather than an exact-level filter.
@@ -432,9 +432,11 @@ eliminations attached, not a unilateral remount.
 **What it is** A unit that is not running — which is several distinct states, not one.
 `inactive (dead)` means it was never started or was stopped cleanly. `failed` means it ran and
 terminated badly. `activating` means it is still starting, or stuck doing so. `active
-(exited)` means a oneshot unit ran to completion successfully, which is not a fault at all.
-Separately, *enabled* and *active* are independent: a unit can be enabled and currently
-failed, or active but disabled and therefore absent after the next reboot.
+(exited)` means every process of the unit has exited while systemd still counts the unit as
+active, which is what `RemainAfterExit=yes` asks for and is not a fault at all — note that a
+plain `Type=oneshot` unit without that setting returns to `inactive (dead)` when it finishes
+successfully. Separately, *enabled* and *active* are independent: a unit can be enabled and
+currently failed, or active but disabled and therefore absent after the next reboot.
 
 **Why it matters** The state name tells you which half of the problem you are in. `failed`
 means systemd started the process and the process died — the cause is inside the application
@@ -473,7 +475,7 @@ the file on disk is correct and the behaviour is not.
 **What the exam may test** Mapping a described symptom to the right first command, and
 distinguishing `failed` (the process ran and died — read its log) from `inactive` (it never
 ran — check enablement, dependencies, and whether anything triggers it) from `active
-(exited)` (a oneshot that completed normally, and is not broken).
+(exited)` (a `RemainAfterExit=yes` unit whose processes have finished, and is not broken).
 
 **Symptoms and diagnostic order**
 
@@ -620,7 +622,8 @@ against a cgroup limit while the host has ample free memory.
    is consistent with an OOM kill and rules out a clean self-termination, which would report
    an exit code rather than a signal. It does not yet rule out a human `kill -9`.
 2. `journalctl -k` or `dmesg -T` around that timestamp contains an `Out of memory: Killed
-   process` line. This confirms the kill and rules out a manual signal.
+   process` line — a kill against a cgroup limit prints `Memory cgroup out of memory: Killed
+   process` instead. This confirms the kill and rules out a manual signal.
 3. The kernel line names a memory cgroup rather than a system-wide condition. This rules out
    host memory exhaustion: a container or unit hit its configured limit, and raising the host's
    RAM will change nothing.
@@ -652,10 +655,10 @@ first, which is what `nproc` supplies.
 been up; the same values come from `/proc/loadavg`. The manual is explicit that a load average
 of 1 means a single-CPU system is loaded all the time, while on a 4-CPU system it means the
 system was idle 75% of the time. `top` then separates the causes: its CPU-state line splits
-time into user (`us`), system (`sy`), nice (`ni`), idle (`id`), I/O wait (`wa`), and steal
-(`st`), and its per-task `%CPU` column is a share of elapsed CPU time — in the default Irix
-mode a multi-threaded task can legitimately exceed 100%, while the `I` key toggles Solaris
-mode, which divides by the CPU count instead.
+time into user (`us`), system (`sy`), nice (`ni`), idle (`id`), I/O wait (`wa`), hardware and
+software interrupt servicing (`hi`, `si`), and steal (`st`), and its per-task `%CPU` column is
+a share of elapsed CPU time — in the default Irix mode a multi-threaded task can legitimately
+exceed 100%, while the `I` key toggles Solaris mode, which divides by the CPU count instead.
 
 **Key terms** runnable and uninterruptible states; core-count normalisation; `wa` I/O wait;
 `st` steal time; Irix versus Solaris mode.
@@ -666,7 +669,7 @@ mode, which divides by the CPU count instead.
 | --- | --- | --- | --- | --- |
 | `uptime` | Print time since boot, logged-in users, and the 1/5/15-minute load averages | `-p` pretty uptime only, `-s` boot time | `uptime` | Comparing the number against 1.0 or against 100 as though it were a percentage, without dividing by core count |
 | `nproc` | Print the number of processing units available to the calling process | `--all` reports installed processors, ignoring restrictions | `nproc` | Assuming it reports the hardware total — cgroup limits and CPU affinity can make the available count smaller than `nproc --all` |
-| `top` | Show a live, sorted view of processes and per-state CPU time | `-b` batch mode for scripting, `-n N` iteration count, `1` toggles per-CPU lines | `top -b -n 1` | Reading only the process list and ignoring the `wa` and `st` fields on the CPU-state line, which is where the cause usually is |
+| `top` | Show a live, sorted view of processes and per-state CPU time | `-b` batch mode for scripting, `-n N` iteration count; the interactive `1` key toggles per-CPU lines | `top -b -n 1` | Reading only the process list and ignoring the `wa` and `st` fields on the CPU-state line, which is where the cause usually is |
 
 **Traps** Load average is widely misread as a percentage; it is a count, it includes processes
 blocked on I/O, and it is meaningless without the core count. The three figures also carry
@@ -732,7 +735,7 @@ immutable attribute.
 | --- | --- | --- | --- | --- |
 | `ls -l` | Show a file's mode, owner, and group | `-n` numeric uid/gid, `-a` include dotfiles | `ls -l /srv/app/config.yml` | Pointing it at a directory, which lists the directory's *contents* rather than describing the directory itself |
 | `ls -ld` | Describe the directory itself rather than listing it | `-d` treat the directory as the operand | `ls -ld /srv/app` | Never running it, and so never seeing that the parent directory is the thing denying access |
-| `id` | Print real and effective user and group IDs of the current process | `-G` all group IDs, `-n` names instead of numbers, a username argument shows that user's configured groups | `id` | Running `id <user>` and reading it as what the user's live session holds — a session started before a group change still carries the old set |
+| `id` | Print real and effective user and group IDs of the current process | `-G` all group IDs, `-n` names instead of numbers (only with `-u`, `-g` or `-G`), a username argument shows that user's configured groups | `id` | Running `id <user>` and reading it as what the user's live session holds — a session started before a group change still carries the old set |
 | `namei -l` | Walk a pathname component by component, showing each one's type, mode, and owner | `-l` long format (equivalent to `-m -o -v`), `-x` mark mount points | `namei -l /srv/app/config.yml` | Not knowing it exists and checking each parent by hand, which is where the traversal bit gets missed |
 
 **Traps** The single most common miss is the traversal case: the file's mode is fine and a
@@ -785,8 +788,9 @@ into one specific fault.
 
 **How it works** `systemctl status` answers the first layer on the server. `ss -tulpn` answers
 the second and is the highest-value command here, because its Local Address column shows the
-bind address explicitly: `127.0.0.1:8080` accepts only local clients, `0.0.0.0:8080` (often
-shown as `*:8080`) accepts any IPv4 client, and `[::]:8080` is the IPv6 equivalent. The client
+bind address explicitly: `127.0.0.1:8080` accepts only local clients, `0.0.0.0:8080` accepts
+any IPv4 client, `[::]:8080` is the IPv6-only wildcard, and a bare `*:8080` is the dual-stack
+wildcard — a single IPv6 socket with `IPV6_V6ONLY` disabled, serving both families. The client
 side then distinguishes failure modes by their error text: *connection refused* means a host
 was reached and actively rejected the connection (nothing listening on that address, or a
 REJECT rule); *connection timed out* means nothing answered at all (a DROP rule, a wrong

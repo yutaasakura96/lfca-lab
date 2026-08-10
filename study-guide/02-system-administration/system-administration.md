@@ -383,11 +383,12 @@ account that can own files and run a daemon but cannot be logged into interactiv
 change the shell, lock the password, set an expiry date — and they do different things. The exam
 tests which one matches the stated requirement.
 
-**How it works** `nologin` prints a refusal message and exits with a non-zero status; if
-`/etc/nologin.txt` exists, its contents are printed instead of the default message. `/bin/false`
-achieves a similar effect by exiting 1 silently, with no message. `chsh` changes the field, and
-for a non-root user the new shell must be listed in `/etc/shells` — root is exempt from that
-restriction.
+**How it works** `nologin` prints a refusal message and exits with a non-zero status. Which
+`nologin` a system ships matters: util-linux's version, used on Red Hat-family systems, prints the
+contents of `/etc/nologin.txt` instead of the default message when that file exists, while the
+shadow-utils version on Debian-family systems has no such feature. `/bin/false` achieves a similar
+effect by exiting 1 silently, with no message. `chsh` changes the field, and for a non-root user
+the new shell must be listed in `/etc/shells` — root is exempt from that restriction.
 
 **Key terms** `/etc/shells`; `/usr/sbin/nologin`; `/bin/false`; `/etc/nologin.txt`.
 
@@ -395,7 +396,7 @@ restriction.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `chsh` | Change an account's login shell | `-s` the new shell, `-l` list the shells in `/etc/shells` | `chsh -s /usr/sbin/nologin deploy` | Expecting an unprivileged user to be able to set any path — non-root users may only choose a shell listed in `/etc/shells` |
+| `chsh` | Change an account's login shell | `-s` the new shell; with no `-s` it prompts. `-l` (list `/etc/shells`) exists only in util-linux's `chsh`, shipped on Red Hat-family systems — the shadow-utils `chsh` on Debian-family systems has no such option | `chsh -s /usr/sbin/nologin deploy` | Expecting an unprivileged user to be able to set any path — non-root users may only choose a shell listed in `/etc/shells` |
 
 **Traps** A `nologin` shell is not an account lock. The password hash is untouched, so anything
 that authenticates without needing a shell can still work — the account's `cron` jobs continue to
@@ -1109,7 +1110,7 @@ inherited from that parent, unless the executed file carries SUID or SGID.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `ps` | Take a one-off snapshot of processes | `-ef` every process, full format (UNIX style); `aux` every process with CPU and memory (BSD style); `-u USER` filter by user; `-o` choose columns | `ps aux` | Expecting bare `ps` to list everything — with no options it shows only processes belonging to the current user and attached to the current terminal |
-| `top` | Show a continuously refreshed, sorted view of processes | `-b` batch mode for scripts, `-n` number of iterations, `-u` filter by user; interactively `P` sorts by CPU and `M` by memory | `top -b -n 1` | Reading the first `%CPU` figures as meaningful — the initial iteration is measured since boot, not since the last refresh |
+| `top` | Show a continuously refreshed, sorted view of processes | `-b` batch mode for scripts, `-n` number of iterations, `-u` filter by user; interactively `P` sorts by CPU and `M` by memory | `top -b -n 1` | Reading `top`'s `%CPU` as if it meant the same as `ps`'s — `top` reports the share of CPU time since the last screen update, while `ps` reports total CPU time divided by the process's whole lifetime |
 
 **Traps** `ps` and `top` answer different questions: `ps` is a snapshot at one instant, `top` is a
 sampled rate over an interval. A process that consumes 100% of a core in short bursts can look
@@ -1460,7 +1461,7 @@ Boot converges on `default.target`, which pulls in everything that target wants.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `systemctl` | Query and control the manager and its units | `list-units`, `list-unit-files`, `daemon-reload`, `--failed` to show units that failed | `systemctl --failed` | Reading `systemctl status` output's "enabled/disabled" line as whether the service is *running* — it reports boot-time activation, and "active/inactive" reports running state |
-| `systemd-analyze` | Report boot performance | no argument prints total startup time split into firmware, loader, kernel and userspace; `blame` ranks units by initialisation time; `critical-chain` shows the ordering chain | `systemd-analyze` | Treating `blame`'s slowest unit as the cause of a slow boot — a slow unit that nothing waits for does not delay anything; `critical-chain` is the one that shows what actually held boot up |
+| `systemd-analyze` | Report boot performance | no argument implies `time`, which splits startup into kernel, initrd and userspace (a firmware and loader line appears only where the platform and boot loader report their own timings); `blame` ranks units by initialisation time; `critical-chain` shows the ordering chain | `systemd-analyze` | Treating `blame`'s slowest unit as the cause of a slow boot — a slow unit that nothing waits for does not delay anything; `critical-chain` is the one that shows what actually held boot up |
 
 **Traps** systemd is not the same thing as `systemctl`: systemd is the manager process (PID 1),
 `systemctl` is the client you type commands into. It is also not the only init system — several
@@ -1679,9 +1680,13 @@ next step is to edit something else that was never the problem.
 
 **How it works** systemd caches parsed unit files. `systemctl daemon-reload` rescans the unit
 directories, applies precedence and drop-ins, and rebuilds the dependency graph — without
-restarting any running service, so the new definition applies to the *next* activation. Adding a
-new unit file, deleting one, or editing an existing one all require it. `systemctl edit` runs it
-automatically after saving a drop-in, which is one reason to prefer it over editing files by hand.
+restarting any running service, so the new definition applies to the *next* activation. What needs
+it is a change to a unit the manager has already parsed: editing one, removing one, or adding a
+drop-in beside one. A unit file under a name the manager has never seen is loaded on demand the
+first time it is named, which is why "I dropped in a new unit and it started fine" and "I edited an
+existing unit and nothing changed" behave so differently. `systemctl enable` reloads the
+configuration itself after creating its symlinks, and `systemctl edit` runs the reload after saving
+a drop-in — one reason to prefer it over editing files by hand.
 
 **Key terms** in-memory unit cache; dependency graph; drop-in; `systemctl edit`.
 
@@ -1702,14 +1707,14 @@ needs the first; a question describing an edited application config needs the se
 #### Scenario
 
 A new application ships a unit file dropped into `/etc/systemd/system/report.service`.
-`systemctl start report` fails with "Unit report.service not found" — the manager has not rescanned
-the directory, so `systemctl daemon-reload` comes first. It then starts, and `systemctl status`
-shows `Active: active (running)` alongside `Loaded: … disabled`. That second word is the one that
-matters: after the next reboot the service will be absent, because nothing has created the
-`multi-user.target.wants` symlink. `systemctl enable --now report` fixes both halves at once. A
-week later the team edits the unit to add `Restart=on-failure` and runs `systemctl restart report`;
-nothing changes, because the manager is still acting on the cached definition — `daemon-reload`
-again, then restart. Finally, someone proposes `systemctl isolate multi-user.target` to "drop the
+`systemctl start report` works immediately — the manager loads a unit name it has never seen on
+demand — and `systemctl status` shows `Active: active (running)` alongside `Loaded: … disabled`.
+That second word is the one that matters: after the next reboot the service will be absent, because
+nothing has created the `multi-user.target.wants` symlink. `systemctl enable --now report` fixes
+both halves at once. A week later the team edits the unit to add `Restart=on-failure` and runs
+`systemctl restart report`; nothing changes, because the manager is still acting on the definition
+it parsed a week ago — hence the "unit file changed on disk" warning, then `daemon-reload`, then
+restart. Finally, someone proposes `systemctl isolate multi-user.target` to "drop the
 GUI"; on a running server that stops every unit the target does not want, which is not what was
 asked for — `systemctl set-default multi-user.target` and a reboot is.
 
@@ -2508,8 +2513,9 @@ released only when that count reaches zero *and* no process still holds the file
 | `ls -i` | Print each entry's inode number | combine with `-l` to see the link count in the same listing | `ls -li` | Assuming two files with the same size are the same file — the inode number is what proves it |
 
 **Traps** "Disk full but `df` shows space" is the inode-exhaustion classic, and the fix is deleting
-files rather than adding capacity, since the inode count is fixed at `mkfs` time and cannot be
-grown on ext4. The second trap is timestamps: `ls -l` shows the modification time, which lives in
+files rather than adding capacity: on ext4 the inode table is sized when the filesystem is created
+and there is no way to enlarge it in place, so more inodes arrive only as a side effect of growing
+the whole filesystem with `resize2fs`. The second trap is timestamps: `ls -l` shows the modification time, which lives in
 the inode along with the access and status-change times — but the inode carries no creation time
 that standard tools expose.
 
@@ -2724,8 +2730,8 @@ mirrors a deletion just as faithfully as a write.
    The filename is not — it lives in a directory entry that maps a name to an inode number.
 2. `df -h` shows free space but writes fail with "No space left on device." What is the first
    check?
-   `df -i` — the filesystem has probably exhausted its inode table, whose size was fixed at
-   `mkfs` time.
+   `df -i` — the filesystem has probably exhausted its inode table, which was sized when the
+   filesystem was created and cannot be enlarged in place.
 3. `du` totals 3 GB where `df` reports 40 GB used on the same filesystem. Name the most likely
    cause and its fix.
    A deleted file still held open by a running process; the blocks are freed when the process
@@ -2826,7 +2832,7 @@ runs at 04:30 on the 1st and the 15th **and** every Friday.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `crontab -e` | Install a crontab through the syntax-checking editor path | `crontab -T FILE` tests a file's syntax without installing it | `crontab -e` | Putting a comment at the end of a command line — comments are not allowed on the same line as a cron command or an environment setting, and become part of the command |
+| `crontab -e` | Install a crontab through the syntax-checking editor path | the syntax-only test of a file is spelled by family: `crontab -T FILE` on cronie (Red Hat-family), `crontab -n FILE` on Debian-family cron — and in cronie `-n` means something else entirely (naming the host that runs a shared crontab) | `crontab -e` | Putting a comment at the end of a command line — comments are not allowed on the same line as a cron command or an environment setting, and become part of the command |
 
 **Traps** The environment a cron job runs in is not your shell's. cron sets `SHELL` to `/bin/sh`
 and takes `LOGNAME` and `HOME` from the owner's `/etc/passwd` line; it does not source
@@ -3102,8 +3108,10 @@ systemd systems. Directives control frequency (`daily`, `weekly`, `size 100M`), 
 generations to keep (`rotate 7`), compression (`compress`, `delaycompress`), and what to do about
 the writing process: `create` makes a fresh file and relies on a `postrotate` script to signal the
 daemon to reopen it, while `copytruncate` copies the contents aside and truncates the original in
-place for daemons that cannot be signalled. State is tracked in `/var/lib/logrotate.status`, which
-is why the tool refuses to rotate the same log twice in one day unless forced. The systemd journal
+place for daemons that cannot be signalled. State is tracked in a status file whose path is
+distribution-specific — `/var/lib/logrotate/status` on Debian-family systems, `/var/lib/logrotate.status`
+in logrotate's own default, and `-s` overrides either — which is why the tool refuses to rotate the
+same log twice in one day unless forced. The systemd journal
 is not managed by `logrotate` at all: it bounds itself by size through `SystemMaxUse=`.
 
 **Key terms** `/etc/logrotate.d/`; `copytruncate`; `postrotate`; `logrotate.timer`.
@@ -3195,8 +3203,9 @@ is why "the boot is slow" is answered by the ordering chain rather than by the s
 **Traps** `blame` measures duration, not delay. A unit that takes 30 seconds while the rest of the
 boot proceeds in parallel around it costs nothing; a unit that takes two seconds while everything
 else waits for it costs two seconds of boot time. Note also that the firmware phase happens before
-anything Linux can measure, so a machine that spends a minute before the bootloader menu has a
-firmware problem that `systemd-analyze` will never show.
+anything Linux is running, so a machine that spends a minute before the bootloader menu has a
+firmware problem that `systemd-analyze` will not show unless the platform and boot loader hand
+their own timings to systemd.
 
 **What the exam may test** Putting the five stages in order; identifying which stage a described
 symptom belongs to; and knowing what the initramfs is for.
@@ -3367,8 +3376,9 @@ undone by the next kernel package update.
    An EFI System Partition holding bootloaders as files, GPT partitioning with support for disks
    beyond about 2 TiB and more than four primary partitions, and Secure Boot.
 4. Why should `/boot/grub/grub.cfg` not be edited directly?
-   It is generated from `/etc/default/grub` and `/etc/grub.d/`, and is rewritten by
-   `update-grub` (or `grub2-mkconfig`) at the next kernel update, discarding any hand edit.
+   It is generated from `/etc/default/grub` and `/etc/grub.d/`, and any hand edit is discarded the
+   next time `update-grub` (or `grub2-mkconfig`) rewrites it — which on Debian-family systems a
+   kernel package update does automatically.
 5. A kernel package was installed an hour ago. What does `uname -r` report?
    The kernel that is currently running — the previously booted one. The newly installed kernel
    takes effect only after a reboot.

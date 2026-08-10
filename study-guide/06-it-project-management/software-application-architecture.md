@@ -133,7 +133,7 @@ having made it something else.
 **What it is** An architecture in which an application is split into services that are
 independently deployable, communicate over the network, and each own their data. LFS200 names
 the term in one lesson without developing it (`research/lfs200-notes/00-course-map.md`), so
-treat this as independently sourced consensus.
+nothing below is drawn from the course.
 
 **Why it matters** The trade-off, not the definition, is what a scenario question turns on:
 independent deployment and per-service scaling are bought with network latency, partial failure,
@@ -602,7 +602,7 @@ and flexibility.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.software-application-architecture.sql-basics` | SQL basics | SELECT reads rows, INSERT adds them, UPDATE changes existing ones, DELETE removes them, and JOIN combines rows from more than one table on a matching column. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* SELECT is the only one of the five that changes nothing; UPDATE and DELETE without a WHERE clause typically act on every row in the table. |
+| `pm.software-application-architecture.sql-basics` | SQL basics | SELECT reads rows, INSERT adds them, UPDATE changes existing ones, DELETE removes them, and JOIN combines rows from more than one table on a matching column. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Of the four statements, SELECT is the one that changes nothing — JOIN is a clause written inside a query rather than a statement of its own; UPDATE and DELETE without a WHERE clause typically act on every row in the table. |
 | `pm.software-application-architecture.schema-table-and-index` | Schema, table and index | The schema is the declared structure, the table is the relation that holds the rows, and an index is a separate structure that speeds lookups on a column. | An index is not part of the data and not a copy of the table: PostgreSQL updates it whenever the table changes, so it buys read speed with write time and disk space. |
 | `pm.software-application-architecture.transactions-and-acid` | Transactions and ACID | Atomicity, consistency, isolation and durability — the guarantees that bundle several steps into one all-or-nothing operation that survives a crash once committed. | Atomicity and durability are different promises: atomicity means partial steps never take effect, durability means a committed transaction is written to permanent storage before completion is reported. |
 

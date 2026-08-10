@@ -1,0 +1,695 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "sysadmin.networking",
+    "claim": "Networking's domain (System Administration Fundamentals) carries 30% of the exam, 1st largest of 6 domains, and the competency's 2025 status is unchanged.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "data/competencies.json gives domain weights 16/30/18/14/12/10 across six domains, so System Administration Fundamentals at 30 is the largest, and the Networking competency entry carries sept_2025_status \"unchanged\". This is a dataset-derived framing claim examined alongside the command claims, not an independent assertion.",
+    "source": "data/competencies.json (repository dataset)"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "sysadmin.networking",
+    "claim": "Of 49 concepts, 40 are NOT COVERED, 4 PARTIALLY COVERED, 2 MENTIONED ONLY and 3 FULLY COVERED — 9/49 (18%) are not NOT COVERED — so all but a ninth of what follows is sourced independently.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The counts are right: a tally over data/topics/02-system-administration.json for ids under sysadmin.networking. gives exactly 49 concepts split 40 NOT COVERED / 4 PARTIALLY COVERED / 2 MENTIONED ONLY / 3 FULLY COVERED, and 9/49 = 18.4%. The fraction word is wrong: 9/49 is roughly a fifth, not a ninth (a ninth would be 11%). Corrected in the prose to \"all but a fifth\".",
+    "source": "data/topics/02-system-administration.json (repository dataset); arithmetic"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "sysadmin.networking.ipv4-address",
+    "claim": "`ip addr` shows (or changes) protocol addresses on interfaces; `show` is the default subcommand and `add`/`del` modify. Example `ip addr show enp0s3`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Run empirically in an Ubuntu 24.04 container (iproute2 6.1.0): bare `ip addr` produced the same output as `ip addr show`, and `ip addr show dev lo` filtered to one interface. `man ip-address` documents the object as \"protocol address management\" with add/change/replace/del/show.",
+    "source": "man ip-address (iproute2 6.1.0, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "sysadmin.networking.ipv4-address",
+    "claim": "`ip addr` prints each interface's addresses with the prefix length attached (`192.0.2.15/24`), i.e. CIDR rather than a dotted-decimal mask.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ip addr` printed `inet 127.0.0.1/8 scope host lo` and `inet 172.17.0.2/16` — prefix length, no dotted-decimal mask. `ifconfig` on the same host prints `netmask 255.255.0.0`, which is the contrast the text draws.",
+    "source": "empirical run in Ubuntu 24.04 container (iproute2 6.1.0)"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "sysadmin.networking.ipv6-address",
+    "claim": "`ip -6 addr` shows IPv6 addresses only; `-6` restricts the address family and `-4` does the same for IPv4. Example `ip -6 addr show enp0s3`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ip -6 addr` listed only `inet6` lines and `ip -4 addr` only `inet` lines. `man ip` documents `-4` and `-6` as shortcuts for `-family inet` / `-family inet6`.",
+    "source": "man ip (iproute2 6.1.0); empirical run in container"
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "sysadmin.networking.subnet-mask-and-cidr",
+    "claim": "`ip addr` shows the address with its prefix length; `show dev NAME` narrows to one interface. Example `ip addr show dev enp0s3`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`ip addr show dev lo` ran cleanly and returned only that interface. The `dev NAME` selector is documented in `man ip-address` under the show subcommand.",
+    "source": "man ip-address; empirical run in container"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "sysadmin.networking.subnet-mask-and-cidr",
+    "claim": "The prefix/dotted-decimal/address-count/usable-host table (/8 through /30) is arithmetically correct, and usable hosts are 2^(32 - prefix) - 2.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Checked each row by hand: /8 16777216/16777214, /16 65536/65534, /24 256/254, /25 128/126, /26 64/62, /27 32/30, /28 16/14, /29 8/6, /30 4/2, with the stated dotted-decimal masks (128/192/224/240/248/252) matching the prefix lengths. The RFC 3021 /31 exception the text flags is real: RFC 3021 is titled \"Using 31-Bit Prefixes on IPv4 Point-to-Point Links\".",
+    "source": "arithmetic; https://www.rfc-editor.org/rfc/rfc3021.txt (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "sysadmin.networking.network-host-and-broadcast-addresses",
+    "claim": "RFC 919 defined a directed broadcast as something gateways forward toward the target network; RFC 2644 (BCP 34) later changed the required router default, so modern routers block receipt and forwarding of directed broadcasts unless explicitly configured otherwise.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 2644 is titled \"Changing the Default for Directed Broadcasts in Routers\" and states that routers MUST NOT forward directed broadcasts by default and MUST have an option to permit receiving and forwarding them.",
+    "source": "https://www.rfc-editor.org/rfc/rfc2644.txt (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "sysadmin.networking.loopback-address",
+    "claim": "`ping 127.0.0.1` confirms the local IP stack responds; `-c N` stops after N packets. Example `ping -c 3 127.0.0.1`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ping` documents `-c count`. Empirically `ping -c 2 127.0.0.1` sent exactly two packets and printed \"2 packets transmitted, 2 received, 0% packet loss\".",
+    "source": "man ping (iputils, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "sysadmin.networking.mac-address",
+    "claim": "`ip link` shows or changes link-layer interface state including MAC addresses; `show` is the default and `set dev NAME up`/`down` changes state. Example `ip link show enp0s3`. The MAC appears in the `link/ether` field.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ip link show eth0` printed `link/ether b6:72:67:3b:cb:c4 brd ff:ff:ff:ff:ff:ff` and bare `ip link` produced the same listing as `ip link show`. `man ip-link` documents `set dev DEVICE up|down`.",
+    "source": "man ip-link; empirical run in container"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "sysadmin.networking.mac-address",
+    "claim": "`ip link` reports layer 2 only — no IP addresses; use `ip addr` for layer 3.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ip link show eth0` printed the flags, MTU, state and `link/ether` line and no `inet`/`inet6` line, whereas `ip addr show dev lo` printed both.",
+    "source": "empirical run in container"
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "sysadmin.networking.arp",
+    "claim": "`ip neigh` shows or manipulates the neighbour (ARP/NDP) cache; `show`, `flush dev NAME` and `del ADDR dev NAME` are valid. Example `ip neigh show dev enp0s3`. States include REACHABLE, STALE and FAILED.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`ip neigh help` prints the usage `ip neigh { add | del | change | replace } ... [ dev DEV ]` and `ip neigh { show | flush } [ proxy ] [ to PREFIX ] [ dev DEV ] [ nud STATE ]`, with STATE := { delay | failed | incomplete | noarp | none | permanent | probe | reachable | stale }. Empirically bare `ip neigh` printed a live entry ending REACHABLE.",
+    "source": "ip neigh help (iproute2 6.1.0); empirical run in container"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "sysadmin.networking.arp",
+    "claim": "`arp -n` shows the ARP cache numerically (net-tools); `-n` skips name resolution and `-d` deletes an entry.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man arp` lists `-n, --numeric`, and `arp --help` prints both `-d, --delete  delete a specified entry` and `-n, --numeric  don't resolve names`, with the usage line `arp [-v] [-i <if>] -d <host> [pub]`. Empirically `arp -n` printed the cache with numeric addresses.",
+    "source": "man arp and arp --help (net-tools, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "sysadmin.networking.arp",
+    "claim": "ARP never crosses a router: an entry for an off-subnet address will always be the router's MAC, not the remote host's.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The conclusion is right but the mechanism as written is wrong and misleads about what `ip neigh` contains. A host performs next-hop determination first (RFC 1122 section 3.3.1): for an off-subnet destination it resolves the gateway's address, so no neighbour entry for the off-subnet address is created at all. `ip neigh` on the test host listed only the on-link gateway, not any off-subnet destination. Reworded to say the host does not resolve the off-subnet address at all and the frame instead carries the router's MAC.",
+    "source": "https://www.rfc-editor.org/rfc/rfc1122.txt section 3.3.1; empirical `ip neigh` in container"
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "sysadmin.networking.default-gateway",
+    "claim": "`ip route` shows or manipulates the routing table; `show` (default), `add`, `del`, and `get ADDR` to see the chosen route. The default route appears as `default via <router> dev <interface>`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically bare `ip route` printed `default via 172.17.0.1 dev eth0` plus the connected route, and `ip route get 1.1.1.1` printed `1.1.1.1 via 172.17.0.1 dev eth0 src 172.17.0.2`. `man ip-route` documents add/change/replace/delete/show/get.",
+    "source": "man ip-route; empirical run in container"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "sysadmin.networking.default-gateway",
+    "claim": "`ip route show default` shows only the default route; `default` is a prefix selector equivalent to 0.0.0.0/0.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ip route show default` returned exactly the one `default via 172.17.0.1 dev eth0` line and exit status 0, filtering out the connected route that bare `ip route` also showed. `man ip-route` documents `default` as the address family's wildcard prefix (0/0 for IPv4).",
+    "source": "man ip-route; empirical run in container"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "sysadmin.networking.routing-table",
+    "claim": "`route -n` shows the routing table numerically (net-tools), `-n` skips name resolution, and it shows the default route as destination 0.0.0.0 with mask 0.0.0.0.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `route -n` printed the header `Destination Gateway Genmask Flags Metric Ref Use Iface` and the row `0.0.0.0  172.17.0.1  0.0.0.0  UG ... eth0`, exactly the layout described.",
+    "source": "empirical run in Ubuntu 24.04 container (net-tools)"
+  },
+  {
+    "claim_id": "CL-018",
+    "concept_id": "sysadmin.networking.dns",
+    "claim": "`dig` queries DNS and shows the full response; `+short` gives terse output, `@server` queries a specific server, `+trace` walks from the root. Example `dig www.example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man dig` documents `+short, +noshort` and `+trace, +notrace`, and the synopsis begins `dig [@server] ...`. Empirically `dig +short example.com` returned bare addresses and `dig @1.1.1.1 example.com A +short` queried the named server successfully.",
+    "source": "man dig (BIND 9, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-019",
+    "concept_id": "sysadmin.networking.dns",
+    "claim": "`nslookup` queries DNS interactively or from arguments; `-type=MX` sets the record type and `server` sets the server in interactive mode. Its \"Non-authoritative answer\" line merely means the answer came from a cache.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man nslookup` documents the interactive commands `server domain | lserver domain` and `querytype=value | type=value`. Empirically `nslookup -type=MX example.com` returned the MX data under a \"Non-authoritative answer:\" heading from the local recursive resolver.",
+    "source": "man nslookup (BIND 9); empirical run in container"
+  },
+  {
+    "claim_id": "CL-020",
+    "concept_id": "sysadmin.networking.dns",
+    "claim": "`host` resolves a name or address with short output; `-t TYPE` sets the record type and `-a` requests all records.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man host` documents `-t type` and `-a`, describing `-a` (\"all\") as normally equivalent to `-v -t ANY`. Empirically `host -t MX example.com` printed the single-line terse form.",
+    "source": "man host (BIND 9); empirical run in container"
+  },
+  {
+    "claim_id": "CL-021",
+    "concept_id": "sysadmin.networking.dns",
+    "claim": "DNS queries usually travel over UDP port 53; TCP port 53 is used when a response is too large for the UDP path or for zone transfers.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 1035 section 4.2 states that the DNS assumes \"stream access using TCP on server port 53 (decimal) as well as datagram access using UDP on UDP port 53 (decimal)\", with 4.2.1 UDP usage and 4.2.2 TCP usage as separate subsections; 4.2.2 gives zone refresh and long messages as the reasons for TCP. Fetched and grepped.",
+    "source": "https://www.rfc-editor.org/rfc/rfc1035.txt section 4.2 (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-022",
+    "concept_id": "sysadmin.networking.dns-resolution-order",
+    "claim": "`getent hosts` resolves a name the way an application does, through nsswitch; `getent ahosts` uses `getaddrinfo` and shows both address families.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man getent` states that for `ahosts`, keys are passed to getaddrinfo(3) with address family AF_UNSPEC (with `ahostsv4`/`ahostsv6` restricting to AF_INET/AF_INET6). Empirically `getent hosts example.com` and `getent ahosts example.com` both returned addresses; the default nsswitch `hosts:` line on the test system is `files dns`.",
+    "source": "man getent; /etc/nsswitch.conf; empirical runs in container"
+  },
+  {
+    "claim_id": "CL-023",
+    "concept_id": "sysadmin.networking.dns-record-types",
+    "claim": "The documented dig argument order is `dig @server name type`; with no type given, dig queries A only. Example `dig example.com A`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man dig` SYNOPSIS reads `dig [@server] [...] [name] [type] [class] [queryopt...]`, and the body states \"The default query type is A, unless the -x option is supplied\". Empirically `dig example.com MX +short` and `dig @1.1.1.1 example.com A +short` both worked in that order.",
+    "source": "man dig (BIND 9); empirical runs in container"
+  },
+  {
+    "claim_id": "CL-024",
+    "concept_id": "sysadmin.networking.dns-record-types",
+    "claim": "`dig MX` queries the mail exchanger records for a domain, and `+short` shows preference and host only. Example `dig example.com MX`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `dig example.com MX +short` returned `0 .` — the preference value followed by the exchanger name and nothing else, which is exactly \"preference and host only\".",
+    "source": "empirical run in container (BIND 9 dig)"
+  },
+  {
+    "claim_id": "CL-025",
+    "concept_id": "sysadmin.networking.dns-record-types",
+    "claim": "A PTR record for 192.0.2.10 lives at `10.2.0.192.in-addr.arpa`; a CNAME cannot coexist with other record types at the same name so cannot sit at a zone apex; an MX must point to a name with an A or AAAA record, not a CNAME.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 1035 section 3.5 defines the IN-ADDR.ARPA domain and its reversed-octet form. RFC 1034 section 3.6.2 states \"If a CNAME RR is present at a node, no other data should be present\", which is what bars a CNAME from a zone apex that must carry NS and SOA. RFC 2181 section 10.3 states that the domain name used as part of the value of an MX record \"must not be an alias\" and \"must have as its value one or more address records ... but never a CNAME RR\". All three fetched and grepped.",
+    "source": "https://www.rfc-editor.org/rfc/rfc1035.txt section 3.5; rfc1034.txt section 3.6.2; rfc2181.txt section 10.3 (all fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-026",
+    "concept_id": "sysadmin.networking.fqdn-and-hostname",
+    "claim": "`hostname` prints or temporarily sets the system hostname; `-f`/`--fqdn` displays the FQDN and `-i` shows addresses. `hostname NAME` lasts until reboot.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man hostname` synopsis lists `[-f|--fqdn|--long]` and `[-i|--ip-address]`, and the body warns that `--fqdn` depends on resolution. Empirically `hostname`, `hostname -f` and `hostname -i` all ran and returned the name, the resolved FQDN and an address respectively.",
+    "source": "man hostname (net-tools, Ubuntu 24.04); empirical runs in container"
+  },
+  {
+    "claim_id": "CL-027",
+    "concept_id": "sysadmin.networking.fqdn-and-hostname",
+    "claim": "`hostnamectl` shows or sets hostname and related metadata on systemd systems; `set-hostname NAME`, `--static`, `--transient`, `--pretty`. It is systemd-specific.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man hostnamectl` documents `set-hostname NAME` (\"By default, this will alter the pretty, the static, and the transient hostname alike; however, if one or more of --static, --transient, --pretty are used, only the selected hostnames are changed\") and lists `--static, --transient, --pretty` as options. hostnamectl ships with systemd, so absence on a non-systemd distribution follows.",
+    "source": "man hostnamectl (systemd 255, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-028",
+    "concept_id": "sysadmin.networking.ttl-and-dns-caching",
+    "claim": "`dig` shows the TTL in the answer section; `@server` bypasses the cache by asking the authoritative server, and `+noall +answer` shows the answer section only. Example `dig @ns1.example.com example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `dig +noall +answer example.com` printed only the two answer records with their TTL column (`example.com. 172 IN A ...`), and `dig @1.1.1.1 ...` sent the query to the named server. `man dig` documents `+answer, +noanswer` and the `@server` argument.",
+    "source": "man dig; empirical runs in container"
+  },
+  {
+    "claim_id": "CL-029",
+    "concept_id": "sysadmin.networking.etc-resolv-conf",
+    "claim": "Up to MAXNS (currently 3) nameserver lines are used and further lines are ignored; `search` supplies suffixes; `options ndots:N` governs when a name is tried absolute rather than through the search list.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man 5 resolv.conf` states that up to MAXNS (currently 3, see <resolv.h>) name servers may be listed, documents `search` as the search list for host-name lookup, and states that queries having fewer than ndots dots (default 1) are attempted using each component of the search path in turn.",
+    "source": "man 5 resolv.conf (glibc, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-030",
+    "concept_id": "sysadmin.networking.dhcp",
+    "claim": "The DHCP exchange is DISCOVER, OFFER, REQUEST, ACK, using UDP port 67 for the server and 68 for the client.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 2131 section 3.1 walks the four-message exchange (DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK) and section 4.1 specifies the server port 67 and client port 68.",
+    "source": "https://www.rfc-editor.org/rfc/rfc2131.txt (fetched)"
+  },
+  {
+    "claim_id": "CL-031",
+    "concept_id": "sysadmin.networking.dhcp-lease",
+    "claim": "T1 defaults to half the lease time and T2 to seven-eighths; at T1 the client renews by unicast to the granting server, at T2 it broadcasts a rebinding request.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 2131 section 4.4.5 states \"T1 defaults to (0.5 * duration_of_lease). T2 defaults to (0.875 * duration_of_lease)\", with renewal unicast to the granting server at T1 and rebinding broadcast at T2. The literal string was grepped out of the RFC text.",
+    "source": "https://www.rfc-editor.org/rfc/rfc2131.txt section 4.4.5 (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-032",
+    "concept_id": "sysadmin.networking.dhcp-reservation",
+    "claim": "In ISC dhcpd a reservation is a `host` declaration containing a `hardware ethernet` clause naming the MAC and a `fixed-address` clause naming the address.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dhcpd.conf(5) documents `host` declarations whose bodies carry `hardware ethernet <MAC>;` (shown in its own worked examples, e.g. `host ncd1 { hardware ethernet 0:c0:c3:49:2b:57; }`) and states that \"When dhcpd tries to find a host declaration for a client, it first looks for a host declaration which has a fixed-address declaration that lists an IP address that is valid for the subnet or shared network on which the client is booting\" — exactly the MAC-to-address binding described.",
+    "source": "ISC dhcpd.conf(5), https://manpages.debian.org/bookworm/isc-dhcp-server/dhcpd.conf.5.en.html (fetched and grepped; dataset source id isc-dhcpd-conf-manual)"
+  },
+  {
+    "claim_id": "CL-033",
+    "concept_id": "sysadmin.networking.tcp-vs-udp",
+    "claim": "A TCP header is at least 20 bytes and carries sequence and acknowledgement numbers, flags and a receive window; a UDP header is exactly 8 bytes: source port, destination port, length, checksum.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 9293's TCP header format is five mandatory 32-bit rows — source/destination port, sequence number, acknowledgment number, Data Offset plus reserved plus control bits plus window, and checksum plus urgent pointer — i.e. 160 bits, 20 bytes, before any options, and Data Offset is defined as \"the number of 32-bit words in the TCP header\". RFC 768's header diagram is four 16-bit fields — source port, destination port, length, checksum — i.e. exactly 8 bytes, with no options. Both fetched and read directly.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9293.txt header format and Data Offset definition; https://www.rfc-editor.org/rfc/rfc768.txt (both fetched)"
+  },
+  {
+    "claim_id": "CL-034",
+    "concept_id": "sysadmin.networking.tcp-three-way-handshake",
+    "claim": "`tcpdump` captures and prints packets showing the handshake flags; `-i IFACE` chooses an interface, `-n` skips name resolution, and a filter expression such as `port 443` narrows the capture. Example `tcpdump -n port 443`. `[S]`, `[S.]` and `[.]` mark SYN, SYN-ACK and ACK. It needs elevated privilege.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man tcpdump` documents `-i interface`/`--interface=interface`, `-n` (\"Don't convert addresses ... port numbers\"), the filter expression as a trailing argument, and states that the tcpflags are \"some combination of S (SYN), F (FIN), P (PSH), R (RST), U (URG)\" with the note \"The `.' means the ACK\" — so `[S.]` is SYN plus ACK. The man page also states that capturing requires special privileges.",
+    "source": "man tcpdump (Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-035",
+    "concept_id": "sysadmin.networking.tcp-three-way-handshake",
+    "claim": "The closing side holds the connection in TIME_WAIT for twice the maximum segment lifetime.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 9293 uses the literal quantity \"2 MSL\" for the TIME-WAIT timeout throughout — the connection-close diagrams annotate the closing side's wait as \"(2 MSL)\", and the event-processing rules say \"Remain in the TIME-WAIT state. Restart the 2 MSL time-wait timeout.\" Fetched and grepped.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9293.txt (fetched and grepped for \"2 MSL\")"
+  },
+  {
+    "claim_id": "CL-036",
+    "concept_id": "sysadmin.networking.ports-and-sockets",
+    "claim": "`ss -tulpn` lists listening TCP and UDP sockets with the owning process, numerically: `-t` TCP, `-u` UDP, `-l` listening only, `-p` process, `-n` no name resolution.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The letters are right — `ss --help` prints `-t, --tcp`, `-u, --udp`, `-l, --listening`, `-p, --processes`, `-n, --numeric` — but `-n` in ss is documented as \"Do not try to resolve service names\" only; ss does not resolve addresses to host names at all unless asked with `-r, --resolve`. Empirically `ss -tl` (no `-n`) printed `127.0.0.1:ssh` — port translated, address still numeric — while `netstat -tl` printed `localhost:ssh`, translating both. The blanket phrase \"no name resolution\"/\"without resolving names or service names\" overstates what `-n` does in ss. Narrowed the prose to ports and service names.",
+    "source": "man ss and ss --help (iproute2 6.1.0); empirical comparison of `ss -tl`/`ss -tln` and `netstat -tl`/`netstat -tln` in container"
+  },
+  {
+    "claim_id": "CL-037",
+    "concept_id": "sysadmin.networking.ports-and-sockets",
+    "claim": "`-p` needs root to attribute sockets to other users' processes; the Local Address column distinguishes `0.0.0.0:80`, `127.0.0.1:80` and `[::]:80`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ss` documents `-p, --processes  show process using socket`; process attribution for sockets owned by other users requires privilege, consistent with the same restriction documented for netstat. Empirically `ss -tlp` as root printed `users:((\"nc\",pid=1755,fd=3))` for a socket, and the Local Address column showed `127.0.0.1:2222` distinct from a wildcard bind.",
+    "source": "man ss; man netstat; empirical run in container"
+  },
+  {
+    "claim_id": "CL-038",
+    "concept_id": "sysadmin.networking.ports-and-sockets",
+    "claim": "On Linux the client's ephemeral source port comes from `/proc/sys/net/ipv4/ip_local_port_range`, 32768 to 60999 by default.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`cat /proc/sys/net/ipv4/ip_local_port_range` on the Linux test system returned exactly `32768\t60999`.",
+    "source": "empirical read of /proc/sys/net/ipv4/ip_local_port_range in Ubuntu 24.04 container"
+  },
+  {
+    "claim_id": "CL-039",
+    "concept_id": "sysadmin.networking.well-known-ports",
+    "claim": "IANA calls 0-1023 the well-known or system range, 1024-49151 registered, 49152-65535 the dynamic or private range.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 6335 section 6 lists \"the System Ports, also known as the Well Known Ports, from 0-1023\", \"the User Ports, also known as the Registered Ports, from 1024-49151\" and \"the Dynamic Ports, also known as the Private or Ephemeral Ports, from 49152-65535\".",
+    "source": "https://www.rfc-editor.org/rfc/rfc6335.txt section 6 (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-040",
+    "concept_id": "sysadmin.networking.well-known-ports",
+    "claim": "`ss -tulpn` shows which ports the host actually listens on; `-n` keeps numeric ports so they can be matched against the table.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ss -tln` printed `127.0.0.1:22` where `ss -tl` printed `127.0.0.1:ssh`, so `-n` is precisely what keeps the port numeric. This narrower claim about `-n` is correct as written, unlike CL-036.",
+    "source": "empirical run in container (iproute2 6.1.0)"
+  },
+  {
+    "claim_id": "CL-041",
+    "concept_id": "sysadmin.networking.listening-vs-established-connections",
+    "claim": "`ss -tulpn` shows listening sockets and `-l` deliberately excludes established connections.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ss` documents `-l, --listening  Display only listening sockets (these are omitted by default)`, and `-a, --all  Display both listening and non-listening ... sockets`, so `-l` is a filter that excludes established connections.",
+    "source": "man ss (iproute2 6.1.0)"
+  },
+  {
+    "claim_id": "CL-042",
+    "concept_id": "sysadmin.networking.listening-vs-established-connections",
+    "claim": "`ss -t state established` shows TCP connections currently established; `state` takes any TCP state name and `-p` can be added for the owning process.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ss` documents the filter grammar `FILTER := [ state STATE-FILTER ] [ EXPRESSION ]` and lists \"All standard TCP states: established, syn-sent, syn-recv, fin-wait-1 ... listening and closing\", with the worked example `ss -o state established '( dport = :ssh or sport = :ssh )'`. Empirically `ss -t state established` ran with exit status 0 and printed the ESTAB view header.",
+    "source": "man ss; empirical run in container"
+  },
+  {
+    "claim_id": "CL-043",
+    "concept_id": "sysadmin.networking.http-and-https",
+    "claim": "`curl -I` fetches response headers only, using a HEAD request; `-L` follows redirects, `-k` skips certificate verification, `-v` shows the whole exchange. Example `curl -I https://example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man curl` documents `-I, --head` (\"Fetch the headers only! HTTP-servers feature the command HEAD which this uses\"), `-L, --location`, `-k, --insecure` and `-v, --verbose`.",
+    "source": "man curl (curl 8.5, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-044",
+    "concept_id": "sysadmin.networking.http-and-https",
+    "claim": "A 502 or 503 comes from a proxy in front of the application, not from the application itself.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "RFC 9110 section 15.6.3 defines 502 (Bad Gateway) as the server \"while acting as a gateway or proxy\" receiving an invalid response from an inbound server, and section 15.6.5 defines 504 (Gateway Timeout) the same way. But section 15.6.4 defines 503 (Service Unavailable) as the server itself being \"currently unable to handle the request due to a temporary overload or scheduled maintenance\" — nothing about a gateway or proxy. 503 is routinely emitted by the origin application. Corrected the pair to 502 and 504.",
+    "source": "https://www.rfc-editor.org/rfc/rfc9110.txt sections 15.6.3, 15.6.4, 15.6.5 (fetched and grepped)"
+  },
+  {
+    "claim_id": "CL-045",
+    "concept_id": "sysadmin.networking.ssh",
+    "claim": "`ssh` opens a remote shell or runs a remote command; `-p PORT` sets a non-default port, `-i FILE` an identity file, `-v` verbose for authentication debugging. Example `ssh user@web01.example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ssh` documents `-p port`, `-i identity_file` and `-v  Verbose mode. Causes ssh to print debugging messages about its progress`.",
+    "source": "man ssh (OpenSSH 9.6, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-046",
+    "concept_id": "sysadmin.networking.ssh",
+    "claim": "`scp` copies files over SSH; `-r` recursive, `-P PORT` port (note the capital, unlike ssh's `-p`), `-O` forces the legacy SCP protocol. Modern OpenSSH scp uses the SFTP protocol underneath by default.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man scp` documents `-P port`, `-r  Recursively copy entire directories`, and `-O  Use the legacy SCP protocol for file transfers instead of the SFTP protocol`. It also states \"scp uses the SFTP protocol over a ssh(1) connection for data transfer\" and \"Since OpenSSH 9.0, scp has used the SFTP protocol for transfers by default\". The `-p` versus `-P` difference between ssh and scp is confirmed by the two man pages side by side.",
+    "source": "man scp and man ssh (OpenSSH 9.6, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-047",
+    "concept_id": "sysadmin.networking.ssh",
+    "claim": "`sftp` does interactive or batch file transfer over SSH; `-b FILE` is a batch file of commands. SFTP is an SSH subsystem on port 22, unrelated to FTP or FTPS.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man sftp` documents `-b batchfile` and describes sftp as running over an ssh(1) transport; the sftp subsystem is configured in sshd_config as `Subsystem sftp`, so it rides the SSH port rather than an FTP port.",
+    "source": "man sftp (OpenSSH 9.6); man sshd_config (Subsystem)"
+  },
+  {
+    "claim_id": "CL-048",
+    "concept_id": "sysadmin.networking.ssh",
+    "claim": "`ssh-keygen` generates, manages and converts authentication keys; `-t ed25519` sets the key type, `-C` a comment, `-f` the output file. Example `ssh-keygen -t ed25519`. Only the `.pub` half ever leaves the client.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ssh-keygen` documents `-t dsa | ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa`, `-C comment` and `-f filename`, and describes writing the private key to the identity file and the public key to the same name with `.pub` appended.",
+    "source": "man ssh-keygen (OpenSSH 9.6, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-049",
+    "concept_id": "sysadmin.networking.ssh",
+    "claim": "`ssh-copy-id` installs a public key in a remote `authorized_keys`; `-i FILE` chooses which public key to send, and it needs a working login method to install the key.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ssh-copy-id` documents `-i identity_file` and describes the tool as using ssh to log in and appending the key to the remote `~/.ssh/authorized_keys`; it therefore requires an already-working authentication method. `-n` (dry run) and `-f` (forced) are also present, consistent with the described behaviour.",
+    "source": "man ssh-copy-id (OpenSSH 9.6, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-050",
+    "concept_id": "sysadmin.networking.firewall",
+    "claim": "`ufw status` shows whether ufw is active and lists its rules; `verbose` adds default policies and logging state, `numbered` adds indices for deletion. Example `ufw status verbose`. ufw requires root.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ufw` synopsis reads `ufw [--dry-run] status [verbose|numbered]`, and `ufw --help` lists `status numbered  show firewall status as numbered list of RULES` and `status verbose  show verbose firewall status`. Empirically, running `ufw status` as an unprivileged user returned `ERROR: You need to be root to run this script`.",
+    "source": "man ufw and ufw --help (Ubuntu 24.04); empirical unprivileged run in container"
+  },
+  {
+    "claim_id": "CL-051",
+    "concept_id": "sysadmin.networking.firewall",
+    "claim": "`firewall-cmd --list-all` shows everything configured in the active zone; `--zone=NAME` inspects another zone and `--list-all-zones` shows every zone.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "`--zone=NAME` and `--list-all-zones` are correct (`man firewall-cmd` lists `[--permanent] [--zone=zone] [--policy=policy] --list-all` and `[--permanent] --list-all-zones`). \"Active zone\" is not: the man page states for this whole option group that \"If both options are omitted, they affect the default zone (see --get-default-zone)\". firewalld distinguishes the default zone from the active zones (`--get-active-zones`, the zones with interfaces or sources bound), so the documented target of a bare `--list-all` is the default zone. Corrected in the prose, the Commands table and the section scenario.",
+    "source": "man firewall-cmd (firewalld, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-052",
+    "concept_id": "sysadmin.networking.ufw-firewalld-and-iptables",
+    "claim": "`ufw allow` permits traffic named by port, protocol or application profile: `ufw allow 22/tcp`, `ufw allow from 10.0.0.0/8`, and `ufw delete` removes a rule.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ufw` contains the literal examples `ufw allow 25/tcp`, `ufw allow 22/tcp`, `ufw allow 80/tcp`, `ufw allow from 10.0.0.0/8`, `ufw allow smtp` and `ufw allow in http`; `ufw --help` lists `delete RULE|NUM  delete RULE` and `app list|info|default|update` for application profiles.",
+    "source": "man ufw and ufw --help (Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-053",
+    "concept_id": "sysadmin.networking.ufw-firewalld-and-iptables",
+    "claim": "`firewall-cmd` queries and changes firewalld's configuration: `--add-port=443/tcp`, `--add-service=https`, `--permanent`, `--reload`, `--zone=NAME`; a `--permanent` change does not take effect until `firewall-cmd --reload`. Example `firewall-cmd --permanent --add-service=https`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man firewall-cmd` documents `--add-port=portid[-portid]/protocol`, `--add-service=service`, `--permanent`, `--reload` and `--zone=zone`, and opens with \"The runtime configuration in firewalld is separated from the permanent configuration\", with `--reload` reloading the permanent configuration into the runtime one.",
+    "source": "man firewall-cmd (firewalld, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-054",
+    "concept_id": "sysadmin.networking.ufw-firewalld-and-iptables",
+    "claim": "`iptables -L` lists rules of the filter table, which is the default when `-t` is not given; `-n` is numeric and much faster, `-v` verbose with counters, `--line-numbers` for deletion. Example `iptables -L -n -v`. The slowness of plain `-L` is reverse DNS on every address.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man iptables` documents `-t, --table table`, `-L, --list [chain]` with the note that it \"applies to the specified table (filter is the default)\", `-v, --verbose`, `--line-numbers`, and `-n, --numeric` (\"IP addresses and port numbers will be printed in numeric format. By default, the program will try to display them as host names, network names, or services\") — which is exactly the reverse-lookup cost the text describes.",
+    "source": "man iptables (iptables 1.8.10, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-055",
+    "concept_id": "sysadmin.networking.ufw-firewalld-and-iptables",
+    "claim": "On current distributions the `iptables` command is frequently a compatibility layer over nftables.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "On the Ubuntu 24.04 test system the binary identifies itself as `iptables v1.8.10 (nf_tables)` in its own error output, i.e. the nft backend rather than the legacy one.",
+    "source": "empirical iptables invocation in Ubuntu 24.04 container"
+  },
+  {
+    "claim_id": "CL-056",
+    "concept_id": "sysadmin.networking.open-closed-and-filtered-ports",
+    "claim": "`nc -zv host port` tests whether a port accepts a connection without sending data; `-z` scan only, `-v` report the outcome, `-w SECS` shorten the timeout, `-u` test UDP. It reports \"succeeded\" or \"Connection refused\" or hangs until timeout. Example `nc -zv web01.example.com 443`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man nc` documents `-z  Only scan for listening daemons, without sending any data to them`, `-v  Produce more verbose output`, `-w timeout` and `-u  Use UDP instead of TCP`. Empirically `nc -zv example.com 443` printed \"Connection to example.com (172.66.147.243) 443 port [tcp/https] succeeded!\" and `nc -zv 127.0.0.1 9` printed \"nc: connect to 127.0.0.1 port 9 (tcp) failed: Connection refused\".",
+    "source": "man nc (netcat-openbsd, Ubuntu 24.04); empirical runs in container"
+  },
+  {
+    "claim_id": "CL-057",
+    "concept_id": "sysadmin.networking.ping-and-icmp",
+    "claim": "`ping` sends ICMP echo requests and reports replies; `-c N` stops after N packets, `-i` sets the interval, `-W` the reply timeout, `-4`/`-6` force the address family. Example `ping -c 4 www.example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ping` documents `-c count`, `-i interval`, `-W timeout` (\"Time to wait for a response, in seconds\"), and `-4` / `-6`. Empirically `ping -c 2 127.0.0.1` produced the loss statistics block described.",
+    "source": "man ping (iputils, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-058",
+    "concept_id": "sysadmin.networking.ping-and-icmp",
+    "claim": "A ping that fails with \"Name or service not known\" is a DNS failure rather than a reachability failure, and the output states this plainly.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically `ping -c 1 nosuchhost.invalid` printed exactly `ping: nosuchhost.invalid: Name or service not known` and sent no packets.",
+    "source": "empirical run in Ubuntu 24.04 container (iputils ping)"
+  },
+  {
+    "claim_id": "CL-059",
+    "concept_id": "sysadmin.networking.ping-and-icmp",
+    "claim": "ICMP echo request is type 8 and echo reply type 0; destination unreachable is type 3 and time exceeded type 11, and ICMP carries no ports.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 792 was fetched and read: the Destination Unreachable Message section gives Type 3, the Time Exceeded Message section gives Type 11, and the Echo or Echo Reply Message section gives \"8 for echo message; 0 for echo reply message\". None of the ICMP message formats contains a port field.",
+    "source": "https://www.rfc-editor.org/rfc/rfc792.txt (fetched and read)"
+  },
+  {
+    "claim_id": "CL-060",
+    "concept_id": "sysadmin.networking.traceroute",
+    "claim": "`traceroute` prints the route packets take; `-I` ICMP probes, `-T` TCP probes, `-n` numeric, `-m` max hops (30 by default), `-p` destination port base. Example `traceroute -n www.example.com`. The default method is UDP to unlikely high ports.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man traceroute` documents `-I, --icmp`, `-T, --tcp`, `-n`, `-m max_ttl, --max-hops=max_ttl` with \"The default is 30\", and `-p port, --port=port` with \"For UDP tracing, specifies the destination port base traceroute will use\". The default method section reads \"The traditional, ancient method of tracerouting. Used by default. Probe packets are udp datagrams with so-called 'unlikely' destination ports.\"",
+    "source": "man traceroute (traceroute 2.1.x, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-061",
+    "concept_id": "sysadmin.networking.traceroute",
+    "claim": "`tracepath` traces the path and discovers the path MTU; `-n` numeric, `-m` max hops, and it needs no elevated privilege and deliberately has few options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man tracepath` documents `-n`, `-m`, and states \"it does not require superuser privileges\" while describing path MTU discovery as part of its output. Its documented option list is short, matching the \"few options\" characterisation.",
+    "source": "man tracepath (iputils, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-062",
+    "concept_id": "sysadmin.networking.traceroute",
+    "claim": "`mtr` combines ping and traceroute into a continuously updating per-hop report; `-r` report mode for a fixed run, `-n` numeric, `-c` cycle count. Example `mtr -r -c 100 www.example.com`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man mtr` documents `-r, --report`, `-n, --no-dns` and `-c COUNT, --report-cycles COUNT`, so the flags and their pairing with long forms are as stated.",
+    "source": "man mtr (mtr-tiny, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-063",
+    "concept_id": "sysadmin.networking.ip-and-ifconfig",
+    "claim": "`ip` is divided into objects — `ip addr` layer 3, `ip link` layer 2, `ip route` routing table, `ip neigh` ARP/neighbour cache — each taking subcommands, `show` by default, plus `add`, `del` and `set`. Examples `ip addr show`, `ip link set dev enp0s3 up`, `ip route`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically for all four objects in the container: bare invocations behaved as `show`, `ip route get` and `ip neigh help` printed the documented subcommand grammar including add/del/change/replace, and `man ip-link` documents `ip link set dev DEVICE up|down`.",
+    "source": "man ip, man ip-link, man ip-address, man ip-route, ip neigh help; empirical runs in container"
+  },
+  {
+    "claim_id": "CL-064",
+    "concept_id": "sysadmin.networking.ip-and-ifconfig",
+    "claim": "`ifconfig` is legacy net-tools interface configuration and display; `-a` includes inactive interfaces and `IFACE up`/`down` changes state. It is deprecated and absent by default on many current distributions.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man ifconfig` documents `-a  display all interfaces which are currently available, even if down`, and the keywords `up  This flag causes the interface to be activated` and `down  This flag causes the driver for this interface to be shut down`. net-tools was not present at all on this Mac host's Linux-tool equivalents and had to be present in the image explicitly, consistent with the deprecation claim.",
+    "source": "man ifconfig (net-tools, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-065",
+    "concept_id": "sysadmin.networking.ss-and-netstat",
+    "claim": "`ss -tulpn` and `netstat -tulpn` take the same option letters and produce comparable output, and `-n` is numeric so ports and addresses are not translated into names.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The shared letters are real: `netstat --help` prints `-r, --route`, `-i, --interfaces`, `-n, --numeric`, `-p, --programs`, `-l, --listening`, and both `ss -tulpn` and `netstat -tulpn` ran and produced the same shape of output. The `-n` description is wrong for `ss`. Empirically `ss -tl` printed `127.0.0.1:ssh` (address already numeric) while `netstat -tl` printed `localhost:ssh`; `man ss` defines `-n` as \"Do not try to resolve service names\" and provides a separate `-r, --resolve` to resolve addresses at all, whereas `man netstat` says without `--numeric` \"the socket address is resolved to its canonical host name (FQDN), and the port number is translated into the corresponding service name\". Split the sentence so each tool's behaviour is stated correctly.",
+    "source": "man ss, man netstat, netstat --help; empirical comparison of `ss -tl`/`ss -tln` and `netstat -tl`/`netstat -tln` in container"
+  },
+  {
+    "claim_id": "CL-066",
+    "concept_id": "sysadmin.networking.ss-and-netstat",
+    "claim": "`netstat -tulpn` is the same view from legacy net-tools; `-r` prints the routing table and `-i` interface statistics.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`netstat --help` prints `-r, --route  display routing table` and `-i, --interfaces  display interface table`. Empirically `netstat -tulpn` printed the \"Active Internet connections (only servers)\" table with the Proto/Local Address/State/PID columns described.",
+    "source": "netstat --help and man netstat (net-tools, Ubuntu 24.04); empirical run in container"
+  },
+  {
+    "claim_id": "CL-067",
+    "concept_id": "sysadmin.networking.ss-and-netstat",
+    "claim": "`ss` reads socket information from the kernel through netlink, whereas `netstat` parses files under `/proc/net`, which is why `ss` is markedly faster on hosts with many connections. Dropping `-n` makes the output translate 22 into `ssh` via `/etc/services`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man netstat` FILES lists `/proc/net/tcp`, `/proc/net/udp`, `/proc/net/unix` etc. as the sources it reads, and `/etc/services` as the translation file. ss is part of iproute2 and uses the sock_diag netlink interface; `man ss` refers to netlink socket families throughout. Empirically `ss -tl` and `netstat -tl` both rendered port 22 as `ssh` and `-n` restored `22` in each.",
+    "source": "man netstat (FILES section), man ss; empirical run in container"
+  },
+  {
+    "claim_id": "CL-068",
+    "concept_id": "sysadmin.networking.dig-and-nslookup",
+    "claim": "`dig +short` prints only the answer data and can be combined with a type: `dig +short example.com MX`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man dig` documents `+short, +noshort`. Empirically `dig +short example.com` returned only the two A record values and `dig example.com MX +short` returned only `0 .`, with no status, TTL or answering-server lines — which is the loss the text warns about when diagnosing.",
+    "source": "man dig; empirical runs in container"
+  },
+  {
+    "claim_id": "CL-069",
+    "concept_id": "sysadmin.networking.dig-and-nslookup",
+    "claim": "`dig` and `nslookup` bypass `/etc/hosts` and the name service switch entirely, so they show what DNS says and not what an application will get; `getent hosts` is the tool for the latter.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dig and nslookup construct DNS queries and send them to a nameserver (dig's man page describes it as \"a flexible tool for interrogating DNS name servers\"), while `man getent` states that getent looks up entries in the administrative databases through the Name Service Switch, whose `hosts:` line on the test system is `files dns`. The two therefore consult different sources by construction.",
+    "source": "man dig; man getent; /etc/nsswitch.conf on Ubuntu 24.04"
+  },
+  {
+    "claim_id": "CL-070",
+    "concept_id": "sysadmin.networking.curl-and-wget",
+    "claim": "`curl -v` shows the full request and response exchange, and can be combined with `-I` or `-o /dev/null`; `-m` sets a timeout.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man curl` documents `-v, --verbose`, `-o, --output <file>` and `-m, --max-time <fractional seconds>`, all of which combine freely with `-I, --head`.",
+    "source": "man curl (curl 8.5, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-071",
+    "concept_id": "sysadmin.networking.curl-and-wget",
+    "claim": "`wget` downloads a URL to a file; `-O FILE` chooses the output file (`-O -` for stdout), `-q` is quiet, `-r` recursive. Unlike curl it writes a file by default.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man wget` documents `-O file, --output-document=file`, `-q, --quiet` and `-r, --recursive`, and describes wget's default behaviour as saving the retrieved document to a local file — the contrast with curl writing to standard output.",
+    "source": "man wget (GNU Wget, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-072",
+    "concept_id": "sysadmin.networking.curl-and-wget",
+    "claim": "A `curl` exit status of 0 means the transfer completed, not that the HTTP status was 2xx — `--fail` makes an HTTP error a non-zero exit.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man curl` documents `-f, --fail` as failing silently on server errors so that curl returns a non-zero exit code for an HTTP error response, which by implication is not the default behaviour.",
+    "source": "man curl (curl 8.5, Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-073",
+    "concept_id": "sysadmin.networking.tcpdump",
+    "claim": "Quick reference row: `tcpdump -i` selects the interface and tcpdump needs elevated privilege; it observes traffic and never changes configuration.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`man tcpdump` documents `-i interface, --interface=interface` and states that capturing requires special privileges (reading a saved capture file does not). tcpdump has no rule- or address-modifying options; it is a capture and print tool.",
+    "source": "man tcpdump (Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "CL-074",
+    "concept_id": "sysadmin.networking.network-interface-naming",
+    "claim": "Predictable names use a two-character type prefix (`en` Ethernet, `wl` wireless LAN, `ww` wireless WAN, `ib` InfiniBand, `sl` serial line IP) plus a location suffix — `o<index>` onboard, `s<slot>` hotplug slot, `p<bus>s<slot>` PCI location, `x<MAC>` — so `enp0s3` is Ethernet, PCI bus 0, slot 3; the scheme is disabled with `net.ifnames=0`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.net-naming-scheme(7) Table 1 lists exactly these prefixes — en Ethernet, ib InfiniBand, sl Serial line IP (slip), wl Wireless local area network (WLAN), ww Wireless wide area network (WWAN) — and the property tables give `prefix o number` PCI on-board index, `prefix x AABBCCDDEEFF` from the MAC, `prefix [P domain] s slot [f function]` for the hotplug slot, and `prefix [P domain] p bus s slot [f function]` labelled \"PCI geographical location\". systemd-udevd.service(8) documents `net.ifnames=`: \"Network interfaces are renamed to give them predictable names when possible. It is enabled by default; specifying 0 disables it.\"",
+    "source": "https://www.freedesktop.org/software/systemd/man/latest/systemd.net-naming-scheme.html and https://www.freedesktop.org/software/systemd/man/latest/systemd-udevd.service.html (both fetched and grepped; dataset source id systemd-net-naming-scheme)"
+  },
+  {
+    "claim_id": "CL-075",
+    "concept_id": "sysadmin.networking.network-interface-naming",
+    "claim": "`ip link` lists the interfaces this system actually has with their names and state; `show` is the default and `set dev NAME up`/`down` changes state. Example `ip link`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically bare `ip link` listed `lo`, `tunl0@NONE` and `eth0@if21` with flags and state, identical to `ip link show`. `man ip-link` documents the `set dev DEVICE up|down` form.",
+    "source": "man ip-link; empirical run in container"
+  },
+  {
+    "claim_id": "CL-076",
+    "concept_id": "sysadmin.networking.vpn",
+    "claim": "Waived concept: the VPN block carries the required no-primary-source marker and makes no claim that a specific named standard defines, requires or specifies anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The block opens with the marker sentence 'No primary documentation source. The authoritative references are paywalled (see data/sourcing-waivers.json). Treat the following as consensus practice, not citable fact.', and tools/lib/guide-checks.mjs checkWaiverMarker enforces its presence. Read sentence by sentence, the block names no standard at all — no RFC, no ISO, no IETF working group, no vendor specification — and every substantive statement is hedged as practice rather than definition: 'is typically described as', 'In most implementations of this practice', 'The distinction usually drawn is', 'Typically the client authenticates', 'in what is commonly called a full-tunnel configuration', 'most ... reports are generally routing or DNS problems'. The shared section scenario and knowledge check carry the same hedging ('which typically places them on the private network', 'in most implementations the tunnel is up'). Nothing here asserts authority the project cannot cite.",
+    "source": "study-guide/02-system-administration/networking.md VPN block; data/sourcing-waivers.json; tools/lib/guide-checks.mjs checkWaiverMarker"
+  },
+  {
+    "claim_id": "CL-077",
+    "concept_id": "sysadmin.networking.bandwidth-latency-and-throughput",
+    "claim": "Waived concept: the bandwidth/latency/throughput block carries the required no-primary-source marker and makes no claim that a specific named standard defines, requires or specifies anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The block opens with the same enforced marker sentence. It names no standard: there is no appeal to an ITU-T recommendation, an RFC, an IEEE document or any other body for the definitions of bandwidth, latency, throughput or jitter, and the definitional sentences are hedged as description rather than specification ('Bandwidth is generally described as', 'throughput is commonly held to be bounded by the receive window divided by the round-trip time', 'Jitter ... is typically what degrades voice and video'). The scenario hedges likewise ('They are generally not the same fault'). The one externally checkable statement in the block — that `ping` reports round-trip time — is not an unsourced claim, since it is verified against the iputils ping man page and the separately sourced ping-and-icmp concept. No invented authority found.",
+    "source": "study-guide/02-system-administration/networking.md Bandwidth, latency and throughput block; data/sourcing-waivers.json; man ping (iputils)"
+  }
+]

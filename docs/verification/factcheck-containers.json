@@ -1,0 +1,470 @@
+[
+  {
+    "claim_id": "containers-cmd-001",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker run` creates a new container from an image and starts it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The CLI's own usage text reads \"Create and run a new container from an image\", matching the Purpose cell exactly.",
+    "source": "docker run --help (Docker 29.6.1, local); https://docs.docker.com/reference/cli/docker/container/run/"
+  },
+  {
+    "claim_id": "containers-cmd-002",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker run -d` runs the container detached.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help output: \"-d, --detach  Run container in background and print container ID\". Verified empirically by running a detached alpine container.",
+    "source": "docker run --help; empirical run on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-003",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker run --rm` deletes the container on exit.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reference option table: \"--rm  Automatically remove the container and its associated anonymous volumes when it exits\".",
+    "source": "https://docs.docker.com/reference/cli/docker/container/run/"
+  },
+  {
+    "claim_id": "containers-cmd-004",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker run --name` assigns a name; example `docker run -d --name web nginx`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"--name string  Assign a name to the container\". The reference page shows the same shape (`docker run --name test -d nginx:alpine`); nginx's default command serves on port 80 so the container stays up.",
+    "source": "docker run --help; https://docs.docker.com/reference/cli/docker/container/run/ (Assign name example)"
+  },
+  {
+    "claim_id": "containers-cmd-005",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker run` always creates a new container; `docker start` resumes an existing one.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "run is documented as \"Create and run a new container\"; start as \"Start one or more stopped containers\". Verified empirically: `docker start` on an exited container reran its original command without creating a second container entry.",
+    "source": "docker run --help; docker start --help; empirical test"
+  },
+  {
+    "claim_id": "containers-cmd-006",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker ps` lists containers and by default shows only running ones, so a container that exited is invisible until `-a`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-a, --all  Show all containers (default shows just running)\". Empirically, a container that exited immediately was absent from `docker ps` and present in `docker ps -a` as \"Exited (0)\".",
+    "source": "docker ps --help; empirical test on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-007",
+    "concept_id": "devops.containers.container",
+    "claim": "`docker ps -q` prints IDs only.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-q, --quiet  Only display container IDs\".",
+    "source": "docker ps --help"
+  },
+  {
+    "claim_id": "containers-cmd-008",
+    "concept_id": "devops.containers.container",
+    "claim": "A container that exited immediately is diagnosed with `docker logs` (output still readable) and confirmed with `docker ps -a`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically, `docker logs` on an exited container returned its stdout, and `docker ps -a` showed the Exited status; `docker logs` reads the captured stream and does not require a running process.",
+    "source": "empirical test on Docker 29.6.1; https://docs.docker.com/reference/cli/docker/container/logs/"
+  },
+  {
+    "claim_id": "containers-cmd-009",
+    "concept_id": "devops.containers.container-image",
+    "claim": "`docker images` lists images in the local image store, as distinct from `docker ps`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"docker images [OPTIONS] [REPOSITORY[:TAG]] — List images\". Separate object type from `docker ps` (List containers).",
+    "source": "docker images --help; docker ps --help"
+  },
+  {
+    "claim_id": "containers-cmd-010",
+    "concept_id": "devops.containers.container-image",
+    "claim": "`docker images -a` includes intermediate images and `-q` prints IDs only.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-a, --all  Show all images (default hides intermediate and dangling images)\" and \"-q, --quiet  Only show image IDs\".",
+    "source": "docker images --help (Docker 29.6.1)"
+  },
+  {
+    "claim_id": "containers-cmd-011",
+    "concept_id": "devops.containers.container-image",
+    "claim": "`docker build` builds an image from a Dockerfile and a build context; `-t` names and tags it, `-f` names an alternate Dockerfile, `--no-cache` ignores the cache.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help lists \"-t, --tag\", \"-f, --file  Name of the Dockerfile (default: PATH/Dockerfile)\" and \"--no-cache  Do not use cache when building the image\". The best-practices page states --no-cache \"disables the build cache, forcing Docker to rebuild all layers from scratch\".",
+    "source": "docker build --help; https://docs.docker.com/build/building/best-practices/"
+  },
+  {
+    "claim_id": "containers-cmd-012",
+    "concept_id": "devops.containers.container-image",
+    "claim": "A build executes build instructions only; the image's command runs later, at `docker run`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The Dockerfile reference defines CMD/ENTRYPOINT as what runs when the container starts, not during build. Verified empirically: an image built with `CMD [\"sh\"]` produced no run of that command during `docker build`.",
+    "source": "https://docs.docker.com/reference/dockerfile/ (CMD, ENTRYPOINT); empirical build"
+  },
+  {
+    "claim_id": "containers-cmd-013",
+    "concept_id": "devops.containers.container-image",
+    "claim": "`docker rm` removes a container and `docker rmi` removes an image; an image with no containers still occupies disk.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: `docker rm` \"Remove one or more containers\"; `docker rmi` \"Remove one or more images\". Removing a container reclaims only its writable layer, per the volumes doc (\"When a container is destroyed, the writable layer is destroyed with it\").",
+    "source": "docker rm --help; docker rmi --help; https://docs.docker.com/engine/storage/volumes/"
+  },
+  {
+    "claim_id": "containers-cmd-014",
+    "concept_id": "devops.containers.image-layers",
+    "claim": "Only `RUN`, `COPY` and `ADD` add a filesystem layer, while `ENV`, `LABEL`, `WORKDIR`, `EXPOSE`, `CMD` and the rest record configuration metadata (image layers section).",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "WORKDIR is not metadata-only. The Dockerfile reference states \"If the WORKDIR doesn't exist, it will be created even if it's not used in any subsequent Dockerfile instruction\" — a filesystem change. Empirically on Docker 29.6.1/BuildKit, a Dockerfile of FROM alpine + ENV + LABEL + EXPOSE + RUN + COPY + WORKDIR + CMD produced 4 RootFS layers over a 1-layer base (RUN, COPY, WORKDIR), and a WORKDIR-only build produced 2 layers; a metadata-only build (ENV/LABEL/EXPOSE/CMD) produced 1, i.e. no new layer. Prose corrected: RUN/COPY/ADD add filesystem layers, ENV/LABEL/EXPOSE/CMD are metadata-only, WORKDIR creates its directory when missing and can therefore add a layer.",
+    "source": "https://docs.docker.com/reference/dockerfile/ (WORKDIR); empirical `docker image inspect --format '{{len .RootFS.Layers}}'` and `docker history` on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-015",
+    "concept_id": "devops.containers.image-layers",
+    "claim": "A change invalidates the cache for its own layer and every layer after it, so copying the whole source tree before installing dependencies reinstalls them on every code change.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Build cache doc: \"If a layer changes, all other layers that come after it are also affected... all layers that follow will need to run again\", using exactly the COPY-then-RUN example.",
+    "source": "https://docs.docker.com/build/cache/"
+  },
+  {
+    "claim_id": "containers-cmd-016",
+    "concept_id": "devops.containers.image-layers",
+    "claim": "Pulling an image downloads only the layers the host does not already have, because layers are content-addressable and stored once.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`docker pull` output distinguishes \"Pull complete\" from \"Already exists\" per layer; layers are identified by content digest in the OCI image spec, so identical layers are reused rather than refetched.",
+    "source": "https://docs.docker.com/reference/cli/docker/image/pull/; OCI Image Specification (layer digests)"
+  },
+  {
+    "claim_id": "containers-cmd-017",
+    "concept_id": "devops.containers.registry",
+    "claim": "`docker pull` downloads an image from a registry into the local store; `-a` fetches all tags in the repository.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"Download an image from a registry\" and \"-a, --all-tags  Download all tagged images in the repository\".",
+    "source": "docker pull --help; https://docs.docker.com/reference/cli/docker/image/pull/"
+  },
+  {
+    "claim_id": "containers-cmd-018",
+    "concept_id": "devops.containers.registry",
+    "claim": "Example `docker pull nginx:1.27` names a real, still-published tag.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Docker Hub tag API for library/nginx reports tag 1.27 with tag_status \"active\" (last updated 2025-06-11).",
+    "source": "https://hub.docker.com/v2/repositories/library/nginx/tags/1.27"
+  },
+  {
+    "claim_id": "containers-cmd-019",
+    "concept_id": "devops.containers.registry",
+    "claim": "A pull is not always needed because `docker run` pulls implicitly when the image is not present locally.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The run reference documents --pull with default value \"missing\": \"Pull the image if it was not found in the image cache, or use the cached image otherwise.\"",
+    "source": "https://docs.docker.com/reference/cli/docker/container/run/ (Set the pull policy)"
+  },
+  {
+    "claim_id": "containers-cmd-020",
+    "concept_id": "devops.containers.registry",
+    "claim": "`docker push` uploads a local image to a registry and the destination comes from the image's own name; an image tagged only `api:1.4.2` pushes to Docker Hub, not a private registry.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"docker push [OPTIONS] NAME[:TAG] — Upload an image to a registry\" — the target is the reference itself, and a reference with no registry host resolves to Docker Hub (docker.io), as the pull reference shows with `debian` resolving to `docker.io/library/debian`.",
+    "source": "docker push --help; https://docs.docker.com/reference/cli/docker/image/pull/"
+  },
+  {
+    "claim_id": "containers-cmd-021",
+    "concept_id": "devops.containers.registry",
+    "claim": "Example `docker push registry.example.com/team/api:1.4.2` is well formed, and omitting a tag makes the reference resolve to `latest`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The reference form registry/namespace/repository:tag matches NAME[:TAG] in the push usage; the pull reference states \"If no tag is provided, Docker Engine uses the :latest tag as a default\" and shows the CLI printing \"Using default tag: latest\".",
+    "source": "docker push --help; https://docs.docker.com/reference/cli/docker/image/pull/"
+  },
+  {
+    "claim_id": "containers-cmd-022",
+    "concept_id": "devops.containers.image-tags",
+    "claim": "`docker build -t api:1.4.2 .` writes that tag into the local store, and omitting the tag applies `latest`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically: `docker build -t fcdefaulttag .` produced an image listed by `docker images` as fcdefaulttag:latest.",
+    "source": "empirical build on Docker 29.6.1; docker build --help (-t, --tag)"
+  },
+  {
+    "claim_id": "containers-cmd-023",
+    "concept_id": "devops.containers.image-tags",
+    "claim": "An image can be pinned by content digest in the form `api@sha256:...`, which cannot be repointed.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The pull usage line is `docker image pull [OPTIONS] NAME[:TAG|@DIGEST]`, and the example output prints the manifest digest for the pulled image; a digest names fixed content by definition.",
+    "source": "https://docs.docker.com/reference/cli/docker/image/pull/"
+  },
+  {
+    "claim_id": "containers-cmd-024",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "`docker build -t` takes `-t name:tag`, `-f` path to an alternate Dockerfile, `--no-cache` to rebuild every layer, `--pull` to refresh the base image.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "All four options are present in help output, and the best-practices page states \"--pull forces Docker to check for and download a newer version of the base image\" and that --no-cache forces rebuilding all layers.",
+    "source": "docker build --help; https://docs.docker.com/build/building/best-practices/"
+  },
+  {
+    "claim_id": "containers-cmd-025",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "The trailing `.` in `docker build -t api:1.4.2 .` is the build context directory, not the Dockerfile; the Dockerfile is found inside it by default and named explicitly with `-f`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Usage is `docker buildx build [OPTIONS] PATH | URL | -` (the positional argument is the context), and `-f, --file` defaults to \"PATH/Dockerfile\".",
+    "source": "docker build --help; https://docs.docker.com/reference/cli/docker/buildx/build/"
+  },
+  {
+    "claim_id": "containers-cmd-026",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "`EXPOSE` publishes nothing; `-p` at run time publishes, and `-P` publishes every EXPOSEd port to ephemeral high-numbered host ports.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Dockerfile reference: \"The EXPOSE instruction doesn't actually publish the port. It functions as a type of documentation... To publish the port... use the -p flag... or the -P flag to publish all exposed ports and map them to high-order ports.\" The run reference adds that -P binds each exposed port to a random host port \"within an ephemeral port range defined by /proc/sys/net/ipv4/ip_local_port_range\".",
+    "source": "https://docs.docker.com/reference/dockerfile/ (EXPOSE); https://docs.docker.com/reference/cli/docker/container/run/ (-P)"
+  },
+  {
+    "claim_id": "containers-cmd-027",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "`ENTRYPOINT` sets the executable and `CMD` supplies default arguments; with no `ENTRYPOINT`, `CMD` is the whole default command, and arguments after the image name on `docker run` replace `CMD` (so `ENTRYPOINT [\"python\", \"app.py\"]` + `CMD [\"--debug\"]` runs `python app.py --debug`).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Dockerfile reference: \"Command line arguments to docker run <image> will be appended after all elements in an exec form ENTRYPOINT, and will override all elements specified using CMD\"; its ENTRYPOINT/CMD matrix gives `exec_entry p1_entry exec_cmd p1_cmd` for exec-form ENTRYPOINT plus exec-form CMD, and `exec_cmd p1_cmd` when there is no ENTRYPOINT.",
+    "source": "https://docs.docker.com/reference/dockerfile/ (ENTRYPOINT, CMD, and the co-operation table)"
+  },
+  {
+    "claim_id": "containers-cmd-028",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "`ADD` can additionally fetch remote URLs and auto-extract local tar archives, which is why `COPY` is preferred for plain copying.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Best practices: \"ADD supports features for fetching files from remote HTTPS and Git URLs, and extracting tar files automatically when adding files from the build context. You'll mostly want to use COPY...\".",
+    "source": "https://docs.docker.com/build/building/best-practices/ (ADD or COPY)"
+  },
+  {
+    "claim_id": "containers-cmd-029",
+    "concept_id": "devops.containers.dockerfile",
+    "claim": "Only `RUN`, `COPY` and `ADD` add a filesystem layer; the rest (including `WORKDIR`) record metadata (Dockerfile section and its Traps and knowledge check).",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Same defect as claim 014, restated in the Dockerfile concept, its Traps paragraph and knowledge check 3 of the Fundamentals section. WORKDIR creates its directory when missing (Dockerfile reference) and empirically adds a RootFS layer under BuildKit. All three sites were rewritten to keep ENV/LABEL/EXPOSE/CMD as the metadata-only list and to name WORKDIR as the exception.",
+    "source": "https://docs.docker.com/reference/dockerfile/ (WORKDIR); empirical layer count on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-030",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "`docker start` starts one or more stopped containers; `-a` attaches output and `-i` attaches stdin.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"Start one or more stopped containers\", \"-a, --attach  Attach STDOUT/STDERR and forward signals\", \"-i, --interactive  Attach container's STDIN\".",
+    "source": "docker start --help (Docker 29.6.1)"
+  },
+  {
+    "claim_id": "containers-cmd-031",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "`docker start` cannot accept new run-time flags: port and environment settings are fixed when the container is created.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The full option set of `docker start` is -a, --checkpoint, --checkpoint-dir, --detach-keys, -i — no -p and no -e. Verified empirically: restarting a container reran it with its original configuration.",
+    "source": "docker start --help; empirical test on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-032",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "`docker stop` asks the main process to terminate with SIGTERM and kills it after a grace period; `-t` sets the seconds to wait before killing.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reference description: \"The main process inside the container will receive SIGTERM, and after a grace period, SIGKILL\"; option \"-t, --timeout  Seconds to wait before killing the container\". (The first signal is configurable via STOPSIGNAL/--stop-signal, defaulting to SIGTERM, which the guide's wording does not contradict.)",
+    "source": "https://docs.docker.com/reference/cli/docker/container/stop/"
+  },
+  {
+    "claim_id": "containers-cmd-033",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "`docker stop` does not delete the container — it leaves a stopped container behind, visible with `docker ps -a`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "stop is documented as \"Stop one or more running containers\" and removal is a separate command (`docker rm`). Verified empirically: an exited container remained listed by `docker ps -a` and could be restarted.",
+    "source": "docker stop --help; docker rm --help; empirical test"
+  },
+  {
+    "claim_id": "containers-cmd-034",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "`docker rm` removes containers; `-f` force-removes a running one and `-v` also removes anonymous volumes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-f, --force  Force the removal of a running container (uses SIGKILL)\" and \"-v, --volumes  Remove anonymous volumes associated with the container\".",
+    "source": "docker rm --help (Docker 29.6.1)"
+  },
+  {
+    "claim_id": "containers-cmd-035",
+    "concept_id": "devops.containers.container-lifecycle",
+    "claim": "A container removed with plain `docker rm` leaves named volumes intact.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`-v` is scoped to anonymous volumes only, and the volumes doc states named volumes persist and are removed explicitly (`docker volume prune`/`rm`). Verified empirically: after `docker rm -f` the named volume still existed and still held the file written by the removed container.",
+    "source": "docker rm --help; https://docs.docker.com/engine/storage/volumes/; empirical test"
+  },
+  {
+    "claim_id": "containers-cmd-036",
+    "concept_id": "devops.containers.port-mapping",
+    "claim": "`-p hostPort:containerPort` writes the host side first, so `-p 8080:80` forwards host 8080 to container 80, binding all host interfaces by default.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Run reference: `docker run -p 127.0.0.1:80:8080/tcp nginx:alpine` \"binds port 8080 of the container to TCP port 80 on 127.0.0.1 of the host\", with the note that without an IP \"Docker publishes the port on all interfaces (address 0.0.0.0) by default\".",
+    "source": "https://docs.docker.com/reference/cli/docker/container/run/ (Publish or expose port)"
+  },
+  {
+    "claim_id": "containers-cmd-037",
+    "concept_id": "devops.containers.port-mapping",
+    "claim": "`-p 127.0.0.1:8080:80` (the `-p ip:host:container` form) restricts the host side to loopback.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Same reference example binds the published port to the given host IP only; the note contrasts it with the all-interfaces default.",
+    "source": "https://docs.docker.com/reference/cli/docker/container/run/"
+  },
+  {
+    "claim_id": "containers-cmd-038",
+    "concept_id": "devops.containers.port-mapping",
+    "claim": "Containers on the same user-defined Docker network reach each other by container name on any port, with no publishing at all.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Bridge network doc: \"User-defined bridges provide automatic DNS resolution between containers... containers can resolve each other by name or alias\" and \"Containers connected to the same user-defined bridge network effectively expose all ports to each other. For a port to be accessible to containers or non-Docker hosts on different networks, that port must be published using the -p or --publish flag.\"",
+    "source": "https://docs.docker.com/engine/network/drivers/bridge/"
+  },
+  {
+    "claim_id": "containers-cmd-039",
+    "concept_id": "devops.containers.volumes-and-bind-mounts",
+    "claim": "`docker volume` manages volumes with subcommands `create`, `ls`, `inspect`, `rm`, `prune`; `docker volume ls` lists them.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help lists exactly create, inspect, ls, prune, rm (plus update for cluster volumes), so every subcommand named in the guide exists and no named one is invented.",
+    "source": "docker volume --help (Docker 29.6.1)"
+  },
+  {
+    "claim_id": "containers-cmd-040",
+    "concept_id": "devops.containers.volumes-and-bind-mounts",
+    "claim": "In `-v source:/path/in/container`, the source is a bind mount when it begins with `/` and a named volume when it is a plain name — \"the leading `/` is what decides\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The leading slash is not the discriminator. The run reference states \"As of Docker Engine version 23, you can use relative paths on the host\" and shows `docker run -v ./content:/content ...`. Verified empirically on Docker 29.6.1: `docker run --rm -v ./content:/c alpine cat /c/f.txt` printed the host file, i.e. a relative source with no leading `/` produced a bind mount, not a volume named \"./content\". Prose corrected to \"a source written as a path — absolute, or relative starting with ./ or ../ ... — is a bind mount\", and the Common mistake cell now says whether the source reads as a path or as a plain name is what decides.",
+    "source": "https://docs.docker.com/reference/cli/docker/container/run/ (Mount volume (-v)); empirical test on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-041",
+    "concept_id": "devops.containers.volumes-and-bind-mounts",
+    "claim": "Worked example `docker run -v pgdata:/var/lib/postgresql/data postgres` persists the database's data.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "For the untagged `postgres` image the mount path is wrong today. The official image documentation records: \"the PGDATA environment variable of the image was changed to be version specific in PostgreSQL 18 and above... The defined VOLUME was changed in 18 and above to /var/lib/postgresql. Mounts and volumes should be targeted at the updated location.\" Docker Hub shows postgres:latest and postgres:18 sharing digest sha256:a02db8ca..., so `postgres` untagged is 18, and a volume at /var/lib/postgresql/data would leave the real data directory on an anonymous volume. Example corrected to `docker run -v pgdata:/var/lib/postgresql postgres:18`, with the Common mistake cell extended to name the failure mode.",
+    "source": "https://github.com/docker-library/docs/blob/master/postgres/content.md (PGDATA section); https://hub.docker.com/v2/repositories/library/postgres/tags/latest and /18"
+  },
+  {
+    "claim_id": "containers-cmd-042",
+    "concept_id": "devops.containers.volumes-and-bind-mounts",
+    "claim": "`-v name:/path` mounts a named volume, created on demand if it does not exist, and its contents outlive every container that uses it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Volumes doc: \"If you start a container with a volume that doesn't yet exist, Docker creates the volume for you\" and \"A volume's contents exist outside the lifecycle of a given container... the volume is still available to Docker and isn't removed automatically\". Verified empirically end to end (create by first use, survive `docker rm -f`, contents readable from a second container).",
+    "source": "https://docs.docker.com/engine/storage/volumes/; empirical test on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-043",
+    "concept_id": "devops.containers.volumes-and-bind-mounts",
+    "claim": "Volumes are managed by Docker, easier to back up and migrate, and shareable between containers; bind mounts depend on the host's directory structure and OS.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Volumes doc, \"When to use volumes\": \"While bind mounts are dependent on the directory structure and OS of the host machine, volumes are completely managed by Docker\", followed by the bullets \"Volumes are easier to back up or migrate than bind mounts\" and \"Volumes can be more safely shared among multiple containers\".",
+    "source": "https://docs.docker.com/engine/storage/volumes/"
+  },
+  {
+    "claim_id": "containers-cmd-044",
+    "concept_id": "devops.containers.environment-variables-in-containers",
+    "claim": "`docker run -e KEY=value` sets a variable in the new container, `-e KEY` passes through the host's value, and `--env-file` reads many from a file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-e, --env list  Set environment variables\" and \"--env-file list  Read in a file of environment variables\". Verified empirically: `PASSTHRU=fromhost docker run --rm -e PASSTHRU alpine printenv PASSTHRU` printed fromhost.",
+    "source": "docker run --help; empirical test on Docker 29.6.1"
+  },
+  {
+    "claim_id": "containers-cmd-045",
+    "concept_id": "devops.containers.environment-variables-in-containers",
+    "claim": "`ENV` in the Dockerfile is a default that `-e` overrides at run time, and a new value requires a new container because environment is fixed at creation.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically: an image built with `ENV A=1` printed 1 by default and `-e` supplied a different value for a variable at run time; `docker start` exposes no option to set environment, so the setting is fixed at creation.",
+    "source": "empirical test on Docker 29.6.1; docker start --help; https://docs.docker.com/reference/dockerfile/ (ENV)"
+  },
+  {
+    "claim_id": "containers-cmd-046",
+    "concept_id": "devops.containers.container-logs-and-exec",
+    "claim": "`docker logs` shows the container's captured stdout and stderr, with `-f` to follow, `--tail N` for the last N lines and `--since` as a time filter; example `docker logs --tail 50 web`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-f, --follow\", \"-n, --tail string  Number of lines to show from the end of the logs\", \"--since string  Show logs since timestamp... or relative\". `--tail 50` is the long form of -n and is accepted.",
+    "source": "docker logs --help (Docker 29.6.1); https://docs.docker.com/reference/cli/docker/container/logs/"
+  },
+  {
+    "claim_id": "containers-cmd-047",
+    "concept_id": "devops.containers.container-logs-and-exec",
+    "claim": "Docker Engine keeps a local cache of the stream (dual logging) so `docker logs` works under remote drivers such as syslog and splunk; where the cache is disabled the command returns an error rather than empty output, and under the `none` driver nothing is captured at all.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Dual logging doc: \"Docker Engine uses the local logging driver to act as cache for reading the latest logs of your containers. This is called dual logging\", and with `cache-disabled: true` under splunk the doc shows `docker logs` returning \"Error response from daemon: configured logging driver does not support reading\". The logging-driver table states of `none`: \"No logs are available for the container and docker logs does not return any output.\"",
+    "source": "https://docs.docker.com/engine/logging/dual-logging/; https://docs.docker.com/engine/logging/configure/"
+  },
+  {
+    "claim_id": "containers-cmd-048",
+    "concept_id": "devops.containers.container-logs-and-exec",
+    "claim": "`docker exec -it` runs an additional command in a running container with stdin kept open (`-i`) and a TTY allocated (`-t`), `-u` runs as another user, and it fails on a stopped container.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Help: \"-i, --interactive  Keep STDIN open even if not attached\", \"-t, --tty  Allocate a pseudo-TTY\", \"-u, --user\". The reference adds that exec \"only runs while the container's primary process (PID 1) is running\". Verified empirically: `docker exec` against an exited container returned \"Error response from daemon: container ... is not running\", while `docker logs` on the same container still worked.",
+    "source": "docker exec --help; https://docs.docker.com/reference/cli/docker/container/exec/; empirical test"
+  },
+  {
+    "claim_id": "containers-cmd-049",
+    "concept_id": "devops.containers.container-logs-and-exec",
+    "claim": "`docker exec` is not `docker attach`: exec starts a new process, attach connects the terminal to the existing main process, where a stray Ctrl-C can stop the container.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "attach reference: \"To stop a container, use CTRL-c\" (with --sig-proxy true by default forwarding the signal to the container process), against exec's \"runs a new command in a running container\".",
+    "source": "https://docs.docker.com/reference/cli/docker/container/attach/; https://docs.docker.com/reference/cli/docker/container/exec/"
+  },
+  {
+    "claim_id": "containers-cmd-050",
+    "concept_id": "devops.containers.docker-compose",
+    "claim": "`docker compose up` creates and starts everything defined in the Compose file, with `-d` detached, `--build` to rebuild images first and `--force-recreate`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reference: \"Builds, (re)creates, starts, and attaches to containers for a service\", \"Running docker compose up --detach starts the containers in the background\", \"If you want to force Compose to stop and recreate all containers, use the --force-recreate flag\"; `--build  Build images before starting containers` is in help output.",
+    "source": "https://docs.docker.com/reference/cli/docker/compose/up/; docker compose up --help (Compose v5 plugin)"
+  },
+  {
+    "claim_id": "containers-cmd-051",
+    "concept_id": "devops.containers.docker-compose",
+    "claim": "Compose is invoked as a Docker CLI plugin — `docker compose`, with a space — which supersedes the older standalone `docker-compose` binary.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Compose history page: \"Compose v1 was first released in 2014. It was written in Python and invoked with docker-compose... Compose v2, announced in 2020, is written in Go and is invoked with docker compose\", and it lists v2 and v5 as the supported CLI versions.",
+    "source": "https://docs.docker.com/compose/intro/history/"
+  },
+  {
+    "claim_id": "containers-cmd-052",
+    "concept_id": "devops.containers.docker-compose",
+    "claim": "Bringing a project down deletes the containers and the network, whereas stopping merely halts them.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`docker compose down` reference: \"Stop and remove containers, networks\", with \"By default, the only things removed are: Containers for services defined in the Compose file; Networks defined in the networks section...; The default network\". `docker compose stop` only stops.",
+    "source": "https://docs.docker.com/reference/cli/docker/compose/down/"
+  }
+]

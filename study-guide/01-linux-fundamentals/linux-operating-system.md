@@ -167,8 +167,10 @@ specialises in launching other programs.
 | `echo` | Print a value, here the current shell | (none needed) | `echo $SHELL` | `$SHELL` reports the user's configured login shell, not necessarily the shell actually running right now if it was overridden |
 
 **Traps** A shell is not a terminal — see the comparison below. Some commands (`cd`,
-`export`, `type`) are shell builtins with no standalone binary; running `which cd` correctly
-reports nothing found in most shells because there is no `/usr/bin/cd`.
+`export`, `type`) are shell builtins with no standalone binary on a Linux system, so the
+external `which` — which only searches PATH — reports nothing found for `which cd` even
+though the command works. Do not generalise that to every shell: zsh's `which` is a builtin
+equivalent to `whence -c`, and it answers `cd: shell built-in command`.
 
 **What the exam may test** Recognising that a described behaviour (variable expansion,
 builtin execution, job control) is a shell responsibility, not a kernel or terminal one.
@@ -573,7 +575,7 @@ total if constrained by cgroups or CPU affinity.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `lscpu` | Display CPU architecture information | (default output is a full summary) | `lscpu` | Reading "CPU(s):" as physical cores when it is logical processors, which include SMT threads |
-| `nproc` | Print the number of processing units available | `--all` ignore affinity/cgroup limits | `nproc` | Assuming `nproc` always reports the physical core count — it reports what is currently available to the caller, which can be restricted |
+| `nproc` | Print the number of processing units available | `--all` count all installed processors instead | `nproc` | Assuming `nproc` always reports the physical core count — it reports what is currently available to the caller, which can be restricted |
 
 **Traps** "Number of CPUs" is ambiguous between sockets, physical cores, and logical
 processors — with hyperthreading, logical count exceeds physical core count. `lscpu`'s
@@ -598,7 +600,8 @@ recognising the symptom pattern is a diagnostic skill the exam tests directly.
 **How it works** The kernel allocates RAM to processes on demand and uses otherwise-idle RAM
 as disk cache to speed up repeated I/O, which is why naively reported "free" memory looks
 lower than what is actually available; memory-reporting tools separate "used by processes"
-from "used as reclaimable cache."
+from "used as reclaimable cache." In `free`'s own output the "used" figure already excludes
+that reclaimable cache, so "used" is the honest column and "free" is the misleading one.
 
 **Key terms** swap; OOM killer; page cache.
 
@@ -606,7 +609,7 @@ from "used as reclaimable cache."
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `free` | Report memory and swap usage | `-h` human-readable units | `free -h` | Reading the "used" column without accounting for reclaimable cache, and concluding memory is nearly exhausted when it is not |
+| `free` | Report memory and swap usage | `-h` human-readable units | `free -h` | Judging pressure from the "free" column, which is small precisely because idle RAM is being used as cache — "available" is the column that estimates what a new process could actually get |
 
 **Traps** Storage devices are also persistent and reported in similar-looking units — RAM is
 distinguished by volatility and byte-addressable access speed, not by the raw fact of
@@ -641,9 +644,10 @@ of most storage-troubleshooting and capacity scenarios; misreading `lsblk` outpu
 a whole disk with one of its partitions — is a common, testable mistake.
 
 **How it works** The kernel exposes each storage device, and each partition on it, as a
-block device node under `/dev`. `lsblk` reads this device tree and presents it
-hierarchically — whole disks as parents, partitions as children — with size, filesystem
-type, and mount point where known.
+block device node under `/dev`. `lsblk` reads sysfs and the udev database and presents that
+tree hierarchically — whole disks as parents, partitions as children. Its default columns
+are name, major:minor number, removable flag, size, read-only flag, type, and mount points;
+filesystem type and UUID are not in that default set and appear only with `-f`.
 
 **Key terms** block device; partition; mount point.
 
@@ -931,9 +935,11 @@ shadowing the intended one.
 
 **How it works** When a bare command name is typed, the shell walks PATH left to right and
 runs the first matching executable file it finds; it does not search the whole filesystem
-and does not consult the current directory unless `.` is explicitly on PATH, which is a
-security risk and not default. `which` reports which file on PATH would run; `type` reports
-more generally what would run, including builtins and aliases PATH cannot see at all.
+and does not consult the current directory unless PATH itself says to — either an explicit
+`.`, or an empty field written as a leading, trailing, or doubled colon, which means the
+same thing. Both are a security risk and neither is the default. `which` reports which file
+on PATH would run; `type` reports more generally what would run, including builtins and
+aliases PATH cannot see at all.
 
 **Key terms** search order; shadowing; builtin (invisible to PATH).
 
@@ -942,8 +948,8 @@ more generally what would run, including builtins and aliases PATH cannot see at
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `echo` | Print a value, here PATH itself | (none needed) | `echo $PATH` | Reading the list right to left — PATH is searched left to right, so an earlier directory's match always wins |
-| `which` | Report which file on PATH a command name would run | `-a` list all matches, not just the first | `which` | Using `which` for a shell builtin (`cd`, `export`) — builtins have no file on PATH, so `which` reports nothing found even though the command works |
-| `type` | Report how a name would be interpreted — builtin, alias, function, or file | (no options needed for basic use) | `type` | Assuming `type` and `which` always agree — `type` sees builtins and aliases that `which` cannot |
+| `which` | Report which file on PATH a command name would run | `-a` list all matches, not just the first | `which` | Using the external `which` for a shell builtin (`cd`, `export`) — builtins have no file on PATH, so it reports nothing found even though the command works; zsh's own `which` builtin is the exception and does report them |
+| `type` | Report how a name would be interpreted — builtin, alias, function, or file | (no options needed for basic use) | `type` | Assuming `type` and `which` always agree — `type` sees builtins and aliases the external `which` cannot |
 
 **Traps** "Command not found" despite the program being installed usually means the
 installing directory (e.g. `/usr/local/bin`, or a language-specific bin directory) is
@@ -965,9 +971,11 @@ is even being discussed — a fix correct for one kernel version, distribution, 
 architecture can be wrong for another, so this is the baseline step before any other
 diagnosis.
 
-**How it works** `uname -a` prints kernel name, release, version, and machine architecture
-in one line; `hostnamectl` (on systemd systems) reports hostname alongside OS, kernel, and
-architecture in a more structured form; `cat /etc/os-release` reports distribution identity
+**How it works** `uname -a` prints, on one line, the kernel name, the network node hostname,
+the kernel release, the kernel version, and the machine hardware name — plus processor,
+hardware platform, and operating system where the system can supply them; `hostnamectl` (on
+systemd systems) reports hostname alongside OS, kernel, and architecture in a more
+structured form; `cat /etc/os-release` reports distribution identity
 specifically; `uptime` reports time since boot plus load averages, which doubles as a
 first-pass load indicator.
 
@@ -977,14 +985,15 @@ first-pass load indicator.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `uname` | Print system information | `-a` all available fields | `uname -a` | Reading the architecture field as the distribution — `uname` never reports distribution identity at all |
+| `uname` | Print system information | `-a` all available fields | `uname -a` | Reading the architecture field as the distribution — `uname` reports kernel and hardware facts, not the distribution's name and release; `/etc/os-release` is the file for that |
 | `hostnamectl` | Show or set the system hostname and related system information | (no args: show status) | `hostnamectl` | Assuming `hostnamectl` exists on every Linux system — it is systemd-specific and absent on non-systemd distributions |
 | `cat` | Print a file's contents, here distribution identity | (none needed) | `cat /etc/os-release` | Confusing this with kernel version — it reports the distribution only |
 | `uptime` | Report how long the system has run and its load averages | (no options needed for basic use) | `uptime` | Reading a load average above 1.0 as automatically "overloaded" without dividing by CPU core count first |
 
-**Traps** Load average is relative to CPU core count, not an absolute threshold — a load of
-4 is idle on a 16-core machine and saturated on a 2-core one; `uptime`'s numbers mean nothing
-without also knowing `nproc`'s answer.
+**Traps** Load average is not normalised for CPU count, so it is relative to the machine, not
+an absolute threshold — a load of 4 is a quarter of capacity on a 16-core machine and twice
+capacity on a 2-core one; `uptime`'s numbers mean nothing without also knowing `nproc`'s
+answer.
 
 **What the exam may test** Selecting the correct command for a specific fact requested
 (kernel versus distribution versus hostname versus uptime) rather than reaching for
@@ -1014,7 +1023,8 @@ and distribution identity respectively.
    shadows a later one.
 3. `which mycmd` reports nothing found, but typing `mycmd` works. What is the likely
    explanation?
-   `mycmd` is a shell builtin or alias, invisible to `which`; `type mycmd` would show it.
+   `mycmd` is a shell builtin or alias, invisible to the external `which`; `type mycmd`
+   would show it.
 4. Why might a cron job fail with "command not found" for a program that works fine
    interactively?
    `cron` runs with a minimal inherited environment and PATH, different from an interactive

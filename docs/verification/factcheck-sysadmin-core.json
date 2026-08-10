@@ -1,0 +1,1730 @@
+[
+  {
+    "claim_id": "sysadmin-core-001",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "useradd -m creates the home directory, -s sets the login shell, -u an explicit UID, -r a system account, -G supplementary groups; useradd -m -s /bin/bash alice",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "useradd(8) OPTIONS lists all five with exactly these meanings; running useradd -m -s /bin/bash alice on Ubuntu 24.04 created /home/alice with /bin/bash as field seven.",
+    "source": "useradd(8), shadow-utils 4.13 (Ubuntu 24.04) + empirical run"
+  },
+  {
+    "claim_id": "sysadmin-core-002",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "useradd allocates the next free UID at or above UID_MIN from /etc/login.defs, commonly 1000; home creation depends on -m and CREATE_HOME, so Debian-family usually needs -m",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Ubuntu /etc/login.defs sets UID_MIN 1000 and ships no CREATE_HOME line; useradd on a box whose only regular user held UID 1000 allocated 1001. useradd(8) documents -K overriding UID_MIN/UID_MAX and CREATE_HOME as the home-directory default.",
+    "source": "/etc/login.defs (Ubuntu 24.04) + useradd(8) + empirical run"
+  },
+  {
+    "claim_id": "sysadmin-core-003",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "usermod -l renames the login, -d sets home, -s the shell, -L/-U lock and unlock, -aG appends supplementary groups",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "usermod(8) OPTIONS lists -a/--append, -d/--home, -l/--login, -L/--lock, -s/--shell, -U/--unlock and -G/--groups verbatim.",
+    "source": "usermod(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-004",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "userdel -r removes the home directory and the mail spool",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "userdel(8) -r: files in the user's home directory are removed along with the home directory itself and the user's mail spool.",
+    "source": "userdel(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-005",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "id -u prints the UID only, -g the primary GID, -G all GIDs, -n names instead of numbers",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "id(1): -u print only the effective user ID; -g print only the effective group ID; -G print all group IDs; -n print a name instead of a number, for -ugG.",
+    "source": "id(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-006",
+    "concept_id": "sysadmin.system-administration.user-account",
+    "claim": "whoami prints the username of the current effective UID and therefore reports root under sudo",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "whoami(1): Print the user name associated with the current effective user ID. Same as id -un.",
+    "source": "whoami(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-007",
+    "concept_id": "sysadmin.system-administration.group",
+    "claim": "groupadd -g sets an explicit GID and -r creates a system group",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "groupadd(8) documents -g/--gid and -r/--system.",
+    "source": "groupadd(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-008",
+    "concept_id": "sysadmin.system-administration.group",
+    "claim": "groupdel refuses to remove a group that is still some user's primary group",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "groupdel(8) CAVEATS: you may not remove the primary group of any existing user; the binary emits the diagnostic \"can't remove user's primary group\".",
+    "source": "groupdel(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-009",
+    "concept_id": "sysadmin.system-administration.group",
+    "claim": "groups prints the group names a user belongs to, primary and supplementary together",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "groups(1) prints the groups a user is in; cross-checked against id output on the lab box.",
+    "source": "groups(1), GNU coreutils + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-010",
+    "concept_id": "sysadmin.system-administration.group",
+    "claim": "usermod -aG appends supplementary groups and -a is valid only with -G; usermod -G alone replaces the whole supplementary list",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "usermod(8) -a/--append: Add the user to the supplementary group(s). Use only with the -G option. Without -a, -G sets the list outright.",
+    "source": "usermod(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-011",
+    "concept_id": "sysadmin.system-administration.uid-and-gid",
+    "claim": "id -u prints the effective UID and id -ru the real UID; under sudo id -u prints 0",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "id(1): -r print the real ID instead of the effective ID, with -ugG; -u prints the effective user ID. Both returned 0 when run as root on the lab box.",
+    "source": "id(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-012",
+    "concept_id": "sysadmin.system-administration.uid-and-gid",
+    "claim": "credentials(7) describes real, effective and saved set-user-IDs plus a supplementary group list, and permission checks use the effective IDs",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "credentials(7) defines the real, effective, saved-set and filesystem IDs and states the effective IDs are what permission checks consult.",
+    "source": "credentials(7), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-013",
+    "concept_id": "sysadmin.system-administration.primary-vs-supplementary-group",
+    "claim": "id -g reports the primary GID unambiguously and id -gn prints its name",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "id(1): -g print only the effective group ID, -n print a name instead of a number. id -gn root printed root and id -g root printed 0.",
+    "source": "id(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-014",
+    "concept_id": "sysadmin.system-administration.primary-vs-supplementary-group",
+    "claim": "usermod -g changes the primary group and takes one group name or GID",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "usermod(8): -g/--gid GROUP sets the name or numeric ID of the user's new primary group.",
+    "source": "usermod(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-015",
+    "concept_id": "sysadmin.system-administration.primary-vs-supplementary-group",
+    "claim": "groups does not distinguish primary from supplementary membership",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "groups(1) prints the full set of group names with no marker for which is primary; only id -g separates the primary GID.",
+    "source": "groups(1) / id(1), GNU coreutils"
+  },
+  {
+    "claim_id": "sysadmin-core-016",
+    "concept_id": "sysadmin.system-administration.etc-passwd",
+    "claim": "/etc/passwd has seven colon-separated fields: username, password placeholder, UID, primary GID, GECOS, home, shell",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "passwd(5) documents exactly these seven fields in this order.",
+    "source": "passwd(5), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-017",
+    "concept_id": "sysadmin.system-administration.etc-passwd",
+    "claim": "an empty second field means no password is required to authenticate",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "passwd(5): the encrypted password field may be empty, in which case no password is required to authenticate as the specified login name.",
+    "source": "passwd(5), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-018",
+    "concept_id": "sysadmin.system-administration.etc-passwd",
+    "claim": "getent passwd queries the whole NSS stack rather than the file alone, and a username or UID may be appended to query one entry",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "getent(1): displays entries from databases supported by the Name Service Switch libraries; if one or more key arguments are provided, only matching entries are displayed. getent passwd root returned the row on the lab box.",
+    "source": "getent(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-019",
+    "concept_id": "sysadmin.system-administration.etc-shadow",
+    "claim": "/etc/shadow has nine fields: name, hash, last change, minimum age, maximum age, warning, inactivity, expiry, reserved",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "shadow(5) lists the nine fields in that order.",
+    "source": "shadow(5), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-020",
+    "concept_id": "sysadmin.system-administration.etc-shadow",
+    "claim": "Debian-family systems ship /etc/shadow as 0640 root:shadow, letting helper binaries be SGID shadow instead of SUID root",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ls -l on Ubuntu 24.04 showed -rw-r----- 1 root shadow /etc/shadow, and /usr/bin/chage and /usr/bin/expiry are -rwxr-sr-x root shadow.",
+    "source": "empirical, Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-021",
+    "concept_id": "sysadmin.system-administration.etc-shadow",
+    "claim": "Red Hat-family systems ship /etc/shadow as 0000 root:root",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Fedora setup.spec file list carries %attr(0000,root,root) %config(noreplace,missingok) /etc/shadow.",
+    "source": "Fedora setup package spec, src.fedoraproject.org/rpms/setup (rawhide)"
+  },
+  {
+    "claim_id": "sysadmin-core-022",
+    "concept_id": "sysadmin.system-administration.etc-shadow",
+    "claim": "chage -l lists, -M sets maximum days, -m minimum days, -W warning days, -E the account expiry date, and -d 0 forces a change at next login",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chage(8) documents -l/--list, -M/--maxdays, -m/--mindays, -W/--warndays, -E/--expiredate, and states that if LAST_DAY is set to 0 the user is forced to change the password at next log on.",
+    "source": "chage(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-023",
+    "concept_id": "sysadmin.system-administration.etc-shadow",
+    "claim": "chage -E sets the account expiry (field 8) while -M sets the password maximum age (field 5); dates are stored as whole days since 1970-01-01",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chage(8) -E sets the date or number of days since January 1 1970 on which the account will no longer be accessible; -M sets how long a password stays valid. shadow(5) records both as day counts from the epoch.",
+    "source": "chage(8) + shadow(5)"
+  },
+  {
+    "claim_id": "sysadmin-core-024",
+    "concept_id": "sysadmin.system-administration.etc-group",
+    "claim": "/etc/group has four colon-separated fields: group name, password, GID, comma-separated member list",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "group(5) gives the format group_name:password:GID:user_list and describes the four fields in that order.",
+    "source": "group(5), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-025",
+    "concept_id": "sysadmin.system-administration.etc-group",
+    "claim": "getent group resolves group entries through NSS and accepts a group name or GID",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "getent(1) documents the group database and key arguments; getent group root returned root:x:0: on the lab box.",
+    "source": "getent(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-026",
+    "concept_id": "sysadmin.system-administration.etc-group",
+    "claim": "/etc/group is world-readable and root-writable",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ls -l /etc/group on Ubuntu 24.04 showed -rw-r--r-- 1 root root.",
+    "source": "empirical, Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-027",
+    "concept_id": "sysadmin.system-administration.login-shell",
+    "claim": "chsh -l lists the shells in /etc/shells",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "-l exists only in util-linux's chsh, shipped on Red Hat-family systems. The shadow-utils chsh on Debian-family systems documents only -h, -R and -s, and rejects -l. The guide asserted it without qualification; the Commands row now names the split.",
+    "source": "chsh(1) shadow-utils 4.13 (Ubuntu 24.04) vs chsh(1) util-linux"
+  },
+  {
+    "claim_id": "sysadmin-core-028",
+    "concept_id": "sysadmin.system-administration.login-shell",
+    "claim": "if /etc/nologin.txt exists, nologin prints its contents instead of the default message",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "That is util-linux nologin(8) behaviour only. Ubuntu 24.04 ships the shadow-utils nologin (dpkg -S /usr/sbin/nologin reports the login package) whose man page never mentions /etc/nologin.txt. The guide asserted it universally; the prose now attributes it to the util-linux implementation.",
+    "source": "nologin(8) util-linux (man7.org) vs nologin(8) shadow-utils (Ubuntu 24.04) + dpkg -S"
+  },
+  {
+    "claim_id": "sysadmin-core-029",
+    "concept_id": "sysadmin.system-administration.login-shell",
+    "claim": "nologin prints a refusal message and exits with a non-zero status",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Both implementations of nologin(8) state that it displays a message that an account is not available and exits non-zero.",
+    "source": "nologin(8), shadow-utils 4.13 and util-linux"
+  },
+  {
+    "claim_id": "sysadmin-core-030",
+    "concept_id": "sysadmin.system-administration.login-shell",
+    "claim": "/bin/false exits 1 silently with no message",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "false(1): Exit with a status code indicating failure; it prints nothing.",
+    "source": "false(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-031",
+    "concept_id": "sysadmin.system-administration.login-shell",
+    "claim": "chsh -s sets the shell, and a non-root user may only choose a shell listed in /etc/shells",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chsh(1) NOTE: the command name must be listed in /etc/shells, unless the invoker is the superuser.",
+    "source": "chsh(1), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-032",
+    "concept_id": "sysadmin.system-administration.service-account",
+    "claim": "useradd -r creates a system account with no ageing information and a UID from the system range",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "useradd(8) -r/--system: system users are created with no aging information in /etc/shadow and their numeric identifiers are chosen in the SYS_UID_MIN-SYS_UID_MAX range instead of UID_MIN-UID_MAX.",
+    "source": "useradd(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-033",
+    "concept_id": "sysadmin.system-administration.password-policy-and-ageing",
+    "claim": "chage -I sets the inactivity period, a grace window after password expiry before the account is locked",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chage(8) -I/--inactive: set the number of days of inactivity after a password has expired before the account is locked.",
+    "source": "chage(8), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-034",
+    "concept_id": "sysadmin.system-administration.password-policy-and-ageing",
+    "claim": "/etc/login.defs supplies PASS_MAX_DAYS, PASS_MIN_DAYS and PASS_WARN_AGE as creation-time defaults",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Ubuntu /etc/login.defs contains PASS_MAX_DAYS 99999, PASS_MIN_DAYS 0 and PASS_WARN_AGE 7; useradd(8) -K documents these as login.defs defaults applied when an account is created.",
+    "source": "/etc/login.defs (Ubuntu 24.04) + useradd(8)"
+  },
+  {
+    "claim_id": "sysadmin-core-035",
+    "concept_id": "sysadmin.system-administration.password-policy-and-ageing",
+    "claim": "passwd -e expires the password immediately and forces a change at next login without denying login; -l locks, -u unlocks, -S shows status",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "passwd(1) -e/--expire: immediately expire an account's password, which can force a user to change it at next login. -l/--lock, -u/--unlock and -S/--status are all documented.",
+    "source": "passwd(1), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-036",
+    "concept_id": "sysadmin.system-administration.password-policy-and-ageing",
+    "claim": "locking a password with passwd -l or usermod -L prefixes the stored hash with ! and leaves SSH key login working",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "passwd(1) -l: disables a password by changing it to a value which matches no possible encrypted value (it adds a ! at the beginning); note that this does not disable the account, and the user may still log in using another authentication token such as an SSH key.",
+    "source": "passwd(1), shadow-utils 4.13"
+  },
+  {
+    "claim_id": "sysadmin-core-037",
+    "concept_id": "sysadmin.system-administration.read-write-execute-permissions",
+    "claim": "ls -l shows the ten-character mode; -d shows the directory itself, -a includes dotfiles, -n shows numeric owner and group",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ls(1): -d/--directory list directories themselves, not their contents; -a/--all; -n/--numeric-uid-gid like -l, but list numeric user and group IDs.",
+    "source": "ls(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-038",
+    "concept_id": "sysadmin.system-administration.read-write-execute-permissions",
+    "claim": "chmod -R recurses and accepts symbolic or numeric modes",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) SYNOPSIS accepts MODE or OCTAL-MODE, and -R/--recursive changes files and directories recursively.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-039",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "a symbolic mode is [ugoa...][[-+=][perms...]...] with clauses separated by commas",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1): the format of a symbolic mode is [ugoa...][[-+=][perms...]...]; multiple symbolic modes can be given, separated by commas.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-040",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "= sets the named bits and clears unmentioned ones, except that a directory's unmentioned set-user-ID and set-group-ID bits are not affected",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1): = causes bits to be added and unmentioned bits to be removed, except that a directory's unmentioned set user and group ID bits are not affected.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-041",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "with no class letter the effect is as if a were given, but bits set in the umask are not affected",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1): if none of ugoa are given, the effect is as if a were given, but bits that are set in the umask are not affected.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-042",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "a numeric mode is one to four octal digits with omitted digits assumed to be leading zeros; the first digit is setuid 4, setgid 2, sticky 1",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1): a numeric mode is from one to four octal digits; omitted digits are assumed to be leading zeros; the first digit selects set user ID (4), set group ID (2) and restricted deletion or sticky (1).",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-043",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "chmod preserves a directory's setuid/setgid bits unless told otherwise, and clearing them numerically needs 00755, -6000 or =755",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) SETUID AND SETGID BITS says exactly this, naming 00755, -6000 and =755. Empirically chmod 755 left drwxr-sr-x intact while chmod 00755 cleared it.",
+    "source": "chmod(1) + empirical, Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-044",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "chmod 644 clears setuid, setgid and sticky on a regular file because the omitted leading digit is zero",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Follows from chmod(1)'s leading-zero rule; empirically chmod 4755 f produced -rwsr-xr-x and a subsequent chmod 644 f produced -rw-r--r-- with no s bit.",
+    "source": "chmod(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-045",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "chmod -R a+X adds execute only where the target is a directory or execute is already set for some user",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) defines X as execute/search only if the file is a directory or already has execute permission for some user. Empirically on a tree with f1 (0600), f2 (0700) and a directory, a+X left f1 at 0600 and added +x to f2 and the directory.",
+    "source": "chmod(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-046",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "chmod supports -R, --reference=RFILE, -c and -v as described",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) OPTIONS lists -R/--recursive, --reference=RFILE, -c/--changes (like verbose but report only when a change is made) and -v/--verbose.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-047",
+    "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+    "claim": "the memorised syntax block (u+x, go-w, a=r, u=rwx,go=rx, 755, 4755, 2775, 1777, -R a+X) is valid and behaves as the comments claim",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Each numeric form was run on the lab box: 4755 gave -rwsr-xr-x, 2755 gave drwxr-sr-x, +t gave drwxr-xr-t and a+X behaved as described; the symbolic forms follow directly from chmod(1)'s grammar.",
+    "source": "chmod(1) + empirical, Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-048",
+    "concept_id": "sysadmin.system-administration.chown-and-chgrp",
+    "claim": "only a process with CAP_CHOWN may change a file's owner; an unprivileged owner may change the group only to one they belong to",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chown(2): only a privileged process (Linux: one with the CAP_CHOWN capability) may change the owner of a file; the owner of a file may change the group of the file to any group of which that owner is a member.",
+    "source": "chown(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-049",
+    "concept_id": "sysadmin.system-administration.chown-and-chgrp",
+    "claim": "a successful ownership change clears the set-user-ID and set-group-ID bits on an executable",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chown(2): when the owner or group of an executable file is changed by an unprivileged user, the S_ISUID and S_ISGID mode bits are cleared; since Linux 2.2.13 root is treated like other users.",
+    "source": "chown(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-050",
+    "concept_id": "sysadmin.system-administration.chown-and-chgrp",
+    "claim": "chown alice file changes only the user, while chown alice: file also sets the group to alice's login group",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chown(1): if a colon but no group name follows the user name, that user is made the owner of the files and the group of the files is changed to that user's login group.",
+    "source": "chown(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-051",
+    "concept_id": "sysadmin.system-administration.chown-and-chgrp",
+    "claim": "chown -R does not dereference symlinks met during traversal by default, and -h, -L and -P change that",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chown(1): -h/--no-dereference affects symlinks instead of referents; -H/-L/-P modify how a hierarchy is traversed when -R is also specified, with -P (do not traverse any symbolic link) the default.",
+    "source": "chown(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-052",
+    "concept_id": "sysadmin.system-administration.chown-and-chgrp",
+    "claim": "chown and chgrp both accept -R and --reference=RFILE",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chown(1) and chgrp(1) each document -R/--recursive and --reference=RFILE.",
+    "source": "chown(1) and chgrp(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-053",
+    "concept_id": "sysadmin.system-administration.umask",
+    "claim": "umask(2) sets the calling process's file mode creation mask and the resulting mode is the requested mode ANDed with the complement of the mask",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "umask(2) defines the file mode creation mask and the mode & ~umask calculation for newly created files.",
+    "source": "umask(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-054",
+    "concept_id": "sysadmin.system-administration.umask",
+    "claim": "programs request 0666 for files and 0777 for directories, so umask 022 yields 644 files and 755 directories and new files are never executable",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "umask(2) NOTES describes the conventional 0666/0777 requests. Empirically umask 000 produced -rw-rw-rw- and umask 077 produced -rw------- and drwx------.",
+    "source": "umask(2) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-055",
+    "concept_id": "sysadmin.system-administration.umask",
+    "claim": "umask 644 leaves a new file at mode 022, rendered ----w--w-",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "0666 AND NOT 0644 is 0022; empirically a subshell with umask 644 created a file with mode -----w--w-.",
+    "source": "empirical, Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-056",
+    "concept_id": "sysadmin.system-administration.umask",
+    "claim": "umask with no argument prints the octal value and -S prints it symbolically",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The bash builtin printed 0022 with no argument and u=rwx,g=rx,o=rx with -S.",
+    "source": "bash(1) SHELL BUILTIN COMMANDS + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-057",
+    "concept_id": "sysadmin.system-administration.suid",
+    "claim": "S_ISUID is octal 04000 and makes an executable run with the file owner's effective UID",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7) mode-bit table gives S_ISUID 04000 set-user-ID bit (see execve(2)); execve(2) describes the effective-UID change.",
+    "source": "inode(7) and execve(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-058",
+    "concept_id": "sysadmin.system-administration.suid",
+    "claim": "Linux ignores the set-user-ID bit on interpreted scripts",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "execve(2): Linux (like most other modern UNIX systems) ignores the set-user-ID and set-group-ID bits on scripts.",
+    "source": "execve(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-059",
+    "concept_id": "sysadmin.system-administration.suid",
+    "claim": "find / -perm -4000 means at least these bits, while -perm 4000 requires an exact match",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "find(1): -perm mode means the file's permission bits are exactly mode; -perm -mode means all of the permission bits mode are set for the file.",
+    "source": "find(1), GNU findutils"
+  },
+  {
+    "claim_id": "sysadmin-core-060",
+    "concept_id": "sysadmin.system-administration.suid",
+    "claim": "chmod u+s corresponds to a leading 4 in numeric form, and ls -l shows s (or S when execute is unset) in the owner triad",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) numeric first digit is 4 for set-user-ID; empirically chmod 4755 produced -rwsr-xr-x.",
+    "source": "chmod(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-061",
+    "concept_id": "sysadmin.system-administration.suid",
+    "claim": "set-user-ID has no defined meaning on a Linux directory",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7) defines directory semantics only for S_ISGID (BSD group semantics) and S_ISVTX (restricted deletion); it defines none for S_ISUID.",
+    "source": "inode(7), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-062",
+    "concept_id": "sysadmin.system-administration.sgid",
+    "claim": "S_ISGID is octal 02000, and on a directory it selects BSD semantics so new files inherit the directory's group and new subdirectories inherit the bit",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7): for a directory the set-group-ID bit indicates that BSD semantics are used, files created there inherit their group ID from the directory rather than the creating process, and directories created there also get S_ISGID set.",
+    "source": "inode(7), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-063",
+    "concept_id": "sysadmin.system-administration.sgid",
+    "claim": "on a file without the group execute bit, set-group-ID indicates mandatory file/record locking",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7): for a file that does not have the group execution bit (S_IXGRP) set, the set-group-ID bit indicates mandatory file/record locking.",
+    "source": "inode(7), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-064",
+    "concept_id": "sysadmin.system-administration.sgid",
+    "claim": "chmod g+s corresponds to a leading 2, as in chmod 2775 and chmod 2770",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) numeric first digit is 2 for set-group-ID; empirically chmod 2755 on a directory produced drwxr-sr-x.",
+    "source": "chmod(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-065",
+    "concept_id": "sysadmin.system-administration.sticky-bit",
+    "claim": "S_ISVTX is octal 01000 and on a directory an entry may be renamed or deleted only by the file's owner, the directory's owner, or a privileged process",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7): the sticky bit on a directory means that a file in that directory can be renamed or deleted only by the owner of the file, by the owner of the directory, and by a privileged process.",
+    "source": "inode(7), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-066",
+    "concept_id": "sysadmin.system-administration.sticky-bit",
+    "claim": "chmod +t sets the sticky bit and the numeric equivalent is a leading 1, as in 1777",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) numeric first digit is 1 for restricted deletion or sticky; empirically chmod +t on a directory produced drwxr-xr-t.",
+    "source": "chmod(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-067",
+    "concept_id": "sysadmin.system-administration.sticky-bit",
+    "claim": "the sticky bit has no effect on regular files on Linux",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chmod(1) RESTRICTED DELETION FLAG OR STICKY BIT describes the regular-file meaning as belonging to some older systems (saving the text image on the swap device); Linux implements only the directory meaning.",
+    "source": "chmod(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-068",
+    "concept_id": "sysadmin.system-administration.sudo-vs-su",
+    "claim": "sudo -u selects the target user, -l lists what you may run, -k invalidates cached credentials and -v refreshes them",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudo(8): -u/--user runs the command as a user other than the default target user (usually root); -l/--list; -k/--reset-timestamp; -v/--validate.",
+    "source": "sudo(8), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-069",
+    "concept_id": "sysadmin.system-administration.sudo-vs-su",
+    "claim": "su without a user defaults to root and, for backward compatibility, does not change directory and sets only HOME and SHELL (plus USER and LOGNAME when the target is not root)",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "su(1): when called with no user specified su defaults to running an interactive shell as root, and for backward compatibility su defaults to not changing the current directory and to only setting HOME and SHELL (plus USER and LOGNAME if the target user is not root).",
+    "source": "su(1), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-070",
+    "concept_id": "sysadmin.system-administration.sudo-vs-su",
+    "claim": "su -, -l and --login are the same option; -c runs one command and -s selects the shell",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "su(1) OPTIONS list the forms -, -l, --login together, plus -c/--command and -s/--shell.",
+    "source": "su(1), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-071",
+    "concept_id": "sysadmin.system-administration.sudo-vs-su",
+    "claim": "sudo -i simulates an initial login with the target's environment, home and startup files, while sudo -s runs a shell keeping much of the caller's environment",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudo(8) -i runs the shell from the target user's password database entry as a login shell, reading .profile or .login and changing to that user's home directory; -s runs the shell named by the caller's SHELL variable or password entry.",
+    "source": "sudo(8), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-072",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "visudo -c checks syntax only and also validates included files, -f edits a named file, -s enables strict checking",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "visudo(8) -c: the existing sudoers file (and any other files it includes) will be checked for syntax errors; -f/--file specifies an alternate sudoers file; -s/--strict enables strict checking.",
+    "source": "visudo(8), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-073",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "the editor setting holds a colon-separated list of permitted editors and env_editor controls whether SUDO_EDITOR, VISUAL or EDITOR may be used",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudoers(5) env_editor: if set, visudo uses the value of SUDO_EDITOR, VISUAL or EDITOR before falling back on the default editor list; an alternative is a colon-separated list of safe editors in the editor setting.",
+    "source": "sudoers(5), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-074",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "modern sudoers pulls in the drop-in directory with @includedir /etc/sudoers.d, and #includedir is the older spelling of the same directive rather than a comment",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudoers(5): for compatibility with sudo versions prior to 1.9.1, #include and #includedir are also accepted.",
+    "source": "sudoers(5), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-075",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "a drop-in whose name contains a dot or ends in ~ is silently ignored",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudoers(5): sudo reads each file in /etc/sudoers.d, skipping file names that end in ~ or contain a . character, to avoid package-manager and editor temporary files.",
+    "source": "sudoers(5), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-076",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "the memorised sudoers block is valid: % prefixes a group name, NOPASSWD: ALL grants unauthenticated root, and Defaults timestamp_timeout is measured in minutes",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudoers(5) documents the user host = (runas) command grammar, the % group prefix, the NOPASSWD tag and timestamp_timeout as a number of minutes before sudo asks for a password again.",
+    "source": "sudoers(5), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-077",
+    "concept_id": "sysadmin.system-administration.etc-sudoers-and-visudo",
+    "claim": "sudo -l prints the policy actually in force for a user",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudo(8) -l/--list lists the privileges for the invoking user (or the user named by -U) on the current host.",
+    "source": "sudo(8), sudo 1.9"
+  },
+  {
+    "claim_id": "sysadmin-core-078",
+    "concept_id": "sysadmin.system-administration.process",
+    "claim": "bare ps shows only processes with the caller's effective UID that are attached to the same terminal",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ps(1): by default ps selects all processes with the same effective user ID as the current user and associated with the same terminal as the invoker.",
+    "source": "ps(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-079",
+    "concept_id": "sysadmin.system-administration.process",
+    "claim": "ps -ef is every process in full UNIX format, aux is the BSD style, -u filters by user, -o selects columns, and ps -aux is not ps aux",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ps(1) documents -e, -f, aux, -u and -o, and warns that options such as ps -aux are not recommended because they confuse two different standards.",
+    "source": "ps(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-080",
+    "concept_id": "sysadmin.system-administration.process",
+    "claim": "top -b is batch mode, -n limits iterations, -u filters by user, and interactively P sorts by %CPU and M by %MEM",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "top(1) documents -b/--batch, -n/--iterations and -u/--filter-only-euser, and its sort-key table maps M to %MEM and P to %CPU.",
+    "source": "top(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-081",
+    "concept_id": "sysadmin.system-administration.process",
+    "claim": "top's initial iteration measures %CPU since boot rather than since the last refresh",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "top(1) defines %CPU as the task's share of the elapsed CPU time since the last screen update and documents no since-boot first frame. Empirically top -b -n 1 reported 0.0% for a process that had just consumed 4.19s of CPU and 100.0% for one busy at that instant, so the first frame is a genuine short-interval delta. The lifetime-average reading belongs to ps, documented as CPU time used divided by the time the process has been running. The Commands row now states the documented ps/top contrast instead.",
+    "source": "top(1) and ps(1), procps-ng 4.0.4 + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-082",
+    "concept_id": "sysadmin.system-administration.pid-and-ppid",
+    "claim": "ps -ef prints PID and PPID side by side and --forest gives a tree view",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ps(1) documents -e, -f and --forest; ps -ef --forest on the lab box printed the parent/child tree with backslash-underscore markers.",
+    "source": "ps(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-083",
+    "concept_id": "sysadmin.system-administration.pid-and-ppid",
+    "claim": "pgrep matches the process name by default; -f matches the whole command line, -u restricts by user, -l prints the name and -a the full command line",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "pgrep(1): the pattern is normally only matched against the process name, and when -f is set the full command line is used; -u/--euid, -l/--list-name and -a/--list-full are documented, and NOTES adds that the matching name is limited to the 15 characters in /proc/pid/stat.",
+    "source": "pgrep(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-084",
+    "concept_id": "sysadmin.system-administration.foreground-and-background-jobs",
+    "claim": "jobs -l also shows PIDs, -r running only, -s stopped only",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) jobs builtin: -l lists process IDs in addition to the normal information, -r displays only running jobs, -s displays only stopped jobs.",
+    "source": "bash(1), bash 5.2"
+  },
+  {
+    "claim_id": "sysadmin-core-085",
+    "concept_id": "sysadmin.system-administration.foreground-and-background-jobs",
+    "claim": "bg resumes a suspended job in the background and fg brings one to the foreground; both take a jobspec such as %1",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): bg resumes each suspended job jobspec in the background as if it had been started with &; fg resumes jobspec in the foreground and makes it the current job.",
+    "source": "bash(1), bash 5.2"
+  },
+  {
+    "claim_id": "sysadmin-core-086",
+    "concept_id": "sysadmin.system-administration.foreground-and-background-jobs",
+    "claim": "nohup makes a command immune to SIGHUP and appends output to nohup.out when standard output is a terminal, but does not background anything",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "nohup(1): run COMMAND, ignoring hangup signals; if standard output is a terminal, append output to nohup.out if possible. Nothing in nohup(1) backgrounds the command.",
+    "source": "nohup(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-087",
+    "concept_id": "sysadmin.system-administration.signals",
+    "claim": "kill sends SIGTERM by default, -l lists signal names, and -s NAME or -NUMBER selects one",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "kill(1): the default signal for kill is TERM; use -l or -L to list available signals; alternate signals may be specified as -9, -SIGKILL or -KILL, or with -s.",
+    "source": "kill(1), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-088",
+    "concept_id": "sysadmin.system-administration.signals",
+    "claim": "SIGHUP 1, SIGINT 2, SIGQUIT 3, SIGKILL 9 and SIGTERM 15 are stable across architectures while the job-control signals vary",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "signal(7)'s architecture table gives 1, 2, 3, 9 and 15 identically for x86/ARM, Alpha/SPARC, MIPS and PARISC, while SIGCONT is 18/19/25/26 and SIGCHLD 17/20/18/18.",
+    "source": "signal(7), Linux man-pages 6.7"
+  },
+  {
+    "claim_id": "sysadmin-core-089",
+    "concept_id": "sysadmin.system-administration.signals",
+    "claim": "SIGKILL and SIGSTOP can never be caught, blocked or ignored",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "signal(7): the signals SIGKILL and SIGSTOP cannot be caught, blocked, or ignored.",
+    "source": "signal(7), Linux man-pages 6.7"
+  },
+  {
+    "claim_id": "sysadmin-core-090",
+    "concept_id": "sysadmin.system-administration.signals",
+    "claim": "killall matches the whole command name, or the executed file when the argument contains a slash; -e requires an exact match for names over 15 characters, -i confirms, -u restricts by owner, -s picks the signal, and the default is SIGTERM",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "killall(1): if the command name is not a regular expression and contains a slash, processes executing that particular file are selected; -e notes that for names longer than 15 characters killall otherwise kills everything matching within the first 15; -i, -u and -s are documented; if no signal name is specified SIGTERM is sent.",
+    "source": "killall(1), psmisc (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-091",
+    "concept_id": "sysadmin.system-administration.signals",
+    "claim": "pkill matches a pattern as a substring by default; -f matches the full command line, -u by user, -x requires an exact match, -e echoes what was killed",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "pgrep/pkill(1): the pattern is an Extended Regular Expression matched against process names or command lines; -f/--full, -u/--euid, -x/--exact and -e/--echo (display name and PID of the process being killed, pkill only) are documented.",
+    "source": "pkill(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-092",
+    "concept_id": "sysadmin.system-administration.process-priority-and-nice",
+    "claim": "nice values run from -20 (most favourable) to 19 (least), and nice -n adds an adjustment that defaults to 10",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "nice(1): niceness values range from -20 (most favorable to the process) to 19 (least favorable); -n/--adjustment=N adds integer N to the niceness, default 10.",
+    "source": "nice(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-093",
+    "concept_id": "sysadmin.system-administration.process-priority-and-nice",
+    "claim": "renice takes -p by PID, -u by user, -g by process group and --relative, and -n is absolute unless POSIXLY_CORRECT is set",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "renice(1) usage: renice [-n|--priority|--relative] priority [-p|--pid] pid...; -n specifies the nice value, which is relative if POSIXLY_CORRECT is set in the environment and otherwise absolute; --priority is absolute and --relative relative; -g/--pgrp and -u/--user are documented.",
+    "source": "renice(1), util-linux 2.39 (bsdutils)"
+  },
+  {
+    "claim_id": "sysadmin-core-094",
+    "concept_id": "sysadmin.system-administration.process-priority-and-nice",
+    "claim": "lowering a nice value requires root or CAP_SYS_NICE unless RLIMIT_NICE has been raised",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "setpriority(2): traditionally only a privileged process could lower the nice value, and since Linux 2.6.12 an unprivileged process can do so only for a target with a suitable RLIMIT_NICE soft limit; EACCES is returned when the caller lacks CAP_SYS_NICE.",
+    "source": "setpriority(2), Linux man-pages"
+  },
+  {
+    "claim_id": "sysadmin-core-095",
+    "concept_id": "sysadmin.system-administration.service",
+    "claim": "systemctl exposes status, start, stop, restart, reload, enable, disable, mask, is-active and is-enabled, and mask differs from disable",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) documents each subcommand; mask links the unit files to /dev/null, making it impossible to start them, while disable only removes the enablement symlinks.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-096",
+    "concept_id": "sysadmin.system-administration.systemd",
+    "claim": "systemctl list-units, list-unit-files, daemon-reload and --failed exist, and status reports enablement and running state on separate lines",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) documents all four; the status description separates the Loaded: enablement value (referring to the is-enabled table) from the Active: running state.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-097",
+    "concept_id": "sysadmin.system-administration.systemd",
+    "claim": "systemd-analyze with no argument prints total startup time split into firmware, loader, kernel and userspace",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "systemd-analyze(1) documents time (the implied command) as printing the time spent in the kernel, the time spent in the initrd, and the time normal system userspace took to initialize, and its own example output is kernel + initrd + userspace. Firmware and loader lines appear only where the platform and boot loader report their own timings; on the lab box the output was userspace only. The Commands row now states the documented split and marks firmware/loader as conditional.",
+    "source": "systemd-analyze(1), systemd 255 + empirical run"
+  },
+  {
+    "claim_id": "sysadmin-core-098",
+    "concept_id": "sysadmin.system-administration.systemd",
+    "claim": "systemd-analyze blame ranks units by initialisation time and critical-chain shows the ordering chain that actually delayed boot",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd-analyze(1) blame prints all running units ordered by the time they took to initialize and warns the output can mislead because one service may be slow only because it waits for another; critical-chain prints a tree of the time-critical chain of units.",
+    "source": "systemd-analyze(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-099",
+    "concept_id": "sysadmin.system-administration.unit-and-unit-file",
+    "claim": "unit files are read with increasing precedence from /usr/lib/systemd/system, /run/systemd/system and /etc/systemd/system",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.unit(5) System Unit Search Path lists /etc/systemd/system above /run/systemd/system above /usr/lib/systemd/system, and states that drop-in files in /etc take precedence over those in /run which take precedence over those in /usr/lib.",
+    "source": "systemd.unit(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-100",
+    "concept_id": "sysadmin.system-administration.unit-and-unit-file",
+    "claim": "a drop-in is a .conf file under <unit>.d/ that carries only the directives being changed",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.unit(5): along with a unit file foo.service a drop-in directory foo.service.d/ may exist, and all .conf files there are merged and parsed after the main unit file, allowing settings to be altered without modifying the unit file.",
+    "source": "systemd.unit(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-101",
+    "concept_id": "sysadmin.system-administration.unit-and-unit-file",
+    "claim": "systemctl cat prints the effective unit file plus every drop-in with each file's path as a comment",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) cat shows the backing files of a unit, the fragment and drop-ins, each preceded by a comment giving the file name; systemctl cat on the lab box printed the /etc/systemd/system path header.",
+    "source": "systemctl(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-102",
+    "concept_id": "sysadmin.system-administration.unit-and-unit-file",
+    "claim": "systemctl list-units lists loaded units only while list-unit-files lists the installed inventory, and --all, --type= and --state= filter",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1): list-units lists units systemd currently has in memory; list-unit-files lists unit files installed on the system. Empirically list-units --type=service returned 19 rows and list-unit-files --type=service returned 129.",
+    "source": "systemctl(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-103",
+    "concept_id": "sysadmin.system-administration.unit-and-unit-file",
+    "claim": "a unit with no [Install] section cannot be enabled and systemctl says it has no installation configuration",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically, enabling a unit without an [Install] section printed that the unit files have no installation config (WantedBy=, RequiredBy=, UpheldBy=, Also= or Alias=), and is-enabled reported static.",
+    "source": "empirical, systemd 255 + systemctl(1) is-enabled table"
+  },
+  {
+    "claim_id": "sysadmin-core-104",
+    "concept_id": "sysadmin.system-administration.systemctl-start-vs-enable",
+    "claim": "enable creates a symlink in the wanted target's .wants directory from the unit's [Install] section, and start never consults [Install]",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) enable creates a set of symlinks as encoded in the [Install] sections; empirically enable created /etc/systemd/system/multi-user.target.wants/demo.service, and start on a unit without [Install] still worked.",
+    "source": "systemctl(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-105",
+    "concept_id": "sysadmin.system-administration.systemctl-start-vs-enable",
+    "claim": "is-active reports active/inactive/failed and is-enabled reports enabled/disabled/static/masked",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1)'s is-enabled output table includes enabled, disabled, static and masked; the status description covers active, inactive and failed. Empirically is-enabled returned disabled, then enabled, then static.",
+    "source": "systemctl(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-106",
+    "concept_id": "sysadmin.system-administration.systemctl-start-vs-enable",
+    "claim": "enable --now enables and starts in one step and disable --now is the reverse",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) enable notes that starting as well requires combining the command with the --now switch, which is documented for enable, disable and mask.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-107",
+    "concept_id": "sysadmin.system-administration.systemd-target",
+    "claim": "systemctl get-default prints the boot target, set-default changes it, and isolate switches to a target now while stopping units it does not want",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1): get-default and set-default read and write default.target; isolate starts the named unit and its dependencies and stops all others.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-108",
+    "concept_id": "sysadmin.system-administration.runlevel",
+    "claim": "runlevels map 0 to poweroff, 1 to rescue, 2, 3 and 4 to multi-user, 5 to graphical and 6 to reboot",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.special(7) names runlevel0/1/6.target as SysV compatibility aliases for poweroff, rescue and reboot; on the lab box /usr/lib/systemd/system/runlevel0-6.target are symlinks to poweroff, rescue, multi-user, multi-user, multi-user, graphical and reboot in that order.",
+    "source": "systemd.special(7) + empirical, systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-109",
+    "concept_id": "sysadmin.system-administration.runlevel",
+    "claim": "runlevel prints the previous and current runlevel separated by a space, printing N when one cannot be determined, reads the utmp database, and has no options beyond --help",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "runlevel(8): it prints the previous and current SysV runlevel if known, separated by a single space, printing N when a runlevel cannot be determined, and checks the utmp database. runlevel --help listed only --help, and the output on the lab box was N 5.",
+    "source": "runlevel(8) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-110",
+    "concept_id": "sysadmin.system-administration.daemon-reload",
+    "claim": "systemctl daemon-reload rescans unit directories and rebuilds the dependency graph without restarting running services",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) daemon-reload: reload the systemd manager configuration, rerunning all generators, reloading all unit files and recreating the entire dependency tree.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-111",
+    "concept_id": "sysadmin.system-administration.daemon-reload",
+    "claim": "adding a new unit file requires daemon-reload before the unit can be started",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Empirically on systemd 255, after a daemon-reload a brand-new /etc/systemd/system/fresh1.service started successfully with no further reload, because the manager loads an unseen unit name on demand. What does require a reload is a change to an already-parsed unit: editing ExecStart and running systemctl restart kept the old value and printed the warning that the unit file changed on disk. The How it works paragraph and the section Scenario were both corrected.",
+    "source": "empirical, systemd 255 + systemctl(1)"
+  },
+  {
+    "claim_id": "sysadmin-core-112",
+    "concept_id": "sysadmin.system-administration.daemon-reload",
+    "claim": "systemctl enable reloads the manager configuration itself after creating its symlinks",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) enable: after the symlinks have been created, the system manager configuration is reloaded in a way equivalent to daemon-reload.",
+    "source": "systemctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-113",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "apt install resolves dependencies and supports -y, --no-install-recommends and --reinstall",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt-get(8) documents --no-install-recommends, --reinstall and -y/--assume-yes; apt(8) notes that reinstall is an alias for install --reinstall.",
+    "source": "apt(8) and apt-get(8), APT 2.8.3"
+  },
+  {
+    "claim_id": "sysadmin-core-114",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "apt update refreshes the cached repository indexes only, and --allow-releaseinfo-change exists for changed release metadata",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt(8): update is used to download package information from all configured sources. apt-get(8) documents --allow-releaseinfo-change.",
+    "source": "apt(8) and apt-get(8), APT 2.8.3"
+  },
+  {
+    "claim_id": "sysadmin-core-115",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "apt upgrade installs newer versions but never removes a package, holding back any upgrade that would need a removal, while apt full-upgrade may remove",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt(8) upgrade: new packages will be installed if required to satisfy dependencies, but existing packages will never be removed, and if an upgrade requires the removal of an installed package the upgrade for that package is not performed. full-upgrade will remove currently installed packages if needed to upgrade the system as a whole.",
+    "source": "apt(8), APT 2.8.3"
+  },
+  {
+    "claim_id": "sysadmin-core-116",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "dpkg -i installs a single local .deb with no dependency resolution",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dpkg(1) -i/--install installs the package through an unpack-then-configure sequence; dependency resolution belongs to the APT layer, not dpkg.",
+    "source": "dpkg(1), dpkg 1.22"
+  },
+  {
+    "claim_id": "sysadmin-core-117",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "dpkg -l lists installed packages with a state column showing ii, and accepts a glob pattern",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dpkg-query(1) -l/--list lists all known packages matching one or more patterns and allows normal shell wildcards; dpkg -l bash printed the Desired/Status legend and the row ii bash.",
+    "source": "dpkg-query(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-118",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "dpkg -L lists the files an installed package placed on the system and dpkg -S answers the reverse question",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dpkg-query(1): -L/--listfiles lists files installed to your system from package-name; -S/--search searches for packages that own files matching the given patterns.",
+    "source": "dpkg-query(1), dpkg 1.22"
+  },
+  {
+    "claim_id": "sysadmin-core-119",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "apt --fix-broken install (apt -f install) repairs a half-configured state",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt-get(8) -f/--fix-broken attempts to correct a system with broken dependencies in place and, used with install or remove, can omit packages so APT deduces a solution.",
+    "source": "apt-get(8), APT 2.8.3"
+  },
+  {
+    "claim_id": "sysadmin-core-120",
+    "concept_id": "sysadmin.system-administration.apt-and-dpkg",
+    "claim": "apt install ./package.deb installs a local file with dependency resolution",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Empirically apt install --dry-run on a downloaded tree .deb path was accepted and resolved against the package database; apt-get(8), by contrast, documents package names rather than filenames.",
+    "source": "empirical, APT 2.8.3 on Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-121",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "dnf install supports -y, --enablerepo and --disablerepo for one transaction, and --nogpgcheck",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The DNF command reference and dnf(8) document --enablerepo, --disablerepo, --nogpgcheck and -y/--assumeyes.",
+    "source": "DNF command reference (dnf.readthedocs.io) and dnf(8)"
+  },
+  {
+    "claim_id": "sysadmin-core-122",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "rpm -q queries the installed database, with -a for all, -i for information, -f for the package owning a file and -p to query an uninstalled .rpm instead",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rpm(8): -q/--query; package selection -a/--all query all installed packages, -f/--file query package owning installed FILE, -p/--package query an uninstalled package file; information selection -i/--info display package information.",
+    "source": "rpm(8), RPM project (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-123",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "rpm -ql lists an installed package's files and rpm -qf answers the opposite question",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rpm(8): -l/--list lists files in package; -f/--file queries the package owning an installed file.",
+    "source": "rpm(8), RPM project (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-124",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "rpm can install a single file with -i or upgrade with -U, with no dependency resolution",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rpm(8): -i/--install installs new packages without considering upgrade scenarios; -U/--upgrade installs or upgrades to a newer version. Resolution belongs to DNF.",
+    "source": "rpm(8), RPM project (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-125",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "dnf history can list and undo a previous transaction",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "DNF command reference: dnf history undo performs the opposite operation to all operations performed in the specified transaction.",
+    "source": "DNF command reference (dnf.readthedocs.io)"
+  },
+  {
+    "claim_id": "sysadmin-core-126",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "yum is retained on current Red Hat-family systems as a compatibility name for dnf",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dnf(8) describes DNF as the next upcoming major version of YUM that maintains CLI compatibility with YUM; the DNF documentation is titled the next-generation replacement for YUM, and repository configuration remains /etc/yum.repos.d/.",
+    "source": "dnf(8) and DNF documentation (dnf.readthedocs.io)"
+  },
+  {
+    "claim_id": "sysadmin-core-127",
+    "concept_id": "sysadmin.system-administration.dnf-yum-and-rpm",
+    "claim": "dnf refreshes repository metadata automatically once it has expired",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dnf.conf metadata_expire: the period after which the remote repository is checked for a metadata update and the local cache is refreshed; the default corresponds to 48 hours.",
+    "source": "DNF configuration reference (dnf.readthedocs.io)"
+  },
+  {
+    "claim_id": "sysadmin-core-128",
+    "concept_id": "sysadmin.system-administration.update-vs-upgrade",
+    "claim": "dnf update is an alias for dnf upgrade, so the same verb means different things on the two families",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "DNF command reference, Upgrade Command: Command upgrade, Aliases up, Deprecated aliases update, upgrade-to, update-to, localupdate.",
+    "source": "DNF command reference (dnf.readthedocs.io)"
+  },
+  {
+    "claim_id": "sysadmin-core-129",
+    "concept_id": "sysadmin.system-administration.update-vs-upgrade",
+    "claim": "apt list --upgradable previews pending upgrades",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt(8) documents the list command with --upgradable, and the invocation was accepted by APT 2.8.3 on the lab box.",
+    "source": "apt(8) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-130",
+    "concept_id": "sysadmin.system-administration.filesystem-type",
+    "claim": "mkfs -t selects the format and the mkfs frontend is deprecated in favour of the type-specific mkfs.<type> builders it dispatches to",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "mkfs(8): this mkfs frontend is deprecated in favour of filesystem specific mkfs.<type> utils; -t/--type specifies the type of filesystem to be built.",
+    "source": "mkfs(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-131",
+    "concept_id": "sysadmin.system-administration.filesystem-type",
+    "claim": "blkid reports type, UUID and label without mounting, with -s to select a tag and -o value for bare output",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "blkid(8): -s/--match-tag shows only the tags that match tag; -o/--output format includes a value mode.",
+    "source": "blkid(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-132",
+    "concept_id": "sysadmin.system-administration.filesystem-type",
+    "claim": "XFS can be grown while mounted but not shrunk, while ext4 can be shrunk only while unmounted",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "xfs_growfs(8): xfs_growfs expands an existing XFS filesystem and the filesystem must be mounted to be grown; there is no general shrink path. resize2fs(8): it can be used to enlarge or shrink an unmounted file system, and if the file system is mounted it can be used only to expand it.",
+    "source": "xfs_growfs(8) and resize2fs(8) (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-133",
+    "concept_id": "sysadmin.system-administration.mounting",
+    "claim": "mount takes -t for type, -o for options, -a for everything in fstab, --bind to remount a tree elsewhere and -r for read-only",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "mount(8): -a/--all mounts all filesystems mentioned in fstab except those whose line contains noauto; -o/--options; -r/--read-only is a synonym for -o ro; -t/--types; the synopsis includes mount --bind olddir newdir.",
+    "source": "mount(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-134",
+    "concept_id": "sysadmin.system-administration.mounting",
+    "claim": "umount takes the device or the mount point, with -l for a lazy detach and -f to force an unreachable network mount",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "umount(8): -l/--lazy detaches the filesystem from the file hierarchy now and cleans up references when it is no longer busy; -f/--force forces an unmount in case of an unreachable NFS system.",
+    "source": "umount(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-135",
+    "concept_id": "sysadmin.system-administration.mounting",
+    "claim": "findmnt shows the kernel's current mount table, with -t to filter by type, --target to show which filesystem a path is on and -D for df-like space",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "findmnt(8): -T/--target defines the mount target and walks path elements in reverse to find the mountpoint; -t/--types limits the set printed; -D/--df imitates the output of df(1).",
+    "source": "findmnt(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-136",
+    "concept_id": "sysadmin.system-administration.etc-fstab",
+    "claim": "an /etc/fstab line has six fields (device, mount point, type, options, dump flag, fsck pass) and a swap line uses none as the mount point",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "fstab(5) describes fs_spec, fs_file, fs_vfstype, fs_mntops, fs_freq and fs_passno in order, and says that for a swap area the second field should be specified as none.",
+    "source": "fstab(5), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-137",
+    "concept_id": "sysadmin.system-administration.etc-fstab",
+    "claim": "noauto skips a mount at boot, nofail continues booting when the device is absent, and the fsck pass is 1 for root, 2 for others and 0 to skip",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "fstab(5): noauto means do not mount when mount -a is given (e.g. at boot time); nofail means do not report errors for this device if it does not exist; the root filesystem should be specified with fs_passno 1, other filesystems 2, and the field defaults to zero (do not check).",
+    "source": "fstab(5), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-138",
+    "concept_id": "sysadmin.system-administration.etc-fstab",
+    "claim": "mount -a applies the file to the running system and findmnt --verify checks the file without mounting",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "mount(8) -a mounts everything in fstab not marked noauto; findmnt(8) -x/--verify checks mount table content, verifying /etc/fstab parsability and usability by default.",
+    "source": "mount(8) and findmnt(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-139",
+    "concept_id": "sysadmin.system-administration.partition",
+    "claim": "lsblk lists block devices as a tree, with -f showing filesystem type, label, UUID and mount point and -o choosing columns",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsblk(8): -f/--fs outputs info about filesystems, equivalent to -o NAME,FSTYPE,FSVER,LABEL,UUID,FSAVAIL,FSUSE%,MOUNTPOINTS; -o/--output selects columns.",
+    "source": "lsblk(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-140",
+    "concept_id": "sysadmin.system-administration.partition",
+    "claim": "fdisk -l lists partition tables and fdisk without -l enters the interactive editor",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "fdisk(8): -l/--list lists the partition tables for the specified devices and then exits; without it fdisk starts its interactive dialogue.",
+    "source": "fdisk(8), util-linux"
+  },
+  {
+    "claim_id": "sysadmin-core-141",
+    "concept_id": "sysadmin.system-administration.inode",
+    "claim": "df -i reports inode usage rather than block usage and ls -i prints inode numbers, with -l adding the link count",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "df(1): -i/--inodes lists inode information instead of block usage. ls(1): -i/--inode prints the index number of each file, and -l is the long format carrying the link count.",
+    "source": "df(1) and ls(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-142",
+    "concept_id": "sysadmin.system-administration.inode",
+    "claim": "the inode count is fixed at mkfs time and cannot be grown on ext4",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Empirically with e2fsprogs on Ubuntu 24.04, a 64 MiB ext4 image reported Inode count: 16384 and, after resize2fs img 256M, reported Inode count: 32768. Growing the filesystem does add inodes. What holds is that the inode table cannot be enlarged in place (tune2fs offers -I for inode size, not inode count). The Traps paragraph and the matching knowledge-check answer were corrected.",
+    "source": "empirical, e2fsprogs on Ubuntu 24.04 + tune2fs(8) usage"
+  },
+  {
+    "claim_id": "sysadmin-core-143",
+    "concept_id": "sysadmin.system-administration.hard-link-vs-symbolic-link",
+    "claim": "ln creates a hard link, -f replaces an existing name, and hard links cannot cross filesystems or point at directories for ordinary users",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ln(1): -f/--force removes existing destination files; -d/-F/--directory allows only the superuser to attempt to hard link directories and notes it will probably fail due to system restrictions. Cross-filesystem hard links are impossible because a link is a reference to an inode number.",
+    "source": "ln(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-144",
+    "concept_id": "sysadmin.system-administration.hard-link-vs-symbolic-link",
+    "claim": "ln -s creates a symlink, with -r storing a relative path, -f replacing an existing link and -n treating an existing link to a directory as a file",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ln(1): -s/--symbolic; -r/--relative creates links relative to link location with -s; -f/--force; -n/--no-dereference treats LINK_NAME as a normal file if it is a symbolic link to a directory.",
+    "source": "ln(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-145",
+    "concept_id": "sysadmin.system-administration.disk-usage-vs-free-space",
+    "claim": "df -h reports per-filesystem space, with -i for inodes, -T for the type and -x or -t to exclude or restrict by type",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "df(1) documents -h/--human-readable, -i/--inodes, -T/--print-type, -t/--type=TYPE and -x/--exclude-type=TYPE.",
+    "source": "df(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-146",
+    "concept_id": "sysadmin.system-administration.disk-usage-vs-free-space",
+    "claim": "du -sh summarises a tree, with -x to stay on one filesystem and --max-depth=1 for per-child totals",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "du(1) documents -s/--summarize, -h/--human-readable, -x/--one-file-system (skip directories on different file systems) and -d/--max-depth=N.",
+    "source": "du(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-147",
+    "concept_id": "sysadmin.system-administration.disk-usage-vs-free-space",
+    "claim": "lsof +L1 selects open files that have been unlinked",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsof(8): a specification of the form +L1 will select open files that have been unlinked.",
+    "source": "lsof(8)"
+  },
+  {
+    "claim_id": "sysadmin-core-148",
+    "concept_id": "sysadmin.system-administration.swap",
+    "claim": "swapon --show lists active swap areas, -a activates everything in /etc/fstab and --priority sets a priority",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "swapon(8): --show displays a definable table of swap areas; -a/--all makes available all devices marked as swap in /etc/fstab except those with noauto; -p/--priority specifies the priority.",
+    "source": "swapon(8), util-linux 2.39"
+  },
+  {
+    "claim_id": "sysadmin-core-149",
+    "concept_id": "sysadmin.system-administration.swap",
+    "claim": "free -h is human-readable, -s N repeats every N seconds and -w separates buffers and cache",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "free(1): -h/--human; -s/--seconds continuously displays the result delay seconds apart; -w/--wide reports buffers and cache in two separate columns.",
+    "source": "free(1), procps-ng 4.0.4"
+  },
+  {
+    "claim_id": "sysadmin-core-150",
+    "concept_id": "sysadmin.system-administration.swap",
+    "claim": "vm.swappiness defaults to 60 and is exposed at /proc/sys/vm/swappiness",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "cat /proc/sys/vm/swappiness on the lab box returned 60; proc(5) documents /proc/sys as the tunable branch.",
+    "source": "empirical + proc(5)"
+  },
+  {
+    "claim_id": "sysadmin-core-151",
+    "concept_id": "sysadmin.system-administration.proc-and-sys",
+    "claim": "entries under /proc are generated on read, report a size of zero to ls -l, and cannot be created",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "inode(7) NOTES: for pseudofiles autogenerated by the kernel the reported file size is not accurate, and 0 is returned for many files under /proc. Empirically ls -l /proc/cpuinfo showed 0 bytes and touch /proc/foo failed with ENOENT.",
+    "source": "inode(7) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-152",
+    "concept_id": "sysadmin.system-administration.proc-and-sys",
+    "claim": "cat /proc/cpuinfo reads per-processor information, with /proc/meminfo, /proc/mounts, /proc/swaps and /proc/uptime as related paths",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "proc(5) documents each of these paths; all were present on the lab box, with /proc/mounts a symlink to self/mounts.",
+    "source": "proc(5) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-153",
+    "concept_id": "sysadmin.system-administration.cron",
+    "claim": "crontab -e edits the invoking user's crontab through a validating path, -u edits another user's (root only), and crontab -l prints one user's crontab",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(1) usage lists -e (edit user's crontab), -l (list user's crontab) and -u user (choose the user whose crontab is touched); the result is installed into the spool directory the daemon watches.",
+    "source": "crontab(1), Debian cron (Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "sysadmin-core-154",
+    "concept_id": "sysadmin.system-administration.cron",
+    "claim": "crontab -r removes the crontab, and system crontabs in /etc/crontab and /etc/cron.d carry an extra user field between the time fields and the command",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(1) usage lists -r (delete user's crontab). crontab(5): the system crontab uses the same format except that the username for the command is specified after the time and date fields and before the command.",
+    "source": "crontab(1) and crontab(5), Debian cron"
+  },
+  {
+    "claim_id": "sysadmin-core-155",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "the five fields are minute 0-59, hour 0-23, day of month 1-31, month 1-12 or names, and day of week 0-7 where 0 and 7 are Sunday",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5) (cronie, man7.org) allowed-values table gives minute 0-59, hour 0-23, day of month 1-31, month 1-12 or names, day of week 0-7 with 0 or 7 as Sunday. Debian's Vixie-derived page is laxer (0-31, 0-12) but accepts the same values.",
+    "source": "crontab(5), cronie (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-156",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "ranges are inclusive, lists use commas, and a step may follow a range or an asterisk, evaluated only within its own field",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5): the specified range is inclusive; step values can be used in conjunction with ranges; steps are also permitted after an asterisk, so every two hours is written */2. Because a step is defined over its own field's range, */35 in the minute field fires at minute 0 and minute 35.",
+    "source": "crontab(5), Debian cron and cronie"
+  },
+  {
+    "claim_id": "sysadmin-core-157",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "if both day fields are restricted the command runs when either matches, so 30 4 1,15 * 5 fires at 04:30 on the 1st and 15th and every Friday",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5) uses this exact example: if both fields are restricted the command will be run when either field matches, and 30 4 1,15 * 5 would cause a command to be run at 4:30 am on the 1st and 15th of each month, plus every Friday.",
+    "source": "crontab(5), Debian cron"
+  },
+  {
+    "claim_id": "sysadmin-core-158",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "cron sets SHELL to /bin/sh and takes LOGNAME and HOME from the owner's /etc/passwd line, and does not source shell startup files",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5): SHELL is set to /usr/bin/sh, and LOGNAME and HOME are set from the /etc/passwd line of the crontab's owner; on merged-/usr systems /bin/sh is the same file. No shell startup file is sourced.",
+    "source": "crontab(5), Debian cron on Ubuntu 24.04"
+  },
+  {
+    "claim_id": "sysadmin-core-159",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "an unescaped percent sign becomes a newline and everything after the first one is fed to the command as standard input",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5): percent signs in the command, unless escaped with backslash, will be changed into newline characters, and all data after the first percent will be sent to the command as standard input.",
+    "source": "crontab(5), Debian cron"
+  },
+  {
+    "claim_id": "sysadmin-core-160",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "@reboot runs once after each boot and MAILTO controls where output is mailed, with an empty MAILTO silencing it",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "crontab(5): the special-string table lists @reboot as run once at startup, and if MAILTO is defined but empty no mail will be sent.",
+    "source": "crontab(5), Debian cron"
+  },
+  {
+    "claim_id": "sysadmin-core-161",
+    "concept_id": "sysadmin.system-administration.crontab-syntax",
+    "claim": "crontab -T FILE tests a file's syntax without installing it",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "-T is cronie's option: crontab(1) on man7.org gives -T Test the crontab file syntax without installing it. Debian-family cron has no -T at all; its usage output gives -n (dry run: checks the syntax, then bails out), while in cronie -n names the host that runs a shared crontab. The guide stated -T without qualification; the Commands row now names both spellings and the collision.",
+    "source": "crontab(1) cronie (man7.org) vs crontab(1) Debian cron (Ubuntu 24.04)"
+  },
+  {
+    "claim_id": "sysadmin-core-162",
+    "concept_id": "sysadmin.system-administration.systemd-timer",
+    "claim": "a .timer activates the same-named service unless Unit= says otherwise",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.timer(5) Unit=: the unit to activate when this timer elapses; if not specified it defaults to a service with the same name as the timer unit, except for the suffix.",
+    "source": "systemd.timer(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-163",
+    "concept_id": "sysadmin.system-administration.systemd-timer",
+    "claim": "OnCalendar= gives a wall-clock schedule while OnBootSec= and OnUnitActiveSec= express delays relative to boot and to the previous run",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.timer(5): OnBootSec= defines a timer relative to when the machine was booted up; OnUnitActiveSec= relative to when the unit the timer activates was last activated; OnCalendar= takes a calendar expression.",
+    "source": "systemd.timer(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-164",
+    "concept_id": "sysadmin.system-administration.systemd-timer",
+    "claim": "Persistent=true records the last run so a schedule missed while the machine was down fires at the next boot",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd.timer(5) Persistent=: the time when the service unit was last triggered is stored on disk, and on activation the service is triggered immediately if it would have been triggered at least once while the timer was inactive, which catches up on runs missed while the system was powered down.",
+    "source": "systemd.timer(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-165",
+    "concept_id": "sysadmin.system-administration.systemd-timer",
+    "claim": "systemctl list-timers shows each timer with next and last activation, --all includes inactive ones, and systemd-analyze calendar validates an expression",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1) list-timers lists timer units currently in memory ordered by the time they elapse next, with NEXT and LAST columns, and --all extends list-timers. Empirically systemd-analyze calendar accepted both a weekday expression and daily, printing the normalised form and the next elapse.",
+    "source": "systemctl(1) + empirical, systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-166",
+    "concept_id": "sysadmin.system-administration.var-log",
+    "claim": "tail -f follows the descriptor while tail -F follows the name and reopens after rotation; -n starts N lines back",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "tail(1): -f/--follow[={name|descriptor}] with an absent argument meaning descriptor; -F is the same as --follow=name --retry; -n/--lines outputs the last NUM lines.",
+    "source": "tail(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-167",
+    "concept_id": "sysadmin.system-administration.var-log",
+    "claim": "less +F follows like tail -f with the interrupt character to return to browsing, +G starts at the end, and /pattern searches",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "less(1): +cmd causes the specified command to be executed each time a new file is examined, and +G causes less to start at the end; the F command scrolls forward and keeps trying to read at end of file, with the interrupt character (usually Ctrl-C) to stop waiting.",
+    "source": "less(1)"
+  },
+  {
+    "claim_id": "sysadmin-core-168",
+    "concept_id": "sysadmin.system-administration.syslog-and-severity-levels",
+    "claim": "the eight severities run Emergency 0 through Debug 7, with the most severe carrying the lowest number",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 5424 Table 2 lists severities 0 Emergency through 7 Debug and requires severity values to be in the range 0 to 7 inclusive.",
+    "source": "RFC 5424 section 6.2.1"
+  },
+  {
+    "claim_id": "sysadmin-core-169",
+    "concept_id": "sysadmin.system-administration.syslog-and-severity-levels",
+    "claim": "the priority value is the facility multiplied by 8 plus the severity, and the facilities include kern, auth, authpriv, daemon, mail, cron and local0 through local7",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 5424: the Priority value is calculated by first multiplying the Facility number by 8 and then adding the numerical value of the Severity; Table 1 lists kernel messages (0), mail (2), system daemons (3), security/authorization (4 and 10), clock daemon (9) and local use 0 through 7 (16-23).",
+    "source": "RFC 5424 section 6.2.1"
+  },
+  {
+    "claim_id": "sysadmin-core-170",
+    "concept_id": "sysadmin.system-administration.syslog-and-severity-levels",
+    "claim": "syslog is traditionally carried over UDP port 514",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 5426: this transport uses UDP port 514 for syslog, as recorded in the IANA port-numbers registry.",
+    "source": "RFC 5426 sections 3.1 and 6"
+  },
+  {
+    "claim_id": "sysadmin-core-171",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "journalctl -u filters to one unit and accepts a name or a pattern",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1): -u/--unit=UNIT|PATTERN shows messages for the specified systemd unit, or for any of the units matched by PATTERN.",
+    "source": "journalctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-172",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "journalctl -f follows the journal and pairs with -u",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1): -f/--follow shows only the most recent journal entries and continuously prints new entries as they are appended.",
+    "source": "journalctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-173",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "journalctl -p takes a level or a FROM..TO range, and a single level shows that level and everything more severe",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1): if a single log level is specified, all messages with this log level or a lower (hence more important) log level are shown; if a range is specified, all messages within the range are shown including both ends. journalctl -p warning..err was accepted on the lab box.",
+    "source": "journalctl(1) + empirical"
+  },
+  {
+    "claim_id": "sysadmin-core-174",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "journalctl -b restricts to one boot, -b -1 is the previous one, and --list-boots shows what is retained",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1) documents -b/--boot with a relative offset argument and --list-boots, which shows a tabular list of boot numbers relative to the current boot with their IDs and timestamps.",
+    "source": "journalctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-175",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "the journal is persistent only if /var/log/journal exists and is otherwise volatile under /run/log/journal",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journald.conf(5) Storage=: auto behaves like persistent if the /var/log/journal directory exists and volatile otherwise, the existence of the directory controlling the storage mode, and auto is the default; volatile data lives below /run/log/journal.",
+    "source": "journald.conf(5), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-176",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "retention is bounded by SystemMaxUse= and journalctl --vacuum-size= or --vacuum-time= prunes it manually",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journald.conf(5): SystemMaxUse= controls how much disk space the journal may use at most. journalctl(1): --vacuum-size= removes the oldest archived journal files until the disk space used falls below the given size, and --vacuum-time= removes archived files older than the given timespan.",
+    "source": "journald.conf(5) and journalctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-177",
+    "concept_id": "sysadmin.system-administration.journald",
+    "claim": "journalctl -k narrows to kernel messages and -e jumps to the end of the journal",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1): -k/--dmesg shows only kernel messages and implies -b; -e/--pager-end immediately jumps to the end of the journal inside the implied pager.",
+    "source": "journalctl(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-178",
+    "concept_id": "sysadmin.system-administration.log-rotation",
+    "claim": "logrotate -d shows what would happen and changes nothing, -f forces rotation, -v is verbose and -s names an alternate state file",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "logrotate(8): -d/--debug turns on debug mode so no changes are made to the logs and the state file is not updated; -f/--force forces the rotation even if it is not thought necessary; -v/--verbose; -s/--state statefile.",
+    "source": "logrotate(8) (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-179",
+    "concept_id": "sysadmin.system-administration.log-rotation",
+    "claim": "the directives daily, weekly, size 100M, rotate 7, compress, delaycompress, create and copytruncate exist with the stated meanings",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "logrotate(8): size size rotates only if the log grows bigger than size, and size 100M is explicitly named as valid; create makes the log file immediately after rotation and before the postrotate script runs; copytruncate truncates the original log in place after creating a copy; delaycompress postpones compression to the next cycle.",
+    "source": "logrotate(8) (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-180",
+    "concept_id": "sysadmin.system-administration.log-rotation",
+    "claim": "copytruncate loses anything written between the copy and the truncate",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "logrotate(8) copytruncate: there is a very small time slice between copying the file and truncating it, so some logging data might be lost.",
+    "source": "logrotate(8) (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-181",
+    "concept_id": "sysadmin.system-administration.log-rotation",
+    "claim": "logrotate state is tracked in /var/lib/logrotate.status",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "That is only logrotate's own upstream default. Debian's packaged logrotate(8) states the default state file is /var/lib/logrotate/status, so on the Debian-family systems this guide repeatedly contrasts, the stated path does not exist. The prose now marks the path as distribution-specific and notes that -s overrides it.",
+    "source": "logrotate(8) upstream (man7.org) vs logrotate(8) Debian bookworm (manpages.debian.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-182",
+    "concept_id": "sysadmin.system-administration.log-rotation",
+    "claim": "postrotate scripts run after rotation and before compression",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "logrotate(8): the postrotate script is executed after the log file is rotated and before the log file is compressed.",
+    "source": "logrotate(8) (man7.org)"
+  },
+  {
+    "claim_id": "sysadmin-core-183",
+    "concept_id": "sysadmin.system-administration.boot-process",
+    "claim": "systemd-analyze blame ranks units by how long each took to initialise, so a slow unit nothing waits for does not delay boot",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd-analyze(1) blame prints all running units ordered by the time they took to initialize and warns that the output can mislead because one service may be slow only because it waits for another to complete.",
+    "source": "systemd-analyze(1), systemd 255"
+  },
+  {
+    "claim_id": "sysadmin-core-184",
+    "concept_id": "sysadmin.system-administration.bootloader-and-grub",
+    "claim": "update-grub is a Debian-family wrapper for grub-mkconfig -o /boot/grub/grub.cfg",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "update-grub(8) on Debian: update-grub is a stub for running grub-mkconfig -o /boot/grub/grub.cfg to generate a grub2 config file.",
+    "source": "update-grub(8), grub2-common (manpages.debian.org, bookworm)"
+  },
+  {
+    "claim_id": "sysadmin-core-185",
+    "concept_id": "sysadmin.system-administration.bootloader-and-grub",
+    "claim": "Red Hat-family systems regenerate with grub2-mkconfig -o /boot/grub2/grub.cfg and have no update-grub",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Fedora Quick Docs GRUB2 page uses sudo grub2-mkconfig -o /boot/grub2/grub.cfg and records that on Fedora 34 and later /boot/efi/EFI/fedora/grub.cfg is only a stub forwarding to /boot/grub2/grub.cfg.",
+    "source": "Fedora Quick Docs, GRUB2 bootloader"
+  },
+  {
+    "claim_id": "sysadmin-core-186",
+    "concept_id": "sysadmin.system-administration.bootloader-and-grub",
+    "claim": "grub.cfg is generated from /etc/default/grub and /etc/grub.d/, and hand edits are discarded when it is regenerated",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "grub-mkconfig(8) generates a GRUB configuration file with -o/--output=FILE; the Fedora GRUB2 page notes manual changes can be overwritten with grub2-mkconfig and that customisations must live in /etc/grub.d/40_custom to survive. The knowledge-check answer was narrowed, because Debian-family kernel updates re-run update-grub automatically while Fedora's grubby patches the file instead.",
+    "source": "grub-mkconfig(8) (manpages.debian.org) + Fedora Quick Docs"
+  },
+  {
+    "claim_id": "sysadmin-core-187",
+    "concept_id": "sysadmin.system-administration.kernel",
+    "claim": "uname -r prints the running kernel release, with -a for everything, -m for the machine hardware name and -s for the kernel name",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uname(1): -a/--all; -r/--kernel-release prints the kernel release; -m/--machine prints the machine hardware name; -s/--kernel-name prints the kernel name.",
+    "source": "uname(1), GNU coreutils 9.4"
+  },
+  {
+    "claim_id": "sysadmin-core-188",
+    "concept_id": "sysadmin.system-administration.filesystem-hierarchy-standard",
+    "claim": "/etc holds configuration and may contain no executable binaries",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "FHS 3.0 section 3.7: a configuration file is a local file used to control the operation of a program; it must be static and cannot be an executable binary.",
+    "source": "FHS 3.0 section 3.7"
+  },
+  {
+    "claim_id": "sysadmin-core-189",
+    "concept_id": "sysadmin.system-administration.filesystem-hierarchy-standard",
+    "claim": "/opt is for self-contained third-party packages with their own tree while /usr/local is for software the local administrator installs",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "FHS 3.0 section 3.13: a package installed in /opt must locate its static files in a separate /opt/<package> or /opt/<provider> tree. Section 4.9: /usr/local is for use by the system administrator when installing software locally and needs to be safe from being overwritten when the system software is updated.",
+    "source": "FHS 3.0 sections 3.13 and 4.9"
+  },
+  {
+    "claim_id": "sysadmin-core-190",
+    "concept_id": "sysadmin.system-administration.home",
+    "claim": "root's home is /root, and the FHS rationale is that a root home not stored on the root partition would need a fallback default",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "FHS 3.0 section 3.14 footnote: if the home directory of the root account is not stored on the root partition it will be necessary to make certain it will default to / if it cannot be located. hier(7) adds that the structure beneath /home depends on local administration decisions.",
+    "source": "FHS 3.0 section 3.14 + hier(7)"
+  },
+  {
+    "claim_id": "sysadmin-core-191",
+    "concept_id": "sysadmin.system-administration.tmp",
+    "claim": "programs must not assume anything in /tmp is preserved and it is recommended that /tmp be cleared at boot, while /var/tmp is preserved across reboots",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "FHS 3.0 section 3.18: programs must not assume that any files or directories in /tmp are preserved between invocations, and it is recommended that they be deleted whenever the system is booted. Section 5.15: /var/tmp holds temporary files preserved between system reboots and must not be deleted when the system is booted.",
+    "source": "FHS 3.0 sections 3.18 and 5.15"
+  },
+  {
+    "claim_id": "sysadmin-core-192",
+    "concept_id": "sysadmin.system-administration.lvm",
+    "claim": "pvs, vgs and lvs summarise the physical volume, volume group and logical volume layers",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "pvs(8) produces formatted output about PVs, vgs(8) about VGs and lvs(8) about LVs.",
+    "source": "pvs(8), vgs(8), lvs(8) (man7.org)"
+  }
+]

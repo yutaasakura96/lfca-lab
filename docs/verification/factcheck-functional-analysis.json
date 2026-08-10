@@ -1,0 +1,335 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker appears at lines 24-25 and, after whitespace normalisation, matches the sentence mandated by study-guide/STYLE.md section 8 character for character (checked programmatically against the canonical string).",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json (waived list includes this id)"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "No sentence in the block asserts that a named standard (PMBOK, PMI Lexicon, BABOK, ISO 21500/21502, ISO/IEC/IEEE 12207 or 29148, or any other) defines, requires or specifies anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "A case-insensitive grep of the whole file for PMBOK, BABOK, PMI, IIBA, ISO, IEEE, SWEBOK, DSDM, ITIL, 'the standard', 'specifies', 'mandates', 'defines', 'according to' and 'per the' returns exactly one hit, in the orientation paragraph, and that hit is the disclaimer 'no standard is being quoted'. No standard is named anywhere in this block.",
+    "source": "grep over study-guide/06-it-project-management/functional-analysis.md"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "A statement naming a product or vendor (\"the system shall store customer records in PostgreSQL\") is a design decision or imposed constraint rather than a functional requirement.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Hedged in the prose as 'is not usually treated as' and 'usually a constraint smuggled in as a need', so it is offered as consensus practice, not as a rule any body has laid down. That is exactly what the waiver permits: the sentence claims no authority it cannot cite.",
+    "source": "Internal hedging check against study-guide/STYLE.md section 8; no external source claimed or needed"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "Functional/non-functional classification and priority are independent axes, so 'non-functional' never means 'optional'.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is a definitional consistency claim, not an appeal to authority: classification describes what a sentence constrains, priority describes delivery order, and the file states both axes in its own terms without attributing the distinction to any body. It is also internally consistent with the prioritization topic, which repeats that a non-functional requirement can be a Must.",
+    "source": "Internal consistency with pm.functional-analysis.requirements-prioritization in the same file; no external authority invoked"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "pm.functional-analysis.non-functional-requirements",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 92-93 and byte-identical to the canonical sentence after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "pm.functional-analysis.non-functional-requirements",
+    "claim": "\"99.9% availability measured monthly\" is a budget of roughly 43 minutes of downtime in a 30-day month.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Arithmetic: a 30-day month is 43,200 minutes; 0.1% of that is 43.2 minutes. 'Roughly 43 minutes' is correct, and the prose states the measurement window explicitly rather than leaving it implied.",
+    "source": "Arithmetic (30 x 24 x 60 = 43200; 43200 x 0.001 = 43.2)"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "pm.functional-analysis.non-functional-requirements",
+    "claim": "\"customer records shall be retained for seven years\" bounds a behaviour rather than adding one, \"like every other statement in this topic\".",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "The universal quantifier makes an unhedged classification assertion that no source in this project can support, and the concept's own Traps paragraph two lines later concedes the opposite: that a sentence of this shape inverts under rewording and 'both classifications are defensible in practice'. A retention rule can just as defensibly be read as adding a behaviour (retain records) as bounding one. Fixed by replacing the universal with what the project can support: the statement is usually recorded on the non-functional side as a constraint on data handling, with an explicit pointer to the traps that say it can be reworded across the line.",
+    "source": "Internal contradiction with the same concept's Traps paragraph (study-guide/06-it-project-management/functional-analysis.md); no primary source exists for either classification (data/sourcing-waivers.json)"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "pm.functional-analysis.non-functional-requirements",
+    "claim": "Non-functional requirements are commonly grouped as quality attributes or informally as the \"-ilities\", and a usable one carries an attribute, a metric, a threshold and a measurement condition.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Stated as consensus practice and hedged ('commonly', 'in most practice'), and no standard is named as the source of the list. The prose does not claim that any body defines the quality-attribute set, which is what the waiver forbids.",
+    "source": "Hedging check against study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "pm.functional-analysis.non-functional-requirements",
+    "claim": "The comparison table rows (question answered, typical wording, how it is checked, effect on architecture, failure mode, relationship to priority) state no attributed rule.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Read row by row: each is either a definitional restatement of the what/how-well axis or is hedged ('Usually checked by', 'Often addable later', 'Frequently decisive'). No row asserts that a standard prescribes the distinction, and the closing sentence names the separating axis without appeal to authority.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 74-86"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "pm.functional-analysis.requirements-elicitation",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 178-179, byte-identical to the canonical sentence after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "pm.functional-analysis.requirements-elicitation",
+    "claim": "Practice prefers \"elicitation\" to \"gathering\" because requirements do not already exist in finished form.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Explicitly hedged as 'The word choice is deliberate in most practice', with the reason given in the file's own words. No body of knowledge is named as having made the terminological choice, which is the failure mode this pass is looking for.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 181-185; hedging check against STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "pm.functional-analysis.use-case",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 210-211, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "pm.functional-analysis.use-case",
+    "claim": "A use case carries a named actor, goal, preconditions, a numbered main success scenario, alternate and exception flows, and a postcondition.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is the common structured-template shape, and the prose introduces it as 'In most practice it carries ...' rather than as a required template. Critically, it does not attribute the template to any named standard or body of knowledge, so no authority is invented.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 213-218; hedging check against STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "pm.functional-analysis.use-case",
+    "claim": "A use case diagram shows actors, the system boundary and named interactions as ovals, and an actor need not be human.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Accurate description of the conventional notation - use cases are drawn as ellipses inside a rectangle representing the subject, actors sit outside it, and an actor is a role that may be another system or a timer rather than a person. The prose describes the notation without claiming that any specification requires it, so the waiver is respected either way.",
+    "source": "Conventional UML use case diagram notation (OMG UML, UseCases chapter); no standard cited in the prose itself"
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "pm.functional-analysis.use-case",
+    "claim": "The use case vs user story comparison separates on intended completeness rather than length.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Every row is a practice observation, and the 'Form' row's user story wording ('as a role, I want a capability, so that a benefit') is the widely used template, presented without attribution to any owner of the form. No row asserts a rule from a named framework - 'agile backlog' is a practice noun, not a cited authority.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 249-263; compares line matches the brief from npm run guide-plan"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "pm.functional-analysis.process-mapping",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 269-270, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "pm.functional-analysis.process-mapping",
+    "claim": "Common forms are the flowchart, the swimlane diagram (one lane per role, so a lane crossing is a hand-off), and value stream style maps that record waiting time as well as working time.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Hedged as 'Common forms in practice include', and each description is accurate to the technique as generally used: swimlanes partition by role or department, and value stream mapping records wait time alongside process time. No standard, framework owner or certification body is named as prescribing any of it.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 272-276; hedging check against STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-018",
+    "concept_id": "pm.functional-analysis.gap-analysis",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 298-299, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-019",
+    "concept_id": "pm.functional-analysis.gap-analysis",
+    "claim": "Gap analysis names the distance between current and desired state but delivers neither a feasibility judgement nor a cause; those are separate activities.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "A boundary statement about what the technique does not do, hedged where it needs to be ('In most practice the comparison is done dimension by dimension'). It draws its lines against feasibility study and root cause analysis, both of which are described in this project's own terms rather than quoted from a body of knowledge, so nothing here needs a source the project lacks.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 301-318"
+  },
+  {
+    "claim_id": "CL-020",
+    "concept_id": "pm.functional-analysis.feasibility-study",
+    "claim": "The depth-1 Quick reference row carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker is inside the row's fourth cell at line 356 and normalises to the canonical sentence exactly. npm run check-guide accepts it, so the row is the concept's single definition site and it carries the marker as STYLE section 8 requires.",
+    "source": "study-guide/STYLE.md sections 1 and 8; npm run check-guide passes with 0 errors on this scope"
+  },
+  {
+    "claim_id": "CL-021",
+    "concept_id": "pm.functional-analysis.feasibility-study",
+    "claim": "A feasibility study assesses technical, operational and economic achievability, with legal and schedule feasibility often added.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Matches the dataset description for the concept, and the additional two dimensions are hedged with 'often added' rather than presented as a fixed list from a named source. The row's discrimination against gap analysis is the project's own reasoning, not a quotation.",
+    "source": "data/topics/06-it-project-management.json, pm.functional-analysis.feasibility-study description"
+  },
+  {
+    "claim_id": "CL-022",
+    "concept_id": "pm.functional-analysis.requirements-prioritization",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 326-327, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-023",
+    "concept_id": "pm.functional-analysis.requirements-prioritization",
+    "claim": "MoSCoW is Must have, Should have, Could have and Won't have, the last conventionally meaning 'not in this delivery' rather than permanent rejection.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Consistent with the technique's standard expansion, in which the W band is read as 'Won't have this time' - a scoped decision for the current delivery. Attempted to check the DSDM handbook page on agilebusiness.org directly and it returns HTTP 403 to automated fetches, so no primary citation is available; the prose already hedges with 'conventionally understood' and names no owning framework, so it claims no authority the project cannot back.",
+    "source": "agilebusiness.org DSDM MoSCoW page returns 403 (fetch attempted 2026-08-11); claim rests on the prose's own 'conventionally understood' hedge"
+  },
+  {
+    "claim_id": "CL-024",
+    "concept_id": "pm.functional-analysis.requirements-prioritization",
+    "claim": "Priority is a separate axis from classification, from effort estimate, and from defect severity.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "A definitional separation stated in the file's own terms, consistent with the functional-requirements topic's identical statement, and asserted of no named scheme owner. The capping guidance around it is hedged ('schemes are usually applied with a cap on the top band').",
+    "source": "Internal consistency with pm.functional-analysis.functional-requirements Traps in the same file"
+  },
+  {
+    "claim_id": "CL-025",
+    "concept_id": "pm.functional-analysis.traceability",
+    "claim": "The depth-1 Quick reference row carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker is inside the row's fourth cell at line 493 and normalises to the canonical sentence exactly; check-guide accepts the row as the definition site.",
+    "source": "study-guide/STYLE.md sections 1 and 8; npm run check-guide passes with 0 errors on this scope"
+  },
+  {
+    "claim_id": "CL-026",
+    "concept_id": "pm.functional-analysis.traceability",
+    "claim": "Traceability links each requirement forward to design, implementation and tests and back to the justifying need, demonstrating coverage and impact but not that anything passed.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Matches the dataset description and states its own limit rather than borrowing one. No standard is named as requiring a traceability matrix, which would have been the invented-authority failure here.",
+    "source": "data/topics/06-it-project-management.json, pm.functional-analysis.traceability description"
+  },
+  {
+    "claim_id": "CL-027",
+    "concept_id": "pm.functional-analysis.verification-vs-validation",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 400-401, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-028",
+    "concept_id": "pm.functional-analysis.verification-vs-validation",
+    "claim": "Verification checks the system against the agreed specification; validation checks it against the actual need - \"building the product right\" versus \"building the right product\".",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The pairing matches the dataset description for the concept, and the prose introduces the couplet as 'The usual mnemonic' rather than attributing it to a standard or an author. That is the correct handling under the waiver: the mnemonic is presented as consensus phrasing, so nothing rests on a source the project does not have.",
+    "source": "data/topics/06-it-project-management.json, pm.functional-analysis.verification-vs-validation description"
+  },
+  {
+    "claim_id": "CL-029",
+    "concept_id": "pm.functional-analysis.verification-vs-validation",
+    "claim": "Verification activities (reviews, inspections, static analysis, unit/integration/system testing against specified behaviour) run continuously through build, while validation activities (prototypes, demos, pilots, UAT) cluster where users can react.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Hedged with 'In most practice' and 'tends to', and the activity lists are the ordinary ones. No named standard is credited with the taxonomy, which is what would have made this unsupportable.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 416-424; hedging check against STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-030",
+    "concept_id": "pm.functional-analysis.user-acceptance-testing",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 433-434, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-031",
+    "concept_id": "pm.functional-analysis.user-acceptance-testing",
+    "claim": "UAT is a validation activity performed by users or business representatives, typically the last gate before go-live, ending in an explicit business acceptance decision.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Matches the dataset description ('testing by the people who will use the system, against their real needs rather than the specification alone') and is hedged where it generalises ('typically the last gate', 'in most practice it ends in'). No standard or testing body is cited as defining UAT.",
+    "source": "data/topics/06-it-project-management.json, pm.functional-analysis.user-acceptance-testing description"
+  },
+  {
+    "claim_id": "CL-032",
+    "concept_id": "pm.functional-analysis.user-acceptance-testing",
+    "claim": "System/QA testing is verification; beta testing exposes a near-final build to a wider audience; operational acceptance testing checks that the system can be run and is typically performed by operations.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Each of the three neighbours is described consistently with the verification/validation axis the file has already defined, and the one claim about who performs it is hedged ('typically performed by the operations team'). No named test-certification syllabus is invoked as the authority for the distinctions, so the block stays inside the waiver.",
+    "source": "Internal consistency with pm.functional-analysis.verification-vs-validation in the same file"
+  },
+  {
+    "claim_id": "CL-033",
+    "concept_id": "pm.functional-analysis.specification-documentation",
+    "claim": "The concept block carries the verbatim no-primary-source waiver marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present at lines 464-465, byte-identical after whitespace normalisation.",
+    "source": "study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-034",
+    "concept_id": "pm.functional-analysis.specification-documentation",
+    "claim": "Good requirement statements are unambiguous, testable, necessary, consistent, feasible and traceable.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is the one place in the file where a reader would most expect a standard to be named, and the prose deliberately does not: it says 'Practice converges, loosely and without a single citable authority, on a familiar set of qualities'. That is the correct handling of a quality list whose usual references are paywalled, and it is the model the rest of the file follows.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 478-484; STYLE.md section 8"
+  },
+  {
+    "claim_id": "CL-035",
+    "concept_id": "pm.functional-analysis.specification-documentation",
+    "claim": "The requirement is the individual statement, the specification is the numbered and baselined document collecting them, and baselining is what gives change control something to control.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Terminological rather than authoritative: the prose states the distinction and immediately concedes that 'the exam can use either word', so it does not stake an answer on one organisation's house terminology - which the orientation paragraph already warns this material cannot settle. No standard is named as fixing the terms.",
+    "source": "study-guide/06-it-project-management/functional-analysis.md lines 467-484; orientation paragraph lines 11-13"
+  },
+  {
+    "claim_id": "CL-036",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "Orientation paragraph: the domain carries 10% of the exam, 6th largest of 6 domains, the competency's 2025 status is unchanged, and LFS200 coverage is 12 NOT COVERED - 0/12 (0%).",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Verified two ways. First, the figures are copied verbatim from the header of npm run guide-plan for this competency, as STYLE section 9 requires. Second, against the live primary source: the Linux Foundation LFCA certification page's Domains & Competencies list reads Linux Fundamentals 16%, System Administration Fundamentals 30%, Cloud Computing Fundamentals 18%, Security Fundamentals 14%, DevOps Fundamentals 12%, IT Project Management Fundamentals 10% - so 10% is correct and is the smallest of the six.",
+    "source": "https://training.linuxfoundation.org/certification/certified-it-associate/ (fetched 2026-08-11); npm run guide-plan header"
+  },
+  {
+    "claim_id": "CL-037",
+    "concept_id": "pm.functional-analysis.functional-requirements",
+    "claim": "The file presents no shell commands, consistent with all 12 concepts having an empty commands array.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Every one of the 12 concepts in this competency has commands: [] in data/topics/06-it-project-management.json, so no Commands table is expected. Reading the file confirms it contains no Commands table and no fenced blocks; the only inline code spans are concept ids and the repository paths data/sourcing-waivers.json and research/lfs200-notes/00-course-map.md. Zero command claims exist to check - reported as zero rather than padded.",
+    "source": "data/topics/06-it-project-management.json (commands arrays); study-guide/06-it-project-management/functional-analysis.md"
+  }
+]

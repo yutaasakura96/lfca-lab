@@ -114,8 +114,9 @@ percentile and load, recovery time after a failure, a maximum time for a new adm
 complete a named task. Security and compliance requirements often arrive as externally imposed
 constraints rather than stakeholder wishes, and are commonly non-negotiable in a way performance
 targets are not: "customer records shall be retained for seven years" is typically fixed by a
-records or tax rule rather than chosen, and like every other statement in this topic it bounds a
-behaviour rather than adding one.
+records or tax rule rather than chosen, and is usually recorded on the non-functional side as a
+constraint on how data is handled — though, as the traps below show, a sentence of this shape is
+one of the ones that can be reworded across the line.
 
 **Key terms** quality attribute; threshold and measurement condition; availability target;
 percentile response time; imposed constraint.

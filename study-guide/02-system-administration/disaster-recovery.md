@@ -42,7 +42,7 @@ to be tested rather than assumed.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `tar` | Bundle files, with their permissions and timestamps, into one archive suitable for storing or shipping off-site | `-c` create, `-x` extract, `-f` name the archive file, `-z` filter through gzip, `-g` / `--listed-incremental=FILE` keep a snapshot file so later runs archive only what changed since the previous dump | `tar -czf /backup/etc.tar.gz /etc` | Leaving the archive on the same disk as its source and calling it a backup — repackaging data does not make the copy independent of the original |
+| `tar` | Bundle files, with their permissions and timestamps, into one archive suitable for storing or shipping off-site | `-c` create, `-x` extract, `-f` name the archive file, `-z` filter through gzip, `-g` / `--listed-incremental=FILE` (GNU tar only) keep a snapshot file so later runs archive only what changed since the previous dump | `tar -czf /backup/etc.tar.gz /etc` | Leaving the archive on the same disk as its source and calling it a backup — repackaging data does not make the copy independent of the original |
 | `rsync` | Copy or synchronise a directory tree to another path or host, sending only the differences | `-a` archive mode (equivalent to `-rlptgoD`), `--delete` remove files from the destination that no longer exist on the source, `-n` / `--dry-run` trial run with no changes, `--link-dest=DIR` hardlink unchanged files against a previous copy | `rsync -a --delete /srv/data/ backup:/srv/data/` | Adding `--delete` and calling the result a backup — that makes it a mirror, so a deletion or an encryption event on the source is faithfully applied to the copy |
 
 **Traps** `rsync -a` is `-rlptgoD`; it does *not* preserve ACLs (`-A`), extended attributes
@@ -109,9 +109,9 @@ taken, rather than as a second full copy of the data.
 
 **Why it matters** Snapshots are the single most common thing mistaken for a backup, because
 they behave like one right up to the failure that matters: they roll back a bad upgrade or a
-mistaken `rm` in seconds, and then vanish along with the volume when the underlying storage
-dies. A scenario that says "we snapshot nightly" is usually asking whether that is
-protection.
+mistaken `rm` in seconds, and then — in the local case — typically vanish along with the
+volume when the underlying storage dies. A scenario that says "we snapshot nightly" is
+usually asking whether that is protection.
 
 **How it works** In most implementations, a local snapshot — LVM, ZFS, Btrfs, a hypervisor's
 volume snapshot — lives in the same volume group or storage pool as the origin, so losing
@@ -706,7 +706,7 @@ that does only one has an untested half.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | Mean time to repair is the average time a fix takes once something has broken; mean time between failures is the average interval between breakages. | Both are observed averages, not targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is a frequency and says nothing about recovery speed — reliability work raises MTBF, recovery work lowers MTTR, and improving one does not improve the other. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
+| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | Usually stated as: mean time to repair is the average time a fix takes once something has broken, and mean time between failures the average interval between breakages. | Both are observed averages, not targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is a frequency and says nothing about recovery speed — reliability work raises MTBF, recovery work lowers MTTR, and improving one does not improve the other. *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* |
 
 #### Scenario
 

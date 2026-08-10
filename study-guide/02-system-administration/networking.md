@@ -5,7 +5,7 @@ address each other, find each other by name, reach each other through routers, e
 services on ports, filter that traffic, and prove where a failure sits. Its domain carries
 30% of the exam — 1st largest of 6 domains — and the competency's 2025 status is unchanged.
 LFS200 barely touches it: of 49 concepts, 40 are NOT COVERED, 4 PARTIALLY COVERED, 2
-MENTIONED ONLY and 3 FULLY COVERED — 9/49 (18%) are not NOT COVERED — so all but a ninth of
+MENTIONED ONLY and 3 FULLY COVERED — 9/49 (18%) are not NOT COVERED — so all but a fifth of
 what follows is sourced independently against RFCs, man pages and vendor documentation
 (`research/lfs200-notes/00-course-map.md`). This file is written to be read as a mechanism,
 not a glossary: the sections run in the order a packet actually travels, and every topic is
@@ -538,8 +538,9 @@ as REACHABLE, STALE and FAILED; the deprecated net-tools equivalent is `arp -n`.
 
 **Traps** ARP is IPv4-only. IPv6 uses Neighbor Discovery, carried over ICMPv6, for the same
 job — and `ip neigh` shows both, which is why the command is named for neighbours rather than
-for ARP. ARP never crosses a router: an entry for an off-subnet address will always be the
-router's MAC, not the remote host's. Two hosts configured with the same IP produce
+for ARP. ARP never crosses a router: a host does not resolve an off-subnet address at all — it
+resolves the gateway instead, so the frame carrying a packet to a remote host holds the
+router's MAC, not the destination's. Two hosts configured with the same IP produce
 inconsistent ARP replies, which presents as intermittent connectivity rather than a clean
 failure.
 
@@ -1437,9 +1438,10 @@ in one line.
 picks an unused source port automatically — on Linux from the range in
 `/proc/sys/net/ipv4/ip_local_port_range`, 32768 to 60999 by default — and connects to the
 server's address and port. `ss -tulpn` lists TCP (`-t`) and UDP (`-u`) listening sockets
-(`-l`) with the owning process (`-p`) and without resolving names or service names (`-n`). The
-Local Address column matters as much as the port: `0.0.0.0:80` accepts on every address,
-`127.0.0.1:80` only from the same machine, and `[::]:80` is the IPv6 wildcard.
+(`-l`) with the owning process (`-p`) and with ports left as numbers rather than translated
+into service names (`-n`). The Local Address column matters as much as the port: `0.0.0.0:80`
+accepts on every address, `127.0.0.1:80` only from the same machine, and `[::]:80` is the IPv6
+wildcard.
 
 **Key terms** port number; socket; four-tuple; bind address; ephemeral port.
 
@@ -1447,7 +1449,7 @@ Local Address column matters as much as the port: `0.0.0.0:80` accepts on every 
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `ss -tulpn` | List listening TCP and UDP sockets with the owning process, numerically | `-t` TCP, `-u` UDP, `-l` listening only, `-p` process, `-n` no name resolution | `ss -tulpn` | Running it without privilege and seeing no process names — `-p` needs root to attribute sockets to other users' processes |
+| `ss -tulpn` | List listening TCP and UDP sockets with the owning process, numerically | `-t` TCP, `-u` UDP, `-l` listening only, `-p` process, `-n` numeric so ports keep their numbers | `ss -tulpn` | Running it without privilege and seeing no process names — `-p` needs root to attribute sockets to other users' processes |
 
 **Traps** A port is not "opened by the operating system"; it is open because a process bound it
 and is listening. Stopping the service closes the port whatever the firewall says. Binding to
@@ -1621,9 +1623,10 @@ is wrapped.
 
 **Why it matters** Confirming that a web service answers, and reading what it answers with, is
 a routine administrative check, and the status code is the fastest classifier available: 2xx
-succeeded, 3xx redirected, 4xx blamed the client, 5xx blamed the server. Knowing that a 502 or
-503 comes from a proxy in front of the application, not from the application itself, redirects
-an investigation immediately.
+succeeded, 3xx redirected, 4xx blamed the client, 5xx blamed the server. Knowing that 502 and
+504 are by definition a gateway or proxy reporting a bad or missing answer from the server
+behind it, rather than that server answering for itself, redirects an investigation
+immediately.
 
 **How it works** A client opens a TCP connection, and for HTTPS negotiates TLS over it before
 any HTTP is sent. It then issues a request — a method (GET, HEAD, POST, PUT, DELETE), a target
@@ -1933,8 +1936,8 @@ firewall tracks connections, so a rule permitting outbound traffic implicitly pe
 replies, which is why a host with no inbound allows can still browse the web. Direction
 matters: an inbound rule governs traffic arriving at this host, and a forwarding rule governs
 traffic passing through it to somewhere else. `ufw status` reports the state and rules on
-Debian-family systems, `firewall-cmd --list-all` does the same for the active zone on Red
-Hat-family systems.
+Debian-family systems, `firewall-cmd --list-all` does the same for one firewalld zone — the
+default zone unless `--zone` names another — on Red Hat-family systems.
 
 **Key terms** default-deny; stateful inspection; chain; rule order; zone.
 
@@ -1943,7 +1946,7 @@ Hat-family systems.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `ufw status` | Show whether ufw is active and list its rules | `verbose` adds default policies and logging state; `numbered` adds indices for deletion | `ufw status verbose` | Running it unprivileged — ufw requires root, and reporting "inactive" from memory rather than checking is how a firewall gets blamed for a bind-address problem |
-| `firewall-cmd --list-all` | Show everything configured in the active zone | `--zone=NAME` inspect another zone; `--list-all-zones` show every zone | `firewall-cmd --list-all` | Reading one zone's output as the whole policy — an interface in a different zone is governed by that zone's rules |
+| `firewall-cmd --list-all` | Show everything configured in the default zone | `--zone=NAME` inspect another zone instead; `--list-all-zones` show every zone | `firewall-cmd --list-all` | Reading one zone's output as the whole policy — an interface bound to a different zone is governed by that zone's rules |
 
 **Traps** A firewall that drops traffic and one that rejects it produce different symptoms:
 DROP gives the client a timeout, REJECT gives an immediate refusal. That difference is
@@ -2090,7 +2093,7 @@ refusal — so something is dropping the packet rather than answering it. The sa
 port 22 on the same host succeeds instantly, which rules out routing and proves the host is
 reachable: the filtering is port-specific. On the server itself, `ss -tulpn` shows the API
 listening on `0.0.0.0:8443`, so the service is fine and bound correctly. `firewall-cmd
---list-all` shows 443 and 22 permitted in the active zone and no mention of 8443 — and the
+--list-all` shows 443 and 22 permitted in the default zone and no mention of 8443 — and the
 deployment did add the rule, but with `--permanent` and without a reload, so it is in the
 permanent configuration and not in the runtime one. A reload activates it and the check passes.
 Had `nc -zv` instead returned "Connection refused" immediately, the entire firewall
@@ -2296,8 +2299,10 @@ connect" scenario is resolved by reading one column of this output.
 
 **How it works** `ss -tulpn` and `netstat -tulpn` take the same option letters and produce
 comparable output: `-t` TCP, `-u` UDP, `-l` listening only, `-p` the owning process, `-n`
-numeric so ports and addresses are not translated into names. `ss` reads socket information
-from the kernel through netlink, whereas `netstat` parses files under `/proc/net`, which is why
+numeric. What `-n` suppresses differs slightly: in both tools it stops a port being shown as a
+service name, and in `netstat` it additionally stops an address being resolved to a host name —
+something `ss` does not do at all unless asked with `-r`. `ss` reads socket information from
+the kernel through netlink, whereas `netstat` parses files under `/proc/net`, which is why
 `ss` is markedly faster on hosts with many connections. `ss` also accepts state filters — `ss
 -t state established` — that netstat has no equivalent for.
 

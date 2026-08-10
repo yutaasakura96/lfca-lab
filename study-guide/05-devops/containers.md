@@ -141,9 +141,10 @@ is the artifact built from it, and the registry is the warehouse the artifact is
 **What it is** An image is a stack of read-only layers, each one a set of filesystem changes —
 additions, deletions, modifications — relative to the layer beneath it. Layers are what make
 images cheap to rebuild and cheap to distribute, because identical layers are reused rather than
-duplicated. Not every Dockerfile instruction produces one: only `RUN`, `COPY` and `ADD` add a
-filesystem layer, while `ENV`, `LABEL`, `WORKDIR`, `EXPOSE`, `CMD` and the rest record
-configuration metadata.
+duplicated. Not every Dockerfile instruction produces one: `RUN`, `COPY` and `ADD` add filesystem
+layers, while `ENV`, `LABEL`, `EXPOSE` and `CMD` record configuration metadata and add nothing to
+the filesystem. `WORKDIR` is the instruction that looks like pure metadata and is not — it creates
+its directory when that directory is missing, which is a filesystem change like any other.
 
 **Why it matters** Layer caching explains build behaviour a candidate is expected to predict.
 Instructions execute in order, and a change invalidates the cache for its own layer and every
@@ -251,8 +252,9 @@ never changed. The fix is to reference `team/api:1.4.2` or a digest, not to rebu
    Its main process exited, so the container is stopped; `docker ps -a` lists stopped containers
    as well as running ones.
 3. Which Dockerfile instructions create a filesystem layer, and what do the others do?
-   `RUN`, `COPY` and `ADD` create layers; the remaining instructions, such as `ENV`, `WORKDIR`,
-   `EXPOSE` and `CMD`, record configuration metadata.
+   `RUN`, `COPY` and `ADD` add filesystem content and create layers; `ENV`, `LABEL`, `EXPOSE` and
+   `CMD` record configuration metadata only. `WORKDIR` is the edge case: it sets metadata but
+   creates its directory when that directory is missing, so it can create a layer as well.
 4. Does the tag `latest` mean the newest image in a repository?
    No — it is only the default tag name applied when none is specified, and it is a mutable
    pointer that can name any image at all.
@@ -274,8 +276,10 @@ never changed. The fix is to reference `team/api:1.4.2` or a digest, not to rebu
 **What it is** The declarative recipe for building an image: a text file of instructions executed
 in order against a build context. `FROM` selects the base image, `RUN` executes a command during
 the build, `COPY` and `ADD` bring files in, and `ENV`, `LABEL`, `WORKDIR`, `EXPOSE`, `USER`,
-`ARG`, `CMD` and `ENTRYPOINT` set build-time or image configuration. Only `RUN`, `COPY` and
-`ADD` add a filesystem layer; the rest record metadata in the image configuration.
+`ARG`, `CMD` and `ENTRYPOINT` set build-time or image configuration. `RUN`, `COPY` and `ADD` are
+the instructions that add filesystem layers; `ENV`, `LABEL`, `EXPOSE`, `USER`, `ARG`, `CMD` and
+`ENTRYPOINT` only write metadata into the image configuration, and `WORKDIR` writes metadata but
+also creates its directory when that directory is missing, so it too can add a layer.
 
 **Why it matters** This is where the exam asks its most literal questions, and each of them has a
 plausible-sounding wrong answer: `EXPOSE` sounds like it opens a port and does not, `CMD` sounds
@@ -301,10 +305,11 @@ archives, which is precisely why `COPY` is preferred when plain copying is all t
 | --- | --- | --- | --- | --- |
 | `docker build -t` | Build an image from a Dockerfile and give it a name and tag | `-t name:tag`, `-f` path to an alternate Dockerfile, `--no-cache` rebuild every layer, `--pull` refresh the base image | `docker build -t api:1.4.2 .` | Reading the trailing `.` as "the Dockerfile" — it is the build context directory; the Dockerfile is found inside it by default and named explicitly with `-f` |
 
-**Traps** `EXPOSE` publishes nothing. Not every instruction creates a layer — only `RUN`, `COPY`
-and `ADD` do. A secret supplied through `ARG` or set with `ENV` is baked into the image and can
-be recovered from it, and a later instruction that unsets the variable does not remove it from
-the layer where it was written. And the Dockerfile is not the image: editing the file changes
+**Traps** `EXPOSE` publishes nothing. Not every instruction creates a layer — `ENV`, `LABEL`,
+`EXPOSE` and `CMD` write metadata only, while `RUN`, `COPY` and `ADD` write filesystem content
+(and `WORKDIR` creates its directory, so it can add one too). A secret supplied through `ARG` or
+set with `ENV` is baked into the image and can be recovered from it, and a later instruction that
+unsets the variable does not remove it from the layer where it was written. And the Dockerfile is not the image: editing the file changes
 nothing until a build runs.
 
 **What the exam may test** Naming what a given instruction does and does not do — especially
@@ -443,11 +448,12 @@ container is removed and recreated, and the data is gone. It was never persisted
 container's writable layer exists only for the lifetime of that container. Note the precise
 boundary — stopping a container does not lose the writable layer; removing it does.
 
-**How it works** In `-v source:/path/in/container`, a source that looks like a path (it begins
-with `/`) is a bind mount of that host directory, while a plain name is a named volume, created
-on demand if it does not exist. Volumes are managed by Docker, independent of the host's
-directory layout, easier to back up and migrate, and can be shared between containers; bind
-mounts depend on the host's own directory structure and OS, which is what makes them ideal for
+**How it works** In `-v source:/path/in/container`, a source written as a path — absolute, or
+relative starting with `./` or `../`, which Docker Engine has accepted since version 23 — is a
+bind mount of that host directory, while a plain name is a named volume, created on demand if it
+does not exist. Volumes are managed by Docker, independent of the host's directory layout, easier
+to back up and migrate, and can be shared between containers; bind mounts depend on the host's
+own directory structure and OS, which is what makes them ideal for
 mounting source code into a development container and poor for production data. A volume's
 contents outlive every container that uses it: `docker rm` leaves named volumes alone, so
 persistent data survives a container being deleted and recreated.
@@ -459,7 +465,7 @@ persistent data survives a container being deleted and recreated.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `docker volume` | Manage volumes | subcommands `create`, `ls`, `inspect`, `rm`, `prune` | `docker volume ls` | Expecting removing containers to remove their volumes — named volumes persist until removed explicitly, so unused volumes quietly accumulate |
-| `docker run -v` | Mount a volume or a host directory into a container | `-v name:/path` named volume, `-v /host/path:/path` bind mount | `docker run -v pgdata:/var/lib/postgresql/data postgres` | Writing a bare name where a host path was intended (or the reverse) — the leading `/` is what decides which of the two you get |
+| `docker run -v` | Mount a volume or a host directory into a container | `-v name:/path` named volume, `-v /host/path:/path` bind mount | `docker run -v pgdata:/var/lib/postgresql postgres:18` | Writing a bare name where a host path was intended (or the reverse) — whether the source reads as a path or as a plain name is what decides which of the two you get; and mounting a path the image does not actually store its data under, which silently persists nothing |
 
 **Traps** A volume is not a bind mount, and the exam distinguishes them by who manages the
 storage, not by what the container sees — inside the container both are just a directory.

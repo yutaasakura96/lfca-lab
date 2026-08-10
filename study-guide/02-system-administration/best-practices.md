@@ -198,9 +198,9 @@ success rather than as the tool having done nothing useful.
 **Traps** Automation is not itself idempotency, and the exam can offer them as if one implied
 the other. A scheduled job is automated whether or not it is safe to repeat. Idempotency is
 also a property of the operation rather than of the tool: a configuration-management tool
-invoking a raw shell command is exactly as idempotent as that command, which is usually not at
-all. And "it worked when I ran it" is not evidence of idempotency — only the second run tests
-for it.
+invoking a raw shell command is typically no more idempotent than that command itself, unless
+the task is explicitly guarded by a condition that skips it once the work is already done. And
+"it worked when I ran it" is not evidence of idempotency — only the second run tests for it.
 
 **What the exam may test** Given a described procedure, judging whether re-running it is safe,
 and recognising that the fix for a non-idempotent script is to make the operation
@@ -369,11 +369,11 @@ the notification path, or alert quality, rather than answering "monitoring" to a
 **What it is** Projecting how resource consumption will grow so that expansion is scheduled in
 advance, rather than triggered by the outage that exhaustion causes.
 
-**Why it matters** Capacity is the one class of failure that announces itself in advance and is
-still routinely missed, because the announcement is a trend rather than an event. In most
-descriptions of this practice, the deliverable is a date — the point at which current growth
-meets the current limit — because a date is what makes procurement, budget approval, and a
-maintenance window schedulable before they are urgent.
+**Why it matters** Capacity is one of the few classes of failure that announce themselves well
+in advance and are still routinely missed, because the announcement is a trend rather than an
+event. In most descriptions of this practice, the deliverable is a date — the point at which
+current growth meets the current limit — because a date is what makes procurement, budget
+approval, and a maintenance window schedulable before they are urgent.
 
 **How it works** Historical utilisation is extrapolated forward against a known ceiling, with
 headroom reserved for spikes and for the lead time that adding capacity actually requires.
@@ -422,10 +422,10 @@ window existed to schedule.
 can both make and approve a change, or both initiate and complete a transaction. It is a
 structural control: it does not depend on trusting anyone in particular.
 
-**Why it matters** It defends against two things at once, which is typically why it survives
-cost-cutting: a malicious insider needs a collaborator, and an honest administrator's mistake
-meets a second pair of eyes before it reaches production. Both benefits come from the same
-structure, and both disappear the moment one person holds both roles.
+**Why it matters** It defends against two things at once, which is typically the argument made
+for the friction it adds: a malicious insider needs a collaborator, and an honest
+administrator's mistake meets a second pair of eyes before it reaches production. Both benefits
+come from the same structure, and both disappear the moment one person holds both roles.
 
 **How it works** In most implementations of this practice, the sensitive workflow is decomposed
 so that the person who requests a change is not the person who approves it, and often not the
@@ -549,10 +549,11 @@ whole reason the procedure is written down rather than left to memory.
 can hold, because the exam's trap and the real one are the same: disabling the login account is
 not revoking access. SSH public keys already installed on hosts, API tokens and service
 credentials, VPN or client certificates, third-party accounts outside the directory, and shared
-passwords the departing person knew all typically survive the deletion of a Unix account
-untouched. Role changes are the commonly neglected third case — access accumulates because the
-old role's grants are rarely removed when the new role's are added, which is how a long-serving
-employee ends up with more authority than anyone intended. This is adjacent to least privilege
+passwords the departing person knew all typically survive the disabling of a Unix login account
+untouched, and everything held outside that account survives its deletion as well. Role changes
+are the commonly neglected third case — access accumulates because the old role's grants are
+rarely removed when the new role's are added, which is how a long-serving employee ends up with
+more authority than anyone intended. This is adjacent to least privilege
 but not the same thing: least privilege governs how much an identity should hold at any moment,
 while offboarding governs the complete removal of what it does hold.
 

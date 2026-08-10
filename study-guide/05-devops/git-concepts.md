@@ -145,7 +145,7 @@ those later edits unstaged until you add it again.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `git status` | Show which files are staged, modified but unstaged, or untracked | `-s` short format, `-b` show branch | `git status` | Skimming past the "Untracked files" heading — an untracked file is not staged, not committed, and not protected by anything |
+| `git status` | Show which files are staged, modified but unstaged, or untracked | `-s` short format, `-b` show branch and tracking info even in short format | `git status` | Skimming past the "Untracked files" heading — an untracked file is not staged, not committed, and not protected by anything |
 | `git add` | Copy the current content of a path into the index | `-A` stage all changes including deletions, `-u` only paths already tracked, `-p` choose hunk by hunk | `git add` | Assuming a file stays staged as it changes — `add` records content at the moment it runs, so edits made afterwards need another `add` |
 | `git commit` | Record the contents of the index as a new commit | `-m <msg>` message inline, `-a` auto-stage modified and deleted tracked files | `git commit` | Believing `-a` stages everything — it stages modifications and deletions of already-tracked files, and never adds a new untracked file |
 
@@ -163,9 +163,10 @@ moves it forward.
 *id: `devops.git-concepts.commit` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git*
 
 **What it is** An immutable snapshot of the tracked project at one moment, carrying an author, a
-committer, a timestamp, a log message, and a link to its parent commit (two parents, for a merge
-commit). It is identified by a hash computed over that content, which is why a commit cannot be
-edited: any change to it produces a different hash, and therefore a different commit.
+committer, a timestamp, a log message, and a link to its parent commit (two parents for an
+ordinary merge commit, and more for an octopus merge of several branches at once). It is
+identified by a hash computed over that content, which is why a commit cannot be edited: any
+change to it produces a different hash, and therefore a different commit.
 
 **Why it matters** Two exam-relevant properties follow directly from that definition. First, a
 commit is a snapshot, not a diff — the patch you see in `git log -p` is computed on demand
@@ -305,10 +306,12 @@ file contents — into separate commands.
 | `git switch` | Move to an existing branch, updating index and working tree | `-c <name>` create and switch, `--detach` check out a commit with no branch | `git switch main` | Reaching for it to discard file changes — that is `git restore`; `switch` aborts rather than silently losing local modifications |
 | `git checkout -b` | Create a branch and switch to it in one command | `-B` create or reset it to the start point | `git checkout -b feature/retry` | Assuming it is a different operation from `git switch -c` — they are equivalent for this case; `checkout` is simply the older, overloaded command |
 
-**Traps** `git branch -d` refuses to delete a branch whose commits are not merged; `-D` deletes
-it anyway, and the commits become unreachable from any branch. Also, `origin/main` is not a
-branch you can commit on — it is a remote-tracking branch, a local read-only record of where the
-remote's `main` stood at your last contact with it.
+**Traps** `git branch -d` refuses to delete a branch that is not fully merged into its upstream,
+or into HEAD if it has no upstream; `-D` is shorthand for `--delete --force` and deletes it
+anyway, leaving any commits that were reachable only from that branch reachable from nothing —
+recoverable through the reflog until Git prunes them. Also, `origin/main` is not a branch you can
+commit on — it is a remote-tracking branch, a local read-only record of where the remote's `main`
+stood at your last contact with it.
 
 **What the exam may test** Which single command creates a branch and switches to it, and
 recognising the branch-as-pointer model in a question about what happens to commits when a
@@ -366,7 +369,7 @@ moves, no merge commit appears — and knowing which option forces a merge commi
 | | Merge | Pull request | Rebase |
 | --- | --- | --- | --- |
 | What it is | A Git command that joins two histories | A hosting platform's proposal to merge a branch, with review and checks attached | A Git command that replays commits onto a new base |
-| Where it lives | In any repository, local or server-side | On the platform (GitHub, GitLab, Bitbucket) — there is no Git command for it | In a local repository |
+| Where it lives | In any repository, local or server-side | On the platform (GitHub, GitLab, Bitbucket) — no Git command opens one; `git request-pull` only prints a summary you send by hand | In a local repository |
 | Effect on existing commits | None — they keep their hashes | None by itself; it is a request, not an operation | Replaced by new commits with new hashes |
 | Produces a merge commit | Only when the histories diverged; never on a fast-forward | Whatever strategy the project configures when someone merges it | No — the point is linear history |
 | Safe on a branch others have pulled | Yes | Yes | No — rewriting published commits forces everyone else to recover |
@@ -705,10 +708,11 @@ rather than a property of the request.
 
 **Key terms** merge request; review; status check; target branch.
 
-**Traps** There is no `git pull-request` command, and a pull request has nothing to do with
-`git pull` despite the name. Typically, pushing further commits to the source branch updates the
-open request rather than requiring a new one, so "open another pull request to fix the review
-comments" is usually the wrong answer.
+**Traps** There is no `git pull-request` command, and opening a request runs no `git pull`: the
+name describes asking someone else to pull your branch, which is as far as Git itself goes with
+`git request-pull`, a command that only prints a summary for you to send by hand. Typically,
+pushing further commits to the source branch updates the open request rather than requiring a new
+one, so "open another pull request to fix the review comments" is usually the wrong answer.
 
 **What the exam may test** Recognising the pull request as a platform-level review wrapper around
 a merge rather than a Git operation, and knowing that "merge request" names the same thing on a
@@ -913,8 +917,9 @@ per commit.
 
 **Traps** A commit that does not appear in `git log` is not lost; it is unreachable from the
 current HEAD, which is a different claim. Naming the branch (`git log other-branch`) or `--all`
-brings it into view. Conversely, `git diff` between two branches is not the same as the merge
-result — it is a content comparison, with no merge base logic unless you ask for `--merge-base`.
+brings it into view. Conversely, `git diff main feature` is not the same as the merge result — it
+is a plain endpoint comparison, and it brings in the merge base only when you ask for it, with
+`--merge-base` or the three-dot `git diff main...feature` form.
 
 **What the exam may test** Matching a stated question — "what would this commit contain," "what
 have I changed since the last commit," "who touched this and when" — to the right command and
@@ -936,9 +941,9 @@ remediation is to rotate the credential. To undo the change itself they must cho
 pushed, so `git revert` is the safe option, adding an inverse commit that leaves history intact,
 where `git reset` would drop the commit off the branch and make the next push a non-fast-forward.
 Before deciding, they check the damage with `git log --oneline` to find the offending commit and
-`git diff` against it to see exactly what it introduced — and discover a second, unstaged edit
-sitting in the working tree, which they set aside with `git stash` so the revert runs against a
-clean tree.
+`git diff` between that commit and its parent to see exactly what it introduced — and discover a
+second, unstaged edit sitting in the working tree, which they set aside with `git stash` so the
+revert runs against a clean tree.
 
 #### Knowledge check
 

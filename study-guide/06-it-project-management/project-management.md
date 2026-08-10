@@ -283,7 +283,7 @@ forbidden.
 the Manifesto for Agile Software Development and its twelve accompanying principles. It is not
 a process, a framework, or a set of meetings — it is a statement of what to prefer when two
 good things compete. Its four value statements each rank one thing above another: people and
-their interactions above processes and tools; software that works above exhaustive
+their interactions above processes and tools; software that works above comprehensive
 documentation; collaboration with the customer above negotiating the contract; and responding
 to change above following the plan.
 
@@ -867,7 +867,7 @@ dates at all, while the Gantt chart schedules that same work along a timeline.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.project-management.gantt-chart` | Gantt chart | A bar chart of tasks plotted against a time axis, showing each task's duration and its dependencies, associated with plan-driven scheduling. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* It is typically confused with the work breakdown structure: the Gantt chart is a schedule view with time as its defining axis, while the work breakdown structure decomposes the deliverable and has no time axis at all. [Not to be confused with work breakdown structure](project-management.md#cmp-pm.project-management.work-breakdown-structure). |
+| `pm.project-management.gantt-chart` | Gantt chart | A bar chart of tasks plotted against a time axis, showing each task's duration and, as the chart is typically drawn today, its dependencies, associated with plan-driven scheduling. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* It is typically confused with the work breakdown structure: the Gantt chart is a schedule view with time as its defining axis, while the work breakdown structure decomposes the deliverable and has no time axis at all. [Not to be confused with work breakdown structure](project-management.md#cmp-pm.project-management.work-breakdown-structure). |
 | `pm.project-management.critical-path` | Critical path | The longest chain of dependent tasks through a schedule; its length sets the earliest possible finish, so any delay on it delays the whole project. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* "Critical" is generally taken to mean longest-duration and zero-float, not most important or most difficult: shortening a task that is not on the critical path typically buys no time at all, which is the discrimination a question is usually after. |
 
 #### Scenario

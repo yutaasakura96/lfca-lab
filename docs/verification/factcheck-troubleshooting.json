@@ -1,0 +1,623 @@
+[
+  {
+    "claim_id": "TS-001",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "`journalctl -u <unit>` restricts output to one systemd unit and takes a unit name or a glob pattern.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1) documents the option as `-u, --unit=UNIT|PATTERN`: 'Show messages for the specified systemd unit UNIT ... or for any of the units matched by PATTERN.' Exactly the claimed behaviour, including the pattern form.",
+    "source": "journalctl(1), systemd 255 (Ubuntu 24.04, lfca-lab:24.04 container); https://man7.org/linux/man-pages/man1/journalctl.1.html"
+  },
+  {
+    "claim_id": "TS-002",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "`-b` restricts journal output to the current boot.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1) -b: 'The argument may be empty, in which case logs for the current boot will be shown.' Verified empirically: `journalctl --list-boots` on the lab container lists boots 0 and -1, and `journalctl -b -1` returns only the earlier boot's records.",
+    "source": "journalctl(1) -b/--boot; empirical run in container node1"
+  },
+  {
+    "claim_id": "TS-003",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "`journalctl -p err` filters by syslog priority; a single level selects that level and every more severe one, so `err` (3) also yields `crit` (2), `alert` (1) and `emerg` (0); a range is written `FROM..TO`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1) -p: 'Takes either a single numeric or textual log level (i.e. between 0/\"emerg\" and 7/\"debug\"), or a range ... in the form FROM..TO ... \"emerg\" (0), \"alert\" (1), \"crit\" (2), \"err\" (3) ... If a single log level is specified, all messages with this log level or a lower (hence more important) log level are shown.' The numeric mapping and the inclusive-upward semantics both match.",
+    "source": "journalctl(1) -p/--priority"
+  },
+  {
+    "claim_id": "TS-004",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "`tail -f` follows the file descriptor while `-F` follows the name and retries.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU coreutils tail(1): '-f, --follow[={name|descriptor}] ... an absent option argument means descriptor' and '-F  same as --follow=name --retry'. The consequence the guide draws (a bare -f goes quiet across a rotation because it holds the renamed inode) follows directly from descriptor-following.",
+    "source": "tail(1), GNU coreutils 9.4 (container)"
+  },
+  {
+    "claim_id": "TS-005",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "An unprivileged user sees only their own journal 'unless they belong to `systemd-journal` or `adm`'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "journalctl(1) names three groups, not two: 'Members of the groups \"systemd-journal\", \"adm\", and \"wheel\" can read all journal files.' The sentence as written reads as an exhaustive condition and omits `wheel`. The man page also says the per-user access is to 'their private per-user journals', not specifically to user units. Prose corrected to list all three groups and to say 'their own user journal'.",
+    "source": "journalctl(1), DESCRIPTION, journal access-control paragraph"
+  },
+  {
+    "claim_id": "TS-006",
+    "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+    "claim": "`journalctl -u` with no argument is a usage error, not 'all units'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Run empirically in the container: `journalctl -u` prints \"journalctl: option requires an argument -- 'u'\" and does not list all units.",
+    "source": "empirical run, lfca-lab:24.04 container (systemd 255)"
+  },
+  {
+    "claim_id": "TS-007",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "Bash exposes the status of the most recently executed foreground pipeline in `$?`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) Special Parameters: '?  Expands to the exit status of the most recently executed foreground pipeline.' Word-for-word match.",
+    "source": "bash(1) (Bash 5.2, container); https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html"
+  },
+  {
+    "claim_id": "TS-008",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "The status is the value returned by `waitpid`, in the range 0-255, and bash assigns specific meanings above 125.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) EXIT STATUS: 'The exit status of an executed command is the value returned by the waitpid system call or equivalent function. Exit statuses fall between 0 and 255, though, as explained below, the shell may use values above 125 specially.'",
+    "source": "bash(1) EXIT STATUS"
+  },
+  {
+    "claim_id": "TS-009",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "127 means the command could not be found; 126 means found but not executable.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'If a command is not found, the child process created to execute it returns a status of 127. If a command is found but is not executable, the return status is 126.' Verified empirically: running a nonexistent command gave 127; running a mode-644 file gave 126.",
+    "source": "bash(1) EXIT STATUS; empirical run in container"
+  },
+  {
+    "claim_id": "TS-010",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "A command killed by fatal signal N yields 128+N, so 137 is SIGKILL and 143 is SIGTERM.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'When a command terminates on a fatal signal N, bash uses the value of 128+N as the exit status.' Verified empirically: `bash -c 'kill -9 $$'` gave 137 and `kill -15 $$` gave 143.",
+    "source": "bash(1) EXIT STATUS; empirical run in container"
+  },
+  {
+    "claim_id": "TS-011",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "Shell builtins return 2 for incorrect usage.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'All builtins return an exit status of 2 to indicate incorrect usage, generally invalid options or missing arguments.' Verified empirically: `cd --bogus-option` returned 2.",
+    "source": "bash(1) EXIT STATUS; empirical run in container"
+  },
+  {
+    "claim_id": "TS-012",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "A pipeline's status is that of its last command unless `set -o pipefail` is enabled, in which case it is the rightmost non-zero one; `PIPESTATUS` holds each element's status.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): 'The return status of a pipeline is the exit status of the last command, unless the pipefail option is enabled. If pipefail is enabled, the pipeline's return status is the value of the last (rightmost) command to exit with a non-zero status...' and 'PIPESTATUS: An array variable ... containing a list of exit status values from the processes in the most-recently-executed foreground pipeline.' Verified empirically: `false | true` gave 0, and 1 under pipefail; `false | true | false` gave PIPESTATUS='1 0 1'.",
+    "source": "bash(1) Pipelines and PIPESTATUS; empirical run in container"
+  },
+  {
+    "claim_id": "TS-013",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "A non-zero status is not necessarily an error: `grep` exits 1 for 'no lines matched' and `[ ]` exits 1 for 'false'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically in the container: `echo hi | grep -q zzz` returned 1 and `[ ]` returned 1. This matches grep(1)'s documented exit status (1 if no lines were selected) and the test builtin's true/false convention.",
+    "source": "empirical run in container; grep(1) EXIT STATUS"
+  },
+  {
+    "claim_id": "TS-014",
+    "concept_id": "sysadmin.troubleshooting.exit-status",
+    "claim": "Running `echo $?` twice reports the status of the first `echo` on the second run, which is almost always 0.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically: after a not-found command, the first `echo $?` printed 127 and the second printed 0. Follows from `$?` being set by every foreground command including `echo`.",
+    "source": "empirical run in container; bash(1) Special Parameters"
+  },
+  {
+    "claim_id": "TS-015",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "Manual section 1 is user commands, 5 is file formats and configuration files, 8 is system administration commands, and `man 5 crontab` and `man 1 crontab` are different pages.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man(1) DESCRIPTION gives the section table (1 Executable programs or shell commands, 5 File formats and conventions, 8 System administration commands). Verified empirically: `man -w 5 crontab` resolves to /usr/share/man/man5/crontab.5.gz and `man -w 1 crontab` to /usr/share/man/man1/crontab.1.gz - two distinct files.",
+    "source": "man(1); empirical `man -w` in container"
+  },
+  {
+    "claim_id": "TS-016",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "`man -a` shows every matching page, and `man 5 resolv.conf` is a valid invocation.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man(1) '-a, --all: By default, man will exit after displaying the most suitable manual page it finds. Using this option forces man to display all the manual pages with names that match the search criteria.' `man -w 5 resolv.conf` resolves in the container, so the worked example is real.",
+    "source": "man(1) -a; empirical `man -w 5 resolv.conf`"
+  },
+  {
+    "claim_id": "TS-017",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "`man -k` is approximately equivalent to `apropos` and searches one-line descriptions only; `-K` searches full page text instead.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man(1): '-k, --apropos: Approximately equivalent to apropos. Search the short manual page descriptions for keywords' and '-K, --global-apropos: Search for text in all manual pages. This is a brute-force search...'. The guide's wording tracks the man page phrase for phrase.",
+    "source": "man(1) -k and -K (man-db 2.12, container)"
+  },
+  {
+    "claim_id": "TS-018",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "`apropos` searches manual page names and descriptions, with `-e` exact keyword, `-w` wildcards, `-r` regular expression.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apropos(1): '-r, --regex: Interpret each keyword as a regular expression. This is the default behaviour.'; '-w, --wildcard: Interpret each keyword as a pattern containing shell style wildcards.'; '-e, --exact: Each keyword will be exactly matched against the page names and the descriptions.'",
+    "source": "apropos(1) (man-db, container); https://man7.org/linux/man-pages/man1/apropos.1.html"
+  },
+  {
+    "claim_id": "TS-019",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "`apropos`/`man -k` depend on an index database rebuilt by `mandb`, so an empty result can mean 'not indexed' rather than 'not installed'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apropos(1): 'The database searched by apropos is updated by the mandb program. Depending on your installation, this may be run by a periodic cron job, or may need to be run manually after new manual pages have been installed.'",
+    "source": "apropos(1) DESCRIPTION"
+  },
+  {
+    "claim_id": "TS-020",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "`info` options: `-k` looks a string up in the indices of all manuals, `-a` uses all matching manuals; `info coreutils` is a real manual.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "info(1) 'Frequently-used options': '-a, --all  use all matching manuals' and '-k, --apropos=STRING  look up STRING in all indices of all manuals' - the guide's wording is the man page's wording. The coreutils man pages themselves point at the Texinfo manual (`info '(coreutils) nproc invocation'`), confirming both the manual's existence and the guide's point that the Texinfo manual is the fuller document for GNU tools.",
+    "source": "info(1), https://manpages.debian.org/bookworm/info/info.1.en.html; nproc(1) SEE ALSO (container)"
+  },
+  {
+    "claim_id": "TS-021",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "Shell builtins have no manual page of their own - `man cd` fails while `help cd` in bash is the documentation.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically in the container: `man cd` prints 'No manual entry for cd', while `help cd` prints 'cd: cd [-L|[-P [-e]] [-@]] [dir] / Change the shell working directory.'",
+    "source": "empirical run in container (Ubuntu 24.04, bash 5.2, man-db)"
+  },
+  {
+    "claim_id": "TS-022",
+    "concept_id": "sysadmin.troubleshooting.using-documentation",
+    "claim": "The worked example `man -k \"load average\"` produces results.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically after `mandb`: `man -k \"load average\"` returned getloadavg(3), proc_loadavg(5) and tload(1). Also `apropos journal` returned journalctl(1) and friends, matching the other worked example.",
+    "source": "empirical run in container"
+  },
+  {
+    "claim_id": "TS-023",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "`systemctl status` prints a journal tail that is ten lines by default and ellipsized to terminal width, changed with `--lines` and `--full`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemctl(1): '-n, --lines=: When used with status, controls the number of journal lines to show ... Defaults to 10.' and '-l, --full: Do not ellipsize unit names, process tree entries, journal output, or truncate unit descriptions in the output of status...'.",
+    "source": "systemctl(1) (systemd 255, container)"
+  },
+  {
+    "claim_id": "TS-024",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "`systemctl status` on a unit that does not exist reports 'Unit ... could not be found' / 'Loaded: not-found', and a service that exits non-zero reports `Active: failed (Result: exit-code)` with the exit status.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced in a privileged systemd container: `systemctl status nosuch.service` printed 'Unit nosuch.service could not be found.'; a Type=oneshot unit exiting 3 printed 'Active: failed (Result: exit-code)' with 'Main PID: 129 (code=exited, status=3)'.",
+    "source": "empirical run, lfca-lab:24.04 with /sbin/init (systemd 255)"
+  },
+  {
+    "claim_id": "TS-025",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "'`active (exited)` means a oneshot unit ran to completion successfully.'",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "A `Type=oneshot` unit that completes successfully goes to `inactive (dead)`, not `active (exited)`. Reproduced both cases in a systemd container: with only `Type=oneshot`/`ExecStart=/bin/true` the unit reported 'Active: inactive (dead)'; adding `RemainAfterExit=yes` produced 'Active: active (exited)'. systemd.service(5) confirms the mechanism: 'RemainAfterExit= Takes a boolean value that specifies whether the service shall be considered active even when all its processes exited. Defaults to no.' Prose corrected in both places it appeared (What it is, and What the exam may test).",
+    "source": "systemd.service(5) RemainAfterExit=; empirical A/B run in lfca-lab systemd container"
+  },
+  {
+    "claim_id": "TS-026",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "`ss -tulpn`: `-t` TCP, `-u` UDP, `-l` listening only (omitted by default), `-p` owning process, `-n` no name resolution.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ss(8): '-t, --tcp'; '-u, --udp'; '-l, --listening: Display only listening sockets (these are omitted by default).'; '-p, --processes: Show process using socket.'; '-n, --numeric: Do not try to resolve service names.' The parenthetical 'omitted by default' is the man page's own wording.",
+    "source": "ss(8) (iproute2 6.1.0, container); https://man7.org/linux/man-pages/man8/ss.8.html"
+  },
+  {
+    "claim_id": "TS-027",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "Running `ss -tulpn` unprivileged shows a blank process column for other users' sockets rather than an error.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced: as root, `ss -tulpn` showed 'users:((\"sshd\",pid=102,fd=3))'; the same command as the unprivileged `student` account returned the identical socket rows with an empty Process column and exit status 0.",
+    "source": "empirical run in container node1"
+  },
+  {
+    "claim_id": "TS-028",
+    "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+    "claim": "An OOM-killed unit reports the `oom-kill` failure state, which is distinct from `Result: exit-code`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced with a unit carrying MemoryMax=40M and MemorySwapMax=0 running a memory hog: `systemctl status` reported 'Active: failed (Result: oom-kill)' with 'Main PID: 281 (code=killed, signal=KILL)' and the journal line 'Failed with result oom-kill'. Note the shipped org.freedesktop.systemd1(5) Result list on this build is stale and omits oom-kill; the running implementation emits it. systemd.service(5) OOMPolicy= documents the behaviour that produces it.",
+    "source": "empirical run in lfca-lab systemd container; systemd.service(5) OOMPolicy="
+  },
+  {
+    "claim_id": "TS-029",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "`df -h` prints sizes in powers of 1024, `-H` in powers of 1000, `-T` shows the filesystem type.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU coreutils df(1): '-h, --human-readable: print sizes in powers of 1024'; '-H, --si: print sizes in powers of 1000'; '-T, --print-type: print file system type'.",
+    "source": "df(1), GNU coreutils 9.4 (container); https://man7.org/linux/man-pages/man1/df.1.html"
+  },
+  {
+    "claim_id": "TS-030",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "`df -i` reports inode usage with the same output shape, `IUse%` replacing `Use%`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "df(1): '-i, --inodes: list inode information instead of block usage'. Verified empirically: `df -h /` printed 'Size Used Avail Use%' and `df -i /` printed 'Inodes IUsed IFree IUse%' for the same filesystem.",
+    "source": "df(1); empirical run in container"
+  },
+  {
+    "claim_id": "TS-031",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "`du -sh /*`: `-s` one total per argument, `-h` human-readable, `-x` stay on one filesystem; the `/*` glob does not match dotfiles.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU du(1): '-s, --summarize: display only a total for each argument'; '-h, --human-readable'; '-x, --one-file-system: skip directories on different file systems'. The dotfile point follows from shell pathname expansion, where a leading period must be matched explicitly.",
+    "source": "du(1), GNU coreutils 9.4 (container)"
+  },
+  {
+    "claim_id": "TS-032",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "On ext4, mke2fs reserves 5% of blocks for the superuser by default, `df`'s Avail excludes that reserve, so Use% reaches 100% while root-owned daemons keep writing.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "mke2fs(8) '-m reserved-blocks-percentage ... allows root-owned daemons, such as syslogd(8), to continue to function correctly after non-privileged processes are prevented from writing to the file system. The default percentage is 5%.' Verified empirically on a 64 MB ext4 loop filesystem: tune2fs reported Block count 16384 / Reserved block count 819 (exactly 5%); an unprivileged fill failed with 'No space left on device' and `df -h` read Avail 0, Use% 100%, after which root wrote a 2 MB file successfully.",
+    "source": "mke2fs(8) -m (https://man7.org/linux/man-pages/man8/mke2fs.8.html); empirical loop-device test in privileged container"
+  },
+  {
+    "claim_id": "TS-033",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "A `df`/`du` gap is space held by deleted-but-open files, released only when the last descriptor closes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced on the ext4 loop filesystem: with a 30 MB file unlinked while a descriptor stayed open, `df -h` reported 31M used / 59% while `du -sh` on the same mount totalled 20K; closing the descriptor returned `df` to 24K used / 1%.",
+    "source": "empirical loop-device test in privileged container"
+  },
+  {
+    "claim_id": "TS-034",
+    "concept_id": "sysadmin.troubleshooting.disk-full",
+    "claim": "Inode exhaustion produces `No space left on device` with blocks still free, and is cured by removing file count rather than file size.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced: creating empty files on the ext4 loop filesystem until failure gave 16372 files, after which `df -h` showed 384K used / 1% with 52M free while `df -i` showed IUse% 100%, and `touch` failed with 'No space left on device'.",
+    "source": "empirical loop-device test in privileged container"
+  },
+  {
+    "claim_id": "TS-035",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "Each candidate task is scored 0 (never kill) to 1000 (always kill), the units being roughly the proportion of allowed memory the task is using.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "proc_pid_oom_score_adj(5): 'The badness heuristic assigns a value to each candidate task ranging from 0 (never kill) to 1000 (always kill) ... The units are roughly a proportion along that range of allowed memory the process may allocate from ... if a task is using all allowed memory, its badness score will be 1000.'",
+    "source": "proc_pid_oom_score_adj(5), Linux man-pages 6.7 (container); https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html"
+  },
+  {
+    "claim_id": "TS-036",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "Older kernels discounted root-owned processes by 3%, the bias was removed in Linux 4.17, and `proc_pid_oom_score_adj(5)` still documents it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Checked against the kernel tree directly: mm/oom_kill.c at tag v4.16 contains 'Root processes get 3% bonus ... if (has_capability_noaudit(p, CAP_SYS_ADMIN)) points -= (points * 3) / 100;', and the same file at tag v4.17 contains no such code. The removing commit is 'mm, oom: remove 3% bonus for CAP_SYS_ADMIN processes' (David Rientjes, 2018-04-05). The installed proc_pid_oom_score_adj(5) still states 'root processes are given 3% extra memory over other tasks', so the guide's 'still documents it' and its choice of man page are both correct.",
+    "source": "git.kernel.org plain mm/oom_kill.c at v4.16 and v4.17; cgit log of mm/oom_kill.c; proc_pid_oom_score_adj(5)"
+  },
+  {
+    "claim_id": "TS-037",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "`/proc/<pid>/oom_score_adj` ranges -1000 to +1000 and is added to the badness score, so -1000 exempts a process entirely; 'allowed memory' is the cgroup limit when a limit is what was hit.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "proc_pid_oom_score_adj(5): 'The value of oom_score_adj is added to the badness score ... Acceptable values range from -1000 (OOM_SCORE_ADJ_MIN) to +1000 (OOM_SCORE_ADJ_MAX) ... The lowest possible value, -1000, is equivalent to disabling OOM-killing entirely for that task' and 'If it is due to a memory limit (or swap limit) being reached, the allowed memory is that configured limit ... if it is due to the entire system being out of memory, the allowed memory represents all allocatable resources.'",
+    "source": "proc_pid_oom_score_adj(5)"
+  },
+  {
+    "claim_id": "TS-038",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "`free -h` human-readable, `-s N` repeat every N seconds, `-w` splits buffers and cache; the meaningful figure is `available`, and `used` is computed as total minus available.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "free(1), procps-ng: 'used  Used or unavailable memory (calculated as total - available)'; 'available  Estimation of how much memory is available for starting new applications, without swapping'; '-w, --wide ... buffers and cache are reported in two separate columns'; '-s, --seconds delay: Continuously display the result delay seconds apart'; '-h, --human'. I specifically checked the `used` definition because older procps versions defined it as total - free - buffers - cache; the shipped page uses total - available, as the guide states.",
+    "source": "free(1), procps-ng 2023-05-02 (Ubuntu 24.04 container)"
+  },
+  {
+    "claim_id": "TS-039",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "`dmesg` prints the kernel ring buffer; `-T` human-readable timestamps, `-H` paged human output, `-w` wait for new messages; reading it often requires root because of `dmesg_restrict`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dmesg(1): 'dmesg - print or control the kernel ring buffer'; '-T, --ctime: Print human-readable timestamps'; '-H, --human: Enable human-readable output' with '-P, --nopager: ... A pager is enabled by default for --human output' (so 'paged human output' is right); '-w, --follow: Wait for new messages'. The kernel sysctl documentation states: 'When dmesg_restrict is set to 1, users must have CAP_SYSLOG to use dmesg(8).'",
+    "source": "dmesg(1) (util-linux 2.39.3, container); https://docs.kernel.org/admin-guide/sysctl/kernel.html dmesg_restrict"
+  },
+  {
+    "claim_id": "TS-040",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "`journalctl -k` shows only kernel messages and implies the current boot unless `-b` says otherwise; `journalctl -k -b -1` reads the previous boot.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "journalctl(1): '-k, --dmesg: Show only kernel messages. This implies -b and adds the match _TRANSPORT=kernel.' Verified empirically that the override works despite -b taking an optional argument: `journalctl -k -b -1` on the lab container returned the previous boot's kernel lines, matching `journalctl --list-boots` index -1.",
+    "source": "journalctl(1) -k; empirical run in container node1"
+  },
+  {
+    "claim_id": "TS-041",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "The kernel log 'contains an `Out of memory: Killed process` line'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "True only for a system-wide kill. A kill against a cgroup limit - the case the very next diagnostic step is about - prints a different prefix. Reproduced: forcing an OOM inside a unit with MemoryMax=40M produced 'Memory cgroup out of memory: Killed process 9300 (bash) total-vm:56296kB ...' together with 'oom-kill:constraint=CONSTRAINT_MEMCG'. As written the step would have a candidate searching for a string the cgroup case never emits. Step 2 amended to give both forms.",
+    "source": "empirical OOM reproduction in privileged systemd container (kernel 6.12); kernel mm/oom_kill.c message strings"
+  },
+  {
+    "claim_id": "TS-042",
+    "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+    "claim": "A process killed by the OOM killer is terminated by SIGKILL, so its shell-visible exit status is 137 (128+9).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) gives 128+N for a fatal signal N (verified empirically: SIGKILL gave 137). The OOM reproduction confirmed the signal: systemd reported 'Main PID: 281 (code=killed, signal=KILL)' and the journal 'Main process exited, code=killed, status=9/KILL'.",
+    "source": "bash(1) EXIT STATUS; empirical OOM reproduction in systemd container"
+  },
+  {
+    "claim_id": "TS-043",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "The load average counts processes that are runnable (state R) or in uninterruptible sleep (state D, typically blocked on disk I/O), over 1, 5 and 15 minutes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "proc_loadavg(5): 'The first three fields in this file are load average figures giving the number of jobs in the run queue (state R) or waiting for disk I/O (state D) averaged over 1, 5, and 15 minutes.'",
+    "source": "proc_loadavg(5), Linux man-pages 6.7 (container); https://man7.org/linux/man-pages/man5/proc_loadavg.5.html"
+  },
+  {
+    "claim_id": "TS-044",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "'The manual is explicit that a load average of 1 means a single-CPU system is loaded all the time, while on a 4-CPU system it means the system was idle 75% of the time.'",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uptime(1) says exactly that: 'Load averages are not normalized for the number of CPUs in a system, so a load average of 1 means a single CPU system is loaded all the time while on a 4 CPU system it means it was idle 75% of the time.' The guide's attribution to 'the manual' is accurate, not a paraphrase of folklore.",
+    "source": "uptime(1), procps-ng (container); https://man7.org/linux/man-pages/man1/uptime.1.html"
+  },
+  {
+    "claim_id": "TS-045",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "`uptime -p` prints pretty uptime only, `-s` prints boot time; `nproc` prints processing units available to the calling process and `--all` reports installed processors.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uptime(1): '-p, --pretty: show uptime in pretty format'; '-s, --since: system up since, in yyyy-mm-dd HH:MM:SS format'. nproc(1): 'Print the number of processing units available to the current process, which may be less than the number of online processors' and '--all: print the number of installed processors' - which also supports the guide's stated trap about cgroup limits and affinity.",
+    "source": "uptime(1) and nproc(1) (container, GNU coreutils 9.4)"
+  },
+  {
+    "claim_id": "TS-046",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "top's key options are '`-b` batch mode for scripting, `-n N` iteration count, `1` toggles per-CPU lines'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "`-b` and `-n` are command-line options ('-b, --batch: Starts top in Batch mode'; '-n, --iterations = NUMBER'), but `1` is not an option - top(1) documents it under INTERACTIVE Commands as '1 :Single/Separate-Cpu-States toggle'. Listing it in a Key options cell beside two real flags invites `top -1`. Cell reworded to 'the interactive `1` key'.",
+    "source": "top(1), procps-ng (container), OPTIONS and INTERACTIVE Commands sections"
+  },
+  {
+    "claim_id": "TS-047",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "top's CPU-state line 'splits time into user (`us`), system (`sy`), nice (`ni`), idle (`id`), I/O wait (`wa`), and steal (`st`)'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The decomposition is presented as complete but omits two of the eight fields top actually prints. top(1) lists: us, sy, ni, id, wa, 'hi : time spent servicing hardware interrupts', 'si : time spent servicing software interrupts', st. Sentence amended to include hi and si.",
+    "source": "top(1), SUMMARY Display / CPU states (procps-ng, container)"
+  },
+  {
+    "claim_id": "TS-048",
+    "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+    "claim": "The per-task `%CPU` column is a share of elapsed CPU time; in the default Irix mode a multi-threaded task can exceed 100%, and the `I` key toggles Solaris mode, which divides by the CPU count.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "top(1) %CPU: 'The task's share of the elapsed CPU time since the last screen update, expressed as a percentage of total CPU time. In a true SMP environment, if a process is multi-threaded and top is not operating in Threads mode, amounts greater than 100% may be reported ... if Irix mode is Off, top will operate in Solaris mode where a task's cpu usage will be divided by the total number of CPUs. You toggle Irix/Solaris modes with the I interactive command.'",
+    "source": "top(1) %CPU field description and the 'I' interactive command"
+  },
+  {
+    "claim_id": "TS-049",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "Path resolution requires search (`x`) permission on every directory in the prefix, and the manual is explicit that lacking it returns EACCES before the final component is examined.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "path_resolution(7): 'If the process does not have search permission on the current lookup directory, an EACCES error is returned (\"Permission denied\")' - stated per component, before the final component is reached, exactly as the guide describes.",
+    "source": "path_resolution(7) (container); https://man7.org/linux/man-pages/man7/path_resolution.7.html"
+  },
+  {
+    "claim_id": "TS-050",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "`ls -l` shows mode/owner/group with `-n` numeric uid/gid and `-a` dotfiles; `ls -ld` describes the directory itself rather than listing it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU ls(1): '-a, --all: do not ignore entries starting with .'; '-d, --directory: list directories themselves, not their contents'; '-n, --numeric-uid-gid: like -l, but list numeric user and group IDs'. This also confirms the stated common mistake for `ls -l` on a directory.",
+    "source": "ls(1), GNU coreutils 9.4 (container)"
+  },
+  {
+    "claim_id": "TS-051",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "`id` key options: '`-G` all group IDs, `-n` names instead of numbers, a username argument shows that user's configured groups'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The username-argument and -G parts are right ('Print user and group information for each specified USER, or (when USER omitted) for the current process'; '-G, --groups: print all group IDs'), but `-n` is not a free-standing modifier: id(1) documents '-n, --name: print a name instead of a number, for -ugG', and `id -n` alone fails with 'cannot print only names or real IDs in default format'. Cell amended to note -n applies only with -u, -g or -G.",
+    "source": "id(1), GNU coreutils 9.4 (container)"
+  },
+  {
+    "claim_id": "TS-052",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "`namei -l` walks a pathname component by component showing type, mode and owner; `-l` is equivalent to `-m -o -v` and `-x` marks mount points.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "namei(1): '-l, --long: Use the long listing format (same as -m -o -v)'; '-m, --modes'; '-o, --owners'; '-x, --mountpoints: Show mountpoint directories with a D rather than a d'. Verified empirically: `namei -l /etc/hostname` printed one line per component with mode, owner and group.",
+    "source": "namei(1), util-linux 2.39.3 (container); empirical run"
+  },
+  {
+    "claim_id": "TS-053",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "An immutable file (`chattr +i`) refuses writes with EPERM, printed as 'Operation not permitted', in contrast with EACCES 'Permission denied'; `lsattr` shows the attribute.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "chattr(1) lists 'immutable (i)' among the settable attributes and names lsattr(1) as the lister. Reproduced in the privileged container: after `chattr +i immtest`, `echo x > immtest` failed with 'Operation not permitted' (exit 1) and `lsattr` showed '----i---------e-------'.",
+    "source": "chattr(1) (https://man7.org/linux/man-pages/man1/chattr.1.html); empirical run in privileged container"
+  },
+  {
+    "claim_id": "TS-054",
+    "concept_id": "sysadmin.troubleshooting.permission-denied",
+    "claim": "A group added with `usermod -aG` takes effect at the next login, not immediately, so `id` in the open shell and `id <user>` disagree.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "usermod(8): '-a, --append: Add the user to the supplementary group(s). Use only with the -G option' - it edits the account database, not any running process. credentials(7) supplies the other half: supplementary group IDs are per-process credentials used for permission checks, and 'A child process created by fork(2) inherits copies of its parent's user [and group] IDs', so an already-running session keeps the set it was given at login.",
+    "source": "usermod(8) and credentials(7) (container)"
+  },
+  {
+    "claim_id": "TS-055",
+    "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+    "claim": "In `ss` output, '`0.0.0.0:8080` (often shown as `*:8080`) accepts any IPv4 client, and `[::]:8080` is the IPv6 equivalent'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "`*:PORT` is not an alternative rendering of `0.0.0.0:PORT`; it is a distinct third case, and the distinction is exactly the sort of discriminating detail this concept is built on. Reproduced with iproute2 6.1.0 by opening three listeners at once: an AF_INET wildcard socket showed '0.0.0.0:18081', an IPv6-only wildcard (sshd) showed '[::]:22', and an AF_INET6 wildcard with IPV6_V6ONLY disabled showed '*:18080'. The rendering was identical with and without -n, and netstat on the same host showed 0.0.0.0 / [::] too, so the '*' form is not a non-numeric or netstat artefact. Prose rewritten to give all three forms with their real meanings.",
+    "source": "empirical three-socket test with ss (iproute2 6.1.0) and netstat in container node1; ss(8)"
+  },
+  {
+    "claim_id": "TS-056",
+    "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+    "claim": "'Connection refused' means a host answered and rejected; 'connection timed out' means nothing answered.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Reproduced with curl: against a closed local port, 'connect to 127.0.0.1 port 9 ... failed: Connection refused' (an answer arrived immediately, 0 ms); against an unroutable TEST-NET-1 address, 'Connection timed out after 4004 milliseconds' with no response at all. The two error texts and their causal meanings are as the guide states.",
+    "source": "empirical curl runs in container"
+  },
+  {
+    "claim_id": "TS-057",
+    "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+    "claim": "`ping -c N` stops after N packets and `-n` suppresses name resolution; ICMP reachability says nothing about whether a port is open.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ping(8): '-c count: Stop after sending count ECHO_REQUEST packets'; '-n: Numeric output only. No attempt will be made to lookup symbolic names for host addresses (no reverse DNS resolution).' ICMP echo and TCP connect are separate protocols, so the guide's caution about ICMP being filtered stands.",
+    "source": "ping(8), iputils (container)"
+  },
+  {
+    "claim_id": "TS-058",
+    "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+    "claim": "`curl -v` shows `*` connection info, `>` request headers and `<` response headers.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "curl(1) -v: 'A line starting with > means \"header data\" sent by curl, < means \"header data\" received by curl that is hidden in normal cases, and a line starting with * means additional info provided by curl.' Exact match, including which direction each glyph marks.",
+    "source": "curl(1) (container); https://curl.se/docs/manpage.html"
+  },
+  {
+    "claim_id": "TS-059",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "`/etc/resolv.conf` `nameserver` lines give the servers to query in order, up to three are used, and `search` gives the suffixes appended to short names.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "resolv.conf(5): 'Up to MAXNS (currently 3, see <resolv.h>) name servers may be listed, one per keyword. If there are multiple servers, the resolver library queries them in the order listed.' and 'search Search list for host-name lookup ... Resolver queries having fewer than ndots dots (default is 1) in them will be attempted using each component of the search path in turn.'",
+    "source": "resolv.conf(5) (container); https://man7.org/linux/man-pages/man5/resolv.conf.5.html"
+  },
+  {
+    "claim_id": "TS-060",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "`dig` queries the servers in `/etc/resolv.conf` unless `@server` names one; `+short` gives a terse answer, `+trace` follows the delegation.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dig(1): 'Unless it is told to query a specific name server, dig tries each of the servers listed in /etc/resolv.conf'; '+short ... toggles whether a terse answer is provided'; '+trace ... toggles tracing of the delegation path from the root name servers for the name being looked up.'",
+    "source": "dig(1), BIND 9.18.39 (container)"
+  },
+  {
+    "claim_id": "TS-061",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "dig's `status:` field is the discriminator - NOERROR, NXDOMAIN, SERVFAIL - and an unreachable resolver reports 'no servers could be reached'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified empirically: `dig +noall +comments` for a nonexistent name printed ';; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN', and `dig @192.0.2.1 +tries=1 +time=2 example.com` printed ';; communications error to 192.0.2.1#53: timed out' followed by ';; no servers could be reached' - the exact string the guide tells the reader to look for.",
+    "source": "empirical dig runs in container (BIND 9.18.39)"
+  },
+  {
+    "claim_id": "TS-062",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "`dig` queries DNS and only DNS: it does not consult `/etc/hosts` or the name service switch, so a hosts-only name works for `ping` and `curl` while `dig` returns NXDOMAIN.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Demonstrated directly rather than inferred: after adding '10.99.99.99 hostsonly.invalid' to /etc/hosts in the container, `getent hosts` and `ping` both resolved it to 10.99.99.99 while `dig hostsonly.invalid` returned 'status: NXDOMAIN' with zero answers. dig(1) documents no hosts-file or NSS path.",
+    "source": "empirical /etc/hosts vs dig test in container; dig(1)"
+  },
+  {
+    "claim_id": "TS-063",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "On systems running `systemd-resolved`, `/etc/resolv.conf` is commonly a symlink to a stub file naming only `127.0.0.53`, with the real upstream servers held by the resolver service.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd-resolved.service(8): 'systemd-resolved provides a local DNS stub listener on the IP addresses 127.0.0.53 and 127.0.0.54' and 'systemd-resolved maintains the /run/systemd/resolve/stub-resolv.conf file ... This file lists the 127.0.0.53 DNS stub (see above) as the only DNS server ... This file may be symlinked from /etc/resolv.conf ... This mode of operation is recommended.' Upstream servers come from resolved.conf and per-link settings, not from that file.",
+    "source": "systemd-resolved.service(8), freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html"
+  },
+  {
+    "claim_id": "TS-064",
+    "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+    "claim": "`dig` is not always installed - it ships in the BIND utilities package.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified on the reference distribution: `dpkg -S $(which dig)` reports 'bind9-dnsutils: /usr/bin/dig'. The claim is stated generically ('the BIND utilities package') rather than naming one distribution's package, which is correct since the name differs (bind9-dnsutils on Debian/Ubuntu, bind-utils on RHEL family).",
+    "source": "dpkg -S in Ubuntu 24.04 container"
+  },
+  {
+    "claim_id": "TS-065",
+    "concept_id": "sysadmin.troubleshooting.change-correlation",
+    "claim": "Package manager history (`/var/log/dpkg.log`, `dnf history`) and `journalctl --since` around the first report each answer a slice of 'what changed'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "/var/log/dpkg.log exists and is populated in the Ubuntu 24.04 reference image (297 KB of install records). journalctl(1) documents '-S, --since=, -U, --until=: Start showing entries on or newer than the specified date...'. The DNF command reference documents 'Command: history ... allows the user to view what has happened in past transactions'.",
+    "source": "container filesystem; journalctl(1) --since; https://dnf.readthedocs.io/en/latest/command_ref.html History Command"
+  },
+  {
+    "claim_id": "TS-W01",
+    "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method",
+    "claim": "Waived concept: carries the required no-primary-source marker and makes no claim that a specific named standard says a specific thing.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker sentence appears verbatim as STYLE section 8 requires. No standards body, framework or publication is named anywhere in the block - the six-step sequence is introduced as 'Most statements of the practice give six steps', and the later assertions are carried on 'in most descriptions of the practice', 'typically changes one thing at a time', 'a numbered step in most statements of the method', 'in most practice it is treated as an open problem'. Nothing asserts that any named source defines, requires or mandates the ordering, so no unavailable authority is invoked. The remaining unhedged sentences ('Verification is a separate step from implementation', 'Reboot it is not a step in this method') are internal consequences of the hedged framing rather than appeals to an external source.",
+    "source": "data/sourcing-waivers.json (waived list); study-guide/STYLE.md section 8; adversarial sentence-by-sentence read of the block"
+  },
+  {
+    "claim_id": "TS-W02",
+    "concept_id": "sysadmin.troubleshooting.narrowing-scope",
+    "claim": "Waived concept: carries the required no-primary-source marker and makes no claim that a specific named standard says a specific thing.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No named standard, framework or publication appears. The only generalisation about practice is hedged ('Each answer, in most practice, eliminates whole categories of cause'); the rest of the block is deductive reasoning about comparison cases and one-dimension-at-a-time testing, which needs no external authority to support. The comparison table it owns compares two concepts defined in this same file rather than importing any outside taxonomy.",
+    "source": "data/sourcing-waivers.json; study-guide/STYLE.md section 8; adversarial read of the block"
+  },
+  {
+    "claim_id": "TS-W03",
+    "concept_id": "sysadmin.troubleshooting.reproducing-the-fault",
+    "claim": "Waived concept: carries the required no-primary-source marker and makes no claim that a specific named standard says a specific thing.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No named source. The one generalisation about practice is hedged ('In most descriptions of the practice, failure to reproduce is itself treated as evidence'), and the block's strongest technical claim - that reproducing as root makes a permission fault vanish because the superuser is exempt from ordinary mode checks - is not an appeal to a paywalled standard but a kernel behaviour that path_resolution(7) and credentials(7) independently support, so it is not invented authority.",
+    "source": "data/sourcing-waivers.json; study-guide/STYLE.md section 8; path_resolution(7); adversarial read of the block"
+  },
+  {
+    "claim_id": "TS-W04",
+    "concept_id": "sysadmin.troubleshooting.escalation",
+    "claim": "Waived concept: carries the required no-primary-source marker and makes no claim that a specific named standard says a specific thing.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. This was the block most at risk of borrowing ITIL's authority, and it does not: time-boxing is given as 'In most implementations of this practice, escalation is time-boxed in advance', the handover contents as 'The handover typically carries...', and the incident/severity distinction is drawn as a plain difference in what each action changes ('one changes who owns the problem, the other changes how urgently the organisation responds') rather than as a definition attributed to any framework. No standard is named anywhere in the block.",
+    "source": "data/sourcing-waivers.json; study-guide/STYLE.md section 8; adversarial read of the block"
+  }
+]
