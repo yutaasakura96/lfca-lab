@@ -334,3 +334,32 @@ Two plan defects found and fixed rather than worked around: an error message lac
 its own test regex asserted, and a runner test asserting zero errors while checkDomainDistribution
 structurally cannot pass on a small fixture.
 
+Task 14: complete (commit 2751d1c) - PILOT
+  questions/02-system-administration/disaster-recovery.json, 30 items over 18 concepts, 6 blocks
+  named, 2 command strings, 1 waived concept. Scoped check-bank: 0 errors, 0 warnings.
+  Written by the controller directly.
+
+  The pilot found FIVE defects, one of them structural and corpus-wide:
+
+  1. **Depth-1 concepts have no `c-` anchor.** Their only definition site is a Quick reference
+     table row (STYLE.md s2), which cannot carry an HTML anchor - so the guide defines c-<id> for
+     all 498 depth-2+ concepts and NONE of the 39 depth-1 ones. question-plan emitted one anyway
+     and check 13 would have rejected it 39 times. Fixed in tools/question-plan.mjs to emit the
+     enclosing `#s-<competency>-<section>` anchor; verified to resolve for all 39.
+  2. **A third check must be suppressed during scoped authoring** - q-domain-distribution, which
+     compares the whole bank against the 1,000-item weight table. Protocol named only two. Fixed.
+  3. `confusable` requires a real confused_with edge; over-applied 3 times. Most distractors are
+     `sibling`.
+  4. Two options that are nothing but a code span normalize identically and collide under check 9.
+     Write the command inside a phrase.
+  5. Length cue: a precise key is naturally the longest option. First draft tripped at 53% against
+     a 40% threshold. Fix by lengthening a distractor, never by truncating the key.
+
+  Recorded in docs/verification/qbank-findings.md as pilot notes for the remaining 21 authors,
+  and the protocol fixes are in the plan.
+
+  **Controller error, recorded rather than quietly fixed:** the pilot notes' type and provenance
+  statistics were first written from recall and were wrong (6/1/5/18 for types against an actual
+  16/7/6/1). Caught by computing them. That is this project's most persistent defect class
+  appearing inside the notes warning other authors about it.
+
