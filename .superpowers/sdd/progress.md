@@ -202,3 +202,27 @@ propagated into the question bank:
 
 Authoring cannot start until the tooling exists. Next: Tasks 5-13 (TDD), then the pilot.
 
+Task 5: complete (commit 27e87df, controller-verified)
+  tools/lib/allocation.mjs + 19 tests. 188 -> 207. Independently verified against the real
+  dataset: pool exactly 1000 (300/180/160/140/120/100 by domain), supplement 150, bank 1150;
+  min 1 max 5 per concept; a depth-1 concept gets exactly 1 in every domain; examComposition
+  18/11/10/8/7/6 summing to 60; 16 disjoint exams consuming 960 with 40 unused; deterministic
+  across independent loads; 537 allocations covering all 130 comparison blocks. `importance`
+  appears nowhere in the module, as designed.
+
+Tasks 6 and 7: complete (commits 9e3043b, 606cd8a, controller-verified)
+  tools/lib/rng.mjs (+8 tests) and tools/lib/similarity.mjs (+13). 207 -> 215 -> 228.
+  Batched into one dispatch as two separately-committed deliverables: both are small, fully
+  specified in the plan, and mutually independent.
+  Verified: balancedPositions is deterministic, produces exactly 15/15/15/15 for ALL SIXTEEN
+  exams, differs between exams, and is not the giveaway A/B/C/D cycle. Thresholds are the
+  reviewed constants 0.85/0.7. Short plurals (dns, ips, os) survive the trailing-s rule.
+  Zero non-comment occurrences of Math.random, Date.now or new Date across all three cycle-3
+  modules - checked by stripping comments first, since rng.mjs contains a comment saying
+  "never from Math.random" that a naive grep flags.
+  No threshold or test wording needed adjusting; the brief's code and tests passed verbatim.
+
+  Process note: task report filenames now carry a `cycle3-` prefix. Task 5's report overwrote
+  cycle 2's `.superpowers/sdd/task-5-report.md`, which was local-only (this directory is
+  gitignored) so nothing committed was lost, but the collision was avoidable.
+
