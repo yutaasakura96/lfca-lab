@@ -306,3 +306,31 @@ Task 12: complete (commit 73e9ef1, controller-verified)
   when Task 2's un-waiving of devops.git-concepts.pull-request makes it 0 - the plan states the
   brief is authoritative over that table, and it is.
 
+Task 13: complete (commit 901929f, controller-verified at full scale)
+  tools/lib/assemble.mjs + tools/build-exams.mjs + 12 tests. 295 -> 307. All pinned numbers
+  confirmed by independent controller run over a synthetic full-scale bank:
+    16 exams of exactly 60; composition 18/11/10/8/7/6 held in EVERY exam; no repeated concept
+    or comparison block within a paper; exams disjoint; used(960) + unused(40) = pool(1000);
+    61 documents (16 exams + 16 answer keys + 29 drills); byte-identical across two runs;
+    exam-01 key positions exactly 15/15/15/15; the 40 unused items recorded by id.
+  DEPTH_TOLERANCE unchanged and the brief's placement order converged at full scale first time -
+  no tolerance was widened to make a build pass.
+  The implementer flagged honestly that it had not independently recomputed the 61-document
+  figure; the controller did, and it is correct.
+
+## Tooling complete (Tasks 5-13)
+
+The 21-check harness, the deterministic assembler and both CLIs exist before a single question
+does. npm test 188 -> 307.
+
+What the build cost in defects, worth carrying into cycle 4: the 42-item fixture was wrong FIVE
+times across Tasks 8-11, and each time it was the next check layer that caught it - unresolvable
+comparison blocks, difficulty not matching required_depth, duplicate misconception slots, null
+verdicts, templated stems. None was visible to the layer before it. None was visible to the
+controller's structural spot-checks, which test shape rather than meaning. Building the harness
+against a known-good fixture BEFORE authoring is what made those cheap.
+
+Two plan defects found and fixed rather than worked around: an error message lacking the substring
+its own test regex asserted, and a runner test asserting zero errors while checkDomainDistribution
+structurally cannot pass on a small fixture.
+
