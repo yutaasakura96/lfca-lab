@@ -20,12 +20,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -79,12 +79,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -138,12 +138,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -197,12 +197,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -256,12 +256,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -315,12 +315,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -374,12 +374,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -433,12 +433,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -492,12 +492,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the unsourced, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the unsourced, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.thing"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.unsourced"
           }
         },
         {
@@ -551,12 +551,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -609,12 +609,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -667,12 +667,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -725,12 +725,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -783,12 +783,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -841,12 +841,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -899,12 +899,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -957,12 +957,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {
@@ -1015,12 +1015,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the thing, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the thing, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:beta.stuff.unsourced"
+            "kind": "lookalike",
+            "concept_id": "beta.stuff.thing"
           }
         },
         {

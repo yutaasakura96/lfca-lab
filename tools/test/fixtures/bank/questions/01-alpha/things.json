@@ -661,12 +661,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the widget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the widget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.trinket"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.widget"
           }
         },
         {
@@ -719,12 +719,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the widget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the widget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.trinket"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.widget"
           }
         },
         {
@@ -777,12 +777,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -835,12 +835,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -893,12 +893,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -951,12 +951,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1009,12 +1009,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1067,12 +1067,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1125,12 +1125,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1183,12 +1183,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1241,12 +1241,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1299,12 +1299,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {
@@ -1357,12 +1357,12 @@
         },
         {
           "ref": "o2",
-          "text": "It is unrelated.",
+          "text": "It looks like the gadget, but is not.",
           "correct": false,
-          "why": "That is not correct.",
+          "why": "That is a lookalike confusion with the gadget, not the actual concept being asked about.",
           "provenance": {
-            "kind": "misconception",
-            "documented_at": "data:notes:alpha.things.doohickey"
+            "kind": "lookalike",
+            "concept_id": "alpha.things.gadget"
           }
         },
         {

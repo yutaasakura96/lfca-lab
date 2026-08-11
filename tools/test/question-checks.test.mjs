@@ -11,6 +11,13 @@ import {
   checkCountDerived,
   checkDiagnosticCoverage,
   checkDifficultyDerived,
+  checkDistractorDistinct,
+  checkDistractorProvenance,
+  checkGuideAnchor,
+  checkLengthCue,
+  checkOptionContract,
+  checkRationaleComplete,
+  checkSourceIds,
   checkUnknownConcept,
   codeSpansIn,
   searchableText,
@@ -185,4 +192,153 @@ test('q-difficulty-derived fires when difficulty does not equal required_depth',
 test('an unknown scope throws rather than silently matching nothing', async () => {
   const ctx = await fixture();
   assert.throws(() => checkConceptCoverage(ctx, { scope: 'Nope :: Nothing' }), /Unknown scope/);
+});
+
+test('the fixture bank passes every integrity check', async () => {
+  const ctx = await fixture();
+  for (const check of [
+    checkOptionContract, checkDistractorProvenance, checkDistractorDistinct,
+    checkRationaleComplete, checkSourceIds, checkGuideAnchor,
+  ]) {
+    assert.deepEqual(check(ctx, {}), [], check.name);
+  }
+  assert.deepEqual(checkLengthCue(ctx, {}), [], 'checkLengthCue');
+});
+
+test('q-option-contract surfaces the loader malformed entries', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].malformed.push({ index: 0, reason: 'invented problem for the test' });
+  });
+  const out = checkOptionContract(ctx, {});
+  assert.ok(out.some((f) => f.message.includes('invented problem')));
+  assert.equal(out[0].check, 'q-option-contract');
+});
+
+test('q-option-contract rejects all-of-the-above and none-of-the-above', async () => {
+  for (const banned of ['All of the above', 'none of the above', 'None of these']) {
+    const ctx = await mutated((bank) => { bank[0].items[0].options[3].text = banned; });
+    assert.ok(checkOptionContract(ctx, {}).some((f) => f.message.toLowerCase().includes('above')
+      || f.message.toLowerCase().includes('these')), banned);
+  }
+});
+
+test('q-distractor-provenance rejects a second misconception in one item', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].options[2].provenance =
+      { kind: 'misconception', documented_at: 'data:notes:alpha.things.widget' };
+  });
+  const out = checkDistractorProvenance(ctx, {});
+  assert.ok(out.some((f) => /at most one/.test(f.message)));
+});
+
+test('q-distractor-provenance rejects a concept id that is not in data/', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].options[1].provenance.concept_id = 'alpha.things.imaginary';
+  });
+  assert.ok(checkDistractorProvenance(ctx, {}).some((f) => f.message.includes('imaginary')));
+});
+
+test('q-distractor-provenance rejects a variant naming a command the concept does not have', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].options[2].provenance = { kind: 'variant', command: 'nosuchctl frobnicate' };
+  });
+  assert.ok(checkDistractorProvenance(ctx, {}).some((f) => f.message.includes('nosuchctl')));
+});
+
+test('q-distractor-provenance rejects an unresolvable documented_at', async () => {
+  const missingConcept = await mutated((bank) => {
+    bank[0].items[0].options[3].provenance.documented_at = 'data:notes:alpha.things.imaginary';
+  });
+  assert.ok(checkDistractorProvenance(missingConcept, {}).some((f) => f.message.includes('imaginary')));
+
+  const missingAnchor = await mutated((bank) => {
+    bank[0].items[0].options[3].provenance.documented_at = 'guide:01-alpha/things.md#c-alpha.things.imaginary';
+  });
+  assert.ok(checkDistractorProvenance(missingAnchor, {}).some((f) => f.message.includes('imaginary')));
+
+  const badForm = await mutated((bank) => {
+    bank[0].items[0].options[3].provenance.documented_at = 'everyone knows this';
+  });
+  assert.ok(checkDistractorProvenance(badForm, {}).some((f) => /documented_at/.test(f.message)));
+});
+
+test('q-distractor-distinct fires when two options normalize to the same thing', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].options[2].text = bank[0].items[0].options[1].text.toUpperCase() + '.';
+  });
+  const out = checkDistractorDistinct(ctx, {});
+  assert.equal(out.length, 1);
+  assert.match(out[0].message, /o2 and o3/);
+});
+
+test('q-distractor-distinct says what it does not prove', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].options[2].text = bank[0].items[0].options[1].text;
+  });
+  assert.match(checkDistractorDistinct(ctx, {})[0].message, /does not check/i);
+});
+
+test('q-rationale-complete fires on a stub rationale or a why that restates the option', async () => {
+  const stub = await mutated((bank) => { bank[0].items[0].rationale = 'Yes.'; });
+  assert.ok(checkRationaleComplete(stub, {}).some((f) => /rationale/.test(f.message)));
+
+  const echo = await mutated((bank) => {
+    bank[0].items[0].options[1].why = bank[0].items[0].options[1].text;
+  });
+  assert.ok(checkRationaleComplete(echo, {}).some((f) => /restates/.test(f.message)));
+
+  const terse = await mutated((bank) => { bank[0].items[0].options[1].why = 'No.'; });
+  assert.ok(checkRationaleComplete(terse, {}).some((f) => /why/.test(f.message)));
+});
+
+test('q-source-ids fires on an unregistered source id', async () => {
+  const ctx = await mutated((bank) => { bank[0].items[0].source_ids = ['not-a-source']; });
+  const out = checkSourceIds(ctx, {});
+  assert.equal(out.length, 1);
+  assert.match(out[0].message, /not-a-source/);
+});
+
+test('q-source-ids fires on an empty source_ids array', async () => {
+  const ctx = await mutated((bank) => { bank[0].items[0].source_ids = []; });
+  assert.ok(checkSourceIds(ctx, {}).some((f) => /at least one/.test(f.message)));
+});
+
+test('q-guide-anchor fires on a missing file and on a missing anchor', async () => {
+  const badFile = await mutated((bank) => {
+    bank[0].items[0].guide_anchor = '01-alpha/nope.md#c-alpha.things.widget';
+  });
+  assert.ok(checkGuideAnchor(badFile, {}).some((f) => f.message.includes('nope.md')));
+
+  const badAnchor = await mutated((bank) => {
+    bank[0].items[0].guide_anchor = '01-alpha/things.md#c-alpha.things.imaginary';
+  });
+  assert.ok(checkGuideAnchor(badAnchor, {}).some((f) => f.message.includes('imaginary')));
+
+  const noHash = await mutated((bank) => { bank[0].items[0].guide_anchor = '01-alpha/things.md'; });
+  assert.ok(checkGuideAnchor(noHash, {}).some((f) => /#/.test(f.message)));
+});
+
+test('q-length-cue warns when the key dwarfs the distractors in one item', async () => {
+  const ctx = await mutated((bank) => {
+    const item = bank[0].items[0];
+    const key = item.options.find((o) => o.correct);
+    key.text = 'It is a widget, which is to say the component described in the specification '
+      + 'as a widget, distinct in every material respect from the neighbouring components.';
+  });
+  const out = checkLengthCue(ctx, {});
+  assert.ok(out.length >= 1);
+  assert.equal(out[0].severity, 'warn');
+});
+
+test('q-length-cue warns when the key is longest far more often than chance', async () => {
+  const ctx = await mutated((bank) => {
+    for (const f of bank) {
+      for (const i of f.items) {
+        const key = i.options.find((o) => o.correct);
+        key.text = `${key.text} and this clause makes it the longest option every time.`;
+      }
+    }
+  });
+  const out = checkLengthCue(ctx, {});
+  assert.ok(out.some((f) => /longest/.test(f.message)));
 });
