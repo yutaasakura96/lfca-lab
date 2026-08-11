@@ -1,0 +1,2016 @@
+{
+  "competency": "DevOps Fundamentals :: DevOps Basics",
+  "items": [
+    {
+      "id": "q.devops.devops-basics.devops.01",
+      "concept_id": "devops.devops-basics.devops",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team runs Jenkins, Terraform, and a fully automated pipeline, but developers still hand every release to a separate operations group that owns production. Is this team practising DevOps?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because DevOps is one team owning the whole path from development through production operations, and the toolchain is only how that ownership gets exercised.",
+          "correct": true,
+          "why": "Ownership of the whole lifecycle is the definition; the toolchain is a means to it, not the thing itself.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since running a modern CI/CD toolchain and infrastructure-as-code is what the term DevOps refers to.",
+          "correct": false,
+          "why": "This is the most common wrong answer the guide warns about: framing DevOps as a toolchain rather than as shared ownership.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.devops"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the two groups coordinate informally on a regular basis, without anyone changing who is accountable for the outcome once the work has actually shipped to users., a distinction the exam treats as the whole difference between coordination and shared ownership",
+          "correct": false,
+          "why": "Coordination without changed accountability leaves the handoff, and the incentive split behind it, untouched.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.silos-and-shared-responsibility"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the handoff slows the feedback loop rather than because ownership stayed split.",
+          "correct": false,
+          "why": "The slower feedback loop is a consequence of the handoff, not an independent reason the team fails the definition.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.feedback-loops"
+          }
+        }
+      ],
+      "rationale": "DevOps is a culture and operating model first: one team owns delivery end to end. A full toolchain run by a separate operations group that still receives handoffs is automation without the ownership change that defines the practice.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.devops",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.silos-and-shared-responsibility.01",
+      "concept_id": "devops.devops-basics.silos-and-shared-responsibility",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Two teams are merged onto one org chart, but developers are still measured on feature velocity and operators on uptime. Has the silo been removed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because a silo is an incentive boundary rather than an org-chart boundary, and the conflicting measures preserve it regardless of the new reporting line.",
+          "correct": true,
+          "why": "The discrimination the exam wants is exactly this: incentives, not org charts, define the silo.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since a single reporting line is what defines a silo in the first place.",
+          "correct": false,
+          "why": "Reporting structure is not what the concept turns on; unchanged incentives are what preserve a silo.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.silos-and-shared-responsibility"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, because the merged org chart is itself evidence that the organisation has adopted DevOps., since a reorganisation announced publicly is often mistaken for the incentive change that shared responsibility actually requires underneath it",
+          "correct": false,
+          "why": "A reorganisation on paper is not the culture change DevOps requires; the incentives described here have not moved.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.devops"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the merged team's release cadence has not yet increased.",
+          "correct": false,
+          "why": "Release cadence is a downstream effect of removing the silo, not the test for whether it has been removed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.feedback-loops"
+          }
+        }
+      ],
+      "rationale": "A silo is an incentive boundary, not an org-chart boundary. Merging two teams while leaving developers rewarded for velocity and operators for uptime leaves the conflict, and the silo, exactly where it was.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.silos-and-shared-responsibility",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.feedback-loops.01",
+      "concept_id": "devops.devops-basics.feedback-loops",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A company moves from quarterly releases bundling hundreds of changes to daily releases of a handful each. Why does this reduce risk rather than increase it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Each release carries less change, so the candidate causes of a failure are few and the time between making a change and learning its effect is short.",
+          "correct": true,
+          "why": "This is the counterintuitive claim the concept exists to teach: latency, not volume, is what a feedback loop measures.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Moving testing and security earlier in the lifecycle catches more defects before any release ships at all.",
+          "correct": false,
+          "why": "That describes shift left, a related but separate practice about when quality work happens, not about release size.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.shift-left"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Releasing daily forces the team to add substantially more automated test coverage than it had before.",
+          "correct": false,
+          "why": "Nothing about release frequency mandates new coverage; the safety net and the cadence are separate levers.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.automated-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It does not reduce risk; releasing more often simply multiplies the number of chances something can go wrong., ignoring that every one of those smaller releases is also individually easier to diagnose and reverse",
+          "correct": false,
+          "why": "This mistakes release count for accumulated risk and ignores that each release now carries far less change.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.feedback-loops"
+          }
+        }
+      ],
+      "rationale": "A feedback loop is measured in latency, not volume. Smaller, more frequent releases shrink the set of possible causes when something breaks and shorten the interval before the breakage is noticed.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.feedback-loops",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.shift-left.01",
+      "concept_id": "devops.devops-basics.shift-left",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A security scan and a design-time threat conversation are added at the pull-request stage, replacing a gate that used to run the week before release. Does this mean developers have taken over the security team's job?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because shift left is a statement about when testing and security happen, not about who performs them, so responsibility stays shared across the lifecycle.",
+          "correct": true,
+          "why": "The concept is explicitly about timing rather than reassigning ownership of the work.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, because moving a task earlier in the pipeline transfers ownership of that task to whoever is already working at that earlier stage. regardless of what the lifecycle stage is actually meant to accomplish for the team as a whole",
+          "correct": false,
+          "why": "This is the exact conflation the guide warns against: earlier is a when, not a transfer of who does the work.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.shift-left"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because the operations group still owns whatever deployment gate remains later in the pipeline.",
+          "correct": false,
+          "why": "A remaining downstream gate is not why the answer is no; the definition itself rules out the transfer being described.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.silos-and-shared-responsibility"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, since shortening the time to notice a defect requires developers to run every check themselves without help.",
+          "correct": false,
+          "why": "Shortening detection time is a feedback-loop concern and does not require developers to absorb another team's checks.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.feedback-loops"
+          }
+        }
+      ],
+      "rationale": "Shift left moves when testing and security happen, earlier in the lifecycle where a defect is cheaper to fix. It does not mean developers absorb the QA or security team's job; the sharing of responsibility is unchanged.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.shift-left",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.site-reliability-engineering.01",
+      "concept_id": "devops.devops-basics.site-reliability-engineering",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "What is the one-sentence difference between DevOps and site reliability engineering?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "DevOps focuses on getting code to production; SRE focuses on ensuring code already running in production keeps working, using an error budget to balance change against stability.",
+          "correct": true,
+          "why": "This is the boundary the exam draws: delivery focus versus a running-system focus, mediated by an error budget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "They are two names the industry uses for the same discipline, applied to the same set of practices by different companies.",
+          "correct": false,
+          "why": "Treating the two as synonyms erases the distinction the concept exists to test.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.site-reliability-engineering"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "SRE is the culture of shared ownership between development and operations, and DevOps is the specialist discipline built on top of it., which inverts the actual relationship the exam expects a candidate to know by name",
+          "correct": false,
+          "why": "This reverses the two: DevOps is the shared-ownership culture, and SRE is the specialist operations discipline.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.devops"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "SRE is the practice of making automation safely re-runnable, a property that a DevOps pipeline then schedules on a cadence.",
+          "correct": false,
+          "why": "That property describes idempotency, an unrelated concept about repeatable operations, not SRE.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.idempotency-in-automation"
+          }
+        }
+      ],
+      "rationale": "SRE applies software engineering to reliability and uses an error budget to trade stability work against release velocity. DevOps is about getting code to production; SRE is about the production system continuing to work once it is there.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#s-devops-basics-culture",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-integration.01",
+      "concept_id": "devops.devops-basics.continuous-integration",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "One team merges to its shared branch several times a day, with a build and test run triggered automatically on every merge. A second team runs the same pipeline definition nightly against a set of long-lived feature branches, without merging them anywhere near that often. Which team is practising continuous integration?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first team, because continuous integration is the practice of merging and verifying frequently, which the second team's nightly automation does not by itself establish.",
+          "correct": true,
+          "why": "Merge frequency to a shared branch is the behaviour the practice names; owning an automated pipeline is not sufficient on its own.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both teams, since owning an automated pipeline is what continuous integration means, whatever the merge frequency happens to be., because a pipeline definition file is treated as proof of the practice on its own",
+          "correct": false,
+          "why": "A pipeline can run nightly against long-lived branches with no continuous integration behind it; the machinery is not the practice.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.pipeline"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither, unless the resulting build is also deployed automatically into an environment afterward.",
+          "correct": false,
+          "why": "Deploying anywhere moves the scenario into delivery or deployment; continuous integration stops at a tested artifact.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The second team, because a scheduled nightly run is more disciplined than merging several times within a single day.",
+          "correct": false,
+          "why": "Discipline is not the criterion; frequent merging to a shared branch is, and the second team's cadence is the opposite of that.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.continuous-integration"
+          }
+        }
+      ],
+      "rationale": "Continuous integration is a team practice — merge to a shared branch often, verify every change automatically — separate from the pipeline machinery that carries it out. A team can own automation without meaningfully integrating.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-integration",
+      "comparison_block": "cmp-devops.devops-basics.continuous-integration",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-integration.02",
+      "concept_id": "devops.devops-basics.continuous-integration",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A described workflow ends with: the build passed, and a tested artifact was produced. Nothing further is stated about where that artifact went afterward. Which practice has the description covered so far?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Continuous integration, since the process runs from a committed change to a tested, deployable artifact and the description stops exactly there.",
+          "correct": true,
+          "why": "Producing a verified artifact and stopping is precisely where continuous integration's scope ends.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Continuous delivery, since producing a tested artifact already means it is inherently something that could be released.",
+          "correct": false,
+          "why": "Releasability requires deployment into at least an acceptance environment, which this description never mentions happening.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The full pipeline stage list, because build and test are only two of several stages a pipeline definition can contain.",
+          "correct": false,
+          "why": "The pipeline is the mechanism running the stages; the description is naming the practice being exercised, not the object running it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.pipeline"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Build and artifact promotion in full, since an artifact was produced and every environment further along must now receive it., since an artifact being produced is treated as sufficient evidence that promotion has already begun",
+          "correct": false,
+          "why": "Nothing in the description says the artifact was promoted anywhere; promotion is a later, unstated step.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.build-and-artifact"
+          }
+        }
+      ],
+      "rationale": "CI is about integrating and verifying, not about releasing. A scenario that stops at a tested artifact has described CI in full; extending it into deployment moves the description into delivery or deployment instead.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-integration",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-delivery.01",
+      "concept_id": "devops.devops-basics.continuous-delivery",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Three teams run the same pipeline definition. Team A's every passing change deploys automatically to an acceptance environment and then waits for a release manager to approve going further. Team B's every passing change goes straight to production with no approval step at all. Team C merges frequently and ends up with a tested artifact, deployed nowhere. Match each team to continuous integration, continuous delivery, or continuous deployment.",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Team C is continuous integration, Team A is continuous delivery, and Team B is continuous deployment.",
+          "correct": true,
+          "why": "The three teams sit exactly on the three boundaries: nowhere deployed, deployed with a human gate, and deployed with no gate.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Team A is continuous deployment, since an acceptance environment counts as production for the purpose of this comparison.",
+          "correct": false,
+          "why": "An acceptance environment is exactly not production; the human approval step is what keeps Team A at delivery.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Team C is continuous delivery, because producing a tested artifact already makes it releasable at any time.",
+          "correct": false,
+          "why": "Releasable requires having reached at least an acceptance environment, which Team C's artifact never does.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-integration"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Team A and Team B are the same practice, differing only in which environment name their pipeline happens to use.",
+          "correct": false,
+          "why": "The difference between them is exactly the human gate, not a naming choice about environments.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.continuous-delivery"
+          }
+        }
+      ],
+      "rationale": "How far an automatically verified change travels on its own separates the three: CI stops at a tested artifact, delivery carries it to the door of production and waits for a person, and deployment walks it through unattended.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-delivery",
+      "comparison_block": "cmp-devops.devops-basics.continuous-delivery",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-delivery.02",
+      "concept_id": "devops.devops-basics.continuous-delivery",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team practising continuous delivery releases to production twenty times a day, each release still triggered by a person clicking a button. Does this frequency mean the team has actually adopted continuous deployment?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because release frequency is not what separates the two practices; continuous delivery constrains who decides, and a human decision is still made on every one of the twenty releases.",
+          "correct": true,
+          "why": "The trap named in the guide is exactly this: delivery does not mean releasing rarely, it means a person still decides.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since twenty releases a day is fast enough that the human step has become a formality rather than a genuine gate., since a release cadence that fast looks indistinguishable from full automation to anyone outside the team who approves it",
+          "correct": false,
+          "why": "However fast the cadence, the step is still a real decision point; frequency alone does not remove the gate.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, because continuous deployment is defined by how often releases happen rather than by whether an approval step exists.",
+          "correct": false,
+          "why": "This inverts the actual definition, which turns on the presence or absence of the human gate, not on cadence.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the team has not also automated its rollback procedure alongside the release button.",
+          "correct": false,
+          "why": "A rollback procedure is part of a complete delivery practice, but it is not what distinguishes delivery from deployment here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        }
+      ],
+      "rationale": "The difference from continuous deployment is exactly the manual gate and nothing else. A team can practise continuous delivery at any release frequency, so long as a person still decides each time.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-delivery",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-deployment.01",
+      "concept_id": "devops.devops-basics.continuous-deployment",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An organisation removes the manual approval step from its delivery pipeline, so every passing change now reaches production unattended. Its automated test suite covers only unit-level behaviour. What does this scenario describe?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A fault, because continuous deployment is normally paired with comprehensive automated testing and progressive rollout, since nothing else stands between a defect and users once the gate is gone.",
+          "correct": true,
+          "why": "Weak automated testing plus continuous deployment is exactly the fault the guide names, not a neutral configuration choice.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Continuous delivery, since removing one step from the pipeline is still consistent with waiting on a human decision elsewhere., since an acceptance environment can look enough like production that the missing gate goes unnoticed until an incident forces the question",
+          "correct": false,
+          "why": "No gate remains anywhere in the description, which is exactly the property that makes this deployment rather than delivery.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A safe practice, provided the team has documented its rollback procedure somewhere for later reference.",
+          "correct": false,
+          "why": "A documented rollback does not compensate for a test suite that cannot catch what an unattended pipeline needs it to catch.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Continuous integration, because the stated risk concerns test coverage rather than anything about deployment.",
+          "correct": false,
+          "why": "The scenario explicitly reaches production automatically, which is well past where continuous integration's scope ends.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.automated-testing"
+          }
+        }
+      ],
+      "rationale": "Whether an organisation can safely adopt continuous deployment is a question about its test suite and rollback story, not about ambition. Weak coverage paired with no gate is a fault, not a neutral practice.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-deployment.02",
+      "concept_id": "devops.devops-basics.continuous-deployment",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which implication actually holds between continuous delivery and continuous deployment?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Continuous deployment implies continuous delivery, but continuous delivery does not imply continuous deployment.",
+          "correct": true,
+          "why": "Deployment is delivery with the gate also removed, so deployment necessarily has everything delivery has, but not the reverse.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Continuous delivery implies continuous deployment, and reversing that direction is the actual error to watch for.",
+          "correct": false,
+          "why": "This states the implication backwards; delivery is the weaker claim and does not guarantee the gate has been removed.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The two imply each other, since both automate the same pipeline up to the point where a release could happen.",
+          "correct": false,
+          "why": "Sharing an abbreviation and a pipeline is exactly why the two are confused, but the gate makes them distinct, non-equivalent practices.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.continuous-deployment"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither implies the other; each depends independently on continuous integration having already run.",
+          "correct": false,
+          "why": "Both do depend on continuous integration, but that shared dependency does not make the implication between them symmetric or absent.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-integration"
+          }
+        }
+      ],
+      "rationale": "Continuous deployment implies continuous delivery because it satisfies everything delivery requires and then removes the remaining gate. Reversing the implication, assuming delivery guarantees deployment, is the standard error.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.pipeline.01",
+      "concept_id": "devops.devops-basics.pipeline",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A described pipeline builds a container image, runs unit and integration tests against it, and then pushes it to a registry, but it only ever runs when someone manually triggers it against a release branch about once a month. Is this pipeline practising continuous integration?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because the automation exists but continuous integration is defined by merging frequently to a shared branch, which a once-a-month trigger plainly does not provide.",
+          "correct": true,
+          "why": "A pipeline is the mechanism; whether the team practises continuous integration depends on merge frequency, which this pipeline does not establish.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since every stage associated with continuous integration, build, test, and package, is visibly present in the pipeline's own definition., regardless of how infrequently the pipeline is actually triggered against the shared branch",
+          "correct": false,
+          "why": "Owning the stages is not the same as merging often; a pipeline is not CI/CD by itself, regardless of which stages it lists.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-integration"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, because pushing the finished image to a registry is what makes the resulting change releasable.",
+          "correct": false,
+          "why": "Releasability is a claim about continuous delivery, not about whether the described merge frequency counts as continuous integration.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the pipeline definition was not written in a named tool such as GitHub Actions or Jenkins.",
+          "correct": false,
+          "why": "Which tool authors the definition file has no bearing on whether merges to the shared branch happen often.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.ci-cd-tooling"
+          }
+        }
+      ],
+      "rationale": "A pipeline is the concrete machinery a change runs through, distinct from the practices it may or may not implement. A monthly, manually triggered pipeline is a pipeline and is neither continuously integrating nor delivering.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.pipeline",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.pipeline.02",
+      "concept_id": "devops.devops-basics.pipeline",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A pipeline stage fails partway through a run. What happens to the change under test, and what happens to the artifact the run had produced up to that point?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The run stops so the change does not progress to later stages, and any artifact from the failed run is never promoted.",
+          "correct": true,
+          "why": "A failing stage halts the run; only a passing run's artifact is the one that gets promoted onward.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The remaining stages still execute afterward, since each stage runs independently of whether the one before it passed or failed.",
+          "correct": false,
+          "why": "Stages run in order precisely so a failure stops progress; independence between them would defeat the ordering's purpose.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.pipeline"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The previous release is automatically rolled back to undo whatever the failed change would have introduced.",
+          "correct": false,
+          "why": "Rollback concerns an already-released version; nothing here has reached an environment for a rollback to apply to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Only the failing test is reported, while the build itself is still considered a valid release candidate.",
+          "correct": false,
+          "why": "The output of a failing run is binary rather than partial credit; a failed test means the run failed, full stop.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.automated-testing"
+          }
+        }
+      ],
+      "rationale": "A trigger starts a run, and stages execute in order so a failing stage stops the run from progressing. The artifact from a failed run is never promoted, which is why the artifact that reaches an environment is always the one that passed.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.pipeline",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.build-and-artifact.01",
+      "concept_id": "devops.devops-basics.build-and-artifact",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "Staging and production are each built separately from the same source commit, using slightly different base images and dependency resolutions each time. What class of problem does this practice invite?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It defeats build once, deploy many, because what was tested in staging is not the same binary running in production even though the source commit is identical.",
+          "correct": true,
+          "why": "The rule exists precisely to prevent this gap, which is invisible in the source history and only shows up as an incident.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "None, since both environments are still climbing the same ladder from development up toward production.",
+          "correct": false,
+          "why": "Climbing the same ladder of environments does not fix a rebuild that produces a genuinely different binary at each rung.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.deployment-environments"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It only matters for developer laptops, and not for environments that sit further along the pipeline.",
+          "correct": false,
+          "why": "Parity for developer environments is a separate concern; the build-once rule applies equally to staging and production.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.developer-environments-and-parity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "None at all, provided the two separate builds are triggered from the exact same commit hash both times., overlooking that the base image and dependency resolution were never pinned to match between the two builds",
+          "correct": false,
+          "why": "An identical commit can still produce different binaries when the base image or dependency resolution differs between builds.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.build-and-artifact"
+          }
+        }
+      ],
+      "rationale": "One build produces one artifact, which is then promoted unchanged through every environment. Building separately per environment can silently produce different binaries from an identical commit, which is a whole class of hard-to-diagnose incidents.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.build-and-artifact",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.automated-testing.01",
+      "concept_id": "devops.devops-basics.automated-testing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team wants to adopt continuous deployment, but its automated suite exercises only unit-level behaviour. What does that imply about the plan?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The strength of the safety net sets the ceiling on the release practice, so nothing else stands between a merge and production once the gate is removed.",
+          "correct": true,
+          "why": "The suite is the only thing left between a defect and users once the manual gate is gone, so weak coverage caps what is safe to do.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing, because continuous deployment only requires the pipeline to have no manual gate, independent of what its tests cover., treating the absence of a manual gate as though it were sufficient on its own",
+          "correct": false,
+          "why": "Removing the gate is necessary but not sufficient; the test coverage left standing has to be able to catch what the gate used to catch.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The pipeline should add an extra manual stage after the tests to compensate for the missing coverage.",
+          "correct": false,
+          "why": "Adding a manual stage would make the practice continuous delivery, which is a different, valid but different, choice than the plan describes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.pipeline"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It does not matter, since automated tests already run on every change regardless of what level they exercise.",
+          "correct": false,
+          "why": "Running on every change says nothing about scope; a suite that only reaches unit-level behaviour cannot catch integration or end-to-end defects.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.automated-testing"
+          }
+        }
+      ],
+      "rationale": "Automated testing is the safety net that makes frequent deployment tolerable, so the strength of the net sets the ceiling on the release practice. A team cannot honestly run continuous deployment on unit-level coverage alone.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.automated-testing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.artifact-registry.01",
+      "concept_id": "devops.devops-basics.artifact-registry",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A rollback is planned for a service, but the artifact registry has already garbage-collected last week's image. What happens to the rollback?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It silently becomes a rebuild from an old commit rather than a retrieval, because the registry is what turns rollback into a retrieval in the first place.",
+          "correct": true,
+          "why": "Once the artifact is gone from the registry, returning to it means rebuilding and hoping the result matches, not retrieving what actually ran.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing changes, since rollback always rebuilds a version from source regardless of what the registry currently holds.",
+          "correct": false,
+          "why": "The whole point of a registry is that rollback is normally a retrieval rather than a rebuild; this claims that never mattered.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The rollback can still proceed cleanly by requesting the same version number from the source repository instead.",
+          "correct": false,
+          "why": "A source repository holds inputs, not the built artifact; the two are not interchangeable stand-ins for one another.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.semantic-versioning"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The rollback still succeeds without issue, since a registry only ever stores metadata and the real artifact lives in source control., overlooking that the binary itself, not merely a pointer to it, is what the registry actually retains",
+          "correct": false,
+          "why": "A registry stores the built artifact itself, not merely metadata about it, which is exactly why losing it matters.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.artifact-registry"
+          }
+        }
+      ],
+      "rationale": "A registry stores built artifacts and images so a specific version can be retrieved and redeployed. If that artifact no longer exists anywhere, rollback quietly turns into a rebuild of an old commit, which may not reproduce the same result.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "docker-overview",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.artifact-registry",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.semantic-versioning.01",
+      "concept_id": "devops.devops-basics.semantic-versioning",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A library moves from version 1.4.2 to 2.0.0. What does that number alone tell a consumer, and what would 1.5.0 have told them instead?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "2.0.0 signals a backward-incompatible change to the public API; 1.5.0 would have signalled new but backward-compatible functionality.",
+          "correct": true,
+          "why": "MAJOR and MINOR carry distinct information by design; this is exactly the contract semantic versioning makes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both signal the same underlying thing, a version increase, since the position that changed is only a formatting convention., which discards the contract the scheme exists to communicate to every downstream consumer",
+          "correct": false,
+          "why": "Treating the scheme as mere formatting rather than a contract is the exact error the concept exists to catch.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.semantic-versioning"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "2.0.0 means the artifact was pushed to a different registry, and 1.5.0 means it stayed in the original one.",
+          "correct": false,
+          "why": "Where an artifact is stored has nothing to do with what its version number encodes about API compatibility.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.artifact-registry"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "2.0.0 means the previous version can no longer be rolled back to, and 1.5.0 means it still can be.",
+          "correct": false,
+          "why": "Version numbering does not govern what remains retrievable for rollback; that depends on retention in the registry.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        }
+      ],
+      "rationale": "Semantic versioning is what makes a version number carry information rather than merely increase. A major bump signals a breaking change to the public API; a minor bump signals new, backward-compatible functionality.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "semver"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.semantic-versioning",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.ci-cd-tooling.01",
+      "concept_id": "devops.devops-basics.ci-cd-tooling",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Terraform, Ansible, and Jenkins are each proposed for a new pipeline. Which one provisions infrastructure, which configures hosts that already exist, and which runs the build and test stages?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Terraform provisions infrastructure from a declaration, Ansible configures the hosts that already exist, and Jenkins runs the pipeline's build and test stages.",
+          "correct": true,
+          "why": "Placing each named tool into the correct one of the three categories is exactly what the concept asks for.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Terraform is a CI server for build and test, Ansible provisions the infrastructure, and Jenkins configures hosts over SSH., swapping each tool into a role that its own design was never intended to serve",
+          "correct": false,
+          "why": "This is category confusion, assigning each tool to the wrong one of the three jobs it does not perform.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.ci-cd-tooling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "All three are infrastructure-as-code tools, and they are distinguished only by which cloud provider each one targets.",
+          "correct": false,
+          "why": "Only Terraform provisions infrastructure declaratively; Ansible configures existing hosts and Jenkins runs pipeline stages instead.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.infrastructure-as-code"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Terraform and Ansible both run the pipeline's stages, while Jenkins is reserved for provisioning new infrastructure.",
+          "correct": false,
+          "why": "Running pipeline stages is Jenkins's job; neither Terraform nor Ansible executes build or test stages.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.pipeline"
+          }
+        }
+      ],
+      "rationale": "Recognition of the category each tool belongs to is what matters. Terraform provisions, Ansible configures existing hosts, and Jenkins (alongside GitHub Actions and GitLab CI) runs the pipeline's stages.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.ci-cd-tooling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.deployment-environments.01",
+      "concept_id": "devops.devops-basics.deployment-environments",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A staging environment runs a different network topology and a different configuration mechanism than production, though it does use a realistic dataset. What does this arrangement fail to achieve?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It ends up testing a fourth environment nobody actually deploys to, since each rung on the ladder only works if it is genuinely closer to production than the one below it.",
+          "correct": true,
+          "why": "Staging that differs in topology or configuration mechanism is not standing in for production; it is standing in for itself.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing important, because parity is a concern that belongs to developer laptops rather than to a shared staging environment.",
+          "correct": false,
+          "why": "Parity applies to every rung of the ladder, and staging that diverges in topology fails the same test a developer environment would.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.developer-environments-and-parity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It fails to build once and deploy many, since a staging environment that differs from production clearly was built separately., since realistic data alone cannot compensate for a topology that behaves differently under load",
+          "correct": false,
+          "why": "Build-once concerns the artifact being promoted unchanged; the topology and configuration divergence described here is a separate failure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.build-and-artifact"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It succeeds at the goal, because using a realistic dataset is the one part of parity that genuinely matters here.",
+          "correct": false,
+          "why": "Data realism is only one dimension; a divergent topology or configuration mechanism can hide defects that never appear until production.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.deployment-environments"
+          }
+        }
+      ],
+      "rationale": "Each environment exists to eliminate a class of defect before the next is reached, and that only works if each rung is genuinely more realistic than the last. A staging environment that diverges in topology or configuration tests a fourth environment nobody deploys to.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.deployment-environments",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.blue-green-deployment.01",
+      "concept_id": "devops.devops-basics.blue-green-deployment",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "One release must ship a schema change alongside code that is incompatible with the previous version, so the two cannot coexist serving traffic. A later, unrelated release ships a small, backward-compatible feature that the team wants to validate against real traffic before committing to it fully. Which strategy fits each release?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Blue-green for the first release, since it never mixes versions at all; canary for the second, since it deliberately samples traffic to gather evidence before widening.",
+          "correct": true,
+          "why": "Lockstep, incompatible changes need an all-at-once cutover, and evaluating a safe change on real traffic is exactly what a canary is for.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Canary for the first release, since it can bound the exposure of the incompatible schema change to a small slice; blue-green for the second., which trades the incompatible schema change's protection for a database two versions would then be writing to at once",
+          "correct": false,
+          "why": "A canary briefly runs both versions against a live database, which is exactly what an incompatible schema change cannot tolerate.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.canary-release"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A rolling deployment for both releases, since replacing instances in batches works regardless of whether the schema is compatible.",
+          "correct": false,
+          "why": "A rolling deployment guarantees a mixed-version window, which is precisely what an incompatible schema change cannot survive.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rolling-deployment"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Blue-green for both releases, since an all-at-once cutover is always the safest strategy available regardless of what changed.",
+          "correct": false,
+          "why": "Blue-green needs a full second environment and gives up the chance to learn from real traffic, which the second release does not need to pay for.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.blue-green-deployment"
+          }
+        }
+      ],
+      "rationale": "Each strategy fails differently. Blue-green never splits traffic and suits an all-at-once, lockstep change; canary splits it deliberately to learn from production; a rolling deployment splits it only as a side effect of replacing instances.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.blue-green-deployment",
+      "comparison_block": "cmp-devops.devops-basics.blue-green-deployment",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.blue-green-deployment.02",
+      "concept_id": "devops.devops-basics.blue-green-deployment",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A blue-green cutover switches all traffic to the new environment, and a defect that survived pre-switch testing is discovered ten minutes later. Both versions share one database, and the new version has already written to it. What happens to the promised near-instant rollback?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is lost, because switching traffic back does not undo the writes the new version already made against the shared database.",
+          "correct": true,
+          "why": "A shared database silently removes the instant-rollback property, since traffic can switch back but the data cannot.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It still holds, because rollback of the code and rollback of the underlying data are the same operation by definition.",
+          "correct": false,
+          "why": "Code and data rollback are separate concerns, and redeploying old code never automatically undoes writes or migrations.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It still holds, since blue-green always keeps some percentage of users on the old version as a built-in fallback.",
+          "correct": false,
+          "why": "Blue-green switches all traffic at one cutover; there is no percentage split at any point, unlike canary.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.canary-release"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It still holds regardless, because the old environment is retained and untouched no matter what the new one wrote., a claim that only holds when nothing in the cutover was ever shared between the two environments",
+          "correct": false,
+          "why": "The old environment being untouched only protects the code path; a shared database is written to by whichever version is live.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.blue-green-deployment"
+          }
+        }
+      ],
+      "rationale": "A shared database that both versions must use silently removes the instant-rollback property, because switching traffic back does not un-apply a schema change or un-write rows the new version already created.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.blue-green-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.canary-release.01",
+      "concept_id": "devops.devops-basics.canary-release",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team routes one percent of traffic to a new version, measures nothing about how it behaves, and widens the share on a fixed weekly schedule regardless of what happened. What is missing from this practice?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The evidence, because a canary that nobody is measuring is a slow rollout with extra steps, since the entire value is in what the small slice reveals.",
+          "correct": true,
+          "why": "Widening on a fixed schedule without measurement discards the exact thing a canary exists to provide.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The all-at-once cutover, since a canary release is only complete once every user has switched simultaneously at a single point., since both approaches ultimately move every user onto the new version once the process has fully run its course",
+          "correct": false,
+          "why": "An all-at-once cutover describes blue-green; a canary is defined by gradual widening, not a single switch.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.blue-green-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A fixed batch schedule, since instances should be replaced in equal-sized groups rather than by adjusting a traffic percentage.",
+          "correct": false,
+          "why": "Batch-based replacement describes a rolling deployment; a canary is defined by a traffic share, not by which instances are swapped.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rolling-deployment"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is actually missing here, provided the deployment mechanism itself is fully automated end to end.",
+          "correct": false,
+          "why": "Automation of the mechanism does not substitute for watching error rate, latency, and business signals during the exposure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.observability"
+          }
+        }
+      ],
+      "rationale": "A canary's entire purpose is learning from production: a slice of traffic is watched so that widening is a decision informed by real measurement. Without that measurement, the same rollout provides none of the safety it is chosen for.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.canary-release",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.canary-release.02",
+      "concept_id": "devops.devops-basics.canary-release",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A canary release and an A/B test both split traffic between two versions of a service. What separates the two?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A canary asks whether a new build is defective and is expected to reach every user; an A/B test asks which of two variants users prefer and is expected to end with one variant discarded.",
+          "correct": true,
+          "why": "The two share a mechanism but ask different questions with different expected outcomes, which is the axis the comparison turns on.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing meaningfully separates them; a canary release is simply another name for an A/B test conducted against production infrastructure.",
+          "correct": false,
+          "why": "Treating them as synonyms erases the different questions each is designed to answer and the different outcome each expects.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.canary-release"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A canary splits traffic gradually over time, while an A/B test always switches every user at once in a single cutover.",
+          "correct": false,
+          "why": "That single, all-at-once switch describes blue-green; an A/B test can split traffic gradually or evenly, much like a canary can.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.blue-green-deployment"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A canary's traffic split is chosen deliberately, while an A/B test's split is only a side effect of replacing instances in batches.",
+          "correct": false,
+          "why": "A side-effect split from batch replacement describes a rolling deployment, not an A/B test, which is also deliberate.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rolling-deployment"
+          }
+        }
+      ],
+      "rationale": "Both split traffic between versions, but a canary is a health check expected to widen to 100 percent once the new build proves sound, while an A/B test is a preference experiment expected to end with the losing variant removed.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.canary-release",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.rolling-deployment.01",
+      "concept_id": "devops.devops-basics.rolling-deployment",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A Kubernetes Deployment rolls out a new version in batches, waiting for each batch of new Pods to become healthy before scaling down the corresponding old ones. Halfway through, some requests are hitting the new version and some the old one. Is anything evaluating how the new version is behaving under the traffic it has already taken?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because the mixed-version window is a side effect of replacing instances in batches, not a sample deliberately chosen to be observed the way a canary's slice is.",
+          "correct": true,
+          "why": "The rolling update advances based only on Pod health, not on any evaluation of how the new version is behaving under real traffic.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "No, but that is expected, since a rolling deployment never allows two versions to serve traffic at the same time., since neither strategy is thought to keep two different versions running against production traffic at once",
+          "correct": false,
+          "why": "Both versions do serve real traffic simultaneously for the duration of the roll; that is exactly the risk the strategy carries.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.blue-green-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, and any failure during the roll automatically restores a previous revision from the Deployment's rollout history.",
+          "correct": false,
+          "why": "Restoring a previous revision is a manual rollback action, not something the roll itself evaluates or triggers automatically.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, because both versions are visibly serving traffic at once, which is a reasonable basis for assuming the rollout is being evaluated.",
+          "correct": false,
+          "why": "Two versions serving traffic simultaneously is not the same as anything measuring how the new one is performing; that is the trap this pair exists to catch.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.rolling-deployment"
+          }
+        }
+      ],
+      "rationale": "During the roll, some traffic reaches the new version as a consequence of how many instances have been replaced, not as a sample chosen to be observed. Treating a rolling update as though it provided canary-style safety is the error this pair exists to catch.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary",
+        "k8s-deployment"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.rolling-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.rolling-deployment.02",
+      "concept_id": "devops.devops-basics.rolling-deployment",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which Kubernetes Deployment strategy runs by default, and what does the alternative strategy do differently from it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "RollingUpdate is the default, replacing instances in batches while the service stays available; Recreate kills every existing Pod before creating any new one, accepting downtime.",
+          "correct": true,
+          "why": "This is the stated default and its only named alternative, with the downtime trade-off that separates them.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Recreate is the default strategy, and it behaves much like a blue-green cutover between two complete environments.",
+          "correct": false,
+          "why": "RollingUpdate is the default, and Recreate has no second environment at all; it simply removes and replaces Pods in place.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.blue-green-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "RollingUpdate is the default, and Recreate is what restores a previous revision from the Deployment's retained rollout history.",
+          "correct": false,
+          "why": "Restoring a previous revision describes a rollback action, not the Recreate strategy, which only governs how new Pods replace old ones.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Both strategies avoid downtime entirely, differing only in how many Pods are replaced within each batch.",
+          "correct": false,
+          "why": "Recreate does not avoid downtime at all; it removes every existing Pod before any replacement exists.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.rolling-deployment"
+          }
+        }
+      ],
+      "rationale": "A Kubernetes Deployment's strategy type is RollingUpdate unless set otherwise; the only alternative is Recreate, which kills all existing Pods before creating any new ones and so accepts downtime that RollingUpdate is designed to avoid.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary",
+        "k8s-deployment"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.rolling-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.rollback.01",
+      "concept_id": "devops.devops-basics.rollback",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A deployment is rolled back by redeploying the previous artifact, but the incident does not end. What is the most likely reason?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Data, because a schema migration or writes made by the new version are not undone by redeploying old code, since rollback of code is not rollback of data.",
+          "correct": true,
+          "why": "This is the distinction the concept turns on: reversing the code does nothing to reverse what the new version already wrote.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The artifact registry must have been misconfigured, since a correctly performed rollback always resolves the underlying incident.",
+          "correct": false,
+          "why": "This assumes rollback is always sufficient, which is exactly the gap an irreversible migration or write can leave open.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.rollback"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The wrong version tag was almost certainly pulled from the registry, targeting the redeploy at the wrong artifact.",
+          "correct": false,
+          "why": "Nothing in the scenario suggests the wrong artifact was retrieved; the described symptom is consistent with a correct redeploy that data alone defeats.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.artifact-registry"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The team should have used a blue-green cutover instead of simply redeploying the same previous artifact.",
+          "correct": false,
+          "why": "Switching strategies would not fix a data problem; even a blue-green rollback cannot undo writes a shared database already received.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.blue-green-deployment"
+          }
+        }
+      ],
+      "rationale": "Rollback returns a system to the previous known-good version, but redeploying yesterday's code does not un-apply a schema migration or un-write rows the new version created, which is why an irreversible change removes the safety net rollback appears to provide.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "k8s-deployment",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.rollback",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.developer-environments-and-parity.01",
+      "concept_id": "devops.devops-basics.developer-environments-and-parity",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A developer's laptop cannot match production's request volume, but a container image pins its language runtime's minor version, its linked libc, and its configuration mechanism to match production exactly. Has parity been achieved in the sense the exam means?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Yes, because parity is about shape rather than size, and the things that differ silently are what matter, while raw capacity is not one of them.",
+          "correct": true,
+          "why": "The concept explicitly separates shape from size, and the pinned dependencies here are exactly the shape that matters.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "No, because a laptop can never truly match production's conditions no matter what the container image happens to pin.",
+          "correct": false,
+          "why": "This treats capacity as though it were part of parity, but parity never required the laptop to match production's scale.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.developer-environments-and-parity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, because genuine parity requires an identical number of running instances at every single stage of the environment ladder.",
+          "correct": false,
+          "why": "Instance count is a scale concern belonging to the environment ladder, not to whether the developer's runtime and configuration match production's shape.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.deployment-environments"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, but only because the same built artifact is also being promoted unchanged through every later environment.",
+          "correct": false,
+          "why": "Artifact promotion is a separate practice about environments further along the pipeline, not about what makes a developer's local setup match production.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.build-and-artifact"
+          }
+        }
+      ],
+      "rationale": "Parity is about shape, not size. A laptop is never going to match production's capacity and does not need to; what must match are the things that differ silently, such as runtime version, linked libraries, and configuration mechanism.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "docker-overview",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.developer-environments-and-parity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.language-package-managers.01",
+      "concept_id": "devops.devops-basics.language-package-managers",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A developer installs a JavaScript library so that only the single project importing it can see it, and separately a system administrator installs a runtime package so that every process on the machine can use it. Which kind of tool performed each installation?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A language package manager performed the project-local install, and the operating system's package manager performed the machine-wide one.",
+          "correct": true,
+          "why": "Application-level dependencies belong to a language package manager, and system-wide software belongs to the operating system's own tool.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The operating system's package manager performed both installs, since a package is a package regardless of which tool is used to install it.",
+          "correct": false,
+          "why": "The two answer different questions: one resolves what a single application needs, the other installs software for the machine as a whole.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.system-administration.package"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A container image performed the project-local install, since containers are what pins a project's dependency versions.",
+          "correct": false,
+          "why": "A container image can carry pinned dependencies, but the install described here is the ordinary job of a language package manager, not a container.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.developer-environments-and-parity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A language package manager performed both installs, since the operating system exposes identical installation semantics to any caller.",
+          "correct": false,
+          "why": "Machine-wide software is normally the operating system package manager's job; the two tools answer different questions about scope.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.language-package-managers"
+          }
+        }
+      ],
+      "rationale": "A language package manager resolves application-level dependencies for one project; the operating system's package manager installs system-wide software for the machine as a whole. The two answer different questions even though both share the word package.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "maven-dependency-mechanism"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.language-package-managers",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.language-package-managers.02",
+      "concept_id": "devops.devops-basics.language-package-managers",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "The same library ends up installed both through a language package manager and through the operating system's package manager on one machine, at two different versions, and which one an application loads now depends on search order rather than intent. What caused this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Choosing the wrong manager for the kind of dependency involved, since application-level libraries belong to the language package manager and system-wide software belongs to the operating system's own tool.",
+          "correct": true,
+          "why": "Installing the same library through both managers is the classic failure this boundary is meant to prevent.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A missing container image, since a container is the only mechanism that can prevent two copies of a library from coexisting., since the packaging format itself looks identical regardless of which kind of manager originally installed the dependency in question",
+          "correct": false,
+          "why": "Containers can reduce this risk, but the underlying cause is choosing the wrong manager, not the absence of a container.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.developer-environments-and-parity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing unusual, since every distributable package bundles its own metadata, dependency list, and install scripts by design.",
+          "correct": false,
+          "why": "That description of a package's contents does not explain why two managers both installed the same dependency at conflicting versions.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.system-administration.package"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A version-control conflict, since manifest files and lock files exist specifically to prevent this kind of duplication.",
+          "correct": false,
+          "why": "Manifest and lock files control what one language package manager resolves; they say nothing about a separate install through the operating system's tool.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.language-package-managers"
+          }
+        }
+      ],
+      "rationale": "Installing the same library through both kinds of manager is the classic failure of this boundary: two copies at different versions end up on the system, and which one an application loads depends on search order rather than intent.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "maven-dependency-mechanism"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.language-package-managers",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.infrastructure-as-code.01",
+      "concept_id": "devops.devops-basics.infrastructure-as-code",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team keeps a shell script in Git that creates a set of cloud resources. Running the script a second time creates a second set of the same resources, and there is no way to compare what currently exists against what was intended. Is this infrastructure as code?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, it is imperative automation, because infrastructure as code declares a desired end state that re-applying converges on, rather than repeating an action each time it runs.",
+          "correct": true,
+          "why": "The working distinction is declarative versus imperative, and a script that duplicates resources on a second run has no notion of convergence.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since both approaches keep their declarations in version control and both are meant to converge toward the same eventual result., since both practices are commonly summarised the same way and the tools used for each are frequently swapped for one another in casual conversation",
+          "correct": false,
+          "why": "Being in Git is not what makes something infrastructure as code; the script here has no declared state to converge toward at all.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.best-practices.configuration-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, because keeping the script in Git and reviewing every change to it is what makes something infrastructure as code.",
+          "correct": false,
+          "why": "Version control and review are good practice for any code, but they do not supply the declarative, convergent behaviour the concept requires.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.infrastructure-as-code"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the script has not yet been made safely re-runnable at the level of its individual actions.",
+          "correct": false,
+          "why": "Making the actions idempotent is a related but separate property from declaring infrastructure's desired state and detecting drift against it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.idempotency-in-automation"
+          }
+        }
+      ],
+      "rationale": "Infrastructure as code declares a desired end state and lets a tool converge on it; a script that duplicates resources on every run and offers nothing to compare reality against is imperative automation, not infrastructure as code.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.infrastructure-as-code",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.infrastructure-as-code.02",
+      "concept_id": "devops.devops-basics.infrastructure-as-code",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "What is the one-sentence difference between infrastructure as code and configuration management?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Infrastructure as code brings resources into existence and destroys them; configuration management acts on the state inside systems that already exist.",
+          "correct": true,
+          "why": "This is the boundary the exam draws: which question the tool run answers, provisioning existence versus configuring state.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The two are the same activity, only applied through different named tools such as Terraform on one side and Ansible on the other.",
+          "correct": false,
+          "why": "The tools do overlap in practice, but the concept's line is which question the run answers, not which vendor happens to be involved.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.best-practices.configuration-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Infrastructure as code runs only on a fixed schedule, while configuration management runs only in response to a commit.",
+          "correct": false,
+          "why": "Trigger mechanism is incidental to both practices and is not the axis that separates provisioning from configuring.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.ci-cd-tooling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Infrastructure as code is always declarative, while configuration management is always written as an imperative script.",
+          "correct": false,
+          "why": "Configuration-management tools are typically declarative too; the real separating line is provisioning existence against configuring state.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.infrastructure-as-code"
+          }
+        }
+      ],
+      "rationale": "Infrastructure as code and configuration management both keep declarations in version control and both re-apply to converge, but infrastructure as code brings resources into existence while configuration management acts on systems that already exist.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.infrastructure-as-code",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.idempotency-in-automation.01",
+      "concept_id": "devops.devops-basics.idempotency-in-automation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An automation task declares that a package must be installed at a given version, checking the current state before acting, and it is run three times in a row against a host that already satisfies that state. Describe what happens on the second and third runs.",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Both find the declared state already satisfied and change nothing further, which is exactly what makes the task safely re-runnable.",
+          "correct": true,
+          "why": "An idempotent task checks state before acting, so repeated runs beyond the first that already satisfies it have no additional effect.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both reinstall the package all over again, since idempotent means the exact same action happens on every run regardless of current state.",
+          "correct": false,
+          "why": "This confuses idempotent with unconditional; an idempotent task is defined by checking state first, not by repeating an action blindly.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.idempotency-in-automation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both report configuration drift, since re-running a task that has already converged always surfaces something new to review.",
+          "correct": false,
+          "why": "A converged, idempotent task reports nothing to change; drift only appears when reality has diverged from the declaration since the last run.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.infrastructure-as-code"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Both trigger the pipeline's automated test suite to run again, since idempotency is a property of the pipeline rather than of the task itself.",
+          "correct": false,
+          "why": "Idempotency is a property of the individual task's behaviour on repeated runs, not something that governs whether an unrelated test suite reruns.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.automated-testing"
+          }
+        }
+      ],
+      "rationale": "An idempotent task checks the current state before acting; once the declared state is satisfied, a second or third run finds nothing to do. That is what makes automation safely re-runnable after an interrupted or retried run.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.idempotency-in-automation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.observability.01",
+      "concept_id": "devops.devops-basics.observability",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Monitoring dashboards for a service are in place and green, yet an operator cannot explain a new failure mode nobody anticipated when writing the dashboards. Why can monitoring be in place and the system still be poorly observable?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Monitoring reports on signals chosen in advance, while observability is what lets an operator answer a question nobody thought to ask before the incident, without shipping new instrumentation.",
+          "correct": true,
+          "why": "This is the exact distinction the exam draws between a practice built on foreseen signals and a property that supports unforeseen questions.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It cannot happen this way, since a system with monitoring already in place is observable by definition once signals are being collected continuously.",
+          "correct": false,
+          "why": "Collecting quantitative signals continuously is what monitoring is; observability is a further property about answering questions nobody anticipated.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Because alerting was not configured to interrupt anyone the moment the dashboards would otherwise have turned green.",
+          "correct": false,
+          "why": "Alerting is the separate practice of interrupting a human on a breached threshold; it does not explain a gap in answering an unforeseen question.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.best-practices.monitoring-and-alerting"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Observability is simply a synonym for having more dashboards deployed than the ones the team already built.",
+          "correct": false,
+          "why": "More dashboards still only answer questions someone already thought to ask, which is exactly the limit observability exists to lift.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.observability"
+          }
+        }
+      ],
+      "rationale": "Monitoring watches signals chosen in advance and answers questions already known to be worth asking. Observability is the property that lets an operator answer a question nobody anticipated, without shipping new instrumentation to find out.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#s-devops-basics-automation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.devops.devops-basics.monolith-vs-microservices.01",
+      "concept_id": "devops.devops-basics.monolith-vs-microservices",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A product team runs one deployable application and complains that a sign-up spike forces them to scale an unrelated video-streaming feature along with it. A colleague separately argues the codebase should be split into microservices because it has become hard to read. Is code readability a reason to make that split?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No, because deployment shape and code quality are separate problems; the sign-up spike is a genuine scaling argument, but an untidy codebase is not, and microservices add operational cost regardless of the reason given.",
+          "correct": true,
+          "why": "The dividing line is deployment independence, not code size or code quality, so readability alone does not justify the split.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since decomposing a monolith into services is the standard fix whenever a codebase becomes difficult to change over time., treating deployment shape as though it were interchangeable with the readability of the code that happens to live inside it",
+          "correct": false,
+          "why": "Splitting for readability spends operational effort on machinery that does not address a code-quality problem at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:devops.devops-basics.monolith-vs-microservices"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because the team has not yet promoted the same built artifact through every environment it deploys to.",
+          "correct": false,
+          "why": "Build and artifact promotion is an unrelated concern about how a release travels through environments, not about whether to split the codebase.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.deployment-environments"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, provided the newly split services are also defined declaratively as infrastructure as code from the start.",
+          "correct": false,
+          "why": "Whether infrastructure is declared as code is orthogonal to whether the split is justified by a readability complaint in the first place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.infrastructure-as-code"
+          }
+        }
+      ],
+      "rationale": "The dividing line between a monolith and microservices is deployment independence, not code size or quality. Splitting to scale a genuinely divergent workload is a real trade; splitting because a codebase is hard to read addresses the wrong problem and still buys the operational overhead.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "cncf-glossary"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.monolith-vs-microservices",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

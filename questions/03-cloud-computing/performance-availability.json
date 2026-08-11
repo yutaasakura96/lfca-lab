@@ -1,0 +1,1954 @@
+{
+  "competency": "Cloud Computing Fundamentals :: Performance/Availability",
+  "items": [
+    {
+      "id": "q.cloud.performance-availability.availability.01",
+      "concept_id": "cloud.performance-availability.availability",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A single, unredundant server reports 99.97% availability over the last quarter, purely by luck — it never happened to be hit by an outage window. A separate service is built with redundant instances across two zones and automatic failover, but had a rough month and only measured 99.5%. Which statement correctly separates what each number shows from what each design achieves?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first figure is a measured result that can exist without any high-availability design behind it; the second is a high-availability design that can still miss its own target after a bad month.",
+          "correct": true,
+          "why": "Availability is an observed quantity; high availability is an architecture. Either can occur without the other, in both directions.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The unredundant server must be the more highly available of the two, since its measured number is larger.",
+          "correct": false,
+          "why": "This treats the measured percentage as if it proved the underlying design, conflating the metric with the architecture that is supposed to raise it.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both figures describe the same property, so the two services are equally reliable regardless of design.",
+          "correct": false,
+          "why": "Reliability properties such as fault tolerance are separate from an availability figure and are not implied by it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.fault-tolerance"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A redundant, automatically-failing-over design is guaranteed to score higher than an unredundant one over any measurement window. — treating the design as a promise about the outcome of any single window, rather than about the long-run average it is actually meant to shift.",
+          "correct": false,
+          "why": "High availability lowers the chance of a bad month; it does not guarantee the outcome of any single measured window, as this scenario shows.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.availability"
+          }
+        }
+      ],
+      "rationale": "Availability is what you measure over a window; high availability is what you build to raise it. The comparison block's whole point is that a number is not an architecture — each can occur without the other, as this scenario deliberately shows in both directions.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-slos"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.availability",
+      "comparison_block": "cmp-cloud.performance-availability.availability",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.availability.02",
+      "concept_id": "cloud.performance-availability.availability",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An SRE team is choosing between two internal SLO targets, both measured over a 30-day month: 99.95% and 99.9%. Relaxing the target from 99.95% to 99.9% permits how much additional downtime across the month?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "About 21.6 more minutes — the allowance grows from roughly 21.6 minutes to roughly 43.2 minutes.",
+          "correct": true,
+          "why": "43.2 minus 21.6 minutes is 21.6 minutes; both figures follow from (1 minus availability) times the 30-day window.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "About 4.3 more minutes, since relaxing by one nine only ever changes the figure by the smallest listed increment.",
+          "correct": false,
+          "why": "This mistakes 99.95% to 99.9% for a change of one full nine; the ten-times step applies between whole nines, not half-nines, and understates the real difference.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.availability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "About 7.2 hours more, matching the jump from three nines down to two nines rather than the half-step asked about.",
+          "correct": false,
+          "why": "That figure is the monthly allowance recovered going from 99.9% down to 99%, a full nine away from the pair in the question.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No measurable difference, because both targets round to the same permitted downtime once expressed per month.",
+          "correct": false,
+          "why": "The two monthly allowances differ by a factor of two, which is not a rounding artefact.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.fault-tolerance"
+          }
+        }
+      ],
+      "rationale": "Monthly downtime allowance is (1 minus availability) times 30 days times 24 times 60 minutes: about 43.2 minutes at 99.9% and about 21.6 minutes at 99.95%, a difference of 21.6 minutes recomputed directly from the definition rather than copied from the guide's table.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-slos"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.availability",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.high-availability.01",
+      "concept_id": "cloud.performance-availability.high-availability",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A design keeps two application servers on independent power feeds in separate racks, but nothing watches them and nothing redirects traffic if one goes down. Is the arrangement highly available?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — redundancy is only one of the two required ingredients; nothing detects a failure or moves traffic away from it.",
+          "correct": true,
+          "why": "High availability needs redundancy plus automatic failover; a spare with no mechanism to use it is not yet either.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — duplicate hardware placed in separate failure domains is what the term names.",
+          "correct": false,
+          "why": "That describes redundancy, the ingredient supplying spare capacity, not the completed design that also needs automatic failover.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the two servers are also stateless, since statelessness is what makes availability possible.",
+          "correct": false,
+          "why": "Statelessness is the precondition for scaling instances interchangeably; it does not supply the missing detection-and-redirect mechanism here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.stateless-design"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, and no amount of automatic failover fixes it either, because true high availability requires zero user-visible interruption.",
+          "correct": false,
+          "why": "Zero interruption is the stricter fault-tolerance bar; high availability accepts a brief detection-and-switch window, which failover would supply here.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.fault-tolerance"
+          }
+        }
+      ],
+      "rationale": "High availability requires both redundancy and automatic failover. This design has only the first ingredient — duplicate components with no health check and no redirection — so it is not yet highly available, though adding failover would complete it.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.high-availability",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.high-availability.02",
+      "concept_id": "cloud.performance-availability.high-availability",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A cloud provider's contract promises 99.99% monthly availability with service credits if missed. A customer runs a single instance in a single zone on that platform. Which statement is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The provider's figure is a contractual promise about the platform; the customer's own architecture, not the contract, determines whether their service is actually highly available.",
+          "correct": true,
+          "why": "An SLA prices the provider's own shortfall; it says nothing about what an unredundant deployment built on top of it will achieve.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The customer's service inherits 99.99% availability automatically, since that is what the SLA guarantees them. — a substitution that ignores everything the customer’s own architecture would have to contribute for that number to hold.",
+          "correct": false,
+          "why": "This is the substitution the SLA comparison warns against: a high provider SLA does not make an unredundant single-zone deployment highly available.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.cloud-computing.service-level-agreement"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The SLA is itself a design for high availability, since it specifies redundancy and failover requirements.",
+          "correct": false,
+          "why": "An SLA is a contract with a remedy, not an architecture; it names no redundancy or failover mechanism at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing can be concluded, because SLA figures are never comparable to a customer's own measured availability.",
+          "correct": false,
+          "why": "Both are availability percentages over a window, which makes them directly comparable; the issue is what produced each one, not their comparability.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.availability"
+          }
+        }
+      ],
+      "rationale": "A high provider SLA is a promise about the platform's own shortfall risk. A customer who deploys a single instance in a single zone has built no redundancy or failover of their own, so their service's availability is set by their architecture, not by the number in the contract.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.high-availability",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.fault-tolerance.01",
+      "concept_id": "cloud.performance-availability.fault-tolerance",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Two systems each survive a single-node failure. In the first, users see a short window of errors while a health check detects the failure and traffic is redirected to a standby. In the second, redundant nodes are already running the same work concurrently, so nothing is switched and no error appears anywhere. Which is fault tolerant, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The second — fault tolerance means no user-visible interruption at all, because the redundant capacity was already doing the work rather than waiting to be switched to.",
+          "correct": true,
+          "why": "The absence of any interruption, not merely a fast one, is the property that separates fault tolerance from high availability.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The first, because detecting a failure and redirecting traffic is the textbook definition of tolerating a fault. — collapsing the whole distinction the comparison exists to preserve between a brief switch and no interruption at all.",
+          "correct": false,
+          "why": "Detect-then-redirect is exactly the high-availability mechanism, and it is the brief interruption during that process that fault tolerance is defined against.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both equally, since either arrangement keeps the service running after one node is lost.",
+          "correct": false,
+          "why": "Both keep the service running, but the comparison turns on whether the user notices anything, and only one arrangement guarantees they do not.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither, because a genuinely fault-tolerant system would also survive the loss of every replica at once.",
+          "correct": false,
+          "why": "Fault tolerance covers a defined class of faults, not every conceivable failure; a correlated loss of all replicas falling outside that class does not disqualify the label.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.fault-tolerance"
+          }
+        }
+      ],
+      "rationale": "Fault tolerance is defined by the absence of interruption: concurrent redundant capacity absorbs the fault with nothing to switch, whereas high availability accepts a brief detection-and-failover window. The comparison block's separating axis is exactly this interruption, not whether the service ultimately survives.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.fault-tolerance",
+      "comparison_block": "cmp-cloud.performance-availability.fault-tolerance",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.fault-tolerance.02",
+      "concept_id": "cloud.performance-availability.fault-tolerance",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A quorum-based data store is marketed as fault tolerant because it keeps serving reads and writes as long as a majority of its members are reachable. A network partition then isolates every member from every other at once. What does 'fault tolerant' fail to promise here?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing beyond the defined fault class — a fault-tolerant system survives the failures it was designed for, and a total partition of every member falls outside that class.",
+          "correct": true,
+          "why": "The definition is bounded: it guarantees continued correct operation for a stated class of faults, not immunity from every possible one.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It fails to promise anything, since a properly fault-tolerant system is, by definition, 100% available.",
+          "correct": false,
+          "why": "Treating fault tolerant as a synonym for always available is the specific error this concept is examined on; 100% availability is not an achievable target for any real service.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.fault-tolerance"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It fails to promise a fast recovery, since fault-tolerant systems are only rated on how quickly they detect and fail over. — a claim that quietly assumes every fault-tolerant design is also the fastest-recovering one, which the definition never promises.",
+          "correct": false,
+          "why": "Detection and failover describe high availability's recovery path; a fault-tolerant design has no switch to time in the first place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It fails to promise redundancy, since quorum systems can operate with only a single reachable member.",
+          "correct": false,
+          "why": "Quorum systems require a majority of members, which presupposes redundancy; the gap here is about fault class, not about whether redundancy exists.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        }
+      ],
+      "rationale": "Fault tolerance is a property against a defined class of faults. A quorum design tolerates the loss of a minority of members, but a partition that isolates every member simultaneously is a correlated failure outside that class, and the system is not obligated to survive it.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.fault-tolerance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.redundancy.01",
+      "concept_id": "cloud.performance-availability.redundancy",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A team says 'we run two application servers, so we have redundancy.' What has not yet been established about the pair?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Whether they sit in independent failure domains — separate hosts, racks or zones — so the event that takes out one cannot also take out the other.",
+          "correct": true,
+          "why": "Redundancy only survives failure if the duplicate is placed somewhere the same fault cannot reach both copies.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Whether the servers are running the newest version of the operating system. — a detail that says nothing about whether the two machines could both be lost to the same rack, power feed or zone-level event.",
+          "correct": false,
+          "why": "Patch currency is a maintenance concern unrelated to whether the pair can survive a shared failure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whether the pair has been load tested at its maximum request rate.",
+          "correct": false,
+          "why": "Capacity testing measures throughput, not whether the two servers share a single point of failure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.latency-and-throughput"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Whether the servers are billed on a monthly or an annual commitment.",
+          "correct": false,
+          "why": "Billing terms have no bearing on whether the pair is placed in independent failure domains.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        }
+      ],
+      "rationale": "Redundancy is duplication placed so that one failure is survivable, which depends on the duplicates sharing no single failure domain. Two servers in the same rack on the same power feed are not redundant against a rack- or feed-level failure even though there are two of them.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.redundancy",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.redundancy.02",
+      "concept_id": "cloud.performance-availability.redundancy",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A service is provisioned N+1: three units of load require four running instances. One instance is taken down for planned maintenance. What is true of the remaining capacity?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Full load can still be carried on the three instances that remain, which is exactly what the extra unit was provisioned for.",
+          "correct": true,
+          "why": "N+1 means one more unit than load requires, so losing any single unit — planned or not — still leaves enough capacity.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The service is now under-provisioned, since N+1 only covers a single simultaneous unplanned failure, not planned maintenance.",
+          "correct": false,
+          "why": "N+1 is agnostic to why a unit is unavailable; the spare capacity covers the loss of any one unit regardless of cause.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Traffic must be rejected until the instance returns, because active-passive redundancy requires a promotion step first.",
+          "correct": false,
+          "why": "Nothing in the scenario states the units are active-passive; N+1 sizing is commonly used with active-active capacity that needs no promotion.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The remaining instances must each individually double their capacity to absorb the loss.",
+          "correct": false,
+          "why": "N+1 sizing already accounts for one unit's worth of spare capacity spread across the pool; no individual instance needs to be resized.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.vertical-scaling"
+          }
+        }
+      ],
+      "rationale": "N+1 provisions one more unit than the load strictly requires, so the loss of any single unit — whether by failure or by planned maintenance — still leaves enough capacity to carry the full load on the survivors.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.redundancy",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.failover.01",
+      "concept_id": "cloud.performance-availability.failover",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A backend fails its health check and a load balancer simply stops sending it traffic; the rest of the pool absorbs the load and nothing else changes. A separate incident has the primary database die outright, and a DNS record is switched to point at a standby that then serves all writes. Which of the two events is failover?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Only the database incident — the whole workload moved to a standby, which is what failover names; the load balancer event removed one member from a pool that keeps working the same way.",
+          "correct": true,
+          "why": "Failover switches the service as a whole onto a standby when the active component fails; routing around one dead backend in an otherwise-unchanged pool is ordinary load balancing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both — a health check stopping traffic to a dead backend is exactly the same event as switching a whole service to a standby. — erasing the distinction the whole comparison exists to draw, between removing one member from a pool and switching the entire service.",
+          "correct": false,
+          "why": "The two overlap only in that both react to a health check; one removes a single member from a working pool and the other switches the entire service, which is not the same event.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Only the load balancer event, since load balancing runs continuously and is therefore the more resilient of the two mechanisms.",
+          "correct": false,
+          "why": "Running continuously describes load balancing's normal-path behaviour; it does not make the health-check removal a case of failover, which is defined by the whole-service switch.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither, because both are examples of auto-scaling responding to reduced capacity.",
+          "correct": false,
+          "why": "Neither event adds or removes instances against a metric or schedule, which is what auto-scaling does; both concern routing around or replacing a failed component.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        }
+      ],
+      "rationale": "Failover is the exception path: the whole workload moves to a standby only when the active component fails. Load balancing is the normal path, acting on every request; a health check pulling one dead member from an otherwise-healthy pool is not the same event as switching the service.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar",
+        "aws-route53"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.failover",
+      "comparison_block": "cmp-cloud.performance-availability.failover",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.failover.02",
+      "concept_id": "cloud.performance-availability.failover",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A DNS-based failover promotes a standby within thirty seconds of the primary failing, but clients keep sending requests to the dead address for several more minutes. What is the most likely cause?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Cached DNS records — resolvers and clients keep using the old address until the record's time-to-live expires.",
+          "correct": true,
+          "why": "A long TTL can dominate the total outage even when detection and the record switch were both fast.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The failure threshold was set too low, so the health check never actually declared the primary unhealthy.",
+          "correct": false,
+          "why": "The scenario states the standby was promoted within thirty seconds, meaning the health check did fire; the delay is happening after that point.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The standby has not finished failback yet, so it is refusing the redirected connections.",
+          "correct": false,
+          "why": "Failback is the later, separate step of returning to a recovered primary; nothing in the scenario describes the standby refusing traffic.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Load balancing rules on the standby are still routing requests back to the primary by mistake.",
+          "correct": false,
+          "why": "Load balancing distributes traffic across a pool of live backends; it does not explain clients resolving a name to the address of a component that is already down.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        }
+      ],
+      "rationale": "Failover's total delay is the sum of several configured values: probe interval times failure threshold, plus the time for the redirection to take effect. With DNS-based failover, a cached record means clients keep using the old address until the TTL expires, regardless of how fast detection and promotion were.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-route53"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.failover",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.scalability-vs-elasticity.01",
+      "concept_id": "cloud.performance-availability.scalability-vs-elasticity",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A platform can be given more servers by hand whenever traffic grows, and someone remembers to remove them again once traffic falls. Is the platform elastic?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — elasticity requires the change to happen automatically in both directions; a manual add-and-remove cycle is scalability without the automation elasticity adds.",
+          "correct": true,
+          "why": "Elasticity is scalability plus two things: automation, and capacity being released again as demand falls.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, because capacity is eventually returned to its original level once demand drops. — mistaking the eventual return of capacity for the automatic, no-human-involved behaviour the definition actually requires.",
+          "correct": false,
+          "why": "Bidirectionality alone is not enough; NIST ties elasticity to capacities provisioned and released automatically, and a human doing both steps by hand does not meet that bar.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.scalability-vs-elasticity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, since the platform can clearly be given more resources and make use of them.",
+          "correct": false,
+          "why": "Being able to grow with more resources is the definition of scalability, which elasticity implies but is not itself sufficient for.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, because the platform has no defined upper bound on how many servers can be added.",
+          "correct": false,
+          "why": "An unbounded ceiling is a property of horizontal scaling's headroom, not the reason this platform falls short of elastic.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        }
+      ],
+      "rationale": "Elasticity adds automation and bidirectionality on top of scalability: capacity must be provisioned and released without a human deciding each time. A platform that only scales when someone remembers to act on it both ways is scalable, not elastic.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-145"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.scalability-vs-elasticity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.scalability-vs-elasticity.02",
+      "concept_id": "cloud.performance-availability.scalability-vs-elasticity",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An e-commerce platform automatically adds instances during a flash sale and automatically removes them again once demand returns to normal. Which of the two compared terms best names this behaviour, and what would be lost if only the removal step were dropped?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Elasticity — and dropping the automatic removal would leave only scalability, since capacity would grow but never shrink back.",
+          "correct": true,
+          "why": "Automatic and bidirectional is exactly elasticity's definition; removing the shrink-back half leaves only the ability to grow.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Scalability — and dropping the removal step would make no difference, since scalability never required shrinking in the first place.",
+          "correct": false,
+          "why": "The behaviour described — automatic in both directions — is elasticity's definition, not merely scalability's, so this undercounts what is actually being described.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.vertical-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Elasticity — and dropping the removal step would remove the platform's ability to add capacity at all.",
+          "correct": false,
+          "why": "Removing the shrink-back half leaves the grow half intact; the platform would still add instances during the sale, just never release them afterwards.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "High availability — and dropping the removal step would create a single point of failure.",
+          "correct": false,
+          "why": "High availability concerns surviving component failure, not capacity tracking demand; nothing here is about a single point of failure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        }
+      ],
+      "rationale": "Automatic growth and automatic shrink-back together are elasticity; NIST names this rapid elasticity as one of cloud computing's essential characteristics. Removing only the shrink-back half leaves a system that scales out under load and never scales back in — expensive, not elastic.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-145",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.scalability-vs-elasticity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.vertical-scaling.01",
+      "concept_id": "cloud.performance-availability.vertical-scaling",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A single-writer relational database is running out of capacity on its write path, and the write path cannot be split across multiple nodes. Which capacity move fits, and what does it cost?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Vertical scaling — moving the database to a larger instance type — at the cost of a restart and a hard ceiling once the largest available machine is reached.",
+          "correct": true,
+          "why": "A workload that cannot be divided is exactly the case vertical scaling answers, and its two limits are the restart and the ceiling.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Horizontal scaling — adding more database nodes behind a load balancer — since that removes the single point of failure with no interruption cost.",
+          "correct": false,
+          "why": "The scenario states the write path cannot be split; adding nodes behind a load balancer does nothing for work that is not distributable.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Auto-scaling — letting a scaling group add database instances against a CPU metric.",
+          "correct": false,
+          "why": "Auto-scaling automates adding and removing instances of a distributable workload; it does not apply to a single-writer path that cannot be spread across instances.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Caching the write path's results so fewer writes reach the database directly.",
+          "correct": false,
+          "why": "Caching serves repeated reads from a stored copy; it has no mechanism for absorbing writes, which must still reach the authoritative store.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.caching"
+          }
+        }
+      ],
+      "rationale": "A single-writer path with no way to divide the work is the textbook case for vertical scaling: resize to a bigger instance, at the cost of a restart, and accept that the move is finished once the largest instance type is reached.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.vertical-scaling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.vertical-scaling.02",
+      "concept_id": "cloud.performance-availability.vertical-scaling",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A team resizes their single web server to the largest instance type their provider offers, hoping to both raise capacity and reduce outages. What has the resize achieved?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "More capacity only — the server is still one machine and still a single point of failure, and it has now reached its ceiling with nowhere further to grow.",
+          "correct": true,
+          "why": "Vertical scaling does nothing for availability; a bigger single machine remains a single machine, and the largest instance type is a hard limit.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both goals, since a larger instance type also comes with the provider's redundant power and network infrastructure built in. — a belief that quietly assumes redundancy under the hypervisor is the same thing as redundancy at the level the application actually runs on.",
+          "correct": false,
+          "why": "Infrastructure redundancy underneath the instance does not make the instance itself redundant; the server is still a single point of failure at the application layer.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.vertical-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither goal, because the resize also required distributing the workload across multiple nodes first.",
+          "correct": false,
+          "why": "Vertical scaling by definition resizes one machine in place; it involves no distribution of the workload across nodes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.stateless-design"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Reduced outages only, since larger instances fail less often than smaller ones.",
+          "correct": false,
+          "why": "Instance size is not what determines single-point-of-failure risk; a bigger machine is still exactly one machine that can go down.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        }
+      ],
+      "rationale": "Vertical scaling raises capacity up to the ceiling of the largest instance type offered, and it stops there — it does not remove the single point of failure a lone server represents, so an availability goal is left unaddressed.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.vertical-scaling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.horizontal-scaling.01",
+      "concept_id": "cloud.performance-availability.horizontal-scaling",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A retail site slows every weekday at 09:00 and sits idle overnight. The current fix each quarter is to move the web server to a larger instance type; sessions live on local disk. Which single change addresses both the capacity ceiling and the site's single point of failure, and what has to be true of the application first?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Horizontal scaling — identical instances behind a load balancer — but only once sessions are moved off local disk, since a stateless design is the precondition for any instance serving any request.",
+          "correct": true,
+          "why": "Horizontal scaling removes the ceiling and the single point of failure, but it depends on statelessness; sessions pinned to one disk block any other instance from serving that user.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Vertical scaling to the next instance size, since a bigger machine removes both the ceiling and the single point of failure at once. — an assumption that ignores both the restart the resize needs and the ceiling it will eventually hit, however large the next size is.",
+          "correct": false,
+          "why": "Vertical scaling still stops at the largest instance type and leaves one machine as the single point of failure; it solves neither problem the scenario names.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.vertical-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Horizontal scaling, and nothing about the application needs to change first, since a load balancer alone makes any backend interchangeable.",
+          "correct": false,
+          "why": "A load balancer distributes requests, but if sessions live on local disk, a request routed to a different instance still cannot find its own session — that gap is what stateless design closes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Auto-scaling on a schedule, since the slow period is predictable and no design change is needed beyond a scaling policy.",
+          "correct": false,
+          "why": "A scheduled scaling policy still adds instances that are only useful once the workload is distributable; the sticky-session problem underneath is unaddressed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        }
+      ],
+      "rationale": "Horizontal scaling is effectively unbounded and removes the single point of failure a lone server represents, but it only works if any instance can serve any request — which requires externalising session state first. Vertical scaling solves neither problem the scenario names; it just delays the ceiling.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.horizontal-scaling",
+      "comparison_block": "cmp-cloud.performance-availability.horizontal-scaling",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.horizontal-scaling.02",
+      "concept_id": "cloud.performance-availability.horizontal-scaling",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A batch job processes one large file start to finish on a single thread; nothing about the work can be split across machines. A team proposes adding ten more instances behind a load balancer to speed it up. What happens?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing measurable — the extra instances sit idle, because the job's constraint is a single non-divisible thread of work that a load balancer cannot spread.",
+          "correct": true,
+          "why": "Horizontal scaling only helps work that can actually be divided; a load balancer has no requests to distribute across a single indivisible job.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The job finishes proportionally faster, since more instances behind a load balancer always raises throughput regardless of what the work looks like.",
+          "correct": false,
+          "why": "Throughput rises only when the added capacity can take on part of the work; assuming more instances always help ignores that this job has nothing to divide.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.horizontal-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The job becomes highly available, since ten instances remove any single point of failure in the pipeline.",
+          "correct": false,
+          "why": "Surviving the loss of an idle instance is not the concern here; the job still runs to completion on whichever single thread is doing the work.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The job becomes elastic, since instances were added automatically in response to the workload.",
+          "correct": false,
+          "why": "Nothing in the scenario describes automatic, bidirectional capacity changes against demand; ten instances were simply added by a team's proposal.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.scalability-vs-elasticity"
+          }
+        }
+      ],
+      "rationale": "Horizontal scaling only helps a workload that can actually be divided among instances. Putting more machines behind a load balancer does nothing for a single-threaded batch job with no distributable work, which is exactly the trap the exam sets with this shape of scenario.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.horizontal-scaling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.auto-scaling.01",
+      "concept_id": "cloud.performance-availability.auto-scaling",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A scaling group is configured with a minimum of 2, a desired capacity of 4, and a maximum of 10. What do the minimum and maximum represent?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Guardrails the group's size may never cross — it will not be allowed to fall below 2 or rise above 10, whatever a policy or metric requests.",
+          "correct": true,
+          "why": "Minimum and maximum are hard bounds; they are not the target the group actively aims for.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Targets the group aims to reach as quickly as possible, ahead of the desired capacity. — a reading that quietly promotes the number the group is actively held at into a number it is racing toward as fast as possible.",
+          "correct": false,
+          "why": "Desired capacity is the target the group is actively held at; minimum and maximum only bound how far policies are allowed to move it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.scalability-vs-elasticity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The number of healthy and unhealthy instances currently in the group.",
+          "correct": false,
+          "why": "Health status is a separate, continuously monitored property of each instance, not what these two configured numbers record.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The recovery point and recovery time the group is designed to meet.",
+          "correct": false,
+          "why": "Recovery objectives describe tolerable data loss and outage duration in disaster recovery, not capacity bounds on a scaling group.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        }
+      ],
+      "rationale": "A scaling group's minimum and maximum are guardrails the group's size may never cross, while desired capacity is the target the group is actively held at within those bounds — the maximum in particular exists to stop a runaway metric launching capacity without limit.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.auto-scaling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.auto-scaling.02",
+      "concept_id": "cloud.performance-availability.auto-scaling",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An instance in a scaling group terminates unexpectedly, outside of any scale-in event. What does the scaling group do?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It launches a replacement to hold the group back at its desired capacity, without anyone being paged.",
+          "correct": true,
+          "why": "Documented health-based replacement means an unexpectedly terminated or impaired instance is replaced automatically to maintain desired capacity.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing, until a human confirms the loss and manually requests a replacement instance.",
+          "correct": false,
+          "why": "Health-based replacement is automatic by design; the whole point is that an instance failure is repaired without a person being paged.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It raises the group's configured maximum capacity to compensate for the loss.",
+          "correct": false,
+          "why": "The configured maximum is a guardrail set deliberately; an unexpected termination does not change it, only the count of running instances within it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.scalability-vs-elasticity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It triggers a DNS-based redirection to a standby group in another region.",
+          "correct": false,
+          "why": "That describes a cross-site mechanism; a scaling group's own response to a lost member is to replace it within the same group, not to redirect elsewhere.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        }
+      ],
+      "rationale": "An auto-scaling group is also an availability mechanism: it monitors member health and replaces any instance found unhealthy or terminated unexpectedly, holding the group's desired capacity without human intervention.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-ec2-auto-scaling"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.auto-scaling",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.load-balancing.01",
+      "concept_id": "cloud.performance-availability.load-balancing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An application keeps session data in the memory of whichever instance first served a user, and a load balancer is configured with sticky sessions to route each user back to that same instance every time. What does the sticky-session configuration reveal about the application?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That the application is not stateless — sticky sessions exist specifically to route a client back to the one instance holding its state.",
+          "correct": true,
+          "why": "Sticky sessions are the workaround for an application that has not externalised its session state, and their presence is the visible sign of that gap.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "That the application is highly available, since every user's requests are reliably routed to a working instance.",
+          "correct": false,
+          "why": "Pinning a user to one instance is the opposite of resilience to that instance's loss; the pinned client's session dies along with its backend.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "That the load balancer is performing failover, since routing based on a health signal is what failover means.",
+          "correct": false,
+          "why": "Sticky routing happens on every request from a given user, not only when an instance fails — that continuous behaviour is load balancing, not the failure-triggered switch failover names.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "That the instance pool needs vertical scaling before it can serve more users.",
+          "correct": false,
+          "why": "Instance sizing is unrelated to whether requests can be freely routed among instances; the constraint here is where session state lives, not how big any one instance is.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.vertical-scaling"
+          }
+        }
+      ],
+      "rationale": "Sticky sessions pin a client to the backend holding its state, which is the standard workaround for an application that is not stateless. Their presence is the tell: a truly stateless design would let the balancer route any request to any instance.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-elastic-load-balancing"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.load-balancing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.load-balancing.02",
+      "concept_id": "cloud.performance-availability.load-balancing",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A load balancer forwards TCP connections to backends without ever inspecting the request inside them, and a separate load balancer routes requests to different backend pools depending on the URL path. What is the difference between the two?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first operates at the transport layer; the second operates at the application layer, where routing on path, hostname or header becomes possible.",
+          "correct": true,
+          "why": "Layer 4 forwards connections without inspecting them; layer 7 reads application-layer content such as the path to make its routing decision.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The first is failover and the second is load balancing, since only the second reacts to every request. — a labelling error that assigns the failure-triggered name to two mechanisms that are both, in fact, acting on every single request.",
+          "correct": false,
+          "why": "Both examples described are load balancers acting on every request; failover is the separate, failure-triggered mechanism neither example describes.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.failover"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The first is for internal traffic only, and the second is for traffic arriving from the public internet.",
+          "correct": false,
+          "why": "Nothing about layer 4 versus layer 7 routing determines whether traffic originates internally or externally; both can serve either source.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.stateless-design"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The first requires sticky sessions on every backend, and the second never needs them.",
+          "correct": false,
+          "why": "Sticky sessions are a workaround for stateful applications and apply independently of which layer the balancer operates at.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        }
+      ],
+      "rationale": "Balancers operate either at the transport layer, forwarding connections without inspecting them, or at the application layer, where content such as hostname, path or header can drive the routing decision — the two examples in the stem are exactly that pair.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-elastic-load-balancing"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.load-balancing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.stateless-design.01",
+      "concept_id": "cloud.performance-availability.stateless-design",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "An application externalises its session data to a shared cache and stores uploaded files in object storage instead of on local disk. Does this make the application stateless, meaning it stores no data at all?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — stateless describes where the state lives, not whether the system has any; the application still has state, just not pinned to one server.",
+          "correct": true,
+          "why": "Externalising state is what makes instances interchangeable; it does not mean the state has been eliminated.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — a stateless application by definition has no persistent data anywhere in the system. — the specific misreading the concept exists to correct, that no state anywhere is the same claim as no state pinned to one server.",
+          "correct": false,
+          "why": "This is the specific misreading the concept guards against: statelessness is about the locality of state, not its absence.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.stateless-design"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, because moving data to a shared cache makes the application highly available instead.",
+          "correct": false,
+          "why": "A dependency on the shared store's own availability is a real consequence of this design, but it is not the reason the 'no data at all' reading is wrong.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, but only once the application is also placed behind a load balancer.",
+          "correct": false,
+          "why": "Statelessness is a property of where the application keeps its data, decided in the code; a load balancer's presence or absence does not change that.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        }
+      ],
+      "rationale": "Statelessness means no client-specific state is pinned to a particular server between requests. The data still exists — in a shared cache, a database, or object storage — the design choice is only about where it is not stored: locally.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.stateless-design",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.stateless-design.02",
+      "concept_id": "cloud.performance-availability.stateless-design",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An auto-scaling policy terminates an instance mid-shift to bring the group back down to its desired capacity. Which property of the application determines whether any user notices?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Whether the application is stateless — an interchangeable instance can be terminated and replaced without anyone's session or in-flight work being tied to it specifically.",
+          "correct": true,
+          "why": "Statelessness is the precondition that lets auto-scaling, load balancing and instance replacement all happen without a user-visible fault.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Whether the group's configured maximum capacity is set high enough to absorb the loss.",
+          "correct": false,
+          "why": "The maximum bounds how large the group may grow; it says nothing about whether a terminated instance was holding state a user depended on.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whether the instance being terminated was the primary in an active-passive pair.",
+          "correct": false,
+          "why": "Active-passive versus active-active describes how redundant capacity is deployed, not whether any one instance held irreplaceable client state.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Whether the termination also triggers a scale-out event on a standby instance pool in another region. — describing a cross-region event that nothing in the scenario supports, when the change described is a routine single-pool scale-in.",
+          "correct": false,
+          "why": "A routine scale-in within one pool of interchangeable instances is not a cross-region event; it only becomes user-visible if the application is not stateless.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        }
+      ],
+      "rationale": "Stateless design is what makes instance termination safe: because no request depends on reaching the same instance twice, an auto-scaling group can remove an instance mid-shift and the load balancer simply routes the next request to a survivor, with nothing user-visible lost.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-reliability-pillar"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.stateless-design",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.latency-and-throughput.01",
+      "concept_id": "cloud.performance-availability.latency-and-throughput",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A dashboard reports average response time as healthy, but users are complaining about slow page loads. What is the average likely hiding, and what should be reported instead?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A slow tail of requests — a percentile such as p95 or p99 should be reported instead, since an average conceals the worst-performing minority.",
+          "correct": true,
+          "why": "Latency is a distribution, not a single number; percentiles surface the slow requests that an average smooths away.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Low throughput — requests per second should be reported instead of a time-based measurement.",
+          "correct": false,
+          "why": "Throughput is a different quantity entirely, measuring volume rather than delay, and would not explain a complaint specifically about per-request slowness.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.bottleneck-identification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A bandwidth shortfall — the link's raw capacity should be reported instead of application response time.",
+          "correct": false,
+          "why": "Bandwidth is the capacity of the link, not what the system actually achieves over it, and neither is what a per-request latency complaint is measuring.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.caching"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — average response time is definitionally equal to the experience of a typical user.",
+          "correct": false,
+          "why": "An average is skewed by the whole distribution and can look healthy even while a meaningful minority of users are timing out.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.latency-and-throughput"
+          }
+        }
+      ],
+      "rationale": "Latency is reported as a distribution because an average hides the slow tail. Percentiles such as p95 or p99 are quoted precisely because the worst few percent of requests are what users notice and complain about.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.latency-and-throughput",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.latency-and-throughput.02",
+      "concept_id": "cloud.performance-availability.latency-and-throughput",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A queue processor starts batching many small write operations into one larger write to raise throughput. What is the predictable cost?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Higher latency for every item now waiting for its batch to fill before being written.",
+          "correct": true,
+          "why": "Batching trades per-item delay for aggregate volume; each item waits longer so the batch it belongs to can complete.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Lower throughput, since batching adds processing overhead that outweighs any gain.",
+          "correct": false,
+          "why": "Batching is chosen specifically because it raises throughput by amortising per-operation overhead across many items, not because it lowers it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.bottleneck-identification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No cost, since latency and throughput are two names for the same underlying measurement.",
+          "correct": false,
+          "why": "The two use different units and are not derivable from one another; a system can be excellent at one while poor at the other, exactly as here.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.latency-and-throughput"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Reduced availability, since batched writes are more likely to fail outright.",
+          "correct": false,
+          "why": "Nothing about grouping writes together changes whether the underlying storage is redundant or fault tolerant; the trade being made is purely delay versus volume.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.fault-tolerance"
+          }
+        }
+      ],
+      "rationale": "Optimising one of latency or throughput can actively worsen the other. Batching many small operations into one larger one raises throughput and simultaneously raises the latency of every item now waiting for the batch to fill — the exam's standard example of the trade-off.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.latency-and-throughput",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.caching.01",
+      "concept_id": "cloud.performance-availability.caching",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A team stores frequently-read database query results in an in-process memory cache to cut repeated work. A separate team serves their site's static images from edge locations distributed around the world, close to each viewer. Which of the two is a content delivery network, and what makes it a distinct case of the same underlying technique?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The second — a CDN is caching plus geography: it is one specific deployment of the general technique, distinguished by its edge locations sitting near the viewer rather than in application memory.",
+          "correct": true,
+          "why": "Every CDN is a cache, but not every cache is a CDN; the CDN's distinguishing property is geographic distribution, not the caching mechanism itself.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both equally, since an in-process cache and a set of edge locations are simply two names for one identical mechanism. — collapsing the general technique and its geographically distributed special case into a single mechanism with no distinguishing property left.",
+          "correct": false,
+          "why": "They are the same general technique at different scope: the CDN adds geographic distribution on top of the caching behaviour the in-process cache already has.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.content-delivery-network"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The first, because a CDN specifically avoids storing any data and only forwards requests toward the nearest origin.",
+          "correct": false,
+          "why": "Forwarding without storing describes routing, not caching; a CDN's edge locations do store copies, which is what lets them serve a fresh request without contacting the origin.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither, since caching and content delivery are unrelated techniques that happen to share the word 'edge'.",
+          "correct": false,
+          "why": "A CDN is explicitly a deployment of caching, not an unrelated technique; the exam expects the general form to be recognised inside its specific deployments.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.latency-and-throughput"
+          }
+        }
+      ],
+      "rationale": "Caching is the general technique — a key, a value and an expiry, usable at any layer. A CDN is caching applied with geographic distribution: edge locations near each viewer, holding a copy of what the origin serves. Every CDN is a cache; not every cache is a CDN.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-cloudfront"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.caching",
+      "comparison_block": "cmp-cloud.performance-availability.caching",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.caching.02",
+      "concept_id": "cloud.performance-availability.caching",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A cached product page is served to every visitor for an hour before its entry expires, even though the price changed twenty minutes ago. What trade did the cache make, and what does it not remove the need for?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Staleness, in exchange for lower latency and origin load — and it does not remove the need for an origin capable of serving the full load, since a cold start or invalidation still sends requests there.",
+          "correct": true,
+          "why": "The cost of caching is always the possibility of serving something stale, and the cache is non-authoritative — the origin must still be able to survive real load.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — a correctly configured cache never serves data more than a few seconds old. — an assumption that quietly rules out the entire mechanism time-to-live exists to permit, which is exactly what makes caching cheap.",
+          "correct": false,
+          "why": "Staleness up to the full time-to-live is exactly what a cache can serve; describing it as never happening ignores the trade the technique makes by design.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.caching"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Latency, in exchange for guaranteed data freshness on every single request.",
+          "correct": false,
+          "why": "This reverses the actual trade: caching improves latency at the cost of possible staleness, not the other way round.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.latency-and-throughput"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Availability, since a cache miss makes the requested page temporarily unreachable until the origin responds.",
+          "correct": false,
+          "why": "A cache miss still serves the request by falling through to the origin; it does not make the page unreachable, only slower for that one request.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        }
+      ],
+      "rationale": "Caching cuts latency and origin load at the cost of possibly serving a stale value until expiry, invalidation or eviction. Because a cached copy is not authoritative, the origin still has to be capable of handling the full load on a cold start or after invalidation.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-cloudfront"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.caching",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.content-delivery-network.01",
+      "concept_id": "cloud.performance-availability.content-delivery-network",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Users in a distant region report slow page loads for a media-heavy site while users near the origin report no problem at all. Separately, every user everywhere reports a specific search feature is slow, including users sitting next to the origin. Which symptom is a CDN, such as Amazon CloudFront, the right fix for, and why does it not help the other?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first — a CDN removes geographic distance for the regional symptom; the second is universal, which points at the origin, a query, or another bottleneck that edge caching cannot change.",
+          "correct": true,
+          "why": "A CDN answers a distance problem specifically; a slowdown that is uniform everywhere, including at the origin, is not a distance problem.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The second — a CDN accelerates any slow request regardless of cause, including database queries, once content is placed at the edge. — extending the edge’s reach to a class of request it was never built to accelerate, since a query’s own execution time never touches the network at all.",
+          "correct": false,
+          "why": "A CDN serves cacheable content from the edge; a search query's own execution time on the origin is unaffected by where static content is cached.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.performance-availability.caching"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both equally, since adding edge locations always reduces total request time for every user.",
+          "correct": false,
+          "why": "The universal symptom is present even next to the origin, which is exactly what a distance problem does not look like — the fix has to be elsewhere.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.load-balancing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither — a CDN only ever serves images and video, so a general page-load complaint is out of scope for it entirely.",
+          "correct": false,
+          "why": "A CDN typically serves static objects, which does include page assets like images, so the regional symptom described is a standard case for one.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.latency-and-throughput"
+          }
+        }
+      ],
+      "rationale": "The symptom that identifies a CDN is specific: distant users slow, nearby users fine — a distance problem no amount of origin capacity fixes. A universal slowdown present even beside the origin is not a distance problem, so an edge cache changes nothing about it.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-cloudfront"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.content-delivery-network",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.content-delivery-network.02",
+      "concept_id": "cloud.performance-availability.content-delivery-network",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A CDN's edge server receives a request for an object it has never cached before. What has to happen before that first viewer at that edge gets a response?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The edge must fetch the object from the origin — the definitive copy — before it can return anything, and it keeps a copy afterward for later requests.",
+          "correct": true,
+          "why": "A CDN does not make the origin faster and does not help the very first request to a given edge, which must be satisfied from the origin.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing extra — every edge location shares one global cache, so a miss at one edge is always a hit at another. — an assumption that erases the whole reason edges are described as geographically distributed rather than as one shared pool.",
+          "correct": false,
+          "why": "Edge locations are geographically distributed caches; a miss at one is not automatically covered by another edge holding a copy.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.content-delivery-network"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The edge must invalidate every other edge's copy of the same object first.",
+          "correct": false,
+          "why": "Invalidation removes an object before its time-to-live expires when content changes; it has no role in serving a first, uncached request.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The origin must first push the object out to every edge location in the network.",
+          "correct": false,
+          "why": "A CDN is typically pull-based: edges fetch on demand from the origin and retain a copy, rather than the origin proactively pushing to every location.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        }
+      ],
+      "rationale": "The origin holds the original, definitive copy. A viewer's request resolving to a nearby edge that has never seen the object still requires a fetch from the origin before anything can be returned; only subsequent requests to that edge are served from its cache.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-cloudfront"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.content-delivery-network",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.monitoring-and-metrics.01",
+      "concept_id": "cloud.performance-availability.monitoring-and-metrics",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A dashboard alerts when CPU utilisation crosses a threshold someone configured last quarter. A separate practice lets an engineer, faced with an unfamiliar failure nobody predicted, reconstruct what happened by correlating logs, metrics and traces. Which of the two is monitoring, and what can it not do that the other can?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first is monitoring — it answers a question chosen in advance; it cannot answer a question nobody thought to ask, which is what the second practice, observability, is built for.",
+          "correct": true,
+          "why": "Monitoring requires the threshold to be known before the event; observability is the property that lets an unanticipated question be answered from logs, metrics and traces together.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The second is monitoring, since correlating multiple signal types is simply a more advanced form of threshold alerting. — reversing which practice requires the question to be known in advance and which one exists precisely because it cannot always be.",
+          "correct": false,
+          "why": "This swaps the pair: threshold alerting on a predefined signal is monitoring, and combining logs, metrics and traces to answer an unanticipated question is observability instead.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.observability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both are the same practice under different names, since both ultimately rely on numeric time-series data.",
+          "correct": false,
+          "why": "Observability draws on logs and traces as well as metrics, and its defining feature — answering unanticipated questions — is not something monitoring's predefined thresholds provide.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.bottleneck-identification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither is examinable here, since both describe internal engineering practice rather than architecture.",
+          "correct": false,
+          "why": "The distinction between a practice built on predefined thresholds and a property that answers unanticipated questions is exactly the kind of discrimination this competency tests.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.redundancy"
+          }
+        }
+      ],
+      "rationale": "Monitoring collects predefined numeric signals and alerts when a chosen threshold is crossed — it answers questions you knew to ask in advance. Observability is the broader property, built from logs, metrics and traces together, that lets you answer questions you had not anticipated; metrics are one input to it, not a synonym for it.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.monitoring-and-metrics",
+      "comparison_block": "cmp-cloud.performance-availability.monitoring-and-metrics",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.monitoring-and-metrics.02",
+      "concept_id": "cloud.performance-availability.monitoring-and-metrics",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "The golden signals framework names four metrics to watch first for a running API. Which four should be the starting point, and what does the fourth mean specifically?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Latency, traffic, errors and saturation — saturation meaning how full the constraining resource is, not merely how busy it appears.",
+          "correct": true,
+          "why": "These are the four signals Google's SRE material names first, and saturation is specifically about queued work against the tightest resource, distinct from simple utilisation.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "CPU, memory, disk and network, since those are the only resources that can ever be the constraint.",
+          "correct": false,
+          "why": "The golden signals are user-facing service signals, not a fixed list of hardware resources, and the actual constraint can also be an external dependency.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.bottleneck-identification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Uptime, cost, latency and throughput, since those are the numbers customers care about most.",
+          "correct": false,
+          "why": "Cost is a separate business concern the golden-signals framework does not include, and the correct fourth signal is saturation, not throughput.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Errors, latency, availability and elasticity, since those cover both failure and demand-tracking behaviour.",
+          "correct": false,
+          "why": "Elasticity is a design property, not a metric to alert a threshold on, and this list omits traffic and saturation entirely.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.scalability-vs-elasticity"
+          }
+        }
+      ],
+      "rationale": "The four golden signals are latency, traffic, errors and saturation. Saturation specifically measures how full the constraining resource is — queued work against it — which is what actually drives user-visible latency as a system approaches its limit.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.monitoring-and-metrics",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.sla-slo-and-sli.01",
+      "concept_id": "cloud.performance-availability.sla-slo-and-sli",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A team measures the fraction of successful requests as its SLI, and holds an internal target of 99.95% against that measurement — tighter than the 99.9% figure with service credits it publishes to customers. Which term names the internal target, and how does it differ from the customer-facing figure?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The SLO — an internal target set on the SLI, distinct from the SLA because missing it carries no contractual consequence on its own.",
+          "correct": true,
+          "why": "An SLO is a target value on a measurement; only the SLA, the separate contract with users, attaches an explicit remedy to a missed number.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The SLA, since it is the number the organisation is actually held to internally on a day-to-day basis.",
+          "correct": false,
+          "why": "The SLA is specifically the external contract with users and their remedy; the tighter, internally-held number here is the SLO, held deliberately stricter as a safety margin.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.cloud-computing.service-level-agreement"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The SLI, because 99.95% is itself a direct measurement of request success rather than a target.",
+          "correct": false,
+          "why": "99.95% here is described as a target set on the measurement, not the measurement itself; the SLI is the fraction of successful requests being measured against it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.sla-slo-and-sli"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "There is no internal target distinct from the customer figure, since a provider only ever tracks the number it publishes.",
+          "correct": false,
+          "why": "Holding an internal target tighter than the externally published figure is standard practice specifically so there is room to act before a contractual consequence is triggered.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.availability"
+          }
+        }
+      ],
+      "rationale": "The SLI is the measurement, the SLO is the internal target set on that measurement, and the SLA is the contract with users that attaches consequences to meeting or missing it. Holding the SLO tighter than the SLA, as here, is the standard safety-margin practice.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-slos"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#s-performance-availability-performance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.bottleneck-identification.01",
+      "concept_id": "cloud.performance-availability.bottleneck-identification",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A database server is at 40% CPU utilisation, but its disk queue is deep, with requests waiting well before they are served. Which resource is the bottleneck, and what distinguishes it from the CPU figure?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The disk — saturation, not utilisation, is what identifies the constraint, and the deep queue shows work is waiting on the disk specifically.",
+          "correct": true,
+          "why": "Utilisation says how busy a resource looks; saturation says how much work is queued waiting for it, and it is saturation that tracks the latency users feel.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The CPU, since 40% utilisation is already the highest reported number in the scenario.",
+          "correct": false,
+          "why": "A moderate utilisation figure with no queue behind it is not saturated; the constraint is wherever work is actually piling up, which is the disk here.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.performance-availability.bottleneck-identification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither — the bottleneck must be network, since that is the resource most often saturated in cloud deployments generally.",
+          "correct": false,
+          "why": "The scenario gives no network figures at all; the constraint has to be identified from the evidence given, which points at the disk queue.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.latency-and-throughput"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Both equally, since CPU and disk always saturate together on any single server.",
+          "correct": false,
+          "why": "The two resources are independent; this scenario specifically shows one saturated (disk) and one merely busy (CPU), which is the point being tested.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.monitoring-and-metrics"
+          }
+        }
+      ],
+      "rationale": "Utilisation measures how much of a resource is in use; saturation measures how much work is queued waiting for it, and only the saturated resource is the actual constraint. A moderately busy CPU next to a deeply queued disk means the disk, not the CPU, is where the fix belongs.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.bottleneck-identification",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.performance-availability.bottleneck-identification.02",
+      "concept_id": "cloud.performance-availability.bottleneck-identification",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "Support reports checkout feels slow. A team's first move is to add more application instances behind the load balancer, but p99 latency does not improve. What step was skipped?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Measuring which resource is actually saturated before acting — the fix should follow the identified constraint, not the most familiar-looking one.",
+          "correct": true,
+          "why": "Effort spent on any resource other than the one that is saturated changes nothing measurable; the constraint has to be found first.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing was skipped, since adding instances is always the correct first response to any latency complaint. — the attractive wrong answer the exam is specifically testing for, since it skips locating the constraint before spending effort on it.",
+          "correct": false,
+          "why": "Horizontal scaling helps only if application capacity was the actual constraint; if the real bottleneck sits elsewhere, such as a database's disk, added instances change nothing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.horizontal-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Setting a recovery time objective for the checkout service before making the change.",
+          "correct": false,
+          "why": "Recovery objectives describe disaster-recovery targets around restoring service after a major failure, not a live performance-tuning decision.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.availability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Placing a content delivery network in front of the checkout page.",
+          "correct": false,
+          "why": "A CDN helps a regional distance problem for cacheable content; it does not address a database-side constraint behind a dynamic checkout flow.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.content-delivery-network"
+          }
+        }
+      ],
+      "rationale": "The ordering matters more than the technique: measure each resource under load, find the one that is actually saturated, and only then apply a fix aimed at it. Adding instances without first locating the constraint is exactly the attractive wrong answer the exam supplies.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "aws-well-architected-pillars"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.bottleneck-identification",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

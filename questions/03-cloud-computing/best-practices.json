@@ -1,0 +1,1445 @@
+{
+  "competency": "Cloud Computing Fundamentals :: Best Practices",
+  "items": [
+    {
+      "id": "q.cloud.best-practices.design-for-failure.01",
+      "concept_id": "cloud.best-practices.design-for-failure",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A system is being reviewed and the architect states its guiding assumption as: every component will eventually fail, so failure must be a routine, absorbed event rather than an incident. Which practice does that assumption describe?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Design for failure — the design stance that failure is expected and built for, not a fault-tolerance mechanism or a recovery plan.",
+          "correct": true,
+          "why": "It is a design assumption, distinct from the mechanisms and plans it motivates.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Fault tolerance — the narrower, component-level property that absorbs one defined class of failure with no interruption a user would ever notice.",
+          "correct": false,
+          "why": "That is a mechanism the assumption motivates, not the assumption itself.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.fault-tolerance" }
+        },
+        {
+          "ref": "o3",
+          "text": "High availability — the weaker property that accepts a short interruption while detection and failover run.",
+          "correct": false,
+          "why": "High availability accepts a brief gap; the stem describes an assumption held before any mechanism runs.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.high-availability" }
+        },
+        {
+          "ref": "o4",
+          "text": "A monitoring discipline that watches for failures once they happen, rather than an assumption made at design time.",
+          "correct": false,
+          "why": "Monitoring detects failure after the fact; the stem describes a stance taken before the system is built.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.design-for-failure" }
+        }
+      ],
+      "rationale": "Design for failure is the assumption behind almost every other Architecture practice in this competency, and the exam separates it from the mechanisms and plans that follow from it: fault tolerance absorbs a defined failure invisibly, high availability accepts a short gap, and disaster recovery restores service after a loss the design did not absorb.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-reliability-pillar"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.design-for-failure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.design-for-failure.02",
+      "concept_id": "cloud.best-practices.design-for-failure",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Multi-zone deployment, health checks and automated instance replacement are described in this competency as consequences of one underlying assumption. Which assumption is it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That every component — instance, disk, zone, dependency, network path — will fail, so its failure must be absorbed as routine rather than treated as an incident.",
+          "correct": true,
+          "why": "This is the design assumption the competency names as the reasoning behind those three practices.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That the reliability pillar of a well-architected review is fully satisfied the moment any redundant capacity exists anywhere in the account, regardless of how it is arranged.",
+          "correct": false,
+          "why": "A review assesses a design against pillars; it is not the assumption that produces the design.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.well-architected-review" }
+        },
+        {
+          "ref": "o3",
+          "text": "That high availability and disaster recovery are interchangeable safeguards covering the same failure scope.",
+          "correct": false,
+          "why": "They cover different scopes and are not interchangeable; neither is the underlying assumption named here.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.high-availability" }
+        },
+        {
+          "ref": "o4",
+          "text": "That automating configuration removes any need to plan for the loss of a component.",
+          "correct": false,
+          "why": "Automation concerns how a change is applied, not whether component loss has been planned for.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        }
+      ],
+      "rationale": "Design for failure is the reasoning behind almost every other Architecture answer in this competency: multi-zone deployment, health checks and instance replacement are all consequences of having made this one assumption first.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-reliability-pillar"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.design-for-failure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.multi-zone-deployment.01",
+      "concept_id": "cloud.best-practices.multi-zone-deployment",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A workload is deployed across three availability zones in one AWS region. Which class of outage does that arrangement leave it fully exposed to?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The loss of the entire region, since multi-zone protects against a zone-level failure inside a region, not a regional one.",
+          "correct": true,
+          "why": "Regions are isolated from each other with no automatic replication, so surviving a whole-region loss needs a multi-region design instead.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The loss of a nightly backup copy, since spreading instances across zones is itself a backup strategy for the data they hold.",
+          "correct": false,
+          "why": "Multi-zone deployment is not the same as taking a backup; it protects live capacity, not a retained independent copy.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.backup" }
+        },
+        {
+          "ref": "o3",
+          "text": "An outage at a different cloud vendor entirely, since spreading across zones is a form of running multi-cloud.",
+          "correct": false,
+          "why": "Multi-zone is confined to one provider and one region; it is not a multi-cloud arrangement.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.multi-cloud" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — spreading a workload across zones already protects it against an outage of any scale.",
+          "correct": false,
+          "why": "Zone-level redundancy has a limit at the region boundary; it does not scale up to protect against every outage.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.multi-zone-deployment" }
+        }
+      ],
+      "rationale": "Scope is the trap here. Multi-zone protects against a single datacentre location failing inside one region; the region itself, and the data-residency question of which region to use, are separate matters a multi-zone design does not settle.",
+      "source_ids": ["lf-objectives-2025", "aws-regions-and-azs", "azure-availability-zones"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.multi-zone-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.multi-zone-deployment.02",
+      "concept_id": "cloud.best-practices.multi-zone-deployment",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "How does AWS identify one availability zone, and how does Azure describe what an availability zone is?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "AWS codes it as the region code plus a letter, such as us-east-1a; Azure describes it as a separated group of datacenters with independent power, cooling and networking.",
+          "correct": true,
+          "why": "Both descriptions match each provider's own published definition.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "AWS numbers zones sequentially across every region it operates rather than coding them by letter; Azure treats a zone as a single physical building rather than a group of datacenters with independent power and cooling.",
+          "correct": false,
+          "why": "AWS zone codes are region-scoped letters, not a global sequence, and Azure's zones are groups of datacenters, not single buildings.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.multi-zone-deployment" }
+        },
+        {
+          "ref": "o3",
+          "text": "AWS defines a zone as an entire separate region under another name; Azure has no concept of zones at all.",
+          "correct": false,
+          "why": "A zone is a subdivision within one region, not a region itself, and Azure does publish an availability zone concept.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.region-and-availability-zone" }
+        },
+        {
+          "ref": "o4",
+          "text": "Both providers require an availability zone to sit in a different country from its region before the label applies.",
+          "correct": false,
+          "why": "Zones sit inside one region and are typically within about 100 km of each other, not in a different country.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.region-and-availability-zone" }
+        }
+      ],
+      "rationale": "The two providers' definitions are directly recallable and were fact-checked verbatim against their own documentation: AWS's zone code is the region code plus a letter, and Azure describes a zone as a separated group of datacenters with independent power, cooling and networking, typically within about 100 km of each other.",
+      "source_ids": ["lf-objectives-2025", "aws-regions-and-azs", "azure-availability-zones"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.multi-zone-deployment",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.automation-over-manual-configuration.01",
+      "concept_id": "cloud.best-practices.automation-over-manual-configuration",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team now defines its environments in a version-controlled template applied identically to staging and production, replacing changes engineers used to make by hand in the console. Which problem does this fix, and which does it not fix by itself?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It fixes unreproducible environments and unreviewed changes; it does not by itself stop console changes made outside the template, so drift is eliminated only once the template is reapplied continuously.",
+          "correct": true,
+          "why": "Automation converts reproducibility and review into a solved problem, but anyone with console access can still act outside the loop unless reconciliation is continuous.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It eliminates configuration drift completely and immediately, since the running instances are now replaced rather than edited going forward.",
+          "correct": false,
+          "why": "Replacing rather than editing is what immutable infrastructure adds; automating the template's application does not by itself guarantee that.",
+          "provenance": { "kind": "confusable", "concept_id": "cloud.best-practices.immutable-infrastructure" }
+        },
+        {
+          "ref": "o3",
+          "text": "It satisfies the security pillar of a well-architected review outright, since a template that has passed code review is assumed to guarantee least-privilege access on every resource it goes on to create.",
+          "correct": false,
+          "why": "A template can still request over-broad permissions; review catches that only if someone checks for it, which automation alone does not guarantee.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o4",
+          "text": "It removes the need for an audit log, since the template file itself is now the complete record of every action taken against the account.",
+          "correct": false,
+          "why": "The template records the intended state; who called which API and when is still a separate audit-log question.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.logging-and-auditing-in-cloud" }
+        }
+      ],
+      "rationale": "Automation converts reproducibility, reviewability and auditability of the definition into one solved problem, which is exactly what the operational excellence pillar of a well-architected review asks for. It is a distinct axis from immutability: automating provisioning does not by itself eliminate drift, because a console change made outside the loop is still possible until the definition is reapplied continuously or the instance is replaced rather than edited.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-pillars"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.automation-over-manual-configuration",
+      "comparison_block": "cmp-cloud.best-practices.automation-over-manual-configuration",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.automation-over-manual-configuration.02",
+      "concept_id": "cloud.best-practices.automation-over-manual-configuration",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A configuration management tool logs into every long-lived server nightly and applies patches automatically, without a person present. Is that automation over manual configuration, immutable infrastructure, both, or neither?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Automation over manual configuration only — it is fully automated, but each server still accumulates its own unique history of applied changes because none of them is ever replaced.",
+          "correct": true,
+          "why": "Automating the application of a change is independent of whether the target is replaced or edited in place.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Immutable infrastructure only — applying a fresh set of patches to the same running server each night counts as replacing the instance in every sense that matters, since the software on it is now current.",
+          "correct": false,
+          "why": "Patching a running server in place is precisely what immutable infrastructure replaces with launching new instances from a new artifact.",
+          "provenance": { "kind": "confusable", "concept_id": "cloud.best-practices.immutable-infrastructure" }
+        },
+        {
+          "ref": "o3",
+          "text": "Both, since any process that changes a server without a human present satisfies the definition of immutable infrastructure automatically.",
+          "correct": false,
+          "why": "Immutability is about the instance's lifetime, not about who or what triggers the change; automated in-place patching is not immutable.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither, since a well-architected review would not classify unattended patch automation under either practice.",
+          "correct": false,
+          "why": "The tool's own automated, template-driven application of changes is exactly what automation over manual configuration describes.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.well-architected-review" }
+        }
+      ],
+      "rationale": "Configuration management that logs into long-lived servers and patches them in place is fully automated and fully mutable — every server is still a unique accumulation of applied changes, which is the exact trap this competency names between the two practices.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-pillars"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.automation-over-manual-configuration",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.automation-over-manual-configuration.03",
+      "concept_id": "cloud.best-practices.automation-over-manual-configuration",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "After an incident, engineers argue that a change made directly in the cloud console is riskier than one applied through a version-controlled template — not because the console change leaves nothing to investigate, but for a narrower reason. What is that reason?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The console change leaves no reproducible artifact — no reviewable definition that can be diffed, approved and reapplied to recreate the environment — even though CloudTrail, Activity Log or Cloud Audit Logs still record by default that the action happened.",
+          "correct": true,
+          "why": "Console actions are logged by the provider's audit service by default; what they lack is a reviewable, reapplicable definition of the change.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The console change leaves no record at all, since it is commonly assumed that none of the major cloud providers log console activity anywhere by default, which is why teams often skip reviewing it after an incident and move straight to blaming the deployment pipeline instead.",
+          "correct": false,
+          "why": "AWS CloudTrail, Azure Activity Log and Google Cloud Audit Logs all record console actions by default; the true gap is the missing reproducible artifact.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o3",
+          "text": "The console change cannot be encrypted at rest, unlike a template stored in version control.",
+          "correct": false,
+          "why": "Encryption at rest is unrelated to whether a change was made through a console or a template.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.encryption-by-default" }
+        },
+        {
+          "ref": "o4",
+          "text": "The console change bypasses least-privilege enforcement entirely, since every console session is granted administrator rights by default regardless of the identity signing in or the policy attached to it.",
+          "correct": false,
+          "why": "Console access is governed by the same IAM policy as any other API call; it does not inherently carry administrator rights.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        }
+      ],
+      "rationale": "The auditability argument for infrastructure as code is precise, not sweeping: a console action is recorded by the provider's audit service by default, so the claim that it 'leaves no record' is false. What it genuinely lacks is a reproducible artifact — a reviewable definition of the change that can be diffed, approved and reapplied — which is what a template provides and a console click does not.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-pillars"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.automation-over-manual-configuration",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.immutable-infrastructure.01",
+      "concept_id": "cloud.best-practices.immutable-infrastructure",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A workload adopts an immutable deployment model, where every release launches fresh instances from a new image and terminates the old ones. It has been writing user file uploads to the instance's own local disk. What happens at the next deployment?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The uploaded files are lost, because replacement destroys everything stored locally on the instance and nothing external retained a copy.",
+          "correct": true,
+          "why": "Immutable replacement discards local state; anything that must survive has to live outside the instance first.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing changes, since automation over manual configuration already externalises application state as part of applying a template.",
+          "correct": false,
+          "why": "Automating how a definition is applied says nothing about where application data is stored; that is a separate design decision.",
+          "provenance": { "kind": "confusable", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o3",
+          "text": "The files migrate automatically to the replacement instances, because the platform transparently mirrors local disk contents between old and new instances for the duration of a blue/green rollout.",
+          "correct": false,
+          "why": "Blue/green rollout shifts traffic between instance sets; it does not copy local disk contents, which is exactly what object storage exists to solve.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.object-block-and-file-storage" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing changes, because 'immutable' means the data already on the instance cannot be modified once it is written.",
+          "correct": false,
+          "why": "Immutable describes the instance's lifecycle, not a guarantee about the data it happens to hold locally.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.immutable-infrastructure" }
+        }
+      ],
+      "rationale": "Immutable describes the instance, not the data. Anything the workload must not lose has to be externalised into a managed database, object storage, or a volume with its own lifecycle, because replacement destroys everything local — a workload writing uploads to local disk breaks the moment immutability is adopted, and the failure looks like data loss rather than a design error.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-reliability-pillar"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.immutable-infrastructure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.immutable-infrastructure.02",
+      "concept_id": "cloud.best-practices.immutable-infrastructure",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which practice in this competency eliminates configuration drift entirely, rather than merely reducing it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Immutable infrastructure — nothing survives long enough on a running instance to drift, because replacement removes the possibility outright.",
+          "correct": true,
+          "why": "A maximum instance age of one deployment cycle means history cannot accumulate on any single server.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Automation over manual configuration — once a declarative definition is applied, the running environment always matches it exactly from then on.",
+          "correct": false,
+          "why": "Automation reduces drift but does not eliminate it, because a console change made outside the loop can still occur unless reapplied continuously.",
+          "provenance": { "kind": "confusable", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o3",
+          "text": "Well-architected review — its operational excellence pillar audits every resource for drift on a fixed schedule.",
+          "correct": false,
+          "why": "A review surfaces findings periodically; it does not itself act on the environment between reviews.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.well-architected-review" }
+        },
+        {
+          "ref": "o4",
+          "text": "Health checks and graceful shutdown — an unhealthy, drifted target is automatically deregistered before it can serve traffic.",
+          "correct": false,
+          "why": "Deregistration removes a target from rotation; it says nothing about whether the target's configuration matches its definition.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.health-checks-and-graceful-shutdown" }
+        }
+      ],
+      "rationale": "It is the only practice in this competency that eliminates configuration drift rather than merely reducing it: if the maximum age of an instance is a deployment cycle, the accumulated history that produces drift cannot form in the first place, which is why replacing instances is safe to do routinely.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-reliability-pillar"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.immutable-infrastructure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.immutable-infrastructure.03",
+      "concept_id": "cloud.best-practices.immutable-infrastructure",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team running immutable infrastructure needs to undo a bad release. What does the rollback actually consist of?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Redeploying the previous versioned image or artifact and shifting traffic back to instances built from it, not reversing a patch on the currently running instances.",
+          "correct": true,
+          "why": "Because instances are never modified after creation, the only lever available is deploying a different artifact and replacing instances with it.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Reversing the specific package or configuration change on each running instance, the same way a rollback works on a mutable, long-lived server.",
+          "correct": false,
+          "why": "Editing instances in place is exactly what immutable infrastructure replaces; a rollback here is a new deployment, not an in-place reversal.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.immutable-infrastructure" }
+        },
+        {
+          "ref": "o3",
+          "text": "Restoring the workload's externalised state from its most recent backup.",
+          "correct": false,
+          "why": "A backup restores data; the rollback described here is about which application version is running, which is a separate artifact.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.backup-and-recovery-in-cloud" }
+        },
+        {
+          "ref": "o4",
+          "text": "Reapplying the previous version of the infrastructure-as-code definition and waiting for reconciliation, since that is how automation over manual configuration is described as reverting any change.",
+          "correct": false,
+          "why": "That reverts the definition of the environment's shape; it is not what rolls back which application artifact the instances are running.",
+          "provenance": { "kind": "confusable", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        }
+      ],
+      "rationale": "Because the running instance is never modified, rollback is redeploying the previous artifact and replacing instances again, using the same blue/green or canary pattern as any other release — not reversing a patch, which has no meaning once nothing is ever patched in place.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-reliability-pillar"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.immutable-infrastructure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.well-architected-review.01",
+      "concept_id": "cloud.best-practices.well-architected-review",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "How many pillars does AWS's Well-Architected Framework name today, and how does that compare to Azure's framework?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "AWS names six — operational excellence, security, reliability, performance efficiency, cost optimization and sustainability, the last added in December 2021; Azure names five, with no sustainability pillar.",
+          "correct": true,
+          "why": "Both counts match the frameworks' own published pillar lists, with the AWS revision history dating sustainability's addition.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "AWS names five, the recognised pillars across the industry, and Azure follows the same five pillar set.",
+          "correct": false,
+          "why": "Five predates AWS's December 2021 addition of sustainability, and no single provider's pillar set is universal across vendors.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.well-architected-review" }
+        },
+        {
+          "ref": "o3",
+          "text": "AWS names six and Azure also names six, since both frameworks are described as having added a sustainability pillar in the very same December 2021 revision cycle.",
+          "correct": false,
+          "why": "Azure's published framework has five pillars with no sustainability pillar at all.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.major-cloud-providers" }
+        },
+        {
+          "ref": "o4",
+          "text": "AWS names five, matching Azure's five, because both providers are commonly assumed to have frozen their published frameworks at the same original pillar count sometime well before the 2021 revision cycle began.",
+          "correct": false,
+          "why": "AWS's framework was revised in December 2021 to add a sixth pillar, so it was not frozen at five.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.major-cloud-providers" }
+        }
+      ],
+      "rationale": "The number and names of the pillars are directly recallable facts, and the five/six discrepancy between AWS and Azure is exactly the kind of near-miss a multiple-choice option is built from: this project once stated five as the universal count, before AWS's sustainability pillar, added 2 December 2021, made six the current AWS figure while Azure's own framework stayed at five.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-pillars", "azure-well-architected-pillars"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.well-architected-review",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.well-architected-review.02",
+      "concept_id": "cloud.best-practices.well-architected-review",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team completes a well-architected review of a production workload. What does the review actually produce?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A prioritised list of findings and tradeoffs across the pillars — an improvement exercise, not a pass/fail audit or a certification.",
+          "correct": true,
+          "why": "Nothing is issued at the end of a review except findings and the tradeoffs between pillars.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A pass/fail certification the team can display publicly, since the review is understood to check strict compliance against each of the named pillars in turn.",
+          "correct": false,
+          "why": "A review is not pass/fail and issues no certification; it produces findings for the team to act on.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.well-architected-review" }
+        },
+        {
+          "ref": "o3",
+          "text": "A revised recovery time objective for the workload's disaster recovery plan.",
+          "correct": false,
+          "why": "Recovery time targets are set separately from a pillar review, which produces broader architectural findings instead.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.rto" }
+        },
+        {
+          "ref": "o4",
+          "text": "A signed attestation that the workload meets its service level agreement.",
+          "correct": false,
+          "why": "SLA attestation is a separate contractual matter and is not something a well-architected review issues.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.sla-slo-and-sli" }
+        }
+      ],
+      "rationale": "A review walks the workload through questions grouped by pillar and produces a prioritised list of improvements and the tradeoffs between pillars — more redundancy costs more, tighter security can cost latency — because it is an improvement exercise, not an audit or a certification.",
+      "source_ids": ["lf-objectives-2025", "aws-well-architected-pillars", "azure-well-architected-pillars"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.well-architected-review",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.identity-and-access-management.01",
+      "concept_id": "cloud.best-practices.identity-and-access-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An employee leaves the company. Their cloud IAM identity is deleted the same day, but their `sshd` login on a production instance still works two weeks later. What was missed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The Linux user account on the instance is governed separately from the IAM identity; deleting one does not remove the other.",
+          "correct": true,
+          "why": "IAM governs control-plane API calls, while the guest operating system's own account database governs logins inside the instance.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The employee's role should have carried a permissions boundary that would have survived the deletion and blocked the login.",
+          "correct": false,
+          "why": "A permissions boundary caps what an IAM identity can be granted; it has no effect on a separate operating-system account.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o3",
+          "text": "The IAM identity should have been federated through an identity provider rather than deleted directly.",
+          "correct": false,
+          "why": "Federation changes how the IAM identity authenticates; it does not touch a separate Linux account on an instance.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.avoid-hardcoded-credentials" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing was missed — deleting the IAM identity removes every login the employee had, cloud control plane and guest operating system alike.",
+          "correct": false,
+          "why": "An IAM identity and a guest OS account are two separate systems; removing one leaves the other exactly as it was.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.identity-and-access-management" }
+        }
+      ],
+      "rationale": "Cloud IAM is not the guest operating system's user database. An IAM identity governs API calls that create, modify or delete resources, while a Linux user account governs what happens inside the guest once it is running; removing an employee's IAM identity does not remove their `sshd` login on a server.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.identity-and-access-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.identity-and-access-management.02",
+      "concept_id": "cloud.best-practices.identity-and-access-management",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What does cloud IAM govern, and how should the account's root or global-administrator identity be treated day to day?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It governs authentication and authorization for control-plane API calls against resources; the root or global-administrator identity is protected and used for essentially nothing routine.",
+          "correct": true,
+          "why": "Root or global-administrator access is set aside for exceptional situations rather than everyday work.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It governs the guest operating system's user database rather than any cloud-side resource, and the root identity is treated as an ordinary account fit for daily administrative logins across the whole team.",
+          "correct": false,
+          "why": "That describes an OS account, not the cloud control-plane identity system, and reverses the guidance to reserve root for routine use.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.cloud-computing.shared-responsibility-model" }
+        },
+        {
+          "ref": "o3",
+          "text": "It governs only billing and cost visibility rather than resource access, so the root identity is considered safe to share broadly among the finance team for reporting purposes.",
+          "correct": false,
+          "why": "IAM governs far more than billing, and the root identity is specifically the one that should not be shared.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.identity-and-access-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "It governs network routing decisions inside a virtual private cloud; the root identity is reserved for network engineers.",
+          "correct": false,
+          "why": "Routing configuration is a resource IAM policies can gate, not what IAM itself governs, and root is not reserved for a single team.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.networking.virtual-private-cloud" }
+        }
+      ],
+      "rationale": "Policies attach to identities or resources and are evaluated per API call, covering both authentication and authorization at the level of the cloud control plane; the account's root or global-administrator identity is deliberately protected and kept out of routine use.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.identity-and-access-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.secrets-management-in-cloud.01",
+      "concept_id": "cloud.best-practices.secrets-management-in-cloud",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A workload needs to store a third-party API key and retrieve it at startup, with rotation on a schedule and every access recorded. Which service is that, and which adjacent service is it not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A managed secret store — not a key management service, which creates and controls encryption keys rather than holding credential values.",
+          "correct": true,
+          "why": "AWS's own guidance routes database, application and third-party credentials, OAuth tokens and API keys to a secret store, and encryption keys to a separate key management service.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A key management service, since encrypting the key at rest is what actually protects it.",
+          "correct": false,
+          "why": "A key management service protects encryption keys; it does not itself store or rotate a credential value like an API key.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.encryption-by-default" }
+        },
+        {
+          "ref": "o3",
+          "text": "An instance role, since roles are the platform's general answer to holding any kind of credential.",
+          "correct": false,
+          "why": "A role issues temporary credentials for the platform's own APIs; a third-party API key still has to exist as a value somewhere.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.avoid-hardcoded-credentials" }
+        },
+        {
+          "ref": "o4",
+          "text": "An environment variable marked as encrypted inside the deployment manifest, which is treated as achieving the same protection and rotation guarantees as a properly managed secret store.",
+          "correct": false,
+          "why": "An encrypted value baked into a manifest is still an artifact anyone with pipeline or registry access can extract, and changing it still requires a redeploy.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.secrets-management-in-cloud" }
+        }
+      ],
+      "rationale": "The distinction the exam draws is against the two things a secret store is not: a key management service, which controls encryption keys rather than credential values, and an encrypted environment variable, which is still a static artifact rather than a runtime-retrieved value.",
+      "source_ids": ["lf-objectives-2025", "aws-secrets-manager"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.secrets-management-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.secrets-management-in-cloud.02",
+      "concept_id": "cloud.best-practices.secrets-management-in-cloud",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why does fetching a secret from a managed store at runtime make rotation practical in a way that baking the value into the deployment artifact does not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Rotation replaces the stored value without requiring a redeploy, because the workload reads the current value on each retrieval rather than carrying a fixed copy.",
+          "correct": true,
+          "why": "Runtime retrieval is what turns a long-lived secret into a short-lived one, since the workload never holds a stale local copy.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Runtime retrieval automatically triggers the infrastructure template to reapply whenever the stored value changes.",
+          "correct": false,
+          "why": "Fetching a secret at runtime is unrelated to whether an infrastructure template reapplies; those are separate mechanisms.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o3",
+          "text": "Runtime retrieval narrows the role's permissions a little more each time a secret is fetched.",
+          "correct": false,
+          "why": "Fetching a secret does not change a role's granted permissions; narrowing a role is a separate, deliberate action.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o4",
+          "text": "It does not make any real difference — a value baked directly into a deployment artifact can be rotated just as easily as one fetched at runtime, since only the encryption of the artifact itself differs.",
+          "correct": false,
+          "why": "A baked-in value requires a redeploy to change wherever it is used, which is exactly the friction runtime retrieval removes.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.secrets-management-in-cloud" }
+        }
+      ],
+      "rationale": "Because retrieval is a runtime call, rotation replaces the stored value without redeploying the application — which is what turns a long-lived secret into a short-lived one, unlike a value baked into an image or manifest that requires a redeploy to change everywhere it is used.",
+      "source_ids": ["lf-objectives-2025", "aws-secrets-manager"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.secrets-management-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.encryption-by-default.01",
+      "concept_id": "cloud.best-practices.encryption-by-default",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Data in a storage bucket is encrypted at rest and protected by TLS in transit. Does either of those defend against an over-privileged but authorised identity reading the data?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — the service decrypts for any caller it has authorised, so neither protects against an over-privileged identity; that is a least-privilege problem, not an encryption problem.",
+          "correct": true,
+          "why": "Encryption at rest and in transit both defend against attackers without valid credentials, not against a credentialed caller with too much access.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — encryption at rest specifically blocks reads from any identity that was not present when the encryption key was created.",
+          "correct": false,
+          "why": "Encryption at rest protects stored bytes from theft; it does not track or restrict which identities may call the API afterward.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.encryption-by-default" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes — TLS is widely understood to terminate the connection before an over-privileged but fully authenticated and authorised identity's own request can ever reach the underlying storage layer at all.",
+          "correct": false,
+          "why": "TLS protects data crossing the network; it does not evaluate whether the caller's identity should be allowed to make the request.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but choosing a customer-managed key instead of a provider-managed key would have stopped the over-privileged read.",
+          "correct": false,
+          "why": "The choice between key types is about who controls key policy, rotation and audit trail, not about the strength or scope of protection against an authorised caller.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.identity-and-access-management" }
+        }
+      ],
+      "rationale": "At rest and in transit defend against different attackers, and neither protects against an over-privileged identity that is entitled to call the API, because the service decrypts for authorised callers by design — 'the bucket is encrypted' is not an answer to 'the bucket was readable by someone who should not have had access'.",
+      "source_ids": ["lf-objectives-2025", "aws-kms"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.encryption-by-default",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.encryption-by-default.02",
+      "concept_id": "cloud.best-practices.encryption-by-default",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A stolen disk from a decommissioned volume, and a request sniffed off the network: which form of encryption defends against which?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Encryption at rest defends the stolen disk; encryption in transit, by TLS, defends the sniffed request — neither substitutes for the other.",
+          "correct": true,
+          "why": "The two protect different points in the data's path and address different threats.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Encryption at rest defends both, since data encrypted on disk stays encrypted through its entire lifecycle, including transmission.",
+          "correct": false,
+          "why": "At-rest encryption protects the stored bytes and does nothing whatsoever for data crossing a network; transmission needs TLS separately.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.encryption-by-default" }
+        },
+        {
+          "ref": "o3",
+          "text": "A managed secret store defends the stolen disk, and a key management service defends the sniffed request.",
+          "correct": false,
+          "why": "Neither a secret store nor a key management service defends the network path; TLS is what protects data in transit.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.secrets-management-in-cloud" }
+        },
+        {
+          "ref": "o4",
+          "text": "IAM policy defends the stolen disk, and multi-factor authentication defends the sniffed request.",
+          "correct": false,
+          "why": "IAM and MFA govern who is authorised to call an API; neither protects bytes on a stolen disk or on the wire.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.identity-and-access-management" }
+        }
+      ],
+      "rationale": "Encryption at rest protects the stored bytes — a stolen disk, a snapshot copied to another account, a decommissioned volume — and TLS protects data on the wire, leaving the disk readable; the two threats and their defences do not overlap.",
+      "source_ids": ["lf-objectives-2025", "aws-kms"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.encryption-by-default",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.least-privilege-for-cloud-identities.01",
+      "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A service role attached to a web application was given administrator permissions during a debugging session two months ago and was never narrowed afterward. What is the standard path this arrangement creates?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "From one compromised web application to control of the whole account, since the role's excess permissions travel with whatever compromises the application.",
+          "correct": true,
+          "why": "A service role over-granted at setup and left unreviewed is the standard route from a single compromise to full account control.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "No real risk, since only a human with console access could exploit an unused administrator permission.",
+          "correct": false,
+          "why": "A compromised application inherits its role's permissions automatically; no separate human console session is required.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o3",
+          "text": "A control-plane audit failure above all, since IAM alone is understood to be responsible for automatically detecting, flagging and narrowing any unused permissions on its own.",
+          "correct": false,
+          "why": "IAM enforces policy; narrowing an over-granted role is a deliberate action a team must take, not an automatic IAM behaviour.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.identity-and-access-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "A leaked long-lived access key, since debugging sessions are the most common source of hardcoded credentials.",
+          "correct": false,
+          "why": "The scenario describes an over-granted role, not a hardcoded key; those are two different failure modes.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.avoid-hardcoded-credentials" }
+        }
+      ],
+      "rationale": "The identity that gets over-granted in practice is usually not a person: a service role given administrator permissions during a debugging session and never narrowed is the standard path from one compromised web application to the whole account.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.least-privilege-for-cloud-identities",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.least-privilege-for-cloud-identities.02",
+      "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "A policy grants an identity read-only access to a secrets store, a database and an object storage bucket. Is that a safe default because it grants no write access?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — read access to those three is exactly what data exfiltration requires; least privilege scopes both resources and actions, not write access alone.",
+          "correct": true,
+          "why": "Reading a secret, a database, or a bucket is enough to exfiltrate data, so 'read-only' is not automatically safe.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — without write permissions the identity cannot cause any damage to the account.",
+          "correct": false,
+          "why": "Reading sensitive data causes damage on its own; 'no writes' says nothing about exposure from reading.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the secrets store and the bucket are both encrypted at rest.",
+          "correct": false,
+          "why": "Encryption at rest protects against theft of the storage medium; it does nothing against a caller the service has already authorised to read.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.encryption-by-default" }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because a secrets store is considered something that should never be reachable by any read-only policy under any circumstance at all.",
+          "correct": false,
+          "why": "A secrets store can legitimately be read by identities that need it; the risk is granting read access more broadly than the task requires, not read access itself.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.secrets-management-in-cloud" }
+        }
+      ],
+      "rationale": "The exam's other favourite trap here is the assumption that read-only access is inherently safe: read permission on a secret store, a database, or an object storage bucket is exactly what data exfiltration requires, so least privilege has to scope resources and actions together.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.least-privilege-for-cloud-identities",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.avoid-hardcoded-credentials.01",
+      "concept_id": "cloud.best-practices.avoid-hardcoded-credentials",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An access key is moved out of application source code into an environment variable inside a private repository's deployment manifest. What has actually changed about the credential?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Where the key is stored, not what it is — it remains a static, long-lived credential that can be copied once and used until somebody revokes it.",
+          "correct": true,
+          "why": "Moving a key between storage locations does not change its nature as a static, long-lived secret.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The key is now safe, since a private repository is not accessible to anyone outside the team.",
+          "correct": false,
+          "why": "A private repository still travels into CI logs, container layers, backups and screenshots; privacy of the repo does not make the key short-lived.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.avoid-hardcoded-credentials" }
+        },
+        {
+          "ref": "o3",
+          "text": "The key is now rotated automatically on a fixed schedule, since environment variables are widely believed to be refreshed with a new value on every single deploy.",
+          "correct": false,
+          "why": "Moving a value into an environment variable does not add rotation; the same static value simply gets read from a different place.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.secrets-management-in-cloud" }
+        },
+        {
+          "ref": "o4",
+          "text": "The key now inherits the deploying user's IAM permissions instead of its own.",
+          "correct": false,
+          "why": "An access key carries whatever permissions were attached to it when it was created; relocating it does not change that binding.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.identity-and-access-management" }
+        }
+      ],
+      "rationale": "This is the half-fix trap: moving the key out of source code and into an environment variable, a private repository, or an untracked config file changes where the key is, not what it is — it is still a static, long-lived credential that can be copied once and used until somebody revokes it.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices", "aws-secrets-manager"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.avoid-hardcoded-credentials",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.avoid-hardcoded-credentials.02",
+      "concept_id": "cloud.best-practices.avoid-hardcoded-credentials",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What removes a long-lived provider access key from a workload entirely, rather than merely relocating it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Attaching an instance role or workload identity, so the platform issues temporary credentials automatically and nothing static is ever stored.",
+          "correct": true,
+          "why": "A role removes the static key from existence rather than moving it somewhere else to be guarded.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Moving the key into a managed secret store with rotation enabled, which is treated as removing the provider credential from existence entirely rather than merely relocating it.",
+          "correct": false,
+          "why": "That still keeps a static provider credential in existence; AWS's own remedy for provider access is to stop issuing keys at all, in favour of roles.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.secrets-management-in-cloud" }
+        },
+        {
+          "ref": "o3",
+          "text": "Encrypting the key wherever it is stored, since encryption removes the risk regardless of how long the key lives.",
+          "correct": false,
+          "why": "Encryption protects the key at rest but does not shorten its lifetime or eliminate it as a credential that can be copied and reused.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.avoid-hardcoded-credentials" }
+        },
+        {
+          "ref": "o4",
+          "text": "Narrowing the key's attached policy to only the actions the application actually calls.",
+          "correct": false,
+          "why": "Narrowing scope reduces the damage a leaked key can do, but the key itself still exists as a static, long-lived credential.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        }
+      ],
+      "rationale": "AWS's own remedy is to stop issuing long-lived keys rather than guard them better: the platform issues short-lived credentials to the running workload through its attached role, refreshes them automatically, and scopes them to that role's permissions, so nothing static is ever stored.",
+      "source_ids": ["lf-objectives-2025", "aws-iam-best-practices", "aws-secrets-manager"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.avoid-hardcoded-credentials",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.backup-and-recovery-in-cloud.01",
+      "concept_id": "cloud.best-practices.backup-and-recovery-in-cloud",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team assumes 'the provider backs it up' satisfies their backup obligation for a managed database service. What does that assumption misread?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The shared responsibility model — the durability of the storage service is the provider's, but the retention policy and the restore capability are the customer's.",
+          "correct": true,
+          "why": "Provider durability guarantees the underlying storage will not silently corrupt; it says nothing about how far back the customer can restore.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — managed services back up customer data automatically as part of the service, so no further action is needed.",
+          "correct": false,
+          "why": "Managed durability is not the same as a retained, restorable backup with a policy the customer controls.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.backup-and-recovery-in-cloud" }
+        },
+        {
+          "ref": "o3",
+          "text": "The distinction between replication and backup, since the provider's built-in redundancy is a replica, not a backup.",
+          "correct": false,
+          "why": "That distinction matters, but the assumption in the stem is specifically about who owns the backup obligation, not about replication versus backup.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.replication" }
+        },
+        {
+          "ref": "o4",
+          "text": "The provider's autoscaling policy, which is what actually determines how much data is retained.",
+          "correct": false,
+          "why": "Autoscaling governs compute capacity in response to load; it has no bearing on data retention.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.right-size-before-you-scale" }
+        }
+      ],
+      "rationale": "'The provider backs it up' misreads the shared responsibility model: the durability of the storage service is the provider's, but the retention policy and the restore are the customer's to build and test.",
+      "source_ids": ["lf-objectives-2025", "aws-backup"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.backup-and-recovery-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.backup-and-recovery-in-cloud.02",
+      "concept_id": "cloud.best-practices.backup-and-recovery-in-cloud",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A backup plan assigns resources by tag, sets a retention period, and moves older copies to cheaper storage on a lifecycle schedule. What is still missing before it can be called a working recovery capability?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A restore that has actually been exercised — an untested restore path is an assumption, not a recovery capability, regardless of how the plan is configured.",
+          "correct": true,
+          "why": "Schedule, retention and lifecycle rules govern how copies are taken and kept; only a performed restore proves they can be read back.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — a correctly configured backup plan with retention and lifecycle rules is definitionally complete.",
+          "correct": false,
+          "why": "Configuration alone does not prove a copy can be restored; that has to be exercised deliberately.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.backup-and-recovery-in-cloud" }
+        },
+        {
+          "ref": "o3",
+          "text": "A consistent tag key, since resources tagged inconsistently will silently drop out of the plan.",
+          "correct": false,
+          "why": "Tag consistency matters for which resources get backed up at all, but the stem already assumes resources are correctly assigned by tag.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.documentation-and-tagging-standards" }
+        },
+        {
+          "ref": "o4",
+          "text": "An audit log entry recording who created the backup plan, which is treated as sufficient proof on its own that the data the plan protects can actually be restored.",
+          "correct": false,
+          "why": "Knowing who created the plan does not establish whether the data it protects can actually be restored.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.logging-and-auditing-in-cloud" }
+        }
+      ],
+      "rationale": "A backup plan sets frequency and retention against a recovery point and recovery time objective, with lifecycle rules moving older copies to cheaper storage, but the restore is then exercised deliberately, because an untested restore path is an assumption rather than a recovery capability.",
+      "source_ids": ["lf-objectives-2025", "aws-backup"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.backup-and-recovery-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.logging-and-auditing-in-cloud.01",
+      "concept_id": "cloud.best-practices.logging-and-auditing-in-cloud",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "\"Who deleted the storage bucket at 02:14, and from what address\" — which of these answers that: an audit log, an application log, or a metric?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The audit log — it records which identity called which API against which resource, when and from where.",
+          "correct": true,
+          "why": "That is precisely the question an audit log such as AWS CloudTrail is built to answer.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The metric, since a numeric time series would show the exact moment the deletion occurred.",
+          "correct": false,
+          "why": "A metric can show that something changed around that time, but not which identity made the call or from where.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.monitoring-and-metrics" }
+        },
+        {
+          "ref": "o3",
+          "text": "The application log, since a deployed infrastructure-as-code template records every change made to the environment.",
+          "correct": false,
+          "why": "A template records the intended desired state, not a real-time record of who called which API and when.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.automation-over-manual-configuration" }
+        },
+        {
+          "ref": "o4",
+          "text": "Any of the three equally, since all three record what happened to a resource over time.",
+          "correct": false,
+          "why": "The three answer different questions — identity and API call, application behaviour, and numeric trend — and only one of them answers this one.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.logging-and-auditing-in-cloud" }
+        }
+      ],
+      "rationale": "An audit log is not an application log and not a metric, and the three answer different questions: 'who deleted the storage bucket, and from what address' is an audit-log question, answered by recording which identity called which API, against which resource, when, from where, and with what result.",
+      "source_ids": ["lf-objectives-2025", "aws-cloudtrail"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.logging-and-auditing-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.logging-and-auditing-in-cloud.02",
+      "concept_id": "cloud.best-practices.logging-and-auditing-in-cloud",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "CloudTrail's Event history has been the only audit configuration in place for over a year. An investigation now needs management events from 120 days ago. What does the team find?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing — Event history retains only the past 90 days of management events per region; longer retention needs a configured trail or a CloudTrail Lake event data store.",
+          "correct": true,
+          "why": "The 90-day window is fixed and free by default, and reaching further back requires deliberately configuring a trail or a Lake event data store beforehand.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The full history going back to the account's creation, since CloudTrail is widely believed to retain management events indefinitely once it is enabled for an account.",
+          "correct": false,
+          "why": "CloudTrail is enabled by default, but Event history's window is bounded to 90 days regardless of how long it has been running.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.logging-and-auditing-in-cloud" }
+        },
+        {
+          "ref": "o3",
+          "text": "The events, restored from the account's backup plan alongside the resource data it protects.",
+          "correct": false,
+          "why": "A backup plan protects resource data, not the control-plane audit trail; the two are separate systems.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.backup-and-recovery-in-cloud" }
+        },
+        {
+          "ref": "o4",
+          "text": "The events, still visible in the monitoring dashboard's default 120-day metric window.",
+          "correct": false,
+          "why": "A metrics dashboard shows numeric trends, not the identity-level audit record that this investigation needs.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.monitoring-and-metrics" }
+        }
+      ],
+      "rationale": "Retention is the detail worth holding: Event history gives a searchable, immutable record of the past 90 days of management events in a region at no charge, but 90 days is the whole of it — longer retention requires creating a trail that delivers events to object storage, or an event data store in CloudTrail Lake.",
+      "source_ids": ["lf-objectives-2025", "aws-cloudtrail"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.logging-and-auditing-in-cloud",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.documentation-and-tagging-standards.01",
+      "concept_id": "cloud.best-practices.documentation-and-tagging-standards",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A resource is tagged `owner=alice` while every cost report, backup plan and automation rule in the account selects on the standard key `Owner`. What happens, and does anything raise an error?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The resource silently falls outside every report, plan and rule keyed on `Owner`, because tag keys are distinct strings and no error is raised anywhere.",
+          "correct": true,
+          "why": "`Owner`, `owner` and `OWNER` are three different keys to any system matching on the exact string.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — tagging systems normalise key case automatically, so `owner` and `Owner` are treated as the same key.",
+          "correct": false,
+          "why": "Tag keys are matched as exact strings; there is no automatic case normalisation that would unify the two.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.documentation-and-tagging-standards" }
+        },
+        {
+          "ref": "o3",
+          "text": "The resource is billed to a default cost centre automatically until the tag is corrected.",
+          "correct": false,
+          "why": "There is no default cost centre fallback; a resource with the wrong tag key simply does not appear in a report keyed on the standard one.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.budgeting.chargeback-and-showback" }
+        },
+        {
+          "ref": "o4",
+          "text": "The resource loses its network isolation boundary, since tags also serve as isolation boundaries between workloads.",
+          "correct": false,
+          "why": "A tag can be used as a condition in an access policy, but it is not itself an isolation boundary; that role belongs to accounts, subscriptions or projects.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.networking.security-group-vs-network-acl" }
+        }
+      ],
+      "rationale": "Tags are load-bearing rather than decorative: cost allocation reports, backup plan assignment, and automation targeting all select resources by tag, so `Owner`, `owner` and `OWNER` are three different keys, and a resource tagged with the wrong one silently drops out of every rule that selects on the standard one, with no error raised anywhere.",
+      "source_ids": ["lf-objectives-2025", "aws-tagging-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.documentation-and-tagging-standards",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.documentation-and-tagging-standards.02",
+      "concept_id": "cloud.best-practices.documentation-and-tagging-standards",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Can a resource tag act as an isolation boundary between two teams' workloads in the same account?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — a tag can be used as a condition in an access policy, but the isolation boundary itself is an account, subscription or project.",
+          "correct": true,
+          "why": "Tags are metadata a policy can reference; they are not a security or blast-radius boundary on their own.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — tagging resources by team is a recognised way to isolate them from each other.",
+          "correct": false,
+          "why": "Tags are used as access-policy conditions, not as an isolation mechanism, and are not a substitute for a separate account or project boundary.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.documentation-and-tagging-standards" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the tag is combined with a least-privilege policy that denies cross-team access by default.",
+          "correct": false,
+          "why": "Even paired with a policy, the tag remains a condition the policy references, not an isolation boundary in its own right.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities" }
+        },
+        {
+          "ref": "o4",
+          "text": "No, because only a virtual private cloud boundary, and nothing else, can separate two teams' workloads.",
+          "correct": false,
+          "why": "Accounts, subscriptions and projects are the isolation boundaries named for this purpose; a VPC is a network construct within one of those, not the only option.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.networking.virtual-private-cloud" }
+        }
+      ],
+      "rationale": "A tag can be used as a condition in an access policy, but it is not itself an isolation boundary — accounts, subscriptions or projects are, which is the boundary distinction this competency draws explicitly.",
+      "source_ids": ["lf-objectives-2025", "aws-tagging-best-practices"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.documentation-and-tagging-standards",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.right-size-before-you-scale.01",
+      "concept_id": "cloud.best-practices.right-size-before-you-scale",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A workload idles at 5% CPU on an oversized instance type. The team responds by adding autoscaling to handle peak load, without first correcting the instance size. What does that purchase them?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "More idle capacity at a higher price per unit, because scaling multiplies whatever the unit costs, including whatever waste that unit already carried.",
+          "correct": true,
+          "why": "Autoscaling changes the number of units running; it does not correct the fact that each unit is oversized for the load.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Lower total cost, since autoscaling automatically shrinks instance size as well as instance count during quiet periods.",
+          "correct": false,
+          "why": "Autoscaling adjusts how many instances run, not the type or size of the instance itself.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.right-size-before-you-scale" }
+        },
+        {
+          "ref": "o3",
+          "text": "A lower hourly rate, since adding autoscaling automatically qualifies the workload for reserved or committed-use pricing.",
+          "correct": false,
+          "why": "Reserved pricing is a separate purchasing decision; enabling autoscaling does not change the rate charged per instance.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing" }
+        },
+        {
+          "ref": "o4",
+          "text": "Guaranteed headroom for the next traffic peak, which right sizing alone could never have provided.",
+          "correct": false,
+          "why": "Right sizing and autoscaling address different problems, but autoscaling an oversized unit still multiplies the existing waste rather than solving it.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.auto-scaling" }
+        }
+      ],
+      "rationale": "Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher price per unit, which is the documented failure mode of scaling before correcting the unit.",
+      "source_ids": ["lf-objectives-2025", "aws-rightsizing-whitepaper"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.right-size-before-you-scale",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.right-size-before-you-scale.02",
+      "concept_id": "cloud.best-practices.right-size-before-you-scale",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What decides the correct instance type and size during right sizing, and what does committed-use or reserved pricing do instead?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Measured utilisation over a representative period, including peaks, together with a family matched to the actual bottleneck; reserved pricing only discounts the rate, locking in existing waste rather than removing it.",
+          "correct": true,
+          "why": "Right sizing is driven by measurement and by matching the instance family to the bottleneck, while a rate discount does not change the amount of capacity purchased.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Reserved pricing removes the waste directly and permanently, since committing to a multi-year term is believed to force the workload onto a smaller, better-matched instance automatically.",
+          "correct": false,
+          "why": "A reserved commitment locks in a rate for whatever instance size is chosen; it does not itself choose or resize anything.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.right-size-before-you-scale" }
+        },
+        {
+          "ref": "o3",
+          "text": "The number of instances currently running, since horizontal scaling and right sizing measure the same underlying quantity.",
+          "correct": false,
+          "why": "Horizontal scaling changes how many units run; right sizing changes what each unit is, which is a different decision.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.horizontal-scaling" }
+        },
+        {
+          "ref": "o4",
+          "text": "Whether the resource is orphaned, since untagged idle resources are what right sizing corrects first.",
+          "correct": false,
+          "why": "An orphaned resource with no owner is a different, tagging-related problem from an active but oversized resource.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.budgeting.orphaned-resources" }
+        }
+      ],
+      "rationale": "Right sizing is driven by measurement: utilisation data over a representative period, including peaks, decides the type and size, and choosing a family that matches the bottleneck matters as much as choosing a smaller size — committed-use or reserved pricing is a discount on the rate, which locks in the existing waste rather than removing it.",
+      "source_ids": ["lf-objectives-2025", "aws-rightsizing-whitepaper"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.right-size-before-you-scale",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.health-checks-and-graceful-shutdown.01",
+      "concept_id": "cloud.best-practices.health-checks-and-graceful-shutdown",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A load balancer's health check is a shallow TCP check that reports a target healthy as soon as it accepts the socket. What can go wrong because of that shallowness?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A target enters rotation before it can actually serve a request, because accepting a connection is not the same as the application layer being ready to handle one.",
+          "correct": true,
+          "why": "This is the liveness-versus-readiness gap the competency names: a shallow check confirms the socket opened, not that the application can respond.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — accepting a TCP connection is sufficient proof that the application layer is also ready to serve requests.",
+          "correct": false,
+          "why": "A process can accept a socket long before it has finished initialising enough to answer a request correctly.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.health-checks-and-graceful-shutdown" }
+        },
+        {
+          "ref": "o3",
+          "text": "The load balancer stops routing to the target entirely, since a shallow check can never report healthy in the first place.",
+          "correct": false,
+          "why": "A shallow check reports healthy easily, which is exactly the problem; it does not withhold traffic.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.load-balancing" }
+        },
+        {
+          "ref": "o4",
+          "text": "An alert fires and pages a human before the target is added back into rotation.",
+          "correct": false,
+          "why": "A health check drives an automated routing decision inside a control loop; paging a human is what monitoring and alerting do instead.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.performance-availability.monitoring-and-metrics" }
+        }
+      ],
+      "rationale": "A second distinction the competency draws is between liveness and readiness — a shallow TCP check reports healthy for a process that has accepted the socket but cannot yet serve a request, so instances enter rotation before they are actually ready.",
+      "source_ids": ["lf-objectives-2025", "aws-elastic-load-balancing"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.health-checks-and-graceful-shutdown",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.best-practices.health-checks-and-graceful-shutdown.02",
+      "concept_id": "cloud.best-practices.health-checks-and-graceful-shutdown",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "During a scale-in event, a target is terminated while requests are still in flight, and clients see a burst of 500-level errors. Which mechanism was missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Graceful shutdown — the target must stop receiving new requests and drain the ones already in flight during the deregistration delay window before it is terminated.",
+          "correct": true,
+          "why": "Elastic Load Balancing waits a deregistration delay, 300 seconds by default, precisely so in-flight requests can finish before the target goes away.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A health check, since only a failed health check should ever be allowed to cause a target's termination.",
+          "correct": false,
+          "why": "A scale-in termination is a capacity decision, not a health-check failure; the missing piece is draining in-flight work, not a check.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:cloud.best-practices.health-checks-and-graceful-shutdown" }
+        },
+        {
+          "ref": "o3",
+          "text": "Right-sizing, since an undersized target is what produces errors during a scale-in event.",
+          "correct": false,
+          "why": "Instance size is unrelated to whether in-flight requests are drained before termination; the errors come from an abrupt cutoff, not from capacity.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.right-size-before-you-scale" }
+        },
+        {
+          "ref": "o4",
+          "text": "Immutable infrastructure, since only replacing instances from new images would have avoided losing in-flight requests.",
+          "correct": false,
+          "why": "Immutability governs how instances are built and replaced, not whether in-flight requests are drained during any given termination.",
+          "provenance": { "kind": "sibling", "concept_id": "cloud.best-practices.immutable-infrastructure" }
+        }
+      ],
+      "rationale": "If the target closes its connections before the deregistration delay elapses — the exact failure a process that exits immediately on the termination signal produces — clients receive 500-level errors, which is why graceful shutdown and the deregistration delay window exist as a pair with health checks.",
+      "source_ids": ["lf-objectives-2025", "aws-elastic-load-balancing"],
+      "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.health-checks-and-graceful-shutdown",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

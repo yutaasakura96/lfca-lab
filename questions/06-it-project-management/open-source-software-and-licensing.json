@@ -1,0 +1,1400 @@
+{
+  "competency": "IT Project Management Fundamentals :: Open Source Software and Licensing",
+  "items": [
+    {
+      "id": "q.pm.open-source-software-and-licensing.open-source-software.01",
+      "concept_id": "pm.open-source-software-and-licensing.open-source-software",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A vendor publishes a product's complete source code in a public repository, but the licence prohibits offering the software as a competing hosted service. Under the Open Source Definition, is this open source software?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — restricting a field of endeavour such as competing commercial use fails OSD 6, regardless of how visible the source is.",
+          "correct": true,
+          "why": "OSD 6 bars discrimination against fields of endeavour, and a no-competing-service clause is exactly that kind of restriction.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, because publishing the source publicly is the one thing proprietary software withholds, and this vendor did not withhold it.",
+          "correct": false,
+          "why": "Source visibility alone settles nothing; proprietary software can also be source-available while still reserving redistribution.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.proprietary-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because the licence never uses the phrase \"free software\" anywhere in its text.",
+          "correct": false,
+          "why": "The Open Source Definition does not require any particular wording; it is judged on what rights the licence grants.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, since the Open Source Definition is only concerned with whether the source is visible to the public.",
+          "correct": false,
+          "why": "This is the reasoning the field-of-endeavour criterion exists to rule out; visibility is necessary but nowhere near sufficient.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.open-source-software" }
+        }
+      ],
+      "rationale": "The Open Source Definition's ten criteria decide the question, not marketing or source visibility. A no-competing-use clause restricts a field of endeavour (OSD 6), which disqualifies the licence however openly the code is published.",
+      "source_ids": ["osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.open-source-software",
+      "comparison_block": "cmp-pm.open-source-software-and-licensing.open-source-software",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.open-source-software.02",
+      "concept_id": "pm.open-source-software-and-licensing.open-source-software",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Product A is sold for a subscription fee, but its licence grants every recipient the source code plus the rights to modify and redistribute it, including modified versions. Product B is downloadable at no cost, but its licence forbids redistributing any modified copy. Which product is open source software?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Product A — price is irrelevant to the definition, and its licence grants the modification and redistribution rights the definition requires.",
+          "correct": true,
+          "why": "OSD 1 permits selling open source software, and OSD 3 is what Product A grants and Product B withholds.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Product B, because the Free Software Foundation's definition of \"free\" is about price rather than the rights a licence happens to grant.",
+          "correct": false,
+          "why": "\"Free\" in free software means liberty, not price, so a zero-cost download that bars redistribution is neither free software nor open source.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss" }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither, since charging money for a copy disqualifies a licence from open source status under any of the ten criteria.",
+          "correct": false,
+          "why": "OSD 1 explicitly permits selling open source software as part of an aggregate distribution; charging is not disqualifying.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o4",
+          "text": "Product B, because barring redistribution of modified copies is simply a stricter, more protective variant of the same open source terms rather than a different category of licence entirely.",
+          "correct": false,
+          "why": "Barring redistribution of derived works removes exactly the right OSD 3 requires; it is a disqualifying restriction, not a stricter variant.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.proprietary-software" }
+        }
+      ],
+      "rationale": "Two of the ten OSD criteria decide most such questions: free redistribution without a required royalty, and permission to make and distribute derived works. Product A satisfies both; Product B fails the second regardless of its zero price.",
+      "source_ids": ["osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.open-source-software",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.free-software-and-foss.01",
+      "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A company sells discs of a program for $20 each. Every buyer receives the right to run the program for any purpose, study and change its source, and redistribute copies, including modified ones. Does this satisfy the Free Software Foundation's four freedoms?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Yes — selling copies is unrestricted; only the enumerated freedoms to run, study, redistribute and modify decide the question, never the price charged.",
+          "correct": true,
+          "why": "The freedoms concern what a recipient may then do with the software, not what the seller charged for the copy.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "No, because the Free Software Foundation and the Open Source Initiative maintain a single joint list of approved licences, and this vendor's terms were checked against the wrong organisation's separate criteria entirely.",
+          "correct": false,
+          "why": "The FSF and OSI maintain separate lists against different texts; there is no single joint list to consult incorrectly.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "No, because charging money for the software directly conflicts with the word \"free\" in free software.",
+          "correct": false,
+          "why": "Free as in freedom, not price: freedom 2 and 3 protect redistribution, and nothing in the four freedoms bars a sale.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.free-software-and-foss" }
+        },
+        {
+          "ref": "o4",
+          "text": "Only if the buyer additionally signs an agreement promising not to resell the discs to anyone else.",
+          "correct": false,
+          "why": "No such additional agreement is part of the four freedoms; redistribution rights travel with the copy automatically.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compliance" }
+        }
+      ],
+      "rationale": "The four freedoms concern rights, not cost. Selling copies violates nothing, and this licence grants freedoms 0 through 3 in full, so it qualifies as free software regardless of its $20 price.",
+      "source_ids": ["gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.free-software-and-foss",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.free-software-and-foss.02",
+      "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "FOSS is used as a neutral umbrella term because two separate organisations judge overlapping sets of licences against different texts and for different reasons. Which pairing correctly describes the two?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The Free Software Foundation argues from user freedom via the four freedoms; the Open Source Initiative argues the same licences on practical and development grounds via the Open Source Definition.",
+          "correct": true,
+          "why": "That is the documented split in framing between the two bodies, even though they bless nearly the same set of licences.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The Open Source Initiative argues from user freedom as an ethical position; the Free Software Foundation runs the review process behind the Open Source Definition's approved-licence list and publishes it on the Initiative's behalf.",
+          "correct": false,
+          "why": "This swaps the two organisations' roles and their defining documents entirely.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "The Software Package Data Exchange assigns identifiers to both organisations' approved licences, which is why their two lists match item for item.",
+          "correct": false,
+          "why": "SPDX assigns identifiers but does not decide either list, and the two organisations' lists overlap heavily without matching exactly.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition" }
+        },
+        {
+          "ref": "o4",
+          "text": "Free software and open source software are opposing camps whose licences reject and actively exclude one another.",
+          "correct": false,
+          "why": "They are two framings that land on almost the same licences, not opposing or mutually exclusive camps.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.free-software-and-foss" }
+        }
+      ],
+      "rationale": "FOSS exists precisely so a sentence can name both camps without taking a side: the FSF's ethical framing and the OSI's practical framing judge nearly the same licences against different documents, maintained by different bodies.",
+      "source_ids": ["gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.free-software-and-foss",
+      "comparison_block": "cmp-pm.open-source-software-and-licensing.free-software-and-foss",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition.01",
+      "concept_id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "What does the Open Source Initiative do?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It stewards the ten-criterion Open Source Definition and runs the review process that decides which licences are approved against it.",
+          "correct": true,
+          "why": "The OSI is the body behind the Open Source Definition and its approved-licence list.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It certifies individual software projects as open source directly, inspecting each maintainer's published code before granting the certification.",
+          "correct": false,
+          "why": "The OSI approves licences, not projects; a project is open source because the licence it uses is OSI-approved.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "It holds trademarks and infrastructure on behalf of hosted projects, in the manner of a neutral foundation.",
+          "correct": false,
+          "why": "Holding assets and infrastructure for hosted projects is what a foundation such as the Linux Foundation does, not the OSI's role.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.governance-and-foundations" }
+        },
+        {
+          "ref": "o4",
+          "text": "It is the body that maintains the Free Software Definition and the enumeration of the four freedoms.",
+          "correct": false,
+          "why": "That document and its four freedoms belong to the Free Software Foundation, a separate organisation with its own criteria.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition" }
+        }
+      ],
+      "rationale": "The OSI approves licences against the Open Source Definition's ten criteria; it does not certify projects, hold assets for foundations, or maintain the Free Software Foundation's separate four-freedoms definition.",
+      "source_ids": ["osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-fundamentals",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.proprietary-software.01",
+      "concept_id": "pm.open-source-software-and-licensing.proprietary-software",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A company distributes a zero-cost \"community edition\" of its database engine. The source is not published, and the licence permits running the software but forbids modifying or redistributing it. What is this software?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Proprietary software — price is irrelevant here; the licence withholds the source and reserves modification and redistribution rights to the vendor.",
+          "correct": true,
+          "why": "Proprietary status turns on the rights withheld, and this licence withholds exactly the rights the definition cites.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Open source software offered as freeware, since no fee is charged for downloading a copy and the vendor markets it as free to use for everyone.",
+          "correct": false,
+          "why": "Zero cost is not evidence of open source status; the licence still withholds source and reserves modification and redistribution.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither open source nor proprietary, since freeware is understood to be its own separate licensing category carrying no legal reservation of rights of any kind at all.",
+          "correct": false,
+          "why": "Freeware is a price point layered on top of ordinary proprietary terms; it is not a third category free of reserved rights.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.proprietary-software" }
+        },
+        {
+          "ref": "o4",
+          "text": "Source-available software, since the vendor retains the option to publish the source later without changing any of the licence terms.",
+          "correct": false,
+          "why": "Source-available describes a licence where the code is published; nothing here has been published, so the label does not apply.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.source-code-and-binaries" }
+        }
+      ],
+      "rationale": "Copyright reserves all rights to the author by default; this licence gives away only the right to run a copy, which is the proprietary pattern regardless of the zero price attached to it.",
+      "source_ids": ["osi-osd", "gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.proprietary-software",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.proprietary-software.02",
+      "concept_id": "pm.open-source-software-and-licensing.proprietary-software",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A vendor publishes a product's full source code publicly, but its licence bars any commercial use or competing service built from it. How should this licence be classified?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Proprietary — publishing the source does not grant the field-of-endeavour freedom the Open Source Definition requires, so the licence remains proprietary despite the visible code.",
+          "correct": true,
+          "why": "A source-available licence that restricts a field of endeavour fails the OSD and is proprietary software with published code.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Open source, since the Open Source Definition is only concerned with whether the source is available for anyone in the public to read at will.",
+          "correct": false,
+          "why": "Readability is necessary but not sufficient; the OSD also requires derivative-work rights and no field-of-endeavour restriction.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o3",
+          "text": "Proprietary only if the vendor also charges a fee for access; a free download of visible source is automatically considered open source regardless of any other restriction in the licence text.",
+          "correct": false,
+          "why": "Price plays no role in this classification; the disqualifying feature is the field-of-endeavour restriction, not any fee.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.proprietary-software" }
+        },
+        {
+          "ref": "o4",
+          "text": "Undetermined until the licence is checked for compatibility against whatever other components it might later be combined with in a shipped product.",
+          "correct": false,
+          "why": "Compatibility with other components is a separate question from whether this licence alone meets the Open Source Definition.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        }
+      ],
+      "rationale": "Source visibility satisfies nothing on its own. A no-competing-use clause restricts a field of endeavour and removes the licence from open source status, leaving a source-available product that is proprietary in the licensing sense that matters.",
+      "source_ids": ["osi-osd", "gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.proprietary-software",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.source-code-and-binaries.01",
+      "concept_id": "pm.open-source-software-and-licensing.source-code-and-binaries",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why does shipping a binary-only build of a GPL-licensed program create a compliance problem that shipping the same binary-only build of an MIT-licensed program does not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The GPL obliges anyone who conveys object code to also make its Corresponding Source available to recipients; permissive licences impose no source obligation at all.",
+          "correct": true,
+          "why": "Conveying object code is precisely the act the GPL attaches its Corresponding Source obligation to.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The GPL forbids compiling the covered program into a binary form in the first place, so any binary build already violates it.",
+          "correct": false,
+          "why": "The GPL does not forbid compiling; it conditions distributing the resulting object code on offering the Corresponding Source.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o3",
+          "text": "MIT requires a NOTICE file to accompany every binary it ships to a recipient, a requirement the GPL text does not carry at all.",
+          "correct": false,
+          "why": "MIT has no NOTICE-file concept; that requirement belongs to Apache-2.0, not to MIT or to the GPL.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compliance" }
+        },
+        {
+          "ref": "o4",
+          "text": "Both licences impose exactly the same source obligation on any binary-only release, since every open source licence treats compiled and source forms as legally identical in every respect.",
+          "correct": false,
+          "why": "This is the assumption the distinction exists to correct: only copyleft licences attach an obligation to the binary form.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.source-code-and-binaries" }
+        }
+      ],
+      "rationale": "Several licences attach obligations specifically to distributing the binary form. The GPL's Corresponding Source requirement is triggered by conveying object code; permissive licences require only that notices travel with whatever form is shipped.",
+      "source_ids": ["osi-osd", "gnu-gpl-faq"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.source-code-and-binaries",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.permissive-licenses.01",
+      "concept_id": "pm.open-source-software-and-licensing.permissive-licenses",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A startup embeds a lightly modified MIT-licensed parsing library inside its closed-source commercial product and ships only a compiled binary. What does the MIT licence require of the startup?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Only that the copyright notice and permission notice travel with the copies distributed — nothing about the product's own source or its licence.",
+          "correct": true,
+          "why": "Notice retention is the single condition MIT imposes; it reaches no further into the surrounding product.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That the modified parsing library, and the entire product it has been combined into, be released under the MIT licence as well.",
+          "correct": false,
+          "why": "That reciprocal, whole-work reach is copyleft's defining feature; a permissive licence conditions nothing about the derivative's own licence.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing at all, since permissive licences are widely understood to impose no conditions of any kind on anyone who reuses or redistributes the code.",
+          "correct": false,
+          "why": "Permissive is not obligation-free: stripping the notice out of an MIT-licensed file is the standard permissive-licence violation.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.permissive-licenses" }
+        },
+        {
+          "ref": "o4",
+          "text": "That the startup grant every recipient an express, litigation-terminating patent licence covering its own modifications to the library.",
+          "correct": false,
+          "why": "MIT says nothing about patents at all; that express patent grant is Apache-2.0's addition, not MIT's.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0" }
+        }
+      ],
+      "rationale": "MIT's conditions are of one kind: preserve the copyright notice, licence text and disclaimer. Nothing in it reaches the licence of the surrounding work, so the startup may ship a closed binary with nothing published but an attribution file.",
+      "source_ids": ["apache-license-2", "spdx-license-list", "osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.permissive-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.permissive-licenses.02",
+      "concept_id": "pm.open-source-software-and-licensing.permissive-licenses",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which single fact separates a permissive licence from a copyleft one?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Whether the licence conditions the licence of a derivative work — a permissive licence does not, while a copyleft licence requires the same terms to carry forward on distribution.",
+          "correct": true,
+          "why": "That condition on the derivative work's own licence is exactly the axis the whole comparison turns on.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Whether the licence permits commercial use at all — permissive licences allow it freely and copyleft licences forbid it outright in every circumstance.",
+          "correct": false,
+          "why": "Copyleft does not forbid commercial use or charging for copies; it constrains what is passed to recipients, not whether money changes hands.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "Whether the licence is compatible with the GPL — permissive licences are always fully compatible with it, and copyleft licences are never compatible with one another at all, under any circumstances.",
+          "correct": false,
+          "why": "Compatibility varies by specific licence and version and is not a fixed permissive-versus-copyleft rule.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o4",
+          "text": "Whether the licence has been approved by the Open Source Initiative — permissive licences are approved by it and copyleft licences never are.",
+          "correct": false,
+          "why": "Both families include OSI-approved licences; approval status is not what separates them.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.permissive-licenses" }
+        }
+      ],
+      "rationale": "The separating axis is whether the licence says anything about the licence of what you build: copyleft imposes the same terms on the distributed derivative, and permissive imposes only attribution. Neither commercial use nor OSI approval status decides it.",
+      "source_ids": ["apache-license-2", "spdx-license-list", "osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.permissive-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.copyleft-licenses.01",
+      "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A developer modifies a GPLv3-licensed tool for internal use only, running it exclusively on the company's own servers with no copy ever leaving the building. What obligation does the GPL impose in this situation?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "None — the GPL's obligations attach to conveying a copy to someone else, and running or modifying a work that is never conveyed is entirely unconditioned.",
+          "correct": true,
+          "why": "GPLv3 states plainly that you may make, run and propagate covered works you do not convey without conditions.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The obligation to preserve the copyright notice throughout the internal build, exactly the way a permissive licence would require regardless of distribution.",
+          "correct": false,
+          "why": "Copyleft's obligations are heavier than notice retention and, unlike a permissive licence, they trigger on distribution, not on the mere existence of a build.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.permissive-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "The obligation to publish the Corresponding Source the moment any modification is made, whether or not the modified program is ever distributed.",
+          "correct": false,
+          "why": "This is the \"viral by contact\" misreading the licence's own text rules out; obligations attach to conveying, not to modifying.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.copyleft-licenses" }
+        },
+        {
+          "ref": "o4",
+          "text": "The obligation to offer the Corresponding Source to anyone who interacts with it over a network, since the tool is reachable from other machines on-site.",
+          "correct": false,
+          "why": "That network trigger belongs to the AGPL's section 13, not the plain GPL, and nothing here describes remote users interacting with the tool.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.agpl" }
+        }
+      ],
+      "rationale": "Copyleft's reciprocal obligation is a condition on an act of distribution, not something that spreads by contact. Modifying a covered program for internal use and never handing it to anyone obliges nothing at all.",
+      "source_ids": ["gnu-gpl-faq", "gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.copyleft-licenses",
+      "comparison_block": "cmp-pm.open-source-software-and-licensing.copyleft-licenses",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.copyleft-licenses.02",
+      "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Critics describe copyleft as \"viral.\" Which statement corrects that framing without denying that copyleft has real reach?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Copyleft is a condition attached to the act of distributing a work, not something that spreads automatically by mere contact with the code.",
+          "correct": true,
+          "why": "The obligation attaches to conveying, which is a deliberate act, and never to proximity or contact alone.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The framing is accurate: any file merely stored alongside GPL code on the same disk becomes GPL-licensed regardless of whether either is distributed.",
+          "correct": false,
+          "why": "Storage proximity triggers nothing; only conveying a combined or modified work to someone else triggers the obligation.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.permissive-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "The framing is accurate only when the combined work is built with static linking rather than dynamic linking against the covered code.",
+          "correct": false,
+          "why": "Linking mechanism can affect whether two programs form one combined work, but it does not make the underlying \"spreads by contact\" description accurate.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o4",
+          "text": "The framing is accurate: any product that once depended on a GPL library remains GPL-licensed permanently, even after the dependency is fully removed.",
+          "correct": false,
+          "why": "The licence governs the work as conveyed; removing the dependency removes any basis for the obligation to have attached going forward.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.copyleft-licenses" }
+        }
+      ],
+      "rationale": "\"Viral\" is a pejorative, not a term of art, and it misdescribes the mechanism: copyleft is a condition on an act of distribution, triggered deliberately when a covered or combined work is conveyed to someone else.",
+      "source_ids": ["gnu-gpl-faq", "gnu-free-sw"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.copyleft-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.gpl.01",
+      "concept_id": "pm.open-source-software-and-licensing.gpl",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "The Linux kernel is released under which licence and version, and what does that precise designation prevent?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "GPL-2.0-only — not \"version 2 or later\", so the kernel's terms cannot be swapped for GPLv3's without the consent of every copyright holder involved.",
+          "correct": true,
+          "why": "The kernel is GPL-2.0-only, and an \"-only\" grant blocks the automatic upgrade path an \"-or-later\" grant would allow.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "LGPL-2.1-only, which is why proprietary drivers may link against the kernel without conveying their own source code.",
+          "correct": false,
+          "why": "The kernel is licensed under the plain GPL, not the LGPL, and driver linking is instead addressed by its explicit syscall exception.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.lgpl" }
+        },
+        {
+          "ref": "o3",
+          "text": "GPL-3.0-or-later, since all software released as part of the GNU Project defaults automatically to whichever licence version is currently the newest one published.",
+          "correct": false,
+          "why": "There is no such automatic default; the kernel's licence was fixed as GPL-2.0-only deliberately, and it has not moved to GPLv3.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o4",
+          "text": "Whichever version happens to be compatible with the licences of the components that were most recently merged into the kernel tree.",
+          "correct": false,
+          "why": "A project's own licence does not shift based on what gets merged into it; compatibility instead constrains what may be merged.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        }
+      ],
+      "rationale": "The kernel is GPL-2.0-only, not \"v2 or later\" — a fact worth holding exactly, since it determines whether GPLv3 terms could ever apply and it is the concrete example the exam reaches for whenever it wants a copyleft licence.",
+      "source_ids": ["kernel-license-rules", "gnu-gpl-faq", "spdx-license-list"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.gpl",
+      "comparison_block": "cmp-pm.open-source-software-and-licensing.gpl",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.gpl.02",
+      "concept_id": "pm.open-source-software-and-licensing.gpl",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A company distributes a modified GPLv2-only tool and is later sued by a contributor who alleges the tool infringes a patent covering that contributor's own submitted code. Under GPLv2 alone, what protection does the licence text itself give the company?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "None from the licence text — GPLv2 contains no express patent grant and no patent-termination clause; GPLv3 is the version that added both.",
+          "correct": true,
+          "why": "GPLv3 section 5's patent grant and its termination and cure provisions are additions over GPLv2, which is silent on patents entirely.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The AGPL's network-interaction provisions, since GPLv2 incorporates AGPL section 13 by reference for any distributed, patent-affected work.",
+          "correct": false,
+          "why": "The AGPL is a separate licence with its own network trigger; GPLv2 does not incorporate any of its provisions by reference.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.agpl" }
+        },
+        {
+          "ref": "o3",
+          "text": "The same implied patent licence GPLv3 carries, since both versions were published by the same organisation and are treated as legally identical on patents.",
+          "correct": false,
+          "why": "Sharing a publisher does not make the two versions' terms identical; GPLv3 added an express patent grant that GPLv2's text never contains.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o4",
+          "text": "Apache-2.0's patent-termination clause, invoked on the theory that GPLv2 is fully compatible with Apache-2.0's terms.",
+          "correct": false,
+          "why": "The Free Software Foundation treats Apache-2.0 as incompatible with GPLv2 precisely because of requirements GPLv2 lacks, patent termination among them.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0" }
+        }
+      ],
+      "rationale": "GPLv3 adds to GPLv2 an express patent grant and a cure provision for a terminated licence; GPLv2 has neither and terminates on violation with no cure clause, so the company's protection here is nothing that the GPLv2 text itself supplies.",
+      "source_ids": ["kernel-license-rules", "gnu-gpl-faq"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.gpl",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.lgpl.01",
+      "concept_id": "pm.open-source-software-and-licensing.lgpl",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "How does the LGPL let a proprietary application link against a covered library without the whole application becoming GPL-licensed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It confines the same-licence condition to the library itself; the application may be conveyed under its own terms if users can relink against a modified library (LGPLv3 §4, or LGPL-2.1 §6).",
+          "correct": true,
+          "why": "Weak copyleft narrows the reach to the library boundary, leaving the linking application free under its own terms.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It does not — linking a proprietary application against any LGPL library still requires the entire application to be released under the full terms of the GPL, exactly as with the plain GPL.",
+          "correct": false,
+          "why": "That whole-work reach is precisely what strong copyleft does and weak copyleft is designed to avoid for the linking application.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o3",
+          "text": "It grants the exception only when the application is never offered as a network service, mirroring the AGPL's network trigger in reverse.",
+          "correct": false,
+          "why": "The LGPL's relinking condition has nothing to do with network offering; that concern belongs to the AGPL's separate section 13 trigger.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.agpl" }
+        },
+        {
+          "ref": "o4",
+          "text": "It removes copyleft obligations entirely, so the library itself may also be redistributed under proprietary terms once any application links to it.",
+          "correct": false,
+          "why": "Modifications to the library itself stay under the LGPL; only the surrounding application gains freedom from the same-licence condition.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.lgpl" }
+        }
+      ],
+      "rationale": "Weak copyleft narrows the reciprocal obligation to a defined boundary. The LGPL confines it to the library, letting the linking application ship under its own terms once relink conditions are met, while the library's own code stays copyleft.",
+      "source_ids": ["gnu-lgpl-3", "gnu-gpl-faq"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-specific-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.agpl.01",
+      "concept_id": "pm.open-source-software-and-licensing.agpl",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "What does AGPL section 13 add on top of the plain GPL, and what specifically triggers it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An obligation to offer the Corresponding Source to users who interact with a modified version remotely over a network — triggered by that network interaction, not by conveying a copy.",
+          "correct": true,
+          "why": "Section 13 extends the same-licence obligation past conveyance to reach users who only ever interact with the software across a network.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing beyond the plain GPL — conveying a copy remains the only trigger, since GPLv3 section 5 already covers network interaction on its own.",
+          "correct": false,
+          "why": "GPLv3 section 5 concerns conveying a copy; it does not reach a hosted, never-distributed service, which is exactly the gap section 13 closes.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o3",
+          "text": "A requirement to publish a Software Bill of Materials each time the hosted service is updated with new dependencies.",
+          "correct": false,
+          "why": "Section 13 requires offering Corresponding Source to network users; it says nothing about producing a bill of materials.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.software-bill-of-materials" }
+        },
+        {
+          "ref": "o4",
+          "text": "An obligation that applies to any software running on a server that users reach over the internet, regardless of which licence that software carries.",
+          "correct": false,
+          "why": "Section 13 is a term of the AGPL specifically; software under other licences, including the plain GPL, is not reached by it at all.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.agpl" }
+        }
+      ],
+      "rationale": "The AGPL was written to close the gap where a modified program is offered as a service but never conveyed to anyone. Section 13's trigger is network interaction with a modified version, independent of whether a copy ever changes hands.",
+      "source_ids": ["gnu-agpl-3"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-specific-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.mit-and-bsd-licenses.01",
+      "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A redistributor ships a modified BSD-3-Clause utility and, in the product's marketing materials, names the original author's company as an official partner to help promote the product. Which clause does this violate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The non-endorsement clause — using the copyright holder's or contributors' names to endorse a derived product without specific prior written permission is exactly what BSD-3-Clause's third clause forbids.",
+          "correct": true,
+          "why": "That third clause is what distinguishes BSD-3-Clause from BSD-2-Clause, and naming the company as a partner without permission is the textbook violation of it.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Section 4's NOTICE-file propagation requirement, since the marketing materials never reproduced an upstream NOTICE file's attributions.",
+          "correct": false,
+          "why": "BSD has no NOTICE-file concept at all; that requirement belongs to Apache-2.0, a different permissive licence.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0" }
+        },
+        {
+          "ref": "o3",
+          "text": "None — BSD-3-Clause has no restriction on how a redistributor markets a derived product, only on copying the underlying code itself.",
+          "correct": false,
+          "why": "The non-endorsement clause exists precisely to restrict this kind of marketing use of the original author's name.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.mit-and-bsd-licenses" }
+        },
+        {
+          "ref": "o4",
+          "text": "The requirement that any derived product be licensed under terms compatible with the original before it may be sold commercially.",
+          "correct": false,
+          "why": "BSD imposes no such reach into the derivative's own licence; that would be a copyleft-style condition BSD does not carry.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        }
+      ],
+      "rationale": "BSD-3-Clause adds a third clause on top of BSD-2-Clause's notice, conditions and disclaimer requirements, forbidding use of the copyright holder's or contributors' names to endorse derived products without permission — which is exactly what this marketing use does.",
+      "source_ids": ["spdx-license-list", "osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.mit-and-bsd-licenses.02",
+      "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which condition, if any, does the plain MIT licence impose regarding patents held by the code's contributors?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "None — MIT says nothing about patents at all, which is the specific difference Apache-2.0's express patent grant addresses.",
+          "correct": true,
+          "why": "Neither MIT nor any BSD variant grants patent rights; that omission is exactly the gap Apache-2.0 was written to fill.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "An implied patent licence limited to claims necessarily infringed by the contributor's own code, mirroring Apache-2.0 section 3's scope.",
+          "correct": false,
+          "why": "MIT contains no patent language at all, implied or otherwise; that scoped grant is Apache-2.0's own express provision.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0" }
+        },
+        {
+          "ref": "o3",
+          "text": "A reciprocal obligation requiring any patented derivative work to be licensed back to the community under MIT's own terms.",
+          "correct": false,
+          "why": "That reach-into-the-derivative pattern describes copyleft reasoning, which MIT, as a permissive licence, does not carry.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses" }
+        },
+        {
+          "ref": "o4",
+          "text": "The identical patent-litigation-termination clause Apache-2.0 carries, since both licences are commonly grouped together as the permissive family.",
+          "correct": false,
+          "why": "Being grouped in the same permissive family does not make MIT's terms identical to Apache-2.0's; the termination clause is specific to Apache-2.0's section 3.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.mit-and-bsd-licenses" }
+        }
+      ],
+      "rationale": "Neither MIT nor any BSD variant grants patent rights, requires a NOTICE file, or requires modified files to be marked — a difference from Apache-2.0, not a reassurance, since it means patent risk is simply left unaddressed.",
+      "source_ids": ["spdx-license-list", "osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.apache-license-2-0.01",
+      "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A contributor to an Apache-2.0 project later files a lawsuit alleging the project's codebase infringes a patent the contributor holds, one covering only the contributor's own submitted code. What happens to that contributor's patent grant under section 3?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It terminates for that contributor — Apache-2.0's patent grant automatically ends for anyone who files patent litigation alleging the work infringes.",
+          "correct": true,
+          "why": "Section 3's termination clause fires specifically on the act of filing patent litigation over the work.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing happens to it, since MIT and the BSD licences carry no patent-termination mechanism at all for either side to ever invoke.",
+          "correct": false,
+          "why": "MIT and BSD's silence on patents is beside the point here; Apache-2.0's own section 3 does carry a termination mechanism, and it applies.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "It terminates for every contributor to the project at once, not just the one who filed suit, since the NOTICE file lists all contributors jointly by name.",
+          "correct": false,
+          "why": "Termination under section 3 is scoped to the litigant's own grant; the NOTICE file's attribution list has no bearing on whose grant ends.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.apache-license-2-0" }
+        },
+        {
+          "ref": "o4",
+          "text": "It terminates only if the project is also dual-licensed under a copyleft licence, since permissive terms alone cannot enforce patent termination.",
+          "correct": false,
+          "why": "Apache-2.0's patent-termination clause is a feature of its own permissive text and needs no copyleft licence layered on top to take effect.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses" }
+        }
+      ],
+      "rationale": "Section 3 grants a scoped patent licence and terminates it for anyone who files patent litigation alleging the work infringes — a mechanism unique to Apache-2.0 among the permissive licences and central to what it adds over MIT and BSD.",
+      "source_ids": ["apache-license-2"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.apache-license-2-0",
+      "comparison_block": "cmp-pm.open-source-software-and-licensing.apache-license-2-0",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.apache-license-2-0.02",
+      "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A downstream distributor modifies three files from an Apache-2.0 project that ships a NOTICE file, then redistributes the result. Beyond MIT's single notice-retention condition, what does Apache-2.0 additionally require here?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Marking the three modified files with prominent notices that they were changed, and reproducing the upstream NOTICE file's attributions in the distributor's own NOTICE, documentation, or a generated display.",
+          "correct": true,
+          "why": "Section 4(b) requires the change notices and section 4(d) requires propagating an existing NOTICE file's contents.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing additional — Apache-2.0's redistribution conditions reduce in practice to the exact same single copyright-notice requirement that MIT's one-paragraph licence text already carries in full, word for word.",
+          "correct": false,
+          "why": "Apache-2.0 section 4 adds modification-notice and NOTICE-propagation requirements that MIT's one-sentence condition does not have.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "Filing a Contributor License Agreement with the upstream project before the modified files may be redistributed to anyone.",
+          "correct": false,
+          "why": "A CLA governs contributing changes back to a project, not redistributing a downstream product built from its code.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compliance" }
+        },
+        {
+          "ref": "o4",
+          "text": "Relicensing the three modified files under the GPL, since Apache-2.0 becomes a copyleft licence once any file is modified.",
+          "correct": false,
+          "why": "Apache-2.0 is not a copyleft licence at any point; none of section 4's conditions reach the licence of the derivative work as a whole.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.apache-license-2-0" }
+        }
+      ],
+      "rationale": "Section 4 conditions redistribution on carrying the licence text, marking modified files, retaining existing notices, and propagating an existing NOTICE file's attributions — obligations layered on top of, not replacing, the basic notice-retention condition MIT shares.",
+      "source_ids": ["apache-license-2"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.apache-license-2-0",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.creative-commons-and-public-domain.01",
+      "concept_id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "Why does Creative Commons itself recommend against using its licences for software?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Its licences address neither source-code distribution nor patent rights, and most variants are not compatible with the major software licences.",
+          "correct": true,
+          "why": "Creative Commons licences were designed for creative works generally and simply do not cover the concerns software licensing requires.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Because Creative Commons licences are fully compatible with every OSI-approved software licence, making the recommendation against them redundant rather than a real concern.",
+          "correct": false,
+          "why": "Compatibility is limited, not full — for example, only CC BY-SA 4.0 is one-way compatible with GPLv3, and most variants are not compatible with software licences at all.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o3",
+          "text": "Because content licensed under any Creative Commons variant can never be redistributed for commercial purposes.",
+          "correct": false,
+          "why": "Only the NC (NonCommercial) variant restricts commercial use; several other Creative Commons variants permit it freely.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-software" }
+        },
+        {
+          "ref": "o4",
+          "text": "Because none of the Creative Commons licences, including the CC0 public domain dedication, are considered open at all.",
+          "correct": false,
+          "why": "CC0 is a genuine public domain dedication, generally accepted as GPL-compatible and acceptable for software, unlike the content-oriented CC licences.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.creative-commons-and-public-domain" }
+        }
+      ],
+      "rationale": "Creative Commons licences were built for content rather than code and address neither source distribution nor patents, which is why the organisation itself steers software toward other licences and treats CC0 as the software-compatible exception.",
+      "source_ids": ["cc-faq", "spdx-license-list"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-specific-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.license-compatibility.01",
+      "concept_id": "pm.open-source-software-and-licensing.license-compatibility",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why can MIT-licensed code be absorbed into a GPL-licensed project, while GPL-licensed code cannot be absorbed into an MIT-licensed one?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "MIT's only condition, carrying the notice forward, can still be met once the combined work goes out under the GPL; the GPL requires the whole conveyed work to go out under the GPL, which an MIT-only licence cannot promise.",
+          "correct": true,
+          "why": "Compatibility is directional precisely because one side's obligation survives the combination and the other side's does not.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "MIT-licensed code is always written in fewer lines than GPL-licensed code, so it merges more easily into any codebase regardless of licence terms.",
+          "correct": false,
+          "why": "Code length has nothing to do with legal compatibility; the direction is set by what each licence's conditions require of the combined work.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.permissive-licenses" }
+        },
+        {
+          "ref": "o3",
+          "text": "The GPL only reaches code written after the licence's own effective date, so older MIT-licensed code already in a project is exempt from its terms.",
+          "correct": false,
+          "why": "The GPL's reach depends on how code is combined and conveyed, not on when the code was originally written.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.gpl" }
+        },
+        {
+          "ref": "o4",
+          "text": "Compatibility actually runs both directions equally; either licence can absorb the other as long as attribution notices are preserved throughout.",
+          "correct": false,
+          "why": "This is the assumption the directional rule exists to correct; the reverse direction fails because the GPL's whole-work condition cannot be satisfied under permissive terms.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.license-compatibility" }
+        }
+      ],
+      "rationale": "Compatibility is directional: permissive code can enter a copyleft project because its condition (carry the notice) survives the combination, while GPL code cannot enter a permissive project because the GPL's whole-work condition cannot be promised by permissive terms.",
+      "source_ids": ["gnu-gpl-faq", "spdx-license-list"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.license-compatibility",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.license-compliance.01",
+      "concept_id": "pm.open-source-software-and-licensing.license-compliance",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A shipped product combines only licences that are fully compatible with each other. Does that fact alone guarantee the product is compliant?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — compatibility asks whether the combination was legally permitted at all; compliance separately asks whether the obligations that combination triggered, such as notices and source offers, were actually discharged before shipping.",
+          "correct": true,
+          "why": "A perfectly compatible stack is still non-compliant if the required attribution file or source offer was never assembled.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since compatibility and compliance both refer to the same question of whether the combination is legally permitted.",
+          "correct": false,
+          "why": "They answer different questions: one is about whether the combination was allowed, the other about whether the resulting obligations were met.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the shipped artifact also includes a Software Bill of Materials listing every component it contains.",
+          "correct": false,
+          "why": "An inventory makes the obligations enumerable; it does not discharge any of them on its own.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.software-bill-of-materials" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, because a compatible combination automatically satisfies every component licence's own notice, attribution, and source-offer requirements as an automatic side effect of the components being legally combinable in the first place.",
+          "correct": false,
+          "why": "Compatibility says the combination is permitted; it does nothing to automatically assemble the notices each licence separately requires.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.license-compliance" }
+        }
+      ],
+      "rationale": "Compatibility and compliance are routinely offered as each other's distractor. Compatibility asks whether the combination was permitted; compliance asks whether the obligations that combination triggered were actually met when the product shipped.",
+      "source_ids": ["apache-license-2", "gnu-gpl-faq"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.license-compliance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.dual-licensing.01",
+      "concept_id": "pm.open-source-software-and-licensing.dual-licensing",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A developer downloads a dual-licensed library under its open source terms and wants to relicense their own unmodified copy for resale under separate commercial terms. May they?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — only the copyright holder can offer a work under both an open source and a commercial licence; a recipient who merely received the code under one of those licences cannot grant it under the other.",
+          "correct": true,
+          "why": "Dual licensing is a right of the rights holder, and downstream recipients do not inherit the ability to relicense code they only received.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, as long as they first sign a contributor licence agreement with the original project granting them the necessary rights.",
+          "correct": false,
+          "why": "A CLA grants a project rights over a contribution; it does not hand a downstream recipient the rights holder's own relicensing authority.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.contributor-license-agreement" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the new commercial terms remain compatible with the original open source licence the library was received under.",
+          "correct": false,
+          "why": "Compatibility between two licences does not create authority to relicense; that authority belongs to the copyright holder alone.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes — dual licensing means the software has effectively entered the public domain for anyone who receives a copy under either of the two licences the rights holder chose to offer.",
+          "correct": false,
+          "why": "Dual licensing changes nothing about the terms of the copy already received; it is not a route into the public domain for recipients.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.dual-licensing" }
+        }
+      ],
+      "rationale": "Dual licensing is offering the same code under two licences at once, and only the copyright holder — directly, or through contributor agreements it collects — can do it. A downstream recipient's copy stays under the terms it was received on.",
+      "source_ids": ["gnu-gpl-faq"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-compliance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.contributor-license-agreement.01",
+      "concept_id": "pm.open-source-software-and-licensing.contributor-license-agreement",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "How does a Contributor License Agreement differ from a copyright assignment?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A CLA grants the project a licence, often including patent rights, over the contribution, while the contributor keeps ownership; an assignment transfers ownership of the contribution outright.",
+          "correct": true,
+          "why": "A CLA is a grant of rights over work the contributor still owns, whereas assignment moves ownership itself to the project.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A CLA grants the contributor write access to the repository, while a copyright assignment only grants them read access to it.",
+          "correct": false,
+          "why": "Neither instrument grants repository access; that is a separate decision earned on merit and unrelated to either agreement.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-community-roles" }
+        },
+        {
+          "ref": "o3",
+          "text": "A CLA must be signed before Apache-2.0 section 3's patent grant applies to any contribution, while copyright assignment bypasses that section entirely.",
+          "correct": false,
+          "why": "Section 3's patent grant is a term of the licence covering the project's code as distributed, not something a CLA switches on for individual contributions.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0" }
+        },
+        {
+          "ref": "o4",
+          "text": "There is no real difference; both terms describe the identical transfer of copyright ownership from the contributor to the project.",
+          "correct": false,
+          "why": "This collapses a rights grant into an ownership transfer; the distinguishing fact is precisely that a CLA leaves ownership with the contributor.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.contributor-license-agreement" }
+        }
+      ],
+      "rationale": "A CLA is a grant of rights, not a transfer: it lets the project use, and often sublicense, a contribution while the contributor keeps ownership. Some projects use a Developer Certificate of Origin sign-off instead, asserting provenance rather than granting rights.",
+      "source_ids": ["apache-license-2", "asf-how-it-works"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-compliance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.software-bill-of-materials.01",
+      "concept_id": "pm.open-source-software-and-licensing.software-bill-of-materials",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "What does a Software Bill of Materials establish about a shipped product, on its own and without any further work?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An inventory of the product's components, their versions and their dependency relationships — it makes licence and vulnerability questions answerable, but it answers none of them by itself.",
+          "correct": true,
+          "why": "An SBOM is a machine-readable inventory, commonly in SPDX or CycloneDX format; it enumerates rather than resolves anything.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That the product is licence-compliant, since every listed component's obligations have already been checked as part of producing the inventory.",
+          "correct": false,
+          "why": "Producing an inventory does not discharge any licence obligation; compliance still requires separately meeting each component's own terms.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compliance" }
+        },
+        {
+          "ref": "o3",
+          "text": "That every listed component's licence is compatible with every other one, since an incompatible combination could not have been assembled and inventoried.",
+          "correct": false,
+          "why": "An SBOM records what was shipped; it does not verify that the components were legally combinable in the first place.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.license-compatibility" }
+        },
+        {
+          "ref": "o4",
+          "text": "That the product is free of known vulnerabilities, since the standard inventory formats include a vulnerability scan by default.",
+          "correct": false,
+          "why": "An SBOM is an inventory, not a vulnerability scan; it makes CVE questions answerable against the listed versions but performs no scan itself.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.software-bill-of-materials" }
+        }
+      ],
+      "rationale": "An SBOM is an inventory, increasingly required for supply-chain transparency. It is not itself a compliance artifact and not a vulnerability scan: it makes licence and CVE questions answerable, and resolves neither on its own.",
+      "source_ids": ["ntia-sbom-minimum-elements", "spdx-license-list"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-compliance",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.open-source-community-roles.01",
+      "concept_id": "pm.open-source-software-and-licensing.open-source-community-roles",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "In a typical open source project, what separates a contributor from a committer?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A contributor proposes changes; a committer has been granted write access to the repository, earned on merit, and is the one who can actually merge them.",
+          "correct": true,
+          "why": "Write access, earned by merit rather than employment or seniority, is the concrete distinction between the two roles.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A contributor works only through a mailing list, while a committer works only through pull requests on a hosting platform.",
+          "correct": false,
+          "why": "Mechanics differ by project, not by role; either mechanism can be used by a contributor or a committer, depending on the project's workflow.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.contributing-to-open-source" }
+        },
+        {
+          "ref": "o3",
+          "text": "A committer must be a paid employee of the foundation that hosts the project, while a contributor is always an unpaid volunteer with no formal ties.",
+          "correct": false,
+          "why": "Committer status is earned by merit and demonstrated contribution, not by employment status at the hosting foundation.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.governance-and-foundations" }
+        },
+        {
+          "ref": "o4",
+          "text": "Seniority at the contributor's own outside employer determines who becomes a committer, independent of the actual contributions made to the project.",
+          "correct": false,
+          "why": "The chain is earned by merit within the project, not by outside seniority or employment, which is exactly what the role structure is designed to keep separate.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.open-source-community-roles" }
+        }
+      ],
+      "rationale": "Responsibility increases along the chain from user to contributor to committer to maintainer, and it is earned by merit within the project. The concrete line between contributor and committer is write access to merge changes.",
+      "source_ids": ["asf-how-it-works"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-community",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.contributing-to-open-source.01",
+      "concept_id": "pm.open-source-software-and-licensing.contributing-to-open-source",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why is a submitted pull request always a proposal rather than an applied change to the project?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An outside contributor has no write access to the project's repository; the decision to merge belongs to someone who does, which is why review by that person is a structural step rather than a courtesy.",
+          "correct": true,
+          "why": "The exam treats contribution as a process question, and the reliably testable fact is that the change is proposed, not applied, by the contributor.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Only maintainers, and never committers, are legally permitted to accept changes submitted by outside contributors.",
+          "correct": false,
+          "why": "Committers, who hold write access earned on merit, are the ones who ordinarily merge changes; the restriction is about access, not a legal distinction between roles.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-community-roles" }
+        },
+        {
+          "ref": "o3",
+          "text": "The contributor must first fork the project into an independent line of development before any change can be reviewed at all.",
+          "correct": false,
+          "why": "A platform fork used to open a pull request is a routine step ending in a merge upstream, not a permanent independent line of development.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.forking-a-project" }
+        },
+        {
+          "ref": "o4",
+          "text": "Open source licences legally require every proposed change to pass a formal committee vote of the whole community before it may ever be merged into the codebase.",
+          "correct": false,
+          "why": "Licences say nothing about a project's review process; a merge decision is a matter of project governance, not a licence requirement.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.contributing-to-open-source" }
+        }
+      ],
+      "rationale": "Mechanics differ by project, but the sequence is the same: raise or claim an issue, submit the change for review, and have someone with write access decide. The merge decision belongs to the project, not to the person proposing the change.",
+      "source_ids": ["asf-how-it-works"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.contributing-to-open-source",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.forking-a-project.01",
+      "concept_id": "pm.open-source-software-and-licensing.forking-a-project",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A community disagrees with a foundation-hosted project's technical direction and threatens to continue the code independently under new maintainers. Can the foundation or the original licence holder prevent this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — the licence itself guarantees the right to make and distribute derived works, so no licence holder or foundation can block a community from continuing the code independently.",
+          "correct": true,
+          "why": "The Open Source Definition requires that a licence permit modifications and derived works, which is the structural reason governance disputes have an exit.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "No, but only because the community can click \"fork\" on the hosting platform, which merely creates a repository copy rather than exercising any legal right.",
+          "correct": false,
+          "why": "A platform fork is a routine contribution step that ends in a merge upstream; the right being exercised here is the governance-sense fork, a permanent divergence.",
+          "provenance": { "kind": "confusable", "concept_id": "devops.git-concepts.clone-vs-fork" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, since the foundation holds the project's trademark and can revoke the community's right to continue using the underlying code under any name.",
+          "correct": false,
+          "why": "A fork does not inherit the project's trademark or name, but the code itself, under its licence, cannot be revoked from a fork that took a lawful copy.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.forking-a-project" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, since the foundation sets the project's technical direction and can withdraw that direction from contributors it disagrees with.",
+          "correct": false,
+          "why": "A foundation provides legal and governance infrastructure, not technical direction, which stays with the project's maintainers rather than the foundation itself.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.governance-and-foundations" }
+        }
+      ],
+      "rationale": "The fork is the structural reason open source governance disputes have an exit: no licence holder, foundation, or vendor can prevent a community that disagrees with a project's direction from continuing the code themselves, though the fork must be renamed since trademarks stay with the original.",
+      "source_ids": ["osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.forking-a-project",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.forking-a-project.02",
+      "concept_id": "pm.open-source-software-and-licensing.forking-a-project",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which pairing correctly separates the two everyday meanings of the word \"fork\" in open source work?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A platform fork is a server-side repository copy made as the first step of an ordinary contribution that ends in a merge upstream; a governance fork is a permanent divergence with its own maintainers and releases.",
+          "correct": true,
+          "why": "The two meanings point in opposite directions: one ends in rejoining upstream, the other is a deliberate, lasting split.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A fork and a clone name the same operation; both create a server-side copy of a repository used to open a pull request.",
+          "correct": false,
+          "why": "Cloning copies a repository locally; forking creates a server-side copy, typically used when the contributor lacks write access to the original.",
+          "provenance": { "kind": "confusable", "concept_id": "devops.git-concepts.clone-vs-fork" }
+        },
+        {
+          "ref": "o3",
+          "text": "A platform fork requires a signed contributor licence agreement before it may be created, while a governance fork does not require one.",
+          "correct": false,
+          "why": "Neither meaning of \"fork\" depends on a CLA; a CLA concerns contributing changes back, not the act of copying a repository.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.contributing-to-open-source" }
+        },
+        {
+          "ref": "o4",
+          "text": "A governance fork can only occur with the original project's explicit written permission, since the licence does not grant the right to fork automatically.",
+          "correct": false,
+          "why": "Open source licences grant the right to make and distribute derived works automatically; no separate permission from the original project is required.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.forking-a-project" }
+        }
+      ],
+      "rationale": "In the governance sense, forking is a deliberate, permanent split with independent maintainers; in day-to-day platform vocabulary, \"fork\" also names a server-side repository copy created as the first step of an ordinary contribution — the opposite outcome.",
+      "source_ids": ["osi-osd"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.forking-a-project",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.governance-and-foundations.01",
+      "concept_id": "pm.open-source-software-and-licensing.governance-and-foundations",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "What does a neutral foundation such as the Linux Foundation or the Apache Software Foundation actually provide to a project it hosts?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Legal entity status, stewardship of assets and trademarks, shared infrastructure, and governance rules — not technical direction, which stays with the project's own maintainers.",
+          "correct": true,
+          "why": "A foundation provides legal shelter and governance structure so no single vendor controls a project, without dictating what the project builds.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A single organisation-wide contributor licence agreement that automatically supersedes each individual hosted project's own agreement.",
+          "correct": false,
+          "why": "CLA terms are set per project even when a shared foundation hosts several of them; there is no single agreement that overrides each project's own.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.contributor-license-agreement" }
+        },
+        {
+          "ref": "o3",
+          "text": "A guarantee that every contributor automatically becomes a committer with write access after their first merged change is accepted.",
+          "correct": false,
+          "why": "Committer status is earned on merit within each project over time; a foundation does not grant it automatically after one contribution.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.open-source-software-and-licensing.open-source-community-roles" }
+        },
+        {
+          "ref": "o4",
+          "text": "Direct control over each hosted project's technical roadmap, exercised through decisions made by the foundation's board.",
+          "correct": false,
+          "why": "A foundation holds assets and sets governance rules; the technical roadmap remains a decision for the project's own maintainers, not the board.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.open-source-software-and-licensing.governance-and-foundations" }
+        }
+      ],
+      "rationale": "Neutral non-profits such as the Linux Foundation and Apache Software Foundation hold a project's assets, trademarks, and infrastructure so no single vendor controls it, while deliberately leaving technical direction to the project's own maintainers.",
+      "source_ids": ["asf-how-it-works", "linux-foundation-about"],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#s-open-source-software-and-licensing-community",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}
