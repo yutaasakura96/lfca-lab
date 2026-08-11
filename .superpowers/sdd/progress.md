@@ -30,6 +30,18 @@ Two internal conflicts found before Task 1, both fixed in the plan (commit follo
 
 ## Minor findings carried to the final whole-branch review (Task 60)
 
+- **check 21 does not require `sources_read`.** The verification object schema in the plan and the
+  Verification Task Protocol both include `sources_read` (the URLs actually fetched), but
+  `checkVerdictCoverage` validates only `agent_label`, `verdict`, `checked` and `reasoning`. As
+  built, a verifier can record a confirmed verdict without naming anything it read - a claim
+  without evidence passing the gate whose entire purpose is to demand evidence. Recommend
+  requiring a non-empty `sources_read`. Lens 4 of the final review ("can check-bank be satisfied
+  by a bank that does not teach?") is the right place to settle it.
+- The plan's own `runAllQuestionChecks` test asserted zero errors unfiltered while
+  `checkDomainDistribution` structurally cannot pass on a 42-item fixture. Task 11 concluded the
+  test was wrong and excluded distribution there, matching the exclusion the brief already applied
+  elsewhere. Plan defect, correctly resolved.
+
 - Task 1's implementer reported a "MAJOR FINDING" that the certification page's domain weights
   contradict the project. It was FALSE — the page matches `data/competencies.json` exactly on all
   six weights, and the note compared against a 20/20/20/16/16/10 set that is neither the retired
@@ -250,4 +262,27 @@ Task 9: complete (commit 47c8ab0, controller-verified)
   and 11 exist for - they fired the moment they existed. Lesson: controller spot-checks test
   structural validity; only the checks test semantic correctness. Do not report a fixture as
   "verified" on the strength of a structural pass.
+
+Task 10: complete (commit 8afbc85, controller-verified)
+  Checks 7-10 and 12-14 + 15 tests. 256 -> 271. Fixture passes all seven; each seen to fire.
+  Third fixture defect class found: 31 items carried TWO misconception distractors each, against
+  the at-most-one rule. Retyped the redundant slot to `lookalike` with real text.
+
+Task 11: complete (commit f97452b, controller-verified) - THE 21-CHECK HARNESS IS COMPLETE
+  Checks 15-21 + runAllQuestionChecks + 18 tests. 271 -> 289. Each of the 7 seen to fire.
+  Fourth and fifth fixture defect classes found: every item had `verification: null` (check 21
+  correctly flagged all 42), and items within a concept were templated copies whose stems differed
+  only by a digit (check 17 correctly flagged real duplication). All 42 stems rewritten to
+  distinct scenarios; controller verified max pairwise stem similarity is now 0.588 against a
+  0.7 warn threshold, so there is real headroom rather than a value tuned to just pass.
+
+  Controller verification: 21 checks implemented; the only finding on the fixture is
+  checkAnswerPositionBalance, which correctly errors because ctx.generated is null until
+  build-exams runs and is designed to name that command rather than pass silently.
+
+  **The fixture was wrong five times across Tasks 8-11, and each time it was the NEXT check layer
+  that found it** - unresolvable comparison blocks, difficulty not matching depth, duplicate
+  misconception slots, null verdicts, templated stems. None was visible to the layer before it,
+  and none was visible to the controller's structural spot-checks. That is the harness earning its
+  cost on a 42-item fixture before it ever sees 1,150 real items.
 
