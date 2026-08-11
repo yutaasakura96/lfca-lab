@@ -91,6 +91,39 @@ Aim under 40%. Observed first drafts across the first wave ran 53%, 88%, 89%, 91
 bias is strong and universal, so budget for two rework passes rather than treating it as a
 surprise. Lengthen distractors with real qualifying clauses; never truncate a key.
 
+### 5b. Fixing the length tell creates a SHAPE tell unless you match shapes too.
+
+Two files have now had to be repaired because the length fix was applied mechanically and left a
+new signature that separates keys from distractors just as reliably as length did.
+
+**Form one — template tails.** One file lengthened 123 of its 150 distractors with 12 rotated
+clauses describing the distractor's *role* ("…a neighbouring concept, just one scenario in
+front"). The key is then the option that does not read like a footnote.
+
+**Form two — clause count.** Another file came out with **keys 0% two-sentence and distractors
+81% two-sentence**. Pick the single-sentence option and you are right almost every time.
+
+Neither is visible to any check. Check 17 compares stems; distractor similarity stayed at zero
+pairs above 0.70 in both cases because the boilerplate sat on genuinely varied content.
+
+**The rule: a distractor must be indistinguishable from the key on every axis except truth.** Same
+length distribution, same number of sentences, same register, same specificity. When you lengthen
+a distractor, give it a real qualifying clause of the kind the key already has — not a second
+sentence the key would never carry.
+
+Scan your own file before you finish:
+
+```bash
+node -e "
+const b=require('./questions/<dir>/<slug>.json');
+const two=t=>/[.!?]\\s+\\S/.test(t.trim());
+let k=0,kn=0,d=0,dn=0;
+for(const i of b.items)for(const o of i.options){if(o.correct){kn++;if(two(o.text))k++;}else{dn++;if(two(o.text))d++;}}
+console.log('keys '+Math.round(100*k/kn)+'%  distractors '+Math.round(100*d/dn)+'% two-clause');"
+```
+
+Keep the gap under about 15 points.
+
 ### 6. A large comparison block wants one item, not one per member.
 
 `cmp-sysadmin.disaster-recovery.backup` is the corpus's only six-member block — backup against

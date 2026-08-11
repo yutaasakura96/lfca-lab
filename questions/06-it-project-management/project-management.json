@@ -1,0 +1,2174 @@
+{
+  "competency": "IT Project Management Fundamentals :: Project Management",
+  "items": [
+    {
+      "id": "q.pm.project-management.project.01",
+      "concept_id": "pm.project-management.project",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "An operations team is asked to migrate four hundred servers to a new LTS release by the end of Q3. Once complete, the team continues patching those same servers every month indefinitely. Which of the two activities is the project?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The migration, because it has a defined end date and a unique objective \u2014 the monthly patching that follows is ongoing operations, however large an effort it continues to be.",
+          "correct": true,
+          "why": "Temporariness \u2014 a defined start, end and objective \u2014 is the definition; effort and technical difficulty are not part of it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The migration, because it is the larger and more technically demanding of the two efforts, and demanding, high-visibility work is what most people mean when they informally call something a project.",
+          "correct": false,
+          "why": "Size and difficulty are not the discriminator; a small effort with an end date is still a project, and a huge recurring effort is still operations.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.project"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whichever activity the sponsor currently considers the higher priority this quarter.",
+          "correct": false,
+          "why": "Priority describes how much attention something gets, not whether it is temporary with a unique objective.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.stakeholder"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Whichever activity is currently drawing more budget and headcount.",
+          "correct": false,
+          "why": "Spend and staffing describe scale, not the temporary-versus-ongoing distinction the definition turns on.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-budget-and-resource-management"
+          }
+        }
+      ],
+      "rationale": "A project is temporary work with a defined end and a unique objective; its opposite is operations, the ongoing work of running what already exists. The migration ends and produces something new; the patching repeats indefinitely as part of keeping the fleet current, so it is operations regardless of its size.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.triple-constraint.01",
+      "concept_id": "pm.project-management.triple-constraint",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Midway through a fixed-price project, the sponsor asks for an additional module. The delivery date and the budget both stay exactly as agreed. Which of the following must absorb the change?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Quality \u2014 with scope up and both the schedule and the budget frozen, it is the only remaining quantity the model bounds.",
+          "correct": true,
+          "why": "Fixing two of the three legs \u2014 schedule and cost here \u2014 determines the third; with scope added and nothing else allowed to move, quality is what gives.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing, provided the existing team simply works longer hours to cover the extra module.",
+          "correct": false,
+          "why": "Extra effort from the same team is not one of the three legs; it typically produces slower delivery, not a free absorption of more scope.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.triple-constraint"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A new milestone, added to the schedule to mark the module's completion.",
+          "correct": false,
+          "why": "A milestone is a schedule marker, not one of the three legs the model bounds \u2014 adding one doesn't answer what actually gives.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.deliverable-and-milestone"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing, as long as the module is logged as a minor addition rather than routed as a formal change, since informal requests below a certain size are commonly assumed not to need assessment.",
+          "correct": false,
+          "why": "Treating an unassessed addition as minor is exactly how scope creep starts, not a way of avoiding a trade-off.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scope-creep"
+          }
+        }
+      ],
+      "rationale": "The triple constraint holds that scope, time and cost bound quality; fixing any two forces the third \u2014 or, if none may move, quality \u2014 to absorb the change. 'The team works harder' names none of the three legs and is the trap answer; adding scope without adjusting schedule or cost only relabels the same problem.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.triple-constraint",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.stakeholder.01",
+      "concept_id": "pm.project-management.stakeholder",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A security reviewer will never use the system being built but has the authority to block its release. Is she a stakeholder?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Yes \u2014 a stakeholder is anyone affected by the project or able to affect it, and the ability to block release satisfies that on its own.",
+          "correct": true,
+          "why": "The test is impact-or-influence, not proximity or use \u2014 someone who can block release plainly satisfies it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "No, because stakeholders are defined as people who will use or directly benefit from the delivered system, which by that reading would exclude reviewers, auditors and anyone outside the delivery team.",
+          "correct": false,
+          "why": "That definition excludes exactly the peripheral reviewers, auditors and downstream teams the exam most often asks about.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.stakeholder"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Only once she is formally added to the project's communication plan.",
+          "correct": false,
+          "why": "A communication plan is built for stakeholders already identified; being listed there is a consequence of being a stakeholder, not a precondition.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.communication-plan"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Only if she is assigned one of the four roles in the project's RACI matrix.",
+          "correct": false,
+          "why": "A RACI entry assigns responsibility for a task; stakeholder status doesn't depend on holding one of its four roles.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.raci"
+          }
+        }
+      ],
+      "rationale": "Stakeholder status turns on impact-or-influence, not on being a user or a team member. A reviewer who can block release without ever touching the system is a stakeholder on the influence test alone, and missing that is a commonly cited source of late-surfacing requirements.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.stakeholder",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.deliverable-and-milestone.01",
+      "concept_id": "pm.project-management.deliverable-and-milestone",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A schedule line reads 'Runbook accepted \u2014 2 weeks'. A reviewer flags it. What is wrong with calling that line a milestone, and how does the objection differ from a question about the triple constraint?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A milestone conventionally carries zero duration, so a two-week span is a task or phase mislabelled \u2014 the triple constraint, by contrast, is about trading scope, time and cost against each other, not sorting schedule items by type.",
+          "correct": true,
+          "why": "Zero duration is the defining property that a two-week span violates; the triple constraint concerns trade-offs between scope, time and cost, a different kind of question entirely.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The line is fine as a milestone; the real issue is that adding two weeks to it silently moved the schedule leg of the triple constraint without anyone formally agreeing to that trade-off in advance, which is a wholly separate kind of oversight from how the line happened to be labelled.",
+          "correct": false,
+          "why": "This treats the entry as already correct and reframes the objection as a scheduling trade-off, which sidesteps the actual defect in the label.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.triple-constraint"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Milestones cannot appear on a schedule at all \u2014 only bars with durations, as on a Gantt chart, are legitimate schedule entries.",
+          "correct": false,
+          "why": "Milestones do appear on schedules \u2014 as zero-duration markers \u2014 so absence from the schedule isn't the objection here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.gantt-chart"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The label is correct, since 'accepted' items are always logged as milestones however long the acceptance activity takes.",
+          "correct": false,
+          "why": "Duration is exactly what disqualifies the entry as a milestone; the acceptance label alone does not exempt it.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.deliverable-and-milestone"
+          }
+        }
+      ],
+      "rationale": "A milestone marks an instant, conventionally with no duration, effort or cost of its own; a schedule line carrying a duration is a task or a phase, however it is labelled. That is a different kind of error from a triple-constraint question, which asks what trades off against what when scope, time or cost changes \u2014 sorting deliverables and milestones by type is a categorisation question, not a trade-off question.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.deliverable-and-milestone",
+      "comparison_block": "cmp-pm.project-management.deliverable-and-milestone",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.deliverable-and-milestone.02",
+      "concept_id": "pm.project-management.deliverable-and-milestone",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A migration project's status report lists: 'signed-off design', 'pilot batch accepted', 'base image', and 'bulk migration complete'. Which pair are deliverables rather than milestones?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Signed-off design and base image \u2014 both are tangible artefacts the project produced and handed over.",
+          "correct": true,
+          "why": "A design document and a base image are things that exist and were produced \u2014 the defining property of a deliverable.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Signed-off design and bulk migration complete, because both appear as work packages in the work breakdown structure.",
+          "correct": false,
+          "why": "Work packages are units of the decomposition, not the test for whether an item is a deliverable; 'bulk migration complete' reads as an event, not an artefact.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.work-breakdown-structure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Pilot batch accepted and bulk migration complete, since both are confirmed during project closure.",
+          "correct": false,
+          "why": "Both of those read as checkpoints \u2014 'accepted' and 'complete' \u2014 not as artefacts that were produced, and closure confirms acceptance of deliverables rather than defining what one is.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-closure-and-lessons-learned"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "All four, since anything worth putting in a status report counts as a deliverable.",
+          "correct": false,
+          "why": "Status-report visibility doesn't distinguish the two; 'pilot batch accepted' and 'bulk migration complete' are events, not things produced.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.deliverable-and-milestone"
+          }
+        }
+      ],
+      "rationale": "A deliverable is a tangible output \u2014 a document, an image, a migrated fleet. A milestone is a marked point signifying something is now true, typically carrying no duration of its own. 'Signed-off design' and 'base image' are things that exist; 'pilot batch accepted' and 'bulk migration complete' are checkpoints, not artefacts.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.deliverable-and-milestone",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.software-development-lifecycle.01",
+      "concept_id": "pm.project-management.software-development-lifecycle",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A candidate claims: 'the SDLC is waterfall, since the phases are always listed requirements, design, implementation, testing, deployment, maintenance, in that order.' What is wrong with the claim?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The SDLC names the phases that must happen; waterfall is one policy for sequencing them, and an agile team runs the same phases repeatedly inside every iteration.",
+          "correct": true,
+          "why": "The phase list describes what work must happen; how much scope moves through it at once, and how often the loop runs, is the methodology's business, not the lifecycle's.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing \u2014 an agile team skips design and testing entirely, so only waterfall actually uses the listed phases.",
+          "correct": false,
+          "why": "An agile team still passes through requirements, design, implementation and testing, repeatedly, in small batches; it doesn't skip them.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.software-development-lifecycle"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The claim gets the sequencing policy right but the order wrong \u2014 maintenance is actually the first phase in most descriptions, since systems are maintained from the moment requirements are first drafted.",
+          "correct": false,
+          "why": "Maintenance is last in the conventional list, not first, and the ordering issue isn't the actual defect in the claim.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.waterfall"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The phases listed are risk-management activities, not lifecycle phases at all.",
+          "correct": false,
+          "why": "Requirements, design, implementation and so on are development phases, not a risk-management framework.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.risk-management"
+          }
+        }
+      ],
+      "rationale": "The SDLC names the phases software passes through; it says nothing about their batch size or rhythm. Waterfall completes each phase before the next begins for the whole scope at once; agile traverses the same phases repeatedly, in miniature, inside each iteration. Treating 'SDLC' as a synonym for waterfall is the single most common confusion in this competency.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-64-sdlc-phases"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.software-development-lifecycle",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.waterfall.01",
+      "concept_id": "pm.project-management.waterfall",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A vendor must deliver a fixed scope specified in a signed regulatory contract, with no tolerance for redesign once implementation begins. Which sequencing approach does that cue point to, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Waterfall \u2014 its main cost is expensive late change, which a genuinely fixed, stable scope has already ruled out.",
+          "correct": true,
+          "why": "Waterfall's predictability is worth most exactly when requirements are genuinely stable, which fixed regulatory scope describes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Agile \u2014 because welcoming change even late in development reduces the vendor's regulatory exposure.",
+          "correct": false,
+          "why": "Welcoming late change is a poor fit for scope that cannot be redesigned mid-flight; it doesn't reduce risk here, it invites cost.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.agile"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither \u2014 a signed contract replaces the need for any sequencing methodology at all.",
+          "correct": false,
+          "why": "A contract states what must be delivered, not how the team sequences the work to get there \u2014 some methodology still governs execution.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.change-control"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Agile, since any modern project should default to iterative delivery regardless of how fixed the scope is, because iteration is now widely treated as the safer default choice for almost any kind of work.",
+          "correct": false,
+          "why": "Iterative delivery is valuable for uncertain requirements, but this scenario describes the opposite condition: stability, not uncertainty.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.waterfall"
+          }
+        }
+      ],
+      "rationale": "Waterfall moves the whole scope through completed, approved phases in sequence, which is predictable precisely when requirements won't change. A fixed regulatory contract with no tolerance for redesign is the textbook cue for it \u2014 the choice is about requirements stability, not about which approach is inherently faster or more modern.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.waterfall",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.agile.01",
+      "concept_id": "pm.project-management.agile",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Team A ships a small working increment every two weeks and revises its plan as customers respond. Team B produces detailed documentation at every phase gate and finishes one large release after nine months. Which Agile Manifesto value does Team A's practice most directly express, and how does that differ from a waterfall judgement about the same scenario?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Responding to change over following a plan \u2014 the Manifesto ranks it above a fixed plan without abolishing planning, whereas a waterfall judgement would instead ask only whether each of Team B's phases was signed off before the next began.",
+          "correct": true,
+          "why": "Short cycles with revision based on feedback is exactly the mechanism the fourth value statement implies; a waterfall judgement would instead check phase-gate sign-off, which is a different question entirely.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Following a plan over responding to change, since Team A still plans out each two-week cycle in advance.",
+          "correct": false,
+          "why": "Team A plans each cycle, but the point of the practice is that the plan is revised as more is learned, not followed at the expense of change.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.waterfall"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No value at all, since agile teams are defined by having no plan and no fixed structure, which is why a team practising it is expected to decide everything moment to moment with nothing written down in advance, unlike a team following a documented methodology.",
+          "correct": false,
+          "why": "The Manifesto states the lower-ranked item still has value; 'no plan at all' is the misreading it explicitly warns against.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.agile"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The event calendar of daily standups and sprint reviews, since that is what the Manifesto actually specifies.",
+          "correct": false,
+          "why": "Standups and sprint reviews belong to Scrum, one framework beneath agile's values \u2014 the Manifesto itself specifies no events.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum"
+          }
+        }
+      ],
+      "rationale": "Agile's fourth value statement ranks responding to change above following a fixed plan, without abolishing planning; Team A revises what it does as it learns. Waterfall instead evaluates whether each phase completed and was signed off before the next began, a sequencing judgement, not a values one \u2014 conflating the two levels is the common mistake.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "agile-manifesto",
+        "agile-principles"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.agile",
+      "comparison_block": "cmp-pm.project-management.agile",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.agile.02",
+      "concept_id": "pm.project-management.agile",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A manager says: 'We hold a daily standup and a two-week sprint, so we're agile.' Which distinction does this statement collapse?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The value layer (agile, the Manifesto's principles) into the framework layer (Scrum, one particular way of operationalising them).",
+          "correct": true,
+          "why": "Running Scrum's events faithfully is not the same as holding the values those events serve; a team can run the calendar while violating the principles.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It collapses the Sprint Review with the Sprint Retrospective, since both happen within the same two-week cycle and are often scheduled back to back on the calendar.",
+          "correct": false,
+          "why": "The statement doesn't mention the Review or Retrospective specifically, so that particular pair isn't what's being confused here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing \u2014 attending the prescribed ceremonies is sufficient to be agile by definition.",
+          "correct": false,
+          "why": "The Manifesto is a statement of values; attending meetings is a mechanism, and mechanism without the underlying preference doesn't establish it.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.agile"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Kanban's continuous flow with Scrum's fixed-length iterations.",
+          "correct": false,
+          "why": "The statement describes Scrum's iteration, not Kanban's flow, so this pairing isn't the confusion in play.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.kanban"
+          }
+        }
+      ],
+      "rationale": "Agile is a set of values and principles; Scrum is one framework that operationalises them, with its own accountabilities, events and artefacts. Substituting 'we run Scrum's ceremonies' for 'we hold agile's values' is the examinable move \u2014 a team can hold every event and still violate the principles beneath them.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "agile-manifesto",
+        "agile-principles"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.agile",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.scrum.01",
+      "concept_id": "pm.project-management.scrum",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "One team is described as having fixed-length two-week cycles, a single ordered backlog, and three defined accountabilities. A second is described as continuous flow with explicit work-in-progress limits and no fixed iteration. Which framework does each describe, and what is the deciding feature?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first is Scrum and the second is Kanban; the deciding feature is a fixed-length timebox against continuous, work-in-progress-limited flow.",
+          "correct": true,
+          "why": "Fixed timebox versus continuous flow with WIP limits is the standard axis the exam turns this comparison on.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both describe Scrum, since both are agile frameworks working from a backlog of items to be pulled through.",
+          "correct": false,
+          "why": "Only the first description matches Scrum's fixed-length Sprint and three accountabilities; the second has neither and matches Kanban instead.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.kanban"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The first describes agile in general, and the second describes one specific framework built beneath it.",
+          "correct": false,
+          "why": "Scrum is itself a framework beneath agile's values, not agile-in-general; the first description names a specific framework, just as the second does.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.scrum"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The deciding feature is which one has a backlog at all, since only the first maintains an ordered list of work that the team pulls items from as capacity allows.",
+          "correct": false,
+          "why": "Kanban also maintains an ordered backlog of work to be pulled \u2014 a backlog isn't what separates the two.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.product-and-sprint-backlog"
+          }
+        }
+      ],
+      "rationale": "Scrum organises work into fixed-length Sprints with a Product Owner, Scrum Master and Developers; Kanban manages the same kind of work as continuous flow, limited by explicit work-in-progress caps rather than a timebox. The presence or absence of a fixed iteration boundary is the reliable discriminator between the two.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scrum",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.sprint.01",
+      "concept_id": "pm.project-management.sprint",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A Sprint is due to end Friday, but the team asks the Product Owner for three extra days to finish the last item. What has this request actually done to the Sprint?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Broken the one property a Sprint exists to provide \u2014 a fixed length inside which forecasting from past Sprints stays meaningful.",
+          "correct": true,
+          "why": "The box's fixed length is the mechanism, not a detail; extending it removes the one property forecasting from past Sprints depends on.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing significant \u2014 a short extension to finish committed work is a normal, expected part of Sprint discipline, and treating it otherwise would make the framework needlessly rigid.",
+          "correct": false,
+          "why": "Extending the timebox to finish work is exactly the practice the fixed-length rule exists to prevent, not a normal accommodation.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.sprint"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Merged the Sprint Review into the following Sprint's planning session.",
+          "correct": false,
+          "why": "Nothing about extending the Sprint's end date merges two named events into one.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Invalidated the team's velocity figure for every Sprint that follows.",
+          "correct": false,
+          "why": "One extended Sprint doesn't retroactively invalidate every later velocity figure, though it does distort the extended Sprint's own data point.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.estimation-and-velocity"
+          }
+        }
+      ],
+      "rationale": "A Sprint is a fixed-length event, commonly two weeks though the length is a convention, and the fixed box is what makes it possible to forecast from what a team has completed in the past. Extending it 'to finish' destroys that property for the Sprint it happens to, even though only the Product Owner has the authority to cancel a Sprint outright.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.sprint",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.scrum-roles.01",
+      "concept_id": "pm.project-management.scrum-roles",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A stakeholder wants a backlog item reprioritised and takes the request straight to a developer, who agrees to work on it next. What does the Scrum Guide say is wrong with that path?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Ordering authority over the Product Backlog sits with the Product Owner; a developer agreeing to reprioritise bypasses the one person accountable for it.",
+          "correct": true,
+          "why": "The Product Owner is accountable for effective Product Backlog management, including ordering; that authority is not shared with the Developers.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing \u2014 any team member may reprioritise the backlog as long as the change is communicated afterward to whoever happens to be affected by it that Sprint.",
+          "correct": false,
+          "why": "Ordering authority is not distributed to whoever hears the request first; it belongs specifically to the Product Owner.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.scrum-roles"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The request should have gone to the Scrum Master instead, since ordering is a process concern.",
+          "correct": false,
+          "why": "The Scrum Master owns the process and coaches self-management, not backlog ordering, which is the Product Owner's accountability.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.product-and-sprint-backlog"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is wrong, since reprioritisation requests are meant to be raised directly at the Daily Scrum.",
+          "correct": false,
+          "why": "The Daily Scrum is for the Developers to inspect progress toward the Sprint Goal, not a channel for stakeholders to reprioritise work.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        }
+      ],
+      "rationale": "The three Scrum accountabilities are distinct: the Product Owner owns Product Backlog ordering and value, the Scrum Master owns the process and impediment removal, and the Developers own how the work gets done. Anyone wanting the backlog changed does so by convincing the Product Owner, whose decisions the organisation must respect.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scrum-roles",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.scrum-ceremonies.01",
+      "concept_id": "pm.project-management.scrum-ceremonies",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "During a Sprint Review, an attendee raises: 'Handovers to the support team keep stalling.' The Scrum Master says this belongs in a different event. Which one, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The Sprint Retrospective \u2014 it inspects the team's own process, while the Review inspects the product and what to build next.",
+          "correct": true,
+          "why": "The Review inspects the Increment and discusses what to do next; process complaints about how the team works belong to the Retrospective.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The Daily Scrum, since any process complaint should be raised at the very next working day's event.",
+          "correct": false,
+          "why": "The Daily Scrum is fifteen minutes for the Developers to inspect progress toward the Sprint Goal, not a venue for raising process complaints.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.scrum-ceremonies"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Sprint Planning, since process changes should be scheduled before the next Sprint even starts.",
+          "correct": false,
+          "why": "Sprint Planning addresses what will be built and how, not a review of what went wrong in the process last Sprint.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.sprint"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Project closure, since only a fully finished project can act on a systemic handover problem, because closure is the point at which lessons are finally written down for anyone else to read.",
+          "correct": false,
+          "why": "Closure happens once, at the very end of a project; a recurring handover problem needs addressing every Sprint, not held until the project ends.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.project-closure-and-lessons-learned"
+          }
+        }
+      ],
+      "rationale": "The Sprint Review and the Sprint Retrospective are the most reliably examined discrimination in this competency: the Review inspects the product and what to do next, and the Retrospective inspects individuals, interactions, processes and tools. A complaint about how the team works belongs in the Retrospective regardless of which event it happens to surface in.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scrum-ceremonies",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.product-and-sprint-backlog.01",
+      "concept_id": "pm.project-management.product-and-sprint-backlog",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A team describes its Sprint Backlog as 'the items we pulled into this Sprint.' What does that description leave out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The Sprint Goal, why the work matters, and the actionable plan for delivering the Increment, how it will get done \u2014 the selected items are only one of its three parts.",
+          "correct": true,
+          "why": "The Sprint Backlog is composed of the Sprint Goal, the selected items, and a plan for delivering them \u2014 dropping two of three leaves just a filtered view of the Product Backlog.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing \u2014 the Sprint Backlog is defined as exactly the set of Product Backlog items selected for the Sprint.",
+          "correct": false,
+          "why": "That description names only one of the Sprint Backlog's three parts and omits the goal and the plan entirely.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.product-and-sprint-backlog"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The team's velocity figure, which should be recalculated and attached to every Sprint Backlog so that stakeholders can see how much capacity remains for the rest of the Sprint.",
+          "correct": false,
+          "why": "Velocity is a forecasting input calculated from past Sprints; it isn't one of the Sprint Backlog's own components.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.estimation-and-velocity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The Definition of Done, which the description should have named explicitly.",
+          "correct": false,
+          "why": "The Definition of Done is a separate commitment attached to the Increment, not a component the Sprint Backlog itself is missing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.definition-of-done"
+          }
+        }
+      ],
+      "rationale": "The Sprint Backlog has three parts: the Sprint Goal (why), the selected Product Backlog items (what), and an actionable plan (how). Describing it as only the selected items drops the goal and the plan, leaving what would just be a filtered slice of the Product Backlog rather than a plan by and for the Developers.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.product-and-sprint-backlog",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.kanban.01",
+      "concept_id": "pm.project-management.kanban",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A support team puts a board with To Do, Doing and Done columns in front of its work and calls the practice Kanban. What is missing from that claim, and what would a Scrum team have instead of the missing piece?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Explicit work-in-progress limits, the mechanism that actually defines Kanban; a Scrum team instead bounds work with a fixed-length Sprint and a Sprint Goal.",
+          "correct": true,
+          "why": "Without WIP limits nothing constrains how much work is started, so there's no pull system and none of Kanban's flow benefits follow; Scrum bounds work with the Sprint's timebox instead.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A defined Product Owner role, since Kanban requires one of its own just as Scrum does.",
+          "correct": false,
+          "why": "Kanban defines no accountabilities of its own; existing roles continue, so a missing Product Owner isn't the gap here.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.scrum"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing is missing \u2014 a board with columns is what Kanban means in practice, and the columns alone are what visualises the flow of work through each stage of the process for the whole team to see.",
+          "correct": false,
+          "why": "A board with columns is not what makes the practice Kanban \u2014 the Kanban Guide explicitly distinguishes a Kanban board from practising Kanban, and the limits are the difference.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.kanban"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A velocity figure, since both Kanban and Scrum teams are required to forecast from one.",
+          "correct": false,
+          "why": "Kanban's characteristic measures are lead time, delivery rate and WIP, not velocity, which is a Scrum-adjacent convention.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.estimation-and-velocity"
+          }
+        }
+      ],
+      "rationale": "Kanban's defining mechanism is the explicit work-in-progress limit per stage, which turns the board into a pull system. A board with columns and no limits constrains nothing. Scrum instead bounds a batch of work with the fixed-length Sprint and its Sprint Goal \u2014 the two frameworks limit different things: how much is in flight at once, versus how long a batch may run before inspection.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "kanban-guide"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.kanban",
+      "comparison_block": "cmp-pm.project-management.kanban",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.kanban.02",
+      "concept_id": "pm.project-management.kanban",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team takes unplanned production incidents all day and would break a Sprint Goal at the first outage. Which practice fits that pattern, and what should it track instead of a burndown chart?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Kanban, tracking lead time and delivery rate as its flow measures rather than a Sprint's burndown.",
+          "correct": true,
+          "why": "Interrupt-driven work with no stable goal for a fixed window is the natural fit for continuous flow, and lead time and delivery rate are Kanban's own flow measures.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Scrum, run with very short one-day Sprints to absorb the unpredictability.",
+          "correct": false,
+          "why": "Committing to even a one-day goal still breaks at the first unplanned incident; the fit is continuous flow, not a shorter timebox.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.scrum"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Kanban, but it should still track a burndown chart since that is how all agile teams measure progress.",
+          "correct": false,
+          "why": "A burndown is a Scrum-adjacent forecasting convention tied to a Sprint Goal; it doesn't fit a practice with no fixed iteration.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.kanban"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Kanban, tracking the team's risk register instead of a burndown chart.",
+          "correct": false,
+          "why": "A risk register tracks uncertain future events, not the flow of work already in progress \u2014 it isn't Kanban's characteristic measure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.risk-management"
+          }
+        }
+      ],
+      "rationale": "A fixed Sprint Goal breaks the moment an unplanned incident forces reprioritisation, which is why interrupt-driven work is the standard case for Kanban's continuous flow instead. Its characteristic measures follow from that flow view: lead time, the time an item takes end to end, and delivery rate, the count completed per unit of time, not a burndown, which is tied to a Sprint's timebox.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "kanban-guide"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.kanban",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.user-story.01",
+      "concept_id": "pm.project-management.user-story",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A backlog item reads: 'Add a composite index to the orders table.' A reviewer says it is not a user story. What is missing, and what does the missing part usually let a team do?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The role and benefit clauses \u2014 without a stated 'so that', the team cannot judge whether a different, cheaper implementation would satisfy the actual need.",
+          "correct": true,
+          "why": "The item names an implementation, not a role, a capability or a reason; the benefit clause is what lets the team propose an alternative solution to the same underlying need.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing is missing \u2014 any single, well-defined unit of backlog work counts as a user story, provided it is small enough to fit comfortably inside one Sprint's worth of capacity.",
+          "correct": false,
+          "why": "A task written in technical terms with no user in it is precisely what a story is not, however well-defined the task itself is.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.user-story"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Its acceptance criteria \u2014 adding some would make it a proper story.",
+          "correct": false,
+          "why": "Acceptance criteria are attached to a story once it exists; their absence doesn't explain why this item isn't a story in the first place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.acceptance-criteria"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "An entry in the Sprint Backlog \u2014 placing it there would make it a story.",
+          "correct": false,
+          "why": "Sprint Backlog membership is about scheduling, not format; placing a task in a Sprint doesn't turn it into a story.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.product-and-sprint-backlog"
+          }
+        }
+      ],
+      "rationale": "A user story is conventionally three clauses \u2014 as a role, I want a capability, so that a benefit \u2014 and what disqualifies most failed candidates is a missing benefit or a task phrased as though it were a need. 'Add an index' names an implementation with no role and no stated reason, which is exactly the shape the exam uses to test recognition of the template.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "agile-alliance-glossary-user-story-template"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.user-story",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.acceptance-criteria.01",
+      "concept_id": "pm.project-management.acceptance-criteria",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A story's own acceptance criteria are all met, but the team's automated test suite, required by their standing quality bar, was never run against it. What happens to the story, and which of the two commitments governs the outcome?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is not part of the Increment and returns to the Product Backlog \u2014 the Definition of Done, the team-wide bar every item must meet, governs here, not the story's own criteria.",
+          "correct": true,
+          "why": "The Scrum Guide's rule is that undone work returns to the Product Backlog; the Definition of Done, not the per-item criteria, is what the automated tests belong to.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is accepted, since meeting its own acceptance criteria is what the Scrum Guide itself defines as done.",
+          "correct": false,
+          "why": "This inverts which commitment the Scrum Guide actually defines \u2014 it defines the Definition of Done, not acceptance criteria, as a Scrum element.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.definition-of-done"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is accepted, because acceptance criteria and the Definition of Done are simply two names for the same check, applied at whatever level of detail the team happens to prefer from one item to the next.",
+          "correct": false,
+          "why": "The two differ in scope \u2014 one item's criteria versus every item's uniform bar \u2014 and treating them as synonyms is the exact confusion this comparison tests.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.acceptance-criteria"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is accepted at the Sprint Review, where the Definition of Done can be applied retroactively if needed.",
+          "correct": false,
+          "why": "Undone work cannot even be presented at the Sprint Review; there is no retroactive application of the Definition of Done there.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        }
+      ],
+      "rationale": "Acceptance criteria are per-item conditions agreed before work starts; the Definition of Done is the team-wide quality bar every item must meet uniformly. An item can satisfy every one of its own criteria and still fail the Definition of Done, and the Guide's answer is that undone work is not part of the Increment \u2014 it returns to the Product Backlog.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.acceptance-criteria",
+      "comparison_block": "cmp-pm.project-management.acceptance-criteria",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.acceptance-criteria.02",
+      "concept_id": "pm.project-management.acceptance-criteria",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A Product Owner wants to change one story's acceptance criteria after the developers have already started implementing it. What has this change lost?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Its function \u2014 criteria agreed before work starts exist to make 'complete' decidable in advance, and changing them mid-implementation reopens what should already be settled.",
+          "correct": true,
+          "why": "Criteria drafted before work starts let 'complete' be decided objectively; changing them after implementation begins turns that decision into something argued about instead.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing \u2014 acceptance criteria may be revised by the Product Owner at any point right up to the Sprint Review, since they belong to the Product Owner and can be reopened whenever new information arrives.",
+          "correct": false,
+          "why": "Revising criteria whenever convenient defeats their purpose, which is to fix in advance what 'complete' means for that item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.acceptance-criteria"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing \u2014 only the Definition of Done needs to be fixed in advance, not per-item criteria.",
+          "correct": false,
+          "why": "Both are meant to be agreed before the relevant work begins; the Definition of Done being team-wide doesn't make per-item criteria any less settled in advance.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.definition-of-done"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Its status as a formal change, since acceptance criteria are never routed through change control.",
+          "correct": false,
+          "why": "This item is about criteria drafted for one story, not about routing a scope change through the project's formal change process.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.change-control"
+          }
+        }
+      ],
+      "rationale": "Acceptance criteria are meant to be agreed before work starts and stated as pass/fail conditions, precisely so that whether an item is complete does not have to be argued about afterward. Changing them once implementation is underway removes the property that made them useful in the first place.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.acceptance-criteria",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.definition-of-done.01",
+      "concept_id": "pm.project-management.definition-of-done",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An organisation has a company-wide Definition of Done. One Scrum Team, under schedule pressure, proposes dropping the peer-review requirement for its own product only. Is that allowed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No \u2014 a team-level Definition of Done can only be stricter than an organisational standard where one exists, never weaker.",
+          "correct": true,
+          "why": "Where an organisational standard exists, all Scrum Teams must follow it as a minimum; a team may add to it but not relax it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since each Scrum Team owns its own Definition of Done and may adjust it whenever circumstances demand, provided the change is agreed within the team before the next Sprint begins.",
+          "correct": false,
+          "why": "Team ownership of the Definition of Done applies when no organisational standard exists; here one does, and it sets a floor, not a suggestion.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.definition-of-done"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the dropped requirement is logged as an accepted risk.",
+          "correct": false,
+          "why": "Logging the gap as a risk doesn't change the rule that an organisational minimum cannot be relaxed by a single team.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.risk-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Only if the change is approved through the project's formal change control process.",
+          "correct": false,
+          "why": "The Definition of Done is a Scrum commitment governed by the Guide's own rule, not a project scope item that change control approves or rejects.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.change-control"
+          }
+        }
+      ],
+      "rationale": "If the organisation has a Definition of Done as a standard, every Scrum Team must follow it as a minimum, and a team's own definition can only be stricter, never weaker. Dropping a requirement under schedule pressure is exactly the quiet relaxation the commitment exists to prevent.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.definition-of-done",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.definition-of-done.02",
+      "concept_id": "pm.project-management.definition-of-done",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A feature works and demonstrates cleanly, but the runbook required by the Definition of Done was never written. What happens at the Sprint Review?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It cannot be presented at the Sprint Review \u2014 work that hasn't met the Definition of Done isn't part of the Increment and returns to the Product Backlog.",
+          "correct": true,
+          "why": "The Guide's rule ties directly to this scenario: undone work is not releasable and cannot even be shown at the Review.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is presented with a note that documentation is pending, since a working demo satisfies the Definition of Done on its own, and paperwork can reasonably follow later.",
+          "correct": false,
+          "why": "Working software alone doesn't satisfy the Definition of Done when it explicitly includes documentation such as the runbook.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.definition-of-done"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is presented, and the missing runbook becomes an agenda item for the Sprint Retrospective instead.",
+          "correct": false,
+          "why": "Whether the item can be presented is settled before the Review happens; the Retrospective addresses process, not this item's admission to the Review.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is presented, since the feature's own acceptance criteria were met even though the Definition of Done was not.",
+          "correct": false,
+          "why": "Meeting a story's own criteria doesn't substitute for the team-wide Definition of Done, which is the standard actually being missed here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.acceptance-criteria"
+          }
+        }
+      ],
+      "rationale": "The Definition of Done is a commitment attached to the Increment, and work that doesn't meet it is not part of that Increment \u2014 it cannot be released or even presented at the Sprint Review, and returns to the Product Backlog. A working demo is not the same as meeting every element of the standard, including documentation the team has committed to.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.definition-of-done",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.minimum-viable-product.01",
+      "concept_id": "pm.project-management.minimum-viable-product",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A team ships the first version of a feature with reduced test coverage and no documentation, in order to hit a deadline sooner. Is that an MVP?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No \u2014 an MVP minimises scope, not quality; a release built to a lower standard than the team's usual bar is a defect-laden release, not a minimum viable product.",
+          "correct": true,
+          "why": "What an MVP minimises is scope, how many things it does, not the quality bar the team ships to; cutting testing or documentation is a different move entirely.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, since 'minimum' means the smallest amount of engineering rigour needed to ship something at all, and rigour beyond that point is generally considered wasted effort on a first release.",
+          "correct": false,
+          "why": "That reading of 'minimum' is the trap the exam sets \u2014 it minimises what the release does, not how carefully it was built.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.minimum-viable-product"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the missing tests and documentation are added to a future Definition of Done.",
+          "correct": false,
+          "why": "Deferring quality work to a future standard doesn't retroactively make a lower-quality release an MVP; the standard applies at the time of release.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.definition-of-done"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Only if the feature was originally requested through a properly written user story.",
+          "correct": false,
+          "why": "Whether the underlying need was captured in a well-formed user story is unrelated to whether a given release counts as minimum viable.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.user-story"
+          }
+        }
+      ],
+      "rationale": "An MVP is the smallest release that delivers real value and produces learning about whether the wider idea is worth continuing \u2014 both halves matter, so it has to be genuinely usable. Cutting testing or documentation to ship sooner is not what 'minimum' refers to; it produces something else, built to a lower standard than the team's own bar.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "agile-alliance-glossary-mvp"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.minimum-viable-product",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.estimation-and-velocity.01",
+      "concept_id": "pm.project-management.estimation-and-velocity",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A manager tells a team to 'raise your velocity next Sprint.' Why is that instruction self-defeating in a way the exam likes to test?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Velocity is denominated in the team's own relative units, so it can be inflated by estimating the same work as larger without delivering any more of it.",
+          "correct": true,
+          "why": "Because sizing is relative and team-specific, a team can satisfy the instruction by inflating its own estimates rather than by delivering more.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It isn't self-defeating \u2014 velocity is an objective measure of output, so raising it means the team genuinely produced more useful work than it did in any of its previous Sprints.",
+          "correct": false,
+          "why": "Velocity is a forecasting input calculated from past Sprints, not an objective productivity score, which is exactly why the instruction backfires.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.estimation-and-velocity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It's self-defeating because velocity is set by the Product Owner, not by the Developers who do the estimating.",
+          "correct": false,
+          "why": "The Developers who do the work are responsible for sizing it; the Product Owner may help with trade-offs but doesn't set velocity.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.product-and-sprint-backlog"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It's self-defeating because velocity can only be measured once a Sprint has been extended past its fixed length.",
+          "correct": false,
+          "why": "Velocity is calculated from completed work per Sprint at its normal fixed length; extending the Sprint isn't a precondition for measuring it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.sprint"
+          }
+        }
+      ],
+      "rationale": "Velocity is the amount of work a team completes per Sprint, denominated in the team's own relative units and used to forecast, not to score productivity. A team told to raise it can do so by inflating estimates without delivering anything more, because nothing external calibrates the unit \u2014 and velocity figures aren't comparable between teams for the same reason.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "scrum-guide-2020"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.estimation-and-velocity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.gantt-chart.01",
+      "concept_id": "pm.project-management.gantt-chart",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "Which single feature distinguishes a Gantt chart from a work breakdown structure?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The time axis \u2014 a Gantt chart plots tasks against dates and shows durations and dependencies, which the work breakdown structure has none of.",
+          "correct": true,
+          "why": "Time is the chart's defining axis; the work breakdown structure is a decomposition of scope and carries no dates or durations at all.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The Gantt chart shows what work is in scope, while the work breakdown structure shows when it happens, since one lists tasks and the other arranges them on a calendar.",
+          "correct": false,
+          "why": "This reverses the two \u2014 the work breakdown structure shows what is in scope, and the Gantt chart is what shows when things happen.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.work-breakdown-structure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Detail level \u2014 a Gantt chart is simply a more detailed version of the same hierarchy the work breakdown structure shows.",
+          "correct": false,
+          "why": "The two aren't the same hierarchy at different resolutions; one has no time axis and the other is built around one.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.gantt-chart"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The Gantt chart shows the critical path, while the work breakdown structure shows every possible path through the schedule.",
+          "correct": false,
+          "why": "A work breakdown structure has no paths or dependencies to compare against; a Gantt chart can display the critical path, but that isn't the axis separating the two artefacts.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.critical-path"
+          }
+        }
+      ],
+      "rationale": "A Gantt chart is a bar chart of tasks against time, showing duration and, as usually drawn, dependencies \u2014 associated with plan-driven scheduling. A work breakdown structure decomposes the deliverable hierarchically and has no time axis at all; that absence is the entire basis of the comparison.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.critical-path.01",
+      "concept_id": "pm.project-management.critical-path",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A three-day task not on the critical path is shortened to one day. What happens to the project's finish date?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing \u2014 only the longest chain of dependent tasks determines the earliest possible finish, and this task isn't part of it.",
+          "correct": true,
+          "why": "'Critical' means longest-duration and zero-float, not most important \u2014 a task off that chain can typically shrink or grow without moving the finish.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It moves the finish date earlier, since any task shortened anywhere in the schedule speeds up the whole project.",
+          "correct": false,
+          "why": "Only tasks on the critical path affect the finish date; shortening others usually buys no time at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.critical-path"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It moves the finish date, because shortening any bar on a Gantt chart shifts every bar that comes after it.",
+          "correct": false,
+          "why": "A Gantt chart is a display of the schedule, not the mechanism that determines the finish date \u2014 that mechanism is which chain of dependencies is longest.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.gantt-chart"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It moves the finish date, since shortening a task also shrinks its parent grouping in the work breakdown structure, and a smaller parent should logically finish sooner than before.",
+          "correct": false,
+          "why": "The work breakdown structure has no time axis and no bearing on the schedule's finish date at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.work-breakdown-structure"
+          }
+        }
+      ],
+      "rationale": "The critical path is the longest chain of dependent tasks through the schedule, and its length sets the earliest possible finish. 'Critical' is a statement about duration and float, not importance or difficulty \u2014 shortening a task that isn't on that chain typically buys no time, which is the discrimination this question shape is built to test.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.work-breakdown-structure.01",
+      "concept_id": "pm.project-management.work-breakdown-structure",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A reviewer asks a migration project 'which of your plan items can slip without moving the end date?' The team can't answer from its work breakdown structure. Why not, and where does the answer actually come from?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The work breakdown structure has no time axis, durations or dependency arrows by design; the answer comes from the schedule built on top of it, specifically the critical path.",
+          "correct": true,
+          "why": "The work breakdown structure decomposes the deliverable into work packages and holds no dates at all; the schedule, and within it the critical path, is what actually answers a slack question.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The work breakdown structure does contain dates, but they were left blank in this case by mistake.",
+          "correct": false,
+          "why": "The absence of dates is by design, not an omission \u2014 a work breakdown structure is a structure, not a timeline, and was never meant to carry them.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.gantt-chart"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It can't answer scheduling questions because it only lists who is responsible for each task, not what the tasks actually are or how they relate to one another across the whole deliverable.",
+          "correct": false,
+          "why": "It shows the decomposition of the deliverable, organised by what is produced, not an assignment of owners \u2014 an org chart is a different malformation of the same idea.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.work-breakdown-structure"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The answer comes from the team's velocity, which shows how much slack the team has each Sprint.",
+          "correct": false,
+          "why": "Velocity is a Scrum forecasting figure calculated from completed work per Sprint; it doesn't identify which schedule items are on the critical path.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.estimation-and-velocity"
+          }
+        }
+      ],
+      "rationale": "A work breakdown structure decomposes the deliverable into work packages small enough to estimate and assign, organised by what is being produced \u2014 it has no time axis, no durations and no dependency arrows. Only afterwards, once those packages are sequenced into a schedule, do dates and dependencies appear, and it's the critical path within that schedule that answers which tasks can slip without moving the finish.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-wbs-handbook-sp-2016-3404-rev1"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.work-breakdown-structure",
+      "comparison_block": "cmp-pm.project-management.work-breakdown-structure",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.risk-management.01",
+      "concept_id": "pm.project-management.risk-management",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A team has assessed a vendor delivery risk, scoring its likelihood and impact and ranking it against other risks. Has the team decided what to do about it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No \u2014 assessment produces a priority order, never an action; deciding to avoid, mitigate, transfer or accept the risk is the separate step of response.",
+          "correct": true,
+          "why": "Assessment scores likelihood and impact so risks can be ranked; response is the distinct activity of deciding what to actually do about the ranked ones.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes \u2014 ranking a risk by its likelihood and impact is itself the risk response, since knowing where a risk sits relative to the others already tells the team what to prioritise doing about it.",
+          "correct": false,
+          "why": "Ranking sorts risks against each other; it doesn't select avoid, mitigate, transfer or accept for any of them.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.risk-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, once the risk is logged in the issue tracker alongside its score.",
+          "correct": false,
+          "why": "An issue tracker is for things that have already happened; a risk is an uncertain future event, and logging its score there doesn't select a response.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.issue-tracking"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, provided a contingency reserve has already been set aside in the budget.",
+          "correct": false,
+          "why": "A contingency reserve is one possible outcome of choosing to accept a risk \u2014 setting it aside doesn't happen before a response is actually chosen.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-budget-and-resource-management"
+          }
+        }
+      ],
+      "rationale": "Risk management is a continuing cycle of identifying, assessing, responding to and monitoring risks. Assessment scores likelihood and impact to produce a priority order; it never itself produces an action. Response is the separate step of choosing to avoid, mitigate, transfer or accept each ranked risk, typically with a contingency reserve set aside if an accepted risk materialises.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-30r1"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.risk-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.scope-creep.01",
+      "concept_id": "pm.project-management.scope-creep",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A customer asks a delivery team for an extra report field. The team agrees on the spot, adds it, and the schedule and budget both stay exactly as originally planned. Is this scope creep?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Yes \u2014 the defining property is the absence of assessment, approval and a re-baselined schedule and budget, not the size of the addition.",
+          "correct": true,
+          "why": "Scope grew without an impact assessment, approval, or an updated baseline; that absence of control is what makes it creep, regardless of how small the field sounds.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "No, because the request came directly from the customer rather than from inside the team, and customer-originated requests are generally treated as legitimate by default.",
+          "correct": false,
+          "why": "The source of the request, customer or team, doesn't determine whether it's creep; the missing step is assessment and approval, wherever the request originated.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.change-control"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, since the addition is small enough that it doesn't need to be tracked as a formal change.",
+          "correct": false,
+          "why": "'Small' is exactly the size of request that accumulates into creep; the size doesn't exempt it from needing assessment.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.scope-creep"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, because the schedule and budget staying unchanged proves the addition had no real cost.",
+          "correct": false,
+          "why": "An unchanged schedule and budget after adding work usually means the cost was absorbed silently, not that there was none \u2014 that absorption is the mechanism of creep.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-budget-and-resource-management"
+          }
+        }
+      ],
+      "rationale": "Scope creep is growth that happens without a matching adjustment to time, cost or baseline. A customer asking for more is normal; what turns it into creep is the team absorbing the request informally, with no impact assessment and no re-baselining, which is exactly what happened here, however small the field.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.scope-creep.02",
+      "concept_id": "pm.project-management.scope-creep",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A sponsor formally requests an additional module. The request is assessed for impact, approved by the sponsor, and the schedule and budget baselines are updated to reflect a two-week extension. Is this scope creep?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No \u2014 this is change control working as intended: the change was assessed, decided by someone with authority, and written back into the baseline.",
+          "correct": true,
+          "why": "The examinable subtlety is that scope changing is not itself the failure; assessment, a named approver and a baseline update are exactly what separates a controlled change from creep.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes \u2014 any addition to scope after the project has started counts as creep, however it was handled.",
+          "correct": false,
+          "why": "Treating any post-start addition as creep ignores the actual test, which is whether the change went through assessment and approval; this one did.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.scope-creep"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, because the schedule moved, and any movement of a triple-constraint leg after baselining is creep by definition, however the movement came about or who approved it.",
+          "correct": false,
+          "why": "A leg moving is a normal outcome of an approved trade-off; the triple constraint doesn't forbid movement, it describes how legs trade off against each other.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.triple-constraint"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It's creep unless the same request would also have been approved without any schedule extension at all.",
+          "correct": false,
+          "why": "Whether the extension was strictly necessary isn't the test; the test is whether the change was assessed and decided by someone with the authority to decide.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.change-control"
+          }
+        }
+      ],
+      "rationale": "Change control and scope creep both involve scope growing \u2014 the difference is whether that growth was assessed, decided by a named authority, and reflected in an updated baseline. Here it was, on all three counts, so the two extra weeks are the price of an approved trade-off, not an uncontrolled failure mode.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.change-control.01",
+      "concept_id": "pm.project-management.change-control",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A team's change control process has rejected every request submitted to it for the past six months. A stakeholder complains this proves the process is working. What is the flaw in that reasoning, and how would the same six months look if scope creep, not change control, were actually happening?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A process that only ever rejects is being used as a barrier, not a decision procedure; under creep instead, there would be no rejected requests at all \u2014 informal additions would simply accumulate outside the process.",
+          "correct": true,
+          "why": "Change control's purpose is to make a trade-off explicit and answered by someone with authority; a process that only refuses is failing that purpose, and creep would instead show up as unassessed additions with no requests in the log at all.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "There's no flaw \u2014 a change control process exists specifically to say no to requests.",
+          "correct": false,
+          "why": "The purpose is to force the trade-off question to be answered explicitly, which includes approving changes that are genuinely worth their cost, not just refusing all of them.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.scope-creep"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The flaw is that six months is too short a period to judge whether change control is functioning.",
+          "correct": false,
+          "why": "The stated period isn't the issue; an all-rejection record is suspicious regardless of how long it has run.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.change-control"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The flaw is that rejected requests should still have moved the project's budget baseline even when refused, so the sponsor can see the cumulative cost of every request ever considered, approved or not, across the whole project.",
+          "correct": false,
+          "why": "Rejected requests are recorded so the same request doesn't reappear informally, but a rejection specifically does not update the baseline; only an approval does.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-budget-and-resource-management"
+          }
+        }
+      ],
+      "rationale": "Change control is a decision procedure, not a mechanism for saying no; its purpose is to force an explicit answer to what else must give if scope is added, including approving worthwhile changes. An all-rejection record suggests the process is being misused as a blanket refusal. Scope creep, by contrast, leaves no rejected requests behind at all \u2014 it accumulates from additions that never went through the process to be rejected or approved.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-128"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.change-control",
+      "comparison_block": "cmp-pm.project-management.change-control",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.change-control.02",
+      "concept_id": "pm.project-management.change-control",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A change request is assessed and approved by the project sponsor, but nobody updates the schedule or budget baseline afterward. What is the practical effect?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The approved change behaves exactly like creep \u2014 the plan still shows the old scope, so the extra work is absorbed silently rather than tracked.",
+          "correct": true,
+          "why": "Without a baseline update, the schedule and budget still show the old scope, so the extra work has no home in the plan and is absorbed the same way an uncontrolled addition would be.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "None \u2014 approval by the sponsor is sufficient on its own to make the change fully controlled.",
+          "correct": false,
+          "why": "Approval alone doesn't complete the process; the Guide's account of change control requires the baseline to be updated as well, not just a decision recorded.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.change-control"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It only becomes a problem at project closure, when the missing update is caught during acceptance review, since that is the point at which the whole plan is finally checked against reality.",
+          "correct": false,
+          "why": "The mismatch causes trouble immediately, in every status report and schedule check between now and closure, not only when acceptance is reviewed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.project-closure-and-lessons-learned"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It only becomes a problem if the communication plan fails to notify the delivery team of the approval.",
+          "correct": false,
+          "why": "Notifying the delivery team doesn't substitute for the plan itself reflecting the new scope; the baseline, not just awareness, is what's missing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.communication-plan"
+          }
+        }
+      ],
+      "rationale": "Approval is only part of a controlled change; on approval, the scope, schedule and cost baselines are meant to be updated together and the decision communicated. Skip the baseline update and an approved, assessed change produces exactly the same symptom as creep \u2014 a plan that still shows the original scope while the team quietly absorbs more.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-128"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.change-control",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.raci.01",
+      "concept_id": "pm.project-management.raci",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A RACI matrix lists three people as Responsible for one activity and two people as Accountable for it. What is wrong with that assignment?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Exactly one person is conventionally Accountable per activity, though several may be Responsible \u2014 two Accountable owners is the malformed part.",
+          "correct": true,
+          "why": "Multiple people can share doing the work, which is what Responsible captures; Accountable is conventionally singular, so it names the one person answerable for the outcome.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing \u2014 RACI allows any number of people to hold each of the four roles for a given activity, since spreading accountability is generally considered good governance.",
+          "correct": false,
+          "why": "Responsible can be shared, but Accountable is conventionally exactly one person per activity \u2014 that's the point tested here.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.raci"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The problem is having three Responsible people, since only one person may ever do the actual work.",
+          "correct": false,
+          "why": "Several people sharing Responsible for one activity is normal; nothing about that count is the defect in this matrix.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.stakeholder"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The problem is that Consulted and Informed roles are missing from the assignment entirely.",
+          "correct": false,
+          "why": "A matrix can validly assign only Responsible and Accountable for a given activity; omitting Consulted or Informed isn't automatically a malformation.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.communication-plan"
+          }
+        }
+      ],
+      "rationale": "A RACI matrix clarifies who is Responsible for doing the work, Accountable for its outcome, Consulted before it and Informed after it. The tested convention is that several people may be Responsible for one activity, but exactly one is Accountable \u2014 two Accountable owners defeats the purpose of naming a single answerable person.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#s-project-management-control",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.issue-tracking.01",
+      "concept_id": "pm.project-management.issue-tracking",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A vendor missed a delivery date last week. Should that be logged as a risk or as an issue?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An issue \u2014 it has already happened and needs resolving and escalating, unlike a risk, which is an uncertain future event assessed for likelihood and impact.",
+          "correct": true,
+          "why": "A risk is an uncertain future event; the vendor's miss has already occurred, which is exactly what puts it in the tracker as an issue rather than the risk register.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A risk, since the vendor might miss further deadlines going forward, and treating the pattern as an ongoing risk keeps the team focused on preventing a recurrence rather than dwelling on the past.",
+          "correct": false,
+          "why": "Concern about a future recurrence doesn't change what already happened; this specific event needs resolving now, which is what makes it an issue.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.issue-tracking"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A risk, because it should be scored for likelihood and impact before any action is taken.",
+          "correct": false,
+          "why": "There's nothing left to assess for likelihood; the event already occurred, and scoring likelihood and impact applies to risks, not to something that has happened.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.risk-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither \u2014 it should only be raised through the communication plan's escalation path.",
+          "correct": false,
+          "why": "The communication plan governs who is told and when, not where the item itself is recorded; it belongs in the tracker regardless of who is escalated to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.communication-plan"
+          }
+        }
+      ],
+      "rationale": "Issue tracking records work and defects, each with an identifier, an owner and a state, so status is visible without asking. An issue is something that has already occurred and needs resolving; a risk is an uncertain future event assessed for likelihood and impact. A missed delivery date last week has already happened, so it belongs in the tracker as an issue.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.issue-tracking",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.project-budget-and-resource-management.01",
+      "concept_id": "pm.project-management.project-budget-and-resource-management",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A project is running two weeks behind schedule. The sponsor proposes adding three new engineers to catch up. What is the likely short-term effect?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The project gets slower in the short term, because existing staff spend their time bringing the new engineers up to speed.",
+          "correct": true,
+          "why": "Onboarding new people consumes the time of people already there before the newcomers produce anything, so the near-term effect is typically slower delivery, not faster.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The project speeds up in rough proportion to headcount, since more people working means more work gets done per day, the same way three cashiers process a queue faster than one.",
+          "correct": false,
+          "why": "Work doesn't scale linearly with headcount added mid-project; ramp-up time works against the very speed-up being sought.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.project-budget-and-resource-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The schedule and cost both improve at once, since adding staff is the standard way to trade cost for time.",
+          "correct": false,
+          "why": "Cost rises with new hires while schedule typically worsens before it improves; the two don't move together the way this option implies.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.triple-constraint"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The team's velocity increases immediately, once the new engineers begin estimating alongside the rest of the team.",
+          "correct": false,
+          "why": "Velocity reflects what a team has actually completed; new engineers don't retroactively raise a figure calculated from past Sprints, and they need ramp-up time before contributing to future ones.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.estimation-and-velocity"
+          }
+        }
+      ],
+      "rationale": "Cost and schedule are separate measurements \u2014 a project can be under budget and late at once \u2014 and adding people to work that is already behind typically slows it further in the short term, because existing staff are diverted to bringing newcomers up to speed. 'Hire more engineers' is usually the distractor in this competency's budget-and-resource questions, not the answer.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-budget-and-resource-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.communication-plan.01",
+      "concept_id": "pm.project-management.communication-plan",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "An auditor has high influence over a project's release but low day-to-day interest in its progress. What should the communication plan record for her?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A summary delivered at phase boundaries, plus immediate notification if anything breaches a defined threshold \u2014 matched to her influence and interest, not to the delivery team's daily cadence.",
+          "correct": true,
+          "why": "The plan maps each stakeholder to a content level, frequency and channel suited to their influence and interest, not a one-size cadence; high influence with low daily interest points to periodic summaries plus threshold-based alerts.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Inclusion in the delivery team's daily coordination event, since high influence means she needs the same level of detail as the team, regardless of how much day-to-day interest she actually has.",
+          "correct": false,
+          "why": "Daily detail suits the delivery team's own coordination need, not a reviewer whose interest is low day to day despite her high influence over release.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.communication-plan"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing, since her low day-to-day interest means she does not need to be tracked as a stakeholder at all.",
+          "correct": false,
+          "why": "Influence alone is enough to make someone a stakeholder; low day-to-day interest changes what she's sent, not whether she's tracked.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.stakeholder"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Read access to the issue tracker in place of any scheduled communication.",
+          "correct": false,
+          "why": "Read access to a ticket system isn't a decided content level, frequency or channel \u2014 it substitutes browsing for the deliberate plan the practice calls for.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.issue-tracking"
+          }
+        }
+      ],
+      "rationale": "A communication plan turns stakeholder analysis into action: each group is mapped to a content level, a frequency and a channel matched to how much influence and interest they have. High influence and low day-to-day interest is the textbook case for periodic summaries at phase boundaries plus immediate notice of anything crossing a defined threshold, not daily detail or unscheduled browsing.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.communication-plan",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.project-closure-and-lessons-learned.01",
+      "concept_id": "pm.project-management.project-closure-and-lessons-learned",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A project is cancelled halfway through. The team disbands and moves to other work without a formal closure step. What has been skipped, and how does that omission differ from skipping a single Sprint Retrospective?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Closure itself \u2014 a cancelled project is still formally closed, with contracts ended, resources released and lessons recorded once; a skipped Retrospective instead only loses one team's chance to improve mid-project, not the project's only opportunity to record what happened.",
+          "correct": true,
+          "why": "Closure is a process, not a reward for finishing; arguably a cancelled project's lessons matter more, since they're the only thing it produced \u2014 a missed Retrospective, by contrast, only costs one team one Sprint's worth of process improvement.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing was skipped, since closure only applies to projects that finish their full planned scope, and a cancellation ends the project's obligations the moment work stops.",
+          "correct": false,
+          "why": "The definition applies to cancelled projects at least as much as finished ones; skipping it on cancellation is the exact failure mode the exam tests.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.project-closure-and-lessons-learned"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The Sprint Retrospective, since the team never held one before disbanding, and a Retrospective is where a Scrum Team is conventionally expected to capture what it learned before moving on to whatever comes next, project or otherwise, however the work happens to end.",
+          "correct": false,
+          "why": "The Retrospective repeats every Sprint for one team while work continues; its absence here is a separate, smaller loss than skipping closure, which never happened once for the whole project.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing substantive \u2014 the issue tracker already holds a record of everything that happened, and anyone curious about the project later can simply read back through its tickets.",
+          "correct": false,
+          "why": "A tracker records individual items and their states; it isn't the acceptance, handover and organisation-wide lessons record that closure produces.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.issue-tracking"
+          }
+        }
+      ],
+      "rationale": "Closure formally ends a project \u2014 confirming acceptance, releasing resources, and recording lessons \u2014 and it applies to a cancelled project as much as a finished one, arguably more, since the lessons are the only thing a cancelled effort produced. That is a different kind of omission from a missed Sprint Retrospective, which repeats every Sprint for one team while work continues and directs its improvement inward, not outward to the organisation.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
+      "comparison_block": "cmp-pm.project-management.project-closure-and-lessons-learned",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.project-management.project-closure-and-lessons-learned.02",
+      "concept_id": "pm.project-management.project-closure-and-lessons-learned",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A project's last deliverable is finished and demoed, but it was never formally accepted against the criteria agreed at the start, and the operations team was never given the runbook. Is the project closed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No \u2014 acceptance against the original criteria and handover to operations are what actually end a project, and neither has happened yet.",
+          "correct": true,
+          "why": "The last piece of work finishing isn't the same as the project ending; acceptance against the agreed criteria and handover to operations are the steps that actually close it, and both are still outstanding.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes \u2014 closure is simply whatever happens once the last piece of planned work is finished, since there is nothing left on the plan for anyone to keep working on after that point.",
+          "correct": false,
+          "why": "That reading treats the finished deliverable as sufficient, but the operating team still can't run what was built without the runbook, and nothing has been formally accepted.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.project-management.project-closure-and-lessons-learned"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, since the deliverable's completion is itself the final milestone marking the project's end.",
+          "correct": false,
+          "why": "A milestone marking completion doesn't substitute for acceptance and handover; the demo happening is an event, not confirmation the result was accepted or usable by operations.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.deliverable-and-milestone"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, provided a final Sprint Retrospective is held to capture lessons from the last iteration.",
+          "correct": false,
+          "why": "A Retrospective is a once-per-Sprint improvement exercise for one team; it doesn't confirm acceptance or complete handover to operations.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.project-management.scrum-ceremonies"
+          }
+        }
+      ],
+      "rationale": "Closure is not the same as the last piece of work being finished. It requires confirming the deliverables were accepted against the criteria agreed at the start and handing the result over to whoever will operate it, including the runbook and support arrangement the operating team actually needs. A demoed but unaccepted, unhanded-over deliverable is an unfinished closure, not a completed one.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    }
+  ]
+}
