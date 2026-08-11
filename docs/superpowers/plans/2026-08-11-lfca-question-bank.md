@@ -3911,34 +3911,70 @@ function placeDomain(items, slots, depthTargets) {
 
 export function partitionIntoExams(ctx) {
   const byId = new Map(ctx.dataset.topics.map((t) => [t.id, t]));
+  const composition = examComposition(ctx.dataset);
   const pool = ctx.items.filter((i) => i.pool === 'exam');
   const perExam = Array.from({ length: EXAM_COUNT }, () => []);
+  const unused = [];
 
   for (const domain of ctx.dataset.competencies.domains) {
-    const domainItems = pool.filter((i) => byId.get(i.concept_id)?.domain === domain.name);
-    const slots = domainSlots(domain);
-    if (domainItems.length !== slots * EXAM_COUNT) {
+    const slots = composition.get(domain.name);
+    const need = slots * EXAM_COUNT;
+    const domainItems = pool
+      .filter((i) => byId.get(i.concept_id)?.domain === domain.name)
+      .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+
+    if (domainItems.length < need) {
       throw new Error(
-        `${domain.name} holds ${domainItems.length} exam-pool items but the weight table wants `
-        + `${slots * EXAM_COUNT}; run npm run check-bank and fix q-domain-distribution first.`,
+        `${domain.name} holds ${domainItems.length} exam-pool items but ${EXAM_COUNT} exams need `
+        + `${need} (${slots} per exam); run npm run check-bank and fix q-domain-distribution first.`,
       );
     }
+
+    // 60 does not divide the weight table into integers, so the per-exam
+    // composition is a rounding and EXAM_SIZE * EXAM_COUNT (960) is
+    // deliberately less than the 1,000-item pool. Some items therefore sit
+    // out every paper.
+    //
+    // Which ones has to be deterministic AND unbiased. Taking the first
+    // `need` by id would make every sit-out come from the same tail of the
+    // alphabet, so one stretch of concepts would be silently unexaminable. A
+    // strided selection spreads the sit-outs evenly across the sorted range.
+    const skip = domainItems.length - need;
+    const sitOut = new Set();
+    if (skip > 0) {
+      const stride = domainItems.length / skip;
+      for (let k = 0; k < skip; k += 1) {
+        sitOut.add(Math.min(domainItems.length - 1, Math.floor((k + 0.5) * stride)));
+      }
+      // Floor collisions can leave the set short. Fill deterministically from
+      // the end so the count is exact regardless.
+      for (let j = domainItems.length - 1; sitOut.size < skip && j >= 0; j -= 1) sitOut.add(j);
+    }
+
+    const selected = [];
+    domainItems.forEach((item, index) => {
+      if (sitOut.has(index)) unused.push(item);
+      else selected.push(item);
+    });
+
     const depthTargets = new Map();
     for (const depth of [1, 2, 3, 4, 5]) {
-      const share = domainItems.filter((i) => i.difficulty === depth).length / domainItems.length;
+      const share = selected.filter((i) => i.difficulty === depth).length / selected.length;
       depthTargets.set(depth, Math.round(slots * share));
     }
-    const placed = placeDomain(domainItems, slots, depthTargets);
+    const placed = placeDomain(selected, slots, depthTargets);
     placed.forEach((items, e) => perExam[e].push(...items));
   }
 
-  return perExam.map((items, e) => ({
+  const exams = perExam.map((items, e) => ({
     name: `exam-${String(e + 1).padStart(2, '0')}`,
     // Presentation order is deterministic and does not follow the domain
     // grouping the partition happened to build, so an exam does not read as
     // six blocks by subject.
     items: [...items].sort((a, b) => (a.id < b.id ? -1 : 1)),
   }));
+
+  return { exams, unused: unused.sort((a, b) => (a.id < b.id ? -1 : 1)) };
 }
 
 export function assignPositions(items, seedText) {
@@ -4026,7 +4062,7 @@ export function renderDrill(drill, ctx, positions) {
 
 export function buildAll(ctx) {
   const byId = new Map(ctx.dataset.topics.map((t) => [t.id, t]));
-  const exams = partitionIntoExams(ctx);
+  const { exams, unused } = partitionIntoExams(ctx);
   const documents = [];
   const examIndex = [];
 
@@ -4078,7 +4114,7 @@ export function buildAll(ctx) {
     });
   }
 
-  return { exams: examIndex, drills: drillIndex, documents };
+  return { exams: examIndex, drills: drillIndex, documents, unused: unused.map((i) => i.id) };
 }
 ```
 
@@ -4125,6 +4161,10 @@ for (const doc of built.documents) {
 // re-deriving it and possibly disagreeing.
 await writeFile('exams/index.json', `${JSON.stringify({
   exams: built.exams,
+  // The exam-pool items no paper uses. On the record by id, so "which
+  // questions never appear on an exam" is a fact a reader can check rather
+  // than a silent residue of the composition rounding.
+  unused: built.unused,
   documents: built.documents.filter((d) => d.name.startsWith('exams/')),
 }, null, 2)}\n`, 'utf8');
 await writeFile('drills/index.json', `${JSON.stringify({
@@ -4302,7 +4342,6 @@ Expected: `check-bank` reports 1,150 questions over 537 concepts, 16 exams, 29 d
 - [ ] **Step 3a: Confirm the 40 unused items are on the record**
 
 ```bash
-node -e "const i=require('./exams/index.json');console.log('unused',i.unused.length);const d=require('./data/competencies.json');" 
 node --input-type=module -e "
 import { loadDataset } from './tools/lib/load.mjs';
 const idx = JSON.parse(await (await import('node:fs/promises')).readFile('exams/index.json','utf8'));
