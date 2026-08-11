@@ -966,8 +966,14 @@ Cloud Networking, Sensitive Data, Compliance, and Open Source Software and Licen
 directly from `data/topics/*.json`: each of these eight has zero concepts with a non-empty
 `commands` array and zero concepts in `data/sourcing-waivers.json`). This is scoping, not
 coverage — the fact-check layer was designed to examine exactly two claim classes, and these
-eight files contain neither. No other claim in their prose — descriptions, exam-trap framing,
-comparison text — has been adversarially checked by this pass or any other.
+eight files contain neither. ~~No other claim in their prose — descriptions, exam-trap framing,
+comparison text — has been adversarially checked by this pass or any other.~~ **Superseded
+2026-08-11: false, twice over.** Commit `97cc94b` did check these eight files' prose, applying
+127 fact-check refutations (see "What the last three commits of cycle 2 actually did, recorded
+late" under Cycle 3 below); cycle 3's Task 3 then examined 241 claims across all 131 of these
+eight files' concepts (100% coverage) and refuted 9 — see "Cycle 3 Task 3: second adversarial
+fact-check pass over 8 guide files" below. Both passes are real, committed, adversarial checks
+of exactly the prose this sentence claimed was untouched.
 
 ### Defects the process caught
 
@@ -1086,8 +1092,13 @@ recorded accurately as such above.
   `system-administration.md`, the `postgres:18`-only volume path in `containers.md`, and the
   BSD-vs-macOS `man` section-order string in `command-line.md`; prose factual accuracy across
   most of the corpus remains unchecked outside the sampled files — the fact-check lens read 8 of
-  22 competency files and the teaching lens read roughly 65 of 537 concepts in full; no
-  Knowledge-check answer was verified against a source; 107 of 130 comparison blocks were not
+  22 competency files and the teaching lens read roughly 65 of 537 concepts in full; ~~no
+  Knowledge-check answer was verified against a source~~ — **superseded 2026-08-11 for the
+  Knowledge-check half of this clause: false.** Commit `97cc94b` corrected 25 wrong
+  knowledge-check answers, meaning some were checked against a source; that commit left no
+  record of how many it examined in total, so the remainder are still unverified, but "no answer
+  was verified" is not accurate. The other half of the same sentence still holds as written: 107
+  of 130 comparison blocks were not
   read for same-file self-consistency; the dataset itself (`depth`, `importance`,
   `coverage_status`, source ids, the `confused_with` graph) was treated as ground truth
   throughout, not re-derived against the published objectives; `npm run generate` was not run
@@ -1124,6 +1135,57 @@ recorded accurately as such above.
   2026-08-11** on the question-count half of this claim: `candidate_evidence` remains empty on
   all 537 concepts (that part still holds), but the Linux Foundation does now publish a question
   count — see the "Question count: adopted" subsection below.
+
+## Cycle 3
+
+Cycle 3 turns the verified, guide-covered dataset into a question bank. Spec:
+`docs/superpowers/specs/2026-08-11-lfca-question-bank-design.md`. Branch:
+`cycle-3-question-bank`.
+
+| Task | Description | Status |
+| --- | --- | --- |
+| 1 | Capture the exam facts | **complete** |
+| 2 | Source what can be sourced among the 52 waived concepts | **complete** |
+| 3 | Second adversarial pass over the eight singly-checked files | **complete** |
+| 4 | Bring PROGRESS.md current | **complete** |
+| 5 | The derived allocation | pending |
+| 6 | A seeded PRNG for deterministic assembly | pending |
+| 7 | Stem normalization and duplicate similarity | pending |
+| 8 | The bank loader and the test fixtures | pending |
+| 9 | Checks 1–6 and 11 — coverage and derivation | pending |
+| 10 | Checks 7–10 and 12–14 — item integrity | pending |
+| 11 | Checks 15–21 and the runner | pending |
+| 12 | The two CLIs | pending |
+| 13 | The exam and drill assembler | pending |
+| 14 | Pilot — System Administration :: Disaster Recovery | pending |
+| 15–35 | The remaining 21 competency files | pending |
+| 36–57 | Verify all 22 competencies | pending |
+| 58 | Build the exams and the drills | pending |
+| 59 | Close the cycle in PROGRESS.md and the READMEs | pending |
+| 60 | Final adversarial whole-branch review | pending |
+
+### What the last three commits of cycle 2 actually did, recorded late
+
+Cycle 2 ended with three commits that closed real work but were never written into this
+document — a gap this task closes now, four commits and one cycle late:
+
+- **`97cc94b`** — "fix: apply 51 review findings, 127 fact-check refutations and 25 wrong
+  knowledge-check answers." 20 guide files changed, +1124/−1006. This is the commit that
+  actually fact-checked the eight competency files the adversarial-fact-check section above
+  once claimed were untouched by any pass (see the retraction above), and the commit that
+  corrected the 25 wrong knowledge-check answers the coverage-gap bullet above once claimed
+  none of had been verified (see that retraction too).
+- **`c15e803`** — "fix: close five harness gaps and the remaining cycle 2 loose ends."
+- **`3a0a7c2`** — "docs: record the cycle 2 execution ledger" (`.superpowers/sdd/progress-cycle2.md`).
+
+None of this was recorded in `PROGRESS.md` until cycle 3 put it here. The consequential gap is
+in `97cc94b`: its "127 fact-check refutations" **left no committed verdict artifact** — no
+`docs/verification/factcheck-*.json` file or equivalent recording which 127 claims were checked,
+which were refuted, or the reasoning behind either. That is exactly why cycle 3's Task 3 re-ran
+the eight never-checked files from scratch rather than trusting the count: there was nothing on
+disk to trust. Task 3's own verdicts, by contrast, are committed under `docs/verification/`
+(`factcheck-*.json` for the eight files, plus the topup sweeps), so the same gap cannot recur for
+this pass — but it remains open for the original 127, which have no artifact to recover.
 
 ### Question count: adopted (2026-08-11)
 
@@ -1426,3 +1488,48 @@ Gate results after applying: `npm run generate` (regenerated 6 views), `npm run 
 concepts, 0 errors, 16 pre-existing warnings, unrelated to this task), `npm test` (188/188
 passing), `npm run check-guide` (537 concept definitions, 130 comparison blocks, 175 sections, 0
 errors, 0 warnings).
+
+### `importance` is degenerate, and cycle 3 does not use it
+
+Not recorded anywhere in this document before now — the only prior occurrence of the word is an
+unrelated "degenerate id" note near line 201.
+
+`tools/lib/importance.mjs` computes `importance` as
+`round(clamp01((domainWeight - 10) / 20) * 3 + min(competencyRefs, 2))`, clamped to `1..5`. Every
+call site (`tools/lib/checks.mjs`) passes `competencyRefs = 1`, a literal, not a per-concept
+value — confirmed by grep: `competencyRefs` appears nowhere else in `tools/lib/*.mjs`. With that
+term pinned uniform, `importance` is a pure function of `domainWeight` alone, so it is constant
+within every domain. Verified directly from the dataset (`tools/lib/load.mjs`'s `loadDataset`,
+run against `data/`):
+
+| Domain | Weight | importance |
+| --- | --- | --- |
+| Linux Fundamentals | 16% | 2 |
+| System Administration Fundamentals | 30% | 4 |
+| Cloud Computing Fundamentals | 18% | 2 |
+| Security Fundamentals | 14% | 2 |
+| DevOps Fundamentals | 12% | 1 |
+| IT Project Management Fundamentals | 10% | 1 |
+
+(weights from `data/competencies.json`, current i.e. post-2025 values)
+
+Distribution across all 537 concepts, recomputed the same way: **151 at 1, 213 at 2, 173 at 4,
+none at 3 or 5.**
+
+`importance` is a coarsened restatement of `domainWeight`: three domains at three different
+weights (Cloud 18%, Linux 16%, Security 14%) all collapse to the same value, 2. A coarsened
+restatement of a signal carries strictly less information than the signal itself.
+
+**Consequence for cycle 3:** the question-count derivation (Task 5, "the derived allocation")
+drives allocation from domain weight and `required_depth` only. Using `importance` alongside
+domain weight would double-count the same weight signal a second time and add rounding noise on
+top, since `importance` is `weight` after a lossy `round()`. The kickoff brief asked for both
+signals to be used; this is the reasoning for why only one is used going forward.
+
+`importance` retains one legitimate use in the codebase: `tools/lib/comparisons.mjs` line 31
+sorts comparison-block ownership by `[hasVsInPath, importance, required_depth]` — there,
+`importance` is a tie-break among candidate owners, not a signal being measured, so its
+coarseness does not matter the way it would for allocation.
+
+Cycle 4 should not resurrect `importance` as a driving signal without first changing how
+`competencyRefs` is computed so it is no longer a constant.
