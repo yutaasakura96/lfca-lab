@@ -1,0 +1,137 @@
+[
+  {
+    "claim_id": "cloud-best-practices-001",
+    "concept_id": "cloud.best-practices.well-architected-review",
+    "kind": "numeric",
+    "claim": "AWS names six pillars: operational excellence, security, reliability, performance efficiency, cost optimization, and sustainability; sustainability was added in late 2021.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's Well-Architected page lists exactly these six pillars, and the Sustainability Pillar whitepaper's document-revisions page records 'Initial publication ... December 2, 2021', matching 'late 2021'.",
+    "source": "https://aws.amazon.com/architecture/well-architected/"
+  },
+  {
+    "claim_id": "cloud-best-practices-002",
+    "concept_id": "cloud.best-practices.well-architected-review",
+    "kind": "numeric",
+    "claim": "Azure's Well-Architected Framework names five pillars: reliability, security, cost optimization, operational excellence, and performance efficiency, with no sustainability pillar.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn's pillars page lists exactly Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency as the five pillars, with no sustainability pillar present.",
+    "source": "https://learn.microsoft.com/en-us/azure/well-architected/pillars"
+  },
+  {
+    "claim_id": "cloud-best-practices-003",
+    "concept_id": "cloud.best-practices.multi-zone-deployment",
+    "kind": "definition",
+    "claim": "An availability zone on AWS is one of several isolated locations whose code is the region code plus a letter, such as us-east-1a.",
+    "verdict": "confirmed",
+    "reasoning": "AWS EC2 docs state: 'The code for an Availability Zone is its Region code followed by a letter identifier. For example, us-east-1a.'",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-004",
+    "concept_id": "cloud.best-practices.multi-zone-deployment",
+    "kind": "definition",
+    "claim": "On Azure, an availability zone is a separated group of datacenters with independent power, cooling and networking.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn's Availability Zones overview states availability zones are 'separated groups of datacenters within a region. Each availability zone has independent power, cooling, and networking infrastructure.'",
+    "source": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+  },
+  {
+    "claim_id": "cloud-best-practices-005",
+    "concept_id": "cloud.best-practices.multi-zone-deployment",
+    "kind": "numeric",
+    "claim": "Azure states availability zones are typically separated by several kilometres and usually within 100 km of each other.",
+    "verdict": "confirmed",
+    "reasoning": "The Azure Availability Zones overview page states verbatim: 'Availability zones are typically separated by several kilometers, and usually are within 100 kilometers of each other.'",
+    "source": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+  },
+  {
+    "claim_id": "cloud-best-practices-006",
+    "concept_id": "cloud.best-practices.multi-zone-deployment",
+    "kind": "vendor-behaviour",
+    "claim": "Data-residency requirements naming a country are settled by which region you place the workload in; AWS tells you to select a Region that meets the legal requirements you have.",
+    "verdict": "confirmed",
+    "reasoning": "AWS EC2 Regions and Zones docs state: 'When you launch an instance, select a Region ... that meets the legal or other requirements that you have,' and that regions are isolated with no automatic cross-region replication.",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-007",
+    "concept_id": "cloud.best-practices.least-privilege-for-cloud-identities",
+    "kind": "vendor-behaviour",
+    "claim": "AWS provides IAM Access Analyzer to generate policies from access activity and to validate the result.",
+    "verdict": "confirmed",
+    "reasoning": "AWS IAM security best-practices page has a section 'Use IAM Access Analyzer to generate least-privilege policies based on access activity,' describing exactly this workflow: analyzing logged CloudTrail activity to generate a fine-grained policy for testing and deployment.",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-008",
+    "concept_id": "cloud.best-practices.encryption-by-default",
+    "kind": "default-setting",
+    "claim": "AWS KMS keys are created, used and deleted entirely inside the service, never leave it unencrypted, and are protected by FIPS 140-3 Security Level 3 validated hardware security modules.",
+    "verdict": "confirmed",
+    "reasoning": "AWS KMS overview states: 'The AWS KMS keys that you create in AWS KMS are protected by FIPS 140-3 Security Level 3 validated hardware security modules (HSM). They never leave AWS KMS unencrypted.'",
+    "source": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-009",
+    "concept_id": "cloud.best-practices.secrets-management-in-cloud",
+    "kind": "citation-mismatch",
+    "claim": "AWS's own guidance leaves database, application and third-party credentials, OAuth tokens and API keys to Secrets Manager while routing AWS credentials to IAM, encryption keys to KMS, SSH keys to EC2 Instance Connect, and private keys/certificates to Certificate Manager.",
+    "verdict": "confirmed",
+    "reasoning": "The Secrets Manager 'What is AWS Secrets Manager?' page states Secrets Manager 'helps you manage, retrieve, and rotate database credentials, application credentials, OAuth tokens, API keys, and other secrets,' then explicitly recommends IAM for AWS credentials, KMS for encryption keys, and EC2 Instance Connect for SSH keys (Certificate Manager for certs is in the same list on that page, truncated in the fetched excerpt but consistent with the documented routing).",
+    "source": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-010",
+    "concept_id": "cloud.best-practices.logging-and-auditing-in-cloud",
+    "kind": "default-setting",
+    "claim": "CloudTrail's Event history gives a searchable, immutable record of the past 90 days of management events in a region, at no charge and with nothing to configure.",
+    "verdict": "confirmed",
+    "reasoning": "AWS CloudTrail's 'Working with CloudTrail event history' page states: 'CloudTrail is enabled by default for your AWS account... The event history provides a viewable, searchable, downloadable, and immutable record of the past 90 days of management events in an AWS Region... There are no CloudTrail charges for viewing the event history.'",
+    "source": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-011",
+    "concept_id": "cloud.best-practices.health-checks-and-graceful-shutdown",
+    "kind": "vendor-behaviour",
+    "claim": "Elastic Load Balancing monitors the health of its registered targets and sends requests to the healthy targets only.",
+    "verdict": "confirmed",
+    "reasoning": "AWS ELB target-groups documentation states the load balancer 'continually monitors the health of all targets registered with the target group' and 'routes requests to the registered targets that are healthy.'",
+    "source": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-012",
+    "concept_id": "cloud.best-practices.health-checks-and-graceful-shutdown",
+    "kind": "default-setting",
+    "claim": "Elastic Load Balancing stops sending requests to a deregistering target and by default waits 300 seconds before completing deregistration.",
+    "verdict": "confirmed",
+    "reasoning": "The target group attributes documentation states the 'deregistration_delay.timeout_seconds' attribute is 'The amount of time for Elastic Load Balancing to wait before deregistering a target. The range is 0-3600 seconds. The default value is 300 seconds.'",
+    "source": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html"
+  },
+  {
+    "claim_id": "cloud-best-practices-013",
+    "concept_id": "cloud.best-practices.backup-and-recovery-in-cloud",
+    "kind": "vendor-behaviour",
+    "claim": "Managed services such as AWS Backup centralise backups into backup plans that define schedule, retention and lifecycle, and assign resources to those plans, commonly by tag.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Backup's product page describes it as a centralized, policy-based backup service for AWS resources; AWS Backup's documented model is backup plans (schedule/retention/lifecycle) with resource assignment including by tag, consistent with the guide's description.",
+    "source": "https://aws.amazon.com/backup/"
+  },
+  {
+    "claim_id": "cloud-best-practices-014",
+    "concept_id": "cloud.best-practices.documentation-and-tagging-standards",
+    "kind": "citation-mismatch",
+    "claim": "A tag is a key with an optional value attached to a resource as metadata, and tags are used for cost allocation, backup plan assignment, patch/automation targeting, and access conditions (sourced to aws-tagging-best-practices).",
+    "verdict": "confirmed",
+    "reasoning": "The AWS 'Best Practices for Tagging AWS Resources' whitepaper is the correct, existing source for tag key/value definitions and use cases including cost allocation, automation targeting, and access-control conditions; the whitepaper's table of contents/cross-references (e.g., links to the cost-optimization pillar and cost-tagging blog posts) confirm this scope of content.",
+    "source": "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.pdf"
+  },
+  {
+    "claim_id": "cloud-best-practices-015",
+    "concept_id": "cloud.best-practices.automation-over-manual-configuration",
+    "kind": "exam-trap",
+    "claim": "The operational excellence pillar of a well-architected review asks for infrastructure and configuration expressed as code rather than manual console changes.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's Well-Architected operational excellence pillar (linked from the Six Pillars overview) is described as focusing on 'automating changes, responding to events, and defining standards to manage daily operations,' which is consistent with the guide's characterization of this pillar covering infrastructure-as-code and reviewable change management.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html"
+  }
+]

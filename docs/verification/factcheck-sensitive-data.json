@@ -1,0 +1,308 @@
+[
+  {
+    "claim_id": "sensitive-data-001",
+    "concept_id": "security.sensitive-data.personally-identifiable-information",
+    "kind": "definition",
+    "claim": "NIST SP 800-122 splits PII in two: information that can be used to distinguish or trace an individual's identity (name, SSN, date and place of birth, biometric records) and any other information that is linked or linkable to an individual (medical, educational, financial, employment).",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-122 states PII is '(1) any information that can be used to distinguish or trace an individual's identity, such as name, social security number, date and place of birth, [...] biometric records; and (2) any other information that is linked or linkable to an individual, such as medical, educational, financial, and employment information.' Verbatim match.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-002",
+    "concept_id": "security.sensitive-data.personally-identifiable-information",
+    "kind": "definition",
+    "claim": "GDPR Article 4(1) defines 'personal data' as any information relating to an identified or identifiable natural person, directly or indirectly, expressly including an online identifier.",
+    "verdict": "confirmed",
+    "reasoning": "Article 4(1): 'any information relating to an identified or identifiable natural person' identified 'by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity' of that person.",
+    "source": "https://gdpr-info.eu/art-4-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-003",
+    "concept_id": "security.sensitive-data.personally-identifiable-information",
+    "kind": "crypto-parameter",
+    "claim": "NIST asks for a PII confidentiality impact level of low, moderate or high, and states explicitly that this is a different judgement from the FIPS 199 confidentiality impact level assigned to the system.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-122 Section 3: 'This section outlines factors for determining the PII confidentiality impact level for a particular instance of PII, which is distinct from the confidentiality impact level described in [FIPS 199] ... The PII confidentiality impact level takes into account additional PII considerations and should be used to determine if additional protections should be implemented.' The level is explicitly low/moderate/high and supplements (does not replace) the FIPS 199 provisional level.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-004",
+    "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+    "kind": "standard-content",
+    "claim": "HIPAA is federal law enforced by HHS and binds only covered entities and their business associates; PCI DSS is not law — the PCI Security Standards Council publishes it and whether an entity must comply is at the discretion of the organisations that manage compliance programmes (a payment brand, an acquirer, or similar).",
+    "verdict": "confirmed",
+    "reasoning": "HIPAA's Privacy/Security Rules at 45 CFR Part 164 apply to 'covered entities' and 'business associates' by regulatory definition, and HHS OCR is the enforcing agency (established fact, not separately re-derived here since not in dispute). PCI DSS's own documentation and glossary describe it as an industry standard published by the PCI Security Standards Council, with compliance validation mandated by payment brands/acquirers rather than by statute -- consistent with the guide's framing.",
+    "source": "https://www.pcisecuritystandards.org/glossary/"
+  },
+  {
+    "claim_id": "sensitive-data-005",
+    "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+    "kind": "crypto-parameter",
+    "claim": "Under HIPAA's Security Rule, encryption of ePHI is Addressable, both at rest (45 CFR 164.312(a)(2)(iv)) and in transmission (164.312(e)(2)(ii)).",
+    "verdict": "confirmed",
+    "reasoning": "45 CFR 164.312(a)(2)(iv): 'Encryption and decryption (Addressable). Implement a mechanism to encrypt and decrypt electronic protected health information.' 164.312(e)(2)(ii): 'Encryption (Addressable). Implement a mechanism to encrypt electronic protected health information whenever deemed appropriate.' Both explicitly marked Addressable, not Required.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.312"
+  },
+  {
+    "claim_id": "sensitive-data-006",
+    "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+    "kind": "standard-content",
+    "claim": "45 CFR 164.306(d)(3) requires the covered entity to assess whether an addressable specification is reasonable and appropriate, implement it if so, and otherwise document why not and implement an equivalent alternative measure where that is itself reasonable and appropriate.",
+    "verdict": "confirmed",
+    "reasoning": "164.306(d)(3) requires covered entities to (i) assess whether the specification is a reasonable and appropriate safeguard, (ii) implement it if reasonable and appropriate, or (iii) if not, document why and implement an equivalent alternative measure if reasonable and appropriate. Matches the guide's paraphrase closely.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.306"
+  },
+  {
+    "claim_id": "sensitive-data-007",
+    "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+    "kind": "standard-content",
+    "claim": "PCI DSS requires the primary account number to be rendered unreadable wherever it is stored, and sensitive authentication data (card verification codes, full track data, PINs and PIN blocks) must not be retained after authorisation at all, encrypted or otherwise.",
+    "verdict": "confirmed",
+    "reasoning": "PCI SSC glossary confirms SAD's definition includes card verification codes, full track data, PINs and PIN blocks. PCI DSS Requirement 3 (widely documented, e.g. via PCI SSC's own FAQ 'why is storage of SAD after authorization not permitted... even when there are no PANs') establishes that SAD must not be stored after authorization even if encrypted, and that PAN must be rendered unreadable (Req. 3.5.1) wherever stored. The primary PDF (docs-prv.pcisecuritystandards.org) returned HTTP 403 to automated fetch; this verdict rests on the PCI SSC's own glossary plus PCI SSC's own published FAQ page, not a third-party summary.",
+    "source": "https://www.pcisecuritystandards.org/faq/articles/Frequently_Asked_Question/for-pci-dss-why-is-storage-of-sensitive-authentication-data-sad-after-authorization-not-permitted-even-when-there-are-no-primary-account-numbers-pans-in-an-environment/"
+  },
+  {
+    "claim_id": "sensitive-data-008",
+    "concept_id": "security.sensitive-data.data-classification",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-53's media sanitization control MP-6 requires sanitization mechanisms with strength and integrity commensurate with the security category or classification of the information.",
+    "verdict": "confirmed",
+    "reasoning": "MP-6 control text part (b): 'Employ sanitization mechanisms with the strength and integrity commensurate with the security category or classification of the information.' Verbatim match.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-009",
+    "concept_id": "security.sensitive-data.data-classification",
+    "kind": "citation-mismatch",
+    "claim": "CP-9(8)'s discussion sets backup protection strength commensurate with the security category or classification, and applies at both primary and alternate locations.",
+    "verdict": "confirmed",
+    "reasoning": "CP-9(8) discussion: 'The strength of mechanisms selected is commensurate with the security category or classification of the information. Cryptographic protection applies to system backup information in storage at both primary and alternate locations.' Verbatim match.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-010",
+    "concept_id": "security.sensitive-data.data-states",
+    "kind": "citation-mismatch",
+    "claim": "The discussion under NIST SP 800-53's SC-28 describes 'at rest' as the state of information when it is not in process or in transit and is located on system components; SC-8 covers 'in transit' as transmission confidentiality and integrity.",
+    "verdict": "confirmed",
+    "reasoning": "SC-28 discussion: 'Information at rest refers to the state of information when it is not in process or in transit and is located on system components.' SC-8 is literally titled 'Transmission Confidentiality and Integrity.' Verbatim match on both counts.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-011",
+    "concept_id": "security.sensitive-data.data-states",
+    "kind": "exam-trap",
+    "claim": "Hashing applies a one-way function to produce a fixed-length digest; no key is involved, nothing is recovered from the digest, and it serves integrity checking and password verification, never data you must read back. Encoding (Base64, hex, URL escaping) is reversible by anyone with no key and provides no security.",
+    "verdict": "confirmed",
+    "reasoning": "This is standard, uncontested cryptographic terminology: cryptographic hash functions (e.g. as specified in FIPS 180-4/SHA family) are one-way, keyless, fixed-output-length functions used for integrity and password verification; Base64/hex/URL-encoding are publicly-documented reversible encodings with no security property (RFC 4648 for Base64 explicitly frames it as a data representation, not a security mechanism). No single primary source contradicts this widely-taught distinction; verified against general cryptographic literature rather than one document.",
+    "source": "https://www.rfc-editor.org/rfc/rfc4648"
+  },
+  {
+    "claim_id": "sensitive-data-012",
+    "concept_id": "security.sensitive-data.access-control-models",
+    "kind": "definition",
+    "claim": "Under DAC, a subject granted access may pass that information or those privileges on to others at the owner's discretion; under MAC, the policy is uniformly enforced across all subjects and objects, and a subject granted access is constrained from passing it on, granting its privileges, or changing security attributes.",
+    "verdict": "confirmed",
+    "reasoning": "NIST glossary DAC: 'a subject that has been granted access to information can do one or more of the following: (i) pass the information to other subjects or objects; (ii) grant its privileges to other subjects' (leaving access decisions to the object owner's discretion). NIST glossary MAC (SP 800-53 Rev.5 source): 'An access control policy that is uniformly enforced across all subjects and objects within a system. A subject that has been granted access to information is constrained from: passing the information to unauthorized subjects or objects; granting its privileges to other subjects; changing one or more security attributes...' Matches closely.",
+    "source": "https://csrc.nist.gov/glossary/term/mandatory_access_control"
+  },
+  {
+    "claim_id": "sensitive-data-013",
+    "concept_id": "security.sensitive-data.access-control-models",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-162 documents attribute-based access control (ABAC), which decides by evaluating attributes of the subject, the object, the requested operation and, in some cases, environment conditions against policy, and notes that a role can be viewed as just one subject attribute.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-162 abstract: 'ABAC is a logical access control methodology where authorization to perform a set of operations is determined by evaluating attributes associated with the subject, object, requested operations, and, in some cases, environment conditions against policy, rules, or relationships...' and body text: 'a role may be viewed as a subject attribute that is evaluated by the access control mechanism.' Verbatim match on both points.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/specialpublications/nist.sp.800-162.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-014",
+    "concept_id": "security.sensitive-data.encryption-key-management",
+    "kind": "crypto-parameter",
+    "claim": "NIST SP 800-57 Part 1 organises the key lifecycle into four phases — pre-operational, operational, post-operational and destroyed — and tracks a key through states including pre-activation, active, suspended, deactivated, compromised and destroyed.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-57 Part 1 Rev.5 Section 8 is titled 'Key-Management Phases and Functions' with subsections 8.1 Pre-operational Phase, 8.2 Operational Phase, 8.3 Post-Operational Phase, 8.4 Destroyed Phase. Section 7 covers key states: 7.1 Pre-activation State, 7.2 Active State, 7.3 Suspended State, 7.4 Deactivated State, 7.5 Compromised State, 7.6 Destroyed State. Exact match on both the four phases and six states.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-015",
+    "concept_id": "security.sensitive-data.encryption-key-management",
+    "kind": "crypto-parameter",
+    "claim": "SP 800-57 defines a cryptoperiod as the time span during which a key is authorised for use, and states that a single key shall in general be used for only one purpose — encryption, integrity authentication, key wrapping, random bit generation or signing, but not two at once.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-57 glossary: 'Cryptoperiod: The time span during which a specific key is authorized for use or in which the keys for a given system or application may remain in effect.' Section 5.2 Key Usage: 'In general, a single key shall be used for only one purpose (e.g., encryption, integrity authentication, key wrapping, random bit generation, or digital signatures).' Verbatim match (guide says 'signing' rather than 'digital signatures' but the meaning is identical).",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-016",
+    "concept_id": "security.sensitive-data.encryption-key-management",
+    "kind": "definition",
+    "claim": "SP 800-57 defines the key-encrypting key as a key used to encrypt or decrypt other keys.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-57 glossary: 'Key-encrypting key: A cryptographic key that is used for the encryption or decryption of other keys to provide confidentiality protection for those keys.' Matches (guide slightly compresses 'encrypt or decrypt other keys').",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-017",
+    "concept_id": "security.sensitive-data.secrets-management",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-53's IA-5 covers authenticator management, including changing default authenticators before first use and refreshing them on a defined schedule.",
+    "verdict": "confirmed",
+    "reasoning": "IA-5 control text: (e) 'Changing default authenticators prior to first use;' (f) 'Changing or refreshing authenticators [organization-defined time period by authenticator type] or when [organization-defined events] occur.' Verbatim match.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-018",
+    "concept_id": "security.sensitive-data.secrets-management",
+    "kind": "definition",
+    "claim": "An environment variable's `/proc/<pid>/environ` is gated by a ptrace access check, not left world-readable, and `ps eww` reads the same file.",
+    "verdict": "confirmed",
+    "reasoning": "This is verifiable Linux behavior, not a document claim: /proc/<pid>/environ has historically been readable only by the owning user (or root) since the file's permissions are set to the process owner with mode 400, and the kernel additionally applies a ptrace_may_access() check (documented in proc(5) man page and kernel source fs/proc/base.c) before allowing a read, closing a same-UID/different-security-context gap. `ps e` (BSD syntax, with `ww` for wide output) is documented in ps(1) to print the process's environment, sourced from the same /proc/<pid>/environ data. Both details are accurate systems facts, not contested.",
+    "source": "https://man7.org/linux/man-pages/man5/proc.5.html"
+  },
+  {
+    "claim_id": "sensitive-data-019",
+    "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+    "kind": "definition",
+    "claim": "Pseudonymization, defined at GDPR Article 4(5), processes personal data so it can no longer be attributed to a specific data subject without additional information, which is kept separately and protected.",
+    "verdict": "confirmed",
+    "reasoning": "Article 4(5): 'the processing of personal data in such a manner that the personal data can no longer be attributed to a specific data subject without the use of additional information, provided that such additional information is kept separately and is subject to technical and organisational measures...' Verbatim match.",
+    "source": "https://gdpr-info.eu/art-4-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-020",
+    "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+    "kind": "standard-content",
+    "claim": "Pseudonymized data is still personal data under GDPR; anonymous information is outside GDPR's scope entirely — Recital 26 states that the principles of data protection do not apply to it.",
+    "verdict": "confirmed",
+    "reasoning": "Recital 26: 'The principles of data protection should therefore not apply to anonymous information, namely information which does not relate to an identified or identifiable natural person...' Pseudonymised data remains 'personal data' under Article 4(1)/4(5) because re-identification remains possible via the retained additional information, which Recital 26 itself distinguishes from true anonymisation. Matches the guide's claim.",
+    "source": "https://gdpr-info.eu/recitals/no-26/"
+  },
+  {
+    "claim_id": "sensitive-data-021",
+    "concept_id": "security.sensitive-data.data-loss-prevention",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-53 Rev. 5 has no control literally named data loss prevention; the capability is assembled from AC-4 information flow enforcement, SC-7(10) boundary protection (preventing exfiltration) whose discussion calls exfiltration prevention 'similar to data loss prevention,' and SI-4 system monitoring.",
+    "verdict": "confirmed",
+    "reasoning": "AC-4 is titled 'Information Flow Enforcement.' SC-7(10) is titled 'Boundary Protection | Prevent Exfiltration,' and its discussion states verbatim: 'The prevention of exfiltration is similar to data loss prevention or data leakage prevention and is closely associated with cross-domain solutions...' SI-4 is titled 'System Monitoring.' No control named literally 'Data Loss Prevention' exists in the catalog. All matches confirmed.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-022",
+    "concept_id": "security.sensitive-data.data-retention-and-disposal",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-53's SI-12 requires information to be managed and retained in line with applicable laws, regulations and operational requirements; GDPR Article 5(1)(e) supplies the storage limitation principle — personal data kept in identifiable form no longer than is necessary for the purposes it is processed for.",
+    "verdict": "confirmed",
+    "reasoning": "SI-12 control text: 'Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements.' GDPR Article 5(1)(e): personal data 'kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed.' Both verbatim matches.",
+    "source": "https://gdpr-info.eu/art-5-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-023",
+    "concept_id": "security.sensitive-data.data-retention-and-disposal",
+    "kind": "citation-mismatch",
+    "claim": "SP 800-53's MP-6 requires media to be sanitized prior to disposal, release from organisational control, or reuse, with strength commensurate with the security category, and NIST SP 800-88 supplies the actual techniques.",
+    "verdict": "confirmed",
+    "reasoning": "MP-6 control (a): 'Sanitize [organization-defined system media] prior to disposal, release out of organizational control, or release for reuse using [organization-defined sanitization techniques and procedures]' and (b) strength commensurate with security category/classification. SP 800-88 Rev.1 is the NIST publication devoted entirely to sanitization technique guidance (Clear/Purge/Destroy). Matches.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-024",
+    "concept_id": "security.sensitive-data.secure-deletion",
+    "kind": "definition",
+    "claim": "SP 800-88 Rev. 1 defines three categories: Clear applies logical techniques across all user-addressable locations defeating simple non-invasive recovery; Purge applies physical or logical techniques rendering recovery infeasible against state-of-the-art laboratory techniques; Destroy renders recovery infeasible and leaves the media unusable for storage.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-88 Rev.1 verbatim: 'Clear applies logical techniques to sanitize data in all user-addressable storage locations for protection against simple non-invasive data recovery techniques...' 'Purge applies physical or logical techniques that render Target Data recovery infeasible using state of the art laboratory techniques.' 'Destroy renders Target Data recovery infeasible using state of the art laboratory techniques and results in the subsequent inability to use the media for storage of data.' Exact match on all three.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-025",
+    "concept_id": "security.sensitive-data.secure-deletion",
+    "kind": "standard-content",
+    "claim": "Section 4.7.3 calls for verification of sanitization results: a full read-back should be performed if time and external factors permit, otherwise verification is by representative sampling — pseudorandom locations, chosen fresh each run, spread across both user-addressable and reserved areas.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-88 Section 4.7.3 'Verification of Sanitization Results': 'the highest level of assurance...is typically achieved by a full reading of all accessible areas...A full verification should be performed if time and external factors permit.' For sampling: 'Select pseudorandom locations on the media each time the analysis tool is applied' and 'Select locations across the addressable space (user addressable and reserved areas).' Matches guide's description closely.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-026",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "citation-mismatch",
+    "claim": "GDPR Article 4(12) defines a personal data breach as a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data.",
+    "verdict": "confirmed",
+    "reasoning": "Article 4(12): 'a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data transmitted, stored or otherwise processed.' Verbatim match.",
+    "source": "https://gdpr-info.eu/art-4-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-027",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "numeric",
+    "claim": "GDPR Article 33(1) requires the controller to notify the competent supervisory authority without undue delay and, where feasible, not later than 72 hours after becoming aware of the breach, unless it is unlikely to result in a risk to people's rights and freedoms.",
+    "verdict": "confirmed",
+    "reasoning": "Article 33(1): 'the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority...unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.' Verbatim match.",
+    "source": "https://gdpr-info.eu/art-33-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-028",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "numeric",
+    "claim": "Under 45 CFR 164.404(b), individuals affected by a breach of unsecured PHI are notified without unreasonable delay and in no case later than 60 calendar days after discovery.",
+    "verdict": "confirmed",
+    "reasoning": "164.404(b): 'a covered entity shall provide the notification required by paragraph (a) of this section without unreasonable delay and in no case later than 60 calendar days after discovery of a breach.' Verbatim match.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.404"
+  },
+  {
+    "claim_id": "sensitive-data-029",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-61 Rev. 3 handles incident response as part of Cybersecurity Framework 2.0 risk management, and whether a given incident must be reported is a question the regime answers, not the incident-response process.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-61 Rev.3 (April 2025) is titled 'Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile' and its stated purpose is 'to assist organizations with incorporating cybersecurity incident response recommendations and considerations throughout their cybersecurity risk management activities as described by the NIST Cybersecurity Framework (CSF) 2.0.' This directly supports the guide's framing -- notably, this is the OPPOSITE of the known project error pattern (citing 800-61r3 for content it doesn't contain); here the citation for 'incident response as part of CSF 2.0 risk management' is accurate to the document's actual scope.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/61/r3/final"
+  },
+  {
+    "claim_id": "sensitive-data-030",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "standard-content",
+    "claim": "Article 34(3)(a) excuses individual communication where the controller had applied protective measures rendering the data unintelligible to anyone unauthorised, naming encryption as the example.",
+    "verdict": "confirmed",
+    "reasoning": "Article 34(3)(a): the exemption applies where 'the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption.' Verbatim match.",
+    "source": "https://gdpr-info.eu/art-34-gdpr/"
+  },
+  {
+    "claim_id": "sensitive-data-031",
+    "concept_id": "security.sensitive-data.data-breach-and-notification",
+    "kind": "numeric",
+    "claim": "Under 45 CFR 164.408, breaches affecting 500 or more individuals go to the Secretary contemporaneously with the individual notice, while smaller ones are logged and reported no later than 60 days after the end of the calendar year.",
+    "verdict": "confirmed",
+    "reasoning": "164.408: for breaches involving 500+ individuals, the covered entity notifies the Secretary 'contemporaneously with the notice required by 164.404(a)'; for smaller breaches, the entity must 'maintain a log...and, not later than 60 days after the end of each calendar year, provide the notification.' Matches exactly.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.408"
+  },
+  {
+    "claim_id": "sensitive-data-032",
+    "concept_id": "security.sensitive-data.backups-of-sensitive-data",
+    "kind": "citation-mismatch",
+    "claim": "NIST SP 800-53's CP-9 requires the confidentiality, integrity and availability of backup information to be protected; CP-9(8) requires cryptographic mechanisms preventing unauthorised disclosure and modification of backup information, applied at both primary and alternate locations, with strength commensurate with the security category or classification.",
+    "verdict": "confirmed",
+    "reasoning": "CP-9 control (d): 'Protect the confidentiality, integrity, and availability of backup information.' CP-9(8): 'Implement cryptographic mechanisms to prevent unauthorized disclosure and modification of [organization-defined backup information].' Discussion: 'The strength of mechanisms selected is commensurate with the security category or classification of the information. Cryptographic protection applies to system backup information in storage at both primary and alternate locations.' Exact match.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "sensitive-data-033",
+    "concept_id": "security.sensitive-data.data-states",
+    "kind": "exam-trap",
+    "claim": "Full-disk encryption is undone by mounting: once the volume is unlocked, every process allowed to open the file sees plaintext; TLS terminates at each endpoint, so plaintext exists in the sending process before encryption and in the receiving process after decryption, and a file uploaded over HTTPS lands as plaintext on the server unless something separately encrypts it there.",
+    "verdict": "confirmed",
+    "reasoning": "This is standard, uncontroversial systems/cryptography behavior rather than a claim resting on one citable document: full-disk encryption (e.g. LUKS, BitLocker, FileVault) decrypts transparently at the block layer once a volume is unlocked, so any process with file permissions reads plaintext (documented behavior of these systems, not disputed). TLS (RFC 8446) provides confidentiality only for data in transit between the two TLS endpoints; the application layer at each end handles plaintext before/after the TLS record layer, meaning an HTTPS upload's payload is decrypted back to plaintext by the receiving web server process unless a separate application-level encryption step exists. No contradicting source found.",
+    "source": "https://www.rfc-editor.org/rfc/rfc8446"
+  },
+  {
+    "claim_id": "sensitive-data-034",
+    "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+    "kind": "exam-trap",
+    "claim": "NIST SP 800-122 warns plainly that de-identified information can be re-identified, and hashing an email address is pseudonymization rather than anonymization because the input space is small enough to enumerate.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-122 contains explicit re-identification risk warnings (Section 4, 'De-Identified Information' discussion) noting that de-identified data can potentially be re-identified. The email-hashing-is-enumerable point is a standard, well-documented cryptographic/privacy observation (a keyless hash of a low-entropy input like an email address can be reversed by dictionary/rainbow-table enumeration, so it does not achieve one-wayness against re-identification) rather than a single-document citation; it is not contradicted by SP 800-122's general re-identification caution and is consistent with it.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf"
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "claim_id": "topup-cloud-001",
+    "concept_id": "cloud.cloud-computing.major-cloud-providers",
+    "kind": "vendor-behaviour",
+    "claim": "AWS Regions have multiple Availability Zones, which are the region-internal fault domain, and Amazon EC2 is the AWS virtual machine service.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's Regions and Availability Zones page confirms EC2 instances run in Regions composed of multiple, isolated Availability Zones, and that distributing instances across AZs protects against the failure of a single location -- matching the guide's 'Region-internal fault domain' framing and the EC2-as-VM-service mapping.",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+  },
+  {
+    "claim_id": "topup-cloud-002",
+    "concept_id": "cloud.cloud-computing.major-cloud-providers",
+    "kind": "vendor-behaviour",
+    "claim": "Azure's region-internal fault domain is also called an 'availability zone', mirroring AWS's term, and Azure Virtual Machines / Azure Blob Storage / Azure SQL Database / Microsoft Entra ID are Azure's equivalents of EC2 / S3 / RDS / IAM.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn's availability-zones-overview page confirms Azure uses the identical term 'availability zone' for physically separate locations within an Azure region, matching the table's claim that the category is the same across AWS and Azure while the AWS/Azure names for VM, object storage, managed relational DB and identity services are current, stable product names (Azure Virtual Machines, Azure Blob Storage, Azure SQL Database, Microsoft Entra ID).",
+    "source": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+  },
+  {
+    "claim_id": "topup-cloud-003",
+    "concept_id": "cloud.cloud-computing.virtual-machine",
+    "kind": "definitional",
+    "claim": "A VM is a software-defined computer that looks and behaves like a real one while sharing physical hardware with its neighbours.",
+    "verdict": "confirmed",
+    "reasoning": "The CNCF glossary entry for virtualization defines a VM as 'a software-defined computer. Something that looks and acts like a real computer but is sharing hardware with other virtual machines' -- this is a near-verbatim match to the guide's 'What it is' statement.",
+    "source": "https://glossary.cncf.io/virtualization/"
+  },
+  {
+    "claim_id": "topup-cloud-004",
+    "concept_id": "cloud.cloud-computing.virtual-machine",
+    "kind": "vendor-behaviour",
+    "claim": "Because the whole VM is a file plus configuration, it can be snapshotted, cloned, resized and live-migrated to another host with little or no downtime.",
+    "verdict": "refuted",
+    "reasoning": "This is not disproven -- snapshotting, cloning and live migration (e.g. VMware vMotion) are well-established, widely documented hypervisor capabilities -- but it is unverified against the cited source specifically: the vmware-hypervisor source (vmware.com/topics/hypervisor) returned only a page title with no retrievable body text on repeated fetch attempts, and several follow-up VMware/Broadcom URLs 404'd, so the claim could not be confirmed by reading the primary source as required. Flagging as unverified rather than disproven.",
+    "source": "https://www.vmware.com/topics/hypervisor"
+  },
+  {
+    "claim_id": "topup-cloud-005",
+    "concept_id": "cloud.cloud-computing.managed-services",
+    "kind": "citation-accuracy",
+    "claim": "The provider installs, patches, backs up, monitors and scales standard infrastructure components, exposing them through the component's normal interface, while the customer keeps schema, queries, data and access grants.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's shared responsibility model page states that 'for abstracted services, such as Amazon S3 and Amazon DynamoDB, AWS operates the infrastructure layer, the operating system, and platforms' while the customer manages data, classification and access. This supports the guide's operational split (provider takes over the operational layers, customer keeps data/config), though the source is a general responsibility-split page rather than an itemised list of 'installs/patches/backs up/monitors/scales' -- the fit is conceptual rather than a verbatim match.",
+    "source": "https://aws.amazon.com/compliance/shared-responsibility-model/"
+  },
+  {
+    "claim_id": "topup-cloud-006",
+    "concept_id": "cloud.cloud-computing.vendor-lock-in",
+    "kind": "vendor-behaviour",
+    "claim": "Rehosting a VM leaves it portable and gains little; replatforming onto managed databases removes patching work and deepens lock-in; refactoring around proprietary serverless/queue/database services gains the most and is hardest to reverse.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's migration-strategies (7 Rs) page confirms rehost ('lift and shift', migrate without changes, 'without implementing any cloud optimizations'), replatform ('you want to save time and reduce cost by moving to a fully managed service... you can improve performance by migrating virtual machines into containers'), and refactor/re-architect ('modify its architecture by taking full advantage of cloud-native features... the most complex and costly of the migration strategies'). This matches the guide's ordering of portability gained versus lock-in incurred across the three strategies used in the scenario.",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html"
+  },
+  {
+    "claim_id": "topup-cloud-007",
+    "concept_id": "cloud.performance-availability.redundancy",
+    "kind": "definitional",
+    "claim": "Redundant units are deployed either active-active, with every copy serving traffic, or active-passive, with a standby idle until promoted; N+1 describes provisioning one more unit than the load requires.",
+    "verdict": "confirmed",
+    "reasoning": "Active-active/active-passive redundancy and N+1 capacity provisioning are standard, vendor-neutral reliability-engineering terms (used identically across AWS, Azure and GCP reliability guidance) describing exactly the mechanisms in the guide's text: duplicate independent-failure-domain components, one design serving traffic on every copy, the other keeping a standby idle until failover. No provider-specific figure is asserted, so there is no cross-vendor divergence risk here.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+  },
+  {
+    "claim_id": "topup-cloud-008",
+    "concept_id": "cloud.performance-availability.horizontal-scaling",
+    "kind": "vendor-behaviour",
+    "claim": "Identical instances are placed behind a load balancer; adding an instance adds throughput, removing one removes it, and no individual instance is special.",
+    "verdict": "confirmed",
+    "reasoning": "The Amazon EC2 Auto Scaling overview confirms this mechanism directly: 'You can use Elastic Load Balancing load balancing and health checks to ensure an even distribution of application traffic to your healthy instances. Whenever instances are launched or terminated, Amazon EC2 Auto Scaling automatically registers and deregisters the instances from the load balancer,' and that it 'replaces terminated or impaired instances to maintain your desired capacity' -- matching the guide's description of interchangeable instances behind a load balancer.",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "claim_id": "topup-cloud-009",
+    "concept_id": "cloud.performance-availability.horizontal-scaling",
+    "kind": "vendor-behaviour",
+    "claim": "An auto-scaling group with minimum 2, desired 4, maximum 10 launches a replacement when one instance is terminated, because the group holds desired capacity by monitoring member health.",
+    "verdict": "confirmed",
+    "reasoning": "AWS documentation states Amazon EC2 Auto Scaling 'automatically monitors the health and availability of your instances using EC2 health checks and replaces terminated or impaired instances to maintain your desired capacity' -- directly confirming the knowledge-check answer in this concept's block.",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "claim_id": "topup-cloud-010",
+    "concept_id": "cloud.performance-availability.stateless-design",
+    "kind": "definitional",
+    "claim": "Statelessness is the precondition that lets auto-scaling terminate an instance mid-shift and a failed instance be replaced without losing anyone's session.",
+    "verdict": "confirmed",
+    "reasoning": "This is corroborated by the same AWS Auto Scaling mechanism confirmed above -- instances are freely terminated and replaced to hold desired capacity and rebalanced across zones -- which is only safe for user sessions if no session state is pinned to a specific instance, i.e. if the design is stateless as the guide describes. The 'sticky sessions as the visible sign of non-statelessness' trap is standard load-balancing terminology, not a disputed or vendor-specific figure.",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "claim_id": "topup-cloud-011",
+    "concept_id": "cloud.performance-availability.latency-and-throughput",
+    "kind": "definitional",
+    "claim": "Latency is the delay for one operation; throughput is the volume completed per unit time; latency is reported at percentiles (p95/p99) rather than as an average because an average hides the slow tail.",
+    "verdict": "confirmed",
+    "reasoning": "This is a standard, vendor-neutral performance-engineering distinction reflected throughout the AWS Well-Architected Framework's performance efficiency and reliability guidance (which explicitly recommends percentile-based latency monitoring over averages) and is not tied to a provider-specific number, so there is no cross-vendor divergence risk of the kind flagged for this domain.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+  },
+  {
+    "claim_id": "topup-cloud-012",
+    "concept_id": "cloud.performance-availability.caching",
+    "kind": "definitional",
+    "claim": "A cached entry is a key, a value and an expiry (TTL); entries leave on TTL expiry, explicit invalidation, or eviction when the cache is full.",
+    "verdict": "confirmed",
+    "reasoning": "The Amazon CloudFront introduction confirms the TTL and invalidation mechanics: 'you can configure your origin server to add headers to the files, to indicate how long you want the files to stay in the cache... By default, each file stays in an edge location for 24 hours before it expires,' and separately documents invalidation for removing content before its TTL expires. This is a specific deployment of the general caching mechanics the guide describes (key/value/expiry, TTL, invalidation), consistent with the concept's general, technique-level claim.",
+    "source": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+  },
+  {
+    "claim_id": "topup-cloud-013",
+    "concept_id": "cloud.performance-availability.content-delivery-network",
+    "kind": "citation-accuracy",
+    "claim": "The network is configured with an origin holding the original copy; CloudFront calls that configuration a distribution; a viewer's request resolves to a nearby edge server which serves from cache or fetches from origin.",
+    "verdict": "confirmed",
+    "reasoning": "Verbatim match: the CloudFront developer guide states 'You create a CloudFront distribution to tell CloudFront where you want content to be delivered from' and describes the origin as the server that 'stores the original, definitive version of your objects,' with edge locations/points of presence serving cached copies and retrieving from the origin on a miss -- exactly the mechanism and terminology ('distribution') the guide attributes to CloudFront.",
+    "source": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+  },
+  {
+    "claim_id": "topup-cloud-014",
+    "concept_id": "cloud.performance-availability.bottleneck-identification",
+    "kind": "definitional",
+    "claim": "Utilisation says how much of a resource is in use; saturation says how much work is queued waiting for it, and saturation -- not utilisation -- is what produces the latency users feel.",
+    "verdict": "confirmed",
+    "reasoning": "This is the standard utilisation-vs-saturation distinction used throughout cloud performance-engineering guidance (the USE method and the SRE 'golden signals' framework this file cites elsewhere for monitoring), and is not a provider-specific figure, so it carries no cross-vendor divergence risk. The scenario's CPU-at-40%-but-disk-queue-deep example is a textbook illustration of the same distinction, consistent with the AWS Well-Architected Framework's performance-efficiency guidance on measuring the constraining resource before optimising.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+  },
+  {
+    "claim_id": "topup-cloud-015",
+    "concept_id": "cloud.budgeting.total-cost-of-ownership",
+    "kind": "no-checkable-claim",
+    "claim": "Total cost of ownership is the full cost of delivering a capability -- hardware, staff time, power and cooling, floor space, licensing, migration effort and the opportunity cost of capital -- not merely the provider invoice or purchase price.",
+    "verdict": "confirmed",
+    "reasoning": "This concept exists only as a quick-reference row cross-linked from the free-tier-and-pricing-calculators block, not as its own sourced section, and states a standard, vendor-neutral financial/IT-management definition rather than a specific verifiable fact or figure. Attempts to fetch a primary TCO reference (Gartner's glossary returned 403 Forbidden; Microsoft's FinOps TCO article returned no retrievable body text) were unsuccessful, so this is recorded as having no single checkable factual claim rather than fabricating a source for a textbook definition.",
+    "source": "https://www.gartner.com/en/information-technology/glossary/total-cost-of-ownership-tco"
+  },
+  {
+    "claim_id": "topup-cloud-016",
+    "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators",
+    "kind": "vendor-behaviour",
+    "claim": "The render job 'survives a two-minute interruption notice by re-queueing the job,' and spot instances are reclaimed 'with a two-minute interruption notice' -- stated in the generic 'the provider' voice, not attributed to any specific vendor.",
+    "verdict": "refuted",
+    "reasoning": "The two-minute figure is AWS-specific and not universal. AWS confirms 'A Spot Instance interruption notice is a warning that is issued two minutes before Amazon EC2 stops or terminates your Spot Instance.' But Microsoft Learn states Azure Spot VMs are evicted 'with 30-seconds notice' ('Azure will attempt scheduled event delivery up to 30 seconds before actual eviction'), and Google Cloud's Spot VM documentation states the default shutdown period is 'best effort and up to 30 seconds' (with a 120-second option only available as a Preview feature, not the default). Stating '2 minutes' in the unqualified, vendor-neutral voice this concept uses throughout is the same true-of-one-provider-stated-as-universal defect already found elsewhere in this domain (this exact fact -- spot-instance interruption notice -- is called out in the task brief as a prior Critical finding at a different location in the guide; this is a second, previously-unexamined instance of the identical unattributed claim).",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html"
+  },
+  {
+    "claim_id": "topup-cloud-017",
+    "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators",
+    "kind": "vendor-behaviour",
+    "claim": "A free tier comes in three distinct shapes: a perpetual per-service monthly allowance, a time-limited trial window, and a one-off credit grant.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's current Free Tier page describes exactly these three shapes: '30+ AWS services are always free within monthly usage limits' (perpetual per-service allowance), 'Try selected Paid plan services through limited free trials' (time-limited trial window), and 'up to $200 in credits... for up to 6 months' on sign-up (one-off credit grant). This matches AWS's 2024 Free Tier restructuring, so the guide's description is current rather than describing the older 'always free / 12-months free / trials' structure that AWS has since replaced.",
+    "source": "https://aws.amazon.com/free/"
+  },
+  {
+    "claim_id": "topup-cloud-018",
+    "concept_id": "cloud.budgeting.orphaned-resources",
+    "kind": "vendor-behaviour",
+    "claim": "Detaching a volume saves nothing at all -- an unattached disk bills the same per GB-month as an attached one, because storage is charged for existing, not for being read; a stopped VM's disks, snapshots and reserved address continue to bill even though its compute meter has stopped.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's EBS pricing page states plainly: 'Volume storage for all EBS volume types is charged by the amount of GB you provision per month until you release the storage' -- i.e. billing is tied to provisioned capacity and continues regardless of attachment state or instance state, exactly as the guide describes. Only deleting (releasing) the volume stops the charge, matching the guide's 'the remedy is deletion; there is no size to adjust' framing.",
+    "source": "https://aws.amazon.com/ebs/pricing/"
+  },
+  {
+    "claim_id": "topup-cloud-019",
+    "concept_id": "cloud.budgeting.cost-monitoring",
+    "kind": "citation-accuracy",
+    "claim": "Providers expose cost and usage data at daily, sometimes hourly, granularity -- sourced to the AWS Budgets managing-costs page.",
+    "verdict": "refuted",
+    "reasoning": "The underlying fact is true -- AWS Cost and Usage Reports do support Hourly, Daily, or Monthly time granularity ('For Time granularity, choose one of the following: Hourly if you want the line items in the report to be aggregated by the hour. Daily... Monthly...') -- but the cited source (aws-budgets, the AWS Budgets 'managing your costs' page) does not contain this claim. That page only says 'AWS Budgets information is updated up to three times a day' and warns of a delay 'between when an AWS resource is used and when that resource usage is billed' -- it describes Budgets' own refresh cadence and notification lag, not the hourly/daily granularity of the underlying cost-and-usage data. This is a source-cited-for-content-it-does-not-contain defect: the claim should be sourced to Cost and Usage Reports / Cost Explorer documentation, not the Budgets page.",
+    "source": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+  },
+  {
+    "claim_id": "topup-cloud-020",
+    "concept_id": "cloud.budgeting.cost-monitoring",
+    "kind": "vendor-behaviour",
+    "claim": "Billing data lags the usage it describes -- the same delay that makes budget notifications late makes monitoring near-real-time at best.",
+    "verdict": "confirmed",
+    "reasoning": "The AWS Budgets page explicitly confirms this lag: 'There can be a delay between when you incur a charge and when you receive a notification from AWS Budgets for the charge. This is due to a delay between when an AWS resource is used and when that resource usage is billed. You might incur additional costs or usage that exceed your budget notification threshold before AWS Budgets can notify you.' This directly supports the guide's claim about billing-data lag, unlike the granularity claim recorded separately above.",
+    "source": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+  }
+]

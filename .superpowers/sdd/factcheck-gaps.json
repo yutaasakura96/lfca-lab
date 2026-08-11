@@ -1,0 +1,44 @@
+{
+  "cloud-computing": [
+    "cloud.cloud-computing.major-cloud-providers",
+    "cloud.cloud-computing.virtual-machine",
+    "cloud.cloud-computing.managed-services",
+    "cloud.cloud-computing.vendor-lock-in"
+  ],
+  "performance-availability": [
+    "cloud.performance-availability.redundancy",
+    "cloud.performance-availability.horizontal-scaling",
+    "cloud.performance-availability.stateless-design",
+    "cloud.performance-availability.latency-and-throughput",
+    "cloud.performance-availability.caching",
+    "cloud.performance-availability.content-delivery-network",
+    "cloud.performance-availability.bottleneck-identification"
+  ],
+  "budgeting": [
+    "cloud.budgeting.total-cost-of-ownership",
+    "cloud.budgeting.free-tier-and-pricing-calculators",
+    "cloud.budgeting.orphaned-resources",
+    "cloud.budgeting.cost-monitoring"
+  ],
+  "cloud-best-practices": [
+    "cloud.best-practices.design-for-failure",
+    "cloud.best-practices.immutable-infrastructure",
+    "cloud.best-practices.identity-and-access-management",
+    "cloud.best-practices.avoid-hardcoded-credentials",
+    "cloud.best-practices.right-size-before-you-scale"
+  ],
+  "compliance": [
+    "security.compliance.controls-and-evidence",
+    "security.compliance.audit"
+  ],
+  "oss-licensing": [
+    "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
+    "pm.open-source-software-and-licensing.proprietary-software",
+    "pm.open-source-software-and-licensing.license-compliance",
+    "pm.open-source-software-and-licensing.dual-licensing",
+    "pm.open-source-software-and-licensing.contributor-license-agreement",
+    "pm.open-source-software-and-licensing.software-bill-of-materials",
+    "pm.open-source-software-and-licensing.open-source-community-roles",
+    "pm.open-source-software-and-licensing.governance-and-foundations"
+  ]
+}

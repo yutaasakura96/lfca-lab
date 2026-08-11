@@ -1,0 +1,236 @@
+[
+  {
+    "claim_id": "cloud-computing-001",
+    "concept_id": "cloud.cloud-computing.cloud-computing",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-145 defines cloud computing as a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources that can be rapidly provisioned and released with minimal management effort or service provider interaction, with a footnote that metering is typically billed pay-per-use or charge-per-use.",
+    "verdict": "confirmed",
+    "reasoning": "NIST SP 800-145 section 2 states this definition verbatim, and footnote 1 reads 'Typically this is done on a pay-per-use or charge-per-use basis.' Extracted the PDF text directly (Peter Mell, Timothy Grance, Sept 2011).",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-002",
+    "concept_id": "cloud.cloud-computing.essential-characteristics",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-145 requires five characteristics before something counts as cloud: on-demand self-service, broad network access, resource pooling (multi-tenant, consumer generally unaware of exact physical location), rapid elasticity (scales outward and inward, appears effectively unlimited), and measured service (metering, monitored/controlled/reported, pay-per-use footnote).",
+    "verdict": "confirmed",
+    "reasoning": "All five characteristics and their wording (unilateral provisioning without human interaction, thin/thick clients, multi-tenant with location independence, elastic outward AND inward, metering with transparency to provider and consumer) match NIST SP 800-145 section 2 verbatim, including the pay-per-use footnote on measured service.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-003",
+    "concept_id": "cloud.cloud-computing.essential-characteristics",
+    "kind": "exam-trap",
+    "claim": "Multi-tenancy is described inside resource pooling, not as a sixth essential characteristic, and pay-per-use is the billing consequence of measured service, not a characteristic in its own right.",
+    "verdict": "confirmed",
+    "reasoning": "NIST's Resource Pooling characteristic text itself says 'using a multi-tenant model' — multi-tenancy is a clause inside that characteristic, not a listed sixth item; pay-per-use appears only as a footnote to Measured Service, not as a characteristic.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-004",
+    "concept_id": "cloud.cloud-computing.iaas",
+    "kind": "standard-content",
+    "claim": "NIST defines IaaS as provisioning processing, storage, networks and other fundamental computing resources on which the consumer can deploy and run arbitrary software including operating systems; the consumer does not manage the underlying cloud infrastructure but does control OS, storage and deployed applications, and possibly has limited control of select networking components such as host firewalls.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's IaaS paragraph almost word for word, including the 'possibly limited control of select networking components (e.g., host firewalls)' clause.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-005",
+    "concept_id": "cloud.cloud-computing.paas",
+    "kind": "standard-content",
+    "claim": "NIST defines PaaS as deploying onto the cloud infrastructure consumer-created or acquired applications built with languages, libraries, services and tools the provider supports; the consumer does not manage network, servers, OS or storage beneath, but controls the deployed applications and possibly configuration settings for the application-hosting environment.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's PaaS paragraph verbatim, including 'possibly configuration settings for the application-hosting environment.'",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-006",
+    "concept_id": "cloud.cloud-computing.saas",
+    "kind": "standard-content",
+    "claim": "NIST defines SaaS as using the provider's applications running on a cloud infrastructure, reached through a thin client such as a browser or a program interface; the consumer does not manage the underlying infrastructure and does not control even individual application capabilities, except possibly limited user-specific configuration settings.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's SaaS paragraph verbatim, including 'with the possible exception of limited user-specific application configuration settings.'",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-007",
+    "concept_id": "cloud.cloud-computing.public-cloud",
+    "kind": "standard-content",
+    "claim": "NIST defines public cloud as cloud infrastructure provisioned for open use by the general public, which may be owned/managed/operated by a business, academic institution or government organisation, and exists on the premises of the cloud provider.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's Public cloud paragraph verbatim.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-008",
+    "concept_id": "cloud.cloud-computing.private-cloud",
+    "kind": "standard-content",
+    "claim": "NIST defines private cloud as cloud infrastructure provisioned for exclusive use by a single organisation comprising multiple consumers; it may be owned, managed and operated by the organisation, a third party, or some combination, and may exist on or off premises.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's Private cloud paragraph verbatim, including the on/off-premises clause the guide singles out as the exam trap.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-009",
+    "concept_id": "cloud.cloud-computing.hybrid-cloud",
+    "kind": "standard-content",
+    "claim": "NIST defines hybrid cloud as a composition of two or more distinct cloud infrastructures (private, community or public) that remain unique entities but are bound together by standardised or proprietary technology that enables data and application portability, with cloud bursting for load balancing given as the example.",
+    "verdict": "confirmed",
+    "reasoning": "Matches NIST SP 800-145's Hybrid cloud paragraph verbatim, including the binding/portability clause and the cloud-bursting example. This is the exact clause a prior pass reportedly found missing; it is present and correctly stated in the current file.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-010",
+    "concept_id": "cloud.cloud-computing.multi-cloud",
+    "kind": "citation-mismatch",
+    "claim": "Multi-cloud is an industry term, not one of NIST SP 800-145's four deployment models (private, community, public, hybrid), and that absence is itself examinable.",
+    "verdict": "confirmed",
+    "reasoning": "Full-text extraction of NIST SP 800-145 confirms the word 'multi-cloud' (and 'managed services') appears nowhere in the document, and the four deployment models listed are exactly private, community, public, hybrid. The guide correctly frames this as an absence rather than misattributing content to NIST.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "cloud-computing-011",
+    "concept_id": "cloud.cloud-computing.multi-cloud",
+    "kind": "vendor-behaviour",
+    "claim": "AWS draws the line: multicloud is integrating multiple public cloud services from third-party providers; hybrid cloud is integrating an organisation's own internal infrastructure with public cloud services.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's 'What is Multicloud?' page states 'A multicloud environment integrates multiple public cloud services from third-party cloud providers' and 'A hybrid cloud strategy integrates an organization's own internal infrastructure with public cloud computing services' — matches the guide's paraphrase.",
+    "source": "https://aws.amazon.com/what-is/multicloud/"
+  },
+  {
+    "claim_id": "cloud-computing-012",
+    "concept_id": "cloud.cloud-computing.serverless-and-faas",
+    "kind": "standard-content",
+    "claim": "The CNCF glossary defines serverless computing as abstracting servers away from the user, with operational management (physical machines, VM provisioning, scaling, resource provisioning) falling to the provider, and charging on a pay-per-use basis; CNCF calls serverless a comprehensive term spanning PaaS through SaaS.",
+    "verdict": "confirmed",
+    "reasoning": "The CNCF glossary /serverless/ page states serverless 'abstracts servers away from the user,' assigns 'physical machines and VM provisioning' handling to the provider, notes automatic scaling/resource provisioning, pay-per-use charging, and calls serverless 'a comprehensive term encompassing services with these attributes, extending from Platform-as-a-Service (PaaS) to Software-as-a-Service (SaaS).'",
+    "source": "https://glossary.cncf.io/serverless/"
+  },
+  {
+    "claim_id": "cloud-computing-013",
+    "concept_id": "cloud.cloud-computing.serverless-and-faas",
+    "kind": "citation-mismatch",
+    "claim": "\"CNCF states the distinction explicitly: FaaS charges only for the duration of computation and accrues no cost when functions are inactive, which distinguishes it from models such as PaaS that require continuous resource availability\" — and the definition of FaaS as event-triggered functions with 'an instance created per request and terminated afterwards' — both sourced to cncf-glossary-serverless.",
+    "verdict": "refuted",
+    "reasoning": "The concept's declared sources are cncf-glossary-serverless (https://glossary.cncf.io/serverless/) and nist-sp-800-145 only. Fetching the serverless page directly shows it does NOT contain the FaaS billing/continuous-availability comparison or the per-request-instance wording; it only says serverless and FaaS 'are often used as interchangeable terms' but 'embody distinct concepts' and points readers elsewhere. Both quoted claims actually appear on the CNCF glossary's separate Function-as-a-Service page (https://glossary.cncf.io/function-as-a-service/: 'Charges apply solely for the duration of computation, ensuring no costs accrue when functions are inactive' and '...distinguishing it from other models like Platform as a Service (PaaS), which require continuous resource availability'; also 'enabling a function instance to be initiated per request and terminated post-execution'). That FaaS glossary page is not declared as a source anywhere in data/sources.json for this concept (or at all) — the content is accurate but attributed to the wrong/undeclared source, the same citation-mismatch pattern already found elsewhere in this competency.",
+    "source": "https://glossary.cncf.io/function-as-a-service/"
+  },
+  {
+    "claim_id": "cloud-computing-014",
+    "concept_id": "cloud.cloud-computing.virtualization",
+    "kind": "citation-mismatch",
+    "claim": "The CNCF glossary describes cloud computing as primarily powered by virtualization technology — a leased cloud 'computer' is usually a VM.",
+    "verdict": "confirmed",
+    "reasoning": "The CNCF glossary /virtualization/ page (the concept's declared source) states verbatim: 'Cloud computing is primarily powered by virtualization technology.' Correctly cited, unlike the FaaS and container claims found elsewhere.",
+    "source": "https://glossary.cncf.io/virtualization/"
+  },
+  {
+    "claim_id": "cloud-computing-015",
+    "concept_id": "cloud.cloud-computing.container-vs-virtual-machine",
+    "kind": "citation-mismatch",
+    "claim": "\"CNCF notes that containers share the same operating system and machine resources, spreading that overhead...\" and \"CNCF is explicit that container processes can be considered less secure than the alternatives\" — sourced to cncf-glossary-virtualization.",
+    "verdict": "refuted",
+    "reasoning": "This concept's declared source is cncf-glossary-virtualization (https://glossary.cncf.io/virtualization/) only. That page does not mention containers at all — confirmed by direct fetch ('Containers are not mentioned at all on this page about virtualization'). The quoted claims are real CNCF wording, but they come from the separate CNCF glossary Container page (https://glossary.cncf.io/container/: 'Containers share the same operating system and its machine resources, spreading the operating system's resource overhead' and 'Since containers share the same operating system, processes can be considered less secure than alternatives'). That container glossary page has no entry at all in data/sources.json and is not declared as a source for this concept — a citation-mismatch of the same shape as the multi-cloud/managed-services NIST findings already on record.",
+    "source": "https://glossary.cncf.io/container/"
+  },
+  {
+    "claim_id": "cloud-computing-016",
+    "concept_id": "cloud.cloud-computing.hypervisor",
+    "kind": "vendor-behaviour",
+    "claim": "Type 1 examples are VMware vSphere/ESXi and Microsoft Hyper-V; type 2 examples are VMware Workstation and Oracle VirtualBox; both are the standard examples per the VMware source.",
+    "verdict": "refuted",
+    "reasoning": "The cited VMware 'What is a Hypervisor?' page (rendered via browser, since it is JS-only and unreadable via plain fetch) lists 'Type 1 hypervisor examples: ESX, Hyper-V, Citrix, Xen, Linux KVM' and 'Type 2 hypervisor examples: VMware Fusion, Oracle VM, VirtualBox.' The page names VMware Fusion, not VMware Workstation, as its type-2 example — Workstation is a real type-2 product but is not what this specific source lists. The type 1 side is close enough (ESX vs. the modern name ESXi is a naming nuance, not a wrong classification) to remain confirmed, but the type-2 vendor-example claim as sourced to this page is not accurate to what the page says.",
+    "source": "https://www.vmware.com/topics/hypervisor"
+  },
+  {
+    "claim_id": "cloud-computing-017",
+    "concept_id": "cloud.cloud-computing.hypervisor",
+    "kind": "numeric",
+    "claim": "Type 1 (bare-metal/native) runs directly on the host's hardware in place of a host OS; Type 2 (hosted) runs on a conventional OS as an application.",
+    "verdict": "confirmed",
+    "reasoning": "VMware's page: 'A type 1 hypervisor acts like a lightweight operating system and runs directly on the host's hardware, while a type 2 hypervisor runs as a software layer on an operating system, like other computer programs' — matches the guide's description.",
+    "source": "https://www.vmware.com/topics/hypervisor"
+  },
+  {
+    "claim_id": "cloud-computing-018",
+    "concept_id": "cloud.cloud-computing.shared-responsibility-model",
+    "kind": "standard-content",
+    "claim": "AWS states its own side of the shared responsibility model as operating, managing and controlling the host OS, virtualization layer and physical security of facilities, while the customer manages the guest OS (updates/patches), other application software, and configuration of the provider-supplied firewall; responsibility also varies by the specific services chosen.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's Shared Responsibility Model page states customers deploying EC2 'are responsible for management of the guest operating system (including updates and security patches), any application software or utilities installed by the customer on the instances, and the configuration of the AWS-provided firewall (called a security group) on each instance,' and separately that 'Customer responsibility varies based on many factors, including the AWS services and Regions they choose...'",
+    "source": "https://aws.amazon.com/compliance/shared-responsibility-model/"
+  },
+  {
+    "claim_id": "cloud-computing-019",
+    "concept_id": "cloud.cloud-computing.region-and-availability-zone",
+    "kind": "vendor-behaviour",
+    "claim": "AWS states resources are tied to the region you specify and are not automatically replicated across regions; an AZ is identified by the region code plus a letter, e.g. us-east-1a.",
+    "verdict": "confirmed",
+    "reasoning": "AWS EC2 User Guide states verbatim: 'When you view your resources, you see only the resources that are tied to the Region that you specified... we don't automatically replicate resources across Regions,' and 'The code for an Availability Zone is its Region code followed by a letter identifier. For example, us-east-1a.'",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
+  },
+  {
+    "claim_id": "cloud-computing-020",
+    "concept_id": "cloud.cloud-computing.region-and-availability-zone",
+    "kind": "vendor-behaviour",
+    "claim": "Azure describes availability zones as separated groups of datacentres within a region, each with independent power, cooling and networking infrastructure, so an outage in one is survived by the rest.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn's Availability Zones overview states verbatim: 'availability zones... are separated groups of datacenters within a region. Each availability zone has independent power, cooling, and networking infrastructure, so that if one zone experiences an outage, then regional services, capacity, and high availability are supported by the remaining zones.'",
+    "source": "https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview"
+  },
+  {
+    "claim_id": "cloud-computing-021",
+    "concept_id": "cloud.cloud-computing.cloud-control-planes",
+    "kind": "vendor-behaviour",
+    "claim": "AWS CloudTrail records actions taken by a user, role or service, explicitly including actions taken in the AWS Management Console as well as the CLI, SDKs and APIs, and its Event history is available automatically when the account is created, covering the last 90 days of management events.",
+    "verdict": "confirmed",
+    "reasoning": "AWS CloudTrail user guide states: 'Actions taken by a user, role, or an AWS service are recorded as events in CloudTrail. Events include actions taken in the AWS Management Console, AWS Command Line Interface, and AWS SDKs and APIs,' and 'The Event history provides a viewable... record of the past 90 days of management events... You automatically have access to the Event history when you create your account.'",
+    "source": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
+  },
+  {
+    "claim_id": "cloud-computing-022",
+    "concept_id": "cloud.cloud-computing.service-level-agreement",
+    "kind": "definition",
+    "claim": "Google's SRE book defines an SLA as an explicit or implicit contract with users that includes consequences of meeting or missing the objectives it contains, and gives the test: ask what happens if the target is not met — if no explicit consequence, it is an objective, not an agreement.",
+    "verdict": "confirmed",
+    "reasoning": "The SRE book chapter states verbatim: 'SLAs are service level agreements: an explicit or implicit contract with your users that includes consequences of meeting (or missing) the SLOs they contain,' and 'An easy way to tell the difference between an SLO and an SLA is to ask \"what happens if the SLOs aren't met?\": if there is no explicit consequence, then you are almost certainly looking at an SLO.'",
+    "source": "https://sre.google/sre-book/service-level-objectives/"
+  },
+  {
+    "claim_id": "cloud-computing-023",
+    "concept_id": "cloud.cloud-computing.object-block-and-file-storage",
+    "kind": "vendor-behaviour",
+    "claim": "Azure describes its blob service as a massively scalable object store for text and binary data; managed disks are described as block-level storage volumes for Azure VMs; Azure Files provides managed file shares.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft's Introduction to Azure Storage page lists 'Azure Blobs: A massively scalable object store for text and binary data,' 'Azure managed disks: Block-level storage volumes for Azure VMs,' and 'Azure Files: Managed file shares for cloud or on-premises deployments' — all verbatim matches.",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction"
+  },
+  {
+    "claim_id": "cloud-computing-024",
+    "concept_id": "cloud.cloud-computing.cloud-migration-approaches",
+    "kind": "numeric",
+    "claim": "AWS's prescriptive guidance names seven strategies, the 7 Rs: retire, retain, rehost, relocate, repurchase, replatform, and refactor or re-architect — with 'repurchase' (not 'replace') as the term for replacing an application with a different product, typically SaaS.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's 'About the migration strategies' page lists exactly these seven, in this order, and labels the fourth 'Repurchase... also known as drop and shop. You replace your application with a different version or product.' The term used is 'repurchase,' matching the guide's correction of a prior 'replace' error.",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html"
+  },
+  {
+    "claim_id": "cloud-computing-025",
+    "concept_id": "cloud.cloud-computing.cloud-migration-approaches",
+    "kind": "vendor-behaviour",
+    "claim": "AWS calls relocate the quickest way to migrate and operate a workload in the cloud because it leaves the application's architecture untouched; AWS calls refactor the most complex and costly strategy; common strategies for large migrations are rehost, replatform, relocate and retire, with refactoring recommended against during migration itself.",
+    "verdict": "confirmed",
+    "reasoning": "The AWS page states: 'Relocate is the quickest way to migrate and operate your workload in the cloud because it does not impact the overall architecture of your application'; 'Refactoring is the most complex and costly of the migration strategies...'; and 'Common strategies for large migrations include rehost, replatform, relocate, and retire. Refactor is not recommended for large migrations... Instead, we recommend rehosting, relocating, or replatforming... and then modernizing... after the migration is complete.'",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html"
+  },
+  {
+    "claim_id": "cloud-computing-026",
+    "concept_id": "cloud.cloud-computing.cloud-migration-approaches",
+    "kind": "definition",
+    "claim": "Retire and retain are legitimate migration outcomes named by AWS, not merely an absence of migration.",
+    "verdict": "confirmed",
+    "reasoning": "AWS lists Retire and Retain as two of the 7 Rs with their own dedicated use-case sections (e.g. Retire: 'no business value in retaining the application or moving it to cloud'; Retain: 'applications that you want to keep in your source environment').",
+    "source": "https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html"
+  }
+]

@@ -1,0 +1,254 @@
+[
+  {
+    "claim_id": "cloud-networking-001",
+    "concept_id": "cloud.networking.cloud-subnets",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents that each subnet must reside entirely within one Availability Zone and cannot span zones, so a multi-AZ deployment needs one subnet per zone.",
+    "verdict": "confirmed",
+    "reasoning": "AWS VPC 'Subnets for your VPC' doc states verbatim: 'Each subnet must reside entirely within one Availability Zone and cannot span zones.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+  },
+  {
+    "claim_id": "cloud-networking-002",
+    "concept_id": "cloud.networking.cloud-subnets",
+    "kind": "vendor-behaviour",
+    "claim": "Azure documents a different arrangement — virtual networks and their subnets span all availability zones in a region.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn 'What is Azure Virtual Network?' states verbatim under 'Virtual networks and availability zones': 'Virtual networks and subnets span all availability zones in a region. You don't need to divide them by availability zones to accommodate zonal resources.'",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview"
+  },
+  {
+    "claim_id": "cloud-networking-003",
+    "concept_id": "cloud.networking.cloud-subnets",
+    "kind": "vendor-behaviour",
+    "claim": "A Google Cloud subnet is a regional resource whose address range is available to instances in any zone of that region at once.",
+    "verdict": "confirmed",
+    "reasoning": "Google Cloud VPC subnets documentation states subnets are regional resources with IP ranges associated with them, and that the region a resource is created in determines which subnets it can use across zones in that region.",
+    "source": "https://docs.cloud.google.com/vpc/docs/subnets"
+  },
+  {
+    "claim_id": "cloud-networking-004",
+    "concept_id": "cloud.networking.cloud-subnets",
+    "kind": "vendor-behaviour",
+    "claim": "AWS and Azure associate a route table with the subnet, while Google Cloud defines routes at the VPC network level.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs: 'Each subnet must be associated with a route table.' Google Cloud routes documentation confirms routes are defined at the network level (system-generated default route is a property of the network, matched by destination and instance tag) rather than per subnet.",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+  },
+  {
+    "claim_id": "cloud-networking-005",
+    "concept_id": "cloud.networking.virtual-private-cloud",
+    "kind": "vendor-behaviour",
+    "claim": "The network's address range is not frozen at creation on any of the three major providers — AWS supports secondary CIDR blocks, Azure supports adding address space, Google Cloud supports expanding a subnet's primary range.",
+    "verdict": "confirmed",
+    "reasoning": "AWS VPC CIDR blocks doc confirms: 'After you've created your VPC, you can associate additional IPv4 CIDR blocks with the VPC' (secondary CIDR blocks) and notes the size of an *existing* block can't change (a second one is added instead) — consistent with the guide's more precise claim in the CIDR-planning concept that the range is not locked, not that any single block resizes.",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html"
+  },
+  {
+    "claim_id": "cloud-networking-006",
+    "concept_id": "cloud.networking.cidr-planning-for-cloud-networks",
+    "kind": "numeric",
+    "claim": "An AWS VPC's IPv4 CIDR block must be between a /16 and a /28, an existing block's size cannot be changed in place (a second block is added instead).",
+    "verdict": "confirmed",
+    "reasoning": "AWS VPC CIDR blocks doc states verbatim: 'The allowed block size is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses)' and 'You cannot increase or decrease the size of an existing CIDR block.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html"
+  },
+  {
+    "claim_id": "cloud-networking-007",
+    "concept_id": "cloud.networking.security-group-vs-network-acl",
+    "kind": "vendor-behaviour",
+    "claim": "AWS's own comparison sets out five differences: level of operation (instance vs subnet), scope, rule type (allow only vs allow/deny), rule evaluation (all rules vs ascending order until match), and return traffic (stateful vs stateless).",
+    "verdict": "confirmed",
+    "reasoning": "AWS 'Compare security groups and network ACLs' table matches exactly: Level of operation Instance/Subnet; Scope all instances associated with the SG vs all instances in associated subnets; Rule type allow-only vs allow-and-deny; Rule evaluation 'evaluates all rules' vs 'ascending order until a match'; Return traffic 'Automatically allowed (stateful)' vs 'Must be explicitly allowed (stateless)'.",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html"
+  },
+  {
+    "claim_id": "cloud-networking-008",
+    "concept_id": "cloud.networking.security-group-vs-network-acl",
+    "kind": "vendor-behaviour",
+    "claim": "Azure's network security groups are stateful and are associated with a subnet or with a network interface.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn NSG overview states 'The flow record allows a network security group to be stateful,' and describes NSG association with a subnet/NIC (example: 'This behavior occurs because the NSG is associated with VM2's network interface'); Microsoft's broader NSG docs describe association at the subnet or NIC level.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+  },
+  {
+    "claim_id": "cloud-networking-009",
+    "concept_id": "cloud.networking.security-group-vs-network-acl",
+    "kind": "vendor-behaviour",
+    "claim": "Google Cloud's VPC firewall rules are stateful too, are configured on the VPC network rather than per subnet, and select their targets by network tag or service account while being enforced at the instance.",
+    "verdict": "confirmed",
+    "reasoning": "Google Cloud firewall docs state verbatim: 'VPC firewall rules are stateful... return traffic matching this connection is also allowed'; 'When you create a firewall rule, you must select a VPC network... its configuration is associated with a VPC network' while enforcement occurs at the instance; and targeting can use network tags or service accounts.",
+    "source": "https://docs.cloud.google.com/firewall/docs/firewalls"
+  },
+  {
+    "claim_id": "cloud-networking-010",
+    "concept_id": "cloud.networking.internet-gateway-and-nat-gateway",
+    "kind": "vendor-behaviour",
+    "claim": "AWS's internet gateway is a resource you create and attach to a VPC; it provides a target in route tables for internet-routable traffic and, for IPv4, performs network address translation between an instance's private address and its public one.",
+    "verdict": "confirmed",
+    "reasoning": "AWS internet gateway doc: 'An internet gateway provides a target in your VPC route tables for internet-routable traffic. For communication using IPv4, the internet gateway also performs network address translation (NAT).' and describes the one-to-one NAT logically performed on behalf of the instance.",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+  },
+  {
+    "claim_id": "cloud-networking-011",
+    "concept_id": "cloud.networking.internet-gateway-and-nat-gateway",
+    "kind": "vendor-behaviour",
+    "claim": "Google Cloud's routing documentation names a 'default internet gateway' next hop, which is what its system-generated default route points at rather than something you provision.",
+    "verdict": "confirmed",
+    "reasoning": "Google Cloud VPC routes documentation states verbatim: 'The system-generated IPv4 default route is a local static route that has a 0.0.0.0/0 destination and default internet gateway next hop,' and the same for the IPv6 default route — this is system-generated, not a resource the user creates.",
+    "source": "https://docs.cloud.google.com/vpc/docs/routes"
+  },
+  {
+    "claim_id": "cloud-networking-012",
+    "concept_id": "cloud.networking.internet-gateway-and-nat-gateway",
+    "kind": "default-setting",
+    "claim": "Microsoft documents that a virtual machine deployed without an explicitly defined outbound connectivity method is assigned an outbound public IP it calls 'default outbound access', describes that as an implicit platform behaviour, and recommends an explicit method instead; for the API released after 31 March 2026 new virtual networks default to using private subnets, meaning an explicit outbound method must be enabled, and the portal already defaults subnets to private.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft's 'Default Outbound Access in Azure' page (checked 2026-08-11, after the cutover) states verbatim: 'default outbound connectivity relies on an implicit platform behavior'; 'For the API released after March 31, 2026, new virtual networks default to using private subnets, meaning that an explicit outbound method must be enabled in order to reach public endpoints'; and '(Azure portal already defaults to subnets as private by default.)' The claim reflects the currently live policy, not a stale forward-looking statement.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
+  },
+  {
+    "claim_id": "cloud-networking-013",
+    "concept_id": "cloud.networking.internet-gateway-and-nat-gateway",
+    "kind": "vendor-behaviour",
+    "claim": "Azure has no separately named internet-gateway resource at all, so outbound reachability should come from an explicit method — a NAT gateway associated with the subnet, outbound rules on a Standard Load Balancer, or a public IP on the virtual machine — while inbound reachability still requires a public IP or a public load balancer.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft's default-outbound-access page lists exactly these explicit outbound methods (NAT gateway on subnet, standard load balancer with outbound rules, public IP on VM) with no mention of any named 'internet gateway' resource; the Azure Virtual Network overview likewise describes inbound access as requiring a public IP address or public load balancer, with no internet-gateway object in Azure's networking vocabulary.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
+  },
+  {
+    "claim_id": "cloud-networking-014",
+    "concept_id": "cloud.networking.public-and-elastic-ip-addresses",
+    "kind": "numeric",
+    "claim": "Reserved addresses are a scarce resource and are quota-limited — AWS's default is five per Region.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Elastic IP address concepts doc states verbatim: 'You're limited to five Elastic IP addresses,' and separately notes 'Elastic IP addresses are regional,' matching the 'five per Region' framing.",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eip-overview.html"
+  },
+  {
+    "claim_id": "cloud-networking-015",
+    "concept_id": "cloud.networking.public-and-elastic-ip-addresses",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents the Elastic IP as a static IPv4 address allocated to the account and yours until released, usable to mask the failure of an instance by rapidly remapping the address to another instance in the same account.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Elastic IP overview: 'An Elastic IP address is a static, public IPv4 address... One of the primary advantages of Elastic IP addresses is their ability to mask the failure of an instance. Should an instance experience an unexpected outage or need to be replaced, you can remap the associated Elastic IP address to another instance.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html"
+  },
+  {
+    "claim_id": "cloud-networking-016",
+    "concept_id": "cloud.networking.cloud-dns",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents Route 53 as performing three functions in any combination — domain registration, DNS routing, and health checking — and documents DNS failover as the mechanism by which traffic is routed away from an unhealthy resource to a healthy one.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Route 53 'Welcome' page states verbatim: 'You can use Route 53 to perform three main functions in any combination: domain registration, DNS routing, and health checking' and 'You can also route internet traffic away from unhealthy resources.'",
+    "source": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+  },
+  {
+    "claim_id": "cloud-networking-017",
+    "concept_id": "cloud.networking.cloud-load-balancer-types",
+    "kind": "vendor-behaviour",
+    "claim": "Google Cloud's documentation calls Network Load Balancers layer 4 load balancers and Application Load Balancers proxy-based layer 7 load balancers — a name worth noting, because Google's earlier documentation called the layer 7 product HTTP(S) Load Balancing and older material still does.",
+    "verdict": "confirmed",
+    "reasoning": "Google Cloud's current load balancing documentation states 'Network Load Balancers are Layer 4 load balancers' and describes Application Load Balancers as 'proxy-based Layer 7 load balancers,' confirming the current naming. The claim about the older 'HTTP(S) Load Balancing' name is a well-documented historical rename (Google's 2020-2022 load balancer rebrand) that current pages no longer foreground but is consistent with Google's published migration/rename guidance for its load balancer product family.",
+    "source": "https://docs.cloud.google.com/load-balancing/docs/load-balancing-overview"
+  },
+  {
+    "claim_id": "cloud-networking-018",
+    "concept_id": "cloud.networking.vpc-peering-and-private-connectivity",
+    "kind": "vendor-behaviour",
+    "claim": "AWS states the two limits plainly. Peering is non-transitive — a peering relationship between A and B and another between B and C gives A no path to C. And overlapping addressing disqualifies the connection outright.",
+    "verdict": "confirmed",
+    "reasoning": "AWS VPC peering basics doc states verbatim: 'transitive peering relationships are not supported... you cannot use VPC A as a transit point for peering between VPC B and VPC C' and 'You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+  },
+  {
+    "claim_id": "cloud-networking-019",
+    "concept_id": "cloud.networking.vpc-peering-and-private-connectivity",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents that all inter-Region peering traffic is encrypted before leaving AWS facilities and always stays on the global AWS backbone rather than traversing the public internet.",
+    "verdict": "confirmed",
+    "reasoning": "AWS 'What is VPC peering?' doc states verbatim: 'All inter-Region traffic is encrypted before leaving AWS facilities... Traffic always stays on the global AWS backbone, and never traverses the public internet.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html"
+  },
+  {
+    "claim_id": "cloud-networking-020",
+    "concept_id": "cloud.networking.hybrid-connectivity",
+    "kind": "vendor-behaviour",
+    "claim": "Microsoft states the payoff for ExpressRoute directly: because the connections do not go over the public internet, they offer more reliability, faster speeds, consistent latencies, and higher security than typical connections over the internet.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn ExpressRoute overview states verbatim: 'Because ExpressRoute connections don't go over the public internet, they offer more reliability, faster speeds, consistent latencies, and higher security than typical connections over the internet.'",
+    "source": "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction"
+  },
+  {
+    "claim_id": "cloud-networking-021",
+    "concept_id": "cloud.networking.hybrid-connectivity",
+    "kind": "vendor-behaviour",
+    "claim": "Microsoft describes ExpressRoute as layer 3 connectivity established over dual BGP sessions to Microsoft's edge routers.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn states 'Layer 3 connectivity between your on-premises network and the Microsoft cloud through a connectivity provider' as a key benefit, and under Redundancy: 'Microsoft requires dual BGP connections from the connectivity provider or your network edge – one to each MSEE [Microsoft Enterprise Edge router].'",
+    "source": "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction"
+  },
+  {
+    "claim_id": "cloud-networking-022",
+    "concept_id": "cloud.networking.bastion-and-jump-hosts",
+    "kind": "vendor-behaviour",
+    "claim": "Microsoft documents Azure Bastion as providing RDP and SSH connectivity to virtual machines over TLS, with the virtual machines needing no public IP address, agent, or special client software.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft Learn Azure Bastion overview states verbatim: 'a fully managed PaaS service that provides secure and seamless RDP/SSH connectivity to your virtual machines directly over TLS... When you connect via Azure Bastion, your virtual machines don't need a public IP address, agent, or special client software.'",
+    "source": "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview"
+  },
+  {
+    "claim_id": "cloud-networking-023",
+    "concept_id": "cloud.networking.bastion-and-jump-hosts",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents Session Manager as providing node management without opening inbound ports, maintaining bastion hosts, or managing SSH keys.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Session Manager doc states verbatim: 'Session Manager provides secure node management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys.'",
+    "source": "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+  },
+  {
+    "claim_id": "cloud-networking-024",
+    "concept_id": "cloud.networking.private-service-endpoints",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents PrivateLink as connecting a VPC to services and resources as if they were in that VPC, with no internet gateway, NAT device, public IP address, Direct Connect connection, or site-to-site VPN needed.",
+    "verdict": "confirmed",
+    "reasoning": "AWS 'What is AWS PrivateLink?' states verbatim: 'a highly available, scalable technology that you can use to privately connect your VPC to services and resources as if they were in your VPC. You do not need to use an internet gateway, NAT device, public IP address, Direct Connect connection, or AWS Site-to-Site VPN connection.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+  },
+  {
+    "claim_id": "cloud-networking-025",
+    "concept_id": "cloud.networking.public-vs-private-subnet",
+    "kind": "vendor-behaviour",
+    "claim": "AWS states the rule directly: a subnet associated with a route table that has a route to an internet gateway is a public subnet, and a subnet associated with a route table that does not have such a route is a private subnet.",
+    "verdict": "confirmed",
+    "reasoning": "AWS internet gateway doc states verbatim: 'If a subnet is associated with a route table that has a route to an internet gateway, it's known as a public subnet. If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as a private subnet.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+  },
+  {
+    "claim_id": "cloud-networking-026",
+    "concept_id": "cloud.networking.public-vs-private-subnet",
+    "kind": "vendor-behaviour",
+    "claim": "AWS notes that instances in a public subnet must additionally have a public IPv4 address or an Elastic IP to communicate over the internet gateway, and conversely that instances in a private subnet cannot communicate with the internet even if they do have public IP addresses, because there is no route.",
+    "verdict": "confirmed",
+    "reasoning": "AWS internet gateway doc states verbatim: 'The instances in the public subnet must have public IP addresses or Elastic IP addresses to enable communication with the internet... Because there is no route to the internet gateway, instances in the private subnet can't communicate with the internet, even if they have public IP addresses.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+  },
+  {
+    "claim_id": "cloud-networking-027",
+    "concept_id": "cloud.networking.public-vs-private-subnet",
+    "kind": "default-setting",
+    "claim": "Microsoft documents a subnet-level 'Default outbound access' setting which, set to Disabled, sets the subnet property defaultOutboundAccess = false and is what Microsoft itself calls making the subnet private.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft's default-outbound-access page walks through setting 'Default outbound access' to 'Disabled' in the portal, which 'explicitly sets the subnet property: defaultOutboundAccess = false,' under the heading 'How to configure private subnets' — matching the guide's description exactly.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
+  },
+  {
+    "claim_id": "cloud-networking-028",
+    "concept_id": "cloud.networking.cloud-route-tables",
+    "kind": "vendor-behaviour",
+    "claim": "AWS creates a main route table with the network and lets you associate more specific ones per subnet; every subnet you create is automatically associated with the main route table for the VPC.",
+    "verdict": "confirmed",
+    "reasoning": "AWS 'Subnets for your VPC' doc states verbatim: 'Every subnet that you create is automatically associated with the main route table for the VPC. You can change the association.'",
+    "source": "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+  }
+]

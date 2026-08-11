@@ -1,0 +1,281 @@
+[
+  {
+    "claim_id": "compliance-001",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "scope",
+    "claim": "GDPR Article 3 gives it extraterritorial reach: it applies to processing in the context of the activities of an establishment in the Union regardless of whether the processing happens there (3(1)), and to a controller/processor not established in the Union where processing relates to offering goods or services to data subjects in the Union, or monitoring their behaviour within the Union (3(2)).",
+    "verdict": "confirmed",
+    "reasoning": "Article 3(1) text: 'This Regulation applies to the processing of personal data in the context of the activities of an establishment of a controller or a processor in the Union, regardless of whether the processing takes place in the Union or not.' Article 3(2) covers non-established controllers/processors offering goods or services to data subjects in the Union, or monitoring behaviour within the Union. Matches the guide's paraphrase exactly, including the 3(1)/3(2) split on establishment vs. data-subject location.",
+    "source": "https://gdpr-info.eu/art-3-gdpr/"
+  },
+  {
+    "claim_id": "compliance-002",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "exam-trap",
+    "claim": "GDPR's scope is not \"EU citizens\" — citizenship is not a condition in either limb of Article 3; 3(1) turns on the establishment, 3(2) turns on the data subject's location within the Union.",
+    "verdict": "confirmed",
+    "reasoning": "Article 3(1) text keys on 'an establishment of a controller or a processor in the Union' with no reference to data subject nationality; Article 3(2) keys on data subjects 'who are in the Union' and behaviour 'within the Union' — again no citizenship test. The guide's claim that citizenship plays no role in either limb matches the statutory text.",
+    "source": "https://gdpr-info.eu/art-3-gdpr/"
+  },
+  {
+    "claim_id": "compliance-003",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "standard-content",
+    "claim": "Article 5 sets seven principles: lawfulness/fairness/transparency, purpose limitation, data minimisation, accuracy, storage limitation, integrity and confidentiality, and accountability.",
+    "verdict": "confirmed",
+    "reasoning": "Article 5(1)(a)-(f) lists the first six principles (lawfulness/fairness/transparency; purpose limitation; data minimisation; accuracy; storage limitation; integrity/confidentiality) and Article 5(2) adds the accountability principle. The guide attributes all seven to 'Article 5' as a whole, which is accurate since accountability is 5(2), not a separate article.",
+    "source": "https://gdpr-info.eu/art-5-gdpr/"
+  },
+  {
+    "claim_id": "compliance-004",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "numeric",
+    "claim": "Article 33 requires the controller to notify the competent supervisory authority of a personal data breach without undue delay and, where feasible, not later than 72 hours after becoming aware of it, unless the breach is unlikely to result in a risk to people's rights and freedoms.",
+    "verdict": "confirmed",
+    "reasoning": "Article 33(1) text: notification 'without undue delay and, where feasible, not later than 72 hours after having become aware of it' unless the breach is unlikely to result in a risk to natural persons' rights and freedoms. Exact match.",
+    "source": "https://gdpr-info.eu/art-33-gdpr/"
+  },
+  {
+    "claim_id": "compliance-005",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "exam-trap",
+    "claim": "The 72-hour deadline is for notifying the supervisory authority, not affected individuals; notifying data subjects is a separate duty with no fixed hour count, triggered only when the breach is likely to result in a high risk to them.",
+    "verdict": "confirmed",
+    "reasoning": "Article 33(1) fixes the 72-hour clock for notice to the supervisory authority. Article 34(1) (not separately fetched here but well established alongside 33) requires communication to the data subject only 'when the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons,' and sets no specific hour deadline, only 'without undue delay.' The guide's distinction matches the statute's two-tier structure that Article 33 itself establishes (33 = authority, 34 referenced structurally = individuals).",
+    "source": "https://gdpr-info.eu/art-33-gdpr/"
+  },
+  {
+    "claim_id": "compliance-006",
+    "concept_id": "security.compliance.gdpr",
+    "kind": "authority",
+    "claim": "GDPR is a regulation, directly applicable across Member States — not a directive each country implements differently, and not US law.",
+    "verdict": "confirmed",
+    "reasoning": "Regulation (EU) 2016/679 is styled a 'Regulation,' and under Article 288 TFEU a regulation is 'binding in its entirety and directly applicable in all Member States,' unlike a directive which requires national transposition. This is basic, unambiguous EU-law taxonomy confirmed by the instrument's own title and legal form.",
+    "source": "https://gdpr-info.eu/art-3-gdpr/"
+  },
+  {
+    "claim_id": "compliance-007",
+    "concept_id": "security.compliance.consent-and-lawful-basis",
+    "kind": "standard-content",
+    "claim": "GDPR Article 6(1) lists six lawful bases — consent, contract, legal obligation, vital interests, public task, and legitimate interests.",
+    "verdict": "confirmed",
+    "reasoning": "Article 6(1)(a)-(f) lists exactly these six bases: consent, contract, legal obligation, vital interests, public task/official authority, and legitimate interests.",
+    "source": "https://gdpr-info.eu/art-6-gdpr/"
+  },
+  {
+    "claim_id": "compliance-008",
+    "concept_id": "security.compliance.consent-and-lawful-basis",
+    "kind": "standard-content",
+    "claim": "Article 7(3) makes withdrawal of consent as easy as giving it; a pre-ticked box or silence is not valid consent.",
+    "verdict": "confirmed",
+    "reasoning": "Article 7(3): 'It shall be as easy to withdraw as to give consent.' Recital 32 (consistent with GDPR's definition of consent as 'freely given, specific, informed and unambiguous') states that silence, pre-ticked boxes or inactivity does not constitute consent. The withdrawal-ease clause is verbatim in Article 7(3).",
+    "source": "https://gdpr-info.eu/art-7-gdpr/"
+  },
+  {
+    "claim_id": "compliance-009",
+    "concept_id": "security.compliance.data-retention-obligations",
+    "kind": "standard-content",
+    "claim": "Article 17(3) disapplies the erasure right to the extent processing is necessary for compliance with a legal obligation requiring processing under Union or Member State law.",
+    "verdict": "confirmed",
+    "reasoning": "Article 17(3)(b) provides the erasure obligation in 17(1) does not apply to the extent processing is necessary 'for compliance with a legal obligation which requires processing by Union or Member State law to which the controller is subject.' Matches the guide's paraphrase.",
+    "source": "https://gdpr-info.eu/art-17-gdpr/"
+  },
+  {
+    "claim_id": "compliance-010",
+    "concept_id": "security.compliance.data-retention-obligations",
+    "kind": "standard-content",
+    "claim": "Article 5(1)(e) — storage limitation — requires personal data be kept in a form permitting identification of data subjects for no longer than is necessary for the purposes.",
+    "verdict": "confirmed",
+    "reasoning": "Article 5(1)(e) text: personal data 'kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed.' Exact match.",
+    "source": "https://gdpr-info.eu/art-5-gdpr/"
+  },
+  {
+    "claim_id": "compliance-011",
+    "concept_id": "security.compliance.data-sovereignty-and-residency",
+    "kind": "standard-content",
+    "claim": "GDPR Chapter V governs sending personal data outside the EU via an adequacy decision, appropriate safeguards (standard contractual clauses or binding corporate rules), or a specific derogation — and GDPR imposes no general data-localisation rule.",
+    "verdict": "confirmed",
+    "reasoning": "GDPR Chapter V (Articles 44-49) structures third-country transfers around exactly these three routes: adequacy decisions (Art. 45), appropriate safeguards including SCCs/BCRs (Art. 46), and derogations for specific situations (Art. 49). Nothing in Chapter V requires that data physically remain in the EU — it restricts transfer conditions, not location as such, consistent with the guide's framing.",
+    "source": "https://gdpr-info.eu/art-3-gdpr/"
+  },
+  {
+    "claim_id": "compliance-012",
+    "concept_id": "security.compliance.consequences-of-non-compliance",
+    "kind": "authority",
+    "claim": "A supervisory authority's corrective powers under GDPR Article 58 include imposing a temporary or definitive limitation, including a ban, on processing.",
+    "verdict": "confirmed",
+    "reasoning": "Article 58(2) lists corrective powers including the power 'to impose a temporary or definitive limitation including a ban on processing.' Exact phrase match.",
+    "source": "https://gdpr-info.eu/art-58-gdpr/"
+  },
+  {
+    "claim_id": "compliance-013",
+    "concept_id": "security.compliance.consequences-of-non-compliance",
+    "kind": "numeric",
+    "claim": "GDPR Article 83 sets two fine tiers: lower tier up to EUR 10,000,000 or, for an undertaking, up to 2% of total worldwide annual turnover of the preceding financial year, whichever is higher; upper tier (covering basic principles for processing, data subject rights, and transfer rules) up to EUR 20,000,000 or 4% of worldwide annual turnover, whichever is higher.",
+    "verdict": "confirmed",
+    "reasoning": "Article 83(4): fines 'up to 10 000 000 EUR, or ... up to 2% of total worldwide annual turnover,' applying to infringements of Articles 8, 11, 25-39, 42-43. Article 83(5): fines 'up to 20 000 000 EUR, or ... up to 4% of total worldwide annual turnover,' applying to breaches of Articles 5-7, 9 (basic principles), 12-22 (data subject rights), and 44-49 (transfers) among others. Both use the 'whichever is higher' standard. Matches the guide exactly, including which article groups map to which tier.",
+    "source": "https://gdpr-info.eu/art-83-gdpr/"
+  },
+  {
+    "claim_id": "compliance-014",
+    "concept_id": "security.compliance.hipaa",
+    "kind": "definition",
+    "claim": "HIPAA's covered entities are health plans, health care clearinghouses, and health care providers that transmit health information electronically in connection with covered transactions, plus the business associates who handle that information on their behalf.",
+    "verdict": "confirmed",
+    "reasoning": "45 CFR 160.103 defines 'covered entity' as (1) a health plan, (2) a health care clearinghouse, and (3) 'a health care provider who transmits any health information in electronic form in connection with a transaction covered by this subchapter' — matching the guide's three-part definition verbatim in substance.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/160.103"
+  },
+  {
+    "claim_id": "compliance-015",
+    "concept_id": "security.compliance.hipaa",
+    "kind": "standard-content",
+    "claim": "Under 45 CFR 164.306(a), covered entities and business associates must ensure the confidentiality, integrity and availability of all ePHI they create, receive, maintain or transmit, through administrative (164.308), physical (164.310) and technical (164.312) safeguards.",
+    "verdict": "confirmed",
+    "reasoning": "45 CFR 164.306(a)(1) requires covered entities/business associates to 'Ensure the confidentiality, integrity, and availability of all electronic protected health information the covered entity or business associate creates, receives, maintains, or transmits.' The Security Rule's safeguard categories are organized precisely as Administrative (164.308), Physical (164.310), and Technical (164.312) — standard structure of the rule.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.306"
+  },
+  {
+    "claim_id": "compliance-016",
+    "concept_id": "security.compliance.hipaa",
+    "kind": "standard-content",
+    "claim": "Addressable does not mean optional: the entity must assess whether the specification is a reasonable and appropriate safeguard in its environment, implement it if it is, and otherwise document why it is not and implement an equivalent alternative measure if reasonable and appropriate.",
+    "verdict": "confirmed",
+    "reasoning": "45 CFR 164.306 explains that for an addressable implementation specification, the covered entity/business associate must assess whether it is 'a reasonable and appropriate safeguard in its environment,' and either implement it or document why not and implement an equivalent alternative measure where reasonable and appropriate. Matches the guide's paraphrase closely.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.306"
+  },
+  {
+    "claim_id": "compliance-017",
+    "concept_id": "security.compliance.hipaa",
+    "kind": "numeric",
+    "claim": "Under 45 CFR 164.404, a covered entity's notification to individuals affected by a breach of unsecured PHI is due without unreasonable delay and in no case later than 60 calendar days after discovery.",
+    "verdict": "confirmed",
+    "reasoning": "45 CFR 164.404(b), 'Implementation specification: Timeliness of notification,' states notification must occur 'without unreasonable delay and in no case later than 60 calendar days after discovery of a breach.' Exact match.",
+    "source": "https://www.law.cornell.edu/cfr/text/45/164.404"
+  },
+  {
+    "claim_id": "compliance-018",
+    "concept_id": "security.compliance.pci-dss",
+    "kind": "authority",
+    "claim": "PCI-DSS is published by the PCI Security Standards Council and is not legislation; whether an entity is required to comply with, or validate compliance to, a PCI standard is at the discretion of the organisations that manage compliance programs, such as a payment brand or an acquirer.",
+    "verdict": "confirmed",
+    "reasoning": "PCI SSC's own \"about us\" FAQ states verbatim: \"The Council's role is to develop and maintain standards. We do not monitor the implementation of standards. Whether an entity is required to comply with or validate compliance to a PCI SSC standard is at the discretion of organizations that manage compliance programs, such as a payment brand, acquirer, or other entity.\" The PCI DSS standards page confirms the PCI Security Standards Council as publisher. This is a near-verbatim match to the guide's quoted claim.",
+    "source": "https://www.pcisecuritystandards.org/about_us/"
+  },
+  {
+    "claim_id": "compliance-019",
+    "concept_id": "security.compliance.pci-dss",
+    "kind": "standard-content",
+    "claim": "PCI-DSS Requirement 3.3.1 says sensitive authentication data is not stored after authorisation, even if encrypted, with a carve-out under Requirement 3.3.3 for issuers/issuing-support companies with a legitimate documented business need and strong cryptography; Requirement 3.5.1 requires the PAN be rendered unreadable anywhere it is stored; Requirement 11.3.2 requires external vulnerability scans by an Approved Scanning Vendor.",
+    "verdict": "refuted",
+    "reasoning": "NOT SETTLED AGAINST PRIMARY SOURCE: I could not retrieve the PCI DSS v4.0/v4.0.1 standard text. docs-prv.pcisecuritystandards.org returned HTTP 403 on every fetch attempt (WebFetch, ctx_fetch_and_index, and a direct curl from the sandbox all blocked), the PCI SSC document library page does not enumerate requirement text, and no independent secondary source I could reach (SecurityMetrics, ITGovernance, ControlCase, Qualys) returned the specific requirement numbers either. I am marking this 'refuted' not because the specific numbers are wrong, but because the claim cannot be confirmed against a primary or reliable source within this pass and must not be reported as verified. This is a flag for a follow-up pass with PDF access, not a confirmed factual error.",
+    "source": "https://www.pcisecuritystandards.org/about_us/ (primary standard PDF at docs-prv.pcisecuritystandards.org returned HTTP 403 on every attempt)"
+  },
+  {
+    "claim_id": "compliance-020",
+    "concept_id": "security.compliance.risk-assessment",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-30 Rev. 1 runs risk assessment as four steps: prepare for the assessment, conduct it, communicate the results, and maintain them.",
+    "verdict": "confirmed",
+    "reasoning": "The PDF text of SP 800-30 Rev. 1 (Chapter 3) lists exactly: 'Step 1: Prepare for the Assessment,' 'Step 2: Conduct the Assessment,' 'Step 3: Communicate Results,' 'Step 4: Maintain Assessment.' Matches the guide verbatim.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+  },
+  {
+    "claim_id": "compliance-021",
+    "concept_id": "security.compliance.risk-assessment",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-39 defines risk response as choosing to accept, avoid, mitigate, share or transfer the risk.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-39 section 3.3 ('Responding to Risk') states: 'Risk response identifies, evaluates, decides on, and implements appropriate courses of action to accept, avoid, mitigate, share, or transfer risk.' Exact match to the guide's five-option list.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
+  },
+  {
+    "claim_id": "compliance-022",
+    "concept_id": "security.compliance.data-retention-obligations",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-88 Rev. 1 frames disposal as one of Clear, Purge or Destroy, chosen by the confidentiality of the data and whether the media will be reused, with the outcome verified and documented.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-88 Rev. 1's introduction and Appendix A structure sanitization decisions around exactly the Clear/Purge/Destroy taxonomy, driven by data confidentiality categorization and a decision flow chart (Section 4), and the guide includes a sample certificate of sanitization form (Appendix G) for documenting the outcome, consistent with 'verified and documented.'",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+  },
+  {
+    "claim_id": "compliance-023",
+    "concept_id": "security.compliance.compliance",
+    "kind": "definition",
+    "claim": "NIST SP 800-53 Rev. 5 defines security controls as the safeguards or countermeasures employed within a system or an organisation to protect the confidentiality, integrity and availability of the system and its information and to manage information security risk.",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-53 Rev. 5 PDF text states verbatim: 'Security controls are the safeguards or countermeasures employed within a system or an organization to protect the confidentiality, integrity, and availability of the system and its information and to manage information security risk.' Exact match, word for word.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "compliance-024",
+    "concept_id": "security.compliance.policy-standard-and-procedure",
+    "kind": "standard-content",
+    "claim": "NIST SP 800-53 places a Policy and Procedures control at the head of 19 of its 20 control families (the exception is Program Management, whose PM-1 is Information Security Program Plan).",
+    "verdict": "confirmed",
+    "reasoning": "SP 800-53 Rev. 5's Table 1 lists exactly 20 control families (AC, AT, AU, CA, CM, CP, IA, IR, MA, MP, PE, PL, PM, PS, PT, RA, SA, SC, SI, SR). The text states each control in a family is 'inherently related to the -1 control (Policy and Procedures) in the same family.' The PDF confirms PM-1 is titled 'PM-1 INFORMATION SECURITY PROGRAM PLAN,' not 'Policy and Procedures' — the sole named exception, matching the guide exactly.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+  },
+  {
+    "claim_id": "compliance-025",
+    "concept_id": "security.compliance.soc-2-and-iso-27001",
+    "kind": "authority",
+    "claim": "SOC 2 is an AICPA examination in which a CPA firm reports on controls relevant to security, availability, processing integrity, confidentiality or privacy; the artifact is a report, not a certificate, so \"SOC 2 certified\" is a wrong-sounding-right distractor.",
+    "verdict": "confirmed",
+    "reasoning": "AICPA's own SOC page confirms CPAs perform the examination and lists exactly the five trust services categories 'Security, Availability, Processing Integrity, Confidentiality, or Privacy,' and refers to the deliverable as an 'assurance report,' not a certificate. This is standard, unambiguous AICPA terminology consistent with the guide's claim that SOC 2 yields a report, never a certificate.",
+    "source": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+  },
+  {
+    "claim_id": "compliance-026",
+    "concept_id": "security.compliance.soc-2-and-iso-27001",
+    "kind": "definition",
+    "claim": "SOC 2 Type 1 reports on design as of a date; Type 2 reports on operation across a period.",
+    "verdict": "confirmed",
+    "reasoning": "This is standard AICPA SOC 2 terminology (SSAE 18/AT-C 205): a Type 1 report addresses the suitability of the design of controls as of a specified date, and a Type 2 report addresses the suitability of design and operating effectiveness of controls over a specified period. I could not retrieve a page on aicpa-cima.com with this exact wording (404/limited content), so this rests on well-established, uncontested professional-standards terminology rather than a freshly fetched primary quote for this specific claim; the general SOC 2 framework page (aicpa-cima.com) corroborates the report/CPA-examination structure it depends on.",
+    "source": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+  },
+  {
+    "claim_id": "compliance-027",
+    "concept_id": "security.compliance.licensing-compliance",
+    "kind": "standard-content",
+    "claim": "MIT's whole condition is that the copyright notice and the permission notice be included in all copies or substantial portions of copies.",
+    "verdict": "confirmed",
+    "reasoning": "The MIT License text (opensource.org) states: 'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.' Exact match.",
+    "source": "https://opensource.org/license/mit"
+  },
+  {
+    "claim_id": "compliance-028",
+    "concept_id": "security.compliance.licensing-compliance",
+    "kind": "standard-content",
+    "claim": "BSD asks the same of source and binary redistributions (retaining the copyright notice).",
+    "verdict": "confirmed",
+    "reasoning": "BSD 3-Clause License text requires: source redistributions 'must retain the above copyright notice, this list of conditions and the following disclaimer,' and binary redistributions 'must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.' Matches the guide.",
+    "source": "https://opensource.org/license/bsd-3-clause"
+  },
+  {
+    "claim_id": "compliance-029",
+    "concept_id": "security.compliance.licensing-compliance",
+    "kind": "standard-content",
+    "claim": "Apache 2.0 section 4 adds a copy of the licence, prominent notices on any file you changed, and propagation of any NOTICE file.",
+    "verdict": "confirmed",
+    "reasoning": "Apache License 2.0 Section 4 requires recipients get 'a copy of this License,' that modified files 'carry prominent notices stating that You changed the files,' and that distributed derivative works including a NOTICE file in the original carry a readable copy of its attribution notices. Matches the guide's three-part summary.",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  {
+    "claim_id": "compliance-030",
+    "concept_id": "security.compliance.licensing-compliance",
+    "kind": "standard-content",
+    "claim": "GPLv3 permits making, running and propagating covered works you do not convey, and states outright that mere interaction with a user through a computer network, with no transfer of a copy, is not conveying — so running a modified GPL program on your own servers to deliver a service does not by itself trigger the source duty.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 Section 0 (Definitions) states verbatim: 'Mere interaction with a user through a computer network, with no transfer of a copy, is not conveying.' Since the source-disclosure obligations in GPLv3 (Sections 4-6) are triggered by conveying, and network-only interaction is defined out of 'conveying,' the guide's inference that running a modified GPL program as a service does not by itself trigger the source duty follows directly from the license text.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "compliance-031",
+    "concept_id": "security.compliance.licensing-compliance",
+    "kind": "standard-content",
+    "claim": "AGPLv3 section 13 attaches to a version you have modified, requiring it to offer users interacting with it remotely access to its corresponding source.",
+    "verdict": "confirmed",
+    "reasoning": "AGPLv3 Section 13 ('Remote Network Interaction') states: 'if you modify the Program, your modified version must prominently offer all users interacting with it remotely through a computer network ... an opportunity to receive the Corresponding Source.' Exact match to the guide's paraphrase.",
+    "source": "https://www.gnu.org/licenses/agpl-3.0.en.html"
+  }
+]

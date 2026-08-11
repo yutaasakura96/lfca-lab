@@ -1,0 +1,326 @@
+[
+  {
+    "claim_id": "oss-licensing-001",
+    "concept_id": "pm.open-source-software-and-licensing.open-source-software",
+    "kind": "definition",
+    "claim": "The Open Source Definition lists ten criteria a licence must satisfy; free redistribution without a required royalty (OSD 1) and permission to make and distribute derived works (OSD 3) decide most questions, and no discrimination against fields of endeavour (OSD 6) disqualifies a licence that publishes source but forbids commercial or competing use.",
+    "verdict": "confirmed",
+    "reasoning": "opensource.org/osd lists exactly ten criteria: (1) Free Redistribution — no royalty may be required; (3) Derived Works — modifications and derived works must be permitted and distributable under the same terms; (6) No Discrimination Against Fields of Endeavor — the licence must not restrict use in specific domains such as business. This matches the guide's numbering and substance exactly.",
+    "source": "https://opensource.org/osd"
+  },
+  {
+    "claim_id": "oss-licensing-002",
+    "concept_id": "pm.open-source-software-and-licensing.open-source-software",
+    "kind": "definition",
+    "claim": "The OSD requires source be included or obtainable at no more than reasonable reproduction cost and be the preferred form in which a programmer would modify the program; modifications and derived works permitted; no discrimination against persons/groups or fields of endeavour; rights travel to everyone without signing anything additional; licence not specific to one product or technology.",
+    "verdict": "confirmed",
+    "reasoning": "OSD criteria 2 (Source Code: 'preferred form... for no more than a reasonable reproduction cost'), 3 (Derived Works), 5 (No Discrimination Against Persons or Groups), 6 (No Discrimination Against Fields of Endeavor), 7 (Distribution of License: rights apply to all recipients without an additional licence), 8 (not specific to a product), and 10 (technology-neutral) collectively match every clause of this paragraph.",
+    "source": "https://opensource.org/osd"
+  },
+  {
+    "claim_id": "oss-licensing-003",
+    "concept_id": "pm.open-source-software-and-licensing.open-source-software",
+    "kind": "trigger-condition",
+    "claim": "OSD 1 forbids a licence from requiring a royalty, and explicitly permits selling the software as part of an aggregate distribution.",
+    "verdict": "confirmed",
+    "reasoning": "OSD criterion 1, Free Redistribution, states the licence 'shall not restrict any party from selling or giving away the software... nor may it require a royalty' for such sale, precisely when sold as a component of an aggregate software distribution.",
+    "source": "https://opensource.org/osd"
+  },
+  {
+    "claim_id": "oss-licensing-004",
+    "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss",
+    "kind": "definition",
+    "claim": "The Free Software Foundation defines free software by four freedoms: freedom 0 to run the program for any purpose; freedom 1 to study and change it (access to source is a precondition); freedom 2 to redistribute copies; freedom 3 to distribute modified versions.",
+    "verdict": "confirmed",
+    "reasoning": "gnu.org/philosophy/free-sw.html states the four essential freedoms in this exact order and wording: freedom 0 (run for any purpose), freedom 1 (study and change it, source access a precondition), freedom 2 (redistribute copies), freedom 3 (distribute modified versions, source access a precondition).",
+    "source": "https://www.gnu.org/philosophy/free-sw.html"
+  },
+  {
+    "claim_id": "oss-licensing-005",
+    "concept_id": "pm.open-source-software-and-licensing.free-software-and-foss",
+    "kind": "trigger-condition",
+    "claim": "Free software may be sold, and selling it violates nothing; free as in freedom, not price.",
+    "verdict": "confirmed",
+    "reasoning": "The FSF page states directly: 'You may have paid money to get copies of a free program, or you may have obtained copies at no charge. But regardless of how you got your copies, you always have the freedom to copy and change the software, even to sell copies,' and frames the term as 'free speech,' not 'free beer.'",
+    "source": "https://www.gnu.org/philosophy/free-sw.html"
+  },
+  {
+    "claim_id": "oss-licensing-006",
+    "concept_id": "pm.open-source-software-and-licensing.source-code-and-binaries",
+    "kind": "trigger-condition",
+    "claim": "Under the GPL, conveying object code obliges the distributor to make the Corresponding Source available to the recipients.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 requires that when distributing compiled/object code you provide 'the machine-readable Corresponding Source under the terms of this License,' either accompanying it, via a written offer valid at least three years, or via network server access. Corresponding Source is defined as all source code needed to generate, install, and run the object code.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-007",
+    "concept_id": "pm.open-source-software-and-licensing.source-code-and-binaries",
+    "kind": "definition",
+    "claim": "The GPL's Corresponding Source covers the scripts and interface definition files needed to build and install the work, going further than the bare program text; permissive licences impose no source obligation, only notice retention.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3's Corresponding Source definition is 'all the source code needed to generate, install, and run the object code' — this is the standard GPLv3 §1 definition, which explicitly includes associated interface definition files and scripts used to control compilation and installation. MIT and BSD texts (verified separately) impose only notice-retention conditions, with no source-disclosure clause at all.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-008",
+    "concept_id": "pm.open-source-software-and-licensing.permissive-licenses",
+    "kind": "licence-obligation",
+    "claim": "Permissive licence conditions amount to carrying notices forward: preserve the copyright notice, licence text, and disclaimer when redistributing, in source form and, for the BSD licences, reproduced in the documentation or other materials accompanying a binary. Apache-2.0 adds prominent notices on modified files, propagation of a NOTICE file's contents, and an express patent grant.",
+    "verdict": "confirmed",
+    "reasoning": "BSD-2-Clause and BSD-3-Clause texts (opensource.org) require: (1) source redistributions retain the copyright notice and disclaimer, (2) binary redistributions reproduce the notice and disclaimer 'in the documentation and/or other materials provided with the distribution.' Apache-2.0 §4(b) requires modified files to 'carry prominent notices stating that You changed the files,' §4(d) requires NOTICE file attribution propagation, and §3 grants an express patent licence — none of which MIT or BSD have.",
+    "source": "https://opensource.org/license/bsd-3-clause"
+  },
+  {
+    "claim_id": "oss-licensing-009",
+    "concept_id": "pm.open-source-software-and-licensing.permissive-licenses",
+    "kind": "exam-trap",
+    "claim": "Permissive does not mean obligation-free or public domain; stripping the copyright notice from an MIT file and shipping it violates the licence's only condition. MIT and BSD say nothing about patents, unlike Apache-2.0.",
+    "verdict": "confirmed",
+    "reasoning": "MIT text (opensource.org) conditions the grant on 'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.' Neither the MIT nor BSD-2/3-Clause texts contain any patent clause; Apache-2.0 §3 does. Removing the required notice breaches that sole condition.",
+    "source": "https://opensource.org/licenses/MIT"
+  },
+  {
+    "claim_id": "oss-licensing-010",
+    "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+    "kind": "exam-trap",
+    "claim": "Critics call copyleft \"viral\"; that is a pejorative, not a term of art, and it misdescribes the mechanism, which is a condition on an act of distribution rather than something that spreads by contact.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3's own terms condition obligations explicitly on the acts of conveying/distributing (e.g. §5's 'You may convey a work based on the Program... provided that you also meet all of these conditions' and the no-conditions text for works not conveyed). Nothing in the licence text imposes an obligation by mere contact, proximity, or execution alongside covered code — the trigger is always distribution of a covered or combined work. This confirms the guide's framing and is consistent with the project's prior correction of 'viral' language noted in the task brief.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-011",
+    "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+    "kind": "trigger-condition",
+    "claim": "GPLv3 states plainly that you may make, run, and propagate covered works that you do not convey, without conditions; modifying a copyleft program for internal use and never handing it to anyone obliges nothing at all.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 §2 states unmodified private use and running the program is unrestricted, and the licence's conditions throughout (e.g. §4, §5, §6) attach specifically to the act of 'conveying' copies — defined in §0 as distribution/making available to others, expressly excluding mere running or private modification.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-012",
+    "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+    "kind": "licence-obligation",
+    "claim": "Strong copyleft (the GPL) reaches the whole combined work: when a modified or combined work is conveyed, the entire thing must be licensed to recipients under the same licence, and the Corresponding Source made available.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 §5 requires that a conveyed modified version 'must license the entire work, as a whole, under this License to anyone who comes into possession of a copy,' and separately requires Corresponding Source be made available on conveying object code.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-013",
+    "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+    "kind": "trigger-condition",
+    "claim": "Copyleft does not trigger on use: internal modification, and — for the GPL — offering the modified program to the public as a network service, both convey nothing, which is the specific gap the AGPL was written to close.",
+    "verdict": "confirmed",
+    "reasoning": "Plain GPLv3 has no network-interaction trigger; its obligations attach only to conveying copies. The AGPL's §13 (verified separately) was drafted specifically to add a network-interaction trigger the plain GPL lacks, confirming this is the gap it closes.",
+    "source": "https://www.gnu.org/licenses/agpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-014",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "definition",
+    "claim": "GPLv2 (1991) and GPLv3 (2007) are two live versions; the Linux kernel is released as GPL-2.0-only.",
+    "verdict": "confirmed",
+    "reasoning": "The kernel's own licensing-rules documentation states: 'The Linux Kernel is provided under the terms of the GNU General Public License version 2 only (GPL-2.0)... with an explicit syscall exception described in LICENSES/exceptions/Linux-syscall-note.'",
+    "source": "https://www.kernel.org/doc/html/latest/process/license-rules.html"
+  },
+  {
+    "claim_id": "oss-licensing-015",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "citation-mismatch",
+    "claim": "The kernel carries an explicit syscall exception so that user-space programs merely making system calls are not treated as derivative works of the kernel (LICENSES/exceptions/Linux-syscall-note).",
+    "verdict": "confirmed",
+    "reasoning": "Kernel documentation names the exception file LICENSES/exceptions/Linux-syscall-note and states 'the syscall interface is a clear boundary, which does not extend the GPL requirements to any software which uses it to communicate' with the kernel — matching the guide's claim and citation exactly.",
+    "source": "https://www.kernel.org/doc/html/latest/process/license-rules.html"
+  },
+  {
+    "claim_id": "oss-licensing-016",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "licence-obligation",
+    "claim": "GPLv3 §5 requires a conveyed modified source version to carry prominent notices that it was modified and when, to state it is released under this licence, and to be licensed as a whole under the GPL to anyone who comes into possession of a copy; conveying object code obliges accompanying it with Corresponding Source or a written offer.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 §5 text requires the work to 'carry prominent notices stating that you modified it' and to 'license the entire work, as a whole, under this License to anyone who comes into possession of a copy.' §6 requires accompanying object code with machine-readable Corresponding Source or a valid written offer.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-017",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "licence-obligation",
+    "claim": "GPLv3 adds to GPLv2 an express patent grant, Installation Information for user products (anti-tivoisation), and a cure provision under which a terminated licence can be reinstated; GPLv2 terminates on violation with no cure clause.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3 §11 grants each contributor's essential patent claims as a royalty-free licence (absent from GPLv2, which has no dedicated patent section). GPLv3's Installation Information requirement for User Products ensures modified object code can be installed on the shipping device. GPLv3 §8 provides for provisional/permanent reinstatement after a cure. GPLv2 §4 instead states rights terminate automatically and permanently on any unauthorized copy/modify/distribute, with no cure mechanism.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-018",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "citation-mismatch",
+    "claim": "The two GPL versions are not compatible with each other unless a work is offered under \"v2 or later,\" which is what the \"-or-later\" SPDX suffix records.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv2 and GPLv3 differ in terms and are treated by the FSF as not directly interchangeable; combining GPLv2-only and GPLv3 code into one work requires that the GPLv2 side be offered as 'version 2 or any later version,' which SPDX records with the -or-later identifier suffix (e.g. GPL-2.0-or-later). This is standard SPDX/FSF practice reflected consistently across the GPL texts examined.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-019",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "trigger-condition",
+    "claim": "The GPL does not reach a modified version that is never conveyed, and does not reach users of a network service, because mere interaction with a user over a network with no transfer of a copy is not conveying.",
+    "verdict": "confirmed",
+    "reasoning": "GPLv3's obligations key off 'conveying,' defined as any distribution/making-available of a copy to a third party; the plain GPL contains no clause reaching network interaction absent a transferred copy — consistent with the AGPL having been created specifically to add that trigger.",
+    "source": "https://www.gnu.org/licenses/gpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-020",
+    "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+    "kind": "licence-obligation",
+    "claim": "MIT grants use, copying, modification, merging, publication, distribution, sublicensing, and sale on one condition: the copyright notice and permission notice must be included in all copies or substantial portions of the software.",
+    "verdict": "confirmed",
+    "reasoning": "The MIT licence text (opensource.org) grants 'permission... to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,' conditioned solely on: 'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.'",
+    "source": "https://opensource.org/licenses/MIT"
+  },
+  {
+    "claim_id": "oss-licensing-021",
+    "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+    "kind": "licence-obligation",
+    "claim": "BSD-2-Clause requires the notice, conditions, and disclaimer to be retained in redistributed source and reproduced in the documentation or other materials accompanying a binary; BSD-3-Clause adds a third clause forbidding use of the copyright holder's or contributors' names to endorse derived products without specific prior written permission.",
+    "verdict": "confirmed",
+    "reasoning": "BSD-2-Clause text has exactly two conditions: (1) retain notice/conditions/disclaimer in source redistributions, (2) reproduce them in documentation/materials accompanying binary redistributions. BSD-3-Clause has the same two plus a third: 'Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.'",
+    "source": "https://opensource.org/license/bsd-3-clause"
+  },
+  {
+    "claim_id": "oss-licensing-022",
+    "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+    "kind": "citation-mismatch",
+    "claim": "The historical BSD-4-Clause carries an advertising clause, is not OSI-approved, and is regarded by the Free Software Foundation as incompatible with the GPL.",
+    "verdict": "confirmed",
+    "reasoning": "SPDX's BSD-4-Clause record shows OSI-approved status as 'false'. The FSF's license-list entry for the Original BSD license states it has 'the obnoxious BSD advertising clause,' which 'does cause practical problems, including incompatibility with the GNU GPL.'",
+    "source": "https://spdx.org/licenses/BSD-4-Clause.html"
+  },
+  {
+    "claim_id": "oss-licensing-023",
+    "concept_id": "pm.open-source-software-and-licensing.mit-and-bsd-licenses",
+    "kind": "licence-obligation",
+    "claim": "Neither MIT nor any BSD variant grants patent rights, requires a NOTICE file, or requires modified files to be marked.",
+    "verdict": "confirmed",
+    "reasoning": "Neither the MIT nor the BSD-2-Clause/BSD-3-Clause texts contain any patent clause, NOTICE-file mechanism, or modified-file marking requirement — these concepts appear only in Apache-2.0.",
+    "source": "https://opensource.org/licenses/MIT"
+  },
+  {
+    "claim_id": "oss-licensing-024",
+    "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+    "kind": "licence-obligation",
+    "claim": "Section 3 grants each recipient a perpetual, worldwide, royalty-free, irrevocable patent licence covering only claims necessarily infringed by the contribution alone or in combination with the Work it was submitted to, and terminates that grant for anyone who files patent litigation alleging the work infringes.",
+    "verdict": "confirmed",
+    "reasoning": "Apache-2.0 §3 grants 'a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable... patent license' scoped to claims 'necessarily infringed by their Contribution(s) alone or by combination of their Contribution(s) with the Work,' and states the grant terminates for any entity that institutes patent litigation alleging infringement.",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  {
+    "claim_id": "oss-licensing-025",
+    "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+    "kind": "licence-obligation",
+    "claim": "Section 4 conditions redistribution on: give recipients a copy of the licence; cause modified files to carry prominent notices that they were changed; retain copyright/patent/trademark/attribution notices from the source; and, if the work ships a NOTICE file, include a readable copy of its attribution notices in the NOTICE file, documentation, or a generated display. Section 5 provides contributions are under the same licence terms unless stated otherwise.",
+    "verdict": "confirmed",
+    "reasoning": "Apache-2.0 §4(a)-(d) impose exactly these four conditions, including §4(b) 'cause any modified files to carry prominent notices stating that You changed the files' and §4(d)'s NOTICE-file propagation requirement. §5 states contributions are 'under the terms and conditions of this License, without any additional terms or conditions,' absent an explicit separate agreement.",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  {
+    "claim_id": "oss-licensing-026",
+    "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+    "kind": "exam-trap",
+    "claim": "The NOTICE file obligation only exists if the upstream work ships one; the patent grant is limited to claims infringed by the contributor's own contribution, not the whole patent portfolio; Apache-2.0 is not a copyleft licence, since none of section 4's conditions reaches the licence of the derivative work as a whole.",
+    "verdict": "confirmed",
+    "reasoning": "§4(d) is explicitly conditional: 'If the Work includes a \"NOTICE\" text file...' §3's patent grant is scoped to claims infringed 'alone or by combination... with the Work,' not a blanket portfolio grant. §4's conditions govern notices/attribution only and never require the derivative's overall licence to be Apache-2.0 or any specific licence, confirming it is permissive, not copyleft.",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  {
+    "claim_id": "oss-licensing-027",
+    "concept_id": "pm.open-source-software-and-licensing.apache-license-2-0",
+    "kind": "authority",
+    "claim": "The Free Software Foundation treats Apache-2.0 as compatible with GPLv3 but not with GPLv2, because of requirements GPLv2 lacks, including the patent-termination provision.",
+    "verdict": "confirmed",
+    "reasoning": "The FSF's license-list entry for Apache License 2.0 states: 'This is a free software license, compatible with version 3 of the GNU GPL. Please note that this license is not compatible with GPL version 2, because it has some requirements that are not in that GPL version. These include certain patent termination and indemnification provisions.'",
+    "source": "https://www.gnu.org/licenses/license-list.html#apache2"
+  },
+  {
+    "claim_id": "oss-licensing-028",
+    "concept_id": "pm.open-source-software-and-licensing.lgpl",
+    "kind": "licence-obligation",
+    "claim": "LGPL is weak copyleft (LGPL-3.0-only): an application may link to the library and ship under its own terms if users can relink against a modified library; modifications to the library itself stay under the LGPL.",
+    "verdict": "confirmed",
+    "reasoning": "LGPLv3 §4 permits conveying a Combined Work 'under terms of your choice' provided (among other conditions) the recipient can recombine/relink the application with a modified version of the library, via a suitable shared-library mechanism or relinkable object code. The library component itself remains subject to the LGPL's copying/modification terms throughout.",
+    "source": "https://www.gnu.org/licenses/lgpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-029",
+    "concept_id": "pm.open-source-software-and-licensing.agpl",
+    "kind": "trigger-condition",
+    "claim": "The GPL plus section 13 (AGPL-3.0-only): users interacting with a modified version over a network must be offered its Corresponding Source, triggered by network interaction with a modified version, not by distribution.",
+    "verdict": "confirmed",
+    "reasoning": "AGPL §13 states that if you modify the Program, your modified version must prominently offer all users interacting with it remotely through a computer network an opportunity to receive the Corresponding Source, via network server access at no charge — a trigger distinct from and additional to conveying/distributing a copy.",
+    "source": "https://www.gnu.org/licenses/agpl-3.0.html"
+  },
+  {
+    "claim_id": "oss-licensing-030",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "licence-obligation",
+    "claim": "GPL vs AGPL vs LGPL comparison table: LGPLv3 section 4's relink conditions (LGPL-2.1 section 6) let a proprietary application link to the library while staying proprietary; the LGPL confines the same-licence condition to the library boundary.",
+    "verdict": "confirmed",
+    "reasoning": "LGPLv3 §4 and LGPL-2.1 §6 both permit combining/linking the library into a work distributed 'under terms of your choice,' subject to relinking/reverse-engineering permissions and notice requirements, without extending the LGPL to the whole application — matching the table's claim precisely, including the specific section numbers cited.",
+    "source": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"
+  },
+  {
+    "claim_id": "oss-licensing-031",
+    "concept_id": "pm.open-source-software-and-licensing.license-compatibility",
+    "kind": "licence-obligation",
+    "claim": "MIT and BSD-2/3-Clause code combines into GPL projects freely. Apache-2.0 combines one way into GPLv3, but the FSF treats it as incompatible with GPLv2.",
+    "verdict": "confirmed",
+    "reasoning": "The FSF's GPL-Compatible Free Software Licenses list includes MIT/Expat and the (2-clause) FreeBSD license as GPL-compatible; its Apache License 2.0 entry states compatibility with GPLv3 only, explicitly not GPLv2, due to patent-termination and indemnification provisions absent from GPLv2.",
+    "source": "https://www.gnu.org/licenses/license-list.html#apache2"
+  },
+  {
+    "claim_id": "oss-licensing-032",
+    "concept_id": "pm.open-source-software-and-licensing.license-compatibility",
+    "kind": "citation-mismatch",
+    "claim": "Creative Commons BY-SA 4.0 is one-way compatible with GPLv3: modified BY-SA 4.0 material may be licensed under GPLv3, but GPLv3 work may not be relicensed under BY-SA 4.0.",
+    "verdict": "confirmed",
+    "reasoning": "Creative Commons' own FAQ states: 'Version 4.0 of CC's Attribution-ShareAlike (BY-SA) license is one-way compatible with the GNU General Public License version 3.0 (GPLv3). This compatibility mechanism is designed for situations in which content is integrated into software code,' describing a one-directional adaptation path (BY-SA content into GPLv3 works), not the reverse.",
+    "source": "https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software"
+  },
+  {
+    "claim_id": "oss-licensing-033",
+    "concept_id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain",
+    "kind": "authority",
+    "claim": "Creative Commons recommends against CC licences for software: they address neither source distribution nor patents, and the NC and ND variants would fail the Open Source Definition. CC0 is GPL-compatible and acceptable for software; CC BY-SA 4.0 is one-way compatible with GPLv3.",
+    "verdict": "confirmed",
+    "reasoning": "The CC FAQ states directly: 'We recommend against using Creative Commons licenses for software... Unlike software-specific licenses, CC licenses do not contain specific terms about the distribution of source code... Many software licenses also address patent rights... our licenses are currently not compatible with the major software licenses.' The FSF separately lists CC0 as compatible with the GNU GPL and recommended for released-to-public-domain works, while non-commercial (NC) and no-derivatives (ND) variants restrict a field of use / forbid derived works and so would fail OSD 3 and OSD 6.",
+    "source": "https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software"
+  },
+  {
+    "claim_id": "oss-licensing-034",
+    "concept_id": "pm.open-source-software-and-licensing.contributing-to-open-source",
+    "kind": "definition",
+    "claim": "At the Apache Software Foundation the project management committee holds the merge decision, and committers are developers who earned write access on merit and have a contributor licence agreement on file.",
+    "verdict": "confirmed",
+    "reasoning": "The ASF's 'How the ASF works' page states: 'A committer is a developer who has write access to the code repository and has a signed Contributor License Agreement (CLA) on file... The PMC can (even tacitly) agree and approve the changes into permanency, or they can reject them. Remember that the PMC makes the decisions, not the individual committers.'",
+    "source": "https://www.apache.org/foundation/how-it-works.html"
+  },
+  {
+    "claim_id": "oss-licensing-036",
+    "concept_id": "pm.open-source-software-and-licensing.gpl",
+    "kind": "exam-trap",
+    "claim": "The FSF's criterion for whether two parts form one GPL-covered program is the mechanism and the semantics of the communication: pipes, sockets, or command-line arguments are the mechanisms of separate programs, but semantics intimate enough to exchange complex internal data structures can still make the two parts one larger program. Modules in a single executable file are definitely one program, and modules designed to run linked together in a shared address space almost surely are.",
+    "verdict": "confirmed",
+    "reasoning": "The GNU GPL FAQ states nearly verbatim: 'If the modules are included in the same executable file, they are definitely combined in one program. If modules are designed to run linked together in a shared address space, that almost surely means combining them into one program. By contrast, pipes, sockets and command-line arguments are communication mechanisms normally used between two separate programs... But if the semantics of the communication are intimate enough, exchanging complex internal data structures, that too could be a basis to consider the two parts as combined into a larger program.'",
+    "source": "https://www.gnu.org/licenses/gpl-faq.html"
+  },
+  {
+    "claim_id": "oss-licensing-035",
+    "concept_id": "pm.open-source-software-and-licensing.forking-a-project",
+    "kind": "definition",
+    "claim": "The Open Source Definition requires that a licence permit modifications and derived works and allow them to be distributed under the same terms as the original.",
+    "verdict": "confirmed",
+    "reasoning": "OSD criterion 3, Derived Works, requires the licence to allow modifications and derived works, and to permit them to be distributed under the same terms as the licence of the original software.",
+    "source": "https://opensource.org/osd"
+  }
+]

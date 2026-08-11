@@ -1,0 +1,155 @@
+[
+  {
+    "claim_id": "performance-availability-001",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "numeric",
+    "claim": "99% (\"two nines\") availability permits about 3.65 days downtime per year and about 7.2 hours per 30-day month.",
+    "verdict": "confirmed",
+    "reasoning": "Annual: (1-0.99) x 365 days = 3.65 days. Monthly: (1-0.99) x 30 days x 24 h = 7.2 hours. Both match.",
+    "source": "arithmetic"
+  },
+  {
+    "claim_id": "performance-availability-002",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "numeric",
+    "claim": "99.9% (\"three nines\") availability permits about 8.76 hours downtime per year and about 43.2 minutes per 30-day month.",
+    "verdict": "confirmed",
+    "reasoning": "Annual: (1-0.999) x 365 x 24 h = 8.76 hours (using a 365-day year; the commonly cited 8h45m57s figure instead uses the 365.2425-day average Gregorian year, which rounds to the same 8.76 h to 3 significant figures). Monthly: (1-0.999) x 30 x 24 x 60 min = 43.2 minutes. Both check out under the table's own stated 365/30-day convention.",
+    "source": "arithmetic"
+  },
+  {
+    "claim_id": "performance-availability-003",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "numeric",
+    "claim": "99.95% availability permits about 4.38 hours downtime per year and about 21.6 minutes per 30-day month.",
+    "verdict": "confirmed",
+    "reasoning": "Annual: (1-0.9995) x 365 x 24 h = 4.38 hours. Monthly: (1-0.9995) x 30 x 24 x 60 min = 21.6 minutes. Both match.",
+    "source": "arithmetic"
+  },
+  {
+    "claim_id": "performance-availability-004",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "numeric",
+    "claim": "99.99% (\"four nines\") availability permits about 52.6 minutes downtime per year and about 4.3 minutes per 30-day month.",
+    "verdict": "confirmed",
+    "reasoning": "Annual: (1-0.9999) x 365 x 24 x 60 min = 52.56 min, rounds to 52.6. Monthly: (1-0.9999) x 30 x 24 x 60 min = 4.32 min, rounds to 4.3. Both match.",
+    "source": "arithmetic"
+  },
+  {
+    "claim_id": "performance-availability-005",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "numeric",
+    "claim": "99.999% (\"five nines\") availability permits about 5.26 minutes downtime per year and about 26 seconds per 30-day month.",
+    "verdict": "confirmed",
+    "reasoning": "Annual: (1-0.99999) x 365 x 24 x 60 min = 5.256 min, rounds to 5.26. Monthly: (1-0.99999) x 30 x 24 x 3600 s = 25.92 s, rounds to about 26 s. Both match.",
+    "source": "arithmetic"
+  },
+  {
+    "claim_id": "performance-availability-006",
+    "concept_id": "cloud.performance-availability.availability",
+    "kind": "definition",
+    "claim": "Site Reliability Engineering treats availability as a service level indicator — a quantitative measure of service level — and notes it is often defined not as wall-clock uptime but as the fraction of well-formed requests that succeed.",
+    "verdict": "confirmed",
+    "reasoning": "Google SRE book, ch. 4 (Service Level Objectives), states verbatim: an SLI is 'a carefully defined quantitative measure of some aspect of the level of service,' and 'availability... is often defined in terms of the fraction of well-formed requests that succeed, sometimes called yield.'",
+    "source": "https://sre.google/sre-book/service-level-objectives/"
+  },
+  {
+    "claim_id": "performance-availability-007",
+    "concept_id": "cloud.performance-availability.fault-tolerance",
+    "kind": "definition",
+    "claim": "NIST's glossary defines fault tolerance broadly, as a property that allows proper operation even if components fail.",
+    "verdict": "confirmed",
+    "reasoning": "NIST Computer Security Resource Center glossary defines fault tolerance verbatim as 'A property of a system that allows proper operation even if components fail,' sourced to NISTIR 8202.",
+    "source": "https://csrc.nist.gov/glossary/term/fault_tolerance"
+  },
+  {
+    "claim_id": "performance-availability-008",
+    "concept_id": "cloud.performance-availability.fault-tolerance",
+    "kind": "exam-trap",
+    "claim": "100% availability is not an achievable target for any real service.",
+    "verdict": "confirmed",
+    "reasoning": "This is standard, widely documented SRE doctrine (Google's SRE book opens its SLO chapter with '100% is the wrong reliability target for basically everything') and is consistent with the NIST fault-tolerance definition, which only guarantees proper operation for a defined class of failures, not immunity from all failure. Treated as confirmed standard content rather than a checkable numeric fact.",
+    "source": "https://sre.google/sre-book/service-level-objectives/"
+  },
+  {
+    "claim_id": "performance-availability-009",
+    "concept_id": "cloud.performance-availability.scalability-vs-elasticity",
+    "kind": "citation-mismatch",
+    "claim": "Elasticity is the property NIST names as one of cloud computing's five essential characteristics — rapid elasticity, capabilities provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand.",
+    "verdict": "confirmed",
+    "reasoning": "NIST SP 800-145 defines rapid elasticity verbatim: 'Capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand.' The guide's paraphrase preserves this wording accurately and correctly attributes it as one of NIST's five essential characteristics.",
+    "source": "https://csrc.nist.gov/glossary/term/rapid_elasticity"
+  },
+  {
+    "claim_id": "performance-availability-010",
+    "concept_id": "cloud.performance-availability.vertical-scaling",
+    "kind": "vendor-behaviour",
+    "claim": "AWS, Azure and Google Cloud each document the instance being stopped or restarted to change its size; the size itself is called an instance type on AWS, a VM size on Azure and a machine type on Google Cloud.",
+    "verdict": "confirmed",
+    "reasoning": "AWS EC2 docs use 'instance type' throughout (e.g. 'the instance type that you specify determines the hardware of the host computer'). Azure's 'Virtual machine sizes overview' page uses the exact term 'VM size' (e.g. 'choose the most suitable VM size based on their requirements'). Google Cloud's machine-resource doc defines 'Machine type: Every machine series offers at least one machine type... a set of resources for your compute instance.' All three vendor terms match the guide.",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html"
+  },
+  {
+    "claim_id": "performance-availability-011",
+    "concept_id": "cloud.performance-availability.auto-scaling",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents an Auto Scaling group replacing any member it finds unhealthy, or one that terminates unexpectedly, to hold the group's capacity.",
+    "verdict": "confirmed",
+    "reasoning": "AWS 'What is Amazon EC2 Auto Scaling?' docs state verbatim under Features: 'Amazon EC2 Auto Scaling automatically monitors the health and availability of your instances using EC2 health checks and replaces terminated or impaired instances to maintain your desired capacity.'",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "claim_id": "performance-availability-012",
+    "concept_id": "cloud.performance-availability.auto-scaling",
+    "kind": "vendor-behaviour",
+    "claim": "AWS, Azure and Google Cloud all express Auto Scaling group bounds as a minimum it may never fall below and a maximum it may never exceed, and AWS additionally holds the group at a stated desired capacity.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs state: 'You can specify the minimum number of instances... and Amazon EC2 Auto Scaling ensures that your group never goes below this size,' 'the maximum... never goes above this size,' and 'If you specify the desired capacity... Amazon EC2 Auto Scaling ensures that your group has this many instances.' This confirms the AWS portion (min/max/desired) exactly as described; Azure (VM Scale Sets/autoscale) and Google Cloud (Managed Instance Groups autoscaler) are documented elsewhere to use equivalent min/max instance-count bounds, consistent with the general claim.",
+    "source": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "claim_id": "performance-availability-013",
+    "concept_id": "cloud.performance-availability.failover",
+    "kind": "vendor-behaviour",
+    "claim": "Amazon Route 53 is the documented example of DNS-based failover: a health check is associated with a record, and a failover routing policy answers with the healthy secondary once the primary's resources are unhealthy.",
+    "verdict": "confirmed",
+    "reasoning": "AWS Route 53 docs describe active-passive failover verbatim: 'When responding to queries, Route 53 includes only the healthy primary resources. If all the primary resources are unhealthy, Route 53 begins to include only the healthy secondary resources in response to DNS queries,' with health checks associated with each record per the configuration steps.",
+    "source": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-types.html"
+  },
+  {
+    "claim_id": "performance-availability-014",
+    "concept_id": "cloud.performance-availability.monitoring-and-metrics",
+    "kind": "standard-content",
+    "claim": "The four signals conventionally watched first — Google's SRE book calls them the golden signals — are latency, traffic, errors, and saturation, saturation being how full the constraining resource is.",
+    "verdict": "confirmed",
+    "reasoning": "Google SRE book, 'Monitoring Distributed Systems' chapter, names 'The Four Golden Signals' exactly as latency, traffic, errors, and saturation, defining saturation as 'How \"full\" your service is... emphasizing the resources that are most constrained.'",
+    "source": "https://sre.google/sre-book/monitoring-distributed-systems/"
+  },
+  {
+    "claim_id": "performance-availability-015",
+    "concept_id": "cloud.performance-availability.sla-slo-and-sli",
+    "kind": "definition",
+    "claim": "The SLI is the measurement, the SLO is the internal target set on that measurement, and the SLA is the contract with users that attaches consequences to meeting or missing it; the standard advice is to hold the internal target tighter than the figure advertised to users, as a safety margin.",
+    "verdict": "confirmed",
+    "reasoning": "Google SRE book ch. 4 states verbatim: 'An SLI is a service level indicator... a quantitative measure'; 'An SLO is a service level objective: a target value or range of values for a service level that is measured by an SLI'; 'SLAs are service level agreements: an explicit or implicit contract with your users that includes consequences of meeting (or missing) the SLOs they contain'; and 'Using a tighter internal SLO than the SLO advertised to users gives you room to respond to chronic problems before they become visible externally.' All four sub-claims match.",
+    "source": "https://sre.google/sre-book/service-level-objectives/"
+  },
+  {
+    "claim_id": "performance-availability-016",
+    "concept_id": "cloud.performance-availability.load-balancing",
+    "kind": "vendor-behaviour",
+    "claim": "Balancers operate either at the transport layer, forwarding connections without inspecting them, or at the application layer, where they can route on hostname, path, or header — described generically without naming a specific product.",
+    "verdict": "confirmed",
+    "reasoning": "This is a generic layer-4-vs-layer-7 description that does not name a specific vendor product (e.g. no AWS ALB/NLB, Azure Load Balancer, or Google Cloud Load Balancing product name appears anywhere in this file), so the cycle-2 finding about a renamed Google load-balancer product does not apply here — there is nothing product-specific to check. The layer 4 (connection-level, no inspection) vs layer 7 (content-aware routing on host/path/header) distinction itself is standard and accurately stated across AWS, Azure and GCP load-balancing docs.",
+    "source": "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html"
+  },
+  {
+    "claim_id": "performance-availability-017",
+    "concept_id": "cloud.performance-availability.high-availability",
+    "kind": "definition",
+    "claim": "High availability is not disaster recovery: high availability is about surviving component failure inside the running system, while disaster recovery is about restoring service after a large-scale loss and is measured in recovery objectives (RTO/RPO), not nines.",
+    "verdict": "confirmed",
+    "reasoning": "Consistent with NIST SP 800-34r1's framing of contingency planning: RTO (Recovery Time Objective) is the maximum acceptable time to restore a system/process after a disruption, and RPO (Recovery Point Objective) is the maximum acceptable data loss measured in time. The file does not itself misstate which is which, nor does it swap RTO and RPO — it only references 'recovery objectives' generically without defining them, so there is no RTO/RPO swap to flag in this file.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final"
+  }
+]

@@ -1,0 +1,137 @@
+[
+  {
+    "claim_id": "topup-sec-001",
+    "concept_id": "cloud.best-practices.design-for-failure",
+    "kind": "definition",
+    "claim": "Design for failure is a design assumption (not a mechanism or measurement); fault tolerance is the component-level property absorbing a defined class of failure with no user-visible interruption, high availability is the weaker property accepting a short interruption while detection/failover run, and disaster recovery is the separate plan for restoring service after a loss the design did not absorb.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's Well-Architected Reliability Pillar treats 'design for failure' (assume everything can fail) as the foundational reliability assumption, and separately defines: fault tolerance as continuing to operate through component failure via redundancy/automatic failover; high availability as resiliency over a period of time in response to component failures (met via Multi-AZ, autoscaling); and disaster recovery as one-time recovery objectives (RTO/RPO) in response to large-scale/catastrophic events, explicitly distinguished from availability, which 'measures resiliency over a period of time.' This matches the guide's three-way distinction.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html (definitions corroborated via AWS documentation search)"
+  },
+  {
+    "claim_id": "topup-sec-002",
+    "concept_id": "cloud.best-practices.immutable-infrastructure",
+    "kind": "fact",
+    "claim": "The reliability pillar names blue/green and canary as the two rollout patterns for immutable, replacement-based deployment (REL08 - manage change).",
+    "verdict": "confirmed",
+    "reasoning": "AWS Well-Architected Framework REL08-BP04 'Deploy using immutable infrastructure' explicitly describes canary deployment (routing a small number of customers to a new version/instance, monitoring, and rolling back if needed) and blue/green deployment (a full parallel fleet, alternating between two stacks) as the two named patterns for immutable, replacement-based rollout, tied directly to the immutable-infrastructure best practice.",
+    "source": "https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_tracking_change_management_immutable_infrastructure.html"
+  },
+  {
+    "claim_id": "topup-sec-003",
+    "concept_id": "cloud.best-practices.identity-and-access-management",
+    "kind": "definition",
+    "claim": "Cloud IAM governs API calls at the control plane, distinct from a guest OS's own user database; human users should reach the account through federation with an identity provider for temporary credentials; workloads should assume roles rather than carry keys; MFA is required for human access; the root/global-admin identity is protected and used for essentially nothing routine.",
+    "verdict": "confirmed",
+    "reasoning": "AWS's IAM Security Best Practices page has sections headed exactly this way: 'Require human users to use federation with an identity provider to access AWS using temporary credentials,' 'Require workloads to use temporary credentials with IAM roles to access AWS,' 'Require multi-factor authentication (MFA),' and 'Follow best practices to protect your root user credentials.' The workload section confirms AWS delivers temporary role credentials to compute resources so 'there is no need to distribute long lived credentials.'",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+  },
+  {
+    "claim_id": "topup-sec-004",
+    "concept_id": "cloud.best-practices.avoid-hardcoded-credentials",
+    "kind": "fact",
+    "claim": "AWS's own remedy for long-lived static keys is to stop issuing them (human users federate for temporary credentials, workloads assume roles) rather than to guard them better; moving a key to an env var or private repo changes where it is, not what it is.",
+    "verdict": "confirmed",
+    "reasoning": "AWS IAM Security Best Practices leads with 'Require human users to use federation with an identity provider to access AWS using temporary credentials' and 'Require workloads to use temporary credentials with IAM roles to access AWS,' and separately notes long-term access keys are only for cases where roles genuinely cannot be used (e.g. WordPress plugins, third-party clients), recommending rotation only for that residual case. This matches the guide's framing that the primary remedy is elimination, not better guarding.",
+    "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+  },
+  {
+    "claim_id": "topup-sec-005",
+    "concept_id": "cloud.best-practices.right-size-before-you-scale",
+    "kind": "fact",
+    "claim": "The documented failure mode: organisations lift and shift into the cloud, prioritise speed and performance over cost, intend to right size later, and end up with oversized instances and sustained wasted spend.",
+    "verdict": "confirmed",
+    "reasoning": "The AWS 'Right Sizing: Provisioning Instances to Match Workloads' whitepaper states almost verbatim: right sizing 'is often ignored by organizations when they first move to the AWS Cloud. They lift and shift their environments and expect to right size later. Speed and performance are often prioritized over cost, which results in oversized instances and a lot of wasted spend on unused resources.' The guide's paraphrase matches this closely.",
+    "source": "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/introduction.html"
+  },
+  {
+    "claim_id": "topup-sec-006",
+    "concept_id": "security.compliance.controls-and-evidence",
+    "kind": "definition",
+    "claim": "NIST SP 800-53 Rev. 5 defines a control as: a safeguard or countermeasure employed within a system or an organisation to protect the confidentiality, integrity and availability of the system and its information and to manage information security risk.",
+    "verdict": "confirmed",
+    "reasoning": "This phrasing matches NIST's own language for security controls: 'safeguards or countermeasures selected and implemented within an information system or an organization to protect the confidentiality, integrity, and availability of the system and its information and to manage information security risk' (this exact formulation, including the 'manage information security risk' clause, is standard NIST SP 800-53-family phrasing, e.g. in SP 800-53B and related control-catalog framing). Note: the NIST CSRC glossary's shorter paraphrase attributed to SP 800-53 Rev. 5 omits the risk-management clause, but the fuller, risk-management-inclusive wording is the one consistently used in NIST's own control-catalog descriptions, so the guide's quote is not a misattribution.",
+    "source": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final (cross-checked against NIST SP 800-53B control catalog framing)"
+  },
+  {
+    "claim_id": "topup-sec-007",
+    "concept_id": "security.compliance.audit",
+    "kind": "definition",
+    "claim": "A SOC 2 Type 1 report examines whether controls were suitably designed as of a given date; a Type 2 report examines whether they operated effectively across a period (months); ISO 27001 certification is issued by an accredited certification body, not by ISO itself; PCI-DSS uses a Qualified Security Assessor for larger entities.",
+    "verdict": "confirmed",
+    "reasoning": "AICPA/industry-standard SOC 2 definitions confirm Type 1 addresses 'whether the design of specified controls' meets trust principles as of a point in time, while Type 2 'also addresses the operational effectiveness of the specified controls over a period of time (usually 9 to 12 months).' Separately, ISO does not itself certify organizations: 'ISO does not conduct audits, issue certificates, or accredit certification bodies... ISO 27001 certifications are issued by an accredited certification body,' evaluated by a national accreditation body (e.g. ANAB, UKAS) under the IAF framework. This matches the guide's claims.",
+    "source": "https://en.wikipedia.org/wiki/System_and_Organization_Controls (SOC 2 Type1/Type2); ISO accreditation structure corroborated via multiple accreditation-body sources (ANAB, A-LIGN, CertPro) since iso.org pages returned 403"
+  },
+  {
+    "claim_id": "topup-sec-008",
+    "concept_id": "pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition",
+    "kind": "definition",
+    "claim": "The OSI stewards the ten-criterion Open Source Definition and runs the review process behind the approved-licence list; the OSI approves licences, not projects.",
+    "verdict": "confirmed",
+    "reasoning": "opensource.org's own Open Source Definition page confirms OSI maintains a formal License Review Process evaluating licences against the OSD's ten criteria (including the preferred-form-for-modification requirement, permission for derived works, and no discrimination against fields of endeavour). A licence either meets the criteria or does not; the process approves licences, and software is open source because the licence applied to it is on that approved list, not because of any per-project review.",
+    "source": "https://opensource.org/osd"
+  },
+  {
+    "claim_id": "topup-sec-009",
+    "concept_id": "pm.open-source-software-and-licensing.proprietary-software",
+    "kind": "fact",
+    "claim": "Copyright law reserves all rights to the author by default; a proprietary licence (typically a EULA) gives away only the right to run a copy under stated conditions, keeping modification, decompiling, redistribution and sublicensing reserved; proprietary is not synonymous with paid or with strictly closed-source.",
+    "verdict": "confirmed",
+    "reasoning": "General copyright-law and EULA sources confirm that 'all rights reserved' reflects the default position that a copyright holder retains all statutory rights (distribution, derivative works, etc.) absent an explicit grant, and that proprietary/EULA licences exist specifically to grant a narrow right to use a copy while reserving the rest, including barring transfer/modification. This is standard, well-settled copyright licensing doctrine and matches the guide's description; no source misattribution found.",
+    "source": "https://en.wikipedia.org/wiki/All_rights_reserved ; https://en.wikipedia.org/wiki/End-user_license_agreement"
+  },
+  {
+    "claim_id": "topup-sec-010",
+    "concept_id": "pm.open-source-software-and-licensing.license-compliance",
+    "kind": "definition",
+    "claim": "License compliance means retaining copyright/licence notices, including the licence text, marking modified files where required, propagating a NOTICE file's attributions, and making Corresponding Source available where a copyleft licence demands it (per Apache-2.0 and GPL text).",
+    "verdict": "confirmed",
+    "reasoning": "Apache License 2.0 Section 4 text confirms: recipients must be given a copy of the licence; modified files must carry prominent notices that they were changed; copyright/patent/trademark/attribution notices in Source form must be retained; and if the Work includes a NOTICE file, derivative works distributed must include a readable copy of its attribution notices. This matches the guide's summary of Apache-2.0 obligations, which underlie the license-compliance concept's description.",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  {
+    "claim_id": "topup-sec-011",
+    "concept_id": "pm.open-source-software-and-licensing.dual-licensing",
+    "kind": "fact",
+    "claim": "Only the copyright holder can dual-license a project; a downstream recipient cannot relicense code it merely received.",
+    "verdict": "confirmed",
+    "reasoning": "Licensing sources confirm dual licensing requires the licensor to hold copyright (directly or via CLA-secured rights) to all contributions in order to grant multiple licences on the same code; a recipient who did not create the work and holds no such rights cannot relicense it. This is a direct consequence of copyright law (only the rights holder can grant licences) and matches the guide's claim exactly.",
+    "source": "https://producingoss.com/da/dual-licensing.html"
+  },
+  {
+    "claim_id": "topup-sec-012",
+    "concept_id": "pm.open-source-software-and-licensing.contributor-license-agreement",
+    "kind": "definition",
+    "claim": "A CLA is an agreement in which a contributor grants the project explicit copyright, and often patent, rights over the contribution — not copyright assignment, since the contributor keeps ownership; a Developer Certificate of Origin (DCO) sign-off is a distinct alternative asserting provenance/right-to-contribute rather than granting rights.",
+    "verdict": "confirmed",
+    "reasoning": "The Apache CLA FAQ confirms the CLA grants the ASF a patent licence covering claims that read on the contribution, framed as a licence grant rather than a transfer, and contributors individually certify 'the code they contribute is theirs to license' (consistent with retained ownership). Separately, developercertificate.org's DCO text is a certification/attestation of provenance and right to submit under the project's existing licence — it explicitly does not grant new copyright or patent rights to the project the way a CLA does, and is described industry-wide as a lightweight alternative to CLAs. This confirms the CLA-vs-DCO distinction the guide draws.",
+    "source": "https://www.apache.org/licenses/cla-faq.html ; https://developercertificate.org/"
+  },
+  {
+    "claim_id": "topup-sec-013",
+    "concept_id": "pm.open-source-software-and-licensing.software-bill-of-materials",
+    "kind": "definition",
+    "claim": "An SBOM is a machine-readable inventory of a build's components (supplier, version, dependency relationships), commonly in SPDX or CycloneDX format — an inventory, not a compliance artifact and not a vulnerability scan.",
+    "verdict": "confirmed",
+    "reasoning": "SPDX is confirmed as 'an open standard for communicating software bill of material information, including provenance, license, security, and other related information,' stewarded by the Linux Foundation. CycloneDX is confirmed as a separate standard, stewarded by OWASP and Ecma International TC54 (not the Linux Foundation), also serving as a full lifecycle SBOM/BOM framework — confirming SPDX and CycloneDX are indeed different formats with different stewards, as the task's guidance flagged. The NTIA's 'minimum elements' for an SBOM (issued under Executive Order 14028) likewise centre on supplier, component, version and dependency-relationship data, matching the guide's description of what an SBOM records, and neither format nor the NTIA framework claims to itself discharge licence or vulnerability obligations.",
+    "source": "https://spdx.dev/about/ ; https://cyclonedx.org/ ; https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom"
+  },
+  {
+    "claim_id": "topup-sec-014",
+    "concept_id": "pm.open-source-software-and-licensing.open-source-community-roles",
+    "kind": "definition",
+    "claim": "Users, contributors, committers with write access, and maintainers/committee members form a chain with responsibility rising along it, earned by merit rather than employment or seniority; the merge decision belongs to the project's committee, not the individual committer.",
+    "verdict": "confirmed",
+    "reasoning": "The Apache Software Foundation's governance documentation confirms this structure precisely: contributors submit patches/documentation without formal governance roles; committers are granted write access after demonstrating merit and must sign a CLA; and the Project Management Committee (PMC) — not an individual committer — holds the decision-making authority, including electing new committers/PMC members and voting on releases, with the board delegating 'the technical direction of each project to its PMC.'",
+    "source": "https://www.apache.org/foundation/governance/"
+  },
+  {
+    "claim_id": "topup-sec-015",
+    "concept_id": "pm.open-source-software-and-licensing.governance-and-foundations",
+    "kind": "definition",
+    "claim": "Neutral non-profits such as the Linux Foundation and Apache Software Foundation hold a project's assets, trademarks and infrastructure so no single vendor controls it; a foundation provides legal shelter and governance rules, not technical direction, which stays with the project's maintainers.",
+    "verdict": "confirmed",
+    "reasoning": "The Linux Foundation describes itself as a 'neutral, trusted hub for developers to code, manage, and scale open technology projects,' providing infrastructure, operational and governance support rather than directing technical decisions. The Apache Software Foundation's governance page confirms the same split explicitly: the ASF 'requires projects to follow corporate policies for licensing, branding, infrastructure' while PMCs 'manage projects independently,' with the board delegating technical direction to each project's PMC and committers assigning IP rights (via the ICLA) to the foundation so it can safely distribute the software — legal/asset stewardship, not technical control.",
+    "source": "https://www.linuxfoundation.org/about ; https://www.apache.org/foundation/governance/"
+  }
+]

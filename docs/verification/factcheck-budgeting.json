@@ -1,0 +1,173 @@
+[
+  {
+    "claim_id": "budgeting-001",
+    "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+    "kind": "vendor-behaviour",
+    "claim": "When the provider needs spot/preemptible capacity back, it terminates, stops, or hibernates the instance after a two-minute interruption notice; a separate rebalance recommendation signal may arrive earlier, flagging elevated interruption risk so work can be moved before that two-minute window opens.",
+    "verdict": "refuted",
+    "reasoning": "This is AWS-specific, not the shared spot/preemptible model the prose presents it as. AWS EC2 Spot gives a 2-minute interruption notice (with terminate/stop/hibernate options) plus a separate rebalance-recommendation signal (confirmed at docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-interruptions.html). Azure Spot VMs give only 30 seconds notice via Scheduled Events (confirmed at learn.microsoft.com/en-us/azure/virtual-machines/spot-vms: 'the Azure infrastructure will evict Azure Spot Virtual Machines with 30-seconds notice' / 'delivered on a best effort basis up to 30 seconds prior to the eviction') and uses a Deallocate/Delete eviction policy rather than terminate/stop/hibernate language. Google Cloud preemptible/Spot VMs also give only 30 seconds notice via an ACPI G2 signal, with no 'hibernate' option (confirmed at docs.cloud.google.com/compute/docs/instances/preemptible). The two-minute figure and the terminate/stop/hibernate + rebalance-recommendation mechanics are true of AWS only; stating them in the generic 'the provider' voice for spot/preemptible pricing as a category misrepresents Azure's and GCP's shorter, differently-structured notice window. This is the same cross-provider generalization defect already found (twice, once Critical) in the sibling file networking.md.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms"
+  },
+  {
+    "claim_id": "budgeting-002",
+    "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+    "kind": "numeric",
+    "claim": "Spot's hourly price is set by the provider and adjusted gradually according to long-term supply and demand — not by a live auction between customers.",
+    "verdict": "confirmed",
+    "reasoning": "AWS documentation confirms Spot prices are set by AWS based on long-term supply and demand trends rather than a live per-request bidding auction (docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-interruptions.html and related Spot pricing docs). This matches the file's framing that this is 'the outdated mental model most candidates carry.'",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-interruptions.html"
+  },
+  {
+    "claim_id": "budgeting-003",
+    "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+    "kind": "vendor-behaviour",
+    "claim": "AWS lets unused Standard Reserved Instances be listed for sale on its Reserved Instance Marketplace; Convertible Reserved Instances cannot be sold, only exchanged for another Convertible reservation.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs state plainly: 'Only Amazon EC2 Standard regional and zonal Reserved Instances can be sold in the Reserved Instance Marketplace' and 'Amazon EC2 Convertible Reserved Instances can't be sold in the Reserved Instance Marketplace.' Convertible RIs can only be exchanged for another Convertible RI configuration per separate AWS documentation on RI exchange, consistent with the guide's claim.",
+    "source": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"
+  },
+  {
+    "claim_id": "budgeting-004",
+    "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+    "kind": "numeric",
+    "claim": "AWS accepts a Savings Plan return only within seven days of purchase, in the same calendar month, and under documented limits.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs: 'Any Savings Plan with an hourly commitment of $100 or less that has been purchased in the last seven days and in the same calendar month can be returned, provided you haven't reached your return limit. Once the calendar month ends (UTC time), these purchased Savings Plans can no longer be returned.' Matches the guide's claim exactly, including the existence of a separate quota/limit.",
+    "source": "https://docs.aws.amazon.com/savingsplans/latest/userguide/return-sp.html"
+  },
+  {
+    "claim_id": "budgeting-005",
+    "concept_id": "cloud.budgeting.pay-as-you-go",
+    "kind": "vendor-behaviour",
+    "claim": "Azure bills a VM in the Stopped (allocated) state for instance usage and only stops billing once it reaches Stopped (deallocated), because only deallocation releases the underlying hardware.",
+    "verdict": "confirmed",
+    "reasoning": "Microsoft's states-and-billing table lists 'Stopped' (a.k.a. Stopped (Allocated)) as Billed, and 'Deallocated' (Stopped (Deallocated)) as Not billed, with the description 'The virtual machine has released the lease on the underlying hardware.' This matches the guide's claim precisely.",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing"
+  },
+  {
+    "claim_id": "budgeting-006",
+    "concept_id": "cloud.budgeting.pay-as-you-go",
+    "kind": "definition",
+    "claim": "NIST's definition names measured service as an essential characteristic, meaning the provider automatically meters resource use at a granularity appropriate to the service and reports it back to both parties.",
+    "verdict": "confirmed",
+    "reasoning": "NIST SP 800-145 defines measured service as: 'Cloud systems automatically control and optimize resource use by leveraging a metering capability at some level of abstraction appropriate to the type of service... Resource usage can be monitored, controlled, and reported, providing transparency for both the provider and consumer of the utilized service.' This matches the guide's paraphrase, including the 'reports back to both parties' (provider and consumer transparency) element.",
+    "source": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf"
+  },
+  {
+    "claim_id": "budgeting-007",
+    "concept_id": "cloud.budgeting.capex-vs-opex",
+    "kind": "citation-mismatch",
+    "claim": "The CapEx vs OpEx concept is sourced to `aws-rightsizing-whitepaper` (AWS 'Cost Optimization: Right Sizing' whitepaper).",
+    "verdict": "refuted",
+    "reasoning": "Fetched the actual source (docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html). Its abstract and introduction describe it as entirely about matching instance types/sizes to workload performance and capacity requirements ('This paper discusses how to provision instances to match your workload performance and capacity requirements to optimize costs'); no CapEx, OpEx, capital expenditure, operational expenditure, or capitalization terminology appears in the visible document content. This whitepaper is the correct and accurately-quoted source for the separate 'rightsizing' concept (its migration/lift-and-shift wording is quoted verbatim there), but it does not contain the CapEx/OpEx accounting-category content it is cited for on the capex-vs-opex concept — a source-content mismatch of the kind already found three times elsewhere in this project.",
+    "source": "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html"
+  },
+  {
+    "claim_id": "budgeting-008",
+    "concept_id": "cloud.budgeting.rightsizing",
+    "kind": "citation-mismatch",
+    "claim": "AWS's right-sizing guidance describes environments lifted and shifted at migration time with speed prioritised over cost, on the assumption that rightsizing will happen later, which leaves oversized instances and substantial wasted spend behind.",
+    "verdict": "confirmed",
+    "reasoning": "The AWS whitepaper states almost verbatim: 'They lift and shift their environments and expect to right size later. Speed and performance are often prioritized over cost, which results in oversized instances and a lot of wasted spend on unused resources.' The citation is accurate for this concept.",
+    "source": "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html"
+  },
+  {
+    "claim_id": "budgeting-009",
+    "concept_id": "cloud.budgeting.data-egress-charges",
+    "kind": "vendor-behaviour",
+    "claim": "Microsoft's bandwidth pricing states inbound data transfer into Azure datacentres is free, while outbound transfer is billed per gigabyte above a monthly free allowance, and the other major providers price the same way.",
+    "verdict": "confirmed",
+    "reasoning": "Azure's bandwidth pricing page confirms 'Data Transfer In' is free and outbound/egress is billed per GB above a free monthly allowance (100 GB/month). AWS and Google Cloud both use the same ingress-free/egress-metered asymmetric model with their own free tiers, so the cross-provider generalization holds for this specific ingress/egress asymmetry (unlike the spot-notice claim above).",
+    "source": "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+  },
+  {
+    "claim_id": "budgeting-010",
+    "concept_id": "cloud.budgeting.data-egress-charges",
+    "kind": "vendor-behaviour",
+    "claim": "Azure states that transfer between Azure services located within the same region is not charged, which is not a safe assumption to carry elsewhere; and on Azure's published rates the inter-region band is cheaper than the internet-egress band.",
+    "verdict": "confirmed",
+    "reasoning": "Azure's bandwidth FAQ confirms same-region transfer between Azure services incurs no additional data-transfer cost, and Azure's published rates show intra-continental/inter-region transfer priced lower per GB than internet egress beyond the free tier. The guide correctly frames this as an Azure-specific fact rather than a universal one ('which is not a safe assumption to carry elsewhere').",
+    "source": "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+  },
+  {
+    "claim_id": "budgeting-011",
+    "concept_id": "cloud.budgeting.data-egress-charges",
+    "kind": "vendor-behaviour",
+    "claim": "AWS, Azure and Google Cloud each waive egress charges for a customer moving their data off the platform entirely, which is an exit concession rather than a change to the model.",
+    "verdict": "confirmed",
+    "reasoning": "Google Cloud (Jan 2024), AWS, and Microsoft Azure each announced waivers of data-transfer-out charges specifically for customers migrating all their data off the platform (tied to the EU Data Act's anti-switching-cost provisions), each with its own eligibility conditions (e.g., AWS requires >100GB and an account in good standing; Azure requires a signaled intent to cancel/delete the subscription). This is correctly framed as a narrow exit concession, not a change to the general egress-billing model.",
+    "source": "https://www.ciodive.com/news/microsoft-azure-eliminates-cloud-data-egress-fees/710367/"
+  },
+  {
+    "claim_id": "budgeting-012",
+    "concept_id": "cloud.budgeting.resource-tagging",
+    "kind": "citation-mismatch",
+    "claim": "AWS describes each tag as a simple label consisting of a key and an optional value (sourced to aws-tagging-best-practices).",
+    "verdict": "confirmed",
+    "reasoning": "The AWS whitepaper 'Best Practices for Tagging AWS Resources' states verbatim: 'Each tag is a simple label consisting of a key and an optional value to store information about the resource or data retained on that resource.' Exact match; citation is accurate.",
+    "source": "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html"
+  },
+  {
+    "claim_id": "budgeting-013",
+    "concept_id": "cloud.budgeting.budgets-and-cost-alerts",
+    "kind": "vendor-behaviour",
+    "claim": "AWS Budgets tracks cost or usage against a target, and can also track reservation or savings-plan utilization and coverage, notifying by email or a notification topic when a threshold is breached; thresholds can be evaluated on actual or forecast spend; a budget action such as attaching a restrictive IAM policy can be configured but is not the default behavior of an alert.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs confirm all elements: cost/usage budgets, RI/Savings Plans utilization and coverage budgets, notification via SNS/email, actual-vs-forecasted alerting, and the example of an automatically-applied custom IAM policy denying further provisioning as an optional configured action. Matches the guide's claims about what an alert does and does not do by default.",
+    "source": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+  },
+  {
+    "claim_id": "budgeting-014",
+    "concept_id": "cloud.budgeting.budgets-and-cost-alerts",
+    "kind": "vendor-behaviour",
+    "claim": "AWS documents a delay between incurring a charge and being notified about it, because resource usage is billed some time after it happens, so spend can pass a threshold — and keep moving — before the notification arrives.",
+    "verdict": "confirmed",
+    "reasoning": "AWS docs state verbatim: 'There can be a delay between when you incur a charge and when you receive a notification from AWS Budgets for the charge... You might incur additional costs or usage that exceed your budget notification threshold before AWS Budgets can notify you, and your actual costs or usage may continue to increase or decrease after you receive the notification.' Matches the guide's claim.",
+    "source": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+  },
+  {
+    "claim_id": "budgeting-015",
+    "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+    "kind": "vendor-behaviour",
+    "claim": "Azure states the pattern explicitly across its blob tiers: hot carries higher storage costs but lower access and transaction costs; cool and cold carry lower storage costs but higher access costs; archive has the lowest storage cost and the highest access and transaction costs of all.",
+    "verdict": "confirmed",
+    "reasoning": "Azure's access-tiers overview summary table states exactly this: Hot = 'Higher storage costs, but lower access and transaction costs'; Cool/Cold = 'Lower storage costs, but higher access and transaction costs'; Archive = 'Lowest storage costs, but highest access, and transaction costs.' Exact match.",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+  },
+  {
+    "claim_id": "budgeting-016",
+    "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+    "kind": "numeric",
+    "claim": "Cool carries a minimum recommended retention of 30 days and cold 90 days; archive requires data to remain at least 180 days or attract an early deletion charge; Microsoft's own worked example is a blob moved to archive and then deleted after 45 days, charged as if it had been stored for the remaining 135 days.",
+    "verdict": "confirmed",
+    "reasoning": "Azure docs confirm 30-day minimum for cool, 90-day for cold, 180-day for archive, and give the worked example verbatim: 'if a blob is moved to the archive tier and then deleted or moved to the hot tier after 45 days, you'll be charged an early deletion fee equivalent to 135 (180 minus 45) days of storing that blob in the archive tier.' Exact match, arithmetic (180-45=135) verified correct.",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+  },
+  {
+    "claim_id": "budgeting-017",
+    "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+    "kind": "vendor-behaviour",
+    "claim": "A blob in archive cannot be read or modified at all until it has been rehydrated to an online tier, which takes hours.",
+    "verdict": "confirmed",
+    "reasoning": "Azure docs: 'While a blob is in the archive tier, it can't be read or modified... Data in the archive tier can take up to 15 hours to rehydrate, depending on the priority you specify.' The guide's vaguer 'takes hours' is consistent with and does not overstate the current up-to-15-hours figure; kept appropriately non-specific per the file's stated no-prices/no-stale-numbers policy.",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+  },
+  {
+    "claim_id": "budgeting-018",
+    "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+    "kind": "vendor-behaviour",
+    "claim": "Lifecycle policies are JSON rule sets: each rule has conditions on blob creation time, last modified time, or last accessed time, at least one action such as changing tier or deleting, and optional filters by path prefix or blob tag. Adding or editing a policy can take up to 24 hours to take effect, and the policy engine cannot rehydrate blobs out of archive.",
+    "verdict": "confirmed",
+    "reasoning": "Azure docs: 'A lifecycle management policy is a collection of rules in a JSON document'; rule Conditions are 'based on the following three blob properties: Creation Time, Last Modified Time, and Last Accessed Time'; Actions require 'at least one action per rule such as changing the blob tier to the cool tier or deleting blobs'; Filters use 'path prefixes and blob tags'; 'it can take up to 24 hours for changes to go into effect'; and 'Lifecycle management policies can't be used to rehydrate blobs to an online tier.' All elements confirmed verbatim.",
+    "source": "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+  },
+  {
+    "claim_id": "budgeting-019",
+    "concept_id": "cloud.budgeting.chargeback-and-showback",
+    "kind": "definition",
+    "claim": "Chargeback bills internal teams for the cloud they consume, moving money between cost centres; showback reports the same consumption back to them without transferring any charge. Showback is not 'chargeback that has not been switched on yet.'",
+    "verdict": "confirmed",
+    "reasoning": "Industry (FinOps Foundation) sourcing confirms: showback allocates/reports costs by team without an actual financial transaction, while chargeback formally transfers costs into team/business-unit budgets ('real financial accountability'); and the FinOps Foundation is explicit that chargeback is not a maturity promotion from showback — organizations may run showback permanently by design. Matches the guide's framing precisely, including the explicit rejection of the 'not yet switched on' framing.",
+    "source": "https://www.nops.io/blog/chargeback-vs-showback/"
+  }
+]
