@@ -11,18 +11,18 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Functional — it names a behaviour that either happens or does not, with no threshold attached.",
+          "text": "Functional — it names a function the system must execute, which is the axis the classification actually turns on.",
           "correct": true,
-          "why": "The sentence states an observable outcome and stops there, which is exactly what pushes a requirement onto the functional side of the line.",
+          "why": "Functional requirements describe the functions the software is to execute, while non-functional ones act to constrain the solution, so a stated behaviour lands on the functional side.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "Non-functional — it constrains how well login behaves under load.",
+          "text": "Non-functional — the five-attempt count is a numeric bound, and a requirement carrying a number constrains quality rather than behaviour.",
           "correct": false,
-          "why": "No threshold or condition is stated; a non-functional requirement bounds performance, and nothing here does that.",
+          "why": "The count of failed attempts is part of the function being specified; a non-functional requirement bounds how well a function performs, such as its speed or availability, and numbers appear in both kinds.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "pm.functional-analysis.non-functional-requirements"
@@ -42,14 +42,14 @@
           "ref": "o4",
           "text": "Non-functional, since account lockout is a security matter and security requirements are always non-functional.",
           "correct": false,
-          "why": "Security requirements can be functional too — a behaviour that must exist, like locking an account, is functional regardless of the domain it serves.",
+          "why": "Security does appear in the standard list of non-functional categories, but that list covers quality constraints; a security behaviour the system must execute, such as locking an account, is a function like any other.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:pm.functional-analysis.functional-requirements"
           }
         }
       ],
-      "rationale": "Functional requirements state a behaviour and stop; the moment a sentence adds a threshold or a measured condition, it has crossed onto the non-functional side. Neither the requirement's subject matter (security, in this case) nor its importance settles the classification — only what the sentence constrains does.",
+      "rationale": "Functional requirements describe the functions the software is to execute; non-functional requirements act to constrain the solution — how well those functions are performed. A number settles nothing on its own: a count of failed attempts is part of the behaviour, while a latency bound is a quality constraint. Neither the subject matter (security, in this case) nor the importance decides the classification.",
       "source_ids": [
         "lf-objectives-2025",
         "nasa-se-handbook-sp-2016-6105"
@@ -58,7 +58,16 @@
       "comparison_block": "cmp-pm.functional-analysis.functional-requirements",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED as authored, rewritten, re-checked. The original key and o2 turned on 'no threshold attached', which is false on its own stem: 'five failed login attempts' is a numeric threshold, so the item taught that any number pushes a requirement to the non-functional side. SWEBOK v3.0 s1.3 states functional requirements 'describe the functions that the software is to execute' and non-functional ones 'act to constrain the solution'; NASA SEH s4.2.1.2.2 splits functional (what functions are performed) from performance (how well they are performed). Key rewritten to that axis; o2 rewritten to carry the numbers-mean-non-functional misconception explicitly and is false against both sources. o3 (design decision / use-case exception flow) is false: lockout is the behaviour itself. o4 is false because SWEBOK lists security among non-functional categories only as a class of quality constraints, while a security behaviour the system executes is a function; its why was corrected to say so.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+          "https://www.nasa.gov/reference/4-2-technical-requirements-definition/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.functional-requirements.02",
@@ -70,18 +79,18 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It is not itself a requirement — it names a specific database product, which is a design decision rather than an observable behaviour.",
+          "text": "It states an implementation choice rather than the need behind it, so it has to be rewritten as behaviour or kept as a constraint with its reason recorded.",
           "correct": true,
-          "why": "Naming a technology removes a choice the designer has not yet had a chance to make; the actual requirement is the retrieval behaviour the database is meant to support.",
+          "why": "Naming a technology removes a choice the designer has not yet had a chance to make, so the sentence belongs either as the storage and retrieval behaviour it stands in for, or as an explicit design constraint whose rationale is captured with it.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "It is a requirement, though a defective one, in the same way 'the system shall provide flexible reporting' is defective.",
+          "text": "It is defective in the same way 'the system shall provide flexible reporting' is defective, since neither sentence can be tested as it is written.",
           "correct": false,
-          "why": "Untestable wording and a smuggled-in solution are different defects; this sentence is testable and specific, its problem is that it names a product instead of a behaviour.",
+          "why": "Untestable wording and a smuggled-in solution are different defects; this sentence is perfectly testable and specific, and its problem is that it names a product instead of a need.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "pm.functional-analysis.specification-documentation"
@@ -89,9 +98,9 @@
         },
         {
           "ref": "o3",
-          "text": "It is a non-functional requirement, since it bounds where data must live, the same way a stated latency threshold bounds how quickly a response must return.",
+          "text": "It is a non-functional requirement of the same kind as a stated latency threshold, since both put a measurable bound on how well the system performs.",
           "correct": false,
-          "why": "It names a solution, not a measurable quality attribute with a threshold; that rules out the non-functional classification as much as the functional one.",
+          "why": "A quality requirement has to be quantified to be verifiable, and naming a database product states no measurable level of anything, so it is not a statement of that kind.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "pm.functional-analysis.non-functional-requirements"
@@ -101,14 +110,14 @@
           "ref": "o4",
           "text": "It is a requirement like any other, since every sentence in a requirements document is by definition a requirement.",
           "correct": false,
-          "why": "Requirements documents routinely carry constraints and design decisions written in requirement voice; appearing in the document does not make a sentence a requirement.",
+          "why": "Requirements documents routinely carry constraints, assumptions and rationale written in requirement voice; what a sentence is depends on what it states, not on where it happens to sit.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:pm.functional-analysis.functional-requirements"
           }
         }
       ],
-      "rationale": "A functional requirement states what the system must do, phrased as an observable outcome rather than an implementation. Naming a vendor, product or protocol is the clearest tell that a solution has been written into requirement voice, and the fix is to rewrite it as the behaviour the product was meant to deliver.",
+      "rationale": "A functional requirement states what the system must do, phrased as an observable outcome rather than an implementation. Naming a vendor, product or protocol is the clearest tell that a solution has been written into requirement voice. The fix is to rewrite it as the behaviour the product was meant to deliver — or, where the choice really is imposed, to keep it as a design constraint and record why the solution was limited to that one method.",
       "source_ids": [
         "lf-objectives-2025",
         "nasa-se-handbook-sp-2016-6105"
@@ -117,7 +126,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED as authored, rewritten, re-checked. The original key asserted the sentence 'is not itself a requirement'. SWEBOK v3.0 s1.2 defines a product requirement as 'a need or constraint on the software to be developed' and s1.3 says non-functional requirements 'act to constrain the solution' — so a mandated product is a constraint that can legitimately sit in the document, which made the original key wrong and the original o3 (non-functional because it bounds the solution) defensible: two answers. NASA SEH s4.2.1 settles the real lesson: 'If the requirement states a method of implementation, the rationale should state why the decision was made to limit the solution to this one method.' Key rewritten to that. o3 rewritten to claim a measurable bound, which is false — SWEBOK s1.5 requires quality requirements to be quantified. o2 is false because the sentence is testable and specific, unlike 'flexible reporting'. o4 is false: the label follows what a sentence states, not where it sits.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+          "https://www.nasa.gov/reference/4-2-technical-requirements-definition/",
+          "https://www.nasa.gov/reference/appendix-c-how-to-write-a-good-requirement/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.non-functional-requirements.01",
@@ -175,7 +194,16 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Waived concept, but the point is settleable and consensus. SWEBOK v3.0 s4.1 lists requirements classification dimensions and treats 'whether the requirement is functional or nonfunctional' and 'the requirement priority' as separate dimensions; s1.1 records priority as an attribute carried alongside a requirement. So the key's claim that classification and priority are independent axes is directly supported, and o4 (non-functional as the conventional label for lower priority) is false. o2 is false because relabelling as Won't-have still lets classification stand in for a priority judgement. o3 is false: nothing in the stem concerns testability. No distractor is defensible as an answer to what is wrong with the reasoning given.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+          "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.non-functional-requirements.02",
@@ -233,7 +261,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Waived concept; the point is a consensus definition and is settleable. SWEBOK v3.0 s1.5 requires requirements to be stated quantitatively where appropriate and names 'the software shall be user-friendly' as the failure mode, which is exactly o4's defect. NASA SEH s4.2.1.2.2 states expected performance 'is expressed as a quantitative measure to indicate how well each product function needs to be accomplished', and Appendix C's verifiability checklist asks whether requirements are free of terms such as flexible, fast and easy. The key carries attribute, threshold and measurement condition, so it is the only well-formed quality requirement. o2 states behaviour with no bound (functional), o3 is a MoSCoW priority label carrying no measurable attribute, o4 is unmeasurable adjectives. No distractor is also correct.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+          "https://www.nasa.gov/reference/4-2-technical-requirements-definition/",
+          "https://www.nasa.gov/reference/appendix-c-how-to-write-a-good-requirement/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.requirements-elicitation.01",
@@ -291,7 +329,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Waived concept, but SWEBOK v3.0 settles it directly. s3.2: 'requirements are seldom elicited ready-made. Rather, the software engineer elicits information from which he or she formulates requirements'; 'elicitation is not a passive activity and ... the software engineer has to work hard to elicit the right information. Many business or technical requirements are tacit'; observational techniques are listed precisely because 'many user tasks and business processes are too subtle and complex for their actors to describe easily'. That is the key, including the workarounds-invisible-to-their-performers claim. o4 is therefore false. o2 is false: SWEBOK lists interviews, facilitated meetings, observation, user stories and prototyping, so elicitation is not defined by a diagram artifact. o3 is false: comparing a current to a desired state is gap analysis, a separate technique operating on states already described.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.use-case.01",
@@ -350,7 +396,16 @@
       "comparison_block": "cmp-pm.functional-analysis.use-case",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Checked against the cited OMG UML 2.5.1 PDF, text extracted locally (clause 18, p.639 of the spec): a UseCase's behaviours 'can be described by a set of Behaviors ... as well as by pre-conditions, post-conditions and natural language text', and 'A UseCase can include possible variations of its basic behavior, including exceptional behavior and error handling'; UseCases have associated Actors. That supports every element the key names except the numbering of the main success scenario, which is template convention rather than a spec requirement and is not what the item turns on. SWEBOK v3.0 s3.2 describes a user story as containing 'just enough information so that the developers can produce a reasonable estimate', which is the intended-incompleteness contrast, so o2 is false. o3 (swimlane) and o4 (MoSCoW tag) name artifacts that add none of the missing interaction detail. No distractor is also correct.",
+        "sources_read": [
+          "https://www.omg.org/spec/UML/2.5.1/PDF",
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.use-case.02",
@@ -409,7 +464,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Settled verbatim by the cited source. OMG UML 2.5.1 clause 18: 'An Actor models a type of role played by an entity that interacts with the subjects of its associated UseCases ... Actors may represent roles played by human users, external hardware, or other systems', with the note that an Actor is a role of some entity external to the subject. The key is correct and o2 (only a person in a role) is false against that sentence. o3 is false: elicitation is a separate activity and does not govern what may be modelled as an actor. o4 is false: a swimlane map is a different artifact and does not settle the actor question. No distractor is also correct.",
+        "sources_read": [
+          "https://www.omg.org/spec/UML/2.5.1/PDF"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.process-mapping.01",
@@ -468,7 +531,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Cited source checked directly (BPMN 2.0.2 PDF, text extracted locally). Clause 2's list of business processes that can be modelled with BPMN names 'As-is or old Business Process' and 'To-be or new Business Process' as separate model types, and the spec's Relationship example documents 'An as-is and to-be relationship' with type 'reengineered' linking the two models — so the paired current/intended model is a first-class notion in the cited spec, not an invention of the item. The key follows: with only the to-be model there is no baseline the improvement can be shown against. o2 is false because a gap analysis takes both states as input rather than substituting for the missing map. o3 is false: a use case covers one actor's interaction with the system, while the workflow spans steps no software touches. o4 restates the error. No distractor is also correct.",
+        "sources_read": [
+          "https://www.omg.org/spec/BPMN/2.0.2/PDF"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.gap-analysis.01",
@@ -499,12 +570,12 @@
         },
         {
           "ref": "o3",
-          "text": "Which of the six differences should be addressed first, since a gap analysis is expected to rank its own findings by value once it lists them.",
+          "text": "What work would be needed to close each of the six differences, since the comparison stops at naming them and leaves the closing actions to a later technique.",
           "correct": false,
-          "why": "Ordering by value is a separate, later step layered on top of the gap list; the gap analysis itself does not rank what it finds.",
+          "why": "Defining the work that closes the difference is part of the gap analysis itself, not something withheld from it; the six differences and the actions they imply are both its output.",
           "provenance": {
             "kind": "sibling",
-            "concept_id": "pm.functional-analysis.requirements-prioritization"
+            "concept_id": "pm.functional-analysis.process-mapping"
           }
         },
         {
@@ -526,7 +597,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED as authored for a double key, rewritten, re-checked. The stem asks what the analysis cannot tell, and the original o3 opened 'Which of the six differences should be addressed first' — which the analysis genuinely cannot tell, so the option's leading clause was a second correct answer and only its trailing justification was false. Any option naming something outside gap analysis has that flaw, so o3 was rewritten to name something inside it: the work that closes each difference, which data/topics/06-it-project-management.json defines as part of gap analysis ('Comparing current state to desired state and defining the work that closes the difference') and which the item's own rationale repeats. o3 is now unambiguously false, as are o2 (the sizes are its output) and o4 (it does not rank by cost and risk). The key is correct: achievability and worth are the feasibility question, matching the feasibility-study concept description in the same data file. Waived concept; consensus definition only.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.feasibility-study.01",
@@ -584,7 +663,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Waived concept; the item turns on the term's standard dimensions only, which is what the waiver policy permits. SWEBOK v3.0 s2.1 places feasibility studies among the activities that provide input into the requirements process, i.e. before commitment, which is consistent with the key. Checked for a second defensible answer: unlike the paired gap-analysis item, every distractor here is false on its leading clause too — o2 names the gap analysis's own output, o3 names prioritization rather than anything a feasibility study adds, and o4 denies a difference the two concept descriptions state. Recognition-level item; no distractor is also correct.",
+        "sources_read": [
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.requirements-prioritization.01",
@@ -643,7 +730,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Checked against the cited Agile Business Consortium page. Must Haves 'provide the Minimum Usable SubseT (MUST) of requirements which the project guarantees to deliver' — a subset by construction — and DSDM recommends 'typically no more than 60% Must Have effort', stating that 'the safe percentage of Must Have requirements, in order to be confident of project success, is not to exceed 60% Must Have effort', with roughly 20% Could Have contingency. An all-Must backlog therefore leaves no contingency and no trade-off, which is the key, and makes o4 false. o2 is false because MoSCoW labelling performs no current-versus-desired comparison. o3 is false: the scenario does not distinguish functional from non-functional at all. No distractor is also correct.",
+        "sources_read": [
+          "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.traceability.01",
@@ -655,16 +750,16 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It demonstrates coverage — every requirement has a design and test link — but not that any test passed or that the requirement was the right one.",
+          "text": "It demonstrates coverage — every requirement has at least one test linked to it — but not that any test was run or passed, or that the requirement was the right one.",
           "correct": true,
-          "why": "Traceability shows that a link exists in both directions, forward to tests and back to the need; it makes no claim about outcomes.",
+          "why": "Traceability shows that a link exists in both directions, forward to tests and back to the need that justified the requirement; it makes no claim at all about outcomes.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "It demonstrates that the system was validated against the real need it was meant to serve.",
+          "text": "It demonstrates that the system was validated against the real need it was meant to serve, since every requirement has a test exercising it.",
           "correct": false,
           "why": "A link between a requirement and a test says nothing about whether the requirement itself was the right one to have — that is a validation question the matrix does not answer.",
           "provenance": {
@@ -674,7 +769,7 @@
         },
         {
           "ref": "o3",
-          "text": "It demonstrates that user acceptance testing has been completed for every requirement in the release.",
+          "text": "It demonstrates that user acceptance testing has been completed for every requirement in the release, since a linked test is an executed test.",
           "correct": false,
           "why": "The matrix records links between requirements and tests, not who executed a test or with what outcome.",
           "provenance": {
@@ -684,7 +779,7 @@
         },
         {
           "ref": "o4",
-          "text": "It demonstrates that every requirement passed its test, since each one is linked to one.",
+          "text": "It demonstrates that every requirement passed its test, since each one is linked to a test case and none is left uncovered in the matrix.",
           "correct": false,
           "why": "A link shows a test exists for the requirement, not that the test was run or that it passed; coverage and correctness are different claims.",
           "provenance": {
@@ -702,7 +797,15 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED as authored on a narrow point, corrected, re-checked. The original key claimed the matrix showed 'a design and test link', but the stem establishes only test links, so the key asserted evidence the scenario did not contain; it now reads 'at least one test linked to it'. The cited NASA source supports the substance: requirements management maintains 'bidirectional traceability between stakeholder expectations, customer requirements, technical product requirements, product component requirements, design documents, and test plans and procedures', and defines traceability as 'a discernible association between two or more logical entities' — an association, never an outcome. o2 is false (a link is not validation of the need), o3 is false (the matrix records links, not who ran a test), o4 is false (a link is not a pass). No distractor is also correct.",
+        "sources_read": [
+          "https://www.nasa.gov/reference/6-2-requirements-management/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.verification-vs-validation.01",
@@ -761,7 +864,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Settled by the cited NASA handbook, read on nasa.gov (section 5.4): 'While verification proves whether the product was done right, validation proves whether the right product was done ... verification provides objective evidence that every shall statement in the requirements document or specification was met, whereas validation is performed for the benefit of the customers and users to ensure that the system functions in the expected manner when placed in the intended environment.' A fully verified, unused system is exactly that gap, so the key holds. o2 is false: coverage is not correctness. o3 is false and inverted — ISTQB CTFL v4.0.1 s2.2.1 states acceptance testing 'focuses on validation', not on conformance to the specification, which is what the option's why already says. o4 is false. No distractor is also correct.",
+        "sources_read": [
+          "https://www.nasa.gov/reference/5-4-product-validation/",
+          "https://www.nasa.gov/reference/5-3-product-verification/",
+          "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.user-acceptance-testing.01",
@@ -820,7 +933,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "The cited istqb-standard-glossary-v2.2 URL could not be verified: glossary.istqb.org serves a JavaScript application and returns no term text to a fetch, so the quotation recorded in data/sources.json is not checkable by fetching (reported to the controller, not silently accepted). The claim was settled instead against the ISTQB CTFL v4.0.1 syllabus, s2.2.1: 'Acceptance testing focuses on validation and on demonstrating readiness for deployment, which means that the system fulfills the user's business needs. Ideally, acceptance testing should be performed by the intended users', with UAT named as its main form. That confirms the key: re-running system-test scripts spends the validation slot on verification. o2 is false — traceability links survive re-execution. o3 is false because the repeated verification consumes the time meant for validation. o4 is false against the same sentence. No distractor is also correct.",
+        "sources_read": [
+          "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf",
+          "https://glossary.istqb.org/en_US/term/user-acceptance-testing",
+          "https://www.nasa.gov/reference/5-4-product-validation/"
+        ]
+      }
     },
     {
       "id": "q.pm.functional-analysis.specification-documentation.01",
@@ -828,13 +951,13 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "A specification statement reads: 'The system shall provide flexible reporting and support various export formats.' A reviewer cannot fail it in review. Why not?",
+      "stem": "A specification statement reads: 'The system shall provide flexible reporting and support various export formats.' Why can no test settle whether the delivered system meets it?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is unambiguous to no one and testable by no one — 'flexible' has no measurable meaning, and it bundles two requirements into one statement.",
+          "text": "It is ambiguous and unverifiable as written — 'flexible' has no measurable meaning, and it bundles two requirements into a single statement.",
           "correct": true,
-          "why": "Two readers can conform to opposite readings of 'flexible,' and stating two requirements per sentence means half of it can pass while the other fails unnoticed.",
+          "why": "Two readers can hold opposite readings of 'flexible' and both be right, and stating two requirements in one sentence means half of it can pass while the other half fails unnoticed.",
           "provenance": {
             "kind": "key"
           }
@@ -870,7 +993,7 @@
           }
         }
       ],
-      "rationale": "A specification's quality caps what verification can catch: an ambiguous or bundled statement cannot fail a review, because no two readers have to agree on what it means. The habits that avoid this are negative ones — avoid words like 'flexible,' and state one requirement per statement.",
+      "rationale": "A specification's quality caps what verification can catch: no test can pass or fail a statement whose terms have no measurable meaning, because no two readers have to agree on what it demands. Review checklists exist to catch exactly this before it reaches a tester — they call out unverifiable words such as 'flexible,' 'user-friendly' and 'fast,' and they require one thought per requirement statement.",
       "source_ids": [
         "lf-objectives-2025",
         "nasa-se-handbook-sp-2016-6105"
@@ -879,7 +1002,16 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-functional-analysis",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED as authored on its premise, rewritten, re-checked. The stem asserted that a reviewer 'cannot fail it in review', which contradicts the cited source: NASA SEH Appendix C's requirements validation checklist exists so that a reviewer can and should fail exactly this sentence — it asks whether requirements are 'free of unverifiable terms (e.g., flexible, easy, sufficient, safe ... user-friendly ...)' and whether they 'express only one thought per requirement statement'. The stem now asks why no test can settle whether the delivered system meets the statement, which is the true defect, and the rationale no longer claims review is powerless. Key confirmed against that checklist and SWEBOK v3.0 s1.5 on avoiding vague, unverifiable requirements. o2 is false ('flexible' names no measurable attribute), o3 is false (traceability and testability are separate properties), o4 is false (the shall form guarantees nothing about measurability). No distractor is also correct.",
+        "sources_read": [
+          "https://www.nasa.gov/reference/appendix-c-how-to-write-a-good-requirement/",
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
+        ]
+      }
     }
   ]
 }

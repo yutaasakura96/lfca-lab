@@ -57,7 +57,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-122 s2.1 gives the two-part definition verbatim: information that can be used to 'distinguish or trace an individual's identity' and 'any other information that is linked or linkable to an individual', with date of birth and geographical indicators named as linkable examples. Footnote 33 cites the Sweeney study finding 97% of a voting list identifiable from ZIP code and date of birth alone, which is exactly the postcode-plus-date-of-birth combination in the stem, so the key holds. o2 is refuted by limb (2) itself; o3 is false because the document treats PII status as a property of the content, not of any assigned label; o4 is false because the combination is already linkable without any future join. Each distractor's why states a true fact.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.personally-identifiable-information.02",
@@ -65,49 +78,49 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 3,
-      "stem": "Under GDPR Article 4(1), which of these is personal data on its own, with no need to combine it with anything else?",
+      "stem": "A web service logs visitors' IP addresses and nothing else. Under GDPR Article 4(1), read with Recital 26, when does that log hold personal data?",
       "options": [
         {
           "ref": "o1",
-          "text": "A device's IP address, because Article 4(1) names an online identifier as a way a natural person is identified directly.",
+          "text": "Whenever the person behind an address can be identified directly or indirectly by means reasonably likely to be used, since Article 4(1) names an online identifier as one of the references through which that identification may run.",
           "correct": true,
-          "why": "Article 4(1) lists an online identifier alongside name and location data as a direct identifier of the person, not as something requiring a second field.",
+          "why": "Article 4(1) reaches identification 'directly or indirectly' and lists an online identifier among the references, while Recital 26 makes the test turn on the means reasonably likely to be used.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "A bare postcode, because a postcode always narrows a location to a single household regardless of what else is known about the person living there.",
+          "text": "Never, because Article 4(1) confines personal data to information about a named individual, and an address identifies a device rather than a person who could be named from it.",
           "correct": false,
-          "why": "A postcode alone is ordinarily a linked-or-linkable quasi-identifier, not a direct one — it becomes identifying in combination, which this option skips past.",
-          "provenance": {
-            "kind": "sibling",
-            "concept_id": "security.sensitive-data.personally-identifiable-information"
-          }
-        },
-        {
-          "ref": "o3",
-          "text": "A company's unreleased pricing model, since anything commercially sensitive counts as personal data under GDPR regardless of whether it relates to any identifiable individual.",
-          "correct": false,
-          "why": "Sensitive and personal are not synonyms: a pricing model can be highly sensitive while relating to no natural person at all.",
+          "why": "Article 4(1) expressly covers indirect identification and names an online identifier, so a value attached to a device is not excluded from scope by its form alone.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:security.sensitive-data.personally-identifiable-information"
           }
         },
         {
-          "ref": "o4",
-          "text": "A hashed customer identifier, because hashing an identifier removes it from GDPR's scope entirely, the same way encryption or masking would.",
+          "ref": "o3",
+          "text": "Only once the service joins the log to its own account table, because until that join happens Article 4(1) treats an address as anonymous information in every hand that holds it.",
           "correct": false,
-          "why": "A hash of a small, enumerable input space like an identifier is reversible by dictionary attack, so the data stays within scope rather than leaving it.",
+          "why": "Recital 26 asks about the means reasonably likely to be used by the controller or by another person, so an unjoined log can already be personal data before any join occurs.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization"
           }
+        },
+        {
+          "ref": "o4",
+          "text": "Whenever the log is commercially sensitive, since Article 4(1) extends to any information whose disclosure would harm the company holding it, regardless of whom the information relates to.",
+          "correct": false,
+          "why": "Sensitive and personal are separate axes: Article 4(1) turns on whether information relates to an identified or identifiable natural person, not on commercial harm.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
         }
       ],
-      "rationale": "Article 4(1) names an online identifier as one of the ways a natural person is identified directly, which is why an IP address or device identifier is the option that offers itself as obviously non-personal but is not. A postcode narrows a population but is not by itself an identifier; commercial sensitivity is an unrelated axis; and hashing a small input space does not achieve the irreversibility GDPR's anonymisation exemption requires.",
+      "rationale": "Article 4(1) defines an identifiable natural person as one who can be identified directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data or an online identifier. Recital 26 supplies the test that decides the case: account is taken of all the means reasonably likely to be used, by the controller or by another person, to identify the person. An IP address is therefore neither outside the Regulation because it names a device nor personal data unconditionally in every hand, and commercial sensitivity is an unrelated axis.",
       "source_ids": [
         "gdpr-eurlex"
       ],
@@ -115,7 +128,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REWRITTEN. The original key claimed Article 4(1) 'names an online identifier as a way a natural person is identified directly' and that an IP address is personal data 'on its own, with no need to combine it with anything else'. The consolidated text refutes both: Article 4(1) reads 'identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier', which attaches the list to both modes rather than designating online identifiers as direct, and Recital 30 says online identifiers such as IP addresses 'in particular when combined with unique identifiers and other information received by the servers, may be used to create profiles ... and identify them'. The item was rebuilt around Article 4(1) plus the Recital 26 'means reasonably likely to be used ... by the controller or by another person' test. The new key states that test; o2 is refuted by 'directly or indirectly' and by the explicit listing of an online identifier; o3 is refuted by Recital 26's reference to another person's means; o4 is refuted because Article 4(1) turns on relation to a natural person, not on commercial harm. Re-checked against the same text after the rewrite.",
+        "sources_read": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.protected-health-and-payment-data.01",
@@ -174,7 +200,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The PCI SSC standard page states directly: 'Whether an entity is required to comply with or validate compliance to a PCI SSC standard is at the discretion of organizations that manage compliance programs, such as a payment brand, acquirer, or other entity', and gives the intended audience as entities that store, process or transmit cardholder data or sensitive authentication data. That confirms the key's second limb and refutes o2 (PCI DSS is not a statute and no agency enforces it) and o3 (PCI scope attaches to CHD/SAD, not to customer data generally). 45 CFR 164.312 opens 'A covered entity or business associate must ...', which confirms the covered-entity/business-associate framing and refutes o4. Noted limit: the cited eCFR part states applicability but not the enforcement machinery, which lives in 45 CFR Part 160 subparts C-E; the discriminating content of the key is nonetheless sourced. No PCI DSS requirement number is relied on anywhere in this item.",
+        "sources_read": [
+          "https://www.pcisecuritystandards.org/standards/pci-dss/",
+          "https://www.govinfo.gov/content/pkg/CFR-2024-title45-vol2/xml/CFR-2024-title45-vol2-sec164-312.xml",
+          "https://www.govinfo.gov/content/pkg/CFR-2024-title45-vol2/xml/CFR-2024-title45-vol2-sec164-306.xml"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.protected-health-and-payment-data.02",
@@ -232,7 +273,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "45 CFR 164.306(d)(3) reads: for addressable implementation specifications a covered entity or business associate must '(i) Assess whether each implementation specification is a reasonable and appropriate safeguard ... and (ii) ... (A) Implement the implementation specification if reasonable and appropriate; or (B) If implementing ... is not reasonable and appropriate — (1) Document why ... and (2) Implement an equivalent alternative measure if reasonable and appropriate.' That is the assess-implement-or-document sequence the key states, so o2's 'optional' reading is refuted by the regulation's own text. 45 CFR 164.312(a)(2)(iv) confirms encryption and decryption is Addressable. o3 is false because the standard is assessed against reasonableness and appropriateness, not an internal label; o4 is false because the scenario is ePHI under the Security Rule and does not depend on PCI DSS. Fetched from the govinfo CFR XML because eCFR blocks automated access.",
+        "sources_read": [
+          "https://www.govinfo.gov/content/pkg/CFR-2024-title45-vol2/xml/CFR-2024-title45-vol2-sec164-306.xml",
+          "https://www.govinfo.gov/content/pkg/CFR-2024-title45-vol2/xml/CFR-2024-title45-vol2-sec164-312.xml"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-classification.01",
@@ -284,13 +339,28 @@
       ],
       "rationale": "Data classification is a decision an organisation makes about a file and can revise; whether the file contains PII is a fact about its content that a mislabelling does not change. The two axes drive different things — classification drives internal handling rules, PII status drives external legal duties — which is exactly what the competency's owned comparison, data classification versus personally identifiable information, turns on.",
       "source_ids": [
-        "nist-sp-800-122"
+        "nist-sp-800-122",
+        "nist-sp-800-53r5"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-classification",
       "comparison_block": "cmp-security.sensitive-data.data-classification",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SOURCE CORRECTED. SP 800-122 supports the second half of the key — PII is defined by what the information is, independently of any label an organisation applies — but contains nothing at all about organisational classification schemes; the string 'classif' appears in it only in boilerplate about unclassified federal information. nist-sp-800-53r5 was added because RA-2 makes the categorisation of a system and its information an organisational determination that is documented in the security plan and reviewed and approved by the authorising official, which is precisely the 'policy decision the organisation can revise' half of the key. With both cited the key is sourced end to end. o2 is false because a scheme may place low-sensitivity PII below its top tier; o3 is false because classification also governs non-personal data; o4 is false because PII duties attach to internal copies, not only on export. Each distractor's why states a true fact.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-classification.02",
@@ -342,13 +412,28 @@
       ],
       "rationale": "Where a set mixes labels, schemes conventionally give the aggregate the highest label present, because the set discloses everything its most sensitive member discloses. Neither a majority vote nor an access-control mechanism computes that label — classification is a decision applied to the data itself, distinct from both vote-counting and from the clearance held by any person handling it.",
       "source_ids": [
-        "nist-sp-800-122"
+        "nist-sp-800-53r5"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-classification",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SOURCE CORRECTED — this was an attribution failure, not a factual error. The item was cited to SP 800-122, which contains no discussion of aggregation labelling and no occurrence of the word 'highest' anywhere in the publication. SP 800-53r5 RA-2(1) states the rule directly: 'Organizations apply the \"high-water mark\" concept to each system categorized in accordance with [FIPS 199], resulting in systems designated as low impact, moderate impact, or high impact.' That is the take-the-highest convention the key asserts, so the option text needed no change and only source_ids moved. o2 (majority vote) has no basis in any categorisation rule; o3 is false because mandatory access control enforces policy against labels and computes no median, as the CNSSI 4009 definition of MAC in the NIST glossary shows; o4 is false because clearance attaches to a person and classification to the data.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
+          "https://csrc.nist.gov/glossary/term/mandatory_access_control"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-states.01",
@@ -400,13 +485,28 @@
       ],
       "rationale": "Full-disk encryption protects information located on the storage component, and TLS protects it while it is on the wire between endpoints. Neither reaches the address space of the process that is actually working on the data, which is why data in use is the hardest of the three states and has no everyday answer built from 'we encrypted it'.",
       "source_ids": [
-        "nist-csrc-glossary"
+        "nist-csrc-glossary",
+        "nist-sp-800-53r5"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-states",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SOURCE CORRECTED. The item was cited to the NIST CSRC glossary alone, which carries Data-at-Rest and Data in Transit but has NO entry for 'data in use' — /glossary/term/data_in_use returns 404 and a glossary search for the phrase returns no such term — so the key's own state was not in the cited source. nist-sp-800-53r5 was added: the SC-28 discussion states 'Information at rest refers to the state of information when it is not in process or in transit and is located on system components', which establishes the three-state partition and places the processing state outside both the storage and the transmission boundaries. Full-disk encryption is a control on the storage component and TLS on the wire, so neither reaches the running process's memory, which is the key. o2 raises a genuine key-custody concern that does not make the at-rest state uncovered here; o3 is refuted by the existence of the third state; o4 describes a specific TLS-inspection architecture rather than a gap in TLS. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://csrc.nist.gov/glossary"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-states.02",
@@ -464,7 +564,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The NIST glossary defines encryption as the cryptographic transformation of plaintext into ciphertext and notes that where the transformation is reversible the reversal is decryption, and SP 800-133 Rev. 2 / SP 800-57 Part 1 Rev. 5 both define it there as 'the process of changing plaintext into ciphertext using a cryptographic algorithm and key' — reversibility gated on the key, which is the key option. The glossary's hash function entry (FIPS 186-5) gives the one-way property: 'it is computationally infeasible to find any input that maps to any new pre-specified output', refuting o2 and the salted-hash claim in o4. Noted limit: the glossary has no general 'encoding' entry (only BER/DER), so o3's Base64 claim rests on the definitional fact that Base64 is a keyless, publicly reversible transfer encoding rather than on the cited source; it is true and not load-bearing for the key. Each distractor's why states a true fact.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/encryption",
+          "https://csrc.nist.gov/glossary/term/hash_function",
+          "https://csrc.nist.gov/glossary"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.access-control-models.01",
@@ -522,7 +637,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The NIST glossary quotes CNSSI 4009-2015 for both models. DAC: 'An access control policy that is enforced over all subjects and objects ... where the policy specifies that a subject that has been granted access to information can ... pass the information to other subjects or objects', with SP 800-192 adding that DAC 'leaves a certain amount of access control to the discretion of the object's owner'. MAC: 'An access control policy that is uniformly enforced across all subjects and objects within the boundary of an information system. A subject that has been granted access to information is constrained from ... passing the information to unauthorized subjects or objects'. That is the key, word for word in substance. o2 is false because nothing in the scenario names a role; o3 is false because a label is enforced by a mechanism rather than being one; o4 is false because uniform enforcement across all subjects and objects is MAC's defining feature, not an attribute evaluation. Each distractor's why is true.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/discretionary_access_control",
+          "https://csrc.nist.gov/glossary/term/mandatory_access_control",
+          "https://csrc.nist.gov/glossary/term/role_based_access_control"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.access-control-models.02",
@@ -580,7 +710,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The NIST glossary defines RBAC (CNSSI 4009-2015 and SP 800-53 Rev. 5) as 'access control based on user roles ... a collection of access authorizations a user receives based on an explicit or implicit assumption of a given role', and SP 800-162 records the scalability argument the key makes: 'As the RBAC specification gained popularity, it made central management of enterprise access control capabilities possible and reduced the need for ACLs.' Neither source claims RBAC is inherently more secure than DAC; SP 800-162 in fact catalogues RBAC's limitations, including role explosion. o2 is false for that reason; o3 is false because a label does not perform granting and revoking; o4 is false because a Unix group is exercised at the file owner's discretion, which the glossary's DAC definition marks as the discretionary construct. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/specialpublications/nist.sp.800-162.pdf",
+          "https://csrc.nist.gov/glossary/term/role_based_access_control",
+          "https://csrc.nist.gov/glossary/term/discretionary_access_control"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.encryption-key-management.01",
@@ -638,7 +783,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-57 Part 1 Rev. 5 s5.3 states: 'A cryptoperiod is the time span during which a specific key is authorized for use by legitimate entities or the keys for a given system will remain in effect. A suitably defined cryptoperiod: 1. Limits the amount of information that is available for cryptanalysis to reveal the key ...; 2. Limits the amount of exposure if a single key is compromised'. The key reproduces the definition and both stated reasons. o2 is false because the cryptoperiod is a time span, not a use count; o3 is false because it is specific to one cryptographic key rather than to every credential a secret store holds; o4 is false because Clear, Purge and Destroy are SP 800-88 media sanitisation categories applied at disposal, which the SP 800-88 text confirms. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.encryption-key-management.02",
@@ -696,7 +855,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-57 Part 1 Rev. 5's glossary defines a key-encrypting key as 'A cryptographic key that is used for the encryption or decryption of other keys to provide confidentiality protection for those keys', cross-referenced to key-wrapping key, and s8.1.5.2.2 treats key-wrapping keys and key-encrypting keys as the same construct. Rotating a key that wraps another key therefore re-wraps the inner key and does not touch the data the inner key protects, which is the key option. o2 is false for exactly that reason; o3 is false because the scenario states an encryption key hierarchy rather than tokenisation; o4 is false because nothing places the data in transit and the explanation is structural. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
+          "https://csrc.nist.gov/glossary/term/key_encrypting_key"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.secrets-management.01",
@@ -754,7 +927,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-53r5 IA-5 requires organisations to establish 'administrative procedures for initial authenticator distribution, for lost or compromised or damaged authenticators, and for revoking authenticators' and to change or refresh authenticators when organisation-defined events occur, which is the revoke-and-reissue remedy the key names for an exposed credential. The git side of the key is a property of the tool rather than of a standard: a committed blob remains reachable through history and in every clone or fork already taken, so deleting the file in a later commit does not remove it. o2 is refuted by that same property; o3 is false because whether a notification duty arises depends on what the key unlocked and on the applicable regime, neither of which the stem settles; o4 is false because the repository's own storage encryption is unrelated to a credential inside its committed content. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.secrets-management.02",
@@ -766,7 +952,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Partially — the value is no longer in source, but an environment variable is not access-controlled, audited or rotatable without a code change, so it is a delivery mechanism rather than a store.",
+          "text": "Partially — the value is no longer in source, but an environment variable is not access-controlled or audited and cannot be rotated without restarting the process, so it is a delivery mechanism rather than a store.",
           "correct": true,
           "why": "An environment variable is inherited by every child process and turns up in crash dumps and container inspect output, which is short of what a purpose-built secret store provides.",
           "provenance": {
@@ -812,7 +998,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REWRITTEN KEY. The original key asserted the env var was not 'rotatable without a code change', which is false in the ordinary case: an environment variable is normally supplied by a deployment manifest, unit file or orchestrator config, so rotating it needs a restart or redeploy but no code change. The key now reads 'cannot be rotated without restarting the process', which is accurate, and the access-control and audit shortfalls are unchanged. SP 800-53r5 IA-5(7) supplies the anchor for the partial credit the key gives — 'Ensure that unencrypted static authenticators are not embedded in applications or other forms of static storage' — and IA-5(g) requires protecting authenticator content from unauthorised disclosure, which an inherited environment does not do. o2 is false because process-local is neither access-controlled nor audited and the value is inherited by children and appears in dumps and inspect output; o3 is false because host-level encryption at rest supplies none of access control, audit trail or rotation; o4 is false because removing the value from source does remove it from every clone and code review. Re-checked after the rewrite.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.masking-anonymization-and-pseudonymization.01",
@@ -870,7 +1069,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "GDPR Article 4(5) defines pseudonymisation as processing such that data can no longer be attributed to a data subject 'without the use of additional information, provided that such additional information is kept separately and is subject to technical and organisational measures' — kept, not destroyed, which refutes o2 exactly as its why states. Recital 26 confirms the key: the principles of data protection do not apply to 'personal data rendered anonymous in such a manner that the data subject is not or no longer identifiable', so only anonymisation is genuinely one-way. o3 is false because masking is a presentation control that typically leaves the stored value intact; o4 is false because anonymisation is applied to data that was identifying. Each distractor's why is true.",
+        "sources_read": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.masking-anonymization-and-pseudonymization.02",
@@ -929,7 +1141,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-122 s4.2 names hashing as a de-identification technique — 'A common de-identification technique for obscuring PII is to use a one-way cryptographic function, also known as a hash function, on the PII' — and states 'De-identified information can be re-identified', allowing a low impact level only where the data elements 'are not linkable, via public records or other reasonably available external records, in order to re-identify the data'. Email addresses are linkable in exactly that way and enumerable, so the result is pseudonymisation, and GDPR Recital 26 requires that a data subject be 'not or no longer identifiable' before data leaves scope. The key is therefore correct and the source contains what it is cited for. o2 is false because one-way is not sufficient when the input space is enumerable; o3 is false because a DLP rule is a separate control question; o4 is false because Article 34(3)(a) excuses the individual communication for data that is still in scope. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-loss-prevention.01",
@@ -987,7 +1213,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-53r5 SC-7(10) 'Prevent Exfiltration' lists 'using data loss and data leakage prevention tools' among the techniques for preventing exfiltration, and its discussion states 'The prevention of exfiltration is similar to data loss prevention or data leakage prevention'. DLP therefore sits under exfiltration prevention, which is the emailed customer list, not the ransomware event. o2 reads 'loss' as availability loss, which the control family placement refutes. o3 is false because backups are CP-9 System Backup, a contingency-planning control aimed at availability, not an SC-7 boundary control. o4 is false because content matching operates without a classification label, though classification improves it. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-loss-prevention.02",
@@ -1045,7 +1284,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The SC-7(10) discussion in SP 800-53r5 draws exactly the layering distinction the key states: application-layer inspection devices 'verify adherence to protocol formats and specifications at the application layer and identify vulnerabilities that cannot be detected by devices that operate at the network or transport layers', immediately before naming data loss prevention tools. A firewall deciding by address, port and protocol therefore cannot see what content inspection sees, so one can permit a connection the other blocks a message across. o2 is refuted by that same passage; o3 is false because neither DLP nor firewalling is an access control model over subjects and objects; o4 is false because detecting a credential in outbound traffic is content inspection, which is DLP's job and not a secret store's. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-retention-and-disposal.01",
@@ -1104,7 +1356,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "GDPR Article 5(1)(e) supplies the ceiling verbatim: personal data shall be 'kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed'. SP 800-53r5 SI-12 supplies the floor: 'Manage and retain information within the system and information output from the system in accordance with applicable laws, executive orders, directives, regulations, policies, standards, guidelines and operational requirements', with the discussion noting requirements that cover the full life cycle and can extend beyond system disposal. Neither instrument makes one obligation automatically outrank the other, so o2 is false. o3 is false because a breach raises a notification duty without changing which retention rule governs. o4 is false because Clear and Purge are SP 800-88 disposal-time sanitisation categories, not interim states of an aging record. Each distractor's why is true.",
+        "sources_read": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-retention-and-disposal.02",
@@ -1162,7 +1429,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Attribution gap found and resolved within the cited source. The phrases 'legal hold' and 'litigation hold' do not occur anywhere in SP 800-53r5, so the term itself is not sourced; the principle is. AU-11 states that organisations 'retain audit records until it is determined that they are no longer needed for administrative, legal, audit, or other operational purposes. This includes the retention and availability of audit records relative to Freedom of Information Act (FOIA) requests, subpoenas, and law enforcement actions', which is the rule that a live legal need holds records past the point where the ordinary schedule would release them, and SI-12 requires retention in accordance with applicable laws and operational requirements. The key is correct on that basis. o2 is false because preservation duties attach to records already in existence; o3 is false because a hold covers the affected records wherever they sit, production included; o4 is false because DLP inspects data leaving the organisation and does not suspend a retention schedule. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.secure-deletion.01",
@@ -1220,7 +1500,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-88 Rev. 1 draws the distinction the key rests on, requiring for Purge that a device 'applies media-dependent techniques (such as rewriting or block erasing) to ensure that data recovery is infeasible, and that the device does not simply remove the file pointers', and treating pointer removal alone as the weakest thing a device can do. An ordinary delete is that pointer removal: the directory entry goes and the blocks stay until reallocated. o2 is refuted by the same passage. o3 is false because an expired retention period governs whether disposal should occur, not whether the method erased anything. o4 is false because the original blocks remain recoverable on this drive whether or not a backup exists. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.secure-deletion.02",
@@ -1278,7 +1571,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-88 Rev. 1 s2.6 covers Cryptographic Erase as a means to Purge media ('When Not To Use CE To Purge Media', 'When to Consider Using CE') and states 'If strong cryptography is used, sanitization of the target data is reduced to sanitization of the encryption key(s) ... Federal agencies must use FIPS 140 validated encryption modules in order to have assurance that the conditions stated above have been verified for the SED' — which is precisely the key's caveat that CE is only as trustworthy as the drive's own encryption implementation. The category definitions refute o2 and o3: Destroy 'results in the subsequent inability to use the media for storage of data', which CE does not, and Clear protects only 'against simple non-invasive data recovery techniques' whereas Purge renders recovery infeasible 'using state of the art laboratory techniques'. o4 is false because a retention schedule governs timing, not assurance. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-breach-and-notification.01",
@@ -1336,7 +1642,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "GDPR Article 33(1): the controller shall 'without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority'. Awareness, not the intrusion, starts the clock, and the obligation is to notify rather than to have remediated, so the key holds and o2 is refuted by the article's own wording. o3 is false because Article 5(1)(e) storage limitation and the Article 33 duty are independent obligations. o4 is false because Article 33(1) attaches no condition about which copy was affected. Each distractor's why is true.",
+        "sources_read": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.data-breach-and-notification.02",
@@ -1394,7 +1713,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "GDPR Article 34(3)(a) excuses the communication to the data subject where 'the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected ..., in particular those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption'. That exemption is written into Article 34 only; Article 33(1) still requires notifying the supervisory authority unless the breach is unlikely to result in a risk, which a high-risk breach is not. The key is therefore correct and o3 is refuted by the placement of the exemption. o2 is refuted by Article 4(12), which defines a personal data breach by the security failure itself, exactly as its why states. o4 is false because HIPAA is a separate regime with no bearing on Article 33. Each distractor's why is true.",
+        "sources_read": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.backups-of-sensitive-data.01",
@@ -1452,7 +1784,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-53r5 CP-9(d) requires organisations to 'Protect the confidentiality, integrity, and availability of backup information', and CP-9(8) states that for cryptographic protection of backups 'The strength of mechanisms selected is commensurate with the security category or classification of the information' and that it 'applies to system backup information in storage at both primary and alternate locations'. That is the key's inheritance claim in the standard's own words, so an unencrypted, broadly readable dump of an encrypted database is the downgrade the key describes. o2 is refuted by CP-9(d) itself; o3 is false because a future expiry does not remedy present exposure; o4 is false because securely held keys protect nothing when the copy was never encrypted with them. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.sensitive-data.backups-of-sensitive-data.02",
@@ -1510,7 +1855,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-sensitive-data",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "SP 800-53r5 SI-12 requires organisations to 'Manage and retain information within the system and information output from the system in accordance with applicable laws ... and operational requirements', with the discussion noting that retention requirements 'cover the full life cycle of information, in some cases extending beyond system disposal'; a nightly dump is information output from the system, so the retention obligation follows the copy and is not discharged by clearing production. Noted limit: the practical observation that surgical deletion inside a backup set is generally infeasible is an operational fact rather than a sourced claim, and the key hedges it with 'generally'. o2 is refuted by SI-12's reach over output; o3 is false because a hold is triggered by a pending matter naming records, not by routine rotation; o4 is false because sanitising the production copy says nothing about the separate backup copy. Each distractor's why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     }
   ]
 }

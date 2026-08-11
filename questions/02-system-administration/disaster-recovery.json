@@ -60,7 +60,22 @@
         "rsync"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 states that HA \"cannot be a replacement for a solid backup strategy, as a corruption of data on a system may propagate through an HA system\", and that \"without a backup of the system separate from the system itself, recovery may not be possible\" — the independent copy is the missing safeguard. o2 is false for the same reason: a propagating operation reaches every target, so target count does not help. o3 is true as written — RAID addresses disk failure, not a delete the filesystem was instructed to perform. o4 is the documented misconception and is false. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
+          "https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.backup.02",
@@ -112,6 +127,8 @@
       ],
       "rationale": "`rsync` exists precisely for repeated directory-tree copies: it determines what differs and sends only that. `tar` creates an archive and is the right tool for bundling, not for incremental transfer.",
       "source_ids": [
+        "rsync-man",
+        "gnu-tar-manual",
         "nist-sp-800-34r1"
       ],
       "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.backup",
@@ -121,7 +138,22 @@
         "tar"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the item cited only NIST SP 800-34 Rev. 1, which says nothing about rsync or tar. rsync(1) states it \"is famous for its delta-transfer algorithm, which reduces the amount of data sent over the network by sending only the differences between the source files and the existing files in the destination\" and that it \"can copy locally, to/from another host over any remote shell\", which is exactly the key. source_ids now carry rsync-man and gnu-tar-manual alongside the NIST backup-policy citation. Key and all three distractors re-checked after the change: o2 (tar has no notion of destination state), o3 (a local snapshot moves nothing off the source storage) and o4 (continuous replication is a live mirror) are each true and none answers the stem.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/rsync.1.html",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.full-incremental-and-differential-backups.01",
@@ -179,7 +211,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds verbatim against NIST SP 800-34 Rev. 1: \"Restoring from a differential backup may require fewer media than an incremental backup because only the full backup media and the last differential media would be needed.\" o2 states the incremental restore sequence, which the same section describes (\"media from different backup operations may be required\"), and is therefore true but not the answer to a differential schedule. o3 is false — a differential stores files changed since the last full and has no baseline without it. o4 is false; the same section makes differentials restore inputs. No second defensible answer.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.snapshot.01",
@@ -231,13 +277,29 @@
       ],
       "rationale": "A snapshot is a point-in-time view of a volume. Local snapshots live alongside the original, so losing the volume loses them, which is why they are not an independent copy. Cloud provider snapshots are typically written to separate storage and do survive deletion of the source volume — the distinction is where the snapshot is stored, not the word itself.",
       "source_ids": [
-        "aws-ebs-snapshots"
+        "aws-ebs-snapshots",
+        "man-lvcreate-8"
       ],
       "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.snapshot",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the only citation was the AWS EBS snapshots page, which describes provider snapshots stored in S3 and says nothing about LVM. lvcreate(8) settles the key directly — snapshot space \"is allocated from space in the VG\", and standard LV allocation \"requires allocating logical extents from the VG's free physical extents\" — so a snapshot of a volume whose physical volume fails sits on that same failed storage. man-lvcreate-8 added to source_ids. Re-checked after the change: o2 describes a backup, not a local snapshot; o3's why is true of AWS EBS (\"Snapshots are stored in Amazon S3\") but not of LVM, which is the point of the item; o4 is a mechanism not implied by taking a snapshot. None of the three is also correct.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/lvcreate.8.html",
+          "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.snapshot.02",
@@ -290,13 +352,30 @@
       "rationale": "Both capture a moment. Only the backup is stored independently of the volume it came from, which is what lets it survive the loss of that volume. Cloud snapshots blur this because their storage is separate — the axis is still independence, not the label.",
       "source_ids": [
         "aws-ebs-snapshots",
+        "man-lvcreate-8",
         "nist-sp-800-34r1"
       ],
       "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.snapshot",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing alongside snapshot.01: the \"local snapshot is not independent\" half of the key was carried by the AWS EBS page, which does not discuss local snapshots. lvcreate(8) supplies it (snapshot space allocated from the VG); NIST SP 800-34 Rev. 1 supplies the backup half (\"It is good business practice to store backed-up data offsite\"). man-lvcreate-8 added. Re-checked: o2 is false — the AWS page calls a snapshot a \"point-in-time\" copy, so both are point-in-time and continuous copying is replication; o3 is false, a snapshot can be restored from, its limit is where it lives; o4 is false, compression is orthogonal. No distractor is also correct.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/lvcreate.8.html",
+          "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.replication.01",
@@ -354,7 +433,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"a corruption of data on a system may propagate through an HA system, making the system unusable\" — the replica at 09:05 holds the corrupted table and is available. o2 is false: a synchronous replica tracks the primary and holds no earlier state. o3 is false; replication carries no notion of intent and performs no rollback. o4 is false as an inference — the copy is off-site and corrupt, so distance did not help. None of the three is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.replication.02",
@@ -412,7 +505,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 lists data mirroring and offsite database replication among the high-availability and redundancy options for high-impact systems, i.e. the answer to \"can something else serve if this fails\". o2 is a recoverability requirement and needs a retained copy, which the same document places in backup and offsite storage. o3 is a testing obligation. o4 is a retention and cost question. Each distractor states a true fact and none is answered by replication.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.3-2-1-rule.01",
@@ -470,7 +577,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds verbatim against the CISA/US-CERT paper: \"3 – Keep 3 copies of any important file: 1 primary and 2 backups. 2 – Keep the files on 2 different media types to protect against different types of hazards. 1 – Store 1 copy offsite.\" o2, o3 and o4 each attach the numerals to backup type, site tier and test cadence respectively; the paper attaches them to copies, media and location, so all three are false and each why states that correctly.",
+        "sources_read": [
+          "https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.restore-testing.01",
@@ -528,7 +649,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 requires backup media to be tested (it directs the coordinator to determine \"how often backup media should be tested\") and separates testing, which \"validates recovery capabilities\", from the backup operation itself. o2 is false: an RTO is a duration and only a timed recovery evidences it. o3 is false; validating a plan is the TT&E activity, not a job log. o4 is the documented misconception. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.restore-testing.02",
@@ -586,7 +721,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds — reading the copy back and confirming its contents is precisely the media-testing and validation-data-testing activity NIST SP 800-34 Rev. 1 describes (\"testing and validating recovered data to ensure that data files or databases have been recovered completely\"). o2 is false: a drill exercises the plan and the people, and the same document's TT&E section keeps exercises distinct from testing an artefact. o3 and o4 are false and their whys are accurate about what off-site storage and retention govern.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.backup-retention.01",
@@ -644,7 +793,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds on the arithmetic the stem supplies: a 14-day window cannot reach a fault introduced 40 days ago. NIST SP 800-34 Rev. 1 places media rotation frequency and backup scope in backup policy, which is what sets that reach. o2 is false — the oldest retained copy is 14 days old, well after the corruption. o3 is false; replication would have copied the corruption when it happened, per the propagation sentence in the same document. o4 is false: the RPO \"is a factor of how much data loss the mission/business process can tolerate\", not how far back copies survive. Noted: NIST addresses retention only as rotation frequency inside backup policy, so this citation is thin, but nothing in the item is attributed to it falsely.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.rpo.01",
@@ -703,7 +866,23 @@
       "comparison_block": "cmp-sysadmin.disaster-recovery.rpo",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against both glossary entries. RPO: \"The point in time to which data must be recovered after an outage\"; SP 800-34 Rev. 1 adds that it \"is a factor of how much data loss the mission/business process can tolerate\". RTO: \"the overall length of time an information system's components can be in the recovery phase before negatively impacting the organization's mission\". So four hours bounds data loss and one hour bounds the outage. o2 swaps them and is false. o3 is false — backup frequency follows from the RPO but is not what the figure states. o4 describes an availability budget. No second defensible answer.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/recovery_point_objective",
+          "https://csrc.nist.gov/glossary/term/recovery_time_objective",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.rpo.02",
@@ -762,7 +941,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 defines the RPO as the point to which data can be recovered \"(given the most recent backup copy of the data)\", so the interval between recoverable copies is the only lever on it. o2 and o3 both shorten the outage and therefore move the RTO, which the same section defines as time unavailable; their whys say exactly that and are true. o4 is false — retention governs reach backwards, not the age of the newest copy. None of the three also answers the stem.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/recovery_point_objective",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.rto.01",
@@ -821,7 +1015,23 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"Hot sites are locations with fully operational equipment and capacity to quickly take over system operations\", with \"Short\" setup time in Table 3-3; the CSRC glossary calls a hot site \"a fully operational offsite data processing facility equipped with hardware and software\". o2 is false and its why is true: a warm site's \"equipment is not loaded with the software or data required to operate the system\", so a restore must run first (Table 3-3 setup time: Medium). o3 is false — a cold site has \"no equipment or telecommunications established or in place\" and Long setup time. o4 is false; media retrieval and restore is not a half-hour operation.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/recovery_time_objective",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
+          "https://csrc.nist.gov/glossary/term/hot_site"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.rto.02",
@@ -880,7 +1090,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. The RTO is defined as a length of time, so the only direct evidence is a timed end-to-end recovery; NIST SP 800-34 Rev. 1 assigns exactly that role to testing, which \"validates recovery capabilities\". o2 evidences the recovery point, not elapsed time. o3 is true about redundancy and irrelevant to duration. o4 is true about retention and irrelevant to duration. No distractor is also correct.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/recovery_time_objective",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.disaster-recovery-plan.01",
@@ -939,7 +1164,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against NIST SP 800-34 Rev. 1 directly: section 4.2.1 states that when an activation criterion is met \"the designated authority should activate the plan\", and section 4.3.1 is titled Sequence of Recovery Activities. Decision authority and restoration order are therefore plan content, not routine-runbook content. o2 is scheduled maintenance. o3 is the BCP, which \"focuses on sustaining an organization's mission/business processes during and after a disruption\". o4 is a within-site availability mechanism. Each why states a true fact.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/disaster_recovery_plan",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.disaster-recovery-plan.02",
@@ -953,7 +1193,7 @@
           "ref": "o1",
           "text": "Records of exercises in which the plan was followed and its gaps recorded.",
           "correct": true,
-          "why": "The definition requires the procedure to be tested, so exercise records are the evidence.",
+          "why": "NIST SP 800-34 Rev. 1 has testing validate recovery capabilities and exercises identify planning gaps, so the exercise record is the evidence.",
           "provenance": {
             "kind": "key"
           }
@@ -989,7 +1229,7 @@
           }
         }
       ],
-      "rationale": "The definition carries the word tested. A plan nobody has rehearsed is a proposal: it has never met the conditions it was written for, and the gaps it contains are still unknown.",
+      "rationale": "NIST SP 800-34 Rev. 1 makes testing, training and exercises a step of the contingency planning process in its own right: testing validates recovery capabilities and exercising the plan identifies planning gaps. The glossary definition of a disaster recovery plan does not itself use the word tested, so what evidences a working plan is the exercise record rather than the definition. A plan nobody has rehearsed is a proposal: it has never met the conditions it was written for, and the gaps it contains are still unknown.",
       "source_ids": [
         "nist-glossary-drp",
         "nist-sp-800-34r1"
@@ -998,7 +1238,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted: the rationale claimed \"The definition carries the word tested\". None of the five CSRC glossary definitions of disaster recovery plan contains the word tested — they read \"a predetermined set of instructions or procedures...\" and \"a written plan for recovering one or more information systems at an alternate facility\". Claim true, citation wrong: the testing obligation is in NIST SP 800-34 Rev. 1 (\"Testing validates recovery capabilities, whereas training prepares recovery personnel for plan activation and exercising the plan identifies planning gaps\"). Rationale and the key's why rewritten to attribute it there. Re-checked after the change: o2 (acknowledgement is not evidence of function), o3 (successful writes evidence neither restoration nor the plan) and o4 (topology documentation is not an exercise record) are each true and none is also correct.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/disaster_recovery_plan",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.business-continuity.01",
@@ -1057,7 +1312,22 @@
       "comparison_block": "cmp-sysadmin.disaster-recovery.business-continuity",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds on scope. The CSRC glossary BCP is \"a predetermined set of instructions or procedures that describe how an organization's mission/business processes will be sustained during and after a significant disruption\"; NIST SP 800-34 Rev. 1 section 2.2.6 makes the DRP \"an information system-focused plan designed to restore operability of the target system... at an alternate site\" that \"may support a BCP or COOP plan by recovering supporting systems for mission/business processes\". The narrower discipline serving the broader one is what the key asserts. o2 inverts that and is false. o3 is false; the two differ in scope. o4 is false — the BCP definition explicitly spans \"during and after\", so timing is not the axis. No distractor is also correct.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/business_continuity_plan",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.business-continuity.02",
@@ -1116,7 +1386,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds: premises, staff and customer communication are mission/business-process continuity, which the BCP definition covers and which no system restoration answers. o2 is the DRP's Sequence of Recovery Activities. o3 is bounded by the RPO, \"a factor of how much data loss the mission/business process can tolerate\". o4 is standby capacity, an alternate-site decision. All three whys are true and all three sit on the recovery side of the line.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/business_continuity_plan",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.high-availability-vs-disaster-recovery.01",
@@ -1174,7 +1459,21 @@
       "comparison_block": "cmp-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"HA can be implemented at a single site, with all system redundancy resident at that site. This will keep the system running at an HA level as long as there is no interruption of the facility housing the system.\" Losing the site is exactly what the cluster does not cover. o2 and o3 name things the cluster does provide, and their whys say so. o4 is a document, not a property of a cluster. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.high-availability-vs-disaster-recovery.02",
@@ -1232,7 +1531,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against the same passage — HA holds only \"as long as there is no interruption of the facility housing the system\", and the document instructs that HA processes be extended to an alternate location. o2 is the documented misconception and is false. o3 is false: copy frequency, not clustering, governs the recovery point. o4 is false; returning work to a recovered member is ordinary cluster behaviour. None is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.redundancy-and-single-points-of-failure.01",
@@ -1263,9 +1576,9 @@
         },
         {
           "ref": "o3",
-          "text": "The power supplies, because they share the same building feed.",
+          "text": "The dual power supplies, because two units inside one chassis do not count as redundancy.",
           "correct": false,
-          "why": "They are duplicated at the component level, which is what this question asks about.",
+          "why": "Each server is described as carrying two supplies, so the loss of one supply stops nothing.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
@@ -1290,7 +1603,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on the second-defensible-answer test: o3 read \"The power supplies, because they share the same building feed\", importing a premise the stem never gives and naming something that would genuinely be a single point of failure if granted; its why then rebutted a different claim than the option made. Rewritten to \"The dual power supplies, because two units inside one chassis do not count as redundancy\", which the stem contradicts directly. Key re-checked: the switch is the one component on every request path with a count of one, which is the practice NIST SP 800-34 Rev. 1 names as \"identify single points of failure\" and \"implement redundancy in critical components\". o2 and o4 re-checked and remain false, o4 correctly noting the stem never says the balancer is unduplicated.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.failover-and-failback.01",
@@ -1304,7 +1631,7 @@
           "ref": "o1",
           "text": "Failback — returning to the primary once it is healthy.",
           "correct": true,
-          "why": "It is the half of the cycle that is routinely rehearsed least and fails most.",
+          "why": "The failovers completed each time and the unplanned outages fell on the return leg, so that leg is what has never been proven.",
           "provenance": {
             "kind": "key"
           }
@@ -1340,15 +1667,31 @@
           }
         }
       ],
-      "rationale": "Failover switches to a standby when the primary fails; failback returns once it is healthy. Failback is the step most often left untested, because the emergency is over by the time it happens and the pressure to rehearse it has gone.",
+      "rationale": "Failover switches service onto a standby when the primary fails; failback returns it once the primary is healthy. AWS Elastic Disaster Recovery documents failback as a separate operation with its own mechanism — reverse replication of the recovery instances back to the source servers — so a rehearsal of the outbound half establishes nothing about the return leg.",
       "source_ids": [
+        "aws-drs-failback",
         "nist-sp-800-34r1"
       ],
       "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.failover-and-failback",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted twice over. Sourcing: NIST SP 800-34 Rev. 1 was the only citation and the document never uses the word failback. Content: the key's why asserted failback \"is routinely rehearsed least and fails most\", a claim no source establishes. AWS Elastic Disaster Recovery documents failback as its own process — \"the process of returning your workloads from the recovery environment on AWS back to your original source infrastructure after the disaster has been resolved\" with its own reverse-replication mechanism — which is the sourceable point. aws-drs-failback added; the why now reasons from the stem (the failovers completed, the outages fell on the return leg) and the rationale from the AWS definition. Re-checked: o2 is false because the failovers succeeded, o3 false because nothing indicates a bad restore, o4 false because a site switch does not exercise retention.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/drs/latest/userguide/failback.html",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.failover-and-failback.02",
@@ -1398,15 +1741,31 @@
           }
         }
       ],
-      "rationale": "While the standby serves, it becomes the system of record. Failback therefore has a data problem at its centre, not merely a routing one — and that is why it is harder than failover and more often goes wrong.",
+      "rationale": "While the standby serves, it becomes the system of record. AWS Elastic Disaster Recovery describes failback as returning workloads to the original source infrastructure and assists it by replicating data from the recovery instances back to the source servers, so failback has a data problem at its centre rather than merely a routing one — which is why it is harder than failover and more often goes wrong.",
       "source_ids": [
+        "aws-drs-failback",
         "nist-sp-800-34r1"
       ],
       "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.failover-and-failback",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the key claim that writes accumulated on the standby must be reconciled onto the primary was cited to NIST SP 800-34 Rev. 1, which never mentions failback. AWS Elastic Disaster Recovery states it \"assists with failback by replicating data from recovery instances back to your source servers\", and its failback table lists reverse replication as the mechanism — the key exactly. aws-drs-failback added and the rationale re-attributed. Re-checked: o2 is the documented misconception and false, since authority moved with service; o3 is false, an objective is a requirement and resolves no divergence; o4 is false and destructive. None is also correct.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/drs/latest/userguide/failback.html",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.mttr-and-mtbf.01",
@@ -1464,7 +1823,23 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The concept is on the sourcing waiver list, so the item may only turn on a definition every consensus source agrees about, and it does: MTTR is repair duration and MTBF is failure frequency, and the stem hedges with \"in common usage\". Confirmed by search that NIST SP 800-34 Rev. 1 contains neither acronym, so nothing in the item is attributed to it. The distractors are checked against sources: o2 names the RPO and RTO, whose glossary definitions are data loss and elapsed recovery time and which are targets rather than observed averages; o3 is retention; o4 is failover and failback timing. All three whys are true and none is also correct.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/recovery_point_objective",
+          "https://csrc.nist.gov/glossary/term/recovery_time_objective",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.off-site-and-geographic-redundancy.01",
@@ -1522,7 +1897,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"It is good business practice to store backed-up data offsite\", and the CISA paper's third clause is \"Store 1 copy offsite (e.g., outside your home or business facility)\" — a safe in the same building supplies no distance. o2 is false here: tape is a media-diversity point, separate from location. o3 is a real but different obligation. o4 is false; expiry is policy, not a property of the container. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
+          "https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.hot-warm-and-cold-sites.01",
@@ -1581,7 +1971,23 @@
       "comparison_block": "cmp-sysadmin.disaster-recovery.hot-warm-and-cold-sites",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds, and the stem is drawn near-verbatim from NIST SP 800-34 Rev. 1: \"Hot sites should have the most recent version of backed-up data loaded, requiring only updating with data since the last backup.\" I first recorded this as unsourced after reading only the section 3.4.3 summary list, where the hot site is described just as \"configured with the necessary system hardware\"; the data sentence is in the chapter 5 alternate-site discussion. o2 is false and its why is verbatim correct: \"Mirrored Sites are fully redundant facilities with automated real-time information mirroring.\" o3 is false — a warm site's \"equipment is not loaded with the software or data required to operate the system\". o4 is false — a cold site has \"basic infrastructure and environmental controls available... but no equipment or telecommunications established or in place\".",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf",
+          "https://csrc.nist.gov/glossary/term/warm_site",
+          "https://csrc.nist.gov/glossary/term/hot_site"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.hot-warm-and-cold-sites.02",
@@ -1639,7 +2045,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against Table 3-3, Sample Alternate Site Criteria: Cold Site cost Low and setup time Long; Warm Site Medium and Medium; Hot Site Medium/High and Short. Moving hot to cold therefore lowers cost and raises recovery time. o2 and o3 name the impossible and the reversed directions respectively and are false. o4 is false: the document ties tolerable data loss to the RPO and backup frequency, not to site tier. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.disaster-recovery-drill.01",
@@ -1697,7 +2117,21 @@
       "comparison_block": "cmp-sysadmin.disaster-recovery.disaster-recovery-drill",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 separates the two: testing \"validates recovery capabilities\" while \"training prepares recovery personnel for plan activation and exercising the plan identifies planning gaps\", and tabletop exercises have personnel \"discuss their roles during an emergency\". o2 is what restore testing alone establishes. o3 is false — the recovery point follows from copy frequency. o4 is false; separation is a property of where copies sit. Each why is true and none of the three answers the stem.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.disaster-recovery.disaster-recovery-drill.02",
@@ -1755,7 +2189,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-disaster-recovery",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1 lists tabletop exercises as a recognised exercise type: \"discussion-based exercises where personnel meet in a classroom setting or in breakout groups to discuss their roles during an emergency\", explicitly one that \"does not involve deploying equipment or other resources\". o2 is therefore false and is the documented misconception. o3 is false because no backup was read back. o4 is false because nothing was switched over. No distractor is also correct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
+        ]
+      }
     }
   ]
 }

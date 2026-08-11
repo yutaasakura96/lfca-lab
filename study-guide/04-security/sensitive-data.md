@@ -47,9 +47,11 @@ impact level; data subject.
 pricing model or a merger plan is highly sensitive and contains no PII, while a plain mailing
 list is PII of low sensitivity. Stripping the name does not end the analysis — if
 re-identification remains reasonably possible from what is left, it is still PII. And under
-GDPR an IP address or device identifier can be personal data, because Article 4(1) names online
-identifiers directly; a question that offers "an IP address" as the obviously non-personal
-option is testing exactly that.
+GDPR an IP address or device identifier can be personal data, because Article 4(1) expressly
+lists an online identifier among the references by which a person may be identified directly
+*or indirectly* — it does not make one a direct identifier, and Recital 26 still asks whether
+identification is possible by means reasonably likely to be used; a question that offers "an IP
+address" as the obviously non-personal option is testing exactly that.
 
 **What the exam may test** Given a list of fields, deciding which are PII on their own, which
 are PII only in combination, and which are not PII at all — and keeping that finding separate

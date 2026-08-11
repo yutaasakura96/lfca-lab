@@ -1533,3 +1533,43 @@ coarseness does not matter the way it would for allocation.
 
 Cycle 4 should not resurrect `importance` as a driving signal without first changing how
 `competencyRefs` is computed so it is no longer a constant.
+
+### Task 36 verification: Disaster Recovery questions (2026-08-12)
+
+Agent label `verify-disaster-recovery`, run against the 30-item file it did not author. 30 of 30
+items carry a verdict. Seven were refuted on the first pass, rewritten, and re-verified;
+each item's `verification` block records both `initial_verdict` and the final `verdict`.
+
+Six of the seven refutations were **attribution failures, not factual errors** — the claim was
+true and the citation did not contain it. That is now nine confirmed instances of this defect
+class across three cycles, and it is the single most productive thing the verification pass looks
+for.
+
+- `backup.02` cited only `nist-sp-800-34r1` for a claim about what `rsync` and `tar` do. Fixed by
+  citing `rsync-man` (delta-transfer algorithm, "sending only the differences") and
+  `gnu-tar-manual`; both added to the `sysadmin.disaster-recovery.backup` concept, whose
+  `commands` list already carried `tar` and `rsync` with no matching source.
+- `snapshot.01` and `snapshot.02` cited `aws-ebs-snapshots` for the behaviour of *local* LVM
+  snapshots. New source `man-lvcreate-8` added to `data/sources.json` and to the concept.
+- `failover-and-failback.01` and `.02` cited `nist-sp-800-34r1`, which never uses the word
+  failback. New source `aws-drs-failback` added to `data/sources.json` and to the concept.
+- `disaster-recovery-plan.02`'s rationale asserted "The definition carries the word tested". None
+  of the five CSRC glossary definitions of a disaster recovery plan contains that word. The
+  obligation is real but lives in NIST SP 800-34r1's testing, training and exercises section;
+  the rationale and the key's `why` were re-attributed there rather than rewritten.
+
+The seventh was a genuine item defect: `redundancy-and-single-points-of-failure.01`'s third
+distractor read "The power supplies, because they share the same building feed", importing a
+premise the stem never gives and naming something that would be a real single point of failure if
+granted — a second defensible answer. Rewritten to a claim the stem contradicts directly.
+
+Guide `sources:` lines updated for the three concepts; `npm run generate` re-run; `check-guide`
+0/0. `npm run validate` still 537 concepts / 0 errors / 16 warnings — the two new sources are
+cited by concepts, so no new `orphan-source` warning.
+
+One thing this pass got wrong and then corrected against the source: the hot-site item was first
+recorded as unsourced, because NIST SP 800-34r1's section 3.4.3 summary describes a hot site only
+as "configured with the necessary system hardware". The stem's "most recent backup already
+loaded, requiring only updating with data since the last backup" is verbatim from the same
+document's chapter 5. Reading one section of a source and concluding it does not contain a claim
+is itself a way to manufacture a false refutation.

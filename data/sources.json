@@ -1,6 +1,30 @@
 {
   "sources": [
     {
+      "id": "man-lvcreate-8",
+      "title": "lvcreate(8) — create a logical volume, including COW snapshots",
+      "url": "https://man7.org/linux/man-pages/man8/lvcreate.8.html",
+      "organization": "LVM2 project / man-pages",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that a snapshot's size \"is allocated from space in the VG\" and that allocating a standard LV \"requires allocating logical extents from the VG's free physical extents\" -- the local half of the snapshot concept, which the AWS EBS page (provider snapshots stored in S3) does not cover. Added 2026-08-12 by the Disaster Recovery verification pass, which found the LVM claim cited to the AWS page."
+    },
+    {
+      "id": "aws-drs-failback",
+      "title": "Using Elastic Disaster Recovery for recovery and failback",
+      "url": "https://docs.aws.amazon.com/drs/latest/userguide/failback.html",
+      "organization": "Amazon Web Services",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Defines failover as redirecting production traffic to the recovery instances and failback as \"the process of returning your workloads from the recovery environment on AWS back to your original source infrastructure after the disaster has been resolved\", assisted \"by replicating data from recovery instances back to your source servers\". Added 2026-08-12: NIST SP 800-34r1, the concept's only prior citation, never uses the word failback."
+    },
+    {
       "id": "lf-objectives-2025",
       "title": "LFCA Program Changes",
       "url": "https://training.linuxfoundation.org/lfca-program-changes-2025/",
@@ -3613,6 +3637,30 @@
       "notes": "One-line canonical definitions for SELECT, INSERT, UPDATE, and DELETE; JOIN is documented as a clause of SELECT rather than a standalone statement."
     },
     {
+      "id": "postgresql-update",
+      "title": "PostgreSQL Documentation: UPDATE",
+      "url": "https://www.postgresql.org/docs/current/sql-update.html",
+      "organization": "PostgreSQL Global Development Group",
+      "published": "2025-01",
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that UPDATE 'changes the values of the specified columns in all rows that satisfy the condition' and shows WHERE as an optional clause in the synopsis, which is the primary support for the fact that an UPDATE with no WHERE clause acts on every row. Added during Task 40 verification because postgresql-sql-commands, the source previously cited for that fact, is an index of command names and does not state it."
+    },
+    {
+      "id": "microsoft-microservices-architecture-style",
+      "title": "Microservices architecture style - Azure Architecture Center",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices",
+      "organization": "Microsoft",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that services 'can be deployed independently', that 'microservices are responsible for persisting their own data or external state', and that they 'communicate through well-defined APIs', with messaging frameworks named for asynchronous communication. Added during Task 40 verification because cncf-glossary, the source previously cited alone, defines microservices as independent services but says nothing about per-service data ownership or the interfaces between them."
+    },
+    {
       "id": "aws-what-is-nosql",
       "title": "What is NoSQL?",
       "url": "https://aws.amazon.com/nosql/",
@@ -3743,6 +3791,54 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "First of the six advantages: 'Trade fixed expense for variable expense -- Instead of having to invest heavily in data centers and servers before you know how you're going to use them, you can pay only when you consume computing resources, and pay only for how much you consume.' Registered to replace aws-rightsizing-whitepaper as the source for the capex-vs-opex concept: that whitepaper is entirely about instance rightsizing and contains no CapEx/OpEx accounting material at all, a citation-mismatch defect found in cycle 3. This page uses 'fixed expense' / 'variable expense' rather than the accounting terms 'capital expenditure' / 'operational expenditure,' but is the same distinction the guide's prose describes -- an up-front, sized-for-peak cost versus a pay-per-consumption cost."
+    },
+    {
+      "id": "systemd-service-5",
+      "title": "systemd.service(5) — service unit configuration",
+      "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html",
+      "organization": "freedesktop.org / systemd",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Added during cycle 3 Troubleshooting verification. Documents the oom-kill failed state (OOMPolicy=) and the exit-code-versus-signal distinction (Restart=) that systemctl reports; systemctl(1) documents neither."
+    },
+    {
+      "id": "systemd-resolved-service",
+      "title": "systemd-resolved.service(8) — network name resolution manager",
+      "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html",
+      "organization": "freedesktop.org / systemd",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Added during cycle 3 Troubleshooting verification. resolv.conf(5) mentions neither systemd-resolved nor the 127.0.0.53 stub address; this page documents both and the stub-resolv.conf symlink arrangement."
+    },
+    {
+      "id": "man-unlink-2",
+      "title": "unlink(2) — delete a name and possibly the file it refers to",
+      "url": "https://man7.org/linux/man-pages/man2/unlink.2.html",
+      "organization": "Linux man-pages",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Added during cycle 3 Troubleshooting verification. States that an unlinked file remains in existence until the last open file descriptor is closed, which is the df-versus-du discrepancy; df(1) does not cover it."
+    },
+    {
+      "id": "man-top-1",
+      "title": "top(1) — display Linux processes",
+      "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+      "organization": "procps-ng",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-12",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Added during cycle 3 Troubleshooting verification. Defines the CPU-state fields on the summary display, including \"wa : time waiting for I/O completion\"."
     }
   ]
 }

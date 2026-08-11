@@ -44,7 +44,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "RFC 9110 Section 3.3 states verbatim that 'The terms client and server refer only to the roles that these programs perform for a particular connection. The same program might act as a client on some connections and a server on others.' That settles the key and refutes o4 directly. o2 is false on the scenario's own facts: the application server does open the connection to the database, so it is a client there. o3 is false because RFC 9110 Section 3.3 defines a server as the party that accepts connections, which both exchanges here have; peer-to-peer names a shape with no designated accepting party. Each distractor's why states a true fact. Citation checked: rfc9110 does contain the sentence the item turns on.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9110.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.three-tier-architecture.01",
@@ -89,7 +95,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "The Microsoft source states that the three tiers 'do not necessarily correspond to physical locations on various computers on a network, but rather to logical layers of the application', and describes presentation, middle and data services. That is exactly the key's claim that instance count does not change layer count, and it refutes o2. o3 is false because a load balancer performs none of the three named service layers; the why is hedged ('typically described') and does not overclaim. o4 is refuted by the stem's own facts, since the Java artefact enforcing pricing rules does not run in the browser. No distractor is defensible as the answer to 'how many tiers'. Citation checked: the source contains the logical-layer statement the item turns on.",
+        "sources_read": ["https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.monolithic-architecture.01",
@@ -134,7 +146,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "The CNCF glossary's Monolithic Apps entry defines a monolith as an application that 'contains all functionality in a single deployable program' — the deployable unit, not the instance count, which is the key. o2 is false: six replicas of one artefact are released together, whereas the CNCF Microservices Architecture entry describes services that are deployed, updated and scaled independently. o3 is false because the CNCF definition makes no reference to team size. o4 is false on two counts, both stated truly in its why. No distractor answers the stem correctly. Citation checked: cncf-glossary contains the single-deployable-program definition.",
+        "sources_read": ["https://glossary.cncf.io/monolithic-apps/", "https://glossary.cncf.io/microservices-architecture/"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.microservices.01",
@@ -174,12 +192,18 @@
         }
       ],
       "rationale": "The comparison's separating axis is the release boundary. Team A has many independently deployed units with network calls and separate data; Team B has one release and one shared database — a distributed-monolith risk if it split the process without splitting the data.",
-      "source_ids": ["cncf-glossary"],
+      "source_ids": ["cncf-glossary", "microsoft-microservices-architecture-style"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.microservices",
       "comparison_block": "cmp-pm.software-application-architecture.microservices",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. The key asserts three traits — independent deployment, network calls, and per-service data ownership — but the CNCF glossary page cited alone says only that microservices are 'individual independent services' that are 'easier to deploy, update, and scale independently'; it says nothing about data ownership and does not name the interfaces between services, which o4's why also relies on. Rather than weaken correct content to match a thin citation, the Microsoft Azure Architecture Center's microservices page was registered and added: it states that services 'can be deployed independently', that 'microservices are responsible for persisting their own data or external state', that they 'communicate through well-defined APIs', and that messaging frameworks are used for asynchronous communication. With that source the key and o4's why are both supported. o2 is false because shipping one artefact from one codebase is a modular monolith under the CNCF monolith definition. o3 is false because it drops the deployment and data requirements. Team B is not defensible as an answer.",
+        "sources_read": ["https://glossary.cncf.io/microservices-architecture/", "https://glossary.cncf.io/monolithic-apps/", "https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.web-server-vs-application-server.01",
@@ -219,12 +243,18 @@
         }
       ],
       "rationale": "Static assets loading confirms the web server is alive and serving files it already has; a 502 means it forwarded a request and got back an invalid response, which locates the fault in the application server behind it — exactly the diagnostic split the two roles exist to support.",
-      "source_ids": ["nginx-beginners-guide"],
+      "source_ids": ["nginx-beginners-guide", "rfc9110"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.web-server-vs-application-server",
       "comparison_block": "cmp-pm.software-application-architecture.web-server-vs-application-server",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. Both the key and o2's why turn on what 502 means, and the item cited only the nginx beginner's guide, which covers starting nginx, serving static content, proxying and FastCGI and contains no status codes at all. RFC 9110 Section 15.6.3 states that '502 (Bad Gateway) indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server', which is precisely the key's reasoning, so rfc9110 was added alongside nginx-beginners-guide, which does support the underlying split between serving files from disk and proxying to an application. The content itself needed no change. o2 is false for the reason RFC 9110 gives. o3 is false and its why is the same hedged, true claim used in the three-tier item. o4 is false because nothing in the scenario isolates the database ahead of the application server; the why says so without overclaiming that the database is healthy.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9110.html", "https://nginx.org/en/docs/beginners_guide.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.api.01",
@@ -269,7 +299,13 @@
       "comparison_block": "cmp-pm.software-application-architecture.api",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "The key has two halves. The half that carries the discrimination — that REST is a network-based style requiring resource URLs and method semantics — is directly supported by RFC 9110 Section 3.1, which describes HTTP's design goal of separating resource identification (by URI) from request semantics (vested in the method), and by Section 3.2's account of the uniform interface, with [REST] cited as the underlying model. The other half, that an API need not involve a network, is a definitional claim RFC 9110 does not make; it is nonetheless plainly true and no distractor gains from it. o2 is false because a network carrier is not what makes a contract an API. o3 is false for the reason RFC 9110 Section 3.1 gives: REST constrains resource addressing and method semantics, which a local call interface does not exhibit. o4 is false because a contract exists once its operations and types are fixed; a schema document formalises it. Recording the limit of the citation rather than hiding it: rfc9110 supports the REST side of this item, not the definition of 'API'.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9110.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.rest.01",
@@ -314,7 +350,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "RFC 9110 Section 3.1 states that 'One design goal of HTTP is to separate resource identification from request semantics, which is made possible by vesting the request semantics in the request method'. POST /getOrder and POST /deleteOrder invert exactly that: the semantics sit in the path and the method carries none, so the key is correct and cited to a source that says it. o2 is false and its why is true — JSON over HTTP does not confer REST, and RFC 8259 is not referenced by HTTP as a requirement. o3 is false because a machine-readable contract describes any interface without constraining its design, so it cannot be what is missing. o4 is false because REST is a request/response style over HTTP; RFC 9110 Section 1.1 characterises HTTP as request/response, with no notion of temporal decoupling. Only one option names a REST-specific defect.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9110.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.http-methods-and-status-codes.01",
@@ -340,9 +382,9 @@
         },
         {
           "ref": "o3",
-          "text": "Run `curl -I -X DELETE https://example.com/orders/42`, since `-I` reports the status of whatever method `-X` set.",
+          "text": "Run `curl --head https://example.com/orders/42`; `--head` prints the status line, and the order path in the URL is enough to identify what should be removed.",
           "correct": false,
-          "why": "`-I` issues its own HEAD request rather than reporting on the method `-X` specified, so this does not confirm the DELETE's actual status code.",
+          "why": "`-I, --head` fetches the headers only by issuing a HEAD request, so no DELETE is ever sent and the status line reported belongs to the HEAD rather than to the removal the script needs.",
           "provenance": { "kind": "variant", "command": "curl -X" }
         },
         {
@@ -353,13 +395,19 @@
           "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.rest" }
         }
       ],
-      "rationale": "RFC 9110 defines `-X`'s target, the method word, separately from options like `-I` that issue their own request. Pairing `-X DELETE` with `-i` sends the intended method and reports its actual status line, while `-I` alone would substitute a HEAD request instead of reporting on the DELETE.",
-      "source_ids": ["rfc9110", "rfc5789"],
+      "rationale": "The curl manual is explicit that `-X` only changes the method word and does not alter how curl behaves, which is why `-X HEAD` is not a proper HEAD request and `--head` is. Pairing `-X DELETE` with `-i` sends the method RFC 9110 defines for removing a resource and prints the status line that came back, while `--head` alone would issue a HEAD and never delete anything.",
+      "source_ids": ["curl-manpage", "rfc9110"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.http-methods-and-status-codes",
       "comparison_block": null,
       "commands_covered": ["curl -X"],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED on the first pass, rewritten, and re-checked here. Two defects. First, the original o3 — 'curl -I -X DELETE ...' with the why 'minus-I issues its own HEAD request rather than reporting on the method -X specified' — was a second defensible answer AND a false why. The curl manual says of --request that 'This option only changes the actual word used in the HTTP request, it does not alter the way curl behaves', so -X DELETE overrides the method word that --head would otherwise use: the request on the wire is a DELETE, the server performs it, and the status line is printed. That option satisfied both of the stem's requirements. It was replaced with 'curl --head <url>' alone, which is unambiguously wrong because --head 'fetches the headers only' by issuing a HEAD and never sends the DELETE. Second, the item cited rfc5789 (the PATCH method), which contains nothing the item asserts — no option, no status code, no method used here — and rfc9110, which does not document curl at all. source_ids is now curl-manpage plus rfc9110, and the rationale was rewritten to attribute the -X behaviour to the curl manual rather than to an RFC. Key re-verified: --request sets the method word and -i (renamed --show-headers in curl 8.10.0, with -i still functional) shows the response headers, which include the status line. o2's why is quoted almost verbatim from the manual: 'if you want to make a proper HEAD request, using -X HEAD does not suffice. You need to use the --head option.' o4 is false and its why is true — RFC 9110 Section 9.2.2 lists PUT and DELETE as idempotent, which is a statement about repetition, not about equivalence of the two operations.",
+        "sources_read": ["https://curl.se/docs/manpage.html", "https://www.rfc-editor.org/rfc/rfc9110.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.json-and-xml.01",
@@ -404,7 +452,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Every factual claim in this item was found in RFC 8259 itself. The abstract calls JSON 'a lightweight, text-based, language-independent data interchange format', and Section 1 says 'It is derived from the object literals of JavaScript, as defined in the ECMAScript Programming Language Standard, Third Edition' — the stem's framing and the key, exactly. Section 8.1 reads 'JSON text exchanged between systems that are not part of a closed ecosystem MUST be encoded using UTF-8', which makes o4 false and its why true. o2 is false because RFC 8259 defines grammar and encoding and imposes no schema requirement; a search of the document finds no such obligation. o3 is false because RFC 8259 standardising JSON says nothing about XML's status; its why appeals to the guide for the 'JSON is the current default' claim rather than to the RFC, which is the correct attribution since the RFC does not make it. Only the key states something the RFC rules out.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc8259.html", "https://www.rfc-editor.org/rfc/rfc8259.txt"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.message-queue.01",
@@ -430,9 +484,9 @@
         },
         {
           "ref": "o3",
-          "text": "That an ordinary synchronous API call between the two sides could achieve the same effect, since both are just ways for one component to hand data to another.",
+          "text": "That the producer and consumer may also call each other directly over a synchronous API when both do happen to be running, since a queue between them forbids every other path.",
           "correct": false,
-          "why": "An API call is typically synchronous and expects an answer; a queue decouples the two sides so the producer need not wait and the consumer need not be running yet.",
+          "why": "Nothing in the store-and-forward model forbids a direct call between the two elements; the queue describes one route a message may take, not the only channel the two are permitted to use.",
           "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.api" }
         },
         {
@@ -449,7 +503,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "REFUTED on the first pass, rewritten, and re-checked here. The original o3 said the model rules out 'that an ordinary synchronous API call between the two sides could achieve the same effect', and its why argued that a queue decouples the two sides where an API call does not — that is, the why argued the option WAS ruled out, making o3 a second defensible answer against a key that says the same thing from the other side. o3 was rewritten to claim the model forbids the two elements from ever calling each other directly, which the specification does not say and which its new why refutes truthfully. The stem and key were verified against AMQP 1.0 Part 2, Section 2.1.1: 'Nodes are named entities responsible for the safe storage and/or delivery of messages', 'Examples of AMQP nodes are producers, consumers, and queues. Producers and consumers are the elements within an application that generate and process messages. Queues are entities that store and forward messages.' Store-and-forward between two separately named elements is the decoupling the key names. o2 is false against that same sentence — a queue forwards, it is not a store queried at will. o4 is false because removal on consumption is normal queue behaviour and so is not ruled out; its why states that truly. Note on the citation: the registered URL is the complete-spec PDF, which is the same OASIS Standard document; the Part 2 HTML rendition at the same docs.oasis-open.org path was read to get the section text.",
+        "sources_read": ["http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-transport-v1.0-os.html", "http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-overview-v1.0-os.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.relational-database.01",
@@ -489,12 +549,18 @@
         }
       ],
       "rationale": "The honest discriminators are structure, joins, and atomicity across tables, not popularity or raw scale. PostgreSQL's own model — enforced schema, joins performed by the database, a transaction logged to permanent storage before completion is reported — is built for exactly this checkout.",
-      "source_ids": ["postgresql-transactions", "postgresql-indexes"],
+      "source_ids": ["postgresql-transactions", "aws-what-is-nosql"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.relational-database",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. The item cited postgresql-indexes, which is the Introduction to Indexes page and contains nothing about joins, schema enforcement, transactions, or the relational-versus-NoSQL choice this item turns on — a source cited for content it does not contain. It was replaced with aws-what-is-nosql, whose comparison table states that relational databases 'are designed for transactional and strongly consistent' workloads, that the database 'enforces referential integrity in relationships between tables', and that 'Most NoSQL databases offer trade-offs by relaxing some of the ACID properties' — which supports o2's and o4's whys. postgresql-transactions is retained and supports the atomicity half of the key: 'it bundles multiple steps into a single, all-or-nothing operation ... if some failure occurs that prevents the transaction from completing, then none of the steps affect the database at all.' No content changed. o3 is false because a queue provides no cross-table atomicity, as its why says. o2 is false because volume alone does not decide a join-shaped workload. No distractor is defensible.",
+        "sources_read": ["https://www.postgresql.org/docs/current/tutorial-transactions.html", "https://aws.amazon.com/nosql/", "https://www.postgresql.org/docs/current/indexes-intro.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.nosql-database.01",
@@ -539,7 +605,13 @@
       "comparison_block": "cmp-pm.software-application-architecture.nosql-database",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "The AWS NoSQL page supports the key directly: NoSQL databases 'are designed for a number of data access patterns that include low-latency applications', they 'provide a variety of data models, such as key-value, document, graph, and column, which are optimized for performance and scale', and they 'generally provide flexible schemas'. A session read once by its own key with no joins is that access pattern. o2 is false because the same page locates relational strength in modelling relationships as tables and enforcing referential integrity, neither of which this workload uses; the why says so without denying that relational integrity is real. o3 is false because the page defines NoSQL as a category distinguished from the relational model, not as a faster drop-in for it. o4 is false because nothing in the stem describes a producer-consumer handoff. Only one option is defensible. Citation checked: aws-what-is-nosql contains the access-pattern and key-value claims.",
+        "sources_read": ["https://aws.amazon.com/nosql/"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.sql-basics.01",
@@ -579,12 +651,18 @@
         }
       ],
       "rationale": "Of the four data-changing statements, SELECT changes nothing; UPDATE and DELETE without a WHERE clause typically act on every row, and JOIN is a clause used inside a query rather than a statement of its own.",
-      "source_ids": ["postgresql-sql-commands"],
+      "source_ids": ["postgresql-sql-commands", "postgresql-update"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-data",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. The item's central fact — a bare UPDATE acts on every row — was cited only to postgresql-sql-commands, which is an index of command names and states no such behaviour. The PostgreSQL UPDATE reference page was registered as postgresql-update and added: its synopsis shows WHERE as an optional clause and its Description says UPDATE 'changes the values of the specified columns in all rows that satisfy the condition', so with no condition present every row qualifies. That also settles o3, which is false — the page imposes no WHERE requirement, and PostgreSQL has no such default. o2 is false twice over, as its why says: UPDATE has no ordering notion without ORDER BY or WHERE, and a bare DELETE is as destructive as a bare UPDATE rather than a no-op. o4 is false because the SQL Commands index lists SELECT, INSERT, UPDATE and DELETE as commands while JOIN appears only as a clause of SELECT, which is exactly what its why asserts. Only the key is defensible.",
+        "sources_read": ["https://www.postgresql.org/docs/current/sql-update.html", "https://www.postgresql.org/docs/current/sql-commands.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.schema-table-and-index.01",
@@ -629,7 +707,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "PostgreSQL's Introduction to Indexes states 'After an index is created, the system has to keep it synchronized with the table. This adds overhead to data manipulation operations.' That is the key and it also makes o4 false, since the page names the maintenance cost explicitly. o2 is false because the same chapter presents an index as a separate structure the planner may consult, not a replacement for or copy of the table; the table remains the source of rows. o3 is false because CREATE INDEX does not redeclare the table's columns or constraints, so no schema change occurred. Every why states a true fact and no distractor explains the observed slowdown. Citation checked: postgresql-indexes contains the synchronisation and overhead sentence the item turns on.",
+        "sources_read": ["https://www.postgresql.org/docs/current/indexes-intro.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.transactions-and-acid.01",
@@ -674,7 +758,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "PostgreSQL's Transactions tutorial supplies both halves. Durability, which is the key: 'once a transaction is completed and acknowledged by the database system, it has indeed been permanently recorded and won't be lost even if a crash ensues shortly thereafter'; the tutorial's own example is a debit that must not disappear in a crash. Atomicity, which refutes o2: 'A transaction is said to be atomic: from the point of view of other transactions, it either happens completely or not at all', so no guarantee favours the first step. o3 is false because it denies the durability sentence above. o4 is false because consistency concerns valid states, not speed; the page's guarantee language never mentions performance. Each why states a true fact and only the key survives. Citation checked: postgresql-transactions contains both the atomicity and durability statements.",
+        "sources_read": ["https://www.postgresql.org/docs/current/tutorial-transactions.html"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.caching-in-applications.01",
@@ -719,7 +809,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "RFC 9111 Section 1 describes a cached response as reusable without validation while fresh — 'A fresh response can therefore reduce both latency and network overhead each time the cache reuses it' — and Section 4.2 builds the whole freshness model on a lifetime after which a stored response is stale, with Section 5.3 saying the Expires field 'gives the date/time after which the response is considered stale'. Serving a copy that no longer matches the origin for the length of that lifetime is the design, which is the key and also makes o2 false: a cache that always reflected the origin would give up the reuse the RFC is built around. o3 is false because statefulness concerns per-client data retained across requests, an unrelated property from a shared stale page. o4 is false because nothing here concerns an interface contract or its versioning. Citation checked: rfc9111 contains the freshness and staleness model the item turns on.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9111", "https://www.rfc-editor.org/rfc/rfc9111.txt"]
+      }
     },
     {
       "id": "q.pm.software-application-architecture.stateless-vs-stateful-applications.01",
@@ -764,7 +860,13 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-software-application-architecture",
+        "verdict": "confirmed",
+        "checked": ["key", "o2", "o3", "o4"],
+        "reasoning": "RFC 9110 Section 3.3 says 'HTTP is defined as a stateless protocol, meaning that each request message's semantics can be understood in isolation' and that 'Many implementations depend on HTTP's stateless design in order to reuse proxied connections or dynamically load balance requests across multiple servers' — the stem's framing, and the reason pinning a user to one instance is a workaround rather than a fix. The key is correct: routing affinity leaves the session in that instance's memory, so losing or redeploying it loses the session. o2 is false for the same reason and its why says so. o3 is false because session state is authoritative while a cache entry is by definition expendable. o4 is false because sticky routing happens at the load balancer and changes nothing about resource-and-method design; RFC 9110's statelessness is about request semantics, not instance affinity. Citation checked: rfc9110 contains the statelessness and load-balancing sentences.",
+        "sources_read": ["https://www.rfc-editor.org/rfc/rfc9110.html"]
+      }
     }
   ]
 }

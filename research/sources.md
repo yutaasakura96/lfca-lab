@@ -42,6 +42,7 @@
 | aws-cloudfront | What is Amazon CloudFront? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html |
 | aws-cloudtrail | What Is AWS CloudTrail? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html |
 | aws-cost-and-usage-reports | What are AWS Cost and Usage Reports? | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html |
+| aws-drs-failback | Using Elastic Disaster Recovery for recovery and failback | Amazon Web Services | 2 | — | 2026-08-12 | https://docs.aws.amazon.com/drs/latest/userguide/failback.html |
 | aws-ebs-snapshots | Amazon EBS snapshots | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html |
 | aws-ec2-auto-scaling | What is Amazon EC2 Auto Scaling? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html |
 | aws-elastic-ip-addresses | Elastic IP addresses (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html |
@@ -172,6 +173,7 @@
 | man-lsblk-8 | lsblk(8) — list block devices | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsblk.8.html |
 | man-lscpu-1 | lscpu(1) — display information about the CPU architecture | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/lscpu.1.html |
 | man-lsmod-8 | lsmod(8) — show the status of modules in the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsmod.8.html |
+| man-lvcreate-8 | lvcreate(8) — create a logical volume, including COW snapshots | LVM2 project / man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man8/lvcreate.8.html |
 | man-man-1 | man(1) — an interface to the system reference manuals | man-db project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/man.1.html |
 | man-modprobe-8 | modprobe(8) — add and remove modules from the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/modprobe.8.html |
 | man-mount-8 | mount(8) — mount a filesystem | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/mount.8.html |
@@ -196,8 +198,10 @@
 | man-su-1 | su(1) — run a command with substitute user and group ID | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/su.1.html |
 | man-syscalls-2 | syscalls(2) — Linux system calls | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/syscalls.2.html |
 | man-systemctl | systemctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/systemctl.1.html |
+| man-top-1 | top(1) — display Linux processes | procps-ng | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man1/top.1.html |
 | man-umask-2 | umask(2) — set file mode creation mask | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/umask.2.html |
 | man-uname-1 | uname(1) — print system information | GNU coreutils / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uname.1.html |
+| man-unlink-2 | unlink(2) — delete a name and possibly the file it refers to | Linux man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man2/unlink.2.html |
 | man-uptime | uptime(1) — Linux manual page | Linux man-pages project / procps-ng | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-uptime-1 | uptime(1) — tell how long the system has been running | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-w-1 | w(1) — show who is logged on and what they are doing | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/w.1.html |
@@ -209,6 +213,7 @@
 | man7-ss | ss(8) - another utility to investigate sockets | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ss.8.html |
 | man7-traceroute | traceroute(8) - print the route packets trace to network host | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/traceroute.8.html |
 | maven-dependency-mechanism | Introduction to the Dependency Mechanism | Apache Software Foundation | 2 | 2024-01 | 2026-08-11 | https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html |
+| microsoft-microservices-architecture-style | Microservices architecture style - Azure Architecture Center | Microsoft | 2 | — | 2026-08-12 | https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices |
 | microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
 | ms-azure-default-outbound-access | Default outbound access in Azure | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access |
 | nasa-expanded-guidance-se-requirements-management | NASA Systems Engineering Handbook, Section 6.2 - Requirements Management | NASA | 2 | 2023-02 | 2026-08-11 | https://www.nasa.gov/reference/6-2-requirements-management/ |
@@ -262,6 +267,7 @@
 | postgresql-indexes | PostgreSQL Documentation: Introduction to Indexes | PostgreSQL Global Development Group | 2 | — | 2026-08-10 | https://www.postgresql.org/docs/current/indexes-intro.html |
 | postgresql-sql-commands | PostgreSQL Documentation: SQL Commands | PostgreSQL Global Development Group | 2 | 2025-01 | 2026-08-11 | https://www.postgresql.org/docs/current/sql-commands.html |
 | postgresql-transactions | PostgreSQL Documentation: Transactions | PostgreSQL Global Development Group | 2 | — | 2026-08-10 | https://www.postgresql.org/docs/current/tutorial-transactions.html |
+| postgresql-update | PostgreSQL Documentation: UPDATE | PostgreSQL Global Development Group | 2 | 2025-01 | 2026-08-12 | https://www.postgresql.org/docs/current/sql-update.html |
 | progit-branching-basics | Pro Git — Basic Branching and Merging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging |
 | progit-tagging | Pro Git — Git Basics: Tagging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Basics-Tagging |
 | progit-what-is-git | Pro Git — Getting Started: What is Git? (three states, working tree / staging area / Git directory) | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F |
@@ -305,6 +311,8 @@
 | systemd-1 | systemd(1) — system and service manager, PID 1 | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.html |
 | systemd-journald-8 | systemd-journald.service(8) — the journal log store | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html |
 | systemd-net-naming-scheme | systemd.net-naming-scheme(7) - Predictable network interface device names | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.net-naming-scheme.html |
+| systemd-resolved-service | systemd-resolved.service(8) — network name resolution manager | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html |
+| systemd-service-5 | systemd.service(5) — service unit configuration | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html |
 | systemd-special-7 | systemd.special(7) — special units and targets | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html |
 | systemd-systemctl-1 | systemctl(1) — start, enable, daemon-reload, isolate, get-default | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemctl.html |
 | systemd-timer-5 | systemd.timer(5) — timer unit configuration, Persistent= | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html |

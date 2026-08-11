@@ -58,7 +58,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against SRE ch.12 \"Test and Treat\": hypotheses are tested to \"rule in or rule out\", and a disconfirmed hypothesis is refuted rather than treated, so the loop returns to hypothesis formation. o2 asserts applying a fix for a just-refuted theory, which the chapter's treat-then-observe loop excludes; o3 confuses a negative test with a scope result (scope needs a comparison case, not a failed test); o4 confuses one eliminated theory with an authority or competence limit. No distractor is defensible.",
+        "sources_read": [
+          "https://sre.google/sre-book/effective-troubleshooting/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.structured-troubleshooting-method.02",
@@ -117,7 +130,20 @@
       "comparison_block": "cmp-sysadmin.troubleshooting.structured-troubleshooting-method",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Comparison of term scope. SRE ch.12 presents the whole procedure (problem report -> examine -> diagnose -> test/treat -> cure/postmortem), inside which \"Simplify and reduce\" / bisection is one narrowing technique; the key states exactly that containment relation. o2 is false because narrowing ends in a reduced candidate set, not a verified documented fix; o3 is false because the method starts at identification, not reproduction; o4 reverses the two scopes. No second defensible option.",
+        "sources_read": [
+          "https://sre.google/sre-book/effective-troubleshooting/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.narrowing-scope.01",
@@ -176,7 +202,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key is the one-dimension comparison case, matching SRE ch.12 \"Simplify and reduce\"/bisection: change one thing and observe which half of the system is implicated. o2 is change correlation (\"What touched it last\"), which does not by itself separate user-specific from host-wide; o3 gives one session's log with no comparison case; o4 varies account, host and network path at once, so it eliminates no category. All three whys are true as stated.",
+        "sources_read": [
+          "https://sre.google/sre-book/effective-troubleshooting/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.change-correlation.01",
@@ -229,13 +268,26 @@
       "rationale": "Change correlation is a prioritisation heuristic, not a literal question about human action. Certificates expire, disks fill from log growth, scheduled jobs run, DNS records reach their TTL and unattended upgrades apply patches — all changes nobody performed deliberately but that a system which ran correctly yesterday can still have undergone.",
       "source_ids": [
         "lf-objectives-2025",
-        "nist-sp-800-128"
+        "google-sre-book-effective-troubleshooting"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.change-correlation",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "CITATION FIXED: the item cited nist-sp-800-128, whose PDF text layer could not be extracted and which is a security-focused configuration-management guideline, not a source for \"systems change with no deliberate actor\". Replaced with SRE ch.12 \"What touched it last\", which states that a working system \"tends to remain in motion until acted upon by an external force, such as a configuration change or a shift in the type of load served\" and that recent changes are a productive starting point. Key is correct; o2 (skip to reproduction), o3 (journal names the underlying cause \"always ... directly and completely\" — false) and o4 (accept \"nothing changed\") are each wrong, and their whys are true.",
+        "sources_read": [
+          "https://sre.google/sre-book/effective-troubleshooting/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.reproducing-the-fault.01",
@@ -288,13 +340,28 @@
       "rationale": "Reproduction has to match the reported trigger exactly — the same command, the same account, the same host — or a successful run proves nothing about the original failure. Testing as root is the classic version of this error: the superuser is exempt from the checks that a permission fault depends on.",
       "source_ids": [
         "lf-objectives-2025",
-        "google-sre-book-effective-troubleshooting"
+        "google-sre-book-effective-troubleshooting",
+        "man-path-resolution"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.reproducing-the-fault",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key rests on root being exempt from the ordinary mode checks; path_resolution(7) documents the three permission-bit groups and carries an explicit \"Bypassing permission checks\" section for the privileged case, so a run as root never exercises the failing condition. SRE ch.12 \"Cure\" supports reproduction as the thing that proves causation. o2 (fault fixed), o3 (modes must be fine), o4 (escalate as resolved) are all false and their whys true. Added man-path-resolution because the root-exemption claim was not in either originally cited source.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
+          "https://sre.google/sre-book/effective-troubleshooting/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.checking-logs-first.01",
@@ -347,7 +414,8 @@
       "rationale": "`journalctl -u` restricts output to one unit and `journalctl -p err` filters by severity, inclusive of everything worse than the named level; combined and scoped to the current boot they isolate exactly the failing unit's own errors. `tail -f` only follows a growing text file and cannot show history, and a system without persistent journal storage has nothing under `/var/log` for it to watch at all.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-journalctl"
+        "man-journalctl",
+        "man-systemctl"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.checking-logs-first",
       "comparison_block": null,
@@ -357,7 +425,21 @@
         "tail -f"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "journalctl(1): -u shows \"messages for the specified systemd unit\"; -p states \"If a single log level is specified, all messages with this log level or a lower (hence more important) log level are shown\", confirming the key's inclusive-upward claim; -b restricts to a boot. o3 is wrong because systemctl(1) says status \"only shows 10 lines of output and ellipsizes lines\" — true as its why states, and added man-systemctl so that claim is cited. o2 (tail -f cannot show history) and o4 (no -u means system-wide) are both wrong for the stated true reasons.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "https://man7.org/linux/man-pages/man1/systemctl.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.exit-status.01",
@@ -418,7 +500,20 @@
         "echo $?"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Bash manual, Exit Status: \"a command which exits with a zero exit status has succeeded\"; \"If a command is not found ... 127. If a command is found but is not executable, the return status is 126.\" That confirms the key and makes o3 false for exactly the reason its why gives (126, not 0). o2 is false because $? is the mechanism callers use; o4 is false because an ad hoc command's status says nothing about a wrapping unit. No distractor is also correct.",
+        "sources_read": [
+          "https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.using-documentation.01",
@@ -441,7 +536,7 @@
           "ref": "o2",
           "text": "`man`, since giving it a keyword instead of a page name still searches the page bodies.",
           "correct": false,
-          "why": "`man` expects a page name; it does not search body text for a keyword, and that expectation is exactly what trips candidates up.",
+          "why": "Given a bare keyword, `man` looks for a page of that name and fails; searching page bodies is a separate mode, `man -K`, and not what plain `man` does.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:sysadmin.troubleshooting.using-documentation"
@@ -451,7 +546,7 @@
           "ref": "o3",
           "text": "`info`, since its Texinfo indices are more complete than the corresponding man pages.",
           "correct": false,
-          "why": "That completeness is a real property of GNU Texinfo manuals, but it is irrelevant here — `info` still requires knowing the manual's name to open it.",
+          "why": "Even where a Texinfo manual is fuller than the man page, `info` is still a direct lookup that needs the manual’s name — the one thing missing in this scenario.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "sysadmin.troubleshooting.checking-logs-first"
@@ -471,7 +566,8 @@
       "rationale": "`apropos` and `man -k` both search the whatis database of one-line descriptions for a keyword, which is exactly what's needed when the command's name is unknown. `man` and `info` are direct-lookup tools: both require the name in hand already, which is the one thing missing in this scenario.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-apropos"
+        "man-apropos",
+        "man-man-1"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.using-documentation",
       "comparison_block": null,
@@ -482,7 +578,21 @@
         "info"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "apropos(1): \"apropos searches the descriptions for instances of keyword\". The `man -k` half of the key is NOT in apropos(1); it is in man(1): \"-k, --apropos  Approximately equivalent to apropos. Search the short manual page descriptions for keywords\". Added man-man-1 and reworded o2's why, which had said flatly that man \"does not search body text\" — man(1) documents -K, --global-apropos (\"Search for text in all manual pages\"), so the original why was false as written and is now scoped to plain `man`. o3's why was also softened so it no longer asserts an unsourced comparative about Texinfo completeness. o4 remains false.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/apropos.1.html",
+          "https://man7.org/linux/man-pages/man1/man.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.escalation.01",
@@ -523,9 +633,9 @@
         },
         {
           "ref": "o4",
-          "text": "Keep working the problem in parallel after opening a ticket, since escalation and continued investigation are compatible.",
+          "text": "Restart the method from identification, since a fix you may not apply means one of the earlier steps must have produced the wrong theory.",
           "correct": false,
-          "why": "Continuing to change the system after handing it over is the specific mistake escalation guards against, and here you lack the authority to act on it at all.",
+          "why": "The theory was never disconfirmed here — the fix it implies is simply outside your authority to apply, and repeating the earlier steps does not change who is allowed to act.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method"
@@ -541,7 +651,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on first pass and rewritten. Original o4 read \"Keep working the problem in parallel after opening a ticket, since escalation and continued investigation are compatible\", which is defensible practice — SRE \"Being On-Call\" describes incident handling where roles are handed off while work continues — and its why refuted a different claim (\"continuing to change the system\"), a strawman. That made two options arguably correct, the defect this pass exists to catch. o4 now proposes restarting the method from identification, which is unambiguously wrong because no theory was disconfirmed. Re-checked: key (escalate and hand over the evidence) is correct; o2 (act anyway) violates the authority boundary; o3 (reproduce again) does not address the blocker; o4 as rewritten is wrong for a true reason.",
+        "sources_read": [
+          "https://sre.google/sre-book/being-on-call/"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.service-will-not-start.01",
@@ -553,7 +676,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It rules out a signal or OOM kill, since those report `Result: signal` or the oom-kill state instead; the message is in `journalctl -u` for this unit.",
+          "text": "It rules out a signal or OOM kill, since those leave the unit in a `signal` or `oom-kill` failed state instead; the message is in `journalctl -u` for this unit.",
           "correct": true,
           "why": "An exit-code result means the process ran and terminated under its own control, so the cause is in the application or its configuration, and the journal for that unit carries its own line about why.",
           "provenance": {
@@ -564,7 +687,7 @@
           "ref": "o2",
           "text": "It confirms an OOM kill happened, since the process is no longer running and something must have terminated it against its will.",
           "correct": false,
-          "why": "An OOM kill is a signal termination and shows as `Result: signal` or the oom-kill state, not as an ordinary exit code.",
+          "why": "An OOM kill is a signal termination and leaves the unit in the `oom-kill` failed state, not in an ordinary exit-code state.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:sysadmin.troubleshooting.service-will-not-start"
@@ -596,7 +719,8 @@
         "lf-objectives-2025",
         "man-systemctl",
         "man-journalctl",
-        "man-ss"
+        "man-ss",
+        "systemd-service-5"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
       "comparison_block": null,
@@ -604,7 +728,22 @@
         "journalctl -u"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "systemd.service(5) documents the distinction the key turns on: Restart= separates a process that \"exits with a non-zero exit code\" from one \"terminated by a signal\", and OOMPolicy= states that after an OOM kill \"the service ultimately ends up in the `oom-kill` failed state\". man-systemctl, the originally cited source, documents neither, so systemd-service-5 was added and the key reworded from the literal `Result: signal` string to the failed-state wording the source supports. journalctl -u carries the daemon's own line. o3 (permissions) and o4 (port in use) each over-read a generic exit-code state; their whys are true, and ss -tulpn is indeed what settles the address-in-use case.",
+        "sources_read": [
+          "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html",
+          "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "https://man7.org/linux/man-pages/man1/systemctl.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.service-will-not-start.02",
@@ -668,7 +807,21 @@
         "ss -tulpn"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "systemctl(1): status shows \"runtime status information ... followed by most recent log data from the journal\", including load state, active state and sub-state — which is what confirms whether the unit stayed up after a start that returned cleanly. Key correct. o2 is false (journald guarantees no text file); o3 is a real but later command and its why says so explicitly, so it is not a competing answer to \"why did a successful start not keep the process running\"; o4 is the misconception. No second correct option.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "https://man7.org/linux/man-pages/man1/journalctl.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.disk-full.01",
@@ -718,10 +871,11 @@
           }
         }
       ],
-      "rationale": "A filesystem can run out of data blocks or out of inodes independently, and both produce the same \"No space left on device\" message. `df -h` reports blocks; `df -i` reports the separate inode pool, which on ext filesystems is fixed in size and consumed one per file regardless of that file's size.",
+      "rationale": "A filesystem can run out of data blocks or out of inodes independently, and both produce the same \"No space left on device\" message. `df -h` reports blocks; `df -i` reports the separate inode pool, which is consumed one per file regardless of that file’s size.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-df"
+        "man-df",
+        "man-inode-7"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.disk-full",
       "comparison_block": null,
@@ -729,7 +883,21 @@
         "df -i"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "df(1): \"-i, --inodes  list inode information instead of block usage\" and \"-h  print sizes in powers of 1024\", so the key's check is exactly right and a block figure cannot show inode exhaustion. inode(7) (\"Each file has an inode ... Each file in a filesystem has a unique inode number\") was added because the one-inode-per-file premise is not in df(1); the rationale's unsourced claim that the ext inode pool is fixed at mkfs time was dropped. o2, o3, o4 are all wrong and their whys true — notably o4, since a traversal problem yields EACCES, not ENOSPC.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/df.1.html",
+          "https://man7.org/linux/man-pages/man7/inode.7.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.disk-full.02",
@@ -782,7 +950,8 @@
       "rationale": "`df -h` and `du -sh /*` answer different questions — filesystem accounting versus a directory-tree walk — and they legitimately disagree when space is held by a file that has been deleted but is still open. The fix is closing or restarting the process holding the descriptor, not finding a bigger file to delete.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-df"
+        "man-df",
+        "man-unlink-2"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.disk-full",
       "comparison_block": null,
@@ -791,7 +960,21 @@
         "du -sh /*"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "unlink(2) settles the key directly: \"If the name was the last link to a file but any processes still have the file open, the file will remain in existence until the last file descriptor referring to it is closed\" — so the blocks stay allocated and the name is gone from the tree that du walks. df(1), the only source originally cited, says nothing about this, so man-unlink-2 was added. o2 (search harder), o3 (page cache reclaim — a memory mechanism, not block accounting) and o4 (log rotation) are each false, and each why states a true fact.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/unlink.2.html",
+          "https://man7.org/linux/man-pages/man1/df.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.out-of-memory-and-the-oom-killer.01",
@@ -849,7 +1032,9 @@
         "kernel-docs-proc-rst",
         "kernel-sysctl-vm",
         "man-dmesg",
-        "man-journalctl"
+        "man-journalctl",
+        "bash-exit-status",
+        "man-signal-7"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
       "comparison_block": null,
@@ -858,7 +1043,23 @@
         "dmesg"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Bash manual: \"When a command terminates on a fatal signal whose number is N, Bash uses the value 128+N as the exit status\", and signal(7) lists SIGKILL among the standard signals (number 9), so 137 = 128+9 is a SIGKILL and cannot be a plain exit — which is exactly why o2 is false. dmesg(1) is \"print or control the kernel ring buffer\" and journalctl(1) -k \"Show only kernel messages\", confirming both confirmation routes. o4 is false because \"command not found\" is 127 per the same Bash section. Added bash-exit-status and man-signal-7, which carry the 128+N and SIGKILL facts the originally cited sources did not.",
+        "sources_read": [
+          "https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html",
+          "https://man7.org/linux/man-pages/man7/signal.7.html",
+          "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "https://man7.org/linux/man-pages/man1/journalctl.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.out-of-memory-and-the-oom-killer.02",
@@ -908,7 +1109,7 @@
           }
         }
       ],
-      "rationale": "A memory cgroup limit is enforced independently of host-wide memory availability, so a container can be OOM-killed on a host with gigabytes free. The kernel message discriminates the two cases directly: a system-wide kill reads \"Out of memory: Killed process,\" while a cgroup kill reads \"Memory cgroup out of memory: Killed process.\"",
+      "rationale": "A memory cgroup limit is enforced independently of host-wide memory availability, so a container can be OOM-killed on a host with gigabytes free. The kernel’s own OOM report is what discriminates the two cases: a kill made against a cgroup’s limit names that memory cgroup, while a system-wide exhaustion does not.",
       "source_ids": [
         "lf-objectives-2025",
         "man-proc-pid-oom-score",
@@ -924,7 +1125,20 @@
         "free -h"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "kernel sysctl/vm documentation treats a cgroup OOM as a distinct condition from system-wide exhaustion — panic_on_oom notes that \"Even oom happens under memory cgroup, the whole system panics\" only at value 2, precisely because the constrained case is otherwise handled without the system being fatally short — which is what makes the key possible. The rationale previously quoted exact kernel message strings that no cited source contains; it now states the discriminating property without inventing a quotation. o2 (full swap disk), o3 (\"cannot happen\") and o4 (permission to allocate) are each false with true whys.",
+        "sources_read": [
+          "https://docs.kernel.org/admin-guide/sysctl/vm.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.high-cpu-load.01",
@@ -978,7 +1192,8 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-proc-loadavg",
-        "man-uptime"
+        "man-uptime",
+        "man-top-1"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.high-cpu-load",
       "comparison_block": null,
@@ -987,7 +1202,22 @@
         "top"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "proc_loadavg(5): the load figures give \"the number of jobs in the run queue (state R) or waiting for disk I/O (state D)\", and top(1) defines \"wa : time waiting for I/O completion\". Together they confirm the key: a high load with high wa and low us is a storage queue, not CPU saturation. Added man-top-1 because the `wa` field is defined in top(1), not in either originally cited source. o2 misreads us/wa as a memory signal, o3 ignores core count and the wa evidence, o4 confuses I/O wait with free space; all three whys are true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/proc_loadavg.5.html",
+          "https://man7.org/linux/man-pages/man1/top.1.html",
+          "https://man7.org/linux/man-pages/man1/uptime.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.high-cpu-load.02",
@@ -1049,7 +1279,21 @@
         "nproc"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "uptime(1) states it outright: \"Load averages are not normalized for the number of CPUs in a system, so a load average of 1 means a single CPU system is loaded all the time while on a 4 CPU system it means it was idle 75% of the time.\" That confirms the key and makes o2 false in the exact terms its why uses. o3 (swap) and o4 (network latency) are false: proc_loadavg(5) counts only R and D states, with no network component.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uptime.1.html",
+          "https://man7.org/linux/man-pages/man5/proc_loadavg.5.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.permission-denied.01",
@@ -1113,7 +1357,21 @@
         "ls -ld"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "path_resolution(7): the last of the three permission bits is \"execute permission in case of ordinary files, or search permission in case of directories\", and resolution walks every directory in the prefix — so a readable file under a parent lacking `x` is unreachable, which is the key. namei(1) follows a pathname component by component and -l/--long shows \"the mode bits of each file type in the style of ls(1)\" plus owners, so it isolates exactly that. o2, o3 and o4 are each false and each why is true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
+          "https://man7.org/linux/man-pages/man1/namei.1.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.permission-denied.02",
@@ -1166,8 +1424,8 @@
       "rationale": "`id` reports the credentials of the current process, not the account's configured groups, so an open shell started before a group change still carries the old set. Comparing it against `id <user>` exposes exactly that gap, and the fix is a new login rather than another permission change.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-path-resolution",
-        "man-namei"
+        "man-credentials-7",
+        "man-path-resolution"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.permission-denied",
       "comparison_block": null,
@@ -1175,7 +1433,21 @@
         "id"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "CITATION FIXED: the item cited man-path-resolution and man-namei; namei(1) contains nothing about group credentials. credentials(7) documents supplementary group IDs as a per-process credential set, obtained with getgroups(2) and used for file permission checks, and path_resolution(7) confirms permission checks consult \"the supplementary group IDs of the calling process\" — together those establish that a shell started before the change still carries the old set and that a new login is the remedy. man-namei was dropped and man-credentials-7 added. Key correct; o2 (directory service broken), o3 (DNS caching) and o4 (systemctl status) are all false with true whys.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/credentials.7.html",
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.cannot-connect-to-a-service.01",
@@ -1187,7 +1459,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`ss -tulpn` — if it shows the socket bound to `127.0.0.1` rather than `0.0.0.0`, that explains a refusal from any remote client and rules out the firewall.",
+          "text": "`ss -tulpn` — if it shows the socket bound to `127.0.0.1` rather than `0.0.0.0`, that explains a refusal from every remote client without any firewall rule being involved.",
           "correct": true,
           "why": "A daemon bound only to the loopback address is up, healthy and unreachable from anywhere else, and every remote test fails the same way regardless of firewall rules.",
           "provenance": {
@@ -1229,7 +1501,8 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-ss",
-        "man-systemctl"
+        "man-systemctl",
+        "man-ip-7"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.cannot-connect-to-a-service",
       "comparison_block": null,
@@ -1238,7 +1511,20 @@
         "ss -tulpn"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "ss(8) documents -t, -u, -l (\"Display only listening sockets\"), -n and -p, so the command is the right one and its Local Address column is what carries the bind address; ip(7) defines the wildcard bind. The key originally said the observation \"rules out the firewall\", which overstates the inference — a loopback-only bind explains the refusal without a firewall rule but does not prove no rule exists — so the text was tightened to that weaker, true claim. o2 (stale DNS would time out, not refuse), o3 (already contradicted by systemctl status) and o4 (TCP refusal is not a filesystem fault) are all false with true whys.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/ss.8.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.cannot-connect-to-a-service.02",
@@ -1250,7 +1536,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The 502, seen with `curl -v` against the IP, proves the connection and TLS handshake succeeded and the fault is in the application; the timeout by name is resolution — `dig` and `ping` against the name isolate it.",
+          "text": "The 502 from `curl -v` against the IP proves the connection completed and an HTTP response came back, so the fault is above the transport layers; the timeout by name is resolution, which `dig` isolates.",
           "correct": true,
           "why": "A 502 is only returned after the TCP connection succeeds, so it rules out every network layer beneath it, while the separate hang-by-name result confines the second fault to DNS.",
           "provenance": {
@@ -1259,7 +1545,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both results point at the exact same underlying firewall rule somewhere in the network path between the client and the server, since both eventually fail to respond correctly to the client in the end, in this reading.",
+          "text": "Both results point at one firewall rule in the network path between the client and the server, since a rule that silently drops packets addressed by name while mangling those addressed by IP would produce a slow failure in the first case and an error status in the second.",
           "correct": false,
           "why": "A 502 is a completed HTTP exchange, not a network failure, so it cannot share a cause with a connection that never completes at all.",
           "provenance": {
@@ -1291,8 +1577,8 @@
       "rationale": "`curl -v` distinguishes \"never connected\" from \"connected and got an HTTP error\" by showing the connection steps separately; a 502 by IP rules out every layer beneath the application. The hang by hostname is a different failure entirely, and `dig` and `ping` against the name versus the IP is how it gets confined to resolution.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-ss",
-        "man-systemctl"
+        "curl-manpage",
+        "rfc-9110-http-semantics"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.cannot-connect-to-a-service",
       "comparison_block": null,
@@ -1302,7 +1588,21 @@
         "ping"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on first pass and rewritten. The key asserted that the 502 \"proves the connection and TLS handshake succeeded\" — the scenario never says the API is served over TLS, so the key stated a fact the stem does not support. It now claims only that the connection completed and an HTTP response came back. RFC 9110 15.6.3 confirms the substance: \"The 502 (Bad Gateway) status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server\", which is only reachable after a completed request. The citation was also wrong: man-ss and man-systemctl contain nothing about curl, 502 or dig; replaced with curl-manpage and rfc-9110-http-semantics. o2 (one firewall rule for both), o3 (502 means the backend crashed) and o4 (host CPU-saturated) are each false with true whys. Follow-up pass: the rewritten key was 244 characters and became the longest option, which tripped q-length-cue both per-item and across the file; the key was tightened without dropping a claim and o2 was lengthened with a real (and still false) mechanism rather than the key being truncated.",
+        "sources_read": [
+          "https://www.rfc-editor.org/rfc/rfc9110.html",
+          "https://curl.se/docs/manpage.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.name-resolution-failure.01",
@@ -1355,7 +1655,8 @@
       "rationale": "Trying an IP address directly separates a DNS fault from a connectivity fault decisively: if the IP works and the name does not, the fault is in resolution. `dig`'s status field then discriminates further — NXDOMAIN, SERVFAIL and an unreachable-resolver report each point at a different remedy.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-resolv-conf"
+        "man-resolv-conf",
+        "rfc-1035-dns-implementation"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.name-resolution-failure",
       "comparison_block": null,
@@ -1363,7 +1664,21 @@
         "dig"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "RFC 1035 4.1.1 settles the discrimination the item turns on: RCODE 2 is \"Server failure - The name server was unable to process this query due to a problem with the name server\", and RCODE 3 is \"Name Error - Meaningful only for responses from an authoritative name server, this code signifies that the domain name referenced in the query does not exist\". So SERVFAIL is not NXDOMAIN, making o3 false, and the key's reading is right. resolv.conf(5), the only source originally cited, contains no status codes at all, so rfc-1035-dns-implementation was added. o2 and o4 are false with true whys.",
+        "sources_read": [
+          "https://www.rfc-editor.org/rfc/rfc1035.html",
+          "https://man7.org/linux/man-pages/man5/resolv.conf.5.html"
+        ]
+      }
     },
     {
       "id": "q.sysadmin.troubleshooting.name-resolution-failure.02",
@@ -1416,7 +1731,8 @@
       "rationale": "A single `127.0.0.53` nameserver line is the signature of `systemd-resolved`'s stub resolver rather than the real upstream configuration, which lives with that service instead of in the generated file. Editing the file directly is overwritten the next time the stub is regenerated.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-resolv-conf"
+        "man-resolv-conf",
+        "systemd-resolved-service"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.name-resolution-failure",
       "comparison_block": null,
@@ -1425,7 +1741,21 @@
         "ping"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-troubleshooting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "CITATION FIXED: resolv.conf(5) — fetched and read — mentions neither systemd-resolved nor 127.0.0.53, so the cited source did not contain the claim. systemd-resolved.service(8) does: it \"maintains the /run/systemd/resolve/stub-resolv.conf file ... This file lists the 127.0.0.53 DNS stub ... as the only DNS server\" and is meant to be reached \"only through a symlink from /etc/resolv.conf\", which confirms both the key and o2's why that a hand edit does not survive. Added systemd-resolved-service. o3 (kernel logs DNS errors) and o4 (ping the stub) are false with true whys.",
+        "sources_read": [
+          "https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html",
+          "https://man7.org/linux/man-pages/man5/resolv.conf.5.html"
+        ]
+      }
     }
   ]
 }

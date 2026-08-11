@@ -218,16 +218,16 @@
 | sysadmin.troubleshooting.exit-status | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.using-documentation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.escalation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| sysadmin.troubleshooting.service-will-not-start | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 3 | 0 | 4 | HIGH |
-| sysadmin.troubleshooting.disk-full | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
+| sysadmin.troubleshooting.service-will-not-start | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 4 | 0 | 4 | HIGH |
+| sysadmin.troubleshooting.disk-full | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 3 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.out-of-memory-and-the-oom-killer | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 6 | 0 | 4 | HIGH |
-| sysadmin.troubleshooting.high-cpu-load | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
+| sysadmin.troubleshooting.high-cpu-load | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 3 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.permission-denied | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.cannot-connect-to-a-service | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
-| sysadmin.troubleshooting.name-resolution-failure | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
-| sysadmin.disaster-recovery.backup | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
+| sysadmin.troubleshooting.name-resolution-failure | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 2 | 0 | 4 | HIGH |
+| sysadmin.disaster-recovery.backup | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 3 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.full-incremental-and-differential-backups | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | HIGH |
-| sysadmin.disaster-recovery.snapshot | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
+| sysadmin.disaster-recovery.snapshot | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.replication | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.3-2-1-rule | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.disaster-recovery.restore-testing | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -238,7 +238,7 @@
 | sysadmin.disaster-recovery.business-continuity | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | sysadmin.disaster-recovery.high-availability-vs-disaster-recovery | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.redundancy-and-single-points-of-failure | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | HIGH |
-| sysadmin.disaster-recovery.failover-and-failback | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
+| sysadmin.disaster-recovery.failover-and-failback | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.mttr-and-mtbf | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 0 | 0 | 1 | MEDIUM |
 | sysadmin.disaster-recovery.off-site-and-geographic-redundancy | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.disaster-recovery.hot-warm-and-cold-sites | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -493,7 +493,7 @@
 | pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |
 | pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
-| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
+| pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
 | pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.api | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.rest | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
@@ -502,7 +502,7 @@
 | pm.software-application-architecture.message-queue | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.relational-database | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 2 | 0 | 3 | HIGH |
 | pm.software-application-architecture.nosql-database | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
-| pm.software-application-architecture.sql-basics | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| pm.software-application-architecture.sql-basics | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.schema-table-and-index | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.transactions-and-acid | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.caching-in-applications | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |

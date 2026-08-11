@@ -16,7 +16,7 @@ against hot site.
 
 <a id="c-sysadmin.disaster-recovery.backup"></a>
 ### Backup
-*id: `sysadmin.disaster-recovery.backup` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-34r1*
+*id: `sysadmin.disaster-recovery.backup` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-34r1, rsync-man, gnu-tar-manual*
 
 **What it is** An independent copy of data, kept so the data can be restored after loss,
 corruption, or deletion. The load-bearing word is *independent*: a copy that shares a failure
@@ -98,7 +98,7 @@ next full resets them, so they take longer to write but restore from two sets.
 
 <a id="c-sysadmin.disaster-recovery.snapshot"></a>
 ### Snapshot
-*id: `sysadmin.disaster-recovery.snapshot` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: aws-ebs-snapshots*
+*id: `sysadmin.disaster-recovery.snapshot` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: aws-ebs-snapshots, man-lvcreate-8*
 
 **What it is** A point-in-time view of a volume or filesystem, typically created almost
 instantly and typically stored as a record of what has changed since the moment it was
@@ -529,7 +529,7 @@ component is load-bearing is.
 
 <a id="c-sysadmin.disaster-recovery.failover-and-failback"></a>
 ### Failover and failback
-*id: `sysadmin.disaster-recovery.failover-and-failback` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-34r1*
+*id: `sysadmin.disaster-recovery.failover-and-failback` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-34r1, aws-drs-failback*
 
 **What it is** Failover is switching service onto a standby when the primary fails. Failback
 is returning service to the primary once it is healthy again. They are two halves of one

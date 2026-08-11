@@ -1033,7 +1033,8 @@
         "ch11.l3"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "microsoft-microservices-architecture-style"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1332,7 +1333,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "postgresql-sql-commands"
+        "postgresql-sql-commands",
+        "postgresql-update"
       ],
       "candidate_evidence": [],
       "commands": [],

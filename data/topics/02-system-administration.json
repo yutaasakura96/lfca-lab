@@ -5217,7 +5217,8 @@
       "additional_sources": [
         "man-systemctl",
         "man-journalctl",
-        "man-ss"
+        "man-ss",
+        "systemd-service-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5252,7 +5253,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-df"
+        "man-df",
+        "man-unlink-2",
+        "man-inode-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5330,7 +5333,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-proc-loadavg",
-        "man-uptime"
+        "man-uptime",
+        "man-top-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5440,7 +5444,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-resolv-conf"
+        "man-resolv-conf",
+        "systemd-resolved-service"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5475,7 +5480,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-34r1"
+        "nist-sp-800-34r1",
+        "rsync-man",
+        "gnu-tar-manual"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5542,7 +5549,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-ebs-snapshots"
+        "aws-ebs-snapshots",
+        "man-lvcreate-8"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -5907,7 +5915,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-34r1"
+        "nist-sp-800-34r1",
+        "aws-drs-failback"
       ],
       "candidate_evidence": [],
       "commands": [],
