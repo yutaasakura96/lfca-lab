@@ -114,3 +114,54 @@ Task 2: complete (commit e94f133, review clean)
 
   Gates: validate 537/0 errors/16 warnings, no stale-waiver; npm test 188/188; check-guide 0/0.
 
+Task 3: complete (commits 727e2fc, 7aaab28; review clean)
+  Second adversarial pass over the eight competency files that had only ever had one - and whose
+  only prior pass left no verdict record at all.
+
+  **241 claims examined, 9 refuted, 131/131 concepts covered (100%).** Verdict artifacts committed
+  under docs/verification/ as factcheck-{cloud-computing,cloud-networking,performance-availability,
+  budgeting,cloud-best-practices,sensitive-data,compliance,oss-licensing,topup-cloud,
+  topup-security-oss}.json. The 127-refutation pass that preceded this one now has a successor
+  that IS auditable from a clone.
+
+  The 9 are NOT 9 factual defects. Split, per .superpowers/sdd/task-3-adjudication.md:
+    2 factual errors  - AWS's two-minute spot interruption notice stated in the generic
+                        "the provider" voice, in two separate concepts. Azure and Google Cloud
+                        give ~30 seconds. Both fixed with per-provider attribution and new
+                        sources (azure-spot-vms, google-cloud-spot-vms).
+    5 attribution     - claim true, citation does not support it. Fixed by registering the right
+                        source, NOT by rewriting correct prose.
+    2 unverifiable    - PCI DSS requirement numbers (standard behind a licence gate) and a VMware
+                        page returning no fetchable body. Recorded as unverified, not disproven,
+                        and nothing changed.
+
+  **The coverage measurement was the most valuable part of this task.** The first eight-agent pass
+  examined 206 claims but touched only 101/131 concepts (77%). Every agent honestly said it had
+  prioritised the densest claims - but the plan promises a pass over the FILES. Two top-up agents
+  closed the 30-concept gap, and immediately found the spot-notice defect in a second concept the
+  original pass had never opened. The gap was hiding real errors, not unexamined-but-clean prose.
+  Measure coverage; do not accept a claim count as coverage.
+
+  Controller adjudication mattered here. Three refutations read as factual errors and were
+  attribution failures. One - `hypervisor` - would have been damaged by literal application:
+  the guide named VMware Workstation as a type-2 example, the cited VMware page names Fusion, and
+  a naive fix would have swapped a correct widely-known example for a narrower one to satisfy a
+  citation. The applied fix keeps both, explains the relationship, and adds KVM as the
+  discriminating case.
+
+  SYSTEMIC FINDING - a source cited for content it does not contain, now **seven instances**
+  across two cycles, four of them found in this single pass over 8 of 22 files without anyone
+  hunting for them: nist-sp-800-61r3, nist-sp-800-145 (x2), cncf-glossary-serverless,
+  cncf-glossary-virtualization, aws-rightsizing-whitepaper, aws-budgets. `validate`'s
+  unsourced-concept check proves a concept CITES a tier-1/2 source; nothing has ever checked that
+  a cited source CONTAINS the claim. Proposed as cycle 4 scope, sized against all 537 concepts
+  and 312 sources.
+
+  Two self-report vs measurement gaps, neither serious, both arguing for counting rather than
+  believing: the budgeting agent reported "all 13 concepts" and its records name 9; the Task 3
+  applier reported 5 sources registered and the diff shows 6.
+
+  Housekeeping: removed a stray 2.1MB nist80050r1.pdf left at the repo root by a research agent.
+
+  Gates: validate 537/0 errors/16 warnings; npm test 188/188; check-guide 0/0. Sources 306 -> 312.
+
