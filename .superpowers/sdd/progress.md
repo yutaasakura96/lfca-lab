@@ -165,3 +165,40 @@ Task 3: complete (commits 727e2fc, 7aaab28; review clean)
 
   Gates: validate 537/0 errors/16 warnings; npm test 188/188; check-guide 0/0. Sources 306 -> 312.
 
+Task 4: complete (commit 6beaab7, review clean)
+  PROGRESS.md brought current. It was stale by three commits and asserted two things that were
+  demonstrably false.
+
+  - Both false claims retracted IN PLACE with strikethrough + "Superseded 2026-08-11", not
+    deleted: (a) line ~970's claim that the eight files carry nothing checked against a primary
+    source by any pass - false twice over, since 97cc94b checked them and Task 3 then examined
+    241 claims across all 131 of their concepts; (b) line ~1096's "no Knowledge-check answer was
+    verified against a source" - false, 97cc94b corrected 25 of them. The comparison-block half
+    of that same sentence is still true and was deliberately left standing.
+  - Commits 97cc94b, c15e803 and 3a0a7c2 recorded, with the note that the 127-refutation pass
+    left no verdict artifact and that Task 3's verdicts ARE committed.
+  - `importance` degeneracy recorded at PROGRESS.md ~1492. Numbers verified against the dataset:
+    151 at 1, 213 at 2, 173 at 4, none at 3 or 5; per-domain Linux 2 / SysAdmin 4 / Cloud 2 /
+    Security 2 / DevOps 1 / PM 1.
+  - `## Cycle 3` heading added at ~1139 with a stage table.
+
+  The implementer caught two things on its own: its first draft had wrong domain-weight
+  percentages (corrected before commit), and it noticed the plan runs to Task 60 rather than the
+  58 the brief said, using the real task list instead.
+
+  Gates: validate 537/0/16; npm test 188/188; check-guide 0/0.
+
+## Pre-work complete
+
+All four pre-work items done. Every one found something material that would otherwise have
+propagated into the question bank:
+  Task 1 - the exam IS 60 questions; two cycles had recorded the opposite. Exams resized to
+           sixteen 60-question papers at real length and pacing.
+  Task 2 - waived concepts 52 -> 22; the recorded waiver rationale was the real reason for
+           almost none of them.
+  Task 3 - 241 claims checked across 131 concepts, 9 refuted; coverage measurement showed the
+           first pass had reached only 77% and the gap was hiding real errors.
+  Task 4 - two false claims retracted, three commits recorded, importance degeneracy captured.
+
+Authoring cannot start until the tooling exists. Next: Tasks 5-13 (TDD), then the pilot.
+
