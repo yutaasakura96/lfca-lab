@@ -303,3 +303,66 @@ Second attempt RUNNING (webnn54s2 / wf_93a47e4e-924): the 13 files that actually
 commands or waived concepts. The other 8 competency files have neither, so this pass has
 nothing to check in them - that is scoping, not skipping, and must be stated that way in
 PROGRESS.md.
+
+## Closing the remaining gaps (after the final review said FIX_FIRST)
+
+The final six-lens review's 29 confirmed findings were applied at b158de8. What follows is
+everything that review left open, recovered from the workflow journals rather than from memory.
+
+### Wave 2's 83 Minor findings — recovered
+They had no recorded disposition. The wave-2 output file had been cleaned from temp, so they
+were recovered from the workflow journal at
+subagents/workflows/wf_93f59566-68a/journal.jsonl. All 83 are in
+.superpowers/sdd/wave2-minor-findings.json; 74 map to a file by concept id and are split into
+.superpowers/sdd/minors/, the other 9 are section-level (scenario length, knowledge-check
+count, orientation paragraph wording) and are identifiable from their text.
+Workflow wi0bqvklz applies them.
+
+### The 8 files nothing had ever fact-checked
+The adversarial pass was scoped to command claims and waiver hedging. These 8 competency files
+have neither, so not one prose claim in them had ever been checked against a primary source:
+cloud-computing, performance-availability, budgeting, best-practices and networking under
+Cloud; sensitive-data and compliance under Security; open-source-software-and-licensing under
+IT PM. Workflow wi0bqvklz gives each a first adversarial pass.
+
+### Harness gaps to fix AFTER the prose is conformant (must be serial)
+From the final review, all verified by reading the shipped code, one by mutation:
+(a) tools/lib/guide-parse.mjs:147 - the block-end rule `level > 0 && level <= 4` is a
+    documented anti-false-pass defence and NO test pins it. Mutating it to `<= 3` leaves all
+    163 tests green. Needs a test whose fixture puts the command after a Quick reference
+    heading.
+(b) tools/lib/guide-checks.mjs - checkCommandCoverage filters to kind === 'topic', so five
+    depth-1 concepts that record commands are permanently exempt from showing them
+    (zombie-and-orphan-processes, lvm, tcpdump, git-concepts.head, git-concepts.stash). All
+    five satisfy it today, so enforcing costs nothing.
+(c) checkVendorNeutrality is warn-severity, reads only one file's definition blocks, and so
+    cannot see comparison bodies, scenarios, knowledge checks or the other 31 files.
+(d) check-guide's summary line reports "32 guide file(s)", which includes 10 files no check
+    inspects. Report what was actually verified instead.
+(e) STYLE.md section 7's 3-to-6 knowledge-check rule is normative but unenforced; three
+    sections carry 7 prompts. Add the assertion once the prose is in range.
+
+### Other open items
+- study-guide/appendix-a-packet-life.md has no knowledge check while appendix B does - and the
+  one without is the reader's weaker declared area. Neither is visible to check-guide because
+  appendices contain no definition anchors.
+- Carried Minors never revisited: Task 2 (undirectedEdges sort comparator untested with >1
+  edge), Task 4 (outside-any-section detection keys on concept id, so a stray duplicate is
+  masked), Task 7 (cloud.networking.public-vs-private-subnet framing vs GCP's mechanism).
+- PROGRESS.md cites .superpowers/sdd/stage5-results.json, which is NOT tracked by git - a
+  live unverifiable-evidence citation. Commit it or reword.
+- Coverage gap: three commands need checking on systems this host does not have -
+  `crontab -T` vs `crontab -n`, the postgres volume path at containers.md, and man-db's
+  default section order.
+- Coverage gap: the "Lessons" column of research/lfs200-notes/00-course-map.md, quoted in the
+  Linux and SysAdmin indexes as "four and three", is not derivable from data/, where distinct
+  lfs200_sources give 2 and 2. Establish what the column means or stop quoting it.
+
+### Genuine limits, NOT defects — record, do not pretend to close
+- No Linux Foundation page was re-fetched in cycle 2. The exam facts rest on cycle-1 browser
+  work for which no capture artifact exists in the repository.
+- LFS200 is paid and its text is not in the repository, so every coverage_status value and
+  every term count in the course map is taken on trust.
+- The 537-concept expansion is unvalidated against anything external; validate.mjs's six
+  inferred-ratio warnings say exactly that.
+- No individual verdict among the 765 fact-check records was re-derived against its source.
