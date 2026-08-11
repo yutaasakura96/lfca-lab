@@ -286,3 +286,23 @@ Task 11: complete (commit f97452b, controller-verified) - THE 21-CHECK HARNESS I
   and none was visible to the controller's structural spot-checks. That is the harness earning its
   cost on a 42-item fixture before it ever sees 1,150 real items.
 
+Task 12: complete (commit 73e9ef1, controller-verified)
+  tools/question-plan.mjs and tools/check-bank.mjs + 6 CLI tests + 3 npm scripts. 289 -> 295.
+  Controller-verified guardrails: --except without --scope is refused; an unknown scope fails
+  loudly listing all 22 valid competencies rather than matching zero and reporting zero errors;
+  a suppressed run prints a banner AND repeats the suppression in its summary line.
+  `npm run check-bank` correctly exits 1 with 1699 errors (537 concept-coverage, 623
+  count-derived, 380 command-coverage, 130 comparison-coverage, 21 diagnostic, 7 distribution,
+  1 position-balance) - the expected state before any question exists, exactly as check-guide
+  reported 537 missing concepts throughout cycle 2's writing.
+  question-plan verified to print confused_with neighbours WITH the neighbour's own description
+  and full comparison-block membership - without that, 22 authors would invent distractors
+  instead of deriving them. Its header for DevOps :: Containers matches the controller's
+  independently computed table exactly: 24 concepts, 48 exam + 38 supplement = 86, 4 blocks,
+  17 command strings.
+
+  Two brief defects found: the plan's own error message for --only/--except lacked the substring
+  its own test regex required (fixed); and the plan's table said Git Concepts has 1 waived concept
+  when Task 2's un-waiving of devops.git-concepts.pull-request makes it 0 - the plan states the
+  brief is authoritative over that table, and it is.
+
