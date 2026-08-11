@@ -73,3 +73,44 @@ Task 1: complete (commits 82a8272..bdcbd96, plus spec and plan amendment; review
   Also corrected: one false major finding (see above), and `data/sources.json` accessed dates.
   Gates after: npm test 188/188, validate 537/0 errors/16 warnings, check-guide 0/0.
 
+Task 2: complete (commit e94f133, review clean)
+  Six-cluster sourcing sprint over the 52 waived concepts. **52 waived -> 22.**
+  39 of the 52 examined, 30 cleared, 9 declined. 13 pm.project-management.* were never assigned
+  to a cluster and stay waived: PMBOK genuinely is the only authority the waiver names for them.
+
+  The recorded waiver reason - "PMBOK and BABOK are paywalled" - turned out to be the real reason
+  for almost none of them. vpn had NIST SP 800-77r1. caching-in-applications had RFC 9111.
+  pull-request had GitHub's own docs. use-case had the free OMG UML spec. None paywalled; nobody
+  had looked. 24 new sources registered, 282 -> 306.
+
+  The 9 declines are substantive, not lazy:
+    naming-conventions, capacity-planning - re-confirmed waived on a re-read, holding cycle 2's
+      judgement rather than reversing it on identical evidence.
+    principle-of-least-astonishment - genuinely unsourceable.
+    service-ownership - the SRE book describes team responsibility, never a single named owner.
+    mttr-and-mtbf - the SRE book defines MTTR paired with MTTF, never MTBF.
+    gap-analysis - TOGAF matches well but now sits behind an account wall, so it is not a freely
+      accessible primary source.
+    non-functional-requirements - NASA never uses the term as a bucket.
+    requirements-elicitation - NASA uses "elicit" as a bare verb twice, nothing definitional.
+    feasibility-study - every free source splits the test rather than stating it whole.
+
+  Process notes worth carrying:
+  - **Cluster C failed on its first attempt**, stalling for 600s having examined zero of its ten
+    concepts. Re-dispatched as C1 and C2 with the PDF-extraction technique cluster A had
+    independently discovered, and both completed. Recorded as unrun work throughout, never as a
+    negative result.
+  - **The applier corrected the controller.** The controller's applier notes asserted IETF RFCs
+    are tier 1 in this dataset. The applier checked data/sources.json and found all 30 RFCs are
+    tier 2 and all 20 tier-1 sources are Linux Foundation / CNCF / kernel publications - so
+    tier 1 here means "the certifying body's own publications", not "highest authority". It
+    registered all 24 new sources at tier 2 and recorded the convention as a question for a later
+    pass. Following the data over the instruction was correct.
+
+  Known weakness recorded in PROGRESS.md: devops.devops-basics.language-package-managers is now
+  sourced from Maven's dependency documentation - a Java-ecosystem document for a
+  language-agnostic concept - after npm and pip were checked and neither made the
+  application-vs-OS contrast the description turns on.
+
+  Gates: validate 537/0 errors/16 warnings, no stale-waiver; npm test 188/188; check-guide 0/0.
+
