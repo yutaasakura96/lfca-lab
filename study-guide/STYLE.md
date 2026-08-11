@@ -320,7 +320,9 @@ stated as settled fact.
 ## 9. Formatting
 
 - No emojis, anywhere, in any file this style guide governs.
-- No question count anywhere, ever — the Linux Foundation does not publish one.
+- The question count, where stated, must be the sourced figure only: 60 (CNPA exam: 85), per
+  `research/exam-mechanics.md` Section 1. Do not state an unsourced count, and do not attribute
+  a per-question value to any source other than that one.
 - No LFS200 course prose reproduced verbatim; cite `research/lfs200-notes/00-course-map.md`
   and state that a lesson covers a topic, nothing closer than that.
 - Orientation paragraphs (the one-paragraph opener under the `# <Competency>` title) state:

@@ -13,7 +13,7 @@
 | lf-about | About the Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | lf-candidate-handbook | Linux Foundation Certification Exam: Candidate Handbook (PSI BRIDGE) | The Linux Foundation | 1 | — | 2026-08-09 | https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2 |
 | lf-faq-mc | Multiple Choice Exams: Frequently Asked Questions | The Linux Foundation | 1 | — | 2026-08-11 | https://docs.linuxfoundation.org/tc-docs/certification/faq-mc |
-| lf-important-instructions-mc | Multiple Choice Exams: Important Instructions | The Linux Foundation | 1 | — | 2026-08-09 | https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc |
+| lf-important-instructions-mc | Multiple Choice Exams: Important Instructions | The Linux Foundation | 1 | — | 2026-08-11 | https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc |
 | lf-lfca-cert-page | Linux Foundation Certified IT Associate (LFCA) | The Linux Foundation | 1 | — | 2026-08-11 | https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | lf-lfca-free-resources | LFCA Free Resources | The Linux Foundation | 1 | — | 2026-08-09 | https://training.linuxfoundation.org/resources/lfca-free-resources/ |
 | lf-lfca-learning-path-pdf | LFCA Sample Curriculum Path (PDF) | The Linux Foundation | 1 | — | 2026-08-09 | https://training.linuxfoundation.org/wp-content/uploads/2024/10/LFCA.pdf |

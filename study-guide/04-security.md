@@ -179,8 +179,7 @@ models, compliance against the CIA triad, retention obligations against retentio
 
 ## Exam frame
 
-The current exam took effect 2025-09-16: 90 minutes, multiple choice, 75% to pass, no practical
-component, and the certification is valid for two years. The Linux Foundation does not publish
-a question count, so no plan on this page assumes one. Domain weights are Linux Fundamentals
-16, System Administration Fundamentals 30, Cloud Computing Fundamentals 18, Security
+The current exam took effect 2025-09-16: 90 minutes, multiple choice, 60 questions, 75% to pass,
+no practical component, and the certification is valid for two years. Domain weights are Linux
+Fundamentals 16, System Administration Fundamentals 30, Cloud Computing Fundamentals 18, Security
 Fundamentals 14, DevOps Fundamentals 12, IT Project Management Fundamentals 10.

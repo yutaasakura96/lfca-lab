@@ -25,9 +25,12 @@ Cycle 1 of 4. Spec: `docs/superpowers/specs/2026-08-09-lfca-research-foundation-
   at HIGH confidence: duration (90 min), question format (multiple choice, no finer detail
   stated), passing score (75%), delivery/proctoring (online, PSI Bridge), certification validity
   (2 years), price ($250 / $299 / $495 across three purchase options), and retake policy (one
-  retake included with purchase, exact mechanics not spelled out). Question count is **not
-  stated in official sources** anywhere checked across two stages — recorded as such rather than
-  guessed.
+  retake included with purchase, exact mechanics not spelled out). Question count was recorded
+  as **not stated in official sources** across stages 1 and 2 — **superseded 2026-08-11, see the
+  "Question count: adopted" subsection below.** The Multiple Choice Exams Important Instructions
+  page now states 60 questions (CNPA: 85), and this project has adopted that figure at HIGH
+  confidence. See `research/exam-mechanics.md` Section 1 and
+  `docs/verification/exam-facts-2026-08-11/`.
 
 - Stage 3: all 22 competencies expanded into **537 leaf concepts**. Zero `empty-competency`
   errors remain — every official competency now has concepts attached.
@@ -98,10 +101,13 @@ harness against the current tree" below).
 
 ## Unresolved questions
 
-- LFCA question count is not stated in any official source checked (certification page,
+- ~~LFCA question count is not stated in any official source checked (certification page,
   Candidate Handbook, Multiple Choice Exams FAQ, Multiple Choice Exams Important Instructions,
   free-resources page, learning-path PDF). Third-party figures exist but are unverified
-  tier-3/4 and were not used. See `research/exam-mechanics.md` for the full account.
+  tier-3/4 and were not used.~~ **Superseded 2026-08-11**: the Multiple Choice Exams Important
+  Instructions page now states 60 questions (CNPA: 85); adopted at HIGH confidence. See the
+  "Question count: adopted" subsection below and `research/exam-mechanics.md` for the full
+  account.
 - The relationship between the certification page's "12 Month Exam Eligibility" and "One
   Retake" attributes (does the 12-month window bound the retake specifically, or the whole
   purchase-to-attempt period?) is not spelled out by the source.
@@ -388,12 +394,14 @@ MEDIUM rest on official material and reasoned inference alone, and should be rea
 itexams.com, certempire.com, validexamdumps.com, passitexams.com, certlibrary.com,
 certgod.com, exam-labs.com, p2pexams.com, marks4sure.com, certstest.com.
 
-One incidental observation worth recording: several third-party sources state a specific
+~~One incidental observation worth recording: several third-party sources state a specific
 question count for the exam. This remains **unverified** — the Linux Foundation states no
 question count anywhere, and these sources are tier 3/4 and demonstrably stale on other facts.
 It is recorded here only as evidence that an unverified figure circulates; the figure itself is
 deliberately not repeated in this document, consistent with the project rule that no question
-count is stated or implied anywhere.
+count is stated or implied anywhere.~~ **Superseded 2026-08-11**: the third-party figure these
+sources circulated was 60, and an official Linux Foundation page now states exactly that number.
+See the "Question count: adopted" subsection below.
 
 ### Stage 4: LFS200 does not cover the current exam
 
@@ -1107,9 +1115,46 @@ recorded accurately as such above.
 - **Only 14 of the 22 competency files were adversarially fact-checked at all**, and only for
   commands and waiver hedging within those 14 — no other prose claim, in any of the 32 files,
   has been checked against a primary source by this layer.
-- **`candidate_evidence` is empty on all 537 concepts, and no exam question count is stated
+- ~~**`candidate_evidence` is empty on all 537 concepts, and no exam question count is stated
   anywhere in the guide or this document** — verified by direct query
   (`node` script over `data/topics/*.json` found zero concepts with a non-empty
   `candidate_evidence` array; a repository-wide grep for a stated question count found none).
   Both are by design, not oversight: no public post-2025 candidate evidence exists to record,
-  and the Linux Foundation does not publish a question count for this exam.
+  and the Linux Foundation does not publish a question count for this exam.~~ **Superseded
+  2026-08-11** on the question-count half of this claim: `candidate_evidence` remains empty on
+  all 537 concepts (that part still holds), but the Linux Foundation does now publish a question
+  count — see the "Question count: adopted" subsection below.
+
+### Question count: adopted (2026-08-11)
+
+Every prior mention of question count in this document — stage 2's summary above, both
+"Unresolved questions" entries, and the candidate-evidence note — recorded that no official
+Linux Foundation source stated a question count, and treated the widely-circulated third-party
+figure of "60" as unverified tier-3/4 noise not to be repeated. On 2026-08-11, a recapture of
+the Multiple Choice Exams Important Instructions page (`lf-important-instructions-mc`), the same
+page checked and found silent on this point in both cycle 1 (2026-08-09) and cycle 2, found it
+now states, verbatim:
+
+> The multiple-choice exam is delivered online and consists of 60* multiple-choice questions.
+> \* CNPA exam consists of  85 multiple-choice questions.
+
+The repository owner decided to adopt 60 as the LFCA question count. The reasoning: this is the
+same page, and the identical generic-rule-plus-CNPA-exception structure, that
+`research/exam-mechanics.md` already used to attribute the 90-minute duration to LFCA, and the
+certification page's own "Multiple Choice Exam" label is the classification chain that file
+already relied on for both the 90 minutes and the 75% pass mark. Accepting that chain for two
+facts and rejecting it for a third was not defensible. The figure is recorded at HIGH confidence,
+with the same classification-chain caveat `research/exam-mechanics.md` Section 4 already attaches
+to the 75% figure: it rests on the chain rather than an LFCA-specific statement naming "60"
+directly.
+
+The previously-dismissed third-party figure of "60" turns out to match — worth recording plainly
+for a project whose method is to prefer official sources over exactly that kind of figure.
+
+Arithmetic consequence: 60 questions at 90 minutes is 90 seconds per question. 75% of 60 is 45
+correct to pass. The repository owner's recorded score of 71% is therefore 42 or 43 correct out
+of 60 — two to three questions short of the 45 needed.
+
+See `research/exam-mechanics.md` Section 1, `data/sources.json`'s `lf-important-instructions-mc`
+entry, and `docs/verification/exam-facts-2026-08-11/manifest.json` (fact `question_count`) for
+the full account and verbatim capture.

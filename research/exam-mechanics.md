@@ -28,30 +28,37 @@ Any figure in this file can be checked against the capture without re-fetching a
 
 ## 1. Question count
 
-**Not stated in official sources**, with one exception now flagged below and **not adopted**.
+**60 questions** (CNPA exam is the stated exception, at 85). Confidence: **HIGH**, with a
+classification-chain caveat — see below.
 
-No page consulted in stage 1 or stage 2 — the LFCA certification page, the Candidate Handbook,
-the Multiple Choice Exams FAQ, or the Multiple Choice Exams Important Instructions page — stated
-a total number of questions for the LFCA exam. Third-party prep sites widely quote figures
-(commonly "60 questions"), but these are tier-3/4 and unverified; several are stale relative to
-the 2025-09-16 competency change. **This project records no question count** rather than repeat
-an unverified figure.
+Cycle 1 (2026-08-09) and cycle 2 both checked the LFCA certification page, the Candidate
+Handbook, the Multiple Choice Exams FAQ, and the Multiple Choice Exams Important Instructions
+page, found no page stating a total number of questions for the LFCA exam, and on that basis
+dismissed the widely-circulated third-party figure of "60 questions" as unverified tier-3/4
+noise. On 2026-08-11, the Multiple Choice Exams Important Instructions page
+(`lf-important-instructions-mc`) — the same page checked and found silent on this point in both
+prior stages — now states: "The multiple-choice exam is delivered online and consists of 60*
+multiple-choice questions. * CNPA exam consists of  85 multiple-choice questions." This capture
+reverses both prior stages' "not stated" finding, and the number it states (60) is the same
+figure both stages had dismissed as unverified.
 
-**MAJOR FINDING, NOT ADOPTED, REQUIRES HUMAN REVIEW.** On 2026-08-11, the Multiple Choice Exams
-Important Instructions page (`lf-important-instructions-mc`) — the same page checked and found
-silent on this point in both prior stages — now states: "The multiple-choice exam is delivered
-online and consists of 60* multiple-choice questions. * CNPA exam consists of 85 multiple-choice
-questions." This mirrors the structure of the page's own duration statement (a generic rule with
-a named CNPA exception), the same structure this file already uses to attribute the generic
-90-minute and 75%-passing rules to LFCA. The number (60) also matches the previously-dismissed
-third-party figure. Despite that, this project does **not** adopt 60 as the LFCA question count
-here: it reverses two independent "not stated" findings a day apart, which is itself grounds for
-suspicion rather than confidence, and the task that captured it was explicitly instructed not to
-fold a discovered count into this file quietly. See
-`docs/verification/exam-facts-2026-08-11/manifest.json` (fact `question_count`) and
-`lf-important-instructions-mc.txt` for the full quote and source. A human should decide whether
-to adopt this figure, and if so, re-verify it independently before cycle 3's question bank relies
-on it.
+**Decision (2026-08-11): adopted.** This page carries the same generic-rule-plus-CNPA-exception
+structure already used elsewhere in this file to attribute the 90-minute duration to LFCA (see
+Section 2), and the certification page's own "Multiple Choice Exam" label is the same
+classification chain Section 4 already relies on to attribute the 75% passing score to LFCA.
+Accepting that chain for duration and passing score while rejecting it for question count is not
+defensible, so 60 is adopted here on the same basis. As with the 75% figure in Section 4, this
+HIGH label inherits the same caveat: it rests on the classification chain (a generic MC-exam
+statement plus LFCA's own "Multiple Choice Exam" label) rather than on an LFCA-specific
+statement naming "60" directly, so a reader should know it is the least directly-attested of the
+HIGH values in this file, on the same footing as the 75% figure.
+
+**Consequences.** At 60 questions and 90 minutes, that is 90 seconds per question. At 75% to
+pass, that is 45 of 60 correct. The repository owner's recorded score of 71% (Section 4) is
+therefore 42 or 43 correct out of 60 — two to three questions short of the 45 needed to pass.
+
+See `docs/verification/exam-facts-2026-08-11/manifest.json` (fact `question_count`) and
+`lf-important-instructions-mc.txt` for the full quote and source.
 
 ## 2. Exam duration
 
@@ -201,7 +208,7 @@ as-is).
 | --- | --- |
 | `lf-lfca-cert-page` (already registered, re-consulted for its "Includes" summary box and pricing widget, both JS-rendered and only visible in a browser) | Price (all 3 options), duration (90 min), format ("Multiple Choice Exam"), delivery ("Online"), validity (2 years), retake ("One Retake"), 12-month exam eligibility, experience level ("Beginner") |
 | `lf-faq-mc` (new) | Duration (90 min), passing score (75%), proctoring description, scoring/reporting turnaround (24 hours), certification validity (2 years), renewal mechanics, ID requirements, system requirements, price non-answer (defers to catalog) |
-| `lf-important-instructions-mc` (new) | Proctoring platform detail (PSI Bridge, Secure Browser), system/testing-location requirements, ID requirements, sanctioned countries. No question count, no format detail beyond "Multiple Choice." Links to a `faq-lfca` page that returned HTTP 404 at time of access — dead link, not a usable source. |
+| `lf-important-instructions-mc` (new) | Proctoring platform detail (PSI Bridge, Secure Browser), system/testing-location requirements, ID requirements, sanctioned countries, and — as of the 2026-08-11 recapture — question count (60, CNPA 85; see Section 1). No format detail beyond "Multiple Choice." Links to a `faq-lfca` page that returned HTTP 404 at time of access — dead link, not a usable source. |
 | `lf-candidate-handbook` (already registered from stage 1; also reached via the `training.linuxfoundation.org/go/LFCA-candidate-handbook` redirect checked in this stage) | Nothing new. The redirect target is the same handbook page already catalogued in stage 1 as generic, non-LFCA-specific proctoring logistics. No new source record added for the redirect URL since it resolves to already-catalogued content. |
 | `lf-lfca-learning-path-pdf` (new) | Nothing on mechanics. The PDF is a one-page infographic ("Sample Curriculum Path") listing suggested free/paid courses (LFS101, LFS162, LFS158, LFD102, LFS200) and stating no course is a prerequisite for the exam, plus a rough "3-6 months" self-paced prep estimate. No question count, duration, price, or scoring information. |
 | `lf-lfca-free-resources` (new) | Nothing on mechanics. Landing page linking to free introductory courses; no exam logistics content. |
@@ -221,12 +228,11 @@ re-fetched in a browser on 2026-08-11 and verbatim-matches the 2026-08-09 values
 file (see `docs/verification/exam-facts-2026-08-11/manifest.json`, `matches_cycle_1: true` on
 each).
 
-Two things did change or newly appear, neither of which is folded into the numbered sections
-above as an adopted fact without this note:
+Two things did change or newly appear:
 
 1. **Question count** (Section 1): the Multiple Choice Exams Important Instructions page now
-   states "60" (CNPA: "85") where it previously stated nothing. Not adopted — see Section 1 for
-   the full reasoning and the required human review.
+   states "60" (CNPA: "85") where it previously stated nothing. Adopted 2026-08-11 — see
+   Section 1 for the full reasoning.
 2. **Domain weights and competency lists** (out of scope for this file, which does not itself
    state domain weights, but recorded for downstream visibility): the LFCA certification page's
    Domains & Competencies accordion, re-fetched 2026-08-11, now shows Linux Fundamentals 16%,
@@ -242,9 +248,6 @@ above as an adopted fact without this note:
 
 ## Open questions for a future pass
 
-- Exact total question count: never stated by an official source across two stages; a possible
-  third-stage statement (60, CNPA 85) surfaced 2026-08-11 but is explicitly not adopted pending
-  human review — see Section 1 and the "Changes since the 2026-08-09 capture" section above.
 - Whether questions are single- or multi-select, and whether there is negative marking.
 - Whether "12 Month Exam Eligibility" governs the retake window specifically or the whole
   purchase-to-attempt window.

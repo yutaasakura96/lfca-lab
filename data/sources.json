@@ -103,10 +103,10 @@
       "organization": "The Linux Foundation",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-09",
+      "accessed": "2026-08-11",
       "category": "official-handbook",
       "authority_tier": 1,
-      "notes": "Generic instructions across LF multiple-choice exams. Source for proctoring platform detail (PSI Bridge, PSI Secure Browser), system/testing-location requirements, ID requirements, and the sanctioned-countries list. No question count or per-question format detail. Links to a page at /tc-docs/certification/faq-lfca which returned HTTP 404 when checked 2026-08-09 -- dead link, not used as a source."
+      "notes": "Generic instructions across LF multiple-choice exams. Source for proctoring platform detail (PSI Bridge, PSI Secure Browser), system/testing-location requirements, ID requirements, and the sanctioned-countries list. As of the 2026-08-11 recapture, also states a question count: 'The multiple-choice exam is delivered online and consists of 60* multiple-choice questions. * CNPA exam consists of  85 multiple-choice questions.' (checked 2026-08-09 and again 2026-08-11 in a browser; the count was absent on 2026-08-09 and present on 2026-08-11). No per-question format detail. Links to a page at /tc-docs/certification/faq-lfca which returned HTTP 404 when checked 2026-08-09 -- dead link, not used as a source."
     },
     {
       "id": "lf-lfca-learning-path-pdf",

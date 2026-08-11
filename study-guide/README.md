@@ -37,9 +37,11 @@ it. The writing rules the files follow are in [STYLE.md](STYLE.md).
 | Passing score | 75% |
 | Practical component | None |
 | Certification validity | 2 years |
-| Number of questions | Not published by the Linux Foundation |
+| Number of questions | 60 (CNPA exam: 85) |
 
-The last row is a finding, not a gap in this document. See "What this guide does not claim".
+The last row was previously recorded as "Not published by the Linux Foundation." That was
+correct as of two prior checks and is wrong now — see "What this guide does not claim" for the
+retraction and the source.
 
 The absence of a practical component is worth holding onto while you study. No amount of
 hands-on fluency is tested directly; what is tested is whether you can pick the right term,
@@ -166,12 +168,18 @@ marker in place saying so, and its claims are hedged as consensus practice rathe
 citable fact. Read the difference between the two registers as real: a hedged claim is the
 industry's common answer, not something a standards body has published.
 
-**No question count appears anywhere in this guide, because the Linux Foundation publishes
-none.** It is absent from the certification page, the Candidate Handbook, the multiple-choice
-exam FAQ and instructions, the free-resources page, and the learning-path PDF. Third-party
-sites state a figure; those sites are also still publishing the retired domain weights as
-current, and their number is unverified. Any study plan built on a per-question value is built
-on a number nobody has confirmed. Budget by domain weight and by the clock instead.
+**This guide previously claimed no question count appears anywhere in it, on the grounds that
+the Linux Foundation published none.** That was checked against the certification page, the
+Candidate Handbook, the multiple-choice exam FAQ and instructions, the free-resources page, and
+the learning-path PDF, twice, a day apart, and was true both times. It is no longer true. On
+2026-08-11 the Multiple Choice Exams Important Instructions page was recaptured and now states:
+"The multiple-choice exam is delivered online and consists of 60* multiple-choice questions. \*
+CNPA exam consists of  85 multiple-choice questions." The repository owner has adopted 60 as the
+LFCA question count at HIGH confidence — see `research/exam-mechanics.md` Section 1 for the full
+reasoning, including the classification-chain caveat this figure shares with the 75% passing
+score. The third-party figure this guide previously dismissed as unverified was also 60; it
+turns out to match. At 90 minutes for 60 questions, budget roughly 90 seconds per question; at
+75% to pass, that is 45 of 60 correct.
 
 **`npm run check-guide`'s green result is structural and referential only, and proves nothing
 about whether any sentence in this guide is true.** No check reads a byte of prose between the
