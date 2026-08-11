@@ -1059,9 +1059,8 @@ primary group, and `770` keeps everyone else out entirely. A member reports that
 still cannot edit a file they created: the group was inherited correctly, but their umask of `022`
 stripped group write, so `umask 002` is the missing half. Separately, one member wants to restart
 the application without a root shell; rather than adding them to `wheel`, a `visudo`-edited rule
-grants exactly `/bin/systemctl restart app` as root. And `/srv/project` deliberately does *not*
-get the sticky bit that `/tmp` has — here the team is meant to be able to tidy up each other's
-files.
+grants exactly `/bin/systemctl restart app` as root. And `/srv/project` deliberately skips the
+sticky bit that `/tmp` has — here the team is meant to tidy up each other's files.
 
 #### Knowledge check
 
@@ -1369,8 +1368,8 @@ The right first move is not `kill -9`: `renice -n 15 -p 4821` sets an absolute n
 job that lets the database win the CPU without losing the report's work. If it must actually stop, `kill`
 sends SIGTERM and gives it a chance to close its output file; only if it is still there a minute
 later does `kill -9` become appropriate. Afterwards `ps` shows a `defunct` entry with the old PID —
-a zombie, not a survivor: it holds no memory, and it disappears when its parent reaps it or, if the
-parent has exited too, when PID 1 adopts and reaps it. The report is then rescheduled to run under
+a zombie, not a survivor: it holds no memory and disappears once its parent reaps it, or once PID 1
+adopts and reaps it if the parent has exited too. The report is then rescheduled under
 `nohup ... &` so a dropped SSH session cannot SIGHUP it mid-run.
 
 #### Knowledge check
@@ -2515,9 +2514,11 @@ released only when that count reaches zero *and* no process still holds the file
 **Traps** "Disk full but `df` shows space" is the inode-exhaustion classic, and the fix is deleting
 files rather than adding capacity: on ext4 the inode table is sized when the filesystem is created
 and there is no way to enlarge it in place, so more inodes arrive only as a side effect of growing
-the whole filesystem with `resize2fs`. The second trap is timestamps: `ls -l` shows the modification time, which lives in
-the inode along with the access and status-change times — but the inode carries no creation time
-that standard tools expose.
+the whole filesystem with `resize2fs`. The second trap is timestamps: the classic three are atime,
+mtime and ctime — access, modification and status change — and none of them is a creation time, so
+ctime is routinely misread as one. ext4, XFS and Btrfs do record a birth time, but `stat(2)` does
+not return it; only `statx(2)` does, which is why `stat` prints a `Birth:` line that shows `-`
+wherever the kernel or filesystem cannot supply it.
 
 **What the exam may test** What an inode does and does not store (the filename is not in it);
 diagnosing inode exhaustion with `df -i`; and using `ls -i` to establish that two names are one
@@ -2540,8 +2541,9 @@ by one. Delete the target of a symlink and the symlink survives while pointing a
 
 **How it works** `ln` creates a hard link, incrementing the inode's link count; `ln -s` creates a
 symlink. Because a hard link is a reference to an inode number, and inode numbers are meaningful
-only within one filesystem, hard links cannot cross filesystem boundaries — and ordinary users
-cannot create hard links to directories, which would allow cycles in the tree. A symlink has none
+only within one filesystem, hard links cannot cross filesystem boundaries — and Linux refuses hard
+links to directories outright, for root as well as for ordinary users, because they would allow
+cycles in the tree. A symlink has none
 of those restrictions: it holds a path string, so it may cross filesystems, point at a directory,
 or point at something that does not exist yet.
 
@@ -2716,12 +2718,11 @@ An alert says the application host is out of disk. `df -h` shows `/` at 62% and 
 only one filesystem is affected — `/var` is a separate partition, which is why the application is
 failing while the shell still works. `df -i` on `/var` shows inodes at 11%, ruling out inode
 exhaustion. `du -sh -x /var/*` points at `/var/log`, but its total is 3 GB against the 40 GB `df`
-reports as used — so the space is not in any file `du` can see. `lsof +L1` finds a log file that was
-deleted by hand last week and is still open by the running service: the blocks stay allocated until
-the descriptor closes, and restarting the service returns them immediately. The durable fix is log
-rotation rather than manual deletion. Finally, the team asks whether the mirrored disks mean this
-could not have been a data-loss event: no — RAID 1 would have survived a drive failure, but it
-mirrors a deletion just as faithfully as a write.
+reports as used — so the space is not in any file `du` can see. `lsof +L1` finds a log file deleted
+by hand last week and still open by the running service: the blocks stay allocated until the
+descriptor closes, so restarting the service returns them. The durable fix is log rotation, not
+manual deletion. Asked whether the mirrored disks rule out data loss, the answer is no: RAID 1
+survives a drive failure but mirrors a deletion as faithfully as a write.
 
 #### Knowledge check
 
@@ -2922,9 +2923,9 @@ and there is no redirection, so the error went into a mail nobody reads. Rewriti
 `0 3 * * * /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1` fixes both. A second line,
 `0 4 1,15 * 5 report.sh`, is doing something nobody intended — with both day fields restricted, it
 fires on the 1st and 15th *and* every Friday. The team then moves the job to a systemd timer:
-`backup.timer` with `OnCalendar=daily` and `Persistent=true`, paired with `backup.service`, and
-`systemctl enable --now backup.timer` — the timer, not the service. Now the output lands in the
-journal and a run missed while the machine was down is made up at the next boot.
+`backup.timer` with `OnCalendar=daily` and `Persistent=true`, paired with `backup.service`, enabled
+with `systemctl enable --now backup.timer` — the timer, not the service. Output now lands in the
+journal, and a run missed while the machine was down is made up at the next boot.
 
 #### Knowledge check
 
@@ -3355,11 +3356,10 @@ messages and then stops before any login prompt, which puts the fault after the 
 before the init system finishes — the initramfs, the root filesystem, or a unit. Selecting the
 previous kernel from the GRUB menu boots successfully, which narrows it to the new kernel's
 initramfs or modules and gets the machine back into service. From there, `uname -r` confirms which
-kernel is actually running (the old one, whatever is newest on disk), `journalctl -b -1` reads the
-failed boot if the journal is persistent, and `systemd-analyze blame` is checked only after the
-system is healthy again. To make the previous kernel the standing default, `/etc/default/grub` is
-edited and then `update-grub` regenerates `grub.cfg` — editing the generated file directly would be
-undone by the next kernel package update.
+kernel is actually running (the old one, whatever is newest on disk) and `journalctl -b -1` reads
+the failed boot if the journal is persistent. To make the previous kernel the standing default,
+`/etc/default/grub` is edited and `update-grub` regenerates `grub.cfg` — editing the generated file
+directly would be undone by the next kernel package update.
 
 #### Knowledge check
 

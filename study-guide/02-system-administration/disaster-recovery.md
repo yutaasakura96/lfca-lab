@@ -65,9 +65,9 @@ constitutes a backup, and if not, which specific failure it fails to survive.
 | --- | --- | --- | --- | --- | --- | --- |
 | What it is | An independent copy kept for restoration | A recorded history of changes to tracked files, with authorship | `tar` bundling files into one archive; gzip, bzip2 or xz shrinking it | A continuous copy to another system | A point-in-time view of a volume | Several disks combined into one array for redundancy or speed |
 | Independent of the original | Yes, by definition | Yes, once the repository is cloned or pushed elsewhere | Only if the archive is then moved somewhere else | No — the copy tracks the source | Local snapshots typically no; provider snapshots typically yes | No — one array is one failure domain |
-| Survives deletion of the source data | Yes | Yes — a deletion is itself a recorded revision | Yes, if the archive predates the deletion | No — the deletion is replicated | Yes, for a snapshot taken before it, provided the volume survives | No — the delete is written through to every member disk |
+| Survives deletion of the source data | Yes | Yes — a deletion is itself a recorded revision | Yes, if the archive predates the deletion | No — the deletion is replicated | Yes, for a snapshot taken before it, provided the volume survives | No — the delete goes to the array itself; no earlier version of the data is held anywhere |
 | Survives loss of the whole machine | Yes, if stored off-site | Yes, if a remote copy exists | Yes, if the archive is off-site | Yes — the replica is a different system | Only if the snapshot lives off the machine | No |
-| Primary purpose | Recovery from data loss | Change history and collaboration | Packing and shrinking files for transport or storage | Availability, and a short RTO | Fast local rollback of a change | Uptime through a single disk failure |
+| Primary purpose | Recovery from data loss | Change history and collaboration | Packing and shrinking files for transport or storage | Availability, and a short RTO | Fast local rollback of a change | Redundancy against a disk failure, or speed (RAID 0 gives no redundancy) |
 
 The separating axis is independence from the original. Only a backup is defined as a copy
 that outlives whatever happens to the source; every other column either shares the source's
@@ -706,22 +706,20 @@ that does only one has an untested half.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | Usually stated as: mean time to repair is the average time a fix takes once something has broken, and mean time between failures the average interval between breakages. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Both are observed averages, not targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is a frequency and says nothing about recovery speed — reliability work raises MTBF, recovery work lowers MTTR, and improving one does not improve the other. |
+| `sysadmin.disaster-recovery.mttr-and-mtbf` | MTTR and MTBF | MTTR is usually read as mean time to repair — the average time a fix takes once something has broken — and MTBF as mean time between failures, the average interval between breakages. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Both are typically used as observed averages rather than targets: the target is the RTO, and quoting an MTTR where a scenario asks for an objective reverses that. MTBF is generally read as a frequency and says nothing about recovery speed — reliability work typically raises MTBF, recovery work lowers MTTR, and improving one does not in itself improve the other. |
 
 #### Scenario
 
-A retailer sets an RTO of four hours and an RPO of 15 minutes for its order system, and is
-offered three options. A cold site is cheapest but has no equipment at all, so its setup time
-runs to days — it cannot meet a four-hour RTO. A warm site holds partial hardware but nothing
-loaded on it, so the software and data have to be restored before it serves; whether it fits
-depends entirely on how long that restore takes, which only a timed restore test can answer. A
-hot site already has the last backup loaded and a short setup time, so it clears the RTO with
-only the writes since that backup to make up, at the highest cost. The RPO is a
-separate decision: 15 minutes rules out nightly backups and forces replication, and the
-replica is not a backup, so independent copies must still be kept off-site under the 3-2-1
-rule. Finally, the team schedules a tabletop drill — which will validate who declares the
-cutover and in what order systems come back, but will deploy nothing and prove nothing about
-the media.
+A retailer sets an RTO of four hours and an RPO of 15 minutes for its order system, and weighs
+three options. A cold site is cheapest but holds no equipment, so setup runs to days and
+misses a four-hour RTO. A warm site holds partial hardware with nothing loaded on it, so
+software and data must be restored first; whether it fits depends on how long that restore
+takes, which only a timed restore test answers. A hot site already has
+the last backup loaded, so it clears the RTO with only the writes since that backup to make up,
+at the highest cost. The 15-minute RPO is a separate decision, forcing replication rather than
+nightly backups — and the replica is not a backup. A tabletop drill will validate who declares
+the cutover and in what order systems return, but deploys nothing and proves nothing about the
+media.
 
 #### Knowledge check
 

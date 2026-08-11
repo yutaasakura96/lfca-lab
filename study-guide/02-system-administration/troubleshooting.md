@@ -249,7 +249,8 @@ a reproduction attempt produce its own log lines in real time.
 **Traps** `journalctl` does not read `/var/log/*.log`, and `tail -f` does not read the
 journal — a system without persistent journal storage loses its journal at reboot while
 `/var/log` survives, and a system with journald only has no text files to tail. Journal access
-is privileged: an unprivileged user typically sees only their own user journal unless they
+is privileged: an unprivileged user typically sees only their own per-user journal — the
+records written by that user's own processes, not merely by systemd user units — unless they
 belong to `systemd-journal`, `adm`, or `wheel`. And a unit name is required by `-u` —
 `journalctl -u` with no argument is not "all units," it is a usage error.
 
@@ -515,8 +516,9 @@ upgrade aborting, or a log that simply stops. Reaching for "delete the biggest f
 only one of the four causes and actively wastes time on the other three.
 
 **How it works** `df` reports per-filesystem block usage; `df -i` reports the same
-filesystems' inode usage instead, because inodes are a fixed pool allocated when the
-filesystem was created and one is consumed per file regardless of size. `du` walks a directory
+filesystems' inode usage instead, because on the ext filesystem family inodes are a fixed pool
+sized when the filesystem is created (`mke2fs -N`/`-i`) and one is consumed per file regardless
+of size; XFS and Btrfs allocate inodes dynamically instead. `du` walks a directory
 tree and sums the space its files occupy — a different question, which is why `df` and `du` can
 legitimately disagree. On ext4, `mke2fs` reserves 5% of blocks for the superuser by default;
 `df`'s "Avail" column excludes that reserve, so `Use%` reaches 100% while root-owned daemons
@@ -819,9 +821,8 @@ column rather than an error. A successful `ping` says nothing about whether the 
 and a failed one says nothing about whether the host is up. And a service listening on `::1`
 only is the IPv6 form of the same loopback trap.
 
-**What the exam may test** Ordering the layers, and reading the discriminating detail: the
-bind address in `ss -tulpn` output, and the difference between a refused connection (something
-answered) and a timed-out one (nothing did).
+**What the exam may test** Ordering the layers, and reading the bind address in `ss -tulpn`
+output.
 
 **Symptoms and diagnostic order**
 
@@ -837,10 +838,9 @@ answered) and a timed-out one (nothing did).
 4. From the client, `dig <name>` returns no answer or an unexpected address. This rules out
    the service and the firewall and makes it a name-resolution fault.
 5. From the client, `curl -v http://<ip>:<port>/` by literal IP address. "Connection refused"
-   means a host answered and rejected — this rules out silent packet-dropping firewalls and
-   routing failures, leaving nothing listening on that address or an explicit REJECT rule.
-   "Connection timed out" means nothing answered — this rules out "nothing listening" and
-   points at a DROP rule, the wrong host, or routing.
+   rules out silent packet-dropping and routing failures, leaving nothing listening on that
+   address or an explicit REJECT rule; "connection timed out" rules out that case and points
+   at a DROP rule, the wrong host, or routing.
 6. `ping <ip>` succeeds while the port test fails. This narrows the block to the port rather
    than the host. `ping` failing rules *nothing* out, because ICMP is routinely filtered.
 7. `curl -v` connects and the server returns an HTTP status. This rules out every network

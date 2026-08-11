@@ -539,9 +539,10 @@ as REACHABLE, STALE and FAILED; the deprecated net-tools equivalent is `arp -n`.
 
 **Traps** ARP is IPv4-only. IPv6 uses Neighbor Discovery, carried over ICMPv6, for the same
 job — and `ip neigh` shows both, which is why the command is named for neighbours rather than
-for ARP. ARP never crosses a router: a host does not resolve an off-subnet address at all — it
-resolves the gateway instead, so the frame carrying a packet to a remote host holds the
-router's MAC, not the destination's. Two hosts configured with the same IP produce
+for ARP. ARP never crosses a router: a host never learns the MAC of an off-subnet destination,
+so `ip neigh` holds no entry for that address at all — it resolves the gateway instead, and the
+frame carrying a packet to a remote host holds the router's MAC, not the destination's. Two
+hosts configured with the same IP produce
 inconsistent ARP replies, which presents as intermittent connectivity rather than a clean
 failure.
 
@@ -627,7 +628,8 @@ block, so this subnet spans 192.168.10.0 to 192.168.10.63, with .0 the network a
 the broadcast, and .1 to .62 usable. 192.168.10.80 is in the *next* block, so it is off-subnet
 and must be reached through the gateway; 192.168.10.20 is on-subnet and is reached directly
 after an ARP exchange. `ip neigh` confirms the difference: an entry for .20 shows the server's
-own MAC, while traffic for .80 uses the router's MAC. If the workstation has no gateway
+own MAC, and there is no entry for .80 at all, because traffic for .80 uses the router's MAC.
+If the workstation has no gateway
 configured, the on-subnet host works and the off-subnet one does not — exactly the symptom
 reported. Both addresses are RFC 1918 private, so neither is reachable from the internet
 without translation, whatever the gateway does.
@@ -1175,12 +1177,11 @@ db.example.com` returns the new address, so the DNS data is right and the resolv
 reachable. `getent hosts db.example.com` returns the old address — and that is what the
 application sees, because the nsswitch `hosts:` line puts `files` before `dns`, and a leftover
 line in `/etc/hosts` from last month's migration test still names the old server. Removing the
-line fixes it instantly, with no cache to flush, because `/etc/hosts` is read on every lookup.
-On a second server the symptom is different: `dig` itself fails, and `/etc/resolv.conf` names a
-decommissioned nameserver. Editing the file by hand fixes it until the next DHCP renewal
-regenerates it, so the durable change belongs in the network manager's configuration. A third
-report — that some branch offices still see the old address — needs no fix at all: their
-resolvers cached the previous record and will hold it until its TTL expires.
+line fixes it instantly, with no cache to flush. On a second server `dig` itself fails, because
+`/etc/resolv.conf` names a decommissioned nameserver; editing it by hand works until the next
+DHCP renewal regenerates the file, so the durable change belongs in the network manager's
+configuration. A third report — branch offices still seeing the old address — needs no fix:
+their resolvers will hold the cached record until its TTL expires.
 
 #### Knowledge check
 
@@ -1575,19 +1576,16 @@ is connected", and interpreting LISTEN, ESTAB and UNCONN in output.
 
 #### Scenario
 
-A web application is unreachable from a load balancer. The application team insists the
-service is up. Work the transport layer in order. `ss -tulpn` on the server shows a LISTEN
-socket, so the process is bound and the port is open in the only sense the OS cares about — but
+A web application is unreachable from a load balancer, though the application team insists the
+service is up. `ss -tulpn` on the server shows a LISTEN socket, so the process is bound — but
 the Local Address column reads `127.0.0.1:8080`, not `0.0.0.0:8080`, so it accepts only from
-the same machine. That single field explains everything: from the server itself the connection
-completes a three-way handshake and works; from the load balancer the SYN arrives at a host
-with nothing listening on that address and is answered with an RST, which the balancer reports
-as "connection refused" rather than as a timeout. Had the symptom been a timeout instead, the
-SYN would have been silently dropped and a firewall, not a bind address, would be the
-hypothesis. `ss -t state established` on the fixed server then confirms real client
-connections rather than merely a listener, and the balancer's health check — an HTTP request
-over TCP — succeeds. Note that none of this would apply to a UDP service: with no handshake to
-refuse, the same fault would produce silence in both directions.
+the same machine. That single field explains everything: from the server itself the three-way
+handshake completes; from the balancer the SYN reaches a host with nothing listening on that
+address and is answered with an RST, which the balancer reports as "connection refused" rather
+than as a timeout. Had it timed out instead, the SYN would have been dropped silently and a
+firewall, not a bind address, would be the hypothesis. After the fix, `ss -t state established`
+confirms real client connections rather than merely a listener. None of this would apply to a
+UDP service: with no handshake to refuse, the same fault produces silence either way.
 
 #### Knowledge check
 
@@ -1862,10 +1860,10 @@ private network so port 22 never has to face the internet at all.
 `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
 
 **What it is** Three quantities that are routinely conflated. Bandwidth is generally described
-as the maximum capacity of a link, in bits per second. Latency is the delay for data to travel
-from one end to the other, in milliseconds, and round-trip time is the there-and-back version
-of it that `ping` reports. Throughput is the rate actually achieved by a real transfer, which
-is at most the bandwidth and usually less.
+as the maximum capacity of a link, in bits per second; latency is usually defined as the delay
+for data to travel from one end to the other, in milliseconds, with round-trip time the
+there-and-back figure `ping` reports; and throughput is conventionally the rate a real transfer
+achieves, at most the bandwidth and usually less.
 
 **Why it matters** The usual conclusion drawn from these definitions is that a high-bandwidth
 link can still feel slow: an interactive session, a database query or a page load with many
@@ -2491,19 +2489,15 @@ and recognising that predictable naming exists to keep names stable across reboo
 An internal reporting site has "stopped working" for one office. Take the tools in the order
 that eliminates the most possibilities per step. `ping` to the site's name fails with "Name or
 service not known" — a DNS failure, not a reachability failure, and the message says so.
-`dig +short reports.example.com` returns the right address, so the zone is fine; `getent hosts`
-returns nothing, and `/etc/resolv.conf` on the affected machines names a nameserver that was
-decommissioned last week, so their DHCP-supplied resolver option is stale. With that fixed, the
-name resolves but the page still times out. `curl -v` shows the connection stalling before any
-response — no TLS handshake, no status line — while `nc -zv` to port 22 on the same host
-succeeds instantly, so the host is reachable and the filtering is port-specific.
-`traceroute -n` from the office shows the path reaching the site's border router and stopping
-there, which bounds the fault to that device rather than to the server. On the server itself
-`ss -tulpn` shows the site listening on `0.0.0.0:443` and `ip addr` confirms the expected
-address on the interface `ip link` reports as `enp0s3`, so nothing on the server is at fault.
-The border firewall's rule for that office's subnet was removed in a cleanup; restoring it ends
-the incident. `tcpdump -i enp0s3 port 443` would have shown the same thing from the server's
-side — no inbound SYNs from that office at all.
+`dig +short reports.example.com` returns the right address, so the zone is fine, while
+`/etc/resolv.conf` on the affected machines names a nameserver decommissioned last week: their
+DHCP-supplied resolver option is stale. With that fixed the name resolves, but the page still
+times out. `curl -v` shows the connection stalling before any response, while `nc -zv` to port
+22 on the same host succeeds instantly, so the host is reachable and the filtering is
+port-specific. `traceroute -n` shows the path reaching the site's border router and stopping
+there, which bounds the fault to that device rather than to the server, and `ss -tulpn` on the
+server confirms the site listening on `0.0.0.0:443`. The border firewall's rule for that
+office's subnet had been removed in a cleanup; restoring it ends the incident.
 
 #### Knowledge check
 
