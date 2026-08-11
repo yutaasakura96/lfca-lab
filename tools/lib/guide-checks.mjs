@@ -100,6 +100,12 @@ export function checkUnknownConcept({ topics }, files) {
     );
 }
 
+// STYLE.md section 7: "3 to 6 prompts per section". Fewer than 3 under-tests
+// a section with multiple definition sites; more than 6 stops being a check
+// and starts being a second pass through the material.
+const KNOWLEDGE_CHECK_MIN_PROMPTS = 3;
+const KNOWLEDGE_CHECK_MAX_PROMPTS = 6;
+
 export function checkSectionApparatus(dataset, files) {
   const out = [];
   for (const f of files) {
@@ -111,6 +117,34 @@ export function checkSectionApparatus(dataset, files) {
       }
       if (!s.hasKnowledgeCheck) {
         out.push(finding('guide-section-apparatus', 'error', s.heading, `${f.path}:${s.line} section "${s.heading}" has no Knowledge check`));
+        continue;
+      }
+      // STYLE.md section 7 is normative: "3 to 6 prompts per section, each a
+      // recall or discrimination question with its answer written directly
+      // beneath it." Confirming only that the heading exists let a section
+      // ship one prompt, or twelve, or a list of questions with no answers —
+      // every one of which the style guide forbids and nothing rejected.
+      const prompts = s.knowledgeCheck?.prompts ?? [];
+      if (prompts.length < KNOWLEDGE_CHECK_MIN_PROMPTS || prompts.length > KNOWLEDGE_CHECK_MAX_PROMPTS) {
+        out.push(
+          finding(
+            'guide-section-apparatus',
+            'error',
+            s.heading,
+            `${f.path}:${s.knowledgeCheck.line} section "${s.heading}" has ${prompts.length} Knowledge check prompt(s); STYLE.md section 7 requires ${KNOWLEDGE_CHECK_MIN_PROMPTS} to ${KNOWLEDGE_CHECK_MAX_PROMPTS}`,
+          ),
+        );
+      }
+      for (const p of prompts) {
+        if (p.hasAnswer) continue;
+        out.push(
+          finding(
+            'guide-section-apparatus',
+            'error',
+            s.heading,
+            `${f.path}:${p.line} section "${s.heading}" Knowledge check prompt ${p.number} has no answer written beneath it`,
+          ),
+        );
       }
     }
     // A definition anchored directly under the H1 title, with no enclosing
@@ -416,8 +450,19 @@ function commandShownVerbatim(blockText, command) {
   return fencedLines.some((line) => stripShellPrompt(line) === command);
 }
 
+// Every definition site is checked, glossary rows included — not just
+// `kind: 'topic'` blocks. Filtering to topics made five depth-1 concepts
+// permanently exempt: a concept whose only definition site is a Quick
+// reference row was never required to show the commands `data/` records for
+// it, so the dataset could name `tcpdump -i` or `git stash` and the guide
+// could omit it with nothing to say so. A glossary definition's `blockText`
+// is its own row, and `commandShownVerbatim` reads inline code spans, which
+// is exactly how a row shows a command — so the same rule applies unchanged.
+// `allDefinitions` is taken whole (no kind filter), matching
+// `checkWaiverMarker`; if an id were defined twice the last site wins, and
+// `checkDuplicateDefinition` reports the duplication itself.
 export function checkCommandCoverage(dataset, files, options) {
-  const defs = new Map(allDefinitions(files).filter((d) => d.kind === 'topic').map((d) => [d.id, d]));
+  const defs = new Map(allDefinitions(files).map((d) => [d.id, d]));
   const out = [];
   for (const topic of dataset.topics) {
     if (!inScope(topic, options)) continue;
@@ -494,23 +539,55 @@ export function checkDanglingXref(dataset, files, options) {
   return out;
 }
 
+// Scans every guide file, over the file's whole text.
+//
+// It used to read one file — the Cloud Computing :: Networking competency
+// file — and, inside it, only the concatenated `blockText` of its definition
+// blocks. That made it nearly blind in two directions at once. Vertically, a
+// comparison table, a Scenario, a Knowledge check, an orientation paragraph
+// and a Quick reference table all sit outside every definition block, so
+// AWS-only vocabulary in any of them was invisible. Horizontally, the other
+// 31 files were never looked at, even though AWS product names appear in
+// several of them (performance and availability discusses managed DNS
+// failover; the cloud domain index summarises the networking file).
+//
+// The dataset gate stays: if the corpus has no Cloud Computing Fundamentals
+// :: Networking competency, there is no multi-cloud exam surface to be
+// neutral about and the check has nothing to say. That gate is about the
+// *dataset*, not about which file is read — once it passes, every file is
+// scanned.
+//
+// Severity stays `warn`, deliberately. Errors in this harness are reserved
+// for facts decidable against `data/`: a concept with no definition site, a
+// metadata line contradicting the dataset, a command not shown verbatim.
+// Vendor neutrality is not that kind of fact — it is a fixed list of six
+// vendor strings matched against free prose, exempted by an equally coarse
+// "does this file mention a second vendor" test. Widening the scan from one
+// file's definition blocks to 32 whole files multiplies both the reach and
+// the false-positive surface of those heuristics, and a heuristic that can be
+// wrong should not be able to fail a build on its own. It is not toothless:
+// the project's acceptance bar for this harness is 0 errors *and* 0 warnings,
+// so a warning still has to be answered — by adding the mapping table or by a
+// human deciding the vocabulary is right — before the corpus is considered
+// clean.
 export function checkVendorNeutrality(dataset, files) {
   const cloudNetworking = dataset.topics.filter(
     (t) => t.domain === 'Cloud Computing Fundamentals' && t.competency === 'Networking',
   );
   if (cloudNetworking.length === 0) return [];
-  const index = guideIndex(dataset);
-  const path = guidePathFor(cloudNetworking[0], index);
-  const file = files.find((f) => f.path === path);
-  if (!file) return [];
-  const text = file.definitions.map((d) => d.blockText).join('\n');
-  const hasMapping = /\|\s*AWS\s*\|/.test(text) || /\bAzure\b/.test(text);
-  const used = AWS_ONLY_TERMS.filter((term) => text.includes(term));
-  if (used.length > 0 && !hasMapping) {
-    return [finding('guide-vendor-neutrality', 'warn', path,
-      `${path} uses AWS-specific vocabulary (${used.join(', ')}) with no vendor mapping table; the exam is not AWS-specific`)];
+  const out = [];
+  for (const file of files) {
+    // `text` is the parser's verbatim file content. The `blockText` join is a
+    // fallback for a synthetic file object built without it.
+    const text = file.text ?? (file.definitions ?? []).map((d) => d.blockText).join('\n');
+    const hasMapping = /\|\s*AWS\s*\|/.test(text) || /\bAzure\b/.test(text);
+    const used = AWS_ONLY_TERMS.filter((term) => text.includes(term));
+    if (used.length > 0 && !hasMapping) {
+      out.push(finding('guide-vendor-neutrality', 'warn', file.path,
+        `${file.path} uses AWS-specific vocabulary (${used.join(', ')}) with no vendor mapping table; the exam is not AWS-specific`));
+    }
   }
-  return [];
+  return out;
 }
 
 export function runAllGuideChecks(dataset, files, options = {}) {

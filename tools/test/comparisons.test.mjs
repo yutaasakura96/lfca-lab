@@ -26,6 +26,24 @@ test('a concept that is only ever a target still gets an edge', () => {
   assert.deepEqual(undirectedEdges({ topics }), [['d.c.a', 'd.c.b']]);
 });
 
+test('several edges come back sorted on both keys, not just the first', () => {
+  // Emission order is [b,c], [a,z], [a,b]: the first key is out of order, and the
+  // two a-edges arrive with the second key inverted. A comparator that only
+  // compared pair[0] would leave [a,z] ahead of [a,b], because Array.prototype.sort
+  // is stable and would preserve their emission order.
+  const topics = [
+    topic('d.c.b', 3, 3, ['d.c.c']),
+    topic('d.c.a', 3, 3, ['d.c.z', 'd.c.b']),
+    topic('d.c.c', 3, 3, []),
+    topic('d.c.z', 3, 3, []),
+  ];
+  assert.deepEqual(undirectedEdges({ topics }), [
+    ['d.c.a', 'd.c.b'],
+    ['d.c.a', 'd.c.z'],
+    ['d.c.b', 'd.c.c'],
+  ]);
+});
+
 test('a leaf id containing -vs- wins ownership over higher importance', () => {
   const index = new Map([
     ['d.c.thing-vs-other', topic('d.c.thing-vs-other', 1, 1)],

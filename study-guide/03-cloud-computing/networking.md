@@ -143,7 +143,9 @@ is attached. Isolation lives at the network level, placement and routing at the 
 the subnet. AWS states the rule directly: a subnet associated with a route table that has a
 route to an internet gateway is a public subnet, and a subnet associated with a route table
 that does not have such a route is a private subnet. A private subnet can still initiate
-outbound connections indirectly, by routing through a NAT gateway.
+outbound connections indirectly, by routing through a NAT gateway. Hold the wording as AWS's:
+the pair of terms is portable, but the route-table-per-subnet mechanism behind it is not
+(see Traps).
 
 **Why it matters** The standard secure layout — public subnets holding only load balancers
 and NAT gateways, private subnets holding application servers and databases — is the layout
@@ -171,7 +173,13 @@ classification, which is why the fix for an accidentally exposed AWS subnet is a
 change, not a subnet setting. Do not carry that across to Azure: Microsoft documents a
 subnet-level "Default outbound access" setting which, set to Disabled, sets the subnet
 property `defaultOutboundAccess = false` and is what Microsoft itself calls making the subnet
-private.
+private. Google Cloud diverges the other way, and further: it has no per-subnet route table
+to move at all. Routes belong to the network, a system-generated default route to the default
+internet gateway is created with it, and Google's documented condition for an instance having
+outgoing internet access is that route plus an egress firewall rule plus either an external IP
+address on the instance or Cloud NAT. So the same question — is this thing reachable, can it
+reach out — is answered per instance there, not per subnet, and the fix for an exposed
+instance is to remove its external IP rather than to re-point a route.
 
 **What the exam may test** Given a route table and an address assignment, deciding whether a
 host is reachable inbound, reachable outbound only, or unreachable in both directions — and

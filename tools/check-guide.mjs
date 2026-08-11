@@ -56,8 +56,22 @@ const warnings = findings.filter((f) => f.severity === 'warn');
 for (const f of errors) console.error(`ERROR  [${f.check}] ${f.message}`);
 for (const f of warnings) console.warn(`WARN   [${f.check}] ${f.message}`);
 
+// Report what was actually inspected, not what merely exists on disk.
+// "32 guide file(s), 537 concept(s)" overstated the run twice over: 10 of
+// those files carry no definition, comparison or section apparatus and no
+// check looks inside them, and the concept count was the dataset's size —
+// the population the run is measured against — not a count of anything this
+// run verified. Definition sites, comparison blocks and sections are the
+// three units every check above actually consumes, so those are the counts
+// worth printing: if one of them falls, the run covered less than it did
+// before, and the summary line says so.
+const definitions = files.reduce((n, f) => n + f.definitions.length, 0);
+const comparisons = files.reduce((n, f) => n + f.comparisons.length, 0);
+const sections = files.reduce((n, f) => n + f.sections.length, 0);
+
 console.log(
-  `\n${files.length} guide file(s), ${dataset.topics.length} concept(s)` +
+  `\n${definitions} concept definition(s), ${comparisons} comparison block(s), ` +
+  `${sections} section(s) checked` +
   `${scope ? `, scope ${scope}` : ''} — ` +
   `${errors.length + malformed} error(s), ${warnings.length} warning(s)`,
 );

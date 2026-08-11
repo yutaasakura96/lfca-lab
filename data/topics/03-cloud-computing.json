@@ -2316,7 +2316,7 @@
       ],
       "domain": "Cloud Computing Fundamentals",
       "competency": "Networking",
-      "description": "A public subnet has a route to an internet gateway and so can be reached from, and reach, the internet directly; a private subnet has no such route and can only initiate outbound connections indirectly, through NAT. Whether a subnet is \"public\" or \"private\" is a property of its route table, not of the subnet itself — adding the route is what makes it public.",
+      "description": "A public subnet has a route to an internet gateway and so can be reached from, and reach, the internet directly; a private subnet has no such route and can only initiate outbound connections indirectly, through NAT. Whether a subnet is \"public\" or \"private\" is a property of its route table, not of the subnet itself — adding the route is what makes it public. That framing is AWS's, and Azure's per-subnet route tables fit it; Google Cloud has no per-subnet route table, so there the default route to the internet gateway is network-wide and reachability turns on whether the instance has an external IP address, with Cloud NAT for outbound-only.",
       "objective_verbatim": "Networking",
       "sept_2025_status": "added",
       "inferred": true,

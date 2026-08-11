@@ -282,28 +282,38 @@ result.
 
 **The validator now exits 0 — zero errors across all 537 concepts.**
 
-### Stage 5: primary documentation attached, and the adversarial layer earned its keep
+### Stage 5: primary documentation attached, and what the adversarial layer can be shown to have done
 
 Nine research agents, one per documentation corpus, checked all 537 concept descriptions
 against primary sources (RFCs, NIST, kernel.org, GNU, systemd, git-scm, kubernetes.io, OCI,
 NIST SP 800-145, OSI/SPDX, the Scrum Guide). Every claimed error was then handed to an
 independent agent instructed to **refute** it, defaulting to "the original was fine".
 
-**11 corrections were proposed. The committed adversarial-review artifact records 0
-confirmations and 11 verdict-less rejections.**
+**11 corrections were proposed. The adversarial-review artifact recorded 0 confirmations and 11
+verdict-less rejections — and that artifact is not in this repository, so nothing below about
+its contents can be checked from a clone.**
 
-The correction is worth stating plainly, because the first version of this section took credit
-the process had not earned. A controller bug (documented in the ledger) keyed verdicts off a
-content hash rather than the agent label, so the pairing was lost: `confirmed` is empty in
-`.superpowers/sdd/stage5-results.json`, and all 11 proposed corrections — including the three
-that were in fact applied (`device-drivers-and-kernel-modules`, `containers.kubernetes`,
-`networking.vlan`) — sit in `rejected`, each carrying the identical string `"no verdict
-recorded — treated as unverified and not applied"` and no reasoning field at all. No count of
-corrections "confirmed by adversarial review" can be evidenced from this repository. The
-refuter did do real work — including catching a proposed `/etc/shadow` rewrite that asserted
-"not readable by ordinary users" and then contradicted itself in its own next clause — but that
-reasoning survives only in a workflow transcript that is not committed to this repository; the
-JSON artifact this document cites by name records no reasoning for any of the 11.
+The evidence position comes first, because it is the only part a reader can verify. Stage 5
+wrote its results to a `stage5-results.json` in the local `.superpowers/sdd/` working
+directory. That directory is ignored in full — `.superpowers/sdd/.gitignore` is a single `*`
+line — and `progress.md` (the run ledger) is the one file under it that is tracked in spite of
+that rule. The JSON was never committed. Anyone who has only this repository can read the ledger
+and cannot read the results file, so the description that follows is an account of what the run
+produced, not a citation.
+
+What the run produced, as recorded at the time: a controller bug keyed verdicts off a content
+hash rather than the agent label, so the claim-to-verdict pairing was lost. The ledger records
+the lost pairing and its consequence; the content-hash detail is from the run itself.
+`confirmed` came back empty, and all 11 proposed corrections — including the three that were in
+fact applied (`device-drivers-and-kernel-modules`, `containers.kubernetes`, `networking.vlan`)
+— landed in `rejected`, each carrying the identical string `"no verdict recorded — treated as
+unverified and not applied"` and no reasoning field at all. The conclusion that survives into
+this document is therefore the conservative one, and it does not depend on the missing file:
+**no count of corrections "confirmed by adversarial review" is evidenced by anything a reader
+of this repository can open.** The refuter did do real work — including catching a proposed
+`/etc/shadow` rewrite that asserted "not readable by ordinary users" and then contradicted
+itself in its own next clause — but that reasoning survives only in a workflow transcript that
+is likewise uncommitted.
 
 The final whole-branch review re-checked the eight against primary sources and found **all
 eight were genuine errors that had survived**. All eight have now been fixed (see "Corrections

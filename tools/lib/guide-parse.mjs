@@ -15,6 +15,14 @@ const RE_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
 // reaches the leading "|". Captured group 1 is the offending prefix, used
 // to name it in the `malformed` entry.
 const RE_ROW_PREFIX = /^(>|[-*+]|\d+\.) *\|/;
+// A "#### Knowledge check" heading, and a numbered prompt beneath one. A
+// prompt is a top-level ordered-list item ("1. ", "2. ") starting at column
+// zero with at least one non-space character after the marker — the exact
+// shape STYLE.md section 7 prescribes. An indented continuation line is
+// deliberately NOT a prompt: that is where the answer, and any wrapped
+// remainder of the question, lives.
+const RE_KNOWLEDGE_CHECK_HEADING = /^#### +Knowledge check$/;
+const RE_KNOWLEDGE_CHECK_PROMPT = /^(\d+)\. +\S/;
 // A fence opener/closer: up to three leading spaces, then a run of three or
 // more backticks or tildes, then the rest of the line (an info string on an
 // opener, or nothing but whitespace on a genuine closer — checked by the
@@ -65,6 +73,66 @@ function computeFenceLines(matchLines) {
     }
   }
   return inFence;
+}
+
+// Extracts the `#### Knowledge check` apparatus of one section, so
+// `checkSectionApparatus` can enforce STYLE.md section 7 ("3 to 6 prompts per
+// section, each with its answer written directly beneath it") instead of
+// merely confirming the heading exists.
+//
+// The knowledge-check region runs from the heading to the next heading of any
+// level inside the section, or to the section's end. Fenced lines are skipped
+// throughout, exactly as every other pass does: a fenced `#### Knowledge
+// check` in STYLE.md is an example of the grammar, not a real apparatus, and
+// a fenced "1. ..." inside a worked example is not a real prompt.
+//
+// `hasAnswer` is "at least one non-blank line sits between this prompt and the
+// next one (or the end of the region)". That is as close as the format allows
+// mechanically: a question that wraps onto a second line is indented exactly
+// like its answer, so no rule can tell a wrapped question from an answer
+// without reading it. The check therefore catches the failure that actually
+// occurs — a prompt written with no answer under it at all — and leaves the
+// judgement of whether the text beneath is really an answer to review.
+function parseKnowledgeCheck(matchLines, inFence, start, end) {
+  let headingIndex = -1;
+  for (let i = start; i <= end; i += 1) {
+    if (!inFence[i] && RE_KNOWLEDGE_CHECK_HEADING.test(matchLines[i])) {
+      headingIndex = i;
+      break;
+    }
+  }
+  if (headingIndex === -1) return null;
+
+  let regionEnd = end;
+  for (let i = headingIndex + 1; i <= end; i += 1) {
+    if (inFence[i]) continue;
+    if (headingLevel(matchLines[i]) > 0) {
+      regionEnd = i - 1;
+      break;
+    }
+  }
+
+  const found = [];
+  for (let i = headingIndex + 1; i <= regionEnd; i += 1) {
+    if (inFence[i]) continue;
+    const m = RE_KNOWLEDGE_CHECK_PROMPT.exec(matchLines[i]);
+    if (m) found.push({ number: Number(m[1]), index: i });
+  }
+
+  const prompts = found.map((p, k) => {
+    const from = p.index + 1;
+    const to = k + 1 < found.length ? found[k + 1].index - 1 : regionEnd;
+    let hasAnswer = false;
+    for (let i = from; i <= to; i += 1) {
+      if (!inFence[i] && matchLines[i].trim() !== '') {
+        hasAnswer = true;
+        break;
+      }
+    }
+    return { number: p.number, line: p.index + 1, hasAnswer };
+  });
+
+  return { line: headingIndex + 1, prompts };
 }
 
 export function parseGuideFile(path, text) {
@@ -321,6 +389,10 @@ export function parseGuideFile(path, text) {
     const end = s + 1 < h2Lines.length ? h2Lines[s + 1] - 1 : lines.length - 1;
     const body = matchLines.slice(start, end + 1);
     const bodyFence = inFence.slice(start, end + 1);
+    // `hasKnowledgeCheck` is derived from `knowledgeCheck` rather than
+    // computed a second time, so the two can never disagree about whether a
+    // section has the heading at all.
+    const knowledgeCheck = parseKnowledgeCheck(matchLines, inFence, start, end);
     sections.push({
       heading: RE_HEADING.exec(matchLines[start])[2],
       line: start + 1,
@@ -329,7 +401,8 @@ export function parseGuideFile(path, text) {
         .filter((d) => d.blockStart >= start && d.blockStart <= end)
         .map((d) => d.id),
       hasScenario: body.some((l, k) => !bodyFence[k] && /^#### +Scenario\s*$/.test(l)),
-      hasKnowledgeCheck: body.some((l, k) => !bodyFence[k] && /^#### +Knowledge check\s*$/.test(l)),
+      hasKnowledgeCheck: knowledgeCheck !== null,
+      knowledgeCheck,
     });
   }
 
@@ -357,7 +430,12 @@ export function parseGuideFile(path, text) {
     for (const m of matchLines[i].matchAll(RE_LINK)) links.push({ href: m[1], line: i + 1 });
   }
 
-  return { path, definitions, comparisons, pointers, sections, anchors, links, malformed };
+  // `text` is the file's verbatim content. Checks that must see prose living
+  // outside any definition block — a Scenario, a Knowledge check, a
+  // comparison table, an orientation paragraph — read it instead of
+  // reconstructing an approximation by joining `blockText`s, which by
+  // construction can only ever see what a concept block contains.
+  return { path, text, definitions, comparisons, pointers, sections, anchors, links, malformed };
 }
 
 export async function loadGuide(rootDir) {

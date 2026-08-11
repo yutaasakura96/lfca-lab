@@ -70,13 +70,18 @@ competency, alongside the per-competency row from `research/lfs200-notes/00-cour
 The course-map percentages are a lower bound — a concept can be taught without its name
 appearing — and the map says so explicitly.
 
-| Competency | LFS200 breakdown (guide-plan) | Course-map row | Lessons |
-| --- | --- | --- | ---: |
-| System Administration | 5 MENTIONED ONLY, 52 NOT COVERED, 9 FULLY COVERED, 5 PARTIALLY COVERED — 19/71 (27%) are not NOT COVERED | 27%, 19/71 | 5 |
-| Networking | 40 NOT COVERED, 4 PARTIALLY COVERED, 2 MENTIONED ONLY, 3 FULLY COVERED — 9/49 (18%) are not NOT COVERED | 18%, 9/49 | 2 |
-| Troubleshooting | 15 NOT COVERED — 0/15 (0%) are not NOT COVERED | 0%, 0/15 | 1 |
-| Best Practices | 20 NOT COVERED — 0/20 (0%) are not NOT COVERED | 0%, 0/20 | 0 |
-| Disaster Recovery | 18 NOT COVERED — 0/18 (0%) are not NOT COVERED | 0%, 0/18 | 1 |
+| Competency | LFS200 breakdown (guide-plan) | Course-map row | Lessons named in `data/` |
+| --- | --- | --- | --- |
+| System Administration | 5 MENTIONED ONLY, 52 NOT COVERED, 9 FULLY COVERED, 5 PARTIALLY COVERED — 19/71 (27%) are not NOT COVERED | 27%, 19/71 | 4 — ch5.l2, ch5.l3, ch5.l4, ch6.l2 |
+| Networking | 40 NOT COVERED, 4 PARTIALLY COVERED, 2 MENTIONED ONLY, 3 FULLY COVERED — 9/49 (18%) are not NOT COVERED | 18%, 9/49 | 2 — ch7.l2, ch7.l3 |
+| Troubleshooting | 15 NOT COVERED — 0/15 (0%) are not NOT COVERED | 0%, 0/15 | none |
+| Best Practices | 20 NOT COVERED — 0/20 (0%) are not NOT COVERED | 0%, 0/20 | none |
+| Disaster Recovery | 18 NOT COVERED — 0/18 (0%) are not NOT COVERED | 0%, 0/18 | none |
+
+The last column lists the distinct LFS200 lesson references the competency's concepts carry in
+`data/` — the same references the coverage status in column two is computed from. It is not the
+course map's own `Lessons` column, which this file no longer quotes; the reason is at the end of
+this section.
 
 The domain's position in the course map is specific, and it is two positions at once:
 
@@ -107,6 +112,21 @@ does the entire disaster-recovery vocabulary — `disaster recovery`, `business 
 all defined in the files below, and none of them can be revised from the course. The same
 absence list also names `SELinux` and `LUKS`, which read as system administration but are
 scoped to Security Fundamentals — they are defined there, not in any file below.
+
+**Why the course map's `Lessons` column is not quoted here.** The course map's percentages and
+concept counts reconcile with `data/` exactly, in all 22 rows. Its `Lessons` column does not,
+and cannot: the map is hand-written — it says so in its own header — and that column is a
+hand-made judgement of which lessons belong to a competency by subject, independent of whether
+any concept matched. It credits Troubleshooting with one lesson and Disaster Recovery with one,
+while `data/` records no lesson reference for either; it counts a single lesson under more than
+one competency, as `data/` does too — ch6.l2 is named by both System Administration and Command
+Line; and summed over the 22 rows it comes to 29, against the 25 lessons the course map lists
+as carrying substantive content. Row by row it differs from `data/` in 10 of the 22 — for this
+domain, 5 against 4 for System Administration and 1 against 0 for both Troubleshooting and
+Disaster Recovery. Only the `data/` figure is reproducible from this repository, so the table above uses
+that one. Nothing in the paragraphs above depends on the discarded column: the `Backup` page and
+the six-competencies-with-no-lesson list are the course map's Finding 2, which is prose, not
+that column, and Troubleshooting's ch7.l3 is worth reading whichever count you use.
 
 ## Section map
 

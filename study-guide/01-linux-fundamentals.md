@@ -61,22 +61,43 @@ Figures below are `guide-plan`'s header output and the per-competency table in
 a concept can be taught without its name appearing — and the coverage counts record which
 concepts the course touches at all, not how deeply.
 
-| Competency | `guide-plan` LFS200 breakdown | Course-map row | Lessons |
-| --- | --- | --- | ---: |
-| Linux Operating System | 2 FULLY COVERED, 23 NOT COVERED, 2 PARTIALLY COVERED — 4/27 (15%) are not NOT COVERED | 15%, 4/27 | 4 |
-| Command Line | 3 MENTIONED ONLY, 36 NOT COVERED — 3/39 (8%) are not NOT COVERED | 8%, 3/39, marked new 2025 | 3 |
+| Competency | `guide-plan` LFS200 breakdown | Course-map row | Lessons named in `data/` |
+| --- | --- | --- | --- |
+| Linux Operating System | 2 FULLY COVERED, 23 NOT COVERED, 2 PARTIALLY COVERED — 4/27 (15%) are not NOT COVERED | 15%, 4/27 | 2 — ch2.l2, ch2.l4 |
+| Command Line | 3 MENTIONED ONLY, 36 NOT COVERED — 3/39 (8%) are not NOT COVERED | 8%, 3/39, marked new 2025 | 2 — ch5.l5, ch6.l2 |
+
+The last column is the set of distinct LFS200 lesson references the concepts of that competency
+actually carry in `data/`, which is what the coverage status in column two is computed from.
+The course map's per-competency table has a `Lessons` column of its own; this file does not
+quote it, for the reason given at the end of this section.
 
 Position, stated exactly. In the course map's 22-row per-competency table, ordered by coverage,
 Linux Operating System is the sixth row at 15% and Command Line is the tenth at 8%, the sole
 holder of that figure. Neither competency appears in the course map's Finding 2 list
 of six competencies with no lesson at all, and neither is the one-character `Backup` lesson
-case: both have real lessons, four and three respectively.
+case: the lessons `data/` names for them — ch2.l2 (The Operating System, 2,428 characters) and
+ch2.l4 (Hardware and Software, 3,877) for Linux Operating System, ch5.l5 (Contents and Finding
+Files, 3,797) and ch6.l2 (Linux Commands, 24,959) for Command Line — all carry substantive
+text.
 
 Two details are worth holding onto. The course's single largest lesson, ch6.l2 Linux Commands
 at 24,959 characters, is command material — and Command Line still measures 8%, because the
 figure counts concepts touched rather than text volume. And per Finding 1, the course is still
 structured on the pre-September-2025 syllabus, so its chapter and lesson names map onto retired
 competency names; it was never reorganised around Command Line as a competency.
+
+**Why the course map's `Lessons` column is not quoted here.** Its percentages and concept
+counts reconcile with `data/` exactly — all 22 rows — but the `Lessons` column does not, and
+cannot: the course map is hand-written and says so in its own header, and that column is a
+hand-made judgement of which lessons belong to a competency by subject. It counts lessons that
+contributed no concept match at all (Disaster Recovery is credited with one, the one-character
+`Backup` page) and it counts a single lesson under more than one competency — as `data/` does
+too, where ch6.l2 is named by both System Administration and Command Line. Summed over the 22
+rows it comes to 29, against the 25 lessons the course map lists as carrying substantive
+content. Compared row by row with
+the distinct lesson references recorded in `data/`, it differs in 10 of the 22 — for these two
+competencies, 4 against 2 and 3 against 2. The two columns answer different questions and only
+the `data/` one is reproducible from this repository, so that is the one the table above uses.
 
 ## Section map
 

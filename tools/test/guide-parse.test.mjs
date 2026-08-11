@@ -725,3 +725,130 @@ test('a real "#### Scenario" outside a fence still sets hasScenario true', () =>
   assert.equal(f.sections.length, 1);
   assert.equal(f.sections[0].hasScenario, true);
 });
+
+// --- Fix round 6 -------------------------------------------------------------
+//
+// GAP A: the level-4 half of the block terminator rule had no test pinning it.
+// `guide-parse.mjs` ends a concept block at any heading of level 4 or
+// shallower, and the level-4 half is load-bearing: it is what stops a
+// following "#### Quick reference" table being swallowed into the preceding
+// concept's `blockText`, where the table's own inline code spans could
+// satisfy that concept's command check by accident. Mutating the rule from
+// `level <= 4` to `level <= 3` left all 163 tests green, so the defence was
+// undefended. The two tests below fail under exactly that mutation — this one
+// at the parser, and its companion in guide-checks.test.mjs at the check that
+// the mutation would have fooled.
+
+test('GAP A: a concept block ends at a "#### Quick reference" heading, so the table is not swallowed into it', () => {
+  const lines = [
+    '<a id="s-a"></a>',                                                              // 0
+    '## A',                                                                          // 1
+    '',                                                                              // 2
+    '<a id="c-a.b.c"></a>',                                                          // 3
+    '### Thing',                                                                     // 4
+    '*id: `a.b.c` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*',   // 5
+    '',                                                                              // 6
+    '**What it is** A thing. Its own block never shows the command.',                // 7
+    '',                                                                              // 8
+    '#### Quick reference',                                                          // 9
+    '',                                                                              // 10
+    '| Concept | Term | In one sentence | Why it is examinable |',                    // 11
+    '| --- | --- | --- | --- |',                                                     // 12
+    '| `a.b.d` | Other | Captured with `tcpdump -i`. | It is confused with Thing. |', // 13
+    '',                                                                              // 14
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  const def = f.definitions.find((d) => d.id === 'a.b.c');
+  assert.ok(def, 'the concept must still be recognised');
+  assert.equal(def.blockEnd, 8, 'the block must end on the line before the Quick reference heading');
+  assert.doesNotMatch(def.blockText, /Quick reference/);
+  assert.ok(
+    !def.blockText.includes('tcpdump -i'),
+    'a command shown only in the following Quick reference table must not appear in this concept\'s blockText',
+  );
+});
+
+// --- GAP E: Knowledge check prompts are now parsed, not just detected --------
+
+test('GAP E: a Knowledge check\'s prompts are parsed with their numbers, lines and answer status', () => {
+  const lines = [
+    '<a id="s-a"></a>',            // 0
+    '## A',                        // 1
+    '',                            // 2
+    '#### Knowledge check',        // 3 -> knowledgeCheck.line 4
+    '',                            // 4
+    '1. First question?',          // 5 -> line 6
+    '   The first answer.',        // 6
+    '2. Second question, which',   // 7 -> line 8
+    '   wraps onto a second line?',// 8
+    '   The second answer.',       // 9
+    '3. Third question?',          // 10 -> line 11
+    '',                            // 11 no answer beneath it
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections[0].hasKnowledgeCheck, true);
+  assert.equal(f.sections[0].knowledgeCheck.line, 4);
+  assert.deepEqual(f.sections[0].knowledgeCheck.prompts, [
+    { number: 1, line: 6, hasAnswer: true },
+    { number: 2, line: 8, hasAnswer: true },
+    { number: 3, line: 11, hasAnswer: false },
+  ]);
+});
+
+test('GAP E: a section with no Knowledge check heading has a null knowledgeCheck', () => {
+  const f = parseGuideFile('x.md', ['<a id="s-a"></a>', '## A', '', '1. Not under any check.'].join('\n'));
+  assert.equal(f.sections[0].hasKnowledgeCheck, false);
+  assert.equal(f.sections[0].knowledgeCheck, null);
+});
+
+test('GAP E: prompt counting stops at the next heading, so a later section\'s prompts are not borrowed', () => {
+  const lines = [
+    '<a id="s-a"></a>',       // 0
+    '## A',                   // 1
+    '',                       // 2
+    '#### Knowledge check',   // 3
+    '',                       // 4
+    '1. One?',                // 5
+    '   Answer.',             // 6
+    '',                       // 7
+    '#### Notes',             // 8 ends the knowledge-check region
+    '',                       // 9
+    '2. Not a prompt.',       // 10
+    '   Still not a prompt.', // 11
+    '',                       // 12
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections[0].knowledgeCheck.prompts.length, 1);
+  assert.equal(f.sections[0].knowledgeCheck.prompts[0].number, 1);
+});
+
+test('GAP E: a fenced Knowledge check example produces no knowledgeCheck and no prompts', () => {
+  const lines = [
+    '<a id="s-a"></a>',
+    '## A',
+    '',
+    'Here is what the apparatus looks like:',
+    '',
+    '```markdown',
+    '#### Knowledge check',
+    '',
+    '1. A question?',
+    '   Its answer.',
+    '```',
+    '',
+  ];
+  const f = parseGuideFile('x.md', lines.join('\n'));
+  assert.equal(f.sections[0].hasKnowledgeCheck, false);
+  assert.equal(f.sections[0].knowledgeCheck, null);
+});
+
+// --- GAP C: the file's verbatim text is retained for whole-file checks -------
+
+test('GAP C: parseGuideFile returns the file\'s verbatim text, including prose outside every definition block', () => {
+  const f = parseGuideFile('x.md', SAMPLE);
+  assert.equal(f.text, SAMPLE);
+  // The Scenario prose sits outside every definition block, so it is
+  // reachable only through `text`.
+  assert.ok(f.text.includes('A host resolves example.com.'));
+  assert.ok(!f.definitions.some((d) => d.blockText.includes('A host resolves example.com.')));
+});

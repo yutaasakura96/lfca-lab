@@ -30,6 +30,21 @@ const GUIDE_PATH = 'study-guide/01-fixture-domain/fixture-competency.md';
 
 const dataset = await loadDataset(fixtureRoot);
 
+// Three prompts, each with its answer on the line directly beneath it: the
+// minimum STYLE.md section 7 requires, now that `checkSectionApparatus`
+// enforces the 3-to-6 range and the answer-present rule. Every assertion that
+// reads `COMPLETE` is unchanged; only the fixture itself was brought into
+// compliance with the rule it is meant to model. It is a named constant so
+// the tests below can swap the whole prompt list out by exact-string replace.
+const KNOWLEDGE_CHECK_PROMPTS = [
+  '1. State the difference between Deep and Shallow.',
+  '   Deep is written at depth 3; Shallow at depth 2.',
+  '2. Which body label does a depth 4 concept carry that a depth 3 one does not?',
+  '   Symptoms and diagnostic order.',
+  '3. Why is Tiny a Quick reference row rather than a topic block?',
+  '   Because it is depth 1, and depth 1 concepts are defined as glossary rows.',
+];
+
 const COMPLETE = [
   '# Fixture Competency',
   '',
@@ -109,7 +124,7 @@ const COMPLETE = [
   '',
   '#### Knowledge check',
   '',
-  '1. State the difference between Deep and Shallow.',
+  ...KNOWLEDGE_CHECK_PROMPTS,
   '',
 ].join('\n');
 
@@ -992,4 +1007,304 @@ test('a depth 2+ topic-defined member with a recognised pointer entry still pass
   }];
   const found = checkComparisonPointer(topicPointerDataset(), files, {});
   assert.deepEqual(found, []);
+});
+
+// --- Fix round 6: GAP A — the anti-false-pass defence, from the check's side --
+//
+// The companion to the parser test of the same name. It states the failure
+// the level-4 terminator exists to prevent, in the terms of the check that
+// would otherwise have been fooled: a concept whose required command appears
+// ONLY inside the following "#### Quick reference" table must still fail
+// `checkCommandCoverage`. Mutate `level <= 4` to `level <= 3` in
+// guide-parse.mjs and this test fails — the table is absorbed into the
+// concept's blockText and its inline code span credits a command the concept
+// never demonstrates.
+
+const QUICK_REFERENCE_FALSE_PASS = [
+  '# Fixture Competency',
+  '',
+  '<a id="s-fixture-competency-section-one"></a>',
+  '## Section One',
+  '',
+  '<a id="c-fx.fixture.qr-cmd"></a>',
+  '### Capture',
+  '*id: `fx.fixture.qr-cmd` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: fx-source*',
+  '',
+  '**What it is** A concept whose own block never shows its dataset command.',
+  '',
+  '#### Quick reference',
+  '',
+  '| Concept | Term | In one sentence | Why it is examinable |',
+  '| --- | --- | --- | --- |',
+  '| `fx.fixture.qr-other` | Other | Captured with `tcpdump -i`. | It anchors this test. |',
+  '',
+].join('\n');
+
+const qrCommandDataset = {
+  topics: [{
+    id: 'fx.fixture.qr-cmd',
+    domain: 'Fixture Domain',
+    competency: 'Fixture Competency',
+    commands: ['tcpdump -i'],
+  }],
+};
+
+test('GAP A: a command shown only in the following Quick reference table does not satisfy the preceding concept', () => {
+  const found = checkCommandCoverage(
+    qrCommandDataset,
+    [parseGuideFile(GUIDE_PATH, QUICK_REFERENCE_FALSE_PASS)],
+    {},
+  );
+  assert.equal(found.length, 1, 'the concept never shows tcpdump -i inside its own block');
+  assert.equal(found[0].id, 'fx.fixture.qr-cmd');
+  assert.match(found[0].message, /tcpdump -i/);
+});
+
+// --- Fix round 6: GAP B — the command check now reaches glossary rows --------
+//
+// `checkCommandCoverage` filtered definitions to `kind === 'topic'`, which
+// made every depth-1 concept permanently exempt: a concept whose only
+// definition site is a Quick reference row was never required to show the
+// commands `data/` records for it. Five real concepts sat in that blind spot
+// (zombie-and-orphan-processes, lvm, tcpdump, git HEAD, git stash). Restore
+// the `.filter((d) => d.kind === 'topic')` and the two negative tests below
+// fail, because the glossary definition is no longer looked at at all.
+
+const glossaryCommandDataset = {
+  topics: [{
+    id: 'fx.fixture.tiny-cmd',
+    domain: 'Fixture Domain',
+    competency: 'Fixture Competency',
+    commands: ['git stash'],
+  }],
+};
+
+function glossaryCommandFiles(rowSentence) {
+  return [{
+    path: GUIDE_PATH,
+    definitions: [{
+      id: 'fx.fixture.tiny-cmd',
+      kind: 'glossary',
+      line: 1,
+      blockText: `| \`fx.fixture.tiny-cmd\` | Stash | ${rowSentence} | It is examinable. |`,
+    }],
+  }];
+}
+
+test('GAP B: a glossary-defined concept whose row omits its dataset command is an error', () => {
+  const found = checkCommandCoverage(
+    glossaryCommandDataset,
+    glossaryCommandFiles('Records the working tree so you can switch context.'),
+    {},
+  );
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.tiny-cmd');
+  assert.equal(found[0].severity, 'error');
+  assert.match(found[0].message, /git stash/);
+});
+
+test('GAP B: a glossary-defined concept whose row shows the command in a code span passes', () => {
+  const found = checkCommandCoverage(
+    glossaryCommandDataset,
+    glossaryCommandFiles('`git stash` records the working tree so you can switch context.'),
+    {},
+  );
+  assert.deepEqual(found, []);
+});
+
+test('GAP B: the same rule holds end to end through parseGuideFile on a real Quick reference row', () => {
+  const text = [
+    '# Fixture Competency',
+    '',
+    '<a id="s-fixture-competency-section-one"></a>',
+    '## Section One',
+    '',
+    '#### Quick reference',
+    '',
+    '| Concept | Term | In one sentence | Why it is examinable |',
+    '| --- | --- | --- | --- |',
+    '| `fx.fixture.tiny-cmd` | Stash | Records the working tree. | It is examinable. |',
+    '',
+  ].join('\n');
+  const found = checkCommandCoverage(glossaryCommandDataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.tiny-cmd');
+  assert.match(found[0].message, /git stash/);
+
+  const fixed = text.replace('Records the working tree.', '`git stash` records the working tree.');
+  assert.deepEqual(checkCommandCoverage(glossaryCommandDataset, [parseGuideFile(GUIDE_PATH, fixed)], {}), []);
+});
+
+test('GAP B: a topic-defined concept is still checked exactly as before', () => {
+  // The widening must not come at the cost of the original path: the same
+  // dataset command, this time on a `kind: 'topic'` definition that omits it.
+  const found = checkCommandCoverage(
+    glossaryCommandDataset,
+    [{
+      path: GUIDE_PATH,
+      definitions: [{
+        id: 'fx.fixture.tiny-cmd',
+        kind: 'topic',
+        line: 1,
+        blockText: '**What it is** No command is shown anywhere in this block.',
+      }],
+    }],
+    {},
+  );
+  assert.equal(found.length, 1);
+  assert.equal(found[0].id, 'fx.fixture.tiny-cmd');
+});
+
+// --- Fix round 6: GAP C — vendor neutrality scans whole files, every file ----
+//
+// The check used to read one file (the Cloud Computing :: Networking
+// competency file) and, inside it, only the concatenated `blockText` of its
+// definition blocks. Comparison tables, Scenarios, Knowledge checks,
+// orientation paragraphs and Quick reference tables all sit outside every
+// definition block, and the other 31 guide files were never opened at all.
+// Revert either half of the widening — the `files.find((f) => f.path ===
+// path)` selection, or the `definitions.map((d) => d.blockText)` text source
+// — and the tests below fail.
+//
+// Severity stays `warn` by deliberate choice; see the rationale on the check
+// itself. The existing test "vendor neutrality warns only on cloud networking
+// files" above still holds unchanged, and for the reason its own comment
+// gives: the fixture dataset has no Cloud Computing Fundamentals ::
+// Networking competency, so the check returns [] before reading any file.
+
+test('GAP C: AWS-only vocabulary in a guide file other than the cloud networking file is reported', () => {
+  const files = [{
+    path: 'study-guide/03-cloud-computing/performance-availability.md',
+    text: 'Health checks can steer traffic away from a failed target using Route 53.',
+    definitions: [],
+  }];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.equal(found.length, 1);
+  assert.equal(found[0].check, 'guide-vendor-neutrality');
+  assert.equal(found[0].severity, 'warn');
+  assert.equal(found[0].id, 'study-guide/03-cloud-computing/performance-availability.md');
+  assert.match(found[0].message, /Route 53/);
+});
+
+test('GAP C: AWS-only vocabulary outside every definition block in the cloud networking file is reported', () => {
+  const files = [{
+    path: CLOUD_NETWORKING_PATH,
+    // The vocabulary lives in a Scenario, which is never part of any
+    // definition's blockText.
+    text: [
+      '#### Scenario',
+      '',
+      'The team peers two VPCs and adds a Direct Connect circuit to the datacentre.',
+    ].join('\n'),
+    definitions: [{ blockText: 'A vendor-neutral definition block that names no product.' }],
+  }];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /VPC/);
+  assert.match(found[0].message, /Direct Connect/);
+});
+
+test('GAP C: every file is scanned, and a file carrying a vendor mapping table is still exempt', () => {
+  const files = [
+    {
+      path: CLOUD_NETWORKING_PATH,
+      text: ['| Concept | AWS | Azure |', '| --- | --- | --- |', '| Isolated network | VPC | VNet |'].join('\n'),
+      definitions: [],
+    },
+    {
+      path: 'study-guide/03-cloud-computing/performance-availability.md',
+      text: 'Fronting the fleet with an Elastic Load Balancer.',
+      definitions: [],
+    },
+    {
+      path: 'study-guide/02-system-administration/networking.md',
+      text: 'Discusses subnets and routing tables in vendor-neutral terms.',
+      definitions: [],
+    },
+  ];
+  const found = checkVendorNeutrality(cloudDataset(), files);
+  assert.deepEqual(found.map((f) => f.id), ['study-guide/03-cloud-computing/performance-availability.md']);
+});
+
+test('GAP C: whole-file scanning finds vocabulary the definition-block-only reading would have missed', () => {
+  // Same file, same text, but presented the way the old check read it: the
+  // definitions carry none of the vocabulary, so a blockText-only reading
+  // sees nothing. Proves the finding above comes from `text`, not from the
+  // fallback.
+  const text = 'A Scenario mentioning a NACL and a Security Group, outside every definition block.';
+  const withText = [{ path: CLOUD_NETWORKING_PATH, text, definitions: [{ blockText: 'Neutral prose.' }] }];
+  const withoutText = [{ path: CLOUD_NETWORKING_PATH, definitions: [{ blockText: 'Neutral prose.' }] }];
+  assert.equal(checkVendorNeutrality(cloudDataset(), withText).length, 1);
+  assert.deepEqual(checkVendorNeutrality(cloudDataset(), withoutText), []);
+});
+
+// --- Fix round 6: GAP E — STYLE.md section 7 now binds -----------------------
+//
+// "3 to 6 prompts per section, each with its answer written directly beneath
+// it" was normative and unenforced: `checkSectionApparatus` confirmed only
+// that the `#### Knowledge check` heading existed. Delete either half of the
+// new assertion (the 3-to-6 range test, or the per-prompt answer test) and
+// the matching tests below fail.
+
+function withPrompts(...promptLines) {
+  return COMPLETE.replace(KNOWLEDGE_CHECK_PROMPTS.join('\n'), promptLines.join('\n'));
+}
+
+test('GAP E: a Knowledge check with fewer than 3 prompts is an error', () => {
+  const text = withPrompts('1. Only question?', '   Its answer.', '2. Second question?', '   Its answer.');
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].check, 'guide-section-apparatus');
+  assert.equal(found[0].severity, 'error');
+  assert.match(found[0].message, /2 Knowledge check prompt/);
+  assert.match(found[0].message, /3 to 6/);
+});
+
+test('GAP E: a Knowledge check with more than 6 prompts is an error', () => {
+  const lines = [];
+  for (let n = 1; n <= 7; n += 1) {
+    lines.push(`${n}. Question ${n}?`, `   Answer ${n}.`);
+  }
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, withPrompts(...lines))], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /7 Knowledge check prompt/);
+  assert.match(found[0].message, /3 to 6/);
+});
+
+test('GAP E: exactly 3 and exactly 6 prompts are both accepted', () => {
+  for (const count of [3, 6]) {
+    const lines = [];
+    for (let n = 1; n <= count; n += 1) {
+      lines.push(`${n}. Question ${n}?`, `   Answer ${n}.`);
+    }
+    const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, withPrompts(...lines))], {});
+    assert.deepEqual(found, [], `${count} prompts must be accepted`);
+  }
+});
+
+test('GAP E: a prompt with no answer written beneath it is an error naming the prompt', () => {
+  const text = withPrompts(
+    '1. First question?',
+    '   The first answer.',
+    '2. Second question, with no answer beneath it?',
+    '3. Third question?',
+    '   The third answer.',
+  );
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.equal(found[0].severity, 'error');
+  assert.match(found[0].message, /prompt 2 has no answer/);
+});
+
+test('GAP E: a section missing the Knowledge check heading reports that once, not a prompt-count error too', () => {
+  const text = COMPLETE.replace('#### Knowledge check', '#### Notes');
+  const found = checkSectionApparatus(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.equal(found.length, 1);
+  assert.match(found[0].message, /has no Knowledge check/);
+});
+
+test('GAP E: the knowledge-check rules are enforced by runAllGuideChecks, not only when called directly', () => {
+  const text = FULL.replace(KNOWLEDGE_CHECK_PROMPTS.join('\n'), '1. Only one prompt?\n   Its answer.');
+  const found = runAllGuideChecks(dataset, [parseGuideFile(GUIDE_PATH, text)], {});
+  assert.ok(found.some((f) => f.check === 'guide-section-apparatus' && /1 Knowledge check prompt/.test(f.message)));
 });
