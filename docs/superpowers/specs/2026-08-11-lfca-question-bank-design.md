@@ -36,10 +36,52 @@ definitions, 130 comparison blocks, 175 sections, 0 errors, 0 warnings. Study gu
 **Facts inherited and not re-derived, except where P1 below re-fetches them.** Current exam
 effective 2025-09-16. Weights: Linux Fundamentals 16%, System Administration 30%, Cloud Computing
 18%, Security 14%, DevOps 12%, IT Project Management 10%. 90 minutes, multiple choice, 75% to
-pass, no practical component, valid 2 years. **The question count is not published by the Linux
-Foundation and is never stated or implied anywhere in this cycle's output.** Six competencies are
-new in 2025. LFS200 is still built on the retired syllabus and six competencies have no lesson at
-all.
+pass, no practical component, valid 2 years. **The exam is 60 questions** — see the amendment
+below; this reverses what cycles 1 and 2 recorded and what the kickoff brief for this cycle
+instructed. Six competencies are new in 2025. LFS200 is still built on the retired syllabus and
+six competencies have no lesson at all.
+
+---
+
+## Amendment, 2026-08-11: the exam is 60 questions
+
+This spec was approved on the understanding that the Linux Foundation publishes no question
+count. **Pre-work item P1 found that it does.** The Multiple Choice Exams Important Instructions
+page (`lf-important-instructions-mc`) states, verbatim:
+
+> The multiple-choice exam is delivered online and consists of 60* multiple-choice questions.
+> \* CNPA exam consists of  85 multiple-choice questions.
+
+Captured to `docs/verification/exam-facts-2026-08-11/`, and independently re-fetched before the
+decision was taken. It is the same page, and the identical generic-rule-plus-CNPA-exception
+structure, that `research/exam-mechanics.md` already uses to attribute the 90-minute duration to
+the LFCA; the certification page's own "Multiple Choice Exam" label is the classification chain
+that section already relies on for both the 90 minutes and the 75% pass mark. Accepting that
+chain for two facts and rejecting it for a third would be this project preferring its prior over
+its evidence.
+
+**Adopted by owner decision on 2026-08-11**, at HIGH confidence, inheriting the same
+classification-chain caveat section 4 of `research/exam-mechanics.md` already attaches to the 75%
+figure. The figure both earlier cycles dismissed as unverified third-party noise turns out to
+have been right, which is recorded rather than glossed.
+
+What follows from it:
+
+- **60 questions in 90 minutes is 90 seconds per question.** 75% of 60 is **45 correct to pass**;
+  the owner's 71% is 42 or 43 correct, so they were two to three questions short.
+- **The practice exams become sixteen 60-question papers, not ten 100-question ones**, so a
+  sitting is a true simulation of the real one including its pacing. The per-exam composition and
+  the arithmetic are in "Exam and drill assembly" below.
+- **The no-question-count rule is retired** and replaced by a sourced-figure rule: 60 may be
+  stated with its source, and no other count may be stated at all. Check 19 changes from
+  forbidding a count to enforcing the sourced one.
+- Every document that asserted the old claim carries a visible retraction rather than a silent
+  edit: `PROGRESS.md`, `research/exam-mechanics.md`, `study-guide/README.md`,
+  `study-guide/STYLE.md` and `study-guide/04-security.md`.
+
+This is what P1 existed for. A pre-work item that re-fetches a fact and finds it unchanged buys
+nothing; this one overturned a foundational claim before a single question was written on top of
+it.
 
 ---
 
@@ -93,8 +135,8 @@ nowhere. Pre-work items P3 and P4 close it.
 
 - A question bank of **1,150 single-best-answer items**: a 1,000-item exam pool allocated exactly
   by the domain weights, and a 150-item weak-area supplement.
-- **Ten static practice exams** of 100 questions each, partitioning the exam pool, each an exact
-  miniature of the weight table.
+- **Sixteen static practice exams** of 60 questions each — real exam length — drawing 960 of the
+  1,000-item exam pool, each an exact miniature of the weight table.
 - **Drills** generated from the bank: 22 by competency, 6 by domain, 1 weak-area.
 - **`npm run check-bank`** — 21 checks that validate the bank the way `check-guide` validates the
   guide, including the three the kickoff named by hand: distribution against the domain weights,
@@ -351,8 +393,8 @@ same scope flag, same summary line reporting what was actually inspected.
 | 15 | `q-domain-distribution` | error | The exam pool matches the weight table exactly; the supplement is reported separately |
 | 16 | `q-duplicate` | error | No two items share a normalized stem |
 | 17 | `q-near-duplicate` | error at ≥0.85, warn at ≥0.70 | Stem similarity below threshold, plus a same-concept-same-key check |
-| 18 | `q-answer-position-balance` | error | Key position across the generated output: exactly 25 per position in each exam, and within ±2 of even in each drill |
-| 19 | `q-no-question-count` | error | No item, exam, or drill states or implies a total question count for the real exam |
+| 18 | `q-answer-position-balance` | error | Key position across the generated output: exactly 15 per position in each 60-question exam, and within ±2 of even in each drill |
+| 19 | `q-question-count` | error | Every exam file carries the mandatory header verbatim, and no document states any question count other than the sourced 60 |
 | 20 | `q-waiver-policy` | error | Every item whose concept is still named in `data/sourcing-waivers.json` carries `waived_source: true`, no item carries it otherwise, and the total is reported. The *restriction* to consensus-agreed content is a review and layer-2 judgement, not a mechanical one, and is not claimed as checked |
 | 21 | `q-verdict-coverage` | error | **Every item has a recorded adversarial verdict from a named agent** |
 
@@ -386,41 +428,74 @@ test, exactly as `npm run generate` is for `research/**`.
 
 ```
 exams/
-  exam-01.md … exam-10.md
-  exam-01-answers.md … exam-10-answers.md
+  exam-01.md … exam-16.md
+  exam-01-answers.md … exam-16-answers.md
+  index.json
 drills/
   by-competency/*.md      22 files
   by-domain/*.md           6 files
   weak-areas.md            networking + containers, including the supplement
 ```
 
+### Exam size and composition
+
+Each exam is **60 questions**, the real exam's length. 60 does not divide the weight table into
+integers, so the per-exam composition is the largest-remainder rounding of `weight × 60` — the
+same deterministic rule the per-concept allocation uses, computed rather than assumed:
+
+| Domain | Weight | `weight × 60` | Slots |
+| --- | ---: | ---: | ---: |
+| System Administration | 30% | 18.0 | 18 |
+| Cloud Computing | 18% | 10.8 | 11 |
+| Linux Fundamentals | 16% | 9.6 | 10 |
+| Security | 14% | 8.4 | 8 |
+| DevOps | 12% | 7.2 | 7 |
+| IT Project Management | 10% | 6.0 | 6 |
+| **Total** | | | **60** |
+
+**Sixteen exams, not more.** Linux Fundamentals is the binding constraint: 160 exam-pool items at
+10 per exam allows exactly 16. The sixteen consume 160 / 288 / 176 / 128 / 112 / 96 = **960 items**,
+leaving **40** — 0 Linux, 12 System Administration, 4 Cloud, 12 Security, 8 DevOps, 4 IT Project
+Management — that no exam uses.
+
+**Those 40 are not waste and they are not hidden.** The bank stays exactly weight-proportional and
+each exam stays exactly composition-correct; both cannot be true at once while 60 fails to divide
+the weights, and the bank's fidelity to the published weights is the property worth keeping. The
+40 appear in the drills like every other item, and `build-exams` lists them by id in
+`exams/index.json` so which items never appear on a paper is a fact on record rather than a
+silent residue.
+
 ### Per-exam constraints, all hard
 
 The assembler fails loudly rather than relaxing any of them:
 
-- exact domain counts — 30 System Administration, 18 Cloud, 16 Linux, 14 Security, 12 DevOps,
-  10 IT Project Management;
+- exact domain counts, per the composition table above;
 - at most one item per concept;
 - no two items naming the same comparison block;
 - depth mix within ±2: for each domain *d* and each depth level *L*, the number of depth-*L* items
   in that exam's *d* slice is within ±2 of `round(slots(d) × share of d's exam-pool items at
   depth L)`;
-- key position exactly 25 / 25 / 25 / 25.
+- key position exactly 15 / 15 / 15 / 15 — 60 divides by 4 exactly, so this stays an equality
+  rather than a tolerance.
 
-The ten exams partition the 1,000-item exam pool, so no item appears in two of them and no
-supplement item appears in any of them.
+The sixteen exams are disjoint, so no item appears in two of them, and no supplement item appears
+in any of them.
 
 ### The mandatory header
 
 Every exam file carries, verbatim:
 
-> This exam is 100 questions. **That number is this project's own choice, made so the domain
-> weights divide exactly.** The Linux Foundation does not publish how many questions the LFCA
-> exam contains — it is absent from the certification page, the Candidate Handbook, the Multiple
-> Choice Exams FAQ and Important Instructions, the free-resources page, and the learning-path PDF.
-> Nothing here should be read as a statement about the real exam's length.
+> **60 questions, 90 minutes.** Both are the real exam's figures. The Linux Foundation states
+> the count on its Multiple Choice Exams: Important Instructions page — "the multiple-choice exam
+> is delivered online and consists of 60\* multiple-choice questions" — and the 90 minutes on the
+> same page and on the LFCA certification page. Captured at
+> `docs/verification/exam-facts-2026-08-11/`.
+>
+> That is **90 seconds per question**, and **45 correct out of 60** to reach the 75% pass mark.
+> Sit this one under the clock.
 
-Check 19 enforces that nothing anywhere in the generated output contradicts it.
+Check 19 enforces that every exam carries it and that no document anywhere states a different
+count.
 
 ---
 
@@ -583,7 +658,7 @@ New files, following cycle 1 and 2's structure exactly:
 | `tools/lib/question-checks.mjs` | The 21 checks. |
 | `tools/lib/similarity.mjs` | Normalization and the two Jaccard measures, with thresholds as named constants. |
 | `tools/lib/rng.mjs` | A seeded PRNG and string hash, so assembly is deterministic and idempotent without `Math.random` or a clock. |
-| `tools/lib/assemble.mjs` | Partition the exam pool into ten exams, assign key positions, render the markdown. Kept out of the CLI so the constraint solver is unit-testable without touching the filesystem. |
+| `tools/lib/assemble.mjs` | Partition the exam pool into sixteen 60-question exams, assign key positions, render the markdown. Kept out of the CLI so the constraint solver is unit-testable without touching the filesystem. |
 | `tools/question-plan.mjs` | `npm run question-plan` — per-competency authoring brief from `data/`, the guide, and `allocation.mjs`: every concept with its allocated count, depth, difficulty, required types, its `confused_with` neighbours and their descriptions, its comparison block membership, its command strings, its `notes`, its guide anchor, and its waiver status. Nothing committed; derived on demand so it cannot go stale. |
 | `tools/check-bank.mjs` | `npm run check-bank`. |
 | `tools/build-exams.mjs` | `npm run build-exams`. |
@@ -635,8 +710,12 @@ immaterial.
 cycles. Cycle 3 holds that line: an item may state that a lesson covers a topic and may cite
 `research/lfs200-notes/00-course-map.md`, and reproduces no course text.
 
-**No question count.** Never stated, never implied, in any item, exam, drill, or document. Check 19
-enforces it mechanically.
+**One question count, and it is sourced.** The exam is 60 questions, per the Linux Foundation's own
+Multiple Choice Exams: Important Instructions page, captured at
+`docs/verification/exam-facts-2026-08-11/`. That figure may be stated; no other count may be
+stated anywhere, and no figure may be given without its source. Check 19 enforces both halves.
+This replaces the no-question-count rule the kickoff brief set and both earlier cycles held — see
+the amendment at the top of this document for why.
 
 **Generated files.** `research/**` and `coverage-matrix.md` are generated from `data/` and never
 hand-edited, with the two marked exceptions. `exams/**` and `drills/**` join them as generated
@@ -655,8 +734,9 @@ generated drills and answer keys, in the same register the guide uses.
 2. All 130 comparison blocks and all 380 command strings are covered — checks 4 and 5 pass.
 3. Every item has four options, one key, and fully traced distractors — checks 7, 8 and 9 pass.
 4. Every item has a recorded adversarial verdict from a named agent — check 21 passes.
-5. The exam pool matches the domain weight table exactly, and the ten exams partition it with
-   every hard constraint met — checks 15 and 18 pass and `build-exams` exits 0.
+5. The exam pool matches the domain weight table exactly, and the sixteen 60-question exams are
+   disjoint with every hard constraint met — checks 15 and 18 pass and `build-exams` exits 0.
+   The 40 exam-pool items no exam uses are listed by id in `exams/index.json`.
 6. Duplicate and near-duplicate detection are clean — checks 16 and 17 pass.
 7. `npm run check-bank` exits 0 with 0 errors.
 8. `npm test`, `npm run validate` and `npm run check-guide` all still exit 0 with no new warnings.
@@ -686,7 +766,8 @@ generated drills and answer keys, in the same register the guide uses.
 | Answer position leaks the key | Position is assigned by the assembler, not authored; balance is exact by construction |
 | The longest option is the key | Check 14, bank-wide and per competency |
 | Near-duplicates inflate the count without adding coverage | Check 17, with same-concept pairs explicitly not exempt |
-| A practice exam's length reads as the real exam's | Mandatory header on every exam, plus check 19 across all output |
+| A question count is stated without its source, or a wrong one is stated | Check 19: every exam carries the sourced header verbatim, and no document states any count but 60 |
+| The 40 unused exam-pool items become an invisible residue | `build-exams` lists them by id in `exams/index.json`; they still appear in the drills |
 | Waived concepts yield unanswerable items | P2 sources what it can; the residue is policy-bound, tagged, and counted |
 | The bank and the guide drift apart | Check 13 pins every item to a resolving guide anchor |
 | Large fan-outs die on the usage limit | Waves of five or six, as cycle 2 established |

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Turn cycle 1's 537-concept dataset and cycle 2's study guide into a 1,150-item question bank, ten static practice exams, and a harness that proves the bank covers the dataset the way `check-guide` proves the prose does.
+**Goal:** Turn cycle 1's 537-concept dataset and cycle 2's study guide into a 1,150-item question bank, sixteen static practice exams, and a harness that proves the bank covers the dataset the way `check-guide` proves the prose does.
 
 **Architecture:** Five new library modules and three CLIs under `tools/` derive the bank's shape from `data/`, validate what is written, and assemble the exams. `npm run question-plan` hands each author a deterministic brief; `npm run check-bank` is the gate; `npm run build-exams` produces `exams/**` and `drills/**` as generated output. Items are hand-authored one competency at a time from the guide plus `data/`, reviewed independently, then adversarially verified against primary sources by a second agent whose verdict is recorded in the item itself — so an unverified item is a build failure, not an omission somebody has to notice.
 
@@ -28,9 +28,9 @@ Every task's requirements implicitly include this section.
 - **`importance` is not used to drive anything in this cycle.** It is a bijection with domain (Linux 2, SysAdmin 4, Cloud 2, Security 2, DevOps 1, PM 1), constant within every domain, and a coarsened restatement of domain weight. Question count is driven by domain weight and `required_depth` only. `importance` keeps its one legitimate use as the second key in `tools/lib/comparisons.mjs` ownership ranking.
 - **No exam dumps.** Never search for, open, or source from one. Cycle 1's exclusion list stands: itexams.com, certempire.com, validexamdumps.com, passitexams.com, certlibrary.com, certgod.com, exam-labs.com, p2pexams.com, marks4sure.com, certstest.com. Any new site encountered is excluded on sight, unopened, and logged in `PROGRESS.md`. Authors and verifiers source only from the guide, `data/`, and primary documentation.
 - **LFS200 is copyrighted.** No course prose is reproduced. An item may state that a lesson covers a topic and may cite `research/lfs200-notes/00-course-map.md`.
-- **No question count.** The Linux Foundation publishes none. Never state or imply one, in any item, exam, drill, commit message, or document. `q-no-question-count` enforces it mechanically.
+- **The exam is 60 questions, sourced.** The Linux Foundation's Multiple Choice Exams: Important Instructions page states it — "the multiple-choice exam is delivered online and consists of 60\* multiple-choice questions" — captured at `docs/verification/exam-facts-2026-08-11/`. That figure may be stated, with its source; no other question count may be stated anywhere, in any item, exam, drill, commit message, or document. `q-question-count` enforces both halves mechanically. This supersedes both the kickoff brief's instruction for this cycle and the position recorded by cycles 1 and 2; see the spec's "Amendment, 2026-08-11: the exam is 60 questions" for why.
 - **`candidate_evidence` stays empty on all 537 concepts.** No public post-2025 candidate evidence exists; none is invented.
-- **Exam facts, fixed unless Task 1 finds otherwise:** effective 2025-09-16; weights Linux 16 / SysAdmin 30 / Cloud 18 / Security 14 / DevOps 12 / PM 10; 90 minutes; multiple choice; 75% to pass; no practical component; certification valid 2 years.
+- **Exam facts — Task 1 did find otherwise:** effective 2025-09-16; weights Linux 16 / SysAdmin 30 / Cloud 18 / Security 14 / DevOps 12 / PM 10; **60 questions**; 90 minutes (90 seconds per question); multiple choice; 75% to pass (**45 correct out of 60**); no practical component; certification valid 2 years.
 - **Every number that appears in an authored file comes from `npm run question-plan`, never from arithmetic at the keyboard.** Cycle 2's most common defect class across three review waves was a hand-computed figure stated with confidence and wrong.
 - **A pass that did not run is never reported as a pass that found nothing.** If a fan-out dies on the session usage limit, that is recorded as unrun work and the task is not marked done.
 - **Commit style:** subject line only, `<type>: <short imperative>`. No heredocs, no `Co-Authored-By` trailers.
@@ -49,7 +49,7 @@ Every task's requirements implicitly include this section.
 | `similarity.mjs` | Stem normalization and the two Jaccard measures, with duplicate thresholds as named constants. |
 | `question-load.mjs` | Read and schema-validate `questions/**.json` into structured records, reporting malformed items per file rather than throwing. |
 | `question-checks.mjs` | The 21 bank checks over (dataset, bank, guide, generated output). |
-| `assemble.mjs` | Partition the exam pool into ten exams, assign key positions, render the exam, answer-key and drill markdown. Separate from the `build-exams` CLI so the constraint solver is unit-testable without touching the filesystem — the CLI is then only argument handling and writes. |
+| `assemble.mjs` | Partition the exam pool into sixteen exams, assign key positions, render the exam, answer-key and drill markdown. Separate from the `build-exams` CLI so the constraint solver is unit-testable without touching the filesystem — the CLI is then only argument handling and writes. |
 
 **New CLIs** (`tools/`): `question-plan.mjs`, `check-bank.mjs`, `build-exams.mjs`.
 
@@ -575,13 +575,14 @@ git commit -m "docs: bring PROGRESS.md current and record the cycle 3 pre-work"
 **Interfaces:**
 - Consumes: `loadDataset(rootDir)` from `tools/lib/load.mjs`, returning `{competencies, sources, topics, waivers}`; `competencyKey(domain, competency)` from the same module; `assignBlocks(dataset)` from `tools/lib/comparisons.mjs`, returning `Map<ownerId, {owner, members, compares, edges, anchor}>`.
 - Produces:
-  - `EXAM_POOL_TOTAL = 1000`, `EXAM_COUNT = 10`, `EXAM_SIZE = 100`
+  - `EXAM_POOL_TOTAL = 1000`, `EXAM_COUNT = 16`, `EXAM_SIZE = 60`
   - `DEPTH_WEIGHT`, `SUPPLEMENT_WEIGHT`, `WEAK_COMPETENCIES`
   - `domainBudget(weight, poolTotal = EXAM_POOL_TOTAL) -> number`
   - `largestRemainder(items, budget, weightOf) -> [{id, count}]`
   - `allocateExamPool(dataset, options) -> Map<conceptId, number>`
   - `allocateSupplement(dataset, options) -> Map<conceptId, number>`
   - `allocation(dataset, blocks, options) -> Map<conceptId, {exam, supplement, total, difficulty, defaultType, needsDiagnostic, commandStrings, ownedBlocks, memberBlocks}>`
+  - `examComposition(dataset) -> Map<domainName, slots>`
   - `options` is `{poolTotal, weakCompetencies}`, both defaulting to the real constants. **Only test fixtures ever pass it.** A four-concept fixture cannot be allocated a 1,000-item pool, and the alternative — a fixture with 1,000 items — is not a fixture. The CLIs and every check call these functions with no options, so the production path has no configuration surface at all.
 
 - [ ] **Step 1: Write the failing tests**
@@ -595,13 +596,16 @@ import { loadDataset } from '../lib/load.mjs';
 import { assignBlocks } from '../lib/comparisons.mjs';
 import {
   DEPTH_WEIGHT,
+  EXAM_COUNT,
   EXAM_POOL_TOTAL,
+  EXAM_SIZE,
   SUPPLEMENT_WEIGHT,
   WEAK_COMPETENCIES,
   allocateExamPool,
   allocateSupplement,
   allocation,
   domainBudget,
+  examComposition,
   largestRemainder,
 } from '../lib/allocation.mjs';
 
@@ -746,6 +750,49 @@ test('poolTotal and weakCompetencies are overridable for fixtures only', () => {
     EXAM_POOL_TOTAL,
   );
 });
+
+// The pinned per-exam composition — the largest-remainder rounding of
+// weight × EXAM_SIZE / 100 — is the table in the spec's "Exam size and
+// composition" section, reproduced here as a literal so a regression in the
+// rounding is caught even if the arithmetic that produced it looks locally
+// plausible.
+const EXPECTED_COMPOSITION = {
+  'System Administration Fundamentals': 18,
+  'Cloud Computing Fundamentals': 11,
+  'Linux Fundamentals': 10,
+  'Security Fundamentals': 8,
+  'DevOps Fundamentals': 7,
+  'IT Project Management Fundamentals': 6,
+};
+
+test('examComposition matches the pinned per-exam table exactly', () => {
+  const comp = examComposition(dataset);
+  for (const [name, slots] of Object.entries(EXPECTED_COMPOSITION)) {
+    assert.equal(comp.get(name), slots, name);
+  }
+});
+
+test('examComposition sums to EXAM_SIZE', () => {
+  const comp = examComposition(dataset);
+  assert.equal([...comp.values()].reduce((a, b) => a + b, 0), EXAM_SIZE);
+});
+
+test('EXAM_SIZE is divisible by 4, so key-position balance is an exact equality', () => {
+  assert.equal(EXAM_SIZE % 4, 0);
+});
+
+test('the exam pool supports exactly EXAM_COUNT disjoint exams under the composition', () => {
+  const comp = examComposition(dataset);
+  const pool = allocateExamPool(dataset);
+  const poolByDomain = new Map();
+  for (const t of dataset.topics) {
+    poolByDomain.set(t.domain, (poolByDomain.get(t.domain) ?? 0) + pool.get(t.id));
+  }
+  const maxExams = Math.min(
+    ...[...comp.entries()].map(([name, slots]) => Math.floor(poolByDomain.get(name) / slots)),
+  );
+  assert.equal(maxExams, EXAM_COUNT);
+});
 ```
 
 - [ ] **Step 2: Run the tests to verify they fail**
@@ -761,8 +808,8 @@ Create `tools/lib/allocation.mjs`:
 import { competencyKey } from './load.mjs';
 
 export const EXAM_POOL_TOTAL = 1000;
-export const EXAM_COUNT = 10;
-export const EXAM_SIZE = 100;
+export const EXAM_COUNT = 16;
+export const EXAM_SIZE = 60;
 
 // Question count is driven by domain weight and required_depth only.
 //
@@ -869,6 +916,39 @@ export function allocateSupplement(dataset, { weakCompetencies = WEAK_COMPETENCI
   return out;
 }
 
+// The per-exam composition: how many of each domain's slots make up a single
+// 60-question exam. This is the largest-remainder rounding of
+// `weight × EXAM_SIZE / 100`, ties broken by higher weight then by the
+// domain's order in competencies.domains.
+//
+// Deliberately does NOT call largestRemainder above, even though both are
+// "largest remainder" in spirit and largestRemainder's items need only an
+// `id` (domains pass through as `{id: name, weight}`, which would satisfy
+// its signature). largestRemainder bakes in a floor of one per item by
+// computing `1 + largestRemainderOf(budget - n)` over the *item* weights —
+// harmless for per-concept allocation, where the floor is the coverage
+// guarantee this cycle depends on, but NOT harmless here: shifting the quota
+// by `weight × n / 100` before flooring changes the result. Checked directly
+// for this table — reusing largestRemainder(domains, 60, d => d.weight)
+// yields System Administration 17 and Security 9, not the pinned 18 and 8 —
+// so it is a different, wrong algorithm for this case, not a cosmetic
+// difference. examComposition therefore reimplements the floorless
+// largest-remainder rounding directly: floor(weight × EXAM_SIZE / 100) for
+// every domain, then hand out the EXAM_SIZE-minus-that-sum remainder to the
+// domains with the largest fractional part, ties broken by higher weight
+// then by domains.indexOf.
+export function examComposition(dataset) {
+  const domains = dataset.competencies.domains;
+  const quotas = domains.map((d) => (d.weight * EXAM_SIZE) / 100);
+  const whole = quotas.map((q) => Math.floor(q));
+  const remainder = EXAM_SIZE - whole.reduce((a, b) => a + b, 0);
+  const order = quotas
+    .map((q, i) => ({ frac: q - whole[i], weight: domains[i].weight, i }))
+    .sort((a, b) => b.frac - a.frac || b.weight - a.weight || a.i - b.i);
+  for (let k = 0; k < remainder; k += 1) whole[order[k].i] += 1;
+  return new Map(domains.map((d, i) => [d.name, whole[i]]));
+}
+
 export function allocation(dataset, blocks, options = {}) {
   const exam = allocateExamPool(dataset, options);
   const supplement = allocateSupplement(dataset, options);
@@ -899,7 +979,7 @@ export function allocation(dataset, blocks, options = {}) {
 - [ ] **Step 4: Run the tests to verify they pass**
 
 Run: `node --test tools/test/allocation.test.mjs`
-Expected: PASS, 14 tests.
+Expected: PASS, 18 tests (indicative — see the Global Constraints note that these counts are not targets).
 
 - [ ] **Step 5: Run the full gate and commit**
 
@@ -909,7 +989,7 @@ git add tools/lib/allocation.mjs tools/test/allocation.test.mjs
 git commit -m "feat: derive question allocation from domain weight and depth"
 ```
 
-Expected: `npm test` 202/202.
+Expected: `npm test` 206/206 (indicative).
 
 ---
 
@@ -964,11 +1044,11 @@ test('shuffled actually reorders for at least one seed', () => {
 });
 
 test('balancedPositions divides evenly when n is a multiple of buckets', () => {
-  const pos = balancedPositions(100, 4, hashSeed('exam-01'));
-  assert.equal(pos.length, 100);
+  const pos = balancedPositions(60, 4, hashSeed('exam-01'));
+  assert.equal(pos.length, 60);
   const counts = [0, 0, 0, 0];
   for (const p of pos) counts[p] += 1;
-  assert.deepEqual(counts, [25, 25, 25, 25]);
+  assert.deepEqual(counts, [15, 15, 15, 15]);
 });
 
 test('balancedPositions stays within one of even when n is not a multiple', () => {
@@ -980,15 +1060,15 @@ test('balancedPositions stays within one of even when n is not a multiple', () =
 });
 
 test('balancedPositions is not a repeating cycle', () => {
-  const pos = balancedPositions(100, 4, hashSeed('exam-01'));
-  const cyclic = Array.from({ length: 100 }, (_, i) => i % 4);
+  const pos = balancedPositions(60, 4, hashSeed('exam-01'));
+  const cyclic = Array.from({ length: 60 }, (_, i) => i % 4);
   assert.notDeepEqual(pos, cyclic);
 });
 
 test('balancedPositions differs between exams', () => {
   assert.notDeepEqual(
-    balancedPositions(100, 4, hashSeed('exam-01')),
-    balancedPositions(100, 4, hashSeed('exam-02')),
+    balancedPositions(60, 4, hashSeed('exam-01')),
+    balancedPositions(60, 4, hashSeed('exam-02')),
   );
 });
 ```
@@ -2718,8 +2798,8 @@ The three QC requirements the brief named by hand — distribution against the d
 - Modify: `tools/test/question-checks.test.mjs` (append)
 
 **Interfaces:**
-- Consumes: `similarity`, `NEAR_DUPLICATE_ERROR`, `NEAR_DUPLICATE_WARN`, `normalizeStem` from `similarity.mjs`; `domainBudget`, `EXAM_SIZE`, `EXAM_COUNT` from `allocation.mjs`.
-- Produces: `EXAM_HEADER_NOTICE`, `checkDomainDistribution`, `checkDuplicate`, `checkNearDuplicate`, `checkAnswerPositionBalance`, `checkNoQuestionCount`, `checkWaiverPolicy`, `checkVerdictCoverage`, and `runAllQuestionChecks(ctx, options) -> finding[]`.
+- Consumes: `similarity`, `NEAR_DUPLICATE_ERROR`, `NEAR_DUPLICATE_WARN`, `normalizeStem` from `similarity.mjs`; `domainBudget`, `EXAM_SIZE`, `EXAM_POOL_TOTAL` from `allocation.mjs`.
+- Produces: `EXAM_HEADER_NOTICE`, `checkDomainDistribution`, `checkDuplicate`, `checkNearDuplicate`, `checkAnswerPositionBalance`, `checkQuestionCount`, `checkWaiverPolicy`, `checkVerdictCoverage`, and `runAllQuestionChecks(ctx, options) -> finding[]`.
 - `ctx.generated` is `null`, or:
 
 ```js
@@ -2750,7 +2830,7 @@ test('the fixture bank passes every check in this task', async () => {
   ctx.generated = generatedFrom(ctx, (n) => n % 4);
   for (const check of [
     checkDuplicate, checkNearDuplicate, checkAnswerPositionBalance,
-    checkNoQuestionCount, checkWaiverPolicy, checkVerdictCoverage,
+    checkQuestionCount, checkWaiverPolicy, checkVerdictCoverage,
   ]) {
     assert.deepEqual(check(ctx, {}), [], check.name);
   }
@@ -2822,17 +2902,45 @@ test('q-answer-position-balance errors when nothing has been generated', async (
   assert.match(out[0].message, /npm run build-exams/);
 });
 
-test('q-no-question-count fires on a stem asserting a total', async () => {
+test('q-question-count fires on a stem asserting a wrong total near "exam"', async () => {
   const ctx = await mutated((bank) => {
-    bank[0].items[0].stem = 'The exam has 60 questions. Which statement identifies the widget?';
+    bank[0].items[0].stem = 'The exam has 100 questions. Which statement identifies the widget?';
   });
-  const out = checkNoQuestionCount(ctx, {});
+  const out = checkQuestionCount(ctx, {});
   assert.ok(out.length >= 1);
-  assert.match(out[0].message, /60 questions/);
+  assert.match(out[0].message, /100 questions/);
 });
 
-test('q-no-question-count accepts the mandatory exam header verbatim', () => {
-  assert.ok(EXAM_HEADER_NOTICE.includes('this project'));
+test('q-question-count fires on an unsourced count even when it happens to be 45', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].stem = 'This exam has 45 questions. Which statement identifies the widget?';
+  });
+  const out = checkQuestionCount(ctx, {});
+  assert.ok(out.length >= 1);
+  assert.match(out[0].message, /45 questions/);
+});
+
+test('q-question-count does not fire on the sourced 60 near "exam"', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].stem = 'This exam has 60 questions. Which statement identifies the widget?';
+  });
+  const out = checkQuestionCount(ctx, {});
+  assert.deepEqual(out, []);
+});
+
+test('q-question-count requires every exam document to carry the header verbatim', async () => {
+  const ctx = await fixture();
+  ctx.generated = {
+    exams: [],
+    drills: [],
+    documents: [{ name: 'exams/exam-01.md', kind: 'exam', text: 'not the header' }],
+  };
+  const out = checkQuestionCount(ctx, {});
+  assert.ok(out.some((f) => /mandatory exam header/.test(f.message)));
+});
+
+test('q-question-count accepts the mandatory exam header verbatim', () => {
+  assert.ok(EXAM_HEADER_NOTICE.includes('60'));
   assert.doesNotMatch(EXAM_HEADER_NOTICE, /^\s*$/);
 });
 
@@ -2894,29 +3002,33 @@ Expected: FAIL — the new names are not exported.
 Add to the top of `tools/lib/question-checks.mjs`:
 
 ```js
-import { EXAM_COUNT, EXAM_SIZE, domainBudget } from './allocation.mjs';
+import { EXAM_POOL_TOTAL, EXAM_SIZE, domainBudget } from './allocation.mjs';
 import { NEAR_DUPLICATE_ERROR, NEAR_DUPLICATE_WARN, similarity } from './similarity.mjs';
 ```
 
 Then append:
 
 ```js
-// The notice every generated exam file must carry, verbatim. It lives here
-// rather than in build-exams because check 19 has to recognise it in order to
-// exempt it: the header is the one place in the corpus where a number and the
-// word "questions" legitimately sit next to each other, and it earns that by
-// saying, in the same breath, that the number is ours and not the Linux
-// Foundation's.
+// The notice every generated exam file must carry, verbatim, copied from the
+// spec's "The mandatory header" section. It lives here rather than in
+// build-exams because check 19 has to recognise it in order to exempt it:
+// the header is the one place in the corpus where a number and the word
+// "questions" legitimately sit next to each other, and it earns that by
+// citing the source that makes 60 a fact rather than this project's choice.
 export const EXAM_HEADER_NOTICE = [
-  `This exam is ${EXAM_SIZE} questions. **That number is this project's own choice, made so the`,
-  'domain weights divide exactly.** The Linux Foundation does not publish how many questions the',
-  'LFCA exam contains — it is absent from the certification page, the Candidate Handbook, the',
-  'Multiple Choice Exams FAQ and Important Instructions, the free-resources page, and the',
-  'learning-path PDF. Nothing here should be read as a statement about the real exam\'s length.',
+  '> **60 questions, 90 minutes.** Both are the real exam\'s figures. The Linux Foundation states',
+  '> the count on its Multiple Choice Exams: Important Instructions page — "the multiple-choice exam',
+  '> is delivered online and consists of 60\\* multiple-choice questions" — and the 90 minutes on the',
+  '> same page and on the LFCA certification page. Captured at',
+  '> `docs/verification/exam-facts-2026-08-11/`.',
+  '>',
+  '> That is **90 seconds per question**, and **45 correct out of 60** to reach the 75% pass mark.',
+  '> Sit this one under the clock.',
 ].join('\n');
 
 const QUESTION_COUNT_PATTERN = /\b\d+\s+questions?\b/gi;
 const QUESTION_COUNT_WINDOW = 80;
+const SOURCED_QUESTION_COUNT = EXAM_SIZE; // 60 — the only count any document may state, and only with its source
 
 // 15
 export function checkDomainDistribution(ctx, options) {
@@ -2929,7 +3041,13 @@ export function checkDomainDistribution(ctx, options) {
     const want = domainBudget(domain.weight);
     if (got !== want) {
       out.push(finding('q-domain-distribution', 'error', domain.name,
-        `${domain.name} has ${got} exam-pool item(s) against a weight-derived budget of ${want} (${domain.weight}% of ${EXAM_SIZE * EXAM_COUNT})`));
+        // EXAM_SIZE * EXAM_COUNT is 960, not the 1,000-item pool this budget
+        // is a share of — 16 exams leave 40 pool items unused (see
+        // examComposition in allocation.mjs) — so the message cites
+        // EXAM_POOL_TOTAL, the number this check and domainBudget actually
+        // agree on, not the exam-count-times-size figure that no longer
+        // equals it.
+        `${domain.name} has ${got} exam-pool item(s) against a weight-derived budget of ${want} (${domain.weight}% of ${EXAM_POOL_TOTAL})`));
     }
   }
   const supplement = ctx.items.filter((i) => i.pool === 'supplement').length;
@@ -3020,24 +3138,31 @@ export function checkAnswerPositionBalance(ctx, options) {
   return out;
 }
 
-// 19
-export function checkNoQuestionCount(ctx, options) {
+// 19 — two halves. (a) Every generated exam document must carry
+// EXAM_HEADER_NOTICE verbatim: that is where the sourced 60 is allowed to
+// live. (b) After stripping the header, any "<N> question(s)" occurring
+// within QUESTION_COUNT_WINDOW characters of the word "exam" is an error
+// unless N is exactly SOURCED_QUESTION_COUNT (60) — a wrong count and an
+// unsourced count are both defects; a correct, sourced one is not.
+export function checkQuestionCount(ctx, options) {
   const out = [];
   const scan = (id, label, text) => {
     const stripped = String(text ?? '').split(EXAM_HEADER_NOTICE).join(' ');
     for (const m of stripped.matchAll(QUESTION_COUNT_PATTERN)) {
+      const n = parseInt(m[0], 10);
+      if (n === SOURCED_QUESTION_COUNT) continue; // the sourced figure is allowed to be stated
       const from = Math.max(0, m.index - QUESTION_COUNT_WINDOW);
       const window = stripped.slice(from, m.index + m[0].length + QUESTION_COUNT_WINDOW);
       if (/\bexam\b/i.test(window)) {
-        out.push(finding('q-no-question-count', 'error', id,
-          `${label} says "${m[0]}" within ${QUESTION_COUNT_WINDOW} characters of the word "exam"; the Linux Foundation publishes no question count and this project states none`));
+        out.push(finding('q-question-count', 'error', id,
+          `${label} says "${m[0]}" within ${QUESTION_COUNT_WINDOW} characters of the word "exam"; the only question count this project may state is the sourced ${SOURCED_QUESTION_COUNT}`));
       }
     }
   };
   for (const item of scopedItems(ctx, options)) scan(item.id, item.id, searchableText(item));
   for (const doc of ctx.generated?.documents ?? []) {
     if (doc.kind === 'exam' && !doc.text.includes(EXAM_HEADER_NOTICE)) {
-      out.push(finding('q-no-question-count', 'error', doc.name,
+      out.push(finding('q-question-count', 'error', doc.name,
         `${doc.name} does not carry the mandatory exam header verbatim`));
     }
     scan(doc.name, doc.name, doc.text);
@@ -3107,7 +3232,7 @@ const ALL_CHECKS = [
   checkOptionContract, checkDistractorProvenance, checkDistractorDistinct,
   checkRationaleComplete, checkDifficultyDerived, checkSourceIds,
   checkGuideAnchor, checkLengthCue, checkDomainDistribution, checkDuplicate,
-  checkNearDuplicate, checkAnswerPositionBalance, checkNoQuestionCount,
+  checkNearDuplicate, checkAnswerPositionBalance, checkQuestionCount,
   checkWaiverPolicy, checkVerdictCoverage,
 ];
 
@@ -3132,7 +3257,7 @@ export function runAllQuestionChecks(ctx, options = {}) {
 - [ ] **Step 4: Run the tests to verify they pass**
 
 Run: `node --test tools/test/question-checks.test.mjs`
-Expected: PASS, 46 tests. `q-domain-distribution` cannot pass over the fixture — the fixture pool is 20 or 40 items against a weight table that demands 1,000 — so it is deliberately excluded from the fixture's "passes every check" assertions and tested against the real dataset instead. Note that in a comment next to the exclusion so a later reader does not "fix" it.
+Expected: PASS, 49 tests (indicative). `q-domain-distribution` cannot pass over the fixture — the fixture pool is 20 or 40 items against a weight table that demands 1,000 — so it is deliberately excluded from the fixture's "passes every check" assertions and tested against the real dataset instead. Note that in a comment next to the exclusion so a later reader does not "fix" it.
 
 - [ ] **Step 5: Run the full gate and commit**
 
@@ -3471,12 +3596,12 @@ git commit -m "feat: add the question-plan and check-bank clis"
 - Create: `tools/test/assemble.test.mjs`
 
 **Interfaces:**
-- Consumes: `EXAM_COUNT`, `EXAM_SIZE`, `domainBudget` from `allocation.mjs`; `balancedPositions`, `hashSeed` from `rng.mjs`; `EXAM_HEADER_NOTICE` from `question-checks.mjs`.
+- Consumes: `EXAM_COUNT`, `EXAM_SIZE`, `examComposition` from `allocation.mjs`; `balancedPositions`, `hashSeed` from `rng.mjs`; `EXAM_HEADER_NOTICE` from `question-checks.mjs`.
 - Produces:
-  - `partitionIntoExams(ctx) -> [{name, items: [item]}]` — 10 disjoint exams over the exam pool
+  - `partitionIntoExams(ctx) -> {exams: [{name, items: [item]}], unused: [item]}` — 16 disjoint exams over the exam pool, plus the pool items no exam uses
   - `assignPositions(items, seedText) -> [{id, position}]`
   - `renderExam(exam, ctx, positions)`, `renderAnswerKey(exam, ctx, positions)`, `renderDrill(drill, ctx, positions)` — markdown strings, where `positions` is the array `assignPositions` returned for that document
-  - `buildAll(ctx) -> {exams, drills, documents}` — the structure `build-exams.mjs` writes and `check-bank` reads back
+  - `buildAll(ctx) -> {exams, drills, documents, unused}` — the structure `build-exams.mjs` writes and `check-bank` reads back; `unused` is the array of exam-pool item ids no exam placed
 
 **The assembler never relaxes a constraint.** If it cannot satisfy one it throws, naming what it could not place and why. A silent fallback here would produce an exam that looks right and is not, and no downstream check would catch it because check 18 only sees what the assembler emitted.
 
@@ -3490,7 +3615,7 @@ import assert from 'node:assert/strict';
 import { loadDataset } from '../lib/load.mjs';
 import { loadBank } from '../lib/question-load.mjs';
 import { bankContext } from '../lib/question-checks.mjs';
-import { EXAM_COUNT, EXAM_SIZE, domainBudget } from '../lib/allocation.mjs';
+import { EXAM_COUNT, EXAM_SIZE, examComposition } from '../lib/allocation.mjs';
 import { assignPositions, buildAll, partitionIntoExams } from '../lib/assemble.mjs';
 
 // The real bank is the only input with 1,000 exam-pool items, and it does not
@@ -3534,42 +3659,71 @@ async function syntheticContext() {
 
 test('the partition produces exactly EXAM_COUNT exams of EXAM_SIZE items', async () => {
   const ctx = await syntheticContext();
-  const exams = partitionIntoExams(ctx);
+  const { exams } = partitionIntoExams(ctx);
   assert.equal(exams.length, EXAM_COUNT);
   for (const e of exams) assert.equal(e.items.length, EXAM_SIZE, e.name);
 });
 
-test('the exams partition the pool: every item used exactly once', async () => {
+test('the union of exam items and unused items equals the exam pool exactly, with no overlap', async () => {
   const ctx = await syntheticContext();
-  const exams = partitionIntoExams(ctx);
+  const { exams, unused } = partitionIntoExams(ctx);
   const used = exams.flatMap((e) => e.items.map((i) => i.id));
+  const unusedIds = unused.map((i) => i.id);
   assert.equal(used.length, EXAM_SIZE * EXAM_COUNT);
-  assert.equal(new Set(used).size, used.length, 'no item appears twice');
+  assert.equal(new Set(used).size, used.length, 'no item appears twice across exams');
+  assert.equal(new Set([...used, ...unusedIds]).size, used.length + unusedIds.length, 'exams and unused do not overlap');
   const pool = new Set(ctx.items.filter((i) => i.pool === 'exam').map((i) => i.id));
   for (const id of used) assert.ok(pool.has(id), id);
+  for (const id of unusedIds) assert.ok(pool.has(id), id);
+  assert.deepEqual(new Set([...used, ...unusedIds]), pool, 'union of exams and unused is exactly the exam pool');
 });
 
-test('no supplement item reaches an exam', async () => {
+test('40 exam-pool items are unused, split by domain as pinned: 0/12/4/12/8/4', async () => {
+  const ctx = await syntheticContext();
+  const byId = new Map(ctx.dataset.topics.map((t) => [t.id, t]));
+  const { unused } = partitionIntoExams(ctx);
+  assert.equal(unused.length, 40);
+  const byDomain = new Map();
+  for (const i of unused) {
+    const d = byId.get(i.concept_id).domain;
+    byDomain.set(d, (byDomain.get(d) ?? 0) + 1);
+  }
+  assert.deepEqual(Object.fromEntries(byDomain), {
+    'System Administration Fundamentals': 12,
+    'Cloud Computing Fundamentals': 4,
+    'Security Fundamentals': 12,
+    'DevOps Fundamentals': 8,
+    'IT Project Management Fundamentals': 4,
+    // Linux Fundamentals is absent: it is the binding constraint, so it
+    // leaves 0 unused, and 0 does not appear as a byDomain key.
+  });
+});
+
+test('no supplement item reaches an exam or the unused list', async () => {
   const ctx = await syntheticContext();
   ctx.items.push({ ...ctx.items[0], id: 'q.supp.01', pool: 'supplement' });
-  const exams = partitionIntoExams(ctx);
+  const { exams, unused } = partitionIntoExams(ctx);
   assert.ok(!exams.flatMap((e) => e.items).some((i) => i.pool === 'supplement'));
+  assert.ok(!unused.some((i) => i.pool === 'supplement'));
 });
 
-test('every exam matches the domain weight table exactly', async () => {
+test('every exam matches the pinned per-exam composition table exactly', async () => {
   const ctx = await syntheticContext();
   const domainOf = new Map(ctx.dataset.topics.map((t) => [t.id, t.domain]));
-  for (const e of partitionIntoExams(ctx)) {
+  const comp = examComposition(ctx.dataset);
+  const { exams } = partitionIntoExams(ctx);
+  for (const e of exams) {
     for (const d of ctx.dataset.competencies.domains) {
       const got = e.items.filter((i) => domainOf.get(i.concept_id) === d.name).length;
-      assert.equal(got, domainBudget(d.weight) / EXAM_COUNT, `${e.name} ${d.name}`);
+      assert.equal(got, comp.get(d.name), `${e.name} ${d.name}`);
     }
   }
 });
 
 test('no exam tests a concept twice or a comparison block twice', async () => {
   const ctx = await syntheticContext();
-  for (const e of partitionIntoExams(ctx)) {
+  const { exams } = partitionIntoExams(ctx);
+  for (const e of exams) {
     const concepts = e.items.map((i) => i.concept_id);
     assert.equal(new Set(concepts).size, concepts.length, `${e.name} repeats a concept`);
     const blocks = e.items.map((i) => i.comparison_block).filter(Boolean);
@@ -3580,10 +3734,13 @@ test('no exam tests a concept twice or a comparison block twice', async () => {
 test('every exam depth mix is within 2 of its domain target', async () => {
   const ctx = await syntheticContext();
   const byId = new Map(ctx.dataset.topics.map((t) => [t.id, t]));
-  const pool = ctx.items.filter((i) => i.pool === 'exam');
-  for (const e of partitionIntoExams(ctx)) {
+  const comp = examComposition(ctx.dataset);
+  const { exams, unused } = partitionIntoExams(ctx);
+  const unusedIds = new Set(unused.map((i) => i.id));
+  const pool = ctx.items.filter((i) => i.pool === 'exam' && !unusedIds.has(i.id));
+  for (const e of exams) {
     for (const d of ctx.dataset.competencies.domains) {
-      const slots = domainBudget(d.weight) / EXAM_COUNT;
+      const slots = comp.get(d.name);
       const domainPool = pool.filter((i) => byId.get(i.concept_id).domain === d.name);
       for (const depth of [1, 2, 3, 4, 5]) {
         const share = domainPool.filter((i) => i.difficulty === depth).length / domainPool.length;
@@ -3600,20 +3757,23 @@ test('every exam depth mix is within 2 of its domain target', async () => {
 test('the partition is deterministic', async () => {
   const a = await syntheticContext();
   const b = await syntheticContext();
+  const pa = partitionIntoExams(a);
+  const pb = partitionIntoExams(b);
   assert.deepEqual(
-    partitionIntoExams(a).map((e) => e.items.map((i) => i.id)),
-    partitionIntoExams(b).map((e) => e.items.map((i) => i.id)),
+    pa.exams.map((e) => e.items.map((i) => i.id)),
+    pb.exams.map((e) => e.items.map((i) => i.id)),
   );
+  assert.deepEqual(pa.unused.map((i) => i.id), pb.unused.map((i) => i.id));
 });
 
 test('assignPositions is exactly even and deterministic', () => {
-  const items = Array.from({ length: 100 }, (_, i) => ({ id: `q.x.${i}` }));
+  const items = Array.from({ length: 60 }, (_, i) => ({ id: `q.x.${i}` }));
   const once = assignPositions(items, 'exam-01');
   const twice = assignPositions(items, 'exam-01');
   assert.deepEqual(once, twice);
   const counts = [0, 0, 0, 0];
   for (const p of once) counts[p.position] += 1;
-  assert.deepEqual(counts, [25, 25, 25, 25]);
+  assert.deepEqual(counts, [15, 15, 15, 15]);
 });
 
 test('buildAll emits an index shape check 18 can read, and idempotently', async () => {
@@ -3621,12 +3781,14 @@ test('buildAll emits an index shape check 18 can read, and idempotently', async 
   const first = buildAll(ctx);
   const second = buildAll(ctx);
   assert.deepEqual(first.exams, second.exams);
+  assert.deepEqual(first.unused, second.unused);
   assert.deepEqual(first.documents.map((d) => d.text), second.documents.map((d) => d.text));
   assert.equal(first.exams.length, EXAM_COUNT);
   for (const e of first.exams) {
     assert.equal(e.items.length, EXAM_SIZE);
     for (const i of e.items) assert.ok(Number.isInteger(i.position) && i.position >= 0 && i.position <= 3);
   }
+  assert.equal(first.unused.length, 40);
   assert.ok(first.drills.length >= 22 + 6 + 1, 'a drill per competency, per domain, and the weak-area drill');
 });
 
@@ -3635,12 +3797,12 @@ test('every generated exam document carries the mandatory header verbatim', asyn
   const { documents } = buildAll(ctx);
   const exams = documents.filter((d) => d.kind === 'exam');
   assert.equal(exams.length, EXAM_COUNT);
-  for (const d of exams) assert.ok(d.text.includes('this project'), d.name);
+  for (const d of exams) assert.ok(d.text.includes('45 correct out of 60'), d.name);
 });
 
 test('the assembler throws rather than relaxing a constraint it cannot meet', async () => {
   const ctx = await syntheticContext();
-  // Force every Linux item onto one concept: 160 items, 16 slots per exam,
+  // Force every Linux item onto one concept: 160 items, 10 slots per exam,
   // and only one concept to draw from makes "one item per concept" impossible.
   const linux = ctx.dataset.topics.find((t) => t.domain === 'Linux Fundamentals');
   for (const i of ctx.items) {
@@ -3659,7 +3821,7 @@ Expected: FAIL — `Cannot find module '../lib/assemble.mjs'`.
 - [ ] **Step 3: Write `tools/lib/assemble.mjs`**
 
 ```js
-import { EXAM_COUNT, EXAM_SIZE, domainBudget } from './allocation.mjs';
+import { EXAM_COUNT, EXAM_SIZE, examComposition } from './allocation.mjs';
 import { balancedPositions, hashSeed } from './rng.mjs';
 import { EXAM_HEADER_NOTICE } from './question-checks.mjs';
 
@@ -3672,11 +3834,10 @@ const GENERATED_HEADER = [
 ].join('\n');
 
 // Domains are partitioned independently. Each exam's per-domain count is
-// fixed by the weight table, and no item ever moves between domains, so the
-// hard problem decomposes into six smaller ones.
-function domainSlots(domain) {
-  return domainBudget(domain.weight) / EXAM_COUNT;
-}
+// fixed by the per-exam composition table (examComposition, in
+// allocation.mjs — the largest-remainder rounding of weight × EXAM_SIZE /
+// 100), and no item ever moves between domains, so the hard problem
+// decomposes into six smaller ones.
 
 function conflictKeys(item) {
   const keys = [`concept:${item.concept_id}`];
@@ -3959,7 +4120,7 @@ for (const doc of built.documents) {
 }
 
 // The two index files are what check-bank reads back for q-answer-position-
-// balance and q-no-question-count. They carry the document text as well as the
+// balance and q-question-count. They carry the document text as well as the
 // positions, so the check sees exactly what was written rather than
 // re-deriving it and possibly disagreeing.
 await writeFile('exams/index.json', `${JSON.stringify({
@@ -4106,7 +4267,7 @@ npm run check-bank
 ## Task 58: Build the exams and the drills
 
 **Files:**
-- Create: `exams/exam-01.md` … `exam-10.md`, `exam-01-answers.md` … `exam-10-answers.md`, `exams/index.json`
+- Create: `exams/exam-01.md` … `exam-16.md`, `exam-01-answers.md` … `exam-16-answers.md`, `exams/index.json`
 - Create: `drills/by-competency/*.md` (22), `drills/by-domain/*.md` (6), `drills/weak-areas.md`, `drills/index.json`
 - Modify: `.gitignore` — nothing here is ignored; confirm no rule accidentally excludes `exams/` or `drills/`
 
@@ -4116,9 +4277,9 @@ npm run check-bank
 npm run build-exams
 ```
 
-Expected: `10 exam(s), 29 drill(s), 49 document(s) written`.
+Expected: `16 exam(s), 29 drill(s), 61 document(s) written` — 16 exams + 16 answer keys + 29 drills.
 
-If the assembler throws, it is telling the truth about an infeasibility. Read the message. The likely causes, in order: a domain's exam-pool count does not match the weight table (fix the bank, not the assembler), or one comparison block is named by more than 10 items (spread those items across concepts, or accept fewer of them naming the block — every block needs at least one item, not every item needs a block).
+If the assembler throws, it is telling the truth about an infeasibility. Read the message. The likely causes, in order: a domain's exam-pool count does not match the weight table (fix the bank, not the assembler), or one comparison block is named by more than 16 items (spread those items across concepts, or accept fewer of them naming the block — every block needs at least one item, not every item needs a block).
 
 - [ ] **Step 2: Prove idempotency**
 
@@ -4136,7 +4297,24 @@ Expected: `IDEMPOTENT`, and after the first commit a second build leaves the wor
 npm run check-bank && npm test && npm run validate && npm run check-guide
 ```
 
-Expected: `check-bank` reports 1,150 questions over 537 concepts, 10 exams, 29 drills, **0 errors and 0 warnings**, with no `SUPPRESSED` banner. This is the run that counts.
+Expected: `check-bank` reports 1,150 questions over 537 concepts, 16 exams, 29 drills, **0 errors and 0 warnings**, with no `SUPPRESSED` banner. This is the run that counts.
+
+- [ ] **Step 3a: Confirm the 40 unused items are on the record**
+
+```bash
+node -e "const i=require('./exams/index.json');console.log('unused',i.unused.length);const d=require('./data/competencies.json');" 
+node --input-type=module -e "
+import { loadDataset } from './tools/lib/load.mjs';
+const idx = JSON.parse(await (await import('node:fs/promises')).readFile('exams/index.json','utf8'));
+const d = await loadDataset('data');
+const byId = new Map(d.topics.map(t => [t.id, t.domain]));
+const per = {};
+for (const id of idx.unused) { const c = id.replace(/^q\\./, '').replace(/\\.\\d{2}$/, ''); const dom = byId.get(c); per[dom] = (per[dom] ?? 0) + 1; }
+console.log('unused', idx.unused.length, JSON.stringify(per));
+"
+```
+
+Expected: 40 unused, split 12 System Administration / 4 Cloud / 12 Security / 8 DevOps / 4 IT Project Management and 0 Linux. Those items are in the bank and in the drills but on no paper; the index names them so that is a fact on record rather than a silent residue.
 
 - [ ] **Step 4: Read one exam and one answer key as a human**
 
@@ -4232,7 +4410,7 @@ Dispatch the seven lenses in two waves.
 | 4 — Harness | Can `check-bank` be satisfied by a bank that does not teach? Mutate the real bank and confirm each of the 21 checks actually fires. Cycle 2's Task 4 review found three Critical accidental-pass paths in the check design itself. |
 | 5 — Claims | Does any document claim more than its artifact supports? Audit the spec, this plan, `PROGRESS.md`, `questions/README.md`, and every generated header. This lens found four of cycle 2's confirmed findings. |
 | 6 — Consistency | Cross-check the bank against the guide and `data/`: does any item contradict the prose at its own `guide_anchor`, or the `description` of its own concept? |
-| 7 — Constraints | No question count stated or implied anywhere. No LFS200 prose reproduced. No exam-dump content. No item resting on a source it does not cite. Waived-concept items restricted to consensus. |
+| 7 — Constraints | The only question count stated anywhere is the sourced 60, and every statement of it carries its source; no other count appears. No LFS200 prose reproduced. No exam-dump content. No item resting on a source it does not cite. Waived-concept items restricted to consensus. |
 
 **Synthesis.** One agent re-derives every numeric claim in the raw findings, re-reads every cited line, and re-runs `npm run check-bank`, `npm test`, `npm run validate`, `npm run check-guide` and `npm run build-exams`. It returns confirmed findings with a severity, and rejected findings **with the reason each was rejected** — cycle 2 recorded its 5 rejections and that record is why they can be checked today.
 
@@ -4269,7 +4447,7 @@ git commit -m "fix: apply the final adversarial review findings"
 2. All 130 comparison blocks and all 380 command strings are covered — checks 4 and 5 pass.
 3. Every item has four options, one key, and fully traced distractors — checks 7, 8 and 9 pass.
 4. Every item carries an adversarial verdict from a named agent, covering the key and every distractor — check 21 passes.
-5. The exam pool matches the domain weight table exactly, and the ten exams partition it with every hard constraint met — checks 15 and 18 pass and `build-exams` exits 0.
+5. The exam pool matches the domain weight table exactly, and the sixteen 60-question exams are disjoint with every hard constraint met — checks 15 and 18 pass and `build-exams` exits 0. The 40 exam-pool items no exam uses are listed by id in `exams/index.json`.
 6. Duplicate and near-duplicate detection are clean — checks 16 and 17 pass.
 7. `npm run check-bank` exits 0 with 0 errors and 0 warnings, unscoped and unsuppressed.
 8. `npm test`, `npm run validate` and `npm run check-guide` all exit 0 with no new warnings.
