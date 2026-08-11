@@ -9,6 +9,7 @@
 | cncf-who-we-are | CNCF — Who we are ("CNCF hosts critical components…"; "CNCF is part of the nonprofit Linux Foundation") | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://www.cncf.io/about/who-we-are/ |
 | fhs-3-0 | Filesystem Hierarchy Standard 3.0 | Linux Foundation | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
 | fhs-3.0 | Filesystem Hierarchy Standard, Version 3.0 | The Linux Foundation (LSB Workgroup) | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
+| kernel-docs-proc-rst | Linux kernel Documentation/filesystems/proc.rst | Linux kernel project | 1 | — | 2026-08-11 | https://raw.githubusercontent.com/torvalds/linux/master/Documentation/filesystems/proc.rst |
 | lf-about | About the Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | lf-candidate-handbook | Linux Foundation Certification Exam: Candidate Handbook (PSI BRIDGE) | The Linux Foundation | 1 | — | 2026-08-09 | https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2 |
 | lf-faq-mc | Multiple Choice Exams: Frequently Asked Questions | The Linux Foundation | 1 | — | 2026-08-09 | https://docs.linuxfoundation.org/tc-docs/certification/faq-mc |
@@ -56,6 +57,7 @@
 | aws-vpc-security-groups-vs-nacls | Infrastructure security in Amazon VPC (security groups vs network ACLs) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html |
 | aws-well-architected-pillars | The pillars of the framework - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html |
 | aws-well-architected-reliability-pillar | Reliability Pillar - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html |
+| aws-what-is-multicloud | What is Multicloud? Multicloud Explained | Amazon Web Services | 2 | — | 2026-08-11 | https://aws.amazon.com/what-is/multicloud/ |
 | azure-availability-zones | What are Azure availability zones? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview |
 | azure-bandwidth-pricing | Bandwidth pricing (inbound data transfer is free) | Microsoft | 2 | — | 2026-08-10 | https://azure.microsoft.com/en-us/pricing/details/bandwidth/ |
 | azure-bastion | What is Azure Bastion? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/bastion/bastion-overview |
@@ -88,6 +90,7 @@
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
 | git-merge | git-merge(1) — including the FAST-FORWARD MERGE and MERGE COMMIT sections | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-merge |
 | git-pull | git-pull(1) — "Fetch from and integrate with another repository or a local branch" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-pull |
+| git-push | git-push(1) — "Update remote refs along with associated objects" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-push |
 | git-rebase | git-rebase(1) — "Reapply commits on top of another base tip" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-rebase |
 | git-reset | git-reset(1) — "Set HEAD or the index to a known state" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-reset |
 | git-revert | git-revert(1) — "Revert some existing commits" by recording new commits | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-revert |
@@ -144,6 +147,7 @@
 | man-free-1 | free(1) — display amount of free and used memory in the system | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/free.1.html |
 | man-fstab-5 | fstab(5) — static information about filesystems | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/fstab.5.html |
 | man-group-5 | group(5) — user group file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/group.5.html |
+| man-hier-7 | hier(7) — description of the filesystem hierarchy | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/hier.7.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
@@ -165,6 +169,7 @@
 | man-proc-5 | proc(5) — the /proc filesystem | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc.5.html |
 | man-proc-loadavg | proc_loadavg(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_loadavg.5.html |
 | man-proc-pid-oom-score | proc_pid_oom_score(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html |
+| man-proc-pid-oom-score-adj | proc_pid_oom_score_adj(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-11 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score_adj.5.html |
 | man-ps-1 | ps(1) — report a snapshot of the current processes | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/ps.1.html |
 | man-resolv-conf | resolv.conf(5) — resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man-rpm-8 | rpm(8) — RPM package manager | RPM Project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/rpm.8.html |
@@ -187,6 +192,7 @@
 | man7-resolv-conf | resolv.conf(5) - resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man7-ss | ss(8) - another utility to investigate sockets | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ss.8.html |
 | man7-traceroute | traceroute(8) - print the route packets trace to network host | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/traceroute.8.html |
+| ms-azure-default-outbound-access | Default outbound access in Azure | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access |
 | netfilter-documentation | netfilter/iptables project documentation | Netfilter Project | 2 | — | 2026-08-10 | https://www.netfilter.org/documentation/index.html |
 | nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
 | nist-glossary-bcp | NIST CSRC Glossary: business continuity plan (BCP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/business_continuity_plan |
@@ -220,7 +226,7 @@
 | osi-osd | The Open Source Definition | Open Source Initiative | 2 | — | 2026-08-10 | https://opensource.org/osd |
 | owasp-credential-stuffing | OWASP Credential Stuffing Prevention Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html |
 | owasp-password-storage | OWASP Password Storage Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html |
-| owasp-top10-injection | OWASP Top 10:2021 — A03 Injection | OWASP | 2 | — | 2026-08-10 | https://owasp.org/Top10/A03_2021-Injection/ |
+| owasp-top10-injection | OWASP Top 10:2025 — A05 Injection | OWASP | 2 | — | 2026-08-11 | https://owasp.org/Top10/2025/A05_2025-Injection/ |
 | pci-dss-standards | PCI Data Security Standard — official standard page | PCI Security Standards Council | 2 | — | 2026-08-10 | https://www.pcisecuritystandards.org/standards/pci-dss/ |
 | posix-env-vars | POSIX.1-2024 (Issue 8) Base Definitions, Chapter 8: Environment Variables | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html |
 | posix-shell-command-language | POSIX.1-2024 (Issue 8), Shell Command Language | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html |
@@ -237,6 +243,7 @@
 | rfc-1752-ipng-recommendation | RFC 1752: The Recommendation for the IP Next Generation Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1752.html |
 | rfc-1918-private-address-space | RFC 1918: Address Allocation for Private Internets | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1918.html |
 | rfc-2131-dhcp | RFC 2131: Dynamic Host Configuration Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc2131.html |
+| rfc-2644-bcp34 | RFC 2644 / BCP 34: Changing the Default for Directed Broadcasts in Routers | IETF | 2 | — | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc2644.html |
 | rfc-3022-traditional-nat | RFC 3022: Traditional IP Network Address Translator (Traditional NAT) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc3022.html |
 | rfc-4251-ssh-architecture | RFC 4251 — The Secure Shell (SSH) Protocol Architecture | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4251.html |
 | rfc-4252-ssh-auth | RFC 4252 — The Secure Shell (SSH) Authentication Protocol (publickey method) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4252.html |
@@ -259,6 +266,7 @@
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
 | rfc9110 | RFC 9110: HTTP Semantics | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rsync-man | rsync(1) — a fast, versatile, remote (and local) file-copying tool | Samba / rsync project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/rsync.1.html |
+| sans-picerl | SANS Institute: Incident Response (glossary) — the six-step PICERL framework | SANS Institute | 2 | — | 2026-08-11 | https://www.sans.org/security-resources/glossary-of-terms/incident-response |
 | scrum-guide-2020 | The Scrum Guide (November 2020) | Ken Schwaber and Jeff Sutherland / Scrum.org | 2 | — | 2026-08-10 | https://scrumguides.org/scrum-guide.html |
 | selinux-man8 | selinux(8) manual page — NSA Security-Enhanced Linux overview | SELinux project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/selinux.8.html |
 | semver | Semantic Versioning 2.0.0 — MAJOR for incompatible API changes, MINOR for backward-compatible features, PATCH for fixes | Semantic Versioning (Tom Preston-Werner) | 2 | — | 2026-08-10 | https://semver.org/ |
@@ -275,6 +283,6 @@
 | ubuntu-release-cycle | Ubuntu release cycle and LTS support windows | Canonical | 2 | — | 2026-08-10 | https://ubuntu.com/about/release-cycle |
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |
-| verizon-dbir | Verizon Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-10 | https://www.verizon.com/business/resources/reports/dbir/ |
+| verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |
 | vmware-hypervisor | What is a Hypervisor? (type 1 vs type 2) | VMware / Broadcom | 3 | — | 2026-08-10 | https://www.vmware.com/topics/hypervisor |
 | devto-lfca-2025-09 | Cleared Linux Foundation Certified IT Associate (LFCA) + Preparation Guide | DEV Community (individual author) | 4 | 2025-09-03 | 2026-08-10 | https://dev.to/shivansh_barapatre_7/cleared-linux-foundation-certified-it-associate-lfca-preparation-guide-fd6 |

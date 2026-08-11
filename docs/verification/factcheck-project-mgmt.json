@@ -1,0 +1,227 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "pm.project-management.project",
+    "claim": "Waived-concept block for `project`: carries the verbatim no-primary-source marker, and makes no claim that a named paywalled standard (PMBOK, PMI Lexicon, ISO 21500/21502, BABOK, ISO/IEC/IEEE 12207/29148) defines or requires anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim at lines 26-27 in the required STYLE.md sec.8 wording. The block names no standards body anywhere. The one mechanism paragraph is hedged in-sentence (\"In most descriptions of the practice a project is authorised by a sponsor...\") and the project-vs-operations examples are marked \"typically classed as\". Definition (temporary effort, defined start/end/objective; opposite is operations; programme and portfolio as containers) is generic consensus vocabulary, asserted on nobody's authority.",
+    "source": "study-guide/STYLE.md sec.8 (required marker wording); data/sourcing-waivers.json (concept is on the waived list)"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "pm.project-management.triple-constraint",
+    "claim": "Waived-concept block for `triple-constraint`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 53-54). No standard is named. The model is introduced as \"commonly drawn as a triangle and called the iron triangle\" and the mechanism as \"In the usual statement of the model\"; the Traps paragraph hedges the quality-as-fourth-lever point with \"is generally presented as\". Crucially it does not say PMBOK defines a triple constraint - which matters, because the PMBOK Guide has not used that framing as a defined term in recent editions, so an unhedged attribution would have been both unsourceable and probably false.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 49-88"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "pm.project-management.stakeholder",
+    "claim": "Waived-concept block for `stakeholder`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 94-95). The definition (\"anyone affected by the project or able to affect it\") is stated on its own account, not attributed to the PMI Lexicon or ISO 21500, which is the correct register given no citable source exists. Process claims are hedged: \"Stakeholders are typically identified at the start\".",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 90-115"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "pm.project-management.deliverable-and-milestone",
+    "claim": "Waived-concept block for `deliverable-and-milestone`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 121-122). The load-bearing claim - a milestone has zero duration - is hedged as a convention in every place it appears: \"typically carrying zero duration\" (What it is), \"in most scheduling conventions\" (Traps), \"A milestone conventionally has zero duration\" (knowledge check 2). No standard is invoked. The comparison table it owns with triple-constraint likewise attributes nothing.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 117-170"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "pm.project-management.software-development-lifecycle",
+    "claim": "Waived-concept block for `software-development-lifecycle`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 176-177). This is the concept most at risk of an invented citation, because ISO/IEC/IEEE 12207 is the obvious authority for lifecycle processes and is paywalled - the prose never mentions it. The phase list is given as the guide's own summary and the mechanism is hedged (\"In most descriptions the phases feed one another\"). The maintenance-cost claim is hedged with \"typically\" (see CL-023).",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 172-196"
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "pm.project-management.gantt-chart",
+    "claim": "Waived-concept Quick reference row for `gantt-chart`: marker present inside the row, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The row's fourth cell opens with the verbatim marker sentence, which is the only place a depth-1 concept can carry it (STYLE.md sec.5 puts a depth-1 concept's whole definition site in one table row). No standards body is named; the discrimination against the work breakdown structure is stated on the guide's own account. Separately refuted claim about dependencies recorded as CL-025.",
+    "source": "study-guide/STYLE.md sec.1 (Quick reference row) and sec.8; internal reading of line 870"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "pm.project-management.critical-path",
+    "claim": "Waived-concept Quick reference row for `critical-path`: marker present, no named-standard authority claim, and the definition given (longest chain of dependent tasks; its length sets the earliest possible finish; \"critical\" means longest-duration and zero-float, not most important) is not overstated.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim inside the row's fourth cell. No standard named. The contestable part of the classical definition - that critical-path activities have zero float, which stops being true when an imposed finish date gives the chain positive or negative float - is already hedged as \"generally taken to mean\", and the consequence claim is hedged as \"shortening a task that is not on the critical path typically buys no time at all\". That is the strongest form the project can support without a citable scheduling standard.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of line 871"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "pm.project-management.work-breakdown-structure",
+    "claim": "Waived-concept block for `work-breakdown-structure`: marker present, no named-standard authority claim - in particular the hundred percent rule is not attributed to PMI's Practice Standard for Work Breakdown Structures.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 817-818). The hundred percent rule, whose only authoritative statement is in a paywalled PMI practice standard, is introduced as \"commonly stated as the hundred percent rule\" after the property has been described in the guide's own words - consensus register, no invented citation. The rest is hedged (\"In the usual account the top node is...\").",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 813-864"
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "pm.project-management.waterfall",
+    "claim": "Waived-concept block for `waterfall`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 240-241). No standard, and notably no appeal to Royce's 1970 paper or to any lifecycle standard as defining waterfall. Mechanism hedged (\"In the usual account, each phase ends in an approved artefact\"), and consequences hedged (\"working software typically appears only once and late\", \"is commonly not discovered until the test phase\").",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 236-276"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "pm.project-management.user-story",
+    "claim": "Waived-concept block for `user-story`: marker present, no named-standard authority claim; and its one attributed claim - that Scrum does not require user stories and leaves Product Backlog item format open - is about a free primary source and is accurate.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 601-602). The three-clause template is given as \"conventionally\", not attributed to BABOK or any standard. The single sourced-sounding sentence points at the Scrum Guide, which is free and citable, and it is correct: a full-text search of the November 2020 Scrum Guide returns zero occurrences of \"user story\" or \"story point\", and the Product Backlog section prescribes no item format, describing only that items \"that can be Done by the Scrum Team within one Sprint are deemed ready for selection in a Sprint Planning event\".",
+    "source": "https://scrumguides.org/scrum-guide.html (November 2020; fetched and searched 2026-08-11 - zero hits for \"user stor\", \"story point\")"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "pm.project-management.minimum-viable-product",
+    "claim": "Waived-concept block for `minimum-viable-product`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 725-726). No standard invoked, and no claim that any named book or author defines MVP - the definition (smallest release delivering real value while producing learning; minimises scope, not quality) is stated as the guide's own consensus reading, and the prototype/proof-of-concept contrast is hedged with \"typically\" and \"usually\".",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 721-746"
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "pm.project-management.risk-management",
+    "claim": "Waived-concept block for `risk-management`: marker present, no named-standard authority claim - the four-activity cycle and the avoid/mitigate/transfer/accept response set are not attributed to PMBOK or ISO 31000.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 911-912). Both structures that would normally be cited to a paywalled source are given on the guide's own account and the response list is explicitly hedged as one common grouping (\"Responses are usually grouped into a small set of options\"), which is the right register: PMBOK's own threat-response list differs (it adds escalate), so an unhedged attribution would have been refutable as well as unsourceable. Register practice hedged with \"In common practice\".",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 907-934"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "pm.project-management.scope-creep",
+    "claim": "Waived-concept block for `scope-creep`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 940-941). No standard named. The mechanism is hedged (\"The usual mechanism is informal agreement\") and the definition turns on the absence of control rather than on any body's wording. The one superlative in the block is attributed rather than asserted (see CL-021).",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 936-972"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "pm.project-management.change-control",
+    "claim": "Waived-concept block for `change-control`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 980-981). The process description is hedged in-sentence (\"In most implementations of this practice a change request is written down...\"), and the change control board appears as something found \"on larger efforts\" rather than as a body any standard mandates. The Traps paragraph distinguishing a change advisory board in an operations context makes no claim about what ITIL says either.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 976-1030"
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "pm.project-management.raci",
+    "claim": "Waived-concept Quick reference row for `raci`: marker present, no named-standard authority claim, and the one-Accountable-per-activity rule is hedged.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim inside the row's fourth cell (line 1176). The examinable rule is written as \"exactly one person is conventionally Accountable per activity while several may be Responsible\" - a convention claim, not an assertion that a responsibility-assignment standard requires it. Knowledge check 4 repeats it with the same hedge (\"Conventionally exactly one is Accountable\"), so the hedging is consistent rather than bolted on in one place.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 1176 and 1207-1210"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "pm.project-management.issue-tracking",
+    "claim": "Waived-concept block for `issue-tracking`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 1036-1037). No standard invoked; no tool named as authoritative. Mechanism hedged (\"In common practice each item carries a unique identifier...\"). The risk-versus-issue discrimination is consistent with the same distinction drawn in the risk-management block, so the file does not contradict itself across the two waived concepts.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 1032-1056"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "pm.project-management.project-budget-and-resource-management",
+    "claim": "Waived-concept block for `project-budget-and-resource-management`: marker present, no named-standard authority claim - in particular no earned-value formula or PMBOK cost-control terminology is asserted.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 1062-1063). The block stops at variance and forecast-at-completion as plain-language ideas and never states an earned-value formula or claims a standard defines one, which is the correct restraint given the only authoritative source is paywalled. Mechanism hedged (\"In common practice the budget is baselined alongside the schedule\"), and the added-people claim is hedged with \"typically\" (see CL-024).",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 1058-1086"
+  },
+  {
+    "claim_id": "CL-018",
+    "concept_id": "pm.project-management.communication-plan",
+    "claim": "Waived-concept block for `communication-plan`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 1092-1093). No standard named and no survey cited as authority. Mechanism hedged (\"In most descriptions of the practice each stakeholder group is mapped to a content level...\"). The block's one quantitative-sounding assertion is attributed rather than stated (see CL-022).",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 1088-1112"
+  },
+  {
+    "claim_id": "CL-019",
+    "concept_id": "pm.project-management.project-closure-and-lessons-learned",
+    "claim": "Waived-concept block for `project-closure-and-lessons-learned`: marker present, no named-standard authority claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim (lines 1118-1119). No process group or standard is invoked for closure. Mechanism hedged (\"In common practice acceptance is confirmed against the same criteria...\"). Its comparison table against Scrum ceremonies quotes only figures that come from the free Scrum Guide (Retrospective at most three hours, Review at most four, for a one-month Sprint), both of which I verified against the Guide text, so the waived side of the table borrows no unsourceable authority.",
+    "source": "https://scrumguides.org/scrum-guide.html (Sprint Review \"timeboxed to a maximum of four hours for a one-month Sprint\"; Sprint Retrospective \"timeboxed to a maximum of three hours for a one-month Sprint\")"
+  },
+  {
+    "claim_id": "CL-020",
+    "concept_id": "pm.project-management.stakeholder",
+    "claim": "\"Missing a stakeholder is commonly described as a leading cause of late-surfacing requirements.\"",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Adversarially, the underlying empirical claim has no source this project can reach - the surveys usually cited for it are PMI's, which are behind pmi.org's fetch refusal. But the sentence does not assert the empirical fact; it asserts that the claim is commonly made, which is the weakest defensible form and is hedged in-sentence rather than by the block-level disclaimer. Passes the brief's test: no named standard, no invented authority.",
+    "source": "study-guide/STYLE.md sec.8 (hedging requirement); data/sourcing-waivers.json reason field (pmi.org and gao.gov refuse automated fetches)"
+  },
+  {
+    "claim_id": "CL-021",
+    "concept_id": "pm.project-management.scope-creep",
+    "claim": "Scope creep \"is usually described as the most common way projects fail\".",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is the strongest superlative in the waived set and I looked hard at it. It survives only because it is a claim about what is usually said, not a claim about failure statistics - had it read \"scope creep is the most common cause of project failure\" it would have been an unsourceable assertion and I would have weakened it. As written the hedge is inside the sentence, not a disclaimer bolted onto an unhedged assertion, so it meets the brief's standard. Flagged here so a later cycle does not harden it.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 943-947"
+  },
+  {
+    "claim_id": "CL-022",
+    "concept_id": "pm.project-management.communication-plan",
+    "claim": "\"Communication failures are commonly described as the largest single source of project trouble.\"",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Same shape as CL-021 and the same verdict for the same reason. The figure behind this folklore is PMI Pulse of the Profession material, which the project cannot fetch or cite; the prose therefore claims only that the description is common. In-sentence hedge, no standard named, no number quoted. Flagged so it is not later rewritten as a statistic.",
+    "source": "data/sourcing-waivers.json reason field; internal reading of lines 1099-1104"
+  },
+  {
+    "claim_id": "CL-023",
+    "concept_id": "pm.project-management.software-development-lifecycle",
+    "claim": "Maintenance \"typically consumes the largest share of a system's total lifetime cost\".",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "An empirical claim with no primary source inside this project, but hedged with \"typically\" and stated as a share rather than a percentage - no number is quoted that could be wrong. It is also the consensus finding in the software-engineering literature rather than a contrarian assertion, and it is used only to justify treating maintenance as a phase in its own right, which does not depend on the size of the share.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 190-194"
+  },
+  {
+    "claim_id": "CL-024",
+    "concept_id": "pm.project-management.project-budget-and-resource-management",
+    "claim": "Adding people to work that is already behind \"typically slows it in the short term\" (also asserted in the triple-constraint block and in knowledge check 6).",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is Brooks's law, whose source (The Mythical Man-Month) is a copyrighted book rather than a paywalled standard, and the prose neither names it nor cites it - it states the mechanism (existing staff spend time onboarding newcomers) and hedges the conclusion with \"typically\" in all three places it appears. Consistent across the file, so no reader meets a hard version and a hedged version of the same claim.",
+    "source": "study-guide/STYLE.md sec.8; internal reading of lines 71-73, 1071-1075, 1214-1217"
+  },
+  {
+    "claim_id": "CL-025",
+    "concept_id": "pm.project-management.gantt-chart",
+    "claim": "A Gantt chart is \"a bar chart of tasks plotted against a time axis, showing each task's duration and its dependencies\".",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "Stated unhedged, this is the one claim in the waived set that is contestable on the merits rather than merely uncitable. Dependency links are not intrinsic to a Gantt chart - the original form is a bar chart of durations against time, and dependency arrows are an addition made by modern scheduling tools; classical treatments put dependencies in the network diagram, not the bar chart, which is why the file's own knowledge check has to write \"the Gantt chart (or a network diagram)\". Since the authoritative definition is paywalled, I could not establish a citable correct wording, so per the brief I weakened the prose rather than leaving an unhedged assertion: the row now reads \"showing each task's duration and, as the chart is typically drawn today, its dependencies\". The time axis - the actual discriminator against the work breakdown structure, and what the comparison table and knowledge check hang on - is untouched.",
+    "source": "No primary source available (the authoritative definition is in paywalled PMI material, per data/sourcing-waivers.json); correction is a weakening to what the project can support, not a substitution of a different fact"
+  }
+]

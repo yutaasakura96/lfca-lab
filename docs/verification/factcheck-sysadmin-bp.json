@@ -1,0 +1,164 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "sysadmin.best-practices.naming-conventions",
+    "claim": "The block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Lines 149-150 of study-guide/02-system-administration/best-practices.md carry the sentence exactly as STYLE.md section 8 prescribes, opening 'No primary documentation source.' and closing 'Treat the following as consensus practice, not citable fact.'; `npm run check-guide --scope 'System Administration Fundamentals :: Best Practices'` reports 0 errors, so the mechanical marker check also passes.",
+    "source": "study-guide/STYLE.md section 8; tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "sysadmin.best-practices.naming-conventions",
+    "claim": "No sentence in the block asserts that a named standard (PMBOK, PMI Lexicon, BABOK, ISO 21500/21502, ISO/IEC/IEEE 12207 or 29148, or any other paywalled reference) defines, requires, mandates or specifies anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Read every sentence of the block adversarially. It names no standard, no body, and no publication. The load-bearing statements are hedged as consensus ('can typically be inferred', 'In most implementations of this practice', 'A convention typically fixes'), and the two unhedged sentences ('The convention encodes information; it does not store it'; 'a hostname is a string that someone typed') are conceptual or logical rather than empirical claims requiring a citation.",
+    "source": "Direct reading of study-guide/02-system-administration/best-practices.md lines 145-169 against the waiver list in data/sourcing-waivers.json"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+    "claim": "The block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Lines 175-176 carry the sentence unshortened and unsplit, matching STYLE.md section 8 literally; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md section 8; tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+    "claim": "No sentence in the block attributes a definition or requirement to a named standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "No standard, body, or publication is named anywhere in the block. The definition of idempotency given ('running it a second time produces the same end state as the first and makes no further change') is the ordinary computing sense of the word and is not presented as any organisation's definition, so it does not manufacture authority.",
+    "source": "Direct reading of study-guide/02-system-administration/best-practices.md lines 171-223"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+    "claim": "\"A configuration-management tool invoking a raw shell command is exactly as idempotent as that command, which is usually not at all.\"",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "The 'exactly as' is false in the common guarded case: a configuration-management task that runs a non-idempotent command but is gated by a condition that skips it when the work is already done (an Ansible `creates`/`removes` guard, a `when` conditional, or the equivalent in another tool) is idempotent as a task even though the command it runs is not. The intended point — idempotency is a property of the operation, not conferred by the tool — survives, but the absolute form overstates it, and it is stated flatly inside a block whose every claim is supposed to be hedged. Rewritten to 'typically no more idempotent than that command itself, unless the task is explicitly guarded by a condition that skips it once the work is already done.'",
+    "source": "No primary source is citable for this waived concept; the refutation rests on the counterexample of a guarded task, which the original absolute wording excludes by construction. Correction is stated as a hedged generalisation, per study-guide/STYLE.md section 8."
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "sysadmin.best-practices.capacity-planning",
+    "claim": "The block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Lines 366-367 carry the sentence exactly as prescribed; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md section 8; tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "sysadmin.best-practices.capacity-planning",
+    "claim": "No sentence in the block attributes a definition or requirement to a named standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The block names no standard or publication. Its empirical claims are hedged as consensus ('In most descriptions of this practice, the deliverable is a date', 'Typically the two are complementary'), and the monitoring-versus-planning discrimination is argued from the 85%-disk example rather than asserted on anyone's authority.",
+    "source": "Direct reading of study-guide/02-system-administration/best-practices.md lines 362-388"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "sysadmin.best-practices.capacity-planning",
+    "claim": "\"Capacity is the one class of failure that announces itself in advance and is still routinely missed.\"",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "The superlative 'the one class' is false and unsupportable. Several other failure classes announce themselves in advance on a schedule and are routinely missed anyway — TLS and code-signing certificate expiry, support/end-of-life dates on an OS release, licence expiry, and SMART-reported drive degradation are all standing counterexamples, and this guide itself treats certificate expiry as a known operational failure elsewhere. Weakened to 'one of the few classes of failure that announce themselves well in advance and are still routinely missed', which is what the surrounding argument actually needs.",
+    "source": "No primary source is citable for this waived concept; the refutation is by counterexample (certificate expiry, end-of-life dates, licence expiry), which is sufficient to defeat a universal claim."
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "sysadmin.best-practices.separation-of-duties",
+    "claim": "The block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Lines 418-419 carry the sentence exactly as prescribed; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md section 8; tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "sysadmin.best-practices.separation-of-duties",
+    "claim": "No sentence in the block attributes a definition or requirement to a named standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "No standard is named. 'Four-eyes principle' appears only in Key terms as a common name for the practice, not as a citation. The least-privilege-versus-separation-of-duties discrimination is argued conceptually and attributed to nobody.",
+    "source": "Direct reading of study-guide/02-system-administration/best-practices.md lines 414-441"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "sysadmin.best-practices.separation-of-duties",
+    "claim": "\"It defends against two things at once, which is typically why it survives cost-cutting.\"",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "This is an empirical claim about organisational behaviour under budget pressure — that dual benefit is the reason the control is retained when costs are cut. Nothing in the project's sources supports it, no survey or standard is cited, and it is not the kind of claim a hedge can rescue because there is no body of practice describing it. Separation of duties in fact frequently does not survive headcount reduction in small teams. Replaced with the defensible version of the same rhetorical move: 'which is typically the argument made for the friction it adds'.",
+    "source": "No primary source is citable for this waived concept, and none exists in data/sources.json for organisational cost-cutting behaviour; the claim was removed rather than left as invented empirical authority."
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding",
+    "claim": "The block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Lines 535-536 carry the sentence exactly as prescribed; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md section 8; tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding",
+    "claim": "No sentence in the block attributes a definition or requirement to a named standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "No standard or publication is named. The procedural claims are hedged as consensus ('The practice usually starts from', 'in most accounts of this practice', 'commonly neglected', 'rarely removed'), and the least-privilege boundary is drawn conceptually rather than cited.",
+    "source": "Direct reading of study-guide/02-system-administration/best-practices.md lines 531-561"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding",
+    "claim": "\"SSH public keys already installed on hosts ... typically survive the deletion of a Unix account untouched.\"",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "Wrong verb, and the error is substantive rather than stylistic. Deleting a Unix account with `userdel -r` removes the home directory and with it ~/.ssh/authorized_keys, and even without -r the account no longer exists for sshd to authenticate, so an installed key on that host does not 'survive untouched'. The true and examinable claim — the one the paragraph's own lead-in makes ('disabling the login account is not revoking access') and the one knowledge check 5 states correctly ('survive account disablement') — is about disabling: locking the password leaves public-key authentication working. Corrected to 'survive the disabling of a Unix login account untouched, and everything held outside that account survives its deletion as well', which is true of both halves of the list.",
+    "source": "shadow(5) and passwd(1) password locking versus sshd(8) publickey authentication (a locked password hash is not consulted by publickey auth); userdel(8) -r removes the home directory. No primary source is citable for the waived concept itself, so the correction is confined to what the utility manual pages support."
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "sysadmin.best-practices.principle-of-least-astonishment",
+    "claim": "The depth-1 Quick reference row carries the required no-primary-source marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The row's fourth cell carries the marker sentence in full, opening and closing clauses intact, which is the only place a depth-1 concept can carry it since its single definition site is one table row; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md sections 8 and 1 (Quick reference glossary row); tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "sysadmin.best-practices.principle-of-least-astonishment",
+    "claim": "The row makes no claim that a named standard defines or requires the principle.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The row states what the principle argues for (conventional defaults over clever ones) and explicitly calls it 'a design preference rather than an enforceable control' — the opposite of asserting standards authority. No body or publication is named.",
+    "source": "Direct reading of the Quick reference row in study-guide/02-system-administration/best-practices.md"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "sysadmin.best-practices.service-ownership",
+    "claim": "The depth-1 Quick reference row carries the required no-primary-source marker.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The row's fourth cell carries the marker sentence in full, opening and closing clauses intact; check-guide reports 0 errors for this scope.",
+    "source": "study-guide/STYLE.md sections 8 and 1 (Quick reference glossary row); tools/check-guide.mjs"
+  },
+  {
+    "claim_id": "CL-018",
+    "concept_id": "sysadmin.best-practices.service-ownership",
+    "claim": "The row makes no claim that a named standard defines or requires service ownership.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The row distinguishes owner from on-call responder from asset record. No standard, framework, or publication is named, and nothing is said to be mandated by one.",
+    "source": "Direct reading of the Quick reference row in study-guide/02-system-administration/best-practices.md"
+  }
+]

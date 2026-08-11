@@ -1,0 +1,164 @@
+[
+  {
+    "claim_id": "cmd-01",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "`curl -X <method>` sets the method word used in the HTTP request (Commands table, Command and Key options cells).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The man page on this machine documents `-X, --request <method>` as \"Change the method to use when starting the transfer\" and, for HTTP, \"Specifies a custom request method to use when communicating with the HTTP server. The specified request method is used instead of the method otherwise used (which defaults to GET).\" Short and long forms are correctly paired as -X / --request. Verified empirically: `curl -w '%{method}' -X DELETE ...` reported method DELETE.",
+    "source": "man curl (curl 8.7.1, x86_64-apple-darwin25.0), section -X, --request"
+  },
+  {
+    "claim_id": "cmd-02",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "Common mistake cell: expecting `-X` to change behaviour — it only changes the method word.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Man page, verbatim: \"This option only changes the actual word used in the HTTP request, it does not alter the way curl behaves.\"",
+    "source": "man curl (8.7.1), -X, --request"
+  },
+  {
+    "claim_id": "cmd-03",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "`-X HEAD` does not make a proper HEAD request; `-I` does (Commands table and Knowledge check 5).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Man page, verbatim: \"So for example if you want to make a proper HEAD request, using -X HEAD does not suffice. You need to use the -I, --head option.\" Knowledge check 5 also states the short/long pairing `-I, --head`, which matches the man page's option header exactly.",
+    "source": "man curl (8.7.1), -X, --request and -I, --head"
+  },
+  {
+    "claim_id": "cmd-04",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "The method set with `-X` is reused on redirects followed with `-L`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Man page, verbatim: \"The method string you set with -X, --request is used for all requests, which if you for example use -L, --location may cause unintended side-effects when curl does not change request method according to the HTTP 30x response codes.\" The -L entry states the same from the other side: \"The method set with -X, --request overrides the method curl would otherwise select to use.\"",
+    "source": "man curl (8.7.1), -X, --request and -L, --location"
+  },
+  {
+    "claim_id": "cmd-05",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "Worked example `curl -X DELETE https://example.com/orders/42` sends an HTTP request with an explicitly chosen method.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Run empirically: the request was issued with method DELETE (curl -w '%{method}' reported DELETE) and the origin answered 405, i.e. the method word was genuinely sent and understood by the server. The example is syntactically valid and does what the Purpose cell says.",
+    "source": "empirical run of curl 8.7.1 against https://example.com/orders/42; man curl -X, --request"
+  },
+  {
+    "claim_id": "cmd-06",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "`curl -i` shows the response headers, including the status line, along with the body; `-i` is the include-response-headers option.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Man page: \"-i, --include (HTTP FTP) Include response headers in the output.\" Verified empirically: `curl -i https://example.com` printed \"HTTP/2 200\" and the header block ahead of the body.",
+    "source": "man curl (8.7.1), -i, --include; empirical run"
+  },
+  {
+    "claim_id": "cmd-07",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "`-I` fetches the headers only, by issuing a HEAD request.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Man page: \"-I, --head (HTTP FTP FILE) Fetch the headers only! HTTP-servers feature the command HEAD which this uses to get nothing but the header of a document.\" Verified empirically: `curl -I https://example.com` returned the status line and headers with no body.",
+    "source": "man curl (8.7.1), -I, --head; empirical run"
+  },
+  {
+    "claim_id": "cmd-08",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "Worked example `curl -i https://example.com` produces the described output (headers plus body).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "This is the exact example the curl man page itself gives under -i, --include, and running it returned the HTTP/2 200 status line, the header block, and the page body.",
+    "source": "man curl (8.7.1), -i, --include example; empirical run"
+  },
+  {
+    "claim_id": "cmd-09",
+    "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+    "claim": "Common mistake cell: `-i` adds headers to the normal response while `-I` issues a HEAD request and returns headers only — the two are distinct options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Both options are separately documented with the stated meanings, and the empirical runs differ exactly as described: -i returned headers plus the HTML body, -I returned headers alone. No claim of universality beyond curl itself is made, and both options have been in curl since long before 8.x, so the claim holds across the curl builds a candidate would meet.",
+    "source": "man curl (8.7.1), -i, --include and -I, --head; empirical runs"
+  },
+  {
+    "claim_id": "wv-01",
+    "concept_id": "pm.software-application-architecture.client-server-model",
+    "claim": "Waived block carries the no-primary-source marker and makes no claim about what a named standard says.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker sentence appears verbatim, unsplit, directly under the metadata line. No standard, body, or specification is named anywhere in the block. Every substantive statement is hedged as description of practice (\"usually described as roles\", \"In the common description\", \"does not normally call the client back\", \"The usual contrast is peer-to-peer\"). Nothing here needs a citable source it does not have. Separately recorded as a dataset problem: the waiver itself is questionable, since RFC 9110 section 3.3 states the roles-not-machines point directly.",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json; file inspection"
+  },
+  {
+    "claim_id": "wv-02",
+    "concept_id": "pm.software-application-architecture.three-tier-architecture",
+    "claim": "Waived block carries the marker and asserts nothing on the authority of a named standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No standard is named. The tier definitions, the n-tier and two-tier remarks, and the load-balancer trap are all framed as description (\"In the usual description\", \"commonly\", \"typically described as infrastructure\"). The unhedged sentences that remain are definitional negations (\"a tier is not a server\") rather than authority claims, which is what the competency is actually testing.",
+    "source": "study-guide/STYLE.md section 8; file inspection"
+  },
+  {
+    "claim_id": "wv-03",
+    "concept_id": "pm.software-application-architecture.monolithic-architecture",
+    "claim": "Waived block carries the marker and makes no named-standard claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No standard named. Operational claims are hedged (\"is typically run by\", \"The costs are usually described as\"). The defining criterion given (shared release unit) is stated as the concept's own definition, not as something a specification requires.",
+    "source": "study-guide/STYLE.md section 8; file inspection"
+  },
+  {
+    "claim_id": "wv-04",
+    "concept_id": "pm.software-application-architecture.microservices",
+    "claim": "Waived block carries the marker and its claims are hedged as consensus, not sourced authority.",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "The marker is present and no paywalled standard is named, but the What it is paragraph then said the treatment should be taken as \"independently sourced consensus\" — which directly contradicts the marker three lines above it, since the concept has no independent source at all. That is exactly the shape the pass is looking for: a hedge sentence bolted on above an assertion of sourcing underneath. Corrected to state that nothing in the block is drawn from the course, which is the supportable claim (LFS200 coverage is MENTIONED ONLY, lesson ch11.l3).",
+    "source": "data/sourcing-waivers.json; data/topics/06-it-project-management.json (coverage_status MENTIONED ONLY, lfs200_sources ch11.l3); research/lfs200-map.md"
+  },
+  {
+    "claim_id": "wv-05",
+    "concept_id": "pm.software-application-architecture.web-server-vs-application-server",
+    "claim": "Waived block carries the marker and makes no named-standard claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No standard named. Product examples are hedged (\"are commonly described in the first role\"), and the port/TLS/reverse-proxy arrangement is introduced as \"The usual arrangement\". The section Scenario's one hard claim — that 502 is what a gateway or proxy returns on an invalid response from behind it — is not a waived-concept claim and is independently supported by RFC 9110 section 15.6.3, which I checked.",
+    "source": "study-guide/STYLE.md section 8; RFC 9110 section 15.6.3"
+  },
+  {
+    "claim_id": "wv-06",
+    "concept_id": "pm.software-application-architecture.nosql-database",
+    "claim": "Waived block carries the marker; its claims, including the claim about what the dataset flags, are supportable.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No standard named. Family descriptions and behaviour claims are hedged (\"usually listed\", \"In most of these products\", \"typically absent\", \"usually a design goal\"). The prose sentence \"The dataset flags this comparison as one where choosing between the two for a stated scenario is likely\" was checked against the concept's notes field, which reads \"A named comparison; choosing between them for a scenario is likely.\" — accurate.",
+    "source": "data/topics/06-it-project-management.json, notes for pm.software-application-architecture.nosql-database"
+  },
+  {
+    "claim_id": "wv-07",
+    "concept_id": "pm.software-application-architecture.sql-basics",
+    "claim": "Quick reference row carries the marker and its examinability cell is correct: \"SELECT is the only one of the five that changes nothing.\"",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "The marker is present and no standard is named, but the counting claim was false on its own terms. The row's own sentence names five things — SELECT, INSERT, UPDATE, DELETE and JOIN — and two of them change nothing: SELECT and JOIN. JOIN is not a data-modifying statement at all; in SQL it is a clause written inside a query (PostgreSQL documents joined tables as part of the FROM clause of SELECT, not as a statement). Rewritten to compare the four statements and to say explicitly that JOIN is a clause inside a query rather than a statement of its own, which also matches Knowledge check 5, which already asked only about SELECT/INSERT/UPDATE/DELETE.",
+    "source": "PostgreSQL 18 documentation, 7.2.1.1 Joined Tables (joins are part of the FROM clause of SELECT) — https://www.postgresql.org/docs/current/queries-table-expressions.html"
+  },
+  {
+    "claim_id": "wv-08",
+    "concept_id": "pm.software-application-architecture.message-queue",
+    "claim": "Quick reference row carries the marker and hedges its behavioural claims.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker appears verbatim and unsplit in the row's fourth cell, and the claims that follow it are hedged (\"the producer typically gets no answer back\", \"messages are normally consumed and removed rather than queried like a database\"). No standard, product, or specification is named. The definition cell is a plain statement of what the term means rather than an appeal to authority.",
+    "source": "study-guide/STYLE.md section 8; file inspection"
+  },
+  {
+    "claim_id": "wv-09",
+    "concept_id": "pm.software-application-architecture.caching-in-applications",
+    "claim": "Waived block carries the marker and makes no named-standard claim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Marker present verbatim. No standard named. The expendability property is attributed to descriptions rather than asserted (\"The defining property in most descriptions\"), and retirement mechanisms and cache layers are hedged (\"usually retired by\", \"The layers commonly named are\"). Nothing in the block asserts what any specification defines or requires.",
+    "source": "study-guide/STYLE.md section 8; file inspection"
+  }
+]

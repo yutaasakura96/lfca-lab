@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "id": "fx-source",
+      "title": "Fixture Source",
+      "url": "https://example.invalid/",
+      "organization": "Fixture",
+      "published": "2025-01",
+      "updated": null,
+      "accessed": "2026-08-10",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": ""
+    }
+  ]
+}

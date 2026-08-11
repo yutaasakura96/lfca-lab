@@ -1,0 +1,137 @@
+[
+  {
+    "claim_id": "devops-basics-cmd-01",
+    "concept_id": "devops.devops-basics.artifact-registry",
+    "claim": "`docker pull` fetches an image from the configured registry.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The dataset records commands: [] for every one of the 25 concepts in this competency, so this is a prose-only command string, checked anyway. Docker's own overview states the behaviour in the same terms the prose uses: pull retrieves from the configured registry, and Docker Hub is where it looks by default.",
+    "source": "https://docs.docker.com/get-started/docker-overview/ — \"When you use the docker pull or docker run commands, Docker pulls the required images from your configured registry.\""
+  },
+  {
+    "claim_id": "devops-basics-cmd-02",
+    "concept_id": "devops.devops-basics.artifact-registry",
+    "claim": "`docker run` fetches an image from the configured registry (when it is not present locally).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Same primary sentence covers docker run alongside docker pull. The overview's worked example also states that if the image is not local, Docker pulls it from the configured registry as though docker pull had been run manually, which is exactly the qualification the prose implies.",
+    "source": "https://docs.docker.com/get-started/docker-overview/ — \"When you use the docker pull or docker run commands, Docker pulls the required images from your configured registry\"; \"If you don't have the ubuntu image locally, Docker pulls it from your configured registry, as though you had run docker pull ubuntu manually.\""
+  },
+  {
+    "claim_id": "devops-basics-cmd-03",
+    "concept_id": "devops.devops-basics.artifact-registry",
+    "claim": "`docker push` sends an image to the configured registry.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Stated verbatim in Docker's overview page. Direction (push sends, pull fetches) is correct as written in the prose.",
+    "source": "https://docs.docker.com/get-started/docker-overview/ — \"When you use the docker push command, Docker pushes your image to your configured registry.\""
+  },
+  {
+    "claim_id": "devops-basics-cmd-04",
+    "concept_id": "devops.devops-basics.rolling-deployment",
+    "claim": "`kubectl rollout undo` restores a previous revision of a Kubernetes Deployment from its retained history.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The Kubernetes Deployment doc shows `kubectl rollout undo deployment/nginx-deployment` rolling back to the previous revision, and `--to-revision` for a specific one. The prose's dependency on retained history is also correct: revision history lives in the old ReplicaSets and deleting one loses the ability to roll back to it. The same command string is repeated in the rollback concept and is correct there too.",
+    "source": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ — \"kubectl rollout undo deployment/nginx-deployment\" ... \"once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.\""
+  },
+  {
+    "claim_id": "devops-basics-cmd-05",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "`apt` is an operating-system package manager, distinct from a language package manager, installing system-wide software.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "apt is Debian/Ubuntu's system package management command-line interface; it installs packages into system paths and requires root. The prose names it only as an example of the OS-level category and hedges the distinction with \"typically\", which is accurate.",
+    "source": "https://manpages.debian.org/stable/apt/apt.8.en.html — apt is described as the command-line interface for the package management system."
+  },
+  {
+    "claim_id": "devops-basics-cmd-06",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "`dnf` is an operating-system package manager, distinct from a language package manager, installing system-wide software.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "dnf is the Fedora/RHEL-family system package manager, the successor to yum, and installs RPM packages system-wide. As with apt, the prose only uses it as a category example.",
+    "source": "https://dnf.readthedocs.io/en/latest/command_ref.html — DNF is documented as the package manager for RPM-based distributions."
+  },
+  {
+    "claim_id": "devops-basics-waiver-01",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "The waived concept's block carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The block opens with the marker sentence exactly as STYLE.md section 8 mandates: \"*No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*\" It is not shortened, paraphrased, or split, and the metadata line correctly reads `sources: none`, matching the empty additional_sources array in data/topics/05-devops.json. `npm run check-guide --scope \"DevOps Fundamentals :: DevOps Basics\"` reports 0 errors.",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json (waived list contains devops.devops-basics.language-package-managers); data/topics/05-devops.json"
+  },
+  {
+    "claim_id": "devops-basics-waiver-02",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "The block asserts nothing about what any named paywalled standard defines, requires, mandates or specifies.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Adversarial sentence-by-sentence read of the whole block (What it is, Why it matters, How it works, Key terms, Traps, What the exam may test, and the Delivery-section knowledge-check item that draws on it). No standards body or standard is named anywhere: not PMBOK, the PMI Lexicon, BABOK, ISO 21500/21502, ISO/IEC/IEEE 12207 or 29148, nor any other. The only proper nouns are tool names (npm, pip, Maven, apt, dnf), each of which has its own free public documentation and none of which is presented as a standard defining anything.",
+    "source": "Direct reading of study-guide/05-devops/devops-basics.md lines 682-720 and 752-754; data/sourcing-waivers.json (the list of paywalled references it names)"
+  },
+  {
+    "claim_id": "devops-basics-waiver-03",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "npm, pip and Maven are language package managers that resolve and install application-level dependencies for one project in one language.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This is the one claim in the waived block that is checkable against free primary documentation, and it holds: npm is the JavaScript package manager, pip the Python package installer, Maven a Java build and dependency-management tool. No overreach: the prose says \"and their equivalents in other ecosystems\" rather than asserting a closed taxonomy.",
+    "source": "https://docs.npmjs.com/about-npm ; https://pip.pypa.io/en/stable/ ; https://maven.apache.org/what-is-maven.html"
+  },
+  {
+    "claim_id": "devops-basics-waiver-04",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "Language package managers are distinct from the OS package manager, which installs system-wide software for the machine as a whole.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Hedged with \"typically\", which is the right strength: the distinction is real and documented for apt and dnf, but there are genuine boundary cases (distro-packaged Python libraries, for instance) that an unhedged claim would misstate. The hedge covers them.",
+    "source": "https://manpages.debian.org/stable/apt/apt.8.en.html ; https://dnf.readthedocs.io/en/latest/command_ref.html"
+  },
+  {
+    "claim_id": "devops-basics-waiver-05",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "A project declares direct dependencies in a manifest and the tool records exact resolved versions in a lock file so a later install reproduces the same tree.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Adversarially, this is the claim most at risk in the block, because it is not universally true: Maven has no built-in lock file. The prose is explicitly scoped with \"In most implementations of this practice\", and the Traps paragraph then states outright that ecosystems differ in convention. That is hedging built into the assertion rather than a disclaimer bolted onto an unhedged one, so it stands. The mechanism itself is documented for npm's package-lock.json.",
+    "source": "https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json — the lock file describes the exact tree generated so subsequent installs generate identical trees."
+  },
+  {
+    "claim_id": "devops-basics-waiver-06",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "Installation targets a project-local directory or per-project virtual environment rather than system paths, which is why it usually does not require root.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Double-hedged (\"typically\", \"usually\"), which is necessary and sufficient: npm installs to node_modules by default, but a bare pip install outside a virtual environment does not target a project-local directory. The hedges make the sentence true as written, and the Traps paragraph explicitly disclaims the stronger reading.",
+    "source": "https://docs.npmjs.com/cli/v10/commands/npm-install ; https://docs.python.org/3/library/venv.html"
+  },
+  {
+    "claim_id": "devops-basics-waiver-07",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "Installing the same library through both an OS and a language package manager leaves two copies at different versions, and which one loads depends on search order.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Hedged with \"typically\" and stated as a failure mode rather than a rule. It is a consensus-practice observation of exactly the kind the waiver marker licenses, and it invokes no standard. The mechanism (module resolution by search path) is documented behaviour for the ecosystems named.",
+    "source": "https://docs.python.org/3/library/sys_path_init.html — module search order is determined by sys.path; no paywalled standard is invoked by the claim."
+  },
+  {
+    "claim_id": "devops-basics-waiver-08",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "\"pip always installs per project\" is not safe as a general rule; a system-wide install is possible in most ecosystems.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Correct, and it is the sentence that keeps the rest of the block honest. pip installs into the active environment, which without a virtual environment is the user or system site-packages, so the disclaimed generalisation is genuinely unsafe. Nothing here asserts a named standard.",
+    "source": "https://pip.pypa.io/en/stable/cli/pip_install/ — pip installs into the currently active environment; --user and system installs are both supported."
+  },
+  {
+    "claim_id": "devops-basics-waiver-09",
+    "concept_id": "devops.devops-basics.language-package-managers",
+    "claim": "Delivery-section knowledge check 5: a lock file gives the exact resolved versions of the full transitive dependency set so a later install reproduces the same tree.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "This answer sits outside the waived concept's own block (in the section knowledge check) and is stated without a hedge, so it was examined separately for invented authority. It names no standard, and the substance is documented directly by npm for package-lock.json, so an unhedged statement is defensible here in a way it would not be if it generalised across all ecosystems — as written it describes what a lock file does, not what every language package manager provides.",
+    "source": "https://docs.npmjs.com/cli/v10/configuring-npm/package-lock-json"
+  }
+]

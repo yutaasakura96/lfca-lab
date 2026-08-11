@@ -1,0 +1,731 @@
+[
+  {
+    "claim_id": "GC-001",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "`git init` creates an empty repository: a `.git` directory with subdirectories for objects, refs/heads and refs/tags, plus an initial branch that has no commits in it yet.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-init(1) DESCRIPTION: 'This command creates an empty Git repository - basically a .git directory with subdirectories for objects, refs/heads, refs/tags, and template files. An initial branch without any commits will be created'.",
+    "source": "git-init(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-002",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "`git init --bare` creates a repository with no working tree.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-init(1) OPTIONS: '--bare  Create a bare repository.' git-clone(1) --bare confirms a bare repository has nowhere to check out a working tree.",
+    "source": "git-init(1) / git-clone(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-003",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "`-b` and `--initial-branch=<name>` are the short and long forms of the same `git init` option, naming the first branch.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-init(1) SYNOPSIS shows '[-b <branch-name> | --initial-branch=<branch-name>]' and OPTIONS pairs them: 'Use <branch-name> for the initial branch in the newly created repository.'",
+    "source": "git-init(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-004",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "Re-running `git init` inside an existing repository is safe and does not overwrite what is already there.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-init(1): 'Running git init in an existing repository is safe. It will not overwrite things that are already there.'",
+    "source": "git-init(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-005",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "`git clone` creates a new directory, copies the source repository's history, creates remote-tracking branches for the source's branches, sets `remote.origin.url`, and checks out a starting branch.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-clone(1) DESCRIPTION: 'Clones a repository into a newly created directory, creates remote-tracking branches for each branch in the cloned repository ... and creates and checks out an initial branch'; and 'This default configuration is achieved by creating references to the remote branch heads under refs/remotes/origin and by initializing remote.origin.url and remote.origin.fetch'.",
+    "source": "git-clone(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-006",
+    "concept_id": "devops.git-concepts.repository",
+    "claim": "`git clone` key options `--branch <name>`, `--depth <n>`, `--single-branch`, `--bare` exist and mean what the table says.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-clone(1): '-b <name>, --branch <name>' points HEAD at that branch (checked out in a non-bare repo); '--depth <depth> Create a shallow clone with a history truncated to the specified number of commits'; '--[no-]single-branch' in SYNOPSIS; '--bare Make a bare Git repository'.",
+    "source": "git-clone(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-007",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git status` option `-b` means 'show branch'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "git-status(1): '-b, --branch  Show the branch and tracking info even in short-format.' The long format already prints the branch, so '-b show branch' misstates what the flag adds. Prose corrected to 'show branch and tracking info even in short format'.",
+    "source": "git-status(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-008",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git status` `-s` gives short format.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-status(1): '-s, --short  Give the output in the short-format.'",
+    "source": "git-status(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-009",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git status` reports the three states under the headings 'Changes to be committed', 'Changes not staged for commit' and 'Untracked files'.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Pro Git 2.2 shows all three headings in real git status output and names them in the surrounding prose ('under the “Changes to be committed” heading', 'a section named “Changes not staged for commit”', 'under the “Untracked files” heading').",
+    "source": "Pro Git 2.2, https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository"
+  },
+  {
+    "claim_id": "GC-010",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git add` `-A` stages all changes including deletions; `-u` restricts to paths already tracked; `-p` chooses hunk by hunk.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-add(1): '-A, --all ... This adds, modifies, and removes index entries to match the working tree'; '-u, --update  Update the index just where it already has an entry ... but adds no new files'; '-p, --patch  Interactively choose hunks of patch between the index and the work tree'.",
+    "source": "git-add(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-011",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git add` copies a file's content as it is at that instant, so edits made after `add` are not in the commit until the file is added again.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Pro Git 2.2: 'If you commit at this point, the version of the file at the time you ran git add is what will be in the subsequent historical snapshot', and the worked example shows the same file listed under both 'Changes to be committed' and 'Changes not staged for commit' after a post-add edit.",
+    "source": "Pro Git 2.2, https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository"
+  },
+  {
+    "claim_id": "GC-012",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git commit -a` auto-stages modifications and deletions of already-tracked files and never adds a new untracked file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-commit(1): '-a, --all  Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected.'",
+    "source": "git-commit(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-013",
+    "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository",
+    "claim": "`git add` on a path matched by `.gitignore` is refused rather than silently honoured when the path is named explicitly.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-add(1): 'The git add command will not add ignored files by default. If any ignored files were explicitly specified on the command line, git add will fail with a list of ignored files. Ignored files reached by directory recursion or filename globbing ... will be silently ignored', with '-f, --force  Allow adding otherwise ignored files.'",
+    "source": "git-add(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-014",
+    "concept_id": "devops.git-concepts.commit",
+    "claim": "Repeating `-m` on `git commit` produces extra paragraphs, and `-m` is mutually exclusive with `-c`, `-C` and `-F`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-commit(1): '-m <msg>, --message=<msg> ... If multiple -m options are given, their values are concatenated as separate paragraphs. The -m option is mutually exclusive with -c, -C, and -F.'",
+    "source": "git-commit(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-015",
+    "concept_id": "devops.git-concepts.commit",
+    "claim": "`git log` shows the commits reachable from HEAD, newest first, and defaults to HEAD when no revision range is given.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-log(1): 'output is given in reverse chronological order by default'; '<revision-range> ... When no <revision-range> is specified, it defaults to HEAD (i.e. the whole history leading to the current commit).'",
+    "source": "git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-016",
+    "concept_id": "devops.git-concepts.commit",
+    "claim": "`git log` options `--oneline`, `-p`, `-n <count>` exist with the stated meanings.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-log(1): '--oneline  This is a shorthand for --pretty=oneline --abbrev-commit used together'; '-<number>, -n <number>, --max-count=<number>  Limit the output to <number> commits'; '-p' generates patch text (GENERATING PATCH TEXT WITH -P).",
+    "source": "git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-017",
+    "concept_id": "devops.git-concepts.commit",
+    "claim": "A commit carries a link to its parent commit, 'two parents, for a merge commit'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "git-merge(1) NAME: 'Join two or more development histories together' — an octopus merge commit has three or more parents, so 'two parents, for a merge commit' states a universal that is not universal. Prose corrected to 'two parents for an ordinary merge commit, and more for an octopus merge'.",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-018",
+    "concept_id": "devops.git-concepts.commit",
+    "claim": "`git commit --amend` builds a replacement commit with a new hash, which is why amending something already pushed produces a rejected push.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1) NOTE ABOUT FAST-FORWARDS: 'After you push commit A yourself ... replace it with \"git commit --amend\" to produce commit B, and you try to push it out ... git push --force is a method reserved for a case where you do mean to lose history.'",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-019",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git branch <name>` creates the pointer at the current commit and does not switch to it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-switch(1) documents '-c <new-branch>' as the transactional equivalent of 'git branch <new-branch>' followed by 'git switch <new-branch>', i.e. branch alone does not move HEAD; git-branch(1) describes creation only.",
+    "source": "git-branch(1) / git-switch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-020",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git switch <name>` moves HEAD to that branch and updates the index and working tree; `-c <name>` creates and switches; `--detach` checks out a commit with no branch.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-switch(1) DESCRIPTION: 'Switch to a specified branch. The working tree and the index are updated to match the branch.' OPTIONS: '-c <new-branch>, --create'; '-d, --detach  Switch to a commit for inspection and discardable experiments.'",
+    "source": "git-switch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-021",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git checkout -b <name>` creates a branch and switches to it; `-B` creates it or resets it to the start point.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-checkout(1): '-b <new-branch>  Create a new branch named <new-branch>, start it at <start-point>, and check the resulting branch out'; '-B <new-branch>  Creates the branch <new-branch> ... if it already exists, then reset it to <start-point>.'",
+    "source": "git-checkout(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-022",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`switch` and `restore` were added in Git 2.23 specifically to split `checkout`'s two jobs.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Git 2.23.0 release notes: 'Two new commands \"git switch\" and \"git restore\" are introduced to split \"checking out a branch to work on advancing its history\" and \"checking out paths out of the index and/or a tree-ish\" ... out of the single \"git checkout\" command.'",
+    "source": "Documentation/RelNotes/2.23.0.adoc, https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.adoc"
+  },
+  {
+    "claim_id": "GC-023",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git branch` options `-a` local plus remote-tracking, `-r` remote-tracking only, `-d` delete if merged, `-D` delete regardless, `-m` rename.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-branch(1): '-a, --all  List both remote-tracking branches and local branches'; '-r, --remotes'; '-d, --delete  Delete a branch. The branch must be fully merged'; '-D  Shortcut for --delete --force'; '-m, --move  Move/rename a branch'.",
+    "source": "git-branch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-024",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git switch` aborts rather than silently losing local modifications.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-switch(1): 'Switching branches does not require a clean index and working tree ... The operation is aborted however if the operation leads to loss of local changes, unless told otherwise with --discard-changes or --merge.'",
+    "source": "git-switch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-025",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "`git branch -d` refuses a branch 'whose commits are not merged'; `-D` deletes it anyway 'and the commits become unreachable from any branch'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Two defects. (a) git-branch(1) states the actual criterion: 'The branch must be fully merged in its upstream branch, or in HEAD if no upstream was set' — not 'merged' in the abstract, so -d can refuse a branch whose commits are reachable from a third branch. (b) In that case the commits stay reachable after -D, so 'become unreachable from any branch' is false as a universal; and unreachable commits remain recoverable via the reflog until they are pruned. Prose corrected to the upstream/HEAD criterion, 'commits that were reachable only from that branch', and reflog recovery.",
+    "source": "git-branch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-026",
+    "concept_id": "devops.git-concepts.branch",
+    "claim": "A branch is a movable pointer stored as a file of a few dozen bytes under `refs/heads/`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Pro Git 3.1: 'A branch in Git is simply a lightweight movable pointer to one of these commits ... a simple file that contains the 40 character SHA-1 checksum of the commit it points to ... as quick and simple as writing 41 bytes to a file.'",
+    "source": "Pro Git 3.1, https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell"
+  },
+  {
+    "claim_id": "GC-027",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "When the current branch's tip is already an ancestor of the merged commit, Git fast-forwards the pointer and creates no merge commit; otherwise it builds a merge commit with both tips as parents.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1): 'With --ff, when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible ... create a merge commit.' --ff is the default.",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-028",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "Fast-forward updates cannot be stopped with `--no-commit`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1): 'Note that fast-forward updates do not create a merge commit and therefore there is no way to stop those merges with --no-commit. Thus, if you want to ensure your branch is not changed or updated by the merge command, use --no-ff with --no-commit.'",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-029",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "`--no-ff` always creates a merge commit, `--ff-only` refuses unless the merge fast-forwards, `--abort` backs out of a conflicted merge.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1): 'With --no-ff, create a merge commit in all cases'; 'With --ff-only, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status'; 'git merge --abort will abort the merge process and try to reconstruct the pre-merge state.'",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-030",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "Non-overlapping changes are combined automatically; changes to the same region become conflicts.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1) HOW CONFLICTS ARE PRESENTED: 'non-overlapping ones ... are incorporated in the final result verbatim. When both sides made changes to the same area, however, Git cannot randomly pick one side over the other, and asks you to resolve it'.",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-031",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "In the Merge/Pull request/Rebase comparison, a pull request lives 'on the platform ... there is no Git command for it'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "git-request-pull(1) exists: 'Generate a request asking your upstream project to pull changes into their tree.' It does not create a platform pull request, but the flat claim that no Git command exists for it is refutable. Cell rewritten to 'no Git command opens one; git request-pull only prints a summary you send by hand'.",
+    "source": "git-request-pull(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-032",
+    "concept_id": "devops.git-concepts.merge",
+    "claim": "A push can be refused (a non-fast-forward update is rejected unless forced), while a commit cannot.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1): 'The refs/heads/* namespace will only accept commit objects, and updates only if they can be fast-forwarded'; '-f, --force ... This flag disables these checks'.",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-033",
+    "concept_id": "devops.git-concepts.rebase",
+    "claim": "Rebase saves the commits not on the upstream, resets the branch to the upstream tip — 'the same effect as git reset --hard <upstream>' — and reapplies the saved commits in order.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-rebase(1): 'All changes made by commits in the current branch but that are not in <upstream> are saved to a temporary area ... The current branch is reset to <upstream> ... This has the exact same effect as git reset --hard <upstream> ... The commits that were previously saved into the temporary area are then reapplied to the current branch, one by one, in order.'",
+    "source": "git-rebase(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-034",
+    "concept_id": "devops.git-concepts.rebase",
+    "claim": "A commit introducing the same textual change as one already upstream is skipped.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-rebase(1): 'any commits in HEAD which introduce the same textual changes as a commit in HEAD..<upstream> are omitted (i.e., a patch already accepted upstream with a different commit message or timestamp will be skipped).'",
+    "source": "git-rebase(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-035",
+    "concept_id": "devops.git-concepts.rebase",
+    "claim": "`git rebase` options `-i` interactive (reorder, squash, reword), `--onto <newbase>`, `--continue` / `--skip` / `--abort`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-rebase(1) SYNOPSIS: 'git rebase [-i | --interactive] ... [--onto <newbase> | --keep-base]' and 'git rebase (--continue|--skip|--abort|--quit|--edit-todo|--show-current-patch)'; '-i, --interactive  Make a list of the commits which are about to be rebased. Let the user edit that list'; '--onto <newbase>  Starting point at which to create the new commits.'",
+    "source": "git-rebase(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-036",
+    "concept_id": "devops.git-concepts.rebase",
+    "claim": "`git pull --rebase` performs a rebase, so 'pull always merges' is wrong.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-pull(1): '-r, --rebase[=(false|true|merges|interactive)]  When true, rebase the current branch on top of the upstream branch after fetching'; DESCRIPTION: 'git pull runs git fetch ... and then ... will call either git rebase or git merge'.",
+    "source": "git-pull(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-037",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "A conflict is bracketed in the working-tree file by `<<<<<<<`, `=======` and `>>>>>>>` markers.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1) HOW CONFLICTS ARE PRESENTED: 'The area where a pair of conflicting changes happened is marked with markers <<<<<<<, =======, and >>>>>>>. The part before the ======= is typically your side, and the part afterwards is typically their side.'",
+    "source": "git-merge(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-038",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "`git status` lists affected paths under 'Unmerged paths' and states that `git add` marks resolution; there is no `git resolve`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Pro Git 3.2 shows real output: 'Unmerged paths:  (use \"git add <file>...\" to mark resolution)  both modified:  index.html'. `git help -a` on git 2.51.2 lists no `resolve` command (the only match for the word is git-mergetool's description).",
+    "source": "Pro Git 3.2, https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging; git help -a (git 2.51.2)"
+  },
+  {
+    "claim_id": "GC-039",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "In `git status -s`, `UU` marks a path modified on both sides.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-status(1) short-format table: 'U   U   unmerged, both modified'.",
+    "source": "git-status(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-040",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "During a conflict `git diff` shows a combined three-way diff against both the HEAD and MERGE_HEAD sides rather than a normal two-sided patch.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Pro Git 7.8 'Combined Diff Format': 'when you run git diff while in a conflicted merge state, you only get what is currently still in conflict ... The format is called “Combined Diff” and gives you two columns of data next to each line. The first column shows you if that line is different ... between the “ours” branch and the file in your working directory and the second column does the same between the “theirs” branch'. git-diff(1) COMBINED DIFF FORMAT confirms this is the default format for merges.",
+    "source": "Pro Git 7.8, https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging; git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-041",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "`git diff --staged` compares the index with HEAD.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-diff(1): 'git diff [<options>] --cached ... This form is to view the changes you staged for the next commit relative to the named <commit> ... if you do not give <commit>, it defaults to HEAD. --staged is a synonym of --cached.'",
+    "source": "git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-042",
+    "concept_id": "devops.git-concepts.merge-conflict",
+    "claim": "`git commit` (or `git merge --continue`) completes a resolved merge; `git merge --abort` returns to the pre-merge state.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-merge(1): 'A merge stops if there's a conflict ... At that point you can run git merge --abort or git merge --continue'; 'git merge --abort will abort the merge process and try to reconstruct the pre-merge state.' Pro Git 3.2 shows git status telling the user to '(fix conflicts and run \"git commit\")'.",
+    "source": "git-merge(1), git 2.51.2 man page; Pro Git 3.2"
+  },
+  {
+    "claim_id": "GC-043",
+    "concept_id": "devops.git-concepts.remote-and-origin",
+    "claim": "`git remote -v` lists remotes with fetch and push URLs, and `-v` must sit between `remote` and the subcommand; `add`, `rename`, `remove`, `set-url` manage entries.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-remote(1): '-v, --verbose  Be a little more verbose and show remote url after name ... NOTE: This must be placed between remote and subcommand.' SYNOPSIS lists add / rename / remove / set-url subcommands, and 'With no arguments, shows a list of existing remotes.'",
+    "source": "git-remote(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-044",
+    "concept_id": "devops.git-concepts.remote-and-origin",
+    "claim": "Clone sets `remote.origin.url` and a fetch refspec mapping the remote's branches into `refs/remotes/origin/*`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-clone(1): 'This default configuration is achieved by creating references to the remote branch heads under refs/remotes/origin and by initializing remote.origin.url and remote.origin.fetch configuration variables.'",
+    "source": "git-clone(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-045",
+    "concept_id": "devops.git-concepts.remote-and-origin",
+    "claim": "Remote-tracking branches update on fetch, pull and push, so `origin/main` records the remote as of your last contact and can be stale.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-fetch(1) DESCRIPTION: 'Remote-tracking branches are updated'; git-pull(1) EXAMPLES: 'This leaves a copy of next temporarily in FETCH_HEAD, and updates the remote-tracking branch origin/next'; git-push(1) --force-with-lease describes protecting refs by comparing 'the remote-tracking branch we have for them', i.e. a local record. The exhaustiveness of 'and at no other time' is listed under unverifiable.",
+    "source": "git-fetch(1) / git-pull(1) / git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-046",
+    "concept_id": "devops.git-concepts.push",
+    "claim": "With no arguments `git push` sends the current branch to its configured upstream, held in `branch.<name>.remote` and `branch.<name>.merge`; a branch with no upstream is refused rather than guessed at.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1) DESCRIPTION: 'When neither the command-line nor the configuration specifies what to push, the default behavior is used, which corresponds to the simple value for push.default: the current branch is pushed to the corresponding upstream branch'. git-config(1) push.default simple: 'you need to configure an upstream branch with the same name', and push.autoSetupRemote exists precisely to 'assume --set-upstream on default push when no upstream tracking exists' — it is off by default, so the default behaviour is to refuse.",
+    "source": "git-push(1) / git-config(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-047",
+    "concept_id": "devops.git-concepts.push",
+    "claim": "`-u` is `--set-upstream` and records the upstream so a later bare `git push` or `git pull` resolves the same destination.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1): '-u, --set-upstream  For every branch that is up to date or successfully pushed, add upstream (tracking) reference, used by argument-less git-pull(1) and other commands.'",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-048",
+    "concept_id": "devops.git-concepts.push",
+    "claim": "`git push` options `--force`, `--force-with-lease`, `--tags`, `--all` exist with the stated meanings.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1): '-f, --force  Usually, the command refuses to update a remote ref that is not an ancestor ... This flag disables these checks'; '--force-with-lease ... the remote ref is updated only if the \"lease\" is still valid' (compared against the remote-tracking branch); '--tags  All refs under refs/tags are pushed'; '--all, --branches  Push all branches (i.e. refs under refs/heads/)'.",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-049",
+    "concept_id": "devops.git-concepts.push",
+    "claim": "Tags are not pushed by a plain `git push`; they travel only with `--tags`, `--follow-tags`, or when the tag is named.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1): '--tags  All refs under refs/tags are pushed, in addition to refspecs explicitly listed on the command line'; '--follow-tags  Push all the refs that would be pushed without this option, and also push annotated tags ... that are missing from the remote'; refspec section: 'tag <tag> means the same as refs/tags/<tag>:refs/tags/<tag>.'",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-050",
+    "concept_id": "devops.git-concepts.push",
+    "claim": "A non-fast-forward rejection also happens in a repository nobody else pushes to, after amending or rebasing a commit you already pushed; the correct response is to fetch and integrate, and `--force` resolves it only by letting the remote lose commits.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-push(1) NOTE ABOUT FAST-FORWARDS: 'There is another common situation where you may encounter non-fast-forward rejection ... possible even when you are pushing into a repository nobody else pushes into. After you push commit A yourself ... replace it with \"git commit --amend\" ... \"git push --force\" is a method reserved for a case where you do mean to lose history.' The same section prescribes fetch-and-integrate (git pull, or git pull --rebase) as the fix.",
+    "source": "git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-051",
+    "concept_id": "devops.git-concepts.fetch-vs-pull",
+    "claim": "`git fetch` downloads commits, updates remote-tracking branches, records what it retrieved in `.git/FETCH_HEAD`, and changes nothing about the current branch, index or working tree.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-fetch(1) DESCRIPTION: 'Fetch branches and/or tags ... Remote-tracking branches are updated', and 'The names of refs that are fetched, together with the object names they point at, are written to .git/FETCH_HEAD' (also '-a, --append ... .git/FETCH_HEAD'). Nothing in git-fetch(1) updates the checked-out branch; git-pull(1) exists to add that step.",
+    "source": "git-fetch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-052",
+    "concept_id": "devops.git-concepts.fetch-vs-pull",
+    "claim": "`git fetch` options `--all` every remote, `--prune` delete remote-tracking refs whose remote branch is gone, `--tags`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-fetch(1): '--[no-]all  Fetch all remotes'; '-p, --prune  Before fetching, remove any remote-tracking references that no longer exist on the remote'; '-t, --tags  Fetch all tags from the remote'.",
+    "source": "git-fetch(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-053",
+    "concept_id": "devops.git-concepts.fetch-vs-pull",
+    "claim": "`git pull` is fetch followed by `git merge` or `git rebase`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-pull(1): 'More precisely, git pull runs git fetch with the given parameters and then depending on configuration options or command line flags, will call either git rebase or git merge to reconcile diverging branches.'",
+    "source": "git-pull(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-054",
+    "concept_id": "devops.git-concepts.fetch-vs-pull",
+    "claim": "When histories have diverged and no reconciliation method is given, `--ff-only` is the default, so the pull stops until `--rebase`, `--no-rebase` or `pull.rebase` is supplied.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-pull(1): '--ff-only  Only update to the new history if there is no divergent local history. This is the default when no method for reconciling divergent histories is provided (via the --rebase=* flags).' The page's opening advice also names '--rebase or --no-rebase (or the corresponding configuration option in pull.rebase)'.",
+    "source": "git-pull(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-055",
+    "concept_id": "devops.git-concepts.fetch-vs-pull",
+    "claim": "`git pull` options `--rebase`, `--no-rebase`, `--ff-only` exist with the stated meanings.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-pull(1) OPTIONS list '-r, --rebase[=(false|true|merges|interactive)]', '--no-rebase' ('When false, merge the upstream branch into the current branch'), and '--ff-only'.",
+    "source": "git-pull(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-056",
+    "concept_id": "devops.git-concepts.clone-vs-fork",
+    "claim": "There is no `git fork` command.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`git help -a` on git 2.51.2 lists no fork command, and git-clone(1)/git-remote(1) contain no such subcommand.",
+    "source": "git help -a (git 2.51.2)"
+  },
+  {
+    "claim_id": "GC-057",
+    "concept_id": "devops.git-concepts.clone-vs-fork",
+    "claim": "`git clone <url>` copies a repository into a new local directory and confers no push permission; options `--branch <name>`, `--depth <n>`, `--single-branch`, `--bare`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-clone(1) DESCRIPTION and the options quoted in GC-005/GC-006. Write access is decided by the receiving repository: git-push(1) documents 'remote rejected  The remote end refused the update ... caused by a hook on the remote side, or because the remote repository has one of the following safety options in effect', not by possession of a clone.",
+    "source": "git-clone(1) / git-push(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-058",
+    "concept_id": "devops.git-concepts.tag",
+    "claim": "`git tag <name>` creates a lightweight tag (a bare reference); `-a` creates an annotated tag object carrying tagger name and email, creation date, message and optional GPG signature.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-tag(1): 'Otherwise, a tag reference that points directly at the given object (i.e., a lightweight tag) is created'; 'Tag objects (created with -a, -s, or -u) are called \"annotated\" tags; they contain a creation date, the tagger name and e-mail, a tagging message, and an optional GnuPG signature.'",
+    "source": "git-tag(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-059",
+    "concept_id": "devops.git-concepts.tag",
+    "claim": "Supplying `-m` without `-a`, `-s` or `-u` implies `-a`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-tag(1): '-m <msg> ... Implies -a if none of -a, -s, or -u <key-id> is given', and DESCRIPTION: 'If -m <msg> or -F <file> ... is given and -a, -s, and -u <key-id> are absent, -a is implied.'",
+    "source": "git-tag(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-060",
+    "concept_id": "devops.git-concepts.tag",
+    "claim": "`git tag` with no arguments lists tags; `-d` deletes; `-l <pattern>` lists matching tags.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-tag(1): '-l, --list  List tags. With optional <pattern>... Running \"git tag\" without arguments also lists all tags'; '-d, --delete  Delete existing tags with the given names.'",
+    "source": "git-tag(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-061",
+    "concept_id": "devops.git-concepts.tag",
+    "claim": "The documentation describes annotated tags as meant for releases and lightweight tags as meant for private or temporary labels.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-tag(1): 'Annotated tags are meant for release while lightweight tags are meant for private or temporary object labels.'",
+    "source": "git-tag(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-062",
+    "concept_id": "devops.git-concepts.tag",
+    "claim": "Checking out a tag leaves you in detached HEAD, with no branch to advance.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-checkout(1) has a DETACHED HEAD section for checking out a non-branch commit-ish, and git-clone(1) --branch notes it 'can also take tags and detaches the HEAD at that commit'.",
+    "source": "git-checkout(1) / git-clone(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-063",
+    "concept_id": "devops.git-concepts.head",
+    "claim": "HEAD is the default starting point for history commands, so `git log HEAD` and a bare `git log` show the same thing.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-log(1): '<revision-range> ... When no <revision-range> is specified, it defaults to HEAD (i.e. the whole history leading to the current commit).'",
+    "source": "git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-064",
+    "concept_id": "devops.git-concepts.gitignore",
+    "claim": "`.gitignore` specifies intentionally untracked files, and files already tracked by Git are not affected by it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "gitignore(5) NAME and DESCRIPTION: 'gitignore - Specifies intentionally untracked files to ignore'; 'A gitignore file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected'.",
+    "source": "gitignore(5), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-065",
+    "concept_id": "devops.git-concepts.gitignore",
+    "claim": "Precedence, highest first: command line, then `.gitignore` files from the path's own directory upward with lower-level files overriding higher-level ones, then `$GIT_DIR/info/exclude`, then `core.excludesFile`; within one level the last matching pattern decides and a leading `!` re-includes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "gitignore(5) lists exactly that order, with the parenthetical 'within one level of precedence, the last matching pattern decides the outcome', 'with patterns in the higher level files being overridden by those in lower level files', and 'An optional prefix \"!\" which negates the pattern'.",
+    "source": "gitignore(5), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-066",
+    "concept_id": "devops.git-concepts.gitignore",
+    "claim": "A `.gitignore` file is committed and travels with a clone; `info/exclude` stays local to one repository; `core.excludesFile` applies to one user across all repositories.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "gitignore(5): 'Patterns which should be version-controlled and distributed to other repositories via clone ... should go into a .gitignore file'; 'specific to a particular repository but which do not need to be shared ... should go into the $GIT_DIR/info/exclude file'; 'Patterns which a user wants Git to ignore in all situations ... go into a file specified by core.excludesFile in the user's ~/.gitconfig.'",
+    "source": "gitignore(5), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-067",
+    "concept_id": "devops.git-concepts.revert-vs-reset",
+    "claim": "`git revert <commit>` records a new commit applying the inverse of an existing one, leaving the original in place, and requires a clean working tree.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-revert(1): 'Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them. This requires your working tree to be clean (no modifications from the HEAD commit).'",
+    "source": "git-revert(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-068",
+    "concept_id": "devops.git-concepts.revert-vs-reset",
+    "claim": "`git revert -n`/`--no-commit` applies the inverse to the index and working tree without committing, so several reverts can be combined; `--continue` / `--abort` handle conflicts.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-revert(1): '-n, --no-commit ... applies the changes necessary to revert the named commits to your working tree and the index, but does not make the commits ... This is useful when reverting more than one commits' effect to your index in a row.' SYNOPSIS: 'git revert (--continue | --skip | --abort | --quit)'.",
+    "source": "git-revert(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-069",
+    "concept_id": "devops.git-concepts.revert-vs-reset",
+    "claim": "`--soft` moves HEAD and leaves index and working tree alone (changes stay staged); `--mixed` (the default) resets the index but not the working tree; `--hard` resets both and discards tracked changes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-reset(1): '--soft  Does not touch the index file or the working tree at all ... leaves all your changed files \"Changes to be committed\"'; '--mixed  Resets the index but not the working tree ... This is the default action'; '--hard  Resets the index and working tree. Any changes to tracked files in the working tree since <commit> are discarded.'",
+    "source": "git-reset(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-070",
+    "concept_id": "devops.git-concepts.revert-vs-reset",
+    "claim": "Given a path instead of a commit, `git reset <path>` is the exact opposite of `git add <path>` — it unstages.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-reset(1): 'This means that git reset <pathspec> is the opposite of git add <pathspec>. This command is equivalent to git restore [--source=<tree-ish>] --staged <pathspec>....'",
+    "source": "git-reset(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-071",
+    "concept_id": "devops.git-concepts.revert-vs-reset",
+    "claim": "Restoring a file's contents from a commit is `git restore`'s job, not reset's.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-revert(1): 'If you want to extract specific files as they were in another commit, you should see git-restore(1), specifically the --source option'; git-reset(1) points at git-restore(1) for checking contents out to the working tree and at git(1) 'Reset, restore and revert' for the three-way distinction.",
+    "source": "git-revert(1) / git-reset(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-072",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "Bare `git diff` compares the working tree with the index, so it prints nothing once everything is staged.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-diff(1): 'git diff [<options>] [--] [<path>...]  This form is to view the changes you made relative to the index (staging area for the next commit). In other words, the differences are what you could tell Git to further add to the index but you still haven't.'",
+    "source": "git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-073",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "`git diff --staged` (with `--cached` as a synonym) compares the index with HEAD; `git diff <commit>` compares the working tree with that commit; `git diff <commit> <commit>` compares two commits.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-diff(1) DESCRIPTION forms: '--cached ... it defaults to HEAD ... --staged is a synonym of --cached'; '[<commit>]  This form is to view the changes you have in your working tree relative to the named <commit>'; '<commit> <commit>  This is to view the changes between two arbitrary <commit>.'",
+    "source": "git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-074",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "`--oneline` is shorthand for `--pretty=oneline --abbrev-commit`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-log(1): '--oneline  This is a shorthand for --pretty=oneline --abbrev-commit used together.'",
+    "source": "git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-075",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "`git diff` options `--stat` summary and `--name-only` paths only; `git log` options `--graph`, `-n <count>`, `-p`, `--all`, and naming a branch (`git log other-branch`).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-diff(1): '--stat  Generate a diffstat'; '--name-only  Show only the name of each changed file'. git-log(1): '--graph  Draw a text-based graphical representation of the commit history'; '-<number>, -n <number>, --max-count=<number>'; '--all  Pretend as if all the refs in refs/, along with HEAD, are listed on the command line as <commit>'; '<revision-range>' accepts branch names.",
+    "source": "git-diff(1) / git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-076",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "A diff between two branches has 'no merge base logic unless you ask for `--merge-base`'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "git-diff(1) documents a second way: 'git diff [<options>] <commit>...<commit>  This form is to view the changes on the branch containing and up to the second <commit>, starting at a common ancestor of both <commit>. git diff A...B is equivalent to git diff $(git merge-base A B) B.' So the three-dot form also brings in the merge base without the flag. Prose corrected to name both.",
+    "source": "git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-077",
+    "concept_id": "devops.git-concepts.git-diff-and-git-log",
+    "claim": "Practice scenario: find the offending commit with `git log --oneline` and use '`git diff` against it to see exactly what it introduced'.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "git-diff(1): 'git diff [<options>] [--merge-base] <commit>  This form is to view the changes you have in your working tree relative to the named <commit>' — that is the cumulative difference between the working tree and the commit, not the patch the commit itself introduced. Scenario corrected to diff that commit against its parent (git-diff(1) '<commit> <commit>' form).",
+    "source": "git-diff(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-078",
+    "concept_id": "devops.git-concepts.stash",
+    "claim": "`git stash` records the current working-tree and index changes and reverts the working directory to match HEAD; `git stash pop` restores the work later.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-stash(1): 'Use git stash when you want to record the current state of the working directory and the index, but want to go back to a clean working directory. The command saves your local modifications away and reverts the working directory to match the HEAD commit', with 'git stash pop' in the SYNOPSIS.",
+    "source": "git-stash(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-079",
+    "concept_id": "devops.git-concepts.stash",
+    "claim": "A stash sits in `refs/stash`, belongs to no branch, is not pushed to a remote, and does not appear in `git log`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "git-stash(1): 'The latest stash you created is stored in refs/stash; older stashes are found in the reflog of this reference'. refs/stash is outside refs/heads and refs/tags, so git-push(1)'s default refspec, --all ('refs under refs/heads/') and --tags ('refs under refs/tags') never send it; git-log(1) walks from HEAD, which does not reach it.",
+    "source": "git-stash(1) / git-push(1) / git-log(1), git 2.51.2 man page"
+  },
+  {
+    "claim_id": "GC-080",
+    "concept_id": "devops.git-concepts.pull-request",
+    "claim": "'There is no `git pull-request` command, and a pull request has nothing to do with `git pull` despite the name.'",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The first half is right (no such command in `git help -a`), the second half overstates. git-request-pull(1) — 'Generate a request asking your upstream project to pull changes into their tree' — shows the term names precisely a request that someone else pull your branch. Prose corrected to say opening a request runs no git pull, and to name git request-pull as the only Git command in that space.",
+    "source": "git-request-pull(1), git 2.51.2 man page; git help -a"
+  },
+  {
+    "claim_id": "GC-081",
+    "concept_id": "devops.git-concepts.pull-request",
+    "claim": "Waived concept `devops.git-concepts.pull-request`: the block carries the required no-primary-source marker verbatim and makes no claim that a named (paywalled) standard defines, requires or specifies anything.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The block opens with the marker sentence verbatim per STYLE.md section 8 ('No primary documentation source. The authoritative references are paywalled ... Treat the following as consensus practice, not citable fact.'), and check-guide's guide-waiver-marker passes. Reading every sentence: no standard is named at all — no PMBOK, PMI Lexicon, BABOK, ISO 21500/21502, ISO/IEC/IEEE 12207 or 29148, and no 'the standard says' construction of any kind. Process claims are hedged as consensus ('in practice', 'In most implementations of this practice', 'typically', 'usually', 'generally', 'whichever strategy the project has selected'). The unhedged sentences are all verifiable outside the waived domain: that there is no Git command for a pull request (git help -a), and platform naming of merge request vs pull request. The one overreach found, 'has nothing to do with git pull', is recorded separately as GC-080 and was corrected.",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json; check-guide guide-waiver-marker"
+  }
+]

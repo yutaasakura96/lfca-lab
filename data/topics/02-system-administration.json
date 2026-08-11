@@ -1645,7 +1645,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "System Administration",
-      "description": "User home directories.",
+      "description": "The directory beneath which regular users' personal home directories usually live (for example /home/alice), each serving as that user's default working directory and $HOME at login; hier(7) notes the exact structure beneath /home is a local administration decision. The superuser's home directory, /root, is a separate, optional directory kept outside /home — the FHS's stated rationale is that if root's home directory were not stored on the root partition, the system would need a fallback default in case that location could not be found, exactly the risk /home carries when it is mounted from a separate partition that fails to come up. Assuming root's home is /home/root, rather than /root, is the recurring mistake.",
       "objective_verbatim": "System Administration",
       "sept_2025_status": "reworded",
       "inferred": true,
@@ -1659,12 +1659,15 @@
         "ch6.l2"
       ],
       "additional_sources": [
-        "fhs-3-0"
+        "fhs-3-0",
+        "man-hier-7"
       ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
-      "confused_with": [],
+      "confused_with": [
+        "linux.command-line.root-directory-vs-root-vs-home"
+      ],
       "coverage_status": "FULLY COVERED",
       "notes": "Depth rationale: conceptual: explain what it is and why it exists."
     },
@@ -2949,7 +2952,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-128"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -3077,7 +3082,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-53r5"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -3412,7 +3419,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-919-broadcasting-internet-datagrams",
-        "rfc-1122-host-requirements"
+        "rfc-1122-host-requirements",
+        "rfc-2644-bcp34"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -5268,6 +5276,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-proc-pid-oom-score",
+        "man-proc-pid-oom-score-adj",
+        "kernel-docs-proc-rst",
         "kernel-sysctl-vm",
         "man-dmesg",
         "man-journalctl"
@@ -5964,7 +5974,7 @@
       ],
       "domain": "System Administration Fundamentals",
       "competency": "Disaster Recovery",
-      "description": "A hot site is fully equipped and running with current data, so it can take over almost immediately; a warm site is partially equipped and holds hardware but not current data, which must be restored before it can serve; a cold site is space, power and connectivity only. Cost falls and recovery time rises as you move from hot to cold.",
+      "description": "A hot site is fully equipped with the most recent backup already loaded, needing only the data written since that backup before it can take over — real-time, continuously mirrored data belongs to a separate, more expensive mirrored site, not the hot site tier; a warm site is partially equipped and holds hardware but not current data, which must be restored before it can serve; a cold site has the basic space, power and environmental control only, with no hardware or telecommunications in place. Cost falls and recovery time rises as you move from hot to cold.",
       "objective_verbatim": "Disaster Recovery",
       "sept_2025_status": "added",
       "inferred": true,

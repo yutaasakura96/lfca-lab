@@ -1,0 +1,209 @@
+[
+  {
+    "claim_id": "CL-001",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`tar` bundles files, with their permissions and timestamps, into one archive.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "GNU tar stores each member's mode and mtime in the archive header. Verified empirically on this machine: a file created mode 640 and archived with `gtar -czf` lists back as `-rw-r----- yutaasakura/wheel 6 2026-08-11 06:42 etc/conf` under `gtar -tvzf`, i.e. permissions and timestamp are preserved in the archive.",
+    "source": "GNU tar 1.35 on this machine (empirical); https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-002",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`tar` `-c` means create.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`gtar --help` on this machine prints `-c, --create  create a new archive`.",
+    "source": "GNU tar 1.35 --help (empirical); https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-003",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`tar` `-x` means extract.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`gtar --help` prints `-x, --extract, --get  extract files from an archive`.",
+    "source": "GNU tar 1.35 --help (empirical); https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-004",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`tar` `-f` names the archive file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`gtar --help` prints `-f, --file=ARCHIVE  use archive file or device ARCHIVE`.",
+    "source": "GNU tar 1.35 --help (empirical); https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-005",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`tar` `-z` filters the archive through gzip.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`gtar --help` prints `-z, --gzip, --gunzip, --ungzip  filter the archive through gzip`. Empirically, `gtar -czf` produced output identified by file(1) as `gzip compressed data`.",
+    "source": "GNU tar 1.35 --help and empirical run; https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-006",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`-g` / `--listed-incremental=FILE` keeps a snapshot file so later `tar` runs archive only what changed since the previous dump — stated in the Commands table as an option of `tar` with no implementation qualifier.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The semantics are right for GNU tar (`gtar --help`: `-g, --listed-incremental=FILE  handle new GNU-format incremental backup`; empirically, a second dump against the same snapshot file contained only `etc/` and the newly added `etc/new`). The universality was wrong: this is a GNU extension. On this machine's system tar (bsdtar 3.5.3, the default on macOS) `tar -g ...` exits 1 with a usage message and `--listed-incremental=` fails with `tar: Option --listed-incremental=... is not supported`. The neighbouring Traps paragraph already qualifies the compression flags as GNU behaviour but the table did not qualify `-g`. Fixed: the cell now reads `-g` / `--listed-incremental=FILE` (GNU tar only).",
+    "source": "GNU tar 1.35 --help and bsdtar 3.5.3 empirical runs; https://www.gnu.org/software/tar/manual/tar.html#Incremental-Dumps"
+  },
+  {
+    "claim_id": "CL-007",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "Worked example `tar -czf /backup/etc.tar.gz /etc` produces a gzip-compressed archive of the named directory.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Clustered `-czf ARCHIVE PATH` is valid: `-f` consumes the next argument. Reproduced with the same shape against a scratch tree (`gtar -czf /tmp/etc-test.tar.gz etc`), producing a gzip file whose listing contains the directory and its members with modes and timestamps intact.",
+    "source": "GNU tar 1.35 (empirical); https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-008",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "GNU `tar` compresses only when told to: `-z`, `-j` and `-J` select gzip, bzip2 and xz respectively, so a plain `-cf` archive is bundled but not compressed.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`gtar --help` prints `-j, --bzip2  filter the archive through bzip2`, `-J, --xz  filter the archive through xz`, `-z, --gzip ... filter the archive through gzip`. Empirically `gtar -cf /tmp/plain.tar etc` produced a file identified by file(1) as `POSIX tar archive (GNU)`, not a compressed stream.",
+    "source": "GNU tar 1.35 --help and empirical run; https://www.gnu.org/software/tar/manual/tar.html"
+  },
+  {
+    "claim_id": "CL-009",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`rsync` copies or synchronises a directory tree to another path or host, sending only the differences.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The official rsync man page's opening description: rsync \"is famous for its delta-transfer algorithm, which reduces the amount of data sent over the network by sending only the differences between the source files and the existing files in the destination,\" and it accepts local and remote (host:path) destinations.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-010",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`rsync -a` is archive mode, equivalent to `-rlptgoD`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1): \"--archive, -a  archive mode is -rlptgoD (no -A,-X,-U,-N,-H)\" and, in the option body, \"This is equivalent to -rlptgoD.\" (The man page notes one exception: with --files-from, -r is not implied — not a case the guide asserts anything about.)",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-011",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`--delete` removes files from the destination that no longer exist on the source, so a deletion on the source is applied to the copy.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1) --delete: \"This tells rsync to delete extraneous files from the receiving side (ones that aren't on the sending side), but only for the directories that are being synchronized.\" That is exactly the propagation behaviour the guide warns about.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-012",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`-n` / `--dry-run` is a trial run with no changes.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1) summary line: \"--dry-run, -n  perform a trial run with no changes made\"; body: \"This makes rsync perform a trial run that doesn't make any changes.\" Short and long forms are paired exactly as the guide pairs them.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-013",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`--link-dest=DIR` hardlinks unchanged files against a previous copy.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1): \"--link-dest=DIR  hardlink to files in DIR when unchanged\"; body: \"unchanged files are hard linked from DIR to the destination directory.\" The `=DIR` form the guide shows is the man page's own spelling.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-014",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "Worked example `rsync -a --delete /srv/data/ backup:/srv/data/` mirrors a local tree to the same path on a remote host.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The host:path destination form and the trailing-slash source form are both standard rsync usage documented in the man page's USAGE section (e.g. `rsync -av /src/foo/ /dest/foo`, `rsync -avz foo:src/bar/ /data/tmp`). With `-a --delete` the destination becomes a mirror of the source directory's contents, which is the reading the surrounding prose gives it.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-015",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "`rsync -a` does not preserve ACLs (`-A`), extended attributes (`-X`), or hardlinks (`-H`).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1) --archive body, verbatim: \"Be aware that it does not include preserving ACLs (-A), xattrs (-X), atimes (-U), crtimes (-N), nor the finding and preserving of hardlinks (-H).\" The three short flags are paired with the right meanings (`--acls, -A`; `--xattrs, -X`; `--hard-links, -H`).",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-016",
+    "concept_id": "sysadmin.disaster-recovery.backup",
+    "claim": "A trailing slash on an `rsync` source copies that directory's contents into the destination; omitting it creates the directory itself inside the destination.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "rsync(1): \"A trailing slash on the source changes this behavior to avoid creating an additional directory level at the destination. You can think of a trailing / on a source as meaning 'copy the contents of this directory' as opposed to 'copy the directory by name'.\" The man page's own equivalence `rsync -av /src/foo /dest` == `rsync -av /src/foo/ /dest/foo` confirms the no-slash case creates /dest/foo.",
+    "source": "https://download.samba.org/pub/rsync/rsync.1"
+  },
+  {
+    "claim_id": "CL-017",
+    "concept_id": "sysadmin.disaster-recovery.snapshot",
+    "claim": "A mistaken `rm` is a deletion a snapshot can roll back (the only other command invocation in the file).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "`rm` removes directory entries / files, per POSIX rm and GNU coreutils rm; the guide makes no claim about any rm option. Recorded for completeness because it is the only remaining inline command span in the file.",
+    "source": "https://man7.org/linux/man-pages/man1/rm.1.html"
+  },
+  {
+    "claim_id": "W-001",
+    "concept_id": "sysadmin.disaster-recovery.snapshot",
+    "claim": "The waived concept carries the required no-primary-source marker verbatim.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker sentence appears immediately after the metadata line, unsplit and unparaphrased: 'No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.' It matches STYLE.md section 8 word for word, and it precedes the body it governs.",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json"
+  },
+  {
+    "claim_id": "W-002",
+    "concept_id": "sysadmin.disaster-recovery.snapshot",
+    "claim": "The block asserts nothing on the authority of a named paywalled standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "Read sentence by sentence: no standard, body, or specification is named anywhere in the block (no PMBOK, PMI Lexicon, BABOK, ISO 21500/21502, ISO/IEC/IEEE 12207 or 29148, SNIA, or vendor spec). Every substantive statement is framed as what implementations typically do ('In most implementations', 'typically', 'usually', 'generally'), which is describable consensus practice and needs no citable authority. The named technologies (LVM, ZFS, Btrfs, hypervisor and cloud provider snapshots) are used as examples of the practice, not as sources being quoted.",
+    "source": "study-guide/02-system-administration/disaster-recovery.md, snapshot block; data/sourcing-waivers.json"
+  },
+  {
+    "claim_id": "W-003",
+    "concept_id": "sysadmin.disaster-recovery.snapshot",
+    "claim": "Why it matters stated flatly that snapshots 'vanish along with the volume when the underlying storage dies'.",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "Stated without qualification this is both unhedged (STYLE.md section 8 requires every claim in a waived block to be hedged) and contradicted by the same block two paragraphs later, which says provider snapshots are generally written to separate, provider-managed storage and typically survive deletion of the source volume. As written a candidate could read the categorical form and then answer 'a snapshot is never a backup', which the block's own Traps paragraph calls wrong. Fixed by scoping and hedging it: '... and then — in the local case — typically vanish along with the volume when the underlying storage dies.' No standard is invented in either version.",
+    "source": "Internal inconsistency with the same block's provider-snapshot paragraph; study-guide/STYLE.md section 8"
+  },
+  {
+    "claim_id": "W-004",
+    "concept_id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+    "claim": "The waived depth-1 concept carries the required no-primary-source marker verbatim in its only definition site.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "The marker appears unsplit and unparaphrased inside the Quick reference row's 'Why it is examinable' cell, which is the concept's whole definition site, so checkWaiverMarker's opening and closing clauses both match the block text. Noted but not changed: sitting at the end of the cell, 'the following' points at text that has already been read — a placement artefact of a one-row definition site, not a false claim.",
+    "source": "study-guide/STYLE.md section 8; tools/lib/guide-checks.mjs checkWaiverMarker"
+  },
+  {
+    "claim_id": "W-005",
+    "concept_id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+    "claim": "The row asserts nothing on the authority of a named paywalled standard.",
+    "kind": "waiver",
+    "verdict": "confirmed",
+    "reasoning": "No standard is named. The row does not say that any body defines, requires or specifies MTTR or MTBF; it describes them as observed averages and contrasts them with the RTO, which is defined elsewhere in the file from NIST SP 800-34 Rev. 1 — a free source that is genuinely cited. The one cross-concept claim it leans on ('the target is the RTO') is supported by that NIST text, not by an uncitable standard.",
+    "source": "study-guide/02-system-administration/disaster-recovery.md Quick reference row; NIST SP 800-34 Rev. 1"
+  },
+  {
+    "claim_id": "W-006",
+    "concept_id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+    "claim": "The definitions of MTTR and MTBF were stated as settled fact ('Mean time to repair is the average time a fix takes ...').",
+    "kind": "waiver",
+    "verdict": "refuted",
+    "reasoning": "There is no free primary source behind these definitions — that is precisely why the concept is waived — and the reliability standards that would settle the expansion and the measurement basis are paywalled, so an unhedged 'is' asserts more than the project can support. STYLE.md section 8 requires the claims inside a waived block to be hedged. Fixed to 'Usually stated as: mean time to repair is the average time a fix takes once something has broken, and mean time between failures the average interval between breakages.' The content is unchanged; only the epistemic framing now matches the waiver.",
+    "source": "study-guide/STYLE.md section 8; data/sourcing-waivers.json rationale"
+  }
+]

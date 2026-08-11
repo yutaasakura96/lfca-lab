@@ -2,7 +2,7 @@
 
 # LFS200 Coverage Map
 
-67 of 537 concepts have LFS200 coverage.
+65 of 537 concepts have LFS200 coverage.
 
 | Concept | Domain | Competency | LFS200 lessons | Status |
 | --- | --- | --- | --- | --- |
@@ -44,8 +44,6 @@
 | cloud.cloud-computing.cloud-computing | Cloud Computing Fundamentals | Cloud Computing | ch8.l2 | FULLY COVERED |
 | cloud.cloud-computing.major-cloud-providers | Cloud Computing Fundamentals | Cloud Computing | ch8.l2 | MENTIONED ONLY |
 | cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | Cloud Computing | ch8.l2 | MENTIONED ONLY |
-| security.security.tls-and-https | Security Fundamentals | Security | ch9.l3 | FULLY COVERED |
-| security.security.selinux-and-apparmor | Security Fundamentals | Security | ch9.l3 | FULLY COVERED |
 | security.security.package-and-download-verification | Security Fundamentals | Security | ch9.l2 | FULLY COVERED |
 | devops.devops-basics.devops | DevOps Fundamentals | DevOps Basics | ch10.l2 | FULLY COVERED |
 | devops.devops-basics.continuous-integration | DevOps Fundamentals | DevOps Basics | ch10.l2 | PARTIALLY COVERED |

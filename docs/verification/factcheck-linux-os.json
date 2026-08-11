@@ -1,0 +1,434 @@
+[
+  {
+    "claim_id": "LOS-001",
+    "concept_id": "linux.linux-operating-system.kernel",
+    "claim": "`uname` prints system information, and `-r` prints the kernel release.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uname(1) NAME reads \"uname - print system information\"; the option list gives \"-r, --kernel-release  print the kernel release\". Short and long forms are paired as the guide implies.",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html (GNU coreutils 9.11)"
+  },
+  {
+    "claim_id": "LOS-002",
+    "concept_id": "linux.linux-operating-system.kernel",
+    "claim": "`uname -r` reports only the kernel's own version string, not the distribution version.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uname(1) documents -r as printing the kernel release and nothing else; no uname option is documented as reporting a distribution name or release. Distribution identity is the job of os-release(5).",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html; https://man7.org/linux/man-pages/man5/os-release.5.html"
+  },
+  {
+    "claim_id": "LOS-003",
+    "concept_id": "linux.linux-operating-system.kernel",
+    "claim": "Distribution version is read with `cat /etc/os-release`, as opposed to kernel version with `uname -r`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "os-release(5): \"The /etc/os-release and /usr/lib/os-release files contain operating system identification data\", in shell-compatible NAME=VALUE form, hence readable with cat.",
+    "source": "https://man7.org/linux/man-pages/man5/os-release.5.html"
+  },
+  {
+    "claim_id": "LOS-004",
+    "concept_id": "linux.linux-operating-system.shell",
+    "claim": "`echo $SHELL` prints the user's configured login shell, not necessarily the shell actually running.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1), Shell Variables: \"SHELL  This variable expands to the full pathname to the shell. If it is not set when the shell starts, bash assigns to it the full pathname of the current user's login shell.\" Starting a different shell inside a session does not by itself rewrite SHELL, so the caveat is correct.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-005",
+    "concept_id": "linux.linux-operating-system.shell",
+    "claim": "`which cd` \"correctly reports nothing found in most shells because there is no /usr/bin/cd\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "True only for the external which(1), which by definition searches PATH alone. zsh — named as a common alternative shell two paragraphs earlier in the same concept — provides its own `which` builtin, documented as \"Equivalent to whence -c\", and whence \"indicate[s] how it would be interpreted if used as a command name\", including built-in commands. Verified empirically: `zsh -c 'which cd'` prints \"cd: shell built-in command\" and exits 0. Prose rewritten to attribute the behaviour to the external which and to name zsh as the exception.",
+    "source": "https://manpages.debian.org/bookworm/zsh-common/zshbuiltins.1.en.html (which/whence entries); https://manpages.debian.org/unstable/debianutils/which.1.en.html; local run of `zsh -c 'which cd'`"
+  },
+  {
+    "claim_id": "LOS-006",
+    "concept_id": "linux.linux-operating-system.linux-distribution",
+    "claim": "`cat /etc/os-release` prints distribution identity and not the kernel version.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "os-release(5) defines the file as operating system identification data (ID, VERSION_ID, PRETTY_NAME and so on) supplied by the OS vendor. It carries no kernel version field.",
+    "source": "https://man7.org/linux/man-pages/man5/os-release.5.html"
+  },
+  {
+    "claim_id": "LOS-007",
+    "concept_id": "linux.linux-operating-system.linux-distribution",
+    "claim": "`ID=rocky` and `ID=ubuntu` are how /etc/os-release names those distributions (used in the section Scenario and Knowledge check).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "os-release(5) specifies ID as \"A lower-case string ... identifying the operating system, excluding any version information\", and gives distribution ids of exactly this shape. The guide only claims the shape and the family mapping, both standard.",
+    "source": "https://man7.org/linux/man-pages/man5/os-release.5.html"
+  },
+  {
+    "claim_id": "LOS-008",
+    "concept_id": "linux.linux-operating-system.cpu",
+    "claim": "`lscpu` displays CPU architecture information, and its default output is a full summary.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lscpu(1) NAME: \"lscpu - display information about the CPU architecture\". DESCRIPTION: gathers from sysfs, /proc/cpuinfo and architecture-specific libraries, with no options required.",
+    "source": "https://man7.org/linux/man-pages/man1/lscpu.1.html (util-linux)"
+  },
+  {
+    "claim_id": "LOS-009",
+    "concept_id": "linux.linux-operating-system.cpu",
+    "claim": "lscpu's summary covers architecture, core/socket/thread counts, and cache sizes, formatted from /proc/cpuinfo and kernel accounting.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lscpu(1) DESCRIPTION: \"The information includes, for example, the number of CPUs, threads, cores, sockets, and Non-Uniform Memory Access (NUMA) nodes. There is also information about the CPU caches ...\", gathered \"from sysfs, /proc/cpuinfo and any applicable architecture-specific libraries\".",
+    "source": "https://man7.org/linux/man-pages/man1/lscpu.1.html"
+  },
+  {
+    "claim_id": "LOS-010",
+    "concept_id": "linux.linux-operating-system.cpu",
+    "claim": "lscpu's \"CPU(s):\" field is logical processors (including SMT threads), not physical cores.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "util-linux lscpu.c emits the summary row with `add_summary_n(tb, sec, _(\"CPU(s):\"), cxt->npresents)` — the count of present logical CPUs — while \"Thread(s) per core:\" and \"Core(s) per socket:\" are separate rows. So CPU(s) is the logical total, exactly as the guide's Common mistake cell says.",
+    "source": "https://raw.githubusercontent.com/util-linux/util-linux/master/sys-utils/lscpu.c (lines ~915-1049)"
+  },
+  {
+    "claim_id": "LOS-011",
+    "concept_id": "linux.linux-operating-system.cpu",
+    "claim": "`nproc` prints the number of processing units available to the caller, which can be fewer than the physical total when constrained.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "nproc(1): \"Print the number of processing units available to the current process, which may be less than the number of online processors.\" The current page also documents CPU quotas as something the default invocation honours (see the --all wording).",
+    "source": "https://man7.org/linux/man-pages/man1/nproc.1.html (GNU coreutils 9.11)"
+  },
+  {
+    "claim_id": "LOS-012",
+    "concept_id": "linux.linux-operating-system.cpu",
+    "claim": "nproc's `--all` means \"ignore affinity/cgroup limits\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The documented semantics is a different quantity, not merely the unrestricted one: coreutils 9.11 gives \"--all  print the number of installed processors, disregarding any OpenMP environment variables, or CPU quotas\", and coreutils 9.1 (Debian bookworm) gives simply \"--all  print the number of installed processors\". Installed processors include offline ones, which \"ignore affinity/cgroup limits\" does not convey, and the paraphrase silently drops the documented OpenMP behaviour. Key options cell changed to \"`--all` count all installed processors instead\".",
+    "source": "https://man7.org/linux/man-pages/man1/nproc.1.html; https://manpages.debian.org/bookworm/coreutils/nproc.1.en.html"
+  },
+  {
+    "claim_id": "LOS-013",
+    "concept_id": "linux.linux-operating-system.ram",
+    "claim": "`free` reports memory and swap usage.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "free(1): \"free displays the total amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel\", parsed from /proc/meminfo.",
+    "source": "https://man7.org/linux/man-pages/man1/free.1.html (procps-ng)"
+  },
+  {
+    "claim_id": "LOS-014",
+    "concept_id": "linux.linux-operating-system.ram",
+    "claim": "`free -h` gives human-readable units.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "free(1): \"-h, --human  Show all output fields automatically scaled to shortest three digit unit and display the units of print out.\" Short/long pairing is as stated.",
+    "source": "https://man7.org/linux/man-pages/man1/free.1.html"
+  },
+  {
+    "claim_id": "LOS-015",
+    "concept_id": "linux.linux-operating-system.ram",
+    "claim": "The common mistake with `free -h` is \"reading the 'used' column without accounting for reclaimable cache, and concluding memory is nearly exhausted when it is not\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The `used` column already excludes reclaimable cache in every procps-ng in current use, so it cannot produce the described false alarm. procps-ng 4.x (man7.org, Debian bookworm): \"used  Used or unavailable memory (calculated as total - available)\". procps-ng 3.3.17 (Debian bullseye): \"used  Used memory (calculated as total - free - buffers - cache)\". The column that misleads is `free` (small because idle RAM is used as cache); `available` is the estimate to read instead. Both the Commands table cell and the How it works paragraph were corrected.",
+    "source": "https://man7.org/linux/man-pages/man1/free.1.html; https://manpages.debian.org/bullseye/procps/free.1.en.html; https://manpages.debian.org/bookworm/procps/free.1.en.html"
+  },
+  {
+    "claim_id": "LOS-016",
+    "concept_id": "linux.linux-operating-system.ram",
+    "claim": "Exhausted RAM leads to swapping or, under severe pressure, the kernel's OOM killer terminating a process; heavy swap use in `free -h` indicates memory pressure.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "free(1) reports SwapTotal/SwapFree, so heavy swap use is directly readable from its output; the OOM-kill-on-exhaustion behaviour is the documented kernel out-of-memory path. This is a behavioural claim about the reading of the output, not about an option, and the output fields it depends on exist as described.",
+    "source": "https://man7.org/linux/man-pages/man1/free.1.html"
+  },
+  {
+    "claim_id": "LOS-017",
+    "concept_id": "linux.linux-operating-system.storage-devices",
+    "claim": "`lsblk` lists block devices in a tree.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsblk(8) NAME: \"lsblk - list block devices\". DESCRIPTION: \"By default, the command prints all block devices (except RAM disks) in a tree-like format.\"",
+    "source": "https://man7.org/linux/man-pages/man8/lsblk.8.html (util-linux)"
+  },
+  {
+    "claim_id": "LOS-018",
+    "concept_id": "linux.linux-operating-system.storage-devices",
+    "claim": "`lsblk -f` shows filesystem type and UUID.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsblk(8): \"-f, --fs  Output info about filesystems. This option is equivalent to -o NAME,FSTYPE,FSVER,LABEL,UUID,FSAVAIL,FSUSE%,MOUNTPOINTS.\" FSTYPE and UUID are both in that set, so the abbreviated description is accurate.",
+    "source": "https://man7.org/linux/man-pages/man8/lsblk.8.html"
+  },
+  {
+    "claim_id": "LOS-019",
+    "concept_id": "linux.linux-operating-system.storage-devices",
+    "claim": "lsblk \"reads this device tree\" (the /dev nodes) and presents it with \"size, filesystem type, and mount point where known\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Two errors. (1) Source of data: lsblk(8) says \"The lsblk command reads the sysfs filesystem and udev db to gather information\", not the /dev nodes. (2) Filesystem type is not in the default output: util-linux lsblk.c falls back to NAME, MAJ:MIN, RM, SIZE, RO, TYPE, TARGETS (mount points) when no columns are requested — FSTYPE appears only under -f/--fs, which the guide's own Commands row already says. Prose rewritten to name sysfs/udev and to list the actual default columns.",
+    "source": "https://man7.org/linux/man-pages/man8/lsblk.8.html; https://raw.githubusercontent.com/util-linux/util-linux/master/lsblk-cmd/lsblk.c (default column block, ~line 2725)"
+  },
+  {
+    "claim_id": "LOS-020",
+    "concept_id": "linux.linux-operating-system.storage-devices",
+    "claim": "A partition row such as `sda1` is a child of the whole disk `sda`, and acting on the wrong one is the common mistake.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsblk(8)'s tree output represents parent/child device relationships (\"The tree-like output (or children[] array in the JSON output)\"), and TYPE distinguishes disk from part, so the parent/child reading the guide describes is what the tool produces.",
+    "source": "https://man7.org/linux/man-pages/man8/lsblk.8.html"
+  },
+  {
+    "claim_id": "LOS-021",
+    "concept_id": "linux.linux-operating-system.cpu-architecture",
+    "claim": "`uname -m` prints the machine hardware name, and `-m` must not be confused with `-r` (kernel release).",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uname(1): \"-m, --machine  print the machine hardware name\" and \"-r, --kernel-release  print the kernel release\" — two distinct options answering two distinct questions, as the Common mistake cell states.",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "LOS-022",
+    "concept_id": "linux.linux-operating-system.cpu-architecture",
+    "claim": "`x86_64` and `aarch64` are the common `uname -m` outputs on those architectures.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The value uname reports for -m is the kernel's UTS_MACHINE. arch/x86/Makefile sets `UTS_MACHINE := x86_64` for 64-bit x86 and arch/arm64/Makefile sets `UTS_MACHINE := aarch64` (aarch64_be for big-endian), so those are the literal strings on the two architectures the guide names.",
+    "source": "https://raw.githubusercontent.com/torvalds/linux/master/arch/x86/Makefile; https://raw.githubusercontent.com/torvalds/linux/master/arch/arm64/Makefile"
+  },
+  {
+    "claim_id": "LOS-023",
+    "concept_id": "linux.linux-operating-system.cpu-architecture",
+    "claim": "`arch` prints the machine architecture and needs no options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "arch(1) DESCRIPTION is exactly \"Print machine architecture\", and the only documented options are --help and --version, so \"(no options needed)\" is right.",
+    "source": "https://man7.org/linux/man-pages/man1/arch.1.html (GNU coreutils 9.11)"
+  },
+  {
+    "claim_id": "LOS-024",
+    "concept_id": "linux.linux-operating-system.cpu-architecture",
+    "claim": "`arch` and `uname -m` report the same value on Linux; arch is effectively a thin wrapper around it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "arch(1) NAME: \"arch - print machine hardware name (same as uname -m)\". The equivalence is stated by the tool's own documentation, and both pages cross-reference each other in SEE ALSO.",
+    "source": "https://man7.org/linux/man-pages/man1/arch.1.html; https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "LOS-025",
+    "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+    "claim": "`lsmod` lists currently loaded kernel modules, reading from /proc/modules, and needs no options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsmod(8) NAME: \"lsmod - Show the status of modules in the Linux Kernel\". DESCRIPTION: \"lsmod is a trivial program which nicely formats the contents of the /proc/modules, showing what kernel modules are currently loaded.\" Its only options are -s, -v, -V and -h, so \"(no options needed)\" holds.",
+    "source": "https://man7.org/linux/man-pages/man8/lsmod.8.html (kmod)"
+  },
+  {
+    "claim_id": "LOS-026",
+    "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+    "claim": "A built-in driver never appears in `lsmod` output even though it is active.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "lsmod only formats /proc/modules, which enumerates loaded modules. Code compiled into the kernel image is not a module and has no entry there, so it cannot appear — the guide's Common mistake and Traps cells follow directly from the documented data source.",
+    "source": "https://man7.org/linux/man-pages/man8/lsmod.8.html"
+  },
+  {
+    "claim_id": "LOS-027",
+    "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+    "claim": "`modprobe` loads a module and its dependencies automatically, and `-r` removes one.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "modprobe(8) NAME: \"modprobe - Add and remove modules from the Linux Kernel\"; DESCRIPTION: \"modprobe expects an up-to-date modules.dep.bin file ... This file lists what other modules each module needs (if any), and modprobe uses this to add or remove these dependencies automatically.\" Options: \"-r, --remove  This option causes modprobe to remove rather than insert a module.\"",
+    "source": "https://man7.org/linux/man-pages/man8/modprobe.8.html (kmod)"
+  },
+  {
+    "claim_id": "LOS-028",
+    "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+    "claim": "`insmod` loads exactly the file given with no dependency resolution, which is what distinguishes it from `modprobe`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "insmod(8): \"insmod is a trivial program to insert a module into the kernel. Most users will want to use modprobe(8) instead, which is more clever and can handle module dependencies.\" Its synopsis takes a filename, not a module name.",
+    "source": "https://man7.org/linux/man-pages/man8/insmod.8.html (kmod)"
+  },
+  {
+    "claim_id": "LOS-029",
+    "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules",
+    "claim": "A module is a `.ko` file linked into the running kernel on demand, and Kconfig marks each option `Y` (built in) or `M` (module) at build time.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Documentation/kbuild/modules.rst: \"after linking, will result in the kernel module <module_name>.ko\", so .ko is the module file extension. Documentation/kbuild/kconfig-language.rst defines the tristate type and states that an expression \"can have a value of 'n', 'm' or 'y'\", with m documented as the module value (\"limits FOO to module (=m) or disabled (=n)\") and y therefore the built-in value. Both files are the dataset's own cited sources for this concept.",
+    "source": "https://raw.githubusercontent.com/torvalds/linux/master/Documentation/kbuild/modules.rst; https://raw.githubusercontent.com/torvalds/linux/master/Documentation/kbuild/kconfig-language.rst"
+  },
+  {
+    "claim_id": "LOS-030",
+    "concept_id": "linux.linux-operating-system.environment-variables",
+    "claim": "`env` with no arguments prints the current environment, and with a command runs that command in the environment.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "POSIX env: \"The env utility shall obtain the current environment, modify it according to its arguments, then invoke the utility named by the utility operand ... If no utility operand is specified, the resulting environment shall be written to the standard output, with one name=value pair per line.\" GNU env(1) NAME agrees: \"env - run a program in a modified environment\".",
+    "source": "https://man7.org/linux/man-pages/man1/env.1p.html; https://man7.org/linux/man-pages/man1/env.1.html"
+  },
+  {
+    "claim_id": "LOS-031",
+    "concept_id": "linux.linux-operating-system.environment-variables",
+    "claim": "`env` shows only exported (environment) variables, not un-exported shell variables.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "env is an external utility: it can only see what it inherits, which is the environment. bash(1) export: \"The supplied names are marked for automatic export to the environment of subsequently executed commands\" — an un-exported shell variable is by definition not in that environment, so env cannot print it.",
+    "source": "https://man7.org/linux/man-pages/man1/env.1p.html; https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-032",
+    "concept_id": "linux.linux-operating-system.environment-variables",
+    "claim": "`export` marks a shell variable for inclusion in child processes' environment, accepts `name=value` or a bare name, and with no names lists exported variables.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): \"The supplied names are marked for automatic export to the environment of subsequently executed commands ... If no names are given, or if only the -p option is supplied, export displays a list of names of all exported variables ... export allows the value of a variable to be set when it is exported ... by following the variable name with =value.\" Both operand forms and the bare-`export` example are supported.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-033",
+    "concept_id": "linux.linux-operating-system.environment-variables",
+    "claim": "`echo $HOME` prints the variable's value; omitting the `$` (`echo HOME`) prints the literal text.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1) PARAMETERS/EXPANSION: parameter expansion is introduced by `$`; a bare word undergoes no such expansion and is passed to echo as a literal argument. The claim follows directly from the documented expansion rule.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-034",
+    "concept_id": "linux.linux-operating-system.path",
+    "claim": "PATH is an ordered, colon-separated list of directories the shell searches left to right, first match winning.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): \"PATH  The search path for commands. It is a colon-separated list of directories in which the shell looks for commands\"; COMMAND EXECUTION: \"bash searches each element of the PATH for a directory containing an executable file by that name\". (Caveat noted but not a defect in the guide: bash consults a hash table of previously resolved commands before performing a full PATH search, so a newly installed earlier match may not win until `hash -r`.)",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-035",
+    "concept_id": "linux.linux-operating-system.path",
+    "claim": "The shell \"does not consult the current directory unless `.` is explicitly on PATH\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "An explicit `.` is not the only way. bash(1): \"A zero-length (null) directory name in the value of PATH indicates the current directory. A null directory name may appear as two adjacent colons, or as an initial or trailing colon.\" A PATH ending in a colon therefore searches the current directory with no `.` present anywhere — precisely the mis-set-PATH case the sentence is warning about. Prose broadened to cover the empty field.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html"
+  },
+  {
+    "claim_id": "LOS-036",
+    "concept_id": "linux.linux-operating-system.path",
+    "claim": "`which` reports which file on PATH a command name would run, and `-a` lists all matches rather than just the first.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "which(1) (debianutils): \"which returns the pathnames of the files (or links) which would be executed in the current environment ... It does this by searching the PATH for executable files matching the names of the arguments\"; OPTIONS: \"-a  print all matching pathnames of each argument\".",
+    "source": "https://manpages.debian.org/unstable/debianutils/which.1.en.html"
+  },
+  {
+    "claim_id": "LOS-037",
+    "concept_id": "linux.linux-operating-system.path",
+    "claim": "\"builtins have no file on PATH, so `which` reports nothing found even though the command works\" — stated without qualification.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "Same defect as LOS-005, in the Commands table this time. The claim holds for the external which(1) but not universally: zsh's `which` builtin is documented as \"Equivalent to whence -c\", and whence reports built-in commands. Verified empirically (`zsh -c 'which cd'` prints \"cd: shell built-in command\", exit 0; `bash -c 'which cd'` behaves as the guide describes). Cell rewritten to say \"the external `which`\" and to name zsh as the exception; the neighbouring `type` row and the section's knowledge-check answer were aligned to the same wording.",
+    "source": "https://manpages.debian.org/bookworm/zsh-common/zshbuiltins.1.en.html; https://manpages.debian.org/unstable/debianutils/which.1.en.html; local runs of `zsh -c 'which cd'` and `bash -c 'which cd'`"
+  },
+  {
+    "claim_id": "LOS-038",
+    "concept_id": "linux.linux-operating-system.path",
+    "claim": "`type` reports how a name would be interpreted — builtin, alias, function, or file — and sees builtins and aliases the external `which` cannot.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "bash(1): \"type [-aftpP] name ...  Indicate how each name would be interpreted if used as a command name\", with -t printing one of \"alias, keyword, function, builtin, or file\". which(1) searches PATH only, so the asymmetry the guide describes is real.",
+    "source": "https://man7.org/linux/man-pages/man1/bash.1.html; https://manpages.debian.org/unstable/debianutils/which.1.en.html"
+  },
+  {
+    "claim_id": "LOS-039",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`uname -a` prints \"kernel name, release, version, and machine architecture in one line\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The enumeration is incomplete in a way that matters here, because the same paragraph assigns hostname reporting to hostnamectl. uname(1): \"-a, --all  print all information, in the following order, except omit -p and -i if unknown\", where the documented order is kernel name (-s), network node hostname (-n), kernel release (-r), kernel version (-v), machine hardware name (-m), processor (-p), hardware platform (-i), operating system (-o). `uname -a` does report the hostname. Sentence rewritten to the documented field list.",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "LOS-040",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`uname -a` prints all available fields.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uname(1): \"-a, --all  print all information, in the following order, except omit -p and -i if unknown\". \"All available fields\" is an accurate reading of the omit-if-unknown behaviour.",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "LOS-041",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "\"`uname` never reports distribution identity at all.\"",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "An absolute that the tool's own option list does not support. uname(1) documents \"-o, --operating-system  print the operating system\" (conventionally \"GNU/Linux\"), which -a includes; and -v prints UTS_VERSION, a string fixed at kernel build time and routinely set by the distributor — Documentation/kbuild/kbuild.rst describes UTS_VERSION explicitly as \"uname -v in the running kernel\" and documents build-time overrides of its components. The pedagogical point (uname is not the way to learn the distribution's name and release) survives; the absolute does not. Cell weakened to the supportable statement plus the /etc/os-release pointer.",
+    "source": "https://man7.org/linux/man-pages/man1/uname.1.html; https://raw.githubusercontent.com/torvalds/linux/master/Documentation/kbuild/kbuild.rst"
+  },
+  {
+    "claim_id": "LOS-042",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`hostnamectl` shows or sets the system hostname and related system information; with no arguments it shows status.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "hostnamectl(1): \"hostnamectl may be used to query and change the system hostname and related settings\"; COMMANDS: \"status  Show system hostname and related information. If no command is specified, this is the implied default.\"",
+    "source": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html (systemd)"
+  },
+  {
+    "claim_id": "LOS-043",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`hostnamectl` reports hostname alongside OS, kernel, and architecture.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "systemd's hostnamectl status printer emits table fields \"Static hostname\", \"Operating System\", \"Kernel\" and \"Architecture\" (src/hostname/hostnamectl.c), so all four facts the guide names are in one structured output.",
+    "source": "https://raw.githubusercontent.com/systemd/systemd/main/src/hostname/hostnamectl.c"
+  },
+  {
+    "claim_id": "LOS-044",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`hostnamectl` is systemd-specific and absent on non-systemd distributions.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "hostnamectl(1) is shipped as part of systemd and operates against systemd-hostnamed.service(8), which the page names as its counterpart service. A system without systemd has neither the binary nor the service.",
+    "source": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html"
+  },
+  {
+    "claim_id": "LOS-045",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "`uptime` reports how long the system has run plus load averages.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "uptime(1): \"uptime gives a one line display of the following information. The current time, how long the system has been running, how many users are currently logged on, and the system load averages for the past 1, 5, and 15 minutes.\" The guide names a subset and does not claim it is exhaustive.",
+    "source": "https://man7.org/linux/man-pages/man1/uptime.1.html (procps-ng)"
+  },
+  {
+    "claim_id": "LOS-046",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "Load average must be judged against CPU count; the illustration was \"a load of 4 is idle on a 16-core machine and saturated on a 2-core one\".",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The principle is confirmed but the illustration is not. uptime(1): \"Load averages are not normalized for the number of CPUs in a system, so a load average of 1 means a single CPU system is loaded all the time while on a 4 CPU system it means it was idle 75% of the time.\" By that same arithmetic a load of 4 on 16 cores is a quarter of capacity — busy, not idle — and on 2 cores it is twice capacity, past saturation rather than at it. Sentence restated with the correct proportions and with the man page's \"not normalised\" wording.",
+    "source": "https://man7.org/linux/man-pages/man1/uptime.1.html"
+  },
+  {
+    "claim_id": "LOS-047",
+    "concept_id": "linux.linux-operating-system.system-information-commands",
+    "claim": "In the system-information Commands table, `cat /etc/os-release` reports the distribution only, not the kernel version.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "os-release(5) defines the file's contents as operating system identification supplied by the vendor; it contains no kernel field. Kernel release is uname -r's job.",
+    "source": "https://man7.org/linux/man-pages/man5/os-release.5.html; https://man7.org/linux/man-pages/man1/uname.1.html"
+  },
+  {
+    "claim_id": "LOS-048",
+    "concept_id": "linux.linux-operating-system.everything-is-a-file",
+    "claim": "`/proc/cpuinfo` and `/dev/sda` are reachable through the ordinary open/read file interface, and `/proc` and `/sys` are pseudo-filesystems exposing live kernel state.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "proc(5): \"The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. It is commonly mounted at /proc.\" lscpu(1) independently confirms /proc/cpuinfo is read as an ordinary file. Block device nodes such as /dev/sda are opened with the same open/read/write calls listed in syscalls(2).",
+    "source": "https://man7.org/linux/man-pages/man5/proc.5.html; https://man7.org/linux/man-pages/man1/lscpu.1.html; https://man7.org/linux/man-pages/man2/syscalls.2.html"
+  }
+]

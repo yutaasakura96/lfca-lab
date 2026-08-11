@@ -1255,7 +1255,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Git Concepts",
-      "description": "Sending local commits to a remote.",
+      "description": "Uploading local commits to a branch on a remote repository, making them visible to collaborators. Committing only records a snapshot in the local repository; nothing reaches the remote until a push. The remote and branch pushed to default to the current branch's configured upstream, so git push -u origin main both pushes and sets that upstream, letting a later bare git push know where to send it. A push that would discard commits already on the remote is refused (a non-fast-forward rejection) unless overridden with --force.",
       "objective_verbatim": "Git Concepts",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -1267,14 +1267,18 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-push"
       ],
       "candidate_evidence": [],
       "commands": [
-        "git push"
+        "git push",
+        "git push -u origin main"
       ],
       "related_topics": [],
-      "confused_with": [],
+      "confused_with": [
+        "devops.git-concepts.commit"
+      ],
       "coverage_status": "NOT COVERED",
       "notes": "Depth rationale: command-bearing: the exam can ask which command or option fits a stated need."
     },
@@ -1767,7 +1771,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Containers",
-      "description": "The declarative recipe for building an image. RUN, COPY and ADD each add a filesystem layer; instructions such as ENV, LABEL, WORKDIR, EXPOSE and CMD set metadata only.",
+      "description": "The declarative recipe for building an image. RUN, COPY and ADD add filesystem layers; ENV, LABEL, EXPOSE and CMD record configuration metadata and add nothing to the filesystem. WORKDIR looks like pure metadata and is not — it creates its directory when that directory is missing, which is a filesystem change like any other.",
       "objective_verbatim": "Containers",
       "sept_2025_status": "unchanged",
       "inferred": true,

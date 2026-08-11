@@ -1,0 +1,416 @@
+[
+  {
+    "claim_id": "sec-cmd-001",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "ssh-keygen option `-t` selects the key type.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "ssh-keygen(1) documents `-t ecdsa | ecdsa-sk | ed25519 | ed25519-sk | rsa` as 'Specifies the type of key to create.'",
+    "source": "local man ssh-keygen(1), OpenSSH_10.2p1 (macOS 26.5), OPTIONS -t"
+  },
+  {
+    "claim_id": "sec-cmd-002",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "ssh-keygen `-b` sets the number of bits, and the RSA default is 3072.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-keygen(1): '-b bits ... For RSA keys, the minimum size is 1024 bits and the default is 3072 bits.'",
+    "source": "local man ssh-keygen(1), OpenSSH_10.2p1, OPTIONS -b"
+  },
+  {
+    "claim_id": "sec-cmd-003",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "Using `-b` with an Ed25519 key does not produce a stronger key because the flag is ignored for that key type.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-keygen(1): 'ECDSA-SK, Ed25519 and Ed25519-SK keys have a fixed length and the -b flag will be ignored.' Verified empirically: `ssh-keygen -t ed25519 -b 4096` produced a 256-bit ED25519 key (ssh-keygen -l reported '256 ... (ED25519)').",
+    "source": "local man ssh-keygen(1) + empirical run on this machine"
+  },
+  {
+    "claim_id": "sec-cmd-004",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "ssh-keygen `-C` sets the comment, `-f` sets the output file, `-l` shows a key's fingerprint.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-keygen(1) documents -C comment, -f filename, and -l ('Show fingerprint of specified public key file'). Verified empirically: `ssh-keygen -N '' -C laptop -f ./key1` wrote key1/key1.pub, and `ssh-keygen -l -f ./key1.pub` printed '256 SHA256:... laptop (ED25519)'.",
+    "source": "local man ssh-keygen(1) + empirical run"
+  },
+  {
+    "claim_id": "sec-cmd-005",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "Worked example `ssh-keygen -t ed25519 -C \"laptop\"` generates an Ed25519 key carrying that comment.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Ran the equivalent invocation with an explicit -f and empty passphrase; the resulting public key began 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5' and the fingerprint line ended '(ED25519)' with comment 'laptop'.",
+    "source": "empirical run, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-006",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "Invoked with no arguments, current OpenSSH generates an Ed25519 key, writing the private key to a file such as `~/.ssh/id_ed25519` and the public key to the same name with `.pub` appended.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-keygen(1) lists the -t values as 'ecdsa', 'ecdsa-sk', 'ed25519 (the default)', 'ed25519-sk', 'rsa'. Running bare `ssh-keygen` prompted 'Enter file in which to save the key (~/.ssh/id_ed25519)'. Generating with -t ed25519 produced id_ed25519 and id_ed25519.pub. The prose hedges with 'current OpenSSH', which is correct: the default changed from RSA to Ed25519 in OpenSSH 9.5.",
+    "source": "local man ssh-keygen(1) + empirical run, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-007",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "`ssh-copy-id` appends the public key to the remote account's `~/.ssh/authorized_keys`, and needs a working login (usually password authentication) the first time.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-copy-id(1): 'uses ssh(1) to log into a remote machine (presumably using a login password, so password authentication should be enabled...)' and 'By default it adds the keys by appending them to the remote user's ~/.ssh/authorized_keys (creating the file, and directory, if necessary).'",
+    "source": "local man ssh-copy-id(1), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-008",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "The default `AuthorizedKeysFile` is `.ssh/authorized_keys .ssh/authorized_keys2`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man sshd_config(5), AuthorizedKeysFile: 'The default is \".ssh/authorized_keys .ssh/authorized_keys2\".'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-009",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "ssh-copy-id options: `-i` use this identity file, `-p` remote port, `-n` dry run, `-f` skip the already-installed check.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-copy-id(1): '-i [identity_file] Use only the key(s) contained in identity_file'; '-p port Specifies the port to connect to on the remote host'; '-n do a dry-run'; '-f Forced mode: doesn't check if the keys are present on the remote server.'",
+    "source": "local man ssh-copy-id(1), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-010",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "Common mistake: 'Pointing `-i` at the private key file ... only the `.pub` half belongs there' — i.e. `ssh-copy-id -i ~/.ssh/id_ed25519` is an error.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "man ssh-copy-id(1) states of -i: 'If the filename does not end in .pub this is added.' The shipped script implements exactly that (/usr/bin/ssh-copy-id: `if expr \"$L_ID_FILE\" : '.*\\.pub$' ... else PUB_ID_FILE=\"$L_ID_FILE.pub\"`), so passing the private-key path to -i resolves to the .pub file and installs only the public half. The guide named a non-mistake as the common mistake. Replaced with a mistake the man page does document: omitting -i, where 'Default behaviour without -i, is to check if `ssh-add -L' provides any output, and if so those keys are used', so every agent-loaded key is installed. Also added the .pub-suffix behaviour to the Key options cell.",
+    "source": "local man ssh-copy-id(1) + /usr/bin/ssh-copy-id script text, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-011",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "Trap: ssh-copy-id is not a way in when password authentication is already disabled, because it authenticates as an ordinary client to write the file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "man ssh-copy-id(1) DESCRIPTION: it 'uses ssh(1) to log into a remote machine (presumably using a login password, so password authentication should be enabled, unless you've done some clever use of multiple identities)'. It has no privileged channel of its own.",
+    "source": "local man ssh-copy-id(1), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-012",
+    "concept_id": "security.security.public-key-authentication",
+    "claim": "In SSH's publickey method the client signs session-specific data and sends only the signature; the private key is never transmitted.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "RFC 4252 section 7 defines the publickey method: the client sends a signature computed over the session identifier concatenated with the request fields; the private key never leaves the client.",
+    "source": "RFC 4252, The Secure Shell (SSH) Authentication Protocol, section 7"
+  },
+  {
+    "claim_id": "sec-cmd-013",
+    "concept_id": "security.security.hashing",
+    "claim": "`sha256sum` computes SHA-256 digests, and with `-c` reads a file of previously recorded digests and reports each as OK or FAILED.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sha256sum(1) (GNU coreutils 9.11): 'Print or check SHA256 (256-bit) checksums'; '-c, --check read checksums from the FILEs and check them'. Verified empirically: a matching file printed 'a.txt: OK' with exit 0; after tampering it printed 'a.txt: FAILED' plus a WARNING line, exit 1.",
+    "source": "man7.org sha256sum(1), GNU coreutils 9.11 + empirical run"
+  },
+  {
+    "claim_id": "sec-cmd-014",
+    "concept_id": "security.security.hashing",
+    "claim": "sha256sum `--ignore-missing` skips absent files, `--status` reports only through the exit code, `--quiet` suppresses per-file OK lines.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sha256sum(1): '--ignore-missing  don't fail or report status for missing files'; '--status  don't output anything, status code shows success'; '--quiet  don't print OK for each successfully verified file'. All three are listed under 'The following five options are useful only when verifying checksums', consistent with the guide showing them alongside -c. Verified empirically: --quiet and --status printed nothing and exited 0.",
+    "source": "man7.org sha256sum(1), GNU coreutils 9.11 + empirical run"
+  },
+  {
+    "claim_id": "sec-cmd-015",
+    "concept_id": "security.security.hashing",
+    "claim": "`md5sum` has the same interface for MD5, with `-c` to check and `--warn` to warn about malformed lines.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "md5sum(1) (GNU coreutils 9.11) carries the identical option list: '-c, --check read checksums from the FILEs and check them' and '-w, --warn warn about improperly formatted checksum lines'. The guide cites the long form `--warn`, which is correct.",
+    "source": "man7.org md5sum(1), GNU coreutils 9.11"
+  },
+  {
+    "claim_id": "sec-cmd-016",
+    "concept_id": "security.security.hashing",
+    "claim": "Examples `sha256sum -c SHA256SUMS` and `md5sum image.iso` do what the table says.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Ran `sha256sum a.txt > SHA256SUMS; sha256sum -c SHA256SUMS` and got the per-entry OK/FAILED behaviour described. Bare `md5sum FILE` prints a digest and filename per the man page's default mode description.",
+    "source": "empirical run + man7.org md5sum(1)"
+  },
+  {
+    "claim_id": "sec-cmd-017",
+    "concept_id": "security.security.hashing",
+    "claim": "Treating an MD5 match as a security guarantee is a mistake because MD5 is broken for collision resistance.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "md5sum(1) carries an explicit BUGS section: 'Do not use the MD5 algorithm for security related purposes. Instead, use an SHA-2, SHA-3, or BLAKE2 algorithm.'",
+    "source": "man7.org md5sum(1), GNU coreutils 9.11, BUGS"
+  },
+  {
+    "claim_id": "sec-cmd-018",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`sshd_config` is the OpenSSH server configuration file, read from `/etc/ssh/sshd_config`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) DESCRIPTION: 'sshd(8) reads configuration data from /etc/ssh/sshd_config (or the file specified with -f on the command line).'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-019",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "The file contains keyword-argument pairs, one per line, and unless a keyword documents otherwise the first obtained value is used; `#` begins a comment.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5): 'The file contains keyword-argument pairs, one per line. Unless noted otherwise, for each keyword, the first obtained value will be used. Lines starting with `#' and empty lines are interpreted as comments.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-020",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`PermitRootLogin` defaults to `prohibit-password`, which disables password and keyboard-interactive authentication for root while still permitting key-based root login — not the same as `no`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) PermitRootLogin: 'The default is prohibit-password.' and 'If this option is set to prohibit-password (or its deprecated alias, without-password), password and keyboard-interactive authentication are disabled for root.' A separate paragraph gives 'If this option is set to no, root is not allowed to log in.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-021",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`PasswordAuthentication` defaults to `yes` and `PubkeyAuthentication` defaults to `yes`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5): 'PasswordAuthentication  Specifies whether password authentication is allowed. The default is yes.' and 'PubkeyAuthentication  Specifies whether public key authentication is allowed. The default is yes.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-022",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`KbdInteractiveAuthentication` defaults to `yes`, and `ChallengeResponseAuthentication` is a deprecated alias for the same setting, so disabling only `PasswordAuthentication` can leave a PAM password prompt open.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) KbdInteractiveAuthentication: 'The default is yes. ... ChallengeResponseAuthentication is a deprecated alias for this.' The UsePAM entry further states that PAM 'will enable ... authentication using KbdInteractiveAuthentication and PasswordAuthentication in addition to PAM ... if you wish to disable ... authentication, you should disable either PasswordAuthentication or KbdInteractiveAuthentication.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1, KbdInteractiveAuthentication and UsePAM"
+  },
+  {
+    "claim_id": "sec-cmd-023",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`MaxAuthTries` defaults to 6 and bounds authentication attempts per connection.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) MaxAuthTries: 'Specifies the maximum number of authentication attempts permitted per connection. ... The default is 6.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-024",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`Port` defaults to 22, and `PermitEmptyPasswords` defaults to no.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5): 'Port  Specifies the port number that sshd(8) listens on. The default is 22.' and 'PermitEmptyPasswords ... The default is no.'",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-025",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`AllowUsers` and `AllowGroups` restrict who may authenticate and take patterns; `AllowUsers` additionally accepts a `USER@HOST` form restricting a user to particular source addresses.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) AllowUsers: 'If the pattern takes the form USER@HOST then USER and HOST are separately checked, restricting logins to particular users from particular hosts. HOST criteria may additionally contain addresses to match in CIDR address/masklen format.' AllowGroups takes 'a list of group name patterns'. Both reference PATTERNS in ssh_config(5).",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-026",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "An `Include /etc/ssh/sshd_config.d/*.conf` line near the top lets a drop-in file win over a directive written further down the main file.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) documents Include ('Include the specified configuration file(s) ... expanded and processed in lexical order') and the first-obtained-value rule in DESCRIPTION; together these give exactly the stated precedence. The 'modern distributions place it near the top' part is a distribution packaging convention (Fedora/RHEL 8+, Debian/Ubuntu ship the line at the head of sshd_config) and the prose hedges it as such rather than asserting universality.",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1, Include and DESCRIPTION"
+  },
+  {
+    "claim_id": "sec-cmd-027",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "`sshd -t` validates the configuration before a reload, and `sshd -T` prints the effective configuration.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd(8): '-t  Test mode. Only check the validity of the configuration file and sanity of the keys. This is useful for updating sshd reliably as configuration options may change.' and '-T  Extended test mode. Check the validity of the configuration file, output the effective configuration to stdout and then exit.'",
+    "source": "local man sshd(8), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-028",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "Diagnostic step 3: 'Permission denied (publickey)' can be caused by restrictive permissions on the home directory and `.ssh` causing the server to ignore the file.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "The direction is inverted. sshd(8) under ~/.ssh/authorized_keys: 'If this file, the ~/.ssh directory, or the user's home directory are writable by other users, then the file could be modified or replaced by unauthorized users. In this case, sshd will not allow it to be used unless the StrictModes option has been set to \"no\".' sshd_config(5) StrictModes adds 'The default is yes' and cites users who 'accidentally leave their directory or files world-writable'. It is over-permissive, not restrictive, modes that cause rejection. Prose corrected to name writability by other users and StrictModes explicitly.",
+    "source": "local man sshd(8) FILES ~/.ssh/authorized_keys and man sshd_config(5) StrictModes, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-029",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "Memorised baseline block: `Port 22`, `PermitRootLogin no`, `PasswordAuthentication no`, `KbdInteractiveAuthentication no`, `PubkeyAuthentication yes`, `PermitEmptyPasswords no`, `MaxAuthTries 3`, `AllowGroups sshusers`, `X11Forwarding no` are all valid keyword-argument lines.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Every keyword appears in sshd_config(5) with the argument form used: PermitRootLogin takes yes|prohibit-password|forced-commands-only|no; PasswordAuthentication, KbdInteractiveAuthentication, PubkeyAuthentication, PermitEmptyPasswords and X11Forwarding take yes/no; Port takes a number; MaxAuthTries takes an integer; AllowGroups takes group name patterns.",
+    "source": "local man sshd_config(5), OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-030",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "Common mistake: editing the client file `ssh_config` instead of the server file `sshd_config` leaves the server's behaviour unchanged.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5) is 'OpenSSH daemon configuration file' read by sshd(8); ssh_config(5) is the client configuration read by ssh(1). They are separate files consumed by separate programs, so a server-side directive written into ssh_config is never read by sshd.",
+    "source": "local man sshd_config(5) NAME/DESCRIPTION and man ssh_config(5) NAME, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-031",
+    "concept_id": "security.security.ssh-hardening",
+    "claim": "Nothing in the server configuration produces a connection timeout; a timeout means traffic is not reaching the daemon.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sshd_config(5)'s timeout-adjacent keywords (LoginGraceTime, ClientAliveInterval) act after a TCP connection is established and produce a disconnect, not a connect-phase timeout; a TCP connect that never completes is a routing or packet-filter condition, and a listening daemon on a reachable address answers with RST (refused) rather than silence. The distinction the guide draws between 'refused' and 'timed out' therefore holds.",
+    "source": "local man sshd_config(5) LoginGraceTime/ClientAlive*, OpenSSH_10.2p1"
+  },
+  {
+    "claim_id": "sec-cmd-032",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "`getenforce` reports whether SELinux is enforcing, permissive, or disabled, and takes no options.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "getenforce(8): SYNOPSIS is bare 'getenforce' with no OPTIONS section; DESCRIPTION reads 'getenforce reports whether SELinux is enforcing, permissive, or disabled.'",
+    "source": "man7.org getenforce(8), SELinux userspace, page obtained 2026-05-24"
+  },
+  {
+    "claim_id": "sec-cmd-033",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "`setenforce` switches between enforcing and permissive at runtime.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "setenforce(8): SYNOPSIS 'setenforce [Enforcing|Permissive|1|0]'; DESCRIPTION 'Use Enforcing or 1 to put SELinux in enforcing mode. Use Permissive or 0 to put SELinux in permissive mode.' It explicitly cannot enable or disable SELinux, matching the guide's restriction of it to those two modes.",
+    "source": "man7.org setenforce(8), SELinux userspace"
+  },
+  {
+    "claim_id": "sec-cmd-034",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "`/etc/selinux/config` selects the mode — `enforcing`, `permissive`, or `disabled` — and the policy, commonly the targeted policy, which confines specific services and leaves ordinary user processes unconfined.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "selinux(8): 'The /etc/selinux/config configuration file controls whether SELinux is enabled or disabled, and if enabled, whether SELinux operates in permissive mode or enforcing mode. The SELINUX variable may be set to any one of disabled, permissive, or enforcing'; and 'The targeted policy is designed as a policy where most user processes operate without restrictions, and only specific services are placed into distinct security domains that are confined by the policy.'",
+    "source": "man7.org selinux(8), SELinux userspace"
+  },
+  {
+    "claim_id": "sec-cmd-035",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "Permissive mode logs the denial and allows the access anyway, so reading `Permissive` as 'protected' is an error.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "selinux(8): 'The permissive option enables the SELinux code, but causes it to operate in a mode where accesses that would be denied by policy are permitted but audited.'",
+    "source": "man7.org selinux(8)"
+  },
+  {
+    "claim_id": "sec-cmd-036",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "The `selinux(8)` documentation notes that setting `SELINUX=disabled` no longer necessarily disables SELinux fully.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "selinux(8): 'NOTE: Disabling SELinux by setting SELINUX=disabled in /etc/selinux/config is deprecated and depending on kernel version and configuration it might not lead to SELinux being completely disabled. ... To properly disable SELinux, it is recommended to use the selinux=0 kernel boot option instead.'",
+    "source": "man7.org selinux(8)"
+  },
+  {
+    "claim_id": "sec-cmd-037",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "`aa-status` reports AppArmor's state and how many profiles are loaded and in which mode, with options `--enabled`, `--profiled`, `--enforced`, `--complaining`, `--json`.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "aa-status(8), AppArmor 4.1.7: '--enabled returns error code if AppArmor is not enabled'; '--profiled displays the number of loaded AppArmor policies'; '--enforced displays the number of loaded enforcing AppArmor policies'; '--complaining displays the number of loaded non-enforcing AppArmor policies'; '--json displays multiple data points ... in a JSON format'. The default verbose output shown in the man page is exactly the profile/mode counts the guide describes.",
+    "source": "manpages.debian.org aa-status(8), apparmor 4.1.7-5"
+  },
+  {
+    "claim_id": "sec-cmd-038",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "Common mistake: running `aa-status` unprivileged produces an error that is not evidence AppArmor is absent — it needs root to read the policy state.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "aa-status(8) BUGS: 'aa-status must be run as root to read the state of the loaded policy from the apparmor module.' EXIT STATUS distinguishes 1 ('apparmor is not enabled/loaded') from 4 ('the user running the script doesn't have enough privileges to read the apparmor control files'), which is precisely the confusion the guide warns about.",
+    "source": "manpages.debian.org aa-status(8), apparmor 4.1.7-5, BUGS and EXIT STATUS"
+  },
+  {
+    "claim_id": "sec-cmd-039",
+    "concept_id": "security.security.package-and-download-verification",
+    "claim": "`gpg --verify` takes the detached signature file first and the signed file second; a clearsigned document is passed alone.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "gpg(1) --verify: 'If only one argument is given, the specified file is expected to include a complete signature. With more than one argument, the first argument should specify a file with a detached signature and the remaining files should contain the signed data.'",
+    "source": "local man gpg(1), GnuPG 2.4.8"
+  },
+  {
+    "claim_id": "sec-cmd-040",
+    "concept_id": "security.security.package-and-download-verification",
+    "claim": "Examples `gpg --verify SHA256SUMS.asc SHA256SUMS` and `gpg --verify sha256sums.txt.asc sha256sums.txt` are correctly ordered detached-signature verifications.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Both put the .asc detached signature first and the signed data second, matching gpg(1)'s documented argument order for the multi-argument form.",
+    "source": "local man gpg(1), GnuPG 2.4.8, --verify"
+  },
+  {
+    "claim_id": "sec-cmd-041",
+    "concept_id": "security.security.package-and-download-verification",
+    "claim": "`gpg --verify` can print `Good signature` together with a warning that the key is not certified with a trusted signature, leaving the signer's identity unestablished.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "The exact diagnostic exists in the GnuPG binary on this machine: `strings $(which gpg)` yields 'WARNING: This key is not certified with a trusted signature!' alongside 'WARNING: The key's User ID is not certified with a trusted signature!'. GnuPG emits it whenever a signature verifies against a key with no trust path, which is exactly the case the guide describes. (An end-to-end run was not possible here: gpg-agent could not start in the sandbox, so this rests on the binary's own message catalogue rather than a live verification.)",
+    "source": "GnuPG 2.4.8 binary message strings, /opt/homebrew/bin/gpg"
+  },
+  {
+    "claim_id": "sec-cmd-042",
+    "concept_id": "security.security.package-and-download-verification",
+    "claim": "`sha256sum` with `-c` reads a digest file and reports OK or FAILED per entry; `--ignore-missing` skips files not present; `--status` reports through the exit code only.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Same coreutils documentation as claim sec-cmd-013/014, re-checked in this concept's own Commands table: the three options and their meanings match sha256sum(1) verbatim, and the OK/FAILED behaviour was reproduced empirically.",
+    "source": "man7.org sha256sum(1), GNU coreutils 9.11 + empirical run"
+  },
+  {
+    "claim_id": "sec-cmd-043",
+    "concept_id": "security.security.package-and-download-verification",
+    "claim": "`apt` and `dnf` verify repository metadata signatures against the distribution's keys on every update.",
+    "kind": "command",
+    "verdict": "refuted",
+    "reasoning": "True of apt, false of dnf. apt-secure(8): 'Starting with version 0.6, APT contains code that does signature checking of the Release file for all repositories.' But dnf's metadata-signature option is repo_gpgcheck, documented as 'Whether to perform GPG signature check on this repository's metadata. The default is False.' What dnf checks by default in practice is the per-package signature via gpgcheck (itself 'The default is False' in dnf.conf, normally set to 1 in the shipped .repo files). Prose rewritten to state apt's Release-file check and dnf's package-signature check separately and to name repo_gpgcheck as off by default.",
+    "source": "manpages.debian.org apt-secure(8) DESCRIPTION; dnf.readthedocs.io Configuration Reference, gpgcheck and repo_gpgcheck"
+  },
+  {
+    "claim_id": "sec-cmd-044",
+    "concept_id": "security.security.full-disk-encryption",
+    "claim": "LUKS, managed with `cryptsetup`, stores an encrypted volume key in a header with several key slots, so passphrases can be added and removed without re-encrypting the device, and destroying the header makes the data unrecoverable even with the correct passphrase.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "Verified against the upstream FAQ text: LUKS is described as 'multiple user keys with one volume key ... metadata block at start of device'; 'LUKS format uses a metadata header and 8 key-slot areas'; and 'LUKS PASSPHRASE IS NOT THE VOLUME KEY: The LUKS passphrase is not used in deriving the volume key. It is used in decrypting a volume key that is randomly selected on header creation.' On header loss the FAQ states 'There is no way to recover a damaged key-slot, except from a header backup' and repeatedly instructs the reader to keep one, which is exactly the guide's point.",
+    "source": "cryptsetup upstream FAQ.md (gitlab.com/cryptsetup/cryptsetup, raw main branch), sections 1.1, 1.2, 2 and 4"
+  },
+  {
+    "claim_id": "sec-cmd-045",
+    "concept_id": "security.security.privilege-escalation",
+    "claim": "Common Linux escalation routes include a misconfigured `sudo` rule, a SUID binary, and a service file or script writable by an unprivileged user.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "sudo(8)/sudoers(5) define per-command privilege delegation whose misconfiguration grants more than intended; the set-user-ID bit is documented in chmod(1) and execve(2) as causing the process to take the file owner's effective UID; a unit file or script writable by an unprivileged user is executed by the privileged service manager. These are mechanism statements, not option claims, and each follows directly from the referenced manual pages.",
+    "source": "man sudoers(5), man chmod(1) (set-user-ID), man execve(2)"
+  },
+  {
+    "claim_id": "sec-cmd-046",
+    "concept_id": "security.security.selinux-and-apparmor",
+    "claim": "Mandatory access control overrides discretionary permissions, so `chmod 777` on a file does not let a confined process touch it.",
+    "kind": "command",
+    "verdict": "confirmed",
+    "reasoning": "selinux(8) describes SELinux as 'an implementation of a flexible mandatory access control architecture' enforcing type enforcement independently of the owner's discretion; access requires both the DAC check and the policy check to pass, so relaxing the mode bits cannot satisfy a policy denial.",
+    "source": "man7.org selinux(8) DESCRIPTION"
+  }
+]
