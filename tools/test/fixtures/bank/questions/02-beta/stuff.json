@@ -6,7 +6,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 1,
+      "difficulty": 2,
       "stem": "Item 1 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -55,7 +55,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -114,7 +114,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -124,7 +124,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "application",
-      "difficulty": 3,
+      "difficulty": 2,
       "stem": "Item 3 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -173,7 +173,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -183,7 +183,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 4,
+      "difficulty": 2,
       "stem": "Item 4 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -232,7 +232,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -242,7 +242,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "command",
-      "difficulty": 5,
+      "difficulty": 2,
       "stem": "Item 5 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -291,7 +291,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -301,7 +301,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "application",
-      "difficulty": 1,
+      "difficulty": 2,
       "stem": "Item 6 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -350,7 +350,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -409,7 +409,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -419,7 +419,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 3,
+      "difficulty": 2,
       "stem": "Item 8 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -468,7 +468,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -478,7 +478,7 @@
       "concept_id": "beta.stuff.thing",
       "pool": "supplement",
       "type": "application",
-      "difficulty": 4,
+      "difficulty": 2,
       "stem": "Item 9 about the thing: which statement correctly identifies the thing?",
       "options": [
         {
@@ -527,7 +527,7 @@
         "fixture-vendor"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
-      "comparison_block": "cmp-beta.stuff.thing",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -537,7 +537,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 1,
+      "difficulty": 2,
       "stem": "Item 1 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -585,7 +585,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -643,7 +643,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -653,7 +653,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "application",
-      "difficulty": 3,
+      "difficulty": 2,
       "stem": "Item 3 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -701,7 +701,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -711,7 +711,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 4,
+      "difficulty": 2,
       "stem": "Item 4 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -759,7 +759,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -769,7 +769,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "command",
-      "difficulty": 5,
+      "difficulty": 2,
       "stem": "Item 5 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -817,7 +817,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -827,7 +827,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "application",
-      "difficulty": 1,
+      "difficulty": 2,
       "stem": "Item 6 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -875,7 +875,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -933,7 +933,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -943,7 +943,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 3,
+      "difficulty": 2,
       "stem": "Item 8 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -991,7 +991,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null
@@ -1001,7 +1001,7 @@
       "concept_id": "beta.stuff.unsourced",
       "pool": "supplement",
       "type": "application",
-      "difficulty": 4,
+      "difficulty": 2,
       "stem": "Item 9 about the unsourced item: which statement correctly identifies the unsourced item?",
       "options": [
         {
@@ -1049,7 +1049,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
-      "comparison_block": "cmp-beta.stuff.unsourced",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
       "verification": null

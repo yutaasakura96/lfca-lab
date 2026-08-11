@@ -6,7 +6,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 1,
+      "difficulty": 3,
       "stem": "Item 1 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -67,7 +67,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 2,
+      "difficulty": 3,
       "stem": "Item 2 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -183,7 +183,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 4,
+      "difficulty": 3,
       "stem": "Item 4 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -241,7 +241,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "command",
-      "difficulty": 5,
+      "difficulty": 3,
       "stem": "Item 5 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -299,7 +299,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "application",
-      "difficulty": 1,
+      "difficulty": 3,
       "stem": "Item 6 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -357,7 +357,7 @@
       "concept_id": "alpha.things.widget",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 2,
+      "difficulty": 3,
       "stem": "Item 7 about the widget: which statement correctly identifies the widget?",
       "options": [
         {
@@ -415,7 +415,7 @@
       "concept_id": "alpha.things.gadget",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 1,
+      "difficulty": 2,
       "stem": "Item 1 about the gadget: which statement correctly identifies the gadget?",
       "options": [
         {
@@ -463,7 +463,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
-      "comparison_block": "cmp-alpha.things.gadget",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -521,7 +521,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
-      "comparison_block": "cmp-alpha.things.gadget",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -531,7 +531,7 @@
       "concept_id": "alpha.things.gadget",
       "pool": "exam",
       "type": "application",
-      "difficulty": 3,
+      "difficulty": 2,
       "stem": "Item 3 about the gadget: which statement correctly identifies the gadget?",
       "options": [
         {
@@ -579,7 +579,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
-      "comparison_block": "cmp-alpha.things.gadget",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -589,7 +589,7 @@
       "concept_id": "alpha.things.gadget",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 4,
+      "difficulty": 2,
       "stem": "Item 4 about the gadget: which statement correctly identifies the gadget?",
       "options": [
         {
@@ -637,7 +637,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
-      "comparison_block": "cmp-alpha.things.gadget",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -695,7 +695,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.trinket",
-      "comparison_block": "cmp-alpha.things.trinket",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -705,7 +705,7 @@
       "concept_id": "alpha.things.trinket",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 2,
+      "difficulty": 1,
       "stem": "Item 2 about the trinket: which statement correctly identifies the trinket?",
       "options": [
         {
@@ -753,7 +753,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.trinket",
-      "comparison_block": "cmp-alpha.things.trinket",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -763,7 +763,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "diagnostic",
-      "difficulty": 1,
+      "difficulty": 4,
       "stem": "Item 1 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -811,7 +811,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -821,7 +821,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 2,
+      "difficulty": 4,
       "stem": "Item 2 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -869,7 +869,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -879,7 +879,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "application",
-      "difficulty": 3,
+      "difficulty": 4,
       "stem": "Item 3 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -927,7 +927,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -985,7 +985,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -995,7 +995,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "command",
-      "difficulty": 5,
+      "difficulty": 4,
       "stem": "Item 5 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1043,7 +1043,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1053,7 +1053,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "application",
-      "difficulty": 1,
+      "difficulty": 4,
       "stem": "Item 6 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1101,7 +1101,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1111,7 +1111,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 2,
+      "difficulty": 4,
       "stem": "Item 7 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1159,7 +1159,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1169,7 +1169,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "recall",
-      "difficulty": 3,
+      "difficulty": 4,
       "stem": "Item 8 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1217,7 +1217,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1275,7 +1275,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1285,7 +1285,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "command",
-      "difficulty": 5,
+      "difficulty": 4,
       "stem": "Item 10 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1333,7 +1333,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
@@ -1343,7 +1343,7 @@
       "concept_id": "alpha.things.doohickey",
       "pool": "exam",
       "type": "discrimination",
-      "difficulty": 1,
+      "difficulty": 4,
       "stem": "Item 11 about the doohickey: which statement correctly identifies the doohickey?",
       "options": [
         {
@@ -1391,7 +1391,7 @@
         "fixture-spec"
       ],
       "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
-      "comparison_block": "cmp-alpha.things.doohickey",
+      "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
       "verification": null
