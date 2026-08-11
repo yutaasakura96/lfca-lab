@@ -7,6 +7,9 @@
     "validate": "node tools/validate.mjs",
     "generate": "node tools/generate-views.mjs",
     "check-guide": "node tools/check-guide.mjs",
-    "guide-plan": "node tools/guide-plan.mjs"
+    "guide-plan": "node tools/guide-plan.mjs",
+    "question-plan": "node tools/question-plan.mjs",
+    "check-bank": "node tools/check-bank.mjs",
+    "build-exams": "node tools/build-exams.mjs"
   }
 }
