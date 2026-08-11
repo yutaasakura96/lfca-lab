@@ -686,10 +686,7 @@ a permanent split that the licence, not the platform, makes possible.
 
 <a id="c-devops.git-concepts.pull-request"></a>
 ### Pull request
-*id: `devops.git-concepts.pull-request` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `devops.git-concepts.pull-request` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: github-docs-about-pull-requests*
 
 **What it is** A proposal, raised on a hosting platform rather than in Git, to merge one branch
 into another — and, in practice, the place where code review comments and automated checks

@@ -24,9 +24,13 @@
 | linux-foundation-about | About The Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
+| agile-alliance-glossary-mvp | What is a Minimum Viable Product (MVP)? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-11 | https://agilealliance.org/glossary/mvp/ |
+| agile-alliance-glossary-user-story-template | User Story Template for Agile \| Agile Alliance | Agile Alliance | 2 | 2015-12 | 2026-08-11 | https://agilealliance.org/glossary/user-story-template/ |
+| agile-business-consortium-moscow | What is MoSCoW Prioritization? | Agile Business Consortium (DSDM Consortium) | 2 | 2024-01 | 2026-08-11 | https://www.agilebusiness.org/resource/what-is-moscow-prioritization/ |
 | agile-manifesto | Manifesto for Agile Software Development | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/ |
 | agile-principles | Principles behind the Agile Manifesto | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/principles.html |
 | aicpa-soc2 | AICPA SOC 2 — System and Organization Controls examination | AICPA & CIMA | 2 | — | 2026-08-10 | https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2 |
+| ansible-glossary-idempotency | Ansible Glossary -- Idempotency | Red Hat / Ansible Project | 2 | 2026-08 | 2026-08-11 | https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html |
 | apache-license-2 | Apache License, Version 2.0 | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/licenses/LICENSE-2.0 |
 | apparmor-wiki | AppArmor project documentation wiki | AppArmor project | 2 | — | 2026-08-10 | https://gitlab.com/apparmor/apparmor/-/wikis/home |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
@@ -35,6 +39,7 @@
 | aws-budgets | Managing your costs with AWS Budgets | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html |
 | aws-cloudfront | What is Amazon CloudFront? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html |
 | aws-cloudtrail | What Is AWS CloudTrail? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html |
+| aws-ebs-snapshots | Amazon EBS snapshots | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html |
 | aws-ec2-auto-scaling | What is Amazon EC2 Auto Scaling? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html |
 | aws-elastic-ip-addresses | Elastic IP addresses (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html |
 | aws-elastic-load-balancing | What is Elastic Load Balancing? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html |
@@ -58,6 +63,7 @@
 | aws-well-architected-pillars | The pillars of the framework - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html |
 | aws-well-architected-reliability-pillar | Reliability Pillar - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html |
 | aws-what-is-multicloud | What is Multicloud? Multicloud Explained | Amazon Web Services | 2 | — | 2026-08-11 | https://aws.amazon.com/what-is/multicloud/ |
+| aws-what-is-nosql | What is NoSQL? | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://aws.amazon.com/nosql/ |
 | azure-availability-zones | What are Azure availability zones? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview |
 | azure-bandwidth-pricing | Bandwidth pricing (inbound data transfer is free) | Microsoft | 2 | — | 2026-08-10 | https://azure.microsoft.com/en-us/pricing/details/bandwidth/ |
 | azure-bastion | What is Azure Bastion? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/bastion/bastion-overview |
@@ -95,6 +101,7 @@
 | git-reset | git-reset(1) — "Set HEAD or the index to a known state" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-reset |
 | git-revert | git-revert(1) — "Revert some existing commits" by recording new commits | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-revert |
 | git-stash | git-stash(1) — "Stash the changes in a dirty working directory away" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-stash |
+| github-docs-about-pull-requests | About pull requests | GitHub, Inc. | 2 | 2025-01 | 2026-08-11 | https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests |
 | gitignore | gitignore(5) — "Specifies intentionally untracked files to ignore" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/gitignore |
 | gnu-agpl-3 | GNU Affero General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/licenses/agpl-3.0.html |
 | gnu-bash-manual | GNU Bash Reference Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/bash.html |
@@ -111,6 +118,8 @@
 | gnu-sed-manual | GNU sed Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/sed/manual/sed.html |
 | gnu-tar-manual | GNU tar: an archiver tool | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/tar/manual/tar.html |
 | gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-10 | https://www.gnupg.org/gph/en/manual/x135.html |
+| google-sre-book-being-on-call | Site Reliability Engineering, Chapter 11: Being On-Call | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/being-on-call/ |
+| google-sre-book-effective-troubleshooting | Site Reliability Engineering, Chapter 12: Effective Troubleshooting | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/effective-troubleshooting/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |
 | hipaa-45-cfr-164 | 45 CFR Part 164 — HIPAA Security and Privacy Rules (eCFR) | US Government Publishing Office / HHS | 2 | — | 2026-08-10 | https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164 |
 | iana-service-name-port-registry | Service Name and Transport Protocol Port Number Registry | IANA | 2 | — | 2026-08-10 | https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml |
@@ -119,6 +128,7 @@
 | iproute2-ss-man | ss(8) — another utility to investigate sockets | iproute2 project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
 | isc-bind9-manpages | BIND 9 ARM: Manual pages (dig, host, nslookup) | Internet Systems Consortium | 2 | — | 2026-08-10 | https://bind9.readthedocs.io/en/latest/manpages.html |
 | isc-dhcpd-conf-manual | ISC DHCP 4.4 manual pages: dhcpd.conf | Internet Systems Consortium | 2 | — | 2026-08-10 | https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcpdconf |
+| istqb-standard-glossary-v2.2 | Standard Glossary of Terms Used in Software Testing, Version 2.2 | International Software Testing Qualifications Board (ISTQB) | 2 | 2012-10 | 2026-08-11 | https://glossary.istqb.org/en_US/term/user-acceptance-testing |
 | itu-t-x200-osi-basic-reference-model | ITU-T X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model | ITU-T (technically aligned with ISO/IEC 7498-1) | 2 | — | 2026-08-10 | https://www.itu.int/rec/T-REC-X.200-199407-I/en |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
 | k8s-deployment | Kubernetes Deployments — declarative updates, desired state reconciled by the Deployment controller, rollout and rollback | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ |
@@ -192,8 +202,14 @@
 | man7-resolv-conf | resolv.conf(5) - resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man7-ss | ss(8) - another utility to investigate sockets | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ss.8.html |
 | man7-traceroute | traceroute(8) - print the route packets trace to network host | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/traceroute.8.html |
+| maven-dependency-mechanism | Introduction to the Dependency Mechanism | Apache Software Foundation | 2 | 2024-01 | 2026-08-11 | https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html |
+| microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
 | ms-azure-default-outbound-access | Default outbound access in Azure | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access |
+| nasa-expanded-guidance-se-requirements-management | NASA Systems Engineering Handbook, Section 6.2 - Requirements Management | NASA | 2 | 2023-02 | 2026-08-11 | https://www.nasa.gov/reference/6-2-requirements-management/ |
+| nasa-se-handbook-sp-2016-6105 | NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2) | NASA | 2 | 2016-12 | 2026-08-11 | https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf |
+| nasa-wbs-handbook-sp-2016-3404-rev1 | NASA Work Breakdown Structure (WBS) Handbook, NASA/SP-2016-3404/REV1 | NASA | 2 | 2018-01 | 2026-08-11 | https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf |
 | netfilter-documentation | netfilter/iptables project documentation | Netfilter Project | 2 | — | 2026-08-10 | https://www.netfilter.org/documentation/index.html |
+| nginx-beginners-guide | Beginner's Guide | F5, Inc. (nginx project) | 2 | 2024-01 | 2026-08-11 | https://nginx.org/en/docs/beginners_guide.html |
 | nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
 | nist-glossary-bcp | NIST CSRC Glossary: business continuity plan (BCP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/business_continuity_plan |
 | nist-glossary-drp | NIST CSRC Glossary: disaster recovery plan (DRP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/disaster_recovery_plan |
@@ -213,12 +229,17 @@
 | nist-sp-800-57p1r5 | NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final |
 | nist-sp-800-61r3 | NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/61/r3/final |
 | nist-sp-800-63b-4 | NIST SP 800-63B-4 — Digital Identity Guidelines: Authentication and Authenticator Management | NIST | 2 | — | 2026-08-10 | https://pages.nist.gov/800-63-4/sp800-63b.html |
+| nist-sp-800-64-sdlc-phases | Security Considerations in the System Development Life Cycle (SP 800-64 Rev. 2) | NIST | 2 | 2008-10 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf |
+| nist-sp-800-77r1 | SP 800-77 Rev. 1: Guide to IPsec VPNs | NIST | 2 | 2020-06 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf |
 | nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/88/r1/final |
 | nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/94/final |
 | nmap-port-scanning-basics | Nmap Reference Guide: Port Scanning Basics (open / closed / filtered port states) | Nmap Project | 2 | — | 2026-08-10 | https://nmap.org/book/man-port-scanning-basics.html |
 | ntia-sbom-minimum-elements | The Minimum Elements For a Software Bill of Materials (SBOM) | NTIA, U.S. Department of Commerce | 2 | — | 2026-08-10 | https://www.ntia.gov/sites/default/files/publications/sbom_minimum_elements_report_0.pdf |
+| oasis-amqp-core-v1.0 | OASIS Advanced Message Queuing Protocol (AMQP) Version 1.0 | OASIS (also published as ISO/IEC 19464) | 2 | 2012-10 | 2026-08-11 | http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf |
 | oci-image-spec-config | OCI Image Format Specification — Image Configuration (history, empty_layer: "marks if the history item created a filesystem diff") | Open Container Initiative | 2 | — | 2026-08-10 | https://github.com/opencontainers/image-spec/blob/main/config.md |
 | oci-overview | About the Open Container Initiative — open standards for container formats and runtimes, formed under the Linux Foundation | Open Container Initiative | 2 | — | 2026-08-10 | https://opencontainers.org/about/overview/ |
+| omg-bpmn-2-0-2-process | Business Process Model and Notation (BPMN), Version 2.0.2 - Clause 10, Process; Clause on Lane/Pool | Object Management Group (OMG) | 2 | 2013-12 | 2026-08-11 | https://www.omg.org/spec/BPMN/2.0.2/PDF |
+| omg-uml-2-5-1-usecases | OMG Unified Modeling Language (OMG UML), Version 2.5.1 - Clause 18, Use Cases | Object Management Group (OMG) | 2 | 2017-12 | 2026-08-11 | https://www.omg.org/spec/UML/2.5.1/PDF |
 | openssh-scp-man | scp(1) — OpenSSH secure file copy | OpenSSH / OpenBSD project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/scp.1.html |
 | openssh-ssh-keygen | ssh-keygen(1) manual page | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh-keygen |
 | openssh-ssh-manpage | ssh(1) - OpenSSH remote login client | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh.1 |
@@ -233,6 +254,7 @@
 | posix-utility-conventions | POSIX.1-2024 (Issue 8), Chapter 12: Utility Conventions | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html |
 | posix-vi | POSIX.1-2024 (Issue 8), vi — screen-oriented (visual) display editor | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/vi.html |
 | postgresql-indexes | PostgreSQL Documentation: Introduction to Indexes | PostgreSQL Global Development Group | 2 | — | 2026-08-10 | https://www.postgresql.org/docs/current/indexes-intro.html |
+| postgresql-sql-commands | PostgreSQL Documentation: SQL Commands | PostgreSQL Global Development Group | 2 | 2025-01 | 2026-08-11 | https://www.postgresql.org/docs/current/sql-commands.html |
 | postgresql-transactions | PostgreSQL Documentation: Transactions | PostgreSQL Global Development Group | 2 | — | 2026-08-10 | https://www.postgresql.org/docs/current/tutorial-transactions.html |
 | progit-branching-basics | Pro Git — Basic Branching and Merging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging |
 | progit-tagging | Pro Git — Git Basics: Tagging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Basics-Tagging |
@@ -263,8 +285,10 @@
 | rfc-919-broadcasting-internet-datagrams | RFC 919: Broadcasting Internet Datagrams | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc919.html |
 | rfc-9293-tcp | RFC 9293: Transmission Control Protocol (TCP) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9293.html |
 | rfc5789 | RFC 5789: PATCH Method for HTTP | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc5789.html |
+| rfc6349-tcp-throughput | RFC 6349: Framework for TCP Throughput Testing | IETF | 2 | 2011-08 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc6349 |
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
 | rfc9110 | RFC 9110: HTTP Semantics | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
+| rfc9111-http-caching | RFC 9111: HTTP Caching | IETF | 2 | 2022-06 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc9111 |
 | rsync-man | rsync(1) — a fast, versatile, remote (and local) file-copying tool | Samba / rsync project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/rsync.1.html |
 | sans-picerl | SANS Institute: Incident Response (glossary) — the six-step PICERL framework | SANS Institute | 2 | — | 2026-08-11 | https://www.sans.org/security-resources/glossary-of-terms/incident-response |
 | scrum-guide-2020 | The Scrum Guide (November 2020) | Ken Schwaber and Jeff Sutherland / Scrum.org | 2 | — | 2026-08-10 | https://scrumguides.org/scrum-guide.html |

@@ -1158,3 +1158,129 @@ of 60 — two to three questions short of the 45 needed.
 See `research/exam-mechanics.md` Section 1, `data/sources.json`'s `lf-important-instructions-mc`
 entry, and `docs/verification/exam-facts-2026-08-11/manifest.json` (fact `question_count`) for
 the full account and verbatim capture.
+
+### Cycle 3 pre-work: the waiver sourcing sprint
+
+`data/sourcing-waivers.json` recorded 52 concepts with no primary-documentation citation
+independent of the official-objectives source. Six agents (cluster A through F) were dispatched
+in a single wave to examine 39 of them against a candidate corpus per cluster; the other 13 —
+all `pm.project-management.*` — were not dispatched, because PMBOK genuinely is the only
+authority the waiver names for them. Cluster C stalled for 600 seconds on its first attempt
+(fetching the ~700-page NASA SE Handbook PDF) and was killed by the watchdog with zero concepts
+examined and no output file; it was re-dispatched as C1 and C2 with smaller concept lists and
+the pypdf local-extraction technique that cluster A had already found necessary. Both re-runs
+completed. Full per-concept returns, including every failed URL and every reasoning trace, are
+recorded in `docs/verification/waiver-sprint-2026-08-11.json` (built from
+`.superpowers/sdd/waiver-cluster-{A,B,C1,C2,D,E,F}.json`).
+
+**Computed from `data/sourcing-waivers.json`: 30 of the 52 cleared, 22 remain waived.**
+
+The 30 un-waived concepts and the source that settled each:
+
+| Concept | Source |
+| --- | --- |
+| `sysadmin.networking.vpn` | `nist-sp-800-77r1` |
+| `pm.software-application-architecture.caching-in-applications` | `rfc9111-http-caching` |
+| `sysadmin.networking.bandwidth-latency-and-throughput` | `rfc6349-tcp-throughput` |
+| `pm.software-application-architecture.message-queue` | `oasis-amqp-core-v1.0` |
+| `pm.functional-analysis.use-case` | `omg-uml-2-5-1-usecases` |
+| `pm.functional-analysis.process-mapping` | `omg-bpmn-2-0-2-process` |
+| `pm.software-application-architecture.three-tier-architecture` | `microsoft-three-tier-architecture-model` |
+| `pm.functional-analysis.functional-requirements` | `nasa-se-handbook-sp-2016-6105` |
+| `pm.functional-analysis.requirements-prioritization` | `agile-business-consortium-moscow` |
+| `pm.functional-analysis.specification-documentation` | `nasa-se-handbook-sp-2016-6105` |
+| `pm.functional-analysis.verification-vs-validation` | `nasa-se-handbook-sp-2016-6105` |
+| `pm.functional-analysis.traceability` | `nasa-expanded-guidance-se-requirements-management` |
+| `pm.functional-analysis.user-acceptance-testing` | `istqb-standard-glossary-v2.2` |
+| `pm.project-management.work-breakdown-structure` | `nasa-wbs-handbook-sp-2016-3404-rev1` |
+| `pm.project-management.change-control` | `nist-sp-800-128` (reused, already registered) |
+| `sysadmin.best-practices.automation-and-idempotency` | `ansible-glossary-idempotency` |
+| `pm.project-management.software-development-lifecycle` | `nist-sp-800-64-sdlc-phases` |
+| `pm.project-management.risk-management` | `nist-sp-800-30r1` (reused, already registered) |
+| `sysadmin.troubleshooting.structured-troubleshooting-method` | `google-sre-book-effective-troubleshooting` |
+| `sysadmin.troubleshooting.narrowing-scope` | `google-sre-book-effective-troubleshooting` |
+| `sysadmin.troubleshooting.reproducing-the-fault` | `google-sre-book-effective-troubleshooting` |
+| `sysadmin.troubleshooting.escalation` | `google-sre-book-being-on-call` |
+| `pm.project-management.user-story` | `agile-alliance-glossary-user-story-template` |
+| `pm.project-management.minimum-viable-product` | `agile-alliance-glossary-mvp` |
+| `pm.software-application-architecture.sql-basics` | `postgresql-sql-commands` |
+| `pm.software-application-architecture.nosql-database` | `aws-what-is-nosql` |
+| `pm.software-application-architecture.web-server-vs-application-server` | `nginx-beginners-guide` |
+| `devops.git-concepts.pull-request` | `github-docs-about-pull-requests` |
+| `devops.devops-basics.language-package-managers` | `maven-dependency-mechanism` |
+| `sysadmin.disaster-recovery.snapshot` | `aws-ebs-snapshots` |
+
+24 new source records were registered in `data/sources.json` (one shared by three concepts,
+`nasa-se-handbook-sp-2016-6105`; another shared by three, `google-sre-book-effective-troubleshooting`).
+Two proposed sources were **not** registered because the document was already in `data/sources.json`
+under a different id: `nist-sp-800-128` and `nist-sp-800-30r1` were reused rather than duplicated
+as `nist-sp-800-128-configuration-change-control` and `nist-sp-800-30r1-risk-assessment`.
+
+**Nine concepts returned "no source found" and stay waived**, with what was tried:
+
+- `pm.functional-analysis.gap-analysis` — NIST SP 800-50 Rev.1's glossary entry is scoped to
+  training-program performance, not general project/business state; TOGAF 9.2's Chapter 23 is a
+  strong textual match but pubs.opengroup.org now redirects to an SSO login wall, so it is not a
+  live, freely citable source.
+- `pm.functional-analysis.non-functional-requirements` — the NASA SE Handbook never uses the
+  term and keeps performance/interface/operational/safety/"-ilities" as separate categories
+  rather than unifying them the way the concept's description requires.
+- `pm.functional-analysis.requirements-elicitation` — neither the NASA SE Handbook nor the REQB
+  glossary states or implies the concept's central claim, that stated wants and actual needs
+  differ.
+- `pm.functional-analysis.feasibility-study` — NASA's SE Handbook frames feasibility as
+  technical/cost/schedule, not technical/operational/economic as the concept requires; the UK
+  Government's guide mentions all three dimensions but scattered across different study types
+  rather than as one unified definition.
+- `sysadmin.best-practices.service-ownership` — the Google SRE book covers team-level operational
+  responsibility and "shared ownership," never a single named owner accountable for cost and
+  lifecycle as the concept requires.
+- `sysadmin.disaster-recovery.mttr-and-mtbf` — the SRE book defines MTTR but pairs it with MTTF
+  (mean time to failure), never MTBF (mean time between failures); citing it for MTBF would
+  misattribute a term it does not define.
+
+**Two concepts were re-confirmed as waived, matching cycle 2's judgement** (re-running the same
+evidence to the opposite conclusion would have been a failure of this task, not a success):
+
+- `sysadmin.best-practices.naming-conventions` — SP 800-128's four mentions of "naming" are about
+  CI-identification methodology, media labeling, and CPE product identifiers, none of them
+  guidance on predictable host/user/resource naming for human inference.
+- `sysadmin.best-practices.capacity-planning` — SP 800-128 mentions capacity planning exactly
+  once, as a bare list item under media-library storage procedures, with no development of
+  resource-growth projection.
+
+`sysadmin.best-practices.principle-of-least-astonishment` was also confirmed unsourceable (a
+targeted search found only NIST's unrelated least-privilege principle).
+
+**13 `pm.project-management.*` concepts were never examined** — PMBOK is the only authority the
+waiver names for them, and no agent was dispatched: `communication-plan`, `critical-path`,
+`deliverable-and-milestone`, `gantt-chart`, `issue-tracking`, `project`,
+`project-budget-and-resource-management`, `project-closure-and-lessons-learned`, `raci`,
+`scope-creep`, `stakeholder`, `triple-constraint`, `waterfall`.
+
+`data/sourcing-waivers.json` now carries a `question_policy` field: cycle 3 may author items on
+the 22 still-waived concepts only where every consensus source agrees, marked `waived_source:
+true`.
+
+**Two findings carried forward rather than resolved here:**
+
+- **This dataset's actual tier convention reserves tier 1 for Linux Foundation sources only.**
+  Every existing NIST SP, every existing IETF RFC (28 of them, all tier 2), and the one existing
+  ITU-T source are tier 2 — not tier 1 as the waiver-applier notes assumed for RFCs, and as
+  several cluster agents proposed for NIST, OMG, OASIS, and NASA sources. All 24 new source
+  records added by this task were registered at tier 2 to match the dataset's real, verified
+  convention rather than the brief's category-based tier definitions or any cluster's proposal.
+  No existing source's tier was changed. Whether tier 1 should be broadened beyond
+  Linux-Foundation-only content is a dataset-wide decision for a later deliberate pass, not a
+  side effect of this sprint.
+- **`devops.devops-basics.language-package-managers` is now sourced from a Java-ecosystem
+  document (Maven) for a concept the description states as language-agnostic** (npm, pip, Maven
+  "and their equivalents"). Cluster F checked npm's and pip's first-party documentation and found
+  neither made the application-vs-OS-package-manager contrast explicit; Maven's did. This is
+  defensible as the strongest available citation, but a question author should not treat Maven's
+  specific behavior as representative of npm or pip without independently checking it.
+
+Gate results after applying: `npm run generate` (regenerated 6 views), `npm run validate` (537
+concepts, 0 errors, 16 pre-existing warnings, no `stale-waiver`), `npm test` (188/188 passing),
+`npm run check-guide` (537 concept definitions, 130 comparison blocks, 175 sections, 0 errors,
+0 warnings).

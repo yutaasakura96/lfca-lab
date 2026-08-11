@@ -1782,10 +1782,7 @@ backends there are.
 
 <a id="c-sysadmin.networking.vpn"></a>
 ### VPN
-*id: `sysadmin.networking.vpn` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.networking.vpn` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-77r1*
 
 **What it is** A Virtual Private Network is typically described as an encrypted tunnel between
 a host (or a site) and a private network, carrying traffic across an untrusted network in such
@@ -1850,10 +1847,7 @@ forward; they connect over the VPN, which typically places them on the private n
 
 <a id="c-sysadmin.networking.bandwidth-latency-and-throughput"></a>
 ### Bandwidth, latency and throughput
-*id: `sysadmin.networking.bandwidth-latency-and-throughput` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.networking.bandwidth-latency-and-throughput` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: rfc6349-tcp-throughput*
 
 **What it is** Three quantities that are routinely conflated. Bandwidth is generally described
 as the maximum capacity of a link, in bits per second; latency is usually defined as the delay

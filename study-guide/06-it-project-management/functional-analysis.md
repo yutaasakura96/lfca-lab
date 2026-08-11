@@ -5,10 +5,11 @@ is drawn out of the people who have it, written down, prioritised, and checked a
 eventually gets built. Its domain carries 10% of the exam — 6th largest of 6 domains, so the
 smallest weight on the current (2025-09-16) blueprint — and this competency's 2025 status is
 unchanged. LFS200 does not reach it at all: 12 NOT COVERED — 0/12 (0%) are not NOT COVERED, so
-no lesson of the course backs any topic here (`research/lfs200-notes/00-course-map.md`). All 12
-concepts are also waived from the independent-sourcing requirement, because the authoritative
-references for business analysis are paywalled, so every topic below carries the
-no-primary-source marker. Read the hedging in this file literally: where it says "typically" or
+no lesson of the course backs any topic here (`research/lfs200-notes/00-course-map.md`). 4 of the 12
+concepts remain waived from the independent-sourcing requirement, because the authoritative
+references for business analysis are paywalled, so those topics carry the
+no-primary-source marker; the rest now cite an independent primary source found in the cycle 3
+waiver sourcing sprint. Read the hedging on the still-waived topics literally: where it says "typically" or
 "in most practice," no standard is being quoted, and a question whose answer depends on one
 organisation's house terminology is not something this material can settle. What it can settle
 is the discriminations — functional against non-functional, verification against validation,
@@ -19,10 +20,7 @@ use case against user story — and those are where the marks are.
 
 <a id="c-pm.functional-analysis.functional-requirements"></a>
 ### Functional requirements
-*id: `pm.functional-analysis.functional-requirements` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.functional-requirements` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** A statement of behaviour the system must exhibit — something an actor can trigger
 and observe. "The system shall email a receipt when a payment succeeds" is functional. "The
@@ -206,10 +204,7 @@ actual need.
 
 <a id="c-pm.functional-analysis.use-case"></a>
 ### Use case
-*id: `pm.functional-analysis.use-case` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.use-case` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: omg-uml-2-5-1-usecases*
 
 **What it is** A structured description of how an actor interacts with the system to achieve a
 goal, written to be complete enough to build and test against. In most practice it carries a
@@ -265,10 +260,7 @@ from that — including why the alternate flows sit inside one and outside the o
 
 <a id="c-pm.functional-analysis.process-mapping"></a>
 ### Process mapping
-*id: `pm.functional-analysis.process-mapping` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.process-mapping` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: omg-bpmn-2-0-2-process*
 
 **What it is** Diagramming a workflow — who does what, in what order, with what waiting in
 between — so that hand-offs, delays, rework loops and duplicated effort become visible. Common
@@ -322,10 +314,7 @@ is root cause analysis, again a different activity.
 
 <a id="c-pm.functional-analysis.requirements-prioritization"></a>
 ### Requirements prioritization
-*id: `pm.functional-analysis.requirements-prioritization` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.requirements-prioritization` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: agile-business-consortium-moscow*
 
 **What it is** Ordering requirements by value and necessity so that, when time or budget runs
 short, what gets dropped is decided deliberately and in advance rather than by whatever happens
@@ -396,10 +385,7 @@ prioritise: if every one of the six is a Must, nothing has been prioritised.
 
 <a id="c-pm.functional-analysis.verification-vs-validation"></a>
 ### Verification vs validation
-*id: `pm.functional-analysis.verification-vs-validation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.verification-vs-validation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** Two different checks, against two different references. Verification asks whether
 the system was built right — does it match the specification that was agreed. Validation asks
@@ -429,10 +415,7 @@ acceptance.
 
 <a id="c-pm.functional-analysis.user-acceptance-testing"></a>
 ### User acceptance testing
-*id: `pm.functional-analysis.user-acceptance-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.user-acceptance-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: istqb-standard-glossary-v2.2*
 
 **What it is** Testing performed by the people who will actually use the system — or business
 representatives standing in for them — against their real work and agreed acceptance criteria,
@@ -460,10 +443,7 @@ operational acceptance testing.
 
 <a id="c-pm.functional-analysis.specification-documentation"></a>
 ### Specification documentation
-*id: `pm.functional-analysis.specification-documentation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.specification-documentation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** Writing requirements down precisely enough that they can be agreed by
 stakeholders, built against by a delivery team, and tested against afterwards — all three from
@@ -491,7 +471,7 @@ per requirement; design document.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.functional-analysis.traceability` | Traceability | Linking each requirement forward to its design, implementation and tests, and back to the need that justified it, so coverage and impact can both be demonstrated. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Confused with testing itself: traceability shows that every requirement has a test and that every piece of work has a reason, not that anything passed. It is also what makes impact analysis possible when a requirement changes. |
+| `pm.functional-analysis.traceability` | Traceability | Linking each requirement forward to its design, implementation and tests, and back to the need that justified it, so coverage and impact can both be demonstrated. | Confused with testing itself: traceability shows that every requirement has a test and that every piece of work has a reason, not that anything passed. It is also what makes impact analysis possible when a requirement changes. |
 
 #### Scenario
 

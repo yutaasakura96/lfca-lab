@@ -74,12 +74,6 @@ Environments` (2,397 characters) — a lesson for the competency the 2025 update
 is the clearest single illustration of the course map's Finding 1, that LFS200 is still built
 on the retired syllabus.
 
-Sourcing note: two concepts in this domain carry the no-primary-source waiver
-(`data/sourcing-waivers.json`) — [language package managers](05-devops/devops-basics.md#c-devops.devops-basics.language-package-managers)
-and [pull request](05-devops/git-concepts.md#c-devops.git-concepts.pull-request). Their blocks
-are hedged accordingly, and a disagreement between this guide and a vendor's documentation on
-those two should be resolved in the vendor's favour.
-
 ## Section map
 
 ### [DevOps Basics](05-devops/devops-basics.md) — 25 concepts

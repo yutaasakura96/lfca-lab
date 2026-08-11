@@ -6,8 +6,8 @@ Linux administrator meets most often. Its domain carries 30% of the exam — 1st
 domains on the current (2025-09-16) blueprint — and the competency's 2025 status is
 unchanged. LFS200 does not reach it at all: all 15 concepts are NOT COVERED, 0 of 15 (0%)
 touched even partially (`research/lfs200-notes/00-course-map.md`), so every topic below is
-sourced independently against primary documentation, except four concepts whose only
-authoritative references are paywalled and which carry an explicit no-primary-source marker.
+sourced independently against primary documentation — the four concepts that previously
+carried a no-primary-source marker were cleared in the cycle 3 waiver sourcing sprint.
 Eight of the fifteen are depth-4 diagnostics, which is why each of those ends with an ordered
 symptom walk that says what every outcome rules *out*, not merely what to run next.
 
@@ -16,10 +16,7 @@ symptom walk that says what every outcome rules *out*, not merely what to run ne
 
 <a id="c-sysadmin.troubleshooting.structured-troubleshooting-method"></a>
 ### Structured troubleshooting method
-*id: `sysadmin.troubleshooting.structured-troubleshooting-method` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.troubleshooting.structured-troubleshooting-method` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: google-sre-book-effective-troubleshooting*
 
 **What it is** An ordered procedure, not a toolbox. Most statements of the practice give six
 steps: identify the problem, establish a theory of probable cause, test that theory, plan and
@@ -98,10 +95,7 @@ narrowing scope is a single technique performed inside its first two steps.
 
 <a id="c-sysadmin.troubleshooting.narrowing-scope"></a>
 ### Narrowing scope
-*id: `sysadmin.troubleshooting.narrowing-scope` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.troubleshooting.narrowing-scope` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: google-sre-book-effective-troubleshooting*
 
 **What it is** Establishing the blast radius before proposing a cause: does the fault affect
 one user, one host, one network segment, or everything? Each answer, in most practice,
@@ -176,10 +170,7 @@ human action — expiry, growth, scheduled execution, cache and TTL expiry, auto
 
 <a id="c-sysadmin.troubleshooting.reproducing-the-fault"></a>
 ### Reproducing the fault
-*id: `sysadmin.troubleshooting.reproducing-the-fault` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.troubleshooting.reproducing-the-fault` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: google-sre-book-effective-troubleshooting*
 
 **What it is** Establishing that you can trigger the fault on demand, with a known command,
 as a known user, on a known host. Reproduction is not diagnosis and it is not a fix; it is
@@ -343,10 +334,7 @@ configuration file rather than a command, and distinguishing keyword search (`ma
 
 <a id="c-sysadmin.troubleshooting.escalation"></a>
 ### Escalation
-*id: `sysadmin.troubleshooting.escalation` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.troubleshooting.escalation` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: google-sre-book-being-on-call*
 
 **What it is** Transferring a problem to someone with the authority, access, or expertise to
 continue — together with the evidence gathered so far. Escalation is a handover of a

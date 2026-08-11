@@ -2725,7 +2725,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "ansible-glossary-idempotency"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -4500,7 +4502,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-77r1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -4529,7 +4533,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc6349-tcp-throughput"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -4945,7 +4951,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-effective-troubleshooting"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -4974,7 +4982,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-effective-troubleshooting"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -5038,7 +5048,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-effective-troubleshooting"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -5171,7 +5183,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "google-sre-book-being-on-call"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -5527,7 +5541,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-ebs-snapshots"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],

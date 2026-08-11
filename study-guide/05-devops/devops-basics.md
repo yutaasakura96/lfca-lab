@@ -685,10 +685,7 @@ scale. Those stay the job of a production-like staging environment.
 
 <a id="c-devops.devops-basics.language-package-managers"></a>
 ### Language package managers
-*id: `devops.devops-basics.language-package-managers` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `devops.devops-basics.language-package-managers` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: maven-dependency-mechanism*
 
 **What it is** Tools that resolve and install *application*-level dependencies for one project
 in one language — npm for JavaScript, pip for Python, Maven for Java, and their equivalents in

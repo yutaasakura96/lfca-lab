@@ -7,10 +7,10 @@ domain is worth 10% of the exam — 6th largest of 6 domains — under the curre
 blueprint, and this competency was unchanged by the 2025 update. LFS200 barely reaches it: 15
 NOT COVERED, 2 MENTIONED ONLY — 2/17 (12%) are not NOT COVERED, and those two (microservices
 and REST) are named in a single lesson rather than taught
-(`research/lfs200-notes/00-course-map.md`). Six of the seventeen concepts also have no primary
-documentation source at all, because the architecture vocabulary is industry consensus rather
-than a published standard; each of those carries the waiver marker in its own block, and its
-claims are hedged accordingly.
+(`research/lfs200-notes/00-course-map.md`). All seventeen concepts now cite an independent
+primary source — the cycle 3 waiver sourcing sprint cleared the six that previously had none,
+mostly against first-party vendor or standards-body documentation rather than a formal
+published standard.
 
 <a id="s-software-application-architecture-patterns"></a>
 ## Patterns
@@ -43,10 +43,7 @@ responder and there is no designated waiting party.
 
 <a id="c-pm.software-application-architecture.three-tier-architecture"></a>
 ### Three-tier architecture
-*id: `pm.software-application-architecture.three-tier-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.three-tier-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: microsoft-three-tier-architecture-model*
 
 **What it is** A logical separation of an application into three layers — a presentation tier
 that renders and accepts input, an application (or logic) tier that holds business rules, and a
@@ -212,10 +209,7 @@ while the tier classification does not move at all.
 
 <a id="c-pm.software-application-architecture.web-server-vs-application-server"></a>
 ### Web server vs application server
-*id: `pm.software-application-architecture.web-server-vs-application-server` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.web-server-vs-application-server` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nginx-beginners-guide*
 
 **What it is** Two runtime roles in front of a web application. A web server terminates the HTTP
 connection and returns files it already has — HTML, CSS, JavaScript, images — or forwards the
@@ -452,7 +446,7 @@ distinguishing 401 from 403 in an access-denied scenario.
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
 | `pm.software-application-architecture.json-and-xml` | JSON and XML | Text formats for exchanging structured data between systems; JSON is the current default for web APIs, XML the older and more verbose format still used in SOAP and document standards. | A format is not a protocol and not a schema. RFC 8259 calls JSON language-independent and merely derived from JavaScript object literals, and requires UTF-8 for JSON exchanged outside a closed ecosystem — so "JSON only works with JavaScript" is wrong. |
-| `pm.software-application-architecture.message-queue` | Message queue | A buffer that holds messages between a producer and a consumer so the two never have to be available at the same moment. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* A queue decouples in time, which an API call does not: the producer typically gets no answer back, and messages are normally consumed and removed rather than queried like a database. |
+| `pm.software-application-architecture.message-queue` | Message queue | A buffer that holds messages between a producer and a consumer so the two never have to be available at the same moment. | A queue decouples in time, which an API call does not: the producer typically gets no answer back, and messages are normally consumed and removed rather than queried like a database. |
 
 #### Scenario
 
@@ -535,10 +529,7 @@ that adding an index speeds reads at the cost of writes rather than being free.
 
 <a id="c-pm.software-application-architecture.nosql-database"></a>
 ### NoSQL database
-*id: `pm.software-application-architecture.nosql-database` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.nosql-database` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: aws-what-is-nosql*
 
 **What it is** An umbrella term for stores that do not use the relational tables-and-joins model.
 The four families usually listed are document stores (records as JSON-like documents), key-value
@@ -594,7 +585,7 @@ and flexibility.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.software-application-architecture.sql-basics` | SQL basics | SELECT reads rows, INSERT adds them, UPDATE changes existing ones, DELETE removes them, and JOIN combines rows from more than one table on a matching column. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Of the four statements, SELECT is the one that changes nothing — JOIN is a clause written inside a query rather than a statement of its own; UPDATE and DELETE without a WHERE clause typically act on every row in the table. |
+| `pm.software-application-architecture.sql-basics` | SQL basics | SELECT reads rows, INSERT adds them, UPDATE changes existing ones, DELETE removes them, and JOIN combines rows from more than one table on a matching column. | Of the four statements, SELECT is the one that changes nothing — JOIN is a clause written inside a query rather than a statement of its own; UPDATE and DELETE without a WHERE clause typically act on every row in the table. |
 | `pm.software-application-architecture.schema-table-and-index` | Schema, table and index | The schema is the declared structure, the table is the relation that holds the rows, and an index is a separate structure that speeds lookups on a column. | An index is not part of the data and not a copy of the table: PostgreSQL updates it whenever the table changes, so it buys read speed with write time and disk space. |
 | `pm.software-application-architecture.transactions-and-acid` | Transactions and ACID | Atomicity, consistency, isolation and durability — the guarantees that bundle several steps into one all-or-nothing operation that survives a crash once committed. | Atomicity and durability are different promises: atomicity means partial steps never take effect, durability means a committed transaction is written to permanent storage before completion is reported. |
 
@@ -637,10 +628,7 @@ index synchronised with the table.
 
 <a id="c-pm.software-application-architecture.caching-in-applications"></a>
 ### Caching in applications
-*id: `pm.software-application-architecture.caching-in-applications` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.software-application-architecture.caching-in-applications` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc9111-http-caching*
 
 **What it is** Keeping a copy of a result in faster storage so that repeat requests are answered
 without redoing the work. The defining property in most descriptions is that the copy is

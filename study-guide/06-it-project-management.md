@@ -107,12 +107,13 @@ appearing — so read them as "the course demonstrably names this" rather than a
 what it teaches.
 
 One more structural warning, from `data/sourcing-waivers.json` by way of the `Waived` line in
-each brief: 37 of the domain's 80 concepts carry no primary documentation source, split 19 of
-29 in Project Management, 12 of 12 in Functional Analysis, 6 of 17 in Software Application
-Architecture, and 0 of 22 in Open Source Software and Licensing. Just under half this domain —
-37 of 80 — is written as hedged consensus practice because the authoritative references are
-paywalled. The exam still asks about it; the hedging is about provenance, not about whether it
-is examinable.
+each brief: 17 of the domain's 80 concepts carry no primary documentation source, split 13 of
+29 in Project Management, 4 of 12 in Functional Analysis, 0 of 17 in Software Application
+Architecture, and 0 of 22 in Open Source Software and Licensing. A cycle 3 waiver sourcing
+sprint cleared 20 of the domain's previously-waived 37 concepts against independent primary
+sources; 17 of 80 remain written as hedged consensus practice because the authoritative
+references are paywalled. The exam still asks about it; the hedging is about provenance, not
+about whether it is examinable.
 
 ## Section map
 
@@ -165,20 +166,22 @@ Application Architecture, Open Source Software and Licensing.**
 2. **Functional Analysis second**, because it receives that pointer. Its Analysis section owns
    the comparison the Project Management file defers to, so reading them back to back closes
    the loop while the first file is still in memory. It is also the smallest file (12 concepts)
-   and the most fragile: 0% LFS200 coverage and 12 of 12 concepts waived, meaning nothing you
-   have read in the course and no primary source will reinforce it. It is the file most likely
-   to decay between now and the exam, so it wants a second pass later regardless of where you
-   put the first.
+   and still the most fragile of the four: 0% LFS200 coverage and 4 of 12 concepts still
+   waived, meaning a third of what you read here rests on consensus practice rather than a
+   citable primary source. It is the file most likely to decay between now and the exam, so it
+   wants a second pass later regardless of where you put the first.
 3. **Software Application Architecture third.** It is fully self-contained — all four of its
    comparison blocks are internal, and no concept in it points into or out of another file — so
    it can be dropped anywhere in the order without breaking a dependency. Third is where it
-   costs least: it breaks the run of heavily waived material (6 of 17 waived, against 19 of 29
-   and 12 of 12 before it) before that register becomes tiring to read.
+   costs least: it breaks the run of waived material (0 of 17 waived, against 13 of 29 and 4 of
+   12 before it — the cycle 3 waiver sourcing sprint cleared every concept in this file) before
+   that register becomes tiring to read.
 4. **Open Source Software and Licensing last**, for two reasons. It is the only file in the
    domain with a concept that is a member of a block owned outside the domain — forking, in the
    DevOps Git Concepts file — so it reads best after that DevOps material rather than before
-   it. And it is the only fully sourced file here (0 of 22 waived, 32% LFS200 coverage), so the
-   domain ends on licence text and the Open Source Definition rather than on hedged consensus.
+   it. And it is one of two fully sourced files here now (0 of 22 waived, 32% LFS200 coverage,
+   alongside Software Application Architecture's 0 of 17), so the domain ends on licence text
+   and the Open Source Definition rather than on hedged consensus.
    Nine of its 22 concepts are Quick reference rows, so it also moves faster per concept than
    its size suggests.
 

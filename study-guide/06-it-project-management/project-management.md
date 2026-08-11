@@ -7,10 +7,10 @@ previously been titled "Software Project Management" inside a domain then called
 Applications and Developers. LFS200 barely touches it: 4 FULLY COVERED, 25 NOT COVERED —
 4/29 (14%) are not NOT COVERED, and the four it does reach (project, waterfall, agile,
 sprint) sit in a single lesson (`research/lfs200-notes/00-course-map.md`). One structural
-warning, and this file carries the heaviest concentration of it in the guide: 19 of these 29
-concepts are waived from the independent-sourcing requirement because the authoritative
+warning, and this file carries the heaviest concentration of it in the guide: 13 of these 29
+concepts remain waived from the independent-sourcing requirement because the authoritative
 references for classical project management — PMBOK, the PMI Lexicon, ISO 21500/21502 — are
-paywalled. Every waived
+paywalled (the cycle 3 waiver sourcing sprint cleared the other six). Every still-waived
 concept below carries an explicit marker and is written as consensus practice, deliberately
 hedged. Where a primary source does exist (the Agile Manifesto, the 2020 Scrum Guide, the
 Kanban Guide) the language is firm, and the difference between the two registers is
@@ -172,10 +172,7 @@ negotiated inside.
 
 <a id="c-pm.project-management.software-development-lifecycle"></a>
 ### Software development lifecycle
-*id: `pm.project-management.software-development-lifecycle` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.software-development-lifecycle` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: nist-sp-800-64-sdlc-phases*
 
 **What it is** The set of phases software passes through on its way from an idea to a retired
 system: requirements, design, implementation, testing, deployment, and maintenance. The list
@@ -596,10 +593,7 @@ the limits are.
 
 <a id="c-pm.project-management.user-story"></a>
 ### User story
-*id: `pm.project-management.user-story` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.user-story` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: agile-alliance-glossary-user-story-template*
 
 **What it is** A short statement of a need written from the user's point of view, conventionally
 in three clauses: as a *role*, I want a *capability*, so that a *benefit*. The three clauses do
@@ -720,10 +714,7 @@ from the per-item scope of acceptance criteria.
 
 <a id="c-pm.project-management.minimum-viable-product"></a>
 ### Minimum viable product
-*id: `pm.project-management.minimum-viable-product` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.minimum-viable-product` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: agile-alliance-glossary-mvp*
 
 **What it is** The smallest release that delivers real value to real users and, in doing so,
 produces learning about whether the wider idea is worth continuing. Both halves matter: it has
@@ -810,10 +801,7 @@ decisions.
 
 <a id="c-pm.project-management.work-breakdown-structure"></a>
 ### Work breakdown structure
-*id: `pm.project-management.work-breakdown-structure` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.work-breakdown-structure` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nasa-wbs-handbook-sp-2016-3404-rev1*
 
 **What it is** A hierarchical decomposition of the project's deliverable into progressively
 smaller pieces, ending in work packages small enough to estimate, assign, and track. It is
@@ -904,10 +892,7 @@ are its own.
 
 <a id="c-pm.project-management.risk-management"></a>
 ### Risk management
-*id: `pm.project-management.risk-management` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.risk-management` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: nist-sp-800-30r1*
 
 **What it is** A continuing cycle of four distinct activities: identifying risks, assessing
 them, planning responses, and monitoring both the risks and the responses. The activities are
@@ -973,10 +958,7 @@ that turns one into the other.
 
 <a id="c-pm.project-management.change-control"></a>
 ### Change control
-*id: `pm.project-management.change-control` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.change-control` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nist-sp-800-128*
 
 **What it is** The defined process by which a proposed change to scope is raised, assessed for
 its impact, decided by a named authority, and — if approved — reflected in an updated baseline

@@ -1,0 +1,756 @@
+{
+  "run": "2026-08-11",
+  "note": "Cluster C stalled on its first attempt (NASA SE Handbook PDF extraction) and was killed by the watchdog with zero concepts examined and no output file. It was re-dispatched as C1 and C2 with a smaller concept list per agent and the pypdf local-extraction technique passed on explicitly; both re-runs completed. The brief's \"six clusters\" is therefore seven result files (A, B, C1, C2, D, E, F) covering the same 39 concepts the six-cluster plan assigned.",
+  "clusters": [
+    {
+      "cluster": "A",
+      "agent_label": "waiver-sprint-a",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "sysadmin.networking.vpn",
+          "concept_description_checked": "An encrypted tunnel making a remote host behave as though it were on the private network.",
+          "qualifies": true,
+          "source": {
+            "id": "nist-sp-800-77r1",
+            "title": "SP 800-77 Rev. 1: Guide to IPsec VPNs",
+            "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf",
+            "organization": "NIST",
+            "published": "2020-06",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "A VPN is a virtual network built on top of existing physical networks that provides a secure communications mechanism for data and control information transmitted between computers or networks. ... In this model [remote access], IPsec connections are created as needed for each individual mobile device that has been configured to act as an IPsec client with the organization's IPsec gateway. ... The user can now use the organization's computing resources, and the network traffic between the user's host (the remote device) and the VPN gateway will be protected by the IPsec connection. ... A single IPsec connection establishing a cryptographically protected tunnel between the gateways can support all communications between the two networks.",
+          "urls_tried": [
+            "https://csrc.nist.gov/pubs/sp/800/77/r1/final",
+            "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf"
+          ],
+          "reasoning": "The PDF's executive summary defines a VPN as a secure virtual network built on physical infrastructure, and Section 2.4.2 (Remote Access architecture) describes the remote host establishing an encrypted (IPsec) tunnel to a gateway after which the user 'can now use the organization's computing resources' over the protected connection -- i.e., the remote host is made to behave as though it were attached to the private network, exactly as the description states. Fetched via ctx_fetch_and_index and WebFetch first; both returned only PDF binary/XMP metadata rather than body text, so the PDF was downloaded directly and text-extracted locally with the pypdf library to read the actual body content before citing it."
+        },
+        {
+          "concept_id": "pm.software-application-architecture.caching-in-applications",
+          "concept_description_checked": "Holding frequently used results in fast storage, accepting staleness in exchange for speed.",
+          "qualifies": true,
+          "source": {
+            "id": "rfc9111-http-caching",
+            "title": "RFC 9111: HTTP Caching",
+            "url": "https://www.rfc-editor.org/rfc/rfc9111",
+            "organization": "IETF",
+            "published": "2022-06",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "An HTTP \"cache\" is a local store of response messages and the subsystem that controls storage, retrieval, and deletion of messages in it. A cache stores cacheable responses to reduce the response time and network bandwidth consumption on future equivalent requests. ... The goal of HTTP caching is significantly improving performance by reusing a prior response message to satisfy a current request. A cache considers a stored response \"fresh\" ... if it can be reused without \"validat[ion]\"",
+          "urls_tried": [
+            "https://www.rfc-editor.org/rfc/rfc9111"
+          ],
+          "reasoning": "RFC 9111 (Internet Standard, STD 98) directly defines a cache as a local store that holds responses to speed up future requests, and formalizes the freshness/staleness distinction -- a stored, reused response may be stale relative to the origin, which is precisely the staleness-for-speed tradeoff the concept description names. This is an application-layer caching specification (not a general CS concept), matching the concept's domain (Software Application Architecture) directly."
+        },
+        {
+          "concept_id": "sysadmin.networking.bandwidth-latency-and-throughput",
+          "concept_description_checked": "Capacity, delay, and achieved rate. A high-bandwidth link can still feel slow if latency is high.",
+          "qualifies": true,
+          "source": {
+            "id": "rfc6349-tcp-throughput",
+            "title": "RFC 6349: Framework for TCP Throughput Testing",
+            "url": "https://www.rfc-editor.org/rfc/rfc6349",
+            "organization": "IETF",
+            "published": "2011-08",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Bottleneck Bandwidth (BB) refers to the lowest bandwidth along the complete path. ... Round-Trip Time (RTT) is the elapsed time between the clocking in of the first bit of a TCP segment sent and the receipt of the last bit of the corresponding TCP Acknowledgment. ... Derived from Round-Trip Time (RTT) and network Bottleneck Bandwidth (BB), the Bandwidth-Delay Product (BDP) determines the Send and Received Socket buffer sizes required to achieve the maximum TCP Throughput. ... Bandwidth-Delay Product (BDP) refers to the product of a data link's capacity (in bits per second) and its end-to-end delay (in seconds). BDP (bits) = RTT (sec) X BB (bps)",
+          "urls_tried": [
+            "https://www.rfc-editor.org/rfc/rfc6349",
+            "https://www.rfc-editor.org/rfc/rfc7799"
+          ],
+          "reasoning": "RFC 6349's Terminology section formally defines Bottleneck Bandwidth (capacity), RTT (delay/latency), and achievable TCP Throughput (achieved rate) as the three named quantities, and its Bandwidth-Delay Product relation is exactly the mechanism by which a high-bandwidth link with high RTT fails to achieve its nominal throughput -- directly supporting 'a high-bandwidth link can still feel slow if latency is high.' RFC 7799 (Active and Passive Metrics) was also read as a candidate but only classifies measurement methodologies (active vs. passive vs. hybrid) and does not define or relate bandwidth, latency, and throughput as the concept requires, so it was not used."
+        },
+        {
+          "concept_id": "pm.software-application-architecture.message-queue",
+          "concept_description_checked": "A buffer decoupling producers from consumers so components need not be available simultaneously.",
+          "qualifies": true,
+          "source": {
+            "id": "oasis-amqp-core-v1.0",
+            "title": "OASIS Advanced Message Queuing Protocol (AMQP) Version 1.0",
+            "url": "http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf",
+            "organization": "OASIS (also published as ISO/IEC 19464)",
+            "published": "2012-10",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Nodes are named entities responsible for the safe storage and/or delivery of messages. ... Producers and consumers are the elements within an application that generate and process messages. Queues are entities that store and forward messages.",
+          "urls_tried": [
+            "https://www.amqp.org/resources/specifications",
+            "https://www.amqp.org/",
+            "http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf"
+          ],
+          "reasoning": "The suggested AMQP 0-9-1 spec is a RabbitMQ-maintained document, not a standards-body publication, and its landing page (amqp.org/resources/specifications) 404'd; amqp.org now centers on AMQP 1.0, which was ratified as both an OASIS Standard and the free-to-view ISO/IEC 19464 International Standard, a stronger tier-1 fit. Its conceptual model section defines a queue as a node that 'stores and forward messages' between producers and consumers, which are named as separate application elements -- i.e. the queue is the storage/buffer sitting between them, supporting the decoupling description. The 0-9-1 spec URL returned 404 and was not substituted for a different, unread document; ctx_fetch_and_index against the OASIS PDF returned only raw PDF byte/object-stream preview text, so the PDF was downloaded and text-extracted locally with pypdf to confirm actual body wording before citing it."
+        }
+      ]
+    },
+    {
+      "cluster": "B",
+      "agent_label": "waiver-sprint-b",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "pm.functional-analysis.use-case",
+          "concept_description_checked": "A description of how an actor interacts with the system to achieve a goal, including alternate paths.",
+          "qualifies": true,
+          "source": {
+            "id": "omg-uml-2-5-1-usecases",
+            "title": "OMG Unified Modeling Language (OMG UML), Version 2.5.1 - Clause 18, Use Cases",
+            "url": "https://www.omg.org/spec/UML/2.5.1/PDF",
+            "organization": "Object Management Group (OMG)",
+            "published": "2017-12",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "A UseCase specifies a set of actions performed by its subjects, which yields an observable result that is of value for one or more Actors or other stakeholders of each subject. ... A UseCase can include possible variations of its basic behavior, including exceptional behavior and error handling.",
+          "urls_tried": [
+            "https://www.omg.org/spec/UML/2.5.1/PDF"
+          ],
+          "reasoning": "Fetched and text-extracted the full 18069510-byte PDF (796 pages) via curl + pypdf (WebFetch rejected it as too large). Clause 18.2.5.1 (Description) gives the formal definition of UseCase as actions performed in collaboration with Actors yielding an observable result of value -- matching 'how an actor interacts with the system to achieve a goal'. Clause 18.1.3.1 explicitly adds that a UseCase 'can include possible variations of its basic behavior, including exceptional behavior and error handling', matching 'including alternate paths'. This is the primary, free, tier-1 standards-body specification defining the term as used in the topic description, not a passing mention."
+        },
+        {
+          "concept_id": "pm.functional-analysis.process-mapping",
+          "concept_description_checked": "Diagramming the current or intended workflow so inefficiencies and hand-offs become visible.",
+          "qualifies": true,
+          "source": {
+            "id": "omg-bpmn-2-0-2-process",
+            "title": "Business Process Model and Notation (BPMN), Version 2.0.2 - Clause 10, Process; Clause on Lane/Pool",
+            "url": "https://www.omg.org/spec/BPMN/2.0.2/PDF",
+            "organization": "Object Management Group (OMG)",
+            "published": "2013-12",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "A Process describes a sequence or flow of Activities in an organization with the objective of carrying out work. In BPMN a Process is depicted as a graph of Flow Elements... A Lane is a sub-partition within a Process (often within a Pool) and will extend the entire length of the Process level... Lanes are used to organize and categorize [activities/responsibilities].",
+          "urls_tried": [
+            "https://www.omg.org/spec/BPMN/2.0.2/PDF"
+          ],
+          "reasoning": "Fetched and text-extracted the full 532-page BPMN 2.0.2 specification PDF via curl + pypdf (WebFetch could not render the raw PDF bytes as text). Clause 10.1 defines a Process (the thing BPMN diagrams depict) as a sequence/flow of Activities carried out to do work -- this is the formal referent for 'diagramming the current or intended workflow'. The Lane/Pool constructs (clause on Lanes, used throughout the spec to partition a diagram by role/department) are the notation's mechanism for making hand-offs between participants visible on the diagram, matching the 'hand-offs become visible' half of the description. This is the primary tier-1 standards-body specification for the notation used to do process mapping, not a passing mention of the term."
+        },
+        {
+          "concept_id": "pm.software-application-architecture.three-tier-architecture",
+          "concept_description_checked": "Presentation, application logic, and data tiers separated so each can be scaled and changed independently.",
+          "qualifies": true,
+          "source": {
+            "id": "microsoft-three-tier-architecture-model",
+            "title": "Using a Three-Tier Architecture Model - Win32 apps",
+            "url": "https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model",
+            "organization": "Microsoft",
+            "published": "2018-05",
+            "authority_tier": 2
+          },
+          "verbatim_quote": "The three-tier architecture model, which is the fundamental framework for the logical design model, segments an application's components into three tiers of services... The presentation tier, or user services layer, gives a user access to the application... The middle tier, or business services layer, consists of business and data rules... The data tier, or data services layer, interacts with persistent data usually stored in a database... During an application's life cycle, the three-tier approach provides benefits such as reusability, flexibility, manageability, maintainability, and scalability... you can distribute them across a network of computers as needed.",
+          "urls_tried": [
+            "https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model"
+          ],
+          "reasoning": "Checked OMG UML 2.5.1 first (full-text extracted copy already on disk): grepped for 'three-tier' and found only one passing, non-defining mention ('...server, or even a three-tier architecture. These are all valid execution engines for UML...'), which does not qualify per the 'passing mention' exclusion. Fell back to the suggested alternative: first-party vendor documentation. Microsoft Learn's Win32/COM+ documentation defines the three tiers by name (presentation/user services, business/middle, data) as separately deployable/relocatable services, and explicitly states the three-tier approach's benefit is that components 'can be moved to different locations' and the architecture supports 'scalability' -- matching 'separated so each can be scaled and changed independently'. This is first-party Microsoft documentation, the standing this dataset already gives Microsoft elsewhere, and it directly defines the concept rather than mentioning it in passing."
+        },
+        {
+          "concept_id": "pm.functional-analysis.gap-analysis",
+          "concept_description_checked": "Comparing current state to desired state and defining the work that closes the difference.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://csrc.nist.gov/glossary/term/gap_analysis",
+            "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-50r1.pdf",
+            "https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap23.html",
+            "https://pubs.opengroup.org/togaf-standard/adm-techniques/chap02.html",
+            "https://www.opengroup.org/togaf-standard-10th-edition-downloads",
+            "https://web.archive.org/web/2023id_/https://pubs.opengroup.org/architecture/togaf9-doc/arch/chap23.html"
+          ],
+          "reasoning": "Two candidates found, neither clears the bar. (1) NIST SP 800-50 Rev.1 (Building a Cybersecurity and Privacy Learning Program, tier 1, free PDF, downloaded and text-extracted directly) has a glossary entry: 'gap analysis: The process of comparing current learning program or activity performance with the desired, expected performance.' This only covers the 'current state vs desired state' half of the description, is explicitly scoped to training-program performance (not general project/business state), and omits 'defining the work that closes the difference' -- too narrow a context to support the description as written, so it does not qualify as-is. (2) The Open Group's TOGAF 9.2 Chapter 23 'Gap Analysis' is a strong textual match ('highlight a shortfall between the Baseline Architecture and the Target Architecture'; gaps get 'addressed by reinstating or developing/procuring the function') and would otherwise qualify at tier 1/2, but the live pubs.opengroup.org URLs (both the legacy TOGAF 9.2 docs and the current Digital Edition) now redirect to an identity.opengroup.org SSO login/account-creation wall -- confirmed with curl (302 to an oauth2/authorize endpoint) and WebFetch. Creating an account is outside this task's scope and the content is therefore not freely, directly accessible the way OMG's UML/BPMN PDFs are (downloaded with a bare curl, no login). I was able to read the TOGAF text only via a 2016 Wayback Machine mirror of the same page, which is not something a future reader can rely on as a live, citable primary source. Reporting genuinely unsourced: no free, directly-accessible primary/first-party source was found that defines gap analysis at the general current-state-to-desired-state-plus-remediation-work level the topic description requires."
+        }
+      ]
+    },
+    {
+      "cluster": "C1",
+      "agent_label": "waiver-sprint-c1",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "pm.functional-analysis.functional-requirements",
+          "concept_description_checked": "What the system must do — the behaviours and features users can observe.",
+          "qualifies": true,
+          "source": {
+            "id": "nasa-se-handbook-sp-2016-6105",
+            "title": "NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2)",
+            "url": "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+            "organization": "NASA",
+            "published": "2016-12",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Functional requirements define what functions need to be performed to accomplish the objectives.",
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+          ],
+          "reasoning": "Section 4.2.1.2.2 'Define Requirements' explicitly defines functional requirements as what functions need to be performed, directly matching the description's 'what the system must do'. Read via local PDF text extraction, not a fetch tool."
+        },
+        {
+          "concept_id": "pm.functional-analysis.non-functional-requirements",
+          "concept_description_checked": "How well it must do it: performance, availability, security, usability, maintainability. Often decisive for architecture.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+          ],
+          "reasoning": "The term 'non-functional requirements' does not appear anywhere in the handbook (checked, zero matches). The handbook does define 'performance requirements' as 'how well the system needs to perform the functions' (section 4.2.1.2.2), which covers only the 'performance' slice of the description. But it does not unify performance with availability, security, usability, and maintainability under one category the way the description requires — instead it keeps 'Functional / Performance / Interface / Operational / Safety / \"-ilities\"' as five to six separate, parallel requirement categories (Figure 4.1-x listing). No passage groups availability, security, usability and maintainability together as a named counterpart to functional requirements. This is a taxonomic mismatch with the description, not a mere terminology gap, so it does not qualify as a source for this specific concept."
+        },
+        {
+          "concept_id": "pm.functional-analysis.requirements-elicitation",
+          "concept_description_checked": "Drawing out real needs through interviews, workshops, observation and document study, since stated wants and actual needs differ.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+            "https://www.gasq.org/files/content/gasq/downloads/certification/REQB/REQB_Standard_glossary_of_terms_used_in_Requirements_Engineering.pdf"
+          ],
+          "reasoning": "NASA SE Handbook: the noun 'elicitation' never appears; the verb 'elicit' appears only twice, once in a competency-model table ('Eliciting and defining use cases, scenarios, concept of operations and stakeholder expectations') and once in running text ('it is necessary to elicit the needs, wants, desires... from the stakeholders'). Section 4.1.1.2.2 lists intake channels (interviews/discussions, surveys, marketing groups, e-mails, SOW) but never states or implies that stated wants differ from actual needs — that rationale, which is central to the description, is absent. Fallback: the REQB Standard Glossary of Terms used in Requirements Engineering (gasq.org, freely downloadable, first-party certification-body glossary) defines Elicitation only as 'The act of obtaining information from other people... the process of gathering requirements from stakeholders' — a one-line definition with no mention of specific techniques (interviews/workshops/observation/document study) or of the wants-vs-needs distinction. Neither source defines the concept to the description's specificity, so this does not qualify."
+        },
+        {
+          "concept_id": "pm.functional-analysis.requirements-prioritization",
+          "concept_description_checked": "Ordering requirements by value and necessity, MoSCoW being a common scheme.",
+          "qualifies": true,
+          "source": {
+            "id": "agile-business-consortium-moscow",
+            "title": "What is MoSCoW Prioritization?",
+            "url": "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/",
+            "organization": "Agile Business Consortium (DSDM Consortium)",
+            "published": "2024-01",
+            "authority_tier": 2
+          },
+          "verbatim_quote": "MoSCoW is a prioritisation technique for helping to understand and manage priorities... Must Have, Should Have, Could Have, Won't Have this time.",
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+            "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/"
+          ],
+          "reasoning": "NASA SE Handbook does not qualify: no occurrence of 'prioriti[sz]e' relates to ordering requirements by value/necessity, and MoSCoW is never mentioned — checked exhaustively via grep. Fallback: the Agile Business Consortium (successor to the DSDM Consortium, the body that originated and stewards MoSCoW within the DSDM/Agile Project Framework) publishes MoSCoW's definition as first-party organisation documentation (tier 2), freely accessible, and it directly defines the scheme named in the description."
+        },
+        {
+          "concept_id": "pm.functional-analysis.specification-documentation",
+          "concept_description_checked": "Writing requirements down unambiguously so they can be agreed, built against, and tested.",
+          "qualifies": true,
+          "source": {
+            "id": "nasa-se-handbook-sp-2016-6105",
+            "title": "NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2)",
+            "url": "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+            "organization": "NASA",
+            "published": "2016-12",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Are the requirements clear and unambiguous? (Are all aspects of the requirement understandable and not subject to misinterpretation?...) ... Complete and thorough requirements traceability is a critical factor in successful validation of requirements. Clear and unambiguous requirements will help avoid misunderstanding when developing the overall system and when making major or minor changes.",
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+          ],
+          "reasoning": "Appendix C, 'How to Write a Good Requirement — Checklist', and the System Design Keys in section 4.0 together define the practice of writing requirements clearly and unambiguously (Clarity checklist), completely (Completeness checklist), consistently (Consistency checklist) and traceably (Traceability checklist) so they can be agreed with stakeholders, designed/built against, and verified — matching the description directly. Read via local PDF text extraction."
+        },
+        {
+          "concept_id": "pm.functional-analysis.verification-vs-validation",
+          "concept_description_checked": "Verification asks whether it was built right; validation asks whether the right thing was built.",
+          "qualifies": true,
+          "source": {
+            "id": "nasa-se-handbook-sp-2016-6105",
+            "title": "NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2)",
+            "url": "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+            "organization": "NASA",
+            "published": "2016-12",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Validation (of a product): The process of showing proof that the product accomplishes the intended purpose based on stakeholder expectations and the Concept of Operations... (Answers the question, \"Am I building the right product?\") ... Verification (of a product): Proof of compliance with specifications... (Answers the question, \"Did I build the product right?\")",
+          "urls_tried": [
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+          ],
+          "reasoning": "Appendix B (Glossary) gives verbatim, adjacent definitions of Verification and Validation using the exact 'built right' vs 'right [thing] built' framing the description uses, almost word for word. This is a direct, unambiguous match at tier 1. Read via local PDF text extraction."
+        }
+      ]
+    },
+    {
+      "cluster": "C2",
+      "agent_label": "waiver-sprint-c2",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "pm.functional-analysis.traceability",
+          "concept_description_checked": "Linking each requirement to its design, implementation and test, so coverage can be demonstrated.",
+          "qualifies": true,
+          "source": {
+            "id": "nasa-expanded-guidance-se-requirements-management",
+            "title": "NASA Systems Engineering Handbook, Section 6.2 - Requirements Management",
+            "url": "https://www.nasa.gov/reference/6-2-requirements-management/",
+            "organization": "NASA",
+            "published": "2023-02",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Requirements Management ... maintains bidirectional traceability between stakeholder expectations, customer requirements, technical product requirements, product component requirements, design documents, and test plans and procedures. ... Bidirectional Traceability: the ability to trace any given requirement/expectation to its parent requirement/expectation and to its allocated children requirements/expectations.",
+          "urls_tried": [
+            "https://www.nasa.gov/reference/6-2-requirements-management/",
+            "https://ntrs.nasa.gov/api/citations/20170007238/downloads/20170007238.pdf",
+            "https://ntrs.nasa.gov/api/citations/20170007239/downloads/20170007239.pdf"
+          ],
+          "reasoning": "The NASA SE Handbook's Requirements Management page (an HTML page of the official NASA reference site, tier 1 government source) states that requirements management maintains bidirectional traceability specifically 'between stakeholder expectations, customer requirements, technical product requirements, product component requirements, design documents, and test plans and procedures' -- i.e., a chain running from requirement to design (design documents) to implementation (product component requirements) to test (test plans and procedures), which is exactly the description's claim that each requirement is linked to its design, implementation and test so coverage can be demonstrated."
+        },
+        {
+          "concept_id": "pm.functional-analysis.feasibility-study",
+          "concept_description_checked": "Assessing whether a proposal is technically, operationally and economically achievable before committing.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://www.nasa.gov/reference/3-0-nasa-program-project-life-cycle/",
+            "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf (downloaded and text-extracted locally, grepped for 'feasib', 'operationally', 'technically, operationally')",
+            "https://projectdelivery.gov.uk/library-products/guide-to-feasibility-studies-in-programmes-and-projects-html/",
+            "https://acqnotes.com/acqnote/tasks/feasibility-assessment",
+            "https://www.gao.gov (general search, no matching glossary entry found)"
+          ],
+          "reasoning": "No free tier-1/tier-2 source found states the concept as the description requires -- a proposal being technical, operational, AND economic achievability assessed together. NASA's SE Handbook consistently frames Pre-Phase A/feasibility in terms of technical performance, cost, and schedule ('assess performance, cost, and schedule feasibility'; glossary entry: 'Feasible: Initial evaluations show that the concept credibly falls within the technical cost and schedule constraints') -- schedule and cost, not operational feasibility, is the recurring second/third leg. The UK Government Project Delivery 'Guide to feasibility studies' (projectdelivery.gov.uk, tier 1) mentions technical approach, operational expertise, and economic/social impacts, but scattered across different sections for different study types (construction, defence, engineering) rather than as a unified definition of feasibility study covering all three dimensions together. This does not meet the bar of a source that defines the concept as the description states it, so the concept is declined rather than forced onto a partial match."
+        },
+        {
+          "concept_id": "pm.functional-analysis.user-acceptance-testing",
+          "concept_description_checked": "Testing by the people who will use the system, against their real needs rather than the specification alone.",
+          "qualifies": true,
+          "source": {
+            "id": "istqb-standard-glossary-v2.2",
+            "title": "Standard Glossary of Terms Used in Software Testing, Version 2.2",
+            "url": "https://glossary.istqb.org/en_US/term/user-acceptance-testing",
+            "organization": "International Software Testing Qualifications Board (ISTQB)",
+            "published": "2012-10",
+            "authority_tier": 2
+          },
+          "verbatim_quote": "user acceptance testing: See acceptance testing. ... acceptance testing: Formal testing with respect to user needs, requirements, and business processes conducted to determine whether or not a system satisfies the acceptance criteria and to enable the user, customers or other authorized entity to determine whether or not to accept the system. [After IEEE 610]",
+          "urls_tried": [
+            "https://glossary.istqb.org/en_US/term/user-acceptance-testing",
+            "https://www.ctqb.org/files/content/ctqb/downloads/istqb/Glossary-terms-version-3.7.pdf (downloaded and text-extracted; current v3.7 UAT entry: 'A type of acceptance testing performed to determine if intended users accept the system' -- confirms UAT is testing by intended users, but is thinner on the 'real needs vs spec' distinction)",
+            "https://www.gasq.org/files/content/gasq/downloads/certification/ISTQB/Glossary/ISTQB_Glossary_v2.2.pdf (downloaded and text-extracted locally)"
+          ],
+          "reasoning": "The live glossary.istqb.org site is a JS single-page app that returns only an empty shell over plain HTTP fetch/curl, so the underlying ISTQB Standard Glossary PDF (the same document the site renders, published by the ISTQB Glossary Working Party, a first-party standards organization for software testing terminology) was downloaded and text-extracted locally. Version 2.2 (Oct 2012) explicitly cross-references 'user acceptance testing' to 'acceptance testing', defined as testing 'with respect to user needs ... to enable the user, customers or other authorized entity to determine whether or not to accept the system' -- i.e. testing performed by/for the people who will use the system, judged against their needs rather than the specification alone (echoing IEEE 610). The current v3.7 glossary entry for UAT independently confirms it is 'performed to determine if intended users accept the system', corroborating the 'by the people who will use the system' half of the description. Together these establish the source qualifies."
+        },
+        {
+          "concept_id": "pm.project-management.work-breakdown-structure",
+          "concept_description_checked": "Decomposing the deliverable hierarchically into work packages small enough to estimate and assign.",
+          "qualifies": true,
+          "source": {
+            "id": "nasa-wbs-handbook-sp-2016-3404-rev1",
+            "title": "NASA Work Breakdown Structure (WBS) Handbook, NASA/SP-2016-3404/REV1",
+            "url": "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf",
+            "organization": "NASA",
+            "published": "2018-01",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "A WBS is a product-oriented family tree that identifies the hardware, software, services, and all other deliverables required to achieve an end project objective. The purpose of a WBS is to subdivide the project's work content into manageable segments to facilitate planning and control of cost, schedule, and technical content. ... Work Package (WP) - Detailed jobs, or material items, identified by the implementer for accomplishing work required to complete the project/contract. A work package has the following characteristics: a) It represents units of work at levels where work is performed. b) It is clearly distinguished from all other work packages. c) It is assigned to a single organizational element. d) It has scheduled start and completion dates ... e) It has a budget or assigned value expressed in terms of dollars, man-hours, or other measurable units.",
+          "urls_tried": [
+            "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf",
+            "https://swehb.nasa.gov/display/SWEHBVC/7.5+-+Work+Breakdown+Structures+That+Include+Software"
+          ],
+          "reasoning": "The NASA WBS Handbook PDF (67 pages, downloaded and text-extracted locally with pypdf, then grepped rather than read whole) is the direct tier-1 government specification for WBS. It defines the WBS as a hierarchical, product-oriented decomposition of the deliverable ('family tree') subdivided into 'manageable segments', and separately defines its terminal nodes, Work Packages, as units of work small enough to be individually assigned ('assigned to a single organizational element') and estimated (each has a budget/assigned value and scheduled dates). This directly matches the description's claim of hierarchical decomposition into work packages small enough to estimate and assign. The NASA Software Engineering Handbook (swehb.nasa.gov, HTML) independently corroborates with 'a work breakdown structure is a hierarchical breakdown of the work necessary to complete a project' (citing SE Handbook 6.1.2.1)."
+        }
+      ]
+    },
+    {
+      "cluster": "D",
+      "agent_label": "waiver-sprint-d",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "pm.project-management.change-control",
+          "concept_description_checked": "The formal process by which scope changes are proposed, assessed and approved.",
+          "qualifies": true,
+          "source": {
+            "id": "nist-sp-800-128-configuration-change-control",
+            "title": "Guide for Security-Focused Configuration Management of Information Systems (SP 800-128)",
+            "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf",
+            "organization": "NIST",
+            "published": "2019-10",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Configuration change control is the documented process for managing and controlling changes to the configuration of a system or its constituent CIs. Configuration change control for the system involves the systematic proposal, justification, implementation, test/evaluation, review, and disposition of changes to the system, including upgrades and modifications.",
+          "urls_tried": [
+            "https://csrc.nist.gov/pubs/sp/800/128/upd1/final",
+            "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf"
+          ],
+          "reasoning": "Section 2.3.8 (CONFIGURATION CHANGE CONTROL) directly defines change control as a documented, systematic process covering proposal, justification/assessment, review, and disposition (approval) of changes -- matching the concept description's proposed/assessed/approved shape. This is the concept's own definitional section, not a passing mention.",
+          "reconfirms_prior_waiver": false
+        },
+        {
+          "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+          "concept_description_checked": "Scripting repeated work, and writing it so that running it twice is safe and leaves the same result.",
+          "qualifies": true,
+          "source": {
+            "id": "ansible-glossary-idempotency",
+            "title": "Ansible Glossary -- Idempotency",
+            "url": "https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html",
+            "organization": "Red Hat / Ansible Project",
+            "published": "2026-08",
+            "authority_tier": 2
+          },
+          "verbatim_quote": "An operation is idempotent if the result of performing it once is exactly the same as the result of performing it repeatedly without any intervening actions.",
+          "urls_tried": [
+            "https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html"
+          ],
+          "reasoning": "NIST SP 800-128 does not contain the terms 'idempotent' or 'idempotency' (checked full-text). Ansible's own glossary is first-party (tier 2) project documentation and directly defines idempotency exactly as the concept describes it: running an operation repeatedly yields the same result as running it once. This is the standard reference for this concept in configuration-management automation.",
+          "reconfirms_prior_waiver": false
+        },
+        {
+          "concept_id": "pm.project-management.software-development-lifecycle",
+          "concept_description_checked": "The phases from requirements through design, implementation, testing, deployment and maintenance.",
+          "qualifies": true,
+          "source": {
+            "id": "nist-sp-800-64-sdlc-phases",
+            "title": "Security Considerations in the System Development Life Cycle (SP 800-64 Rev. 2)",
+            "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf",
+            "organization": "NIST",
+            "published": "2008-10",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "A typical SDLC includes five phases: initiation, development/acquisition, implementation/assessment, operations/maintenance, and disposal. ... Initiation. During the initiation phase, the need for a system is expressed and the purpose of the system is documented. Development/Acquisition. During this phase, the system is designed, purchased, programmed, developed, or otherwise constructed. Implementation/Assessment. After system acceptance testing, the system is installed or fielded. Operation/Maintenance. During this phase, the system performs its work. ... Disposal. Activities conducted during this phase ensure the orderly termination of the system.",
+          "urls_tried": [
+            "https://csrc.nist.gov/pubs/sp/800/64/r2/final",
+            "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf"
+          ],
+          "reasoning": "SP 800-64 Section 3 explicitly enumerates and defines the SDLC phases (initiation/requirements, development-acquisition/design-implementation, implementation-assessment/testing-deployment, operations-maintenance, disposal), which maps directly onto the concept description's requirements-through-maintenance phase list.",
+          "reconfirms_prior_waiver": false
+        },
+        {
+          "concept_id": "pm.project-management.risk-management",
+          "concept_description_checked": "Identifying risks, assessing likelihood and impact, and planning responses before they materialise.",
+          "qualifies": true,
+          "source": {
+            "id": "nist-sp-800-30r1-risk-assessment",
+            "title": "Guide for Conducting Risk Assessments (SP 800-30 Rev. 1)",
+            "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
+            "organization": "NIST",
+            "published": "2012-09",
+            "authority_tier": 1
+          },
+          "verbatim_quote": "Risk assessment is the process of identifying, estimating, and prioritizing information security risks. Assessing risk requires the careful analysis of threat and vulnerability information to determine the extent to which circumstances or events could adversely impact an organization and the likelihood that such circumstances or events will occur. ... risk is determined based on the results of a risk assessment. The purpose of the risk response ... implementing risk responses based on ... organizational risk tolerance.",
+          "urls_tried": [
+            "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+            "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+          ],
+          "reasoning": "SP 800-30 Rev. 1 defines risk assessment as identifying and analyzing threats/vulnerabilities for likelihood and impact, and separately (Ch. 2 risk management process overview) discusses risk response -- selecting and implementing responses consistent with organizational risk tolerance -- covering identification, likelihood/impact assessment, and response planning as the description requires.",
+          "reconfirms_prior_waiver": false
+        },
+        {
+          "concept_id": "sysadmin.best-practices.naming-conventions",
+          "concept_description_checked": "Predictable names for hosts, users, and resources, so that identity and purpose can be inferred without a lookup.",
+          "qualifies": false,
+          "source": null,
+          "verbatim_quote": null,
+          "urls_tried": [
+            "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf"
+          ],
+          "reasoning": "Re-checked all four occurrences of 'naming' in SP 800-128 by full-text extraction: (1) 'Configuration Item Identification - methodology for selecting and naming configuration items' -- a process label, not guidance content; (2) 'Media Library Procedures ... includes naming conventions for media' -- about physical/digital media labeling, not hosts/users/resources; (3) CPE 'standard naming convention for operating systems, hardware, and applications' for SCAP interoperability, a different purpose (machine-parseable product identifiers, not predictable host/user names for human inference); (4) Appendix D template heading '3.1.3 Configuration Item Labeling [Naming convention for CIs]' -- an empty template slot with no developed guidance. None defines or specifies predictable naming of hosts/users/resources for human-inferable identity and purpose. No new source was found beyond SP 800-128 during this pass (targeted web search did not surface a qualifying tier-1/2 source either). Prior waiver stands.",
+          "reconfirms_prior_waiver": true
+        },
+        {
+          "concept_id": "sysadmin.best-practices.capacity-planning",
+          "concept_description_checked": "Projecting resource growth so that expansion is planned rather than triggered by an outage.",
+          "qualifies": false,
+          "source": null,
+          "verbatim_quote": null,
+          "urls_tried": [
+            "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-128.pdf"
+          ],
+          "reasoning": "SP 800-128 mentions 'capacity planning' exactly once, in a list of Media Library Procedures activities: '...tracking media, access controls, protections for media integrity (e.g., checksums), inventory checks, capacity planning, and archiving of media.' This is a bare list item about media-library storage capacity, with no development of resource-growth projection or outage-avoidance guidance -- confirming the earlier finding that the mention is too narrow to qualify. No alternative NIST SP source was located that defines general infrastructure capacity planning. Prior waiver stands.",
+          "reconfirms_prior_waiver": true
+        },
+        {
+          "concept_id": "sysadmin.best-practices.principle-of-least-astonishment",
+          "concept_description_checked": "Configuring systems so they behave as an experienced administrator would expect, because surprising setups fail during incidents when nobody has time to read.",
+          "qualifies": false,
+          "source": null,
+          "verbatim_quote": null,
+          "urls_tried": [
+            "web search: \"principle of least astonishment\" NIST OR \"principle of least surprise\" system administration standard"
+          ],
+          "reasoning": "A targeted web search for NIST or other standards-body treatment of the principle of least astonishment / least surprise returned nothing on point; NIST's tier-1 corpus discusses the unrelated principle of least privilege (access control), which is a different concept and must not be substituted. No tier-1 or tier-2 source defining this concept as an operational/sysadmin configuration norm was found. Confirmed hard-to-source as expected; remains unsourced.",
+          "reconfirms_prior_waiver": false
+        }
+      ]
+    },
+    {
+      "cluster": "E",
+      "agent_label": "waiver-sprint-e",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method",
+          "concept_description_checked": "Identify the problem, form a theory, test it, plan and implement a fix, verify, then document. The discipline matters more than any single command.",
+          "qualifies": true,
+          "source": {
+            "id": "google-sre-book-effective-troubleshooting",
+            "title": "Site Reliability Engineering, Chapter 12: Effective Troubleshooting",
+            "url": "https://sre.google/sre-book/effective-troubleshooting/",
+            "organization": "Google",
+            "published": "2016-04",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "given a set of observations about a system and a theoretical basis for understanding system behavior, we iteratively hypothesize potential causes for the failure and try to test those hypotheses. ... Once you've found the factors that caused the problem, it's time to write up notes on what went wrong with the system, how you tracked down the problem, how you fixed the problem, and how to prevent it from happening again.",
+          "urls_tried": [
+            "https://sre.google/sre-book/effective-troubleshooting/"
+          ],
+          "reasoning": "The chapter lays out the same shape as the description: report/observe -> hypothesize a theory -> test the hypothesis (Diagnose, Test and Treat) -> fix (Cure) -> write up notes on what went wrong, how it was tracked down, how it was fixed, and how to prevent recurrence (documentation step). Step labels differ (Problem Report/Triage/Examine/Diagnose/Test and Treat/Cure vs identify/theorize/test/fix/verify/document) but the described discipline matches."
+        },
+        {
+          "concept_id": "sysadmin.troubleshooting.narrowing-scope",
+          "concept_description_checked": "Establishing whether a fault affects one user, one host, or everything — which eliminates whole categories of cause immediately.",
+          "qualifies": true,
+          "source": {
+            "id": "google-sre-book-effective-troubleshooting",
+            "title": "Site Reliability Engineering, Chapter 12: Effective Troubleshooting",
+            "url": "https://sre.google/sre-book/effective-troubleshooting/",
+            "organization": "Google",
+            "published": "2016-04",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "Dividing and conquering is a very useful general-purpose solution technique... an alternative, bisection, splits the system in half and examines the communication paths between components on one side and the other.",
+          "urls_tried": [
+            "https://sre.google/sre-book/effective-troubleshooting/"
+          ],
+          "reasoning": "The chapter explicitly describes bisection/divide-and-conquer as a way to split a system and eliminate whole categories of cause, matching the description's 'eliminates whole categories of cause immediately.' Same source and chapter as the structured-troubleshooting-method entry above (fetched once, checked for both)."
+        },
+        {
+          "concept_id": "sysadmin.troubleshooting.reproducing-the-fault",
+          "concept_description_checked": "Confirming you can trigger the problem on demand, without which you cannot know a fix worked.",
+          "qualifies": true,
+          "source": {
+            "id": "google-sre-book-effective-troubleshooting",
+            "title": "Site Reliability Engineering, Chapter 12: Effective Troubleshooting",
+            "url": "https://sre.google/sre-book/effective-troubleshooting/",
+            "organization": "Google",
+            "published": "2016-04",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "Definitively proving that a given factor caused a problem—by reproducing it at will—can be difficult to do in production systems; often, we can only find probable causal factors.",
+          "urls_tried": [
+            "https://sre.google/sre-book/effective-troubleshooting/"
+          ],
+          "reasoning": "Directly states that reproducing a problem at will is how you prove a cause (and by extension confirm a fix), matching the description. Same source and chapter as the two entries above."
+        },
+        {
+          "concept_id": "sysadmin.troubleshooting.escalation",
+          "concept_description_checked": "Knowing when to hand a problem on, with the evidence gathered so far, rather than continuing past your authority or competence.",
+          "qualifies": true,
+          "source": {
+            "id": "google-sre-book-being-on-call",
+            "title": "Site Reliability Engineering, Chapter 11: Being On-Call",
+            "url": "https://sre.google/sre-book/being-on-call/",
+            "organization": "Google",
+            "published": "2016-04",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "the on-call engineer is expected to triage the problem and work toward its resolution, possibly involving other team members and escalating as needed. ... The most important on-call resources are: Clear escalation paths...",
+          "urls_tried": [
+            "https://sre.google/sre-book/effective-troubleshooting/",
+            "https://sre.google/workbook/on-call/",
+            "https://sre.google/sre-book/emergency-response/",
+            "https://sre.google/sre-book/being-on-call/",
+            "https://sre.google/workbook/incident-response/",
+            "https://sre.google/sre-book/postmortem-culture/"
+          ],
+          "reasoning": "The Effective Troubleshooting chapter has no escalation content. Being On-Call names escalation directly: an on-call engineer works a problem and escalates (hands it to others, e.g. via a defined escalation path) as needed rather than continuing alone. This supports 'hand a problem on... rather than continuing past your authority or competence,' though it does not use the phrase 'with the evidence gathered so far' verbatim."
+        },
+        {
+          "concept_id": "sysadmin.best-practices.service-ownership",
+          "concept_description_checked": "Every service having a named owner responsible for its health, cost and lifecycle, so nothing is silently unmaintained.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://sre.google/sre-book/introduction/",
+            "https://sre.google/sre-book/service-best-practices/",
+            "https://sre.google/workbook/how-sre-relates/",
+            "https://sre.google/workbook/on-call/",
+            "https://sre.google/sre-book/eliminating-toil/",
+            "https://sre.google/sre-book/production-meeting/"
+          ],
+          "reasoning": "The closest passage found ('an SRE team is responsible for the availability, latency, performance, efficiency, change management, monitoring, emergency response, and capacity planning of their service(s)', sre-book/introduction) covers health/operational responsibility for a team, but never states a service has a named owner, and never mentions cost or lifecycle ownership as the description requires. service-best-practices and how-sre-relates discuss 'shared ownership' between SRE and developers, which is a different model than the description's single named owner. No sre.google page found that defines service ownership as described. This is exactly the 'mentions but doesn't specify' case the task warns against, so it does not qualify."
+        },
+        {
+          "concept_id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+          "concept_description_checked": "Mean time to repair and mean time between failures: how quickly service returns, and how often it breaks.",
+          "qualifies": false,
+          "urls_tried": [
+            "https://sre.google/sre-book/introduction/",
+            "https://sre.google/sre-book/emergency-response/",
+            "https://sre.google/sre-book/availability-table/",
+            "https://sre.google/sre-book/embracing-risk/",
+            "https://sre.google/sre-book/data-integrity/",
+            "https://sre.google/sre-book/monitoring-distributed-systems/",
+            "https://sre.google/sre-book/service-level-objectives/"
+          ],
+          "reasoning": "The SRE book defines MTTR (mean time to repair) clearly ('Reliability is a function of mean time to failure (MTTF) and mean time to repair (MTTR)', sre-book/introduction), but the paired term it uses is MTTF (mean time to failure), not MTBF (mean time between failures) — these are different metrics (MTBF classically includes repair time; MTTF does not). Grepped every SRE-book and SRE-workbook chapter likely to define reliability metrics; none use the phrase 'mean time between failures' or 'MTBF'. Citing the book for MTBF specifically would misattribute a term it never defines, so this does not qualify. No other free first-party standards source defining both terms was found within scope."
+        },
+        {
+          "concept_id": "pm.project-management.user-story",
+          "concept_description_checked": "A short statement of need from the user’s perspective, in the form as a role, I want a capability, so that a benefit.",
+          "qualifies": true,
+          "source": {
+            "id": "agile-alliance-glossary-user-story-template",
+            "title": "User Story Template for Agile | Agile Alliance",
+            "url": "https://agilealliance.org/glossary/user-story-template/",
+            "organization": "Agile Alliance",
+            "published": "2015-12",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "One particular template, often referred to as “As a… I want to… So That…” is the most commonly recommended aid ... for teams and product owners starting to work with user stories ... As a (who wants to accomplish something) I want to (what they want to accomplish) So that (why they want to accomplish that thing)",
+          "urls_tried": [
+            "https://www.agilealliance.org/glossary/user-stories/",
+            "https://agilealliance.org/glossary/user-stories/",
+            "https://agilealliance.org/glossary/user-story-template/"
+          ],
+          "reasoning": "The main Agile Alliance 'User Stories' glossary page defines a user story generally but does not itself spell out the As-a/I-want/So-that template; it links out to a dedicated page, 'User Story Template for Agile', which states the exact role/capability/benefit template the description names. Both pages are the same first-party Agile Alliance glossary. scrumguides.org's Scrum Guide (already registered as scrum-guide-2020) was checked and does not mention 'user story' at all, so it cannot serve as the source here."
+        },
+        {
+          "concept_id": "pm.project-management.minimum-viable-product",
+          "concept_description_checked": "The smallest release that delivers real value and produces learning.",
+          "qualifies": true,
+          "source": {
+            "id": "agile-alliance-glossary-mvp",
+            "title": "What is a Minimum Viable Product (MVP)? | Agile Alliance",
+            "url": "https://agilealliance.org/glossary/mvp/",
+            "organization": "Agile Alliance",
+            "published": null,
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "A Minimum Viable Product is the \"version of a new product which allows a team to collect the maximum amount of validated learning about customers with the least effort.\"",
+          "urls_tried": [
+            "https://www.agilealliance.org/glossary/mvp/",
+            "https://agilealliance.org/glossary/mvp/"
+          ],
+          "reasoning": "Matches the description closely: 'least effort' corresponds to 'smallest release', and 'maximum amount of validated learning' corresponds to 'produces learning'. The page attributes the definition to Eric Ries (Lean Startup) but presents it as the glossary's own first-party definition."
+        }
+      ]
+    },
+    {
+      "cluster": "F",
+      "agent_label": "waiver-sprint-f",
+      "status": "complete",
+      "results": [
+        {
+          "concept_id": "pm.software-application-architecture.sql-basics",
+          "concept_description_checked": "SELECT, INSERT, UPDATE, DELETE, and JOIN — enough to read a query and understand what it does.",
+          "qualifies": true,
+          "source": {
+            "id": "postgresql-sql-commands",
+            "title": "PostgreSQL Documentation: SQL Commands",
+            "url": "https://www.postgresql.org/docs/current/sql-commands.html",
+            "organization": "PostgreSQL Global Development Group",
+            "published": "2025-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "SELECT — retrieve rows from a table or view; INSERT — create new rows in a table; UPDATE — update rows of a table; DELETE — delete rows of a table",
+          "urls_tried": [
+            "https://www.postgresql.org/docs/current/sql-commands.html"
+          ],
+          "reasoning": "The page gives one-line canonical definitions for SELECT, INSERT, UPDATE, and DELETE, matching exactly the recognition-level description. JOIN has no standalone command page in PostgreSQL — it is a clause of SELECT, documented within the SELECT reference that this index page links to — which is consistent with the description's framing of these five as things you need to 'read a query,' not five independent statements. ISO/IEC 9075 (the SQL standard) is paywalled, so this first-party RDBMS reference is the appropriate tier-2 substitute per the cluster brief."
+        },
+        {
+          "concept_id": "pm.software-application-architecture.nosql-database",
+          "concept_description_checked": "Non-relational stores — document, key-value, column, graph — trading strict schema and joins for scale and flexibility.",
+          "qualifies": true,
+          "source": {
+            "id": "aws-what-is-nosql",
+            "title": "What is NoSQL?",
+            "url": "https://aws.amazon.com/nosql/",
+            "organization": "Amazon Web Services",
+            "published": "2025-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "NoSQL databases are designed for specific data models and have flexible schemas for building modern applications... Most NoSQL databases offer trade-offs by relaxing some of the ACID properties of relational databases in favor of a more flexible data model that can scale horizontally.",
+          "urls_tried": [
+            "https://aws.amazon.com/nosql/"
+          ],
+          "reasoning": "The page explicitly enumerates and describes all four families named in the concept description — key-value, document, graph, and wide-column (via Amazon Keyspaces) — and states the schema/scale trade-off directly. This matches the description's claim precisely, not just a passing mention."
+        },
+        {
+          "concept_id": "pm.software-application-architecture.web-server-vs-application-server",
+          "concept_description_checked": "A web server serves static content and proxies requests; an application server executes the application code.",
+          "qualifies": true,
+          "source": {
+            "id": "nginx-beginners-guide",
+            "title": "Beginner's Guide",
+            "url": "https://nginx.org/en/docs/beginners_guide.html",
+            "organization": "F5, Inc. (nginx project)",
+            "published": "2024-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "An important web server task is serving out files (such as images or static HTML pages)... nginx can be used to route requests to FastCGI servers which run applications built with various frameworks and programming languages such as PHP.",
+          "urls_tried": [
+            "https://httpd.apache.org/docs/2.4/",
+            "https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html",
+            "https://jakarta.ee/about/",
+            "https://nginx.org/en/docs/beginners_guide.html"
+          ],
+          "reasoning": "The nginx guide directly states the web-server half of the pair (serving static files) and directly demonstrates the proxy half by routing requests to FastCGI servers 'which run applications' — i.e., an application server executing the application code, while nginx itself does not. The Apache httpd reverse-proxy howto was also read and supports the proxying half ('httpd does not generate the content itself... forwards each client request to one or more backend servers') but never names an application server executing code, so nginx's docs were preferred as the single citation since they cover both halves of the named pair. Jakarta EE's about page did not define the term at all and was rejected."
+        },
+        {
+          "concept_id": "devops.git-concepts.pull-request",
+          "concept_description_checked": "A proposal to merge a branch, providing the place where review and automated checks happen. Called a merge request on some platforms.",
+          "qualifies": true,
+          "source": {
+            "id": "github-docs-about-pull-requests",
+            "title": "About pull requests",
+            "url": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+            "organization": "GitHub, Inc.",
+            "published": "2025-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "Pull requests are proposals to merge code changes into a project... authors and reviewers discuss the change, track feedback, and decide when the pull request is ready to merge; the Checks tab shows automated tests, builds, and other validations.",
+          "urls_tried": [
+            "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests"
+          ],
+          "reasoning": "Directly defines a pull request as a proposal to merge changes and describes it as the place where discussion/review and automated checks (CI) happen — matching the description exactly. The 'merge request on some platforms' half is GitLab's own terminology choice, not something GitHub's docs would state; that clause is a naming note rather than a claim needing its own citation."
+        },
+        {
+          "concept_id": "devops.devops-basics.language-package-managers",
+          "concept_description_checked": "npm, pip, Maven and similar resolve application-level dependencies, distinct from the OS package manager that installs system software.",
+          "qualifies": true,
+          "source": {
+            "id": "maven-dependency-mechanism",
+            "title": "Introduction to the Dependency Mechanism",
+            "url": "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html",
+            "organization": "Apache Software Foundation",
+            "published": "2024-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "Dependency management is a core feature of Maven... Maven avoids the need to discover and specify the libraries that your own dependencies require by including transitive dependencies automatically, by reading the project files of your dependencies from the remote repositories specified.",
+          "urls_tried": [
+            "https://docs.npmjs.com/about-npm",
+            "https://docs.npmjs.com/cli/v10/using-npm/dependency-selectors",
+            "https://docs.npmjs.com/packages-and-modules",
+            "https://packaging.python.org/en/latest/tutorials/installing-packages/",
+            "https://packaging.python.org/en/latest/overview/",
+            "https://peps.python.org/pep-0427/",
+            "https://pip.pypa.io/en/stable/",
+            "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"
+          ],
+          "reasoning": "Maven's own docs directly define its dependency mechanism as resolving a project's library/classpath dependencies (application-level), which is the substantive half of the description. None of the npm, pip, or PyPA first-party pages found made an explicit contrast against OS package managers (apt/dnf) in those terms — the Python Packaging User Guide's 'separate ecosystem' section discusses Homebrew/Anaconda, not the OS-vs-application distinction, so it was not used. The Maven page was preferred as the strongest, most literal definitional match; the OS-package-manager side of this named pair is already independently sourced elsewhere in this dataset (debian-apt-8, dnf-command-ref)."
+        },
+        {
+          "concept_id": "sysadmin.disaster-recovery.snapshot",
+          "concept_description_checked": "A point-in-time view of a volume. Local snapshots (LVM, filesystem) are stored alongside the original, so losing the volume loses them — they are not an independent copy. Cloud provider snapshots are typically written to separate storage and do survive deletion of the source volume.",
+          "qualifies": true,
+          "source": {
+            "id": "aws-ebs-snapshots",
+            "title": "Amazon EBS snapshots",
+            "url": "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html",
+            "organization": "Amazon Web Services",
+            "published": "2025-01",
+            "authority_tier": 2
+          },
+          "already_registered": false,
+          "verbatim_quote": "You can back up the data on your Amazon EBS volumes by making point-in-time copies, known as Amazon EBS snapshots... Snapshots are stored in Amazon S3, in S3 buckets that you can't access directly.",
+          "urls_tried": [
+            "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html",
+            "https://www.sourceware.org/lvm2/",
+            "https://man7.org/linux/man-pages/man7/lvmthin.7.html",
+            "https://man7.org/linux/man-pages/man8/lvcreate.8.html"
+          ],
+          "reasoning": "The EBS page directly confirms the cloud clause: snapshots are point-in-time copies stored in Amazon S3 (separate storage from the EBS volume itself), matching 'written to separate storage and do survive deletion of the source volume.' For the local-snapshot clause, lvcreate(8) was also read and corroborates it independently: COW snapshot space 'is allocated from space in the VG' — i.e. the same volume group as the origin, consistent with 'stored alongside the original.' The schema allows only one source per concept, so AWS's EBS documentation was registered as the primary citation since its verbatim support is the most literal; lvcreate(8) is flagged here as corroborating evidence for the local-snapshot half rather than a second registered source. Note: lvmthin(7) was also checked and explicitly describes thin snapshots as survivable independent of the origin LV's removal — that page describes a different (thin-provisioned) snapshot type than the classic COW snapshots the concept's 'stored alongside the original' clause is describing, so it was not used as the citation."
+        }
+      ]
+    }
+  ]
+}

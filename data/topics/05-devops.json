@@ -681,7 +681,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "maven-dependency-mechanism"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1371,7 +1373,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "github-docs-about-pull-requests"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],

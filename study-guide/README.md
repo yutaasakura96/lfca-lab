@@ -133,7 +133,7 @@ The guide is hand-written and machine-checked. From the repository root:
 
 It also checks that each topic's stated depth, importance, and LFS200 coverage match the
 dataset, that every cited source id exists, that every section with a definition has a scenario
-and a knowledge check, that every cross-file link resolves, and that each of the 52 waived
+and a knowledge check, that every cross-file link resolves, and that each of the 22 waived
 concepts carries its waiver marker. `--scope "<Domain> :: <Competency>"` narrows a run to one
 file while writing; the unscoped run is the one that counts.
 
@@ -157,13 +157,14 @@ itself: `candidate_evidence` is empty on all 537 concepts. Nothing in this guide
 anyone reports having been asked, and nothing here should be read as a report of what appeared
 on a real exam.
 
-**52 concepts have no primary-documentation citation, and they are marked where they sit.**
+**22 concepts have no primary-documentation citation, and they are marked where they sit.**
 The authoritative references for classical project management and business analysis — the PMBOK
 Guide, the PMI Lexicon, ISO 21500/21502, BABOK, ISO/IEC/IEEE 12207 and 29148 — are paywalled,
-and pmi.org and gao.gov refuse automated fetches. The shortfall is concentrated in IT Project
-Management (19 in Project Management, 12 in Functional Analysis, 6 in Software Application
-Architecture) and System Administration :: Best Practices (5), with the remaining 10 scattered
-across Troubleshooting, Networking, Disaster Recovery, and DevOps. Every one of them carries a
+and pmi.org and gao.gov refuse automated fetches. This was 52 before the cycle 3 waiver sourcing
+sprint (`docs/verification/waiver-sprint-2026-08-11.json`) cleared 30 of them against
+independent primary sources. The remainder is concentrated in IT Project Management (13 in
+Project Management, 4 in Functional Analysis) and System Administration :: Best Practices (4),
+with the remaining 1 in Disaster Recovery. Every one of them carries a
 marker in place saying so, and its claims are hedged as consensus practice rather than stated as
 citable fact. Read the difference between the two registers as real: a hedged claim is the
 industry's common answer, not something a standards body has published.

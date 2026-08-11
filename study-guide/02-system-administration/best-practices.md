@@ -5,7 +5,7 @@ the exam's largest domain at 30% of the exam — 1st largest of 6 domains — un
 effective 2025-09-16, and the competency was added in the 2025 update, so no pre-2025 study
 material covers it at all. LFS200 does not help here either: all 20 of its concepts are NOT
 COVERED — 0/20 (0%) are not NOT COVERED (`research/lfs200-notes/00-course-map.md`) — so every
-topic below is sourced independently, and 5 of the 20 have no primary documentation source
+topic below is sourced independently, and 4 of the 20 have no primary documentation source
 even so and carry an explicit marker saying so. The competency is process rather than
 mechanism: nothing in it is settled by typing a command, and every question about it is a
 question about which discipline a described situation actually calls for.
@@ -170,10 +170,7 @@ matching a name pattern is trusting a label rather than a fact.
 
 <a id="c-sysadmin.best-practices.automation-and-idempotency"></a>
 ### Automation and idempotency
-*id: `sysadmin.best-practices.automation-and-idempotency` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.best-practices.automation-and-idempotency` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: ansible-glossary-idempotency*
 
 **What it is** Two joined ideas that the exam is likely to separate. Automation is replacing a
 repeated manual procedure with a script or tool. Idempotency is a property that procedure should

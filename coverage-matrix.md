@@ -145,7 +145,7 @@
 | sysadmin.best-practices.change-management | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.standardization | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.naming-conventions | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 2 | MEDIUM |
-| sysadmin.best-practices.automation-and-idempotency | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 0 | 0 | 3 | MEDIUM |
+| sysadmin.best-practices.automation-and-idempotency | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.configuration-management | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.best-practices.version-control-for-configuration | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.best-practices.testing-before-production | System Administration Fundamentals | 30% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
@@ -197,8 +197,8 @@
 | sysadmin.networking.ssh | System Administration Fundamentals | 30% | Networking | Networking | PARTIALLY COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.proxy | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.networking.load-balancer | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | HIGH |
-| sysadmin.networking.vpn | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 | 2 | MEDIUM |
-| sysadmin.networking.bandwidth-latency-and-throughput | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| sysadmin.networking.vpn | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| sysadmin.networking.bandwidth-latency-and-throughput | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.networking.firewall | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.networking.ufw-firewalld-and-iptables | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.networking.open-closed-and-filtered-ports | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 2 | 0 | 4 | HIGH |
@@ -210,14 +210,14 @@
 | sysadmin.networking.curl-and-wget | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.networking.tcpdump | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | sysadmin.networking.network-interface-naming | System Administration Fundamentals | 30% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| sysadmin.troubleshooting.structured-troubleshooting-method | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 0 | 0 | 4 | HIGH |
-| sysadmin.troubleshooting.narrowing-scope | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 0 | 0 | 3 | HIGH |
+| sysadmin.troubleshooting.structured-troubleshooting-method | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
+| sysadmin.troubleshooting.narrowing-scope | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.change-correlation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| sysadmin.troubleshooting.reproducing-the-fault | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 0 | 0 | 3 | HIGH |
+| sysadmin.troubleshooting.reproducing-the-fault | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.checking-logs-first | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.exit-status | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.troubleshooting.using-documentation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| sysadmin.troubleshooting.escalation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 0 | 0 | 3 | MEDIUM |
+| sysadmin.troubleshooting.escalation | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | sysadmin.troubleshooting.service-will-not-start | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 3 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.disk-full | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
 | sysadmin.troubleshooting.out-of-memory-and-the-oom-killer | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 6 | 0 | 4 | HIGH |
@@ -227,7 +227,7 @@
 | sysadmin.troubleshooting.name-resolution-failure | System Administration Fundamentals | 30% | Troubleshooting | Troubleshooting | NOT COVERED | 1 | 0 | 4 | HIGH |
 | sysadmin.disaster-recovery.backup | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.full-incremental-and-differential-backups | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | HIGH |
-| sysadmin.disaster-recovery.snapshot | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 0 | 0 | 3 | HIGH |
+| sysadmin.disaster-recovery.snapshot | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.replication | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
 | sysadmin.disaster-recovery.3-2-1-rule | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | sysadmin.disaster-recovery.restore-testing | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -410,7 +410,7 @@
 | devops.devops-basics.rolling-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.devops-basics.rollback | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
 | devops.devops-basics.developer-environments-and-parity | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 0 | 0 | 3 | MEDIUM |
+| devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
 | devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
 | devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 1 | MEDIUM |
@@ -430,7 +430,7 @@
 | devops.git-concepts.push | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.fetch-vs-pull | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.clone-vs-fork | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.pull-request | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 0 | 0 | 3 | HIGH |
+| devops.git-concepts.pull-request | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
 | devops.git-concepts.tag | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
 | devops.git-concepts.gitignore | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 2 | HIGH |
 | devops.git-concepts.revert-vs-reset | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
@@ -465,7 +465,7 @@
 | pm.project-management.triple-constraint | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
 | pm.project-management.stakeholder | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.deliverable-and-milestone | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.project-management.software-development-lifecycle | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| pm.project-management.software-development-lifecycle | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.project-management.waterfall | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 | 3 | HIGH |
 | pm.project-management.agile | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 2 | 0 | 3 | HIGH |
 | pm.project-management.scrum | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -474,51 +474,51 @@
 | pm.project-management.scrum-ceremonies | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | pm.project-management.product-and-sprint-backlog | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.project-management.kanban | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
-| pm.project-management.user-story | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
+| pm.project-management.user-story | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.project-management.acceptance-criteria | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.project-management.definition-of-done | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
-| pm.project-management.minimum-viable-product | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| pm.project-management.minimum-viable-product | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.project-management.estimation-and-velocity | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.project-management.gantt-chart | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 1 | MEDIUM |
 | pm.project-management.critical-path | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 1 | MEDIUM |
-| pm.project-management.work-breakdown-structure | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | MEDIUM |
-| pm.project-management.risk-management | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | HIGH |
+| pm.project-management.work-breakdown-structure | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | MEDIUM |
+| pm.project-management.risk-management | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 2 | HIGH |
 | pm.project-management.scope-creep | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.project-management.change-control | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
+| pm.project-management.change-control | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.project-management.raci | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 1 | MEDIUM |
 | pm.project-management.issue-tracking | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.project-budget-and-resource-management | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.communication-plan | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.project-management.project-closure-and-lessons-learned | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | MEDIUM |
 | pm.software-application-architecture.client-server-model | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |
-| pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
+| pm.software-application-architecture.three-tier-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.monolithic-architecture | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.microservices | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
-| pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
+| pm.software-application-architecture.web-server-vs-application-server | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.api | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.rest | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
 | pm.software-application-architecture.http-methods-and-status-codes | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 2 | 0 | 3 | HIGH |
 | pm.software-application-architecture.json-and-xml | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| pm.software-application-architecture.message-queue | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 1 | MEDIUM |
+| pm.software-application-architecture.message-queue | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.relational-database | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 2 | 0 | 3 | HIGH |
-| pm.software-application-architecture.nosql-database | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.software-application-architecture.sql-basics | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 1 | MEDIUM |
+| pm.software-application-architecture.nosql-database | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 3 | HIGH |
+| pm.software-application-architecture.sql-basics | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.schema-table-and-index | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.software-application-architecture.transactions-and-acid | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| pm.software-application-architecture.caching-in-applications | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 0 | 0 | 2 | HIGH |
+| pm.software-application-architecture.caching-in-applications | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |
 | pm.software-application-architecture.stateless-vs-stateful-applications | IT Project Management Fundamentals | 10% | Software Application Architecture | Software Application Architecture | NOT COVERED | 1 | 0 | 2 | HIGH |
-| pm.functional-analysis.functional-requirements | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 3 | HIGH |
+| pm.functional-analysis.functional-requirements | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.functional-analysis.non-functional-requirements | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 3 | HIGH |
 | pm.functional-analysis.requirements-elicitation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
-| pm.functional-analysis.use-case | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 3 | HIGH |
-| pm.functional-analysis.process-mapping | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| pm.functional-analysis.use-case | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 3 | HIGH |
+| pm.functional-analysis.process-mapping | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.functional-analysis.gap-analysis | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
 | pm.functional-analysis.feasibility-study | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 1 | MEDIUM |
-| pm.functional-analysis.requirements-prioritization | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
-| pm.functional-analysis.traceability | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 1 | MEDIUM |
-| pm.functional-analysis.verification-vs-validation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | HIGH |
-| pm.functional-analysis.user-acceptance-testing | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
-| pm.functional-analysis.specification-documentation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 0 | 0 | 2 | MEDIUM |
+| pm.functional-analysis.requirements-prioritization | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| pm.functional-analysis.traceability | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| pm.functional-analysis.verification-vs-validation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 2 | HIGH |
+| pm.functional-analysis.user-acceptance-testing | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| pm.functional-analysis.specification-documentation | IT Project Management Fundamentals | 10% | Functional Analysis | Functional Analysis | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | pm.open-source-software-and-licensing.open-source-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | FULLY COVERED | 1 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.free-software-and-foss | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |

@@ -141,7 +141,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-64-sdlc-phases"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -433,7 +435,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "agile-alliance-glossary-user-story-template"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -530,7 +534,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "agile-alliance-glossary-mvp"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -648,7 +654,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nasa-wbs-handbook-sp-2016-3404-rev1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -679,7 +687,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-30r1"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -741,7 +751,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nist-sp-800-128"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -954,7 +966,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "microsoft-three-tier-architecture-model"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1053,7 +1067,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nginx-beginners-guide"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1217,7 +1233,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "oasis-amqp-core-v1.0"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1280,7 +1298,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "aws-what-is-nosql"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1311,7 +1331,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "postgresql-sql-commands"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1402,7 +1424,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "rfc9111-http-caching"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [
@@ -1466,7 +1490,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nasa-se-handbook-sp-2016-6105"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1557,7 +1583,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "omg-uml-2-5-1-usecases"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1588,7 +1616,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "omg-bpmn-2-0-2-process"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1675,7 +1705,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "agile-business-consortium-moscow"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1704,7 +1736,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nasa-expanded-guidance-se-requirements-management"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1733,7 +1767,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nasa-se-handbook-sp-2016-6105"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1762,7 +1798,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "istqb-standard-glossary-v2.2"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [],
@@ -1791,7 +1829,9 @@
         "lf-objectives-2025"
       ],
       "lfs200_sources": [],
-      "additional_sources": [],
+      "additional_sources": [
+        "nasa-se-handbook-sp-2016-6105"
+      ],
       "candidate_evidence": [],
       "commands": [],
       "related_topics": [

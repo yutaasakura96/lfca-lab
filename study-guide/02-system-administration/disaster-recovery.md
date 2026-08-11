@@ -5,7 +5,7 @@ exam — the 1st largest of 6 domains — and this competency is new in the 2025
 pre-2025 material covers it. LFS200 does not cover it either: all 18 of its concepts are NOT
 COVERED, 0/18 (0%), and the course's one nominal `Backup` lesson contains a single character
 (`research/lfs200-notes/00-course-map.md`). Everything below is sourced independently, mostly
-from NIST SP 800-34 Rev. 1 and the NIST CSRC glossary, with two concepts explicitly waived
+from NIST SP 800-34 Rev. 1 and the NIST CSRC glossary, with one concept explicitly waived
 for want of a free primary source. The whole competency is definitional and comparative:
 almost every question is a discrimination between two terms that both sound right — backup
 against snapshot, RPO against RTO, high availability against disaster recovery, warm site
@@ -98,10 +98,7 @@ next full resets them, so they take longer to write but restore from two sets.
 
 <a id="c-sysadmin.disaster-recovery.snapshot"></a>
 ### Snapshot
-*id: `sysadmin.disaster-recovery.snapshot` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `sysadmin.disaster-recovery.snapshot` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: aws-ebs-snapshots*
 
 **What it is** A point-in-time view of a volume or filesystem, typically created almost
 instantly and typically stored as a record of what has changed since the moment it was
