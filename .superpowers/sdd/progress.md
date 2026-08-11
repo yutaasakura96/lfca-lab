@@ -30,6 +30,35 @@ Two internal conflicts found before Task 1, both fixed in the plan (commit follo
 
 ## Minor findings carried to the final whole-branch review (Task 60)
 
+- **`commands_covered` is unchecked metadata and already drifts.** Check 5 proves every required
+  command string appears verbatim as a code span in one of its concept's items - that is the
+  property that matters and it passes. But nothing validates the item's own `commands_covered`
+  array against it. Measured on Linux Operating System: the dataset requires 21 strings (20
+  unique), the items declare 18 (17 unique), omitting `lscpu`, `env` and `hostnamectl` - and the
+  scoped check is still clean. Either add a check tying the field to the item's actual code spans,
+  or stop treating it as data. Task 59 must not quote `commands_covered` totals as coverage
+  figures.
+
+- **Templated distractors are invisible to the harness.** The Linux Operating System author, while
+  fixing the answer-length bias, lengthened 123 of its 150 distractors using 12 rotated template
+  clauses - meta-commentary like "a neighbouring concept, just one scenario in front" that
+  describes a distractor's ROLE rather than stating a wrong answer. A candidate could find the key
+  by elimination without knowing the subject. Check 17 compares stems only, and pairwise
+  distractor similarity measured 0 pairs above 0.70 because the templates sat on varied content,
+  so NOTHING flagged it. Found only because that agent volunteered the concern instead of
+  reporting clean, and confirmed by a controller scan for reused 6-token tails. Repaired to 0.
+  **The other 11 files measured 0 templated tails**, so it was one agent's approach rather than a
+  consequence of the length-cue instruction - but a check for reused distractor tails would be
+  cheap insurance.
+
+- **The `confused_with` graph may be under-populated where the guide already teaches a
+  distinction.** The Functional Analysis author reported that `verification-vs-validation` and
+  `feasibility-study` carry empty `confused_with` arrays in `data/topics/06-it-project-management.json`
+  despite the guide's prose framing them as comparisons (feasibility against gap-analysis).
+  It correctly tagged those distractors `sibling` rather than inventing an edge. Worth a sweep:
+  a concept whose prose teaches a boundary but whose data records no edge produces no comparison
+  block, so check 4 never requires an item on it.
+
 - **check 21 does not require `sources_read`.** The verification object schema in the plan and the
   Verification Task Protocol both include `sources_read` (the URLs actually fetched), but
   `checkVerdictCoverage` validates only `agent_label`, `verdict`, `checked` and `reasoning`. As
@@ -362,4 +391,56 @@ Task 14: complete (commit 2751d1c) - PILOT
   statistics were first written from recall and were wrong (6/1/5/18 for types against an actual
   16/7/6/1). Caught by computing them. That is this project's most persistent defect class
   appearing inside the notes warning other authors about it.
+
+Tasks 15-35: complete - THE QUESTION BANK IS WRITTEN
+  22 competency files, 1,150 items, exam pool exactly 1000 and supplement exactly 150,
+  covering all 537 concepts. Written in four waves of parallel authors; the controller committed
+  each wave centrally because parallel agents writing separate files do not conflict but parallel
+  `git commit` calls do.
+
+  Unscoped check-bank: 1151 errors, being exactly 1150 q-verdict-coverage (verification not yet
+  run) and 1 q-answer-position-balance (exams not yet built). Nothing else. 0 warnings.
+
+  **The dominant defect of the authoring phase was one the harness cannot see.** Every author was
+  told to fix the answer-length bias by lengthening distractors. Mechanical compliance produced a
+  NEW tell each time, in four distinct forms across six files:
+    1. Rotated template tails describing a distractor's role ("...a neighbouring concept, just one
+       scenario in front") - 123/150 distractors in linux-operating-system.
+    2. Clause-count gap - cloud-computing came out keys 0% two-sentence, distractors 81%. Pick the
+       one-sentence option and you are right almost every time.
+    3. Self-identifying distractors - 9 in cloud-computing and 9 in security literally said "which
+       the guide corrects directly by...", announcing their own wrongness.
+    4. Raw description text dumped mid-sentence after a connector ("in a system where that is
+       documented as: ...") - 38 in command-line, often about a different subject entirely.
+  Plus generic filler reused across unrelated distractors, and one clause that was meta-commentary
+  about question design itself ("exactly the assumption a well-designed scenario question is built
+  to expose").
+
+  **None of it was caught by any of the 21 checks.** Check 17 compares stems, not options.
+  Pairwise distractor similarity measured zero pairs above 0.70 in every case, because the
+  boilerplate sat on genuinely varied content. It was found by two ad-hoc controller scans - one
+  for six-token tails reused three or more times, one comparing the two-sentence rate of keys
+  against distractors - after ONE agent volunteered the concern instead of reporting clean.
+
+  Four repair rounds were needed, and each round that named specific phrases left a different set
+  behind; only the final round, defined by rule rather than by pattern list, cleared it. Final
+  state verified by controller scan: 0 templates, 0 shape gaps over 25 points, 0 padded or
+  meta distractors across all 3,450 distractors.
+
+  **Recommendation for cycle 4: add a distractor-shape check.** Reused tails, key-versus-distractor
+  clause-count gaps, and meta-commentary phrases are all cheaply detectable and all invisible today.
+
+  Process failures worth recording:
+  - **Two agents reported work as "running in the background" and returned having written
+    nothing**, one after a single tool call. Neither claimed completion, but a controller skimming
+    reports could read them as progress. Caught by checking the filesystem.
+  - **The controller then over-corrected**, re-dispatching command-line and system-administration
+    when the originals had in fact done the work - both pairs raced and duplicated effort. An
+    agent's report describes intent; only the artifact describes reality, and that cuts both ways.
+  - **One agent was killed mid-task by the session usage limit** (security.json), having fixed 21
+    of its 22 outstanding warnings. The controller wrongly reported it as "landed clean" from
+    seeing the file exist in a scan, then corrected that.
+  - **An agent caught an error in the controller's brief**: it was told to write an OOM-killer item
+    for System Administration, but no concept in that competency covers the OOM killer - it is in
+    Troubleshooting. It refused to fabricate rather than satisfy the instruction.
 

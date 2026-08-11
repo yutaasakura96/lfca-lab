@@ -70,7 +70,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Version control \u2014 it retains prior revisions of files under active change, each attributable to an author and a timestamp.",
+          "text": "Version control — it retains prior revisions of files under active change, each attributable to an author and a timestamp.",
           "correct": true,
           "why": "This is the archetypal version-control use case: recovering one earlier revision of one actively edited file, not the whole machine.",
           "provenance": {
@@ -140,7 +140,7 @@
           "ref": "o2",
           "text": "Git caches the last few commits locally so short offline sessions work, then reconciles with the server automatically on reconnect, discarding whatever the cache could not hold.",
           "correct": false,
-          "why": "There is no partial local cache to run out of \u2014 a clone holds the complete history from the start, not a rolling window of recent commits.",
+          "why": "There is no partial local cache to run out of — a clone holds the complete history from the start, not a rolling window of recent commits.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#c-devops.git-concepts.distributed-vs-centralized-version-control"
@@ -167,7 +167,7 @@
           }
         }
       ],
-      "rationale": "In a distributed system, cloning copies the object database, not just the latest files, so the clone is a full peer that can operate offline. A centralized system keeps one authoritative server copy and needs a round trip for most operations \u2014 the architectural fact this whole competency keeps circling back to.",
+      "rationale": "In a distributed system, cloning copies the object database, not just the latest files, so the clone is a full peer that can operate offline. A centralized system keeps one authoritative server copy and needs a round trip for most operations — the architectural fact this whole competency keeps circling back to.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git"
@@ -190,7 +190,7 @@
           "ref": "o1",
           "text": "`git init`, run inside the directory, to create an empty `.git` directory with no commits and no remote",
           "correct": true,
-          "why": "It creates the object database and initial branch from nothing, which is exactly the case here \u2014 there is no source repository to copy.",
+          "why": "It creates the object database and initial branch from nothing, which is exactly the case here — there is no source repository to copy.",
           "provenance": {
             "kind": "key"
           }
@@ -226,7 +226,7 @@
           }
         }
       ],
-      "rationale": "`git init` creates an empty repository \u2014 a `.git` directory with an object store and an initial branch carrying no commits \u2014 and configures no remote, which fits a directory with nothing to copy from. `git clone` is the other repository-creating command, but it requires an existing source and copies its history rather than starting fresh.",
+      "rationale": "`git init` creates an empty repository — a `.git` directory with an object store and an initial branch carrying no commits — and configures no remote, which fits a directory with nothing to copy from. `git clone` is the other repository-creating command, but it requires an existing source and copies its history rather than starting fresh.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git"
@@ -249,7 +249,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Every commit, branch and tag \u2014 the repository itself, which lives entirely inside `.git`, leaving only the checked-out files behind.",
+          "text": "Every commit, branch and tag — the repository itself, which lives entirely inside `.git`, leaving only the checked-out files behind.",
           "correct": true,
           "why": "The repository is strictly the `.git` directory; the working tree beside it is only a checked-out view of one point in that history.",
           "provenance": {
@@ -310,7 +310,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Under both \"Changes to be committed\" and \"Changes not staged for commit\" \u2014 the staged content from the first edit, and the later edit shown as unstaged.",
+          "text": "Under both \"Changes to be committed\" and \"Changes not staged for commit\" — the staged content from the first edit, and the later edit shown as unstaged.",
           "correct": true,
           "why": "`git add` copies content into the index at the instant it runs; edits made afterwards are a further difference between the working tree and that already-staged snapshot.",
           "provenance": {
@@ -341,7 +341,7 @@
           "ref": "o4",
           "text": "Neither heading, because `git status` only reports differences since the last commit, not since the last `add`, so a re-edited staged file would be invisible to it entirely",
           "correct": false,
-          "why": "`git status` compares all three states against each other \u2014 working tree, index and HEAD \u2014 so a staged-then-re-edited file shows up under both headings at once.",
+          "why": "`git status` compares all three states against each other — working tree, index and HEAD — so a staged-then-re-edited file shows up under both headings at once.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.git-diff-and-git-log"
@@ -371,7 +371,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only the two edited tracked files \u2014 `-a` auto-stages modifications and deletions of files Git already tracks, and never adds a new untracked file.",
+          "text": "Only the two edited tracked files — `-a` auto-stages modifications and deletions of files Git already tracks, and never adds a new untracked file.",
           "correct": true,
           "why": "The new file is untracked; `-a` covers only tracked-file modifications and deletions, so it is silently left out of the commit.",
           "provenance": {
@@ -380,7 +380,7 @@
         },
         {
           "ref": "o2",
-          "text": "All three files, since `-a` is documented as staging everything before committing",
+          "text": "All three files, since `-a` is defined to stage every change in the working directory, tracked or not, before the commit is created",
           "correct": false,
           "why": "This is the exact trap `-a` sets: it auto-stages tracked-file changes only, so a genuinely new file needs `git add` before it is ever committed.",
           "provenance": {
@@ -409,7 +409,7 @@
           }
         }
       ],
-      "rationale": "`git commit -a` auto-stages modifications and deletions of already-tracked files as part of committing, but it never adds a file Git has never seen \u2014 that still needs an explicit `git add`. A commit records exactly what the index holds at the moment `git commit` runs, nothing else.",
+      "rationale": "`git commit -a` auto-stages modifications and deletions of already-tracked files as part of committing, but it never adds a file Git has never seen — that still needs an explicit `git add`. A commit records exactly what the index holds at the moment `git commit` runs, nothing else.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git"
@@ -435,7 +435,7 @@
           "ref": "o1",
           "text": "The commit only recorded a snapshot in the local repository; making it visible to a colleague requires the separate act of pushing it to a shared remote.",
           "correct": true,
-          "why": "A commit is local by definition \u2014 it exists in this repository and nowhere else until an explicit push sends it somewhere the colleague can reach.",
+          "why": "A commit is local by definition — it exists in this repository and nowhere else until an explicit push sends it somewhere the colleague can reach.",
           "provenance": {
             "kind": "key"
           }
@@ -471,7 +471,7 @@
           }
         }
       ],
-      "rationale": "A commit is an immutable local snapshot; nothing leaves the machine it was made on until a push. That commit/push split is exactly what the \"Not to be confused with: Commit vs Push\" block on this concept exists to test \u2014 `git commit -m` records, push publishes, and only the second one needs a network.",
+      "rationale": "A commit is an immutable local snapshot; nothing leaves the machine it was made on until a push. That commit/push split is exactly what the \"Not to be confused with: Commit vs Push\" block on this concept exists to test — `git commit -m` records, push publishes, and only the second one needs a network.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git"
@@ -515,7 +515,7 @@
           "ref": "o3",
           "text": "`git status`, since it reports which branch is currently checked out along with its history",
           "correct": false,
-          "why": "`git status` reports the working tree, staging area and current branch name, not a list of commits \u2014 that is `git log`'s job.",
+          "why": "`git status` reports the working tree, staging area and current branch name, not a list of commits — that is `git log`'s job.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.working-directory-staging-area-and-repository"
@@ -555,7 +555,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Why the change was made, and what alternative was considered and rejected \u2014 reasoning the diff cannot show at all.",
+          "text": "Why the change was made, and what alternative was considered and rejected — reasoning the diff cannot show at all.",
           "correct": true,
           "why": "The diff already records what changed, in full and forever; the message's unique contribution is the reasoning a later reader cannot reconstruct from the code alone.",
           "provenance": {
@@ -614,7 +614,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "On `main` \u2014 `git branch` only creates the new pointer at the current commit and does not move HEAD, so the developer never left `main`.",
+          "text": "On `main` — `git branch` only creates the new pointer at the current commit and does not move HEAD, so the developer never left `main`.",
           "correct": true,
           "why": "Creating a branch is instant precisely because nothing is copied and HEAD is left where it was; only a command like `git switch` moves it.",
           "provenance": {
@@ -635,7 +635,7 @@
           "ref": "o3",
           "text": "On both branches at once, since a new branch starts as an exact copy of the one it was created from and stays synchronized with it until deleted.",
           "correct": false,
-          "why": "A branch is a single pointer to one commit, not a copy of the project; a commit advances exactly one branch \u2014 whichever one HEAD currently names.",
+          "why": "A branch is a single pointer to one commit, not a copy of the project; a commit advances exactly one branch — whichever one HEAD currently names.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.merge"
@@ -714,7 +714,7 @@
           }
         }
       ],
-      "rationale": "`git switch -c <name>` and the older `git checkout -b <name>` were both built to create a branch and switch to it in one step; `switch` and `restore` were added in Git 2.23 specifically to split `checkout`'s two unrelated jobs \u2014 moving between branches and restoring file contents \u2014 into separate commands, but the older combined form still works the same way.",
+      "rationale": "`git switch -c <name>` and the older `git checkout -b <name>` were both built to create a branch and switch to it in one step; `switch` and `restore` were added in Git 2.23 specifically to split `checkout`'s two unrelated jobs — moving between branches and restoring file contents — into separate commands, but the older combined form still works the same way.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-branching-basics"
@@ -775,7 +775,7 @@
           }
         }
       ],
-      "rationale": "HEAD is a pointer to whatever is currently checked out \u2014 normally the name of the current branch, which is why committing advances that branch. In detached-HEAD state it names a commit directly instead, with no branch to carry forward, which `git log HEAD` and a bare `git log` both display identically since HEAD is the default starting point either way.",
+      "rationale": "HEAD is a pointer to whatever is currently checked out — normally the name of the current branch, which is why committing advances that branch. In detached-HEAD state it names a commit directly instead, with no branch to carry forward, which `git log HEAD` and a bare `git log` both display identically since HEAD is the default starting point either way.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-branching-basics"
@@ -862,7 +862,7 @@
           "ref": "o1",
           "text": "Merge is a Git command that joins two histories; a pull request is the hosting platform's review wrapper around a proposed merge, not a Git operation; rebase replays commits onto a new base, rewriting their hashes.",
           "correct": true,
-          "why": "Merge and rebase are two different Git operations for integrating work \u2014 one preserving history, one rewriting it \u2014 while a pull request lives entirely on the platform and performs no integration by itself.",
+          "why": "Merge and rebase are two different Git operations for integrating work — one preserving history, one rewriting it — while a pull request lives entirely on the platform and performs no integration by itself.",
           "provenance": {
             "kind": "key"
           }
@@ -871,7 +871,7 @@
           "ref": "o2",
           "text": "All three are Git commands with slightly different flags but the same underlying effect on history.",
           "correct": false,
-          "why": "A pull request has no Git command that opens one \u2014 `git request-pull` only prints a summary for a human to send \u2014 so it is not a Git operation at all, let alone one with the same effect as merge or rebase.",
+          "why": "A pull request has no Git command that opens one — `git request-pull` only prints a summary for a human to send — so it is not a Git operation at all, let alone one with the same effect as merge or rebase.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#c-devops.git-concepts.merge"
@@ -891,14 +891,14 @@
           "ref": "o4",
           "text": "Rebase and pull request both rewrite commit hashes, while merge is the only one of the three that leaves history untouched on every kind of merge, fast-forward or diverged, run locally or triggered from a hosted review.",
           "correct": false,
-          "why": "A pull request changes no history at all \u2014 opening one only asks that a merge be performed later; rebase is the one that rewrites hashes, not the pull request.",
+          "why": "A pull request changes no history at all — opening one only asks that a merge be performed later; rebase is the one that rewrites hashes, not the pull request.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.rebase"
           }
         }
       ],
-      "rationale": "Merge and rebase are two Git operations for integrating work \u2014 merge preserves both histories and joins them with a merge commit when they diverged, rebase replays commits as new objects onto a different base. A pull request is not an integration operation at all; it is a platform's review wrapper placed around one, and git-scm.com does not define it because it is not a Git concept.",
+      "rationale": "Merge and rebase are two Git operations for integrating work — merge preserves both histories and joins them with a merge commit when they diverged, rebase replays commits as new objects onto a different base. A pull request is not an integration operation at all; it is a platform's review wrapper placed around one, and git-scm.com does not define it because it is not a Git concept.",
       "source_ids": [
         "lf-objectives-2025",
         "git-merge",
@@ -920,7 +920,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 each is replayed as a new commit with a new hash, even though the resulting content looks the same as if the work had started from the current `main` all along.",
+          "text": "No — each is replayed as a new commit with a new hash, even though the resulting content looks the same as if the work had started from the current `main` all along.",
           "correct": true,
           "why": "Rebase resets the branch to the new base and reapplies the saved commits one at a time; each replay produces a new commit object, not a relocated copy of the old one.",
           "provenance": {
@@ -929,7 +929,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes \u2014 rebase only changes where the existing commit objects sit in history, leaving their hashes untouched the same way moving a branch pointer forward during a fast-forward merge does.",
+          "text": "Yes — rebase only changes where the existing commit objects sit in history, leaving their hashes untouched the same way moving a branch pointer forward during a fast-forward merge does.",
           "correct": false,
           "why": "That describes what a rebase looks like from the outside, but the mechanism is replacement: the original commits are discarded and new ones with new hashes are manufactured in their place.",
           "provenance": {
@@ -941,7 +941,7 @@
           "ref": "o3",
           "text": "Yes, because rebase and merge both preserve every original commit's hash by design.",
           "correct": false,
-          "why": "Preserving original hashes is what merge does; rebase is defined by the opposite property \u2014 replacing commits with replayed ones \u2014 which is the whole reason it produces linear history.",
+          "why": "Preserving original hashes is what merge does; rebase is defined by the opposite property — replacing commits with replayed ones — which is the whole reason it produces linear history.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "devops.git-concepts.merge"
@@ -958,7 +958,7 @@
           }
         }
       ],
-      "rationale": "`git rebase` (here as `git rebase main`) takes the commits on a branch that are not on `main`, resets the branch to `main`'s tip \u2014 which the documentation notes has the same effect as `git reset --hard <upstream>` \u2014 and then reapplies those saved commits in order as brand-new objects. That rewriting property is the entire crux of why rebasing a branch other people have already pulled is discouraged: their repositories still hold the discarded originals.",
+      "rationale": "`git rebase` (here as `git rebase main`) takes the commits on a branch that are not on `main`, resets the branch to `main`'s tip — which the documentation notes has the same effect as `git reset --hard <upstream>` — and then reapplies those saved commits in order as brand-new objects. That rewriting property is the entire crux of why rebasing a branch other people have already pulled is discouraged: their repositories still hold the discarded originals.",
       "source_ids": [
         "lf-objectives-2025",
         "git-rebase"
@@ -981,7 +981,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Rebasing is unsafe here \u2014 the colleague's clone still holds the original commits, and rewriting them would make the histories diverge even though the content is identical.",
+          "text": "Rebasing is unsafe here — the colleague's clone still holds the original commits, and rewriting them would make the histories diverge even though the content is identical.",
           "correct": true,
           "why": "Rebase discards the original commit objects and manufactures replacements; anyone who already pulled the originals now has a repository that disagrees with the rewritten branch.",
           "provenance": {
@@ -1040,7 +1040,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`git add` the edited file, then continue the merge \u2014 staging is what tells Git the conflict is settled.",
+          "text": "`git add` the edited file, then continue the merge — staging is what tells Git the conflict is settled.",
           "correct": true,
           "why": "There is no separate resolve command; staging the file is the documented way to mark a conflicted path as handled before finishing the merge with a commit.",
           "provenance": {
@@ -1078,7 +1078,7 @@
           }
         }
       ],
-      "rationale": "A merge conflict is Git declining to guess when both sides changed the same region of a file, so resolution is by definition manual: edit the file, stage it with `git add`, then finish with `git commit` or `git merge --continue`. Git never checks whether the staged content is a sensible merge \u2014 that correctness is entirely on the person resolving it.",
+      "rationale": "A merge conflict is Git declining to guess when both sides changed the same region of a file, so resolution is by definition manual: edit the file, stage it with `git add`, then finish with `git commit` or `git merge --continue`. Git never checks whether the staged content is a sensible merge — that correctness is entirely on the person resolving it.",
       "source_ids": [
         "lf-objectives-2025",
         "git-merge",
@@ -1164,7 +1164,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 `origin/main` is a local, read-only record of where the remote's `main` stood at the last fetch, pull or push, so the server may have moved further since.",
+          "text": "No — `origin/main` is a local, read-only record of where the remote's `main` stood at the last fetch, pull or push, so the server may have moved further since.",
           "correct": true,
           "why": "Remote-tracking branches update only on fetch, pull and push, and at no other time, so the comparison is always against a possibly-stale snapshot rather than a live view.",
           "provenance": {
@@ -1173,7 +1173,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes \u2014 `origin/main` is a live view of the server, updated automatically whenever the server changes.",
+          "text": "Yes — `origin/main` is a live view of the server, updated automatically whenever the server changes.",
           "correct": false,
           "why": "There is no automatic update channel; `origin/main` only changes when this repository performs a fetch, pull or push, so it can be stale without anything being wrong.",
           "provenance": {
@@ -1324,7 +1324,7 @@
           }
         }
       ],
-      "rationale": "Committing only records a snapshot in the local repository; nothing reaches the remote until a push. The commit/push split is the single most common misconception carried in from centralized tools, where committing itself publishes to the one shared history \u2014 Git keeps the two acts separate and only the second one needs a network.",
+      "rationale": "Committing only records a snapshot in the local repository; nothing reaches the remote until a push. The commit/push split is the single most common misconception carried in from centralized tools, where committing itself publishes to the one shared history — Git keeps the two acts separate and only the second one needs a network.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git",
@@ -1357,7 +1357,7 @@
           "ref": "o2",
           "text": "`-u` uploads the branch's tags along with its commits; the rejection means the developer lacks write permission on the remote.",
           "correct": false,
-          "why": "Tags are never pushed by a plain push regardless of `-u` \u2014 they need `--tags`, `--follow-tags`, or being named directly \u2014 and a non-fast-forward rejection is usually not a permissions problem at all.",
+          "why": "Tags are never pushed by a plain push regardless of `-u` — they need `--tags`, `--follow-tags`, or being named directly — and a non-fast-forward rejection is usually not a permissions problem at all.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.tag"
@@ -1384,7 +1384,7 @@
           }
         }
       ],
-      "rationale": "`git push -u origin main` both pushes and sets that upstream, letting a later bare `git push` know where to send it. Separately, the remote refuses any update where its current commit is not an ancestor of what is being sent, because applying it would discard commits the remote already has \u2014 the documented explanation is that a rejected push also happens in a repository nobody else pushes to, whenever a commit already sent is amended or rebased.",
+      "rationale": "`git push -u origin main` both pushes and sets that upstream, letting a later bare `git push` know where to send it. Separately, the remote refuses any update where its current commit is not an ancestor of what is being sent, because applying it would discard commits the remote already has — the documented explanation is that a rejected push also happens in a repository nobody else pushes to, whenever a commit already sent is amended or rebased.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-what-is-git",
@@ -1409,7 +1409,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`git fetch` \u2014 it downloads commits and updates remote-tracking branches only, leaving the current branch, index and working tree untouched.",
+          "text": "`git fetch` — it downloads commits and updates remote-tracking branches only, leaving the current branch, index and working tree untouched.",
           "correct": true,
           "why": "Fetch is inspection without disturbance by design: it writes into `refs/remotes/<remote>/*` and never touches what the developer currently has checked out.",
           "provenance": {
@@ -1418,9 +1418,9 @@
         },
         {
           "ref": "o2",
-          "text": "`git pull` \u2014 it downloads commits the same way fetch does, so it is just as safe to run mid-edit without any risk of disturbing the branch currently checked out.",
+          "text": "`git pull` — it downloads commits the same way fetch does, so it is just as safe to run mid-edit without any risk of disturbing the branch currently checked out.",
           "correct": false,
-          "why": "Pull is fetch followed immediately by an integration step, a merge or a rebase, which can fast-forward silently, create a merge commit, or raise a conflict \u2014 exactly the disturbance being avoided here.",
+          "why": "Pull is fetch followed immediately by an integration step, a merge or a rebase, which can fast-forward silently, create a merge commit, or raise a conflict — exactly the disturbance being avoided here.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#c-devops.git-concepts.fetch-vs-pull"
@@ -1428,7 +1428,7 @@
         },
         {
           "ref": "o3",
-          "text": "`git pull --rebase` \u2014 rebasing is a gentler form of pull that never touches the working tree.",
+          "text": "`git pull --rebase` — rebasing is a gentler form of pull that never touches the working tree.",
           "correct": false,
           "why": "`git pull --rebase` is a rebase, with every history-rewriting consequence that carries; it is not gentler, and it can touch the working tree by replaying commits onto the fetched tip.",
           "provenance": {
@@ -1447,7 +1447,7 @@
           }
         }
       ],
-      "rationale": "Fetch cannot surprise you; pull can. `git fetch` downloads commits and updates remote-tracking branches, changing nothing about the current branch, index or working tree; `git pull` runs that same fetch and then immediately integrates the result \u2014 by default a merge, or a rebase if configured or requested \u2014 which is exactly the kind of disturbance a mid-edit developer wants to avoid.",
+      "rationale": "Fetch cannot surprise you; pull can. `git fetch` downloads commits and updates remote-tracking branches, changing nothing about the current branch, index or working tree; `git pull` runs that same fetch and then immediately integrates the result — by default a merge, or a rebase if configured or requested — which is exactly the kind of disturbance a mid-edit developer wants to avoid.",
       "source_ids": [
         "lf-objectives-2025",
         "git-pull",
@@ -1471,7 +1471,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The fetch retrieves the new commits, and the integration step fast-forwards `main` to match \u2014 no conflict, no merge commit, because there was nothing to diverge from.",
+          "text": "The fetch retrieves the new commits, and the integration step fast-forwards `main` to match — no conflict, no merge commit, because there was nothing to diverge from.",
           "correct": true,
           "why": "Pull is fetch followed by merge or rebase; when the local branch is merely behind, that integration is a fast-forward, the same painless case a plain `git merge` would also take.",
           "provenance": {
@@ -1564,7 +1564,7 @@
           "ref": "o4",
           "text": "A platform fork requires a `git fork` command, while the open-source sense requires only a licence change filed with the project's chosen governing foundation.",
           "correct": false,
-          "why": "There is no `git fork` command at all \u2014 forking is a hosting-platform feature, not something Git itself does \u2014 so neither sense of the word involves one.",
+          "why": "There is no `git fork` command at all — forking is a hosting-platform feature, not something Git itself does — so neither sense of the word involves one.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.repository"
@@ -1653,7 +1653,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "\"Pull request\" is not a Git operation at all \u2014 it is a hosting platform's concept, defined nowhere in git-scm.com's documentation, and its own primary source here is GitHub's own documentation rather than a Git manual page.",
+          "text": "\"Pull request\" is not a Git operation at all — it is a hosting platform's concept, defined nowhere in git-scm.com's documentation, and its own primary source here is GitHub's own documentation rather than a Git manual page.",
           "correct": true,
           "why": "Unlike commit and merge, a pull request runs entirely on the platform layer; opening one changes no history and there is no `git pull-request` command that performs it.",
           "provenance": {
@@ -1684,7 +1684,7 @@
           "ref": "o4",
           "text": "`git commit` is the odd one out, because only merge and pull request combine two branches into a single resulting line of history.",
           "correct": false,
-          "why": "A pull request does not itself combine anything \u2014 it only proposes a merge that a human or the platform performs later \u2014 so it does not share that property with `git merge`.",
+          "why": "A pull request does not itself combine anything — it only proposes a merge that a human or the platform performs later — so it does not share that property with `git merge`.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.commit"
@@ -1723,7 +1723,7 @@
           "ref": "o2",
           "text": "Close the request, run `git merge` locally to apply the reviewer's suggestions by hand, then push the merged result as a brand-new commit for the platform to pick up.",
           "correct": false,
-          "why": "There is nothing to merge locally at this stage \u2014 the branch is still unreviewed and unmerged \u2014 and closing the request throws away the review already in progress for no reason.",
+          "why": "There is nothing to merge locally at this stage — the branch is still unreviewed and unmerged — and closing the request throws away the review already in progress for no reason.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "devops.git-concepts.merge"
@@ -1771,7 +1771,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A tag \u2014 committing advances a branch, but leaves every tag exactly where it was, so a tag is the fixed marker this needs.",
+          "text": "A tag — committing advances a branch, but leaves every tag exactly where it was, so a tag is the fixed marker this needs.",
           "correct": true,
           "why": "The defining contrast is movable versus fixed: a branch is meant to keep advancing, while a tag is meant to stay pointed at one specific commit forever.",
           "provenance": {
@@ -1828,7 +1828,7 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 3,
-      "stem": "A team wants a release tag that records who tagged it, when, and a message \u2014 not just a bare reference to the commit. Which form of `git tag` produces that?",
+      "stem": "A team wants a release tag that records who tagged it, when, and a message — not just a bare reference to the commit. Which form of `git tag` produces that?",
       "options": [
         {
           "ref": "o1",
@@ -1870,7 +1870,7 @@
           }
         }
       ],
-      "rationale": "`git tag <name>` creates a lightweight tag, a bare reference with no metadata; `git tag -a <name> -m \"<message>\"` creates an annotated tag, a real database object carrying the tagger's name and email, a creation date, a message and optionally a signature \u2014 and per the documentation, supplying `-m` without `-a`, `-s` or `-u` implies `-a`.",
+      "rationale": "`git tag <name>` creates a lightweight tag, a bare reference with no metadata; `git tag -a <name> -m \"<message>\"` creates an annotated tag, a real database object carrying the tagger's name and email, a creation date, a message and optionally a signature — and per the documentation, supplying `-m` without `-a`, `-s` or `-u` implies `-a`.",
       "source_ids": [
         "lf-objectives-2025",
         "progit-tagging"
@@ -1891,7 +1891,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 `.gitignore` only affects files Git does not yet track; a file already committed keeps its history and stays in every clone taken since, so the credential must be rotated instead.",
+          "text": "No — `.gitignore` only affects files Git does not yet track; a file already committed keeps its history and stays in every clone taken since, so the credential must be rotated instead.",
           "correct": true,
           "why": "The scope of `.gitignore` is stated as intentionally untracked files specifically; a tracked file's existing commits are entirely unaffected by adding it there afterward.",
           "provenance": {
@@ -1900,7 +1900,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes \u2014 once a path is listed in `.gitignore`, Git removes it from every existing commit that mentions it, including copies already fetched into other collaborators' clones on other machines.",
+          "text": "Yes — once a path is listed in `.gitignore`, Git removes it from every existing commit that mentions it, including copies already fetched into other collaborators' clones on other machines.",
           "correct": false,
           "why": "This is the exact trap the concept warns about: `.gitignore` governs future tracking decisions, not past commits, so nothing in the existing history changes.",
           "provenance": {
@@ -1946,11 +1946,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "A bad commit was pushed yesterday and two colleagues have already pulled it. The block comparing this concept to rebase makes the same point twice about shared branches \u2014 which undo command is safe here, and which Git operation shares its unsafe property?",
+      "stem": "A bad commit was pushed yesterday and two colleagues have already pulled it. The block comparing this concept to rebase makes the same point twice about shared branches — which undo command is safe here, and which Git operation shares its unsafe property?",
       "options": [
         {
           "ref": "o1",
-          "text": "`git revert` is safe \u2014 it adds a new commit undoing the old one and leaves the original in place; rebase shares reset's unsafe property of rewriting history that others have already pulled.",
+          "text": "`git revert` is safe — it adds a new commit undoing the old one and leaves the original in place; rebase shares reset's unsafe property of rewriting history that others have already pulled.",
           "correct": true,
           "why": "Revert grows history without rewriting it, which is exactly why it works on a branch others have already pulled, while reset and rebase both make the branch disagree with what those colleagues hold.",
           "provenance": {
@@ -1988,7 +1988,7 @@
           }
         }
       ],
-      "rationale": "`git revert <commit>` records a new commit applying the inverse of an existing one, leaving the original in place, so history grows and nothing is rewritten \u2014 safe on a branch others already have. `git reset` moves the branch pointer, and `git rebase` replays commits as new objects; both rewrite history, which is why rebasing or resetting a branch that colleagues have already pulled forces them to reconcile diverged histories.",
+      "rationale": "`git revert <commit>` records a new commit applying the inverse of an existing one, leaving the original in place, so history grows and nothing is rewritten — safe on a branch others already have. `git reset` moves the branch pointer, and `git rebase` replays commits as new objects; both rewrite history, which is why rebasing or resetting a branch that colleagues have already pulled forces them to reconcile diverged histories.",
       "source_ids": [
         "lf-objectives-2025",
         "git-revert",
@@ -2012,7 +2012,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`--mixed`, the default \u2014 it resets the index but leaves the working tree alone, so the undone changes remain as unstaged edits ready to rework.",
+          "text": "`--mixed`, the default — it resets the index but leaves the working tree alone, so the undone changes remain as unstaged edits ready to rework.",
           "correct": true,
           "why": "`--mixed` unstages without discarding anything from disk, which is exactly the \"keep editing, but unstaged\" outcome described here.",
           "provenance": {
@@ -2033,7 +2033,7 @@
           "ref": "o3",
           "text": "`--hard`, since it is the mode most commonly reached for when reworking a change",
           "correct": false,
-          "why": "`--hard` resets the index and working tree together, discarding the tracked changes entirely \u2014 with no commit holding them, there is nothing left to rework.",
+          "why": "`--hard` resets the index and working tree together, discarding the tracked changes entirely — with no commit holding them, there is nothing left to rework.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#c-devops.git-concepts.revert-vs-reset"
@@ -2074,7 +2074,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 a bare `git diff` compares the working tree with the index, and staging moved the changes into the index; `git diff --staged` compares the index with HEAD and would show them.",
+          "text": "No — a bare `git diff` compares the working tree with the index, and staging moved the changes into the index; `git diff --staged` compares the index with HEAD and would show them.",
           "correct": true,
           "why": "Bare `git diff` shows only what could still be staged, which is nothing once everything has been staged, even though the last commit is plainly different from the files now.",
           "provenance": {
@@ -2083,7 +2083,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes \u2014 `git diff` compares the working tree to the last commit, so empty output always means the files match HEAD exactly, whether or not anything was staged first with `git add` beforehand.",
+          "text": "Yes — `git diff` compares the working tree to the last commit, so empty output always means the files match HEAD exactly, whether or not anything was staged first with `git add` beforehand.",
           "correct": false,
           "why": "That describes `git diff <commit>` against a specific commit, not the bare form; bare `git diff` compares working tree to the index, a different pair of states entirely.",
           "provenance": {
@@ -2207,7 +2207,7 @@
           "ref": "o2",
           "text": "It becomes a regular commit on the current branch, so a colleague sees it the next time they pull.",
           "correct": false,
-          "why": "A stash is deliberately not a commit on any branch; treating it as one is the exact mistake the concept warns about \u2014 \"stash it so the team can see it\" is always wrong.",
+          "why": "A stash is deliberately not a commit on any branch; treating it as one is the exact mistake the concept warns about — \"stash it so the team can see it\" is always wrong.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#s-git-concepts-practice"
@@ -2217,7 +2217,7 @@
           "ref": "o3",
           "text": "It is discarded permanently the moment `git stash` runs, freeing the working tree for the urgent branch switch with nothing left to restore afterward.",
           "correct": false,
-          "why": "The point of stashing is to preserve the work, not discard it \u2014 it can be restored later with `git stash pop` once the urgent task is finished.",
+          "why": "The point of stashing is to preserve the work, not discard it — it can be restored later with `git stash pop` once the urgent task is finished.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.revert-vs-reset"
@@ -2257,7 +2257,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 trunk-based development, feature branching and similar strategies are team conventions governing how work travels to the main line; Git provides branches and no opinion about how they are used.",
+          "text": "No — trunk-based development, feature branching and similar strategies are team conventions governing how work travels to the main line; Git provides branches and no opinion about how they are used.",
           "correct": true,
           "why": "Recognition of the term is what matters here: these are agreements between people, not a feature Git enforces or offers a command for.",
           "provenance": {
@@ -2266,7 +2266,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes \u2014 Git rejects a commit if it lands on a branch older than a configured age limit under trunk-based development, once the team enables that convention somewhere in their shared repository configuration.",
+          "text": "Yes — Git rejects a commit if it lands on a branch older than a configured age limit under trunk-based development, once the team enables that convention somewhere in their shared repository configuration.",
           "correct": false,
           "why": "Git has no such age-based enforcement mechanism; a branch can live indefinitely without any commit being rejected for it.",
           "provenance": {
@@ -2288,7 +2288,7 @@
           "ref": "o4",
           "text": "Yes, because `git merge --ff-only` is the default merge behaviour and forces short-lived branches to stay caught up",
           "correct": false,
-          "why": "`--ff-only` is not Git's default merge behaviour, and even where used it only refuses a non-fast-forward merge \u2014 it does not compel branches to be short-lived.",
+          "why": "`--ff-only` is not Git's default merge behaviour, and even where used it only refuses a non-fast-forward merge — it does not compel branches to be short-lived.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.merge"
