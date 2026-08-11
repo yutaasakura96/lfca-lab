@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { loadDataset } from './lib/load.mjs';
 import { assignBlocks } from './lib/comparisons.mjs';
-import { guideIndex } from './lib/guide-paths.mjs';
+import { guideIndex, slugify } from './lib/guide-paths.mjs';
 import { competencyKey } from './lib/load.mjs';
 import { allocation, domainBudget } from './lib/allocation.mjs';
 
@@ -68,7 +68,21 @@ for (const section of sections) {
     console.log(`- depth:         ${c.required_depth}   difficulty: ${a.difficulty}   default type: ${a.defaultType}`);
     console.log(`- items:         ${a.exam} exam + ${a.supplement} supplement`);
     if (a.needsDiagnostic) console.log('- REQUIRED:      at least one item of type "diagnostic"');
-    console.log(`- guide_anchor:  ${guideRel}#c-${c.id}`);
+    // A depth-1 concept has no `c-` anchor to point at. Its only definition
+    // site is one Quick reference table row (STYLE.md section 2), and a table
+    // row cannot carry an HTML anchor of its own — so the guide defines
+    // `c-<id>` for all 498 depth-2+ concepts and for none of the 39 depth-1
+    // ones. Emitting `#c-<id>` regardless would hand every depth-1 author an
+    // anchor that check 13 then rejects, 39 concepts over. Point at the
+    // enclosing section instead: it resolves, and it lands the reader on the
+    // table that actually defines the term.
+    const anchor = c.required_depth === 1
+      ? `s-${slugify(c.competency)}-${slugify(c.path[2])}`
+      : `c-${c.id}`;
+    console.log(`- guide_anchor:  ${guideRel}#${anchor}`);
+    if (c.required_depth === 1) {
+      console.log('                 (section anchor: a depth-1 concept is defined by a Quick reference row, which has no anchor of its own)');
+    }
     console.log(`- coverage:      ${c.coverage_status}`);
     console.log(`- source_ids:    ${[...c.official_sources, ...c.additional_sources].join(', ') || 'none'}`);
     console.log(`- waived:        ${waived.has(c.id) ? 'YES — set waived_source: true, consensus definitions only' : 'no'}`);

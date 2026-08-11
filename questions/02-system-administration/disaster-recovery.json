@@ -1,0 +1,1761 @@
+{
+  "competency": "System Administration Fundamentals :: Disaster Recovery",
+  "items": [
+    {
+      "id": "q.sysadmin.disaster-recovery.backup.01",
+      "concept_id": "sysadmin.disaster-recovery.backup",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A file server replicates every write to a second machine in another rack. An operator deletes a directory by mistake, and the deletion appears on the second machine within seconds. Which safeguard was missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A backup — an independent copy from which the deleted directory can be restored.",
+          "correct": true,
+          "why": "A backup is a separate copy taken at a point in time, so a deletion made after it does not reach it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "More replication targets, so at least one copy escapes the deletion.",
+          "correct": false,
+          "why": "Replication faithfully copies deletions to every target, so adding targets multiplies the deletion rather than escaping it.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.replication"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A RAID array, so the directory survives the loss of any single disk.",
+          "correct": false,
+          "why": "RAID protects against disk failure, not against a delete the filesystem was asked to perform.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.system-administration.raid-levels"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — replication to a second machine is a backup.",
+          "correct": false,
+          "why": "A common belief, and the reason this pair is examinable: replication gives availability, not recoverability.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.replication"
+          }
+        }
+      ],
+      "rationale": "A backup is an independent copy kept so data can be restored after loss, corruption or deletion. Replication and RAID both keep a second copy live, and both apply the destructive operation to that copy as faithfully as to the first. Common tools for taking that independent copy are `tar` for archiving and `rsync` for file-level copies.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.backup",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.backup",
+      "commands_covered": [
+        "tar",
+        "rsync"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.backup.02",
+      "concept_id": "sysadmin.disaster-recovery.backup",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 3,
+      "stem": "You need to copy a large directory tree to a backup host nightly, transferring only the files that changed since the previous run. Which tool is designed for that?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`rsync` run nightly against the backup host",
+          "correct": true,
+          "why": "It compares source and destination and transfers only differing files, which is what makes repeated runs cheap.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`tar` writing a fresh archive on every run",
+          "correct": false,
+          "why": "It bundles files into a single archive but has no notion of what the destination already holds, so every run copies everything.",
+          "provenance": {
+            "kind": "variant",
+            "command": "tar"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A filesystem snapshot of the source volume",
+          "correct": false,
+          "why": "A local snapshot stays on the same storage as the original and never moves data to the backup host.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.snapshot"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Continuous replication to the backup host",
+          "correct": false,
+          "why": "That keeps a live mirror rather than a nightly independent copy, and propagates deletions immediately.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.replication"
+          }
+        }
+      ],
+      "rationale": "`rsync` exists precisely for repeated directory-tree copies: it determines what differs and sends only that. `tar` creates an archive and is the right tool for bundling, not for incremental transfer.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.backup",
+      "comparison_block": null,
+      "commands_covered": [
+        "rsync",
+        "tar"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.full-incremental-and-differential-backups.01",
+      "concept_id": "sysadmin.disaster-recovery.full-incremental-and-differential-backups",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A site takes a full backup on Sunday and a differential backup every weekday night. The server fails on Thursday morning. Which sets must be restored?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Sunday's full, then Wednesday's differential only.",
+          "correct": true,
+          "why": "A differential holds everything changed since the last full, so only the most recent one is needed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Sunday's full, then Monday, Tuesday and Wednesday in order.",
+          "correct": false,
+          "why": "That is the restore sequence for incrementals, each of which holds only what changed since the previous backup.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Wednesday's differential only.",
+          "correct": false,
+          "why": "A differential is not self-contained; without the full it has no baseline to apply changes to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Sunday's full only, since differentials are for retention rather than restore.",
+          "correct": false,
+          "why": "Differentials are restore inputs, and skipping them discards every change made since Sunday.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.full-incremental-and-differential-backups"
+          }
+        }
+      ],
+      "rationale": "The distinction lives on the restore side. A differential accumulates all changes since the last full, so a restore needs the full plus one differential. An incremental holds only what changed since the previous backup of any kind, so a restore needs the full plus every incremental in sequence.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.full-incremental-and-differential-backups",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.snapshot.01",
+      "concept_id": "sysadmin.disaster-recovery.snapshot",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An administrator takes an LVM snapshot before a risky upgrade. The underlying physical volume then fails outright. What is the state of the snapshot?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Lost with the volume, because a local snapshot is stored on the same storage as the original.",
+          "correct": true,
+          "why": "A local snapshot is a view into the same underlying storage, so it does not survive that storage failing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Intact, because a snapshot is an independent copy of the data held apart from the original volume.",
+          "correct": false,
+          "why": "That describes a backup; independence from the original storage is exactly what a local snapshot lacks.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Intact, because snapshots are always written to separate storage.",
+          "correct": false,
+          "why": "True of typical cloud provider snapshots, but not of local LVM or filesystem snapshots.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.snapshot"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Intact, because RAID parity reconstructs it from the surviving disks.",
+          "correct": false,
+          "why": "RAID is a separate mechanism and is not implied by taking a snapshot.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.raid-levels"
+          }
+        }
+      ],
+      "rationale": "A snapshot is a point-in-time view of a volume. Local snapshots live alongside the original, so losing the volume loses them, which is why they are not an independent copy. Cloud provider snapshots are typically written to separate storage and do survive deletion of the source volume — the distinction is where the snapshot is stored, not the word itself.",
+      "source_ids": [
+        "aws-ebs-snapshots"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.snapshot",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.snapshot.02",
+      "concept_id": "sysadmin.disaster-recovery.snapshot",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which single property separates a backup from a local volume snapshot?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The backup is independent of the original storage; the local snapshot is not.",
+          "correct": true,
+          "why": "Independence from the source storage is the axis the whole comparison turns on.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The backup is taken at a point in time; the snapshot is continuous.",
+          "correct": false,
+          "why": "Both are point-in-time; continuous copying describes replication instead.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.replication"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The backup can be restored; the snapshot cannot be restored from.",
+          "correct": false,
+          "why": "A snapshot can be rolled back to; the limitation is its dependence on the same storage.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The backup is compressed; the snapshot is stored uncompressed.",
+          "correct": false,
+          "why": "Compression is an implementation detail of either and settles nothing about recoverability.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.command-line.archiving-and-compression"
+          }
+        }
+      ],
+      "rationale": "Both capture a moment. Only the backup is stored independently of the volume it came from, which is what lets it survive the loss of that volume. Cloud snapshots blur this because their storage is separate — the axis is still independence, not the label.",
+      "source_ids": [
+        "aws-ebs-snapshots",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.snapshot",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.replication.01",
+      "concept_id": "sysadmin.disaster-recovery.replication",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A database is replicated synchronously to a second data centre. A bad migration script corrupts a table at 09:00. What does replication give you at 09:05?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A second copy of the corrupted table, available for service.",
+          "correct": true,
+          "why": "Replication copies whatever the primary wrote, including the corruption, and does so promptly.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The table as it stood before the migration, held on the replica.",
+          "correct": false,
+          "why": "That is what a backup or a point-in-time copy provides; a replica tracks the primary rather than lagging it deliberately.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "An automatic rollback once the replica detects the inconsistency.",
+          "correct": false,
+          "why": "Replication has no notion of whether a change was intended and performs no such rollback.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Protection, because replication satisfies the off-site requirement of the 3-2-1 rule.",
+          "correct": false,
+          "why": "Distance is not the issue here; the replica is off-site and still corrupt.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.3-2-1-rule"
+          }
+        }
+      ],
+      "rationale": "Replication continuously copies data to another system for availability. Its fidelity is the point and the problem: it reproduces deletions and corruption as faithfully as legitimate writes, which is why it is not a backup.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.replication",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.replication.02",
+      "concept_id": "sysadmin.disaster-recovery.replication",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Which requirement is replication the appropriate answer to?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Service must continue from a second site if the primary becomes unavailable.",
+          "correct": true,
+          "why": "Keeping a current copy live elsewhere is exactly what replication is for.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A file deleted by an operator last Tuesday must still be recoverable from a retained copy.",
+          "correct": false,
+          "why": "Reaching back to a past state needs a retained independent copy, not a current mirror.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Restores must be proven to work against a published schedule each quarter.",
+          "correct": false,
+          "why": "That is a testing obligation and is satisfied by exercising restores, not by copying data.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Storage cost must fall as data ages beyond its useful window.",
+          "correct": false,
+          "why": "That is addressed by retention policy and tiering, which replication does not provide.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "Replication answers an availability question — can something else serve if this fails. It does not answer a recoverability question, because it holds only the current state and propagates every change to it.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.replication",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.3-2-1-rule.01",
+      "concept_id": "sysadmin.disaster-recovery.3-2-1-rule",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What does the 3-2-1 backup rule prescribe?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Three copies of the data, on two types of media, with one held off-site.",
+          "correct": true,
+          "why": "That is the rule as stated: copy count, media diversity, and one copy at a distance.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Three full backups, two differentials, and one incremental each week.",
+          "correct": false,
+          "why": "The rule says nothing about backup types or schedule; it constrains copies, media and location.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.full-incremental-and-differential-backups"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Three sites, two of them warm, and one hot.",
+          "correct": false,
+          "why": "Site tiers are a separate decision driven by recovery time, not by this rule.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Three restore tests a year, two of them full, and one tabletop.",
+          "correct": false,
+          "why": "Testing cadence is a distinct practice and is not what the numbers refer to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-drill"
+          }
+        }
+      ],
+      "rationale": "Three copies, two media types, one off-site. It is a compact expression of what actually makes backups survive a disaster: more than one copy, not all vulnerable to the same failure mode, and not all in the same building.",
+      "source_ids": [
+        "cisa-data-backup-options"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.3-2-1-rule",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.restore-testing.01",
+      "concept_id": "sysadmin.disaster-recovery.restore-testing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Nightly backup jobs have reported success for two years. What does that establish about the organisation's ability to recover?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing about recovery — only that the jobs ran without reporting an error.",
+          "correct": true,
+          "why": "A successful write says nothing about whether the resulting copy can be read back into a working system.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "That the recovery time objective is being met.",
+          "correct": false,
+          "why": "A recovery time target can only be evidenced by timing an actual restore.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "That the disaster recovery plan is validated.",
+          "correct": false,
+          "why": "Validating the plan requires rehearsing the procedure and the roles, not reading a job log.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "That the data is recoverable, since a successful backup implies a successful restore.",
+          "correct": false,
+          "why": "This is the assumption the practice exists to break; media, encryption keys and tooling all fail silently.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.restore-testing"
+          }
+        }
+      ],
+      "rationale": "Restore testing periodically proves a backup can actually be restored. Until that is done, an untested backup is an assumption rather than a safeguard — and it is the step most commonly skipped.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.restore-testing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.restore-testing.02",
+      "concept_id": "sysadmin.disaster-recovery.restore-testing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team restores a database backup into an isolated environment each quarter and checks the row counts. Which obligation does this satisfy?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Restore testing — proving the backup can be read back and yields usable data.",
+          "correct": true,
+          "why": "Reading the copy back and confirming its contents is exactly what this practice requires.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A disaster recovery drill, since the recovery procedure has been exercised.",
+          "correct": false,
+          "why": "A drill rehearses the whole plan and the people in it, not one artefact restoring correctly.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-drill"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The off-site requirement, since the isolated environment is elsewhere.",
+          "correct": false,
+          "why": "Where the test runs is incidental; the off-site requirement is about where copies are kept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The retention policy, since quarterly checks confirm the copies still exist.",
+          "correct": false,
+          "why": "Retention governs how long copies are kept, which existence checks alone do not establish.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "Restoring into an isolated environment and verifying the result is restore testing. It proves the artefact works. It does not prove the organisation can execute its recovery plan under pressure, which is a separate exercise.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.restore-testing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.backup-retention.01",
+      "concept_id": "sysadmin.disaster-recovery.backup-retention",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A retention policy keeps daily backups for 14 days and nothing longer. A corruption introduced 40 days ago is discovered today. What is the consequence?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No clean copy remains, because every retained backup already contains the corruption.",
+          "correct": true,
+          "why": "Retention sets how far back recovery can reach, and 14 days does not reach 40.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The oldest retained backup predates the corruption and can therefore be restored intact.",
+          "correct": false,
+          "why": "The oldest retained copy is 14 days old, which is well after the corruption occurred.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.full-incremental-and-differential-backups"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Replication to the standby site preserves an uncorrupted version.",
+          "correct": false,
+          "why": "Replication tracks the current state and would have copied the corruption when it happened.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.replication"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The recovery point objective determines whether the data is recoverable.",
+          "correct": false,
+          "why": "That target describes tolerable data loss in a recovery, not how far back copies survive.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        }
+      ],
+      "rationale": "Retention balances recovery reach against storage cost and compliance obligations. It sets the oldest state you can return to, so a fault discovered outside the window is unrecoverable regardless of how reliable the backups were.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.backup-retention",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.rpo.01",
+      "concept_id": "sysadmin.disaster-recovery.rpo",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A service states a four-hour recovery point objective and a one-hour recovery time objective. What do those two figures constrain?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "At most four hours of data may be lost, and service must be back within one hour.",
+          "correct": true,
+          "why": "The recovery point bounds data loss looking backwards; the recovery time bounds the outage looking forwards.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Service must be back within four hours, and at most one hour of data may be lost.",
+          "correct": false,
+          "why": "This swaps the two, which is the single most common error on this pair.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Backups run every four hours and drills run hourly.",
+          "correct": false,
+          "why": "Backup frequency follows from the recovery point target but is not what the figure states.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The system tolerates four hours of downtime a year at one-hour granularity.",
+          "correct": false,
+          "why": "That describes an availability budget, which is a different measure entirely.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+          }
+        }
+      ],
+      "rationale": "The recovery point objective looks backwards to the last good copy and therefore dictates backup frequency. The recovery time objective looks forwards to service restoration and therefore dictates recovery method and standby capacity. Reversing them is the classic mistake.",
+      "source_ids": [
+        "nist-glossary-rpo",
+        "nist-glossary-rto"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.rpo",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.rpo",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.rpo.02",
+      "concept_id": "sysadmin.disaster-recovery.rpo",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team must reduce its recovery point objective from 24 hours to 1 hour. Which change achieves that?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Capture backups or log shipments at least hourly.",
+          "correct": true,
+          "why": "The tolerable data loss is bounded by the interval between recoverable copies.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Provision a hot site so recovery completes faster.",
+          "correct": false,
+          "why": "Faster recovery shortens the outage, not the amount of data lost before it began.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Automate failover so the standby takes over unattended.",
+          "correct": false,
+          "why": "Automated failover reduces time to restore service rather than the recovery point.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Extend retention so more historical copies are available.",
+          "correct": false,
+          "why": "Retention extends how far back you can reach, not how recent the newest copy is.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "The recovery point objective is a statement about acceptable data loss, and the only lever on it is how often a recoverable copy is made. Everything that speeds up recovery moves the recovery time objective instead.",
+      "source_ids": [
+        "nist-glossary-rpo",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.rpo",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.rto.01",
+      "concept_id": "sysadmin.disaster-recovery.rto",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A service carries a 30-minute recovery time objective. Which recovery arrangement is consistent with it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A hot site with equipment running and recent data already loaded.",
+          "correct": true,
+          "why": "Only an already-equipped, already-loaded facility can take over inside half an hour.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A warm site holding hardware, with data restored from backup when needed.",
+          "correct": false,
+          "why": "The restore step alone will normally exceed thirty minutes.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A cold site with space, power and environmental control provisioned.",
+          "correct": false,
+          "why": "Hardware would have to be procured and installed first, which takes days or longer.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nightly off-site tape rotation with a documented restore procedure.",
+          "correct": false,
+          "why": "Retrieving and restoring media is measured in hours, not in the stated window.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup"
+          }
+        }
+      ],
+      "rationale": "The recovery time objective dictates the recovery method and the standby capacity that must be paid for. Matching a site tier to a stated recovery time is a textbook question shape: the tighter the target, the more of the destination must already be running.",
+      "source_ids": [
+        "nist-glossary-rto",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.rto",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.rto.02",
+      "concept_id": "sysadmin.disaster-recovery.rto",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Which measurement would demonstrate that a stated recovery time objective is actually achievable?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Timing a rehearsed recovery from failure to service restored.",
+          "correct": true,
+          "why": "The target is a duration, so only a timed end-to-end recovery evidences it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Confirming the age of the most recent restorable copy.",
+          "correct": false,
+          "why": "That evidences the recovery point instead, which measures data loss rather than elapsed time.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Counting how many components have a redundant pair.",
+          "correct": false,
+          "why": "Redundancy reduces the chance of an outage without establishing how long recovery takes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Reviewing the retention schedule for the backup sets.",
+          "correct": false,
+          "why": "Retention concerns how long copies persist, which is unrelated to restoration speed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "A recovery time objective is a claim about elapsed time from failure to restored service. The only evidence for it is a timed rehearsal; everything else evidences a different property.",
+      "source_ids": [
+        "nist-glossary-rto",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.rto",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.disaster-recovery-plan.01",
+      "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Which of these belongs in a disaster recovery plan rather than in a runbook for routine operations?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The order of system restoration and who is authorised to declare a disaster.",
+          "correct": true,
+          "why": "Sequencing and decision authority under a major failure are what this document exists to fix in advance.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The procedure for rotating an expiring TLS certificate.",
+          "correct": false,
+          "why": "That is scheduled maintenance and does not involve recovering from a major failure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The organisation's strategy for continuing to trade during a disruption.",
+          "correct": false,
+          "why": "That is the broader continuity discipline, of which IT recovery is one component.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.business-continuity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The load balancer's health-check interval for a failing node.",
+          "correct": false,
+          "why": "That is an availability mechanism operating within a site rather than a recovery procedure.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+          }
+        }
+      ],
+      "rationale": "A disaster recovery plan is the documented, tested procedure for restoring service after a major failure — including who does what and in what order. Its distinguishing content is the sequencing and the decision rights, which are precisely what nobody can improvise at the time.",
+      "source_ids": [
+        "nist-glossary-drp",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.disaster-recovery-plan",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.disaster-recovery-plan.02",
+      "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An auditor asks for evidence that a disaster recovery plan is more than a document. What satisfies the request?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Records of exercises in which the plan was followed and its gaps recorded.",
+          "correct": true,
+          "why": "The definition requires the procedure to be tested, so exercise records are the evidence.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Signed acknowledgements from every named role confirming they have read the current version.",
+          "correct": false,
+          "why": "Acknowledgement shows awareness but never shows the procedure works.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.business-continuity"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Backup job logs showing two years of successful runs.",
+          "correct": false,
+          "why": "Successful writes evidence neither restoration nor the plan around it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A diagram of the standby site's network topology.",
+          "correct": false,
+          "why": "Documentation of the destination says nothing about whether the procedure was exercised.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        }
+      ],
+      "rationale": "The definition carries the word tested. A plan nobody has rehearsed is a proposal: it has never met the conditions it was written for, and the gaps it contains are still unknown.",
+      "source_ids": [
+        "nist-glossary-drp",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.disaster-recovery-plan",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.business-continuity.01",
+      "concept_id": "sysadmin.disaster-recovery.business-continuity",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "How do business continuity and disaster recovery relate to each other?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Disaster recovery is one component of business continuity, which is broader.",
+          "correct": true,
+          "why": "Continuity covers keeping the organisation operating; IT recovery is one part of that.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Business continuity is the IT subset of the wider disaster recovery discipline.",
+          "correct": false,
+          "why": "This inverts the containment; the technical procedure sits inside the organisational one.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "They are two names for the same set of activities.",
+          "correct": false,
+          "why": "They differ in scope, and treating them as synonyms is what the comparison tests.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.business-continuity"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Business continuity applies during an incident; disaster recovery applies afterwards.",
+          "correct": false,
+          "why": "Both span the incident and its aftermath; the difference is breadth, not timing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        }
+      ],
+      "rationale": "Business continuity is the discipline of keeping the organisation operating through disruption — staff, premises, suppliers, communications and systems. Disaster recovery is the part of that concerned with restoring IT service. The axis is scope: one contains the other.",
+      "source_ids": [
+        "nist-glossary-bcp",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.business-continuity",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.business-continuity",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.business-continuity.02",
+      "concept_id": "sysadmin.disaster-recovery.business-continuity",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A flood closes an office for a month. Which concern belongs to business continuity rather than to disaster recovery?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Where staff will work and how customers will be told.",
+          "correct": true,
+          "why": "People, premises and communications are continuity concerns beyond restoring systems.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Which systems are restored first and in what order.",
+          "correct": false,
+          "why": "Restoration sequencing is the technical recovery procedure.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "How much data was lost between the last copy and the flood.",
+          "correct": false,
+          "why": "That quantity is bounded by the recovery point objective, a recovery measure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Whether the standby site can carry production load.",
+          "correct": false,
+          "why": "Standby capacity is part of the technical recovery arrangement.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        }
+      ],
+      "rationale": "Continuity asks whether the organisation can keep operating; recovery asks whether the systems can be brought back. A month without an office raises questions no restore procedure answers.",
+      "source_ids": [
+        "nist-glossary-bcp",
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.business-continuity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.high-availability-vs-disaster-recovery.01",
+      "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A cluster survives the loss of any single node without interruption. What does that arrangement not provide?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Recovery if the whole site or system is lost.",
+          "correct": true,
+          "why": "Availability within a site does not address losing the site itself.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Continued service when one node fails.",
+          "correct": false,
+          "why": "That is precisely what the arrangement does provide.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Automatic transfer of work away from the failed node.",
+          "correct": false,
+          "why": "Shifting work off a failed member is part of how the cluster stays available.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A documented order for bringing systems back after a major failure.",
+          "correct": false,
+          "why": "That is the recovery plan, which is a document rather than something a cluster provides.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan"
+          }
+        }
+      ],
+      "rationale": "High availability avoids downtime from component failure within a site. Disaster recovery restores service after a site or system is lost. They solve different problems and are not substitutes — a perfectly available cluster in a flooded building is unavailable.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.high-availability-vs-disaster-recovery.02",
+      "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A budget holder proposes cancelling the standby site because the production cluster is already highly available. What is the flaw?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The cluster protects against component failure, not against losing the location it sits in.",
+          "correct": true,
+          "why": "The two mechanisms address different failure scopes, so one cannot replace the other.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "There is no flaw, since a highly available cluster already makes a separate recovery site unnecessary.",
+          "correct": false,
+          "why": "This is the substitution the comparison exists to prevent.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The cluster cannot meet a recovery point objective of any length.",
+          "correct": false,
+          "why": "Data loss targets are governed by copy frequency and are not a property of clustering.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Clusters are unable to fail back once a node returns to health.",
+          "correct": false,
+          "why": "Returning work to a recovered member is ordinary cluster behaviour.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        }
+      ],
+      "rationale": "Availability engineering removes single points of failure inside a site. Recovery engineering assumes the site is gone. Cancelling the second because the first exists leaves the organisation exposed to exactly the event the second was bought for.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.redundancy-and-single-points-of-failure.01",
+      "concept_id": "sysadmin.disaster-recovery.redundancy-and-single-points-of-failure",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Two application servers are load balanced, each with dual power supplies, and both draw from one switch. Where is the single point of failure?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The switch, because no duplicate exists for it.",
+          "correct": true,
+          "why": "It is the one component whose loss stops the service, having no counterpart.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The application servers, because two is too few for redundancy.",
+          "correct": false,
+          "why": "Two is sufficient for the service to survive losing one of them.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The power supplies, because they share the same building feed.",
+          "correct": false,
+          "why": "They are duplicated at the component level, which is what this question asks about.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The load balancer, because balancing implies a single decision point.",
+          "correct": false,
+          "why": "Nothing in the description says the balancer is unduplicated, whereas the switch plainly is.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        }
+      ],
+      "rationale": "The practice is duplicating components so that no single failure stops the service, and then identifying where no such duplicate exists. The answer is always the component with a count of one on the path every request takes.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.redundancy-and-single-points-of-failure",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.failover-and-failback.01",
+      "concept_id": "sysadmin.disaster-recovery.failover-and-failback",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An organisation has failed over to its standby site three times and never returned to the primary without an unplanned outage. Which step is under-tested?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Failback — returning to the primary once it is healthy.",
+          "correct": true,
+          "why": "It is the half of the cycle that is routinely rehearsed least and fails most.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Failover, since three activations indicate an unreliable trigger.",
+          "correct": false,
+          "why": "The failovers succeeded; the outages occurred on the return leg.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.high-availability-vs-disaster-recovery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Restore testing, since the standby data must have been wrong.",
+          "correct": false,
+          "why": "Nothing indicates a bad restore; the fault appears when moving back.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Retention, since older copies were needed on each return.",
+          "correct": false,
+          "why": "Retention governs how long copies persist and is not exercised by a site switch.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "Failover switches to a standby when the primary fails; failback returns once it is healthy. Failback is the step most often left untested, because the emergency is over by the time it happens and the pressure to rehearse it has gone.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.failover-and-failback",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.failover-and-failback.02",
+      "concept_id": "sysadmin.disaster-recovery.failover-and-failback",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "During failback from a standby that has been serving writes for two days, what must be handled before the primary resumes service?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The writes accumulated on the standby must be reconciled onto the primary.",
+          "correct": true,
+          "why": "The primary's data is two days stale, so resuming without reconciliation loses those writes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — the primary holds the authoritative copy by definition.",
+          "correct": false,
+          "why": "Authority moved with service; treating the stale primary as authoritative discards real data.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.failover-and-failback"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The recovery time objective must be lengthened to permit the switch.",
+          "correct": false,
+          "why": "Targets describe requirements and do not resolve a data divergence.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The standby's snapshots must be deleted to avoid conflicts.",
+          "correct": false,
+          "why": "Removing point-in-time copies destroys evidence and resolves no divergence.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.snapshot"
+          }
+        }
+      ],
+      "rationale": "While the standby serves, it becomes the system of record. Failback therefore has a data problem at its centre, not merely a routing one — and that is why it is harder than failover and more often goes wrong.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.failover-and-failback",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.mttr-and-mtbf.01",
+      "concept_id": "sysadmin.disaster-recovery.mttr-and-mtbf",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "In common usage, what do MTTR and MTBF describe?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "How long repair typically takes, and how often failures typically occur.",
+          "correct": true,
+          "why": "The two terms address repair duration and failure frequency respectively.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "How much data may be lost, and how long restoration may take.",
+          "correct": false,
+          "why": "Those are the recovery point and recovery time objectives, which are targets rather than observed averages.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "How many copies are kept, and for how long.",
+          "correct": false,
+          "why": "That describes retention policy, which is unrelated to either measure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "How quickly a standby activates, and how quickly the primary returns.",
+          "correct": false,
+          "why": "Those describe failover and failback timing rather than these two metrics.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        }
+      ],
+      "rationale": "Mean time to repair is how quickly service returns; mean time between failures is how often it breaks. Both are observed averages describing past behaviour, which is what separates them from objectives, which are targets set in advance.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#s-disaster-recovery-planning",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.off-site-and-geographic-redundancy.01",
+      "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Backup tapes are stored in a fireproof safe in the same building as the servers. Which requirement remains unmet?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Off-site storage, because one physical event could still destroy both.",
+          "correct": true,
+          "why": "Distance is the requirement, and a safe in the same building provides none.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Media diversity, because tape is a single medium.",
+          "correct": false,
+          "why": "Media type is a separate requirement from location and is not what the safe fails.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.3-2-1-rule"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Restore testing, because the tapes have not been read back.",
+          "correct": false,
+          "why": "Testing is a real obligation but is not the one the storage location bears on.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Retention, because a safe does not enforce an expiry schedule.",
+          "correct": false,
+          "why": "Expiry is a policy matter independent of where media is kept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.backup-retention"
+          }
+        }
+      ],
+      "rationale": "The requirement is keeping copies or capacity far enough away that one physical event cannot destroy both. Fire resistance raises the threshold but does not create distance — flood, building collapse or a site-wide loss defeats it.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.off-site-and-geographic-redundancy",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.hot-warm-and-cold-sites.01",
+      "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A facility holds installed, running hardware and the most recent backup already loaded, needing only the data written since that backup before it can take over. Which tier is it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A hot site.",
+          "correct": true,
+          "why": "Equipped and loaded with the latest backup, needing only the delta since, is the defining description.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A mirrored site.",
+          "correct": false,
+          "why": "That tier carries continuously mirrored real-time data and needs no catch-up at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.hot-warm-and-cold-sites"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A warm site.",
+          "correct": false,
+          "why": "That holds hardware but not current data, which must be restored before it can serve.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A cold site.",
+          "correct": false,
+          "why": "That provides space, power and environmental control only, with no hardware in place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
+          }
+        }
+      ],
+      "rationale": "The tiers are separated by how much is already in place. A hot site is fully equipped with the most recent backup loaded and needs only the data written since. Real-time continuous mirroring belongs to the separate and more expensive mirrored site — a distinction that is easy to lose and is exactly where this question sits.",
+      "source_ids": [
+        "nist-sp-800-34r1",
+        "nist-glossary-warm-site"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.hot-warm-and-cold-sites.02",
+      "concept_id": "sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Moving from a hot site to a cold site has which pair of effects?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Cost falls and recovery time rises.",
+          "correct": true,
+          "why": "Less standing capability is cheaper to hold and slower to bring into service.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Cost falls and recovery time falls.",
+          "correct": false,
+          "why": "Both cannot improve; the saving is paid for in recovery speed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Cost rises and recovery time falls.",
+          "correct": false,
+          "why": "That is the direction of travel toward a hot site, not away from one.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.rto"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Cost is unchanged and only tolerable data loss rises.",
+          "correct": false,
+          "why": "Site tier drives cost and recovery time; data loss is bounded by copy frequency instead.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        }
+      ],
+      "rationale": "Cost falls and recovery time rises as you move from hot to cold. The tier is a purchase of readiness, and readiness is what shortens the outage — so the two move in opposite directions by construction.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.hot-warm-and-cold-sites",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.disaster-recovery-drill.01",
+      "concept_id": "sysadmin.disaster-recovery.disaster-recovery-drill",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "What does a disaster recovery drill establish that restore testing does not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That the people involved can execute the plan and know their roles.",
+          "correct": true,
+          "why": "A drill exercises the procedure and the participants, not only the artefact.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "That the backup media can be read back successfully.",
+          "correct": false,
+          "why": "That is what restore testing establishes on its own.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "That the recovery point objective is being met.",
+          "correct": false,
+          "why": "Tolerable data loss is evidenced by copy frequency rather than by a rehearsal.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.rpo"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "That the off-site copies are far enough from the primary.",
+          "correct": false,
+          "why": "Geographic separation is a property of where copies sit, not something a drill measures.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.off-site-and-geographic-redundancy"
+          }
+        }
+      ],
+      "rationale": "A drill is a rehearsed exercise — full failover or tabletop — proving the plan works and that people know their roles. Restore testing proves one artefact can be read back. The axis is scope: an artefact versus the procedure and the people around it.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.disaster-recovery-drill",
+      "comparison_block": "cmp-sysadmin.disaster-recovery.disaster-recovery-drill",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.disaster-recovery.disaster-recovery-drill.02",
+      "concept_id": "sysadmin.disaster-recovery.disaster-recovery-drill",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team gathers to walk through the recovery plan verbally, without touching production systems. What is this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A tabletop drill, which is a legitimate form of exercise.",
+          "correct": true,
+          "why": "A drill may be a full failover or a tabletop walkthrough; both rehearse the plan.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Not a drill at all, because no systems were actually failed over to the standby.",
+          "correct": false,
+          "why": "Restricting the term to full failover excludes a recognised and useful exercise form.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.disaster-recovery.disaster-recovery-drill"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Restore testing conducted at low cost.",
+          "correct": false,
+          "why": "No backup was read back, which is what that practice requires.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.disaster-recovery.restore-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A failback rehearsal for the standby site.",
+          "correct": false,
+          "why": "Nothing was switched over, so there is no return leg being practised.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.disaster-recovery.failover-and-failback"
+          }
+        }
+      ],
+      "rationale": "A drill is a rehearsed exercise proving the plan works and that people know their roles, and it may be a full failover or a tabletop. The tabletop form finds gaps in sequencing, contact details and decision rights at a fraction of the cost and risk.",
+      "source_ids": [
+        "nist-sp-800-34r1"
+      ],
+      "guide_anchor": "02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.disaster-recovery-drill",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

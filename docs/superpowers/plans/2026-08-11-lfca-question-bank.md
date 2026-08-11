@@ -155,7 +155,7 @@ Each item:
 - `comparison_block` is `cmp-<owner-id>` on items that test a confusable pair, otherwise `null`. Every one of the competency's owned blocks must be named by at least one item.
 - `commands_covered` lists the command strings the item carries. Every string in a concept's `commands` array must appear **verbatim, inside a code span**, somewhere in one of that concept's items — stem, an option's `text`, an option's `why`, or the `rationale`. It does not have to be an option.
 - Concepts at `required_depth` 4 or 5 need at least one item with `"type": "diagnostic"`.
-- `guide_anchor` is copied verbatim from the brief. Do not recompute the path.
+- `guide_anchor` is copied verbatim from the brief. Do not recompute the path. **A depth-1 concept has no `c-<id>` anchor** — its only definition site is a Quick reference table row, which cannot carry one — so the brief emits the enclosing `#s-<competency>-<section>` anchor for those 39 concepts instead. Copy what it gives you either way.
 - `waived_source` is `true` exactly when the concept is still named in `data/sourcing-waivers.json` after Task 2. An item on a waived concept may only turn on what every consensus source agrees about; if sources differ on the point, the item is out of bounds.
 - `verification` stays `null`. The verification task fills it in.
 - `source_ids` must exist in `data/sources.json`. Cite what actually supports the key.
@@ -165,10 +165,10 @@ Each item:
 ### Step C — check the scope
 
 ```bash
-npm run check-bank -- --scope "<Domain> :: <Competency>" --except q-verdict-coverage,q-answer-position-balance
+npm run check-bank -- --scope "<Domain> :: <Competency>" --except q-verdict-coverage,q-answer-position-balance,q-domain-distribution
 ```
 
-Both suppressions are legitimate and only here: `q-verdict-coverage` is discharged by the verification task, and `q-answer-position-balance` reads generated exams that do not exist yet. `check-bank` refuses `--except` without `--scope`, prints a loud banner naming every suppressed check, and names them again in its summary line, so a suppressed run can never be mistaken for a clean one.
+All three suppressions are legitimate and only here: `q-verdict-coverage` is discharged by the verification task, `q-answer-position-balance` reads generated exams that do not exist yet, and `q-domain-distribution` compares the whole bank against the 1,000-item weight table and cannot pass until all 22 competencies exist. (The pilot found the third; this protocol originally named only two.) `check-bank` refuses `--except` without `--scope`, prints a loud banner naming every suppressed check, and names them again in its summary line, so a suppressed run can never be mistaken for a clean one.
 
 Fix everything it reports. Then run the full gate:
 
