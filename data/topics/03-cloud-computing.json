@@ -222,6 +222,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-serverless",
+        "cncf-glossary-faas",
         "nist-sp-800-145"
       ],
       "candidate_evidence": [],
@@ -492,7 +493,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary-virtualization"
+        "cncf-glossary-virtualization",
+        "cncf-glossary-container"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1351,7 +1353,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-rightsizing-whitepaper"
+        "aws-six-advantages-cloud-computing"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1415,7 +1417,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-spot-instances"
+        "aws-spot-instances",
+        "azure-spot-vms",
+        "google-cloud-spot-vms"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1477,7 +1481,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-budgets"
+        "aws-budgets",
+        "aws-spot-instances",
+        "azure-spot-vms",
+        "google-cloud-spot-vms"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1700,7 +1707,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-budgets"
+        "aws-budgets",
+        "aws-cost-and-usage-reports"
       ],
       "candidate_evidence": [],
       "commands": [],

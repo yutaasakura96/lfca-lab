@@ -316,7 +316,7 @@ runtime versions).
 
 <a id="c-cloud.cloud-computing.serverless-and-faas"></a>
 ### Serverless and FaaS
-*id: `cloud.cloud-computing.serverless-and-faas` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-serverless, nist-sp-800-145*
+*id: `cloud.cloud-computing.serverless-and-faas` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-serverless, cncf-glossary-faas, nist-sp-800-145*
 
 **What it is** Two related but distinct terms. The CNCF glossary defines serverless
 computing as abstracting servers away from the user, with operational management — physical
@@ -674,12 +674,14 @@ costs performance and adds a second thing that can crash.
 
 **How it works** Both types present each guest with virtual CPU, memory, disk and network
 devices, and multiplex real hardware behind them. The difference is what sits underneath. A
-type 1 hypervisor *is* the lowest software layer; the classic examples are VMware vSphere/ESXi
-and Microsoft Hyper-V. A type 2 hypervisor is an application on a general-purpose desktop OS;
-VMware Workstation and Oracle VirtualBox are the standard examples. KVM is the case that
-tests understanding rather than recall: it is a module inside the Linux kernel, which makes
-the kernel itself the hypervisor, and vendors classify it as type 1 even though a full Linux
-userland runs alongside it.
+type 1 hypervisor *is* the lowest software layer; VMware's own list of examples names ESX(i),
+Hyper-V, Citrix, Xen and Linux KVM. A type 2 hypervisor is an application on a general-purpose
+desktop OS; VMware's page names VMware Fusion, Oracle VM and VirtualBox as its type 2 examples
+— VMware Workstation is the equivalent product on Windows and Linux, the same class of
+software as Fusion on macOS, and is standard alongside it in most other treatments. KVM is the
+case that tests understanding rather than recall: it is a module inside the Linux kernel,
+which makes the kernel itself the hypervisor, and vendors classify it as type 1 even though a
+full Linux userland runs alongside it.
 
 **Key terms** type 1 (bare-metal); type 2 (hosted); guest; host OS; KVM.
 
@@ -760,7 +762,7 @@ borrows the host's and therefore merely starts.
 
 <a id="c-cloud.cloud-computing.container-vs-virtual-machine"></a>
 ### Container vs virtual machine
-*id: `cloud.cloud-computing.container-vs-virtual-machine` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization*
+*id: `cloud.cloud-computing.container-vs-virtual-machine` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization, cncf-glossary-container*
 
 **What it is** The named choice between two isolation technologies, not a third technology.
 A VM virtualizes hardware and runs its own kernel; a container is a process on the host

@@ -6,6 +6,8 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | cncf-charter | CNCF Charter — neutral home for projects; projects keep their existing technical governance | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://github.com/cncf/foundation/blob/main/charter.md |
 | cncf-glossary | CNCF Cloud Native Glossary (DevOps, CI, CD, continuous deployment, blue-green, canary, IaC, idempotence, observability, shift left, SRE, microservices, containers, orchestration, cluster, pod, stateless/stateful apps) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://glossary.cncf.io/ |
+| cncf-glossary-container | CNCF Cloud Native Glossary: Container | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/container/ |
+| cncf-glossary-faas | CNCF Cloud Native Glossary: Function as a Service (FaaS) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/function-as-a-service/ |
 | cncf-who-we-are | CNCF — Who we are ("CNCF hosts critical components…"; "CNCF is part of the nonprofit Linux Foundation") | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://www.cncf.io/about/who-we-are/ |
 | fhs-3-0 | Filesystem Hierarchy Standard 3.0 | Linux Foundation | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
 | fhs-3.0 | Filesystem Hierarchy Standard, Version 3.0 | The Linux Foundation (LSB Workgroup) | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
@@ -39,6 +41,7 @@
 | aws-budgets | Managing your costs with AWS Budgets | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html |
 | aws-cloudfront | What is Amazon CloudFront? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html |
 | aws-cloudtrail | What Is AWS CloudTrail? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html |
+| aws-cost-and-usage-reports | What are AWS Cost and Usage Reports? | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html |
 | aws-ebs-snapshots | Amazon EBS snapshots | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html |
 | aws-ec2-auto-scaling | What is Amazon EC2 Auto Scaling? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html |
 | aws-elastic-ip-addresses | Elastic IP addresses (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html |
@@ -52,6 +55,7 @@
 | aws-route53 | What is Amazon Route 53? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html |
 | aws-secrets-manager | What is AWS Secrets Manager? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html |
 | aws-shared-responsibility-model | Shared Responsibility Model | Amazon Web Services | 2 | — | 2026-08-10 | https://aws.amazon.com/compliance/shared-responsibility-model/ |
+| aws-six-advantages-cloud-computing | Six advantages of cloud computing | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html |
 | aws-spot-instances | Amazon EC2 Spot Instances | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html |
 | aws-tagging-best-practices | Best Practices for Tagging AWS Resources | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html |
 | aws-vpc-configure-subnets | Subnets for your VPC (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html |
@@ -70,6 +74,7 @@
 | azure-blob-access-tiers | Access tiers for blob data (hot, cool, cold, archive) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview |
 | azure-blob-lifecycle-management | Optimize costs by automatically managing the data lifecycle | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview |
 | azure-expressroute | What is Azure ExpressRoute? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction |
+| azure-spot-vms | About Azure Spot Virtual Machines | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms |
 | azure-storage-introduction | Introduction to Azure Storage (blob, file, disk) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction |
 | azure-virtual-network | Azure Virtual Network overview | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview |
 | azure-well-architected-pillars | Azure Well-Architected Framework pillars | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/well-architected/pillars |
@@ -118,6 +123,7 @@
 | gnu-sed-manual | GNU sed Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/sed/manual/sed.html |
 | gnu-tar-manual | GNU tar: an archiver tool | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/tar/manual/tar.html |
 | gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-10 | https://www.gnupg.org/gph/en/manual/x135.html |
+| google-cloud-spot-vms | Preemptible VM instances / Spot VMs | Google Cloud | 2 | — | 2026-08-11 | https://cloud.google.com/compute/docs/instances/preemptible |
 | google-sre-book-being-on-call | Site Reliability Engineering, Chapter 11: Being On-Call | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/being-on-call/ |
 | google-sre-book-effective-troubleshooting | Site Reliability Engineering, Chapter 12: Effective Troubleshooting | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/effective-troubleshooting/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |

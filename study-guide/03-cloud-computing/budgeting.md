@@ -18,7 +18,7 @@ transfer is the one that costs money.
 
 <a id="c-cloud.budgeting.capex-vs-opex"></a>
 ### CapEx vs OpEx
-*id: `cloud.budgeting.capex-vs-opex` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper*
+*id: `cloud.budgeting.capex-vs-opex` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-six-advantages-cloud-computing*
 
 **What it is** Two accounting categories for the same computing capability. Capital
 expenditure (CapEx) buys an asset outright — servers, storage arrays, a rack, a perpetual
@@ -94,7 +94,7 @@ that makes every cost-control practice in the next section necessary.
 
 <a id="c-cloud.budgeting.on-demand-reserved-and-spot-pricing"></a>
 ### on-demand, reserved and spot pricing
-*id: `cloud.budgeting.on-demand-reserved-and-spot-pricing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-spot-instances*
+*id: `cloud.budgeting.on-demand-reserved-and-spot-pricing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-spot-instances, azure-spot-vms, google-cloud-spot-vms*
 
 **What it is** Three purchasing options for one and the same unit of compute. **On-demand**
 is full list price with no commitment: start it, stop it, pay for the time it ran.
@@ -113,10 +113,13 @@ for the privilege.
 pools; the difference is which pool and what guarantee. Spot draws from unused capacity, and
 its hourly price is set by the provider and adjusted gradually according to long-term supply
 and demand — not by a live auction between customers, which is the outdated mental model most
-candidates carry. When the provider needs the capacity back, it terminates, stops, or
-hibernates the instance after a two-minute interruption notice; a separate rebalance
-recommendation signal may arrive earlier, flagging elevated interruption risk so work can be
-moved before that two-minute window opens. Reserved pricing changes nothing about the
+candidates carry. The interruption notice is provider-specific, not a shared spot/preemptible
+standard: AWS terminates, stops, or hibernates a Spot Instance after a two-minute interruption
+notice, with a separate rebalance recommendation signal that may arrive earlier, flagging
+elevated interruption risk so work can be moved before that two-minute window opens. Azure
+Spot VMs and Google Cloud Spot/preemptible VMs instead give roughly thirty seconds' notice —
+delivered best-effort, with no hibernate option — and evict rather than offer the same
+terminate/stop/hibernate choice. Reserved pricing changes nothing about the
 instance: it is a billing arrangement in which you commit to a level of spend or usage for
 the term and receive a lower rate in exchange.
 
@@ -131,9 +134,10 @@ cannot be sold, only exchanged for another Convertible reservation), and accepts
 Plan return only within seven days of purchase, in the same calendar month, and under
 documented limits. None of that refunds a commitment on demand. Spot's discount is not
 "reserved pricing without the paperwork": spot buys price with the risk of losing the
-instance, reserved buys price with loss of flexibility, and the two are not substitutes. Anything holding state that cannot be checkpointed inside two
-minutes — a production database, a stateful session tier, a long single-threaded job with no
-restart point — is unsuitable for spot at any discount.
+instance, reserved buys price with loss of flexibility, and the two are not substitutes. Anything holding state that cannot be checkpointed inside the
+interruption window — two minutes on AWS, roughly thirty seconds on Azure or Google Cloud —
+such as a production database, a stateful session tier, or a long single-threaded job with no
+restart point, is unsuitable for spot at any discount.
 
 **What the exam may test** Given a described workload (a nightly batch render, a 24/7
 production database, a two-week proof of concept, a queue-driven worker fleet), choosing the
@@ -156,7 +160,7 @@ are the three prices that same meter can be billed at.
 
 <a id="c-cloud.budgeting.free-tier-and-pricing-calculators"></a>
 ### free tier and pricing calculators
-*id: `cloud.budgeting.free-tier-and-pricing-calculators` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-budgets*
+*id: `cloud.budgeting.free-tier-and-pricing-calculators` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-budgets, aws-spot-instances, azure-spot-vms, google-cloud-spot-vms*
 
 **What it is** Two different pre-commitment instruments, usually named in one breath. A free
 tier is a provider allowance that makes some consumption cost nothing, and it comes in three
@@ -195,7 +199,8 @@ rather than above it.
 A team must cost two workloads before approval. The first is a nightly render that runs for
 three hours, is fully restartable, and does not care when it finishes; the second is the
 customer-facing API behind it, running continuously for at least two years. The render is the
-textbook spot candidate — it survives a two-minute interruption notice by re-queueing the job
+textbook spot candidate — it survives the provider's interruption notice (two minutes on AWS,
+roughly thirty seconds on Azure or Google Cloud) by re-queueing the job
 — while the API's steady, long-lived baseline is what reserved pricing exists for, with
 on-demand covering only the burst above it. Costing both before build means a pricing
 calculator, not the billing console, and the estimate must have egress added by hand or it
@@ -217,7 +222,8 @@ once to an operating charge decided continuously.
    wrong with that description?
    Spot price is set by the provider and moves gradually with long-term supply and demand, not
    by a live auction. The instance is reclaimed when the provider needs the capacity back,
-   with a two-minute interruption notice.
+   with an interruption notice that is provider-specific: two minutes on AWS, roughly thirty
+   seconds on Azure or Google Cloud.
 4. A three-year reservation was bought for a service that was decommissioned after four
    months. What happens to the spend?
    It continues for the remaining term — the discount was bought with the commitment, not
@@ -451,7 +457,7 @@ what is happening.
 
 <a id="c-cloud.budgeting.cost-monitoring"></a>
 ### cost monitoring
-*id: `cloud.budgeting.cost-monitoring` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-budgets*
+*id: `cloud.budgeting.cost-monitoring` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-budgets, aws-cost-and-usage-reports*
 
 **What it is** Continuous tracking of actual spend — broken down by service, account, region
 and tag, and plotted over time against its own trend and forecast — because cloud cost is a

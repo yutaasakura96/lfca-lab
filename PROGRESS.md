@@ -1284,3 +1284,145 @@ Gate results after applying: `npm run generate` (regenerated 6 views), `npm run 
 concepts, 0 errors, 16 pre-existing warnings, no `stale-waiver`), `npm test` (188/188 passing),
 `npm run check-guide` (537 concept definitions, 130 comparison blocks, 175 sections, 0 errors,
 0 warnings).
+
+### Cycle 3 Task 3: second adversarial fact-check pass over 8 guide files
+
+The eight guide files that had previously received only one adversarial pass, with no verdict
+record of it, were fact-checked a second time, plus a coverage top-up over concepts the first
+pass never opened: `cloud/cloud-computing.md`, `cloud/networking.md`, `cloud/budgeting.md`,
+`security/sensitive-data.md`, `security/compliance.md`, and the `topup-cloud` / `topup-security-
+oss` sweeps recorded separately. **241 claims were examined across all 131 concepts of the eight
+files (100% coverage), and 9 were refuted.**
+
+**The 9 refutations are not 9 factual defects.** They split into three classes that each needed
+a different fix, and reporting them as one undifferentiated count would have overstated what was
+actually wrong, in the same direction cycle 1's silent default-to-reject once overstated it:
+
+- **2 factual errors — prose changed.** Both were the same defect stated in two places: AWS's
+  Spot Instance interruption mechanics (two-minute notice; terminate/stop/hibernate; a separate
+  rebalance-recommendation signal) were stated in `cloud.budgeting.on-demand-reserved-and-spot-
+  pricing` and again in the scenario/knowledge-check prose following `cloud.budgeting.free-tier-
+  and-pricing-calculators` in the generic "the provider" voice, as if they applied to spot/
+  preemptible pricing as a category. They do not: Azure Spot VMs and Google Cloud Spot/
+  preemptible VMs both give roughly **30 seconds'** notice (Azure: "the Azure infrastructure will
+  evict Azure Spot Virtual Machines with 30-seconds notice," delivered best-effort via Scheduled
+  Events, Deallocate-or-Delete eviction, no hibernate; Google Cloud: "the shutdown period for a
+  preemption notice is best effort and up to 30 seconds," via an ACPI G2 signal, no hibernate) —
+  verified directly against each provider's own current documentation rather than copied from
+  the verdict file. Both sites were corrected to attribute AWS's two minutes to AWS by name and
+  state Azure's and Google Cloud's ~30 seconds with their own citations; two new sources were
+  registered, `azure-spot-vms` and `google-cloud-spot-vms` (both tier 2). The `on-demand-
+  reserved-and-spot-pricing` Traps paragraph, the free-tier scenario, and knowledge-check Q3 in
+  `budgeting.md` all carried the same unattributed "two-minute" figure and were corrected too, so
+  the file does not contradict its own two now-provider-specific concept blocks.
+- **5 attribution defects — citation fixed, prose left alone.** In each case the guide's
+  technical claim was true; only the citation supporting it was wrong or absent. Per the
+  controller's explicit instruction, **none of these five prose passages were rewritten to match
+  a weaker citation:**
+  - `cloud.cloud-computing.serverless-and-faas` — the FaaS billing claim ("charges only for the
+    duration of computation... accrues no cost when functions are inactive") is real CNCF
+    wording, but on the CNCF **FaaS** glossary page, not the serverless page the concept
+    declared. Registered `cncf-glossary-faas` (tier 1) and added it alongside the existing
+    source.
+  - `cloud.cloud-computing.container-vs-virtual-machine` — this concept's only non-objectives
+    source, `cncf-glossary-virtualization`, never mentions containers. Registered
+    `cncf-glossary-container` (tier 1) and added it.
+  - `cloud.cloud-computing.hypervisor` — the cited VMware page lists VMware **Fusion**, not
+    **Workstation**, among its type-2 examples. VMware Workstation is genuinely a type-2
+    hypervisor (the same class of product as Fusion, on Windows/Linux rather than macOS) — **the
+    guide's example was not replaced.** The prose was reworded to attribute the type-1 and type-2
+    lists to what VMware's page actually names (ESX(i)/Hyper-V/Citrix/Xen/KVM; Fusion/Oracle VM/
+    VirtualBox) and to frame Workstation as the equivalent product alongside Fusion rather than
+    as something VMware's own page lists. No new source was needed.
+  - `cloud.budgeting.capex-vs-opex` — was cited to `aws-rightsizing-whitepaper`, whose content is
+    entirely about instance rightsizing and contains no CapEx/OpEx material. Verified AWS's
+    "Six advantages of cloud computing" whitepaper page states the same substance under different
+    terms ("Trade fixed expense for variable expense... pay only when you consume computing
+    resources"); registered it as `aws-six-advantages-cloud-computing` (tier 2) and re-pointed
+    the concept's sole source at it.
+  - `cloud.budgeting.cost-monitoring` — the granularity claim ("providers expose cost and usage
+    data at daily, sometimes hourly, granularity") is true of AWS Cost and Usage Reports, but was
+    cited to the AWS Budgets page, which only discusses Budgets' own refresh cadence and
+    notification lag. Verified AWS's Cost and Usage Reports guide states "you can customize the
+    AWS Cost and Usage Reports to aggregate the information either by the hour, day, or month";
+    registered it as `aws-cost-and-usage-reports` (tier 2) and added it alongside `aws-budgets`.
+- **2 unverifiable claims — nothing in the guide or `data/` was changed.**
+  - `security.compliance.pci-dss` (`compliance-019`): the guide cites PCI DSS Requirements
+    3.3.1, 3.3.3, 3.5.1 and 11.3.2 by number. The PCI DSS v4.0/v4.0.1 standard text sits behind a
+    licence-acceptance gate at `docs-prv.pcisecuritystandards.org`, which returned HTTP 403 to
+    every fetch method tried, and no independent secondary source carried the specific
+    requirement numbers either. The fact-check agent recorded this as `refuted` as a deliberate
+    hard stop on unverifiability ("not because the numbers are known to be wrong... an
+    unverifiable requirement-number citation must not be reported as confirmed"), and the
+    controller's adjudication is explicit that this disposition must not be counted as a
+    confirmed defect. **The requirement numbers may well be correct** — they rest on the
+    original writer's sourcing and have never been checked against the standard itself. A
+    question written on these four requirement numbers should be avoided, or written so it does
+    not turn on the number, until someone with access to the standard verifies them.
+  - `cloud.cloud-computing.virtual-machine` (topup-cloud-004): the concept claims a VM "can be
+    snapshotted, cloned, resized and live-migrated to another host with little or no downtime,"
+    cited to `vmware-hypervisor`. That page returned only a title with no retrievable body text
+    on repeated fetch attempts, and follow-up VMware/Broadcom URLs 404'd. The underlying claim is
+    unremarkable and well-established elsewhere (VMware vMotion, standard hypervisor
+    capabilities), but it could not be confirmed against the *cited* source specifically, so it
+    is recorded as unverified rather than disproven and rather than silently passed as confirmed.
+
+**Coverage measured, not assumed — and the gap was hiding a real defect, not just unexamined
+prose.** The first eight-agent pass over these files reached only 101 of 131 concepts (77%)
+despite examining 206 claims — each agent honestly reported prioritising the highest-density
+claims within its file rather than shirking, but the plan promised a second pass over the
+*files*, not their densest claims. Two top-up agents closed the remaining 30 concepts. The
+top-up justified itself immediately: it found the AWS-only spot-interruption defect a **second**
+time, in `cloud.budgeting.free-tier-and-pricing-calculators` — a concept the original pass never
+opened at all. If coverage had been left at 77%, that second instance (and the correction to the
+Traps paragraph, scenario and knowledge-check text it required) would not exist. Also recorded
+for completeness: `cloud-computing.md` has 23 concepts and the base pass produced records for 19
+(4 unreached, closed by the top-up); `cloud/networking.md` — 28 claims across all 14 concepts, 0
+refuted, but the agent stated it covered only the highest-risk cross-provider assertions and not
+the provider name-map table's remaining rows, comparison-table restatements, or the scenario/
+knowledge-check sections; `security/sensitive-data.md` — 34 claims, all 13 concepts, 0 refuted,
+with the agent deliberately hunting for the project's known citation-mismatch failure class on
+11 records (all confirmed) rather than merely not finding it; GDPR text there was read from
+`gdpr-info.eu`, a verbatim mirror, rather than `eur-lex.europa.eu` as the brief asked — not worth
+re-running, worth recording; `security/compliance.md` — 31 claims, 30 confirmed, 1 unverifiable
+(above); the agent stated it did not separately check the Traps sections, knowledge-check
+answers, or comparison tables.
+
+**The systemic finding is now SEVEN confirmed instances across two cycles of a source cited for
+content it does not contain** — a different, harder-to-check property than `npm run validate`'s
+`unsourced-concept` check, which only proves a concept cites *some* tier-1/2 source, never that
+the source contains the claim attributed to it:
+
+| # | Concept | Cited | Actually contains |
+| --- | --- | --- | --- |
+| 1 | `security.incident-response` | NIST SP 800-61r3 | no PICERL six-step lifecycle |
+| 2 | `cloud.multi-cloud` | NIST SP 800-145 | the term appears nowhere |
+| 3 | `cloud.managed-services` | NIST SP 800-145 | the term appears nowhere |
+| 4 | `cloud.serverless-and-faas` | `cncf-glossary-serverless` | claim is on the FaaS page |
+| 5 | `cloud.container-vs-virtual-machine` | `cncf-glossary-virtualization` | never mentions containers |
+| 6 | `cloud.budgeting.capex-vs-opex` | `aws-rightsizing-whitepaper` | no CapEx/OpEx material |
+| 7 | `cloud.budgeting.cost-monitoring` | `aws-budgets` | no granularity content |
+
+Four of the seven were found in this single pass over eight of the project's 22 competency
+files, without anyone hunting for the class systematically. Extrapolating conservatively across
+all 537 concepts and 306+ sources, this is the largest known unmeasured defect class in the
+project. **Proposed as dedicated cycle 4 scope**, sized against all 537 concepts, rather than
+continuing to close instances one at a time as they surface incidentally.
+
+Five new sources were registered this task: `azure-spot-vms` (tier 2), `google-cloud-spot-vms`
+(tier 2), `cncf-glossary-faas` (tier 1), `cncf-glossary-container` (tier 1), and
+`aws-cost-and-usage-reports` (tier 2). The two new tier-1 CNCF sources match the existing
+`cncf-glossary` / `cncf-charter` / `cncf-who-we-are` records rather than the tier-2
+`cncf-glossary-serverless` / `cncf-glossary-virtualization` records those two concepts already
+carried before this task — CNCF sits under the Linux Foundation, the certifying body, so CNCF's
+own glossary is tier 1 in this dataset's convention (confirmed against `cncf-who-we-are`: "CNCF
+is part of the nonprofit Linux Foundation"). That leaves those two pre-existing CNCF sources at
+tier 2 as a known, pre-existing inconsistency this task did not attempt to fix. No existing
+source's tier was changed. `data/sources.json` was grepped for every candidate URL before
+registration to avoid duplicating a document already present under a different id (this project
+has been bitten by that before); none of the five was a duplicate.
+
+Gate results after applying: `npm run generate` (regenerated 6 views), `npm run validate` (537
+concepts, 0 errors, 16 pre-existing warnings, unrelated to this task), `npm test` (188/188
+passing), `npm run check-guide` (537 concept definitions, 130 comparison blocks, 175 sections, 0
+errors, 0 warnings).

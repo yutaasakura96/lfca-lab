@@ -3671,6 +3671,78 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "States EBS snapshots are point-in-time copies stored in Amazon S3, separate storage from the source volume that survives its deletion -- confirming the cloud-snapshot half of the concept's description."
+    },
+    {
+      "id": "azure-spot-vms",
+      "title": "About Azure Spot Virtual Machines",
+      "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms",
+      "organization": "Microsoft",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States Azure evicts Spot VMs 'with 30-seconds notice,' delivered on a best-effort basis via Azure Scheduled Events, with a Deallocate (default) or Delete eviction policy and no hibernate option -- registered to correct a cycle-3 finding that AWS's 2-minute Spot interruption mechanics were stated in the guide's generic 'the provider' voice as if universal to spot/preemptible pricing."
+    },
+    {
+      "id": "google-cloud-spot-vms",
+      "title": "Preemptible VM instances / Spot VMs",
+      "url": "https://cloud.google.com/compute/docs/instances/preemptible",
+      "organization": "Google Cloud",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States 'the shutdown period for a preemption notice is best effort and up to 30 seconds,' delivered via an ACPI G2 Soft Off signal, with no hibernate option -- registered alongside azure-spot-vms to correct the same cycle-3 finding."
+    },
+    {
+      "id": "cncf-glossary-faas",
+      "title": "CNCF Cloud Native Glossary: Function as a Service (FaaS)",
+      "url": "https://glossary.cncf.io/function-as-a-service/",
+      "organization": "Cloud Native Computing Foundation / Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 1,
+      "notes": "States 'Charges apply solely for the duration of computation, ensuring no costs accrue when functions are inactive,' distinguishing FaaS from models like PaaS 'which require continuous resource availability,' and that a function instance is 'initiated per request and terminated post-execution.' Registered because the guide's serverless-and-faas concept attributed this claim to the CNCF serverless glossary page, which does not contain it -- a citation-mismatch defect found in cycle 3. Tier 1 to match cncf-glossary, cncf-charter and cncf-who-we-are: CNCF sits under the Linux Foundation, the certifying body, so its own glossary is tier 1 in this dataset (see the pre-existing cncf-glossary-serverless and cncf-glossary-virtualization records, tier 2, for the inconsistency this does not attempt to fix)."
+    },
+    {
+      "id": "cncf-glossary-container",
+      "title": "CNCF Cloud Native Glossary: Container",
+      "url": "https://glossary.cncf.io/container/",
+      "organization": "Cloud Native Computing Foundation / Linux Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 1,
+      "notes": "States 'Containers share the same operating system and its machine resources, spreading the operating system's resource overhead' and 'Since containers share the same operating system, processes can be considered less secure than alternatives.' Registered because the guide's container-vs-virtual-machine concept attributed these claims to the CNCF virtualization glossary page, which never mentions containers -- a citation-mismatch defect found in cycle 3. Tier 1, matching cncf-glossary/cncf-charter/cncf-who-we-are per the same rationale as cncf-glossary-faas above."
+    },
+    {
+      "id": "aws-cost-and-usage-reports",
+      "title": "What are AWS Cost and Usage Reports?",
+      "url": "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html",
+      "organization": "Amazon Web Services",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States 'You can customize the AWS Cost and Usage Reports to aggregate the information either by the hour, day, or month,' supporting the guide's cost-monitoring claim that providers expose cost and usage data at daily, sometimes hourly, granularity. Registered because that claim was previously cited to aws-budgets (the AWS Budgets page), which discusses Budgets' own refresh cadence and notification lag, not the underlying data's time granularity -- a citation-mismatch (source-cited-for-content-it-does-not-contain) defect found in cycle 3, the seventh confirmed instance of this class across two cycles."
+    },
+    {
+      "id": "aws-six-advantages-cloud-computing",
+      "title": "Six advantages of cloud computing",
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html",
+      "organization": "Amazon Web Services",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-11",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "First of the six advantages: 'Trade fixed expense for variable expense -- Instead of having to invest heavily in data centers and servers before you know how you're going to use them, you can pay only when you consume computing resources, and pay only for how much you consume.' Registered to replace aws-rightsizing-whitepaper as the source for the capex-vs-opex concept: that whitepaper is entirely about instance rightsizing and contains no CapEx/OpEx accounting material at all, a citation-mismatch defect found in cycle 3. This page uses 'fixed expense' / 'variable expense' rather than the accounting terms 'capital expenditure' / 'operational expenditure,' but is the same distinction the guide's prose describes -- an up-front, sized-for-peak cost versus a pay-per-consumption cost."
     }
   ]
 }

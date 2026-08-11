@@ -249,7 +249,7 @@
 | cloud.cloud-computing.iaas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.paas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.saas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.serverless-and-faas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| cloud.cloud-computing.serverless-and-faas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | cloud.cloud-computing.public-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.private-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
@@ -257,7 +257,7 @@
 | cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.cloud-computing.container-vs-virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.cloud-computing.container-vs-virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.shared-responsibility-model | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.cloud-computing.region-and-availability-zone | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 2 | HIGH |
 | cloud.cloud-computing.managed-services | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -285,16 +285,16 @@
 | cloud.performance-availability.bottleneck-identification | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.pay-as-you-go | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.budgeting.total-cost-of-ownership | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| cloud.budgeting.free-tier-and-pricing-calculators | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.budgeting.free-tier-and-pricing-calculators | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 4 | 0 | 2 | MEDIUM |
 | cloud.budgeting.rightsizing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.budgeting.orphaned-resources | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.budgeting.data-egress-charges | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.resource-tagging | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.budgets-and-cost-alerts | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.budgeting.chargeback-and-showback | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| cloud.budgeting.cost-monitoring | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.budgeting.cost-monitoring | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.budgeting.storage-tiers-and-lifecycle-policies | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.best-practices.design-for-failure | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | cloud.best-practices.multi-zone-deployment | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
