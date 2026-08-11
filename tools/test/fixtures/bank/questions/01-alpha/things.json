@@ -1,0 +1,1400 @@
+{
+  "competency": "Alpha Domain :: Things",
+  "items": [
+    {
+      "id": "q.alpha.things.widget.01",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 1 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is identified by `widgetctl show`; `widgetctl list` enumerates all widgets for comparison.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [
+        "widgetctl show",
+        "widgetctl list"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.02",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.03",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Item 3 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.04",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 4,
+      "stem": "Item 4 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.05",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 5,
+      "stem": "Item 5 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.06",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 1,
+      "stem": "Item 6 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.widget.07",
+      "concept_id": "alpha.things.widget",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 7 about the widget: which statement correctly identifies the widget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the widget.",
+          "correct": true,
+          "why": "That is the definition of the widget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the trinket.",
+          "correct": false,
+          "why": "That describes the trinket, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the widget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.widget"
+          }
+        }
+      ],
+      "rationale": "The widget is the widget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.widget",
+      "comparison_block": "cmp-alpha.things.widget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.gadget.01",
+      "concept_id": "alpha.things.gadget",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 1 about the gadget: which statement correctly identifies the gadget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the gadget.",
+          "correct": true,
+          "why": "That is the definition of the gadget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the doohickey.",
+          "correct": false,
+          "why": "That describes the doohickey, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the gadget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.gadget"
+          }
+        }
+      ],
+      "rationale": "The gadget is the gadget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
+      "comparison_block": "cmp-alpha.things.gadget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.gadget.02",
+      "concept_id": "alpha.things.gadget",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the gadget: which statement correctly identifies the gadget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the gadget.",
+          "correct": true,
+          "why": "That is the definition of the gadget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the doohickey.",
+          "correct": false,
+          "why": "That describes the doohickey, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the gadget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.gadget"
+          }
+        }
+      ],
+      "rationale": "The gadget is the gadget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
+      "comparison_block": "cmp-alpha.things.gadget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.gadget.03",
+      "concept_id": "alpha.things.gadget",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Item 3 about the gadget: which statement correctly identifies the gadget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the gadget.",
+          "correct": true,
+          "why": "That is the definition of the gadget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the doohickey.",
+          "correct": false,
+          "why": "That describes the doohickey, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the gadget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.gadget"
+          }
+        }
+      ],
+      "rationale": "The gadget is the gadget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
+      "comparison_block": "cmp-alpha.things.gadget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.gadget.04",
+      "concept_id": "alpha.things.gadget",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 4,
+      "stem": "Item 4 about the gadget: which statement correctly identifies the gadget?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the gadget.",
+          "correct": true,
+          "why": "That is the definition of the gadget.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a different concept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the doohickey.",
+          "correct": false,
+          "why": "That describes the doohickey, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the gadget.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.gadget"
+          }
+        }
+      ],
+      "rationale": "The gadget is the gadget, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.gadget",
+      "comparison_block": "cmp-alpha.things.gadget",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.trinket.01",
+      "concept_id": "alpha.things.trinket",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 1 about the trinket: which statement correctly identifies the trinket?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the trinket.",
+          "correct": true,
+          "why": "That is the definition of the trinket.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the trinket.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.trinket"
+          }
+        }
+      ],
+      "rationale": "The trinket is the trinket, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.trinket",
+      "comparison_block": "cmp-alpha.things.trinket",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.trinket.02",
+      "concept_id": "alpha.things.trinket",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the trinket: which statement correctly identifies the trinket?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the trinket.",
+          "correct": true,
+          "why": "That is the definition of the trinket.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.trinket"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the widget.",
+          "correct": false,
+          "why": "That describes the widget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.widget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the trinket.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.trinket"
+          }
+        }
+      ],
+      "rationale": "The trinket is the trinket, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.trinket",
+      "comparison_block": "cmp-alpha.things.trinket",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.01",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 1,
+      "stem": "Item 1 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.02",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.03",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Item 3 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.04",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 4,
+      "stem": "Item 4 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.05",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 5,
+      "stem": "Item 5 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.06",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 1,
+      "stem": "Item 6 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.07",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 7 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.08",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Item 8 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.09",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "Item 9 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.10",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 5,
+      "stem": "Item 10 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.alpha.things.doohickey.11",
+      "concept_id": "alpha.things.doohickey",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 11 about the doohickey: which statement correctly identifies the doohickey?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the doohickey.",
+          "correct": true,
+          "why": "That is the definition of the doohickey.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the gadget.",
+          "correct": false,
+          "why": "That describes the gadget, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "alpha.things.gadget"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the doohickey.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:alpha.things.doohickey"
+          }
+        }
+      ],
+      "rationale": "The doohickey is the doohickey, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "01-alpha/things.md#c-alpha.things.doohickey",
+      "comparison_block": "cmp-alpha.things.doohickey",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

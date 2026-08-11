@@ -1,0 +1,1058 @@
+{
+  "competency": "Beta Domain :: Stuff",
+  "items": [
+    {
+      "id": "q.beta.stuff.thing.01",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 1 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.02",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.03",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Item 3 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.04",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 4,
+      "stem": "Item 4 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.05",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 5,
+      "stem": "Item 5 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.06",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 1,
+      "stem": "Item 6 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.07",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 7 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.08",
+      "concept_id": "beta.stuff.thing",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Item 8 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.thing.09",
+      "concept_id": "beta.stuff.thing",
+      "pool": "supplement",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "Item 9 about the thing: which statement correctly identifies the thing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the thing.",
+          "correct": true,
+          "why": "That is the definition of the thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the unsourced item.",
+          "correct": false,
+          "why": "That describes the unsourced item, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the thing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.thing"
+          }
+        }
+      ],
+      "rationale": "The thing is the thing, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec",
+        "fixture-vendor"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.thing",
+      "comparison_block": "cmp-beta.stuff.thing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.01",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 1,
+      "stem": "Item 1 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.02",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 2 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.03",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Item 3 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.04",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 4,
+      "stem": "Item 4 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.05",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 5,
+      "stem": "Item 5 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.06",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 1,
+      "stem": "Item 6 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.07",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Item 7 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.08",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Item 8 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.beta.stuff.unsourced.09",
+      "concept_id": "beta.stuff.unsourced",
+      "pool": "supplement",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "Item 9 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is the unsourced item.",
+          "correct": true,
+          "why": "That is the definition of the unsourced item.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is unrelated.",
+          "correct": false,
+          "why": "That is not correct.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is the thing.",
+          "correct": false,
+          "why": "That describes the thing, a sibling concept.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "beta.stuff.thing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is neither of these.",
+          "correct": false,
+          "why": "A common wrong belief about the unsourced item.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:beta.stuff.unsourced"
+          }
+        }
+      ],
+      "rationale": "The unsourced item is the unsourced item, distinct from nearby concepts.",
+      "source_ids": [
+        "fixture-spec"
+      ],
+      "guide_anchor": "02-beta/stuff.md#c-beta.stuff.unsourced",
+      "comparison_block": "cmp-beta.stuff.unsourced",
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    }
+  ]
+}

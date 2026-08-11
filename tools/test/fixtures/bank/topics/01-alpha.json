@@ -1,0 +1,54 @@
+{
+  "topics": [
+    {
+      "id": "alpha.things.widget",
+      "path": ["Alpha Domain", "Things", "Group one", "widget"],
+      "domain": "Alpha Domain", "competency": "Things",
+      "description": "A widget.", "objective_verbatim": "Things",
+      "sept_2025_status": "unchanged", "inferred": true, "confidence": "HIGH",
+      "required_depth": 3, "importance": 4,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": ["fixture-spec"], "candidate_evidence": [],
+      "commands": ["widgetctl show", "widgetctl list"],
+      "related_topics": [], "confused_with": ["alpha.things.gadget"],
+      "coverage_status": "NOT COVERED", "notes": "Confused with a gadget."
+    },
+    {
+      "id": "alpha.things.gadget",
+      "path": ["Alpha Domain", "Things", "Group one", "gadget"],
+      "domain": "Alpha Domain", "competency": "Things",
+      "description": "A gadget.", "objective_verbatim": "Things",
+      "sept_2025_status": "unchanged", "inferred": true, "confidence": "HIGH",
+      "required_depth": 2, "importance": 4,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": ["fixture-spec"], "candidate_evidence": [],
+      "commands": [], "related_topics": [], "confused_with": [],
+      "coverage_status": "NOT COVERED", "notes": "Confused with a widget."
+    },
+    {
+      "id": "alpha.things.trinket",
+      "path": ["Alpha Domain", "Things", "Group two", "trinket"],
+      "domain": "Alpha Domain", "competency": "Things",
+      "description": "A trinket.", "objective_verbatim": "Things",
+      "sept_2025_status": "unchanged", "inferred": true, "confidence": "HIGH",
+      "required_depth": 1, "importance": 4,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": ["fixture-spec"], "candidate_evidence": [],
+      "commands": [], "related_topics": [], "confused_with": [],
+      "coverage_status": "NOT COVERED", "notes": "Peripheral."
+    },
+    {
+      "id": "alpha.things.doohickey",
+      "path": ["Alpha Domain", "Things", "Group two", "doohickey"],
+      "domain": "Alpha Domain", "competency": "Things",
+      "description": "A doohickey that fails in diagnosable ways.",
+      "objective_verbatim": "Things",
+      "sept_2025_status": "unchanged", "inferred": true, "confidence": "HIGH",
+      "required_depth": 4, "importance": 4,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": ["fixture-spec"], "candidate_evidence": [],
+      "commands": [], "related_topics": [], "confused_with": [],
+      "coverage_status": "NOT COVERED", "notes": "Diagnostic."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "exam_version": "fixture",
+  "domains": [
+    {
+      "id": "alpha",
+      "name": "Alpha Domain",
+      "weight": 60,
+      "file": "01-alpha.json",
+      "competencies": [{ "name": "Things", "sept_2025_status": "unchanged" }]
+    },
+    {
+      "id": "beta",
+      "name": "Beta Domain",
+      "weight": 40,
+      "file": "02-beta.json",
+      "competencies": [{ "name": "Stuff", "sept_2025_status": "added" }]
+    }
+  ]
+}

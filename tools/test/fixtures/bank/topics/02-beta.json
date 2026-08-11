@@ -1,0 +1,28 @@
+{
+  "topics": [
+    {
+      "id": "beta.stuff.thing",
+      "path": ["Beta Domain", "Stuff", "Only group", "thing"],
+      "domain": "Beta Domain", "competency": "Stuff",
+      "description": "A thing.", "objective_verbatim": "Stuff",
+      "sept_2025_status": "added", "inferred": true, "confidence": "MEDIUM",
+      "required_depth": 2, "importance": 1,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": ["fixture-vendor"], "candidate_evidence": [],
+      "commands": [], "related_topics": [], "confused_with": [],
+      "coverage_status": "NOT COVERED", "notes": "A thing."
+    },
+    {
+      "id": "beta.stuff.unsourced",
+      "path": ["Beta Domain", "Stuff", "Only group", "unsourced"],
+      "domain": "Beta Domain", "competency": "Stuff",
+      "description": "Something with no primary source.", "objective_verbatim": "Stuff",
+      "sept_2025_status": "added", "inferred": true, "confidence": "LOW",
+      "required_depth": 2, "importance": 1,
+      "official_sources": ["fixture-spec"], "lfs200_sources": [],
+      "additional_sources": [], "candidate_evidence": [],
+      "commands": [], "related_topics": [], "confused_with": [],
+      "coverage_status": "NOT COVERED", "notes": "Waived."
+    }
+  ]
+}

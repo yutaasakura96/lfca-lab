@@ -1,0 +1,8 @@
+{
+  "sources": [
+    { "id": "fixture-spec", "title": "Fixture Spec", "url": "https://example.invalid/spec",
+      "organization": "Fixture", "authority_tier": 1, "accessed": "2026-08-11" },
+    { "id": "fixture-vendor", "title": "Fixture Vendor Doc", "url": "https://example.invalid/vendor",
+      "organization": "Fixture", "authority_tier": 2, "accessed": "2026-08-11" }
+  ]
+}
