@@ -444,3 +444,78 @@ Tasks 15-35: complete - THE QUESTION BANK IS WRITTEN
     for System Administration, but no concept in that competency covers the OOM killer - it is in
     Troubleshooting. It refused to fabricate rather than satisfy the instruction.
 
+Tasks 36-41: complete (commit a2476cf) - VERIFICATION WAVE A
+  Six competencies, 138 items: disaster-recovery 30, troubleshooting 23, sysadmin best-practices 27,
+  functional-analysis 15, software-application-architecture 17, sensitive-data 26.
+  **138 of 138 items carry a verdict. 31 were refuted on first pass, rewritten and re-verified;
+  final state 138 confirmed, 0 refuted.** Unscoped check-bank moved 1151 -> 1013 errors, being
+  exactly 1012 q-verdict-coverage + 1 q-answer-position-balance. Sources 312 -> 320.
+
+  Controller verified every file against the FILESYSTEM, not the reports: item counts, verdict
+  counts, `checked` completeness against each item's own option refs, non-empty `sources_read`,
+  agent_label correctness, plus independent re-runs of the two shape scans. All six clean.
+
+  **The citation defect is no longer "systemic", it is the norm.** 22 further instances of a source
+  cited for content it does not contain, in 138 items - against seven found in the whole of cycles
+  1 and 2. Troubleshooting alone had eight in 23 items. Examples: `man-resolv-conf` cited for
+  systemd-resolved and 127.0.0.53; `man-df` for deleted-but-open files; NIST SP 800-128 for "alert
+  fatigue" (the phrase is absent); SP 800-40r4 for "maintenance window" (absent); SP 800-34r1 for
+  "failback" (absent); the CNCF glossary for per-service data ownership (absent); `nist-sp-800-122`
+  for classification schemes (absent); the CSRC glossary for "data in use" (404, no such term).
+  Every one was fixed at the citation. **No correct content was weakened to match a thin source** -
+  the Task 3 `hypervisor` precedent held.
+
+  Three defects the 21 checks structurally cannot see, each a distinct class:
+  1. **Two options asserting the same answer.** sysadmin best-practices had two options headlined
+     "Least privilege" and two making the same authoritative-inventory claim. Both eliminable on
+     sight without knowing the subject. Sibling of the distractor-shape gap already queued.
+  2. **A distractor that is also correct.** Five found. The sharpest: software-architecture's
+     `curl -I -X DELETE` distractor, whose `why` claimed `-I` overrides `-X`. The curl manual says
+     `--request` "does not alter the way curl behaves" - the DELETE really is sent and the status
+     line really does print, so the distractor satisfied the stem. Only fetching the manual settles
+     it. Also two double-keys in functional-analysis, one of them on the competency's own defining
+     axis: the key and a distractor both turned on "no threshold attached" while the stem said
+     "five failed login attempts".
+  3. **A guide sentence that is true but misreadable.** sensitive-data's key asserted GDPR Art 4(1)
+     names an online identifier as identifying a person *directly*; Art 4(1) reads "directly or
+     indirectly" and Recital 30 conditions it on combination. Traced to the guide's Traps
+     paragraph, where "directly" meant *expressly* and the author read it as *as a direct
+     identifier*. The guide was not wrong, and it still produced a wrong item. Nothing in the
+     harness can see this; a sweep for true-but-ambiguous guide prose is cycle-4 scope.
+
+  Process:
+  - **A shared-scratchpad collision fired.** The scratchpad is shared across parallel agents; Task
+    36 wrote a generically named `apply.mjs`, Task 37 overwrote it between write and run, and Task
+    36 executed Task 37's script. It happened to be idempotent. Controller re-verified
+    troubleshooting.json after the fact - 23 items, 23 unique ids, all correctly labelled, scans
+    clean. Later waves must use task-numbered scratchpad filenames.
+  - **Concurrent read-modify-write on `data/sources.json` did not clobber**, but only by luck of
+    timing. Controller diffed against HEAD: 312 -> 320 with zero ids lost, and both touched topic
+    files hold their full id set. Worth a serialised applier if a later wave registers more.
+  - **A false refutation was caught by the agent that nearly made it.** Task 36 first recorded
+    hot-warm-and-cold-sites.01 as unsourced from reading NIST SP 800-34r1 section 3.4.3, then found
+    the stem verbatim in chapter 5 and confirmed it. Reading one section and declaring a claim
+    unsourced manufactures false refutations exactly as recall manufactures false confirmations.
+  - **The findings queue was empty and is being filled retroactively.** `qbank-findings.md` still
+    read "None raised by the pilot" - 21 wave authors appended nothing across 1,120 items, so
+    Step E had almost nothing to adjudicate. Four of the six wave-A agents appended their own
+    competency sections. Task 60 must not read the thin queue as evidence the bank was clean.
+
+  Two decisions deferred to the controller rather than taken silently, both correct to defer:
+  - **SWEBOK Guide v3.0 is free** (IEEE CS) and cleanly settles two of the 22 still-waived
+    concepts, `requirements-elicitation` and `non-functional-requirements`. De-waiving touches
+    `sourcing-waivers.json`, `waived_source` flags and the bank-wide validate warning count, so it
+    was left alone. This is a third independent demonstration that the waiver rationale does not
+    survive contact with a search.
+  - **`feasibility-study` has no `confused_with` edge** but the guide prose, two `data`
+    descriptions and two bank items all run the gap-analysis/feasibility discrimination, tagging
+    distractors `sibling` for want of an edge. Adding the edge creates a comparison-block
+    obligation in the guide. `verification-vs-validation`, the other half of the ledger's open
+    question, is **correct as modelled** - it is one concept containing its own comparison, with no
+    second concept to point at.
+
+  Non-finding, checked and dismissed: all 1,150 keys sit at option index 0 bank-wide. That is by
+  design - `orderedOptions` in tools/lib/assemble.mjs places the key from `assignPositions` for
+  exams AND drills, and the module comment says authors never choose a position precisely so the
+  bank carries no positional bias for the assembler to inherit.
+
