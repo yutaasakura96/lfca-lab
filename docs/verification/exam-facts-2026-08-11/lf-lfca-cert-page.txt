@@ -1,0 +1,144 @@
+Skip to main content
+ Celebrate 35 Years of Linux ➜ Save 35% Sitewide with Code TUX35
+ Training & Certification
+ Upcoming Webinar: The Cap(AI)bility Edge ➜ REGISTER NOW
+Certification > Linux System Administration > Certified IT Associate (LFCA)
+CERTIFICATION
+Linux Foundation Certified IT Associate (LFCA)
+
+Obtaining a LFCA certification demonstrates a user’s expertise and skills in fundamental information technology functions, especially in cloud computing. It is ideal for those getting started in an IT career as an administrator/engineer.
+
+Not sure where to start? You may consider reviewing our suggested LFCA learning path.
+
+You have three ways to purchase!
+
+1. Certification exam only – $250
+2. Certification exam + THRIVE-ONE Annual Subscription (includes unlimited access to all e-Learning courses, SkillCreds, and premium Microlearning content) – $495
+3. Certification exam + Fundamentals of Open Source IT and Cloud Computing (LFS200) course – $299
+
+Who Is It For
+The LFCA is a pre-professional certification intended for those new to the industry or considering starting an IT career as an administrator or engineer. This certification is ideal for users interested in advancing to the professional level through a demonstrated understanding of critical concepts for modern IT systems including cloud computing.
+read more
+About This Certification
+A Certified IT Associate will confirm early proficiency and aptitude in the IT field. The exam is intended to integrate with other qualifications and provides a stepping stone to more advanced credentials.
+read more
+What It Demonstrates
+LFCA will test candidates' knowledge of fundamental IT concepts including operating systems, software application installation and management, hardware installation, use of the command line and basic programming, basic networking functions, security best practices, and other related topics to validate their capability and preparedness for an entry-level IT position.
+read more
+Domains & Competencies
+Expand All
+Linux Fundamentals
+16%
+Linux Operating System
+Command Line
+
+
+System Administration Fundamentals
+30%
+System Administration
+Best Practices
+Networking
+Troubleshooting
+Disaster Recovery
+Cloud Computing Fundamentals
+18%
+Cloud Computing
+Performance/Availability
+Budgeting
+Best Practices
+Networking
+Security Fundamentals
+14%
+Security
+Sensitive Data
+Compliance
+
+DevOps Fundamentals
+12%
+DevOps Basics
+Git Concepts
+Containers
+IT Project Management Fundamentals
+10%
+Project Management
+Software Application Architecture
+Functional Analysis
+Open Source Software and Licensing
+Exam Details & Resources
+This exam is an online, proctored, multiple-choice exam.
+Linux Foundation Global Certification & Confidentiality Agreement
+Candidate Handbook
+Important Instructions
+Frequently Asked Questions
+Additional Free Resources
+Prerequisites
+Reviews
+ Jan 2025
+It was multiple choice and easy to navigate. The exam covered the material very well, and was concise in its delivery.
+ Sep 2024
+This one is quite quick to do, as it is multiple choice. Also, there are lots of different topics on various interesting aspects of linux, cloud and sysadmin.
+ Feb 2024
+The LFCA exam takes me back to my early days as an information technology professional. I have been in the industry for over 7 years and still believe this exam was difficult to pass. This exam tested your in-depth knowledge of IT operations, including Linux, networking, security, Cloud, DevOps, and more. Thank you to the LFCA and PSI teams for organizing this examination.
+ Nov 2023
+Questions have a wide range from theoretical to practical, from shallow to deep ones. All are expected at the exam level.
+ Oct 2023
+The flow and structure of the questioning was clear.
+ Aug 2023
+Overall, I really liked the exam. It really tested my knowledge on many aspects of the LFS200 course.
+$250
+Exam only
+Enroll Today
+Get a Quote
+
+Bundle & Save
+
+Best Value
+Save 40% on LFCA with the THRIVE-ONE Annual Subscription Bundle
+$495
+Exam + Full Access Subscription
+Buy Value Bundle
+$299
+LFS200 Course + LFCA Exam
+Buy Bundle
+100% Money Back Guarantee
+Includes
+Online
+Certification Valid for 2 Years
+12 Month Exam Eligibility
+One Retake
+Multiple Choice Exam
+Duration of Exam 90 minutes
+Experience Level: Beginner
+Get a Quote
+Get help to convince your boss.
+Certifying more than 10 people?Get a corporate quote.
+Popular Courses and Certifications
+LFCS - LINUX
+Linux Foundation Certified System Administrator (LFCS)
+Intermediate
+CKA - KUBERNETES
+Certified Kubernetes Administrator (CKA)
+Intermediate
+CKAD - KUBERNETES
+Certified Kubernetes Application Developer (CKAD)
+Intermediate
+Stay Up to Date
+
+Get early access to the latest Linux Foundation Training news, tutorials and exclusive offers – available only for monthly newsletter subscribers.
+
+Get exclusive discounts, news, and more with our free newsletter
+Name*
+First
+Last
+Email*
+
+We won’t ever send you spam, promise.
+
+bluesky
+facebook
+linkedin
+youtube
+
+© 2026 Linux Foundation - Education.  The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our Trademark Usage page. Linux is a registered trademark of Linus Torvalds.
+Terms of Use | Privacy Policy | Bylaws | Trademark Usage | Antitrust Policy | Good Standing Policy
+Accelerated by

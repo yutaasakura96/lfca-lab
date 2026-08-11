@@ -1,0 +1,177 @@
+For the complete documentation index, see llms.txt. This page is also available as Markdown.
+Copy
+Certification
+Multiple Choice Exams: Important Instructions
+
+Exam Details
+
+The multiple-choice exam is delivered online and consists of 60* multiple-choice questions.
+* CNPA exam consists of  85 multiple-choice questions.
+
+Candidates have 90* minutes to complete the multiple-choice exam.
+* CNPA candidates have 120 minutes to complete the exam.
+
+The exam is proctored remotely via streaming audio, video, and screen-sharing feeds.
+
+Results will be emailed within 24 hours from the time that the exam is completed.
+
+
+System Requirements to take the exam
+
+Candidates should run the PSI Online Proctoring System Check to verify that their machine meets the technical requirements for taking a proctored exam.
+
+The online proctored exam is taken on PSI's proctoring platform "Bridge", using the PSI Secure Browser (a web browser created to guarantee a secure exam delivery over a virtual connection).
+
+PSI Secure Browser Download is made available to candidates at Exam Launch Time.
+
+Candidates should review the Bridge FAQ Information, published by PSI, to prepare for the Secure Browser installation and be aware of how to resolve issues with the Installation/download or launch of their exam:
+
+PSI Secure Browser FAQ (General)
+PSI Secure Browser - Linux OS Troubleshooting
+
+Candidates must provide their own computer with:
+
+Supported OS: Please review the System Requirements, published by PSI, in particular the supported Operating System Information.
+
+All browsers are supported, however PSI highly recommends using the latest version of Google Chrome for the best exam scheduling experience, and because the secure browser is Chrome-based and will give a more accurate experience.
+
+One active monitor (either built in or external)  (NOTE: Dual Monitors are NOT supported)
+
+Reliable internet access
+
+Ensure others on the same internet connection are not performing activities that use excessive bandwidth (i.e. holding conference calls, streaming content, gaming, etc.)
+
+A wired connection is often more stable and robust than a wireless connection
+
+Turn off bandwidth-intensive services (e.g. file sync, dropbox, BitTorrent)
+
+Microphone
+
+Mac users may need to allow the PSI Secure Browser within their 'System Preferences: Security & Privacy: Privacy' settings for Microphone, Camera, Automation and Input Monitoring.
+
+Please check to make sure it is working before you start your exam session.
+
+Webcam
+
+Ensure the webcam is capable of being moved as you will have to pan your surroundings to check for potential violations of exam policy.
+
+Mac users may need to allow the PSI Secure Browser within their 'System Preferences: Security & Privacy: Privacy' settings for Microphone, Camera, Automation and Input Monitoring.
+
+If you will be testing from an employer-provide ISP or will use an employer provided machine, please ensure that streaming will be allowed using WebRTC.
+
+To ensure a smooth exam experience, we recommend using personal devices without stringent security features, and on which you have the privileges needed to install applications and to end system process' and services.
+
+We strongly advise test takers to avoid using work-provided devices for their exams, as this practice can result in technical challenges.
+Although it is sometimes possible to initiate and access the exam on such devices, work devices often come with security features and work-related applications that can disrupt the exam software, causing technical complications.
+
+Candidates are not allowed to have other applications or browser windows running except the one on which the Exam is being shown.
+
+Please review the PSI Bridge Platform: System Requirements to ensure your machine will meet the requirements of our online proctor.
+
+Important Information to Consider:
+
+Please disable firewalls or use a computer without a corporate firewall. Firewalls may interfere with installing the secure browser needed to take the test.
+
+You should use a computer on which you have the privileges needed to install applications AND  end system process' and services.
+
+You cannot take an exam using a virtual machine even though the compatibility check may not display any issues
+
+If possible, stop any antivirus software from running, and antivirus scanning during the exam time.
+
+If you are using a laptop, make sure that it's plugged into a power socket, so that the battery does not run out during the exam.
+
+Acceptable Testing Location
+
+Below are the expectations for an acceptable testing location::
+
+Clutter-free work area
+
+No objects such as paper, writing implements, electronic devices, or other objects on top of surface
+
+No objects such as paper, trash bins, or other objects below the testing surface
+
+Clear walls
+
+No paper/print outs hanging on walls
+
+Paintings and other wall décor is acceptable
+
+Candidates will be asked to remove non-décor items prior to the exam being released
+
+Lighting
+
+Space must be well lit so that proctor is able to see candidate’s face, hands, and surrounding work area
+
+No bright lights or windows behind the examinee
+
+Other
+
+Candidate must remain within the camera frame during the examination
+
+Space must be private where there is no excessive noise. Public spaces such as coffee shops, stores, open office environments, etc. are not allowed.
+
+ID Requirements to take the Exam
+
+Candidates need to provide identification (ID) that meets the requirements outlined below:
+
+All IDs must be a valid (unexpired) Government-issued original, physical document (not photocopied or electronic)
+
+IDs must include the candidate's name, photo, and signature*
+
+*Government-issued biometric IDs that do not contain signature will be accepted
+
+The first and last name on the ID must exactly match the verified name entered on your exam checklist
+
+Acceptable forms of ID:
+
+International travel passport
+
+Government-issued driver’s license/permit
+
+Government-Issued local language ID (with photo and signature)
+
+National identity card State or province-issued identity card
+
+Alien registration card (green card or permanent resident/visa)
+
+住民基本台帳 (Basic Resident Register with photo) or マイナンバーカード(My Number Card)
+
+
+Minors, between the age of 16-18,  are permitted to take an online proctored exam with PSI, provided they complete the following requirements:
+
+A Parent/Guardian must complete the Parental Release for Testing of Minors form, and submit it to trainingsupport.linuxfoundation.org, at least 2 weeks prior to the scheduled date of the exam
+
+At check in, the minor candidate must present a valid student ID as a form of identification
+
+During the PSI check-in process, the candidate's guardian must also present a valid ID and must provide verbal consent during the PSI check-in process.
+
+Sanctioned Countries
+
+Exams may be administered to citizens of a sanctioned country listed below PROVIDED the citizens are tested OUTSIDE the sanctioned country and their exam registration and current ID show an address OUTSIDE the sanctioned country.
+
+Cuba
+
+Iran
+
+Syria
+
+North Korea
+
+Crimea Region of Ukraine
+
+Taking the Exam
+
+We recommend that candidates review the Take Exam section of our Candidate handbook, to become familiar with the PSI Secure Browser Download and Installation steps, and the candidate's Self Check-In Process.
+
+Additional Resources
+
+If you cannot find an answer to your question in the Candidate Handbook or FAQ, please login to trainingsupport.linuxfoundation.org to submit a customer support request.
+
+Previous
+Multiple Choice Exams: Frequently Asked Questions
+Next
+Important Instructions: LFCS
+
+Last updated 4 months ago
+
+Was this helpful?

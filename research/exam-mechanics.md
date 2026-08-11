@@ -18,17 +18,40 @@ Confidence key:
 
 ---
 
+## Capture of record
+
+Re-fetched 2026-08-11 in a browser and captured to
+`docs/verification/exam-facts-2026-08-11/`, which holds the rendered text of each page,
+a SHA-256 of each capture, and a per-fact record with the verbatim quote that supports it.
+Cycle 1 established these facts on 2026-08-09 and left no artifact; that gap is now closed.
+Any figure in this file can be checked against the capture without re-fetching anything.
+
 ## 1. Question count
 
-**Not stated in official sources.**
+**Not stated in official sources**, with one exception now flagged below and **not adopted**.
 
-No page consulted — the LFCA certification page, the Candidate Handbook, the Multiple Choice
-Exams FAQ, or the Multiple Choice Exams Important Instructions page — states a total number of
-questions for the LFCA exam. Third-party prep sites widely quote figures (commonly "60
-questions"), but these are tier-3/4 and unverified; several are stale relative to the
-2025-09-16 competency change. **This project records no question count** rather than repeat an
-unverified figure. If the Linux Foundation publishes this number on a page not yet checked, it
-should be added here with a HIGH-confidence citation.
+No page consulted in stage 1 or stage 2 — the LFCA certification page, the Candidate Handbook,
+the Multiple Choice Exams FAQ, or the Multiple Choice Exams Important Instructions page — stated
+a total number of questions for the LFCA exam. Third-party prep sites widely quote figures
+(commonly "60 questions"), but these are tier-3/4 and unverified; several are stale relative to
+the 2025-09-16 competency change. **This project records no question count** rather than repeat
+an unverified figure.
+
+**MAJOR FINDING, NOT ADOPTED, REQUIRES HUMAN REVIEW.** On 2026-08-11, the Multiple Choice Exams
+Important Instructions page (`lf-important-instructions-mc`) — the same page checked and found
+silent on this point in both prior stages — now states: "The multiple-choice exam is delivered
+online and consists of 60* multiple-choice questions. * CNPA exam consists of 85 multiple-choice
+questions." This mirrors the structure of the page's own duration statement (a generic rule with
+a named CNPA exception), the same structure this file already uses to attribute the generic
+90-minute and 75%-passing rules to LFCA. The number (60) also matches the previously-dismissed
+third-party figure. Despite that, this project does **not** adopt 60 as the LFCA question count
+here: it reverses two independent "not stated" findings a day apart, which is itself grounds for
+suspicion rather than confidence, and the task that captured it was explicitly instructed not to
+fold a discovered count into this file quietly. See
+`docs/verification/exam-facts-2026-08-11/manifest.json` (fact `question_count`) and
+`lf-important-instructions-mc.txt` for the full quote and source. A human should decide whether
+to adopt this figure, and if so, re-verify it independently before cycle 3's question bank relies
+on it.
 
 ## 2. Exam duration
 
@@ -190,9 +213,38 @@ consistent across sources. The only near-contradiction is the already-documented
 that `lf-objectives-2025` claims domains are unchanged when the archived page shows otherwise —
 unrelated to mechanics and not re-litigated here.
 
+## Changes since the 2026-08-09 capture
+
+No fact recorded in this document for duration, format, passing score, practical component,
+validity, retake, or price changed between 2026-08-09 and 2026-08-11 — every one of those was
+re-fetched in a browser on 2026-08-11 and verbatim-matches the 2026-08-09 values already in this
+file (see `docs/verification/exam-facts-2026-08-11/manifest.json`, `matches_cycle_1: true` on
+each).
+
+Two things did change or newly appear, neither of which is folded into the numbered sections
+above as an adopted fact without this note:
+
+1. **Question count** (Section 1): the Multiple Choice Exams Important Instructions page now
+   states "60" (CNPA: "85") where it previously stated nothing. Not adopted — see Section 1 for
+   the full reasoning and the required human review.
+2. **Domain weights and competency lists** (out of scope for this file, which does not itself
+   state domain weights, but recorded for downstream visibility): the LFCA certification page's
+   Domains & Competencies accordion, re-fetched 2026-08-11, now shows Linux Fundamentals 16%,
+   System Administration Fundamentals 30%, Cloud Computing Fundamentals 18%, Security
+   Fundamentals 14%, DevOps Fundamentals 12%, IT Project Management Fundamentals 10% — different
+   from the 20/20/20/16/16/10-pattern this project has treated as current since the 2025-09-16
+   revision, and with different competency names inside several domains. This is captured
+   verbatim in `docs/verification/exam-facts-2026-08-11/lf-lfca-cert-page.txt` and as the
+   `domain_weights` fact in the accompanying manifest. It affects `data/competencies.json` and
+   the generated `research/` views derived from it, not this hand-written file, and is flagged
+   here only so a reader of this file's "capture of record" pointer does not miss it. It is not
+   applied to any dataset file by this task.
+
 ## Open questions for a future pass
 
-- Exact total question count: never found in any official source checked across two stages.
+- Exact total question count: never stated by an official source across two stages; a possible
+  third-stage statement (60, CNPA 85) surfaced 2026-08-11 but is explicitly not adopted pending
+  human review — see Section 1 and the "Changes since the 2026-08-09 capture" section above.
 - Whether questions are single- or multi-select, and whether there is negative marking.
 - Whether "12 Month Exam Eligibility" governs the retake window specifically or the whole
   purchase-to-attempt window.

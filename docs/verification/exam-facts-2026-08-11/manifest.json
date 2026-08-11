@@ -1,0 +1,147 @@
+{
+  "captured": "2026-08-11",
+  "method": "in-app browser (mcp__Claude_Browser__navigate), rendered page text extracted via document.body.innerText in the same browser tab after navigation (the certification page's Includes box, pricing widget, and Domains & Competencies accordion are JS-rendered and invisible to a plain fetch; get_page_text alone returned only the first accordion panel's <article>, so full rendered body text was read directly from the live DOM in the same browser session -- no non-browser fetch was used at any point).",
+  "url_anomalies": [
+    {
+      "requested_url": "https://training.linuxfoundation.org/certification/linux-foundation-certified-it-associate/",
+      "observed_behavior": "Redirects (still HTTP 200 on the destination) to https://training.linuxfoundation.org/certification/linux-foundation-certified-it-associate-lfca-jp/, a retired Japanese-market LFCA-JP variant page, not the canonical LFCA certification page. That page states: \"The LFCA-JP exam has been retired and is no longer available for purchase. The LFCA (non-JP version)...\" (with a link to the LFCA program-changes page) and carries no purchase/pricing section. This URL was NOT used as the source for the lf-lfca-cert-page capture below.",
+      "resolution": "Used the URL already registered for source_id lf-lfca-cert-page in data/sources.json (https://training.linuxfoundation.org/certification/certified-it-associate/) instead, which loads directly with no redirect and carries the full Includes box, accordion, and pricing widget. This is the same page cycle 1 captured on 2026-08-09."
+    },
+    {
+      "requested_url": "https://training.linuxfoundation.org/multiple-choice-exams-faq/",
+      "observed_behavior": "Does not resolve on training.linuxfoundation.org; navigation lands on the site homepage (https://training.linuxfoundation.org/, title \"Open Source Training | Linux Foundation Training and Certification\"). This is a path that does not exist on this domain.",
+      "resolution": "Used the URL already registered for source_id lf-faq-mc in data/sources.json (https://docs.linuxfoundation.org/tc-docs/certification/faq-mc, a different subdomain), which loads directly. Same page cycle 1 captured on 2026-08-09."
+    },
+    {
+      "requested_url": "https://training.linuxfoundation.org/multiple-choice-exams-important-instructions/",
+      "observed_behavior": "Same as above: does not resolve on training.linuxfoundation.org; navigation lands on the site homepage.",
+      "resolution": "Used the URL already registered for source_id lf-important-instructions-mc in data/sources.json (https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc), which loads directly. Same page cycle 1 captured on 2026-08-09."
+    }
+  ],
+  "pages": [
+    {
+      "source_id": "lf-lfca-cert-page",
+      "requested_url": "https://training.linuxfoundation.org/certification/linux-foundation-certified-it-associate/",
+      "final_url": "https://training.linuxfoundation.org/certification/certified-it-associate/",
+      "capture_file": "lf-lfca-cert-page.txt",
+      "sha256": "1579f819459f6e192c93dcce0d2e811d5f83b57a2595d3ed972a774e1304f857",
+      "http_status": 200,
+      "note": "See url_anomalies above: the literal brief URL redirects to a different, retired page. final_url here is the URL registered for this source_id in data/sources.json, reached with no redirect."
+    },
+    {
+      "source_id": "lf-faq-mc",
+      "requested_url": "https://training.linuxfoundation.org/multiple-choice-exams-faq/",
+      "final_url": "https://docs.linuxfoundation.org/tc-docs/certification/faq-mc",
+      "capture_file": "lf-faq-mc.txt",
+      "sha256": "95c077f9e88aaf809ed9bc0ca01d6df981139555c037a93ff2f6a6ee5d6cddce",
+      "http_status": 200,
+      "note": "See url_anomalies above: the literal brief URL does not exist on training.linuxfoundation.org and lands on the homepage. final_url here is the URL registered for this source_id in data/sources.json."
+    },
+    {
+      "source_id": "lf-important-instructions-mc",
+      "requested_url": "https://training.linuxfoundation.org/multiple-choice-exams-important-instructions/",
+      "final_url": "https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc",
+      "capture_file": "lf-important-instructions-mc.txt",
+      "sha256": "33e9eafa172a8ed01a449b616559b09b022e43a697f818711f4e2db7a3ee901b",
+      "http_status": 200,
+      "note": "See url_anomalies above: the literal brief URL does not exist on training.linuxfoundation.org and lands on the homepage. final_url here is the URL registered for this source_id in data/sources.json."
+    }
+  ],
+  "facts": [
+    {
+      "fact": "exam_version_effective_date",
+      "value": null,
+      "source_id": null,
+      "surface": "not present on any of the three pages captured for this task",
+      "verbatim_quote": null,
+      "matches_cycle_1": true,
+      "note": "None of the three pages fetched in this task state an exam-version effective date. The 2025-09-16 date used elsewhere in this project comes from lf-objectives-2025 and wayback-lfca-2025-08, sources outside this task's scope; this task neither confirms nor disputes it."
+    },
+    {
+      "fact": "domain_weights",
+      "value": {
+        "Linux Fundamentals": "16%",
+        "System Administration Fundamentals": "30%",
+        "Cloud Computing Fundamentals": "18%",
+        "Security Fundamentals": "14%",
+        "DevOps Fundamentals": "12%",
+        "IT Project Management Fundamentals": "10%"
+      },
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Domains & Competencies accordion",
+      "verbatim_quote": "Linux Fundamentals 16% ... System Administration Fundamentals 30% ... Cloud Computing Fundamentals 18% ... Security Fundamentals 14% ... DevOps Fundamentals 12% ... IT Project Management Fundamentals 10%",
+      "matches_cycle_1": false,
+      "note": "MAJOR FINDING. Does not match the weights this project has treated as current since the 2025-09-16 revision (20/20/20/16/16/10-pattern per research/lfca-lfs200-gap-analysis.md and data/competencies.json). The competency lists inside each domain also changed (e.g. Linux Fundamentals dropped 'File Management Commands' and 'General Networking Commands'; System Administration Fundamentals gained 'Disaster Recovery'; Security Fundamentals now reads 'Security, Sensitive Data, Compliance' rather than the previously recorded Security Basics/Data Security/Network Security/System Security list). research/exam-mechanics.md does not itself state domain weights (that data lives in generated files under research/ and in data/competencies.json), so this fact is not reconciled into exam-mechanics.md by this task; it is recorded here and flagged prominently in the task report for a human to route to the appropriate downstream task."
+    },
+    {
+      "fact": "duration",
+      "value": "90 minutes",
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Includes summary box",
+      "verbatim_quote": "Duration of Exam 90 minutes",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "format",
+      "value": "Multiple Choice Exam, online, proctored",
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Includes summary box and Exam Details & Resources section",
+      "verbatim_quote": "Multiple Choice Exam ... This exam is an online, proctored, multiple-choice exam.",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "passing_score",
+      "value": "75% or above",
+      "source_id": "lf-faq-mc",
+      "surface": "\"What score is needed to pass the exam?\" answer",
+      "verbatim_quote": "A score of 75% or above must be earned to pass the Multiple Choice Exam.",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "practical_component",
+      "value": null,
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Exam Details & Resources section",
+      "verbatim_quote": "This exam is an online, proctored, multiple-choice exam.",
+      "matches_cycle_1": true,
+      "note": "No practical/hands-on component is stated anywhere on the three pages; the exam is described exclusively as multiple-choice."
+    },
+    {
+      "fact": "validity",
+      "value": "2 years",
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Includes summary box",
+      "verbatim_quote": "Certification Valid for 2 Years",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "retake",
+      "value": "One Retake included; 12 Month Exam Eligibility",
+      "source_id": "lf-lfca-cert-page",
+      "surface": "Includes summary box",
+      "verbatim_quote": "One Retake ... 12 Month Exam Eligibility",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "price",
+      "value": {
+        "exam_only": "$250",
+        "exam_plus_lfs200": "$299",
+        "exam_plus_thrive_one": "$495"
+      },
+      "source_id": "lf-lfca-cert-page",
+      "surface": "purchase section (\"You have three ways to purchase!\") and adjacent pricing widget",
+      "verbatim_quote": "1. Certification exam only – $250 2. Certification exam + THRIVE-ONE Annual Subscription (includes unlimited access to all e-Learning courses, SkillCreds, and premium Microlearning content) – $495 3. Certification exam + Fundamentals of Open Source IT and Cloud Computing (LFS200) course – $299",
+      "matches_cycle_1": true
+    },
+    {
+      "fact": "question_count",
+      "value": "60 (CNPA exception: 85)",
+      "source_id": "lf-important-instructions-mc",
+      "surface": "\"Exam Details\" section, first paragraph",
+      "verbatim_quote": "The multiple-choice exam is delivered online and consists of 60* multiple-choice questions. * CNPA exam consists of  85 multiple-choice questions.",
+      "matches_cycle_1": false,
+      "note": "MAJOR FINDING, REQUIRES HUMAN REVIEW. Cycle 1 (2026-08-09) explicitly checked this same page and found no question count anywhere in official sources; research/exam-mechanics.md records that absence at length and treats third-party 'commonly 60 questions' claims as unverified tier-3/4 noise. As of this 2026-08-11 capture, this generic Multiple Choice Exams page (which duration and passing-score facts are also drawn from generically and applied to LFCA by the certification page's own 'Multiple Choice Exam' classification, per the reasoning already in exam-mechanics.md Section 2) now states 60 questions, with the same 'generic rule + CNPA exception' structure as the existing duration statement. This numeral (60) matches the previously-dismissed third-party figure. Per task instructions this value is NOT folded into exam-mechanics.md's 'Question count' section as an adopted fact -- it is recorded here, quoted in lf-important-instructions-mc.txt, and flagged at the top of the task report for explicit human decision before any downstream task (especially the question-bank build) treats it as authoritative."
+    }
+  ]
+}

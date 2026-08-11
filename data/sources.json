@@ -19,7 +19,7 @@
       "organization": "The Linux Foundation",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-09",
+      "accessed": "2026-08-11",
       "category": "official-certification",
       "authority_tier": 1,
       "notes": "Canonical current syllabus. The Domains & Competencies accordion is JS-rendered and requires a browser, but it contains only domain names, weights and the 22 competency names: fully expanding it adds zero characters (container text is 1,930 characters either way, verified 2026-08-09). This is the basis for recording competency name as the finest published objective granularity."
@@ -91,7 +91,7 @@
       "organization": "The Linux Foundation",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-09",
+      "accessed": "2026-08-11",
       "category": "official-handbook",
       "authority_tier": 1,
       "notes": "Generic FAQ across all LF multiple-choice-format exams (LFCA is one of them, confirmed via lf-lfca-cert-page labelling LFCA a 'Multiple Choice Exam'). Source for stage 2 exam mechanics: 90-minute duration, 75% passing score, remote proctoring description, 24-hour automated scoring turnaround, 2-year certification validity, renewal mechanics, ID requirements. Does not state a question count; defers pricing questions to the training catalog."
