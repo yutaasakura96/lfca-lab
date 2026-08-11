@@ -342,7 +342,7 @@ same scope flag, same summary line reporting what was actually inspected.
 | 6 | `q-diagnostic-coverage` | error | Every depth-4 and depth-5 concept has a `diagnostic` item |
 | 7 | `q-option-contract` | error | Exactly 4 options, exactly 1 correct, unique refs, no "all of the above" or "none of the above" |
 | 8 | `q-distractor-provenance` | error | Every distractor tagged; at most 1 `misconception` per item; concept ids and command strings resolve |
-| 9 | `q-distractor-distinct` | error | No two options equivalent after normalization, and **no distractor is also correct** |
+| 9 | `q-distractor-distinct` | error | No two options in an item normalize to the same thing. It does **not** prove that no distractor is also correct — that is a semantic judgement, it belongs to layer 2's second question, and the check's own message says so rather than letting a green run imply a guarantee it never made |
 | 10 | `q-rationale-complete` | error | Key rationale present; every option carries a `why` |
 | 11 | `q-difficulty-derived` | error | `difficulty === required_depth` |
 | 12 | `q-source-ids` | error | Every source id exists in `data/sources.json` |
@@ -582,6 +582,8 @@ New files, following cycle 1 and 2's structure exactly:
 | `tools/lib/question-load.mjs` | Loads and schema-validates `questions/**`, naming the offending file on error. |
 | `tools/lib/question-checks.mjs` | The 21 checks. |
 | `tools/lib/similarity.mjs` | Normalization and the two Jaccard measures, with thresholds as named constants. |
+| `tools/lib/rng.mjs` | A seeded PRNG and string hash, so assembly is deterministic and idempotent without `Math.random` or a clock. |
+| `tools/lib/assemble.mjs` | Partition the exam pool into ten exams, assign key positions, render the markdown. Kept out of the CLI so the constraint solver is unit-testable without touching the filesystem. |
 | `tools/question-plan.mjs` | `npm run question-plan` — per-competency authoring brief from `data/`, the guide, and `allocation.mjs`: every concept with its allocated count, depth, difficulty, required types, its `confused_with` neighbours and their descriptions, its comparison block membership, its command strings, its `notes`, its guide anchor, and its waiver status. Nothing committed; derived on demand so it cannot go stale. |
 | `tools/check-bank.mjs` | `npm run check-bank`. |
 | `tools/build-exams.mjs` | `npm run build-exams`. |
