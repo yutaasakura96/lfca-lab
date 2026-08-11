@@ -226,3 +226,28 @@ Tasks 6 and 7: complete (commits 9e3043b, 606cd8a, controller-verified)
   cycle 2's `.superpowers/sdd/task-5-report.md`, which was local-only (this directory is
   gitignored) so nothing committed was lost, but the collision was avoidable.
 
+Task 8: complete (commit a0efc9e)
+  tools/lib/question-load.mjs + the tools/test/fixtures/bank/ fixture set. 228 -> 239.
+  Built the fixture at poolTotal 40 rather than the brief's 20, pre-empting a rebuild Task 10's
+  brief flags (its length-cue check needs a population of at least 20). 42 items, 6 concepts,
+  2 competency files, plus a fixture guide with 6 anchors.
+  Good judgement recorded: the implementer used provenance kind `confusable` ONLY for the one
+  pair the fixture topics actually declare in confused_with, using `sibling` elsewhere -
+  anticipating that check 8 validates the edge exists in either direction.
+
+Task 9: complete (commit 47c8ab0, controller-verified)
+  Checks 1-6 and 11 in tools/lib/question-checks.mjs + 17 tests. 239 -> 256. Fixture passes all
+  seven; each check was seen to FIRE on a mutation, so none is untested.
+
+  **Task 9 caught two real defects in Task 8's fixture that the controller's own verification had
+  missed**, and this is worth carrying:
+    - every non-widget item's comparison_block named a block assignBlocks never produces (the
+      fixture's confused_with edges only ever yield cmp-alpha.things.widget);
+    - difficulty cycled 1-5 by index instead of equalling the concept's required_depth.
+  The controller had verified comparison_block was PRESENT, not that it RESOLVED, and had run
+  validateItem, which only checks difficulty is an integer 1-5 and cannot know whether it matches
+  the concept. Both are semantic properties against the dataset, which is exactly what checks 4
+  and 11 exist for - they fired the moment they existed. Lesson: controller spot-checks test
+  structural validity; only the checks test semantic correctness. Do not report a fixture as
+  "verified" on the strength of a structural pass.
+
