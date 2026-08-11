@@ -1,0 +1,1220 @@
+{
+  "competency": "System Administration Fundamentals :: Best Practices",
+  "items": [
+    {
+      "id": "q.sysadmin.best-practices.documentation.01",
+      "concept_id": "sysadmin.best-practices.documentation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A new engineer needs to understand why a firewall rule was configured unusually, and has time to research before touching anything. Which artifact should they consult?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Documentation — the descriptive record of what the system is and why, written for a reader who has time.",
+          "correct": true,
+          "why": "Documentation exists precisely to answer a why-question when there is time to read the answer.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The runbook covering this firewall, followed step by step, since it explains what to do rather than why the rule was configured this way.",
+          "correct": false,
+          "why": "A runbook instructs a reader under pressure; it deliberately does not explain why the system is built the way it is.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.best-practices.runbooks" }
+        },
+        {
+          "ref": "o3",
+          "text": "The change record showing when the rule was last edited and by whom, without stating why that decision was made or what depends on it.",
+          "correct": false,
+          "why": "A change record states what was altered and when, not why the resulting configuration is what it is today.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.change-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "The monitoring dashboard for the firewall's current traffic, which shows values now rather than the reasoning behind the configuration.",
+          "correct": false,
+          "why": "A dashboard shows present values, not intent; it is not documentation even though it describes the system.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.documentation" }
+        }
+      ],
+      "rationale": "Documentation is descriptive reference material consulted by a reader who has time and context. A runbook is prescriptive and written for a stranger under pressure; a change record and a dashboard each capture a narrower fact and neither substitutes for a current-state description of the system and its rationale.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.documentation",
+      "comparison_block": "cmp-sysadmin.best-practices.documentation",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.documentation.02",
+      "concept_id": "sysadmin.best-practices.documentation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A host has two hundred recorded changes in its history but no single document stating what the host currently runs or why. What is missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Documentation — reconstructing current state from a change history is exactly the work it exists to save.",
+          "correct": true,
+          "why": "A stack of change records is not documentation, because nobody should have to replay history to learn what is true now.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Additional change records covering the gaps in the history, which still requires reconstructing the current state from that history.",
+          "correct": false,
+          "why": "More history still requires reconstruction; it does not itself state the current configuration and its rationale.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.change-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "A runbook for restoring the host after a failure, which instructs what to do rather than describing what the host currently runs.",
+          "correct": false,
+          "why": "A runbook instructs what to do during an incident; it does not describe what the host is or why it is configured as it is.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.best-practices.runbooks" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — a complete change history is equivalent to documentation, since every past change is already recorded somewhere within it.",
+          "correct": false,
+          "why": "A change history and a current-state description answer different questions; one being complete does not produce the other.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.documentation" }
+        }
+      ],
+      "rationale": "Documentation states what is true now, kept next to the system it describes. A change history, however complete, records what happened over time and leaves reconstructing the present state as unfinished work — which is precisely the burden documentation removes.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.documentation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.change-management.01",
+      "concept_id": "sysadmin.best-practices.change-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team keeps every configuration change in Git and requires a reviewed pull request before merging. An auditor asks whether that is change management. What is missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Approval and scheduling for changes made by hand on a host, and an archived record for anything that never touches the repository.",
+          "correct": true,
+          "why": "Version control covers only what was committed; an unapproved change made directly on a host is still within change management's scope but outside the repository's.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — a reviewed pull request already satisfies change management, since every file change already passes through review.",
+          "correct": false,
+          "why": "Review gives history and attribution for files, but says nothing about impact review, scheduling, or approval of out-of-band changes.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.change-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "The commit history itself, since it records what a file said and who wrote it, which is what version control already provides on its own.",
+          "correct": false,
+          "why": "That is what version control already provides; it is not the gap the auditor is asking about.",
+          "provenance": { "kind": "confusable", "concept_id": "devops.git-concepts.version-control" }
+        },
+        {
+          "ref": "o4",
+          "text": "A defined maintenance window during which merges are permitted, which states only when work may happen rather than whether it was approved.",
+          "correct": false,
+          "why": "A window would state when work may happen, not whether it was reviewed and approved at all.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        }
+      ],
+      "rationale": "Change management is a human decision process producing an authorisation, distinct from the tool that stores the resulting file state. Git with reviewed pull requests gives history, attribution and file-level review; it does not by itself cover a hand-made change on a host or the impact review and archived approval a full process requires.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.change-management",
+      "comparison_block": "cmp-sysadmin.best-practices.change-management",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.change-management.02",
+      "concept_id": "sysadmin.best-practices.change-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An administrator proposes a configuration change and personally approves it before applying it to a system they run. Which control did the process fail to enforce?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Independent approval — the approver must be someone other than the requestor.",
+          "correct": true,
+          "why": "Configuration change control requires a change to be vetted by an authorised individual independent of whoever proposed it.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Scheduling the change into an agreed maintenance window.",
+          "correct": false,
+          "why": "A window governs when disruptive work may occur; being inside one authorises nothing about whether the change was permitted at all.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        },
+        {
+          "ref": "o3",
+          "text": "Recording the change in a version-controlled repository.",
+          "correct": false,
+          "why": "Recording what changed is a separate concern from whether the change was authorised to happen.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.version-control-for-configuration" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — an administrator with authority over the system may approve their own change.",
+          "correct": false,
+          "why": "That is the exact self-approval the control forbids, regardless of how much authority the administrator holds.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.change-management" }
+        }
+      ],
+      "rationale": "The control that defines change management is independent approval: the requestor and the approver being different people. Scheduling and recording are separate concerns, and neither substitutes for a second, independent reviewer of the proposed change.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.change-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.standardization.01",
+      "concept_id": "sysadmin.best-practices.standardization",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What is the \"snowflake host\" problem that standardization addresses?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A server built and maintained by hand, whose configuration exists nowhere but on the server itself, so no fix or script reliably applies to it.",
+          "correct": true,
+          "why": "That is the failure named by the practice: a one-off machine nobody dares touch because nothing about it is recorded elsewhere.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A host whose configuration-management tool has stopped converging it to the declared state, which is drift within an already-managed host.",
+          "correct": false,
+          "why": "That describes drift within a managed host, a narrower failure than a host that was never brought under management at all.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.configuration-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "A host that falls short of the organisation's minimum secure configuration, which is a compliance gap rather than an unmanaged snowflake.",
+          "correct": false,
+          "why": "That is a security-baseline shortfall, a compliance question distinct from whether the host is configured like its peers at all.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.security-baselines" }
+        },
+        {
+          "ref": "o4",
+          "text": "Any host that has ever been patched by hand, even one whose configuration is otherwise fully recorded elsewhere and rebuildable from a known, reviewed specification.",
+          "correct": false,
+          "why": "One manual patch does not make a host unmanageable; the problem is a host whose configuration lives only on itself.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.standardization" }
+        }
+      ],
+      "rationale": "Standardization keeps machines of the same role configured alike so a fix, script or runbook applies to more than one host. The snowflake is the failure case: a hand-built server that works, that nobody dares touch, and whose configuration is recorded nowhere else.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.standardization",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.naming-conventions.01",
+      "concept_id": "sysadmin.best-practices.naming-conventions",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A naming scheme fixes role, environment, region and an index in the same order for every host. Per consensus practice, what is that scheme's primary purpose?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "To let a reader infer a host's identity and purpose from its name alone, without consulting anything else.",
+          "correct": true,
+          "why": "Names appear stripped of context in alerts and logs, so a reader typically has only the name to decide how to react.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "To serve as the authoritative record of what a host is and who owns it, replacing the need to consult the inventory separately.",
+          "correct": false,
+          "why": "A name is a string someone typed and encodes information; it does not store it, so treating it as the authoritative record is the practice's usual failure mode.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.naming-conventions" }
+        },
+        {
+          "ref": "o3",
+          "text": "To provide the organisation's authoritative inventory of systems.",
+          "correct": false,
+          "why": "That record belongs to the inventory itself, kept and maintained separately from any naming scheme.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.asset-and-inventory-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "To guarantee that every host of a given role is configured identically.",
+          "correct": false,
+          "why": "That uniformity is standardization's goal; a naming scheme only makes identity readable, not configuration identical.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.standardization" }
+        }
+      ],
+      "rationale": "In most implementations of this consensus practice, a fixed, ordered naming scheme lets a reader decide from the name alone whether a host is production or test before deciding how urgently to react. The convention encodes information rather than storing it, so trusting a name as a record — of ownership or of anything else the inventory should carry — is exactly the failure mode the practice invites.",
+      "source_ids": ["lf-objectives-2025"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.naming-conventions",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.automation-and-idempotency.01",
+      "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A script appends a configuration line to a file every time it runs, rather than checking whether the line is already present. It is scheduled nightly across fifty hosts. What results after a month?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Fifty files with duplicated entries — the script is fully automated but not idempotent.",
+          "correct": true,
+          "why": "Automation without idempotency multiplies a mistake instead of removing it, and appending unconditionally is exactly that mistake.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Convergence to a single declared state, because the script runs automatically every night.",
+          "correct": false,
+          "why": "Being automated says nothing about whether repeated runs are safe; convergence requires the operation itself to check state first.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.best-practices.configuration-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "No effect beyond the first run, because the change was already tested once before deployment.",
+          "correct": false,
+          "why": "A single successful test says nothing about what a second or hundredth run does; only re-running tests for idempotency.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.testing-before-production" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing unusual — since the script is automated, running it repeatedly is inherently safe.",
+          "correct": false,
+          "why": "Idempotency is a property of how the operation is written, not a consequence of it being scheduled or automated.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.automation-and-idempotency" }
+        }
+      ],
+      "rationale": "Automation replaces a manual procedure with a script; idempotency is the separate property that running it twice leaves the same end state with no further change. An unconditional append is automated and not idempotent, and re-running it across a fleet turns one mistake into fifty.",
+      "source_ids": ["lf-objectives-2025", "ansible-glossary-idempotency"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.automation-and-idempotency",
+      "comparison_block": "cmp-sysadmin.best-practices.automation-and-idempotency",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.automation-and-idempotency.02",
+      "concept_id": "sysadmin.best-practices.automation-and-idempotency",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A configuration script is re-run against a host and reports that zero changes were made. What does that result indicate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The system already matched the intended state — a no-op second run is the signal of success, not evidence the tool did nothing useful.",
+          "correct": true,
+          "why": "An idempotent operation is expected to report no change once the desired state is already in force.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The configuration-management tool has failed to detect drift, since a healthy tool is expected to report and correct differences every run.",
+          "correct": false,
+          "why": "Detecting no drift and reporting no change is the tool working correctly, not a detection failure.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.best-practices.configuration-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "An alerting threshold has not yet been crossed, which belongs to a separate practice concerned with notifying someone of a breached condition.",
+          "correct": false,
+          "why": "Thresholds and alert conditions belong to a different practice entirely and are not what a script's change count reports.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.monitoring-and-alerting" }
+        },
+        {
+          "ref": "o4",
+          "text": "The script has not yet been validated in a staging environment, which is a question about where it was tested rather than what it changed.",
+          "correct": false,
+          "why": "Where a script was validated is unrelated to what a specific run against a specific host reports.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.testing-before-production" }
+        }
+      ],
+      "rationale": "Idempotent work is typically written as a check followed by a conditional action, or expressed declaratively. A second run reporting no changes is exactly the signal that the system already matches intent, and is read as success rather than as the tool having done nothing useful.",
+      "source_ids": ["lf-objectives-2025", "ansible-glossary-idempotency"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.automation-and-idempotency",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.configuration-management.01",
+      "concept_id": "sysadmin.best-practices.configuration-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Which question does configuration management answer, as distinct from infrastructure as code?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Is this machine configured as declared — not whether the machine exists at all.",
+          "correct": true,
+          "why": "Configuration management acts on the state inside systems that already exist; it configures rather than creates.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Does this environment exist as declared.",
+          "correct": false,
+          "why": "That is infrastructure as code's question: whether the infrastructure itself has been brought into existence.",
+          "provenance": { "kind": "confusable", "concept_id": "devops.devops-basics.infrastructure-as-code" }
+        },
+        {
+          "ref": "o3",
+          "text": "Is this operation safe to run a second time.",
+          "correct": false,
+          "why": "That is a property of a single procedure, which is what automation and idempotency addresses, not the scope of configuration management.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.automation-and-idempotency" }
+        },
+        {
+          "ref": "o4",
+          "text": "Both ask the same question, since both keep declarations in version control and both re-apply to converge.",
+          "correct": false,
+          "why": "The shared vocabulary is exactly why they are confusable, but one configures what exists and the other creates what does not yet exist.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.configuration-management" }
+        }
+      ],
+      "rationale": "Configuration management declares and enforces the state inside systems that already exist. Infrastructure as code decides whether the infrastructure itself exists. Both are declarative and both re-apply to converge, which is exactly what makes the pair easy to conflate.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.configuration-management",
+      "comparison_block": "cmp-sysadmin.best-practices.configuration-management",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.configuration-management.02",
+      "concept_id": "sysadmin.best-practices.configuration-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "After a configuration-management playbook is run against a hand-edited host, an operator claims the host now matches the approved baseline. What limits that claim?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Only the settings the declaration mentions are corrected; anything it never mentions survives untouched.",
+          "correct": true,
+          "why": "\"We ran the playbook\" is not the same claim as \"the host now matches the baseline\" for exactly this reason.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Baselines are enforced only through configuration management and never through a published, independently maintained industry benchmark.",
+          "correct": false,
+          "why": "Baselines are commonly derived from published benchmarks first and only then held in place by a tool; this reverses that relationship.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.security-baselines" }
+        },
+        {
+          "ref": "o3",
+          "text": "The claim can only be verified once a monitoring alert fires.",
+          "correct": false,
+          "why": "Compliance with a declared baseline is checked by re-applying the declaration, not by waiting for an alert condition.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.monitoring-and-alerting" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing limits it — a playbook run always brings every setting into full compliance.",
+          "correct": false,
+          "why": "A declaration only corrects what it mentions; settings outside its scope are left exactly as the hand edit left them.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.configuration-management" }
+        }
+      ],
+      "rationale": "The tool changes only what the declaration mentions. Anything a hand edit touched outside that scope survives the run untouched, which is why running the playbook and matching the baseline are different claims.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.configuration-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.version-control-for-configuration.01",
+      "concept_id": "sysadmin.best-practices.version-control-for-configuration",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A team reverts a bad commit in their configuration repository. What is true immediately afterward?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The declaration has changed back; nothing on any host changes until the reverted state is re-applied.",
+          "correct": true,
+          "why": "Reverting a commit changes the declaration, not the running system.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The running system is restored to the previous state, as if reverting a commit undid the change on every host that was running it.",
+          "correct": false,
+          "why": "\"We reverted it\" describes an intention restored, not an outage ended; the host is untouched until something re-applies the declaration.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.version-control-for-configuration" }
+        },
+        {
+          "ref": "o3",
+          "text": "A restorable snapshot of the affected host has been created automatically, independent of anything recorded in the repository itself.",
+          "correct": false,
+          "why": "A revert changes a file in a repository; it does not capture a copy of any running system.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.backup-before-change" }
+        },
+        {
+          "ref": "o4",
+          "text": "The change has been approved for release, as though editing the repository were itself the independent review step it requires.",
+          "correct": false,
+          "why": "Reverting a commit is an edit to the declaration, not an approval decision made by an independent reviewer.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.change-management" }
+        }
+      ],
+      "rationale": "Version control preserves changes as someone meant them, and a revert is one more such change. The limit is precise: reverting alters the declaration, and nothing happens on any host until a tool or a person re-applies it.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.version-control-for-configuration",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.testing-before-production.01",
+      "concept_id": "sysadmin.best-practices.testing-before-production",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A change has passed every test in staging but has no documented way to be undone. What is still true about its risk?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The risk remains unbounded — testing reduces the chance of a break, but only a rollback path bounds the damage if it happens anyway.",
+          "correct": true,
+          "why": "The two halves are separately examinable: testing lowers the odds of failure, and a rollback path limits the consequence of one.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The risk is fully mitigated, since a pre-change snapshot always accompanies staging tests.",
+          "correct": false,
+          "why": "Testing establishes nothing about whether a restorable copy exists; the two are separate disciplines.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.backup-before-change" }
+        },
+        {
+          "ref": "o3",
+          "text": "The risk is eliminated, because staging testing already proved the change safe under every condition production could present.",
+          "correct": false,
+          "why": "A test reduces the chance of failure; it does not bound the damage of the failure it missed.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.testing-before-production" }
+        },
+        {
+          "ref": "o4",
+          "text": "The risk is bounded by the maintenance window the change will run inside, which limits only when the work happens, not how far it spreads.",
+          "correct": false,
+          "why": "A window governs when disruptive work may happen, not how far the damage from a failed change can spread.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        }
+      ],
+      "rationale": "Testing and a rollback path address different failure moments: testing tries to prevent the break, and the rollback path bounds it if testing missed something. A tested change with no way back is still an unbounded risk.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.testing-before-production",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.monitoring-and-alerting.01",
+      "concept_id": "sysadmin.best-practices.monitoring-and-alerting",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A dashboard displays CPU, memory and error rate for every host, but nobody is subscribed to any notification channel. A service is down for six hours before anyone notices. Which discipline is missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Alerting — collection ran and the evidence exists, but nobody was interrupted in time to act on it.",
+          "correct": true,
+          "why": "Monitoring observes; alerting interrupts. A dashboard nobody watches detects nothing at the moment it matters.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Logging — the systemd journal was not queried during the outage.",
+          "correct": false,
+          "why": "A local log store is read after someone already suspects a problem; it is not the mechanism that raises the suspicion in the first place.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.system-administration.journald" }
+        },
+        {
+          "ref": "o3",
+          "text": "Capacity planning — the growth trend toward exhaustion was never projected.",
+          "correct": false,
+          "why": "Nothing in the scenario describes a resource trending toward a ceiling; the failure is that nobody was told about an active outage.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.capacity-planning" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is missing — a dashboard collecting metrics is monitoring and alerting together.",
+          "correct": false,
+          "why": "Collection without a notification path that reaches someone obliged to answer is monitoring alone, and detects nothing unattended.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.monitoring-and-alerting" }
+        }
+      ],
+      "rationale": "Monitoring is continuous collection; alerting is the notification that interrupts a human when a condition is breached. A dashboard nobody watches makes evidence available afterward but detects nothing at the moment it happens, which is the gap alerting exists to close.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.monitoring-and-alerting",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.monitoring-and-alerting.02",
+      "concept_id": "sysadmin.best-practices.monitoring-and-alerting",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A low-severity alert fires every few minutes for a condition that needs no action, until the on-call channel mutes all notifications from it. A real outage is later missed. What failed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Alert quality — a condition that needed no action trained people to ignore the channel, so the next real alert was dismissed too.",
+          "correct": true,
+          "why": "Alerting on conditions that need no action is the reverse failure to under-alerting, and it is just as examinable.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The runbook for the outage was never written, leaving nobody with a step-by-step procedure to follow once the outage was noticed.",
+          "correct": false,
+          "why": "Nothing in the scenario turns on whether a procedure existed; the failure is that the alert was never seen at all.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.runbooks" }
+        },
+        {
+          "ref": "o3",
+          "text": "The outage happened outside an agreed maintenance window, so the disruption itself was never pre-agreed with the people it affected.",
+          "correct": false,
+          "why": "Whether disruptive work is scheduled is unrelated to why an unscheduled outage's alert was ignored.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        },
+        {
+          "ref": "o4",
+          "text": "Escalation — the notification reached an unstaffed channel, so nobody was ever in a position to see it fire in the first place.",
+          "correct": false,
+          "why": "That is a different, real failure mode this practice also names, but it is not what is described: the channel was staffed, and was muted deliberately.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.monitoring-and-alerting" }
+        }
+      ],
+      "rationale": "Alerting on conditions that need no action trains people to ignore alerts, so the next genuine one is dismissed with it. The distinguishing feature here is that the channel was staffed and reachable — the failure is alert quality, not the separate case of a notification reaching nobody.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.monitoring-and-alerting",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.capacity-planning.01",
+      "concept_id": "sysadmin.best-practices.capacity-planning",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "An alert fires when a disk reaches 85% usage. Is that capacity planning?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — that is monitoring and alerting reporting the present; capacity planning projects the trend forward to the date the disk will be full.",
+          "correct": true,
+          "why": "An 85% alert is a statement about now; deciding when the array will be full and arranging expansion is a statement about the future made from the same data.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — any statement referencing a resource threshold counts as capacity planning, regardless of whether it describes now or a future planning date.",
+          "correct": false,
+          "why": "A threshold crossed now is exactly the present-tense statement capacity planning is distinguished from.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.capacity-planning" }
+        },
+        {
+          "ref": "o3",
+          "text": "No — it is asset and inventory management confirming the volume exists, which records what systems exist rather than how full they are.",
+          "correct": false,
+          "why": "The alert says nothing about whether the volume is recorded in an inventory; it reports a usage level.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.asset-and-inventory-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes — the 85% figure defines the maintenance window for the expansion work, rather than describing the disk's condition today.",
+          "correct": false,
+          "why": "A threshold alert states a current condition; it does not by itself schedule a window for future work.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        }
+      ],
+      "rationale": "Per consensus practice, monitoring reports a value now and alerts when a threshold is crossed — a statement about the present. Capacity planning extrapolates historical utilisation forward against a known ceiling to produce a date, which is what makes procurement and a maintenance window schedulable before they become urgent. The two are complementary, and the planning is only as good as the history the monitoring retained.",
+      "source_ids": ["lf-objectives-2025"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.capacity-planning",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.maintenance-windows.01",
+      "concept_id": "sysadmin.best-practices.maintenance-windows",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A change is applied inside an agreed maintenance window but was never reviewed or approved beforehand. Is the change authorised?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — a window states only when disruptive work may occur, not whether it may happen at all.",
+          "correct": true,
+          "why": "Approval and scheduling are two different boundaries, and being inside the window authorises nothing on its own.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — being inside the agreed window is itself the authorisation.",
+          "correct": false,
+          "why": "An unapproved change does not become permissible because it was applied inside an agreed period for disruptive work.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.maintenance-windows" }
+        },
+        {
+          "ref": "o3",
+          "text": "Only if the change's requestor is also its approver.",
+          "correct": false,
+          "why": "That describes the exact self-approval an independent-review control forbids; it does not grant authorisation.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.change-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes, provided the change is routine rather than an emergency fix.",
+          "correct": false,
+          "why": "Whether a change follows a routine or an expedited schedule is a cadence question, not a substitute for review and approval.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.patch-cadence" }
+        }
+      ],
+      "rationale": "A maintenance window is an agreed period for disruptive work, communicated in advance to those it affects. It answers when work may be done, not whether it was ever approved — an unapproved change does not become permissible because the calendar allowed it.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-40r4"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.maintenance-windows",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.separation-of-duties.01",
+      "concept_id": "sysadmin.best-practices.separation-of-duties",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "An administrator holds root on every host in the fleet, but the change process still requires someone else to approve any change that administrator proposes. What does that arrangement demonstrate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Separation of duties — no single identity, however privileged, can both make and approve a change alone.",
+          "correct": true,
+          "why": "It is a structural control on how many identities a workflow requires, independent of how much any one of them is trusted.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Least privilege — the administrator's access has been scoped to what the role needs.",
+          "correct": false,
+          "why": "Least privilege is about the size of one identity's authority; root on every host is the opposite of a scoped grant.",
+          "provenance": { "kind": "sibling", "concept_id": "security.security.principle-of-least-privilege" }
+        },
+        {
+          "ref": "o3",
+          "text": "Role-based deprovisioning, since the administrator's excess privilege will eventually be revoked once their role changes again.",
+          "correct": false,
+          "why": "Nothing in the scenario describes revoking access on a role change; the control shown operates at the moment of the change itself.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding" }
+        },
+        {
+          "ref": "o4",
+          "text": "Least privilege, since the administrator's authority is limited to what root already grants.",
+          "correct": false,
+          "why": "Root grants broad authority by definition; the scenario's control comes from requiring a second person, not from limiting that authority.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.separation-of-duties" }
+        }
+      ],
+      "rationale": "Separation of duties splits a sensitive workflow so no single person can complete it alone, regardless of that person's privilege. Least privilege is a different axis entirely — the size of one identity's authority — and an administrator with root on every host still cannot self-approve a change where duties are genuinely separated.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.separation-of-duties",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.runbooks.01",
+      "concept_id": "sysadmin.best-practices.runbooks",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A responder unfamiliar with a system is paged at 03:00 to restore a service that has failed. Which artifact should they follow?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The runbook — a numbered, sequential procedure with an expected result at each step, written for exactly this situation.",
+          "correct": true,
+          "why": "A runbook is instruction rather than explanation, written to be followed under pressure by someone who may not know the system.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Documentation — it explains why the system is built the way it is.",
+          "correct": false,
+          "why": "Documentation is descriptive and assumes a reader with time; handed to someone at 03:00 who has never seen the system, an explanation is close to useless.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.best-practices.documentation" }
+        },
+        {
+          "ref": "o3",
+          "text": "The disaster recovery plan governing activation criteria and notification.",
+          "correct": false,
+          "why": "That plan is broader and governs whether a disaster is declared and who is told; the runbook is the procedure layer inside it, and is what this task needs.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan" }
+        },
+        {
+          "ref": "o4",
+          "text": "Any document describing the system, since documentation and runbooks serve the same purpose under pressure.",
+          "correct": false,
+          "why": "They are read by the same kind of person at the worst possible time, but one instructs and the other explains, and only one is safe to follow blind.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.runbooks" }
+        }
+      ],
+      "rationale": "The conditions a runbook is used under are the conditions people reason worst in. It is written as a sequential procedure with no step assumed, precisely because a step obvious to the author is the step a stranger will get wrong at night.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-34r1"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.runbooks",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.runbooks.02",
+      "concept_id": "sysadmin.best-practices.runbooks",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A runbook has sat in the team wiki for two years and has never once been executed. What is the state of its reliability?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Unknown — an untested runbook is an assumption, since its steps rot silently as the system changes.",
+          "correct": true,
+          "why": "The correct maintenance of a runbook is exercising it, not merely storing it, and the moment of real use is the worst time to discover it has rotted.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Verified, since testing before production would have caught any drift.",
+          "correct": false,
+          "why": "That practice tests whether a change is safe to deploy; it does not exercise whether a stored procedure's steps still match the system.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.testing-before-production" }
+        },
+        {
+          "ref": "o3",
+          "text": "Verified, since the documentation for the same system is kept current.",
+          "correct": false,
+          "why": "Documentation staying current says nothing about whether a separate, unexecuted procedure still works.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.documentation" }
+        },
+        {
+          "ref": "o4",
+          "text": "Reliable — storing the procedure correctly is what maintaining a runbook means.",
+          "correct": false,
+          "why": "Storage is not maintenance; a runbook's steps can silently stop matching the system it describes.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.runbooks" }
+        }
+      ],
+      "rationale": "A runbook that has never been exercised is an assumption about whether its steps still work, not evidence that they do. Systems change underneath stored procedures, and the moment someone needs the runbook is the worst possible time to discover a step no longer applies.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-34r1"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.runbooks",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.asset-and-inventory-management.01",
+      "concept_id": "sysadmin.best-practices.asset-and-inventory-management",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A host is compromised, and nobody remembers it exists — it was never entered into any system record. What discipline's absence does that reveal?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Asset and inventory management — you cannot patch, secure or decommission what you do not know about.",
+          "correct": true,
+          "why": "The dangerous host is always the one nobody remembered, which is exactly what a maintained inventory exists to prevent.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Monitoring and alerting — the host should have triggered a threshold alert.",
+          "correct": false,
+          "why": "Monitoring watches only the systems someone configured it to watch, which by construction excludes a forgotten host.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.monitoring-and-alerting" }
+        },
+        {
+          "ref": "o3",
+          "text": "Security baselines — the host fell below the minimum secure configuration.",
+          "correct": false,
+          "why": "A baseline shortfall assumes the host is already known and enrolled; the failure here happened before that point.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.security-baselines" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is missing — the compromise itself is an adequate discovery mechanism.",
+          "correct": false,
+          "why": "Discovering a host only once it is attacked is the failure state the practice exists to avoid, not a substitute for it.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.asset-and-inventory-management" }
+        }
+      ],
+      "rationale": "The inventory is the prerequisite every other discipline in this competency quietly assumes: patch cadence applies to the estate it lists, baselines are enforced on the hosts it names, and monitoring watches what it was told exists. A host outside that record is invisible to all of them.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.asset-and-inventory-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.security-baselines.01",
+      "concept_id": "sysadmin.best-practices.security-baselines",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Two servers of the same role differ because two different engineers each made their own configuration choices, and neither choice was ever reviewed. What discipline's absence explains this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Security baselines — a reviewed, approved minimum configuration removes security from the discretion of whoever happened to build the machine.",
+          "correct": true,
+          "why": "Without a baseline, the question \"is this host secure\" is answerable only by opinion; a baseline makes it answerable by comparison.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Standardization — the servers should be rebuilt from a single golden image, which gives uniformity but not a reviewed security floor.",
+          "correct": false,
+          "why": "Standardization is the general uniformity goal; the specific control missing here is a reviewed, approved security floor.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.standardization" }
+        },
+        {
+          "ref": "o3",
+          "text": "Configuration management — a tool should have converged both servers automatically, once someone declared a state for it to enforce.",
+          "correct": false,
+          "why": "A tool enforces whatever state is declared; it does not by itself supply the reviewed security minimum that state should contain.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.configuration-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is missing — a system running more security controls than another is still compliant.",
+          "correct": false,
+          "why": "Compliance is measured against the defined floor, not against how a system compares to a less-secure neighbour.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.security-baselines" }
+        }
+      ],
+      "rationale": "A security baseline is a defined minimum configuration, formally reviewed and agreed, applied to every system of a given type. It removes security decisions from individual discretion, which is exactly what two divergent, unreviewed configurations of the same role indicates is missing.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.security-baselines",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.user-onboarding-and-offboarding.01",
+      "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A departing employee's Unix login account is disabled the same day they leave. Is offboarding complete?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — SSH keys, API tokens, VPN certificates, third-party accounts and shared secrets typically survive the disabling of that one account.",
+          "correct": true,
+          "why": "Disabling the login account is not revoking access; everything held outside that account survives its disabling untouched.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — disabling the primary login account revokes everything that identity could do, since no other credential is able to outlive that one account.",
+          "correct": false,
+          "why": "An enumerated list of everything an identity can hold typically extends well beyond the one account that was disabled.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.user-onboarding-and-offboarding" }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes — least privilege already limited what that account could reach, so nothing further needs to be revoked once the person departs.",
+          "correct": false,
+          "why": "Least privilege bounds how much an identity holds at any moment; offboarding is the separate question of completely removing what it holds when it departs.",
+          "provenance": { "kind": "sibling", "concept_id": "security.security.principle-of-least-privilege" }
+        },
+        {
+          "ref": "o4",
+          "text": "No — the account must first be added to the asset inventory, before any credential attached to the departing employee can be revoked.",
+          "correct": false,
+          "why": "The inventory records systems and ownership; it is not a prerequisite for revoking a departing employee's credentials.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.asset-and-inventory-management" }
+        }
+      ],
+      "rationale": "Onboarding failures announce themselves within the hour; offboarding failures are silent, because a credential still valid and attached to nobody is watched by nobody. Disabling the login account is only the start — installed keys, tokens, certificates and shared secrets all typically outlive it.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.user-onboarding-and-offboarding",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.backup-before-change.01",
+      "concept_id": "sysadmin.best-practices.backup-before-change",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A pre-change snapshot is taken immediately before a risky migration. A week later, the migration is confirmed good. What typically happens to that copy?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is often discarded, since it existed to undo one identified action rather than to satisfy ongoing retention.",
+          "correct": true,
+          "why": "That is what distinguishes it from the scheduled backup regime, which protects against loss over time rather than one change.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It automatically becomes part of the routine, retention-scheduled backup regime.",
+          "correct": false,
+          "why": "A pre-change copy exists to undo one identified action; routine backups are a separate, ongoing regime sized by a recovery point objective.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.backup" }
+        },
+        {
+          "ref": "o3",
+          "text": "It must be kept indefinitely, since any pre-change copy is a permanent compliance record.",
+          "correct": false,
+          "why": "The change record states where the copy is and how long it is kept, and that period is typically short, not indefinite.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.backup-before-change" }
+        },
+        {
+          "ref": "o4",
+          "text": "It is deleted immediately once the change is applied, before the outcome is confirmed.",
+          "correct": false,
+          "why": "Deleting it before the change is confirmed good would remove the only rollback that does not depend on the change going as planned.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.disaster-recovery.snapshot" }
+        }
+      ],
+      "rationale": "A pre-change copy is tied to one specific change and is often discarded once that change is confirmed good, unlike a routine backup sized against an ongoing recovery point objective. The copy is only useful while the change it guards against remains unconfirmed.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-128", "nist-sp-800-34r1"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.backup-before-change",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.patch-cadence.01",
+      "concept_id": "sysadmin.best-practices.patch-cadence",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An organisation patches monthly and has no way for an actively exploited vulnerability to bypass that schedule. What is missing from their patch cadence?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An expedited path — a cadence with no emergency route leaves an actively exploited vulnerability waiting for the calendar.",
+          "correct": true,
+          "why": "\"We patch monthly\" does not describe a complete cadence without a named exception for a fix that cannot wait.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "An inventory of patchable assets, since cadence is one decision inside the whole tracking-testing-applying-verifying practice.",
+          "correct": false,
+          "why": "That names the broader patch management practice cadence sits inside; the specific gap described is the missing exception path, not asset tracking.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.system-administration.patch-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "A defined maintenance window for the monthly cycle.",
+          "correct": false,
+          "why": "A monthly window already exists in the scenario; the gap is the exception path for something that cannot wait for it.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — a monthly schedule with no exception path is still a complete cadence.",
+          "correct": false,
+          "why": "A critical security fix is expected to leave the routine schedule rather than wait for it, which a schedule with no exception cannot do.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.patch-cadence" }
+        }
+      ],
+      "rationale": "Patch cadence is the rhythm updates are applied on, together with the expedited path critical fixes take when they cannot wait for it. A schedule that never states that exception leaves an actively exploited vulnerability exposed for the length of a full cycle.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-40r4"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.patch-cadence",
+      "comparison_block": "cmp-sysadmin.best-practices.patch-cadence",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.patch-cadence.02",
+      "concept_id": "sysadmin.best-practices.patch-cadence",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A patch is deployed first to a small set of canary systems, then to the rest of the estate once no breakage appears. Which decision does that phasing belong to?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Patch cadence — the scheduling decision for how and when updates roll out, including the order deployment follows.",
+          "correct": true,
+          "why": "Even routine deployment is normally phased, and the order it follows is part of the cadence decision, not a separate practice.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Patch management as a whole, since testing, deployment and verification are all part of the wider practice.",
+          "correct": false,
+          "why": "Naming the whole surrounding practice loses the specific decision the question asks about — the rollout order is one decision inside it.",
+          "provenance": { "kind": "confusable", "concept_id": "sysadmin.system-administration.patch-management" }
+        },
+        {
+          "ref": "o3",
+          "text": "Testing before production, since canaries function as a staging environment.",
+          "correct": false,
+          "why": "Canary systems are live production hosts receiving the real patch, not an isolated environment used before production is touched.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.testing-before-production" }
+        },
+        {
+          "ref": "o4",
+          "text": "Maintenance windows, since canaries define which hosts fall inside the agreed window.",
+          "correct": false,
+          "why": "A window governs when disruptive work may occur; it does not decide which hosts receive a phased rollout first.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.maintenance-windows" }
+        }
+      ],
+      "rationale": "Patch cadence names the scheduling decision inside patch management: how often updates go out and, within that, the order a rollout follows. Canary-first deployment is a cadence-level rollout decision, distinct from the broader practice, from pre-production testing in an isolated environment, and from the timing question a maintenance window answers.",
+      "source_ids": ["lf-objectives-2025", "nist-sp-800-40r4"],
+      "guide_anchor": "02-system-administration/best-practices.md#c-sysadmin.best-practices.patch-cadence",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.principle-of-least-astonishment.01",
+      "concept_id": "sysadmin.best-practices.principle-of-least-astonishment",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "Per consensus practice, what trade-off does the principle of least astonishment argue for?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Conventional, expected defaults over clever or unusual configurations, because a surprising setup fails badly when nobody has time to read during an incident.",
+          "correct": true,
+          "why": "It argues for behaving the way an experienced administrator would expect, precisely because incidents leave no time to discover a surprise.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Optimised, non-standard configurations, since performance should take priority over convention even when the result surprises an operator.",
+          "correct": false,
+          "why": "That is the opposite trade-off from the one this principle argues for; it favours the conventional choice over the clever one.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.principle-of-least-astonishment" }
+        },
+        {
+          "ref": "o3",
+          "text": "Identical configuration across every host regardless of role, so that no two machines of any kind are ever allowed to differ.",
+          "correct": false,
+          "why": "Uniformity across hosts of the same role is standardization's claim, not what this principle argues for.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.standardization" }
+        },
+        {
+          "ref": "o4",
+          "text": "An enforceable minimum configuration, reviewed and approved centrally, rather than a design preference recognised by convention alone.",
+          "correct": false,
+          "why": "That describes a baseline; this principle is a design preference for unsurprising behaviour, not an enforceable control.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.security-baselines" }
+        }
+      ],
+      "rationale": "Per consensus practice, the principle of least astonishment argues for conventional defaults over clever ones, because a surprising setup fails during incidents when nobody has time to read. It is a design preference recognised at recall level, not an enforceable control like a baseline.",
+      "source_ids": ["lf-objectives-2025"],
+      "guide_anchor": "02-system-administration/best-practices.md#s-best-practices-operational-discipline",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.best-practices.service-ownership.01",
+      "concept_id": "sysadmin.best-practices.service-ownership",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "Per consensus practice, what does having a named owner for a service establish, as distinct from the on-call responder or the asset record?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Accountability for the service's health, cost and lifecycle over its life, not just handling one incident or recording its existence.",
+          "correct": true,
+          "why": "The owner is accountable across the service's whole life, which is a different role from the responder handling a single incident.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The same accountability as the on-call responder, since both may be contacted during an incident.",
+          "correct": false,
+          "why": "Being reachable during an incident is not the same as holding ongoing accountability for the service's health, cost and lifecycle.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:sysadmin.best-practices.service-ownership" }
+        },
+        {
+          "ref": "o3",
+          "text": "A record of the service's existence, indistinguishable from its inventory entry, rather than an accountability held by any one person.",
+          "correct": false,
+          "why": "The inventory stores the service's name and details; ownership is the accountability attached to it, not the record itself.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.asset-and-inventory-management" }
+        },
+        {
+          "ref": "o4",
+          "text": "Responsibility for revoking the service's credentials when staff depart, which belongs to the separate offboarding process instead.",
+          "correct": false,
+          "why": "Revoking credentials on departure is offboarding's job; service ownership is accountable for the service, not for that specific process.",
+          "provenance": { "kind": "sibling", "concept_id": "sysadmin.best-practices.user-onboarding-and-offboarding" }
+        }
+      ],
+      "rationale": "Per consensus practice, every service has a named owner accountable for its health, cost and lifecycle, so nothing is silently unmaintained. That is distinct from the on-call responder, who handles one incident, and from the asset record, which stores the name rather than the accountability.",
+      "source_ids": ["lf-objectives-2025"],
+      "guide_anchor": "02-system-administration/best-practices.md#s-best-practices-operational-discipline",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    }
+  ]
+}

@@ -1,0 +1,1516 @@
+{
+  "competency": "Security Fundamentals :: Sensitive Data",
+  "items": [
+    {
+      "id": "q.security.sensitive-data.personally-identifiable-information.01",
+      "concept_id": "security.sensitive-data.personally-identifiable-information",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An analytics export contains a browsing session ID, a product SKU viewed, a postcode, and a date of birth — no name, account number or email address anywhere in the file. Applying NIST SP 800-122's two-part test, what is the status of this export?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is PII, because the postcode combined with the date of birth is linked-or-linkable information capable of identifying a person even without a direct identifier.",
+          "correct": true,
+          "why": "NIST's second limb covers information that becomes identifying once combined, and a postcode plus date of birth is routinely enough on its own.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is not PII, because no single field in the file can distinguish or trace an individual's identity by itself, and combination effects only matter once a name or account number is also present.",
+          "correct": false,
+          "why": "Stopping the analysis at direct identifiers is exactly the trap: removing a name does not end the question if what remains is still linkable.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.personally-identifiable-information"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is a classification question rather than a PII question, since data classification exists precisely to flag files containing personal data.",
+          "correct": false,
+          "why": "Classification is a label the organisation assigns; PII is a fact about the content that holds whether or not any label has been applied.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It stays anonymous unless the vendor later joins it to an account number, so no obligation attaches to the file as exported today, only to whatever the vendor might eventually build from it.",
+          "correct": false,
+          "why": "The postcode-and-date-of-birth combination is already linkable on its own; waiting for a future join understates the risk in hand.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization"
+          }
+        }
+      ],
+      "rationale": "NIST SP 800-122 splits PII into information that distinguishes or traces an identity by itself and information that is linked or linkable to one in combination. A postcode and a date of birth carry no direct identifier but routinely narrow a population to a single person, which places the export in the second category regardless of what label the file carries or what a downstream vendor might later do with it.",
+      "source_ids": [
+        "nist-sp-800-122"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.personally-identifiable-information",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.personally-identifiable-information.02",
+      "concept_id": "security.sensitive-data.personally-identifiable-information",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Under GDPR Article 4(1), which of these is personal data on its own, with no need to combine it with anything else?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A device's IP address, because Article 4(1) names an online identifier as a way a natural person is identified directly.",
+          "correct": true,
+          "why": "Article 4(1) lists an online identifier alongside name and location data as a direct identifier of the person, not as something requiring a second field.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A bare postcode, because a postcode always narrows a location to a single household regardless of what else is known about the person living there.",
+          "correct": false,
+          "why": "A postcode alone is ordinarily a linked-or-linkable quasi-identifier, not a direct one — it becomes identifying in combination, which this option skips past.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.personally-identifiable-information"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A company's unreleased pricing model, since anything commercially sensitive counts as personal data under GDPR regardless of whether it relates to any identifiable individual.",
+          "correct": false,
+          "why": "Sensitive and personal are not synonyms: a pricing model can be highly sensitive while relating to no natural person at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.personally-identifiable-information"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A hashed customer identifier, because hashing an identifier removes it from GDPR's scope entirely, the same way encryption or masking would.",
+          "correct": false,
+          "why": "A hash of a small, enumerable input space like an identifier is reversible by dictionary attack, so the data stays within scope rather than leaving it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization"
+          }
+        }
+      ],
+      "rationale": "Article 4(1) names an online identifier as one of the ways a natural person is identified directly, which is why an IP address or device identifier is the option that offers itself as obviously non-personal but is not. A postcode narrows a population but is not by itself an identifier; commercial sensitivity is an unrelated axis; and hashing a small input space does not achieve the irreversibility GDPR's anonymisation exemption requires.",
+      "source_ids": [
+        "gdpr-eurlex"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.personally-identifiable-information",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.protected-health-and-payment-data.01",
+      "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "PHI and cardholder data both carry regulatory weight, but the source of that weight differs between the two regimes. Which statement is accurate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "HIPAA is federal law enforced by HHS and binds covered entities and their business associates; PCI DSS is a council-published standard whose applicability is set by payment brands and acquirers, not by statute.",
+          "correct": true,
+          "why": "The two regimes differ in kind: one derives its authority from legislation, the other from contractual compliance programmes run by the industry that adopted it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both are federal statutes, and the same regulator enforces each of them, so the question of who has authority over a given dataset never actually arises in practice.",
+          "correct": false,
+          "why": "PCI DSS is not legislation at all — the PCI Security Standards Council publishes it, and no government agency enforces it the way HHS enforces HIPAA.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.protected-health-and-payment-data"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "PCI DSS binds every company that stores any customer data, whether or not it processes payment cards, in the same way HIPAA binds any company holding health information.",
+          "correct": false,
+          "why": "This treats PCI scope as coextensive with PII generally, when in fact it attaches specifically to cardholder and sensitive authentication data.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.personally-identifiable-information"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "HIPAA binds any company that happens to hold an employee's medical note, whether or not it is a covered entity, because the sensitivity of the record alone is what triggers the law.",
+          "correct": false,
+          "why": "HIPAA's obligations attach to covered entities and business associates by regulatory definition; an ordinary employer holding one medical note is not automatically either.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.protected-health-and-payment-data"
+          }
+        }
+      ],
+      "rationale": "HIPAA's Security and Privacy Rules at 45 CFR Part 164 apply to covered entities and business associates and are enforced by HHS. PCI DSS, by contrast, is published by the PCI Security Standards Council, and whether an organisation must comply is a decision made by the payment brands and acquirers who run compliance programmes, not a matter of statute — so the same question, 'who enforces this and by what authority', has opposite answers for the two.",
+      "source_ids": [
+        "hipaa-45-cfr-164",
+        "pci-dss-standards"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.protected-health-and-payment-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.protected-health-and-payment-data.02",
+      "concept_id": "security.sensitive-data.protected-health-and-payment-data",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A covered entity decides not to encrypt ePHI at rest, citing that encryption is 'Addressable' rather than 'Required' under the HIPAA Security Rule. Is that decision compliant by itself?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — Addressable requires the entity to assess whether encryption is reasonable and appropriate, implement it if so, and otherwise document why not and adopt an equivalent alternative measure.",
+          "correct": true,
+          "why": "45 CFR 164.306(d)(3) sets out exactly that assessment-implement-or-document sequence for every Addressable specification.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — 'Addressable' is HIPAA's term for optional, so declining it needs no further justification beyond the entity's own preference not to implement it.",
+          "correct": false,
+          "why": "Addressable is not optional; it obliges an assessment and, if the specification is not implemented, a documented reason and an equivalent alternative.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.protected-health-and-payment-data"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the organisation's own scheme has classified the data as low sensitivity, since an internal label can substitute for a federal Security Rule assessment.",
+          "correct": false,
+          "why": "An internal classification label has no bearing on a HIPAA Addressable requirement, which is assessed against reasonableness and appropriateness, not an internal scheme.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No — but only because PCI DSS, not HIPAA, is what actually mandates encrypting this data, so the HIPAA specification itself carries no weight here at all.",
+          "correct": false,
+          "why": "The scenario is about ePHI under HIPAA's own Security Rule; pulling in PCI DSS answers a different regime's question.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.protected-health-and-payment-data"
+          }
+        }
+      ],
+      "rationale": "Encryption of ePHI is Addressable both at rest and in transmission, and 45 CFR 164.306(d)(3) defines what Addressable means: assess whether the safeguard is reasonable and appropriate, implement it if it is, and otherwise document why not and put an equivalent alternative measure in place where that is itself reasonable and appropriate. Declining encryption with no such assessment or documentation does not satisfy that standard.",
+      "source_ids": [
+        "hipaa-45-cfr-164"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.protected-health-and-payment-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-classification.01",
+      "concept_id": "security.sensitive-data.data-classification",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A spreadsheet carries the label 'Public' under the company's classification scheme, but one of its columns holds employees' home addresses and dates of birth. Which statement correctly separates the two questions this raises?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The label is a policy decision the organisation can revise; whether the data is PII is a fact about the content, true regardless of what label the file carries.",
+          "correct": true,
+          "why": "Classification is something an organisation decides and can change; PII status follows from the content and does not move when the label does.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Because the column is PII, the label is necessarily wrong and must always read 'Restricted', since any presence of personal data forces the highest available classification tier.",
+          "correct": false,
+          "why": "PII status and the required classification level are related but not identical questions; a scheme could reasonably classify low-sensitivity PII below Restricted.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The label question and the PII question are the same question asked twice, since classification schemes exist to flag files containing personal data.",
+          "correct": false,
+          "why": "Classification also governs plainly non-personal data such as source code and pricing models, so the two questions are not interchangeable.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.sensitive-data.personally-identifiable-information"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither question matters until the file actually leaves the organisation, since legal obligations attach only on export.",
+          "correct": false,
+          "why": "PII obligations travel with the data wherever it sits, including internal copies, well before any export occurs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-loss-prevention"
+          }
+        }
+      ],
+      "rationale": "Data classification is a decision an organisation makes about a file and can revise; whether the file contains PII is a fact about its content that a mislabelling does not change. The two axes drive different things — classification drives internal handling rules, PII status drives external legal duties — which is exactly what the competency's owned comparison, data classification versus personally identifiable information, turns on.",
+      "source_ids": [
+        "nist-sp-800-122"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-classification",
+      "comparison_block": "cmp-security.sensitive-data.data-classification",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-classification.02",
+      "concept_id": "security.sensitive-data.data-classification",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A dataset is assembled by merging three source files: one labelled Internal, one Confidential, and one Restricted. Under conventional classification scheme rules, what label does the merged dataset carry?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Restricted — aggregation conventionally takes the highest label present, because the merged set discloses everything its most sensitive member discloses.",
+          "correct": true,
+          "why": "A set that includes the Restricted file exposes that file's contents whenever the whole set is exposed, so the aggregate cannot be labelled any lower.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Internal — most of the source files were not Restricted, so the majority label applies to the merge, the same way a vote would decide among competing classifications.",
+          "correct": false,
+          "why": "Labelling by majority ignores that exposing the set discloses the most sensitive member regardless of how many less-sensitive files sit alongside it.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Confidential — mandatory access control automatically re-labels merged data to the median sensitivity of its inputs.",
+          "correct": false,
+          "why": "MAC enforces a policy against labels; it does not compute a new label by averaging the inputs of a merge.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.access-control-models"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Whatever label the employee who performed the merge personally holds clearance for, since the clearance of the person doing the work determines the sensitivity of what they produce.",
+          "correct": false,
+          "why": "Clearance belongs to a person; classification belongs to the data. Conflating the two is the trap this concept warns about directly.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.access-control-models"
+          }
+        }
+      ],
+      "rationale": "Where a set mixes labels, schemes conventionally give the aggregate the highest label present, because the set discloses everything its most sensitive member discloses. Neither a majority vote nor an access-control mechanism computes that label — classification is a decision applied to the data itself, distinct from both vote-counting and from the clearance held by any person handling it.",
+      "source_ids": [
+        "nist-sp-800-122"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-classification",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-states.01",
+      "concept_id": "security.sensitive-data.data-states",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A service full-disk-encrypts its database volume and terminates every client connection over TLS. Which of the three data states remains unprotected by either control?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "In use — plaintext exists inside the server process's memory while it operates on the data, and neither the disk encryption nor the TLS session reaches that memory.",
+          "correct": true,
+          "why": "Both controls guard a boundary the data crosses or sits behind; the address space of a running process is outside both boundaries.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "At rest — because the disk's encryption key is stored on the same host as the ciphertext, the control does not really count as protecting the state.",
+          "correct": false,
+          "why": "That is a real custody concern, but it belongs to key management, not to whether the at-rest state itself is covered here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "None — encrypting the disk and using TLS between every endpoint covers the data everywhere it exists, leaving no state in the pipeline that still needs a separate control.",
+          "correct": false,
+          "why": "This is the assumption the third state exists to break: in use has no comparable boundary on an ordinary system.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-states"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "In transit — because a DLP inspection point at the network boundary decrypts and re-encrypts the TLS stream, briefly exposing it.",
+          "correct": false,
+          "why": "That describes a specific inspection architecture, not a gap in TLS itself, and is not what leaves this scenario's in-use state uncovered.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-loss-prevention"
+          }
+        }
+      ],
+      "rationale": "Full-disk encryption protects information located on the storage component, and TLS protects it while it is on the wire between endpoints. Neither reaches the address space of the process that is actually working on the data, which is why data in use is the hardest of the three states and has no everyday answer built from 'we encrypted it'.",
+      "source_ids": [
+        "nist-csrc-glossary"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-states",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-states.02",
+      "concept_id": "security.sensitive-data.data-states",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Which technique below is reversible only by whoever holds a secret key, as opposed to being either irreversible or reversible by anyone with no key at all?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Encryption — recovering the original value requires the key, and without it the ciphertext does not yield the plaintext.",
+          "correct": true,
+          "why": "Reversibility gated on key possession is exactly what separates encryption from both hashing and encoding.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Hashing — the digest can be reversed by anyone who runs the same one-way function again, since no secret is involved anywhere in the process.",
+          "correct": false,
+          "why": "Hashing is a one-way function; no key is involved and nothing is recovered from the digest by design.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-states"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Base64 encoding — some systems describe it as encoding 'for security', though reversing it needs no key at all and any observer can decode it on sight.",
+          "correct": false,
+          "why": "Encoding is reversible by anyone with no key whatsoever; describing it as a security measure misdescribes it by definition.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secrets-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A salted hash, since adding a key-encrypting key to the salt makes the resulting digest reversible for anyone who also knows that outer key.",
+          "correct": false,
+          "why": "This mixes two unrelated mechanisms: a key-encrypting key wraps other keys, and salting a hash does not turn a one-way digest into a reversible one.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        }
+      ],
+      "rationale": "The three transformations sit on a fixed axis. Encryption is reversible with a key. Hashing is one-way, keyless, and produces a digest nothing is recovered from. Encoding is reversible by anyone with no key at all and provides no security whatsoever. Only encryption sits at the 'reversible, but only with a key' point on that axis.",
+      "source_ids": [
+        "nist-csrc-glossary"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-states",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.access-control-models.01",
+      "concept_id": "security.sensitive-data.access-control-models",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A file owner grants a colleague read access to a shared document at their own discretion. On a second system enforcing a mandatory policy, the same owner's attempt to grant that access is refused because the policy does not permit it. Which model governs each system?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The first is discretionary access control, where the owner decides. The second is mandatory access control, a system-enforced policy that constrains even the owner.",
+          "correct": true,
+          "why": "DAC places the decision with the object's owner; MAC enforces a policy uniformly, and a subject cannot pass access on regardless of ownership.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both are role-based access control, since access is being granted through a role the owner and the policy both recognise, even though neither system names a role explicitly.",
+          "correct": false,
+          "why": "Nothing in the scenario names a role; the first system is decided at the owner's discretion and the second by a uniformly enforced policy, not by role assignment.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.access-control-models"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The second system is really data classification rather than access control — the document's label is what refused the grant, not any policy evaluating the request.",
+          "correct": false,
+          "why": "A label only tells an enforcement mechanism what to enforce; the refusal here comes from a mandatory access control policy, the one place labels and enforcement genuinely fuse.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The second system is attribute-based access control, evaluating request attributes rather than enforcing a uniform mandatory policy.",
+          "correct": false,
+          "why": "The scenario describes a policy uniformly enforced across all subjects and objects, which is the defining feature of MAC rather than an attribute evaluation.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.access-control-models"
+          }
+        }
+      ],
+      "rationale": "Under DAC, a subject granted access may pass it on at the owner's discretion. Under MAC, the policy is uniformly enforced and a subject granted access is constrained from passing it on regardless of who owns the object. The separating axis is who holds the decision: the owner in the first case, a system-enforced policy the owner cannot override in the second.",
+      "source_ids": [
+        "nist-csrc-glossary"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.access-control-models",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.access-control-models.02",
+      "concept_id": "security.sensitive-data.access-control-models",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A company with 3,000 employees maintains per-user, per-file access grants and finds the list unmanageable as staff join and leave. Which access control model addresses the maintenance problem, and what does adopting it not by itself guarantee?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Role-based access control — permissions are defined once per role instead of once per user per object, but adopting it does not by itself make the system more secure than discretionary access control, only cheaper to maintain.",
+          "correct": true,
+          "why": "RBAC's argument is a scalability argument about maintenance cost, not an inherent security claim over DAC in the abstract.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Role-based access control, and it is automatically more secure than discretionary access control because roles are mandatory rather than discretionary.",
+          "correct": false,
+          "why": "Roles are administered rather than owner-discretionary, but that is a maintenance property, not a security guarantee over DAC by itself.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.access-control-models"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Data classification — assigning a sensitivity label to each file removes the need to track individual grants, since the label itself becomes the access decision.",
+          "correct": false,
+          "why": "A label tells an enforcement mechanism what to enforce; it does not itself replace the work of granting and revoking access.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Placing every employee in a single Unix group achieves the same result as role-based access control, since a group is also a role.",
+          "correct": false,
+          "why": "A Unix group is a DAC construct — the file's owner still decides what the group may do with it — and is not the same mechanism as administered role assignment.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.access-control-models"
+          }
+        }
+      ],
+      "rationale": "RBAC attaches permissions to roles instead of individual identities, so churn in headcount does not multiply into per-object grants — a maintenance-cost argument, and the common organisational choice for anything with meaningful headcount. It is not automatically more secure than DAC in the abstract, a data label is not a substitute for an access-granting mechanism, and a Unix group remains a discretionary construct under the owner's control rather than an administered role.",
+      "source_ids": [
+        "nist-sp-800-162"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.access-control-models",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.encryption-key-management.01",
+      "concept_id": "security.sensitive-data.encryption-key-management",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "What does a cryptoperiod bound, and why does SP 800-57 recommend bounding it deliberately?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The span of time a key is authorised for use; a shorter cryptoperiod limits how much material is available for cryptanalysis and how much is exposed if that one key is compromised.",
+          "correct": true,
+          "why": "SP 800-57 defines the cryptoperiod exactly this way and gives exactly this reason for bounding it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The number of times a key may be used, regardless of how much time has elapsed since it was generated, since usage count rather than elapsed time is what SP 800-57 actually bounds.",
+          "correct": false,
+          "why": "A cryptoperiod is a time span, not a use count, so this substitutes a different, unrelated limiting factor.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The interval at which a secret store rotates every credential it holds, cryptographic or not, since a cryptoperiod is simply another name for a rotation schedule.",
+          "correct": false,
+          "why": "Secrets management is the broader operational discipline covering every credential; a cryptoperiod is specific to a single cryptographic key's authorised lifetime.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secrets-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The time before a key must be sanitised using the Clear, Purge or Destroy categories, since those disposal categories are what a cryptoperiod is measuring.",
+          "correct": false,
+          "why": "Those categories describe how media is sanitised at disposal, a different concern from how long a key remains authorised for active use.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secure-deletion"
+          }
+        }
+      ],
+      "rationale": "SP 800-57 Part 1 defines a cryptoperiod as the time span during which a specific key is authorised for use, and bounds it deliberately: a shorter cryptoperiod limits both the material available for cryptanalysis and the exposure if that single key is compromised. It is a time-based limit on one key's authorised lifetime, distinct from a use count, from the broader practice of secrets rotation, and from the separate question of how media is sanitised.",
+      "source_ids": [
+        "nist-sp-800-57p1r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.encryption-key-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.encryption-key-management.02",
+      "concept_id": "security.sensitive-data.encryption-key-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team rotates its outer key-encrypting key every quarter without re-encrypting any of the data that key ultimately protects. How is that possible?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Envelope encryption — the key-encrypting key only wraps the data-encryption key, so rotating the outer key re-wraps the inner one without touching a byte of the underlying data.",
+          "correct": true,
+          "why": "SP 800-57 defines a key-encrypting key as exactly that: a key used to encrypt or decrypt other keys, which is what makes this rotation cheap.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It isn't really possible — every key rotation must re-encrypt the underlying data, so the team's process is unsound and will eventually corrupt the dataset it protects.",
+          "correct": false,
+          "why": "This is precisely what envelope encryption is designed to avoid; rotating the outer key deliberately does not require touching the data it indirectly protects.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The data was pseudonymized rather than encrypted, so no key ever protected it directly in the first place, which is why nothing needed to change when the outer key rotated.",
+          "correct": false,
+          "why": "The scenario states the data is protected by an encryption key hierarchy, not that it was replaced by a token — pseudonymization is a different technique entirely.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The data was in transit at the time of rotation, so no at-rest key ever needed to change.",
+          "correct": false,
+          "why": "Nothing in the scenario places the data in transit, and the explanation for cheap rotation is envelope encryption's structure, not which state the data happened to be in.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-states"
+          }
+        }
+      ],
+      "rationale": "Rotation in practice usually means envelope encryption: a data-encryption key protects the data directly, and a key-encrypting key protects that data-encryption key. Rotating the outer key re-wraps the inner one without re-encrypting a byte of the data itself, which is exactly what lets the outer key rotate on a quarterly schedule at negligible cost.",
+      "source_ids": [
+        "nist-sp-800-57p1r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.encryption-key-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.secrets-management.01",
+      "concept_id": "security.sensitive-data.secrets-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An API key is committed to a public repository. A later commit deletes the file that contained it. Is the exposure closed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — the blob survives in history, in every existing clone and fork, and in CI caches; only rotating the credential closes the exposure.",
+          "correct": true,
+          "why": "Rewriting or deleting the latest commit is cleanup, not remediation, because the exposed value remains reachable through history and prior copies.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — once the file is removed from the latest commit, the key is no longer accessible to anyone.",
+          "correct": false,
+          "why": "This is the standard wrong reaction the guide names directly: the blob remains in history and in every clone anyone already took.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.secrets-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because the exposure now triggers a mandatory regulator notification regardless of what is done next, which is the actual remedy rather than rotating the credential.",
+          "correct": false,
+          "why": "Whether notification is owed depends on whether the exposed key gave access to protected data and on the applicable regime, which this scenario does not establish either way.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-breach-and-notification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No — the fix is to rotate the repository's disk encryption key rather than the exposed API key.",
+          "correct": false,
+          "why": "The repository's own encryption key is unrelated to the credential that was exposed inside its committed content; rotating the wrong key leaves the real exposure open.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        }
+      ],
+      "rationale": "Deleting the secret in a later commit does not remove it: the blob remains in history, in every clone anyone has already taken, in forks, and in CI caches. Rewriting history is cleanup, not remediation. Rotating the credential — revoking the exposed one and issuing a replacement — is the only fix that actually closes the exposure, and it must happen before any tidying.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.secrets-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.secrets-management.02",
+      "concept_id": "security.sensitive-data.secrets-management",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team moves a database password out of source code and into an environment variable that the application reads at startup. Have they achieved secrets management?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Partially — the value is no longer in source, but an environment variable is not access-controlled, audited or rotatable without a code change, so it is a delivery mechanism rather than a store.",
+          "correct": true,
+          "why": "An environment variable is inherited by every child process and turns up in crash dumps and container inspect output, which is short of what a purpose-built secret store provides.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes, fully — environment variables are process-local and therefore as secure as a purpose-built secret store, since nothing outside the process can ever read them.",
+          "correct": false,
+          "why": "Process-local is not the same as access-controlled or audited; the value still leaks into logs, dumps and any process that inherits the environment.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.secrets-management"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, fully — the variable is encrypted at rest by the operating system, which is all a secret store provides beyond simply holding a value for a process to read.",
+          "correct": false,
+          "why": "A secret store's value is access control, an audit trail and rotation without a code change, none of which follows automatically from encryption at rest of the host.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No progress at all — an environment variable is exactly as exposed as leaving the password in the source file, since both are readable by anyone with host access.",
+          "correct": false,
+          "why": "Moving it out of source does remove it from every clone and code review, which is a real improvement even though the destination still falls short of a proper store.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secrets-management"
+          }
+        }
+      ],
+      "rationale": "An environment variable delivers a value to a process but provides none of a secret store's guarantees: it is inherited by every child process, readable by the process owner and root, and it routinely ends up in crash dumps, CI job logs and container inspect output. 'We moved it out of the code into an env var' is a partial answer — an improvement over source, but not access-controlled, audited or rotatable in the way a secret store is.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.secrets-management",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.masking-anonymization-and-pseudonymization.01",
+      "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "Which of the three techniques is the only one that is genuinely one-way, with no additional information anywhere that could reverse it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Anonymization — it removes the association between the data and the data subject outright, unlike masking or pseudonymization.",
+          "correct": true,
+          "why": "Only anonymization is genuinely one-way; both masking and pseudonymization leave something behind that can be reversed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Pseudonymization — GDPR Article 4(5) requires the additional information needed to re-attribute the data to be destroyed immediately after use.",
+          "correct": false,
+          "why": "Article 4(5) requires that additional information to be kept separately and protected, not destroyed — the mapping's continued existence is exactly why pseudonymized data stays personal data.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.masking-anonymization-and-pseudonymization"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Masking — hiding a value in a display permanently alters the underlying database record.",
+          "correct": false,
+          "why": "Masking is a presentation control: it typically leaves the original value intact behind the display, which is the opposite of an irreversible change.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Anonymization, but only for data that was never PII in the first place.",
+          "correct": false,
+          "why": "Anonymization is a technique applied to data that was identifying; data that was never PII needs no such technique to begin with.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.personally-identifiable-information"
+          }
+        }
+      ],
+      "rationale": "Masking hides a value in a display or a copy while typically leaving the original intact behind it. Pseudonymization substitutes a token or hashed identifier and retains, separately, whatever is needed to reverse it — GDPR Article 4(5) requires that additional information to be kept, not destroyed. Only anonymization removes the association outright, which is why it alone is genuinely one-way.",
+      "source_ids": [
+        "gdpr-eurlex"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.masking-anonymization-and-pseudonymization",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.masking-anonymization-and-pseudonymization.02",
+      "concept_id": "security.sensitive-data.masking-anonymization-and-pseudonymization",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A company hashes customer email addresses before sharing a dataset with a vendor and calls the result anonymized. Is that assessment correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — the input space of email addresses is small enough to enumerate, so hashing them is pseudonymization at best, and the data remains personal data under GDPR.",
+          "correct": true,
+          "why": "NIST SP 800-122 warns that de-identified information can be re-identified, and a keyless hash of a low-entropy input like an email address can be reversed by enumeration.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — applying any one-way function to an identifier produces anonymized data by definition, regardless of how small or guessable the space of possible inputs happens to be.",
+          "correct": false,
+          "why": "One-way is necessary but not sufficient; if the input space is small enough to enumerate, the function is reversible in practice even though no key is involved.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.masking-anonymization-and-pseudonymization"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because a data loss prevention rule would have blocked the export regardless of which technique was used.",
+          "correct": false,
+          "why": "Whether a DLP rule would have intervened is a separate control question and has no bearing on whether hashing achieves true anonymization.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-loss-prevention"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes — and Article 34(3)(a) confirms that hashed data outside GDPR's scope never needs to be reported if it is later exposed.",
+          "correct": false,
+          "why": "Article 34(3)(a) excuses individual notification where data was rendered unintelligible, which presumes the data is still in scope; it does not establish that hashing places data outside GDPR.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-breach-and-notification"
+          }
+        }
+      ],
+      "rationale": "Anonymization must survive an attempt to re-identify. Hashing an email address is pseudonymization rather than anonymization because the input space of plausible email addresses is small enough to enumerate, so the mapping is effectively recoverable without any separately held key. Pseudonymized data remains personal data under GDPR, unlike data that has genuinely been anonymized under Recital 26.",
+      "source_ids": [
+        "nist-sp-800-122",
+        "gdpr-eurlex"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.masking-anonymization-and-pseudonymization",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-loss-prevention.01",
+      "concept_id": "security.sensitive-data.data-loss-prevention",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "A ransomware attack encrypts a company's file server, and separately an employee emails a customer list to a personal account. Which incident does data loss prevention address?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The emailed customer list — DLP addresses loss of control over data leaving the organisation, not loss of availability.",
+          "correct": true,
+          "why": "The name is a trap: 'loss' in data loss prevention means leakage and exfiltration, which is exactly what the emailed list represents.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The ransomware attack — 'data loss prevention' exists to stop the organisation losing its data to encryption or deletion.",
+          "correct": false,
+          "why": "This reads 'loss' as availability loss, which is the exact misreading the name invites; that failure mode is a backup and recovery problem instead.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-loss-prevention"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The ransomware attack, because backups are themselves a data loss prevention control under NIST SP 800-53.",
+          "correct": false,
+          "why": "Backups address availability loss and sit under system backup controls, not under the exfiltration-prevention controls DLP is assembled from.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.backups-of-sensitive-data"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither — DLP only activates once data has been formally classified as Restricted, and this scenario names no classification.",
+          "correct": false,
+          "why": "DLP is more effective when classification exists, but it still falls back to content matching without one — it does not switch off entirely for unclassified data.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-classification"
+          }
+        }
+      ],
+      "rationale": "The name is a trap, and the exam uses it: 'loss' here means loss of control — leakage, exfiltration, disclosure — not loss of availability. A candidate who reads 'data loss prevention' as 'stops us from losing our data' reaches for backups, which prevent an entirely different failure. The emailed customer list is exactly the kind of exfiltration DLP is built to catch.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-loss-prevention",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-loss-prevention.02",
+      "concept_id": "security.sensitive-data.data-loss-prevention",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A firewall permits an outbound HTTPS connection to a partner's API. A DLP rule then blocks one specific message across that same connection. How is that possible?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A firewall decides by address, port and protocol; DLP decides by what the payload contains, so it can act within a connection the firewall has already allowed.",
+          "correct": true,
+          "why": "The two controls operate on different information, which is exactly why one can permit a connection while the other blocks a single message across it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It isn't possible — once a firewall permits a connection, every message across it is necessarily allowed through, since nothing downstream of the firewall inspects the traffic further.",
+          "correct": false,
+          "why": "This treats the firewall's address-and-port decision as the only control on the path, ignoring that DLP inspects content at a different layer entirely.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-loss-prevention"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The DLP rule is actually a mandatory access control policy overriding the firewall's discretionary decision.",
+          "correct": false,
+          "why": "DLP and firewalling are both network controls operating on traffic; neither is an access control model governing subjects and objects the way DAC or MAC does.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.access-control-models"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The message was blocked because it contained a credential, which only a secrets manager, not DLP, is able to detect inside outbound network traffic.",
+          "correct": false,
+          "why": "A secrets manager stores and hands out credentials; detecting a credential inside outbound traffic and blocking it is exactly the content-inspection job DLP performs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secrets-management"
+          }
+        }
+      ],
+      "rationale": "DLP is not a firewall: a firewall decides by address, port and protocol, while DLP decides by what the payload contains, which is why it can permit a connection at the network layer and still block one message across it once the content inside is inspected. The two controls answer different questions and operate at different points in the same path.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-loss-prevention",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-retention-and-disposal.01",
+      "concept_id": "security.sensitive-data.data-retention-and-disposal",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A record is subject to a seven-year tax retention rule and a GDPR storage-limitation obligation to delete once no longer necessary. The data has been unnecessary for two years, but the seven years has not yet elapsed. What must happen to the record right now?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is kept — the tax rule is a floor that has not yet been reached, even though the privacy ceiling was crossed two years ago.",
+          "correct": true,
+          "why": "A floor and a ceiling can bind the same dataset at once, and neither one being satisfied excuses violating the other; here the floor still governs.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is deleted immediately, since the privacy obligation to minimise data always overrides a retention floor.",
+          "correct": false,
+          "why": "Deleting before a legal retention floor is reached is itself the violation the floor exists to prevent — the two obligations do not resolve by one automatically outranking the other.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-retention-and-disposal"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whether it is kept depends on whether a personal data breach has occurred involving this record in the meantime, since a breach resets which retention rule applies to it.",
+          "correct": false,
+          "why": "A breach affecting the record would raise a separate notification duty, but it does not change which retention rule currently governs the record's disposition.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-breach-and-notification"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It must be Cleared but not yet Purged, since only two of the seven years under the tax rule have passed, and Clear is the appropriate interim state for partially aged records.",
+          "correct": false,
+          "why": "Clear and Purge are sanitisation techniques applied at disposal, not partial states a record passes through while a retention clock is still running.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secure-deletion"
+          }
+        }
+      ],
+      "rationale": "A retention rule has two edges pointing in opposite directions. Records and tax rules set a floor — deleting early violates it. Privacy rules set a ceiling — keeping past necessity violates it. A single dataset can be subject to both, and here the floor still binds even though the ceiling was crossed earlier; the correct answer is neither 'keep indefinitely' nor 'delete the moment the ceiling is crossed'.",
+      "source_ids": [
+        "gdpr-eurlex",
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-retention-and-disposal",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-retention-and-disposal.02",
+      "concept_id": "security.sensitive-data.data-retention-and-disposal",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A retention schedule marks a customer's records for deletion this month, but a legal hold was placed on that customer's data last week for pending litigation. What happens to the scheduled deletion?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is suspended — records under a legal hold must not be destroyed even though the schedule says their time is up, until the hold is lifted.",
+          "correct": true,
+          "why": "A legal hold overrides the schedule for as long as it is in place, regardless of what the retention period would otherwise require.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It proceeds as scheduled, since a legal hold only prevents new data from being created, not existing data from being deleted.",
+          "correct": false,
+          "why": "A legal hold applies to existing records precisely to prevent their destruction while a matter is pending; it is not limited to future data.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-retention-and-disposal"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It proceeds for the production copy, but the backup copy is retroactively covered by the hold instead, since a hold attaches to whichever copy is created most recently.",
+          "correct": false,
+          "why": "A legal hold covers the affected records wherever they exist, including production; it does not selectively skip the copy the litigation is actually about.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.backups-of-sensitive-data"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is blocked by the data loss prevention system rather than by the retention process, since DLP is what enforces legal holds.",
+          "correct": false,
+          "why": "DLP inspects data leaving the organisation; a legal hold is enforced by suspending the retention schedule itself, not by a content-inspection control.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-loss-prevention"
+          }
+        }
+      ],
+      "rationale": "A legal hold suspends the retention schedule: once a hold is in place for a matter, the affected records must not be destroyed even if the schedule says their time is up, and the hold overrides the schedule until it is lifted. It applies to the records themselves, wherever they sit, and is enforced by suspending the retention process rather than by any content-inspection control.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-retention-and-disposal",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.secure-deletion.01",
+      "concept_id": "security.sensitive-data.secure-deletion",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A system administrator runs an ordinary file-delete command across a directory of sensitive files before decommissioning a drive. Has the data been securely deleted?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — an ordinary delete removes the directory entry and decrements the link count; the blocks holding the contents remain until reallocated and are recoverable.",
+          "correct": true,
+          "why": "Deletion is a namespace operation, not a data operation, which is the single insight NIST SP 800-88 warns against confusing with sanitisation.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — once a file has no directory entry pointing to it, its contents are gone from the device, since nothing else on the filesystem still references those blocks.",
+          "correct": false,
+          "why": "The contents stay on the device until something else reallocates the blocks, which is exactly why undelete and forensic tools recover them routinely.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.secure-deletion"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Yes, provided the retention schedule for those files had already expired before the command ran, since an expired schedule makes any deletion method equally final.",
+          "correct": false,
+          "why": "Whether the retention period has expired governs whether the data should be disposed of; it says nothing about whether the disposal method actually erased it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because a backup copy of the same files still exists elsewhere.",
+          "correct": false,
+          "why": "Even with no backup anywhere, the delete command still leaves the original blocks recoverable on this drive — the backup's existence is not what makes the answer no.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.backups-of-sensitive-data"
+          }
+        }
+      ],
+      "rationale": "Deleting a file removes a directory entry and decrements the link count; the blocks holding the contents stay on the device until something else reallocates them, which is why undelete and forensic tools recover them routinely. NIST SP 800-88 warns specifically against methods that simply remove file pointers, and an exam option offering 'delete the files' as a disposal method for sensitive media is offering the wrong one.",
+      "source_ids": [
+        "nist-sp-800-88r1"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.secure-deletion",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.secure-deletion.02",
+      "concept_id": "security.sensitive-data.secure-deletion",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A self-encrypting drive is retired by issuing a command that destroys its media encryption key, leaving only ciphertext behind. Which SP 800-88 category does this fall under, and what limits how much it can be trusted?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Purge, via cryptographic erase — it is fast, but only as trustworthy as the drive's own encryption implementation.",
+          "correct": true,
+          "why": "Cryptographic erase is the Purge technique that destroys the media encryption key, and its assurance depends entirely on that implementation being sound.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Destroy — the drive can never store data again once its key is gone, which is what distinguishes Destroy from Purge.",
+          "correct": false,
+          "why": "The drive remains physically usable for storage after cryptographic erase; Destroy specifically requires leaving the media unusable for storage, which this does not do.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.secure-deletion"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Clear — logical techniques like this only defeat simple, non-invasive recovery attempts, nothing more.",
+          "correct": false,
+          "why": "Clear defeats simple non-invasive recovery; cryptographic erase is specifically classified as Purge, rendering recovery infeasible against state-of-the-art laboratory techniques.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Purge, and its trustworthiness is limited by whether the drive's retention schedule had already expired.",
+          "correct": false,
+          "why": "A retention schedule governs when disposal should happen, not how much the sanitisation technique itself can be trusted once disposal is under way.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
+        }
+      ],
+      "rationale": "SP 800-88 Rev. 1 defines Clear, Purge and Destroy as three distinct categories. Cryptographic erase is the Purge technique that destroys a self-encrypting drive's media encryption key, leaving only ciphertext — fast, but only as trustworthy as the drive's encryption implementation, and it leaves the media itself still usable, which is what separates it from Destroy.",
+      "source_ids": [
+        "nist-sp-800-88r1"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.secure-deletion",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-breach-and-notification.01",
+      "concept_id": "security.sensitive-data.data-breach-and-notification",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An intrusion occurred in March but was not discovered until a security review in July. When does GDPR's 72-hour notification clock start?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "In July, on becoming aware of the breach — the deadline is to notify from that point, not to have finished remediating the March intrusion.",
+          "correct": true,
+          "why": "Article 33(1) starts the clock at awareness, and a compromise unnoticed for months still starts its 72 hours the day it is discovered.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "In March, when the intrusion actually happened, regardless of when anyone noticed it.",
+          "correct": false,
+          "why": "The clock is not backdated to the moment of compromise; awareness, not intrusion, is the trigger the article names.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-breach-and-notification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It does not start at all, since a breach discovered outside the data's retention window carries no notification duty, regardless of how the breach itself came to light.",
+          "correct": false,
+          "why": "Retention windows govern how long data may be kept, not whether a breach discovered later must be reported; the two obligations are independent.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "In July, but only if the affected data was found in a backup rather than in the production system.",
+          "correct": false,
+          "why": "Where the compromised data was stored has no bearing on when the clock starts; awareness of the breach is what triggers it, not which copy was affected.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.backups-of-sensitive-data"
+          }
+        }
+      ],
+      "rationale": "GDPR Article 33(1) requires notification without undue delay and, where feasible, not later than 72 hours after becoming aware of the breach. The clock starts at awareness, not at intrusion — a compromise that went unnoticed for months still starts its 72 hours the day it is discovered, and the deadline is a deadline to notify, not a deadline to have finished remediating.",
+      "source_ids": [
+        "gdpr-eurlex"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-breach-and-notification",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.data-breach-and-notification.02",
+      "concept_id": "security.sensitive-data.data-breach-and-notification",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "A breach is assessed as likely to result in a high risk to individuals' rights and freedoms, but the affected data had been encrypted throughout. What follows under GDPR?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The supervisory authority is still notified under Article 33; the individual communication under Article 34 is excused because the encryption rendered the data unintelligible to anyone unauthorised.",
+          "correct": true,
+          "why": "Article 34(3)(a) excuses only the individual communication where protective measures such as encryption were applied; it does not touch the separate Article 33 duty to the authority.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Neither notification is required, since encrypted data that is later exposed is not treated as a breach at all, no matter what access an attacker actually gained.",
+          "correct": false,
+          "why": "Article 4(12) defines a personal data breach by the security failure itself, including unauthorised access, regardless of whether the data was encrypted.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.data-breach-and-notification"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Both notifications are excused, because encryption satisfies GDPR's requirements regardless of the risk assessment's outcome.",
+          "correct": false,
+          "why": "Article 34(3)(a)'s exemption is written for the individual communication specifically; it does not extend to the separate duty to notify the supervisory authority.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Only the individual communication under Article 34 is required; the supervisory authority is notified only when HIPAA also applies.",
+          "correct": false,
+          "why": "HIPAA is a separate US regime and has no bearing on whether GDPR's own Article 33 duty to the supervisory authority applies here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.protected-health-and-payment-data"
+          }
+        }
+      ],
+      "rationale": "GDPR splits the duty in two. The supervisory authority is notified under Article 33 essentially whenever there is a risk. The affected individuals are told separately under Article 34, and only when the breach is likely to result in a high risk — and Article 34(3)(a) excuses even that individual communication where protective measures such as encryption rendered the data unintelligible to anyone unauthorised, which is why encryption at rest changes the notification calculus without eliminating the regulator notification.",
+      "source_ids": [
+        "gdpr-eurlex"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-breach-and-notification",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.backups-of-sensitive-data.01",
+      "concept_id": "security.sensitive-data.backups-of-sensitive-data",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A production database is encrypted and access-restricted. Its nightly dump lands in a storage bucket with no encryption and broad read access. What is the state of the data's protection?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Downgraded to the weakest copy — a backup inherits the classification, encryption and access-control requirements of its contents, and an attacker will take the weakest copy available.",
+          "correct": true,
+          "why": "The control travels with the data, not with the server; an unencrypted, broadly readable bucket is now the easiest way in.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Unchanged — the production database's controls are what matter, since the backup is only a secondary artefact.",
+          "correct": false,
+          "why": "This is exactly where the protection is forgotten: whoever can read the backup can read the data, regardless of how well the primary copy was protected.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.backups-of-sensitive-data"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Downgraded, but only until the bucket's retention period causes the dump to be securely deleted, at which point the earlier exposure is treated as if it never happened.",
+          "correct": false,
+          "why": "The exposure exists for however long the copy sits unprotected in the bucket; a future deletion date does not remedy the present downgrade.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secure-deletion"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Unchanged, provided the backup encryption keys are stored securely even though the backup itself is not encrypted, since secure key custody is what actually protects the data.",
+          "correct": false,
+          "why": "Securely stored keys protect nothing if the backup they would unlock was never encrypted with them in the first place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.encryption-key-management"
+          }
+        }
+      ],
+      "rationale": "A backup inherits everything about its contents: the same classification, the same encryption requirement, the same access control. An encrypted production database dumped nightly to an unencrypted bucket has been downgraded to the weakest copy, and an attacker will take the weakest copy — the control travels with the data, not with the server it started on.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.backups-of-sensitive-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.security.sensitive-data.backups-of-sensitive-data.02",
+      "concept_id": "security.sensitive-data.backups-of-sensitive-data",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A seven-year-old customer record is deleted from production under a seven-year retention rule, but a copy still exists in a nightly backup set with a ninety-day expiry. When does that record actually cease to exist?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Ninety days later, when the backup set's own expiry ages the copy out — surgical deletion inside backup sets is generally infeasible, so the backup's expiry is the record's real end of life.",
+          "correct": true,
+          "why": "Retention applies to copies, and backups are copies; the practical answer is to let the backup's own schedule age the copy out rather than pretend the record is gone.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Immediately — deleting the production copy satisfies the retention obligation regardless of what any backups retain, since backups are not considered part of the same dataset.",
+          "correct": false,
+          "why": "A record surviving in a nightly backup and a warehouse extract means the retention obligation was not met just because the production copy is gone.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.sensitive-data.backups-of-sensitive-data"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Never, since a legal hold automatically attaches to any record once it leaves production and enters a backup set.",
+          "correct": false,
+          "why": "A legal hold is triggered by pending litigation naming specific records, not by the ordinary act of a record existing inside a routine backup rotation.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Immediately, provided the production deletion used a Purge-category sanitisation technique rather than an ordinary delete.",
+          "correct": false,
+          "why": "Sanitising the production copy thoroughly says nothing about the separate copy still sitting in the backup set, which is unaffected by how the primary was disposed of.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.sensitive-data.secure-deletion"
+          }
+        }
+      ],
+      "rationale": "Retention applies to copies, and backups are copies. Deleting a record from production while it survives in a nightly backup means the obligation was not fully met the moment production is cleared; the practical answer is usually to let the backup's own expiry age the copy out, since surgical deletion inside backup sets is generally infeasible — the backup's expiry, not the production delete, is the record's real end of life.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.backups-of-sensitive-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

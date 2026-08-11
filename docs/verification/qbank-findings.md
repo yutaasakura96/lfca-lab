@@ -71,6 +71,26 @@ that has lost a qualifier it needed. Check as you go:
 node -e "const b=require('./questions/<dir>/<slug>.json');let n=0;for(const i of b.items){const k=i.options.find(o=>o.correct);if(i.options.filter(o=>!o.correct).every(o=>o.text.length<k.text.length))n++;}console.log(n+'/'+b.items.length)"
 ```
 
+### 5a. If your competency has fewer than 20 items, the length-cue population rule CANNOT fire.
+
+`LENGTH_CUE_MIN_POPULATION` is 20. A scoped run over a smaller competency checks only the
+per-item ratio, never the share — so a file can be 100% key-longest and still report 0 warnings.
+
+**This actually happened.** Functional Analysis (15 items) came in at 67% and Software Application
+Architecture (17 items) at 100%, both passing their scoped checks clean. It surfaced only when the
+whole bank was measured together, where the corpus share was 46% against a 40% threshold.
+
+Only those two competencies of 22 are allocated under 20 items, but if yours is one of them,
+**run the share check by hand** — the harness will not do it for you:
+
+```bash
+node -e "const b=require('./questions/<dir>/<slug>.json');let n=0;for(const i of b.items){const k=i.options.find(o=>o.correct);if(i.options.filter(o=>!o.correct).every(o=>o.text.length<k.text.length))n++;}console.log(n+'/'+b.items.length+' = '+Math.round(100*n/b.items.length)+'%')"
+```
+
+Aim under 40%. Observed first drafts across the first wave ran 53%, 88%, 89%, 91% and 100% — the
+bias is strong and universal, so budget for two rework passes rather than treating it as a
+surprise. Lengthen distractors with real qualifying clauses; never truncate a key.
+
 ### 6. A large comparison block wants one item, not one per member.
 
 `cmp-sysadmin.disaster-recovery.backup` is the corpus's only six-member block — backup against

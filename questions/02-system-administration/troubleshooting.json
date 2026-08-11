@@ -1,0 +1,1431 @@
+{
+  "competency": "System Administration Fundamentals :: Troubleshooting",
+  "items": [
+    {
+      "id": "q.sysadmin.troubleshooting.structured-troubleshooting-method.01",
+      "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "Mid-investigation, your first theory's test comes back negative. What does that outcome rule out, and what should happen next?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It rules out that specific cause and the fix already planned for it; return to theory formation with one candidate eliminated.",
+          "correct": true,
+          "why": "A negative test eliminates a candidate cause without settling the fault itself, so the next step is a new theory, not a fix.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It rules out nothing yet; apply the fix you had already planned for that cause anyway, on the theory that trying it costs little and might happen to help.",
+          "correct": false,
+          "why": "This is the trap the method exists to prevent: implementing a fix for a theory that just failed its test cannot be verified against anything and wastes the elimination.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.structured-troubleshooting-method"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It points the investigation toward a user-specific cause rather than a host-wide one, so narrow the scope again.",
+          "correct": false,
+          "why": "A negative test result says nothing about blast radius; that is a separate technique with its own comparison case.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.narrowing-scope"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It signals the problem is outside your expertise, so escalate with the evidence gathered so far.",
+          "correct": false,
+          "why": "One eliminated theory is not an authority or competence boundary; escalation is triggered by those limits, not by an ordinary negative result.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.escalation"
+          }
+        }
+      ],
+      "rationale": "Each step in the method gates the next, and a negative test is itself informative: it rules out one candidate cause and the fix that went with it, and sends the investigation back to theory formation rather than forward to implementation. Reaching for `journalctl -u` or any other command at this point does not change what a failed test means.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-effective-troubleshooting"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.structured-troubleshooting-method",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.structured-troubleshooting-method.02",
+      "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 4,
+      "stem": "How do the structured troubleshooting method and narrowing scope differ, once both are in play on the same fault?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The method is the whole ordered procedure from identification through documentation; narrowing scope is one technique used inside its early steps.",
+          "correct": true,
+          "why": "Scope of the term is the separating axis: the method spans and completes the whole investigation, while narrowing scope produces a smaller candidate set and stops there.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Narrowing scope also ends with a verified, documented fix, so the two are interchangeable in practice.",
+          "correct": false,
+          "why": "Narrowing scope ends with a reduced candidate set, not a fix; only the full method reaches verification and documentation.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.troubleshooting.narrowing-scope"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The method requires reproducing the fault before anything else can happen, and narrowing scope becomes entirely optional once reproduction has already succeeded.",
+          "correct": false,
+          "why": "Reproduction is a distinct precondition for verification, not a gate that narrowing scope depends on or replaces.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.reproducing-the-fault"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Narrowing scope applies to every fault as a discipline, while the method applies only when the blast radius is already unclear.",
+          "correct": false,
+          "why": "This reverses the actual scope: the method applies to every fault as a discipline, and narrowing scope is only useful where the blast radius is not already known.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.structured-troubleshooting-method"
+          }
+        }
+      ],
+      "rationale": "The comparison turns on scope: the structured troubleshooting method names the entire ordered procedure and is what answers \"what do I do first,\" while narrowing scope is a single early technique that produces a reduced set of candidates rather than a completed, verified fix.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-effective-troubleshooting"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.structured-troubleshooting-method",
+      "comparison_block": "cmp-sysadmin.troubleshooting.structured-troubleshooting-method",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.narrowing-scope.01",
+      "concept_id": "sysadmin.troubleshooting.narrowing-scope",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "One user reports that a command fails. Which single additional observation most reduces the set of candidate causes?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Have a second user try the same command from the same place, or have the reporter try it from somewhere else.",
+          "correct": true,
+          "why": "A deliberately chosen comparison case that differs in exactly one dimension is what turns a single data point into a scoped result.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Check what has changed on the host over the last 24 hours, including deployments and package upgrades.",
+          "correct": false,
+          "why": "That is a useful theory-generating step later, but it does not by itself establish whether the fault is user-specific or host-wide.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.change-correlation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Open the failing application's own log and read whatever it recorded for the reporter's session.",
+          "correct": false,
+          "why": "A log entry from one session carries no comparison case, so it cannot discriminate between a user-specific and a host-wide cause.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Reproduce the failure yourself, from your own account, on your own workstation, and see whether it happens there too.",
+          "correct": false,
+          "why": "That adds a second observation that differs in several dimensions at once — account, host and possibly network path — so no category of cause is eliminated by it.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.narrowing-scope"
+          }
+        }
+      ],
+      "rationale": "Scope is established by contrast, not by observing the failure alone. A comparison case that changes exactly one dimension — same command, different user; same user, different host — tells you which dimension the cause lives in, eliminating whole categories at once.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-effective-troubleshooting"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.narrowing-scope",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.change-correlation.01",
+      "concept_id": "sysadmin.troubleshooting.change-correlation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A system that worked yesterday fails today. The team insists nothing changed. How should that claim be treated?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "As unlikely to be literally true — certificate expiry, log growth filling a disk, a scheduled job, or an unattended upgrade can each alter behaviour with no deliberate human action.",
+          "correct": true,
+          "why": "Passive changes happen constantly and are the whole reason this heuristic exists; treating them as \"nothing\" ends the investigation on a false premise.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "As irrelevant — skip it entirely and go straight to reproducing the fault instead of chasing down a change that may not even exist.",
+          "correct": false,
+          "why": "Reproduction and change correlation answer different questions; skipping one does not make the other unnecessary.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.reproducing-the-fault"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "As a reason to skip straight to the journal instead, since a component's own log always names the underlying cause directly and completely.",
+          "correct": false,
+          "why": "The journal records what a component reported, not when a configuration or dependency changed, which is what correlating against the symptom timeline needs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "As accurate, and the investigation should move on from there to a purely structural explanation for the failure instead of a change-based one.",
+          "correct": false,
+          "why": "Accepting \"nothing changed\" at face value is exactly the trap this heuristic warns against; a change without a deliberate actor is still a change.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.change-correlation"
+          }
+        }
+      ],
+      "rationale": "Change correlation is a prioritisation heuristic, not a literal question about human action. Certificates expire, disks fill from log growth, scheduled jobs run, DNS records reach their TTL and unattended upgrades apply patches — all changes nobody performed deliberately but that a system which ran correctly yesterday can still have undergone.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-128"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.change-correlation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.reproducing-the-fault.01",
+      "concept_id": "sysadmin.troubleshooting.reproducing-the-fault",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A reported permission fault will not reproduce when you run the same command as root. What does that success establish?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing about the reported fault — root is exempt from the ordinary mode checks, so the failing condition was never exercised.",
+          "correct": true,
+          "why": "Reproducing as a different, more privileged user changes the conditions of the test and can make exactly the fault being investigated disappear.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "That the fault is fixed, since the reproduction attempt succeeded.",
+          "correct": false,
+          "why": "A successful run under different conditions is not a verified fix; the original trigger — the unprivileged user's attempt — was never re-tested.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.reproducing-the-fault"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "That the file's mode, ownership, and every parent directory along the path must already be correct and fully permissive for the reporting user.",
+          "correct": false,
+          "why": "The test as run says nothing about the original user's permissions, because root bypasses the checks that would reveal a problem with them.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "That the issue can be escalated as resolved, since it did not recur under test.",
+          "correct": false,
+          "why": "Escalation hands over an open problem with evidence gathered; an invalid reproduction attempt is not evidence that the problem is closed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.escalation"
+          }
+        }
+      ],
+      "rationale": "Reproduction has to match the reported trigger exactly — the same command, the same account, the same host — or a successful run proves nothing about the original failure. Testing as root is the classic version of this error: the superuser is exempt from the checks that a permission fault depends on.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-effective-troubleshooting"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.reproducing-the-fault",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.checking-logs-first.01",
+      "concept_id": "sysadmin.troubleshooting.checking-logs-first",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 3,
+      "stem": "A unit has been failing intermittently since this morning's boot. Which single combination narrows the journal to just this unit's own errors and worse, for the current boot?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Combine the unit filter `journalctl -u` with the priority filter `journalctl -p err`, both restricted to this boot.",
+          "correct": true,
+          "why": "The unit filter isolates this daemon's records and the priority filter is inclusive upward, so `err` also surfaces `crit`, `alert` and `emerg`.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Follow the log live with `tail -f` on /var/log/syslog and wait for the next failure.",
+          "correct": false,
+          "why": "That watches a text log grow in real time but shows nothing that already happened, and a journald-only system may have no such file to tail at all.",
+          "provenance": {
+            "kind": "variant",
+            "command": "tail -f"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Run `systemctl status <unit>`, which lists the unit's recent journal lines alongside its load state, active state and the exit code of its last run.",
+          "correct": false,
+          "why": "That tail is a short, ellipsized summary of the current invocation only, not a full priority-filtered history across the boot.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.service-will-not-start"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Run `journalctl -p err` alone, without a unit filter, since a single priority level shows only that unit's errors.",
+          "correct": false,
+          "why": "Without `-u` the output covers every unit and kernel record system-wide, drowning the one line that matters in unrelated noise.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.checking-logs-first"
+          }
+        }
+      ],
+      "rationale": "`journalctl -u` restricts output to one unit and `journalctl -p err` filters by severity, inclusive of everything worse than the named level; combined and scoped to the current boot they isolate exactly the failing unit's own errors. `tail -f` only follows a growing text file and cannot show history, and a system without persistent journal storage has nothing under `/var/log` for it to watch at all.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-journalctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.checking-logs-first",
+      "comparison_block": null,
+      "commands_covered": [
+        "journalctl -u",
+        "journalctl -p err",
+        "tail -f"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.exit-status.01",
+      "concept_id": "sysadmin.troubleshooting.exit-status",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 3,
+      "stem": "A CI step runs a command that prints an alarming message, but the pipeline continues as though it passed. Checking immediately afterward, running `echo $?` reports 0. What does that tell you?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The command's own exit status was 0 — it succeeded from the shell's point of view even though its output looked like a failure.",
+          "correct": true,
+          "why": "Exit status, not printed output, is how scripts and pipelines detect failure, and 0 is unambiguous success regardless of what was written to the terminal.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The command failed silently, and `$?` is simply unreliable for this kind of check.",
+          "correct": false,
+          "why": "`$?` is exactly the mechanism the shell and every automated caller use to detect failure; the alarming text was not the failure signal.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.exit-status"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The command lacked execute permission on its own binary, or ran from a filesystem mounted `noexec`, both of which are reported as exit status 0.",
+          "correct": false,
+          "why": "A missing execute bit produces 126, not 0; 0 always means the command ran and exited successfully.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The systemd unit wrapping the step is in a failed state regardless of the command's own status.",
+          "correct": false,
+          "why": "Nothing about an ad hoc shell command's exit status reflects a wrapping unit's state; the two are unrelated in this scenario.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.service-will-not-start"
+          }
+        }
+      ],
+      "rationale": "Exit status is the value scripts, systemd and CI pipelines actually check, and zero always means success regardless of what a command printed. A command that writes a scary line to stderr and exits 0 is a success as far as every automated caller is concerned.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "bash-exit-status"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.exit-status",
+      "comparison_block": null,
+      "commands_covered": [
+        "echo $?"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.using-documentation.01",
+      "concept_id": "sysadmin.troubleshooting.using-documentation",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "You don't recall the name of the command that reports load averages, only that its description mentions \"load.\" Which pair of commands searches manual page descriptions for a keyword, rather than opening a page whose name you already know?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`apropos` and `man -k`, both keyword searches over the one-line descriptions of every manual page.",
+          "correct": true,
+          "why": "Both search the short description database for a matching word; `man -k` is approximately equivalent to `apropos` in what it searches.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`man`, since giving it a keyword instead of a page name still searches the page bodies.",
+          "correct": false,
+          "why": "`man` expects a page name; it does not search body text for a keyword, and that expectation is exactly what trips candidates up.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.using-documentation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "`info`, since its Texinfo indices are more complete than the corresponding man pages.",
+          "correct": false,
+          "why": "That completeness is a real property of GNU Texinfo manuals, but it is irrelevant here — `info` still requires knowing the manual's name to open it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Run the suspected command with a guessed name and read `echo $?` after each attempt until one succeeds.",
+          "correct": false,
+          "why": "That is trial and error against the shell, not a documentation search, and it never actually identifies the correct command name.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.exit-status"
+          }
+        }
+      ],
+      "rationale": "`apropos` and `man -k` both search the whatis database of one-line descriptions for a keyword, which is exactly what's needed when the command's name is unknown. `man` and `info` are direct-lookup tools: both require the name in hand already, which is the one thing missing in this scenario.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-apropos"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.using-documentation",
+      "comparison_block": null,
+      "commands_covered": [
+        "apropos",
+        "man -k",
+        "man",
+        "info"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.escalation.01",
+      "concept_id": "sysadmin.troubleshooting.escalation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "You're confident you know how to restart the production database and that doing so would fix the fault, but your role does not authorise changes to production databases. What should you do?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Escalate, handing over the symptom, established scope, what changed recently, and the theories already tested.",
+          "correct": true,
+          "why": "The limit here is authority, not competence, and both are valid triggers for escalation; the handover carries everything eliminated so far.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Apply the fix yourself, since asking for permission only wastes the time escalation would take.",
+          "correct": false,
+          "why": "Authority boundaries exist independently of whether the action would work; performing it anyway is out of bounds regardless of technical confidence.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.escalation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Reproduce the fault one more time to be certain before doing anything else.",
+          "correct": false,
+          "why": "Reproduction is already presumed established here; the blocker is authority to act, which another reproduction attempt does not resolve.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.reproducing-the-fault"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Keep working the problem in parallel after opening a ticket, since escalation and continued investigation are compatible.",
+          "correct": false,
+          "why": "Continuing to change the system after handing it over is the specific mistake escalation guards against, and here you lack the authority to act on it at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.structured-troubleshooting-method"
+          }
+        }
+      ],
+      "rationale": "Two distinct limits force escalation: competence and authority, and the second is the one technically capable people under-weight. Knowing how to perform a fix does not grant permission to perform it, and the handover exists precisely so the next person does not repeat eliminations already made.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "google-sre-book-being-on-call"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.escalation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.service-will-not-start.01",
+      "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "`systemctl status` on a unit shows `Active: failed (Result: exit-code)` with a non-zero status. What does that state rule out, and where is the daemon's own message?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It rules out a signal or OOM kill, since those report `Result: signal` or the oom-kill state instead; the message is in `journalctl -u` for this unit.",
+          "correct": true,
+          "why": "An exit-code result means the process ran and terminated under its own control, so the cause is in the application or its configuration, and the journal for that unit carries its own line about why.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It confirms an OOM kill happened, since the process is no longer running and something must have terminated it against its will.",
+          "correct": false,
+          "why": "An OOM kill is a signal termination and shows as `Result: signal` or the oom-kill state, not as an ordinary exit code.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.service-will-not-start"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It confirms a permissions problem on the unit's data directory or one of its configuration files somewhere along the path.",
+          "correct": false,
+          "why": "An exit-code state says only that the process exited under its own control; the specific cause could be permissions or something else entirely until the journal is read.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It confirms the listening port is already bound by another process, most likely a previous instance of the same daemon.",
+          "correct": false,
+          "why": "\"Address already in use\" is a specific journal message found with `ss -tulpn`, not something the generic exit-code state alone establishes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        }
+      ],
+      "rationale": "The state name tells you which half of the problem you're in: `failed` with an exit code means systemd started the process and it died under its own control, ruling out signals and OOM kills, which surface differently. The daemon's own error line is in the unit's journal, not in the short tail `systemctl status` shows.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-systemctl",
+        "man-journalctl",
+        "man-ss"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
+      "comparison_block": null,
+      "commands_covered": [
+        "journalctl -u"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.service-will-not-start.02",
+      "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "`systemctl start nginx.service` returns immediately with no error, but the site is unreachable a moment later. What's the right next command, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`systemctl status` on the unit, because a forking or notify-type daemon can exit moments after a successful-looking start.",
+          "correct": true,
+          "why": "A clean return from `start` only means the command was accepted, not that the unit stayed running; `status` shows the current state after that window has passed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`tail -f` on /var/log/syslog, since systemd services always write there.",
+          "correct": false,
+          "why": "journald does not guarantee a corresponding text file, and this does not confirm the unit's current active state either way.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "`ss -tulpn`, to see whether anything is listening on the expected port.",
+          "correct": false,
+          "why": "Useful once you know the unit died, but it doesn't explain why a start that reported success failed to keep the process running; check the unit's own state first.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — `systemctl start` returning without error means the service is running and stays running until something explicitly stops it.",
+          "correct": false,
+          "why": "A clean return only confirms the command was accepted, not that the daemon stayed up; a service that restart-loops or exits shortly after can look identical to success at that instant.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.service-will-not-start"
+          }
+        }
+      ],
+      "rationale": "`systemctl start` succeeding is not the same claim as the unit staying active; `systemctl status` is what reports the load state, active state and sub-state, and the exit code or signal of the most recent run. `ss -tulpn`'s Local Address column becomes the next useful command once the unit's own state is confirmed.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-systemctl",
+        "man-journalctl",
+        "man-ss"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
+      "comparison_block": null,
+      "commands_covered": [
+        "systemctl status",
+        "ss -tulpn"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.disk-full.01",
+      "concept_id": "sysadmin.troubleshooting.disk-full",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "Writes to /var fail with \"No space left on device,\" but `df -h /var` shows 40% used. What do you check next, and what does the outcome rule out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`df -i /var` — if `IUse%` is at 100%, the inode pool is exhausted, which rules out any remedy based on file size.",
+          "correct": true,
+          "why": "Data blocks and inodes are exhausted independently, and the block figure alone cannot show which one has actually run out.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`journalctl -u` for the affected service, since the daemon's own log will name the cause of any resource exhaustion it hits.",
+          "correct": false,
+          "why": "A unit's journal won't explain a block-versus-inode discrepancy that the filesystem itself already surfaced.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Delete the largest files you can find, since that's how a full disk is normally resolved.",
+          "correct": false,
+          "why": "Inode exhaustion is caused by many small files, not large ones, so deleting a few large files changes nothing about the actual constraint.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.disk-full"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "`ls -ld` on /var, in case a restrictive parent directory is blocking access.",
+          "correct": false,
+          "why": "A traversal permission problem produces \"Permission denied,\" not \"No space left on device\"; the symptom already points at the filesystem, not the path.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        }
+      ],
+      "rationale": "A filesystem can run out of data blocks or out of inodes independently, and both produce the same \"No space left on device\" message. `df -h` reports blocks; `df -i` reports the separate inode pool, which on ext filesystems is fixed in size and consumed one per file regardless of that file's size.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-df"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.disk-full",
+      "comparison_block": null,
+      "commands_covered": [
+        "df -i"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.disk-full.02",
+      "concept_id": "sysadmin.troubleshooting.disk-full",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "`df -h` reports a filesystem at 100% used, but `du -sh /*` on that same mount totals far less. What explains the gap, and what actually fixes it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Space is held by files deleted while a running process still has them open; identifying and restarting that process releases the blocks.",
+          "correct": true,
+          "why": "An unlinked file's blocks stay allocated until the last open descriptor closes, which makes it invisible to `du` because its name is already gone from the tree.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Search harder for large files with `du`, since some large consumer must be hidden from the first pass.",
+          "correct": false,
+          "why": "No amount of searching finds space held by deleted-but-open files, because they no longer have a name for any file search to match.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.disk-full"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The kernel is caching recently deleted file data in memory and will release the corresponding disk blocks once it comes under memory pressure.",
+          "correct": false,
+          "why": "Page cache reclaim is a memory mechanism and has no bearing on filesystem block accounting for an open-but-unlinked file.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The mismatch is a logging artefact and resolves itself once the logs rotate.",
+          "correct": false,
+          "why": "Log rotation renames or truncates files; it does not release blocks held open by a process that is still writing to the old descriptor.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        }
+      ],
+      "rationale": "`df -h` and `du -sh /*` answer different questions — filesystem accounting versus a directory-tree walk — and they legitimately disagree when space is held by a file that has been deleted but is still open. The fix is closing or restarting the process holding the descriptor, not finding a bigger file to delete.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-df"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.disk-full",
+      "comparison_block": null,
+      "commands_covered": [
+        "df -h",
+        "du -sh /*"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.out-of-memory-and-the-oom-killer.01",
+      "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "A service exits with shell status 137, and its own log shows nothing unusual before it stops. What does that status suggest, and what confirms it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "SIGKILL (128+9), consistent with an OOM kill; confirm with `journalctl -k` or `dmesg` around that time.",
+          "correct": true,
+          "why": "137 decodes to a fatal SIGKILL, and the kernel writes the killed process to the ring buffer, which `dmesg` reads live and `journalctl -k` reads from the journal.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing conclusive — 137 is just as likely to be an ordinary exit code the application chose deliberately on its own way out.",
+          "correct": false,
+          "why": "137 is 128 plus a signal number and cannot come from a plain exit; the value itself already points at a fatal signal, here SIGKILL.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It indicates the process was CPU-starved and self-terminated.",
+          "correct": false,
+          "why": "CPU starvation does not send a process a fatal signal; a self-terminating process under load would ordinarily report an exit code, not 128+N.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.high-cpu-load"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It means the command was not found on PATH.",
+          "correct": false,
+          "why": "Command-not-found is exit status 127, a plain exit rather than a signal termination, and it is a different value entirely from 137.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.exit-status"
+          }
+        }
+      ],
+      "rationale": "A shell exit status of 137 is 128+9, the signature of SIGKILL, which is exactly how the OOM killer terminates its victim. The kill itself is recorded in the kernel ring buffer — readable live with `dmesg` or, from the journal, with `journalctl -k` — which is where \"died for no reason, nothing in its own log\" gets its explanation.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-proc-pid-oom-score",
+        "man-proc-pid-oom-score-adj",
+        "kernel-docs-proc-rst",
+        "kernel-sysctl-vm",
+        "man-dmesg",
+        "man-journalctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+      "comparison_block": null,
+      "commands_covered": [
+        "journalctl -k",
+        "dmesg"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.out-of-memory-and-the-oom-killer.02",
+      "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "`free -h` on the host shows plenty of available memory, but a process inside one container was OOM-killed. How is that possible, and how do you confirm it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The kill was against the container's own cgroup memory limit, not the host total; the kernel message names a memory cgroup rather than system-wide exhaustion.",
+          "correct": true,
+          "why": "\"Allowed memory\" for a badness score depends on the context that triggered the kill, and a cgroup hitting its own limit is evaluated against that limit, not the host's free memory.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The disk backing swap was full, not the memory itself, which is a separate condition from a cgroup limit being reached.",
+          "correct": false,
+          "why": "The OOM killer responds to an unsatisfiable memory allocation, not to disk state, and a full swap disk is a separate condition from a cgroup limit being hit.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.disk-full"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It cannot happen — a healthy `free -h` output measured on the host itself rules out any OOM kill anywhere on that machine.",
+          "correct": false,
+          "why": "Host-level memory figures say nothing about a cgroup's own configured limit, which is exactly what a container can be killed against while the host has memory to spare.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The container's process lacked permission to allocate memory under its cgroup policy, and that restriction surfaces to the process as a kill.",
+          "correct": false,
+          "why": "A permissions fault produces EACCES or EPERM on an operation, not a kernel-initiated SIGKILL for memory exhaustion.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        }
+      ],
+      "rationale": "A memory cgroup limit is enforced independently of host-wide memory availability, so a container can be OOM-killed on a host with gigabytes free. The kernel message discriminates the two cases directly: a system-wide kill reads \"Out of memory: Killed process,\" while a cgroup kill reads \"Memory cgroup out of memory: Killed process.\"",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-proc-pid-oom-score",
+        "man-proc-pid-oom-score-adj",
+        "kernel-docs-proc-rst",
+        "kernel-sysctl-vm",
+        "man-dmesg",
+        "man-journalctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.out-of-memory-and-the-oom-killer",
+      "comparison_block": null,
+      "commands_covered": [
+        "free -h"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.high-cpu-load.01",
+      "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "`uptime` reports a load average of 24, and `top`'s CPU-state line shows a high `wa` and a low `us`. What does that combination rule out, and what is actually happening?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It rules out CPU saturation — `uptime`'s figure counts D-state processes too, and `top`'s high `wa` shows they're waiting on storage, not the processor.",
+          "correct": true,
+          "why": "Load average counts runnable and uninterruptible-sleep processes together, and a high I/O-wait field on the CPU-state line identifies which of the two is actually queueing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It rules out memory pressure entirely, since any swapping under memory pressure would instead show as a high `us` figure.",
+          "correct": false,
+          "why": "Memory pressure is not read off the `us`/`wa` split at all; that pair distinguishes CPU-bound work from I/O-bound work, not memory state.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A load of 24 is high regardless of core count, so this is unambiguous CPU saturation requiring more processing capacity.",
+          "correct": false,
+          "why": "Load average is a count of queued work, not a percentage, and is meaningless without dividing by the number of cores first; the `wa` field here already points away from CPU saturation.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.high-cpu-load"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It confirms disk space, not CPU, is the constraint here, and the remedy is freeing space rather than adding processors.",
+          "correct": false,
+          "why": "I/O wait reflects processes queued on storage latency, which is a different condition from a filesystem running out of free space.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.disk-full"
+          }
+        }
+      ],
+      "rationale": "The load average includes processes in uninterruptible sleep (state D), typically blocked on disk I/O, alongside runnable ones, so a high figure with a mostly idle CPU is a storage-bound queue rather than a processor shortage. `top`'s `wa` field is what separates the two causes that produce an identical load number.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-proc-loadavg",
+        "man-uptime"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.high-cpu-load",
+      "comparison_block": null,
+      "commands_covered": [
+        "uptime",
+        "top"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.high-cpu-load.02",
+      "concept_id": "sysadmin.troubleshooting.high-cpu-load",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "A host reports a load average of 6. Is that a problem, and what determines the answer?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It depends on core count; divide the load by `nproc` — 6 on a 32-core host is unremarkable, 6 on a 2-core host is severe.",
+          "correct": true,
+          "why": "Load average is a count of queued and running work, not normalised for CPU count on its own, so the same figure means different things on different hardware.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — a load figure above 1 always indicates a problem on any host, regardless of how many processor cores that host actually has available.",
+          "correct": false,
+          "why": "A load average of 1 means only a single-CPU system is loaded all the time; on a 4-CPU system the same figure means the system was idle 75% of the time.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.high-cpu-load"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "No — swap usage, not load average, is what indicates trouble.",
+          "correct": false,
+          "why": "Swap usage is a separate memory metric; load average can be a genuine problem even with no swap activity at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It depends on network latency, which the load average also reflects.",
+          "correct": false,
+          "why": "Load average has no network component; it counts processes runnable or blocked on local I/O, not requests waiting on the network.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        }
+      ],
+      "rationale": "Every useful conclusion about load average requires dividing by the core count first, which `nproc` supplies. The manual is explicit that the same raw figure describes an idle system on many cores and a saturated one on few.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-proc-loadavg",
+        "man-uptime"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.high-cpu-load",
+      "comparison_block": null,
+      "commands_covered": [
+        "nproc"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.permission-denied.01",
+      "concept_id": "sysadmin.troubleshooting.permission-denied",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "A file is mode 644, owned by the requesting user, yet opening it returns \"Permission denied.\" `ls -l` on the file shows nothing wrong. What do you check next, and what does the outcome rule out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`namei -l` on the full path, or `ls -ld` on each parent directory — a parent missing search (`x`) permission explains the denial and rules out the file's own mode and group membership.",
+          "correct": true,
+          "why": "Path resolution requires search permission on every directory in the prefix, so a perfectly readable file under a restrictive parent is unreachable, and that check isolates exactly that case.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`journalctl -u` for the service touching the file, since its own log may record the real reason for the denial somewhere.",
+          "correct": false,
+          "why": "A traversal denial happens at the kernel level during path lookup and is not something the application's own service log would explain.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Widen the file's mode with chmod until the error stops appearing, since a more permissive mode can only help, not hurt.",
+          "correct": false,
+          "why": "The file's own mode already looks fine, so widening it further does not address a parent-directory or credential cause and permanently weakens a file that wasn't the problem.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.permission-denied"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "`df -i` for inode exhaustion on that filesystem, since exhaustion of either kind can also block access to a file.",
+          "correct": false,
+          "why": "Inode exhaustion blocks creating or writing new files, not reading an existing one, and it produces \"No space left on device,\" not \"Permission denied.\"",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.disk-full"
+          }
+        }
+      ],
+      "rationale": "The single most common miss on this fault is the traversal case: the file's own mode is fine and a parent directory's is not. `namei -l` walks the path component by component and shows exactly where that traversal bit is missing, which `ls -l` on the file alone cannot reveal.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-path-resolution",
+        "man-namei"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.permission-denied",
+      "comparison_block": null,
+      "commands_covered": [
+        "ls -l",
+        "namei -l",
+        "ls -ld"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.permission-denied.02",
+      "concept_id": "sysadmin.troubleshooting.permission-denied",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "A user was added to a new group with `usermod -aG` an hour ago. In their still-open shell they get \"Permission denied\" on a file the new group can read. What's happening, and what confirms it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Their session predates the group change; comparing `id` inside the open shell against `id <user>` shows the group lists differ, and a fresh login is what's needed.",
+          "correct": true,
+          "why": "Group membership is evaluated from the credentials a process already holds, so a user added to a group is unaffected until a new login picks up the change.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The group membership itself is broken somewhere in the directory service and must be re-applied from scratch before it will work.",
+          "correct": false,
+          "why": "The configuration is already correct; the running session simply predates it, which another `usermod` command does not fix.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.permission-denied"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "DNS caching somewhere upstream is delaying the group change from propagating down to this particular host and shell.",
+          "correct": false,
+          "why": "Group membership is a local kernel-held credential on the running process, with no involvement from DNS resolution or caching at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.name-resolution-failure"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The service holding the file needs `systemctl status` checked for a stale process left over from before the change.",
+          "correct": false,
+          "why": "The denial here is on a user's own interactive shell reading a file, not a service's process state, which `systemctl status` doesn't speak to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        }
+      ],
+      "rationale": "`id` reports the credentials of the current process, not the account's configured groups, so an open shell started before a group change still carries the old set. Comparing it against `id <user>` exposes exactly that gap, and the fix is a new login rather than another permission change.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-path-resolution",
+        "man-namei"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.permission-denied",
+      "comparison_block": null,
+      "commands_covered": [
+        "id"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.cannot-connect-to-a-service.01",
+      "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "A client gets \"connection refused\" reaching an internal API on its normal port. `systemctl status` on the server confirms the service is active. What do you check next, and what does its Local Address column rule out or confirm?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`ss -tulpn` — if it shows the socket bound to `127.0.0.1` rather than `0.0.0.0`, that explains a refusal from any remote client and rules out the firewall.",
+          "correct": true,
+          "why": "A daemon bound only to the loopback address is up, healthy and unreachable from anywhere else, and every remote test fails the same way regardless of firewall rules.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`dig` against the service name, since a stale DNS answer somewhere in the resolution chain would explain a refusal like this.",
+          "correct": false,
+          "why": "A stale DNS answer typically produces a timeout against the wrong host, not an active refusal from a host that is confirmed running the service.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.name-resolution-failure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing further — \"connection refused\" from a client always means the service itself is down on the server side.",
+          "correct": false,
+          "why": "`systemctl status` already confirmed the service is active, so \"the service is down\" is a conclusion the evidence has already ruled out.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "`ls -ld` on the socket file itself, checking for a permissions problem that might be blocking the connection.",
+          "correct": false,
+          "why": "A TCP connection refusal is a network-layer response, not a filesystem permission fault, so a directory's mode bits are not the relevant evidence here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.permission-denied"
+          }
+        }
+      ],
+      "rationale": "The layers of a connection failure are separately testable, and `ss -tulpn`'s Local Address column is the highest-value command once the process is confirmed running: `127.0.0.1` accepts only local clients while `0.0.0.0` accepts any, and that single field explains \"works locally, fails remotely\" without touching the firewall.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-ss",
+        "man-systemctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.cannot-connect-to-a-service",
+      "comparison_block": null,
+      "commands_covered": [
+        "systemctl status",
+        "ss -tulpn"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.cannot-connect-to-a-service.02",
+      "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "By IP address the API answers with an HTTP 502; by hostname the client hangs until it times out. What do these two results establish separately?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The 502, seen with `curl -v` against the IP, proves the connection and TLS handshake succeeded and the fault is in the application; the timeout by name is resolution — `dig` and `ping` against the name isolate it.",
+          "correct": true,
+          "why": "A 502 is only returned after the TCP connection succeeds, so it rules out every network layer beneath it, while the separate hang-by-name result confines the second fault to DNS.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Both results point at the exact same underlying firewall rule somewhere in the network path between the client and the server, since both eventually fail to respond correctly to the client in the end, in this reading.",
+          "correct": false,
+          "why": "A 502 is a completed HTTP exchange, not a network failure, so it cannot share a cause with a connection that never completes at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Restart the service immediately, since a 502 response always means the backend process itself has crashed outright.",
+          "correct": false,
+          "why": "A 502 proves the TCP connection succeeded and the server responded; the process is running, it's simply returning an error status, which is not evidence of a crash.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.service-will-not-start"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The delay seen only when connecting by name indicates the host itself is CPU-saturated and slow to respond generally.",
+          "correct": false,
+          "why": "The IP-based test already showed the host responding promptly, so a name-based hang implicates resolution timing, not host CPU load.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.high-cpu-load"
+          }
+        }
+      ],
+      "rationale": "`curl -v` distinguishes \"never connected\" from \"connected and got an HTTP error\" by showing the connection steps separately; a 502 by IP rules out every layer beneath the application. The hang by hostname is a different failure entirely, and `dig` and `ping` against the name versus the IP is how it gets confined to resolution.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-ss",
+        "man-systemctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.cannot-connect-to-a-service",
+      "comparison_block": null,
+      "commands_covered": [
+        "curl -v",
+        "dig",
+        "ping"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.name-resolution-failure.01",
+      "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+      "pool": "exam",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "Users can't reach internal.example.com. Connecting by its literal IP address works. `dig` against the hostname returns SERVFAIL from the configured resolver. What does each result rule out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The working IP rules out connectivity, routing and the firewall; SERVFAIL rules out a missing record and points upstream — the resolver was reached but couldn't complete the lookup.",
+          "correct": true,
+          "why": "Trying the IP directly is the separating test between a connectivity fault and a resolution fault, and the resolver's own status code distinguishes an unreachable upstream or validation failure from an authoritative \"does not exist.\"",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Check `journalctl -u` for the resolver's own systemd service, in case it logged something about the failed lookup.",
+          "correct": false,
+          "why": "The status field `dig` already returned identifies the failure mode directly; the resolver's own service log is not needed to interpret SERVFAIL.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.checking-logs-first"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "SERVFAIL means the record simply doesn't exist in the zone, exactly the same thing NXDOMAIN means when returned instead.",
+          "correct": false,
+          "why": "NXDOMAIN is an authoritative \"this name does not exist\"; SERVFAIL means the resolver was reached and failed to complete the lookup, which points at a different class of cause.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.name-resolution-failure"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The working IP test means DNS itself is fine across the board and something else entirely must be wrong here.",
+          "correct": false,
+          "why": "A working IP alongside a failing name is exactly the signature of a resolution fault, not evidence that DNS is fine; it isolates the fault to resolution rather than away from it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        }
+      ],
+      "rationale": "Trying an IP address directly separates a DNS fault from a connectivity fault decisively: if the IP works and the name does not, the fault is in resolution. `dig`'s status field then discriminates further — NXDOMAIN, SERVFAIL and an unreachable-resolver report each point at a different remedy.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-resolv-conf"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.name-resolution-failure",
+      "comparison_block": null,
+      "commands_covered": [
+        "dig"
+      ],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.name-resolution-failure.02",
+      "concept_id": "sysadmin.troubleshooting.name-resolution-failure",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 4,
+      "stem": "`cat /etc/resolv.conf` shows a single line, `nameserver 127.0.0.53`. Where should you look for the real upstream DNS servers, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "In `systemd-resolved`'s own configuration — 127.0.0.53 is the local stub resolver, and this file doesn't hold the actual upstream servers on such systems.",
+          "correct": true,
+          "why": "On systems running `systemd-resolved`, `/etc/resolv.conf` is commonly a symlink to a generated stub file naming only the local stub address, while the real upstream servers are held by the resolver service.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Add the real upstream servers directly to `/etc/resolv.conf`, since that's what the resolver reads.",
+          "correct": false,
+          "why": "On a `systemd-resolved` system the file is generated, and a manual edit to it is overwritten rather than taking effect.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:sysadmin.troubleshooting.name-resolution-failure"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Check `journalctl -k` for kernel-level DNS errors, since name resolution failures are logged by the kernel alongside other network events.",
+          "correct": false,
+          "why": "DNS resolution is handled in user space by the resolver service; kernel messages are not where its upstream server configuration is recorded.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Run `ping` against the resolver's address to check reachability first.",
+          "correct": false,
+          "why": "Reachability of the stub address doesn't reveal where the actual upstream servers are configured, which is what the question asks.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.cannot-connect-to-a-service"
+          }
+        }
+      ],
+      "rationale": "A single `127.0.0.53` nameserver line is the signature of `systemd-resolved`'s stub resolver rather than the real upstream configuration, which lives with that service instead of in the generated file. Editing the file directly is overwritten the next time the stub is regenerated.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "man-resolv-conf"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.name-resolution-failure",
+      "comparison_block": null,
+      "commands_covered": [
+        "cat /etc/resolv.conf",
+        "ping"
+      ],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

@@ -1,0 +1,885 @@
+{
+  "competency": "IT Project Management Fundamentals :: Functional Analysis",
+  "items": [
+    {
+      "id": "q.pm.functional-analysis.functional-requirements.01",
+      "concept_id": "pm.functional-analysis.functional-requirements",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A finance lead writes: 'The system shall lock a user account after five failed login attempts.' Which classification is correct, and on what basis?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Functional — it names a behaviour that either happens or does not, with no threshold attached.",
+          "correct": true,
+          "why": "The sentence states an observable outcome and stops there, which is exactly what pushes a requirement onto the functional side of the line.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Non-functional — it constrains how well login behaves under load.",
+          "correct": false,
+          "why": "No threshold or condition is stated; a non-functional requirement bounds performance, and nothing here does that.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.functional-analysis.non-functional-requirements"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A design decision, since account lockout is an implementation detail better captured as a use case's exception flow.",
+          "correct": false,
+          "why": "Lockout after failed attempts is the behaviour itself, not a mechanism for achieving some other behaviour; it belongs in the requirement, whether or not a use case later elaborates it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.use-case"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Non-functional, since account lockout is a security matter and security requirements are always non-functional.",
+          "correct": false,
+          "why": "Security requirements can be functional too — a behaviour that must exist, like locking an account, is functional regardless of the domain it serves.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.functional-requirements"
+          }
+        }
+      ],
+      "rationale": "Functional requirements state a behaviour and stop; the moment a sentence adds a threshold or a measured condition, it has crossed onto the non-functional side. Neither the requirement's subject matter (security, in this case) nor its importance settles the classification — only what the sentence constrains does.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.functional-requirements",
+      "comparison_block": "cmp-pm.functional-analysis.functional-requirements",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.functional-requirements.02",
+      "concept_id": "pm.functional-analysis.functional-requirements",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A requirements document contains: 'The system shall store customer records in PostgreSQL.' Which statement about this sentence is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is not itself a requirement — it names a specific database product, which is a design decision rather than an observable behaviour.",
+          "correct": true,
+          "why": "Naming a technology removes a choice the designer has not yet had a chance to make; the actual requirement is the retrieval behaviour the database is meant to support.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It is a requirement, though a defective one, in the same way 'the system shall provide flexible reporting' is defective.",
+          "correct": false,
+          "why": "Untestable wording and a smuggled-in solution are different defects; this sentence is testable and specific, its problem is that it names a product instead of a behaviour.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.specification-documentation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It is a non-functional requirement, since it bounds where data must live, the same way a stated latency threshold bounds how quickly a response must return.",
+          "correct": false,
+          "why": "It names a solution, not a measurable quality attribute with a threshold; that rules out the non-functional classification as much as the functional one.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.functional-analysis.non-functional-requirements"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It is a requirement like any other, since every sentence in a requirements document is by definition a requirement.",
+          "correct": false,
+          "why": "Requirements documents routinely carry constraints and design decisions written in requirement voice; appearing in the document does not make a sentence a requirement.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.functional-requirements"
+          }
+        }
+      ],
+      "rationale": "A functional requirement states what the system must do, phrased as an observable outcome rather than an implementation. Naming a vendor, product or protocol is the clearest tell that a solution has been written into requirement voice, and the fix is to rewrite it as the behaviour the product was meant to deliver.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.functional-requirements",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.non-functional-requirements.01",
+      "concept_id": "pm.functional-analysis.non-functional-requirements",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A backlog review drops a requirement tagged 'non-functional,' reasoning that non-functional items rank below functional ones. What is wrong with that reasoning?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Classification and priority are independent axes; a non-functional requirement can be the highest-priority item in the set.",
+          "correct": true,
+          "why": "The word 'non-functional' describes what kind of requirement it is, never how important it is — treating it as a synonym for low priority is the single most common inversion.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The requirement should have been marked 'Won't have' under MoSCoW before being dropped, rather than dropped on classification alone.",
+          "correct": false,
+          "why": "This treats the symptom rather than the mistake: swapping in the right label for 'dropped' still leaves classification standing in for a priority judgement it cannot make.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-prioritization"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The requirement was probably untestable as worded, which is the real defect being missed here.",
+          "correct": false,
+          "why": "Nothing in the scenario suggests the wording is unmeasurable; the stated reasoning is about priority, not testability.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.specification-documentation"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is wrong — 'non-functional' is the conventional label for a lower-priority requirement.",
+          "correct": false,
+          "why": "This is the inversion itself, restated as if it were the rule: non-functional requirements are frequently the ones that decide the architecture.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.non-functional-requirements"
+          }
+        }
+      ],
+      "rationale": "Non-functional requirements constrain how well a behaviour performs, and that classification says nothing about necessity. A team that conflates the two can drop a requirement — often the one deciding the architecture — on no stronger basis than its label.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.non-functional-requirements",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.non-functional-requirements.02",
+      "concept_id": "pm.functional-analysis.non-functional-requirements",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Which of these is a well-formed non-functional requirement?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "95% of search requests shall complete within 300 ms under normal load.",
+          "correct": true,
+          "why": "It names an attribute, a threshold and the condition it is measured under — the three parts that make a quality requirement measurable rather than aspirational.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The system shall let a user search by keyword, with no bound on how quickly results return.",
+          "correct": false,
+          "why": "This states a behaviour with no threshold at all, which is what makes it functional rather than non-functional.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.functional-analysis.functional-requirements"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Search performance is listed as a Must have on the delivery backlog.",
+          "correct": false,
+          "why": "This states a priority, not a quality target; a MoSCoW label carries no attribute, threshold or condition to measure against.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-prioritization"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The search feature must be fast and pleasant for users to work with.",
+          "correct": false,
+          "why": "This reads like a quality requirement but has no threshold, so nothing about it can pass or fail — untestable as worded.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.non-functional-requirements"
+          }
+        }
+      ],
+      "rationale": "A usable non-functional requirement carries an attribute, a metric, a threshold, and the conditions the threshold is measured under. Sentences that state a behaviour without a bound, a priority label, or an unmeasurable adjective all fail one of those parts.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.non-functional-requirements",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.requirements-elicitation.01",
+      "concept_id": "pm.functional-analysis.requirements-elicitation",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why does practice favor 'requirements elicitation' over 'requirements gathering' as the name for this activity?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "'Gathering' implies finished requirements already exist and only need collecting; elicitation exists because stated wants and actual needs routinely differ.",
+          "correct": true,
+          "why": "Users describe solutions they have imagined and workarounds become invisible to the people performing them, so the requirements have to be drawn out rather than transcribed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Because gathering only covers workflow diagrams, while elicitation also covers written documents.",
+          "correct": false,
+          "why": "Diagramming a workflow is a distinct technique with its own artifact; elicitation is not defined by which artifact it produces.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.process-mapping"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Because elicitation identifies the gap between current and desired capability, which gathering cannot do, since gathering only records what stakeholders have already written down.",
+          "correct": false,
+          "why": "Naming that gap is a separate, later technique; elicitation is about drawing needs out of people, not comparing two already-described states.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.gap-analysis"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "There is no real difference between the two terms; they are used interchangeably across most practice guides and style references.",
+          "correct": false,
+          "why": "The word choice is deliberate: 'gathering' presumes the requirements are already there to be picked up, which is exactly the assumption elicitation exists to reject.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.requirements-elicitation"
+          }
+        }
+      ],
+      "rationale": "Elicitation is the work of drawing requirements out of people — interviews, workshops, observation, document study — rather than collecting requirements that already exist in finished form. A team that only transcribes what it was asked for can build exactly that and still fail the people who asked.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.requirements-elicitation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.use-case.01",
+      "concept_id": "pm.functional-analysis.use-case",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A backlog item reads: 'As a claims assessor, I want to flag a suspicious claim, so that it gets reviewed before payment.' A stakeholder calls this a use case. What would need to be added for that to be accurate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The actor, preconditions, a numbered main success scenario, and the alternate and exception flows — a use case is written to be complete in itself.",
+          "correct": true,
+          "why": "This sentence is deliberately a placeholder for a conversation still to be had; a use case is meant to be sufficient to build and test from without one.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — this is already a complete use case, merely written in a shorter, more casual form for the backlog.",
+          "correct": false,
+          "why": "This is a user story, not a shortened use case; the two differ in intended completeness, not in word count.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.project-management.user-story"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A swimlane diagram showing which department reviews the flagged claim before payment is issued, since that is the artifact that would make the missing detail visible.",
+          "correct": false,
+          "why": "That is process mapping's artifact, for the surrounding business workflow — a use case describes one actor's interaction with the system, not the department hand-offs around it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.process-mapping"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A MoSCoW priority tag showing how urgent the flag is relative to other backlog items.",
+          "correct": false,
+          "why": "Priority is a separate axis from completeness and does not add any of the detail a use case needs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-prioritization"
+          }
+        }
+      ],
+      "rationale": "A use case is written to be sufficient on its own — actor, goal, preconditions, main flow, alternate and exception flows, postcondition. A user story is written to be insufficient on purpose, a reminder that a need must still be discussed. The separating axis is intended completeness, not length.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "omg-uml-2-5-1-usecases"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.use-case",
+      "comparison_block": "cmp-pm.functional-analysis.use-case",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.use-case.02",
+      "concept_id": "pm.functional-analysis.use-case",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A use case diagram for a billing system shows an oval labeled 'Generate month-end invoices' connected to an actor labeled 'Scheduler.' A reviewer objects that an automated trigger cannot be an actor. Is the objection correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — an actor is anything outside the system boundary that initiates or participates in the interaction, human or not.",
+          "correct": true,
+          "why": "A scheduled trigger, or another system, qualifies as an actor for the same reason a person in a role does: it sits outside the boundary and starts the interaction.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — only a person in a role can be an actor, which is the reason the term is used at all.",
+          "correct": false,
+          "why": "'Actor' is preferred over 'user' precisely because it is not limited to people; ruling out a scheduled job or an upstream system is wrong on its face.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.use-case"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The objection is right in spirit — the scheduled trigger should be recorded during elicitation instead of modeled as an actor.",
+          "correct": false,
+          "why": "Elicitation is a separate activity for drawing needs out of people; it does not determine what may appear as an actor in a use case.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-elicitation"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "No, but only because the diagram should have been a swimlane process map instead.",
+          "correct": false,
+          "why": "A swimlane map is a different artifact for the surrounding workflow; it is not what settles whether a scheduler can be an actor.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.process-mapping"
+          }
+        }
+      ],
+      "rationale": "An actor is anyone or anything outside the system boundary that initiates or participates in the interaction — a person in a role, another system, or a scheduled trigger. The diagram itself carries essentially none of the interaction detail; that lives in the use case's flows.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "omg-uml-2-5-1-usecases"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.use-case",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.process-mapping.01",
+      "concept_id": "pm.functional-analysis.process-mapping",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A team draws only a to-be swimlane diagram for a redesigned claims workflow and presents it as proof of improvement. What is missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The as-is map — without a baseline of the current workflow there is nothing to demonstrate the difference against.",
+          "correct": true,
+          "why": "A single map of the intended future proves nothing on its own; process maps are usually drawn in two versions precisely so improvement is arguable rather than asserted.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A gap analysis, since only that technique can say whether the current state is worth changing enough to justify replacing it with the redesigned workflow.",
+          "correct": false,
+          "why": "A gap analysis needs both states already mapped as its input; it does not substitute for drawing the missing as-is map itself.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.gap-analysis"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A use case for every actor who touches the process.",
+          "correct": false,
+          "why": "A use case documents one actor's interaction with the system; the workflow spans steps no software touches at all, which a use case would not capture.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.use-case"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — a single map of the intended future is sufficient once stakeholders agree it looks right.",
+          "correct": false,
+          "why": "Agreement about how the future should look is not the same as showing what changed; without the present-state map there is no baseline to compare against.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.process-mapping"
+          }
+        }
+      ],
+      "rationale": "Process maps cover the whole workflow, including approvals given verbally and work queued in an inbox. Drawn in pairs — current and intended — they make improvement arguable; the as-is half is also where the unwelcome findings usually live.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "omg-bpmn-2-0-2-process"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.process-mapping",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.gap-analysis.01",
+      "concept_id": "pm.functional-analysis.gap-analysis",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A gap analysis lists six differences between a department's current and desired capability. What can the analysis, by itself, not tell the team?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Whether closing the gaps is achievable and worth committing to — that judgement belongs to a feasibility study.",
+          "correct": true,
+          "why": "Gap analysis names the distance between two states; it delivers no judgement about whether closing that distance is achievable, affordable or worth doing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "How large the differences are between the current and desired states.",
+          "correct": false,
+          "why": "That is exactly what the gap analysis already produced — the six listed differences are its output, not something missing from it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.feasibility-study"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Which of the six differences should be addressed first, since a gap analysis is expected to rank its own findings by value once it lists them.",
+          "correct": false,
+          "why": "Ordering by value is a separate, later step layered on top of the gap list; the gap analysis itself does not rank what it finds.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-prioritization"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — a gap analysis inherently ranks each gap by cost and risk as part of the comparison.",
+          "correct": false,
+          "why": "The comparison is done dimension by dimension to state what is missing, not to rank it; ranking and achievability are both judgements the technique deliberately withholds.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.gap-analysis"
+          }
+        }
+      ],
+      "rationale": "A gap analysis is a structured comparison whose output is the set of differences and the work needed to close them. What it does not deliver is a judgement on achievability, cost or worth — that is a feasibility question, kept deliberately separate.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.gap-analysis",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.feasibility-study.01",
+      "concept_id": "pm.functional-analysis.feasibility-study",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A team already has a gap analysis showing six differences between current and desired capability. What question does a feasibility study add that the gap analysis did not answer?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Whether closing those gaps is technically, operationally and economically achievable, before anyone commits.",
+          "correct": true,
+          "why": "A feasibility study assesses achievability across those dimensions ahead of commitment, which is a different question from naming how far apart two states are.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "How large the differences are between the current and desired states.",
+          "correct": false,
+          "why": "That is exactly what the gap analysis already produced; it is not the question a feasibility study adds.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.gap-analysis"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Which of the six differences should be addressed first, since ordering by value is treated as part of naming the gaps rather than a separate step.",
+          "correct": false,
+          "why": "Ordering by value is prioritization's job, a separate step from asking whether the work is achievable at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.requirements-prioritization"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing new — a feasibility study and a gap analysis answer the same question in different words.",
+          "correct": false,
+          "why": "A gap analysis says how far apart the current and desired states are; a feasibility study asks whether closing that distance is achievable and worth committing to at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.feasibility-study"
+          }
+        }
+      ],
+      "rationale": "A feasibility study assesses, before commitment, whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. Recognition of the term and its dimensions is what this level of the exam expects.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#s-functional-analysis-analysis",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": true,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.requirements-prioritization.01",
+      "concept_id": "pm.functional-analysis.requirements-prioritization",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A backlog owner marks every requirement 'Must have' under MoSCoW, reasoning that each one genuinely matters to the business. What has this prioritization actually achieved?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing — a scheme where every item is Must has simply relabeled the whole list without forcing any trade-off.",
+          "correct": true,
+          "why": "Prioritization only does work when it forces a choice about what gets dropped under pressure; a list that is entirely Must-have has ordered nothing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It has established which gaps between current and desired state are most urgent.",
+          "correct": false,
+          "why": "Naming gaps between two states is gap analysis's output; labeling a backlog with MoSCoW does not perform that comparison.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.gap-analysis"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It has confirmed that the non-functional requirements are the highest priority.",
+          "correct": false,
+          "why": "Nothing in the scenario distinguishes functional from non-functional; classification and priority are independent axes, and this labeling touches neither.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.non-functional-requirements"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It has correctly captured the business's needs, since a Must-have list should include everything that matters.",
+          "correct": false,
+          "why": "This treats prioritization as a record of importance rather than a forced trade-off, which is the failure mode the scenario illustrates.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.requirements-prioritization"
+          }
+        }
+      ],
+      "rationale": "Prioritization schemes are applied with a cap on the top band or forced ranking precisely because an unconstrained list tends to fill up with Must-haves. The value shows up only at the moment of pressure, converting a shortfall into a planned reduction of scope rather than an argument.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "agile-business-consortium-moscow"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.requirements-prioritization",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.traceability.01",
+      "concept_id": "pm.functional-analysis.traceability",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A traceability matrix shows every numbered requirement linked to at least one test case. What does that demonstrate, and what does it not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It demonstrates coverage — every requirement has a design and test link — but not that any test passed or that the requirement was the right one.",
+          "correct": true,
+          "why": "Traceability shows that a link exists in both directions, forward to tests and back to the need; it makes no claim about outcomes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It demonstrates that the system was validated against the real need it was meant to serve.",
+          "correct": false,
+          "why": "A link between a requirement and a test says nothing about whether the requirement itself was the right one to have — that is a validation question the matrix does not answer.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.verification-vs-validation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It demonstrates that user acceptance testing has been completed for every requirement in the release.",
+          "correct": false,
+          "why": "The matrix records links between requirements and tests, not who executed a test or with what outcome.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.user-acceptance-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It demonstrates that every requirement passed its test, since each one is linked to one.",
+          "correct": false,
+          "why": "A link shows a test exists for the requirement, not that the test was run or that it passed; coverage and correctness are different claims.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.traceability"
+          }
+        }
+      ],
+      "rationale": "Traceability links each requirement forward to design, implementation and test, and back to the need that justified it, so coverage and impact can both be demonstrated. It is confused with testing itself, but a link is not a verdict.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-expanded-guidance-se-requirements-management"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#s-functional-analysis-quality",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.verification-vs-validation.01",
+      "concept_id": "pm.functional-analysis.verification-vs-validation",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "A release passes 100% of its planned tests, and the traceability matrix shows every requirement covered. Two weeks after go-live, the department is still using its old spreadsheet instead. What does this show?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Verification succeeded — the system conforms to its specification — but validation was never done, so a wrong specification went undetected.",
+          "correct": true,
+          "why": "A system can pass verification completely and still fail, because conformance to a specification that captured the wrong need is conformance to the wrong thing.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The traceability matrix must be wrong, since full coverage should have caught the department's non-adoption.",
+          "correct": false,
+          "why": "Coverage is not correctness; the matrix did its job by showing every requirement had a test, and that says nothing about whether the requirement was the right one.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.traceability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "User acceptance testing must not have been run, since UAT alone verifies conformance to the specification.",
+          "correct": false,
+          "why": "UAT checks the real need, not conformance to the specification — that is what makes it a validation activity, the opposite of the gap this scenario is illustrating.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.user-acceptance-testing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is wrong — passing every test in the plan is itself evidence the project succeeded.",
+          "correct": false,
+          "why": "Passing every test in the plan is evidence of conformance to the specification alone; it is not by itself evidence that the project met the actual need.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.verification-vs-validation"
+          }
+        }
+      ],
+      "rationale": "Verification asks whether the system was built right, against the agreed specification; validation asks whether the right thing was built, against the actual need. The two checks cannot substitute for each other, which is exactly what a fully-tested, unused system demonstrates.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.verification-vs-validation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.user-acceptance-testing.01",
+      "concept_id": "pm.functional-analysis.user-acceptance-testing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A test team already ran system testing against the specification. During UAT, the same testers re-run the identical scripts at the users' own desks. What has been wasted?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The one check meant to catch a wrong specification — real users exercising their own work instead of re-verifying conformance.",
+          "correct": true,
+          "why": "UAT is the clearest instance of validation in a delivery; using its slot to repeat verification wastes the only check qualified to catch a wrong specification.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The specification's traceability, since re-running scripts breaks the link between requirement and test.",
+          "correct": false,
+          "why": "Traceability links persist regardless of who executes a test or how many times; nothing about repeating scripts breaks that link.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.specification-documentation"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing measurable — repeating verification twice is simply extra assurance, not a waste.",
+          "correct": false,
+          "why": "Extra verification uses up the time and attention meant for validation, which is exactly the resource this scenario shows being spent on the wrong check.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.verification-vs-validation"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — UAT is meant to be a second pass confirming the test team's results.",
+          "correct": false,
+          "why": "Treating UAT as a second pass over the test team's script is the wrong mental model; it should exercise the users' own work against their real needs, not the specification a second time.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.user-acceptance-testing"
+          }
+        }
+      ],
+      "rationale": "UAT is performed by the people who will use the system, against their real work and acceptance criteria, and typically ends in an explicit business sign-off. Run as a repeat of system testing, it stops being a validation activity and becomes a second, redundant verification pass.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "istqb-standard-glossary-v2.2"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.user-acceptance-testing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.functional-analysis.specification-documentation.01",
+      "concept_id": "pm.functional-analysis.specification-documentation",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A specification statement reads: 'The system shall provide flexible reporting and support various export formats.' A reviewer cannot fail it in review. Why not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It is unambiguous to no one and testable by no one — 'flexible' has no measurable meaning, and it bundles two requirements into one statement.",
+          "correct": true,
+          "why": "Two readers can conform to opposite readings of 'flexible,' and stating two requirements per sentence means half of it can pass while the other fails unnoticed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The sentence is fine; 'flexible' is a legitimate non-functional attribute in the same family as availability or performance.",
+          "correct": false,
+          "why": "A real quality attribute needs a threshold and a condition to be measured under; 'flexible' names no measurable quality at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.non-functional-requirements"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The sentence cannot be traced to a test case, which is the only defect present.",
+          "correct": false,
+          "why": "Traceability is a separate property from testability; an untestable requirement is defective whether or not it happens to be linked to a test case.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.functional-analysis.traceability"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is wrong with it — any sentence phrased as a 'shall' statement is testable by virtue of that phrasing.",
+          "correct": false,
+          "why": "The 'shall' form signals intent to state a requirement, but it guarantees nothing about whether the requirement is measurable.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:pm.functional-analysis.specification-documentation"
+          }
+        }
+      ],
+      "rationale": "A specification's quality caps what verification can catch: an ambiguous or bundled statement cannot fail a review, because no two readers have to agree on what it means. The habits that avoid this are negative ones — avoid words like 'flexible,' and state one requirement per statement.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
+      ],
+      "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.specification-documentation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

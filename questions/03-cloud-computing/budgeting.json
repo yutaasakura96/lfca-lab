@@ -1,0 +1,1806 @@
+{
+  "competency": "Cloud Computing Fundamentals :: Budgeting",
+  "items": [
+    {
+      "id": "q.cloud.budgeting.capex-vs-opex.01",
+      "concept_id": "cloud.budgeting.capex-vs-opex",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A finance team argues that moving from owned servers to cloud compute is a straightforward cost win, since the monthly bill is smaller than the loan payments on a server refresh would have been. What does the CapEx-to-OpEx shift actually establish on its own?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It changes the shape and reversibility of spending, from a fixed sum committed once to a variable charge stoppable at will — not that the eventual total is necessarily smaller.",
+          "correct": true,
+          "why": "The trade is predictability against elasticity — a known committed number versus an unknown continuous one — not a guarantee that the total is smaller.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It proves cloud is cheaper, once staffing and power costs are added to the on-premises side of the comparison.",
+          "correct": false,
+          "why": "That claim requires costing both sides fully, which is what total cost of ownership does, not what the accounting shift itself proves.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.total-cost-of-ownership"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It proves consumption is billed only for work actually performed, not for capacity left running idle.",
+          "correct": false,
+          "why": "That describes the pay-as-you-go meter's behaviour, and it is false there too — provisioned capacity bills whether or not it is used.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.pay-as-you-go"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It replaces a capital budgeting process with no budgeting process at all, since usage is metered automatically and the provider is now responsible for staying within any limit.",
+          "correct": false,
+          "why": "Consumption is still tracked against a target and controlled deliberately by the customer; nothing about a metered bill removes the need to plan and cap spend, and no provider enforces a limit on your behalf by default.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.capex-vs-opex"
+          }
+        }
+      ],
+      "rationale": "The CapEx-to-OpEx shift changes when money is committed and how reversible that commitment is, not whether the eventual total is smaller — that depends entirely on how well the resulting consumption is controlled.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.capex-vs-opex",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.capex-vs-opex.02",
+      "concept_id": "cloud.budgeting.capex-vs-opex",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 2,
+      "stem": "AWS's business case for cloud computing argues the same accounting trade in different words than 'CapEx versus OpEx.' Which pair of terms does that specific page actually use?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Fixed expense versus variable expense — the underlying trade is the same, but this page never uses the words 'CapEx' or 'OpEx.'",
+          "correct": true,
+          "why": "The source behind this concept states the trade as fixed versus variable expense, not in the literal accounting vocabulary.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Capital expenditure versus operational expenditure, quoted directly from that same AWS business-case page word for word.",
+          "correct": false,
+          "why": "A tempting shortcut, but the source's own wording is fixed and variable expense — assuming it uses the accounting terms verbatim is a citation error, not a paraphrase.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.capex-vs-opex"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Predictable versus elastic capacity, describing the pay-as-you-go meter rather than an accounting category.",
+          "correct": false,
+          "why": "That pair names the billing principle behind consumption charges, a different concept from the accounting-category trade this page argues.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.pay-as-you-go"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Committed versus interruptible workload, the axis separating reserved pricing from spot pricing elsewhere in this competency.",
+          "correct": false,
+          "why": "That pair names a purchasing-option trade-off, not the fixed-versus-variable expense vocabulary this page uses.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        }
+      ],
+      "rationale": "AWS's page argues the trade in fixed-versus-variable-expense language rather than literally saying CapEx or OpEx. The two vocabularies describe the same accounting shift, but a citation must not assume the source used words it never contains.",
+      "source_ids": [
+        "aws-six-advantages-cloud-computing"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.capex-vs-opex",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.pay-as-you-go.01",
+      "concept_id": "cloud.budgeting.pay-as-you-go",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An administrator stops a virtual machine in the Azure portal and expects the compute meter to stop immediately. Support explains that billing has continued. Which state is the machine most likely still in?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Stopped (allocated) — the underlying hardware lease has not been released, and only deallocation does that.",
+          "correct": true,
+          "why": "Azure's states-and-billing model treats Stopped (allocated) as still billed; only Stopped (deallocated) releases the hardware and stops the meter.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It was switched from on-demand to reserved pricing, which is billed on a different schedule than a stopped machine.",
+          "correct": false,
+          "why": "Purchasing option is unrelated to why a stopped machine keeps billing; that is governed by allocation state, not by on-demand versus reserved pricing.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The disk became orphaned the moment the machine stopped, and orphan billing is what is being observed.",
+          "correct": false,
+          "why": "The trap here is simpler: a merely-stopped machine is not an orphan at all, since it still has an owner and a purpose, and no deletion has occurred.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Stopping any virtual machine, on any provider, always halts its compute meter immediately.",
+          "correct": false,
+          "why": "True on some platforms but not universally — Azure specifically continues billing a merely-stopped VM until it reaches the deallocated state.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.pay-as-you-go"
+          }
+        }
+      ],
+      "rationale": "Pay-as-you-go bills provisioned capacity, and stopping a VM does not always release that provision. Azure specifically distinguishes Stopped (allocated), which keeps billing, from Stopped (deallocated), which releases the hardware lease and stops the meter.",
+      "source_ids": [
+        "nist-sp-800-145"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.pay-as-you-go.02",
+      "concept_id": "cloud.budgeting.pay-as-you-go",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "One clean sentence is supposed to separate pay-as-you-go from on-demand pricing. Which sentence is it?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Pay-as-you-go is the charging principle; on-demand is the specific no-commitment purchase option priced under it, and the baseline reserved and spot are discounted from.",
+          "correct": true,
+          "why": "Pay-as-you-go is the account's metered default; on-demand implements it directly and prices the two discounted options against it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "On-demand is the charging principle; pay-as-you-go is simply one purchase option chosen among several.",
+          "correct": false,
+          "why": "This reverses the relationship — pay-as-you-go is the account's default billing behaviour, not one item on a menu of purchase options.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Pay-as-you-go is a total-cost calculation performed once per project; on-demand is a single recurring line item counted within that larger calculation.",
+          "correct": false,
+          "why": "Total cost of ownership is the calculation that aggregates full cost across categories; pay-as-you-go is a billing principle, not that calculation.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.total-cost-of-ownership"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "They are two names for exactly the same thing, so the distinction between them is purely terminological and safe to ignore in practice.",
+          "correct": false,
+          "why": "One names a charging principle and the other a specific purchase option priced under it; treating them as synonyms misses the level each operates at.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.pay-as-you-go"
+          }
+        }
+      ],
+      "rationale": "Pay-as-you-go is the charging principle and the undiscounted baseline every price in this competency is quoted against; on-demand is the specific purchase option that implements it with no commitment.",
+      "source_ids": [
+        "nist-sp-800-145"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.pay-as-you-go.03",
+      "concept_id": "cloud.budgeting.pay-as-you-go",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A virtual machine idles at 2% CPU for an entire month under pay-as-you-go billing. How does its cost compare to the same machine running at 100% CPU the whole month?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Identical — the meter counts provisioned, running capacity, not utilisation.",
+          "correct": true,
+          "why": "A cloud meter charges for capacity being provisioned and running, regardless of how much of it any workload actually uses.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Lower, because rightsizing automatically detects the 2% load and bills only that share.",
+          "correct": false,
+          "why": "Rightsizing is a deliberate periodic review a human performs; the meter itself does no automatic detection or partial billing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Lower, because autoscaling would already have shrunk the instance in response to the low load.",
+          "correct": false,
+          "why": "Autoscaling changes how many units run in response to live traffic; a single idling instance sitting at 2% is not itself evidence that autoscaling applies or has acted.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Lower, because 'pay only for what you use' means paying for work performed rather than capacity held.",
+          "correct": false,
+          "why": "That phrase is routinely misread this way, and the misreading is the single most expensive misunderstanding on a cloud invoice — the meter counts provisioned capacity, not work done.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.pay-as-you-go"
+          }
+        }
+      ],
+      "rationale": "A virtual machine running at 2% CPU costs exactly what the same machine costs at 100%: the meter counts provisioned, running capacity, not work performed, which is precisely why rightsizing and orphaned resources cost money at all.",
+      "source_ids": [
+        "nist-sp-800-145"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.01",
+      "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team describes the three compute purchase options in relation to pay-as-you-go billing. Which of these statements about that relationship is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Reserved and spot are both discounts off the on-demand price, and on-demand is itself the pay-as-you-go baseline priced with no commitment.",
+          "correct": true,
+          "why": "Pay-as-you-go is the charging principle and the undiscounted baseline; on-demand implements it directly, while reserved and spot are discounts off that same on-demand price.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Pay-as-you-go is a fourth purchase option, alongside on-demand, reserved and spot.",
+          "correct": false,
+          "why": "Pay-as-you-go is the account's default billing behaviour, not a fourth item on a menu of purchase options it prices.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.pay-as-you-go"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Reserved pricing converts the spend into a capital purchase, since a multi-year term is being paid for.",
+          "correct": false,
+          "why": "A reservation is still a rented service, not an owned asset — it buys a rate, not a machine, so it does not become a capital expenditure.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.capex-vs-opex"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Spot pricing does not use pay-as-you-go billing at all, since its price is set by a live auction between competing customers rather than by a meter.",
+          "correct": false,
+          "why": "Spot capacity is still metered consumption billed under the same measured-service principle; only its price-setting mechanism differs from on-demand, and it is not an auction either.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        }
+      ],
+      "rationale": "Pay-as-you-go is the meter every purchase option is billed against: on-demand is that meter at full price, and reserved and spot are discounts off it in exchange for a term commitment or an interruption risk respectively.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "comparison_block": "cmp-cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.02",
+      "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A stateful job cannot checkpoint fast enough to survive spot interruption on Azure or Google Cloud, but the same job could survive interruption on AWS. What explains the difference?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "AWS gives a two-minute interruption notice before reclaiming a Spot Instance; Azure Spot VMs and Google Cloud Spot or preemptible VMs instead give roughly thirty seconds.",
+          "correct": true,
+          "why": "AWS documents a two-minute Spot interruption notice, plus an earlier rebalance-recommendation signal; Azure and Google Cloud instead give roughly thirty seconds, delivered best-effort with no hibernate option.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "There is no real difference — all three providers give the same interruption notice, so checkpoint speed alone explains the job's survival.",
+          "correct": false,
+          "why": "The interruption notice is provider-specific, not a shared spot or preemptible standard, and stating it as universal is the exact generalisation this concept warns against.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "AWS's autoscaling reacts faster than Azure's or Google's, giving the job more time regardless of notice length.",
+          "correct": false,
+          "why": "Autoscaling reacts to load, not to an eviction signal, and has no bearing on how much warning a job receives before spot reclamation.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "AWS waives egress charges specifically on spot reclamation events, giving the job effectively more time to finish persisting its state to another region.",
+          "correct": false,
+          "why": "Egress pricing and interruption notice length are unrelated meters; nothing about an egress charge changes how much warning a job gets.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.data-egress-charges"
+          }
+        }
+      ],
+      "rationale": "AWS terminates, stops, or hibernates a Spot Instance after a two-minute interruption notice, with an earlier rebalance-recommendation signal. Azure Spot VMs and Google Cloud Spot or preemptible VMs instead evict with roughly thirty seconds' best-effort notice and no hibernate option — the mechanics are provider-specific, not a shared standard.",
+      "source_ids": [
+        "aws-spot-instances",
+        "azure-spot-vms",
+        "google-cloud-spot-vms"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.03",
+      "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A queue-driven worker fleet processes jobs that can be safely re-queued if interrupted. Behind it sits a 24/7 primary database that needs a steady, predictable baseline for at least two years. Which pairing of purchase option to workload is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Spot for the worker fleet, and reserved for the database's steady baseline.",
+          "correct": true,
+          "why": "Interruptible, re-queueable work is the textbook spot case; a steady multi-year baseline is exactly what reserved pricing is priced for.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "On-demand for both, since neither workload's cost can be estimated in advance without it.",
+          "correct": false,
+          "why": "Cost estimation before deployment is a pricing calculator's job and has nothing to do with which purchase option fits a workload's tolerance for interruption or commitment.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Reserved for the worker fleet, since a term commitment guarantees the cheapest price regardless of interruption risk.",
+          "correct": false,
+          "why": "Reserved buys price with a loss of flexibility, not with immunity from interruption; nothing about a term commitment suits work that is fine being interrupted.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Spot for both, since spot is simply a smaller, rightsized version of on-demand capacity.",
+          "correct": false,
+          "why": "Spot is a discount tied to interruption risk on the same instance types as on-demand, not a smaller size — sizing is a separate, unrelated practice.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        }
+      ],
+      "rationale": "Matching a workload to a purchase option turns on what it can tolerate, not on price alone: the worker fleet tolerates interruption and belongs on spot, while the database's steady, long-lived baseline is exactly what a reserved commitment is priced for.",
+      "source_ids": [
+        "aws-spot-instances"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.on-demand-reserved-and-spot-pricing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.total-cost-of-ownership.01",
+      "concept_id": "cloud.budgeting.total-cost-of-ownership",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A comparison sets a monthly cloud bill against an on-premises server's purchase price alone, and concludes cloud is more expensive. What is missing from the on-premises side of that comparison?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Staffing, power and cooling, floor space, and the hardware-refresh cost that a bare purchase price omits.",
+          "correct": true,
+          "why": "Total cost of ownership is the full cost of a capability, not merely the invoice or sticker price, and a fair comparison must cost both sides the same way.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — CapEx and OpEx figures are already directly comparable numbers.",
+          "correct": false,
+          "why": "CapEx and OpEx are different accounting treatments of spend, not a substitute for costing the full set of expenses on each side of a comparison.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.capex-vs-opex"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A budget threshold that would have flagged the discrepancy automatically.",
+          "correct": false,
+          "why": "A budget alert notifies when spend already crosses a configured threshold; it does not supply missing cost categories in a one-off comparison exercise.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing is missing at all; a server's purchase price already represents the entire cost of owning and running it.",
+          "correct": false,
+          "why": "This is precisely the error total cost of ownership exists to catch: a purchase price silently drops staffing, power and refresh costs that only one side of the comparison carries.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.total-cost-of-ownership"
+          }
+        }
+      ],
+      "rationale": "Total cost of ownership is the full cost of delivering a capability, not just the invoice or sticker price. A comparison that sets a cloud bill against a bare purchase price is a TCO error because it drops the staffing, power and hardware-refresh costs the on-premises side still carries.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#s-budgeting-cost-models",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.free-tier-and-pricing-calculators.01",
+      "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Which instrument is built to answer 'what will this architecture cost, before any of it is built'?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A pricing calculator, since it estimates cost from a proposed configuration before deployment.",
+          "correct": true,
+          "why": "A calculator multiplies published prices by an entered configuration, so it operates before anything exists — the only instrument here that estimates rather than observes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Cost monitoring, since it reports the actual spend once the architecture is running.",
+          "correct": false,
+          "why": "Monitoring reports money already spent on something that exists; it cannot answer a question about a configuration that has not been built yet.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A budget alert, since it flags spend as soon as it crosses a defined threshold.",
+          "correct": false,
+          "why": "A budget alert reports against actual or forecast spend once a target and a real account exist; it does not model a hypothetical architecture in advance.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The free tier, since spending nothing during the allowance answers the question by direct observation.",
+          "correct": false,
+          "why": "The free tier still requires building something to consume it, and it is an allowance rather than an estimation tool — it says nothing about cost beyond that allowance.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        }
+      ],
+      "rationale": "Cost monitoring and budgets both report or police money that is already being spent. A pricing calculator is the only instrument here that operates before anything exists, which is the discrimination this question is built on.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.free-tier-and-pricing-calculators",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.free-tier-and-pricing-calculators.02",
+      "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An account exceeds its free-tier allowance mid-month, and a payment method is already on file. What happens to the exceeded portion?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It starts billing silently at the standard rate; nothing about exceeding the allowance stops the resource.",
+          "correct": true,
+          "why": "Exceeding an allowance generally does not stop the resource on an account with a payment method attached — it starts billing at the standard rate, without any warning built in.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A budget alert fires automatically, since crossing an allowance is the same thing as crossing a spend threshold.",
+          "correct": false,
+          "why": "An allowance and a configured budget threshold are separate instruments; crossing the free-tier limit does not by itself trigger a budget notification.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The resource becomes an orphan until someone reattaches a valid payment method.",
+          "correct": false,
+          "why": "An orphaned resource has no purpose left at all; this resource is still doing its intended job, just at a rate that is no longer free.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The resource is suspended automatically until the following month's allowance resets.",
+          "correct": false,
+          "why": "Suspension on allowance exhaustion is not how any of the free-tier shapes behave when a payment method is attached; billing continues rather than the resource pausing.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        }
+      ],
+      "rationale": "Allowances are metered like any other consumption. On an account with a payment method attached, exceeding one does not stop the resource — it silently starts billing at the standard rate, which is why the allowance needs active tracking rather than passive trust.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.free-tier-and-pricing-calculators",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.rightsizing.01",
+      "concept_id": "cloud.budgeting.rightsizing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A database instance runs at 4% CPU all month but is still serving live production queries. What is the correct action?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Resize it to a smaller instance and re-measure — the resource is wanted, only its size is wrong.",
+          "correct": true,
+          "why": "The resource still serves a genuine purpose; rightsizing matches provisioned capacity to measured demand without removing what is still needed.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Delete it, since a resource this underused has no purpose left.",
+          "correct": false,
+          "why": "Deletion is for a resource with no purpose left; this one is actively serving production queries, so deleting it would remove something still in use.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Leave it alone and let autoscaling shrink it automatically as load drops further.",
+          "correct": false,
+          "why": "Autoscaling changes how many units run in response to live load; it does not resize a single provisioned unit's capacity, which is a deliberate periodic decision.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Detach and reattach its storage volume, since that resets the meter to reflect true utilisation.",
+          "correct": false,
+          "why": "Detaching and reattaching a volume changes nothing about billing, which is charged for provisioned capacity regardless of attachment state.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.rightsizing"
+          }
+        }
+      ],
+      "rationale": "Rightsizing matches provisioned capacity to measured demand for a resource that is genuinely wanted, which distinguishes it from deletion, for a resource with no purpose left, and from autoscaling, which changes count rather than size.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.rightsizing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.rightsizing.02",
+      "concept_id": "cloud.budgeting.rightsizing",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A scenario describes capacity that grows and shrinks automatically, minute by minute, in direct response to live traffic. Which cost practice is actually being described?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Autoscaling — it is the practice that changes how many units run automatically in response to live load.",
+          "correct": true,
+          "why": "Capacity following live traffic minute by minute is the defining behaviour of autoscaling, whatever word a question attaches to it.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Rightsizing — some vendor guidance folds live scaling into it, so the minute-by-minute description still qualifies.",
+          "correct": false,
+          "why": "Rightsizing is a deliberate, periodic human decision about size; folding in automatic, continuous count changes is exactly the confusion this concept keeps separate for exam purposes.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Orphan cleanup — capacity changing shape usually means unused resources are being found and removed.",
+          "correct": false,
+          "why": "Orphan cleanup removes resources that serve no purpose at all; it does not describe capacity that is actively tracking live traffic.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A configured budget action, since thresholds can be set to add or remove capacity automatically.",
+          "correct": false,
+          "why": "A budget action, when configured, typically denies further provisioning past a limit; it does not track live traffic minute by minute the way the scenario describes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        }
+      ],
+      "rationale": "Autoscaling changes how many units run, automatically and continuously, in response to live load. Rightsizing changes how big each unit is, as a deliberate periodic review, so a scenario describing traffic-driven capacity change is autoscaling regardless of the label a question uses.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.rightsizing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.rightsizing.03",
+      "concept_id": "cloud.budgeting.rightsizing",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A team collects one week of utilisation data that happens to exclude month-end close, then rightsizes a database down accordingly. What is the likely outcome?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The database is undersized for the peak the observation window missed, turning the resize into a performance incident at month-end.",
+          "correct": true,
+          "why": "An observation window that misses a real peak, like month-end close, recommends a size that fails the first time that peak recurs, converting a cost decision into a performance problem.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing goes wrong, since cost monitoring would have already caught any peak the exercise missed.",
+          "correct": false,
+          "why": "Monitoring reports spend and trend after the fact; it does not itself catch a flawed observation window before a resize decision is made from it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The database automatically moves to a colder storage tier once it is resized.",
+          "correct": false,
+          "why": "Storage tiering is a separate mechanism governing object storage cost classes and is not a consequence of resizing compute capacity.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Sizing to one representative week of data is sufficient, since rightsizing is treated as a one-time project rather than an ongoing, iterative one.",
+          "correct": false,
+          "why": "Rightsizing is iterative rather than a one-time project, because both the workload and the provider's instance catalogue keep changing — treating one week as sufficient is the trap.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.rightsizing"
+          }
+        }
+      ],
+      "rationale": "The observation window is the part of rightsizing usually got wrong: a week that misses month-end close, payroll, or a seasonal campaign recommends a size that fails the first time those arrive, converting a cost problem into a performance incident.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.rightsizing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.orphaned-resources.01",
+      "concept_id": "cloud.budgeting.orphaned-resources",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A cost report shows a line with no corresponding running workload: an unattached disk left behind when its virtual machine was deleted. Is this an orphan or a rightsizing candidate, and what follows from that?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An orphan — it serves no purpose at all, so the correct action is deletion, not resizing.",
+          "correct": true,
+          "why": "The volume's purpose is entirely gone, not merely mis-sized; deletion recovers the whole of its cost, while resizing would recover only a difference between two sizes.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A rightsizing candidate — an unattached disk is simply oversized for its current use and should be resized down.",
+          "correct": false,
+          "why": "Rightsizing applies to a resource that still serves a real purpose at the wrong size; this disk has no purpose left at all, so resizing is the wrong lever entirely.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither — without an owner tag on the disk, no action can be taken on it at all.",
+          "correct": false,
+          "why": "A missing tag makes finding the owner harder, but it does not block deletion once inventory evidence — attachment state and last activity — confirms the disk has no purpose.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.resource-tagging"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It stopped billing once its virtual machine was deleted, so no action is needed either way.",
+          "correct": false,
+          "why": "Deletion in most providers is asymmetric: removing the VM does not remove its disks, which keep billing on their own meter afterward.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.orphaned-resources"
+          }
+        }
+      ],
+      "rationale": "An orphan and a rightsizing candidate are told apart by whether the resource still has a purpose: the orphan has none and the answer is deletion, while a rightsizing candidate still serves a purpose at the wrong size and the answer is resizing.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
+      "comparison_block": "cmp-cloud.budgeting.orphaned-resources",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.orphaned-resources.02",
+      "concept_id": "cloud.budgeting.orphaned-resources",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "To cut costs, an engineer detaches an idle disk from its virtual machine but does not delete it. How much money does that detachment save?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing — storage bills for existing, not for being attached or read.",
+          "correct": true,
+          "why": "Storage is charged for existing on the platform, not for being attached to a running instance or being read from; only deletion stops the meter.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The egress charge for the disk's most recent read, since detaching stops any further data transfer.",
+          "correct": false,
+          "why": "Egress bills for data leaving the network during a transfer, not for detaching a disk, which involves no data movement at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.data-egress-charges"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Most of the storage rate, since detached storage bills at a reduced idle rate compared to attached storage.",
+          "correct": false,
+          "why": "There is no discounted idle rate for a merely-detached disk; it bills at the same per-gigabyte-month rate as when it was attached.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.pay-as-you-go"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The full per-gigabyte-month rate is waived once a disk is detached, since it is no longer serving a workload.",
+          "correct": false,
+          "why": "An unattached disk bills exactly the same per gigabyte-month as an attached one; whether it serves a workload has no bearing on the storage meter.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.orphaned-resources"
+          }
+        }
+      ],
+      "rationale": "Detaching a volume saves nothing at all: an unattached disk bills the same per gigabyte-month as an attached one, because storage is charged for existing, not for being read or connected. Only deletion stops the charge.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.orphaned-resources.03",
+      "concept_id": "cloud.budgeting.orphaned-resources",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which kind of evidence is used to find an orphaned resource, as distinct from a rightsizing candidate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Inventory — attachment state, last activity, and owner tag — rather than utilisation telemetry.",
+          "correct": true,
+          "why": "Finding orphans means querying inventory rather than reading telemetry — attachment state and last activity, cross-referenced against the owner tag to find who to ask before deleting.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Telemetry — CPU, memory and IOPS utilisation measured against provisioned capacity.",
+          "correct": false,
+          "why": "Telemetry against provisioned capacity is what finds a rightsizing candidate, a resource that still has a purpose but the wrong size, not a resource with no purpose left.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A cost-monitoring dashboard's trend line, since any rising bill is a reliable signal of an orphan.",
+          "correct": false,
+          "why": "A rising bill can have several causes, only one of which is an orphan appearing; a trend line alone does not identify which cause applies.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A tagging standard's enforcement log, since any untagged resource is necessarily an orphan.",
+          "correct": false,
+          "why": "An untagged resource is more likely to become an orphan, but the missing tag alone is not proof that a specific resource has no purpose — inventory evidence is still required.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.resource-tagging"
+          }
+        }
+      ],
+      "rationale": "Rightsizing and orphan-hunting use different evidence: rightsizing compares utilisation telemetry against provisioned capacity, while finding an orphan means querying inventory for attachment state, last activity and owner tags, because an orphan produces no telemetry signal at all.",
+      "source_ids": [
+        "aws-rightsizing-whitepaper"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.data-egress-charges.01",
+      "concept_id": "cloud.budgeting.data-egress-charges",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Data is uploaded into a cloud provider's storage service, then later read back out to the public internet. Which of those two transfers is billed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Only the outbound read — inbound transfer is generally free, and reading your own data back out is egress like any other transfer.",
+          "correct": true,
+          "why": "Providers price data leaving their network per gigabyte while inbound is generally free; the meter does not care that the data being read out was your own earlier upload.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Only the inbound upload, since storage services meter and charge for whatever volume of data they physically receive from a client.",
+          "correct": false,
+          "why": "Storage services bill for holding data over time, not for receiving it — ingress itself is generally free across the major providers.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither, as long as both transfers stay within a monthly free allowance on the account.",
+          "correct": false,
+          "why": "A free allowance only covers volume up to its own limit; it does not change which direction of transfer is metered once that limit is exceeded.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither — the meter tracks only total volume moved in either direction and does not distinguish inbound from outbound at all.",
+          "correct": false,
+          "why": "The asymmetry is exactly directional: outbound is billed per gigabyte while inbound is generally free, which is the point this concept tests.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.data-egress-charges"
+          }
+        }
+      ],
+      "rationale": "Providers price the asymmetry plainly: data entering the network is generally free while data leaving is billed per gigabyte, and reading your own stored data back out to the internet is egress like any other outbound transfer.",
+      "source_ids": [
+        "azure-bandwidth-pricing"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.data-egress-charges",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.data-egress-charges.02",
+      "concept_id": "cloud.budgeting.data-egress-charges",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "On Azure, a service in one region reads data from another Azure region, while a separate copy of the same data is read by an application entirely outside Azure. Which transfer is priced lower on Azure's own rates, and is that pattern safe to assume on every provider?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The inter-region transfer is priced lower than internet egress on Azure's rates, but the pattern is not a safe assumption to carry to other providers.",
+          "correct": true,
+          "why": "Azure's published rates band destinations, with inter-region cheaper than internet egress, and Azure states same-region transfer is free — but this is Azure's specific shape, not a rule that transfers safely to AWS or Google Cloud.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Whichever transfer runs on a spot instance, since spot pricing includes a built-in data-transfer discount.",
+          "correct": false,
+          "why": "Spot is a compute purchase option and carries no data-transfer discount of its own; the two meters are entirely unrelated.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.on-demand-reserved-and-spot-pricing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whichever transfer touches a tagged resource, since tagged transfers are billed at a preferential rate.",
+          "correct": false,
+          "why": "Tags are metadata used for attribution and policy; they carry no billing discount for the data-transfer meter itself.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.resource-tagging"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Both are priced identically, since egress is metered purely by volume regardless of destination.",
+          "correct": false,
+          "why": "Egress is metered by volume, but it is also banded by destination — internet-bound and inter-region traffic are priced differently, not identically.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.data-egress-charges"
+          }
+        }
+      ],
+      "rationale": "Egress is metered by volume and banded by destination: on Azure's published rates, inter-region transfer is cheaper than internet egress, and same-region transfer is free — but that specific pattern belongs to Azure, and carrying it to another provider unchecked is exactly the cross-provider assumption this concept warns against.",
+      "source_ids": [
+        "azure-bandwidth-pricing"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.data-egress-charges",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.resource-tagging.01",
+      "concept_id": "cloud.budgeting.resource-tagging",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "Why is an untagged resource described as the enabling gap beneath every other cost-control practice in this competency?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Because chargeback, showback, budgets and orphan-hunting are all attribution questions before they are cost questions, and an untagged resource has no attributable owner.",
+          "correct": true,
+          "why": "Without a tag, a bill is a list of service totals with no owner, and no per-team budget, chargeback, showback or orphan hunt is possible, because all four depend on knowing whose resource it is.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Because a budget cannot be created at all for any resource or set of resources that has not first been tagged and registered.",
+          "correct": false,
+          "why": "A budget can be scoped to an account or service with no tag involved at all; tagging refines scope, it does not gate whether a budget can be created.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Because cost-monitoring dashboards are built to refuse displaying any resource that arrives without a complete set of tags attached.",
+          "correct": false,
+          "why": "Monitoring dashboards display whatever inventory exists, tagged or not; a missing tag makes attribution harder, not the resource invisible to monitoring.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Because untagged resources are automatically billed by the provider at a higher per-unit rate than equivalent tagged ones.",
+          "correct": false,
+          "why": "Tags are metadata for attribution and carry no effect on the rate a resource is billed at; the cost impact of missing tags is entirely indirect.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.resource-tagging"
+          }
+        }
+      ],
+      "rationale": "Tagging is the enabling control beneath every other practice in this section: without it a bill is a list of service totals with no owner, and no per-team budget, chargeback, showback or orphan hunt is possible, because all four are attribution questions before they are cost questions.",
+      "source_ids": [
+        "aws-tagging-best-practices"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.resource-tagging",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.resource-tagging.02",
+      "concept_id": "cloud.budgeting.resource-tagging",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "One team's spend is split across three separate cost-report lines because resources were labelled env, Env, and Environment interchangeably over time. What actually fixes this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A written tagging standard enforced at creation time, so one consistent key is used across the estate going forward.",
+          "correct": true,
+          "why": "Consistency is the entire game: a written standard plus enforcement at creation time is far more reliable than fixing an existing split after the fact.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A retrospective monthly sweep that merges whichever tag keys happen to appear that month.",
+          "correct": false,
+          "why": "A retrospective sweep treats the symptom repeatedly rather than preventing new inconsistent keys from being created going forward.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Three separate budgets, one scoped to each of the three key variants.",
+          "correct": false,
+          "why": "Three budgets working around the split is a workaround at the reporting layer, not a fix, and leaves the underlying attribution problem in place.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing needs to change, since cost-allocation reporting automatically recognises and merges near-identical tag keys on its own.",
+          "correct": false,
+          "why": "Case and spelling variants are unrelated keys as far as the billing system is concerned; nothing merges them automatically, which is exactly why the split happened.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.resource-tagging"
+          }
+        }
+      ],
+      "rationale": "Consistency is the entire game for tagging: env, Env and Environment are three unrelated keys that split one team's spend three ways, so a written standard enforced at creation time is far more reliable than a retrospective cleanup sweep.",
+      "source_ids": [
+        "aws-tagging-best-practices"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.resource-tagging",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.budgets-and-cost-alerts.01",
+      "concept_id": "cloud.budgeting.budgets-and-cost-alerts",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A team wants one instrument that answers both 'am I about to exceed what I said I would spend' and 'what am I spending it on, and is that changing.' Which instrument does both, and if none does, why not?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No single instrument does — a budget answers the first because it has a threshold to cross, and monitoring answers the second because it reports trend with no target of its own.",
+          "correct": true,
+          "why": "A budget requires a target decided in advance and fires an event when a threshold is crossed; monitoring has no number in it and simply describes what is happening — they answer different questions.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Cost monitoring alone does both, since a rising trend line on a dashboard already implies that some spend threshold is being approached.",
+          "correct": false,
+          "why": "A trend line has no defined threshold of its own; without a configured budget, nothing decides how much of a rise counts as approaching a limit.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A pricing calculator does both, since it estimates the number needed to set both a budget and a monitoring baseline.",
+          "correct": false,
+          "why": "A calculator estimates cost for a configuration before it is built; it does not itself report ongoing spend or notify on a crossed threshold.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A budget alone does both, since its threshold notification already explains exactly what changed in the estate to cause the breach.",
+          "correct": false,
+          "why": "A threshold breach is a notification, not a breakdown; it does not say what changed, which is exactly what monitoring's per-service, per-tag data provides.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.budgets-and-cost-alerts"
+          }
+        }
+      ],
+      "rationale": "Budgets and cost monitoring answer different questions: a budget requires a target decided beforehand and fires when actual or forecast spend crosses it, while monitoring has no number in it at all and simply reports what is happening and how the trend is moving.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.budgets-and-cost-alerts",
+      "comparison_block": "cmp-cloud.budgeting.budgets-and-cost-alerts",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.budgets-and-cost-alerts.02",
+      "concept_id": "cloud.budgeting.budgets-and-cost-alerts",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A budget's 90 percent threshold has just fired by email. What has the provider actually done to the account as a result?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing by default — a threshold breach sends a notification; it halts no resource and refuses no API call unless an action was explicitly configured.",
+          "correct": true,
+          "why": "A budget is not a spending cap: nothing about crossing a threshold halts a running resource or refuses the next API call unless an administrator explicitly configured an action.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The account is now blocked from provisioning further resources, since the threshold exists specifically to prevent overspend.",
+          "correct": false,
+          "why": "This is the assumption the trap exists to catch — a threshold breach is a message, not an enforcement action, unless a budget action was deliberately configured in advance.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Any orphaned resources contributing to the overage are automatically found and deleted.",
+          "correct": false,
+          "why": "Budgets do not identify or delete resources; finding and removing an orphan is a separate, evidence-based practice using inventory, not a budget behaviour.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The account's free-tier allowance is extended automatically to absorb the extra spend.",
+          "correct": false,
+          "why": "A free-tier allowance and a budget threshold are unrelated instruments; crossing one has no effect on the size of the other.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        }
+      ],
+      "rationale": "A budget is not a spending cap. Crossing a threshold notifies a person; it stops no resource and refuses no API call unless an administrator explicitly configured a budget action to do so, and an exam option claiming otherwise is wrong by default.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.budgets-and-cost-alerts",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.budgets-and-cost-alerts.03",
+      "concept_id": "cloud.budgeting.budgets-and-cost-alerts",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Two thresholds are configured on the same budget: one evaluated against actual spend, one against forecast spend. Which one can warn before the money is actually gone, and what caveat applies to both?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The forecast threshold can warn early; both are still subject to a billing delay, so spend can cross a threshold and keep moving before the notification arrives.",
+          "correct": true,
+          "why": "Forecast spend projects ahead and so is the only threshold type capable of warning before the money is actually gone, but a documented delay between a charge and its notification means both types can be outrun by spend that keeps moving.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The actual threshold can warn early, since actual figures are always more current and more trustworthy than any forecast could be.",
+          "correct": false,
+          "why": "Actual spend has already accrued by definition; it can only report what has already happened, not warn ahead of it the way a forecast can.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither can warn early; only a periodic rightsizing review of provisioned capacity catches overspend before it actually happens.",
+          "correct": false,
+          "why": "Rightsizing addresses provisioned-versus-utilised waste on existing resources, a different problem from being notified about approaching a spend target.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Both warn the instant spend crosses the line, since cloud billing is metered and reported in real time.",
+          "correct": false,
+          "why": "Billing lags the usage it describes, so notification is never instantaneous — this is a documented caveat, not an edge case.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.budgets-and-cost-alerts"
+          }
+        }
+      ],
+      "rationale": "Each threshold is evaluated against either actual spend, which has already accrued, or forecast spend, which has not, so only a forecast threshold can warn before the money is gone. Both remain subject to a documented delay between a charge being incurred and the notification arriving.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.budgets-and-cost-alerts",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.chargeback-and-showback.01",
+      "concept_id": "cloud.budgeting.chargeback-and-showback",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A finance team reports each department's cloud spend back to them every month but never moves budget between cost centres to do it. Is this chargeback, showback, or chargeback that has simply not been switched on yet?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Showback — a deliberate choice to influence behaviour through visibility alone, not an earlier stage of chargeback.",
+          "correct": true,
+          "why": "Showback reports consumption without transferring any charge; it is a permanent, deliberate practice in many organisations, not a waiting room on the way to chargeback.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Chargeback, since reporting a team's spend back to them already counts as billing them for it.",
+          "correct": false,
+          "why": "Chargeback moves money between cost centres with an internal invoice; reporting alone, with no such transfer, is showback rather than a form of billing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.resource-tagging"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Cost monitoring, since it is simply a report rather than either accounting practice.",
+          "correct": false,
+          "why": "Cost monitoring is the continuous tracking of spend generally; chargeback and showback specifically concern whether spend already tracked is billed internally or merely reported.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Chargeback not yet switched on — showback is simply the on-ramp organisations pass through before they start billing internally.",
+          "correct": false,
+          "why": "This pair is confused in both directions, and this is the specific misreading: showback is not chargeback waiting to be turned on, it is a standalone choice organisations can run permanently.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.chargeback-and-showback"
+          }
+        }
+      ],
+      "rationale": "Chargeback bills internal teams for their consumption, moving money between cost centres; showback reports the same consumption without transferring any charge. Showback is not chargeback waiting to be turned on — it is a deliberate, often permanent, choice to change behaviour through visibility alone.",
+      "source_ids": [
+        "lf-objectives-2025"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#s-budgeting-cost-control",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.cost-monitoring.01",
+      "concept_id": "cloud.budgeting.cost-monitoring",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A monthly bill rises by 20 percent while the resource inventory stays completely unchanged: same instance count, same disks, same databases. What kind of explanation is monitoring's breakdown suited to find, that a simple resource count cannot?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "More egress, more requests against the same database, an expired free-tier allowance, or a reservation ending its term — each raises the bill without changing the inventory.",
+          "correct": true,
+          "why": "A rise in the bill does not imply a rise in resource count: more egress, more requests, an ending allowance, or an ending reservation term will each raise the bill with the inventory unchanged, and diagnosing by counting instances misses all four.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "None — a rising bill against an unchanged inventory means a configured budget threshold must already have fired by now.",
+          "correct": false,
+          "why": "A budget threshold only fires if one was configured with a target in the first place; nothing about a rising bill guarantees that one exists or has fired.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.budgeting.budgets-and-cost-alerts"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A new orphaned resource must have appeared somewhere in the estate, since only orphans are known to raise a bill silently like this.",
+          "correct": false,
+          "why": "An orphan is a resource with no purpose left; the scenario states inventory is entirely unchanged, which is not consistent with a new orphan appearing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing explains it; a rise in the bill always and only means a rise in the number of resources currently provisioned.",
+          "correct": false,
+          "why": "This is exactly the assumption monitoring's breakdown exists to correct — several causes raise a bill with no new resources involved at all.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.cost-monitoring"
+          }
+        }
+      ],
+      "rationale": "Monitoring's breakdown by service, account, region and tag is what a bare total cannot provide: a rise in the bill does not imply a rise in the number of resources, since more egress, more requests, an expired allowance, or an ending reservation term can each raise it with the inventory unchanged.",
+      "source_ids": [
+        "aws-cost-and-usage-reports"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.cost-monitoring",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.cost-monitoring.02",
+      "concept_id": "cloud.budgeting.cost-monitoring",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A cost dashboard exists and its underlying data is technically correct, but nobody has opened it in three months. What does this demonstrate about monitoring on its own?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Monitoring is not alerting — a dashboard nobody opens detects nothing, which is why budgets and alerts exist alongside it rather than instead of it.",
+          "correct": true,
+          "why": "Passive observation only works if someone looks; an unopened dashboard is functionally silent, which is precisely why active, threshold-driven alerting is a separate, necessary practice.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The dashboard's tags must be misconfigured, since a correctly tagged dashboard would have been opened by now.",
+          "correct": false,
+          "why": "Whether the dashboard is opened has nothing to do with whether its tags or underlying data are correctly configured; the two are unrelated facts.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.resource-tagging"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A pricing calculator should replace the dashboard, since estimates need no one to check them.",
+          "correct": false,
+          "why": "A calculator estimates cost before something is built; it is not a substitute for observing what has actually happened to a running estate.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.free-tier-and-pricing-calculators"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — the dashboard's data is still being collected correctly, so the organisation is still effectively being warned.",
+          "correct": false,
+          "why": "Correct data collection with no one looking at it provides no warning to anyone; being technically correct is not the same as being watched.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.cost-monitoring"
+          }
+        }
+      ],
+      "rationale": "Monitoring is not alerting: a dashboard nobody opens detects nothing, which is exactly why budgets and alerts exist alongside continuous monitoring rather than as a replacement for it.",
+      "source_ids": [
+        "aws-budgets"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.cost-monitoring",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.cost-monitoring.03",
+      "concept_id": "cloud.budgeting.cost-monitoring",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A finance dashboard shows only a single monthly total for the whole account. What does that coarse granularity hide from view?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A three-day spike within the month, which daily or hourly data would show immediately.",
+          "correct": true,
+          "why": "Granularity is the design decision that determines what can be seen: a monthly total hides a short spike that daily, or sometimes hourly, data would surface immediately.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Which access tier each stored object currently sits in.",
+          "correct": false,
+          "why": "Storage tier is a property tracked by the storage service itself, not something a coarser or finer cost-report granularity would reveal either way.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Whether a given transfer crossed a region boundary during the month.",
+          "correct": false,
+          "why": "Whether a transfer crossed a region is a routing fact tracked by the transfer service, not something the time granularity of a cost report changes.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.data-egress-charges"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Nothing — a monthly total contains the same information as any finer granularity, just already summed.",
+          "correct": false,
+          "why": "Summing away time resolution is exactly what hides a spike; a total and a time series contain different information, not the same information at different scales.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.cost-monitoring"
+          }
+        }
+      ],
+      "rationale": "Granularity is the design decision that determines what monitoring can show: a monthly total hides a three-day spike that daily data would surface immediately, which is why providers expose cost and usage data at daily, sometimes hourly, resolution.",
+      "source_ids": [
+        "aws-cost-and-usage-reports"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.cost-monitoring",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.01",
+      "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A team must decide both which storage type to use for a new dataset and which access tier to place it in. Which decision comes first, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Storage type first — tiers and lifecycle rules apply within a service already chosen, and changing type later means migrating data and repointing applications.",
+          "correct": true,
+          "why": "Object, block and file storage name how data is addressed and presented — the top-level choice any tiering question presupposes — while tiers and lifecycle rules are decided after, and revisited continuously as data ages.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Tier first — the intended tier determines whether the data should be addressed as objects, blocks, or files.",
+          "correct": false,
+          "why": "Tiers are a cost and access-latency class inside a storage service already chosen; they do not determine how data is addressed to begin with.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.cloud-computing.object-block-and-file-storage"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither first — both should be decided together, as a single combined rightsizing exercise covering compute and storage alike.",
+          "correct": false,
+          "why": "Rightsizing is a compute-capacity practice about matching provisioned size to demand; storage type and tier are a separate decision pair with their own axis.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Order does not really matter, since a tier change and a storage-type change are, in practice, equally easy to reverse later.",
+          "correct": false,
+          "why": "A tier change or lifecycle rule keeps the data's address and interface, while a storage-type change requires migration and repointing applications — the two are not equally reversible.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        }
+      ],
+      "rationale": "The separating axis is which question is being answered: object, block and file storage names how data is addressed, decided first, while tiers and lifecycle policies name what it costs to keep and retrieve data already stored that way, decided after and revisited continuously.",
+      "source_ids": [
+        "azure-blob-access-tiers"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "comparison_block": "cmp-cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.02",
+      "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A monitoring system needs to read a log file under a strict low-latency requirement. The file currently sits in the archive tier. What must happen before it can be read?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It must be rehydrated to an online tier first, a process measured in hours, so archive is unsuitable for this requirement regardless of price.",
+          "correct": true,
+          "why": "Archive is an offline tier: a blob cannot be read or modified at all until rehydrated to an online tier, which takes hours, so nothing with a latency requirement can sit there regardless of price.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing — cost monitoring will surface and satisfy the read request automatically the moment it is made.",
+          "correct": false,
+          "why": "Cost monitoring reports spend after the fact; it has no role in making an offline archived blob readable.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.cost-monitoring"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing beyond paying the ordinary egress charge for reading the file back out to wherever it is needed.",
+          "correct": false,
+          "why": "An egress charge is a cost incurred by the read; it is not a substitute for the rehydration step archive requires before any read can occur at all.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.data-egress-charges"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It can be read immediately, just more slowly than from the hot tier.",
+          "correct": false,
+          "why": "Archive is not simply a slower hot tier — it is offline, and no read succeeds at all until the rehydration step finishes.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        }
+      ],
+      "rationale": "Archive is offline: a blob in archive cannot be read or modified until it has been rehydrated to an online tier, which takes hours. It is not merely a slower hot tier, so nothing with a latency requirement can be placed there regardless of price.",
+      "source_ids": [
+        "azure-blob-access-tiers"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.03",
+      "concept_id": "cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Data is moved to the archive tier to save money, then deleted after 45 days when the project is cancelled early, against a 180-day minimum retention period. What happens to the bill?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "An early deletion charge applies for the remaining 135 days, which can make the move cost more than leaving the data where it was.",
+          "correct": true,
+          "why": "Moving data into a colder tier starts a minimum-retention clock, and deleting or promoting it before that clock expires incurs the remaining days as an early deletion charge.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing extra — early deletion charges are waived once a project is formally cancelled.",
+          "correct": false,
+          "why": "No exception for project cancellation is documented; the retention clock runs to term regardless of the business reason the data is being removed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.rightsizing"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The data becomes an orphan once the project ends, and is billed at whatever rate applies to orphaned resources until someone notices.",
+          "correct": false,
+          "why": "An orphan is a resource with no purpose left and carries no separate billing rate of its own; this data's issue is a specific early deletion charge, not orphan status.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.orphaned-resources"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "The bill simply stops, since deleting data always ends its charges immediately.",
+          "correct": false,
+          "why": "Each transition and deletion is itself a billable event under a minimum-retention tier; deleting archived data early adds a charge rather than simply ending one.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:cloud.budgeting.storage-tiers-and-lifecycle-policies"
+          }
+        }
+      ],
+      "rationale": "Each transition is a billable operation, and moving data into a colder tier starts a minimum-retention clock: deleting or promoting the data before that clock expires incurs the remaining days as an early deletion charge, which is why aggressive tiering can raise rather than lower the bill.",
+      "source_ids": [
+        "azure-blob-access-tiers",
+        "azure-blob-lifecycle-management"
+      ],
+      "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.storage-tiers-and-lifecycle-policies",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}

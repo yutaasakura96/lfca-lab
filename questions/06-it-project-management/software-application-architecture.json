@@ -1,0 +1,770 @@
+{
+  "competency": "IT Project Management Fundamentals :: Software Application Architecture",
+  "items": [
+    {
+      "id": "q.pm.software-application-architecture.client-server-model.01",
+      "concept_id": "pm.software-application-architecture.client-server-model",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "An application server queries a database on behalf of a request from a browser. RFC 9110 describes client and server as roles a program plays on a given connection, not as fixed types of machine. In client-server terms, what is the application server's role?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A server to the browser and a client to the database — the same program can hold both roles on different connections.",
+          "correct": true,
+          "why": "RFC 9110 defines client and server per connection, so one program answering a browser while calling a database occupies both roles at once.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Only a server, since it never itself opens the connection from the browser.",
+          "correct": false,
+          "why": "That treats role as a fixed identity of the process rather than a per-connection role — the same trap as misassigning a component's tier.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.three-tier-architecture" }
+        },
+        {
+          "ref": "o3",
+          "text": "Peer-to-peer, since the same program both answers and initiates requests.",
+          "correct": false,
+          "why": "Peer-to-peer names a shape with no designated waiting party; a service that both answers a browser and calls a database is two ordinary client-server exchanges, not that.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.microservices" }
+        },
+        {
+          "ref": "o4",
+          "text": "Impossible — a single process can only occupy one of the two roles at a time, so it must be either a server everywhere or a client everywhere it appears.",
+          "correct": false,
+          "why": "A common misreading of client and server as a permanent identity rather than a role assumed once per connection.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.client-server-model" }
+        }
+      ],
+      "rationale": "RFC 9110 states plainly that the same program might act as a client on some connections and a server on others — role is a property of a connection, not an identity stamped on a process. An application server is exactly this case: server to the tier above it, client to the tier below.",
+      "source_ids": ["rfc9110"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.client-server-model",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.three-tier-architecture.01",
+      "concept_id": "pm.software-application-architecture.three-tier-architecture",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A checkout application runs as a single Java artefact on twenty instances behind a load balancer: a browser front end, the Java application enforcing pricing rules, and one relational database. How many tiers does this system have, and why?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Three — presentation (browser), application (the Java artefact), and data (the database); instance count does not change the layer count.",
+          "correct": true,
+          "why": "A tier is a layer of responsibility, and twenty copies of the same artefact still perform the same one application-tier role.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Twenty, since each running instance adds another layer between the browser and the database, one layer for every copy of the artefact running behind the load balancer.",
+          "correct": false,
+          "why": "Instance count measures deployment scale, not the number of responsibility layers — the same confusion that treats packaging as if it changed the layering.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.monolithic-architecture" }
+        },
+        {
+          "ref": "o3",
+          "text": "Four — presentation, application, data, and the load balancer sitting in front.",
+          "correct": false,
+          "why": "A load balancer or reverse proxy in front is typically described as infrastructure serving the presentation and application tiers, not a tier of its own.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.web-server-vs-application-server" }
+        },
+        {
+          "ref": "o4",
+          "text": "Two — the browser and the database, since the application logic runs inside the browser tier.",
+          "correct": false,
+          "why": "That merges the application tier into presentation; the Java artefact enforcing pricing rules is a separate application tier that does not run in the browser.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.three-tier-architecture" }
+        }
+      ],
+      "rationale": "Tier counts responsibility layers, not hosts or processes. Twenty instances of one artefact is still one application tier, and a load balancer sits in front of the tiers as infrastructure rather than adding one, per the three-tier model.",
+      "source_ids": ["microsoft-three-tier-architecture-model"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.three-tier-architecture",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.monolithic-architecture.01",
+      "concept_id": "pm.software-application-architecture.monolithic-architecture",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A three-person startup ships its whole product as one deployable artefact, replicated across six instances behind a load balancer for capacity. A reviewer calls this 'not really a monolith anymore' because it runs on six instances. Is the reviewer correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "No — the defining property is the shared release, not instance count; six copies of one artefact is still one deployable unit.",
+          "correct": true,
+          "why": "A monolith replicated across many instances is still a monolith, because the deployment unit, not the instance count, is the criterion.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Yes — six independently running instances means six independently deployable units, each free to be released, scaled and rolled back without touching the other five.",
+          "correct": false,
+          "why": "The instances are copies of the same artefact released together, not services released on separate schedules — the trait microservices actually have.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.microservices" }
+        },
+        {
+          "ref": "o3",
+          "text": "No, but only because the team is too small to be running microservices.",
+          "why": "Team size is a factor in which shape suits a system, but it doesn't change what 'monolith' means for the one already built — the same trap as reasoning from scale about a tier count.",
+          "correct": false,
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.three-tier-architecture" }
+        },
+        {
+          "ref": "o4",
+          "text": "Yes — a 'modular monolith' is a contradiction, so any monolith that scales horizontally has become something else.",
+          "correct": false,
+          "why": "A well-structured modular monolith is not a contradiction in terms, and horizontal replication doesn't touch packaging at all.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.monolithic-architecture" }
+        }
+      ],
+      "rationale": "The CNCF glossary and the guide agree the criterion is the deployable unit, not the instance count, the team size, or the internal module structure. Six replicas of one artefact behind a load balancer is exactly the common way to run a monolith at scale.",
+      "source_ids": ["cncf-glossary"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.monolithic-architecture",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.microservices.01",
+      "concept_id": "pm.software-application-architecture.microservices",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Team A's services are versioned and deployed independently, each with its own datastore, reaching each other only over the network. Team B's services live in one shared codebase, ship in one release, and read and write one common database, though the code is split along clean module boundaries. Which team has microservices?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Team A — independent deployment, network calls between services, and each service owning its data are the defining traits.",
+          "correct": true,
+          "why": "Independent deployment and per-service data ownership are exactly what turns a networked split into microservices rather than an organised monolith.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Team B — its modules are already split along clean boundaries, which is what makes an architecture microservices.",
+          "correct": false,
+          "why": "Splitting into tidy modules that still ship as one artefact is a modular monolith; the trait that matters is independent deployment, not module boundaries.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.monolithic-architecture" }
+        },
+        {
+          "ref": "o3",
+          "text": "Both — any system organised into services with clear boundaries qualifies, regardless of how it deploys, since module boundaries are what the term is really pointing at.",
+          "correct": false,
+          "why": "That drops the deployment and data-ownership requirements the term actually carries.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.microservices" }
+        },
+        {
+          "ref": "o4",
+          "text": "Neither — microservices additionally require a message queue rather than direct network calls between services.",
+          "correct": false,
+          "why": "HTTP APIs and message queues are named as common interfaces between services, but the requirement is independent deployment and ownership, not one specific transport.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.message-queue" }
+        }
+      ],
+      "rationale": "The comparison's separating axis is the release boundary. Team A has many independently deployed units with network calls and separate data; Team B has one release and one shared database — a distributed-monolith risk if it split the process without splitting the data.",
+      "source_ids": ["cncf-glossary"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.microservices",
+      "comparison_block": "cmp-pm.software-application-architecture.microservices",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.web-server-vs-application-server.01",
+      "concept_id": "pm.software-application-architecture.web-server-vs-application-server",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A site's home page loads instantly and every static image renders, but every form submission returns 502 Bad Gateway. Which component is the first suspect, and on what basis?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The application server — a 502 is what a gateway or proxy returns when the backend it forwards to answers invalidly, and static content loading proves the web server itself is reachable.",
+          "correct": true,
+          "why": "The web server is demonstrably serving files from disk without help; the fault sits behind it, where the application server executes the request.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The web server — since it is the process that returned the 502 status code to the browser, the fault must lie in whatever generated that particular response.",
+          "correct": false,
+          "why": "502 specifically means a gateway or proxy got an invalid response from upstream; it is evidence the web server is working as a proxy and the upstream is not.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.http-methods-and-status-codes" }
+        },
+        {
+          "ref": "o3",
+          "text": "The application tier is fine, but the load balancer sitting in front needs to be treated as a fourth tier before this diagnosis can go any further.",
+          "correct": false,
+          "why": "A load balancer or reverse proxy sitting in front is typically described as infrastructure serving the tiers, not a tier of its own.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.three-tier-architecture" }
+        },
+        {
+          "ref": "o4",
+          "text": "The database, since form submissions are the only kind of request in this scenario that would ever need to reach it at all, and every other component in the path already proved itself by serving the static assets correctly.",
+          "correct": false,
+          "why": "Nothing here isolates the database specifically; the symptom points at whatever is behind the web server's proxy, which is the application server first.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.relational-database" }
+        }
+      ],
+      "rationale": "Static assets loading confirms the web server is alive and serving files it already has; a 502 means it forwarded a request and got back an invalid response, which locates the fault in the application server behind it — exactly the diagnostic split the two roles exist to support.",
+      "source_ids": ["nginx-beginners-guide"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.web-server-vs-application-server",
+      "comparison_block": "cmp-pm.software-application-architecture.web-server-vs-application-server",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.api.01",
+      "concept_id": "pm.software-application-architecture.api",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A library exposes function signatures for other code to call locally, with no network involved. Does it have an API, and is it necessarily RESTful?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It has an API, and it is not necessarily RESTful — an API is a contract that need not involve a network at all, while REST is one network-based style of building one.",
+          "correct": true,
+          "why": "REST requires resource URLs and HTTP method semantics over a network; a library's in-process function signatures are a contract without any of that.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It has no API, since APIs are by definition HTTP endpoints that some remote caller invokes over a network connection.",
+          "correct": false,
+          "why": "A uniform HTTP interface is one carrier for a contract, not the definition of the contract itself; a library's function signatures are the classic non-network API example.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.rest" }
+        },
+        {
+          "ref": "o3",
+          "text": "It has an API, and that API is RESTful because any interface presenting a stable contract to its callers counts as REST.",
+          "correct": false,
+          "why": "REST specifically constrains resource URLs, HTTP methods, and statelessness — properties a local function-call interface has no occasion to exhibit.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.api" }
+        },
+        {
+          "ref": "o4",
+          "text": "It has an API only once someone publishes a machine-readable schema document formally describing its operations, the way an OpenAPI document formalizes a network endpoint's contract for outside callers.",
+          "correct": false,
+          "why": "Documentation makes a contract usable to more callers, but the contract exists as soon as the operations, inputs and outputs are fixed — the schema formalises it rather than creating it.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.json-and-xml" }
+        }
+      ],
+      "rationale": "The API/REST comparison's separating axis is category versus instance: every REST interface is an API, but an API needs no network at all — a library's function signatures are the textbook case, and REST is only one style of building a networked one.",
+      "source_ids": ["rfc9110"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.api",
+      "comparison_block": "cmp-pm.software-application-architecture.api",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.rest.01",
+      "concept_id": "pm.software-application-architecture.rest",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An interface exposes `POST /getOrder` and `POST /deleteOrder`, both returning JSON over HTTP. A developer calls it a REST API. What is missing?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Resource URLs and method semantics — the verb belongs in the URL and one method is used for everything, the opposite of the uniform interface REST requires.",
+          "correct": true,
+          "why": "REST models things as resources addressed by a URL and acted on by the method's own semantics; putting the verb in the path and using POST throughout abandons both.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Nothing at all — returning a JSON body over an HTTP connection is already sufficient to call an interface RESTful.",
+          "correct": false,
+          "why": "REST is a style, not a specification, and returning JSON over HTTP alone does not make an interface RESTful; JSON isn't even mandated.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.rest" }
+        },
+        {
+          "ref": "o3",
+          "text": "A published, machine-readable contract describing the interface's available inputs and outputs to callers.",
+          "correct": false,
+          "why": "That describes any API's documentation and doesn't determine whether the design underneath is REST-shaped.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.api" }
+        },
+        {
+          "ref": "o4",
+          "text": "A message queue sitting between the client and the service to decouple the two in time, the missing piece that would let the caller stop waiting for an immediate response.",
+          "correct": false,
+          "why": "REST is a synchronous request/response style over HTTP; nothing about it involves decoupling client and server in time the way a queue does.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.message-queue" }
+        }
+      ],
+      "rationale": "The example is HTTP and JSON but not REST-shaped: the verb sits in the URL, and one method handles every operation, which is exactly the uniform-interface violation the guide's trap calls out.",
+      "source_ids": ["rfc9110"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.rest",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.http-methods-and-status-codes.01",
+      "concept_id": "pm.software-application-architecture.http-methods-and-status-codes",
+      "pool": "exam",
+      "type": "command",
+      "difficulty": 3,
+      "stem": "A script needs to send a DELETE request to `https://example.com/orders/42` and confirm the exact status code that comes back. Which curl invocation does both?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Run `curl -X DELETE -i https://example.com/orders/42`; `curl -X` sets the method word, and `-i` adds the status line and response headers to the output.",
+          "correct": true,
+          "why": "`-X <method>` sets the method word used in the request, and `-i` includes the response headers, including the status line, alongside the body — together they cover both requirements.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Run `curl -X HEAD https://example.com/orders/42` to get a proper HEAD response with the status line, since `-X` is assumed to switch the request method the same way `-I` does.",
+          "correct": false,
+          "why": "Expecting `-X` to change request behaviour is the documented mistake: `-X HEAD` does not perform a proper HEAD request — `-I, --head` is the option that does.",
+          "provenance": { "kind": "variant", "command": "curl -X" }
+        },
+        {
+          "ref": "o3",
+          "text": "Run `curl -I -X DELETE https://example.com/orders/42`, since `-I` reports the status of whatever method `-X` set.",
+          "correct": false,
+          "why": "`-I` issues its own HEAD request rather than reporting on the method `-X` specified, so this does not confirm the DELETE's actual status code.",
+          "provenance": { "kind": "variant", "command": "curl -X" }
+        },
+        {
+          "ref": "o4",
+          "text": "Send the request with PUT instead of DELETE, since PUT and DELETE are both idempotent so either confirms the same outcome.",
+          "correct": false,
+          "why": "Idempotence describes what happens on repetition, not equivalence between operations; PUT replaces the resource rather than removing it, so it doesn't answer whether the delete succeeded.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.rest" }
+        }
+      ],
+      "rationale": "RFC 9110 defines `-X`'s target, the method word, separately from options like `-I` that issue their own request. Pairing `-X DELETE` with `-i` sends the intended method and reports its actual status line, while `-I` alone would substitute a HEAD request instead of reporting on the DELETE.",
+      "source_ids": ["rfc9110", "rfc5789"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.http-methods-and-status-codes",
+      "comparison_block": null,
+      "commands_covered": ["curl -X"],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.json-and-xml.01",
+      "concept_id": "pm.software-application-architecture.json-and-xml",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "RFC 8259 calls JSON 'language-independent' though its syntax is merely 'derived from' JavaScript object literals, and it requires UTF-8 for JSON exchanged outside a closed ecosystem. What does that rule out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That JSON only works with JavaScript — RFC 8259 defines it as independent of any particular language.",
+          "correct": true,
+          "why": "The standard explicitly separates JSON's syntax origin from any requirement to use it only with JavaScript.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That a JSON document can omit a declared schema, since RFC 8259 requires one, the same way a relational table's columns are declared before any row can be inserted.",
+          "correct": false,
+          "why": "RFC 8259 defines JSON's syntax and encoding; it says nothing about requiring a schema, which is a separate and often-optional practice.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.schema-table-and-index" }
+        },
+        {
+          "ref": "o3",
+          "text": "That XML remains the current default for web APIs, since RFC 8259 only standardises JSON.",
+          "correct": false,
+          "why": "The guide names JSON, not XML, as the current default for web APIs; RFC 8259 standardising JSON doesn't revive XML's status.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.api" }
+        },
+        {
+          "ref": "o4",
+          "text": "That JSON exchanged between systems can use any character encoding interchangeably.",
+          "correct": false,
+          "why": "RFC 8259 requires UTF-8 for JSON text exchanged outside a closed ecosystem, which is a real constraint this denies.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.json-and-xml" }
+        }
+      ],
+      "rationale": "RFC 8259 is explicit on both traps this concept invites: JSON's syntax is derived from JavaScript but the format itself is language-independent, and UTF-8 is required once JSON leaves a closed ecosystem — 'JavaScript-only' and 'any encoding will do' are both wrong for the same reason.",
+      "source_ids": ["rfc8259"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-interfaces",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.message-queue.01",
+      "concept_id": "pm.software-application-architecture.message-queue",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "The OASIS AMQP 1.0 specification models a queue as a node that stores and forwards messages between a producer and a consumer, named as separate application elements. What does that model rule out?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That the producer and consumer must both be available at the same moment — the queue buffers messages between two elements that need not coincide in time.",
+          "correct": true,
+          "why": "Store-and-forward between two separate elements is exactly the decoupling-in-time property that distinguishes a queue from a direct call.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That a queue is essentially a database table that other components are free to query however they like.",
+          "correct": false,
+          "why": "The specification models the queue as a store-and-forward node passing messages on, not a store other components query arbitrarily like a table.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.relational-database" }
+        },
+        {
+          "ref": "o3",
+          "text": "That an ordinary synchronous API call between the two sides could achieve the same effect, since both are just ways for one component to hand data to another.",
+          "correct": false,
+          "why": "An API call is typically synchronous and expects an answer; a queue decouples the two sides so the producer need not wait and the consumer need not be running yet.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.api" }
+        },
+        {
+          "ref": "o4",
+          "text": "That messages are normally removed once consumed, rather than left in place for other components to read repeatedly.",
+          "correct": false,
+          "why": "Messages are normally consumed and removed rather than queried like a database — a real behaviour this denies.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.message-queue" }
+        }
+      ],
+      "rationale": "AMQP 1.0 models a queue as a node that stores and forwards messages between a producer and consumer named as separate elements — decoupling in time is the point, which is what separates a queue from an API call or a queryable store.",
+      "source_ids": ["oasis-amqp-core-v1.0"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-interfaces",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.relational-database.01",
+      "concept_id": "pm.software-application-architecture.relational-database",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A checkout must debit stock and record payment together, or do neither, and finance later queries orders joined against customers and products in combinations nobody anticipated. A colleague proposes a wide-column NoSQL store because 'NoSQL scales better.' What actually discriminates this choice?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The all-or-nothing multi-table update and the unpredictable joins — a relational database enforces the schema and performs the joins this workload needs.",
+          "correct": true,
+          "why": "Structured, interrelated data with a multi-step operation that must be atomic across tables is exactly the shape the relational model and its transactions exist for.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Scale alone — NoSQL is simply the faster choice once a workload's volume grows large enough to matter, regardless of whether the data being stored has any relationships that need enforcing.",
+          "correct": false,
+          "why": "NoSQL is usually faster for the access pattern the data was modelled for and considerably worse for join-shaped queries like this one; volume alone doesn't decide it.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.nosql-database" }
+        },
+        {
+          "ref": "o3",
+          "text": "Neither store — only a message queue between the two steps can guarantee the debit and payment happen together.",
+          "correct": false,
+          "why": "A queue decouples producer and consumer in time; it has no notion of an all-or-nothing operation across two tables, which is what a transaction provides.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.message-queue" }
+        },
+        {
+          "ref": "o4",
+          "text": "It makes no real difference either way, since several NoSQL products now offer transactions of their own too.",
+          "correct": false,
+          "why": "Some NoSQL products do offer transactions, but typically scoped to one document or key — not the arbitrary multi-table span this checkout needs.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.relational-database" }
+        }
+      ],
+      "rationale": "The honest discriminators are structure, joins, and atomicity across tables, not popularity or raw scale. PostgreSQL's own model — enforced schema, joins performed by the database, a transaction logged to permanent storage before completion is reported — is built for exactly this checkout.",
+      "source_ids": ["postgresql-transactions", "postgresql-indexes"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.relational-database",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.nosql-database.01",
+      "concept_id": "pm.software-application-architecture.nosql-database",
+      "pool": "exam",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "A session store is read once per request by session id and never joined to anything else. Storage volume is high and access is always by that one key. Which store family fits, and on what basis?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A NoSQL key-value store — fetching a record whole by one key with no joins is the access pattern that model is designed for.",
+          "correct": true,
+          "why": "No cross-entity joins and a single-key lookup are exactly the shape a document/key-value store optimises for, at the cost of the schema and join guarantees it doesn't offer.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "A relational database, since it offers the strongest data-integrity guarantees regardless of access pattern.",
+          "correct": false,
+          "why": "Relational strength is joins and cross-table transactions; a workload with no joins and one lookup key gains nothing from either and pays declared-schema overhead for no benefit.",
+          "provenance": { "kind": "confusable", "concept_id": "pm.software-application-architecture.relational-database" }
+        },
+        {
+          "ref": "o3",
+          "text": "Either — NoSQL is simply a faster, schema-free relational database, so the choice between them comes down to preference rather than the shape of the access pattern.",
+          "correct": false,
+          "why": "NoSQL is a category defined by rejecting the relational tables-and-joins model, not a faster drop-in replacement for it.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.nosql-database" }
+        },
+        {
+          "ref": "o4",
+          "text": "A message queue, since high volume calls for a buffer between producer and consumer.",
+          "correct": false,
+          "why": "Nothing here describes a producer-consumer handoff; the requirement is a fast lookup by key, which a queue is not built to serve.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.message-queue" }
+        }
+      ],
+      "rationale": "The comparison's separating axis is where structure is enforced: a session fetched whole by one key with no joins is the textbook NoSQL fit, while a relational database would enforce a schema and offer join and cross-table transaction guarantees this workload never uses.",
+      "source_ids": ["aws-what-is-nosql"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.nosql-database",
+      "comparison_block": "cmp-pm.software-application-architecture.nosql-database",
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.sql-basics.01",
+      "concept_id": "pm.software-application-architecture.sql-basics",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A junior engineer runs `UPDATE orders SET status = 'cancelled';` against production with no WHERE clause. What has just happened, and which statement would have changed nothing if run the same way?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Every row in the table was updated to 'cancelled'; a bare `SELECT` run the same way would have changed nothing.",
+          "correct": true,
+          "why": "UPDATE without a WHERE clause typically acts on every row in the table, while SELECT is the one statement of the four that reads without writing.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Only the most recently inserted row was updated; a bare `DELETE` run the same way would have changed nothing.",
+          "correct": false,
+          "why": "UPDATE has no notion of 'most recent' without an explicit WHERE or ORDER BY; DELETE without a WHERE clause is just as dangerous as this UPDATE, not safe.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.transactions-and-acid" }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing, because PostgreSQL requires a WHERE clause on UPDATE by default.",
+          "correct": false,
+          "why": "PostgreSQL does not require a WHERE clause; omitting one is exactly what makes this statement act on every row.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.sql-basics" }
+        },
+        {
+          "ref": "o4",
+          "text": "Every row was updated, and adding a `JOIN` clause would have prevented it.",
+          "correct": false,
+          "why": "JOIN is a clause written inside a query, not a statement of its own, and it has no bearing on whether an UPDATE carries a WHERE clause.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.schema-table-and-index" }
+        }
+      ],
+      "rationale": "Of the four data-changing statements, SELECT changes nothing; UPDATE and DELETE without a WHERE clause typically act on every row, and JOIN is a clause used inside a query rather than a statement of its own.",
+      "source_ids": ["postgresql-sql-commands"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.schema-table-and-index.01",
+      "concept_id": "pm.software-application-architecture.schema-table-and-index",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "After adding an index on a heavily-queried column, read latency improves but nightly batch inserts start taking noticeably longer. What explains the change?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The index is a separate structure PostgreSQL keeps synchronised as the table changes, so every insert now also updates the index.",
+          "correct": true,
+          "why": "An index buys read speed by costing write time and disk space, because the database maintains it in step with the table on every write.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "The index replaced the table with a faster copy, so writes now pass through an extra layer.",
+          "correct": false,
+          "why": "An index is not a copy of the table's data; it is a separate lookup structure alongside it, and the table itself is unchanged.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.relational-database" }
+        },
+        {
+          "ref": "o3",
+          "text": "The schema was altered when the index was added, which is what slowed the inserts.",
+          "correct": false,
+          "why": "Adding an index doesn't redeclare the schema; the slowdown comes from maintaining the index structure itself, not a schema change.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.sql-basics" }
+        },
+        {
+          "ref": "o4",
+          "text": "Indexes are free to maintain, so the slowdown must have an unrelated cause.",
+          "correct": false,
+          "why": "An index is not free: PostgreSQL updates it whenever the table changes, so faster reads are paid for on every insert, update and delete.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.schema-table-and-index" }
+        }
+      ],
+      "rationale": "PostgreSQL keeps each index synchronised as the underlying table changes. That is exactly the trade the guide names: read speed bought with write time and disk space, not a free structure or a schema change.",
+      "source_ids": ["postgresql-indexes"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.transactions-and-acid.01",
+      "concept_id": "pm.software-application-architecture.transactions-and-acid",
+      "pool": "exam",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "A multi-step transfer debits one account and credits another. The process crashes immediately after the database reports the transaction complete. What is guaranteed?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "The transaction was already logged to permanent storage before completion was reported, so both the debit and the credit survive the crash.",
+          "correct": true,
+          "why": "That is durability specifically: a completed transaction is written to permanent storage before the database reports it done, so a crash right after cannot lose it.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "Only the debit is guaranteed to survive, since it was applied first.",
+          "correct": false,
+          "why": "Atomicity means the steps of a transaction all take effect or none do; there is no guarantee that favours the first step over the second.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.sql-basics" }
+        },
+        {
+          "ref": "o3",
+          "text": "Nothing is guaranteed once the process crashes, regardless of what the database reported.",
+          "correct": false,
+          "why": "That denies durability specifically — the guarantee that a reported-complete transaction has already been made permanent.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.transactions-and-acid" }
+        },
+        {
+          "ref": "o4",
+          "text": "Consistency is guaranteed, meaning the transaction ran faster than an equivalent pair of separate updates.",
+          "correct": false,
+          "why": "Consistency means the database moves between valid states, not a claim about speed; nothing here concerns performance.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.schema-table-and-index" }
+        }
+      ],
+      "rationale": "Atomicity and durability are different promises: atomicity means partial steps never take effect, durability means a committed transaction is written to permanent storage before completion is reported — exactly what protects both halves of the transfer from a crash immediately afterward.",
+      "source_ids": ["postgresql-transactions"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#s-software-application-architecture-data",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.caching-in-applications.01",
+      "concept_id": "pm.software-application-architecture.caching-in-applications",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "A bug fix is deployed to the origin server, but users report seeing the old, broken page for another hour. RFC 9111 governs HTTP caching. What does the cache's behaviour here demonstrate, and what does it not indicate?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "That the cache accepted staleness in exchange for speed; it does not indicate that the fix failed to deploy or that the origin is broken.",
+          "correct": true,
+          "why": "Every cache accepts that a reader may see a value no longer current for as long as its entry's time-to-live allows, which is the defining trade the guide names.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "That the cache is malfunctioning, since a correct cache would always reflect the latest origin state immediately.",
+          "correct": false,
+          "why": "A cache that always reflected the origin immediately wouldn't be doing its job — reducing repeat work by accepting some staleness is the design, not a fault.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.caching-in-applications" }
+        },
+        {
+          "ref": "o3",
+          "text": "That the origin server itself is stateful, since it kept serving the same response.",
+          "correct": false,
+          "why": "Statefulness describes whether a server retains client-specific data between requests; a cache returning a stale shared page is unrelated to that property.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.stateless-vs-stateful-applications" }
+        },
+        {
+          "ref": "o4",
+          "text": "That the API's contract changed without a new version being published.",
+          "correct": false,
+          "why": "Nothing here concerns the interface's contract or its versioning; the page's content became stale in a cache, an entirely different mechanism.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.api" }
+        }
+      ],
+      "rationale": "RFC 9111 exists because every layer between origin and browser may hold a copy older than the current one; the guide's own trap is exactly this — a stale page can survive a fix applied at the origin, which is the cache working as designed, not a broken deployment or a stateful server.",
+      "source_ids": ["rfc9111-http-caching"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.caching-in-applications",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    },
+    {
+      "id": "q.pm.software-application-architecture.stateless-vs-stateful-applications.01",
+      "concept_id": "pm.software-application-architecture.stateless-vs-stateful-applications",
+      "pool": "exam",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "Users get logged out at random after a second application instance is added behind a load balancer, because each instance holds session data only in its own memory. A quick fix pins each user to the instance that logged them in. RFC 9110 describes HTTP as a stateless protocol whose requests can be understood in isolation. What does the sticky-session fix actually change?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Nothing about statelessness — it works around a stateful application by routing consistently, but the session still dies if that instance is redeployed or lost.",
+          "correct": true,
+          "why": "Sticky sessions keep the per-client state inside one instance rather than moving it to a shared store or token, so the instance remains a single point of failure for that user's session.",
+          "provenance": { "kind": "key" }
+        },
+        {
+          "ref": "o2",
+          "text": "It makes the application stateless, since the load balancer now handles routing consistently.",
+          "correct": false,
+          "why": "Consistent routing is a workaround, not a move of state to a shared store or token; the application is exactly as stateful as before.",
+          "provenance": { "kind": "misconception", "documented_at": "data:notes:pm.software-application-architecture.stateless-vs-stateful-applications" }
+        },
+        {
+          "ref": "o3",
+          "text": "It satisfies the same requirement a cache would, since both exist to keep repeat requests answered quickly.",
+          "correct": false,
+          "why": "A cache is expendable by definition and holds derived results; session state cannot be lost the way a cache entry can, so a cache answers a different question.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.caching-in-applications" }
+        },
+        {
+          "ref": "o4",
+          "text": "It moves the application's REST interface to a stateful style, since REST normally requires statelessness.",
+          "correct": false,
+          "why": "Sticky routing is an infrastructure workaround at the load balancer, not a change to the API's resource-and-method design; REST's statelessness constraint concerns request semantics, not instance affinity.",
+          "provenance": { "kind": "sibling", "concept_id": "pm.software-application-architecture.rest" }
+        }
+      ],
+      "rationale": "RFC 9110 defines HTTP as stateless so that any instance can answer any request; sticky sessions merely paper over an application that isn't, by pinning routing rather than moving state to a shared store or token — the actual fix, and the reason failing over remains fragile until it's applied.",
+      "source_ids": ["rfc9110"],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.stateless-vs-stateful-applications",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": null
+    }
+  ]
+}
