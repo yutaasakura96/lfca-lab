@@ -7,9 +7,9 @@ LFS200 barely reaches it: of its 23 concepts, 1 is FULLY COVERED, 20 are NOT COV
 are MENTIONED ONLY — 3 of 23, 13%, that the course touches at all
 (`research/lfs200-notes/00-course-map.md`). Everything else below is sourced independently:
 NIST SP 800-145 for the service and deployment model definitions, and provider primary
-documentation for the operational facts. The exam is vendor-neutral, so provider names
-appear here only as worked examples of a category, never as the answer to a category
-question.
+documentation for the operational facts. The Linux Foundation's published domain and
+competency list names no vendor and no vendor product, so provider names appear here only as
+worked examples of a category, never as the answer to a category question.
 
 <a id="s-cloud-computing-fundamentals"></a>
 ## Fundamentals
@@ -19,14 +19,15 @@ question.
 *id: `cloud.cloud-computing.cloud-computing` · depth 3 · importance 2 · LFS200: FULLY COVERED · sources: nist-sp-800-145*
 
 **What it is** A delivery model, not a technology. NIST SP 800-145 defines cloud computing
-as a model for enabling on-demand network access to a shared pool of configurable computing
-resources that can be rapidly provisioned and released with minimal management effort or
-service provider interaction. The consumption is metered and billed by use rather than by
-capital purchase. Nothing in that definition names virtualization, containers, or any
-particular vendor.
+as a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of
+configurable computing resources that can be rapidly provisioned and released with minimal
+management effort or service provider interaction. Consumption is metered, and NIST's own
+footnote adds that metering is typically billed on a pay-per-use or charge-per-use basis
+rather than by capital purchase. Nothing in that definition names virtualization,
+containers, or any particular vendor.
 
-**Why it matters** Almost every wrong answer in this domain comes from treating "cloud" as
-a synonym for something narrower — a hypervisor, a datacentre someone else owns, a rented
+**Why it matters** The most common wrong answers in this domain come from treating "cloud"
+as a synonym for something narrower — a hypervisor, a datacentre someone else owns, a rented
 virtual machine. The definition is the discriminator: if a system does not provide
 self-service provisioning, elastic scaling and measured usage, it is not cloud, however
 modern its hardware.
@@ -79,8 +80,10 @@ interaction with the provider), broad network access (available over the network
 standard mechanisms, to thin and thick clients alike), resource pooling (a multi-tenant
 model with resources dynamically assigned, and the consumer generally unaware of their exact
 physical location), rapid elasticity (capacity scales outward *and inward* to match demand,
-appearing effectively unlimited), and measured service (a metering capability that controls,
-reports and bills usage).
+appearing effectively unlimited), and measured service (a metering capability, with resource
+usage monitored, controlled and reported, providing transparency to provider and consumer;
+NIST's own footnote adds that this is typically done on a pay-per-use or charge-per-use
+basis).
 
 **Why it matters** These five are the test the exam applies when a scenario asks whether an
 arrangement is really cloud, or which property a described benefit depends on. They are also
@@ -101,11 +104,11 @@ elasticity; measured service.
 ### Major cloud providers
 *id: `cloud.cloud-computing.major-cloud-providers` · depth 2 · importance 2 · LFS200: MENTIONED ONLY · sources: aws-regions-and-azs, azure-availability-zones*
 
-**What it is** Amazon Web Services, Microsoft Azure and Google Cloud are the three
-hyperscale public providers. Each sells the same small set of service categories under
-different brand names, and the LFCA is vendor-neutral: it can reasonably expect you to
-recognise a category from a product name, but not to know pricing, quotas or console
-navigation for any one provider.
+**What it is** Amazon Web Services, Microsoft Azure and Google Cloud are three hyperscale
+public providers. Each sells the same small set of service categories under different brand
+names. The Linux Foundation's published competency list names no vendor, so the reasonable
+expectation is that you can recognise a category from a product name, not that you know
+pricing, quotas or console navigation for any one provider.
 
 **Why it matters** Scenario questions borrow vendor vocabulary casually. Being able to map a
 named product back to its category — object storage, managed relational database, identity
@@ -154,7 +157,8 @@ brand name.
 4. Rapid elasticity is often summarised as "it scales up." What does that summary leave out,
    and why does it matter for cost?
    It scales *in* as well as out, commensurate with demand — the inward direction is what
-   makes measured service produce a smaller bill when load drops.
+   lets the metering behind measured service produce a smaller bill, under the pay-per-use
+   billing NIST's footnote describes, when load drops.
 5. Which category do Amazon S3, Azure Blob Storage and Cloud Storage all belong to?
    Object storage.
 
@@ -169,8 +173,8 @@ brand name.
 processing, storage, networks and other fundamental computing resources on which the
 consumer can deploy and run arbitrary software, including operating systems. The consumer
 does not manage the underlying cloud infrastructure but does control operating systems,
-storage and deployed applications, and possibly limited networking components such as host
-firewalls.
+storage and deployed applications, and possibly has limited control of select networking
+components such as host firewalls.
 
 **Why it matters** IaaS is where candidates most consistently over-estimate the provider.
 Renting a virtual machine does not rent an administered virtual machine: guest OS patching,
@@ -227,8 +231,8 @@ languages, libraries, services and tools the provider supports. The consumer doe
 the network, servers, operating systems or storage beneath, but does control the deployed
 applications and possibly configuration settings for the application-hosting environment.
 
-**Why it matters** PaaS is the middle term in the model question the exam asks most often,
-and it is the one defined by what you deploy rather than by what you rent. It is also the
+**Why it matters** PaaS is the middle term in the IaaS/PaaS/SaaS question, and the one
+defined by what you deploy rather than by what you rent. It is also the
 boundary where responsibility for the runtime changes hands: the provider patches the OS and
 usually the language runtime, while the code and its dependencies stay yours.
 
@@ -322,22 +326,26 @@ event-triggered functions that start on an event, run briefly, and shut down, wi
 instance created per request and terminated afterwards, which is what allows charges to
 disappear entirely when the code is dormant.
 
-**Why it matters** Serverless is not a NIST service model, so exam wording tends to place it
-against PaaS. CNCF states the distinction explicitly: FaaS charges only for computation time
-while PaaS requires continuous resource availability. That, not "no servers," is the real
-discriminator.
+**Why it matters** Serverless was dropped as a named competency in the 2025 blueprint update,
+so it is examined under Cloud Computing rather than on its own; it is also not a NIST service
+model, so wording tends to place it against PaaS. CNCF states the distinction explicitly:
+FaaS charges only for the duration of computation and accrues no cost when functions are
+inactive, which distinguishes it from models such as PaaS that require continuous resource
+availability. That, not "no servers," is the real discriminator.
 
 **How it works** You register a function with a trigger — an HTTP request, a queue message,
 an object upload, a schedule. The platform holds no instance until an event arrives, creates
 one, runs the function, and reclaims it. Because instances come and go, functions must be
 stateless and hold durable state elsewhere: a database, an object store, a cache. The first
-invocation after an idle period pays a cold start, which is a latency cost, not a billing
-one.
+invocation after an idle period pays a cold start — the initialisation delay before the
+function body runs. Whether that initialisation time is itself billed is a platform detail
+that varies by provider and by configuration, not a property of the model.
 
 **Key terms** event trigger; per-request instance; stateless; cold start; scale to zero.
 
 **Traps** "Serverless means there are no servers" is the headline trap and it is simply
-false — servers exist, the provider manages them, and the CNCF entry says so directly. The
+false — servers exist and the provider manages them; the CNCF entry assigns the handling of
+physical machines and VM provisioning to the service provider in its opening lines. The
 second trap is treating serverless and FaaS as synonyms: CNCF calls serverless a
 comprehensive term spanning PaaS through SaaS, with FaaS one member of it, so a managed
 queue billed per message is serverless without being FaaS. The third is assuming serverless
@@ -357,12 +365,11 @@ operational toil. Walk the models. Today it is IaaS: they patch the guest OS, ma
 runtime and own the host firewall rules. Moving the application onto a platform where they
 push a build and select a supported runtime version makes it PaaS — the provider takes over
 OS and runtime patching, and the team keeps the code and its dependencies. The nightly
-thumbnail-generation job is a different shape: it runs for ninety seconds an hour and sits
-idle the rest of the time, so an event-triggered function fits, and the bill drops to
-computation time rather than a permanently provisioned instance. The internal helpdesk tool
-they also maintain is retired in favour of a subscription product; that is SaaS, and the
-only work left is provisioning accounts and deciding who may see what — which is still
-their responsibility, not the vendor's.
+thumbnail-generation job is a different shape: it runs for ninety seconds an hour and is
+otherwise idle, so an event-triggered function fits and the bill drops to computation time
+rather than a permanently provisioned instance. The internal helpdesk tool is retired in
+favour of a subscription product; that is SaaS, and the work left is provisioning accounts
+and deciding who may see what — still their responsibility, not the vendor's.
 
 #### Knowledge check
 
@@ -449,9 +456,10 @@ otherwise absorb.
 **Traps** Two symmetrical errors: "private cloud means on-premises" (NIST explicitly allows
 off-premises) and "on-premises means private cloud" (a virtualized datacentre without
 self-service, elasticity and metering is just a datacentre). A third, less obvious one:
-dedicated hardware inside a public provider — a single-tenant host — is a public-cloud
-feature, not a private cloud, because the surrounding infrastructure is still offered for
-open use.
+dedicated hardware inside a public provider — a single-tenant host — is best read as a
+public-cloud feature rather than a private cloud, because the cloud infrastructure
+surrounding it is still provisioned for open use. NIST does not address that case directly,
+so treat it as an application of the definition rather than a quotation from it.
 
 **What the exam may test** Whether a described environment is a private cloud, a public
 cloud, or not a cloud at all, when the scenario deliberately varies ownership, location and
@@ -483,8 +491,8 @@ in a building neither party occupies.
 standardised or proprietary technology enabling data and application portability, with cloud
 bursting for load balancing given as the example.
 
-**Why it matters** Hybrid is the deployment model with the most demanding definition and the
-loosest everyday usage. Two conditions must both hold: the components must each be clouds,
+**Why it matters** Hybrid has a demanding definition and a loose everyday usage, and the gap
+between them is where the marks are. Two conditions must both hold: the components must each be clouds,
 and they must be *bound together* so that data and applications can move between them. Any
 scenario missing the binding is describing two separate estates, not a hybrid cloud.
 
@@ -501,8 +509,11 @@ tissue.
 fails the definition twice over if those servers are not themselves a cloud and there is no
 portability between them. The industry uses "hybrid" loosely for exactly that arrangement,
 so the exam-safe reading is NIST's stricter one. The other trap is the multi-cloud
-confusion: two public providers side by side is not hybrid, because hybrid is about
-combining *different deployment models*, not different vendors.
+confusion: two public providers side by side is not hybrid, because the mix that makes an
+estate hybrid is a mix of *deployment models*, not of vendors. AWS draws the same line,
+describing multicloud as integrating multiple public cloud services from third-party
+providers and hybrid cloud as integrating an organisation's own internal infrastructure with
+public cloud services.
 
 **What the exam may test** Deciding whether a described estate is genuinely hybrid, and
 separating it from multi-cloud when the scenario names more than one provider.
@@ -691,7 +702,7 @@ system between the hypervisor and the hardware.
 | Category | A program you can install and name a version of | A capability, not a product |
 | Has types | Yes — type 1 bare-metal, type 2 hosted | No — types belong to the hypervisor, not the concept |
 | Examples | ESXi, Hyper-V, KVM, VirtualBox | Server consolidation, live migration, snapshots |
-| Fails how | The hypervisor crashes and takes its guests with it | Not applicable — a concept does not fail |
+| How a question names it | By product and type — classify ESXi, Hyper-V, KVM, VirtualBox | By capability — attribute consolidation, live migration or snapshots |
 
 The separating axis is product versus technique: virtualization is what is being done, the
 hypervisor is the thing doing it. Type 1 and type 2 classify hypervisors only.
@@ -756,8 +767,8 @@ A VM virtualizes hardware and runs its own kernel; a container is a process on t
 kernel whose resources and visibility the operating system constrains. Containers start
 faster and pack denser; VMs isolate more strongly and can run a different OS family.
 
-**Why it matters** This is one of the most heavily tested comparisons in the whole domain,
-and the exam asks it as a selection problem: given a requirement, which one. Answering it
+**Why it matters** This is a named comparison in its own right, and it is asked as a
+selection problem: given a requirement, which one. Answering it
 needs the mechanism, not the slogan — "containers are lightweight" does not tell you whether
 a workload requiring a Windows kernel can run on a Linux host.
 
@@ -772,9 +783,9 @@ the rest.
 
 **Key terms** shared kernel; resource constraints; density; blast radius; image.
 
-**Traps** The two are not mutually exclusive and the exam likes that: in every major cloud,
-containers run inside provider-managed VMs, so "we use containers, therefore no VMs are
-involved" is wrong. A second trap is inferring portability from containerisation — a Linux
+**Traps** The two are not mutually exclusive and the exam likes that: managed container
+services typically run containers on provider-operated VMs, so "we use containers, therefore
+no VMs are involved" is wrong. A second trap is inferring portability from containerisation — a Linux
 container image still needs a Linux kernel and a matching CPU architecture, so it is portable
 across hosts, not across kernel families. A third is treating "container" as automatically
 meaning a particular orchestrator; orchestration is a separate layer.
@@ -793,7 +804,6 @@ container choice rather than presenting it as free.
 | What it names | The selection decision between two isolation technologies | One of the two technologies being selected between |
 | Category | A comparison, an axis | A concrete thing you can create, boot and destroy |
 | Answers the question | "Which should I use, and why" | "What is this thing I am running" |
-| Can be deployed | No — it is a decision, not an artifact | Yes |
 | Where it appears in a question | A requirements-to-choice scenario | A definition or responsibility-boundary scenario |
 
 The separating axis is category: one is the decision, the other is one of its two options —
@@ -805,8 +815,8 @@ A platform team must place three workloads. The first is a vendor appliance ship
 Windows disk image; the Linux hosts cannot run it as a container, because a container shares
 the host kernel and cannot supply a different OS family, so it becomes a VM. The second is a
 stateless HTTP service deployed forty times a day; containers win on start time and density,
-and they will run on provider-managed VMs regardless, so choosing containers does not remove
-virtualization from the picture. The third is a workload processing another customer's
+and on a managed platform they will run on provider-operated VMs anyway, so choosing
+containers does not remove virtualization from the picture. The third is a workload processing another customer's
 regulated data, where the team wants the strongest boundary available: a separate VM, because
 a shared host kernel is a single flaw away from being a shared failure. Underneath all three
 sits a type 1 hypervisor the provider operates and the team never sees — the layer that
@@ -883,8 +893,8 @@ geography, and also latency and data-residency requirements that zones do nothin
 **How it works** You choose a region for legal, latency or cost reasons, then place resources
 in two or more of its zones so that no single facility failure takes the service down. AWS
 identifies zones by the region code plus a letter, such as `us-east-1a`. Traffic between
-zones in one region is fast enough for synchronous replication; traffic between regions is
-not, which is why cross-region designs are usually asynchronous, more expensive, and reserved
+zones in one region is fast enough for synchronous replication; traffic between regions
+generally is not, which is why cross-region designs are usually asynchronous, more expensive, and reserved
 for disaster recovery or residency rather than routine redundancy.
 
 **Key terms** region; availability zone; fault domain; multi-AZ; data residency.
@@ -951,7 +961,8 @@ platforms — anything one can do, the others can generally do too, because the 
 CLI are themselves clients of the API.
 
 **Why it matters** The real difference is reproducibility, and it is routinely misstated as
-auditability. All four are audit-logged by the provider by default: AWS CloudTrail records
+auditability. On each of the three hyperscale providers, management actions through all four
+interfaces are audit-logged by default: AWS CloudTrail records
 actions taken by a user, role or service — explicitly including actions taken in the AWS
 Management Console as well as the CLI, SDKs and APIs — and its Event history is available
 automatically when the account is created, covering the last 90 days of management events.
@@ -1029,16 +1040,14 @@ a target and a measurement from being called the same word.
 
 An outage report says the payments service was unavailable for forty minutes and asks who is
 accountable. Work the layers. The service ran as a single instance in one availability zone,
-so the loss of that zone's datacentre took it down — a design gap, since the region offered
-other zones with independent power, cooling and networking. The provider's 99.99% SLA was
-still met for the month, so the remedy is nothing: the promise covers the platform, not the
-customer's placement of a single instance on it. The database beneath was a managed service,
-which is why nobody had to patch it, but the connection-pool exhaustion that made recovery
-slow was a customer-side configuration the provider was never responsible for. Finally,
-somebody asks who made the change that removed the second instance last month. The console
-was used rather than the pipeline, so the change is in the audit log — the actor and the
-timestamp are recorded — but there is no reviewable artifact to diff, which is the reason the
-removal was never noticed.
+so the loss of that zone took it down — a design gap, since the region offered other zones
+with independent power, cooling and networking. The provider's 99.99% SLA was still met for
+the month, so no remedy is owed: the promise covers the platform, not the customer's
+placement of a single instance on it. The database beneath was a managed service, which is
+why nobody had to patch it, but the connection-pool exhaustion that slowed recovery was
+customer-side configuration. Finally, who removed the second instance last month? The console
+was used rather than the pipeline, so the actor and timestamp are in the audit log — but
+there is no reviewable artifact to diff, which is why nobody noticed.
 
 #### Knowledge check
 
@@ -1084,8 +1093,8 @@ disks are block-level storage volumes for Azure VMs. File storage presents a sha
 filesystem that many clients mount at once, which is what Azure Files provides as managed file
 shares.
 
-**Why it matters** "Which storage type" is one of the most predictable scenario questions in
-this domain, and it is decided by access pattern, not by capacity or price. Getting it wrong
+**Why it matters** "Which storage type" is a predictable scenario question, and it is decided
+by access pattern, not by capacity or price. Getting it wrong
 in the real world is expensive and in the exam is avoidable, because each shape rules itself
 out of specific uses on mechanism alone.
 
@@ -1167,11 +1176,14 @@ different product or version, typically SaaS, rather than migrating the existing
 prescriptive guidance names seven strategies in total, the *7 Rs*: retire, retain, rehost,
 relocate, repurchase, replatform, and refactor or re-architect.
 
-**Why it matters** The exam tests the trade-off, not the vocabulary: rehosting is fastest and
-lowest-risk but carries the least benefit, because a VM moved unchanged still costs what a VM
-costs and gains no elasticity. Refactoring earns the most and costs the most. Retire and
-retain are legitimate outcomes — AWS lists both — and a portfolio assessment that discovers an
-application nobody uses has saved more than any migration would.
+**Why it matters** The exam tests the trade-off, not the vocabulary: rehosting is at the
+low-effort, low-risk end and carries the least benefit, because a VM moved unchanged still
+costs what a VM costs and gains no elasticity. Do not over-claim its speed — AWS reserves
+that superlative for relocate, which it calls the quickest way to migrate and operate a
+workload in the cloud because it leaves the application's architecture untouched. At the
+other end, AWS calls refactor the most complex and costly strategy. Retire and retain are
+legitimate outcomes — AWS lists both — and a portfolio assessment that discovers an
+application nobody uses avoids the migration cost entirely rather than reducing it.
 
 **How it works** Each workload in a portfolio is assessed and assigned a strategy, and large
 migrations deliberately favour the cheap end: AWS notes that common strategies for large
@@ -1192,8 +1204,8 @@ provider-specific services and interfaces, from the volume of data that would ha
 and the egress charges for moving it, and from the operational knowledge and tooling a team
 has built around one platform.
 
-**Why it matters** Lock-in is a trade-off to price, not a defect to eliminate, and the exam
-expects that framing. Provider-specific managed services are usually chosen because they
+**Why it matters** Lock-in is a trade-off to price, not a defect to eliminate, and that is
+the framing to hold. Provider-specific managed services are usually chosen because they
 genuinely reduce work; the honest question is what an exit would cost and whether that cost is
 proportionate to the benefit taken.
 
@@ -1215,7 +1227,7 @@ A retailer plans a two-year migration of ninety applications. The portfolio asse
 eleven that nobody has opened in a year and retains four that a hardware dependency pins in
 place — both legitimate outcomes, and between them the cheapest wins available. Sixty are
 rehosted, because the goal is to vacate a datacentre lease on a fixed date and lift and shift
-is the fastest, lowest-risk route; the team accepts that those workloads gain almost no
+is the lowest-risk route that needs no application change; the team accepts that those workloads gain almost no
 elasticity and plans modernisation afterward rather than refactoring mid-migration. The
 remaining fifteen are replatformed onto managed databases, which removes patching work and
 deepens lock-in at the same time — a trade the retailer accepts deliberately, having priced
@@ -1225,16 +1237,18 @@ most and is the hardest to move again.
 
 #### Knowledge check
 
-1. Which migration strategy is fastest, and what does its speed cost you?
-   Rehost, or lift and shift. It gains the least cloud benefit — a VM moved unchanged is
-   still a VM, with no new elasticity and little cost saving.
+1. Which strategy does AWS name as the quickest, and which one buys its low effort by
+   gaining the least cloud benefit?
+   Relocate is the quickest, because it does not touch the application's architecture.
+   Rehost — lift and shift — is the low-effort option that gains the least: a VM moved
+   unchanged is still a VM, with no new elasticity and little cost saving.
 2. Why does AWS advise against refactoring during a large migration?
    Refactoring modernises the application while moving it, which is the most complex strategy
    and hard to manage across many applications; rehost, relocate or replatform first, then
    modernise.
 3. Are "retire" and "retain" migration strategies?
-   Yes — both are among the 7 Rs, and retiring an unused application is often the highest-value
-   outcome of a portfolio assessment.
+   Yes — both are among the 7 Rs, and retiring an unused application avoids the cost of
+   migrating and hosting it altogether rather than merely reducing it.
 4. Name three distinct sources of vendor lock-in.
    Provider-specific service interfaces, the data itself with its egress charges and sheer
    volume, and the team's accumulated platform expertise and tooling.

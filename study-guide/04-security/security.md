@@ -95,9 +95,9 @@ authentication or authorization, and state which one must succeed first.
 | When it acts | Before and during access | After the fact, from records | Only at the authentication step |
 | What its failure looks like | Wrong person admitted, or right person blocked | An incident that cannot be reconstructed | A stolen password alone is enough to log in |
 
-The separating axis is timing and role: authentication and authorization decide access
-before it happens, accounting records what happened after, and multi-factor authentication
-is not a fourth thing at all — it only raises the confidence of the authentication step.
+The separating axis is timing: authentication and authorization decide access before it
+happens, accounting records what happened after, and multi-factor authentication is not a
+fourth thing at all — it acts at the same moment as authentication, only harder.
 
 <a id="c-security.security.accounting-and-auditing"></a>
 ### Accounting and auditing
@@ -339,8 +339,9 @@ count of findings.
    limits how many independent controls must fail before the asset is exposed.
 5. A scanner reports a vulnerability in a package installed on a host that is not running
    the affected service and is unreachable from any network. Is this high risk?
-   Not necessarily — risk combines likelihood and impact, and both are low here; the
-   vulnerability exists but the risk does not follow automatically from it.
+   Not necessarily — risk combines likelihood and impact, and what is described drives the
+   likelihood down: the affected service does not run and nothing can reach it. The
+   vulnerability is real, but its severity score is not by itself your risk.
 6. What does zero trust actually remove, given that it does not mean "trust nothing"?
    Implicit trust based on network location — being inside the network or on the VPN no
    longer grants access by itself; each request is verified against policy.
@@ -360,8 +361,9 @@ the same idea.
 
 **Why it matters** MFA is the single most consistently effective control against the
 credential-driven attacks in this competency — stolen passwords, credential stuffing,
-password spraying, and most phishing — because possession of the password alone stops being
-sufficient. That is why it appears as the recommended answer across so many scenarios.
+password spraying, and phishing that only captures a password — because possession of the
+password alone stops being sufficient. That is why it appears as the recommended answer
+across so many scenarios.
 
 **How it works** The verifier evaluates two independent authenticators in one authentication
 event. NIST SP 800-63B requires two distinct factors at AAL2 and above, and treats a
@@ -493,12 +495,12 @@ A team migrates a bastion host from passwords to keys. Each engineer runs `ssh-k
 choosing a passphrase, then `ssh-copy-id` while password authentication is still enabled —
 after that the public half sits in their remote `~/.ssh/authorized_keys` and the private half
 has never left the laptop. Note what changed and what did not: the login is now
-"something you have" (the key file) plus "something you know" (its passphrase), which is
-genuine multi-factor authentication only because the two are different categories; adding a
-second password would not have been. The identity provider behind the team's web tools is
-unaffected — SSO covers those applications, not SSH — and the account database behind it
-still stores passwords as salted, slow hashes, because a breach of that database must not
-yield usable credentials.
+"something you have" (the key file) plus "something you know" (its passphrase), two distinct
+factor categories where a second password would be one category twice. But the passphrase is
+applied entirely on the client — the server verifies a signature and cannot tell whether the
+key it just accepted was protected at all — so it is not an enforced organisational control
+the way a second factor demanded by an identity provider is. That identity provider covers
+the team's web tools, not SSH, and still stores its passwords as salted, slow hashes.
 
 #### Knowledge check
 
@@ -680,7 +682,7 @@ comes from.
 | --- | --- | --- |
 | What it is | A data object plus the party that signs it | A protocol, and an application protocol carried inside it |
 | What it provides | Identity binding — this key belongs to this name | An encrypted, integrity-protected, authenticated channel |
-| Can exist without the other | Certificates are used by SSH, code signing, and email too | TLS can run with a self-signed or untrusted certificate, badly |
+| Can exist without the other | X.509 certificates also sign code, secure S/MIME email, and authenticate clients | TLS can run with a self-signed or untrusted certificate, badly |
 | Where it is configured | Issued, installed, renewed, and revoked | Enabled on a listener, with protocol versions and ciphers |
 | Typical failure | Expired, wrong name, untrusted issuer | Version or cipher mismatch, or no TLS at all |
 
@@ -1137,7 +1139,8 @@ undoes the encryption but not the breach of confidentiality.
 *id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-csrc-glossary, verizon-dbir*
 
 **What it is** A publicly known software weakness is catalogued under the CVE Program with a
-unique identifier of the form CVE-YYYY-NNNN, assigned by a CVE Numbering Authority. Severity
+unique identifier of the form CVE-YYYY-NNNN, where the sequence number is four or more
+digits, assigned by a CVE Numbering Authority. Severity
 is expressed separately, through CVSS, on a 0.0 to 10.0 scale. Patching — applying the
 vendor's corrected version — is the primary remediation.
 
@@ -1584,19 +1587,17 @@ a stated goal, and knowing why authenticated scans are preferred.
 
 #### Scenario
 
-A public web server is found to be running an outdated application with a critical CVE. Work
-the response in order rather than by instinct. Containment comes first — restrict access at
-the firewall and isolate the host — because eradicating before establishing scope destroys
-the evidence needed to tell whether the attacker reached anywhere else; the central log
-collector, not the host's own logs, is where that scope is established, since local logs on a
-compromised machine cannot be trusted. Eradication then means patching and rebuilding from a
-verified image, checked with `sha256sum` against the publisher's signed digest list rather
-than a digest fetched from the same page. Hardening afterwards is a different action from
-patching: the unused management port that was also open should be closed, because that
-reduces attack surface rather than fixing one named defect. The scheduled scan that found the
-CVE would never have detected the intrusion itself — that is what the IDPS is for — and
-mandatory access control, had the service been confined by SELinux or AppArmor in enforcing
-mode, would have limited what the compromise reached in the first place.
+A public web server is found running an outdated application with a critical CVE. Work the
+response in order rather than by instinct. Containment comes first — restrict access at the
+firewall, isolate the host — because eradicating before scope is established destroys the
+evidence, and scope comes from the central log collector, since local logs on a compromised
+machine cannot be trusted. Eradication then means patching and rebuilding from a verified
+image, checked with `sha256sum` against the publisher's signed digest list rather than a
+digest fetched from the same page. Hardening is a different action from patching: closing the
+unused management port reduces attack surface rather than fixing one named defect. The
+scheduled scan that found the CVE would never have caught the intrusion itself — that is the
+IDPS's job — and SELinux or AppArmor in enforcing mode would have confined what the
+compromise reached.
 
 #### Knowledge check
 

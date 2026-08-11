@@ -241,12 +241,12 @@ work you build on top of it? A permissive licence does not. That is why permissi
 appears inside commercial products with nothing published in return but an attribution file.
 
 **How it works** The conditions are of one kind: preserve the copyright notice, the licence
-text, and the disclaimer when redistributing, in source form and, for the BSD licences, in
-the documentation accompanying a binary. Apache-2.0 adds two more of the same kind —
-prominent notices on modified files and propagation of a NOTICE file's contents — plus an
-express patent grant. Nothing in any of them reaches the surrounding work, so a downstream
-distributor chooses its own terms for its own code and may ship the whole thing without
-source.
+text, and the disclaimer when redistributing, in source form and, for the BSD licences,
+reproduced in the documentation or other materials accompanying a binary. Apache-2.0 adds two
+more of the same kind — prominent notices on modified files and propagation of a NOTICE
+file's contents — plus an express patent grant. Nothing in any of them reaches the
+surrounding work, so a downstream distributor chooses its own terms for its own code and may
+ship the whole thing without source.
 
 **Key terms** attribution; notice retention; relicensing downstream; no source obligation;
 SPDX identifier.
@@ -377,18 +377,20 @@ the "-or-later" SPDX suffix records.
 **Key terms** GPL-2.0-only; GPL-3.0-or-later; conveying; Corresponding Source; syscall
 exception; anti-tivoization.
 
-**Traps** The GPL does not reach a proprietary program that merely runs on a GPL system, nor
-one that runs as a separate process exchanging data over pipes, sockets, or command-line
-arguments; the FSF's criterion is the mechanism and semantics of the communication, not
-whether the interface is documented, and modules in one executable, or designed to run linked
-together in a shared address space, are almost surely one combined program — which is exactly
+**Traps** The GPL does not reach a proprietary program that merely runs on a GPL system, and
+normally does not reach one that runs as a separate process exchanging data over pipes,
+sockets, or command-line arguments. The FSF's criterion is the mechanism *and* the semantics
+of the communication: those three are the mechanisms of separate programs, but semantics
+intimate enough to exchange complex internal data structures can still make the two parts one
+larger program. Modules in a single executable file are definitely one program, and modules
+designed to run linked together in a shared address space almost surely are — which is exactly
 the case the LGPL exists to permit. For Linux specifically, the kernel's syscall exception
 (`LICENSES/exceptions/Linux-syscall-note`) makes the user-space case explicit rather than
 leaving it to argument. The licence does not reach a modified version that is never conveyed,
-and it does not reach
-users of a network service, because mere interaction over a network with no transfer of a
-copy is not conveying. "GPL" unqualified is also ambiguous between v2 and v3, whose terms
-differ and which cannot be combined in one work without an "or later" grant.
+and it does not reach users of a network service, because mere interaction with a user over a
+network with no transfer of a copy is not conveying. "GPL" unqualified is also ambiguous
+between v2 and v3, whose terms differ and which cannot be combined in one work without an "or
+later" grant.
 
 **What the exam may test** Identifying the kernel's licence precisely (GPLv2, only), deciding
 whether a described distribution triggers the source obligation, and separating GPL from its
@@ -418,9 +420,10 @@ users who only ever interact with the software across a network.
 modification, merging, publication, distribution, sublicensing, and sale on one condition:
 the copyright notice and the permission notice must be included in all copies or substantial
 portions of the software. BSD-2-Clause requires the notice, conditions, and disclaimer to be
-retained in redistributed source and reproduced in the documentation accompanying a binary;
-BSD-3-Clause adds a third clause forbidding use of the copyright holder's or contributors'
-names to endorse derived products without written permission.
+retained in redistributed source and reproduced in the documentation or other materials
+accompanying a binary; BSD-3-Clause adds a third clause forbidding use of the copyright
+holder's or contributors' names to endorse derived products without specific prior written
+permission.
 
 **Why it matters** These are the licences an exam question uses when it wants "reuse in a
 closed product with almost no strings." Knowing exactly which strings remain — the notice,
@@ -461,11 +464,12 @@ inside the permissive family: section 3's patent licence, with its termination c
 section 4's notice requirements, of which the NOTICE file is the most commonly misremembered.
 
 **How it works** Section 3 grants each recipient a perpetual, worldwide, royalty-free,
-irrevocable patent licence covering the claims a contributor's own contribution necessarily
-infringes, alone or in combination with the Work to which it was submitted — but not the
-contributor's whole patent portfolio — and terminates that grant for anyone who files patent
-litigation alleging the work infringes. Section 4 conditions redistribution on four things: give recipients a copy of
-the licence; cause modified files to carry prominent notices stating that you changed them;
+irrevocable patent licence covering only those patent claims licensable by that contributor
+that are necessarily infringed by their contribution alone or by combination of their
+contribution with the Work it was submitted to — not the contributor's whole patent portfolio
+— and terminates that grant for anyone who files patent litigation alleging the work
+infringes. Section 4 conditions redistribution on four things: give recipients a copy of the
+licence; cause modified files to carry prominent notices stating that you changed them;
 retain the copyright, patent, trademark, and attribution notices found in the source; and, if
 the work includes a NOTICE text file, include a readable copy of its attribution notices in
 the derivative work's own NOTICE file, its documentation, or a display it generates. Section
@@ -479,10 +483,10 @@ the contributor states otherwise.
 upstream work ships one — a NOTICE requirement invented for a project that has no NOTICE file
 is a distractor. The patent grant is limited to claims infringed by the contributor's own
 contribution, alone or in combination with the work it was submitted to — not to the
-contributor's whole patent portfolio. And Apache-2.0 is not a
-copyleft licence: none of section 4's conditions reaches the licence of the derivative work
-as a whole. The Free Software Foundation treats Apache-2.0 as compatible with GPLv3 but not
-with GPLv2.
+contributor's whole patent portfolio. And Apache-2.0 is not a copyleft licence: none of
+section 4's conditions reaches the licence of the derivative work as a whole. The Free
+Software Foundation treats Apache-2.0 as compatible with GPLv3 but not with GPLv2, because of
+requirements GPLv2 lacks, including the patent-termination provision.
 
 **What the exam may test** Naming what Apache-2.0 adds over MIT — the patent grant, the
 change notices, the NOTICE propagation — without wrongly adding a copyleft obligation to the
@@ -548,7 +552,9 @@ obliged nothing at all.
    of the software.
 6. Why are Creative Commons licences a poor fit for source code?
    Creative Commons recommends against it: the licences address neither source distribution
-   nor patent rights, and are not compatible with the major software licences.
+   nor patent rights, and are not compatible with the major software licences. CC names two
+   carve-outs — CC BY-SA 4.0 is one-way compatible with GPLv3, and the CC0 public domain
+   dedication is GPL-compatible and acceptable for software.
 
 <a id="s-open-source-software-and-licensing-compliance"></a>
 ## Compliance
@@ -572,7 +578,8 @@ licence cannot promise that.
 projects freely. Apache-2.0 combines one way into GPLv3, but the Free Software Foundation
 treats it as incompatible with GPLv2. GPLv2-only and GPLv3 works cannot be combined at all
 unless one side was offered as "or later," which is exactly what SPDX's `-or-later` suffix
-records. Creative Commons BY-SA 4.0 is one-way compatible with GPLv3, and no further.
+records. Creative Commons BY-SA 4.0 is one-way compatible with GPLv3: modified BY-SA 4.0
+material may be licensed under GPLv3, but GPLv3 work may not be relicensed under BY-SA 4.0.
 
 **Key terms** directional compatibility; one-way compatibility; `-or-later`; combined work.
 
@@ -615,11 +622,11 @@ modified, and a GPLv3 tool it did not modify, and asks whether it is clear to re
 separate questions have to be answered. Compatibility first: MIT and Apache-2.0 code both
 combine into a GPLv3-licensed work, so the combination is permitted — though had the tool been
 GPLv2-only, the Apache-2.0 library could not have joined it. Compliance second: the MIT
-notice must travel with the shipped copies, the modified Apache-2.0 files must carry notices
-saying they were changed and the upstream NOTICE attributions must be reproduced, and the
-GPLv3 tool obliges an offer of Corresponding Source to recipients. An SBOM of the appliance
-is what makes that list enumerable in the first place; it discharges none of the obligations
-itself.
+notice must travel with the shipped copies; the modified Apache-2.0 files must carry notices
+saying they were changed, and because that library ships a NOTICE file, its attributions must
+be reproduced in the appliance's own NOTICE, its documentation, or a display it generates;
+and the GPLv3 tool obliges an offer of Corresponding Source to recipients. An SBOM is what
+makes that list enumerable in the first place; it discharges none of it.
 
 #### Knowledge check
 

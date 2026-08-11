@@ -542,9 +542,8 @@ job — and `ip neigh` shows both, which is why the command is named for neighbo
 for ARP. ARP never crosses a router: a host never learns the MAC of an off-subnet destination,
 so `ip neigh` holds no entry for that address at all — it resolves the gateway instead, and the
 frame carrying a packet to a remote host holds the router's MAC, not the destination's. Two
-hosts configured with the same IP produce
-inconsistent ARP replies, which presents as intermittent connectivity rather than a clean
-failure.
+hosts configured with the same IP produce inconsistent ARP replies, which presents as
+intermittent connectivity rather than a clean failure.
 
 **What the exam may test** Recognising ARP as an IPv4 layer 2/3 join that operates only within
 one segment, and choosing the neighbour cache as the check for "is that host present on this
@@ -629,10 +628,9 @@ the broadcast, and .1 to .62 usable. 192.168.10.80 is in the *next* block, so it
 and must be reached through the gateway; 192.168.10.20 is on-subnet and is reached directly
 after an ARP exchange. `ip neigh` confirms the difference: an entry for .20 shows the server's
 own MAC, and there is no entry for .80 at all, because traffic for .80 uses the router's MAC.
-If the workstation has no gateway
-configured, the on-subnet host works and the off-subnet one does not — exactly the symptom
-reported. Both addresses are RFC 1918 private, so neither is reachable from the internet
-without translation, whatever the gateway does.
+If the workstation has no gateway configured, the on-subnet host works and the off-subnet one
+does not — exactly the symptom reported. Both addresses are RFC 1918 private, so neither is
+reachable from the internet without translation, whatever the gateway does.
 
 #### Knowledge check
 
@@ -1320,15 +1318,14 @@ server being available.
 
 A laptop comes up with 169.254.7.31 and no internet. That address is self-assigned link-local,
 so the DHCP exchange never completed: either no server answered the broadcast DISCOVER, or the
-switch port is in a VLAN with no server and no relay agent. Meanwhile a nearby desktop still
-works, because its lease has not reached T1 yet — evidence that the server has only recently
-become unreachable rather than that the desktop is configured differently. Once the server is
-restored, the laptop completes DISCOVER, OFFER, REQUEST, ACK and receives an address, mask,
-gateway and DNS servers in one exchange. The site's label printer must not move around, so it
-is given a reservation binding its MAC to a fixed address outside the pool — not a static
-address on the device, because the printer must remain centrally managed. Note what none of
-this fixes: if names still fail to resolve after an address arrives, that is DNS, a separate
-service that DHCP merely told the client where to find.
+switch port sits in a VLAN with no server and no relay agent. A nearby desktop still works,
+because its lease has not reached T1 — evidence that the server became unreachable recently
+rather than that the desktop is configured differently. Once it is restored, the laptop
+completes DISCOVER, OFFER, REQUEST, ACK and receives an address, mask, gateway and DNS servers
+in one exchange. The site's label printer is then given a reservation binding its MAC to an
+address outside the pool, not a static address on the device, because it must stay centrally
+managed. Note what none of this fixes: if names still fail to resolve once an address arrives,
+that is DNS, a separate service DHCP merely pointed the client at.
 
 #### Knowledge check
 
@@ -1547,9 +1544,8 @@ to the wrong address.
 
 **How it works** `ss -tulpn` shows listening sockets; the state column reads LISTEN for TCP,
 and UDP sockets show UNCONN because UDP has no listen state and a server socket has no peer.
-`ss -t state
-established` filters to TCP connections in the ESTAB state, showing both peers. Between the
-two lie transient states worth recognising: SYN-SENT (the client's SYN is unanswered),
+`ss -t state established` filters to TCP connections in the ESTAB state, showing both peers.
+Between the two lie transient states worth recognising: SYN-SENT (the client's SYN is unanswered),
 SYN-RECV (a half-open connection), TIME-WAIT (a recently closed connection held briefly by the
 side that closed first), and CLOSE-WAIT (the peer closed but the local application has not,
 which usually indicates an application bug rather than a network one).
@@ -1567,8 +1563,8 @@ which usually indicates an application bug rather than a network one).
 `connect()` to a single peer shows ESTAB. That ESTAB is only a local socket property — a
 default destination the kernel records — not a negotiated connection, so unlike TCP it proves
 nothing about the far end and involved no handshake. A large number of TIME-WAIT entries is
-normal on a busy server and is not a leak. And a listening socket bound to 127.0.0.1 will show up in
-`ss -tulpn` exactly like one bound to 0.0.0.0, so a service that "is listening" can still be
+normal on a busy server and is not a leak. And a listening socket bound to 127.0.0.1 shows up
+in `ss -tulpn` exactly like one bound to 0.0.0.0, so a service that "is listening" can still be
 unreachable from every other host.
 
 **What the exam may test** Choosing the right `ss` invocation for "is it running" versus "who
@@ -1816,17 +1812,17 @@ not being used for that destination.
 
 #### Scenario
 
-An internal dashboard is being published to remote staff. The team's first proposal is a port
-forward from the site's public address straight to the application server on port 8080, which
-would make the dashboard reachable by anyone on the internet who finds it. Instead a reverse
+An internal dashboard is being published to remote staff. The first proposal is a port forward
+from the site's public address straight to the application server on port 8080, which would
+expose the dashboard to anyone on the internet. Instead a reverse
 proxy is placed in front of it: clients resolve `dash.example.com` to the proxy, the proxy
 terminates TLS on 443 and forwards to the application's private address, and `curl -I
 https://dash.example.com` confirms a 200 with the proxy's headers rather than the
 application's. When a second application server is added for capacity, the same box becomes a
 load balancer — it now health-checks two backends and distributes between them, which is a
-change of purpose, not of position. Staff who need SSH access to the servers themselves do not
-get a second port forward; they connect over the VPN, which typically places them on the
-private network so port 22 never has to face the internet at all.
+change of purpose, not of position. Staff needing SSH to the servers get no second port
+forward; they connect over the VPN, which typically places them on the private network so port
+22 never faces the internet.
 
 #### Knowledge check
 
@@ -2060,9 +2056,8 @@ the refused response too, so an immediate refusal does not conclusively prove th
 listening — but it does prove that something on the path answered, which is not the same as
 proving the destination host is up: a REJECT rule sources its RST or ICMP reply from the
 original packet's destination address without the destination host itself ever seeing the
-packet. UDP defeats the whole scheme: with no
-handshake, silence is ambiguous between open and filtered, which is why UDP scanning is
-unreliable by nature.
+packet. UDP defeats the whole scheme: with no handshake, silence is ambiguous between open and
+filtered, which is why UDP scanning is unreliable by nature.
 
 **Symptoms and diagnostic order**
 
@@ -2091,16 +2086,15 @@ than reading rules immediately.
 
 A monitoring check for a new API on port 8443 has been failing since deployment. From the
 monitoring host, `nc -zv api.example.com 8443` hangs for the full timeout — silence, not
-refusal — so something is dropping the packet rather than answering it. The same test against
-port 22 on the same host succeeds instantly, which rules out routing and proves the host is
-reachable: the filtering is port-specific. On the server itself, `ss -tulpn` shows the API
-listening on `0.0.0.0:8443`, so the service is fine and bound correctly. `firewall-cmd
---list-all` shows 443 and 22 permitted in the default zone and no mention of 8443 — and the
-deployment did add the rule, but with `--permanent` and without a reload, so it is in the
-permanent configuration and not in the runtime one. A reload activates it and the check passes.
-Had `nc -zv` instead returned "Connection refused" immediately, the entire firewall
-investigation would have been wasted effort: that answer proves the packet reached a live host,
-which points at the service or its bind address, not at policy.
+refusal — so something dropped the packet rather than answering it. The same test against port
+22 succeeds instantly, which rules out routing and makes the filtering port-specific. On the
+server, `ss -tulpn` shows the API listening on `0.0.0.0:8443`, so the service is bound
+correctly. `firewall-cmd --list-all` shows 443 and 22 permitted in the default zone and no
+mention of 8443: the deployment added the rule with `--permanent` and no reload, so it sits in
+the permanent configuration and not the runtime one. A reload activates it. Had `nc -zv`
+returned "Connection refused" instead, the whole firewall investigation would have been wasted
+— that answer proves the packet reached a live host, pointing at the service or its bind
+address, not at policy.
 
 #### Knowledge check
 
@@ -2487,17 +2481,16 @@ and recognising that predictable naming exists to keep names stable across reboo
 #### Scenario
 
 An internal reporting site has "stopped working" for one office. Take the tools in the order
-that eliminates the most possibilities per step. `ping` to the site's name fails with "Name or
-service not known" — a DNS failure, not a reachability failure, and the message says so.
+that eliminates the most per step. `ping` to the site's name fails with "Name or service not
+known" — DNS, not reachability, and the message says so.
 `dig +short reports.example.com` returns the right address, so the zone is fine, while
-`/etc/resolv.conf` on the affected machines names a nameserver decommissioned last week: their
-DHCP-supplied resolver option is stale. With that fixed the name resolves, but the page still
-times out. `curl -v` shows the connection stalling before any response, while `nc -zv` to port
-22 on the same host succeeds instantly, so the host is reachable and the filtering is
-port-specific. `traceroute -n` shows the path reaching the site's border router and stopping
-there, which bounds the fault to that device rather than to the server, and `ss -tulpn` on the
-server confirms the site listening on `0.0.0.0:443`. The border firewall's rule for that
-office's subnet had been removed in a cleanup; restoring it ends the incident.
+`/etc/resolv.conf` on the affected machines names a nameserver decommissioned last week. With
+that fixed the name resolves, but the page still times out. `curl -v` shows the connection
+stalling before any response, while `nc -zv` to port 22 on the same host succeeds instantly, so
+the host is reachable and the filtering is port-specific. `traceroute -n` reaches the site's
+border router and stops there, bounding the fault to that device rather than the server, and
+`ss -tulpn` on the server confirms the site listening on `0.0.0.0:443`. A cleanup had removed
+the border firewall's rule for that office's subnet; restoring it ends the incident.
 
 #### Knowledge check
 

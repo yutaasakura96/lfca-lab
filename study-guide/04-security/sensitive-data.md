@@ -8,7 +8,7 @@ PCI primary documentation rather than from the course
 (`research/lfs200-notes/00-course-map.md`). The competency is also unusually abstract for this
 exam: none of its concepts carry a command, so every question it can ask is a question about
 which term applies, which regime attaches, or which control belongs to which state of the
-data. Two discriminations carry most of that weight and are drilled below — encryption at rest
+data. Two discriminations recur across the concepts below and are drilled here — data at rest
 versus in transit versus in use, and hashing versus encryption versus encoding.
 
 <a id="s-sensitive-data-classification"></a>
@@ -22,8 +22,8 @@ versus in transit versus in use, and hashing versus encryption versus encoding.
 other information. NIST SP 800-122 splits it in two: information that can be used to
 *distinguish or trace* an individual's identity (name, Social Security number, date and place
 of birth, biometric records) and any other information that is *linked or linkable* to an
-individual (medical, educational, financial, employment). GDPR Article 4(1) draws the same
-boundary under the name "personal data": any information relating to an identified or
+individual (medical, educational, financial, employment). GDPR Article 4(1) draws a similar
+line under the name "personal data": any information relating to an identified or
 identifiable natural person, directly or indirectly, expressly including an online identifier.
 
 **Why it matters** PII is not a label somebody assigns — it is a property of what the data
@@ -69,18 +69,23 @@ are governed by PCI DSS, published by the PCI Security Standards Council.
 **Why it matters** The two regimes differ in kind, and that difference is the examinable point.
 HIPAA is federal law, enforced by HHS, and it binds only covered entities and their business
 associates — an ordinary company that happens to hold an employee's medical note is not
-automatically a covered entity. PCI DSS is not law at all: it is a contractual standard imposed
-through the payment brands and acquiring banks, so "who enforces this, and by what authority"
-has opposite answers for the two.
+automatically a covered entity. PCI DSS is not law at all: the PCI Security Standards Council
+publishes it, and the council states that whether an entity has to comply with, or validate
+compliance to, a PCI standard is at the discretion of the organisations that manage compliance
+programmes — a payment brand, an acquirer, or a similar entity. So "who enforces this, and by
+what authority" has opposite answers for the two.
 
-**How it works** Under HIPAA's Security Rule, safeguards are marked either Required or
-Addressable, and encryption of ePHI is Addressable — both at rest, at 45 CFR 164.312(a)(2)(iv),
-and in transmission, at 164.312(e)(2)(ii). Addressable does not mean optional; it means the
-covered entity must implement it or document why it is not reasonable and implement an
-equivalent alternative. PCI DSS works the other way, by prohibition and mandate on specific
+**How it works** Under HIPAA's Security Rule, implementation specifications are marked either
+Required or Addressable, and encryption of ePHI is Addressable — both at rest, at 45 CFR
+164.312(a)(2)(iv), and in transmission, at 164.312(e)(2)(ii). Addressable does not mean
+optional: 45 CFR 164.306(d)(3) makes the covered entity assess whether the specification is a
+reasonable and appropriate safeguard in its environment, implement it if it is, and otherwise
+document why it is not and implement an equivalent alternative measure where that is itself
+reasonable and appropriate. PCI DSS works the other way, by prohibition and mandate on specific
 fields: the primary account number must be rendered unreadable wherever it is stored, and
-sensitive authentication data such as the full track data, the card verification code and the
-PIN must not be retained after authorisation at all, encrypted or otherwise.
+sensitive authentication data — the council's glossary names card verification codes, full
+track data, PINs and PIN blocks — is data that may be processed but not stored, so it must not
+be retained after authorisation at all, encrypted or otherwise.
 
 **Key terms** PHI and ePHI; covered entity; business associate; Required versus Addressable;
 cardholder data; sensitive authentication data.
@@ -95,17 +100,18 @@ label once instead of being argued out per file. Classification is a decision th
 makes; it is not a fact discovered in the data.
 
 **Why it matters** Almost every other control in this competency takes classification as its
-input. NIST SP 800-53's media sanitization control requires sanitization strength commensurate
-with the security category or classification of the information; its backup encryption
-enhancement says the same about backup protection strength. A data loss prevention deployment
-with no classification scheme behind it degrades into pattern matching. Classification is the
-dial the rest of the machinery reads.
+input. NIST SP 800-53's media sanitization control, MP-6, requires sanitization mechanisms with
+strength and integrity commensurate with the security category or classification of the
+information, and the discussion under its backup encryption enhancement, CP-9(8), sets backup
+protection strength the same way. A data loss prevention deployment with no classification
+scheme behind it degrades into pattern matching. Classification is the dial the rest of the
+machinery reads.
 
 **How it works** A data owner assigns the label using the scheme's criteria, and the scheme
 maps each label to handling rules: who may access it, whether it may leave the network,
 whether it must be encrypted, how long it is kept, how it must be destroyed. Where a set mixes
-labels, the aggregate takes the highest label present, because the set discloses everything the
-most sensitive member discloses. NIST SP 800-122 adds a parallel scale for personal data
+labels, schemes conventionally give the aggregate the highest label present, because the set
+discloses everything the most sensitive member discloses. NIST SP 800-122 adds a parallel scale for personal data
 specifically — a PII confidentiality impact level of low, moderate or high — and is explicit
 that this is not the same judgement as the FIPS 199 confidentiality impact level of the system
 holding it.
@@ -146,40 +152,51 @@ has labelled it or not.
 *id: `security.sensitive-data.data-states` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-57p1r5, nist-csrc-glossary*
 
 **What it is** Three states data can be in, each needing its own control. At rest is data
-sitting on storage — NIST SP 800-53's SC-28 defines it as the state of information when it is
-not in process or in transit. In transit is data moving across a network, covered by SC-8. In
-use is data loaded into memory and being operated on by a running process.
+sitting on storage — the discussion under NIST SP 800-53's SC-28 describes it as the state of
+information when it is not in process or in transit and is located on system components. In
+transit is data moving across a network, which SC-8 covers as transmission confidentiality and
+integrity. In use is data loaded into memory and being operated on by a running process.
 
 **Why it matters** The states do not substitute for each other, and the exam builds options out
-of exactly that. Full-disk encryption protects at rest only: once the volume is mounted and a
-process opens a file, the plaintext is in memory and the disk encryption is contributing
-nothing. TLS protects in transit only, and it terminates at the endpoint, so a file uploaded
-over HTTPS lands as plaintext on the server unless something separately encrypts it there. In
-use is the hardest state and the one with no everyday answer — it needs hardware enclaves or
-confidential-computing techniques, not "encryption" in the sense the other two use the word.
+of exactly that. A control chosen for one state contributes nothing to the other two, so "the
+disks are encrypted" is no answer to a question about data crossing a network, and "we use TLS"
+is no answer to a question about data sitting in a database or held open by a process.
 
-**How it works** Alongside the states, keep the three transformations apart, because they are a
-standing multiple-choice trio. Encryption is reversible with a key and provides confidentiality.
-Hashing applies a one-way function to produce a fixed-length digest; no key is involved, nothing
-is recovered from the digest, and it serves integrity checking and password verification, never
-data you must read back. Encoding — Base64, hex, URL escaping — is reversible by anyone with no
-key at all; it is a transport format and provides no security whatever. A scheme described as
-"encoded for security" is misdescribed by definition.
+**How it works** Each state names a boundary, and the control covers only what is inside it.
+At-rest protection guards information on the storage component, so full-disk encryption is
+undone by mounting: once the volume is unlocked, every process allowed to open the file sees
+plaintext, and narrowing the boundary means encrypting at the file, column or object level
+instead of the device. In-transit protection guards the information while it is on the wire,
+and TLS terminates at each endpoint, so the plaintext exists in the sending process before
+encryption and in the receiving process after decryption — a file uploaded over HTTPS lands as
+plaintext on the server unless something separately encrypts it there. In use has no comparable
+boundary on an ordinary system, because the data is decrypted inside the address space of the
+process working on it; that is why it is the hardest state and the one with no everyday answer,
+needing a hardware enclave or another confidential-computing construct rather than "encryption"
+in the sense the other two states use the word.
 
 **Key terms** at rest; in transit; in use; hash digest; encoding.
+
+Keep the three transformations apart from the three states, because they are a standing
+multiple-choice trio in their own right. Encryption is reversible with a key and provides
+confidentiality. Hashing applies a one-way function to produce a fixed-length digest; no key is
+involved, nothing is recovered from the digest, and it serves integrity checking and password
+verification, never data you must read back. Encoding — Base64, hex, URL escaping — is
+reversible by anyone with no key at all; it is a transport format and provides no security
+whatever. A scheme described as "encoded for security" is misdescribed by definition.
 
 #### Scenario
 
 A support engineer exports a CSV for an external analytics vendor: customer name, email
 address, postcode, date of birth, the last four digits of a card number, and a free-text
 clinical note. Name and email are PII on their own; postcode and date of birth are PII in
-combination even without the name. The clinical note pulls HIPAA into scope if the organisation
-is a covered entity or a business associate, which is a question about the organisation, not
-about the file. The card fragment is masked already, but the source database it came from is in
-PCI scope. The classification label the file should carry is a separate decision from all of
-that, made under the company's scheme. Finally, trace the file's three states: at rest on the
-exporting host, in transit to the vendor over TLS, and in use in the analyst's process memory
-at the far end — and note that the TLS session covers exactly one of the three.
+combination even without the name. The clinical note pulls HIPAA into scope only if the
+organisation is a covered entity or a business associate — a question about the organisation,
+not about the file. The card fragment is masked, but the database it came from is in PCI scope.
+What label the file carries is a separate decision again, made under the company's scheme.
+Finally trace the three states: at rest on the exporting host, in transit to the vendor over
+TLS, in use in the analyst's process memory — and note that the TLS session covers exactly one
+of them.
 
 #### Knowledge check
 
@@ -191,11 +208,13 @@ at the far end — and note that the TLS session covers exactly one of the three
    covers exactly this, and removing the direct identifier does not end the analysis.
 3. Under HIPAA's Security Rule, is encryption of ePHI Required or Addressable, and what does
    that word mean?
-   Addressable — the covered entity must implement it or document why it is not reasonable and
-   put an equivalent alternative in place. Addressable is not optional.
-4. Who enforces PCI DSS, and by what authority?
-   The payment brands and acquiring banks, through contract. PCI DSS is a council-published
-   standard, not legislation, which is what distinguishes it from HIPAA.
+   Addressable — the covered entity assesses whether it is reasonable and appropriate,
+   implements it if so, and otherwise documents why not and puts an equivalent alternative
+   measure in place where that is itself reasonable and appropriate. Addressable is not optional.
+4. Who decides whether PCI DSS applies to an entity, and by what authority?
+   The organisations that run the compliance programmes — a payment brand, an acquirer or a
+   similar entity — not the council and not a statute. PCI DSS is a council-published standard,
+   not legislation, which is what distinguishes it from HIPAA.
 5. A system uses TLS for uploads and full-disk encryption on the server. Which of the three
    data states is still unprotected?
    In use — plaintext is in the server process's memory, which neither TLS nor disk encryption
@@ -233,14 +252,16 @@ policy that sits above the owner entirely, so the same `chmod` may succeed while
 still refused. RBAC evaluates the role assigned to the requesting subject and the operations
 that role is authorised to perform. NIST SP 800-162 documents a fourth model, attribute-based
 access control (ABAC), which decides by evaluating attributes of the subject, the object, the
-requested operation and the environment against policy — and notes that a role can be viewed as
-just one subject attribute, which is why ABAC can express RBAC but not the reverse.
+requested operation and, in some cases, environment conditions against policy — and notes that
+a role can be viewed as just one subject attribute, so that RBAC is in effect ABAC over the
+single attribute "role" while ABAC evaluates many attributes in one Boolean rule set.
 
 **Key terms** subject; object; discretion; role assignment; role explosion; ABAC.
 
 **Traps** "Root can do anything" is DAC reasoning, and it is wrong on a MAC system: mandatory
-policy constrains privileged processes too, which is the entire reason MAC exists. RBAC is also
-not the same thing as Unix groups — a group is a DAC construct, because the owner still decides
+policy constrains privileged processes too, unless the policy has explicitly designated them
+trusted subjects exempt from some of its constraints. RBAC is also not the same thing as Unix
+groups — a group is a DAC construct, because the owner still decides
 what the group may do with the file. And least privilege and separation of duties are
 principles that any of the three models can be used to implement, not models in their own right;
 an option offering "least privilege" as an access control model is offering a category error.
@@ -270,8 +291,9 @@ stronger cipher as the fix for a key-handling failure is offering the wrong laye
 **How it works** SP 800-57 defines a cryptoperiod as the time span during which a key is
 authorised for use, and bounds it deliberately: a shorter cryptoperiod limits how much material
 is available for cryptanalysis and how much is exposed if that one key is compromised. It also
-requires that a single key be used for only one purpose — not encryption and signing, not two
-unrelated datasets. Rotation in practice usually means envelope encryption: a data-encryption
+states that a single key shall in general be used for only one purpose — encryption, integrity
+authentication, key wrapping, random bit generation or signing, but not two of them at once.
+Rotation in practice usually means envelope encryption: a data-encryption
 key protects the data, a key-encrypting key protects the data-encryption key, and rotating the
 outer key re-wraps the inner one without re-encrypting a byte of the data. SP 800-57 defines
 the key-encrypting key as exactly that — a key used to encrypt or decrypt other keys.
@@ -288,9 +310,9 @@ provides access control, an audit trail and rotation. NIST SP 800-53's IA-5 cove
 ground as authenticator management, including changing default authenticators before first use
 and refreshing them on a defined schedule.
 
-**Why it matters** Committing a secret to Git is one of the most common real-world causes of a
-breach, and the standard reaction to it is wrong. Deleting the secret in a later commit does not
-remove it: the blob remains in history, in every clone anyone has already taken, in forks, and
+**Why it matters** Committing a secret to Git is a frequent real-world cause of a breach, and
+the standard reaction to it is wrong. Deleting the secret in a later commit does not remove
+it: the blob remains in history, in every clone anyone has already taken, in forks, and
 in CI caches. Rewriting history is cleanup, not remediation. Rotating the credential — revoking
 the exposed one and issuing a replacement — is the only fix that actually closes the exposure,
 and it must happen first, before any tidying.
@@ -300,8 +322,12 @@ identity check, logs who fetched what, and supports rotation without a code chan
 neighbouring discipline is key management, which governs cryptographic keys and their
 cryptoperiods; secrets management is the broader operational problem of every credential,
 cryptographic or not. Note also that an environment variable is a delivery mechanism, not a
-secure store: it is inherited by child processes and routinely lands in crash dumps and process
-listings, so "we moved it out of the code into an env var" is a partial answer at best.
+secure store: it is inherited by every child process, it is readable by root and by the process
+owner (`/proc/<pid>/environ` is gated by a ptrace access check, not left world-readable, and
+`ps eww` reads the same file), and it routinely ends up in crash dumps, CI job logs and
+container inspect output. So "we moved it out of the code into an env var" is a partial answer
+at best — it is not readable by any user on the host, but it is not access-controlled, audited
+or rotatable either.
 
 **Key terms** secret store; rotation as remediation; short-lived credential; authenticator
 management; `.gitignore` (which prevents adding a file, and does nothing about one already
@@ -353,28 +379,27 @@ connection and block one message across it.
 
 **How it works** NIST SP 800-53 Rev. 5 has no control literally named data loss prevention; the
 capability is assembled from AC-4 information flow enforcement, the SC-7(10) boundary protection
-enhancement for preventing exfiltration, and SI-4 system monitoring. Effectiveness depends
-almost entirely on classification: told which data is restricted, DLP enforces a policy; told
-nothing, it falls back to regular expressions and generates false positives on every invoice
-number that resembles a card.
+enhancement for preventing exfiltration — whose discussion is where the catalogue does use the
+phrase, calling exfiltration prevention similar to data loss prevention — and SI-4 system
+monitoring. Effectiveness depends heavily on classification: told which data is restricted, DLP
+enforces a policy; told nothing, it falls back to regular expressions and generates false
+positives on every invoice number that resembles a card.
 
 **Key terms** exfiltration; content inspection; egress point; false positive; dependence on
 classification.
 
 #### Scenario
 
-An engineer pushes a commit containing a live cloud API key to a public repository, and the
-same week the analytics team asks for a customer extract. Order the response. Rotate the
-exposed key first — revoke it and issue a replacement — because deleting the commit leaves the
-blob in history and in every existing clone; only then move the value into a secret store.
-Next, the extract: the warehouse grants access by job role, so adding an analyst is an RBAC role
-assignment, but if the analyst can then re-share the resulting table at their own discretion,
-that sharing step is DAC and the role model is not containing it. Before the extract leaves,
-decide between pseudonymizing it, which keeps it personal data with every GDPR duty attached,
-and anonymizing it, which puts it outside GDPR — the right answer depends on whether anyone
-will ever need to link a row back to a customer. Finally, the egress DLP rule catches the file
-by inspecting its contents, which works only because those columns were classified in the first
-place.
+An engineer pushes a commit containing a live cloud API key to a public repository; the same
+week analytics asks for a customer extract. Order the response. Rotate the exposed key
+first — revoke it, issue a replacement — because deleting the commit leaves the blob in history
+and in every existing clone. Then the extract: the warehouse grants access by job role, so
+adding an analyst is an RBAC role assignment, but if the analyst can re-share that table at
+their own discretion, the sharing step is DAC and the role model is not containing it. Before
+the extract leaves, choose between pseudonymizing it, which keeps every GDPR duty attached, and
+anonymizing it, which puts it outside GDPR; the answer turns on whether a row must ever be
+linked back to a customer. Finally the egress DLP rule stops the file by inspecting content,
+not address or port.
 
 #### Knowledge check
 
@@ -463,33 +488,42 @@ across all user-addressable locations, typically by rewriting through ordinary r
 commands, and defeats simple non-invasive recovery. Purge applies physical or logical techniques
 that render recovery infeasible against state-of-the-art laboratory techniques — overwrite,
 block erase, and cryptographic erase issued through the device's dedicated sanitize commands.
-Destroy renders recovery infeasible and leaves the media unusable for storage. Verification must
-be performed for the technique applied. Cryptographic erase is the Purge technique that destroys
-a self-encrypting drive's media encryption key, leaving only ciphertext behind — fast, but only
-as trustworthy as the drive's encryption implementation.
+Destroy renders recovery infeasible and leaves the media unusable for storage. Section 4.7.3
+then calls for the result to be verified: a full read-back of all accessible areas, checking
+that the expected sanitized value is in every addressable location, should be performed if time
+and external factors permit, and otherwise verification is by representative sampling —
+pseudorandom locations, chosen fresh each run, spread across both the user-addressable and the
+reserved areas. Cryptographic erase is the Purge technique that destroys a self-encrypting
+drive's media encryption key, leaving only ciphertext behind — fast, but only as trustworthy as
+the drive's encryption implementation.
 
-**Key terms** unlink; Clear, Purge, Destroy; cryptographic erase; verification; over-provisioned
-blocks.
+**Key terms** unlink; Clear, Purge, Destroy; cryptographic erase; full verification versus
+representative sampling; over-provisioned blocks.
 
 <a id="c-security.sensitive-data.data-breach-and-notification"></a>
 ### Data breach and notification
 *id: `security.sensitive-data.data-breach-and-notification` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: gdpr-eurlex, nist-sp-800-61r3*
 
-**What it is** Unauthorised acquisition, access, use or disclosure of protected data, usually
-carrying a legal duty to tell somebody within a defined window. GDPR Article 33(1) requires the
-controller to notify the competent supervisory authority without undue delay and, where
-feasible, not later than 72 hours after becoming aware of the breach, unless it is unlikely to
-result in a risk to people's rights and freedoms; a later notification must be accompanied by
-reasons for the delay. HIPAA's rules at 45 CFR 164.404 and 164.408 require individuals to be
-notified without unreasonable delay and in no case later than 60 calendar days after discovery.
+**What it is** A security failure touching protected data, usually carrying a legal duty to
+tell somebody within a defined window. The two regimes scope it differently: GDPR Article 4(12)
+defines a personal data breach as a breach of security leading to the accidental or unlawful
+destruction, loss, alteration, unauthorised disclosure of, or access to personal data, so
+losing it counts as well as leaking it, while HIPAA's definition at 45 CFR 164.402 turns on
+acquisition, access, use or disclosure not permitted by the Privacy Rule. GDPR Article 33(1)
+requires the controller to notify the competent supervisory authority without undue delay and,
+where feasible, not later than 72 hours after becoming aware of the breach, unless it is
+unlikely to result in a risk to people's rights and freedoms; a later notification must be
+accompanied by reasons for the delay. Under 45 CFR 164.404(b), individuals affected by a breach
+of unsecured protected health information are notified without unreasonable delay and in no
+case later than 60 calendar days after discovery.
 
 **Why it matters** Two boundaries decide most questions here. First, an incident is not
-automatically a breach: NIST SP 800-61 Rev. 3 places incident response inside the Cybersecurity
-Framework 2.0 risk-management functions, and a security event becomes a notifiable breach only
-when protected data was actually exposed and the regime's threshold is met. Second, the clock
-starts at awareness, not at intrusion — a compromise that went unnoticed for four months still
-starts its 72 hours the day it is discovered, and the deadline is a deadline to notify, not a
-deadline to have finished remediating.
+automatically a notifiable breach — NIST SP 800-61 Rev. 3 handles incident response as part of
+Cybersecurity Framework 2.0 risk management, and whether a given incident must be reported is a
+question the regime answers, not the incident-response process. Second, the clock starts at
+awareness, not at intrusion — a compromise that went unnoticed for four months still starts its
+72 hours the day it is discovered, and the deadline is a deadline to notify, not a deadline to
+have finished remediating.
 
 **How it works** GDPR splits the duty in two. The supervisory authority is notified under
 Article 33; the affected data subjects are told separately under Article 34, and only when the
@@ -497,9 +531,12 @@ breach is likely to result in a *high* risk to their rights and freedoms. Articl
 excuses that individual communication where the controller had applied protective measures that
 render the data unintelligible to anyone unauthorised, naming encryption as the example — which
 is why encryption at rest changes the notification calculus and not just the exposure. HIPAA
-scales its regulator notification by size: breaches affecting 500 or more individuals are
-reported to HHS contemporaneously with the individual notice, while smaller ones are logged and
-reported within 60 days after the end of the calendar year.
+sets its threshold as a presumption instead: an impermissible use or disclosure is presumed to
+be a breach unless a risk assessment shows a low probability that the information was
+compromised. Its regulator notification then scales by size under 45 CFR 164.408 — breaches
+affecting 500 or more individuals go to the Secretary contemporaneously with the individual
+notice, while smaller ones are logged and reported no later than 60 days after the end of the
+calendar year.
 
 **Key terms** supervisory authority; awareness as the trigger; high risk; unsecured PHI;
 incident versus breach.
@@ -510,10 +547,12 @@ incident versus breach.
 
 **What it is** A backup inherits everything about its contents: the same classification, the
 same encryption requirement, the same access control, the same retention limit, the same
-disposal obligation. NIST SP 800-53's CP-9 covers system backup, and its cryptographic
-protection enhancement requires cryptographic mechanisms preventing unauthorised disclosure and
-modification of backup information, at both primary and alternate locations, with strength
-commensurate with the security category.
+disposal obligation. NIST SP 800-53's CP-9 covers system backup and requires the
+confidentiality, integrity and availability of backup information to be protected; its
+cryptographic protection enhancement, CP-9(8), requires cryptographic mechanisms preventing
+unauthorised disclosure and modification of backup information, and the discussion applies that
+at both primary and alternate locations, with strength commensurate with the security category
+or classification.
 
 **Why it matters** The control travels with the data, not with the server, and backup targets
 are where that is forgotten. An encrypted production database dumped nightly to an unencrypted
@@ -538,15 +577,14 @@ archive versus backup.
 
 A database server holding eight-year-old customer records is being decommissioned under a
 seven-year retention rule. Running `rm -rf` across the data directory unlinks the files and
-sanitizes nothing, so the disposal step still has to happen: the drive is flash, which rules
-out degaussing and makes a naive whole-device overwrite unreliable because remapped and
-over-provisioned blocks are not reachable through ordinary write commands — so Purge via the
-device's own sanitize command or cryptographic erase, then verify. Meanwhile the same records
-sit in nightly backups whose ninety-day expiry is the actual date they cease to exist, and one
-customer is subject to a legal hold that suspends deletion of their record entirely. Two months
-later an audit finds a database snapshot was copied to an unencrypted archive bucket: that is an
-exposure of restricted data, and whether it is notifiable turns on the regime and on whether
-anyone unauthorised could have read it.
+sanitizes nothing, so disposal still has to happen: the drive is flash, so degaussing cannot be
+relied on and a whole-device overwrite is unreliable because remapped and over-provisioned
+blocks are not reachable through ordinary write commands — Purge via the device's own sanitize
+command or cryptographic erase, then verify. Meanwhile the same records sit in nightly backups
+whose ninety-day expiry is the real date they cease to exist, and one customer is under a legal
+hold that suspends deletion entirely. Two months later an audit finds a snapshot was copied to
+an unencrypted archive bucket: an exposure of restricted data, notifiable or not depending on
+the regime and on who could have read it.
 
 #### Knowledge check
 

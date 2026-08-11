@@ -199,16 +199,15 @@ much scope goes through the phases at a time and how often the loop runs.
 #### Scenario
 
 An operations team is told to move four hundred servers to a new LTS release by the end of Q3.
-That is a project: temporary, with an end date and a unique objective — while the monthly
-patching that continues afterwards is operations, no matter how much effort it consumes. The
-migration runbook and the migrated fleet are deliverables; "pilot batch accepted" is a
-milestone, marking an instant rather than occupying two weeks of the plan. The security lead
-who must sign off the new base image never touches the servers but can stop the work, so she is
-a stakeholder on the influence test alone. Mid-way, the sponsor adds a hundred more servers
-with the date and budget untouched: with scope up and two legs frozen, either the date, the
-budget, or the quality of the migration gives. Whichever methodology the team uses, the same
-lifecycle phases still occur — the choice only changes how much scope passes through them at a
-time.
+That is a project: temporary, with an end date and a unique objective — the monthly patching
+that continues afterwards is operations, however large. The runbook and the migrated fleet are
+deliverables; "pilot batch accepted" is a milestone, marking an instant rather than occupying
+two weeks of the plan. The security lead who must sign off the base image never touches a
+server but can stop the work, so she is a stakeholder on the influence test alone. Mid-way the
+sponsor adds a hundred servers with date and budget untouched: with scope up and two legs
+frozen, either the date, the budget, or quality gives. Whichever methodology the team picks,
+the same lifecycle phases still occur — the choice only changes how much scope passes through
+them at a time.
 
 #### Knowledge check
 
@@ -364,8 +363,9 @@ Increment; Scrum Team.
 **Traps** Scrum defines no project manager and no team lead, and the Scrum Master is not a
 substitute for one. It also does not prescribe user stories, story points, velocity, or
 burndown charts — those are widely used add-ons, and the Guide mentions forecasting practices
-such as burn-downs only to say they do not replace empiricism. The 2020 edition also changed
-vocabulary that older material still uses: it speaks of three *accountabilities*, not roles,
+such as burn-downs only to note that, while useful, they do not replace empiricism. The 2020
+edition also changed vocabulary that older material still uses: it speaks of three
+*accountabilities*, not roles,
 and of *Developers* within one Scrum Team, not a separate "Development Team." A question
 built on pre-2020 wording is still answerable, but the current terms are the safer reading.
 
@@ -558,15 +558,14 @@ it is inspected.
 
 A platform team runs two-week Sprints. On day four the Product Owner asks to swap in an urgent
 integration; the Scrum Master's answer is not a flat refusal but the Sprint's actual rule —
-scope may be clarified and renegotiated with the Product Owner, but no change may be made that
-endangers the Sprint Goal, and if the goal itself is now obsolete only the Product Owner can
-cancel the Sprint. At the Sprint Review the team shows the Increment to stakeholders and
-agrees what comes next; the complaint that "handovers to the support team keep stalling" is a
-process problem and belongs in the Retrospective two hours later, not in the Review. The
-support team next door works the same product but takes unplanned incidents all day; a
-fixed-length Sprint goal would be broken by the first outage, so it runs Kanban with a WIP
-limit of three per stage and watches lead time — and the fact that they own a board with
-columns is not what makes it Kanban, the limits are.
+scope may be clarified and renegotiated with the Product Owner, but no change may endanger the
+Sprint Goal, and if the goal is now obsolete only the Product Owner can cancel the Sprint. At
+the Sprint Review the team shows the Increment and agrees what comes next; the complaint that
+"handovers to support keep stalling" is a process problem and belongs in the Retrospective, not
+the Review. The support team next door works the same product but takes unplanned incidents all
+day, so a Sprint Goal would break at the first outage: it runs Kanban with a WIP limit of three
+per stage and watches lead time. Owning a board with columns is not what makes that Kanban;
+the limits are.
 
 #### Knowledge check
 
@@ -577,9 +576,9 @@ columns is not what makes it Kanban, the limits are.
    The Sprint Review inspects the product and what to do next; the Sprint Retrospective
    inspects individuals, interactions, processes, tools, and the Definition of Done.
 3. How long is the Daily Scrum, and who is it for?
-   Fifteen minutes, for the Developers — it is not a status report to a manager, and the
-   Product Owner or Scrum Master attend as participants only when they are working on Sprint
-   Backlog items.
+   Fifteen minutes, for the Developers — it is not a status report to a manager, and if the
+   Product Owner or Scrum Master are actively working on Sprint Backlog items they take part
+   as Developers.
 4. Name the three parts of the Sprint Backlog.
    The Sprint Goal (why), the selected Product Backlog items (what), and an actionable plan
    for delivering the Increment (how).
@@ -617,8 +616,8 @@ or a reason.
 it is a placeholder for a conversation rather than a specification, so the detail arrives
 through refinement and through acceptance criteria attached to it. Larger needs that cannot be
 finished in one iteration are usually called epics and split. Note that Scrum does not require
-user stories at all; they are a widely used convention layered on top of the Product Backlog,
-whose items the Scrum Guide leaves in no particular format.
+user stories at all; they are a widely used convention layered on top of the Product Backlog —
+the 2020 Scrum Guide, cited under Scrum above, prescribes no format for Product Backlog items.
 
 **Key terms** role; capability; benefit; epic; placeholder for a conversation.
 
@@ -747,18 +746,16 @@ prototype; proof of concept.
 
 #### Scenario
 
-A team is asked to build a self-service password reset portal. The request arrives as "let
-users reset their own passwords"; the refined story reads as a role wanting a capability so
-that they stop waiting on the service desk — the "so that" clause is what later lets the team
-propose an existing identity provider's flow instead of writing one. Its acceptance criteria
-are specific to it: a reset link expires after fifteen minutes, and a failed attempt is logged.
-The Definition of Done is not specific to it at all — peer reviewed, automated tests passing,
-runbook updated — and applies equally to the next twelve stories. On review day the feature
-works but the runbook was never written, so it has not met the Definition of Done: it cannot be
-presented at the Sprint Review and returns to the Product Backlog. The first release covers
-only staff accounts, deliberately: that is the MVP, minimal in scope, not in quality, and it
-exists to find out whether self-service actually reduces service-desk volume before the
-contractor accounts are attempted.
+A team is asked to build a self-service password reset portal. The refined story reads as a
+role wanting a capability so that they stop waiting on the service desk — the "so that" clause
+is what lets the team later propose an existing identity provider's flow instead of writing
+one. Its acceptance criteria are specific to it: reset links expire after fifteen minutes,
+failed attempts are logged. The Definition of Done is not specific to it at all — peer
+reviewed, automated tests passing, runbook updated — and applies to the next twelve stories
+too. On review day the feature works but the runbook was never written, so the Definition of
+Done is not met: it cannot be presented at the Sprint Review and returns to the Product
+Backlog. The first release covers staff accounts only: that is the MVP, minimal in scope, not
+in quality, and it exists to test whether self-service actually cuts service-desk volume.
 
 #### Knowledge check
 
@@ -878,11 +875,11 @@ migrated estate at the top, decomposed into base image, pilot batch, bulk batche
 decommissioning, each broken down until every leaf can be given an owner and an estimate. That
 is the work breakdown structure, and the reviewer's question "which of these can slip without
 moving the end date?" cannot be answered from it, because it holds no dates and no dependencies.
-The answer comes from the schedule built on top of it: the chain running base image to pilot to
-bulk batch one is the longest dependent chain, so it is the critical path, and speeding up
-decommissioning — which sits off that chain — would buy nothing. On the delivery side the same
-team forecasts each Sprint from what it actually completed in recent Sprints, which is useful
-to them and meaningless as a comparison against the neighbouring team, whose units are its own.
+The answer comes from the schedule built on top: base image to pilot to bulk batch one is the
+longest dependent chain, so it is the critical path, and speeding up decommissioning — off that
+chain — would buy nothing. The same team forecasts each Sprint from what it actually completed
+recently, which is useful to them and meaningless against the neighbouring team, whose units
+are its own.
 
 #### Knowledge check
 
@@ -1178,19 +1175,17 @@ sends its learning outward.
 
 #### Scenario
 
-Two weeks before a migration's cutover the vendor warns that a firmware batch may arrive late.
-That is a risk, not an issue: it is assessed for likelihood and impact, ranked, and given a
-response — here transfer is unavailable and avoidance would mean redesigning the plan, so the
-team mitigates by starting with the batches that need no new firmware and accepts the residual
-with a contingency reserve. A week later the batch genuinely fails to arrive; it is now an
-issue, raised in the tracker with an owner and escalated along the path the communication plan
-already defined, rather than by improvisation. The sponsor asks to add twenty more servers
-while the date holds. Routed through change control, the request is assessed, approved with a
-two-week date extension, and the baseline updated — the same request accepted in a corridor
-with the plan untouched would have been scope creep, and the difference is the assessment and
-the re-baselining, not the answer given. At the end, acceptance is confirmed against the
-criteria agreed at the start, the fleet and its runbook are handed to operations, and the
-firmware lesson is written where the next migration will look for it.
+Before a migration's cutover the vendor warns a firmware batch may arrive late. That is a risk,
+not an issue: it is assessed for likelihood and impact, ranked, and answered — mitigate by
+starting with batches needing no new firmware, accept the residual against a contingency
+reserve. A week later the batch genuinely fails to arrive: now an issue, raised in the tracker
+with an owner and escalated along the path the communication plan already defined. The sponsor
+then asks to add twenty servers while the date holds. Routed through change control it is
+assessed, approved with a two-week extension, and the baseline updated; absorbed in a corridor
+instead, it would have been scope creep — the difference is the assessment and the
+re-baselining, not the answer given. At closure, acceptance is confirmed against the criteria
+agreed at the start, the fleet and runbook go to operations, and the firmware lesson is
+recorded where the next migration looks.
 
 #### Knowledge check
 

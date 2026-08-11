@@ -7,10 +7,10 @@ about once it is up. It sits in Cloud Computing Fundamentals, 18% of the exam �
 6 domains — and the competency was reworded in the 2025 update rather than added or removed.
 LFS200 does not reach it at all: all 17 concepts are NOT COVERED — 0/17 (0%) are not NOT
 COVERED — so every topic below is sourced independently of the course
-(`research/lfs200-notes/00-course-map.md`). This is the file where the exam's favourite
-near-synonyms live, and almost every question in it is a discrimination question: availability
-against high availability, high availability against fault tolerance, failover against load
-balancing, up against out, caching against a CDN.
+(`research/lfs200-notes/00-course-map.md`). This is where the competency's near-synonyms
+cluster — availability against high availability, high availability against fault tolerance,
+failover against load balancing, up against out, caching against a CDN — so the topics below
+are written as discriminations rather than as definitions.
 
 <a id="s-performance-availability-availability"></a>
 ## Availability
@@ -48,7 +48,7 @@ permits:
 **Key terms** nines; measurement window; uptime versus yield; service level indicator.
 
 **Traps** Each extra nine divides the permitted downtime by ten, not by some smaller
-increment — the step from 99.9% to 99.99% is the difference between most of a working day and
+increment — the step from 99.9% to 99.99% is the difference between a full working day and
 under an hour per year, which is why the cost curve is so steep. A percentage quoted with no
 window attached is meaningless: 99.9% measured monthly and 99.9% measured annually allow very
 different single outages. And availability is not a synonym for high availability; it is the
@@ -118,13 +118,15 @@ failover — a described design still needs.
 *id: `cloud.performance-availability.fault-tolerance` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-reliability-pillar*
 
 **What it is** Continuing to operate correctly through a failure with no interruption at
-all — the failure is absorbed rather than detected and recovered from. It is a strictly
-stronger property than high availability, and correspondingly more expensive.
+all — the failure is absorbed rather than detected and recovered from. NIST's glossary defines
+the term broadly, as a property that allows proper operation even if components fail; the
+working distinction against high availability is the narrower one used here, and on it fault
+tolerance is the stronger of the two properties and correspondingly more expensive.
 
-**Why it matters** The pair "highly available" and "fault tolerant" is the single most
-reliably examined near-synonym in this competency, and the discriminator is narrow: whether
-the user experiences anything at the moment of failure. Scenarios are written to supply
-exactly that detail and then ask for the label.
+**Why it matters** "Highly available" and "fault tolerant" are a named confusable pair in this
+competency, and the discriminator between them is narrow: whether the user experiences
+anything at the moment of failure. A scenario that bothers to supply that detail is asking for
+the label.
 
 **How it works** Rather than keeping a standby idle until a health check fails, a
 fault-tolerant design runs redundant components concurrently and has each doing, or ready to
@@ -200,10 +202,11 @@ exam pairs it with both high availability and load balancing.
 **How it works** A health check probes the active component on an interval; after a
 configured number of consecutive failures it is declared unhealthy, and the traffic path is
 changed — a DNS record is switched to the standby's address, a virtual IP is moved, or a
-cluster manager promotes a replica to primary. DNS-based failover is the common cloud form:
-health checks are attached to records and a failover routing policy sends traffic to the
-secondary when the primary's check fails. Failback is the return to the original component
-once it is healthy again, and it is a separate decision, often deliberately manual.
+cluster manager promotes a replica to primary. DNS-based failover is one common cloud form,
+and Amazon Route 53 is the documented example: a health check is associated with a record, and
+a failover routing policy answers with the healthy secondary once the primary's resources are
+unhealthy. Failback is the return to the original component once it is healthy again, and it
+is a separate decision, often deliberately manual.
 
 **Key terms** health check; failure threshold; active-passive; DNS TTL; failback.
 
@@ -238,16 +241,15 @@ standby.
 #### Scenario
 
 An order service runs on one application server and one database, with a 99.9% monthly
-availability target — about 43.2 minutes of permitted downtime over a 30-day month. The database host dies at
-02:00 and someone restores it by hand at 03:10, blowing the month's budget in one event. Work
-the fix through the right terms: the database was a single point of failure, so add
-redundancy — a replica in a different availability zone. That alone changes nothing, because
-nobody is watching; add automatic failover, so a health check promotes the replica without a
-human. That makes the system highly available, not fault tolerant: the next failure will still
-show users a short error window while detection and promotion run. Separately, the application
-tier is a different problem — it is not failing, it is saturating at peak — and the answer
-there is a load balancer across several application servers, which acts on every request
-rather than only on failure.
+availability target — about 43.2 minutes of permitted downtime over a 30-day month. The
+database host dies at 02:00 and someone restores it by hand at 03:10, blowing the month's
+budget in one event. The database was a single point of failure, so add redundancy: a replica
+in a different availability zone. That alone changes nothing, because nobody is watching; add
+automatic failover, so a health check promotes the replica without a human. The system is then
+highly available, not fault tolerant — the next failure still shows users a short error window
+while detection and promotion run. The application tier is a separate problem: it is not
+failing, it is saturating at peak, and the answer there is a load balancer across several
+application servers, acting on every request rather than only on failure.
 
 #### Knowledge check
 
@@ -313,10 +315,12 @@ single-writer relational database's write path, software licensed per node, or a
 state pinned to one process. The exam asks for it in exactly those cases and asks for
 horizontal scaling everywhere else.
 
-**How it works** The instance is stopped, its type changed to one with more resources, and
-started again — so the move typically costs a restart and therefore a maintenance window. In
-exchange, nothing above the machine has to change: no load balancer, no session handling, no
-distribution of work.
+**How it works** The instance is stopped, its size changed to one with more resources, and
+started again — AWS, Azure and Google Cloud each document the machine being stopped or
+restarted for the change, so the move costs an interruption and therefore a maintenance
+window. The size itself is called an instance type on AWS, a VM size on Azure and a machine
+type on Google Cloud. In exchange, nothing above the machine has to change: no load balancer,
+no session handling, no distribution of work.
 
 **Key terms** scaling up; instance type; maintenance window; hard ceiling.
 
@@ -392,14 +396,15 @@ whether the horizontal answer is available at all.
 is the mechanism that converts a merely scalable system into an elastic one — the automation
 and the "in both directions" that elasticity requires are precisely what auto-scaling supplies.
 
-**Why it matters** Auto-scaling is also, incidentally, an availability mechanism: a group
-configured with a desired capacity monitors the health of its members and replaces terminated
-or impaired instances to hold that number, so an instance failure is repaired without anyone
-being paged.
+**Why it matters** Auto-scaling is also, incidentally, an availability mechanism: AWS
+documents an Auto Scaling group replacing any member it finds unhealthy, or one that
+terminates unexpectedly, to hold the group's capacity — so an instance failure is repaired
+without anyone being paged.
 
 **How it works** Instances are grouped and the group is given a minimum it may never fall
-below, a maximum it may never exceed, and a desired capacity it is held at. Policies then move
-the desired capacity within those bounds: dynamic scaling reacts to an observed metric such as
+below and a maximum it may never exceed; AWS, Azure and Google Cloud all express the bounds
+that way, and AWS additionally holds the group at a stated desired capacity. Policies then
+move capacity within those bounds: dynamic scaling reacts to an observed metric such as
 average CPU utilisation or requests per instance, scheduled scaling changes capacity at known
 times against the clock, and predictive scaling acts on a forecast of expected load. The
 minimum and maximum are guardrails, not targets — the maximum is what stops a runaway metric
@@ -482,17 +487,16 @@ system stores no data at all.
 
 #### Scenario
 
-A retail site is slow every weekday at 09:00 and idle overnight, and the operator's current fix
-is to move the web server to a larger instance type each quarter. Diagnose the design. The
-resize is vertical scaling: it needs a restart, it stops at the largest type offered, and it
-leaves the site on one machine, so the single point of failure is untouched. The right move is
-horizontal — several identical web instances behind a load balancer distributing every request
-across the healthy ones. That only works if any instance can serve any user, so sessions must
-come off local disk into a shared store first; the sticky sessions currently configured are the
-evidence that they have not. With that done, an auto-scaling group with a minimum, a maximum
-and a schedule adds instances before the morning peak and removes them at night — the removal
-is what makes the system elastic rather than merely scalable, and it is where the cost saving
-appears.
+A retail site is slow every weekday at 09:00 and idle overnight; the operator's fix each
+quarter is to move the web server to a larger size. That resize is vertical scaling: it
+needs a restart, it stops at the largest size offered, and it leaves the site on one machine
+with its single point of failure untouched. The right move is horizontal — identical web
+instances behind a load balancer distributing every request across the healthy ones. That
+works only if any instance can serve any user, so sessions must come off local disk into a
+shared store; the sticky sessions configured today are the evidence they have not. Then a
+scaling group with a minimum, a maximum and a schedule adds instances before the peak and
+removes them at night — the removal makes the system elastic rather than merely scalable, and
+is where the cost saving appears.
 
 #### Knowledge check
 
@@ -611,8 +615,9 @@ while nearby users are fine. That is a distance problem, and no amount of extra 
 fixes it, because the delay is in the round trips across the network rather than in the origin's
 own processing.
 
-**How it works** A distribution is configured naming the origin the content comes from — an
-object store or an HTTP server. A viewer's request resolves to a nearby edge server, which
+**How it works** The network is configured with the origin the content comes from — an object
+store or an HTTP server, holding the original and definitive copy; CloudFront calls that
+configuration a distribution. A viewer's request resolves to a nearby edge server, which
 serves the object from its cache if it holds a fresh copy, and otherwise fetches it from the
 origin, returns it, and keeps it for subsequent requests according to its time-to-live.
 Invalidation removes an object from the edges before its TTL expires when content changes.
@@ -646,8 +651,9 @@ metric, and a bottleneck is found by comparing metrics across resources. Monitor
 supplies all of them.
 
 **How it works** Instances and services emit metrics to a time-series store; dashboards render
-them and alert rules evaluate them against thresholds over a window. The signals worth watching
-first are latency, traffic, errors, and saturation — how full the constraining resource is.
+them and alert rules evaluate them against thresholds over a window. The four signals
+conventionally watched first — Google's SRE book calls them the golden signals — are latency,
+traffic, errors, and saturation, saturation being how full the constraining resource is.
 Alerts are deliberately set below the failure point so that a human or an automatic policy acts
 while there is still margin.
 
@@ -684,14 +690,15 @@ answer ones you did not. Metrics are a component of it, not a synonym for it.
 *id: `cloud.performance-availability.bottleneck-identification` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-pillars*
 
 **What it is** Locating the one constraining resource — CPU, memory, disk I/O, network, or an
-external dependency — before attempting any optimisation. At any moment a system has exactly
-one binding constraint, and effort spent anywhere else changes nothing measurable, which is why
-the ordering matters more than the technique.
+external dependency — before attempting any optimisation. Throughput along a path is set by
+whichever resource saturates first, so effort spent on any other resource changes nothing
+measurable, which is why the ordering matters more than the technique.
 
-**Why it matters** Most wrong answers in a performance scenario are plausible fixes aimed at
-the wrong resource: adding instances to a workload constrained by a single database writer,
-adding a CDN to a slow query, adding memory to a disk-bound job. The exam supplies the metric
-that identifies the real constraint and then offers several fixes, only one of which touches it.
+**Why it matters** The attractive wrong answers in a performance scenario are plausible fixes
+aimed at the wrong resource: adding instances to a workload constrained by a single database
+writer, adding a CDN to a slow query, adding memory to a disk-bound job. The exam supplies the
+metric that identifies the real constraint and then offers several fixes, only one of which
+touches it.
 
 **How it works** Measure each resource on the path under real load and look for the one that is
 saturated — not merely busy. Utilisation says how much of a resource is in use; saturation says
@@ -706,21 +713,20 @@ whatever was second, so the measurement is repeated rather than done once.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `cloud.performance-availability.sla-slo-and-sli` | SLA, SLO and SLI | The SLI is the measurement, the SLO is the internal target set on that measurement, and the SLA is the contract with users that attaches consequences to meeting or missing it. | Options present the three as interchangeable, and the discriminator is consequences: if missing the number costs nothing contractually it is an SLO, not an SLA — an SLO is a target on an SLI, never a measurement in its own right, and internal targets are normally set stricter than the contracted figure. [Not to be confused with service level agreement](cloud-computing.md#cmp-cloud.cloud-computing.service-level-agreement). |
+| `cloud.performance-availability.sla-slo-and-sli` | SLA, SLO and SLI | The SLI is the measurement, the SLO is the internal target set on that measurement, and the SLA is the contract with users that attaches consequences to meeting or missing it. | Options present the three as interchangeable, and the discriminator is consequences: if missing the number costs nothing contractually it is an SLO, not an SLA — an SLO is a target on an SLI, never a measurement in its own right, and the standard advice is to hold the internal target tighter than the figure advertised to users, as a safety margin. [Not to be confused with service level agreement](cloud-computing.md#cmp-cloud.cloud-computing.service-level-agreement). |
 
 #### Scenario
 
 Support reports that checkout "feels slow," and average response time on the dashboard is
-unchanged. Work it in order. First correct the metric: the average is hiding the tail, and p99
-latency has tripled — a minority of requests are very slow, which is exactly what an average
-conceals. Then find the constraint rather than guessing: CPU is at 40% on the application
-instances, but the database's disk queue is deep and its saturation, not its utilisation, is
-what tracks the p99 curve. That rules out the two attractive wrong fixes — more instances, and
-a CDN, which would help only if the symptom were regional and the content static. Note also
-what the numbers mean contractually: the internal target the team is now breaching is an SLO,
-and it is deliberately stricter than the customer-facing SLA, so there is margin to act in
-before any consequence is triggered. Fix the database, then measure again: the constraint will
-have moved somewhere else.
+unchanged. Correct the metric first: the average is hiding the tail, and p99 latency has
+tripled — a minority of requests are very slow, which is exactly what an average conceals.
+Then find the constraint rather than guessing: CPU is at 40% on the application instances, but
+the database's disk queue is deep, and its saturation, not its utilisation, tracks the p99
+curve. That rules out the two attractive wrong fixes — more instances, and a CDN, which would
+help only if the symptom were regional and the content static. The target the team is
+breaching is an SLO, held deliberately tighter than the customer-facing SLA, so there is
+margin to act in before any contractual consequence. Fix the database, then measure again: the
+constraint will have moved.
 
 #### Knowledge check
 

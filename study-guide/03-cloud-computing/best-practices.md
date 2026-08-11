@@ -26,9 +26,14 @@ correct operation and bolting on exception handling afterwards.
 
 **Why it matters** It is the assumption the reliability pillar of a well-architected review
 tests for, and it is what separates a system that survives an instance loss from one that
-merely has not lost an instance yet. On the exam it is the reasoning behind almost every other
-Architecture answer: multi-zone deployment, health checks and instance replacement are all
-consequences of having made this assumption.
+merely has not lost an instance yet. Hold it apart from the three terms it sits next to,
+because it is a design assumption rather than a mechanism or a measurement: fault tolerance is
+the component-level property that absorbs a defined class of failure with no user-visible
+interruption, high availability is the weaker property that accepts a short interruption while
+detection and failover run, and disaster recovery is the separate plan for restoring service
+after a loss the design did not absorb. On the exam design for failure is the reasoning behind
+almost every other Architecture answer: multi-zone deployment, health checks and instance
+replacement are all consequences of having made this assumption.
 
 **How it works** Concretely: no single instance holds state that cannot be lost, dependencies
 are assumed to time out and are given timeouts and retries, capacity is redundant so the loss
@@ -47,10 +52,12 @@ availability zone is an isolated location within a region — on Azure, a separa
 datacenters with independent power, cooling and networking; on AWS, one of several isolated
 locations whose code is the region code plus a letter, such as `us-east-1a`.
 
-**Why it matters** This is the most commonly mis-scoped answer in the competency. Multi-zone
-protects against a zone-level failure inside a region; it does not protect against the loss of
-the whole region, and it does nothing for a data-residency requirement that names a country.
-Those are multi-region problems. Multi-zone is also not multi-cloud, and not the same as
+**Why it matters** Scope is what gets mis-answered here. Multi-zone protects against a
+zone-level failure inside a region; it does not protect against the loss of the whole region,
+which is what a multi-region design is for. Nor does it answer a data-residency requirement
+that names a country: residency is decided by *which* region you place the workload in — AWS
+tells you to select a Region that meets the legal requirements you have — not by how many
+zones or regions you spread across. Multi-zone is also not multi-cloud, and not the same as
 taking a backup.
 
 **How it works** Regions are separate geographic areas, isolated from each other, with no
@@ -140,12 +147,12 @@ replacing instances safe to do at all.
 
 **How it works** The build produces a versioned artifact — a machine image or container image —
 containing the application and its configuration. Deployment launches new instances from that
-artifact and shifts traffic to them, then drains and terminates the old ones; blue/green and
-rolling replacement are the two common shapes. Rollback is redeploying the previous artifact,
-not reversing a patch. Because the instance is disposable, any state it must keep has to live
-somewhere else.
+artifact and shifts traffic to them, then drains and terminates the old ones; the reliability
+pillar names blue/green and canary as the two rollout patterns for this. Rollback is redeploying
+the previous artifact, not reversing a patch. Because the instance is disposable, any state it
+must keep has to live somewhere else.
 
-**Key terms** machine image; artifact version; blue/green; rolling replacement; disposability.
+**Key terms** machine image; artifact version; blue/green; canary; disposability.
 
 **Traps** "Immutable" describes the instance, not the data. Anything the workload must not lose
 has to be externalised — into a managed database, object storage, or a volume whose lifecycle
@@ -170,17 +177,18 @@ disposable.
 **What it is** A structured assessment of a workload against a published set of architectural
 pillars, rather than against the single question of whether it currently works. AWS names
 **six** pillars: operational excellence, security, reliability, performance efficiency, cost
-optimization, and sustainability — sustainability was added in December 2021, so any source
-saying "five pillars" predates it. Azure's Well-Architected Framework names five: reliability,
-security, cost optimization, operational excellence, and performance efficiency, with no
-sustainability pillar.
+optimization, and sustainability — the framework's own revision history records sustainability
+being added in late 2021, so any source saying "five pillars" predates it. Azure's
+Well-Architected Framework names five: reliability, security, cost optimization, operational
+excellence, and performance efficiency, with no sustainability pillar.
 
 **Why it matters** The number and names of the pillars are directly recallable facts, and the
 five/six discrepancy between the two major providers is exactly the kind of near-miss a
 multiple-choice option is built from. More usefully, the pillar set is the vocabulary the rest
 of this competency is organised by: encryption and least privilege are the security pillar,
-multi-zone deployment is reliability, right-sizing is cost optimization, tagging and logging
-are operational excellence.
+multi-zone deployment and immutable deployment are reliability, right-sizing and tagging for
+cost allocation are cost optimization, and defining operations as code is operational
+excellence.
 
 **How it works** A review walks the workload through questions grouped by pillar and produces
 a prioritised list of improvements and the tradeoffs between pillars — more redundancy costs
@@ -208,7 +216,8 @@ respectively.
 1. A service is deployed across three availability zones in one region. What class of outage is
    it still fully exposed to?
    The loss of the whole region — multi-zone protects against a zone-level failure inside a
-   region, not a regional one. Data-residency requirements are likewise a multi-region concern.
+   region, not a regional one, so surviving that needs a multi-region design. A data-residency
+   requirement is a separate matter again: it is settled by which region the workload sits in.
 2. How many pillars does the AWS Well-Architected Framework have, and how does Azure's differ?
    AWS has six — operational excellence, security, reliability, performance efficiency, cost
    optimization, sustainability. Azure names five and has no sustainability pillar.
@@ -263,9 +272,11 @@ instead of shipping with it.
 
 **Why it matters** The distinction the exam draws is against the two things a secret store is
 not. It is not a key management service: a KMS creates and controls the encryption *keys*, and
-AWS's own guidance routes encryption keys to KMS and AWS credentials to IAM, sending only
-application and database credentials to Secrets Manager. It is also not "an environment variable,
-but encrypted" — an encrypted value baked into an image or a deployment manifest is still an
+AWS's own guidance leaves database, application and third-party credentials, OAuth tokens and
+API keys to Secrets Manager while routing AWS credentials to IAM, encryption keys to KMS, SSH
+keys to EC2 Instance Connect, and private keys and certificates to Certificate Manager. It is
+also not "an environment variable, but encrypted" — an encrypted value baked into an image or a
+deployment manifest is still an
 artifact anyone with access to the pipeline or the registry can extract, and changing it still
 requires a redeploy.
 
@@ -335,12 +346,13 @@ giving the workload an identity the platform vouches for — an instance role or
 — from which it receives temporary credentials automatically. Human users get the same treatment
 through federation with an identity provider.
 
-**Why it matters** A long-lived access key is the most commonly leaked cloud secret because it
-travels: into a repository, a container image layer, a CI log, a screenshot, a backup of any of
-those. The trap is the half-fix. Moving the key out of source code and into an environment
-variable, a private repository, or an untracked config file changes where the key is, not what
-it is — it is still a static, long-lived credential that can be copied once and used until
-somebody revokes it. Rotation shortens the exposure window but does not remove the class of
+**Why it matters** A long-lived access key leaks easily because it travels: into a repository,
+a container image layer, a CI log, a screenshot, a backup of any of those. AWS's own remedy is
+to stop issuing them — human users federate for temporary credentials, workloads assume roles —
+rather than to guard them better. The trap is the half-fix. Moving the key out of source code
+and into an environment variable, a private repository, or an untracked config file changes
+where the key is, not what it is — it is still a static, long-lived credential that can be
+copied once and used until somebody revokes it. Rotation shortens the exposure window but does not remove the class of
 problem.
 
 **How it works** The platform issues short-lived credentials to the running workload through its
@@ -353,18 +365,16 @@ not in the application's own configuration.
 
 #### Scenario
 
-An application on a cloud instance reads a database password from an environment variable set in
-its deployment manifest, and calls the provider's storage API using an access key checked into a
-private repository. Separate the two problems, because they take different fixes. The access key
-is a provider credential: it should not exist at all — attach a role to the instance so the
-workload receives temporary credentials automatically, which is the only fix that removes the
-static key rather than relocating it. The database password is a third-party credential that
-must exist somewhere, so it moves into a managed secret store and is fetched at runtime, which
-also makes rotation possible without redeploying. Then narrow the role: if it was granted
-administrator permissions to get the deployment working, it now needs only the specific storage
-actions the application makes. Finally, note what none of this fixed — if the storage bucket is
-unencrypted, adding a role does not encrypt it, and if it is encrypted but readable by an
-over-broad policy, encryption at rest does not stop the read.
+An application on a cloud instance reads a database password from an environment variable in its
+deployment manifest, and calls the provider's storage API with an access key checked into a
+private repository. The two take different fixes. The access key is a provider credential that
+should not exist at all: attach a role to the instance so the workload receives temporary
+credentials automatically, which removes the static key rather than relocating it. The database
+password must exist as a value, so it moves into a managed secret store and is fetched at
+runtime, which also makes rotation possible without a redeploy. Then narrow the role — granted
+administrator permissions during setup — to the storage actions the application actually makes.
+Finally, note what none of this fixed: a role does not encrypt an unencrypted bucket, and
+encryption at rest does not stop an over-broad policy from reading it.
 
 #### Knowledge check
 
@@ -521,19 +531,16 @@ unhealthy.
 
 #### Scenario
 
-A deployment replaces every instance in a fleet, and users see a burst of 500-level errors, after
-which a monitoring dashboard shows nothing wrong. Work the operations practices in order. The
-errors are a graceful-shutdown failure: the old targets were terminated while requests were still
-in flight rather than being allowed to drain, so the fix is in deregistration behaviour and the
-application's handling of the termination signal, not in the dashboard — the health check is a
-control-loop input, not an alert. Ask separately who triggered the deployment and what else
-changed in the account at that minute: that is the control-plane audit trail's question, and if
-the incident is investigated more than 90 days later, only a configured trail will still have the
-answer. The post-incident review then finds the fleet is running on instances sized for a load
-peak that never arrives, and someone proposes autoscaling — right-size the instance type first,
-or the scaling multiplies the waste. And nobody can say who owns the fleet, because the resources
-carry no `Owner` tag, which is also why they were missing from the backup plan that selects
-resources by tag.
+A deployment replaces every instance in a fleet, users see a burst of 500-level errors, and the
+monitoring dashboard shows nothing wrong. The errors are a graceful-shutdown failure: old
+targets were terminated with requests still in flight rather than draining, so the fix is in
+deregistration behaviour and the application's handling of the termination signal — a health
+check is a control-loop input, not a dashboard alert. Ask separately what else changed in the
+account at that minute: that is the audit trail's question, and past 90 days only a configured
+trail or a CloudTrail Lake event data store still has the answer. The review finds instances
+sized for a peak that never arrives, and someone proposes autoscaling — right-size first, or
+scaling multiplies the waste. Nobody can say who owns the fleet either: no `Owner`
+tag, which is why it also fell out of the tag-selected backup plan.
 
 #### Knowledge check
 

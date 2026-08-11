@@ -5,7 +5,8 @@ Compliance sits in Security Fundamentals, a domain worth 14% of the exam — the
 update, so no pre-2025 material covers it. Neither does the course: all 14 concepts are NOT
 COVERED, 0 of 14 (0%), and `GDPR`, `HIPAA`, `ISO 27001` and `SOC 2` each occur zero times
 across the whole of LFS200 (`research/lfs200-notes/00-course-map.md`). Everything below is
-therefore sourced directly from the regulations, standards and NIST publications themselves.
+therefore sourced from primary references — the regulations, the standards, the licence texts
+and the NIST publications themselves — rather than from course material.
 Two cautions the rest of this file is written under: nothing here is legal advice, and a
 framework's scope — what it governs and whom it binds — is the fact the exam tests, far more
 often than any list of its clauses.
@@ -35,12 +36,12 @@ contradictory, and recognising that is the whole of this concept.
 **How it works** The loop has four stages and compliance is the loop, not any one stage. An
 obligation arrives from a source outside the team — a statute (GDPR), a sector rule (HIPAA), a
 contract (PCI-DSS), or an internal policy the organisation has bound itself to. It is
-translated into controls: NIST SP 800-53 defines security controls as the safeguards or
-countermeasures employed within a system or organisation to protect confidentiality, integrity
-and availability and to manage risk. The controls are operated, and operating them produces
-evidence. An assessment examines the evidence against the obligation and produces a finding or
-an opinion. Break any stage and the organisation is not compliant even if the system is
-perfectly safe.
+translated into controls: NIST SP 800-53 Rev. 5 defines security controls as the safeguards or
+countermeasures employed within a system or an organisation to protect the confidentiality,
+integrity and availability of the system and its information and to manage information security
+risk. The controls are operated, and operating them produces evidence. An assessment examines
+the evidence against the obligation and produces a finding or an opinion. Break any stage and
+the organisation is not compliant even if the system is perfectly safe.
 
 **Key terms** obligation; control; evidence; assessment; attestation; scope.
 
@@ -101,19 +102,19 @@ policy with no standard beneath it: intent stated, nothing measurable, nothing t
 ### Controls and evidence
 *id: `security.compliance.controls-and-evidence` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
 
-**What it is** A control is a safeguard — in NIST SP 800-53's own wording, a safeguard or
-countermeasure employed within a system or organisation to protect confidentiality, integrity
-and availability and to manage risk. Evidence is the artifact showing that the control
-actually operated: the log line, the ticket with an approval on it, the quarterly access
-review with dates and a reviewer's name, the scan report. The control is the thing that
-protects; the evidence is the thing that proves.
+**What it is** A control is a safeguard — in NIST SP 800-53 Rev. 5's own wording, a safeguard
+or countermeasure employed within a system or an organisation to protect the confidentiality,
+integrity and availability of the system and its information and to manage information security
+risk. Evidence is the artifact showing that the control actually operated: the log line, the
+ticket with an approval on it, the quarterly access review with dates and a reviewer's name,
+the scan report. The control is the thing that protects; the evidence is the thing that proves.
 
 **Why it matters** Audits examine evidence, not assurances. An organisation with excellent
-controls and no artifacts fails, because the assessor has nothing to sample. This is the most
-common real-world compliance gap and the most common exam framing of it: the described control
-is genuinely in place, and the question is what is still missing.
+controls and no artifacts fails, because the assessor has nothing to sample. That gap is
+routine in practice and is a favourite exam framing: the described control is genuinely in
+place, and the question is what is still missing.
 
-**How it works** Controls are classified two ways, and the exam uses both vocabularies.
+**How it works** Controls are classified two ways, and both vocabularies are in common use.
 By function: preventive (stops it happening — MFA, a firewall rule), detective (notices it
 happened — log monitoring, file integrity checking), corrective (restores afterwards —
 restoring from backup, revoking a compromised key). By nature: administrative (a documented
@@ -142,24 +143,24 @@ generates no artifact cannot be audited regardless of how well it works.
 ### Audit
 *id: `security.compliance.audit` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, aicpa-soc2*
 
-**What it is** A formal examination of evidence against defined criteria, over a defined
-scope and period, producing findings or an opinion. It can be internal — the organisation
-examining itself — or performed by an independent external assessor: a CPA firm for a SOC 2
-examination, a Qualified Security Assessor for PCI-DSS, an accredited certification body for
-ISO 27001.
+**What it is** A formal examination of evidence against defined criteria, within a defined
+scope and either as of a date or across a period, producing findings or an opinion. It can be
+internal — the organisation examining itself — or performed by an independent external
+assessor: a CPA firm for a SOC 2 examination, a Qualified Security Assessor for PCI-DSS, an
+accredited certification body for ISO 27001.
 
-**Why it matters** An audit is an *event*; compliance is a *state*. The exam exploits the gap
-between them constantly, because a candidate who treats "passed the audit" as "is compliant
-now" will answer breach and incident scenarios wrongly. The report speaks about a window that
-has already closed.
+**Why it matters** An audit is an *event*; compliance is a *state*. The gap between them is
+easy to exploit in a question, because a candidate who treats "passed the audit" as "is
+compliant now" will answer breach and incident scenarios wrongly. The report speaks about a
+window that has already closed.
 
 **How it works** The scope and criteria are fixed first — which systems, which standard, which
 period. The assessor then examines artifacts, interviews the people who run the controls, and
 tests the controls on sampled items from that period. What comes out is a finding list, an
 opinion, or a certificate, depending on the regime. Two report shapes recur and are routinely
 confused: a point-in-time examination asks whether the controls were suitably *designed* on a
-given date; a period examination asks whether they *operated effectively* across months. The
-second is far more expensive and far more meaningful.
+given date; a period examination asks whether they *operated effectively* across months. A SOC
+2 Type 1 and a Type 2 report are exactly this pair. The second costs more and claims more.
 
 **Key terms** scope; criteria; period; sample; finding; opinion; independence.
 
@@ -267,10 +268,13 @@ controller or processor *not* established in the Union where the processing rela
 offering goods or services to data subjects in the Union, or to monitoring their behaviour
 within the Union.
 
-**Why it matters** GDPR is the compliance regime most likely to be misdescribed in a plausible
-distractor, because almost everyone has heard of it and almost nobody has read Article 3. Its
-scope is not "EU citizens" and not "companies in Europe" — it is people who are in the Union,
-and anyone anywhere who processes their data under one of those triggers.
+**Why it matters** GDPR is easy to misdescribe plausibly, because almost everyone has heard of
+it and almost nobody has read Article 3. Its scope is not "EU citizens" and not "companies in
+Europe", and the two limbs of Article 3 do not test the same thing: 3(1) turns on the
+*establishment*, so an EU establishment's processing is covered whoever the data subjects are
+and wherever the processing happens, while 3(2) turns on the *data subject's location*,
+reaching a controller or processor with no EU establishment when it offers goods or services
+to, or monitors, people who are in the Union. Citizenship is not a condition in either limb.
 
 **How it works** Article 5 sets the principles every processing must satisfy: lawfulness,
 fairness and transparency; purpose limitation; data minimisation; accuracy; storage
@@ -307,7 +311,7 @@ recognising that "store it in the EU" is not what GDPR actually requires.
 | --- | --- | --- |
 | Source of authority | Law — an EU regulation | Contract — a standard published by the PCI Security Standards Council |
 | Who enforces it | National supervisory authorities, with statutory powers | Payment brands and acquiring banks, through the merchant agreement |
-| What it protects | Personal data of people who are in the Union | Cardholder data and sensitive authentication data |
+| What it protects | Personal data caught by Article 3 — processed in the context of an EU establishment's activities, or belonging to people who are in the Union | Cardholder data and sensitive authentication data |
 | Who is bound | Controllers and processors, inside or outside the EU, per Article 3 | Any entity storing, processing or transmitting payment account data, or able to affect the security of the cardholder data environment |
 | Penalty mechanism | Administrative fines and corrective orders from a regulator | Contractual fines passed down by the acquirer; loss of the ability to accept cards |
 | Style of requirement | Principles and outcomes; the controller chooses the measures | Twelve numbered requirements with explicit testing procedures |
@@ -340,8 +344,9 @@ safeguards. Each standard's implementation specifications are labelled Required 
 Addressable. Addressable does not mean optional: the entity must assess whether the
 specification is a reasonable and appropriate safeguard in its environment, implement it if it
 is, and otherwise document why it is not and implement an equivalent alternative measure if
-reasonable and appropriate. Breach notification to affected individuals is due without
-unreasonable delay and in no case later than 60 calendar days after discovery.
+reasonable and appropriate. Under 45 CFR 164.404, a covered entity's notification to
+individuals affected by a breach of unsecured PHI is due without unreasonable delay and in no
+case later than 60 calendar days after discovery.
 
 **Key terms** covered entity; business associate; PHI and ePHI; required versus addressable.
 
@@ -357,24 +362,29 @@ legislation. The Council states plainly that whether an entity is required to co
 validate compliance to, a PCI standard is at the discretion of the organisations that manage
 compliance programs, such as a payment brand or an acquirer.
 
-**Why it matters** This is the single discrimination the exam wants from PCI-DSS: it is
-contractual, not governmental, unlike GDPR and HIPAA. That difference changes who can punish
-you, what the punishment is, and how the obligation reaches you in the first place — through a
-merchant agreement with an acquiring bank rather than through a statute. A distractor calling
-PCI-DSS "a regulation" or "a law" is wrong for exactly that reason.
+**Why it matters** This is the discrimination to hold onto for PCI-DSS: it is contractual, not
+governmental, unlike GDPR and HIPAA. That difference changes who can punish you, what the
+punishment is, and how the obligation reaches you in the first place — through a merchant
+agreement with an acquiring bank rather than through a statute. A distractor calling PCI-DSS
+"a regulation" or "a law" is wrong for exactly that reason.
 
 **How it works** The standard is organised as twelve principal requirements, each broken into
 sub-requirements with defined testing procedures — which makes it far more prescriptive than
 GDPR's principles-based drafting. Its two most consequential data rules run in opposite
-directions: sensitive authentication data (full track data, card verification codes, PINs)
-must not be retained after authorisation at all, while the primary account number, which may
-be stored, must be rendered unreadable wherever it is stored. How an entity validates depends
-on its transaction volume and how it accepts cards: smaller merchants typically complete a
-self-assessment questionnaire, the largest are assessed by a Qualified Security Assessor, and
-external vulnerability scanning is performed by an Approved Scanning Vendor. Scope reduction —
-never touching card data, by handing payment to a compliant provider — is the standard's own
-preferred strategy, because requirements apply to the cardholder data environment and
-everything connected to it.
+directions. Requirement 3.3.1 says sensitive authentication data (full track data, card
+verification codes, PINs) is not stored after authorisation, even if encrypted; the one
+carve-out is issuers and companies that support issuing services, which Requirement 3.3.3
+allows to store it where there is a legitimate, documented issuing business need and it is
+secured and encrypted using strong cryptography. Pointing the other way, Requirement 3.5.1
+permits the primary account number to be stored but requires it be rendered unreadable anywhere
+it is stored. Who must validate, and how, is set by the payment brands and acquirers rather
+than by the standard: smaller merchants typically complete a self-assessment questionnaire, the
+largest are assessed by a Qualified Security Assessor. One assessor role the standard does fix
+is Requirement 11.3.2, which has external vulnerability scans performed by an Approved Scanning
+Vendor. Scope is the lever worth knowing: the requirements reach the cardholder data
+environment, including components with unrestricted connectivity to it, plus anything else that
+could affect the security of account data. Segmentation is explicitly not a PCI-DSS
+requirement, but the standard strongly recommends it for reducing assessment scope and cost.
 
 **Key terms** cardholder data environment; sensitive authentication data; QSA; ASV;
 self-assessment questionnaire; tokenisation.
@@ -382,13 +392,14 @@ self-assessment questionnaire; tokenisation.
 **Traps** PCI-DSS is not a law and the Council does not enforce it; the acquirer and the
 payment brands do. Outsourcing payment pages narrows scope but does not empty it — the
 merchant still carries requirements for the systems that redirect to, and depend on, that
-provider. And validation is periodic rather than permanent: a passed assessment describes a
-past state, exactly as any other audit does.
+provider, and an entity that outsources its payment operations remains responsible for the
+protection of the account data. And validation is periodic rather than permanent: a passed
+assessment describes a past state, exactly as any other audit does.
 
 **What the exam may test** Naming the mechanism by which PCI-DSS binds an organisation
 (contract, via the acquirer and payment brands), separating it from statutory regimes, and
-recognising that sensitive authentication data may not be retained after authorisation even
-though the account number may be, if rendered unreadable.
+recognising that sensitive authentication data may not be retained after authorisation — the
+issuer carve-out aside — even though the account number may be, if rendered unreadable.
 
 *Not to be confused with [GDPR](compliance.md#cmp-security.compliance.gdpr).*
 
@@ -424,21 +435,20 @@ localisation.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `security.compliance.soc-2-and-iso-27001` | SOC 2 and ISO 27001 | Voluntary frameworks organisations adopt to evidence security posture: SOC 2 is an AICPA examination in which a CPA firm reports on controls relevant to security, availability, processing integrity, confidentiality or privacy, while ISO 27001 certifies an information security management system through an accredited body. | Neither is a law, and the two produce different artifacts — SOC 2 yields a report covering a stated scope and period, not a certificate, so "SOC 2 certified" is a wrong-sounding-right distractor. Both attest that an examination happened against chosen criteria; neither proves a system is secure, and adopting one does not discharge a statutory obligation such as GDPR or HIPAA. |
+| `security.compliance.soc-2-and-iso-27001` | SOC 2 and ISO 27001 | Two voluntary frameworks: SOC 2 is an AICPA examination in which a CPA firm reports on controls relevant to security, availability, processing integrity, confidentiality or privacy; ISO 27001 certifies an information security management system through an accredited body. | Neither is a law. SOC 2 yields a report — Type 1 on design as of a date, Type 2 on operation across a period — never a certificate, so "SOC 2 certified" is a wrong-sounding-right distractor that also does not discharge GDPR or HIPAA. |
 
 #### Scenario
 
 A European SaaS vendor signs a US hospital group as a customer. Untangle the regimes. The
 hospital is a covered entity, and because the vendor handles ePHI on its behalf it becomes a
-business associate — so 45 CFR Part 164 reaches it despite being a US rule and the vendor
-being European. The vendor separately processes personal data of people in the Union, so GDPR
-applies through an establishment in the Union under Article 3. Its checkout page takes card
-payments, so PCI-DSS reaches it too — not by law, but through the merchant agreement with its
-acquirer. Procurement then asks for its SOC 2 report; the vendor sends one and calls itself
-"SOC 2 certified", which is wrong twice: the artifact is a report, not a certificate, and it
-covers only the stated scope and period. The hospital finally asks whether hosting in Frankfurt
-satisfies data sovereignty. It fixes residency; sovereignty also depends on whose law the
-operator answers to.
+business associate — so 45 CFR Part 164 reaches it, US rule and European vendor
+notwithstanding. GDPR applies through Article 3(1), because the vendor processes in the context
+of an establishment in the Union. Its checkout page takes card payments, so PCI-DSS reaches it
+too — not by law, but through the merchant agreement with its acquirer. Procurement asks for a
+SOC 2 report; the vendor sends one and calls itself "SOC 2 certified", wrong twice over: the
+artifact is a report, not a certificate, and it speaks only to the stated scope and to a
+specified date or period. Hosting in Frankfurt then fixes residency, but sovereignty also
+depends on whose law the operator answers to.
 
 #### Knowledge check
 
@@ -455,17 +465,22 @@ operator answers to.
    Not optional. The entity must assess whether the specification is reasonable and
    appropriate, implement it if so, and otherwise document why not and implement an equivalent
    alternative measure if reasonable and appropriate.
-4. By what mechanism does PCI-DSS become binding on a merchant?
+4. By what mechanism does PCI-DSS become binding on a merchant, and who may still store
+   sensitive authentication data after authorisation?
    Contract — the merchant agreement with the acquiring bank, and the payment brands' compliance
-   programs. It is not legislation.
-5. Does choosing an EU cloud region satisfy GDPR's rules on international transfers?
-   It addresses residency. GDPR does not require localisation at all: Chapter V permits
-   transfers under an adequacy decision, appropriate safeguards such as standard contractual
-   clauses, or a derogation.
+   programs; it is not legislation. Only issuers and companies supporting issuing services may
+   store SAD, and only with a legitimate documented issuing business need and strong encryption.
+5. Does choosing an EU cloud region settle GDPR's rules on international transfers, and does it
+   settle data sovereignty?
+   It fixes residency, and while the data stays in the EU no Chapter V transfer arises — but
+   GDPR never required localisation: transfers to third countries are lawful under an adequacy
+   decision, appropriate safeguards such as standard contractual clauses, or a derogation.
+   Sovereignty is a separate question, turning also on whose law the operator answers to.
 6. What is the difference between what a SOC 2 engagement produces and what ISO 27001
    produces?
-   SOC 2 produces an examination report from a CPA firm covering a stated scope and period;
-   ISO 27001 produces certification of a management system by an accredited body.
+   SOC 2 produces an examination report from a CPA firm — Type 1 on design as of a specified
+   date, Type 2 on operating effectiveness across a period; ISO 27001 produces certification of
+   a management system by an accredited body.
 
 <a id="s-compliance-obligations"></a>
 ## Obligations
@@ -479,8 +494,8 @@ records, clinical records, employment files, transaction logs — imposed by sta
 regulator, or a contract. They are floors, and they point in the opposite direction from the
 deletion duties and deletion rights that apply to some of the same data.
 
-**Why it matters** This is the one compliance conflict an entry-level exam reliably reaches
-for, because it looks like a contradiction and is not. A data subject's erasure request cannot
+**Why it matters** This conflict is a natural exam target, because it looks like a
+contradiction and is not. A data subject's erasure request cannot
 be satisfied by deleting everything, and it also cannot be refused wholesale. The two rules
 have to be reconciled deliberately, record category by record category.
 
@@ -531,24 +546,28 @@ keep — and how the destruction is actually carried out and verified.
 *id: `security.compliance.licensing-compliance` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: gnu-gpl-faq*
 
 **What it is** Meeting the obligations attached to the software an organisation uses or ships —
-open source and proprietary alike. Open source removes the fee, not the licence: permissive
-licences (MIT, BSD, Apache 2.0) require the copyright notice and licence text be preserved and
-supplied with redistribution, and copyleft licences such as the GPL additionally require that
-recipients of a distributed derivative receive the corresponding source under the same terms.
+open source and proprietary alike. Open source removes the fee, not the licence. Permissive
+licences make attribution travel with the code: MIT's whole condition is that the copyright
+notice and the permission notice be included in all copies or substantial portions, BSD asks
+the same of source and binary redistributions, and Apache 2.0 section 4 adds a copy of the
+licence, prominent notices on any file you changed, and propagation of any NOTICE file.
+Copyleft licences such as the GPL add that recipients of a distributed derivative receive the
+corresponding source under the same terms.
 
 **Why it matters** "Free" reads as "no obligation", and that misreading is the whole trap.
-Licensing is also a compliance domain in its own right, enforced by copyright holders and by
-contract, not by a security regulator — a licensing breach is not a security incident, and
-mixing the two up misreads any scenario that presents both.
+Licensing is a compliance domain in its own right, enforced by copyright holders and by
+contract rather than by a security regulator — a licensing breach is not a security incident.
 
-**How it works** For most copyleft obligations the trigger is distribution: the duty to provide
-corresponding source attaches when the software is conveyed to someone else, so running a
-modified GPL program on your own servers to deliver a network service does not by itself
-trigger it — the AGPL exists specifically to close that gap by treating interaction over a
-network as the trigger. Proprietary obligations are counted instead: per-seat, per-core or
-per-socket entitlements, with audit clauses in the agreement and true-up payments when actual
-use exceeds what was purchased. Both are tracked the same way, by knowing what is actually
-installed — an inventory or software bill of materials, not memory.
+**How it works** The copyleft trigger is conveying, not use. GPLv3 permits making, running and
+propagating covered works you do not convey, and states outright that mere interaction with a
+user through a computer network, with no transfer of a copy, is not conveying — so running a
+modified GPL program on your own servers to deliver a service does not by itself trigger the
+source duty. The AGPL closes that gap, but read its wording: AGPLv3 section 13 attaches to a
+version you have modified, requiring it to offer users interacting with it remotely access to
+its corresponding source. Proprietary obligations are counted instead: per-seat, per-core or
+per-socket entitlements, with audit clauses and true-up payments when use exceeds what was
+purchased. Both are tracked the same way — an inventory or software bill of materials, not
+memory.
 
 **Key terms** permissive licence; copyleft; distribution; attribution; entitlement; software
 bill of materials.
@@ -562,7 +581,7 @@ regulatory action, contractual loss, mandatory notification, and reputational or
 damage. They come from different authorities and are not interchangeable, which is the point
 worth holding.
 
-**Why it matters** The fine is the memorable consequence and frequently not the largest one. A
+**Why it matters** The fine is the memorable consequence and not necessarily the costliest. A
 supervisory authority's corrective powers under GDPR Article 58 include imposing a temporary
 or definitive limitation, including a ban, on processing — an order that can stop a business
 operating in a way no fine does. Contractual consequences work the same way: an acquirer
@@ -584,21 +603,21 @@ notification window.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `security.compliance.consent-and-lawful-basis` | Consent and lawful basis | The justification that makes processing personal data lawful; GDPR Article 6(1) lists six — consent, contract, legal obligation, vital interests, public task, and legitimate interests — of which consent is only one. | Consent is the over-chosen answer: most routine processing runs on contract or legal obligation instead, and consent that is not freely given, specific, informed and unambiguous is not consent at all — a pre-ticked box, silence, or a term bundled into an unrelated agreement does not qualify, and withdrawal must be as easy as giving it. |
+| `security.compliance.consent-and-lawful-basis` | Consent and lawful basis | The justification that makes processing personal data lawful; GDPR Article 6(1) lists six — consent, contract, legal obligation, vital interests, public task, and legitimate interests — of which consent is only one. | Consent is the over-chosen answer: most routine processing runs on contract or legal obligation. Valid consent is freely given, specific, informed and unambiguous — a pre-ticked box or silence is not — and Article 7(3) makes withdrawal as easy as giving it. |
 
 #### Scenario
 
 A payroll provider receives an erasure request from a former employee of a client, and on the
 same day discovers that a misconfigured backup exposed payroll files. Work the obligations
-separately. The erasure request is not answered by deleting the person's records outright:
-statutory tax and employment retention periods require some of them to be kept, and GDPR
-Article 17(3) disapplies erasure to that extent — so the covered categories stay, on the
-schedule, and everything outside them goes. The breach starts its own clock: notify the
-supervisory authority without undue delay and, where feasible, within 72 hours, with
-communication to affected individuals as a separate question of whether the risk to them is
-high. Because litigation now looks likely, a legal hold freezes the very records the erasure
-request asked to remove. And when those records finally age out, disposal means verified
-destruction of the media copies, not deleting a row and leaving the backup intact.
+separately. The erasure request is not answered by deleting the records outright: statutory tax
+and employment retention periods require some of them to be kept, and GDPR Article 17(3)
+disapplies erasure to that extent — the covered categories stay, on the schedule, and
+everything outside them goes. The breach starts its own clock: notify the supervisory authority
+without undue delay and, where feasible, within 72 hours, with communication to individuals a
+separate question of whether the risk to them is high. Because litigation now looks likely, a
+legal hold freezes the very records the erasure request asked to remove. And when those records
+age out, disposal means verified destruction of every copy, not deleting a row while the backup
+survives.
 
 #### Knowledge check
 
@@ -619,10 +638,12 @@ destruction of the media copies, not deleting a row and leaving the backup intac
    definitive limitation, including a ban, on processing — which can halt operations outright.
 5. Does running a modified GPL program to power your own web service oblige you to publish its
    source?
-   Not by itself — the copyleft trigger is distribution to someone else. The AGPL is the
-   licence written to make network interaction the trigger instead.
+   Not under the GPL — its trigger is conveying, and GPLv3 says mere interaction with a user
+   over a network, with no transfer of a copy, is not conveying. Under the AGPL it would:
+   section 13 requires a modified version that users interact with remotely to offer them its
+   corresponding source.
 6. Consent is one lawful basis for processing personal data. Name two others, and one reason
    an apparently obtained consent may still be invalid.
    Contract and legal obligation (also vital interests, public task, legitimate interests).
-   Consent obtained by a pre-ticked box, by silence, or bundled into an unrelated agreement is
-   not freely given, specific, informed and unambiguous, so it is not valid consent.
+   Consent signalled by a pre-ticked box or by silence is not an unambiguous affirmative
+   action, so it is not valid consent.

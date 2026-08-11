@@ -260,9 +260,11 @@ the third had never been restore-tested.
 
 #### Knowledge check
 
-1. What single property separates a backup from a snapshot, a replica, and a RAID array?
-   Independence from the original — a backup survives whatever destroys the source, while the
-   others share its failure domain, propagate its writes, or both.
+1. What single property separates a backup from a local snapshot, a replica, and a RAID array?
+   Independence from the original — a backup survives whatever destroys the source, while a
+   local snapshot and a RAID array sit inside the source's own failure domain and a replica
+   faithfully reproduces its writes. A provider snapshot held on separate storage is the one
+   look-alike that can pass the independence test.
 2. A restore is needed. How many media sets does it take under an incremental scheme, and
    under a differential scheme?
    Incremental: the last full plus every incremental since it, in order. Differential: the
@@ -627,10 +629,9 @@ everything — hardware, links, software, data — is acquired and loaded during
 equipment carries neither the operating software nor the data; the restore still has to happen
 before it can serve, which is exactly why its setup time is "medium" rather than "short."
 Treating it as a hot site that takes longer to switch on inverts the reason for the delay.
-Note too that NIST's fully redundant,
-real-time-mirrored facility is a separate variation — a *mirrored* site, identical to the
-primary in all technical respects and the most expensive option — not a synonym for a hot
-site.
+Note too that NIST's fully redundant, real-time-mirrored facility is a separate variation — a
+*mirrored* site, identical to the primary in all technical respects and the most expensive
+option — not a synonym for a hot site.
 
 **What the exam may test** Selecting the cheapest site type that still satisfies a stated
 RTO, and identifying which type a described facility is from what it does and does not
@@ -714,12 +715,11 @@ A retailer sets an RTO of four hours and an RPO of 15 minutes for its order syst
 three options. A cold site is cheapest but holds no equipment, so setup runs to days and
 misses a four-hour RTO. A warm site holds partial hardware with nothing loaded on it, so
 software and data must be restored first; whether it fits depends on how long that restore
-takes, which only a timed restore test answers. A hot site already has
-the last backup loaded, so it clears the RTO with only the writes since that backup to make up,
-at the highest cost. The 15-minute RPO is a separate decision, forcing replication rather than
-nightly backups — and the replica is not a backup. A tabletop drill will validate who declares
-the cutover and in what order systems return, but deploys nothing and proves nothing about the
-media.
+takes, which only a timed restore test answers. A hot site already has the last backup loaded,
+so it clears the RTO needing only the writes since it, at the highest cost. The 15-minute RPO
+is a separate decision, forcing replication rather than nightly backups — and the replica is
+not a backup. A tabletop drill will validate who declares the cutover and in what order systems
+return, but deploys nothing and proves nothing about the media.
 
 #### Knowledge check
 

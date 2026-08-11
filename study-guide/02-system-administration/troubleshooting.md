@@ -384,19 +384,16 @@ permitted to should escalate — and naming what must accompany the handover.
 #### Scenario
 
 A ticket says "the reporting job is failing." Identification first: the exact command, run by
-the `reports` service account on `app02`, since about 02:00. Narrow the scope — the same
-command as a different account on `app02` succeeds, which eliminates every host-wide
-explanation and points at something specific to that account. Reproduce it deliberately as
-`reports` rather than as `root`, because reproducing as the superuser would bypass the mode
-checks and make a permission fault disappear. Then ask what changed: `journalctl --since
-"02:00"` and the package log both show an unattended upgrade in that window, which is a strong
-first theory even though nobody performed it. `journalctl -u reports.service -b -p err` gives
-the daemon's own error line, and `echo $?` after re-running the job by hand shows 126 — found
-but not executable — narrowing to the execute bit or a `noexec` mount rather than to the
-upgrade at all. Reading `man 5` for the relevant configuration file settles the option's
-meaning without guessing. The remedy turns out to require a mount option change inside another
-team's change window, so the correct final step is escalation with the whole chain of
-eliminations attached, not a unilateral remount.
+the `reports` account on `app02`, since about 02:00. The same command as a different account
+there succeeds, which eliminates every host-wide explanation. Reproduce as `reports`, not
+`root`: the superuser bypasses mode checks and would make a permission fault vanish. What
+changed? `journalctl --since "02:00"` and the package log show an unattended upgrade in that
+window — a strong first theory even though nobody performed it. But `journalctl -u
+reports.service -b -p err` gives the daemon's own error line, and `echo $?` after re-running the
+job by hand returns 126 — found but not executable — narrowing to the execute bit or a `noexec`
+mount, not the upgrade. `man 5` on the relevant configuration file settles the option's meaning.
+The remedy needs a mount change inside another team's change window, so the last step is
+escalation with the eliminations attached.
 
 #### Knowledge check
 
@@ -920,22 +917,17 @@ for `dig` implicates `/etc/hosts` rather than DNS.
 
 #### Scenario
 
-Users report that an internal web application "is down." Reaching it by IP address works while
-the hostname does not, which immediately eliminates connectivity and the firewall and confines
-the fault to resolution — `dig` returns SERVFAIL from the configured resolver but NOERROR from
-a public one, isolating the fault to that resolver rather than to the record. While
-investigating, a second symptom appears: the application host's own service has stopped.
-`systemctl status` shows `failed` with `Result: signal` rather than an exit code, so this is
-not a configuration error; `journalctl -k` carries an `Out of memory: Killed process` line, and
-the unit's exit status of 137 corroborates it. `free -h` shows `available` near zero. The
-memory pressure turns out to be a log-shipping process that grew unbounded because `/var` had
-filled — `df -h /var` reads 100% while `df -h /` looks healthy, and `du -sh /*` accounts for far
-less than `df` reports, which points at deleted-but-open log files held by that same process
-rather than at any file you could find and remove. Restarting it returns the space, the memory,
-and the service. Finally, one user still cannot read the application's config: the file's mode
-is `644` and correct, but `namei -l` shows a parent directory without `x` for their group, and
-`id` inside their session lacks a group that `id <user>` shows — two independent causes, one
-message.
+Users report an internal web application "is down." Reaching it by IP works while the hostname
+does not, which eliminates connectivity and the firewall: `dig` returns SERVFAIL from the
+configured resolver but NOERROR from a public one, isolating that resolver, not the record.
+Meanwhile the host's own service stops. `systemctl status` shows `failed` with `Result: signal`,
+not an exit code, so this is no configuration error; `journalctl -k` carries an `Out of memory:
+Killed process` line, and exit status 137 corroborates it. The pressure came from a log shipper
+that grew once `/var` filled: `df -h /var` reads 100% while `/` looks healthy, and `du` accounts
+for far less than `df`, which no file search will find — deleted-but-open files held by that
+same process. Restarting it returns space, memory, and the service. One user still cannot read
+the config: mode `644` is right, but `namei -l` finds a parent without `x` and their session
+predates a group change — two causes, one message.
 
 #### Knowledge check
 

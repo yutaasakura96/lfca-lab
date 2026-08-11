@@ -405,7 +405,7 @@ reopens after rotation.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `cat` | Print files to standard output, or concatenate several | `-n` number lines, `-A` show non-printing characters | `cat` | Running it on a binary or a huge log, which garbles the terminal (recover with `reset`) or scrolls the useful part away |
+| `cat` | Print files to standard output, or concatenate several | `-n` number lines, `-A` show non-printing characters (GNU coreutils) | `cat` | Running it on a binary or a huge log, which garbles the terminal (recover with `reset`) or scrolls the useful part away; and assuming `-A` is universal — the BSD `cat` on macOS accepts only `-belnstuv`, where `-v`, `-e` and `-t` cover the same ground |
 | `less` | Page through a file interactively | `/` search, `G` end, `q` quit, `-N` line numbers | `less` | Assuming it loads the whole file first — it does not, which is exactly why it beats `cat` on large files |
 | `head` | Show the first lines of a file | `-n N` line count, `-c N` byte count | `head` | Using it to sample a log's newest entries — the newest entries are at the end, so `tail` is the right tool |
 | `tail -f` | Print the end of a file and keep printing as it grows | `-f` follow the descriptor, `-F` follow the name and reopen after rotation, `-n N` starting line count | `tail -f` | Watching a rotated log go permanently silent, because `-f` stayed attached to the rotated-away file; `-F` is the fix |
@@ -506,13 +506,16 @@ inode itself, including a permission or ownership change). `ls -l` shows `mtime`
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `file` | Identify a file's type from its content | `-b` brief (no filename), `--mime-type` report the MIME type, `-L` follow symlinks | `file` | Trusting the extension instead — `file` reads the content and is the only one of the two that can be right |
-| `stat` | Print all inode metadata for a file | `-c '%a'` octal permissions, `-c '%s'` size, `-f` report on the filesystem instead | `stat` | Reading `ctime` as "creation time" — it is the inode change time, and traditional Unix metadata has no creation time at all |
+| `stat` | Print all inode metadata for a file | GNU coreutils forms: `-c '%a'` octal permissions, `-c '%s'` size, `-f` report on the filesystem instead | `stat` | Reading `ctime` as "creation time" — it is the inode change time, and traditional Unix metadata has no creation time at all |
 | `ls -l` | Show the metadata subset a listing displays: mode, links, owner, group, size, time, name | `-l` long format, `-h` human-readable sizes, `--time=atime` or `-u` show access time | `ls -l` | Assuming the timestamp column is when the file was created; it is `mtime`, the last content modification |
 
 **Traps** `ctime` is change time, not creation time, and it moves whenever ownership or permissions
 change even though the contents did not. A second trap is that `stat`'s size and `du`'s size differ:
 `stat` reports the byte length, while allocated blocks may be more (block rounding) or far fewer (a
-sparse file).
+sparse file). A third is portability, in the same way `ls --all` and `sed -i` diverge: GNU's `-c`
+format string is rejected outright on macOS, whose `stat` spells its format option `-f` — the very
+letter that means "report on the filesystem" in GNU, so that flag does unrelated things on the two
+systems rather than failing loudly.
 
 **What the exam may test** Choosing `file` over the extension to determine content type, and
 separating the three timestamps — particularly rejecting "creation time" as the meaning of `ctime`.
@@ -552,7 +555,7 @@ including dotfiles.
 | `mv` | Rename or move | `-i` prompt, `-n` no-clobber, `-v` verbose | `mv` | Assuming it always copies data — within one filesystem it only rewrites the directory entry |
 | `rm -i` | Remove with a confirmation prompt for each file | `-i` prompt always, `-I` prompt once for more than three files | `rm -i` | Relying on `-i` being the default; it is not, and adding `-f` later in the same command line overrides it |
 | `ln -s` | Create a symbolic link | `-s` symbolic (omit for a hard link), `-f` replace an existing link, `-r` make the target relative | `ln -s` | Reversing the operands — the order is target first, then the name of the link to create |
-| `stat` | Show full inode metadata, including link count | `-c` custom format, `-L` follow symlinks | `stat` | Running it on a symlink and reading the link's own metadata as the target's; `stat -L` reports the target |
+| `stat` | Show full inode metadata, including link count | `-c` custom format (GNU coreutils only), `-L` follow symlinks | `stat` | Running it on a symlink and reading the link's own metadata as the target's; `stat -L` reports the target |
 | `file` | Identify content type | `-b` brief, `-L` follow symlinks | `file` | Using it on a symlink without `-L` and getting "symbolic link to ..." rather than the target's type |
 
 **Traps** `ln -s` records exactly the text it is given. A relative target is resolved relative to the
@@ -650,7 +653,7 @@ Each triad is one octal digit, `r`=4, `w`=2, `x`=1, added together:
 | `-rw-------` | 600 | Private file, e.g. an SSH private key |
 | `drwx------` | 700 | Private directory, e.g. `~/.ssh` or `/root` |
 | `-rwsr-xr-x` | 4755 | setuid: the `s` replaces the owner's `x`, and the leading 4 is the setuid bit |
-| `drwxrwxrwt` | 1777 | Sticky bit on a world-writable directory such as `/tmp`; only the owner of an entry may delete it |
+| `drwxrwxrwt` | 1777 | Sticky bit on a world-writable directory such as `/tmp`; only the entry's owner, the directory's owner or root may delete it |
 
 A capital `S` or `T` in place of `s` or `t` means the special bit is set while the underlying
 execute bit is not — usually a mistake rather than an intention.
@@ -672,29 +675,31 @@ repository or archive built on macOS can expand on Linux into two files where th
 and a script that refers to `Config.yaml` while the file is `config.yaml` fails with "No such file
 or directory" — an error that reads like a missing file rather than a spelling difference.
 
-**How it works** Case sensitivity is a property of the filesystem, not of Linux itself. ext4, XFS
-and Btrfs compare names byte for byte; a mounted VFAT, exFAT or NTFS volume on the same Linux host
-is case-insensitive, and ext4 has an optional per-directory case-folding feature. So the accurate
-statement is that the filesystems Linux is normally installed on are case-sensitive, and that
-anything crossing a filesystem boundary — a USB stick, a network share, a bind-mounted volume in a
-container — may not be. The shell adds no case folding of its own: `ls`, glob patterns and `grep`
-all match exactly unless explicitly told otherwise, which is what `grep -i` is for.
+**How it works** Case sensitivity is a property of the filesystem driver and how the volume was
+mounted, not of Linux itself. ext4, XFS and Btrfs compare names byte for byte, and ext4 has an
+optional per-directory case-folding feature. A mounted VFAT or exFAT volume on the same Linux host
+is case-insensitive — exFAT folds through the volume's upcase table. NTFS is the instructive
+exception: the volume is case-insensitive under Windows, yet the in-kernel `ntfs3` driver compares
+names case-sensitively unless it is mounted with the `nocase` option. So the accurate statement is
+that the filesystems Linux is normally installed on are case-sensitive, and that anything crossing a
+filesystem boundary — a USB stick, a network share, a bind-mounted volume in a container — may
+follow a different rule, decided by the mount rather than by the medium. The shell adds no case
+folding of its own: `ls`, glob patterns and `grep` all match exactly unless explicitly told
+otherwise, which is what `grep -i` is for.
 
 **Key terms** case-sensitive versus case-preserving; byte-for-byte comparison; case folding.
 
 #### Scenario
 
 A deployment fails with "No such file or directory" for `/opt/app/Config.yaml`. `ls /opt/app` shows
-nothing at all, so the operator tries `ls -la /opt/app` and finds `.config.yaml` — a dotfile,
-omitted by the plain listing rather than absent. `file .config.yaml` reports it as ASCII text, not
-the JSON the error message implied, and `stat` shows an `mtime` from this morning while `ls -l`'s
-timestamp column shows the same thing, since that column is `mtime` by default. The name still does
-not match what the deployment expects: the file is lower-case and the code asks for `Config.yaml`,
-which on ext4 is a genuinely different name. The fix is a symbolic link, `ln -s`, with the target
-first and the new name second — and because a relative target would be resolved against the link's
-own directory rather than the operator's current one, an absolute target is the safer choice. Before
-touching anything they check the directory itself with `ls -ld /opt/app`, not `ls -l /opt/app`,
-which would have listed the contents instead of the directory's own mode.
+nothing, so the operator tries `ls -la /opt/app` and finds `.config.yaml` — a dotfile, omitted by the
+plain listing rather than absent. `file .config.yaml` reports ASCII text, not the JSON the error
+implied, and `stat` shows an `mtime` from this morning, the same value `ls -l`'s timestamp column
+carries by default. The name still does not match: the file is lower-case and the code asks for
+`Config.yaml`, which on ext4 is a genuinely different name. The fix is `ln -s`, target first and new
+name second, with an absolute target — a relative one would be resolved against the link's own
+directory rather than the operator's. They check the directory's own mode with `ls -ld /opt/app`,
+since `ls -l /opt/app` would have listed the contents instead.
 
 #### Knowledge check
 
@@ -1012,14 +1017,13 @@ non-zero status from `grep` or `diff` can be an ordinary result rather than an e
 A nightly script works when pasted into a terminal and fails from cron. Walk the shell features in
 order. The script calls `ll`, which exists only as an alias in the operator's `~/.bashrc`; cron runs
 a non-interactive shell, aliases are not expanded there, and the command is not found — exit status
-127. Replacing it with `ls -la` fixes that but exposes the next problem: the script sets
-`BACKUP_DIR=/srv/backups` and calls a helper that reads `$BACKUP_DIR`, which sees nothing because the
-variable was never exported and a child gets only the exported environment. With that fixed, the
-archive line `tar czf backup-$(date +%F).tar.gz $BACKUP_DIR/*` still misbehaves on an empty
-directory: the glob matches nothing, so the shell passes the literal pattern through, and the
-unquoted `$BACKUP_DIR` would have split into several operands had the path contained a space. Finally
-the cleanup line reads `cd /srv/backups; rm -rf *`, which deletes in the current directory whenever
-the `cd` fails; the conditional form using `&&` runs the removal only on success.
+127. Replacing it with `ls -la` exposes the next problem: the script sets `BACKUP_DIR=/srv/backups`
+and calls a helper that reads `$BACKUP_DIR`, which sees nothing, because a child gets only the
+exported environment. With that fixed, `tar czf backup-$(date +%F).tar.gz $BACKUP_DIR/*` still
+misbehaves on an empty directory — the glob matches nothing, so the literal pattern is passed
+through — and the unquoted variable would have split into several operands had the path contained a
+space. Finally `cd /srv/backups; rm -rf *` deletes in the current directory whenever the `cd` fails;
+the `&&` form runs the removal only on success.
 
 #### Knowledge check
 
@@ -1180,16 +1184,15 @@ them and only an operator that names it moves them.
 #### Scenario
 
 An operator runs `find / -name '*.conf' > conf-list.txt` and the terminal fills with "Permission
-denied" lines even though the output file is being written correctly. Both facts follow from the same
-thing: `>` moved descriptor 1 into the file and left descriptor 2 attached to the terminal. Adding
-`2>/dev/null` discards the noise; `&>` would have put both into the file, but only in bash or zsh,
-while `> conf-list.txt 2>&1` is the portable form — and writing it as `2>&1 > conf-list.txt` instead
-would leave the errors on screen, because the copy of descriptor 1 is taken before it is moved. They
-then try to count the results with `find / -name '*.conf' | wc -l`, which works because `wc` reads
-standard input, and try to delete them with `find ... | rm`, which does nothing at all because `rm`
-takes operands rather than input. Finally they attempt to sort the list in place with
-`sort conf-list.txt > conf-list.txt` and end up with an empty file: the shell truncated the target
-before `sort` ever opened it.
+denied" lines even though the output file is being written correctly. Both facts follow from one
+thing: `>` moved descriptor 1 into the file and left descriptor 2 attached to the terminal.
+`2>/dev/null` discards the noise; `&>` would put both into the file but only in bash or zsh, while
+`> conf-list.txt 2>&1` is the portable form — and `2>&1 > conf-list.txt` would leave the errors on
+screen, because the copy of descriptor 1 is taken before it is moved. Counting the results with
+`find / -name '*.conf' | wc -l` works because `wc` reads standard input; deleting them with
+`find ... | rm` does nothing at all, because `rm` takes operands rather than input. Sorting the list
+in place with `sort conf-list.txt > conf-list.txt` yields an empty file: the shell truncated the
+target before `sort` ever opened it.
 
 #### Knowledge check
 
@@ -1455,16 +1458,14 @@ and choosing `diff`, `cmp` or a checksum for a described comparison.
 
 A web server started returning errors after a configuration change, and the operator has the previous
 config saved. `diff -u /etc/app/app.conf.bak /etc/app/app.conf` shows one `+` line, so it was added in
-the current file, not removed from the backup. Next they need to know which client addresses are
-hitting the failing endpoint most: `grep -n '/checkout' access.log` numbers the matching lines,
-`grep -v ' 200 '` drops the successful ones, and `awk '{print $1}'` pulls the client address out of the
-first whitespace-separated column — awk rather than `cut -d` because the log's columns are separated by
-runs of spaces. Piping that into `sort` and then `uniq -c` produces per-address counts, and it must be
-in that order, since `uniq` only collapses adjacent lines. `wc -l` on the filtered stream gives the
-total. Finally they normalise the config's old hostname with `sed 's/a/b/g'`-style substitution, taking
-care to include the `g` flag so every occurrence on a line is replaced, and remembering that `sed`
-writes to standard output unless `-i` is given — with a suffix argument on BSD and macOS, without one
-on GNU.
+the current file, not removed from the backup. Next: which client addresses hit the failing endpoint
+most. `grep -n '/checkout' access.log` numbers the matching lines, `grep -v ' 200 '` drops the
+successful ones, and `awk '{print $1}'` pulls the client address out of the first column — awk rather
+than `cut -d` because the columns are separated by runs of spaces. Piping that into `sort` and then
+`uniq -c` produces per-address counts, and the order matters, since `uniq` only collapses adjacent
+lines; `wc -l` totals the filtered stream. The old hostname is then normalised with a
+`sed 's/a/b/g'`-style substitution, keeping the `g` flag so every occurrence on a line is replaced and
+remembering that sed writes to standard output unless `-i` is given.
 
 #### Knowledge check
 
@@ -1641,15 +1642,15 @@ task, and predicting where files land given the presence or absence of a trailin
 #### Scenario
 
 A nightly job must ship `/var/log/app` from a web server to an archive host. The first attempt uses
-`tar czf` to build `app.tar.gz` and `scp` to send it; it works, but it re-sends the entire archive
-every night even though only a few megabytes changed, and `gzip`'s output is a single opaque blob that
-cannot be updated incrementally. The rewrite uses `rsync -av` directly against the directory, which
-compares both ends and transfers only differences — but the first run creates `/srv/archive/app/app`
-because the source was written without a trailing slash. With `src/` the contents land where intended.
-Adding `--delete` would mirror removals too, so it is tested with a dry run first. For the monthly
-snapshot they keep the archive approach, listing it with `tar tzf` before extraction so they know
-whether it unpacks into its own directory or scatters files into the current one, and remembering that
-`tar czf` compresses while a bare `tar cf` named `.tar.gz` does not.
+`tar czf` to build `app.tar.gz` and `scp` to send it; it works, but re-sends the whole archive every
+night even though only a few megabytes changed, and `gzip`'s output is one opaque blob that cannot be
+updated incrementally. The rewrite uses `rsync -av` against the directory, which compares both ends
+and transfers only differences — though the first run creates `/srv/archive/app/app`, because the
+source was written without a trailing slash. With `src/` the contents land where intended. Adding
+`--delete` would mirror removals too, so it is tested with a dry run first. The monthly snapshot
+keeps the archive approach, listed with `tar tzf` before extraction so they know whether it unpacks
+into its own directory or scatters files into the current one, and remembering that a bare `tar cf`
+named `.tar.gz` does not compress.
 
 #### Knowledge check
 
@@ -1739,15 +1740,15 @@ of them with each preserved as a separate word.
 #### Scenario
 
 A deployment script fails only on the CI runner. Its shebang reads `#!/bin/sh`, but it uses `[[ ]]`
-and an array — on the developer's machine `/bin/sh` links to bash and both work, while on the Debian
-based runner `/bin/sh` is dash and neither does. Changing the line to `#!/bin/bash` fixes it, but only
-because the file is executed directly: the CI job actually invoked it as `sh deploy.sh`, which ignores
-the shebang altogether, so the invocation has to change too. With that sorted, the script still exits
-immediately: it was copied from a Windows machine, so the shebang line ends in a carriage return and
-the kernel reports a missing interpreter. After converting line endings, `chmod +x` restores the
-execute bit that the copy dropped. Finally, a comparison written as `[ $count -eq 0 ]` breaks whenever
-`count` is empty, because the unquoted expansion leaves `[` with too few arguments — quoting it as
-`[ "$count" -eq 0 ]` is the fix.
+and an array: on the developer's machine `/bin/sh` links to bash and both work, while on the
+Debian-based runner `/bin/sh` is dash and neither does. `#!/bin/bash` helps only if the file is
+executed directly — the CI job invoked it as `sh deploy.sh`, which ignores the shebang, so the
+invocation changes too. The script then exits immediately: copied from Windows, its shebang line ends
+in a carriage return and the kernel reports a missing interpreter. Converting the line endings and
+running `chmod +x` restores it. Finally `[ $count -eq 0 ]` breaks whenever `count` is empty: the
+unquoted expansion leaves `[` too few arguments and it reports a unary operator error. Quoting as
+`[ "$count" -eq 0 ]` fixes the argument count but not the emptiness — `[` then rejects the empty
+string as not an integer — so `[ "${count:-0}" -eq 0 ]` is the form that works.
 
 #### Knowledge check
 
@@ -1835,8 +1836,10 @@ which reports the *login* identity is exactly what an audit scenario turns on.
 time and remote host. `w` shows the same sessions plus a header giving the current time, uptime, the
 number of logged-in users and the 1-, 5- and 15-minute load averages, and per user the idle time and
 the command currently running on that terminal. `last` reads the wtmp log and shows historical
-logins, logouts and reboots, newest first. `id` prints the effective user ID, group ID and every
-supplementary group. `whoami` prints just the effective user name and nothing else.
+logins, logouts and reboots, newest first. `id` with no options prints the real user and group IDs,
+adds the effective ones only when they differ from the real ones, and lists every supplementary
+group; `id -u` is the form that reports the effective UID on its own. `whoami` prints just the
+effective user name and nothing else.
 
 **Key terms** utmp and wtmp; effective versus login identity; supplementary groups.
 
@@ -1847,7 +1850,7 @@ supplementary group. `whoami` prints just the effective user name and nothing el
 | `who` | List current login sessions | `-a` all available detail, `-b` last boot time, `-H` column headings | `who` | Expecting it to list every process's owner — it lists sessions recorded in utmp, so daemons and many container sessions never appear |
 | `w` | List current sessions with load averages and each user's current process | `-h` no header, `-s` short format | `w` | Reading the header's load averages as this user's load; they are the whole system's |
 | `last` | Show the historical login record from wtmp | `-n N` limit the number of entries, `-x` include shutdown and runlevel changes | `last` | Assuming it shows current sessions — it shows history, with still-open sessions marked as such |
-| `id` | Print effective user and group IDs and all supplementary groups | `-u` numeric UID only, `-un` user name, `-nG` group names | `id` | Using `groups` or `whoami` when the question is about group membership — only `id` shows the full set |
+| `id` | Print the real user and group IDs, the effective ones when they differ, and all supplementary groups | `-u` effective UID only, `-ur` the real UID instead, `-un` user name, `-nG` group names | `id` | Using `groups` or `whoami` when the question is about group membership — only `id` shows the full set |
 | `whoami` | Print the effective user name | (no options; equivalent to `id -un`) | `whoami` | Reading it as "who logged in" — after `sudo` it reports root, not the original account |
 
 **Traps** `whoami` reports the effective user, so inside `sudo -i` it says `root` no matter who
@@ -1861,19 +1864,17 @@ escalation, and picking the command that shows group membership rather than just
 
 #### Scenario
 
-A server is reported as slow and possibly compromised. The first pass is resource state:
-`uptime` gives the load averages, which mean nothing until they are read against the processing-unit
-count; `free -h` is checked on the "available" column rather than "free", since the kernel keeps idle
-memory as reclaimable cache; `df -h` shows the root filesystem at 100%. `du -sh /var/log` reports only
-a few hundred megabytes, and that disagreement is itself the finding — a deleted file is still held
-open by a running process, so `df` counts space `du` cannot see. `ps aux` identifies the process, with
-its `%CPU` read as a lifetime average rather than a current figure, and `top` gives the live picture.
-Restarting it politely with `kill` and its default SIGTERM lets it close the file; only if it ignores
-that is `kill -9` warranted, since SIGKILL skips cleanup. On the security side, `who` and `w` show who
-is on the box now, `last` shows the login history, and `whoami` inside the investigator's own elevated
-shell reports root — which is their effective identity, not the account that logged in. `id` confirms
-the UID and group memberships, and `uname -a` records the kernel and architecture for the incident
-note.
+A server is reported as slow and possibly compromised. `uptime` gives the load averages, which mean
+nothing until read against the processing-unit count; `free -h` is read on the "available" column
+rather than "free", since the kernel keeps idle memory as reclaimable cache; `df -h` shows the root
+filesystem at 100% while `du -sh /var/log` reports a few hundred megabytes. That disagreement is
+itself the finding — a deleted file is still held open by a running process, so `df` counts space
+`du` cannot see. `ps aux` identifies the process, its `%CPU` a lifetime average rather than a current
+figure, and `top` gives the live picture. The default `kill` sends SIGTERM and lets it close the file;
+`kill -9` is warranted only if that is ignored, since SIGKILL skips cleanup. Then `who`, `w` and
+`last` cover current and past sessions, while `whoami` in the investigator's elevated shell reports
+root — their effective identity, not the account that logged in — and `id` adds the group
+memberships.
 
 #### Knowledge check
 
@@ -1994,18 +1995,16 @@ non-root process is refused port 80 but allowed port 8080.
 #### Scenario
 
 An application is unreachable from a client machine. Working the ladder in order: on the server,
-`ip addr` confirms the interface is up and holds the expected address, and `ip route` confirms a
-default gateway exists. From the client, `ping` to the server times out — which proves nothing on its
-own, since ICMP is routinely filtered — so the next check is whether anything is listening at all.
-`ss -tulpn` on the server shows the process bound to 8080 rather than 80, and the reason is in the
-service unit: it runs as an unprivileged user, and ports below 1024 are privileged, requiring
-`CAP_NET_BIND_SERVICE`. `curl -I http://localhost:8080` returns headers locally, so the service
-itself is healthy and the problem is the published port. Meanwhile a colleague reports that the
-hostname resolves for them but not for the application: `dig` answers correctly because it queries
-DNS directly, while the application follows the system's resolution order and is reading a stale
-`/etc/hosts` entry. `traceroute` between the two sites shows a run of asterisks mid-path, which is a
-router declining to answer probes rather than a break, and `hostname` on the server confirms it is
-the box everyone thinks it is.
+`ip addr` confirms the interface is up with the expected address and `ip route` confirms a default
+gateway. From the client, `ping` times out — which proves nothing on its own, since ICMP is routinely
+filtered — so the next check is whether anything is listening. `ss -tulpn` shows the process bound to
+8080 rather than 80, and the reason is in the service unit: it runs as an unprivileged user, and
+binding a port below 1024 requires `CAP_NET_BIND_SERVICE`. `curl -I http://localhost:8080` returns
+headers locally, so the service is healthy and the published port is the problem. Meanwhile the
+hostname resolves for a colleague but not for the application:
+`dig` answers because it queries DNS directly, while the application follows the system's resolution
+order and reads a stale `/etc/hosts` entry. A run of asterisks mid-path in `traceroute` is a router
+declining probes, not a break.
 
 #### Knowledge check
 

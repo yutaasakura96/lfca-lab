@@ -28,24 +28,20 @@ period it is incurred. Cloud does not make the hardware disappear; it moves the 
 capability from the first column to the second, where somebody else owns the asset and you
 rent its output.
 
-**Why it matters** This is the pairing business-oriented questions reach for, and the
-examinable point is the consequence rather than the label. CapEx is large, planned, approved
-in advance, and hard to reverse once the hardware is on the floor; OpEx is variable, needs no
-forecast to begin, and can be stopped the moment the resource is deleted — but has no
-built-in ceiling either. "Cloud is cheaper" is not the claim the distinction supports.
-Cloud changes the *shape* and *reversibility* of the spending, and whether it is also cheaper
-depends entirely on how well the resulting consumption is controlled, which is what the rest
-of this competency is about.
+**Why it matters** The examinable point is the consequence, not the label. The trade is
+predictability against elasticity: a capital purchase is a known number decided once and hard
+to reverse once the hardware is on the floor, while a consumption charge is an unknown number
+decided continuously by whoever can click "create" — stoppable the moment the resource is
+deleted, but with no built-in ceiling either. "Cloud is cheaper" is not the claim the
+distinction supports. It changes the *shape* and *reversibility* of the spending; whether it
+is also cheaper depends entirely on how well the resulting consumption is controlled.
 
 **How it works** Buying a server means sizing for the peak you expect over its whole life and
-paying for that peak permanently, including during the eleven months a year it is idle.
-Renting the same capacity per hour means paying only while it is provisioned, at the size it
-is provisioned at, so the spend follows demand instead of anticipating it. The trade is
-predictability against elasticity: a capital purchase is a known number decided once, while a
-consumption charge is an unknown number decided continuously by whoever can click "create."
-Note that committing to a cloud reservation for one or three years reintroduces a
-commitment that *feels* like CapEx — but it is still a service you rent, still accounted as
-operating expense, and it buys no asset.
+paying for that peak permanently, idle months included. Renting the same capacity per hour
+means paying only while it is provisioned, at the size it is provisioned at, so the spend
+follows demand instead of anticipating it. Committing to a cloud reservation for one or three
+years reintroduces a commitment that *feels* like CapEx — but it is still a service you rent
+rather than an asset you own, and it buys a rate, not a machine.
 
 **Key terms** capitalisation and depreciation; up-front commitment; consumption-based
 expense; peak provisioning.
@@ -74,17 +70,21 @@ automatically meters resource use at a granularity appropriate to the service an
 back to both parties. Billing then follows that meter. Granularity varies by service and
 matters: compute commonly bills per second or per hour of provisioned time, storage per
 GB-month regardless of whether anything reads it, and request-driven or serverless services
-per invocation — which is the only shape that comes close to charging for actual utilisation,
-because there is no idle provisioned unit for the meter to count.
+per request and per unit of execution time — which is the only shape that comes close to
+charging for actual utilisation, because there is no idle provisioned unit for the meter to
+count.
 
 **Key terms** measured service; metered consumption; provisioned versus utilised; billing
 granularity.
 
-**Traps** Stopping a virtual machine is not the same as it costing nothing. The compute meter
-stops, but its attached disks, its snapshots, and any reserved address it holds keep billing
-on their own meters, which is why "we shut everything down overnight" saves far less than a
-team expects. Equally, pay-as-you-go is not a synonym for "cheapest" — it is the undiscounted
-baseline, and both reserved and spot pricing are cheaper per unit than it is.
+**Traps** Stopping a virtual machine is not the same as it costing nothing, and on some
+providers stopping does not even stop the compute meter: Azure bills a VM in the *Stopped*
+(allocated) state for instance usage and only stops billing once it reaches *Stopped
+(deallocated)*, because only deallocation releases the underlying hardware. Even after the
+compute meter stops, attached disks, snapshots, and any reserved address the machine holds
+keep billing on their own meters, which is why "we shut everything down overnight" saves far
+less than a team expects. Equally, pay-as-you-go is not a synonym for "cheapest" — it is the
+undiscounted baseline, and both reserved and spot pricing are cheaper per unit than it is.
 
 **What the exam may test** Separating the charging principle from the purchase options priced
 under it, and recognising that idle-but-provisioned capacity is billed in full — the fact
@@ -124,10 +124,14 @@ the term and receive a lower rate in exchange.
 
 **Traps** A reservation that goes unused still bills for the full committed term — the
 discount is bought with the commitment, not with usage, so an over-committed reservation
-wastes money exactly as an oversized instance does, and cannot be deleted to stop the
-bleeding. Spot's discount is not "reserved pricing without the paperwork": spot buys price
-with the risk of losing the instance, reserved buys price with loss of flexibility, and the
-two are not substitutes. Anything holding state that cannot be checkpointed inside two
+wastes money exactly as an oversized instance does. There is no delete button for it. Any
+exit is narrow, provider-specific and conditional: AWS, for one, lets unused *Standard*
+Reserved Instances be listed for sale on its Reserved Instance Marketplace (Convertible ones
+cannot be sold, only exchanged for another Convertible reservation), and accepts a Savings
+Plan return only within seven days of purchase, in the same calendar month, and under
+documented limits. None of that refunds a commitment on demand. Spot's discount is not
+"reserved pricing without the paperwork": spot buys price with the risk of losing the
+instance, reserved buys price with loss of flexibility, and the two are not substitutes. Anything holding state that cannot be checkpointed inside two
 minutes — a production database, a stateful session tier, a long single-threaded job with no
 restart point — is unsuitable for spot at any discount.
 
@@ -144,9 +148,8 @@ needs the hardware back, not lost to a competing bidder outbidding you.
 | --- | --- | --- |
 | What it names | Three concrete purchase options for the same capacity | The charging principle those options are priced against |
 | Level | A per-workload decision you make | The account's default billing behaviour, not an item on a menu |
-| Commitment involved | None, a one- or three-year term, or none — one per option | None inherent to the principle |
+| Commitment involved | On-demand none; reserved a one- or three-year term; spot none | None inherent to the principle |
 | Relationship to discounts | Reserved and spot are discounts *off* on-demand | It is the undiscounted baseline; it has no discount of its own |
-| Which one on-demand is | On-demand is the option that implements pay-as-you-go with no commitment | The principle on-demand implements |
 
 The separating axis is level: pay-as-you-go is the meter, and on-demand, reserved and spot
 are the three prices that same meter can be billed at.
@@ -168,8 +171,9 @@ police money that is already being spent; a calculator is the only instrument he
 operates before anything exists. Confusing the two is the discrimination the question is
 built on.
 
-**How it works** Allowances are metered like any other consumption, and exceeding one does
-not stop the resource — it starts billing it, silently, at the standard rate. Which of the
+**How it works** Allowances are metered like any other consumption, and on an account with a
+payment method attached, exceeding one generally does not stop the resource — it starts
+billing it, silently, at the standard rate. Which of the
 three shapes applies determines when that happens: a perpetual allowance resets each month, a
 trial window expires on a date whether or not you noticed, and a credit grant is exhausted by
 spend. Calculators multiply published list prices by the quantities you enter, which means
@@ -189,16 +193,15 @@ rather than above it.
 #### Scenario
 
 A team must cost two workloads before approval. The first is a nightly render that runs for
-three hours, is fully restartable, and does not care when in the night it finishes; the
-second is the customer-facing API behind it, running continuously for at least the next two
-years. The render is the textbook spot candidate — it survives a two-minute interruption
-notice by re-queueing the job — while the API's steady, long-lived baseline is what reserved
-pricing exists for, with on-demand covering only the burst above that baseline. Costing both
-before build means a pricing calculator, not the billing console, and the estimate must have
-egress added by hand or it will read low. The finance reviewer asks whether this is cheaper
-than buying two servers: the honest comparison is total cost of ownership, not invoice
-against purchase price, and the real change is from a capital purchase decided once to an
-operating charge decided continuously.
+three hours, is fully restartable, and does not care when it finishes; the second is the
+customer-facing API behind it, running continuously for at least two years. The render is the
+textbook spot candidate — it survives a two-minute interruption notice by re-queueing the job
+— while the API's steady, long-lived baseline is what reserved pricing exists for, with
+on-demand covering only the burst above it. Costing both before build means a pricing
+calculator, not the billing console, and the estimate must have egress added by hand or it
+will read low. The finance reviewer asks whether this beats buying two servers: the honest
+comparison is total cost of ownership, and the real change is from a capital purchase decided
+once to an operating charge decided continuously.
 
 #### Knowledge check
 
@@ -218,8 +221,9 @@ operating charge decided continuously.
 4. A three-year reservation was bought for a service that was decommissioned after four
    months. What happens to the spend?
    It continues for the remaining term — the discount was bought with the commitment, not
-   with usage, so an unused reservation is as wasteful as an oversized instance and cannot be
-   deleted away.
+   with usage, so an unused reservation is as wasteful as an oversized instance. There is no
+   delete button; any exit is a narrow, provider-specific resale, exchange or short-window
+   return path, and none of them refunds the commitment on demand.
 5. Why does a pricing calculator estimate typically come in under the eventual invoice?
    It multiplies list prices by only the quantities entered — egress, cross-region transfer,
    snapshots, support and tax are omitted unless added deliberately.
@@ -341,21 +345,21 @@ price the same way. Getting your data in costs nothing; getting it out is a mete
 
 **Why it matters** Egress prices *architecture*, not feature usage, which is why it surprises
 people who have budgeted carefully for compute and storage. Replicating backups to a second
-region, running a design that spans two clouds, serving large media files directly to end
-users, or letting an analytics tool in one provider read a database in another each convert a
+region, or letting an analytics tool in one provider read a database in another, each turn a
 one-time architectural decision into a recurring per-gigabyte charge that appears in none of
-the compute or storage line items anyone was watching. It is also the concrete mechanism
-behind the lock-in argument: the cost of leaving is a function of how much data you hold.
+the line items anyone was watching. It is also the concrete mechanism behind the lock-in
+argument: the cost of leaving is a function of how much data you hold.
 
 **How it works** Egress is metered by volume transferred out and banded by destination.
 Traffic out to the internet is one band; traffic to a different region of the same provider
-is another, usually cheaper; traffic that stays inside a single region may be free or charged
-depending on the provider and on whether it crosses an availability-zone boundary — Azure,
-for one, does not charge for data transfer between availability zones in the same region,
-which is not a safe assumption to carry to another provider. Reading your own data back out
-of storage is egress like any other. Note also that the direction of travel is asymmetric by
-design and by regulation both: providers now offer free egress to customers moving their data
-off the platform entirely, which is a specific exemption rather than a change to the model.
+is another, and on Azure's published rates the inter-region band is the cheaper of the two.
+Traffic that stays inside a single region may be free or charged depending on the provider —
+Azure states that transfer between Azure services located within the same region is not
+charged, which is not a safe assumption to carry elsewhere. Reading your own data back out to
+the internet is egress like any other; the meter does not care that you put the data there.
+The asymmetry has one documented exemption: AWS, Azure and Google Cloud each waive egress
+charges for a customer moving their data off the platform entirely, which is an exit
+concession rather than a change to the model.
 
 **Key terms** ingress; egress; per-gigabyte metering; cross-region transfer.
 
@@ -555,15 +559,15 @@ and retrieve* it. Pick the type first, then tier within it.
 #### Scenario
 
 A monthly bill rises by a third with no new servers provisioned. Cost monitoring gives the
-breakdown that a total cannot: the compute line is flat, storage is flat, and the increase is
-almost entirely outbound data transfer, traced to a new nightly backup replicating to a
-second region — egress, priced by the gigabyte, invisible in the compute and storage lines
-everyone had been watching. The same breakdown, sliced by the `environment` tag, surfaces two
-further items: an unattached volume left behind by a deleted test machine, which is an orphan
-and must be deleted rather than detached, and a database instance at 4% CPU all month, which
-is a rightsizing candidate and must be resized rather than deleted. Before leaving, the team
-sets a forecast-threshold budget scoped to that tag — accepting that it will notify, not cap —
-and a lifecycle rule tiering backups older than 90 days to colder storage.
+breakdown that a total cannot: compute is flat, storage is flat, and the increase is almost
+entirely outbound data transfer, traced to a new nightly backup replicating to a second
+region — egress, priced by the gigabyte, invisible in the lines everyone had been watching.
+The same breakdown, sliced by the `environment` tag, surfaces two further items: an
+unattached volume left by a deleted test machine, which is an orphan and must be deleted
+rather than detached, and a database instance at 4% CPU all month, which is a rightsizing
+candidate and must be resized rather than deleted. The team then sets a forecast-threshold
+budget scoped to that tag — accepting that it will notify, not cap — and a lifecycle rule
+tiering backups older than 90 days to colder storage.
 
 #### Knowledge check
 

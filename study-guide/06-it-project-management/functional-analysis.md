@@ -78,7 +78,7 @@ design decision written in requirement voice.
 | Usually checked by | Exercising the behaviour once and observing the outcome | Measuring against a threshold, under load or over time |
 | Effect on architecture | Often addable later as another feature | Frequently decisive up front — retrofitting is a rebuild |
 | What failure looks like | The capability is absent or does the wrong thing | The capability works, but too slowly, insecurely, or unreliably |
-| Relationship to priority | Independent — a functional requirement may be deferred | Independent — a non-functional requirement is not "optional" |
+| How it usually surfaces | Volunteered unprompted — stakeholders describe what they want the system to do | Rarely volunteered; typically has to be drawn out deliberately during elicitation |
 
 The separating axis is what the sentence constrains: a functional requirement constrains
 behaviour, a non-functional requirement constrains the quality of that behaviour. Everything

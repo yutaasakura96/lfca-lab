@@ -522,8 +522,9 @@ that the next `useradd` could hand to someone else.
 5. An account must own its application's files but must never be logged into. Which field changes,
    and why is that not the same as locking the password?
    The seventh field of `/etc/passwd`, set to `/usr/sbin/nologin`. Locking the password leaves
-   SSH key login working; a `nologin` shell leaves the password hash valid for anything that does
-   not need a shell, such as the account's `cron` jobs.
+   SSH key login working; a `nologin` shell leaves the password hash untouched and stops nothing
+   that never starts a login shell — the account's `cron` jobs keep running, because cron executes
+   them with `/bin/sh`.
 6. A policy requires 16-character passwords with mixed character classes. Which `chage` option
    sets that?
    None — complexity is enforced by PAM when the password is set; `chage` only edits the
@@ -965,10 +966,9 @@ login shell with the target's full environment and home directory.
 locked, so `su` to root simply fails no matter what is typed — the answer is `sudo -i`, not a
 forgotten password. Debian's installer does prompt for a root password; it is only when that field
 is left empty that the account is disabled and the first user is added to the `sudo` group
-instead. And `sudo -i`
-versus `sudo -s` matters: `-i` simulates an initial login (root's environment, root's home,
-root's shell startup files), while `-s` runs a shell that keeps much of the invoking user's
-environment.
+instead. And `sudo -i` versus `sudo -s` matters: `-i` simulates an initial login (root's
+environment, root's home, root's shell startup files), while `-s` runs a shell that keeps much of
+the invoking user's environment.
 
 **What the exam may test** Whose password each command wants; which of the two produces a
 per-command audit record; and what `su` without `-` fails to reset.
@@ -1051,16 +1051,16 @@ unauthenticated root.
 
 #### Scenario
 
-A team asks for a shared directory under `/srv/project` that all three of them can write to. The
-first attempt is `chmod 777`, which works and is wrong: anyone on the box can delete anything.
-The correct build is `chgrp developers /srv/project`, then `chmod 2770 /srv/project` — the leading
-`2` is SGID, so files created inside inherit the `developers` group rather than each creator's
-primary group, and `770` keeps everyone else out entirely. A member reports that their colleague
-still cannot edit a file they created: the group was inherited correctly, but their umask of `022`
-stripped group write, so `umask 002` is the missing half. Separately, one member wants to restart
-the application without a root shell; rather than adding them to `wheel`, a `visudo`-edited rule
-grants exactly `/bin/systemctl restart app` as root. And `/srv/project` deliberately skips the
-sticky bit that `/tmp` has — here the team is meant to tidy up each other's files.
+A team asks for a shared directory under `/srv/project` all three can write to. The first attempt
+is `chmod 777`, which works and is wrong: anyone on the box can delete anything. The correct build
+is `chgrp developers /srv/project`, then `chmod 2770 /srv/project` — the leading `2` is SGID, so
+files created inside inherit the `developers` group rather than each creator's primary group, and
+`770` keeps everyone else out entirely. A colleague still cannot edit a file another created: the
+group was inherited correctly, but a umask of `022` stripped group write, so `umask 002` is the
+missing half. Separately, one member must restart the application without a root shell; rather than
+adding them to `wheel`, a `visudo`-edited rule grants exactly `/bin/systemctl restart app` as root.
+And `/srv/project` deliberately skips the sticky bit that `/tmp` has — here the team is meant to
+tidy up each other's files.
 
 #### Knowledge check
 
@@ -1362,15 +1362,15 @@ once it has detached from a terminal and settled into a long-running background 
 
 #### Scenario
 
-A nightly report job is pinning a core and the database has gone sluggish. `top` shows the job at
-the head of the list; `ps -ef` gives its PID and, in the PPID column, the shell that launched it.
-The right first move is not `kill -9`: `renice -n 15 -p 4821` sets an absolute nice value on the
-job that lets the database win the CPU without losing the report's work. If it must actually stop, `kill`
-sends SIGTERM and gives it a chance to close its output file; only if it is still there a minute
-later does `kill -9` become appropriate. Afterwards `ps` shows a `defunct` entry with the old PID —
-a zombie, not a survivor: it holds no memory and disappears once its parent reaps it, or once PID 1
-adopts and reaps it if the parent has exited too. The report is then rescheduled under
-`nohup ... &` so a dropped SSH session cannot SIGHUP it mid-run.
+A nightly report job is pinning a core and the database has gone sluggish. `top` shows it at the
+head of the list; `ps -ef` gives its PID and, in the PPID column, the shell that launched it. The
+right first move is not `kill -9`: `renice -n 15 -p 4821` sets an absolute nice value that lets the
+database win the CPU without discarding the report's work. If it must actually stop, `kill` sends
+SIGTERM so it can close its output file; only if it is still there a minute later is `kill -9`
+appropriate. Afterwards `ps` shows a `defunct` entry with the old PID — a zombie, not a survivor:
+it holds no memory and disappears once its parent reaps it, or once PID 1 does if the parent has
+exited too. The report is then rescheduled under `nohup ... &` so a dropped SSH session cannot
+SIGHUP it mid-run.
 
 #### Knowledge check
 
@@ -1708,14 +1708,14 @@ needs the first; a question describing an edited application config needs the se
 A new application ships a unit file dropped into `/etc/systemd/system/report.service`.
 `systemctl start report` works immediately — the manager loads a unit name it has never seen on
 demand — and `systemctl status` shows `Active: active (running)` alongside `Loaded: … disabled`.
-That second word is the one that matters: after the next reboot the service will be absent, because
-nothing has created the `multi-user.target.wants` symlink. `systemctl enable --now report` fixes
-both halves at once. A week later the team edits the unit to add `Restart=on-failure` and runs
-`systemctl restart report`; nothing changes, because the manager is still acting on the definition
-it parsed a week ago — hence the "unit file changed on disk" warning, then `daemon-reload`, then
-restart. Finally, someone proposes `systemctl isolate multi-user.target` to "drop the
-GUI"; on a running server that stops every unit the target does not want, which is not what was
-asked for — `systemctl set-default multi-user.target` and a reboot is.
+That second word matters: after the next reboot the service will be absent, because nothing created
+the `multi-user.target.wants` symlink. `systemctl enable --now report` fixes both halves at once. A
+week later the team adds `Restart=on-failure` and runs `systemctl restart report`; nothing changes,
+because the manager is still acting on the definition it parsed then — hence the "unit file changed
+on disk" warning, then `daemon-reload`, then restart. Finally, someone proposes
+`systemctl isolate multi-user.target` to "drop the GUI"; on a running server that stops every unit
+the target does not want, which is not what was asked — `systemctl set-default multi-user.target`
+and a reboot is.
 
 #### Knowledge check
 
@@ -2543,9 +2543,8 @@ by one. Delete the target of a symlink and the symlink survives while pointing a
 symlink. Because a hard link is a reference to an inode number, and inode numbers are meaningful
 only within one filesystem, hard links cannot cross filesystem boundaries — and Linux refuses hard
 links to directories outright, for root as well as for ordinary users, because they would allow
-cycles in the tree. A symlink has none
-of those restrictions: it holds a path string, so it may cross filesystems, point at a directory,
-or point at something that does not exist yet.
+cycles in the tree. A symlink has none of those restrictions: it holds a path string, so it may
+cross filesystems, point at a directory, or point at something that does not exist yet.
 
 **Key terms** link count; dangling symlink; cross-filesystem restriction; `ls -l` arrow.
 
@@ -2715,14 +2714,14 @@ that RAID never substitutes for backups.
 #### Scenario
 
 An alert says the application host is out of disk. `df -h` shows `/` at 62% and `/var` at 100%, so
-only one filesystem is affected — `/var` is a separate partition, which is why the application is
-failing while the shell still works. `df -i` on `/var` shows inodes at 11%, ruling out inode
-exhaustion. `du -sh -x /var/*` points at `/var/log`, but its total is 3 GB against the 40 GB `df`
-reports as used — so the space is not in any file `du` can see. `lsof +L1` finds a log file deleted
-by hand last week and still open by the running service: the blocks stay allocated until the
-descriptor closes, so restarting the service returns them. The durable fix is log rotation, not
-manual deletion. Asked whether the mirrored disks rule out data loss, the answer is no: RAID 1
-survives a drive failure but mirrors a deletion as faithfully as a write.
+only one filesystem is affected: `/var` is a separate partition, which is why the application fails
+while the shell still works. `df -i` on `/var` shows inodes at 11%, ruling out inode exhaustion.
+`du -sh -x /var/*` points at `/var/log`, but its total is 3 GB against the 40 GB `df` reports as
+used — so the space is not in any file `du` can see. `lsof +L1` finds a log file deleted by hand
+last week and still open by the service: the blocks stay allocated until the descriptor closes, so
+restarting it returns them. The durable fix is log rotation, not manual deletion. And the mirrored
+disks do not rule out data loss: RAID 1 survives a drive failure but mirrors a deletion as
+faithfully as a write.
 
 #### Knowledge check
 
@@ -2731,8 +2730,8 @@ survives a drive failure but mirrors a deletion as faithfully as a write.
    The filename is not — it lives in a directory entry that maps a name to an inode number.
 2. `df -h` shows free space but writes fail with "No space left on device." What is the first
    check?
-   `df -i` — the filesystem has probably exhausted its inode table, which was sized when the
-   filesystem was created and cannot be enlarged in place.
+   `df -i` — the filesystem has probably exhausted its inode table, which on ext4 is sized when
+   the filesystem is created and cannot be enlarged in place.
 3. `du` totals 3 GB where `df` reports 40 GB used on the same filesystem. Name the most likely
    cause and its fix.
    A deleted file still held open by a running process; the blocks are freed when the process
@@ -2916,16 +2915,16 @@ advantages over cron — journal logging, dependency handling, and catch-up with
 
 #### Scenario
 
-A backup script runs perfectly when the administrator types it and produces nothing at 03:00. The
-crontab line reads `0 3 * * * backup.sh`. Two faults: the command is a bare name, and cron's `PATH`
-is a short default that does not include `/usr/local/bin`, so the shell cron starts cannot find it;
-and there is no redirection, so the error went into a mail nobody reads. Rewriting it as
+A backup script runs perfectly when typed by hand and produces nothing at 03:00. The crontab line
+reads `0 3 * * * backup.sh`. Two faults: the command is a bare name and cron's `PATH` is a short
+default without `/usr/local/bin`, so the shell cron starts cannot find it; and with no redirection
+the error went into a mail nobody reads. Rewriting it as
 `0 3 * * * /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1` fixes both. A second line,
-`0 4 1,15 * 5 report.sh`, is doing something nobody intended — with both day fields restricted, it
-fires on the 1st and 15th *and* every Friday. The team then moves the job to a systemd timer:
+`0 4 1,15 * 5 report.sh`, does something nobody intended: with both day fields restricted it fires
+on the 1st and 15th *and* every Friday. The team then moves the job to a systemd timer:
 `backup.timer` with `OnCalendar=daily` and `Persistent=true`, paired with `backup.service`, enabled
 with `systemctl enable --now backup.timer` — the timer, not the service. Output now lands in the
-journal, and a run missed while the machine was down is made up at the next boot.
+journal, and a run missed while the machine was down is made up at next boot.
 
 #### Knowledge check
 
@@ -3107,10 +3106,10 @@ generations to keep (`rotate 7`), compression (`compress`, `delaycompress`), and
 the writing process: `create` makes a fresh file and relies on a `postrotate` script to signal the
 daemon to reopen it, while `copytruncate` copies the contents aside and truncates the original in
 place for daemons that cannot be signalled. State is tracked in a status file whose path is
-distribution-specific — `/var/lib/logrotate/status` on Debian-family systems, `/var/lib/logrotate.status`
-in logrotate's own default, and `-s` overrides either — which is why the tool refuses to rotate the
-same log twice in one day unless forced. The systemd journal
-is not managed by `logrotate` at all: it bounds itself by size through `SystemMaxUse=`.
+distribution-specific — `/var/lib/logrotate/status` on Debian-family systems,
+`/var/lib/logrotate.status` in logrotate's own default, and `-s` overrides either — which is why
+the tool refuses to rotate the same log twice in one day unless forced. The systemd journal is not
+managed by `logrotate` at all: it bounds itself by size through `SystemMaxUse=`.
 
 **Key terms** `/etc/logrotate.d/`; `copytruncate`; `postrotate`; `logrotate.timer`.
 
@@ -3350,12 +3349,12 @@ what enforces permissions rather than merely describing them.
 
 #### Scenario
 
-A server does not come back after a kernel upgrade and a reboot. Locating the failure by stage
-comes first. The GRUB menu appears, so firmware and the bootloader are fine; the kernel prints
-messages and then stops before any login prompt, which puts the fault after the kernel starts and
-before the init system finishes — the initramfs, the root filesystem, or a unit. Selecting the
-previous kernel from the GRUB menu boots successfully, which narrows it to the new kernel's
-initramfs or modules and gets the machine back into service. From there, `uname -r` confirms which
+A server does not come back after a kernel upgrade and reboot. Locate the failure by stage first.
+The GRUB menu appears, so firmware and the bootloader are fine; the kernel prints messages then
+stops before any login prompt, which puts the fault after the kernel starts and before the init
+system finishes — the initramfs, the root filesystem, or a unit. Selecting the previous kernel from
+the menu boots successfully, which narrows it to the new kernel's initramfs or modules and restores
+service. From there, `uname -r` confirms which
 kernel is actually running (the old one, whatever is newest on disk) and `journalctl -b -1` reads
 the failed boot if the journal is persistent. To make the previous kernel the standing default,
 `/etc/default/grub` is edited and `update-grub` regenerates `grub.cfg` — editing the generated file

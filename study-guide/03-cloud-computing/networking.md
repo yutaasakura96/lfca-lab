@@ -20,7 +20,7 @@ names one vendor's product is nearly always asking about the mechanism in the le
 | Subdivision of that network | Subnet — confined to one Availability Zone | Subnet — spans every availability zone in the region | Subnet — a regional resource spanning zones in its region |
 | Stateful, resource-attached filtering | Security group | Network security group (NSG) | VPC firewall rule |
 | Stateless, subnet-attached filtering | Network ACL | No separate equivalent | No separate equivalent |
-| Two-way internet path | Internet gateway (created and attached) | No named gateway resource — outbound requires an explicit method (NAT gateway, load-balancer outbound rules, or public IP) | Default internet gateway (next hop of the default route) |
+| Two-way internet path | Internet gateway (created and attached) | No named gateway resource — inbound needs a public IP or public load balancer; outbound should use an explicit method (NAT gateway, load-balancer outbound rules, or public IP), because implicit default outbound access is being retired | Default internet gateway (next hop of the default route) |
 | Outbound-only internet path | NAT gateway | Azure NAT Gateway | Cloud NAT |
 | Reserved public address | Elastic IP | Static public IP | Static external IP address |
 | Managed authoritative DNS | Route 53 | Azure DNS | Cloud DNS |
@@ -82,15 +82,16 @@ private cloud when all three appear as options to the same question.
 *id: `cloud.networking.cloud-subnets` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets*
 
 **What it is** A subdivision of a virtual network that reserves part of its address range for
-a group of resources. The subnet is where a resource is actually placed, where a route table
-is associated, and — on AWS — where the stateless filtering layer attaches.
+a group of resources. The subnet is where a resource is actually placed, where — on AWS and
+Azure — a route table is associated, and — on AWS — where the stateless filtering layer
+attaches.
 
 **Why it matters** Subnet design is where availability and reachability are decided at the
-same time. The zone relationship is the single most provider-specific fact in this
-competency, and the one most often over-generalised: AWS documents that each subnet must
-reside entirely within one Availability Zone and cannot span zones, so a multi-AZ deployment
-needs one subnet per zone. Azure documents the opposite arrangement — virtual networks and
-their subnets span all availability zones in a region — and a Google Cloud subnet is a
+same time. The zone relationship is the detail most easily over-generalised from one provider
+to the others: AWS documents that each subnet must reside entirely within one Availability
+Zone and cannot span zones, so a multi-AZ deployment needs one subnet per zone. Azure
+documents a different arrangement — virtual networks and their subnets span all availability
+zones in a region — and a Google Cloud subnet is a
 regional resource whose address range is available to instances in any zone of that region at
 once. The word "subnet" is identical everywhere; the zone scoping is not.
 
@@ -98,9 +99,11 @@ once. The word "subnet" is identical everywhere; the zone scoping is not.
 the provider reserves some addresses in it for its own use, so the usable count is always
 lower than the raw arithmetic. Placement follows: a resource created in a subnet takes a
 private address from that block, inherits the route table associated with the subnet, and — on
-AWS — is subject to the network ACL associated with it. Whether the subnet can reach the
-internet is not a property of the subnet; it is a property of the route table it is
-associated with.
+AWS — is subject to the network ACL associated with it. Reachability off the network is a
+property of the routing, not of the subnet object, but where that routing is attached
+differs: AWS and Azure associate a route table with the subnet, while Google Cloud defines
+routes at the VPC network level. Azure adds one exception worth knowing: it also exposes a
+subnet property, `defaultOutboundAccess`, that governs outbound reachability directly.
 
 **Key terms** CIDR block; availability zone; route table association; regional versus zonal
 resource.
@@ -114,7 +117,7 @@ network do that.
 
 **What the exam may test** Whether a described resource layout needs one subnet per zone or
 one subnet for the region, and whether a stated reachability property belongs to the subnet
-itself or to the route table associated with it.
+itself or to the routing attached to it.
 
 <a id="cmp-cloud.networking.cloud-subnets"></a>
 #### Not to be confused with: Cloud subnets vs Virtual private cloud
@@ -125,7 +128,7 @@ itself or to the route table associated with it.
 | What it names | A slice of an address range that resources are placed into | The whole isolated network and the address space it owns |
 | Created | Second, from the parent network's range | First; the subnet cannot exist without it |
 | Zone relationship | AWS: one Availability Zone only. Azure: spans every zone in the region. Google Cloud: a regional resource spanning its region's zones | AWS and Azure: regional. Google Cloud: the network itself is not confined to one region; its subnets are |
-| What attaches to it | A route table association, and on AWS a network ACL | Gateways (internet, NAT), peering connections, the overall address space |
+| What attaches to it | On AWS and Azure a route table association, and on AWS a network ACL; Google Cloud attaches routes to the network instead | Gateways (internet, NAT), peering connections, the overall address space |
 | Isolation strength | None by default — subnets in one network route to each other | Complete by default — two networks cannot reach each other without peering or a private link |
 
 The separating axis is containment: the virtual private cloud is the isolation boundary and
@@ -144,8 +147,9 @@ outbound connections indirectly, by routing through a NAT gateway.
 
 **Why it matters** The standard secure layout — public subnets holding only load balancers
 and NAT gateways, private subnets holding application servers and databases — is the layout
-exam scenarios describe, and every question about "why can this host be reached" or "why can
-this host not reach the package repository" resolves to which of these two a subnet is.
+exam scenarios describe; AWS recommends private subnets for resources that should not be
+reached directly from the internet. A question about why a host can be reached, or why it
+cannot reach a package repository, usually turns on which of these two the subnet is.
 
 **How it works** Routing is evaluated against the destination address, most specific route
 first. A public subnet's route table carries a default route (`0.0.0.0/0` for IPv4, `::/0` for
@@ -157,13 +161,17 @@ internet even if they do have public IP addresses, because there is no route.
 
 **Key terms** default route; internet gateway target; NAT path; route table association.
 
-**Traps** Two mirror-image errors. First, assuming a public IP address makes a host reachable:
-without a route to an internet gateway it does not, because the packet has nowhere to go.
+**Traps** Start with two mirror-image errors. First, assuming a public IP address makes a
+host reachable: without a route to an internet gateway it does not, because the packet has
+nowhere to go.
 Second, assuming "private subnet" means "no internet at all": a private subnet with a NAT
-route reaches out perfectly well, it simply cannot be reached. There is also no flag,
-checkbox, or subnet attribute named "public" — moving the route is what changes the
-classification, which is why the fix for an accidentally exposed subnet is a route table
-change, not a subnet setting.
+route reaches out perfectly well, it simply cannot be reached. Third, on AWS there is no
+flag, checkbox, or subnet attribute named "public" — moving the route is what changes the
+classification, which is why the fix for an accidentally exposed AWS subnet is a route table
+change, not a subnet setting. Do not carry that across to Azure: Microsoft documents a
+subnet-level "Default outbound access" setting which, set to Disabled, sets the subnet
+property `defaultOutboundAccess = false` and is what Microsoft itself calls making the subnet
+private.
 
 **What the exam may test** Given a route table and an address assignment, deciding whether a
 host is reachable inbound, reachable outbound only, or unreachable in both directions — and
@@ -176,7 +184,7 @@ naming the single change that would alter that.
 | | Public vs private subnet | Internet gateway and NAT gateway |
 | --- | --- | --- |
 | Category | A classification of a subnet, derived from its routes | Routing targets — actual resources a route can point at |
-| Where it exists | Nowhere as an object; it is a description of a route table association | As a resource attached to the network (AWS internet gateway) or provisioned in a subnet (NAT gateway) |
+| Where it exists | On AWS, nowhere as an object; it is a description of a route table association | As a resource attached to the network (AWS internet gateway) or provisioned in a subnet (NAT gateway) |
 | What it determines | Which of the two states a given subnet is in | Which direction of reachability a route grants: two-way (internet gateway) or outbound-only (NAT gateway) |
 | Changed by | Associating a different route table, or editing the route | Creating, deleting, or re-targeting the gateway resource |
 | Common wrong answer | "Set the subnet to public" | "Add a NAT gateway so the servers can be reached from outside" |
@@ -235,7 +243,7 @@ of the two would drop a reply that never came back.
 | Where it is enforced | In the provider's network fabric, outside the guest operating system | Anywhere the mechanism is implemented — a host's own kernel, an appliance, or a cloud layer |
 | Configured through | The provider's control plane; no access to the instance is needed | Whatever owns the implementation — host tooling for a host firewall, the vendor's console for an appliance |
 | Stateful | Security group yes, network ACL no | Depends entirely on the implementation |
-| Default posture | Security group: default-deny inbound, and no way to express a deny. Network ACL: the default ACL every VPC and subnet gets allows all traffic in and out; a custom ACL denies anything unmatched. | Default-deny inbound with explicit allows is the standard posture |
+| Default posture | Security group: a newly created one has no inbound rules, so no inbound traffic is allowed until you add some — and no rule can express a deny. Network ACL: the default network ACL a VPC comes with allows all traffic in and out, and every subnet not explicitly associated with one gets it; a custom network ACL denies anything its rules do not match. | Default-deny inbound with explicit allows is the standard posture |
 
 The separating axis is generality: a firewall is the mechanism, while security groups and
 network ACLs are two particular cloud implementations of it that happen to differ from each
@@ -252,11 +260,11 @@ reached from outside as well as reach outward. A NAT gateway gives outbound-only
 reachability: resources behind it can connect to services outside the network, but external
 services cannot initiate a connection to them.
 
-**Why it matters** This is the direction question, and it is asked constantly in disguise:
-"the servers must download patches but must not be reachable from the internet" is a NAT
-gateway requirement, while "users must reach the web tier" is an internet gateway
-requirement. Reaching for the wrong one is the single most common wrong answer in this part
-of the competency.
+**Why it matters** This is the direction question, and a scenario usually states it in
+disguise: "the servers must download patches but must not be reachable from the internet" is
+a NAT gateway requirement, while "users must reach the web tier" is an internet gateway
+requirement. The two are easy to swap, and swapping them turns a working design into either
+an exposed one or an unreachable one.
 
 **How it works** AWS's internet gateway is a resource you create and attach to a VPC; it
 provides a target in route tables for internet-routable traffic and, for IPv4, performs the
@@ -267,15 +275,17 @@ internet gateway. The other providers arrange the same two directions differentl
 Cloud's routing documentation names a "default internet gateway" next hop, which is what its
 system-generated default route points at rather than something you provision, and offers
 Cloud NAT for the outbound-only case; Azure has no separately named internet-gateway resource
-at all, so outbound reachability comes from an explicit method attached to the deployment — a
-NAT gateway associated with the subnet, outbound rules on a Standard Load Balancer, or a
-public IP on the virtual machine — while inbound reachability still requires a public IP or a
-public load balancer. Do not read that as "Azure gives it to you for free": Azure formerly
-granted an implicit "default outbound access" to a virtual machine deployed without any
-explicit method, and Microsoft is retiring it. Its documentation states that for the API
-released after 31 March 2026 new virtual networks default to using private subnets, meaning
-an explicit outbound method must be enabled in order to reach public endpoints, and the
-portal already creates subnets as private by default.
+at all, so outbound reachability should come from an explicit method attached to the
+deployment — a NAT gateway associated with the subnet, outbound rules on a Standard Load
+Balancer, or a public IP on the virtual machine — while inbound reachability still requires a
+public IP or a public load balancer. Azure does still hand out outbound access implicitly,
+but do not build on it: Microsoft documents that a virtual machine deployed without an
+explicitly defined outbound connectivity method is assigned an outbound public IP it calls
+"default outbound access", describes that as an implicit platform behaviour, and recommends
+an explicit method instead. It states that for the API released after 31 March 2026 new
+virtual networks default to using private subnets, meaning an explicit outbound method must be
+enabled in order to reach public endpoints, and that the portal already defaults subnets to
+private.
 
 **Key terms** routing target; two-way reachability; outbound-only; address translation.
 
@@ -337,10 +347,10 @@ perform the same function.
 when a check fails, the authoritative answer for that name stops pointing at the failed
 endpoint. The important limitation is that this is DNS, so the change propagates only as fast
 as resolvers and clients expire their cached answers — the record's TTL sets the floor on
-failover time. That is the discrimination the exam wants: a load balancer removes an unhealthy
-target from rotation behind a single unchanged endpoint, taking effect immediately, whereas
-DNS failover changes which endpoint clients are told to use and cannot take effect faster
-than caching allows.
+failover time. That is the discrimination the exam wants: a load balancer keeps one unchanged
+endpoint and simply stops routing to a target its health checks have marked unhealthy, so no
+client has to learn anything new, whereas DNS failover changes which endpoint clients are
+told to use and cannot take effect faster than caching allows.
 
 **Key terms** authoritative; health check; DNS failover; TTL.
 
@@ -353,9 +363,12 @@ than caching allows.
 the application protocol at all. A layer 7 (application-layer) load balancer parses the
 request and can therefore make decisions on hostname, URL path, headers, or cookies. AWS
 places its Network Load Balancer at the fourth layer of the OSI model and its Application
-Load Balancer at the application layer, the seventh; Azure splits the same way between Load
-Balancer and Application Gateway, and Google Cloud between its Network and Application Load
-Balancers (formerly HTTP(S) Load Balancing).
+Load Balancer at the application layer, the seventh. Azure splits the same way, documenting
+Load Balancer at layer 4 and Application Gateway at layer 7, and so does Google Cloud, whose
+documentation calls Network Load Balancers layer 4 load balancers and Application Load
+Balancers proxy-based layer 7 load balancers — a name worth noting, because Google's earlier
+documentation called the layer 7 product HTTP(S) Load Balancing and older material still
+does.
 
 **Why it matters** Requirements map onto the split cleanly, and the exam states them as
 requirements rather than as layer numbers. "Route `/api` to one group of servers and
@@ -395,9 +408,9 @@ overlaps the other side's range causes the request to fail.
 
 **Key terms** non-transitive; backbone; route propagation; overlapping CIDR.
 
-**Traps** Non-transitivity is the trap the exam reaches for first, because a hub-and-spoke
-diagram makes the wrong answer look obvious; a full mesh, or a transit/hub gateway service,
-is what actually connects three or more networks. The second trap is treating peering as a
+**Traps** Non-transitivity is the trap to expect first, because a hub-and-spoke diagram makes
+the wrong answer look obvious; a full mesh, or a transit/hub gateway service, is what
+actually connects three or more networks. The second trap is treating peering as a
 VPN: peering is not a tunnel you established, and it exposes no encryption setting you own,
 terminate, or key-manage. That is not the same as saying the traffic is unencrypted — the
 provider may encrypt the underlying transport, and AWS documents that all inter-Region
@@ -425,20 +438,23 @@ dedicated-circuit product is Direct Connect, Azure's is ExpressRoute, and Google
 Cloud Interconnect.
 
 **Why it matters** The exam turns this into a trade-off question, not a product question. A
-site-to-site VPN needs only a public endpoint at each end and can be configured in hours, at
-low cost — but it shares the public internet, so bandwidth and latency vary with conditions
-nobody controls. A dedicated circuit has to be ordered and physically provisioned through a
-partner or colocation facility, taking weeks and costing considerably more, and buys
-predictability in exchange. Microsoft states the payoff for ExpressRoute directly: because
-the connections do not go over the public internet, they offer more reliability, faster
-speeds, consistent latencies, and higher security than typical internet connections.
+site-to-site VPN needs only a public endpoint at each end, so it is a configuration task on
+equipment you already have — but it shares the public internet, so bandwidth and latency vary
+with conditions nobody controls. A dedicated circuit has to be ordered and physically
+provisioned through a connectivity provider or a colocation facility, which takes far longer
+and costs considerably more, and buys predictability in exchange. Microsoft states the payoff
+for ExpressRoute directly: because the connections do not go over the public internet, they
+offer more reliability, faster speeds, consistent latencies, and higher security than typical
+connections over the internet.
 
 **How it works** The VPN case builds an encrypted tunnel between an on-premises VPN device
 and a cloud VPN gateway; the packets still travel the public internet, but confidentiality is
-provided by the tunnel. The dedicated-circuit case establishes a private layer 2 or layer 3
-path from your network into the provider's edge, so the traffic never enters the public
-internet in the first place; encryption there is a separate decision, because privacy of path
-is not the same property as encryption of payload.
+provided by the tunnel. The dedicated-circuit case establishes a private path from your
+network into the provider's edge through a connectivity provider — Microsoft describes
+ExpressRoute as layer 3 connectivity established over dual BGP sessions to Microsoft's edge
+routers — so the traffic never enters the public internet in the first place; encryption
+there is a separate decision, because privacy of path is not the same property as encryption
+of payload.
 
 **Key terms** site-to-site VPN; dedicated circuit; connectivity provider; predictable
 latency.
@@ -464,7 +480,7 @@ that the choice is independent of which provider is named.
 | What it joins | An on-premises network to a cloud network | Two networks inside the same provider's cloud |
 | Path | Encrypted tunnel over the public internet, or a dedicated circuit that avoids it | The provider's own private backbone |
 | How it is provisioned | A VPN device plus a cloud VPN gateway, or a circuit ordered through a connectivity provider | A request from one network, accepted by the other, plus routes on both sides |
-| Lead time | Hours for a VPN; weeks for a dedicated circuit | Minutes — it is a control-plane operation |
+| Lead time | Short for a VPN — configuration on equipment you already have; long for a dedicated circuit, which a connectivity provider has to physically provision | Short — a control-plane request, an acceptance, and route entries on both sides |
 | Encryption | Inherent to the VPN case; a separate decision on a dedicated circuit | Not something you configure or control; the provider may encrypt the underlying transport — AWS encrypts inter-Region peering traffic — but peering is not a tunnel you established |
 | Blocked by overlapping address ranges | Yes | Yes — the connection cannot be created at all |
 
@@ -569,10 +585,12 @@ that the NAT path would otherwise bill.
 
 **How it works** An endpoint is created inside your own network and given a private address
 from your address space; DNS for the service name resolves to that address, so existing
-clients keep working unchanged while the traffic stays inside the provider's network. This is
-one-way and service-scoped, which is what separates it from peering: a private endpoint
-exposes one service to your network, whereas peering joins two whole networks and therefore
-carries the overlapping-address constraint that an endpoint does not.
+clients keep working unchanged while the traffic stays inside the provider's network. The
+direction and the scope are what separate it from peering: AWS describes the service
+provider's load balancer as receiving requests from service consumers, so the consumer side
+is the side that connects, and a private endpoint exposes one service to your network,
+whereas peering joins two whole networks and therefore carries the overlapping-address
+constraint that an endpoint does not.
 
 **Key terms** private endpoint; service-scoped; DNS resolution to a private address; egress
 cost.
@@ -592,10 +610,12 @@ network ACL rule is the remaining candidate.
 
 #### Knowledge check
 
-1. What single change turns a private subnet into a public one, and what does *not*?
+1. On AWS, what single change turns a private subnet into a public one, and what does *not*?
    Associating it with a route table that has a route to an internet gateway. Assigning
    public IP addresses to the instances does not — with no route, they are unreachable
-   anyway; and there is no "public" attribute on the subnet itself to set.
+   anyway; and AWS exposes no "public" attribute on the subnet itself to set. Do not
+   generalise that last point: Azure does decide the equivalent with a subnet property,
+   `defaultOutboundAccess`.
 2. State the two axes on which a security group and a network ACL differ, in the right
    direction.
    State and attachment point: the security group is stateful and attaches at the instance

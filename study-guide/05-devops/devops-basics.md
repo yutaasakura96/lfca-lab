@@ -95,9 +95,10 @@ and deployment concerns as well.
 
 **Why it matters** The justification is cost, and the exam expects the reasoning rather than
 the slogan: a defect or a vulnerability found at design time is a conversation, the same defect
-found after deployment is an incident, a rollback, and possibly a disclosure. Nothing about
-shift left reduces the number of defects introduced; it reduces how expensive each one is to
-remove by finding it while the change is still cheap to alter.
+found after deployment is an incident, a rollback, and possibly a disclosure. The claim shift
+left makes is about cost, not volume: it is justified by how much cheaper a defect is to remove
+when found while the change is still cheap to alter, not by a promise that fewer defects are
+written.
 
 **How it works** Shift left is a statement about *when*, not about *who* or *which tool*. It
 does not mean developers absorb the QA team's job or that a scanner replaces a review; it means
@@ -195,7 +196,7 @@ of a tool.
 | | Continuous integration | Pipeline |
 | --- | --- | --- |
 | What it names | A team practice: merge to a shared branch often, verify every change automatically | The concrete automated sequence of stages a change is run through |
-| Category | A behaviour, measured by how often work is integrated | Machinery, configured in a tool and visible as a definition file |
+| Evidence you would look for | Merge frequency in the shared branch's history | A definition file in the repository and a run history in the tool |
 | Can the other exist without it | A pipeline can run nightly against long-lived branches with no continuous integration behind it | CI with no automation at all is not CI — the verification must be automatic |
 | What a question is asking for | "What is this team doing?" | "What is running, and in what order?" |
 
@@ -298,9 +299,10 @@ in a CI server — not a practice or a philosophy.
 **Why it matters** Most pipeline questions are about ordering and attribution: given a
 described failure, which stage should have caught it, and what does the pipeline do next. The
 ordering carries real content. Build comes first because nothing can be tested until it
-compiles; test comes before package so that only verified code is packaged; package produces
-the single artifact that deploy then promotes, which is why the same artifact reaches every
-environment.
+compiles; test comes before deploy so that nothing unverified reaches an environment. Whether
+tests run before or after packaging varies — a container image is frequently built first and
+then tested as the artifact — and what does not vary is that the artifact promoted is the one
+that passed, which is why the same artifact reaches every environment.
 
 **How it works** A trigger — a commit, a merge, a tag, a schedule — starts a run. Stages
 execute in order on runners or agents, and a failing stage stops the run so the change does not
@@ -620,9 +622,11 @@ which is why rolling back a rolling deployment is slower than flipping a blue-gr
 
 **Traps** A rolling deployment is not a canary. During the roll some traffic does reach the new
 version, but that fraction is a consequence of how many instances have been replaced, not a
-sample chosen to be observed, and nothing pauses to evaluate it — the roll proceeds on a
-schedule, not on evidence. Treating a rolling update as though it provided canary-style safety
-is the error the pair exists to catch.
+sample chosen to be observed. The roll advances as each batch of replacements becomes healthy —
+a Kubernetes rollout waits for new Pods to become available before scaling the old set down
+further — but nothing evaluates how the new version is behaving under the traffic it has
+already taken. Treating a rolling update as though it provided canary-style safety is the error
+the pair exists to catch.
 
 **What the exam may test** Identifying rolling deployment from wording about replacing
 instances in batches or keeping the service up during an update, and recognising the
@@ -727,17 +731,16 @@ and a rolling deployment would guarantee a mixed-version window, so blue-green i
 that fits: build the green environment, migrate, validate, and cut all traffic over at once.
 The rollback plan is where the reasoning is tested: switching traffic back restores the code but
 does not un-apply the migration, so the migration must be written to be reversible or the
-"instant rollback" is fiction. A later release, which is backward-compatible, ships as a canary
-at 1% of traffic instead, with the error rate on that slice watched before widening — and both
-releases deploy the identical artifact that staging already ran, with only configuration
-differing between the environments.
+"instant rollback" is fiction. A later, backward-compatible release ships as a canary at 1%
+instead, with that slice's error rate watched before widening — and both deploy the identical
+artifact staging already ran, only configuration differing.
 
 #### Knowledge check
 
 1. What is the one-sentence difference between a canary release and a rolling deployment?
    A canary splits traffic deliberately, to gather evidence before widening; a rolling
-   deployment splits it only as a side effect of replacing instances in batches, and evaluates
-   nothing.
+   deployment splits it only as a side effect of replacing instances in batches, and nothing
+   evaluates how the new version is behaving on the share it has taken.
 2. Why is blue-green rollback near-instant, and what single design choice can destroy that
    property?
    The old environment is still running untouched, so reversing is a traffic switch; a shared
@@ -754,9 +757,11 @@ differing between the environments.
    reproduces the same tree.
 6. Staging uses a scrubbed dataset a fraction of production's size and a single application
    instance instead of six. Which of those two is the parity problem?
-   Both are gaps, but the shape differences matter more than size: one instance cannot exhibit
-   the mixed-version or cross-instance behaviour six will, and scrubbed data with a different
-   distribution exercises different code paths.
+   The single instance. Parity is about shape, not size: one instance cannot exhibit the
+   cross-instance or mixed-version behaviour six will. Data that cannot be real in staging is a
+   known limitation to compensate for rather than a parity failure — unless the scrubbed set's
+   distribution differs in shape rather than merely in volume, which exercises different code
+   paths.
 
 <a id="s-devops-basics-automation"></a>
 ## Automation
@@ -835,12 +840,12 @@ entirely.
 An environment is defined in version-controlled declarative files: the tool is asked to apply
 them, finds three of four subnets already present, creates the fourth, and reports exactly that
 — infrastructure as code doing the provisioning, and idempotency making the partial state
-harmless rather than a problem to unpick. A colleague proposes replacing the whole thing with
-the shell script they already have. It creates the same resources, but running it a second time
-creates a second copy of each and it cannot report drift, because there is no declaration to
-compare reality against. Once the environment exists, the question shifts: bringing the hosts
-inside it to a declared configuration is the configuration-management job, not the provisioning
-one, and when the new service starts misbehaving in a way nobody predicted, it is the
+harmless rather than a problem to unpick. A colleague proposes the shell script they already
+have instead. It creates the same resources, but a second run creates a second copy of each and
+it cannot report drift, because there is no declaration to compare reality against. Once the
+environment exists, the question shifts: bringing the hosts inside it to a declared
+configuration is the configuration-management job, not the provisioning one, and when the new
+service starts misbehaving in a way nobody predicted, it is the
 observability of its outputs — not a predefined threshold — that decides whether the cause can
 be found at all.
 

@@ -124,8 +124,7 @@ having made it something else.
 
 **What it is** An architecture in which an application is split into services that are
 independently deployable, communicate over the network, and each own their data. LFS200 names
-the term in one lesson without developing it (`research/lfs200-notes/00-course-map.md`), so
-nothing below is drawn from the course.
+the term in one lesson without developing it (`research/lfs200-notes/00-course-map.md`).
 
 **Why it matters** The trade-off, not the definition, is what a scenario question turns on:
 independent deployment and per-service scaling are bought with network latency, partial failure,
@@ -262,13 +261,13 @@ the application server — and recognising that the two roles usually coexist on
 | How many parts | Two, and both are processes you can point at | Three layers of responsibility, each possibly many processes |
 | Covers the database | No — neither role is the data store | Yes — the data tier is one of the three |
 | Kind of statement | Operational: what is running and what it does | Design: where a responsibility belongs |
-| Where they meet | The web server serves presentation-tier content and reverse-proxies the rest; the application server implements the application tier | The layering those two roles serve, with the data tier behind them |
+| What a question names it as | A running process you can restart, configure, or find in a process list | A responsibility you can assign, with no process of its own |
 
 The separating axis is design versus deployment: three-tier names where responsibilities belong,
 web server versus application server names which running process is doing the serving — the
 application server implements the application tier, while the web server delivers
 presentation-tier content and reverse-proxies without being a tier of its own, and neither role
-touches the data tier.
+is the data tier itself.
 
 #### Scenario
 
@@ -341,8 +340,8 @@ implementation or the transport, and rejecting options that equate "API" with "R
 | | API | REST |
 | --- | --- | --- |
 | Category | A contract between two pieces of software | An architectural style for building such a contract |
-| Requires a network | No — a library or system-call interface is an API | Yes in practice; it is defined over HTTP-style request/response |
-| Fixes the data format | No | No — JSON is conventional, not mandatory |
+| Requires a network | No — a library or system-call interface is an API | Yes — it is a network-based style, and client-server and stateless communication are constraints of it |
+| What the term constrains | Nothing about transport or format — only the operations, their inputs, and their outputs | Resource URLs, HTTP method semantics, and stateless requests — but not the format; JSON is conventional, not mandatory |
 | Alternatives at the same level | None; the term names the whole category | SOAP, gRPC, GraphQL are alternative styles |
 | Relationship | The superset | One kind of API |
 
@@ -368,10 +367,11 @@ load balancing and to stateless application design.
 
 **How it works** In the usual formulation the URL identifies the resource (`/orders/42`), the
 method states the operation (retrieve, replace, modify, remove), and the status code reports the
-outcome. REST inherits HTTP's statelessness: RFC 9110 defines HTTP as a stateless protocol in
-which each request message's semantics can be understood in isolation, so a REST request carries
-whatever identity and context the server needs rather than relying on the server remembering the
-previous request. That is what lets any instance behind a load balancer answer any request.
+outcome. Statelessness is a constraint of the style itself, and the protocol it is carried over
+shares it: RFC 9110 defines HTTP as a stateless protocol in which each request message's
+semantics can be understood in isolation, so a REST request carries whatever identity and context
+the server needs rather than relying on the server remembering the previous request. That is what
+lets any instance behind a load balancer answer any request.
 
 **Key terms** resource; representation; uniform interface; statelessness.
 
@@ -546,8 +546,8 @@ stores (an opaque value retrieved by its key), wide-column stores (rows of spars
 partitioned by key), and graph databases (nodes and edges, with traversal as the primary
 operation).
 
-**Why it matters** The dataset flags this comparison as one where choosing between the two for a
-stated scenario is likely. The usable rule of thumb is shape and access pattern: records that
+**Why it matters** A scenario that hands the candidate a workload and asks which store fits is
+the likely question form. The usable rule of thumb is shape and access pattern: records that
 vary field by field, or that are always fetched whole by one key, or that must be spread across
 many nodes for write volume, typically suit a non-relational store; interrelated entities queried
 in combinations nobody predicted typically do not.

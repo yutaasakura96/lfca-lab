@@ -7,10 +7,11 @@ update. LFS200 touches a minority of it: of its 22 concepts, 5 are FULLY COVERED
 COVERED, so 5/22 (23%) are covered at all, in a single lesson
 (`research/lfs200-notes/00-course-map.md`); the remaining 17, including the whole
 fetch/pull/push axis and every undo operation, are sourced independently below against
-git-scm.com. The exam has no practical component, so nothing here is tested by making you type
-a command — it is tested by making you choose between two commands that sound equally
-plausible, which is why every topic below is written around the boundary rather than the
-definition.
+git-scm.com — all but one, pull request, which has no primary documentation source of its own
+and carries the no-source marker below instead. The exam has no practical component, so nothing
+here is tested by making you type a command — it is tested by making you choose between two
+commands that sound equally plausible, which is why every topic below is written around the
+boundary rather than the definition.
 
 <a id="s-git-concepts-fundamentals"></a>
 ## Fundamentals
@@ -151,8 +152,10 @@ those later edits unstaged until you add it again.
 
 **Traps** `git commit -a` is not "commit everything": a brand-new file that Git has never seen
 is untracked, so `-a` ignores it and the commit silently omits it. In the other direction,
-`git add` on a file matched by `.gitignore` is refused rather than silently honoured when the
-path is named explicitly.
+`git add` never stages a file matched by `.gitignore`, but it refuses in two different ways.
+An ignored path named explicitly on the command line makes the command fail with a list of the
+ignored paths and a hint to use `-f`; an ignored file merely reached by directory recursion or
+by a glob Git expands itself — `git add .` — is skipped with no message at all.
 
 **What the exam may test** Given a described situation — a file edited but not added, added but
 not committed, or never tracked at all — naming both the state it is in and the one command that
@@ -164,9 +167,10 @@ moves it forward.
 
 **What it is** An immutable snapshot of the tracked project at one moment, carrying an author, a
 committer, a timestamp, a log message, and a link to its parent commit (two parents for an
-ordinary merge commit, and more for an octopus merge of several branches at once). It is
-identified by a hash computed over that content, which is why a commit cannot be edited: any
-change to it produces a different hash, and therefore a different commit.
+ordinary merge commit, more for an octopus merge of several branches at once, and none at all
+for the first commit in a repository, which has nothing to point back to). It is identified by
+a hash computed over that content, which is why a commit cannot be edited: any change to it
+produces a different hash, and therefore a different commit.
 
 **Why it matters** Two exam-relevant properties follow directly from that definition. First, a
 commit is a snapshot, not a diff — the patch you see in `git log -p` is computed on demand
@@ -763,13 +767,11 @@ A contributor wants to fix a bug in a project they cannot push to. They fork it 
 `git clone` their fork, and see from `git remote -v` that `origin` is their own copy, not the
 original — so they add the project as a second remote named `upstream`. They branch, commit, and
 run `git push`, which fails because the new branch has no upstream; `git push -u origin fix/retry`
-pushes and records the destination, and every later push on that branch is a bare `git push`.
-They open a pull request against the original project, which changes no history and merely asks
-for the merge. While review runs, the project's `main` advances; they use `git fetch upstream` to
-see the new commits without disturbing their working tree, since a `git pull` at that moment
-would have integrated them into the branch under review. After the maintainers merge and cut a
-release, the release itself is marked not with a branch but with an annotated tag on the exact
-commit shipped.
+pushes and records the destination, so every later push on that branch is bare. They open a pull
+request, which changes no history and merely asks for the merge. While review runs, `upstream`'s
+`main` advances; `git fetch upstream` shows those commits without disturbing the branch under
+review, where `git pull` would have integrated them into it. The shipped release is then marked
+with an annotated tag on the exact commit, not with a branch.
 
 #### Knowledge check
 

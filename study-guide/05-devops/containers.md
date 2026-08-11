@@ -48,8 +48,8 @@ what it was told and finished.
 | `docker ps` | List containers | `-a` include stopped ones, `-q` IDs only | `docker ps -a` | Reading bare `docker ps` as "everything that exists" — by default it shows only running containers, so a container that crashed on startup is invisible until `-a` |
 
 **Traps** A container is an instance, an image is the template — "one image, many containers" is
-the phrasing the exam rewards. A container is also not a pod: pods exist only in Kubernetes, and
-a pod may hold several containers. And a container that "exited immediately" is usually not
+the phrasing the exam rewards. A container is also not a pod: pods are a Kubernetes concept,
+absent from Docker, and a pod may hold several containers. And a container that "exited immediately" is usually not
 broken isolation but a main process that terminated, which `docker logs` will show and
 `docker ps -a` will confirm.
 
@@ -69,7 +69,7 @@ the Kubernetes pod that may wrap it.
 | --- | --- | --- | --- |
 | What it is | One running or stopped instance | The immutable read-only template it was created from | Kubernetes' scheduling unit, wrapping one or more containers |
 | Cardinality | Many containers from one image | One image serves any number of containers | One pod holds one container in the common case, several when tightly coupled |
-| Where the idea exists | Any runtime — Docker, containerd, CRI-O | A local image store or a registry | Kubernetes only; Docker has no pods |
+| Where the idea exists | Any runtime — Docker, containerd, CRI-O | A local image store or a registry | Kubernetes, and Kubernetes-compatible tools such as Podman; Docker has no pods |
 | Writable state | Yes — a writable layer that dies with the container | No — read-only, shared by every container using it | Its containers have their own; the pod adds a shared network namespace and shared volumes |
 | Brought into being by | `docker run` | `docker build`, or a pull from a registry | Created through the Kubernetes API from a pod spec — normally by a workload controller such as a Deployment; the scheduler then assigns it to a node |
 
@@ -179,11 +179,15 @@ An exam scenario in which "the image works on my laptop but the cluster cannot s
 usually a registry question — the image was never pushed, the node cannot authenticate, or the
 reference names a registry the node cannot reach.
 
-**How it works** A full image reference is `registry/namespace/repository:tag`, for example
-`registry.example.com/team/api:1.4.2`. Omit the registry host and the Docker CLI substitutes
-Docker Hub, which is why the bare name `ubuntu` resolves to Docker Hub's official `ubuntu`
-repository. A registry holds repositories; a repository holds many tagged images of one
-application. Pushing to a private registry requires the image to be tagged with that registry's
+**How it works** A full image reference is `registry/repository:tag`, for example
+`registry.example.com/team/api:1.4.2`, where the registry host is `registry.example.com`, the
+repository is `team/api` and the tag is `1.4.2`. The repository name is the whole path after the
+host, not just its last segment: the OCI Distribution Specification allows it to carry
+slash-separated components, so the leading segment reads as a namespace — `team` owning `team/api`
+on a private registry, `library` owning `library/nginx` on Docker Hub. Omit the registry host and
+the Docker CLI substitutes Docker Hub, which is why the bare name `ubuntu` resolves to Docker
+Hub's official `ubuntu` repository. A registry holds repositories; a repository holds many tagged
+images of one application. Pushing to a private registry requires the image to be tagged with that registry's
 host name first, and requires authentication; pulling from a public repository generally does
 not.
 
@@ -216,14 +220,17 @@ direction of travel.
 image a tag names today can be replaced tomorrow by pushing something else under the same tag.
 
 **Why it matters** `latest` is the most-cited mistake in container practice, and it is a
-misreading of the name. `latest` is nothing more than the tag applied by default when a build or
-a pull specifies no tag at all; it is not computed by comparing version numbers, and there is no
+misreading of the name. `latest` is nothing more than the tag a reference falls back to when it
+names a repository but no tag; it is not computed by comparing version numbers, and there is no
 rule that it points at the newest build. Deploying `:latest` therefore means two nodes that pull
 at different moments can legitimately run different code, a rollback has no earlier tag to
 return to, and "which version is in production" has no answer.
 
 **How it works** Building with `docker build -t api:1.4.2 .` writes the tag into the local
-store; omitting the tag applies `latest`. Because tags move, the reproducible way to pin an
+store. `latest` is supplied only where a reference names a repository but no tag — `docker build
+-t api .` produces `api:latest`, and `docker pull nginx` fetches `nginx:latest`. A build given no
+name at all is a different case entirely: `docker build .` produces an untagged image that
+`docker images` lists as `<none>`, not one tagged `latest`. Because tags move, the reproducible way to pin an
 image is its content digest — `api@sha256:...` — which names exact bytes and cannot be
 repointed. Production deployments pin an explicit version tag at minimum, and a digest when
 reproducibility must be guaranteed.
@@ -256,8 +263,8 @@ never changed. The fix is to reference `team/api:1.4.2` or a digest, not to rebu
    `CMD` record configuration metadata only. `WORKDIR` is the edge case: it sets metadata but
    creates its directory when that directory is missing, so it can create a layer as well.
 4. Does the tag `latest` mean the newest image in a repository?
-   No — it is only the default tag name applied when none is specified, and it is a mutable
-   pointer that can name any image at all.
+   No — it is only the tag a reference falls back to when it names a repository but no tag, and it
+   is a mutable pointer that can name any image at all.
 5. In the reference `registry.example.com/team/api:1.4.2`, name the registry, the repository and
    the tag.
    Registry `registry.example.com`; repository `team/api`; tag `1.4.2`.
@@ -762,22 +769,32 @@ and the discriminating property is not "runs multiple containers". It is multipl
 continuous reconciliation — something that keeps comparing what is running against what was
 declared and acts on the difference, indefinitely, without a human running a command.
 
-**How it works** A scheduler chooses a host for each workload using resource requests and
-placement constraints. Controllers watch actual state against declared state and take corrective
-action — recreating a failed instance, moving work off a lost node, adding or removing copies to
-match a replica count. A service abstraction provides a stable address in front of instances
-whose addresses change. Updates roll out by replacing instances gradually and can be rolled back.
-Kubernetes is the dominant implementation; Nomad and Docker Swarm are others.
+**How it works** A scheduler chooses a host for each workload using the resources the workload
+declares it needs and any placement constraints it carries; because placement is fitting declared
+requests into available capacity, a pool of machines can be packed far more densely than one
+workload per machine allows. Controllers watch actual state against declared state and take
+corrective action — recreating a failed instance, moving work off a lost node, adding or removing
+copies to match a replica count. Failure is detected explicitly rather than inferred: instances
+are health-checked, so one that has stopped responding is restarted, and one that is running but
+not yet able to serve is kept out of rotation until it is. Nodes are watched the same way, so a
+node that stops reporting has its workloads recreated elsewhere instead of left stranded. A
+service abstraction provides a stable address in front of instances whose addresses change.
+Updates roll out by replacing instances gradually and can be rolled back. Kubernetes is the
+dominant implementation; Nomad and Docker Swarm are others.
 
 **Key terms** scheduler; controller; reconciliation; rolling update; replica.
 
 **Traps** Orchestration is not a runtime: the orchestrator decides what should run where, and the
 runtime on each node actually starts it. It is also not containerization — an orchestrator does
-not build or isolate anything, it manages containers that already exist as images.
+not build or isolate anything, it manages containers that already exist as images. And it is not
+CI/CD: a pipeline builds the image, pushes it, and may submit the updated declaration, but what
+keeps that declaration true for the weeks afterwards is the orchestrator, not the pipeline.
 
 **What the exam may test** Selecting orchestration over a single-host tool from a stated
-requirement (survive a node failure, scale to demand, roll out without downtime), and separating
-the orchestrator's role from the runtime's.
+requirement (survive a node failure, scale to demand, roll out without downtime), separating the
+orchestrator's role from the runtime's, and naming continuous reconciliation across a pool of
+hosts — not the number of containers involved — as the property that makes a tool an
+orchestrator.
 
 <a id="cmp-devops.containers.container-orchestration"></a>
 #### Not to be confused with: Container orchestration vs Docker Compose
@@ -1038,19 +1055,16 @@ and governance structures.
 
 #### Scenario
 
-Follow one release from source to serving traffic, which is the chain a question can enter at any
-point. A Dockerfile is built and tagged as `team/api:1.4.2`, producing an image whose `RUN`,
-`COPY` and `ADD` steps became layers; it is pushed to a registry. A Deployment declaring three
-replicas and that image is submitted to the API server, which records the desired state in etcd.
-The scheduler sees three pods with no node assigned and picks nodes with room for them; on each
-chosen node the kubelet drives the container runtime, which pulls the image from the registry —
-fetching only layers the node lacks — and starts the containers inside a pod. A Service with a
-label selector matching those pods gives callers one stable name and address, load balancing
-across whatever pods are ready at that instant. When `1.4.3` is pushed and the Deployment's
-template updated, a new ReplicaSet is scaled up while the old is scaled down, pod IPs churn
-throughout, and the Service keeps answering because it selects by label rather than by address.
-An engineer deleting a pod by hand watches it reappear seconds later: the declared replica count
-is unsatisfied, and reconciliation is continuous.
+A Dockerfile is built and tagged `team/api:1.4.2`, producing an image whose `RUN`, `COPY` and
+`ADD` steps became layers, and is pushed to a registry. A Deployment declaring three replicas of
+that image goes to the API server, which records the desired state in etcd. The scheduler sees
+three pods with no node assigned and picks nodes with room; on each, the kubelet drives the
+container runtime, which pulls the image and starts the containers inside a pod. A Service whose
+label selector matches those pods gives callers one stable name, balancing across whichever pods
+are ready. When `1.4.3` is pushed and the Deployment's template updated, a new ReplicaSet scales
+up while the old scales down; pod IPs churn throughout and the Service keeps answering, because
+it selects by label rather than by address. An engineer who deletes a pod by hand watches it
+reappear: the replica count is unsatisfied, and reconciliation never stops.
 
 #### Knowledge check
 
@@ -1061,8 +1075,9 @@ is unsatisfied, and reconciliation is continuous.
    A container is a running process; a pod is Kubernetes' smallest deployable unit, wrapping one
    or more containers that share network and storage and are always scheduled together.
 3. A pod is deleted by hand and reappears. Which object caused that, and why?
-   The Deployment — its declared replica count was no longer satisfied, and its controller
-   reconciles actual state toward desired state continuously.
+   The Deployment, acting through the ReplicaSet it created and which actually owns the pods: the
+   declared replica count was no longer satisfied, and the controller reconciles actual state
+   toward desired state continuously.
 4. Which Kubernetes object gives a changing set of pods one stable address, and why is one
    needed?
    A Service; pods are ephemeral and each replacement gets a new IP, so addressing pods directly
