@@ -7,7 +7,7 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 3,
-      "stem": "Item 1 about the widget: which statement correctly identifies the widget?",
+      "stem": "A technician flips through the parts catalog, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
@@ -60,7 +60,17 @@
         "widgetctl list"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.02",
@@ -68,11 +78,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 3,
-      "stem": "Item 2 about the widget: which statement correctly identifies the widget?",
+      "stem": "A new hire reads the shift-handover notes, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "That is the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -118,7 +128,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.03",
@@ -126,11 +146,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "Item 3 about the widget: which statement correctly identifies the widget?",
+      "stem": "An inspector checks a printed spec sheet, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "This is the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -176,7 +196,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.04",
@@ -184,11 +214,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 3,
-      "stem": "Item 4 about the widget: which statement correctly identifies the widget?",
+      "stem": "A vendor reviews the onboarding slides, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "It's the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -234,7 +264,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.05",
@@ -242,11 +282,11 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 3,
-      "stem": "Item 5 about the widget: which statement correctly identifies the widget?",
+      "stem": "A trainer scans a warehouse tag, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "The item is the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -292,7 +332,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.06",
@@ -300,11 +350,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "Item 6 about the widget: which statement correctly identifies the widget?",
+      "stem": "A customer walks the assembly line, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "The part is the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -350,7 +400,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.widget.07",
@@ -358,11 +418,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 3,
-      "stem": "Item 7 about the widget: which statement correctly identifies the widget?",
+      "stem": "A warehouse clerk audits a spare-parts drawer, then double-checks the classification, and needs to know: which statement correctly identifies the widget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the widget.",
+          "text": "Correctly, it is the widget.",
           "correct": true,
           "why": "That is the definition of the widget.",
           "provenance": {
@@ -408,7 +468,17 @@
       "comparison_block": "cmp-alpha.things.widget",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.gadget.01",
@@ -416,11 +486,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 1 about the gadget: which statement correctly identifies the gadget?",
+      "stem": "An auditor answers a support ticket, then double-checks the classification, and needs to know: which statement correctly identifies the gadget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the gadget.",
+          "text": "In short, it is the gadget.",
           "correct": true,
           "why": "That is the definition of the gadget.",
           "provenance": {
@@ -466,7 +536,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.gadget.02",
@@ -474,11 +554,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 2 about the gadget: which statement correctly identifies the gadget?",
+      "stem": "A supervisor fills out a maintenance log, then double-checks the classification, and needs to know: which statement correctly identifies the gadget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the gadget.",
+          "text": "Put plainly, it is the gadget.",
           "correct": true,
           "why": "That is the definition of the gadget.",
           "provenance": {
@@ -524,7 +604,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.gadget.03",
@@ -532,11 +622,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 3 about the gadget: which statement correctly identifies the gadget?",
+      "stem": "A student sorts a returned shipment, then double-checks the classification, and needs to know: which statement correctly identifies the gadget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the gadget.",
+          "text": "The answer is the gadget.",
           "correct": true,
           "why": "That is the definition of the gadget.",
           "provenance": {
@@ -582,7 +672,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.gadget.04",
@@ -590,11 +690,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Item 4 about the gadget: which statement correctly identifies the gadget?",
+      "stem": "A field engineer labels a storage bin, then double-checks the classification, and needs to know: which statement correctly identifies the gadget?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the gadget.",
+          "text": "Simply, it is the gadget.",
           "correct": true,
           "why": "That is the definition of the gadget.",
           "provenance": {
@@ -640,7 +740,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.trinket.01",
@@ -648,7 +758,7 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 1,
-      "stem": "Item 1 about the trinket: which statement correctly identifies the trinket?",
+      "stem": "A quality reviewer compares two lookalike parts, then double-checks the classification, and needs to know: which statement correctly identifies the trinket?",
       "options": [
         {
           "ref": "o1",
@@ -698,7 +808,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.trinket.02",
@@ -706,11 +826,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 1,
-      "stem": "Item 2 about the trinket: which statement correctly identifies the trinket?",
+      "stem": "A shift lead cross-checks a bill of materials, then double-checks the classification, and needs to know: which statement correctly identifies the trinket?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the trinket.",
+          "text": "That is the trinket.",
           "correct": true,
           "why": "That is the definition of the trinket.",
           "provenance": {
@@ -756,7 +876,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.01",
@@ -764,11 +894,11 @@
       "pool": "exam",
       "type": "diagnostic",
       "difficulty": 4,
-      "stem": "Item 1 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A stock clerk reviews an inspection form, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "This is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -814,7 +944,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.02",
@@ -822,11 +962,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 4,
-      "stem": "Item 2 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A repair tech browses the training glossary, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "It's the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -872,7 +1012,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.03",
@@ -880,11 +1030,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 4,
-      "stem": "Item 3 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A logistics coordinator inspects a returned crate, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "The item is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -930,7 +1080,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.04",
@@ -938,11 +1098,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 4,
-      "stem": "Item 4 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A safety officer updates the inventory ledger, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "The part is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -988,7 +1148,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.05",
@@ -996,11 +1166,11 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 4,
-      "stem": "Item 5 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A contractor grades a terminology quiz, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "Correctly, it is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1046,7 +1216,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.06",
@@ -1054,11 +1234,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 4,
-      "stem": "Item 6 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A procurement agent reviews a vendor manual excerpt, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "In short, it is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1104,7 +1284,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.07",
@@ -1112,11 +1302,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 4,
-      "stem": "Item 7 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A lab assistant proofreads an assembly diagram caption, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "Put plainly, it is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1162,7 +1352,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.08",
@@ -1170,11 +1370,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 4,
-      "stem": "Item 8 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A shipping clerk double-checks a pick list, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "The answer is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1220,7 +1420,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.09",
@@ -1228,11 +1438,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 4,
-      "stem": "Item 9 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A help-desk agent verifies a calibration tag, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "Simply, it is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1278,7 +1488,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.10",
@@ -1286,7 +1506,7 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 4,
-      "stem": "Item 10 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A junior engineer annotates a site survey, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
@@ -1336,7 +1556,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.alpha.things.doohickey.11",
@@ -1344,11 +1574,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 4,
-      "stem": "Item 11 about the doohickey: which statement correctly identifies the doohickey?",
+      "stem": "A senior engineer files a commissioning report, then double-checks the classification, and needs to know: which statement correctly identifies the doohickey?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the doohickey.",
+          "text": "That is the doohickey.",
           "correct": true,
           "why": "That is the definition of the doohickey.",
           "provenance": {
@@ -1394,7 +1624,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     }
   ]
 }

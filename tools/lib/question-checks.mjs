@@ -1,9 +1,9 @@
 import { posix } from 'node:path';
 import { assignBlocks } from './comparisons.mjs';
 import { competencyKey } from './load.mjs';
-import { allocation } from './allocation.mjs';
+import { allocation, EXAM_POOL_TOTAL, EXAM_SIZE, domainBudget } from './allocation.mjs';
 import { allItems } from './question-load.mjs';
-import { normalizeStem, tokens } from './similarity.mjs';
+import { NEAR_DUPLICATE_ERROR, NEAR_DUPLICATE_WARN, normalizeStem, similarity, tokens } from './similarity.mjs';
 
 // `finding`, `inScope` and `assertKnownScope` are imported from the guide
 // harness rather than reimplemented. They are already exported, and two
@@ -423,6 +423,250 @@ export function checkLengthCue(ctx, options) {
     if (share > LENGTH_CUE_POPULATION_SHARE) {
       out.push(finding('q-length-cue', 'warn', options?.scope ?? 'bank',
         `the key is the longest option in ${longestKeyCount} of ${population} items (${Math.round(share * 100)}%); chance is 25%`));
+    }
+  }
+  return out;
+}
+
+// The notice every generated exam file must carry, verbatim, copied from the
+// spec's "The mandatory header" section. It lives here rather than in
+// build-exams because check 19 has to recognise it in order to exempt it:
+// the header is the one place in the corpus where a number and the word
+// "questions" legitimately sit next to each other, and it earns that by
+// citing the source that makes 60 a fact rather than this project's choice.
+export const EXAM_HEADER_NOTICE = [
+  '> **60 questions, 90 minutes.** Both are the real exam\'s figures. The Linux Foundation states',
+  '> the count on its Multiple Choice Exams: Important Instructions page — "the multiple-choice exam',
+  '> is delivered online and consists of 60\\* multiple-choice questions" — and the 90 minutes on the',
+  '> same page and on the LFCA certification page. Captured at',
+  '> `docs/verification/exam-facts-2026-08-11/`.',
+  '>',
+  '> That is **90 seconds per question**, and **45 correct out of 60** to reach the 75% pass mark.',
+  '> Sit this one under the clock.',
+].join('\n');
+
+const QUESTION_COUNT_PATTERN = /\b\d+\s+questions?\b/gi;
+const QUESTION_COUNT_WINDOW = 80;
+const SOURCED_QUESTION_COUNT = EXAM_SIZE; // 60 — the only count any document may state, and only with its source
+
+// 15
+export function checkDomainDistribution(ctx, options) {
+  assertKnownScope(ctx.dataset, options);
+  const out = [];
+  const examItems = ctx.items.filter((i) => i.pool === 'exam');
+  const domainOf = new Map(ctx.dataset.topics.map((t) => [t.id, t.domain]));
+  for (const domain of ctx.dataset.competencies.domains) {
+    const got = examItems.filter((i) => domainOf.get(i.concept_id) === domain.name).length;
+    const want = domainBudget(domain.weight);
+    if (got !== want) {
+      out.push(finding('q-domain-distribution', 'error', domain.name,
+        // EXAM_SIZE * EXAM_COUNT is 960, not the 1,000-item pool this budget
+        // is a share of — 16 exams leave 40 pool items unused (see
+        // examComposition in allocation.mjs) — so the message cites
+        // EXAM_POOL_TOTAL, the number this check and domainBudget actually
+        // agree on, not the exam-count-times-size figure that no longer
+        // equals it.
+        `${domain.name} has ${got} exam-pool item(s) against a weight-derived budget of ${want} (${domain.weight}% of ${EXAM_POOL_TOTAL})`));
+    }
+  }
+  const supplement = ctx.items.filter((i) => i.pool === 'supplement').length;
+  const wantSupplement = [...ctx.alloc.values()].reduce((a, v) => a + v.supplement, 0);
+  if (supplement !== wantSupplement) {
+    out.push(finding('q-domain-distribution', 'error', 'supplement',
+      `the supplement pool holds ${supplement} item(s) against a derived ${wantSupplement}`));
+  }
+  return out;
+}
+
+// 16
+export function checkDuplicate(ctx, options) {
+  const seen = new Map();
+  const out = [];
+  for (const item of scopedItems(ctx, options)) {
+    const key = normalizeStem(item.stem);
+    if (seen.has(key)) {
+      out.push(finding('q-duplicate', 'error', item.id,
+        `${item.id} has the same normalized stem as ${seen.get(key)}`));
+    } else {
+      seen.set(key, item.id);
+    }
+  }
+  return out;
+}
+
+// 17
+export function checkNearDuplicate(ctx, options) {
+  const items = scopedItems(ctx, options);
+  const out = [];
+  for (let i = 0; i < items.length; i += 1) {
+    for (let j = i + 1; j < items.length; j += 1) {
+      const a = items[i];
+      const b = items[j];
+      const score = similarity(a.stem, b.stem);
+      if (normalizeStem(a.stem) === normalizeStem(b.stem)) continue; // q-duplicate owns this
+      if (score >= NEAR_DUPLICATE_ERROR) {
+        out.push(finding('q-near-duplicate', 'error', a.id,
+          `${a.id} and ${b.id} score ${score.toFixed(2)} on stem similarity (error at ${NEAR_DUPLICATE_ERROR})`));
+      } else if (score >= NEAR_DUPLICATE_WARN) {
+        out.push(finding('q-near-duplicate', 'warn', a.id,
+          `${a.id} and ${b.id} score ${score.toFixed(2)} on stem similarity (warn at ${NEAR_DUPLICATE_WARN})`));
+      }
+      // Two items on one concept whose keys say the same thing are the same
+      // item wearing two stems, however differently those stems read.
+      if (a.concept_id === b.concept_id) {
+        const ka = normalizeStem(a.options?.find((o) => o.correct)?.text ?? '');
+        const kb = normalizeStem(b.options?.find((o) => o.correct)?.text ?? '');
+        if (ka && ka === kb) {
+          out.push(finding('q-near-duplicate', 'error', a.id,
+            `${a.id} and ${b.id} test ${a.concept_id} with the same key, so they test the same thing twice`));
+        }
+      }
+    }
+  }
+  return out;
+}
+
+// 18
+export function checkAnswerPositionBalance(ctx, options) {
+  assertKnownScope(ctx.dataset, options);
+  if (!ctx.generated) {
+    return [finding('q-answer-position-balance', 'error', 'generated',
+      'no generated exams or drills were found; run npm run build-exams before the unscoped check')];
+  }
+  const out = [];
+  const tally = (items) => {
+    const counts = [0, 0, 0, 0];
+    for (const i of items) counts[i.position] += 1;
+    return counts;
+  };
+  for (const exam of ctx.generated.exams ?? []) {
+    const counts = tally(exam.items);
+    const even = exam.items.length / 4;
+    if (counts.some((c) => c !== even)) {
+      out.push(finding('q-answer-position-balance', 'error', exam.name,
+        `${exam.name} key positions are ${counts.join('/')}; each must be exactly ${even}`));
+    }
+  }
+  for (const drill of ctx.generated.drills ?? []) {
+    const counts = tally(drill.items);
+    if (Math.max(...counts) - Math.min(...counts) > 2) {
+      out.push(finding('q-answer-position-balance', 'error', drill.name,
+        `${drill.name} key positions are ${counts.join('/')}; the spread must be at most 2`));
+    }
+  }
+  return out;
+}
+
+// 19 — two halves. (a) Every generated exam document must carry
+// EXAM_HEADER_NOTICE verbatim: that is where the sourced 60 is allowed to
+// live. (b) After stripping the header, any "<N> question(s)" occurring
+// within QUESTION_COUNT_WINDOW characters of the word "exam" is an error
+// unless N is exactly SOURCED_QUESTION_COUNT (60) — a wrong count and an
+// unsourced count are both defects; a correct, sourced one is not.
+export function checkQuestionCount(ctx, options) {
+  const out = [];
+  const scan = (id, label, text) => {
+    const stripped = String(text ?? '').split(EXAM_HEADER_NOTICE).join(' ');
+    for (const m of stripped.matchAll(QUESTION_COUNT_PATTERN)) {
+      const n = parseInt(m[0], 10);
+      if (n === SOURCED_QUESTION_COUNT) continue; // the sourced figure is allowed to be stated
+      const from = Math.max(0, m.index - QUESTION_COUNT_WINDOW);
+      const window = stripped.slice(from, m.index + m[0].length + QUESTION_COUNT_WINDOW);
+      if (/\bexam\b/i.test(window)) {
+        out.push(finding('q-question-count', 'error', id,
+          `${label} says "${m[0]}" within ${QUESTION_COUNT_WINDOW} characters of the word "exam"; the only question count this project may state is the sourced ${SOURCED_QUESTION_COUNT}`));
+      }
+    }
+  };
+  for (const item of scopedItems(ctx, options)) scan(item.id, item.id, searchableText(item));
+  for (const doc of ctx.generated?.documents ?? []) {
+    if (doc.kind === 'exam' && !doc.text.includes(EXAM_HEADER_NOTICE)) {
+      out.push(finding('q-question-count', 'error', doc.name,
+        `${doc.name} does not carry the mandatory exam header verbatim`));
+    }
+    scan(doc.name, doc.name, doc.text);
+  }
+  return out;
+}
+
+// 20
+export function checkWaiverPolicy(ctx, options) {
+  const waived = new Set(ctx.dataset.waivers.waived ?? []);
+  const out = [];
+  for (const item of scopedItems(ctx, options)) {
+    const isWaived = waived.has(item.concept_id);
+    if (isWaived && item.waived_source !== true) {
+      out.push(finding('q-waiver-policy', 'error', item.id,
+        `${item.id} tests ${item.concept_id}, which is waived in data/sourcing-waivers.json, but does not set waived_source: true`));
+    }
+    if (!isWaived && item.waived_source === true) {
+      out.push(finding('q-waiver-policy', 'error', item.id,
+        `${item.id} sets waived_source: true but ${item.concept_id} is not waived`));
+    }
+  }
+  return out;
+}
+
+// 21 — the gate that makes an unverified item a build failure rather than an
+// omission somebody has to notice. Cycle 1 lost the pairing between claims and
+// verdicts and eight findings defaulted silently to "rejected"; cycle 2 had a
+// 22-agent fan-out die in 31 seconds. Both were caught by a human reading a
+// report. This is the same requirement, moved somewhere it cannot be read past.
+export function checkVerdictCoverage(ctx, options) {
+  const out = [];
+  for (const item of scopedItems(ctx, options)) {
+    const v = item.verification;
+    if (!v) {
+      out.push(finding('q-verdict-coverage', 'error', item.id,
+        `${item.id} has no recorded verdict from a named agent`));
+      continue;
+    }
+    if (typeof v.agent_label !== 'string' || v.agent_label.trim() === '') {
+      out.push(finding('q-verdict-coverage', 'error', item.id,
+        `${item.id} has a verdict with no agent_label; an unattributed verdict is not a verdict`));
+    }
+    if (v.verdict !== 'confirmed') {
+      out.push(finding('q-verdict-coverage', 'error', item.id,
+        `${item.id} carries verdict "${v.verdict}"; a refuted item must be rewritten and re-verified, not shipped`));
+    }
+    const required = ['key', ...(item.options ?? []).filter((o) => !o.correct).map((o) => o.ref)];
+    const checked = new Set(v.checked ?? []);
+    for (const target of required) {
+      if (!checked.has(target)) {
+        out.push(finding('q-verdict-coverage', 'error', item.id,
+          `${item.id}'s verdict does not cover ${target}; a partial check is not a verdict`));
+      }
+    }
+    if (typeof v.reasoning !== 'string' || v.reasoning.trim() === '') {
+      out.push(finding('q-verdict-coverage', 'error', item.id,
+        `${item.id}'s verdict records no reasoning`));
+    }
+  }
+  return out;
+}
+
+const ALL_CHECKS = [
+  checkUnknownConcept, checkConceptCoverage, checkCountDerived,
+  checkComparisonCoverage, checkCommandCoverage, checkDiagnosticCoverage,
+  checkOptionContract, checkDistractorProvenance, checkDistractorDistinct,
+  checkRationaleComplete, checkDifficultyDerived, checkSourceIds,
+  checkGuideAnchor, checkLengthCue, checkDomainDistribution, checkDuplicate,
+  checkNearDuplicate, checkAnswerPositionBalance, checkQuestionCount,
+  checkWaiverPolicy, checkVerdictCoverage,
+];
+
+export function runAllQuestionChecks(ctx, options = {}) {
+  // Before any check runs, exactly as runAllGuideChecks does: a scoped run
+  // over a typo'd competency would otherwise match nothing and report zero
+  // errors, which is a green light that means nothing.
+  assertKnownScope(ctx.dataset, options);
+  const out = [];
+  for (const check of ALL_CHECKS) {
+    const results = check(ctx, options);
+    for (const f of results) {
+      if (options.only && !options.only.includes(f.check)) continue;
+      if (options.except && options.except.includes(f.check)) continue;
+      out.push(f);
     }
   }
   return out;

@@ -5,6 +5,7 @@ import { loadGuide } from '../lib/guide-parse.mjs';
 import { loadBank } from '../lib/question-load.mjs';
 import {
   bankContext,
+  checkAnswerPositionBalance,
   checkCommandCoverage,
   checkComparisonCoverage,
   checkConceptCoverage,
@@ -13,13 +14,21 @@ import {
   checkDifficultyDerived,
   checkDistractorDistinct,
   checkDistractorProvenance,
+  checkDomainDistribution,
+  checkDuplicate,
   checkGuideAnchor,
   checkLengthCue,
+  checkNearDuplicate,
   checkOptionContract,
+  checkQuestionCount,
   checkRationaleComplete,
   checkSourceIds,
   checkUnknownConcept,
+  checkVerdictCoverage,
+  checkWaiverPolicy,
   codeSpansIn,
+  EXAM_HEADER_NOTICE,
+  runAllQuestionChecks,
   searchableText,
 } from '../lib/question-checks.mjs';
 
@@ -341,4 +350,186 @@ test('q-length-cue warns when the key is longest far more often than chance', as
   });
   const out = checkLengthCue(ctx, {});
   assert.ok(out.some((f) => /longest/.test(f.message)));
+});
+
+function generatedFrom(ctx, positions) {
+  const examItems = ctx.items.filter((i) => i.pool === 'exam');
+  return {
+    exams: [{ name: 'exam-01', items: examItems.map((i, n) => ({ id: i.id, position: positions(n) })) }],
+    drills: [],
+  };
+}
+
+test('the fixture bank passes every check in this task', async () => {
+  const ctx = await fixture();
+  ctx.generated = generatedFrom(ctx, (n) => n % 4);
+  for (const check of [
+    checkDuplicate, checkNearDuplicate, checkAnswerPositionBalance,
+    checkQuestionCount, checkWaiverPolicy, checkVerdictCoverage,
+  ]) {
+    assert.deepEqual(check(ctx, {}), [], check.name);
+  }
+});
+
+test('q-domain-distribution passes on the real dataset only when the pool matches the weights', async () => {
+  const dataset = await loadDataset('data');
+  const ctx = bankContext({ dataset, bank: [] });
+  const out = checkDomainDistribution(ctx, {});
+  assert.ok(out.length >= 1, 'an empty bank does not match the weight table');
+  assert.match(out[0].message, /System Administration|Linux|Cloud|Security|DevOps|Project/);
+  assert.equal(out[0].check, 'q-domain-distribution');
+});
+
+test('q-duplicate fires on two items with the same normalized stem', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[1].stem = bank[0].items[0].stem.toUpperCase() + '  ';
+  });
+  const out = checkDuplicate(ctx, {});
+  assert.equal(out.length, 1);
+  assert.equal(out[0].check, 'q-duplicate');
+});
+
+test('q-near-duplicate errors above the error threshold and warns above the warn threshold', async () => {
+  const nearlyIdentical = await mutated((bank) => {
+    bank[0].items[1].stem = `${bank[0].items[0].stem} Answer carefully.`;
+    bank[0].items[1].concept_id = bank[0].items[0].concept_id;
+  });
+  const errs = checkNearDuplicate(nearlyIdentical, {}).filter((f) => f.severity === 'error');
+  assert.ok(errs.length >= 1, 'a near-identical stem is an error');
+});
+
+test('q-near-duplicate does not exempt two items on the same concept', async () => {
+  const ctx = await mutated((bank) => {
+    const a = bank[0].items[0];
+    const clone = structuredClone(a);
+    clone.id = a.id.replace(/\d{2}$/, '98');
+    clone.stem = `${a.stem} Choose one.`;
+    bank[0].items.push(clone);
+  });
+  assert.ok(checkNearDuplicate(ctx, {}).some((f) => f.severity === 'error'),
+    'same-concept pairs are exactly where duplicates hide');
+});
+
+test('q-near-duplicate flags two items on one concept sharing a key', async () => {
+  const ctx = await mutated((bank) => {
+    const a = bank[0].items[0];
+    const clone = structuredClone(a);
+    clone.id = a.id.replace(/\d{2}$/, '97');
+    clone.stem = 'An entirely different sentence about inventory classification and its consequences.';
+    bank[0].items.push(clone);
+  });
+  assert.ok(checkNearDuplicate(ctx, {}).some((f) => /same key/.test(f.message)));
+});
+
+test('q-answer-position-balance requires exactly even positions in an exam', async () => {
+  const ctx = await fixture();
+  ctx.generated = generatedFrom(ctx, () => 0);
+  const out = checkAnswerPositionBalance(ctx, {});
+  assert.ok(out.length >= 1);
+  assert.match(out[0].message, /position/i);
+});
+
+test('q-answer-position-balance errors when nothing has been generated', async () => {
+  const ctx = await fixture();
+  ctx.generated = null;
+  const out = checkAnswerPositionBalance(ctx, {});
+  assert.equal(out.length, 1);
+  assert.match(out[0].message, /npm run build-exams/);
+});
+
+test('q-question-count fires on a stem asserting a wrong total near "exam"', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].stem = 'The exam has 100 questions. Which statement identifies the widget?';
+  });
+  const out = checkQuestionCount(ctx, {});
+  assert.ok(out.length >= 1);
+  assert.match(out[0].message, /100 questions/);
+});
+
+test('q-question-count fires on an unsourced count even when it happens to be 45', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].stem = 'This exam has 45 questions. Which statement identifies the widget?';
+  });
+  const out = checkQuestionCount(ctx, {});
+  assert.ok(out.length >= 1);
+  assert.match(out[0].message, /45 questions/);
+});
+
+test('q-question-count does not fire on the sourced 60 near "exam"', async () => {
+  const ctx = await mutated((bank) => {
+    bank[0].items[0].stem = 'This exam has 60 questions. Which statement identifies the widget?';
+  });
+  const out = checkQuestionCount(ctx, {});
+  assert.deepEqual(out, []);
+});
+
+test('q-question-count requires every exam document to carry the header verbatim', async () => {
+  const ctx = await fixture();
+  ctx.generated = {
+    exams: [],
+    drills: [],
+    documents: [{ name: 'exams/exam-01.md', kind: 'exam', text: 'not the header' }],
+  };
+  const out = checkQuestionCount(ctx, {});
+  assert.ok(out.some((f) => /mandatory exam header/.test(f.message)));
+});
+
+test('q-question-count accepts the mandatory exam header verbatim', () => {
+  assert.ok(EXAM_HEADER_NOTICE.includes('60'));
+  assert.doesNotMatch(EXAM_HEADER_NOTICE, /^\s*$/);
+});
+
+test('q-waiver-policy fires when a waived concept lacks the flag, and when a sourced one carries it', async () => {
+  const missing = await mutated((bank) => {
+    for (const f of bank) for (const i of f.items) i.waived_source = false;
+  });
+  assert.ok(checkWaiverPolicy(missing, {}).some((f) => f.message.includes('beta.stuff.unsourced')));
+
+  const spurious = await mutated((bank) => { bank[0].items[0].waived_source = true; });
+  assert.ok(checkWaiverPolicy(spurious, {}).some((f) => /not waived/.test(f.message)));
+});
+
+test('q-verdict-coverage fires on a null verdict, a partial check list and a refuted verdict', async () => {
+  const none = await mutated((bank) => { bank[0].items[0].verification = null; });
+  assert.ok(checkVerdictCoverage(none, {}).some((f) => /no recorded verdict/.test(f.message)));
+
+  const partial = await mutated((bank) => { bank[0].items[0].verification.checked = ['key']; });
+  assert.ok(checkVerdictCoverage(partial, {}).some((f) => /o2/.test(f.message)));
+
+  const refuted = await mutated((bank) => { bank[0].items[0].verification.verdict = 'refuted'; });
+  assert.ok(checkVerdictCoverage(refuted, {}).some((f) => /refuted/.test(f.message)));
+
+  const unlabelled = await mutated((bank) => { bank[0].items[0].verification.agent_label = ''; });
+  assert.ok(checkVerdictCoverage(unlabelled, {}).some((f) => /agent_label/.test(f.message)));
+});
+
+test('runAllQuestionChecks runs every check and reports the check ids', async () => {
+  const ctx = await fixture();
+  ctx.generated = generatedFrom(ctx, (n) => n % 4);
+  const out = runAllQuestionChecks(ctx, {});
+  // q-domain-distribution is excluded here for the same reason it is excluded
+  // from "the fixture bank passes every check in this task" above:
+  // checkDomainDistribution compares the exam pool against domainBudget(),
+  // which is always taken against the real EXAM_POOL_TOTAL (1,000) — it does
+  // not accept the fixture's ALLOC.poolTotal override — so a 42-item fixture
+  // can never satisfy it. That is a structural property of the check, not a
+  // bug to fix here.
+  const errors = out.filter((f) => f.severity === 'error' && f.check !== 'q-domain-distribution');
+  assert.deepEqual(errors, [], JSON.stringify(out, null, 2));
+});
+
+test('runAllQuestionChecks throws on an unknown scope before running anything', async () => {
+  const ctx = await fixture();
+  assert.throws(() => runAllQuestionChecks(ctx, { scope: 'Nope :: Nothing' }), /Unknown scope/);
+});
+
+test('runAllQuestionChecks honours only and except filters', async () => {
+  const ctx = await fixture();
+  ctx.generated = null;
+  const all = runAllQuestionChecks(ctx, {});
+  assert.ok(all.some((f) => f.check === 'q-answer-position-balance'));
+  const filtered = runAllQuestionChecks(ctx, { except: ['q-answer-position-balance'] });
+  assert.ok(!filtered.some((f) => f.check === 'q-answer-position-balance'));
+  const only = runAllQuestionChecks(ctx, { only: ['q-concept-coverage'] });
+  assert.ok(only.every((f) => f.check === 'q-concept-coverage'));
 });

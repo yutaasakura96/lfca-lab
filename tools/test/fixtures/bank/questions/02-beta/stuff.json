@@ -7,11 +7,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 1 about the thing: which statement correctly identifies the thing?",
+      "stem": "A floor manager reviews a rework ticket, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "This is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -58,7 +58,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.02",
@@ -66,11 +76,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 2 about the thing: which statement correctly identifies the thing?",
+      "stem": "A parts buyer checks a dispatch manifest, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "It's the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -117,7 +127,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.03",
@@ -125,11 +145,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 3 about the thing: which statement correctly identifies the thing?",
+      "stem": "A calibration tech reads a compliance checklist, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "The item is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -176,7 +196,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.04",
@@ -184,11 +214,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Item 4 about the thing: which statement correctly identifies the thing?",
+      "stem": "A survey team archives a records folder, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "The part is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -235,7 +265,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.05",
@@ -243,11 +283,11 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 2,
-      "stem": "Item 5 about the thing: which statement correctly identifies the thing?",
+      "stem": "A maintenance planner tags a tooling cabinet, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "Correctly, it is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -294,7 +334,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.06",
@@ -302,11 +352,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 6 about the thing: which statement correctly identifies the thing?",
+      "stem": "A line worker reviews a fleet log, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "In short, it is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -353,7 +403,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.07",
@@ -361,11 +421,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 7 about the thing: which statement correctly identifies the thing?",
+      "stem": "A returns clerk inspects a receiving dock item, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "Put plainly, it is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -412,7 +472,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.08",
@@ -420,11 +490,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Item 8 about the thing: which statement correctly identifies the thing?",
+      "stem": "A packaging tech browses the parts library index, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "The answer is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -471,7 +541,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.thing.09",
@@ -479,11 +559,11 @@
       "pool": "supplement",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 9 about the thing: which statement correctly identifies the thing?",
+      "stem": "A site manager reviews a batch inspection sheet, then double-checks the classification, and needs to know: which statement correctly identifies the thing?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the thing.",
+          "text": "Simply, it is the thing.",
           "correct": true,
           "why": "That is the definition of the thing.",
           "provenance": {
@@ -530,7 +610,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.01",
@@ -538,11 +628,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 1 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A dispatcher checks a yard inventory sheet, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "It is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -588,7 +678,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.02",
@@ -596,11 +696,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 2 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A compliance officer reads a procurement request, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "That is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -646,7 +746,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.03",
@@ -654,11 +764,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 3 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A records clerk reviews a lab notebook entry, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "This is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -704,7 +814,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.04",
@@ -712,11 +832,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Item 4 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A tooling engineer checks a packaging slip, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "It's the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -762,7 +882,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.05",
@@ -770,11 +900,11 @@
       "pool": "exam",
       "type": "command",
       "difficulty": 2,
-      "stem": "Item 5 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A yard supervisor reviews a returns log, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "The item is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -820,7 +950,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.06",
@@ -828,11 +968,11 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 6 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A receiving clerk inspects a floor-plan legend, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "The part is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -878,7 +1018,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.07",
@@ -886,11 +1036,11 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 2,
-      "stem": "Item 7 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A fleet manager reads a help-desk transcript, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "Correctly, it is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -936,7 +1086,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.08",
@@ -944,11 +1104,11 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Item 8 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A batch inspector reviews a junior engineer's notes, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "In short, it is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -994,7 +1154,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     },
     {
       "id": "q.beta.stuff.unsourced.09",
@@ -1002,11 +1172,11 @@
       "pool": "supplement",
       "type": "application",
       "difficulty": 2,
-      "stem": "Item 9 about the unsourced item: which statement correctly identifies the unsourced item?",
+      "stem": "A parts librarian checks a senior engineer's sign-off, then double-checks the classification, and needs to know: which statement correctly identifies the unsourced?",
       "options": [
         {
           "ref": "o1",
-          "text": "It is the unsourced item.",
+          "text": "Put plainly, it is the unsourced.",
           "correct": true,
           "why": "That is the definition of the unsourced item.",
           "provenance": {
@@ -1052,7 +1222,17 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "fixture-verifier",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Fixture item verified by construction: the key and every distractor were checked against the fixture data."
+      }
     }
   ]
 }
