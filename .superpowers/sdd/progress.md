@@ -519,3 +519,103 @@ Tasks 36-41: complete (commit a2476cf) - VERIFICATION WAVE A
   exams AND drills, and the module comment says authors never choose a position precisely so the
   bank carries no positional bias for the assembler to inherit.
 
+Tasks 42-47: complete (commit 9616c95) - VERIFICATION WAVE B
+  Seven agents over six competencies, 212 items: budgeting 31, linux-operating-system 50 (SPLIT),
+  performance-availability 33, cloud best-practices 32, compliance 32, devops-basics 34.
+  **212 of 212 items carry a verdict. 124 refuted on first pass, rewritten and re-verified.**
+  Corpus now 350/1150 verified; unscoped check-bank 1013 -> 801 errors (800 verdict-coverage +
+  1 position-balance). Sources 320 -> 399. Gates green: npm test 307/307, validate 537/0/16,
+  check-guide 0/0. Every file controller-verified against the filesystem.
+
+  **Task 43 was split by concept range** (43a items 1-25, 43b items 26-50) because 50 items
+  exceeded what a wave-A agent finished comfortably, and wave B's first attempt died on the
+  session limit. Both agents wrote to ONE shared JSON with short read-modify-write windows:
+  final state 25 items per label, **zero range violations, zero lost edits**. The split works and
+  is the pattern for the five remaining large files.
+
+  **The refutation rate tripled, and the cause is the source tier, not the authors.**
+    wave A  31/138 = 22%   (sysadmin, security, PM - NIST/ISO/man-page sources)
+    wave B 124/212 = 58%   (cloud, devops - vendor documentation)
+  Worst: devops-basics 30/34 (88%), performance-availability 26/33 (79%), cloud best-practices
+  22/32 (69%). **73 further citation failures**, taking the project total past 100.
+
+  **The dominant shape is new and specific: the LANDING PAGE.** The item cites the right document
+  SET at the wrong depth - one or two clicks above the page carrying the claim.
+  `aws-well-architected-reliability-pillar` is `welcome.html`, an abstract and a pillar list, and
+  it was cited by all NINE high-availability/fault-tolerance/redundancy/failover/stateless items
+  in performance-availability. `aws-well-architected-pillars` (six pillar names, nothing else) was
+  cited by 5 items in one file and 6 in another. `aws-kms` cited for both encryption-by-default
+  items carries nothing on at-rest vs in-transit. This differs from wave A's misses, which were
+  topically WRONG sources; these are topically RIGHT sources that do not contain the sentence, and
+  they survive a plausibility check precisely because the name always looks correct next to the
+  claim. Measured exposure: **105 of 364 registered sources had a landing-page-shaped URL**
+  (<=2 path segments) at the time of the sweep, concentrated in the cloud/devops/container files
+  that are still unverified.
+
+  Three worse-than-citation defects:
+  - **A cited source that CONTRADICTS the item it is cited for.** budgeting `orphaned-resources.01`
+    had a distractor whose `why` claimed most providers do not delete disks on instance
+    termination; the cited AWS whitepaper says terminating an instance automatically deletes
+    attached EBS volumes. The item taught a false lesson while citing the document refuting it.
+  - **The Maven weakness was not a weakness, it was a fabrication.** PROGRESS.md recorded that npm
+    and pip failed to draw the application-vs-OS-package contrast "but Maven's did". It does not:
+    "Introduction to the Dependency Mechanism" never mentions an OS package manager, apt, dnf or
+    system-wide installation, and its *System Dependencies* section is about `<scope>system</scope>`
+    pointing at a jar on disk - a different sense of the word. The concept was UNSOURCED with a
+    plausible citation standing in, and **the recorded weakness note is what stopped anyone looking
+    again.** Re-anchored on PyPA "Externally Managed Environments". PROGRESS.md corrected in place.
+  - **The PCI ban is necessary and not sufficient.** compliance passed the requirement-number scan
+    with 0 hits before and after, yet `pci-dss.01` and `.02` turned on licence-gated requirement
+    text laundered into plain English - the SAD-retention prohibition with the issuer carve-out,
+    and "PAN storable if rendered unreadable". A numeric scan cannot see a paraphrase. Both
+    re-anchored on the publicly readable PCI SSC glossary; the issuer carve-out was REMOVED rather
+    than asserted. Any future PCI rule must bind on substance, not on digits.
+
+  **True-but-misreadable guide prose is now a confirmed class with two instances, both the same
+  shape**: a GDPR article attribution inside a compressed reference cell. Wave A: "Article 4(1)
+  names online identifiers directly" ("directly" meaning *expressly*, read by the author as *as a
+  direct identifier*). Wave B: a Quick-reference cell opening "GDPR Article 6(1) lists six..." and
+  continuing "Valid consent is freely given, specific, informed and unambiguous" - both halves
+  true, read as one attribution it says Article 6 sets the validity bar, which is what the author
+  wrote. The bar is Art 4(11) + Recital 32. Compressed reference cells that name an article and
+  then state a rule are the specific risk site.
+
+  **A SHAPE TELL RUNS THE WHOLE CORPUS AND EVERY SCAN SO FAR WAS BLIND TO IT.**
+  Task 44 reported fixing 19 distractors that ended in an em-dash clause after a full stop, by
+  joining the stop into the dash. A controller sweep for em-dash tails then found the asymmetry
+  runs the OTHER way in 19 of 22 files, and heavily:
+    performance-availability  keys 82% / distractors 30%   (after that fix)
+    project-management        keys 76% / distractors 22%
+    sysadmin best-practices   keys 67% / distractors 33%
+    software-architecture     keys 65% / distractors 22%
+    sensitive-data            keys 62% / distractors 32%
+    functional-analysis       keys 60% / distractors 22%
+    oss-licensing             keys 52% / distractors  6%
+    security                  keys 43% / distractors  6%
+  **Pick the option with a trailing em-dash qualifier and you are right most of the time, across
+  the whole bank** - including all eight competencies verified before this was noticed.
+  The two-clause scan every brief prescribes (including the controller's) tests for a SENTENCE
+  BREAK; an em-dash clause is not one, so all fourteen files returned "keys 0% / distractors 0%"
+  and were reported clean. Clean on the axis measured, wrong on an axis not measured.
+  This is the fifth time in this cycle that mechanically complying with a shape instruction
+  produced a different shape tell, and the first time the controller's own verification carried
+  the blind spot. **It needs one deliberate corpus-wide pass by rule, after the verdicts are in
+  and before Task 58 builds the exams.** Scoped as a task, not bolted onto a wave.
+
+  Two smaller corpus measurements taken while verifying reports rather than trusting them:
+  - **26 items bank-wide cite `lf-objectives-2025` as their ONLY source** - a page carrying
+    competency names and percentages and nothing else. An item whose sole citation is a page of
+    section headings has no primary source. Cheaply checkable; belongs in the harness.
+  - The full-stop-splice class (`"...shipped to users., a distinction the exam treats as..."`) is
+    now 0 corpus-wide. Task 47 reported it unique to its file; it was not - 43a and 43b repaired
+    three instances in linux-operating-system earlier in the same wave. The class was never
+    file-specific, and template residue survived the "repaired to 0 across all 3,450 distractors"
+    claim in the ledger. **That figure is unreliable**: it was certified by a scan for tails reused
+    3+ times, which cannot see a clause surviving in one or two places.
+  - 4 options still reference "the exam" or "the guide" from inside option text, in containers (2),
+    security (1) and cloud-computing (1) - all unverified files.
+
+  Access notes worth carrying: EUR-Lex returns a bot challenge (202, empty body) to both curl and
+  WebFetch, and eCFR's web UI refuses programmatic access. GDPR was read via legislation.gov.uk's
+  EU-as-adopted text and 45 CFR 164 via the eCFR versioner API.
+
