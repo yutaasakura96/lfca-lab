@@ -51,13 +51,28 @@
       ],
       "rationale": "The CapEx-to-OpEx shift changes when money is committed and how reversible that commitment is, not whether the eventual total is smaller — that depends entirely on how well the resulting consumption is controlled.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "caf-cloud-accounting"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.capex-vs-opex",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: the only citation was lf-objectives-2025, whose page carries nothing but the competency name \"Budgeting\" — it does not mention CapEx, OpEx or total cost of ownership. The key itself is right: Microsoft CAF states the CapEx model \"requires a significant upfront investment in hardware and equipment\" recorded \"as an asset on the balance sheet\", while OpEx charges \"reflect actual usage\", and it recommends \"constantly reviewing and adjusting your budgets\" rather than a one-time allocation — a change in shape and reversibility, with no claim that the total falls. caf-cloud-accounting added. o2 is a TCO question, not what the accounting shift proves; o3 restates the pay-as-you-go misreading (provisioned capacity bills regardless of use, per Azure states-and-billing); o4 is false because the customer, not the provider, sets and polices the target. No two options assert the same answer.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.capex-vs-opex.02",
@@ -115,7 +130,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified verbatim against the cited page: its first bullet is \"Trade fixed expense for variable expense\". I searched the whole page for \"capital\", \"CapEx\" and \"OpEx\" and found zero occurrences, which is exactly what o2 falsely asserts. o3 names the elastic-capacity framing (\"Stop guessing capacity\" is a separate bullet, not the accounting one) and o4 names the purchasing-option axis, neither of which is the vocabulary this page uses. No distractor is also correct.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.pay-as-you-go.01",
@@ -167,13 +195,26 @@
       ],
       "rationale": "Pay-as-you-go bills provisioned capacity, and stopping a VM does not always release that provision. Azure specifically distinguishes Stopped (allocated), which keeps billing, from Stopped (deallocated), which releases the hardware lease and stops the meter.",
       "source_ids": [
-        "nist-sp-800-145"
+        "azure-vm-states-and-billing"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: the item cited nist-sp-800-145, which is a five-page cloud-definition document containing nothing about Azure VM power states or billing. Re-cited to Azure's own states-and-billing table, which confirms the key verbatim: \"Stopped — The virtual machine is allocated on a host but not running. Also called PoweredOff state or Stopped (Allocated) ... Billed\", against \"Deallocated — The virtual machine has released the lease on the underlying hardware ... Not billed\". o2 (purchasing option) and o3 (orphan) are unrelated mechanisms and their whys are true; o4 is false precisely because Azure keeps billing a merely-stopped VM.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.pay-as-you-go.02",
@@ -225,13 +266,29 @@
       ],
       "rationale": "Pay-as-you-go is the charging principle and the undiscounted baseline every price in this competency is quoted against; on-demand is the specific purchase option that implements it with no commitment.",
       "source_ids": [
-        "nist-sp-800-145"
+        "azure-waf-cost-model",
+        "aws-ec2-purchasing-options"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: nist-sp-800-145 says nothing about purchase options, so it could not settle the pay-as-you-go/on-demand relationship. Azure Well-Architected states \"Billing models include consumption-based (pay-as-you-go), commitment-based plans (reservations), and spot pricing\", placing pay-as-you-go at the level of the charging model; AWS's purchasing-options page lists On-Demand (\"Pay, by the second, for the instances that you launch\") as one option among reservations, Spot and others, and the Spot page prices Spot \"for less than the On-Demand price\". That is the key's ordering. o2 reverses it, o3 confuses it with TCO, o4 flattens the levels; each why is true.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/cost-model",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.pay-as-you-go.03",
@@ -283,13 +340,28 @@
       ],
       "rationale": "A virtual machine running at 2% CPU costs exactly what the same machine costs at 100%: the meter counts provisioned, running capacity, not work performed, which is precisely why rightsizing and orphaned resources cost money at all.",
       "source_ids": [
-        "nist-sp-800-145"
+        "azure-vm-states-and-billing",
+        "aws-ec2-purchasing-options"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.pay-as-you-go",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: nist-sp-800-145 defines measured service in the abstract and never states that a running instance bills independently of utilisation. Azure's states-and-billing table marks Running as \"Billed\" with no utilisation term anywhere in it, and AWS bills On-Demand \"by the second, for the instances that you launch\" — capacity provisioned, not work performed. o2 is false because rightsizing is a periodic human review (AWS right-sizing whitepaper: \"right size your workloads at least once a month\"); o3 is false because a single idling instance is not evidence autoscaling applies; o4 is the misreading the key corrects.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.01",
@@ -341,13 +413,32 @@
       ],
       "rationale": "Pay-as-you-go is the meter every purchase option is billed against: on-demand is that meter at full price, and reserved and spot are discounts off it in exchange for a term commitment or an interruption risk respectively.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "aws-ec2-purchasing-options",
+        "aws-ec2-reserved-instances",
+        "aws-spot-instances"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.on-demand-reserved-and-spot-pricing",
       "comparison_block": "cmp-cloud.budgeting.on-demand-reserved-and-spot-pricing",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: lf-objectives-2025 lists only the competency name, so it could not support any statement about how the three options relate. AWS's Reserved Instances page states they \"provide you with significant savings on your Amazon EC2 costs compared to On-Demand\" and the Spot page that a Spot Instance \"is available for less than the On-Demand price\" — both discounts off the On-Demand baseline, which the purchasing-options page bills \"by the second\". o2 is false (pay-as-you-go is the charging model, per Azure Well-Architected); o3 is false because a reservation buys a rate, not an asset; o4 is false twice over — Spot is metered consumption, and AWS sets the Spot price itself, \"adjusted gradually based on the long-term supply of and demand\", not by auction.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.02",
@@ -399,6 +490,8 @@
       ],
       "rationale": "AWS terminates, stops, or hibernates a Spot Instance after a two-minute interruption notice, with an earlier rebalance-recommendation signal. Azure Spot VMs and Google Cloud Spot or preemptible VMs instead evict with roughly thirty seconds' best-effort notice and no hibernate option — the mechanics are provider-specific, not a shared standard.",
       "source_ids": [
+        "aws-spot-interruption-notices",
+        "aws-spot-rebalance-recommendations",
         "aws-spot-instances",
         "azure-spot-vms",
         "google-cloud-spot-vms"
@@ -407,7 +500,24 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: the AWS figure was cited to aws-spot-instances, the Spot landing page, which never states the two-minute notice — that sentence lives on the child page. Added aws-spot-interruption-notices (\"a warning that is issued two minutes before Amazon EC2 stops or terminates your Spot Instance\") and aws-spot-rebalance-recommendations (a signal that \"can arrive sooner than the two-minute Spot Instance interruption notice\"), which together carry the key and its why. The other two figures check out: Azure \"delivered on a best effort basis up to 30 seconds prior to the eviction\"; Google \"The shutdown period for a preemption notice is best effort and up to 30 seconds\". The item names each provider explicitly rather than speaking in a generic provider voice, so the per-provider trap does not apply. o2 is the exact generalisation the sources refute; o3 and o4 name unrelated mechanisms with true whys.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/rebalance-recommendations.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms",
+          "https://cloud.google.com/compute/docs/instances/preemptible"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.on-demand-reserved-and-spot-pricing.03",
@@ -459,13 +569,28 @@
       ],
       "rationale": "Matching a workload to a purchase option turns on what it can tolerate, not on price alone: the worker fleet tolerates interruption and belongs on spot, while the database's steady, long-lived baseline is exactly what a reserved commitment is priced for.",
       "source_ids": [
-        "aws-spot-instances"
+        "aws-spot-instances",
+        "aws-ec2-purchasing-options"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.on-demand-reserved-and-spot-pricing",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: aws-spot-instances carries the Spot half (\"Spot Instances are a cost-effective choice if you can be flexible about when your applications run and if your applications can be interrupted ... well-suited for data analysis, batch jobs, background processing\") but says nothing about reservations, which is half the pairing. Added aws-ec2-purchasing-options, which defines Reserved Instances as a commitment \"to a consistent instance configuration ... for a term of 1 or 3 years\" — the database's steady multi-year baseline. o2 confuses estimation with fit, o3 confuses price with interruption tolerance, o4 confuses a discount with a size; each why states a true fact and none is also correct.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.total-cost-of-ownership.01",
@@ -517,13 +642,28 @@
       ],
       "rationale": "Total cost of ownership is the full cost of delivering a capability, not just the invoice or sticker price. A comparison that sets a cloud bill against a bare purchase price is a TCO error because it drops the staffing, power and hardware-refresh costs the on-premises side still carries.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "azure-waf-cost-model"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#s-budgeting-cost-models",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: lf-objectives-2025 names the competency and nothing else, so it could not settle what a TCO comparison must include. Azure Well-Architected states it directly: \"The cost model is an estimate of all costs associated with the workload. These costs include infrastructure, software licenses, personnel, maintenance, and support costs\" — the categories a bare purchase price drops. o2 is false because CapEx and OpEx are accounting treatments, not a costing method; o3 is false because a budget alert reports against a configured threshold on real spend; o4 is the error the concept exists to catch. No distractor is defensible.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/cost-model"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.free-tier-and-pricing-calculators.01",
@@ -575,13 +715,27 @@
       ],
       "rationale": "Cost monitoring and budgets both report or police money that is already being spent. A pricing calculator is the only instrument here that operates before anything exists, which is the discrimination this question is built on.",
       "source_ids": [
-        "aws-budgets"
+        "aws-pricing-calculator"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.free-tier-and-pricing-calculators",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: the item cited aws-budgets, a page about budgets and budget actions that never mentions a pricing calculator — the known systemic defect, confirmed here by reading the whole page. Re-cited to the AWS Pricing Calculator user guide, whose first listed use case is \"Model your solutions before building them\" and which describes the tool as creating \"cost estimates\" — exactly the pre-deployment instrument the key names. o2 and o3 are true statements about instruments that observe rather than estimate; o4 correctly notes the free tier is an allowance, not an estimator.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/pricing-calculator/latest/userguide/what-is-pricing-calculator.html",
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.free-tier-and-pricing-calculators.02",
@@ -633,13 +787,27 @@
       ],
       "rationale": "Allowances are metered like any other consumption. On an account with a payment method attached, exceeding one does not stop the resource — it silently starts billing at the standard rate, which is why the allowance needs active tracking rather than passive trust.",
       "source_ids": [
-        "aws-budgets"
+        "azure-free-account-charges"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.free-tier-and-pricing-calculators",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: aws-budgets was cited for free-tier exhaustion behaviour it does not describe anywhere on the page. Microsoft states the behaviour outright: \"If your usage exceeds the specified quantity of free services, you'll need to pay for the exceeding amount at pay-as-you-go rates\", and on an upgraded account \"you get charged pay-as-you-go rates for using services that aren't included for free\" — billing continues, the resource is not stopped, which refutes o4 directly. o2 is false because a free-service quantity and a configured budget threshold are separate instruments; o3 is false because the resource still serves its purpose.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account",
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.rightsizing.01",
@@ -697,7 +865,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited whitepaper, which defines right sizing as \"matching instance types and sizes to your workload performance and capacity requirements at the lowest possible cost\" and as \"identifying opportunities to eliminate or downsize without compromising capacity\" — resize, not remove, when the resource is still wanted. o2 is wrong because the instance is serving production; o3 is wrong because Auto Scaling adjusts capacity in response to traffic rather than resizing one unit; o4 is wrong because storage bills for provisioned capacity regardless of attachment (Azure: detached resources \"continue to incur charges as applicable\"). No distractor is also correct.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/identifying-opportunities-to-right-size.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.rightsizing.02",
@@ -755,7 +937,23 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited whitepaper, which treats right sizing as a deliberate periodic exercise (\"right size your workloads at least once a month\", \"right sizing must become an ongoing process\") and describes EC2 Auto Scaling separately as the thing you \"use to scale Amazon EC2 capacity up or down when you experience spiky traffic\" — automatic and traffic-driven, which is the scenario. o2 is the confusion the concept exists to hold apart; o3 is false because orphan cleanup removes purposeless resources; o4's why is true — AWS Budgets documents an action that can \"automatically apply a custom IAM policy that denies you the ability to provision additional resources\", which is a limit, not traffic tracking.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/right-sizing-ongoing-process.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/tips-for-right-sizing-your-workloads.html",
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.rightsizing.03",
@@ -813,7 +1011,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited whitepaper almost verbatim: \"To gather sufficient data, observe performance over at least a two-week period (ideally, over a one-month period) to capture the workload and business peak.\" A week that excludes month-end close misses exactly that business peak, so the resize is undersized when it returns. o4's why is also sourced there — \"right sizing must become an ongoing process\" and requirements \"can change over time\" — so treating one week as sufficient is the documented trap. o2 and o3 name unrelated mechanisms and state true facts about them.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/identifying-opportunities-to-right-size.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/right-sizing-ongoing-process.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.orphaned-resources.01",
@@ -856,7 +1068,7 @@
           "ref": "o4",
           "text": "It stopped billing once its virtual machine was deleted, so no action is needed either way.",
           "correct": false,
-          "why": "Deletion in most providers is asymmetric: removing the VM does not remove its disks, which keep billing on their own meter afterward.",
+          "why": "Deleting a virtual machine does not delete its disks by default on Azure, where they persist in the resource group and keep billing on their own meter until somebody removes them deliberately.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.budgeting.orphaned-resources"
@@ -865,13 +1077,28 @@
       ],
       "rationale": "An orphan and a rightsizing candidate are told apart by whether the resource still has a purpose: the orphan has none and the answer is deletion, while a rightsizing candidate still serves a purpose at the wrong size and the answer is resizing.",
       "source_ids": [
+        "azure-vm-delete-attached-resources",
         "aws-rightsizing-whitepaper"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
       "comparison_block": "cmp-cloud.budgeting.orphaned-resources",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed on two counts. The citation was aws-rightsizing-whitepaper, which not only omits orphaned disks but states the opposite of o4 for AWS (\"Terminating an instance ... automatically deletes attached EBS volumes\"). Re-cited to Azure's delete guidance, which states \"By default, disks, NICs, and Public IPs associated with a VM are persisted when the VM is deleted\" and \"When a VM is deleted, the data on the disks is not automatically deleted. The OS disk and any attached data disks remain in your resource group and continue to incur charges.\" o4's why was also rewritten from the unsupported \"in most providers\" generalisation to Azure's documented default. The key stands: no purpose left, so deletion, not resizing. o2 and o3 remain wrong for true reasons.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/delete",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.orphaned-resources.02",
@@ -923,13 +1150,27 @@
       ],
       "rationale": "Detaching a volume saves nothing at all: an unattached disk bills the same per gigabyte-month as an attached one, because storage is charged for existing, not for being read or connected. Only deletion stops the charge.",
       "source_ids": [
-        "aws-rightsizing-whitepaper"
+        "azure-vm-delete-attached-resources"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: aws-rightsizing-whitepaper covers stopping an instance (\"You will continue to be charged for these volumes until you delete them\") but never addresses detaching, which is what the item turns on. Azure states it exactly: \"Resources that you Detach, like disks, will continue to incur charges as applicable.\" That confirms the key and refutes o3 and o4, which invent a discounted or waived rate for a detached disk. o2 is wrong because detaching moves no data, so no egress meter runs. No two options assert the same answer — o3 claims a reduced rate, o4 a waived one.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/delete",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.orphaned-resources.03",
@@ -981,13 +1222,28 @@
       ],
       "rationale": "Rightsizing and orphan-hunting use different evidence: rightsizing compares utilisation telemetry against provisioned capacity, while finding an orphan means querying inventory for attachment state, last activity and owner tags, because an orphan produces no telemetry signal at all.",
       "source_ids": [
+        "azure-find-unattached-disks",
         "aws-rightsizing-whitepaper"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.orphaned-resources",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: aws-rightsizing-whitepaper is a telemetry document and carries no inventory-versus-telemetry contrast. Azure's unattached-disk guidance supplies the key's evidence type directly — it finds orphans \"by examining the value of the ManagedBy property ... When a managed disk is unattached, the ManagedBy property is null\", i.e. attachment state read from inventory, with no utilisation metric involved. The right-sizing whitepaper supplies the other half for o2: right sizing looks at \"vCPU utilization, memory utilization, network utilization\". o3 and o4 are wrong because neither a trend line nor a missing tag identifies a specific purposeless resource.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/find-unattached-disks",
+          "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/identifying-opportunities-to-right-size.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.data-egress-charges.01",
@@ -1045,7 +1301,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified on the cited page, whose FAQ states \"Outbound data transfer is charged at the normal rate and inbound data transfer is free\", and whose Internet Egress tables price outbound per GB by source continent. o2 is therefore false; o3 is false because a free allowance caps volume without changing which direction is metered (the page grants the first 100 GB/month of internet egress free, then charges per GB); o4 is false because the meter is explicitly directional. No distractor is also correct.",
+        "sources_read": [
+          "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.data-egress-charges.02",
@@ -1053,20 +1322,20 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "On Azure, a service in one region reads data from another Azure region, while a separate copy of the same data is read by an application entirely outside Azure. Which transfer is priced lower on Azure's own rates, and is that pattern safe to assume on every provider?",
+      "stem": "On Azure, a service in one North America region reads several terabytes from another North America region in the same month, while a separate copy of that data is read by an application outside Azure over the public internet. Which transfer is priced lower on Azure's own published rates, and is that pattern safe to assume on every provider?",
       "options": [
         {
           "ref": "o1",
-          "text": "The inter-region transfer is priced lower than internet egress on Azure's rates, but the pattern is not a safe assumption to carry to other providers.",
+          "text": "The inter-region transfer is priced lower at this volume on Azure's published North America rates, but the pattern is not a safe assumption to carry to other providers.",
           "correct": true,
-          "why": "Azure's published rates band destinations, with inter-region cheaper than internet egress, and Azure states same-region transfer is free — but this is Azure's specific shape, not a rule that transfers safely to AWS or Google Cloud.",
+          "why": "Azure prices transfer between North America regions at $0.02 per gigabyte against $0.08 and up for internet egress beyond the free first 100 GB — but the bands differ by continent, so this is Azure's specific shape rather than a rule that transfers to AWS or Google Cloud.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "Whichever transfer runs on a spot instance, since spot pricing includes a built-in data-transfer discount.",
+          "text": "Whichever transfer runs on a spot instance, since spot pricing carries a built-in data-transfer discount that applies to whatever the instance sends.",
           "correct": false,
           "why": "Spot is a compute purchase option and carries no data-transfer discount of its own; the two meters are entirely unrelated.",
           "provenance": {
@@ -1076,7 +1345,7 @@
         },
         {
           "ref": "o3",
-          "text": "Whichever transfer touches a tagged resource, since tagged transfers are billed at a preferential rate.",
+          "text": "Whichever transfer touches a tagged resource, since cost-allocation tags mark traffic for a preferential rate on the data-transfer meter.",
           "correct": false,
           "why": "Tags are metadata used for attribution and policy; they carry no billing discount for the data-transfer meter itself.",
           "provenance": {
@@ -1086,7 +1355,7 @@
         },
         {
           "ref": "o4",
-          "text": "Both are priced identically, since egress is metered purely by volume regardless of destination.",
+          "text": "Both are priced identically, since egress is metered purely by the volume of data moved and takes no account of where that data is going.",
           "correct": false,
           "why": "Egress is metered by volume, but it is also banded by destination — internet-bound and inter-region traffic are priced differently, not identically.",
           "provenance": {
@@ -1095,7 +1364,7 @@
           }
         }
       ],
-      "rationale": "Egress is metered by volume and banded by destination: on Azure's published rates, inter-region transfer is cheaper than internet egress, and same-region transfer is free — but that specific pattern belongs to Azure, and carrying it to another provider unchecked is exactly the cross-provider assumption this concept warns against.",
+      "rationale": "Egress is metered by volume and banded by destination: on Azure's published rates, transfer between North America regions is $0.02 per gigabyte against $0.08 and up for internet egress, and same-region transfer is free. The ordering is not universal even within that table — internet egress grants a free first 100 GB that inter-region traffic does not, and from South America inter-region transfer is dearer than internet egress via the transit ISP network — so carrying the pattern to another provider unchecked is exactly the assumption this concept warns against.",
       "source_ids": [
         "azure-bandwidth-pricing"
       ],
@@ -1103,7 +1372,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on substance, then rewritten. The original key claimed inter-region transfer is priced lower than internet egress on Azure's rates without qualification, and the cited page contradicts that in two places: internet egress grants the first 100 GB/month free while inter-region traffic is charged from the first GB, and from South America inter-region transfer is $0.16 per GB against $0.12 per GB for internet egress routed via the transit ISP network. The stem and key now name North America and a volume above the free allowance, where the page does support the claim: $0.02 per GB between North America regions against $0.087 (premium) or $0.08 (transit ISP) per GB for internet egress. The second half stands unchanged and is the point of the item. o2, o3 and o4 remain wrong for true reasons.",
+        "sources_read": [
+          "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.resource-tagging.01",
@@ -1161,7 +1443,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited whitepaper, whose cost-allocation schema exists precisely to answer attribution questions — mandatory tag keys for ApplicationId, BusinessUnitId, CostCenter and Owner, the last rationalised as \"Which budget holder is responsible for this workload\". Without them a bill carries no owner. o2 is false and its why is true: AWS Budgets documents budgets scoped to an account or a service with no tag involved. o3 is false because monitoring displays untagged inventory too; o4 is false because tags are metadata and carry no rate effect. No distractor is defensible.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/defining-and-publishing-a-tagging-schema.html",
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.resource-tagging.02",
@@ -1219,7 +1516,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified nearly verbatim: \"Tags are case sensitive, meaning that costCenter and costcenter are different tag keys ... Define spelling, case, and punctuation as part of your tagging strategy\", and the whitepaper's remedy is a published schema plus enforcement at creation (tag policies, CloudFormation hooks that \"provide a warning or prevent deployment\"). That confirms the key and refutes o4 outright — nothing merges near-identical keys. o2 and o3 are workarounds rather than fixes and their whys are true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html",
+          "https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/defining-and-publishing-a-tagging-schema.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.budgets-and-cost-alerts.01",
@@ -1277,7 +1588,21 @@
       "comparison_block": "cmp-cloud.budgeting.budgets-and-cost-alerts",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page, which describes a budget as carrying \"a fixed target amount\" with alerts \"for both actual (after accruing) and forecasted (before accruing) spends\" — a threshold to cross, which is the discriminating half. Cost and usage reporting carries no target of its own; AWS CUR is described as data that breaks costs down, not as a limit. o2 is false because a trend line defines no threshold; o3 is false because a calculator neither reports ongoing spend nor notifies; o4 is false because a threshold notification is not a breakdown. No two options assert the same answer.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html",
+          "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.budgets-and-cost-alerts.02",
@@ -1335,7 +1660,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page, where an enforcement action is explicitly something you opt into: \"you can configure your notifications for 80 percent of your budgeted amount and apply an action. For example, you could automatically apply a custom IAM policy that denies you the ability to provision additional resources.\" The default is notification alone, which is exactly the key and exactly what o2 gets wrong. o3 is false because budgets neither identify nor delete resources; o4 is false because a free-tier allowance and a budget threshold are unrelated instruments.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.budgets-and-cost-alerts.03",
@@ -1387,13 +1725,28 @@
       ],
       "rationale": "Each threshold is evaluated against either actual spend, which has already accrued, or forecast spend, which has not, so only a forecast threshold can warn before the money is gone. Both remain subject to a documented delay between a charge being incurred and the notification arriving.",
       "source_ids": [
-        "aws-budgets"
+        "aws-budgets",
+        "aws-budgets-best-practices"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.budgets-and-cost-alerts",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: the actual-versus-forecast half is on the cited page (\"alerted for both actual (after accruing) and forecasted (before accruing) spends\"), but the billing-delay caveat the item also turns on is not — that sentence is on the best-practices page: \"AWS billing data, which Budgets uses to monitor resources, is updated at least once per day. Keep in mind that budget information and associated alerts are updated and sent according to this data refresh cadence.\" Added aws-budgets-best-practices. With both, the key and o4's why are sourced. o2 is false by the definition of accrued spend; o3 names a different problem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html",
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-best-practices.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.chargeback-and-showback.01",
@@ -1445,13 +1798,29 @@
       ],
       "rationale": "Chargeback bills internal teams for their consumption, moving money between cost centres; showback reports the same consumption without transferring any charge. Showback is not chargeback waiting to be turned on — it is a deliberate, often permanent, choice to change behaviour through visibility alone.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "finops-invoicing-and-chargeback"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#s-budgeting-cost-control",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: lf-objectives-2025 carries only the competency name and cannot distinguish the two practices. The FinOps Framework states it directly: \"The primary difference between showback and chargeback is the formality ... of sending expenses to official accounting budgets. Showback reporting can be used at any granularity to show any group, large or small, the costs...\" — reporting without an accounting transfer, presented as a standing reporting practice serving all personas alongside chargeback rather than a stage before it, which is the key and refutes o4. Microsoft CAF likewise offers the two as alternative funding mechanisms. o2 and o3 are wrong for true reasons.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.finops.org/framework/capabilities/chargeback/",
+          "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.cost-monitoring.01",
@@ -1509,7 +1878,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page, which describes AWS CUR as \"the most comprehensive set of cost and usage data available\" with costs broken down \"by the hour, day, or month, by product or product resource, or by tags\" — the per-service, per-tag breakdown that separates more egress, more requests, an expired allowance and an ended reservation term from a change in instance count. o2 is false because a budget only fires if one was configured; o3 contradicts the stem's stated unchanged inventory; o4 is the assumption the breakdown exists to correct. No distractor is also correct.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.cost-monitoring.02",
@@ -1567,7 +1949,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page, which exists to describe the active, threshold-driven half of the pair: budgets with a target, alerts \"through email and Amazon SNS topics\", and optional actions. Reporting data on its own has no such trigger, so a dashboard nobody opens warns nobody — the key. o2 is false because whether the dashboard is opened is unrelated to whether its tags are correct; o3 is false because a calculator estimates before build and cannot observe a running estate; o4 is false because collection is not warning.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html",
+          "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.cost-monitoring.03",
@@ -1625,7 +2021,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page: \"You can receive reports that break down your costs by the hour, day, or month\" — the finer granularities that surface a three-day spike a monthly total sums away. o2 and o3 are wrong because storage tier and region-crossing are facts tracked by the storage and transfer services, not products of the report's time resolution, and both whys say so truthfully. o4 is false because a total and a time series carry different information. No two options assert the same answer.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.01",
@@ -1637,7 +2046,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Storage type first — tiers and lifecycle rules apply within a service already chosen, and changing type later means migrating data and repointing applications.",
+          "text": "Storage type first — tiers and lifecycle rules are features inside a service already chosen, and each service exposes its own API, so changing type later means migrating data and repointing applications.",
           "correct": true,
           "why": "Object, block and file storage name how data is addressed and presented — the top-level choice any tiering question presupposes — while tiers and lifecycle rules are decided after, and revisited continuously as data ages.",
           "provenance": {
@@ -1646,7 +2055,7 @@
         },
         {
           "ref": "o2",
-          "text": "Tier first — the intended tier determines whether the data should be addressed as objects, blocks, or files.",
+          "text": "Tier first — the intended access tier determines whether the data should be addressed as objects, as blocks, or as files, so the type follows from it.",
           "correct": false,
           "why": "Tiers are a cost and access-latency class inside a storage service already chosen; they do not determine how data is addressed to begin with.",
           "provenance": {
@@ -1656,7 +2065,7 @@
         },
         {
           "ref": "o3",
-          "text": "Neither first — both should be decided together, as a single combined rightsizing exercise covering compute and storage alike.",
+          "text": "Neither first — both should be settled together, as a single combined rightsizing exercise covering compute capacity and storage placement alike.",
           "correct": false,
           "why": "Rightsizing is a compute-capacity practice about matching provisioned size to demand; storage type and tier are a separate decision pair with their own axis.",
           "provenance": {
@@ -1666,9 +2075,9 @@
         },
         {
           "ref": "o4",
-          "text": "Order does not really matter, since a tier change and a storage-type change are, in practice, equally easy to reverse later.",
+          "text": "Order does not really matter here, since a tier change and a storage-type change are, in practice, about equally easy to reverse once the data is in place.",
           "correct": false,
-          "why": "A tier change or lifecycle rule keeps the data's address and interface, while a storage-type change requires migration and repointing applications — the two are not equally reversible.",
+          "why": "A tier change or lifecycle rule keeps the data's address and interface intact, while a storage-type change moves it to a service with a different API and access protocol — the two are not equally reversible.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.budgeting.storage-tiers-and-lifecycle-policies"
@@ -1677,13 +2086,28 @@
       ],
       "rationale": "The separating axis is which question is being answered: object, block and file storage names how data is addressed, decided first, while tiers and lifecycle policies name what it costs to keep and retrieve data already stored that way, decided after and revisited continuously.",
       "source_ids": [
+        "azure-storage-introduction",
         "azure-blob-access-tiers"
       ],
       "guide_anchor": "03-cloud-computing/budgeting.md#c-cloud.budgeting.storage-tiers-and-lifecycle-policies",
       "comparison_block": "cmp-cloud.budgeting.storage-tiers-and-lifecycle-policies",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then fixed: azure-blob-access-tiers alone could not carry the ordering claim, since it never discusses object, block or file storage. Added azure-storage-introduction, which lists Azure Blobs (\"a massively scalable object store\"), Azure Files (\"managed file shares\" reached over SMB, NFS and the Files REST API) and Azure Disks (\"an attached virtual hard disk\") as separate services with separate access protocols and APIs, while the access-tiers page defines hot, cool, cold and archive as tiers of blob data inside a storage account already created. The key was tightened to rest on the differing APIs rather than an unstated migration claim. o2 inverts the order, o3 misapplies rightsizing, o4 denies the asymmetry in reversibility.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction",
+          "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.02",
@@ -1741,7 +2165,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified verbatim on the cited page: \"While a blob is in the archive tier, it can't be read or modified. To read or download a blob in the archive tier, you must first rehydrate it to an online tier ... Data in the archive tier can take up to 15 hours to rehydrate\", and the summary table gives archive latency as \"Hours\". The rehydration overview repeats it. That confirms the key and refutes o4, which treats archive as a slower hot tier. o2 and o3 are wrong because neither cost monitoring nor an egress charge substitutes for the rehydration step, and both whys are true.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview",
+          "https://learn.microsoft.com/en-us/azure/storage/blobs/archive-rehydrate-overview"
+        ]
+      }
     },
     {
       "id": "q.cloud.budgeting.storage-tiers-and-lifecycle-policies.03",
@@ -1800,7 +2238,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-budgeting",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against the cited page using its own worked example: \"Data must remain in the archive tier for at least 180 days or be subject to an early deletion charge. For example, if a blob is moved to the archive tier and then deleted or moved to the hot tier after 45 days, you'll be charged an early deletion fee equivalent to 135 (180 minus 45) days\" — the item's exact numbers. o2 is false because no cancellation exception is documented; o3 is false because an orphan carries no separate rate; o4 is false because deleting early adds a prorated charge rather than ending one. No distractor is also correct.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview",
+          "https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview"
+        ]
+      }
     }
   ]
 }

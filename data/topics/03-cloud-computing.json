@@ -788,7 +788,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "google-sre-book-slos"
+        "google-sre-book-slos",
+        "aws-reliability-availability",
+        "google-sre-book-availability-table"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -821,7 +823,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "aws-reliability-failover-bp",
+        "aws-rds-multi-az",
+        "aws-reliability-sla-bp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -856,7 +861,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "nist-glossary-fault-tolerance",
+        "aws-rds-multi-az"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -889,7 +896,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "aws-reliability-multi-location-bp",
+        "aws-reliability-static-stability-bp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -923,7 +932,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-well-architected-reliability-pillar",
-        "aws-route53"
+        "aws-route53",
+        "aws-reliability-failover-bp",
+        "aws-route53-record-ttl"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -988,7 +999,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-ec2-auto-scaling"
+        "aws-ec2-auto-scaling",
+        "aws-ec2-change-instance-type"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1021,7 +1033,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-ec2-auto-scaling"
+        "aws-ec2-auto-scaling",
+        "aws-reliability-autohealing-bp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1087,7 +1100,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-elastic-load-balancing"
+        "aws-elastic-load-balancing",
+        "aws-elb-sticky-sessions",
+        "aws-alb-introduction",
+        "aws-nlb-introduction"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1122,7 +1138,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "aws-reliability-autohealing-bp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1155,7 +1172,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-pillars"
+        "aws-well-architected-pillars",
+        "google-sre-book-monitoring",
+        "aws-kinesis-kpl-aggregation"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1188,7 +1207,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-cloudfront"
+        "aws-cloudfront",
+        "aws-cloudfront-expiration"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1254,7 +1274,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-pillars"
+        "aws-well-architected-pillars",
+        "google-sre-book-monitoring",
+        "aws-well-architected-observability"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1320,7 +1342,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-pillars"
+        "aws-well-architected-pillars",
+        "google-sre-book-monitoring"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1353,7 +1376,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-six-advantages-cloud-computing"
+        "aws-six-advantages-cloud-computing",
+        "caf-cloud-accounting"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1384,7 +1408,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "nist-sp-800-145",
+        "azure-vm-states-and-billing",
+        "aws-ec2-purchasing-options",
+        "azure-waf-cost-model"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1419,7 +1446,11 @@
       "additional_sources": [
         "aws-spot-instances",
         "azure-spot-vms",
-        "google-cloud-spot-vms"
+        "google-cloud-spot-vms",
+        "aws-ec2-purchasing-options",
+        "aws-ec2-reserved-instances",
+        "aws-spot-interruption-notices",
+        "aws-spot-rebalance-recommendations"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1450,7 +1481,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-rightsizing-whitepaper"
+        "aws-rightsizing-whitepaper",
+        "azure-waf-cost-model"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1484,7 +1516,9 @@
         "aws-budgets",
         "aws-spot-instances",
         "azure-spot-vms",
-        "google-cloud-spot-vms"
+        "google-cloud-spot-vms",
+        "aws-pricing-calculator",
+        "azure-free-account-charges"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1548,7 +1582,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-rightsizing-whitepaper"
+        "aws-rightsizing-whitepaper",
+        "azure-vm-delete-attached-resources",
+        "azure-find-unattached-disks"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1645,7 +1681,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-budgets"
+        "aws-budgets",
+        "aws-budgets-best-practices"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1676,7 +1713,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-tagging-best-practices"
+        "aws-tagging-best-practices",
+        "finops-invoicing-and-chargeback"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1742,7 +1780,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "azure-blob-access-tiers",
-        "azure-blob-lifecycle-management"
+        "azure-blob-lifecycle-management",
+        "azure-storage-introduction"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1775,7 +1814,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "aws-wa-reliability-design-principles"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1842,7 +1882,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-pillars"
+        "aws-well-architected-pillars",
+        "aws-wa-deploy-with-automation",
+        "aws-cloudtrail",
+        "azure-activity-log",
+        "google-cloud-audit-logs"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1875,7 +1919,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-well-architected-reliability-pillar"
+        "aws-well-architected-reliability-pillar",
+        "aws-wa-immutable-infrastructure"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1909,7 +1954,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-well-architected-pillars",
-        "azure-well-architected-pillars"
+        "azure-well-architected-pillars",
+        "aws-wa-document-revisions",
+        "aws-well-architected-tool"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1940,7 +1987,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-iam-best-practices"
+        "aws-iam-best-practices",
+        "aws-iam-introduction",
+        "aws-iam-root-user-best-practices",
+        "aws-ec2-security-shared-responsibility"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2006,7 +2056,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-kms"
+        "aws-kms",
+        "aws-s3-data-encryption"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2106,7 +2157,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-backup"
+        "aws-backup",
+        "aws-backup-restore-testing",
+        "aws-ec2-security-shared-responsibility"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2139,7 +2192,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-cloudtrail"
+        "aws-cloudtrail",
+        "aws-cloudtrail-record-contents"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2170,7 +2224,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-tagging-best-practices"
+        "aws-tagging-best-practices",
+        "aws-tagging-what-are-tags",
+        "aws-organizing-multiple-accounts"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2203,7 +2259,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-rightsizing-whitepaper"
+        "aws-rightsizing-whitepaper",
+        "aws-rightsizing-identify-opportunities",
+        "aws-rightsizing-instance-families",
+        "aws-reserved-instances"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2236,7 +2295,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-elastic-load-balancing"
+        "aws-elastic-load-balancing",
+        "aws-nlb-health-checks",
+        "aws-target-group-attributes"
       ],
       "candidate_evidence": [],
       "commands": [],

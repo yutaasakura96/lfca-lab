@@ -358,7 +358,12 @@ argument: the cost of leaving is a function of how much data you hold.
 
 **How it works** Egress is metered by volume transferred out and banded by destination.
 Traffic out to the internet is one band; traffic to a different region of the same provider
-is another, and on Azure's published rates the inter-region band is the cheaper of the two.
+is another, and on Azure's published rates the inter-region band is usually — but not always
+— the cheaper of the two: $0.02 per gigabyte between North America regions against $0.08 and
+up for internet egress out of North America, but $0.16 per gigabyte between South America
+regions against $0.12 for internet egress via the transit ISP network. Internet egress also
+grants a free first 100 GB each month that inter-region traffic does not, so at small volumes
+the ordering reverses again.
 Traffic that stays inside a single region may be free or charged depending on the provider —
 Azure states that transfer between Azure services located within the same region is not
 charged, which is not a safe assumption to carry elsewhere. Reading your own data back out to

@@ -74,7 +74,7 @@ can satisfy one and fail the other.
 
 <a id="c-security.compliance.policy-standard-and-procedure"></a>
 ### Policy, standard and procedure
-*id: `security.compliance.policy-standard-and-procedure` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
+*id: `security.compliance.policy-standard-and-procedure` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-sp-800-53Ar5*
 
 **What it is** Three tiers of written direction, separated by specificity rather than
 importance. A policy states intent and who is bound: "all remote administrative access is
@@ -83,9 +83,14 @@ requirement: "multi-factor authentication on every externally reachable SSH endp
 procedure gives the steps that satisfy the standard: the actual commands and approvals. A
 guideline — the fourth term, and the usual distractor — is recommended, not mandatory.
 
-**Why it matters** Findings are written against standards, because a standard is the only tier
-with something testable in it. A policy alone cannot be failed on evidence; it has no
-threshold. This hierarchy is not documentation hygiene either: NIST SP 800-53 places a
+**Why it matters** The standard is the tier that supplies a *threshold*, so it is the tier a
+control's observed performance is measured against; a policy states intent and sets no level a
+control can be held to. Note the limit on that, though, because a distractor can be built out
+of overstating it: a policy is not unfalsifiable. NIST SP 800-53A Rev. 5 gives AC-01 POLICY AND
+PROCEDURES its own assessment objectives — "an access control policy is developed and
+documented", "the access control policy is disseminated to …" — so an organisation can and does
+fail on the policy tier, just not on whether a control cleared a level the policy never set.
+This hierarchy is not documentation hygiene either: NIST SP 800-53 places a
 Policy and Procedures control at the head of 19 of its 20 control families (the exception is
 Program Management, whose PM-1 is Information Security Program Plan), so having the
 documents is itself a control an assessor will look for.
@@ -100,7 +105,7 @@ policy with no standard beneath it: intent stated, nothing measurable, nothing t
 
 <a id="c-security.compliance.controls-and-evidence"></a>
 ### Controls and evidence
-*id: `security.compliance.controls-and-evidence` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
+*id: `security.compliance.controls-and-evidence` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-sp-800-53Ar5, nist-sp-800-100*
 
 **What it is** A control is a safeguard — in NIST SP 800-53 Rev. 5's own wording, a safeguard
 or countermeasure employed within a system or an organisation to protect the confidentiality,
@@ -117,12 +122,18 @@ place, and the question is what is still missing.
 **How it works** Controls are classified two ways, and both vocabularies are in common use.
 By function: preventive (stops it happening — MFA, a firewall rule), detective (notices it
 happened — log monitoring, file integrity checking), corrective (restores afterwards —
-restoring from backup, revoking a compromised key). By nature: administrative (a documented
+restoring from backup, revoking a compromised key). Sourcing note, because it matters for how
+much weight to put on the vocabulary: NIST SP 800-53 Rev. 5 never uses the word "detective" —
+the preventive/detective split is stated in NIST SP 800-100, which says selected security
+controls "are either preventive or detective in nature", and the mechanism itself is SP 800-53
+Rev. 5's SI-7, which employs integrity verification tools *to detect* unauthorised changes and
+then takes a separately defined action. By nature: administrative (a documented
 process, training, background checks), technical (enforced by the system itself), physical
 (locks, badge readers, cameras). Evidence is generated as a by-product of the control running,
 which is why controls that produce no artifact — "the team reviews this informally" — are the
-ones that fail. An assessor then samples: they pick items from the period and check each,
-rather than examining everything.
+ones that fail. An assessor then samples: NIST SP 800-53A Rev. 5 defines examination coverage
+in terms of a *representative sample* of assessment objects, reserving the whole population for
+a comprehensive examination.
 
 **Key terms** preventive/detective/corrective; administrative/technical/physical; artifact;
 sampling; compensating control; design versus operating effectiveness.
@@ -141,7 +152,7 @@ generates no artifact cannot be audited regardless of how well it works.
 
 <a id="c-security.compliance.audit"></a>
 ### Audit
-*id: `security.compliance.audit` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, aicpa-soc2*
+*id: `security.compliance.audit` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-sp-800-53Ar5, aicpa-soc2, iso-certification*
 
 **What it is** A formal examination of evidence against defined criteria, within a defined
 scope and either as of a date or across a period, producing findings or an opinion. It can be
@@ -161,6 +172,13 @@ opinion, or a certificate, depending on the regime. Two report shapes recur and 
 confused: a point-in-time examination asks whether the controls were suitably *designed* on a
 given date; a period examination asks whether they *operated effectively* across months. A SOC
 2 Type 1 and a Type 2 report are exactly this pair. The second costs more and claims more.
+Sourcing note: AICPA's public pages confirm that a SOC engagement is an *examination* producing
+an assurance report from a CPA firm, and name a "SOC 2 type 2 examination", but the definitional
+text that maps Type 1 to design-as-of-a-date and Type 2 to operating-effectiveness-over-a-period
+sits behind AICPA's click-through licence gate and has not been read against a primary source.
+Treat the mapping as the industry's settled usage rather than as a checked citation. What *is*
+checked, and what a question can safely turn on, is the design-versus-operating-effectiveness
+distinction itself.
 
 **Key terms** scope; criteria; period; sample; finding; opinion; independence.
 
@@ -352,7 +370,7 @@ case later than 60 calendar days after discovery.
 
 <a id="c-security.compliance.pci-dss"></a>
 ### PCI-DSS
-*id: `security.compliance.pci-dss` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: pci-dss-standards*
+*id: `security.compliance.pci-dss` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: pci-dss-standards, pci-ssc-glossary*
 
 **What it is** The Payment Card Industry Data Security Standard, published by the PCI Security
 Standards Council, covering entities that store, process or transmit cardholder data or
@@ -385,6 +403,16 @@ Vendor. Scope is the lever worth knowing: the requirements reach the cardholder 
 environment, including components with unrestricted connectivity to it, plus anything else that
 could affect the security of account data. Segmentation is explicitly not a PCI-DSS
 requirement, but the standard strongly recommends it for reducing assessment scope and cost.
+Sourcing note, and it binds hard on anything built from this paragraph: the PCI DSS requirement
+text sits behind the Council's licence gate and refused every automated access attempt, so the
+four requirement numbers cited above (3.3.1, 3.3.3, 3.5.1, 11.3.2) are **unverified rather than
+disproven**, and no question may turn on a PCI DSS requirement number. What the Council does
+publish, and what a question can safely turn on, is on the standard page, the about page and the
+glossary: that the Council does not enforce compliance; that whether an entity must comply or
+validate is at the discretion of a payment brand, acquirer or other entity managing a compliance
+program; that an acquirer is a merchant or acquiring bank subject to payment brand rules on
+merchant compliance; and that sensitive authentication data is data a transaction "might be
+transmitted or processed (but not stored)".
 
 **Key terms** cardholder data environment; sensitive authentication data; QSA; ASV;
 self-assessment questionnaire; tokenisation.
@@ -435,7 +463,7 @@ localisation.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `security.compliance.soc-2-and-iso-27001` | SOC 2 and ISO 27001 | Two voluntary frameworks: SOC 2 is an AICPA examination in which a CPA firm reports on controls relevant to security, availability, processing integrity, confidentiality or privacy; ISO 27001 certifies an information security management system through an accredited body. | Neither is a law. SOC 2 yields a report — Type 1 on design as of a date, Type 2 on operation across a period — never a certificate, so "SOC 2 certified" is a wrong-sounding-right distractor that also does not discharge GDPR or HIPAA. |
+| `security.compliance.soc-2-and-iso-27001` | SOC 2 and ISO 27001 | Two voluntary frameworks: SOC 2 is an AICPA examination in which a CPA firm reports on controls relevant to security, availability, processing integrity, confidentiality or privacy; ISO 27001 certifies an information security management system through an accredited body — ISO itself states that it "does not perform certification or issue certificates" and that "Certification is performed by external certification bodies". | Neither is a law. SOC 2 yields a report — Type 1 on design as of a date, Type 2 on operation across a period — never a certificate, so "SOC 2 certified" is a wrong-sounding-right distractor that also does not discharge GDPR or HIPAA. |
 
 #### Scenario
 
@@ -515,7 +543,12 @@ whether the media will be reused, with the outcome verified and documented.
 Clear, Purge, Destroy.
 
 **Traps** A legal hold overrides both the schedule and an erasure request: once litigation or
-an investigation is anticipated, the relevant data is frozen in place until released. A
+an investigation is anticipated, the relevant data is frozen in place until released. GDPR is
+where the erasure half of that is actually written — Article 17(3)(e) disapplies the erasure
+right to the extent processing is necessary "for the establishment, exercise or defence of legal
+claims" — and it is worth citing that article rather than the phrase "legal hold", which appears
+nowhere in NIST SP 800-88 Rev. 1, NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the
+Regulation. A
 retention *obligation* is also not a retention *policy* — the obligation is imposed from
 outside and cannot be shortened by writing a policy that disagrees with it. And "we deleted
 the record" usually means one row in one database; backups, archives, log aggregators and
@@ -543,7 +576,7 @@ keep — and how the destruction is actually carried out and verified.
 
 <a id="c-security.compliance.licensing-compliance"></a>
 ### Licensing compliance
-*id: `security.compliance.licensing-compliance` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: gnu-gpl-faq*
+*id: `security.compliance.licensing-compliance` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: gnu-gpl-faq, osi-mit-license, apache-license-2*
 
 **What it is** Meeting the obligations attached to the software an organisation uses or ships —
 open source and proprietary alike. Open source removes the fee, not the licence. Permissive
@@ -603,7 +636,7 @@ notification window.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `security.compliance.consent-and-lawful-basis` | Consent and lawful basis | The justification that makes processing personal data lawful; GDPR Article 6(1) lists six — consent, contract, legal obligation, vital interests, public task, and legitimate interests — of which consent is only one. | Consent is the over-chosen answer: most routine processing runs on contract or legal obligation. Valid consent is freely given, specific, informed and unambiguous — a pre-ticked box or silence is not — and Article 7(3) makes withdrawal as easy as giving it. |
+| `security.compliance.consent-and-lawful-basis` | Consent and lawful basis | The justification that makes processing personal data lawful; GDPR Article 6(1) lists six — consent, contract, legal obligation, vital interests, public task, and legitimate interests — of which consent is only one. | Consent is the over-chosen answer: most routine processing runs on contract or legal obligation. Watch which article does which job, because it is easy to read this row as though one article did both: Article 6(1) supplies the list of bases and nothing else, while the validity bar — "freely given, specific, informed and unambiguous", signified by a statement or a clear affirmative action — is **Article 4(11)**, and it is **Recital 32** that says silence, pre-ticked boxes or inactivity do not constitute consent. Article 7(3) makes withdrawal as easy as giving it. |
 
 #### Scenario
 

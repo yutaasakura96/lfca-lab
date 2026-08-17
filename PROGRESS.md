@@ -1341,6 +1341,18 @@ true`.
   neither made the application-vs-OS-package-manager contrast explicit; Maven's did. This is
   defensible as the strongest available citation, but a question author should not treat Maven's
   specific behavior as representative of npm or pip without independently checking it.
+  **Corrected 2026-08-17 by the DevOps Basics verification pass (cycle 3, task 47): Maven's page
+  did not make the contrast either.** "Introduction to the Dependency Mechanism" never mentions an
+  operating system package manager, `apt`, `dnf`, or system-wide installation anywhere; its
+  "System Dependencies" section is about `<scope>system</scope>` pointing at a jar on disk, which
+  is a different sense of "system" entirely. The concept and both of its questions now cite the
+  PyPA specification **Externally Managed Environments**
+  (<https://packaging.python.org/en/latest/specifications/externally-managed-environments/>),
+  which defines a "Python-specific package manager" against a "distro package manager ... capable
+  of installing Python packages as well as non-Python packages" and exists precisely because the
+  two conflict over the same files, plus npm's local-install page for the project-local half.
+  `maven-dependency-mechanism` is retained on the concept for the manifest-and-transitive-
+  resolution claim in the guide's **How it works**, which it does carry.
 
 Gate results after applying: `npm run generate` (regenerated 6 views), `npm run validate` (537
 concepts, 0 errors, 16 pre-existing warnings, no `stale-waiver`), `npm test` (188/188 passing),
@@ -1573,3 +1585,69 @@ as "configured with the necessary system hardware". The stem's "most recent back
 loaded, requiring only updating with data since the last backup" is verbatim from the same
 document's chapter 5. Reading one section of a source and concluding it does not contain a claim
 is itself a way to manufacture a false refutation.
+
+### Task 46 verification — Security Fundamentals :: Compliance (`verify-compliance`)
+
+32 of 32 items carry a verdict. 20 confirmed as authored; 12 refuted, rewritten in place and
+re-verified. The **PCI-requirement-number scan is clean**: a regex for `requirement|req\.?\s*\d+`
+and for bare `\d+\.\d+\.\d+` over every stem, option, `why` and `rationale` returned 0 hits.
+
+Nine of the twelve refutations were a source cited for content it does not contain, and each is
+recorded with the search that establishes the absence:
+
+- **"detective" appears zero times in NIST SP 800-53 Rev. 5** (492 pages), and zero times in
+  SP 800-53A Rev. 5, SP 800-12 Rev. 1, SP 800-37 Rev. 2 and SP 800-171 Rev. 3; the CSRC glossary
+  404s on `detective_control`, `preventive_control` and `corrective_control`. The
+  preventive/detective/corrective taxonomy the guide teaches had no registered primary source at
+  all. Re-anchored on **NIST SP 800-100** ("either preventive or detective in nature") and on
+  SP 800-53 Rev. 5's **SI-7** ("Employ integrity verification tools to detect unauthorized
+  changes"). `nist-sp-800-100` added to `data/sources.json` and to the concept.
+- **Assessor sampling is not in SP 800-53 Rev. 5** — "sampling" occurs once, as CP-9(2) backup
+  restoration. Re-anchored on **SP 800-53A Rev. 5** Appendix C's coverage attribute, which
+  defines examination in terms of a representative sample of assessment objects.
+  `nist-sp-800-53Ar5` added and cited from three concepts.
+- **`aicpa-soc2` contains no Type 1 / Type 2 definitions**; every AICPA path tried resolves to
+  the same landing page or a click-through gate. Recorded as unverified rather than disproven,
+  and `audit.02` rewritten so it turns on the design-versus-operating-effectiveness distinction
+  rather than on the report-type mapping. The guide now says so in place.
+- **`aicpa-soc2` contains nothing about ISO 27001.** ISO's own page settles the certification
+  claim — "ISO does not perform certification or issue certificates ... Certification is
+  performed by external certification bodies". `iso-certification` added.
+- **`gnu-gpl-faq` contains neither MIT nor Apache licence text.** `licensing-compliance.02`
+  re-cited to `osi-mit-license` (new) and `apache-license-2` (already registered).
+- **"Legal hold" appears in none of the cited sources** — zero in SP 800-88 Rev. 1, SP 800-53
+  Rev. 5, SP 800-53A Rev. 5 and the Regulation, and no CSRC glossary entry. The substance is
+  right and GDPR states it directly, so the citation moved rather than the content:
+  **Article 17(3)(e)**, "for the establishment, exercise or defence of legal claims". Guide trap
+  updated to cite the article.
+
+Three refutations were substantive rather than bibliographic:
+
+- The guide's claim that a standard is "the only tier that can be failed on evidence" is
+  **contradicted** by SP 800-53A Rev. 5, whose AC-01 POLICY AND PROCEDURES carries its own
+  assessment objectives. Guide and item both narrowed to the correct claim — the standard is the
+  tier that supplies a *threshold*.
+- `consent-and-lawful-basis.01` asked whether valid consent was given "Under GDPR Article 6".
+  Article 6(1)(a) supplies only the basis; the validity bar is **Article 4(11)** and the
+  pre-ticked-box rule is **Recital 32**. This came from a guide Quick reference cell that was
+  true but misreadable — it opened on Article 6(1) and then stated the four conditions in the
+  same breath. Second confirmed instance of that class after wave A's Article 4(1) finding; the
+  cell now names which article does which job.
+- `gdpr.02` set awareness at 09:00 Monday and asked what was due "by Wednesday at 09:00". 72
+  hours from Monday 09:00 is **Thursday** 09:00. Stem fixed.
+
+Two PCI items keyed on licence-gated requirement substance without naming a number, which passes
+the ban as written and should not have. Both re-anchored on the Council's publicly readable
+glossary — sensitive authentication data is data a transaction "might be transmitted or processed
+(but not stored)", and the Acquirer entry supplies the acquiring-bank link — and the issuer
+carve-out was removed rather than asserted. `pci-ssc-glossary` added. The guide's PCI section now
+carries an explicit note that requirement numbers 3.3.1, 3.3.3, 3.5.1 and 11.3.2 remain
+unverified and that no question may turn on one.
+
+Zero second-correct-answer defects and zero duplicate options across all 32 items.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed) 0 errors / 0 warnings;
+`npm test` 307/307; `npm run validate` 537 concepts / 0 errors / 16 warnings — the five new
+sources are cited from concepts, so no new `orphan-source` warning; `npm run generate` re-run and
+`npm run check-guide` 0/0. Keys and distractors both 0% two-clause; key is the longest option in
+11 of 32 items (34%), fixed by extending five distractors rather than shortening any key.

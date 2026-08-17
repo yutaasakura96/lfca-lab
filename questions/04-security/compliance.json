@@ -14,37 +14,66 @@
           "text": "Both can be true together: compliance is conformance to an external obligation over a past period, and security is whether the system actually resists attack.",
           "correct": true,
           "why": "The two properties are measured against different yardsticks, so neither state implies the other.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "No, an organisation cannot be genuinely compliant while it remains breachable, because compliance implies the system was already secure against every attack.",
           "correct": false,
           "why": "This treats compliance as a claim about resisting attack, which is what the CIA triad measures, not what compliance measures.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "No, a security standard's audit examines the CIA triad directly, so a clean report already means confidentiality, integrity and availability held against every possible attacker.",
           "correct": false,
           "why": "An audit examines evidence against the standard's own criteria and scope, not against every attack path the CIA triad might eventually face.",
-          "provenance": { "kind": "confusable", "concept_id": "security.security.cia-triad" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.security.cia-triad"
+          }
         },
         {
           "ref": "o4",
           "text": "No, an unqualified report means the auditor found zero exceptions anywhere across the organisation's entire technology estate.",
           "correct": false,
           "why": "An unqualified report speaks only to the stated scope and period; it says nothing about systems the audit never examined.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.audit"
+          }
         }
       ],
       "rationale": "Compliance is a claim about an organisation, measured against an obligation written outside the team that runs the system. Security is a claim about the system itself, tested against whether an attacker can defeat it. A system can satisfy one while failing the other, and the exam relies on candidates conflating the two.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "lf-lfca-program"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "lf-lfca-program"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.compliance",
       "comparison_block": "cmp-security.compliance.compliance",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed. The item turns on the definitional split between compliance (conformance to an externally written obligation, measured over a past period and within a stated scope) and security (whether the system resists attack); nothing in the fetched sources contradicts it and NIST SP 800-53 Rev. 5 supplies the underlying control definition. Distractors o2, o3 and o4 are each false: o2 asserts compliance implies invulnerability, o3 asserts an audit examines the CIA triad directly, o4 asserts an unqualified report speaks to the whole estate rather than the stated scope. Every why states a true fact. No two options assert the same answer, and no option turns on a PCI DSS requirement number.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.compliance.02",
@@ -59,37 +88,66 @@
           "text": "Which standard, over what period, and for what defined boundary the claim is being made.",
           "correct": true,
           "why": "Compliance is retrospective and scoped: compliance with something, over a period, for a boundary, and none of those has been named.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "A written policy stating the organisation's intent to comply, signed off by leadership.",
           "correct": false,
           "why": "A policy states intent but sets no measurable threshold, so it cannot supply the missing standard, period or scope.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         },
         {
           "ref": "o3",
           "text": "An inventory of the technical controls that are currently enabled across the service.",
           "correct": false,
           "why": "Naming controls is not the same as naming the standard, period and scope the compliance claim is measured against.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o4",
           "text": "Nothing further, since 'compliant' is a complete claim once the organisation itself believes it to be true.",
           "correct": false,
           "why": "An auditor cannot test a belief; without the standard, period and scope, the claim has nothing to be checked against.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.compliance"
+          }
         }
       ],
       "rationale": "An organisation that says 'we are compliant' without naming the standard, the period and the scope has not said anything an auditor could test. The claim only becomes testable once all three are fixed.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "lf-lfca-program"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "lf-lfca-program"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: a compliance claim is testable only once the standard, the period and the boundary are named. Distractors are all genuinely insufficient rather than wrong-sounding: a signed policy states intent without a threshold, a control inventory names mechanisms rather than criteria, and o4’s \"nothing further\" is false because an auditor cannot test a belief. Every why is true. Options are mutually distinct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.compliance.03",
@@ -104,37 +162,66 @@
           "text": "Compliance is a claim about an organisation measured against an externally written obligation; security is a claim about a system measured against whether it resists attack.",
           "correct": true,
           "why": "This is the definitional split: who wrote the yardstick, and what it is measured against.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Compliance and the CIA triad are the same property, just reported in two different formats for two different audiences.",
           "correct": false,
           "why": "They are measured against different yardsticks: an external obligation versus the system's own confidentiality, integrity and availability.",
-          "provenance": { "kind": "confusable", "concept_id": "security.security.cia-triad" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.security.cia-triad"
+          }
         },
         {
           "ref": "o3",
           "text": "Compliance is what an audit produces, and security is what a penetration test produces, so the two terms simply name different kinds of assessment report rather than two different properties.",
           "correct": false,
           "why": "This confuses the assessment method with the property assessed; an audit examines compliance evidence, but compliance is not defined by having been audited.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.audit"
+          }
         },
         {
           "ref": "o4",
           "text": "Compliance is the outcome of a completed risk assessment, and security is the outcome of choosing and implementing a risk response.",
           "correct": false,
           "why": "Risk assessment and risk response are activities within a broader security programme, not the definitions the exam draws for these two terms.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.risk-assessment" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.risk-assessment"
+          }
         }
       ],
       "rationale": "Compliance and security overlap heavily but are not the same claim. Compliance answers to a standard written outside the team; security answers to whether the system actually holds against attack. Recognising that a system can be fully one and not the other is the whole of the concept.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "lf-lfca-program"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "lf-lfca-program"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed as the definitional split. o2 equates compliance with the CIA triad, o3 confuses the assessment method with the property assessed, o4 substitutes risk assessment and risk response — which NIST SP 800-39 shows are activities within risk management, not definitions of compliance or security. All three are false and all three whys are true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.policy-standard-and-procedure.01",
@@ -142,44 +229,72 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 2,
-      "stem": "An assessor writes a finding that a required control was not observed operating during the review period. Against which of policy, standard or procedure is that finding written, and why?",
+      "stem": "An assessor has to decide whether a required control met its bar during the review period. Which of policy, standard or procedure supplies the measurable threshold that decision is made against?",
       "options": [
         {
           "ref": "o1",
-          "text": "The standard, because it is the only tier that states a measurable, mandatory requirement, so it is the only one that can be failed on evidence.",
+          "text": "The standard, because it is the tier that turns intent into a measurable, mandatory requirement a control’s performance can be compared against.",
           "correct": true,
-          "why": "Findings are written against standards precisely because a standard is the only tier with a testable threshold in it.",
-          "provenance": { "kind": "key" }
+          "why": "A standard states the level that has to be met, which is what makes a control’s observed performance comparable to anything at all.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "The procedure, because the finding concerns the exact steps that were, or were not, followed by staff to satisfy the requirement on the day in question.",
+          "text": "The procedure, because it sets out the exact steps staff followed, which is the level the control itself has to reach.",
           "correct": false,
-          "why": "A procedure gives the steps that satisfy a standard; the failure itself is written against the standard the steps were supposed to meet.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "why": "A procedure gives the steps that satisfy a requirement; the level those steps have to reach is set by the standard above them.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o3",
-          "text": "The policy, because it states the organisation's overall intent to have the control in place at all.",
+          "text": "The policy, because it states the organisation’s overall intent, which is the bar every control it owns has to clear.",
           "correct": false,
-          "why": "A policy alone cannot be failed on evidence; it has no threshold, so an assessor has nothing to test it against.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "why": "A policy states intent and who is bound by it, and stating intent sets no measurable level a control can be held to.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         },
         {
           "ref": "o4",
-          "text": "A guideline, since guidelines are the tier auditors check first before moving on to mandatory requirements.",
+          "text": "A guideline, because guidelines are the mandatory tier an assessor holds a control to before any other is considered.",
           "correct": false,
-          "why": "A guideline is recommended, not mandatory, so it carries nothing an assessor could fail; that is exactly why it is the usual distractor here.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.policy-standard-and-procedure" }
+          "why": "A guideline is recommended rather than mandatory, so it carries no threshold an assessor could hold a control to.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.policy-standard-and-procedure"
+          }
         }
       ],
-      "rationale": "Policy states intent, a standard sets a measurable and mandatory requirement, and a procedure gives the steps that satisfy the standard. Findings are written against standards because that is the only tier with something testable in it.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "rationale": "Policy, standard and procedure are separated by specificity: the policy states intent and who is bound, the standard states the measurable mandatory requirement, and the procedure gives the steps that satisfy it. Only the standard tier carries a threshold, which is what a control’s observed performance is compared against. NIST SP 800-53 Rev. 5 names policies, standards and guidelines as distinct instruments an organisational policy must be consistent with.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.policy-standard-and-procedure",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The original key claimed the standard is \"the only one that can be failed on evidence\" and its o3 why claimed \"a policy alone cannot be failed on evidence\". NIST SP 800-53A Rev. 5 refutes both: AC-01 POLICY AND PROCEDURES carries explicit assessment objectives (\"an access control policy is developed and documented\", \"the access control policy is disseminated to …\"), so a policy tier is assessable and failable on evidence. Separately, NIST SP 800-53 Rev. 5 contains no policy/standard/procedure tier taxonomy at all; AC-1 only requires a policy consistent with \"applicable laws, executive orders, directives, regulations, policies, standards, and guidelines\" and procedures to implement it. Rewritten so the key turns on which tier supplies the measurable threshold rather than on an exclusivity claim about failure. Rewritten key and all three distractors re-checked; each distractor is false and each why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.policy-standard-and-procedure.02",
@@ -194,37 +309,64 @@
           "text": "The procedure changed; that is routine operational work and does not by itself move what an assessor tests against.",
           "correct": true,
           "why": "Rewriting a procedure is routine operational work, unlike changing a standard, which moves the compliance boundary.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "The standard changed, so the compliance boundary has moved and the change needs management sign-off before it takes effect.",
           "correct": false,
           "why": "Nothing about the measurable requirement changed here, only the steps used to satisfy it, so the standard was never touched.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.audit"
+          }
         },
         {
           "ref": "o3",
           "text": "The policy changed, so the organisation's stated intent and who is bound by it has shifted as a result.",
           "correct": false,
           "why": "A policy states intent and who is bound; swapping the ticketing tool changes neither.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         },
         {
           "ref": "o4",
           "text": "Nothing changed at any tier, because a runbook sits entirely outside the policy, standard and procedure hierarchy.",
           "correct": false,
           "why": "A runbook is exactly the procedure tier, the steps that satisfy a standard, so it is not outside the hierarchy at all.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         }
       ],
       "rationale": "The three tiers change at different costs and by different authority. A procedure is routine operational work to update; a standard changes what an assessor tests against, so changing it moves the compliance boundary and typically needs sign-off.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.policy-standard-and-procedure",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: rewriting a runbook to name a different ticketing tool changes the procedure tier, and changes nothing an assessor tests against. Distractors are false — no measurable requirement moved, no statement of intent or of who is bound changed, and a runbook is the procedure tier rather than outside the hierarchy. Disclosed limit: NIST SP 800-53 Rev. 5 names policies, standards and guidelines as distinct instruments in AC-1 and requires procedures, but it does not itself set out the three-tier taxonomy; the item does not turn on any specific passage of it.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.controls-and-evidence.01",
@@ -239,37 +381,64 @@
           "text": "Evidence that the control actually challenged users during the audit period, such as the authentication logs, not just the configuration showing it is turned on.",
           "correct": true,
           "why": "A configuration export is evidence of design; the logs for the period are the evidence that the control operated.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "A completed audit report that lists multi-factor authentication as being within its examined scope.",
           "correct": false,
           "why": "An audit is a periodic examination of evidence by an assessor; it is not itself the evidence the control produced day to day.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.audit"
+          }
         },
         {
           "ref": "o3",
           "text": "A written policy that requires multi-factor authentication on all externally reachable endpoints.",
           "correct": false,
           "why": "A policy document is evidence a control was designed, never evidence that it actually operated.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         },
         {
           "ref": "o4",
           "text": "Nothing further; the enabled setting shown in the configuration export is itself sufficient proof that the control actually ran and challenged users throughout the entire audit period.",
           "correct": false,
           "why": "'We have it enabled' is an assurance, not evidence; only the logs proving it actually challenged users during the period count as evidence.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.controls-and-evidence"
+          }
         }
       ],
       "rationale": "A control is the safeguard; evidence is the artifact showing it operated. A configuration export shows the control was designed. Only logs, tickets or review records generated as a by-product of the control running during the period count as evidence that it operated.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.controls-and-evidence",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: a configuration export evidences design, and the authentication logs for the period evidence operation. NIST SP 800-53A Rev. 5 separates the assessment methods (examine, interview, test) applied to assessment objects from any assurance about them. Distractors are false: an audit report is the examination rather than the evidence, a policy evidences design not operation, and o4’s \"nothing further\" is the assurance-for-evidence substitution the item exists to catch. All whys true; options distinct.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.controls-and-evidence.02",
@@ -283,38 +452,68 @@
           "ref": "o1",
           "text": "Detective, because it notices that a change happened rather than stopping it beforehand or restoring the system afterward.",
           "correct": true,
-          "why": "File integrity checking and log monitoring are the guide's own examples of detective controls.",
-          "provenance": { "kind": "key" }
+          "why": "NIST SP 800-53 Rev. 5’s SI-7 employs integrity verification tools to detect unauthorised changes, and NIST SP 800-100 characterises selected controls as preventive or detective in nature.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Preventive, because the alert is generated early enough to stop the unauthorised change before it takes full effect.",
           "correct": false,
           "why": "The monitor reports after the change has already occurred; nothing described blocks it from happening.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         },
         {
           "ref": "o3",
           "text": "Corrective, because the security team's response to the alert restores the binary to a known-good state before any further damage can occur.",
           "correct": false,
           "why": "The scenario describes only the alert itself; nothing about the monitor performs the restoration that would make it corrective.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-retention-obligations"
+          }
         },
         {
           "ref": "o4",
           "text": "Administrative, because responding to the alert is a documented process the security team follows by hand.",
           "correct": false,
           "why": "The monitor itself is a technical mechanism enforced by the system, not a documented human process.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.audit"
+          }
         }
       ],
-      "rationale": "Controls are classified by function as preventive, detective or corrective, and by nature as administrative, technical or physical. A monitor that notices and reports a change without blocking or reversing it is a technical, detective control.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "rationale": "Controls are classified by function as preventive, detective or corrective, and by nature as administrative, technical or physical. NIST SP 800-53 Rev. 5’s SI-7 is exactly this mechanism: integrity verification tools that detect unauthorised changes and then take a separately defined action. A monitor that notices and reports without blocking or reversing is a technical, detective control.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "nist-sp-800-100"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.controls-and-evidence",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, citation fixed, re-verified. The item cites nist-sp-800-53r5 for the preventive/detective/corrective classification; the word \"detective\" appears zero times in the whole of NIST SP 800-53 Rev. 5 (492 pages searched), zero times in SP 800-53A Rev. 5 (733 pages), zero times in SP 800-12 Rev. 1, SP 800-37 Rev. 2 and SP 800-171 Rev. 3, and csrc.nist.gov/glossary/term/detective_control returns 404. The original key why also cited \"the guide’s own examples\" rather than a source. Re-anchored on two passages actually read: SP 800-53 Rev. 5 SI-7 (\"Employ integrity verification tools to detect unauthorized changes … Take the following actions when unauthorized changes … are detected\"), which is exactly the described monitor, and SP 800-100, which states that selected security controls \"are either preventive or detective in nature\". Key and all distractors re-checked; the key is the only correct classification, and each distractor why is true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-100.pdf",
+          "https://csrc.nist.gov/glossary/term/detective_control"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.controls-and-evidence.03",
@@ -328,38 +527,67 @@
           "ref": "o1",
           "text": "That the sampled tickets support the control having operated correctly for the period tested, not that every one of the 400 tickets was individually checked.",
           "correct": true,
-          "why": "An assessor samples items from the period and checks each one rather than examining the entire population.",
-          "provenance": { "kind": "key" }
+          "why": "NIST SP 800-53A Rev. 5 defines examination coverage in terms of a representative sample of assessment objects rather than the whole population.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "That all 400 tickets were reviewed, since a clean sample of this size statistically implies the whole population of tickets must also be clean.",
           "correct": false,
-          "why": "Sampling explicitly does not examine everything; the assessor's conclusion only covers the items actually sampled.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.controls-and-evidence" }
+          "why": "A representative sample supports a conclusion about the objects sampled; only a comprehensive examination reaches far enough to speak for the whole population.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o3",
           "text": "That the organisation is now compliant with the relevant standard permanently, since the audit examining this control is finished.",
           "correct": false,
           "why": "An audit's opinion covers a fixed scope and period; it is not a permanent state and does not extend indefinitely into the future.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.audit"
+          }
         },
         {
           "ref": "o4",
           "text": "That the approval control is preventive rather than detective, since the tickets show approval happened before access was granted.",
           "correct": false,
           "why": "Whether approval happens before or after access is a design question about the control's function, not something this sample review establishes.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         }
       ],
       "rationale": "An assessor examines evidence by sampling rather than by checking every item the control produced. A clean sample supports, but does not prove, that the control operated correctly across the full population for the tested period.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "nist-sp-800-53Ar5"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.controls-and-evidence",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, citation fixed, re-verified. The item turns on assessor sampling; \"sampling\" appears in NIST SP 800-53 Rev. 5 only as CP-9(2) SYSTEM BACKUP | TEST RESTORATION USING SAMPLING, which is about restoring from backups, not about examining a population of evidence. Re-anchored on NIST SP 800-53A Rev. 5 Appendix C, which defines the coverage attribute in terms of a representative sample of assessment objects and reserves the whole-population reading for comprehensive examination. Key confirmed against that passage; o2 (clean sample implies clean population) and o3 (permanent compliance) are false, and o4 is a design question the sample cannot settle. All whys true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.audit.01",
@@ -374,37 +602,66 @@
           "text": "Evidence the control actually operated during the stated period; an audit examines evidence, not assurances or documented intent.",
           "correct": true,
           "why": "Audits examine evidence, not assurances, and neither an enabled setting nor a policy is evidence of operation.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Nothing further; the enabled setting plus the written policy together are exactly what counts as evidence of a control operating.",
           "correct": false,
           "why": "A policy document is evidence a control was designed, never evidence it operated; that gap is exactly what audits exist to catch.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o3",
           "text": "A signed statement from the vendor's chief executive personally attesting that the control works as described.",
           "correct": false,
           "why": "An executive attestation is an assurance, not the sampled artifact an assessor actually examines.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         },
         {
           "ref": "o4",
           "text": "Confirmation of whether the control is classified as preventive rather than detective in the vendor's own internal control catalogue and taxonomy.",
           "correct": false,
           "why": "Classifying the control's function settles nothing about whether it actually produced evidence of operating during the period.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         }
       ],
       "rationale": "An audit is a formal examination of evidence against defined criteria, within a scope and period. Neither a configuration setting nor a policy document is evidence that a control operated; only artifacts generated by the control running during the period qualify.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "aicpa-soc2"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53Ar5",
+        "aicpa-soc2"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.audit",
       "comparison_block": "cmp-security.compliance.audit",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: an enabled setting and a written policy are an assurance and a design artifact respectively, not evidence the control operated over the period. NIST SP 800-53A Rev. 5 frames an assessment as examining, interviewing and testing assessment objects. Distractors false, whys true. Citation widened to nist-sp-800-53Ar5, which is the document that actually carries the examine/evidence framing.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+          "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.audit.02",
@@ -418,38 +675,70 @@
           "ref": "o1",
           "text": "A Type 2 report, because it tests operating effectiveness across a period, while a Type 1 report addresses design as of a single date.",
           "correct": true,
-          "why": "A point-in-time examination asks whether controls were suitably designed; a period examination asks whether they operated effectively.",
-          "provenance": { "kind": "key" }
+          "why": "An opinion on design as of a date and an opinion on operating effectiveness across a period are separate determinations resting on different evidence.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "A Type 1 report, since confirming the design of a control already implies it was exercised correctly afterward.",
           "correct": false,
-          "why": "A Type 1 report addresses design as of one date; it makes no claim about how the control performed in the months that followed.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "why": "Suitable design as of one date is a statement about how a control is built, not about how it behaved over the months that followed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o3",
           "text": "Either report equally, since both examine exactly the same underlying evidence and only differ in how the findings happen to be formatted.",
           "correct": false,
-          "why": "The two report shapes are routinely confused, but a point-in-time design opinion and a period operating-effectiveness opinion rest on different amounts of evidence.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.audit" }
+          "why": "A period opinion has to sample assessment objects from across the period, so it rests on evidence a point-in-time design opinion never gathers.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.audit"
+          }
         },
         {
           "ref": "o4",
           "text": "An ISO 27001 certificate, since certification always speaks to a rolling period of operation rather than a single date.",
           "correct": false,
-          "why": "ISO 27001 issues certification through an accredited body, a different artifact entirely from either SOC 2 report shape being asked about here.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.soc-2-and-iso-27001" }
+          "why": "ISO states that it does not itself certify: certification is issued by an external certification body, a different artifact from a service auditor’s examination report.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.soc-2-and-iso-27001"
+          }
         }
       ],
       "rationale": "A SOC 2 Type 1 report asks whether controls were suitably designed on a given date; a Type 2 report asks whether they operated effectively across months. The second costs more to obtain and claims more about the intervening period.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "aicpa-soc2"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53Ar5",
+        "aicpa-soc2",
+        "iso-certification"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.audit",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, citation fixed, re-verified. The cited aicpa-soc2 page was fetched in full and contains no Type 1 / Type 2 definitions, no \"operating effectiveness\" language, and no design-as-of-a-date language; every AICPA URL tried (the SOC suite landing page, us.aicpa.org/interestareas/…/serviceorganization-smanagement, AT-C 320) redirects to the same landing page or to a click-through gate, and no free primary source states the Type 1 / Type 2 mapping. Rewritten so the item no longer turns on that mapping: the key’s load-bearing claim is now the design-as-of-a-date versus operating-effectiveness-across-a-period distinction, anchored on NIST SP 800-53A Rev. 5’s coverage attribute, and each distractor is eliminable on its own reasoning. The AICPA page does confirm that SOC engagements are examinations producing assurance reports and names a \"SOC 2 type 2 examination\". o4 re-anchored on ISO’s own statement that certification is performed by external certification bodies. Disclosed limit: the Type 1 / Type 2 definitional text is behind AICPA’s click-through and remains unverified rather than disproven.",
+        "sources_read": [
+          "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2",
+          "https://www.aicpa-cima.com/resources/download/illustrative-service-auditors-soc-2-r-type-2-report",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
+          "https://www.iso.org/certification.html"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.audit.03",
@@ -463,38 +752,69 @@
           "ref": "o1",
           "text": "That an internal review found no exceptions, not that an independent assessor has examined anything.",
           "correct": true,
-          "why": "An audit can be internal or performed by an independent external assessor, and the two carry different standing.",
-          "provenance": { "kind": "key" }
+          "why": "NIST SP 800-53 Rev. 5 treats assessor independence as a separate property an organisation has to require, which an in-house review does not supply.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "That it is now audited in exactly the sense a customer's due-diligence questionnaire is asking about.",
           "correct": false,
           "why": "Being un-audited by an independent party is not the same as non-compliant, but a clean internal review is also not the same as an independent audit result.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.audit" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.audit"
+          }
         },
         {
           "ref": "o3",
           "text": "That every control it operates now has documented evidence, since conducting the review process itself creates that evidence.",
           "correct": false,
           "why": "The review is the examination; whether the controls it examined already had evidence produced is a separate, prior question the review does not settle.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o4",
           "text": "That the company holds a certification, since a clean internal report and an accredited certification carry the same standing.",
           "correct": false,
-          "why": "Certification is issued by an accredited external body; an internal review, however clean, is not that.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.soc-2-and-iso-27001" }
+          "why": "ISO states that certification is performed by external certification bodies, so an internal review, however clean, is not one.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.soc-2-and-iso-27001"
+          }
         }
       ],
       "rationale": "An audit can be internal, the organisation examining itself, or performed by an independent external assessor. The two are not interchangeable claims, and a clean internal review does not license a claim of independent assurance.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-53r5", "aicpa-soc2"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-53r5",
+        "aicpa-soc2",
+        "iso-certification"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.audit",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: a clean internal review is not an independent examination. NIST SP 800-53 Rev. 5 treats assessor independence as a distinct property an organisation has to require, describing independent assessors who do not assess their own work or act as employees of the organisation being assessed. Distractors are false, and o4’s certification claim is now anchored on ISO’s own statement that it does not certify and that certification is performed by external certification bodies. All whys true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+          "https://www.iso.org/certification.html",
+          "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.risk-assessment.01",
@@ -509,37 +829,66 @@
           "text": "The risk assessment is complete; choosing to accept, avoid, mitigate, share or transfer each risk, the risk response, still remains.",
           "correct": true,
           "why": "Deciding what to do about a risk is a separate activity, risk response, that follows the assessment.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Both the assessment and the response are complete, since ranking the risks by likelihood and impact already implies a decision about how to handle each one.",
           "correct": false,
           "why": "Ranking risks by likelihood and impact says nothing about which response, if any, has been chosen for each of them.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.risk-assessment" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.risk-assessment"
+          }
         },
         {
           "ref": "o3",
           "text": "An audit is complete, and the risk assessment itself still remains to be carried out.",
           "correct": false,
           "why": "Nothing in the scenario involves an assessor examining evidence against criteria; this is risk identification and ranking, not an audit.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.audit" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.audit"
+          }
         },
         {
           "ref": "o4",
           "text": "A compliance obligation is now satisfied, and only paperwork documenting the ranking remains.",
           "correct": false,
           "why": "A risk assessment is an internal activity and does not by itself satisfy any external compliance obligation.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         }
       ],
       "rationale": "Risk assessment identifies risks and estimates likelihood and impact so they can be prioritised. Deciding what to do about each one, accept, avoid, mitigate, share or transfer, is risk response, a distinct activity that follows the assessment.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-30r1", "nist-sp-800-39"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-30r1",
+        "nist-sp-800-39"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.risk-assessment",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against NIST SP 800-39 TASK 3-1, which lists the responses as \"(i) risk acceptance; (ii) risk avoidance; (iii) risk mitigation; (iv) risk sharing; (v) risk transfer; or (vi) a combination of the above\" and places risk response after the assessment. Distractors are false: ranking implies no response choice, nothing here is an assessor examining evidence against criteria, and an internal risk assessment satisfies no external obligation by itself. All whys true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.risk-assessment.02",
@@ -554,37 +903,65 @@
           "text": "Chosen a risk response, specifically transfer, which is a legitimate outcome distinct from the assessment that identified the risk.",
           "correct": true,
           "why": "Buying insurance transfers the financial consequence of the risk to a third party, one of the named risk responses.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Mitigated the risk, since holding insurance reduces the likelihood that credential theft will actually occur.",
           "correct": false,
           "why": "Insurance changes who bears the cost of an incident; it does not reduce the likelihood of the incident happening, which is what mitigation targets.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "Nothing meaningful from a risk standpoint, since insurance is purely a financial product rather than a recognised risk response in its own right.",
           "correct": false,
           "why": "Transfer, alongside accept, avoid, mitigate and share, is one of the named risk responses, and insurance is a standard example of it.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.risk-assessment" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.risk-assessment"
+          }
         },
         {
           "ref": "o4",
           "text": "Completed a fresh risk assessment, since buying insurance re-ranks the likelihood and impact of the underlying risk.",
           "correct": false,
           "why": "Purchasing insurance is a response to a risk that was already ranked, not a re-run of the identification and ranking activity.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         }
       ],
       "rationale": "Risk response is the separate activity of deciding what to do about an already-assessed risk. Accepting, avoiding, mitigating, sharing and transferring are the five recognised responses, and buying insurance is a textbook case of transfer.",
-      "source_ids": ["lf-objectives-2025", "nist-sp-800-30r1", "nist-sp-800-39"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "nist-sp-800-30r1",
+        "nist-sp-800-39"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.risk-assessment",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against NIST SP 800-39: \"Risk transfer shifts the entire risk responsibility or liability from one organization to another organization (e.g., using insurance to transfer risk from particular organizations to insurance companies).\" The same passage refutes o2 directly — \"risk transfer reduces neither the likelihood of harmful events occurring nor the consequences\". o3 (insurance is not a recognised response) and o4 (buying insurance re-runs the assessment) are false. All whys true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.gdpr.01",
@@ -599,37 +976,64 @@
           "text": "Yes, under Article 3(2): a controller with no EU establishment is still reached when it offers goods or services to data subjects who are in the Union.",
           "correct": true,
           "why": "Article 3(2) extends GDPR to a non-established controller offering goods or services to, or monitoring, people who are in the Union.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "No, GDPR only binds companies with an establishment somewhere inside the EU, so a US-only retailer sits outside its scope regardless of where its customers happen to be.",
           "correct": false,
           "why": "Article 3(2) reaches a non-established controller or processor exactly when it offers goods or services to, or monitors, people in the Union.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.gdpr" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.gdpr"
+          }
         },
         {
           "ref": "o3",
           "text": "No, GDPR, like PCI-DSS, only binds an organisation through a contract it has signed, and this retailer has signed nothing with any EU regulator.",
           "correct": false,
           "why": "GDPR is a directly applicable law with statutory territorial reach; PCI-DSS is the contractual regime, and conflating the two mischaracterises GDPR's basis for reaching this retailer.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.pci-dss" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o4",
           "text": "Yes, because the customers involved are citizens of European Union member states.",
           "correct": false,
           "why": "GDPR's territorial test in Article 3 turns on where the data subject is, not on their citizenship, a distinction the exam tests directly.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-sovereignty-and-residency" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-sovereignty-and-residency"
+          }
         }
       ],
       "rationale": "Article 3 gives GDPR extraterritorial reach through two limbs: 3(1) turns on an EU establishment's activities, and 3(2) reaches a non-established controller or processor offering goods or services to, or monitoring, people who are in the Union. Citizenship is not a condition in either limb.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.gdpr",
       "comparison_block": "cmp-security.compliance.gdpr",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against Article 3(2) as adopted: \"This Regulation applies to the processing of personal data of data subjects who are in the Union by a controller or processor not established in the Union, where the processing activities are related to: (a) the offering of goods or services … to such data subjects in the Union\". o2 is refuted by the same paragraph, o3 mischaracterises GDPR as contractual, and o4 substitutes citizenship for location — Article 3 never mentions citizenship. All whys true; no option turns on a PCI DSS requirement number.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.gdpr.02",
@@ -637,44 +1041,71 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "A controller becomes aware of a personal data breach at 09:00 on Monday. It assesses the breach as unlikely to create a high risk to the affected individuals, though some risk to their rights and freedoms remains. What is required of the controller by Wednesday at 09:00?",
+      "stem": "A controller becomes aware of a personal data breach at 09:00 on Monday. It assesses the breach as unlikely to create a high risk to the affected individuals, though some risk to their rights and freedoms remains. What does Article 33 require of the controller by 09:00 on Thursday, 72 hours later?",
       "options": [
         {
           "ref": "o1",
           "text": "Notification to the competent supervisory authority, without undue delay and, where feasible, within the 72-hour window.",
           "correct": true,
           "why": "Article 33 requires notifying the supervisory authority within 72 hours where feasible, unless the breach is unlikely to result in any risk to rights and freedoms.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Notification to every individual affected by the breach, since any residual risk at all triggers the individual-notification duty.",
           "correct": false,
           "why": "Individual notification is triggered only by a likely high risk to the individuals, which the scenario says has not been assessed as present.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "Nothing, since the breach was assessed as unlikely to cause a high risk to the affected individuals.",
           "correct": false,
           "why": "The 72-hour authority-notification duty is excused only when the breach is unlikely to result in any risk to rights and freedoms, and some risk remains here.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.gdpr" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "A report to an Approved Scanning Vendor documenting the scope of the exposure.",
           "correct": false,
           "why": "An Approved Scanning Vendor is a role tied to external vulnerability scanning under PCI-DSS and has no part in GDPR's breach-notification duty.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.pci-dss" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.pci-dss"
+          }
         }
       ],
       "rationale": "Article 33 fixes a 72-hour clock, where feasible, for notifying the supervisory authority of a breach, excused only when the breach is unlikely to result in any risk to rights and freedoms. Notifying affected individuals is a separate duty with no fixed hour count, triggered only by a likely high risk to them.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.gdpr",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the stem’s own arithmetic, fixed, re-verified. Awareness at 09:00 Monday puts the 72-hour mark at 09:00 Thursday, not Wednesday as the original stem asked; a candidate counting correctly would have been told the deadline was 48 hours. Stem corrected to Thursday and to name Article 33 explicitly. The key is confirmed against Article 33(1) as adopted: notification to the supervisory authority \"without undue delay and, where feasible, not later than 72 hours after having become aware of it … unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons\". o2 is refuted by Article 34(1), which triggers individual communication only on a likely high risk; o3 is refuted by the Article 33(1) exception, which needs no risk at all rather than no high risk; o4’s Approved Scanning Vendor is a PCI role, correctly described without any requirement number. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.gdpr.03",
@@ -689,37 +1120,64 @@
           "text": "That EU residency is not a general requirement GDPR imposes; the rules restrict transfers to third countries, and a lawful transfer mechanism still permits the data to leave later.",
           "correct": true,
           "why": "GDPR imposes no general localisation rule; Chapter V restricts third-country transfers rather than forbidding them outright.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Nothing; GDPR requires that personal data physically remain within the European Union at all times once collected.",
           "correct": false,
           "why": "GDPR contains no general data-localisation rule; Chapter V governs conditions for transferring data out, not a blanket requirement to keep it in.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.gdpr" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.gdpr"
+          }
         },
         {
           "ref": "o3",
           "text": "That hosting location is irrelevant, since GDPR, like PCI-DSS, is really just a contractual standard rather than a statute and never itself governs where data may be kept.",
           "correct": false,
           "why": "GDPR is a directly applicable regulation, a statute, not a contractual standard, and conflating the two mischaracterises both frameworks.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.pci-dss" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o4",
           "text": "That residency and sovereignty are the same fact, so choosing an EU region also fixes which legal system ultimately governs the data.",
           "correct": false,
           "why": "Residency is where data physically sits; sovereignty also depends on whose law the hosting operator itself answers to, which an EU region alone does not settle.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-sovereignty-and-residency" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-sovereignty-and-residency"
+          }
         }
       ],
       "rationale": "GDPR's Chapter V restricts transferring personal data to third countries through an adequacy decision, appropriate safeguards, or a specific derogation. It does not require data to stay in the EU, so a lawful transfer mechanism still allows the data to leave.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.gdpr",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against Chapter V: Article 44 conditions transfers to third countries rather than requiring data to stay in the Union, and Articles 45 to 49 supply adequacy decisions, appropriate safeguards and derogations. o2 asserts a localisation rule GDPR does not contain, o3 mischaracterises GDPR as contractual, and o4 conflates residency with sovereignty. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.hipaa.01",
@@ -734,37 +1192,64 @@
           "text": "No, HIPAA's scope follows who holds the data, and an app that is neither a covered entity nor a business associate falls outside it, however sensitive the data is.",
           "correct": true,
           "why": "HIPAA's scope is defined by who holds the data, not by how sensitive it is.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Yes, because health data as sensitive as a heart-rate reading is automatically protected health information under HIPAA wherever it happens to be collected or held.",
           "correct": false,
           "why": "The same reading is protected health information inside a hospital's system and outside HIPAA entirely in an unaffiliated consumer app; sensitivity alone does not trigger coverage.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.hipaa" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.hipaa"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, because GDPR treats health data as a special category and HIPAA extends the same special-category classification to US-based apps.",
           "correct": false,
           "why": "HIPAA's coverage test turns on the entity's role as a covered entity or business associate, not on a special-category classification imported from a different law.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "Only if the app keeps the data for longer than the retention period HIPAA mandates for consumer health apps.",
           "correct": false,
           "why": "Retention period has no bearing on whether HIPAA applies in the first place; applicability turns on the entity's role, which the scenario has already ruled out.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-retention-obligations"
+          }
         }
       ],
       "rationale": "HIPAA binds covered entities, health plans, clearinghouses, and providers transmitting health information electronically, plus their business associates. An app collecting the same kind of data outside that relationship is simply not in scope, regardless of sensitivity.",
-      "source_ids": ["lf-objectives-2025", "hipaa-45-cfr-164"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "hipaa-45-cfr-164"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.hipaa",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against 45 CFR 164.104: the part applies to a health plan, a health care clearinghouse, and a health care provider who transmits health information electronically in a covered transaction, and to a business associate where provided. Scope therefore follows the holder’s role, not the data’s sensitivity. o2 (sensitivity triggers coverage), o3 (GDPR special categories imported into HIPAA) and o4 (a retention period governing applicability) are all false. All whys true.",
+        "sources_read": [
+          "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-45.xml?part=164"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.hipaa.02",
@@ -779,37 +1264,64 @@
           "text": "No, they must also document why it is not a reasonable and appropriate safeguard and implement an equivalent alternative measure where one is reasonable and appropriate.",
           "correct": true,
           "why": "Addressable requires an assessment plus either implementation or a documented alternative, not merely a decision to skip it.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Yes, 'addressable' means the entity may choose to skip the specification entirely at its own discretion, with no further obligation to assess or document anything.",
           "correct": false,
           "why": "Addressable does not mean optional; the entity must still assess it and act, either by implementing it or by documenting an equivalent alternative.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.hipaa" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.hipaa"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, only specifications labelled 'required' carry any obligation at all, so an addressable one imposes nothing further once the team has assessed it and moved on.",
           "correct": false,
           "why": "Addressable specifications still carry an obligation, to assess and then either implement or document an alternative, just not a fixed mandate to implement exactly as written.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         },
         {
           "ref": "o4",
           "text": "No, but only because they must instead notify affected individuals within 60 days of making that decision.",
           "correct": false,
           "why": "The 60-day clock in the guide governs breach notification to affected individuals, not how an addressable specification decision is handled.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         }
       ],
       "rationale": "An addressable implementation specification requires the entity to assess whether it is reasonable and appropriate in its environment, implement it if so, and otherwise document why not and implement an equivalent alternative measure if one is reasonable and appropriate.",
-      "source_ids": ["lf-objectives-2025", "hipaa-45-cfr-164"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "hipaa-45-cfr-164"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.hipaa",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against 45 CFR 164.306(d)(3)(ii): where implementing an addressable specification is not reasonable and appropriate the entity must \"(1) Document why it would not be reasonable and appropriate to implement the implementation specification; and\" implement an equivalent alternative measure if reasonable and appropriate, having first assessed it under (d)(3)(i). o2 and o3 both read addressable as optional and are refuted by the same paragraph. o4’s 60-day clock is real but belongs to 45 CFR 164.404(b), \"without unreasonable delay and in no case later than 60 calendar days after discovery of a breach\", which is breach notification and not this decision — so the why is true.",
+        "sources_read": [
+          "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-45.xml?part=164"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.pci-dss.01",
@@ -821,40 +1333,69 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No, sensitive authentication data such as the card verification code may not be retained after authorisation, even encrypted, outside the narrow issuer carve-out.",
+          "text": "No, sensitive authentication data such as the card verification code is data a transaction may transmit or process but not store, and encrypting it does not turn it into data that may be retained.",
           "correct": true,
-          "why": "The prohibition on retaining sensitive authentication data after authorisation applies regardless of encryption, with an exception only for issuers and issuing-support companies.",
-          "provenance": { "kind": "key" }
+          "why": "The Council’s glossary describes sensitive authentication data as elements that might be transmitted or processed, but not stored, as part of a payment transaction.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Yes, because encrypting the data satisfies any PCI-DSS restriction on storage, regardless of what category of card data is actually being stored or for how long.",
           "correct": false,
-          "why": "Encryption does not create an exception; sensitive authentication data may not be retained after authorisation whether or not it is encrypted.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.pci-dss" }
+          "why": "Encryption changes how data is held, not whether it may be held; sensitive authentication data is defined as data a transaction does not store.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, provided the processor can point to a documented lawful basis for the retention under Article 6.",
           "correct": false,
           "why": "A GDPR lawful basis governs personal-data processing under EU law; it does not create an exception to PCI-DSS's separate, contractual prohibition on retaining sensitive authentication data.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "No, but only because six months exceeds the retention period set out in the processor's own internal policy.",
           "correct": false,
           "why": "The prohibition here is absolute for sensitive authentication data after authorisation; it does not turn on the length of any policy the processor might set for itself.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-retention-obligations"
+          }
         }
       ],
-      "rationale": "PCI-DSS's data rules run in opposite directions for different categories of card data. Sensitive authentication data, including the verification code, must not be stored after authorisation even if encrypted, with the exception reserved for issuers and issuing-support companies with a documented business need.",
-      "source_ids": ["lf-objectives-2025", "pci-dss-standards"],
+      "rationale": "PCI SSC’s own glossary separates the two kinds of account data: cardholder data, which a merchant may hold, and sensitive authentication data — card verification codes, full track data, PINs and PIN blocks — which a payment transaction may transmit or process but not store. Encrypting a verification code does not move it from the second category into the first.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "pci-dss-standards",
+        "pci-ssc-glossary"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.pci-dss",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The original key turned on the substance of the PCI DSS sensitive-authentication-data retention requirement including its issuer carve-out. That text is behind the Council’s licence gate and could not be fetched, so it was unverified rather than disproven, and the issuer carve-out has been removed rather than asserted. Rewritten to turn only on the Council’s publicly readable glossary, which defines Sensitive Authentication Data as card verification codes, full track data, PINs and PIN blocks, and whose Cardholder Data entry directs the reader to \"Sensitive Authentication Data for additional data elements that might be transmitted or processed (but not stored) as part of a payment transaction\". Key confirmed against that; o2 (encryption creates an exception), o3 (a GDPR Article 6 lawful basis overrides PCI-DSS) and o4 (the processor’s own policy is the operative limit) are false and their whys are true. The item contains no PCI DSS requirement number.",
+        "sources_read": [
+          "https://www.pcisecuritystandards.org/glossary/",
+          "https://www.pcisecuritystandards.org/standards/pci-dss/"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.pci-dss.02",
@@ -866,40 +1407,70 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes on storage; the account number may be retained if rendered unreadable, and correctly no verification code is kept, and a violation is enforced through the payment brands and acquirer, not a government regulator.",
+          "text": "Yes on storage: the account number is cardholder data that may be held when rendered unreadable, no verification code is kept at all, and a violation is enforced through the payment brands and the acquirer rather than a government regulator.",
           "correct": true,
-          "why": "The account number may be stored if rendered unreadable, unlike sensitive authentication data, and enforcement runs through the merchant agreement.",
-          "provenance": { "kind": "key" }
+          "why": "The Council treats rendering a stored account number unreadable as its protection method, and states that requiring or validating compliance sits with a payment brand or acquirer.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Yes on storage, and violations are enforced by a government regulator empowered under card-industry legislation.",
           "correct": false,
-          "why": "PCI-DSS is not legislation; the Council states that requiring or validating compliance is at the discretion of the payment brands and acquirers, not a statutory regulator.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.pci-dss" }
+          "why": "PCI-DSS is not legislation; the Council states that requiring or validating compliance is at the discretion of a payment brand, acquirer or other entity that manages a compliance program.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o3",
           "text": "No, storing the primary account number at all breaches PCI-DSS regardless of how it is rendered unreadable, in exactly the same way that GDPR restricts transferring personal data outside the European Union to third countries.",
           "correct": false,
           "why": "The primary account number may be stored if rendered unreadable; the guide's contrast with GDPR's transfer rules does not extend to forbidding account-number storage outright.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "Yes on storage, and enforcement for a violation runs through the supervisory authority in the merchant's home country.",
           "correct": false,
           "why": "PCI-DSS has no supervisory authority of its own; that mechanism belongs to statutory regimes such as GDPR, not to a card-industry contract.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         }
       ],
       "rationale": "PCI-DSS permits the primary account number to be stored if rendered unreadable, while sensitive authentication data may not be retained after authorisation at all. It is contractual, not governmental, and is enforced through the merchant agreement with an acquirer and the payment brands rather than by a regulator.",
-      "source_ids": ["lf-objectives-2025", "pci-dss-standards"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "pci-dss-standards",
+        "pci-ssc-glossary"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.pci-dss",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The storage half of the original key restated PCI DSS requirement substance that sits behind the licence gate. Rewritten so both halves rest on published Council text: the glossary’s Truncation entry describes rendering a full PAN unreadable as the protection method for a PAN that is electronically stored, and the standard page states that \"Whether an entity is required to comply with or validate compliance to a PCI SSC standard is at the discretion of organizations that manage compliance programs, such as a payment brand, acquirer, or other entity.\" o2 and o4 both invent a statutory enforcer, which the Council’s own about page refutes (\"Does the PCI Security Standards Council enforce compliance? No.\"); o3 asserts PAN storage is forbidden outright. All whys true. No requirement number appears.",
+        "sources_read": [
+          "https://www.pcisecuritystandards.org/glossary/",
+          "https://www.pcisecuritystandards.org/standards/pci-dss/",
+          "https://www.pcisecuritystandards.org/about_us/"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.pci-dss.03",
@@ -911,40 +1482,72 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Through a contract, specifically the merchant agreement with an acquiring bank and the payment brands' own compliance programs, not through legislation.",
+          "text": "Through the compliance programs run by the payment brands and the acquiring bank, whose discretion settles whether an entity must comply or validate at all, rather than through legislation.",
           "correct": true,
-          "why": "PCI-DSS is contractual, not governmental, unlike GDPR and HIPAA.",
-          "provenance": { "kind": "key" }
+          "why": "The Council states that it does not enforce compliance and that requiring or validating it is at the discretion of a payment brand, acquirer or other entity managing a compliance program.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "Through statute, since handling payment card data is regulated the same way processing personal data is regulated under GDPR.",
+          "text": "Through statute, since the handling of payment card data is regulated by legislation in the same way that the processing of personal data is regulated under GDPR across the Union and its member states.",
           "correct": false,
-          "why": "PCI-DSS is contractual, not governmental; a distractor calling it a regulation or a law is wrong for exactly that reason.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.pci-dss" }
+          "why": "The Council states it does not enforce compliance and leaves that to the organisations managing compliance programs, which is not how a statute such as GDPR reaches anyone.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o3",
           "text": "Through the same extraterritorial statutory mechanism as GDPR's Article 3, reaching any entity anywhere in the world that ever touches card data at all.",
           "correct": false,
           "why": "Article 3 is GDPR's statutory scope test; PCI-DSS reaches an organisation through a signed merchant agreement, not through legislation with territorial reach.",
-          "provenance": { "kind": "confusable", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "Through certification by an accredited body, the same mechanism ISO 27001 uses to bind organisations to its requirements.",
           "correct": false,
-          "why": "ISO 27001 certification is issued by an accredited body; PCI-DSS validation instead runs through self-assessment or a Qualified Security Assessor under the acquirer's and brands' programs.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.soc-2-and-iso-27001" }
+          "why": "ISO certification is issued by an external certification body; PCI-DSS validation instead runs through self-assessment or a Qualified Security Assessor under the acquirer’s and brands’ programs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.soc-2-and-iso-27001"
+          }
         }
       ],
-      "rationale": "PCI-DSS is published by the PCI Security Standards Council and covers anyone storing, processing or transmitting cardholder data, but it is not legislation. Whether it must be complied with, and how, is set by the payment brands and acquirers through the merchant agreement.",
-      "source_ids": ["lf-objectives-2025", "pci-dss-standards"],
+      "rationale": "PCI-DSS reaches an organisation through the compliance programs of the payment brands and its acquiring bank, not through legislation. The Council publishes this plainly: it does not enforce compliance, and whether an entity is required to comply with or validate compliance to a PCI standard is at the discretion of the organisations that manage compliance programs.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "pci-dss-standards",
+        "pci-ssc-glossary",
+        "iso-certification"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.pci-dss",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on citation, reworded, re-verified. The original key asserted a \"signed merchant agreement with an acquiring bank\" as the binding mechanism; that phrasing appears nowhere on the cited page. Reworded to the Council’s published wording, which the about page and the standard page both carry: the Council does not enforce compliance, and whether an entity must comply with or validate compliance is at the discretion of the organisations that manage compliance programs, such as a payment brand or acquirer. The glossary’s Acquirer entry supplies the acquiring-bank link — \"also referred to as ‘merchant bank’, ‘acquiring bank’ … Acquirers are subject to payment brand rules and procedures regarding merchant compliance\". o2 (statute), o3 (GDPR Article 3’s extraterritorial mechanism) and o4 (accredited certification) are all false; o4’s ISO half now rests on ISO’s own certification page, and QSA and self-assessment are both named on Council pages. No requirement number appears.",
+        "sources_read": [
+          "https://www.pcisecuritystandards.org/standards/pci-dss/",
+          "https://www.pcisecuritystandards.org/about_us/",
+          "https://www.pcisecuritystandards.org/glossary/",
+          "https://www.iso.org/certification.html"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.soc-2-and-iso-27001.01",
@@ -956,40 +1559,70 @@
       "options": [
         {
           "ref": "o1",
-          "text": "SOC 2 produces an examination report from a CPA firm, never a certificate; ISO 27001 is the one of the two that produces certification, through an accredited body.",
+          "text": "SOC 2 produces an examination report from a CPA firm, never a certificate; ISO 27001 is the one of the two that produces certification, through an external accredited body.",
           "correct": true,
-          "why": "SOC 2 yields a report, Type 1 on design or Type 2 on operation, while ISO 27001 certifies an information security management system.",
-          "provenance": { "kind": "key" }
+          "why": "AICPA describes SOC as assurance reports CPAs provide, while ISO states it does not itself certify and that certification is performed by external certification bodies.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Nothing is wrong; SOC 2 and ISO 27001 both issue certificates, just from different kinds of assessor.",
           "correct": false,
-          "why": "SOC 2 yields a report, not a certificate; treating the two frameworks' outputs as interchangeable is exactly the wrong-sounding-right distractor the term invites.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.soc-2-and-iso-27001" }
+          "why": "A SOC 2 engagement yields a service auditor’s examination report, so the two frameworks’ outputs are not the interchangeable pair this option assumes.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.soc-2-and-iso-27001"
+          }
         },
         {
           "ref": "o3",
           "text": "Nothing is wrong; SOC 2 is a statutory requirement for any organisation that processes customer data of any kind whatsoever.",
           "correct": false,
           "why": "SOC 2 is a voluntary AICPA attestation framework, not a law, and it does not require anything of organisations that never choose to adopt it.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "The claim is wrong because SOC 2 is actually a card-industry standard rather than a voluntary security attestation framework adopted by choice.",
           "correct": false,
           "why": "SOC 2 is an AICPA framework covering security, availability, processing integrity, confidentiality or privacy, and has nothing to do with card payments.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.pci-dss" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.pci-dss"
+          }
         }
       ],
       "rationale": "SOC 2 and ISO 27001 are both voluntary frameworks organisations adopt to evidence their security posture, but neither is a law and their outputs differ: SOC 2 produces an examination report, never a certificate, while ISO 27001 produces certification through an accredited body.",
-      "source_ids": ["lf-objectives-2025", "aicpa-soc2"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "aicpa-soc2",
+        "iso-certification"
+      ],
       "guide_anchor": "04-security/compliance.md#s-compliance-regulations",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on citation, fixed, re-verified. The only cited source, aicpa-soc2, contains nothing about ISO 27001, so the half of the key asserting accredited-body certification was unsourced. ISO’s own certification page settles it: \"ISO does not perform certification or issue certificates … Certification is performed by external certification bodies.\" The AICPA page supports the other half — SOC is \"a suite of service offerings CPAs may provide\" and CPAs use it \"to provide assurance reports\" — and AICPA’s own resource is titled Illustrative Service Auditor’s SOC 2 Type 2 Report, an examination report. The Type 1 / Type 2 design-versus-operation gloss was removed from the key why because AICPA’s definitional text is behind a click-through gate. o2, o3 and o4 are false and their whys are true.",
+        "sources_read": [
+          "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2",
+          "https://www.aicpa-cima.com/resources/download/illustrative-service-auditors-soc-2-r-type-2-report",
+          "https://www.iso.org/certification.html"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.data-sovereignty-and-residency.01",
@@ -1004,37 +1637,64 @@
           "text": "Residency, where the data physically sits, but not necessarily sovereignty, which also depends on whose law the operator itself answers to.",
           "correct": true,
           "why": "A provider incorporated elsewhere may remain subject to its home jurisdiction's demands regardless of where the bytes live.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Both residency and sovereignty; choosing an EU region automatically resolves which legal system governs the data.",
           "correct": false,
           "why": "Sovereignty follows from residency and from who operates the service and under whose law that operator is incorporated, not from region choice alone.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.data-sovereignty-and-residency" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.data-sovereignty-and-residency"
+          }
         },
         {
           "ref": "o3",
           "text": "Neither, since GDPR requires a specific derogation before any EU region may lawfully be used to host personal data belonging to residents at all.",
           "correct": false,
           "why": "GDPR imposes no general localisation rule and needs no derogation for data that simply stays within the EU; derogations concern transfers to third countries instead.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "Retention, since choosing a region also fixes how long the data may lawfully be kept.",
           "correct": false,
           "why": "Region choice has no bearing on retention periods, which are set by separate statutory, contractual or purpose-based rules.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-retention-obligations"
+          }
         }
       ],
       "rationale": "Residency is where data physically sits; sovereignty is which legal system it is subject to, following from residency and from who operates the service and under whose law. Selecting an EU region fixes residency but does not, on its own, settle sovereignty.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-sovereignty-and-residency",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: choosing an Irish region settles where the bytes sit, not whose law reaches the operator holding them. o2 asserts region choice resolves sovereignty; o3 asserts a derogation is needed to host inside the EU, which Chapter V refutes — Articles 44 to 49 govern transfers to third countries, and data staying in the Union raises no Chapter V question; o4 confuses region with retention. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.data-sovereignty-and-residency.02",
@@ -1049,37 +1709,64 @@
           "text": "That sovereignty follows the operator's own legal exposure as well as the data's physical location, so an EU region does not by itself put the data outside the reach of the provider's home jurisdiction.",
           "correct": true,
           "why": "A provider's home-jurisdiction obligations can follow it regardless of where the data physically resides.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "That the request is automatically unlawful, since data stored anywhere inside the EU is always completely outside the reach of any non-EU jurisdiction's law-enforcement demands, however framed.",
           "correct": false,
           "why": "Residency alone does not determine which legal systems can reach the data; a provider's home-jurisdiction obligations can follow it regardless of region.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.data-sovereignty-and-residency" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.data-sovereignty-and-residency"
+          }
         },
         {
           "ref": "o3",
           "text": "That the provider has breached GDPR's transfer rules merely by receiving the request.",
           "correct": false,
           "why": "Chapter V governs transferring data out of the EU, not a third-party jurisdiction's request directed at the operator; whether an actual transfer under Chapter V has occurred is a separate question.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "That the customer's contract with the provider determines sovereignty regardless of incorporation or hosting location.",
           "correct": false,
           "why": "A contract can allocate responsibilities between the parties, but it cannot change which legal system has authority to compel the operator that answers to it.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         }
       ],
       "rationale": "Sovereignty depends on residency and on whose law the operator itself is subject to. A provider incorporated in one jurisdiction can remain answerable to that jurisdiction's lawful demands even when the data it holds physically sits elsewhere.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-sovereignty-and-residency",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: a US-incorporated operator remains answerable to its home jurisdiction whatever region holds the data, which is precisely the gap between residency and sovereignty. o2’s absolute claim is false; o3 is refuted by Chapter V, which governs a transfer of personal data to a third country rather than a demand directed at the operator, and the why correctly separates the two questions; o4 overstates what a contract can do. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.data-retention-obligations.01",
@@ -1094,37 +1781,66 @@
           "text": "Neither rule wins outright: Article 17(3) disapplies erasure to the extent processing is necessary for a legal retention obligation, so the covered records are kept and everything outside that carve-out is erased.",
           "correct": true,
           "why": "GDPR resolves the conflict explicitly, carving out only the specific records the retention obligation covers.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "The erasure request must be honoured in full immediately, since GDPR's erasure right overrides any other obligation the organisation may have.",
           "correct": false,
           "why": "Article 17(3) explicitly disapplies erasure to the extent a legal retention obligation requires the processing, so a blanket erasure would itself be non-compliant.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.data-retention-obligations"
+          }
         },
         {
           "ref": "o3",
           "text": "The records must be destroyed immediately once the employee's last working day arrives, since the organisation's own retention-and-disposal practice requires deleting data as soon as its purpose has ended for good.",
           "correct": false,
           "why": "That practice governs the organisation's own ceiling on keeping data once its purpose ends; a statutory retention obligation is a floor imposed from outside that this practice must still respect.",
-          "provenance": { "kind": "confusable", "concept_id": "security.sensitive-data.data-retention-and-disposal" }
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
         },
         {
           "ref": "o4",
           "text": "The retention obligation is void because the organisation's own internal policy states that data should be deleted once it is no longer actively used.",
           "correct": false,
           "why": "An obligation imposed from outside the organisation cannot be shortened by an internal policy that disagrees with it.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.policy-standard-and-procedure" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.policy-standard-and-procedure"
+          }
         }
       ],
       "rationale": "Data retention obligations are floors imposed from outside, pointing in the opposite direction from an erasure right. GDPR Article 17(3) reconciles the two explicitly, disapplying erasure only to the extent a legal obligation requires the processing, so the two rules are reconciled record category by record category rather than one simply overriding the other.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex", "nist-sp-800-88r1"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex",
+        "nist-sp-800-88r1"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": "cmp-security.compliance.data-retention-obligations",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against Article 17(3)(b): paragraphs 1 and 2 \"shall not apply to the extent that processing is necessary … for compliance with a legal obligation which requires processing by Union or Member State law to which the controller is subject\". \"To the extent\" is what makes the split-the-difference key right and o2’s blanket erasure wrong. o3 and o4 both let an internal practice or policy override an externally imposed obligation, which it cannot. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.data-retention-obligations.02",
@@ -1132,44 +1848,74 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "Litigation becomes reasonably anticipated over a dataset that is simultaneously past its retention schedule's maximum and the subject of an active GDPR erasure request. What governs the data now?",
+      "stem": "Litigation becomes reasonably anticipated over a dataset that is simultaneously past its retention schedule’s maximum and the subject of an active GDPR erasure request. What governs the data now?",
       "options": [
         {
           "ref": "o1",
-          "text": "A legal hold, which overrides both the retention schedule and the erasure request, freezing the data in place until the hold is released.",
+          "text": "A preservation hold for the anticipated litigation, because Article 17(3)(e) disapplies erasure where processing is necessary to establish, exercise or defend legal claims.",
           "correct": true,
-          "why": "Once litigation or an investigation is anticipated, a legal hold preserves the relevant data ahead of both the schedule and any erasure request.",
-          "provenance": { "kind": "key" }
+          "why": "Article 17(3)(e) names the establishment, exercise or defence of legal claims as a ground on which the erasure right does not apply.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "The erasure request, since a data subject's rights take precedence over any internal concern about pending litigation.",
+          "text": "The erasure request, because a data subject’s Article 17 rights take precedence over any internal concern the organisation may have about litigation that has not actually been filed yet.",
           "correct": false,
-          "why": "A legal hold is described as overriding both the schedule and an erasure request once litigation becomes anticipated, exactly the situation described here.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.data-retention-obligations" }
+          "why": "Article 17(3)(e) disapplies the erasure right to the extent processing is necessary to establish, exercise or defend legal claims, which is exactly what anticipated litigation raises.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.data-retention-obligations"
+          }
         },
         {
           "ref": "o3",
-          "text": "The retention schedule's maximum, since it was reached first and nothing can extend a schedule once its ceiling has arrived.",
+          "text": "The retention schedule’s maximum, because it was reached first and nothing may extend a schedule once its stated ceiling has arrived for that category of data.",
           "correct": false,
-          "why": "A legal hold specifically overrides the schedule's maximum once litigation becomes anticipated, which is exactly what has happened in this scenario.",
-          "provenance": { "kind": "confusable", "concept_id": "security.sensitive-data.data-retention-and-disposal" }
+          "why": "The schedule’s maximum is a ceiling the organisation set for itself, and it yields to data the organisation now needs in order to defend an anticipated claim.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "security.sensitive-data.data-retention-and-disposal"
+          }
         },
         {
           "ref": "o4",
-          "text": "The Clear, Purge or Destroy disposal framework, since the data is now past its maximum and due for sanitisation.",
+          "text": "The Clear, Purge or Destroy disposal framework, because the data is now past its stated maximum and has therefore fallen due for verified sanitisation.",
           "correct": false,
-          "why": "A disposal framework applies once data is actually being disposed of; a legal hold means disposal is paused, not proceeding, until it is released.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "why": "NIST SP 800-88 Rev. 1’s Clear, Purge and Destroy framework applies when media is actually being sanitised, which is precisely what a preservation hold defers.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         }
       ],
-      "rationale": "A legal hold freezes data in place once litigation or an investigation is reasonably anticipated, overriding both the retention schedule's normal maximum and any pending erasure request, until the hold itself is released.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex", "nist-sp-800-88r1"],
+      "rationale": "A dataset needed for anticipated litigation is preserved rather than deleted, and GDPR says so in its own text: Article 17(3)(e) disapplies the right to erasure to the extent processing is necessary for the establishment, exercise or defence of legal claims. The retention schedule’s maximum is the organisation’s own ceiling, so it gives way too, and NIST SP 800-88 Rev. 1’s disposal framework only engages once sanitisation actually proceeds.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex",
+        "nist-sp-800-88r1"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The original key turned on a \"legal hold\" overriding both the schedule and the erasure request, and neither \"legal hold\" nor \"litigation hold\" appears anywhere in NIST SP 800-88 Rev. 1 (65 pages), NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the GDPR text — and csrc.nist.gov has no glossary entry for it. The substance is nonetheless right and GDPR states it directly, so the item was re-anchored rather than weakened: Article 17(3)(e) disapplies the erasure right \"for the establishment, exercise or defence of legal claims\". Rewritten key and all distractors re-checked against that article; o4’s Clear/Purge/Destroy claim is true of NIST SP 800-88 Rev. 1 and correctly identified as inapplicable while disposal is deferred. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.data-retention-obligations.03",
@@ -1184,37 +1930,66 @@
           "text": "No, the same data held in backups, archives and analytics copies is governed by the same schedule, and disposal means verified, documented destruction of every copy.",
           "correct": true,
           "why": "NIST SP 800-88 frames disposal as verified and documented, and backups and other copies are the same data under the same schedule.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "Yes, deleting the row in the primary database is exactly what 'we deleted the record' is generally understood to mean.",
+          "text": "Yes, deleting the row from the primary database is exactly what the phrase ‘we deleted the record’ is generally understood to mean, in ordinary operational usage and in an erasure response alike.",
           "correct": false,
           "why": "'We deleted the record' usually means one row in one database, while backups, archives and analytics copies remain the same data under the same schedule.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.data-retention-obligations" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.data-retention-obligations"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, provided the primary-database deletion is logged as evidence for a future audit to examine.",
           "correct": false,
           "why": "A log entry evidences that one action took place; it does not establish that every remaining copy of the data was actually destroyed.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.controls-and-evidence" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.controls-and-evidence"
+          }
         },
         {
           "ref": "o4",
           "text": "No, but only because the analytics warehouse falls entirely outside GDPR's definition of processing personal data.",
           "correct": false,
           "why": "Analytics copies of personal data are processing like any other; the actual gap here is that they were never disposed of, not that they fall outside scope.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         }
       ],
       "rationale": "Disposal is verified, documented destruction of every copy of the data, not deletion of a single pointer in one system. Backups, archives, log aggregators and analytics copies hold the same data and are governed by the same retention schedule.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex", "nist-sp-800-88r1"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex",
+        "nist-sp-800-88r1"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against NIST SP 800-88 Rev. 1 sections 4.7 Verify Methods (\"Verifying the selected information sanitization and disposal process is an essential step in maintaining confidentiality\") and 4.8 Documentation, with its Certificate of Sanitization — so disposal is verified and documented, not merely actioned. o2 and o3 both stop at the primary database, and o3’s log entry evidences one action rather than the destruction of every copy. o4 is false because analytics copies of personal data are processing like any other. All whys true.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.consent-and-lawful-basis.01",
@@ -1222,44 +1997,71 @@
       "pool": "exam",
       "type": "recall",
       "difficulty": 1,
-      "stem": "A checkout form has a marketing-communications box pre-ticked by default, and a user completes the purchase without unticking it. Under GDPR Article 6, has the user given a valid lawful basis for that marketing processing by consent?",
+      "stem": "A checkout form has a marketing-communications box pre-ticked by default, and a user completes the purchase without unticking it. Has the user given valid consent as GDPR itself defines consent?",
       "options": [
         {
           "ref": "o1",
-          "text": "No, valid consent must be freely given, specific, informed and unambiguous, and a pre-ticked box or silence does not meet that bar.",
+          "text": "No, GDPR defines consent as a freely given, specific, informed and unambiguous indication signified by a statement or a clear affirmative action, and a pre-ticked box is neither.",
           "correct": true,
-          "why": "A pre-ticked box or silence is not an unambiguous affirmative action, so it does not amount to valid consent.",
-          "provenance": { "kind": "key" }
+          "why": "Article 4(11) sets those four conditions and requires a statement or clear affirmative action, and Recital 32 says silence, pre-ticked boxes or inactivity do not constitute consent.",
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "Yes, completing the purchase without going back to untick the box is itself an unambiguous affirmative action indicating clear agreement.",
+          "text": "Yes, completing the purchase without going back to untick the box is itself an unambiguous affirmative action by which the user signified clear agreement to the marketing processing.",
           "correct": false,
-          "why": "A pre-ticked box or silence is explicitly not an unambiguous affirmative action, so no valid consent was given here.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.consent-and-lawful-basis" }
+          "why": "Recital 32 names silence, pre-ticked boxes and inactivity as things that do not constitute consent, so no affirmative action was taken here.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.consent-and-lawful-basis"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, because contract is one of the six lawful bases and this processing occurred during a contractual transaction.",
           "correct": false,
-          "why": "Marketing communications are not necessary to perform the purchase contract, so contract cannot supply the lawful basis for them, and the question is specifically about consent.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "why": "Contract is one of the six lawful bases in Article 6(1), but marketing is not necessary to perform the purchase, and the question asks about consent in any case.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "No, but only because the checkout form failed to name a supervisory authority the user could contact.",
           "correct": false,
           "why": "Naming a supervisory authority has nothing to do with whether consent was validly obtained; the defect here is the pre-ticked box itself.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         }
       ],
-      "rationale": "GDPR Article 6(1) lists six lawful bases, of which consent is only one. Valid consent must be freely given, specific, informed and unambiguous; a pre-ticked box or silence is neither, so no lawful basis has been established by consent here.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "rationale": "Article 4(11) defines consent as any freely given, specific, informed and unambiguous indication of the data subject’s wishes, signified by a statement or by a clear affirmative action. Recital 32 spells out the consequence: silence, pre-ticked boxes or inactivity do not constitute consent. Article 6(1)(a) makes consent one of six lawful bases but does not itself set the validity bar.",
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#s-compliance-obligations",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The original stem asked whether valid consent was given \"Under GDPR Article 6\", and Article 6 contains no definition of valid consent — Article 6(1)(a) says only \"the data subject has given consent to the processing of his or her personal data for one or more specific purposes\". The four-part bar the key states lives in Article 4(11): \"any freely given, specific, informed and unambiguous indication of the data subject’s wishes by which he or she, by a statement or by a clear affirmative action, signifies agreement\". Recital 32 supplies the pre-ticked-box consequence: \"Silence, pre-ticked boxes or inactivity should not therefore constitute consent.\" Stem and key re-anchored on those. Article 6(1) does list exactly six lawful bases, so o3’s why stands. o2 and o4 are false; all whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.licensing-compliance.01",
@@ -1274,37 +2076,65 @@
           "text": "No, GPLv3's trigger is conveying a copy, and running the software as an internal-only service transfers no copy to anyone outside the organisation.",
           "correct": true,
           "why": "GPLv3 states that mere interaction with a user through a computer network, with no transfer of a copy, is not conveying.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "Yes, because 'free' software always requires publishing any modifications regardless of how the program ends up being used.",
           "correct": false,
           "why": "Open source removes the fee, not the licence's specific conditions; GPLv3's disclosure duty is triggered by conveying, which internal-only use does not do.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.licensing-compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.licensing-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "Yes, because the AGPL requires offering source to any user interacting remotely with a modified version, and that licence controls here.",
           "correct": false,
           "why": "The scenario names GPLv3, not the AGPL, and even under the AGPL the trigger is remote interaction by outside users, not merely internal employee use.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o4",
           "text": "No, but only because the company has not yet exceeded a licensed per-seat entitlement for the software.",
           "correct": false,
           "why": "Per-seat entitlements are a proprietary-licensing concept; GPLv3's obligations turn on conveying a copy, not on how many seats are in use.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         }
       ],
       "rationale": "Copyleft licences such as the GPL trigger their source-disclosure duty on conveying, not on mere use. GPLv3 states outright that interacting with a user over a network without transferring a copy is not conveying, so running a modified version purely as an internal service does not by itself require publishing source.",
-      "source_ids": ["lf-objectives-2025", "gnu-gpl-faq"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gnu-gpl-faq"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.licensing-compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against both the cited FAQ and the licence text. The GNU GPL FAQ answers \"If I only make copies of a GPL-covered program and run them, without distributing or conveying them to others, what does the license require of me?\" with \"Nothing. The GPL does not place any conditions on this activity.\" GPLv3 section 0 supplies the definition the key why states: \"Mere interaction with a user through a computer network, with no transfer of a copy, is not conveying.\" o2 conflates free-of-charge with condition-free, o3 names a licence the scenario does not use and the FAQ confirms AGPLv3’s trigger is users interacting remotely, and o4 imports a proprietary per-seat concept. All whys true.",
+        "sources_read": [
+          "https://www.gnu.org/licenses/gpl-faq.html",
+          "https://www.gnu.org/licenses/gpl-3.0.html"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.licensing-compliance.02",
@@ -1319,37 +2149,67 @@
           "text": "MIT's sole condition, that the copyright notice and the permission notice be included in all copies or substantial portions of the software.",
           "correct": true,
           "why": "MIT's entire condition is that these notices travel with the code in every copy or substantial portion distributed.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "None, since MIT-licensed code carries no conditions at all once it has been redistributed to anyone else.",
           "correct": false,
           "why": "MIT is permissive, not condition-free; its whole condition is that the copyright and permission notices travel with the code.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.licensing-compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.licensing-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "The GPL's copyleft requirement to make corresponding source available to recipients of the distributed derivative.",
           "correct": false,
           "why": "The library here is MIT-licensed, a permissive licence with no copyleft source-provision duty; that obligation belongs to licences such as the GPL.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o4",
           "text": "Apache 2.0's requirement to mark any changed file with a prominent notice stating that it was modified.",
           "correct": false,
           "why": "The library is MIT-licensed, not Apache-licensed, so Apache 2.0's file-marking condition was never applicable here.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.compliance" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.compliance"
+          }
         }
       ],
       "rationale": "Permissive licences make attribution travel with the code. MIT's whole condition is that the copyright notice and the permission notice be included in all copies or substantial portions of the software, and stripping them breaks that condition regardless of any other licence's separate rules.",
-      "source_ids": ["lf-objectives-2025", "gnu-gpl-faq"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "osi-mit-license",
+        "apache-license-2"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.licensing-compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on citation, fixed, re-verified. The item turns on MIT’s notice condition and names Apache 2.0’s changed-file condition, and the only source cited was gnu-gpl-faq, which contains neither licence’s text. Re-cited to the licences themselves, both fetched: MIT reads \"The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\", confirming the key and refuting o2’s \"no conditions at all\". Apache License 2.0 section 4(b) reads \"You must cause any modified files to carry prominent notices stating that You changed the files\", so o4’s why is true while the obligation is inapplicable to an MIT library. o3’s copyleft attribution is correct as a fact about the GPL and wrong for this library. All whys true.",
+        "sources_read": [
+          "https://opensource.org/license/mit",
+          "https://www.apache.org/licenses/LICENSE-2.0",
+          "https://www.gnu.org/licenses/gpl-faq.html"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.consequences-of-non-compliance.01",
@@ -1364,37 +2224,65 @@
           "text": "Because Article 58's corrective powers include imposing a temporary or definitive limitation, including a ban, on processing, which can stop the business operating in a way no fine amount does.",
           "correct": true,
           "why": "A processing ban can halt operations outright, which no fine, however large, does on its own.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
           "text": "It cannot be costlier; the fine is always the largest consequence a supervisory authority is able to impose.",
           "correct": false,
           "why": "The fine is the memorable consequence but not necessarily the costliest, because a processing ban can halt operations outright.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "Because the upper fine tier under Article 83 reaches 20 million euros or 4 percent of worldwide annual turnover, whichever of the two figures happens to be lower.",
           "correct": false,
           "why": "Article 83's tiers apply whichever figure is higher, not lower, and this option also just restates the fine mechanism rather than explaining why a ban can cost more.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.gdpr" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.gdpr"
+          }
         },
         {
           "ref": "o4",
           "text": "Because imposing a processing ban also starts HIPAA's 60-day individual-notification clock running.",
           "correct": false,
           "why": "HIPAA's 60-day clock governs breach notification to individuals under US law and has no bearing on a GDPR supervisory authority's processing ban.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.hipaa" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.hipaa"
+          }
         }
       ],
       "rationale": "GDPR Article 58 gives supervisory authorities corrective powers beyond fines, including imposing a temporary or definitive limitation, including a ban, on processing. Because that can stop a business operating altogether, it is often the costlier consequence even when the fine attached is comparatively modest.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.consequences-of-non-compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against Article 58(2)(f), which gives each supervisory authority the corrective power \"to impose a temporary or definitive limitation including a ban on processing\". o3 is false in exactly the way its why states: Article 83(5) reads \"up to 20 000 000 EUR, or in the case of an undertaking, up to 4 % of the total worldwide annual turnover of the preceding financial year, whichever is higher\", not lower, and Article 83(5)(a) confirms basic principles sit in that upper tier. o2 and o4 are false; HIPAA’s 60-day clock in 45 CFR 164.404(b) is real and correctly placed outside GDPR. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
+          "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-45.xml?part=164"
+        ]
+      }
     },
     {
       "id": "q.security.compliance.consequences-of-non-compliance.02",
@@ -1409,37 +2297,66 @@
           "text": "That regulatory action, contractual loss, mandatory notification and reputational damage are distinct consequence types coming from different authorities, not interchangeable outcomes of one cause.",
           "correct": true,
           "why": "The four consequence types come from different authorities and are not interchangeable, which is exactly the point worth holding.",
-          "provenance": { "kind": "key" }
+          "provenance": {
+            "kind": "key"
+          }
         },
         {
           "ref": "o2",
-          "text": "That the merchant is effectively being punished twice for the same offence, since one incident should only ever produce one consequence.",
+          "text": "That the merchant is effectively being punished several times over for a single offence, since one incident ought only ever to produce one consequence, imposed by one authority rather than by four at once.",
           "correct": false,
           "why": "A single scenario can trigger all four named consequence types at once, each imposed by a different authority for a different reason.",
-          "provenance": { "kind": "misconception", "documented_at": "data:notes:security.compliance.consequences-of-non-compliance" }
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "data:notes:security.compliance.consequences-of-non-compliance"
+          }
         },
         {
           "ref": "o3",
           "text": "That PCI-DSS, unlike GDPR, cannot impose more than one type of consequence for a single breach at the same time.",
           "correct": false,
           "why": "Nothing here limits how many consequence types a PCI-DSS-relevant breach can trigger; the card-acceptance loss is exactly a contractual consequence occurring alongside the others.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.pci-dss" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.pci-dss"
+          }
         },
         {
           "ref": "o4",
           "text": "That the reputational damage will be reversed automatically once the fine is paid and the required notification has been sent.",
           "correct": false,
           "why": "Reputational damage lands last among the consequence types and is the one no remediation retracts, contradicting this option.",
-          "provenance": { "kind": "sibling", "concept_id": "security.compliance.data-sovereignty-and-residency" }
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.compliance.data-sovereignty-and-residency"
+          }
         }
       ],
       "rationale": "A single incident can trigger regulatory action, contractual loss, mandatory notification, and reputational or commercial damage all at once, because they come from different authorities acting on different grounds. None of the four substitutes for, or cancels out, any of the others.",
-      "source_ids": ["lf-objectives-2025", "gdpr-eurlex"],
+      "source_ids": [
+        "lf-objectives-2025",
+        "gdpr-eurlex"
+      ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.consequences-of-non-compliance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-compliance",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: a regulator’s fine, loss of card acceptance, a mandatory notification duty and reputational damage come from a statutory authority, a contractual counterparty, a statute and the market respectively, and one incident can trigger all four. o2’s double-jeopardy framing, o3’s claim that PCI-DSS is limited to one consequence type, and o4’s automatic reputational recovery are all false. o3’s why is true and, importantly, states the contractual point without naming any PCI DSS requirement number. All whys true.",
+        "sources_read": [
+          "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
+          "https://www.pcisecuritystandards.org/standards/pci-dss/",
+          "https://www.pcisecuritystandards.org/about_us/"
+        ]
+      }
     }
   ]
 }

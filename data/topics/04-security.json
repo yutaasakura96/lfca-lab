@@ -1758,7 +1758,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-53r5"
+        "nist-sp-800-53r5",
+        "nist-sp-800-53Ar5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1789,7 +1790,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-53r5"
+        "nist-sp-800-53r5",
+        "nist-sp-800-53Ar5",
+        "nist-sp-800-100"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1823,7 +1826,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-53r5",
-        "aicpa-soc2"
+        "aicpa-soc2",
+        "nist-sp-800-53Ar5",
+        "iso-certification"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1952,7 +1957,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "pci-dss-standards"
+        "pci-dss-standards",
+        "pci-ssc-glossary"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1985,7 +1991,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aicpa-soc2"
+        "aicpa-soc2",
+        "iso-certification"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2114,7 +2121,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-gpl-faq"
+        "gnu-gpl-faq",
+        "osi-mit-license",
+        "apache-license-2"
       ],
       "candidate_evidence": [],
       "commands": [],

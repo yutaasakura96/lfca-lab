@@ -32,54 +32,101 @@
 | agile-manifesto | Manifesto for Agile Software Development | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/ |
 | agile-principles | Principles behind the Agile Manifesto | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/principles.html |
 | aicpa-soc2 | AICPA SOC 2 — System and Organization Controls examination | AICPA & CIMA | 2 | — | 2026-08-10 | https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2 |
+| ansible-getting-started | Getting started with Ansible — Introduction | Red Hat / Ansible Project | 2 | — | 2026-08-17 | https://docs.ansible.com/ansible/latest/getting_started/introduction.html |
 | ansible-glossary-idempotency | Ansible Glossary -- Idempotency | Red Hat / Ansible Project | 2 | 2026-08 | 2026-08-11 | https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html |
 | apache-license-2 | Apache License, Version 2.0 | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/licenses/LICENSE-2.0 |
 | apparmor-wiki | AppArmor project documentation wiki | AppArmor project | 2 | — | 2026-08-10 | https://gitlab.com/apparmor/apparmor/-/wikis/home |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
+| aws-alb-introduction | What is an Application Load Balancer? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html |
 | aws-backup | What is AWS Backup? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html |
+| aws-backup-restore-testing | Restore testing - AWS Backup | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing.html |
 | aws-budgets | Managing your costs with AWS Budgets | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html |
+| aws-budgets-best-practices | Best practices for AWS Budgets (billing data refresh cadence) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-best-practices.html |
 | aws-cloudfront | What is Amazon CloudFront? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html |
+| aws-cloudfront-expiration | Manage how long content stays in the CloudFront cache (expiration) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html |
 | aws-cloudtrail | What Is AWS CloudTrail? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html |
+| aws-cloudtrail-record-contents | CloudTrail record contents | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-record-contents.html |
 | aws-cost-and-usage-reports | What are AWS Cost and Usage Reports? | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html |
 | aws-drs-failback | Using Elastic Disaster Recovery for recovery and failback | Amazon Web Services | 2 | — | 2026-08-12 | https://docs.aws.amazon.com/drs/latest/userguide/failback.html |
 | aws-ebs-snapshots | Amazon EBS snapshots | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html |
 | aws-ec2-auto-scaling | What is Amazon EC2 Auto Scaling? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html |
+| aws-ec2-change-instance-type | Change the instance type of an Amazon EC2 instance | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/change-instance-type-of-ebs-backed-instance.html |
+| aws-ec2-purchasing-options | Amazon EC2 billing and purchasing options | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html |
+| aws-ec2-reserved-instances | Reserved Instances for Amazon EC2 overview (significant savings compared to On-Demand) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html |
+| aws-ec2-security-shared-responsibility | Security in Amazon EC2 (shared responsibility model) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html |
 | aws-elastic-ip-addresses | Elastic IP addresses (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html |
 | aws-elastic-load-balancing | What is Elastic Load Balancing? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html |
+| aws-elb-sticky-sessions | Configure sticky sessions for your Classic Load Balancer | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html |
 | aws-iam-best-practices | Security best practices in IAM | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html |
+| aws-iam-introduction | What is IAM? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html |
+| aws-iam-root-user-best-practices | Root user best practices for your AWS account | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html |
+| aws-kinesis-kpl-aggregation | Kinesis Producer Library concepts: aggregation | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/streams/latest/dev/kinesis-kpl-concepts.html |
 | aws-kms | AWS Key Management Service concepts | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/kms/latest/developerguide/overview.html |
 | aws-migration-7rs | About the migration strategies (the 7 Rs) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html |
+| aws-nlb-health-checks | Health checks for Network Load Balancer target groups | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html |
+| aws-nlb-introduction | What is a Network Load Balancer? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html |
+| aws-organizing-multiple-accounts | Benefits of using multiple AWS accounts | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/benefits-of-using-multiple-aws-accounts.html |
+| aws-pricing-calculator | What is AWS Pricing Calculator? (model your solutions before building them) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/pricing-calculator/latest/userguide/what-is-pricing-calculator.html |
 | aws-privatelink | What is AWS PrivateLink? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html |
+| aws-rds-multi-az | Multi-AZ DB instance deployments - Amazon RDS | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html |
 | aws-regions-and-azs | Regions and Availability Zones (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html |
+| aws-reliability-autohealing-bp | REL11-BP03 Automate healing on all layers - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html |
+| aws-reliability-availability | Availability - AWS Well-Architected Framework, Reliability Pillar | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html |
+| aws-reliability-failover-bp | REL11-BP02 Fail over to healthy resources - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_failover2good.html |
+| aws-reliability-multi-location-bp | REL10-BP01 Deploy the workload to multiple locations - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_fault_isolation_multiaz_region_system.html |
+| aws-reliability-sla-bp | REL11-BP07 Architect your product to meet availability targets and uptime SLAs - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_service_level_agreements.html |
+| aws-reliability-static-stability-bp | REL11-BP05 Use static stability to prevent bimodal behavior - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_static_stability.html |
+| aws-reserved-instances | Reserved Instances (Amazon EC2) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html |
+| aws-rightsizing-identify-opportunities | Identifying Opportunities to Right Size | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/identifying-opportunities-to-right-size.html |
+| aws-rightsizing-instance-families | Overview of Amazon EC2 and Amazon RDS Instance Families | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/overview-amazon-ec2-amazon-rds.html |
 | aws-rightsizing-whitepaper | Cost Optimization: Right Sizing | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html |
 | aws-route53 | What is Amazon Route 53? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html |
+| aws-route53-record-ttl | Values specific for simple records (TTL) - Amazon Route 53 | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html |
+| aws-s3-data-encryption | Protecting data with encryption (Amazon S3) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingEncryption.html |
 | aws-secrets-manager | What is AWS Secrets Manager? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html |
 | aws-shared-responsibility-model | Shared Responsibility Model | Amazon Web Services | 2 | — | 2026-08-10 | https://aws.amazon.com/compliance/shared-responsibility-model/ |
 | aws-six-advantages-cloud-computing | Six advantages of cloud computing | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html |
 | aws-spot-instances | Amazon EC2 Spot Instances | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html |
+| aws-spot-interruption-notices | Spot Instance interruption notices (two-minute warning) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html |
+| aws-spot-rebalance-recommendations | EC2 instance rebalance recommendations | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/rebalance-recommendations.html |
 | aws-tagging-best-practices | Best Practices for Tagging AWS Resources | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html |
+| aws-tagging-what-are-tags | What are tags? - Best Practices for Tagging AWS Resources | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html |
+| aws-target-group-attributes | Target group attributes - deregistration delay | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/edit-target-group-attributes.html |
 | aws-vpc-configure-subnets | Subnets for your VPC (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html |
 | aws-vpc-internet-gateway | Connect to the internet using an internet gateway | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html |
 | aws-vpc-nat-gateway | NAT gateways (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html |
 | aws-vpc-peering | What is VPC peering? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html |
 | aws-vpc-route-tables | Route tables for your VPC | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html |
 | aws-vpc-security-groups-vs-nacls | Infrastructure security in Amazon VPC (security groups vs network ACLs) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html |
+| aws-wa-deploy-with-automation | REL08-BP05 Deploy changes with automation | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_tracking_change_management_automated_changemgmt.html |
+| aws-wa-document-revisions | Document revisions - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/framework/document-revisions.html |
+| aws-wa-immutable-infrastructure | REL08-BP04 Deploy using immutable infrastructure | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_tracking_change_management_immutable_infrastructure.html |
+| aws-wa-reliability-design-principles | Design principles - Reliability Pillar, AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/design-principles.html |
+| aws-well-architected-observability | Implement observability - AWS Well-Architected Framework, Operational Excellence Pillar | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/implement-observability.html |
 | aws-well-architected-pillars | The pillars of the framework - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html |
 | aws-well-architected-reliability-pillar | Reliability Pillar - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html |
+| aws-well-architected-tool | What is AWS Well-Architected Tool? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html |
 | aws-what-is-multicloud | What is Multicloud? Multicloud Explained | Amazon Web Services | 2 | — | 2026-08-11 | https://aws.amazon.com/what-is/multicloud/ |
 | aws-what-is-nosql | What is NoSQL? | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://aws.amazon.com/nosql/ |
+| azure-activity-log | Activity log in Azure Monitor | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log |
 | azure-availability-zones | What are Azure availability zones? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview |
 | azure-bandwidth-pricing | Bandwidth pricing (inbound data transfer is free) | Microsoft | 2 | — | 2026-08-10 | https://azure.microsoft.com/en-us/pricing/details/bandwidth/ |
 | azure-bastion | What is Azure Bastion? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/bastion/bastion-overview |
 | azure-blob-access-tiers | Access tiers for blob data (hot, cool, cold, archive) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview |
 | azure-blob-lifecycle-management | Optimize costs by automatically managing the data lifecycle | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview |
 | azure-expressroute | What is Azure ExpressRoute? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction |
+| azure-find-unattached-disks | Find and delete unattached Azure managed and unmanaged disks | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/virtual-machines/windows/find-unattached-disks |
+| azure-free-account-charges | Avoid charges with your Azure free account (usage beyond free quantities is billed at pay-as-you-go rates) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account |
 | azure-spot-vms | About Azure Spot Virtual Machines | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms |
 | azure-storage-introduction | Introduction to Azure Storage (blob, file, disk) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction |
 | azure-virtual-network | Azure Virtual Network overview | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview |
+| azure-vm-delete-attached-resources | Delete a VM and attached resources (detached disks continue to incur charges) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/virtual-machines/delete |
+| azure-vm-states-and-billing | States and billing status of Azure Virtual Machines (Stopped/Allocated is billed, Deallocated is not) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/virtual-machines/states-billing |
+| azure-waf-cost-model | Architecture strategies for creating a cost model (Azure Well-Architected Framework) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/cost-model |
 | azure-well-architected-pillars | Azure Well-Architected Framework pillars | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/well-architected/pillars |
 | bash-exit-status | GNU Bash Reference Manual: Exit Status | GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html |
+| caf-cloud-accounting | Cost efficiency considerations for your cloud adoption strategy (shift from a CapEx model to an OpEx model) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting |
 | cc-faq | Creative Commons Frequently Asked Questions | Creative Commons | 2 | — | 2026-08-10 | https://creativecommons.org/faq/ |
 | cisa-data-backup-options | Data Backup Options (US-CERT/CISA) — the 3-2-1 rule | CISA / US-CERT | 2 | — | 2026-08-10 | https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf |
 | cncf-glossary-serverless | CNCF Cloud Native Glossary: Serverless | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/serverless/ |
@@ -98,7 +145,10 @@
 | docker-volumes | Volumes — "the preferred mechanism for persisting data generated by and used by Docker containers" | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/engine/storage/volumes/ |
 | dockerfile-reference | Dockerfile reference (EXPOSE, ENV, CMD, WORKDIR, LABEL semantics) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/reference/dockerfile/ |
 | fedora-setup-spec | Fedora `setup` package spec — ships /etc/shadow as 0000 root:root | Fedora Project | 2 | — | 2026-08-10 | https://src.fedoraproject.org/rpms/setup/blob/rawhide/f/setup.spec |
+| finops-invoicing-and-chargeback | FinOps Framework capability: Invoicing & Chargeback (showback vs chargeback) | FinOps Foundation | 2 | — | 2026-08-17 | https://www.finops.org/framework/capabilities/chargeback/ |
 | firewalld-documentation | firewalld documentation (including the nftables backend, default since 0.6.0) | firewalld project | 2 | — | 2026-08-10 | https://firewalld.org/documentation/ |
+| fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
+| fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
 | git-merge | git-merge(1) — including the FAST-FORWARD MERGE and MERGE COMMIT sections | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-merge |
 | git-pull | git-pull(1) — "Fetch from and integrate with another repository or a local branch" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-pull |
@@ -109,7 +159,9 @@
 | git-stash | git-stash(1) — "Stash the changes in a dirty working directory away" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-stash |
 | github-docs-about-pull-requests | About pull requests | GitHub, Inc. | 2 | 2025-01 | 2026-08-11 | https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests |
 | gitignore | gitignore(5) — "Specifies intentionally untracked files to ignore" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/gitignore |
+| gitlab-ci-yaml | GitLab CI/CD YAML syntax reference — stages | GitLab Inc. | 2 | — | 2026-08-17 | https://docs.gitlab.com/ci/yaml/ |
 | gnu-agpl-3 | GNU Affero General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/licenses/agpl-3.0.html |
+| gnu-android-freedom | Android and Users' Freedom | GNU Project / Free Software Foundation | 2 | — | 2026-08-17 | https://www.gnu.org/philosophy/android-and-users-freedom.html |
 | gnu-bash-manual | GNU Bash Reference Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/bash.html |
 | gnu-coreutils-manual | GNU Coreutils Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/coreutils/manual/coreutils.html |
 | gnu-diffutils-manual | GNU Diffutils Manual (Comparing and Merging Files) | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/diffutils/manual/diffutils.html |
@@ -124,9 +176,13 @@
 | gnu-sed-manual | GNU sed Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/sed/manual/sed.html |
 | gnu-tar-manual | GNU tar: an archiver tool | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/tar/manual/tar.html |
 | gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-10 | https://www.gnupg.org/gph/en/manual/x135.html |
+| google-cloud-audit-logs | Cloud Audit Logs overview | Google Cloud | 2 | — | 2026-08-17 | https://cloud.google.com/logging/docs/audit |
 | google-cloud-spot-vms | Preemptible VM instances / Spot VMs | Google Cloud | 2 | — | 2026-08-11 | https://cloud.google.com/compute/docs/instances/preemptible |
+| google-sre-book-availability-table | Site Reliability Engineering, Appendix A: Availability Table | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/availability-table/ |
 | google-sre-book-being-on-call | Site Reliability Engineering, Chapter 11: Being On-Call | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/being-on-call/ |
 | google-sre-book-effective-troubleshooting | Site Reliability Engineering, Chapter 12: Effective Troubleshooting | Google | 2 | 2016-04 | 2026-08-11 | https://sre.google/sre-book/effective-troubleshooting/ |
+| google-sre-book-embracing-risk | Site Reliability Engineering, Chapter 3: Embracing Risk — error budgets | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/embracing-risk/ |
+| google-sre-book-monitoring | Site Reliability Engineering, Chapter 6: Monitoring Distributed Systems | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/monitoring-distributed-systems/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |
 | hipaa-45-cfr-164 | 45 CFR Part 164 — HIPAA Security and Privacy Rules (eCFR) | US Government Publishing Office / HHS | 2 | — | 2026-08-10 | https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164 |
 | iana-service-name-port-registry | Service Name and Transport Protocol Port Number Registry | IANA | 2 | — | 2026-08-10 | https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml |
@@ -135,22 +191,28 @@
 | iproute2-ss-man | ss(8) — another utility to investigate sockets | iproute2 project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
 | isc-bind9-manpages | BIND 9 ARM: Manual pages (dig, host, nslookup) | Internet Systems Consortium | 2 | — | 2026-08-10 | https://bind9.readthedocs.io/en/latest/manpages.html |
 | isc-dhcpd-conf-manual | ISC DHCP 4.4 manual pages: dhcpd.conf | Internet Systems Consortium | 2 | — | 2026-08-10 | https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcpdconf |
+| iso-certification | ISO — Certification | ISO | 2 | — | 2026-08-17 | https://www.iso.org/certification.html |
 | istqb-standard-glossary-v2.2 | Standard Glossary of Terms Used in Software Testing, Version 2.2 | International Software Testing Qualifications Board (ISTQB) | 2 | 2012-10 | 2026-08-11 | https://glossary.istqb.org/en_US/term/user-acceptance-testing |
 | itu-t-x200-osi-basic-reference-model | ITU-T X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model | ITU-T (technically aligned with ISO/IEC 7498-1) | 2 | — | 2026-08-10 | https://www.itu.int/rec/T-REC-X.200-199407-I/en |
+| jenkins-pipeline-doc | Jenkins Pipeline — Jenkins User Handbook | Jenkins project / CD Foundation | 2 | — | 2026-08-17 | https://www.jenkins.io/doc/book/pipeline/ |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
 | k8s-deployment | Kubernetes Deployments — declarative updates, desired state reconciled by the Deployment controller, rollout and rollback | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ |
 | k8s-pods | Kubernetes Pods — "the smallest deployable units of computing that you can create and manage in Kubernetes" | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/workloads/pods/ |
 | k8s-service | Kubernetes Service — exposing an application behind a single outward-facing endpoint | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/services-networking/service/ |
 | k8s-steering-charter | Kubernetes Steering Committee Charter — "the governing body of the Kubernetes project" | Kubernetes project | 2 | — | 2026-08-10 | https://github.com/kubernetes/steering/blob/master/charter.md |
 | kanban-guide | The Kanban Guide | Kanban University | 2 | — | 2026-08-10 | https://kanban.university/kanban-guide/ |
+| kernel-development-process | A guide to the Kernel Development Process — How the development process works | Linux kernel project (kernel.org) | 2 | — | 2026-08-17 | https://docs.kernel.org/process/2.Process.html |
 | kernel-firmware-api | Firmware API (driver-api) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/driver-api/firmware/index.html |
 | kernel-ip-sysctl | Linux kernel networking: IP sysctl (ip_local_port_range) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/networking/ip-sysctl.html |
 | kernel-kbuild-modules | Building External Modules (kbuild) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/kbuild/modules.html |
 | kernel-kconfig-language | Kconfig Language | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html |
 | kernel-license-rules | Linux kernel licensing rules | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/process/license-rules.html |
+| kernel-org-about | About the Linux Kernel Archives (kernel.org) | Linux Kernel Organization / kernel.org | 2 | — | 2026-08-17 | https://www.kernel.org/category/about.html |
 | kernel-readme | Linux kernel release 6.x README (admin-guide) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/admin-guide/README.html |
 | kernel-sysctl-vm | Linux kernel admin guide: Documentation for /proc/sys/vm (OOM controls) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/admin-guide/sysctl/vm.html |
+| linux-relnotes-0-01 | Notes for Linux release 0.01 | Linus Torvalds / kernel.org historic archive | 2 | — | 2026-08-17 | https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01 |
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
+| man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
 | man-bash-1 | bash(1) — GNU Bourne-Again Shell manual page | GNU Project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/bash.1.html |
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
 | man-chown-2 | chown(2) — change ownership of a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/chown.2.html |
@@ -158,6 +220,7 @@
 | man-crontab-5 | crontab(5) — cron table format and the five time fields | Linux man-pages project / cronie | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/crontab.5.html |
 | man-df | df(1) — report file system space usage (--inodes) | GNU coreutils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/df.1.html |
 | man-dmesg | dmesg(1) — print or control the kernel ring buffer | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/dmesg.1.html |
+| man-env-1 | env(1) — run a program in a modified environment | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/env.1.html |
 | man-environ-7 | environ(7) — user environment | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/environ.7.html |
 | man-execve-2 | execve(2) — execute program (interpreter scripts / shebang) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/execve.2.html |
 | man-file-1 | file(1) — determine file type | file/libmagic project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/file.1.html |
@@ -169,6 +232,7 @@
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
 | man-journalctl | journalctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/journalctl.1.html |
+| man-kill-2 | kill(2) — send a signal to a process | Linux man-pages project | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man2/kill.2.html |
 | man-logrotate-8 | logrotate(8) — rotates, compresses and mails system logs | logrotate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/logrotate.8.html |
 | man-lsblk-8 | lsblk(8) — list block devices | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsblk.8.html |
 | man-lscpu-1 | lscpu(1) — display information about the CPU architecture | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/lscpu.1.html |
@@ -179,6 +243,7 @@
 | man-mount-8 | mount(8) — mount a filesystem | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/mount.8.html |
 | man-namei | namei(1) — follow a pathname until a terminal point is found | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/namei.1.html |
 | man-nologin-8 | nologin(8) — politely refuse a login | Linux man-pages project / util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/nologin.8.html |
+| man-nproc-1 | nproc(1) — print the number of processing units available | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/nproc.1.html |
 | man-os-release-5 | os-release(5) — operating system identification | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/os-release.5.html |
 | man-pages-7 | man-pages(7) — conventions for writing Linux man pages (manual section list) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/man-pages.7.html |
 | man-passwd-5 | passwd(5) — the password file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/passwd.5.html |
@@ -224,9 +289,11 @@
 | nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
 | nist-glossary-bcp | NIST CSRC Glossary: business continuity plan (BCP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/business_continuity_plan |
 | nist-glossary-drp | NIST CSRC Glossary: disaster recovery plan (DRP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/disaster_recovery_plan |
+| nist-glossary-fault-tolerance | NIST CSRC Glossary: fault tolerance | NIST Computer Security Resource Center | 2 | — | 2026-08-17 | https://csrc.nist.gov/glossary/term/fault_tolerance |
 | nist-glossary-rpo | NIST CSRC Glossary: Recovery Point Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_point_objective |
 | nist-glossary-rto | NIST CSRC Glossary: Recovery Time Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_time_objective |
 | nist-glossary-warm-site | NIST CSRC Glossary: warm site | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/warm_site |
+| nist-sp-800-100 | NIST SP 800-100 — Information Security Handbook: A Guide for Managers | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/100/upd1/final |
 | nist-sp-800-122 | NIST SP 800-122 — Guide to Protecting the Confidentiality of Personally Identifiable Information (PII) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/122/final |
 | nist-sp-800-128 | NIST SP 800-128, Guide for Security-Focused Configuration Management of Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf |
 | nist-sp-800-145 | NIST SP 800-145: The NIST Definition of Cloud Computing | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf |
@@ -236,6 +303,7 @@
 | nist-sp-800-34r1 | NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf |
 | nist-sp-800-39 | NIST SP 800-39 — Managing Information Security Risk: Organization, Mission, and Information System View | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/39/final |
 | nist-sp-800-40r4 | NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf |
+| nist-sp-800-53Ar5 | NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls in Information Systems and Organizations | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/53/a/r5/final |
 | nist-sp-800-53r5 | NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final |
 | nist-sp-800-57p1r5 | NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final |
 | nist-sp-800-61r3 | NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/61/r3/final |
@@ -245,6 +313,7 @@
 | nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/88/r1/final |
 | nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/94/final |
 | nmap-port-scanning-basics | Nmap Reference Guide: Port Scanning Basics (open / closed / filtered port states) | Nmap Project | 2 | — | 2026-08-10 | https://nmap.org/book/man-port-scanning-basics.html |
+| npm-install-locally | Downloading and installing packages locally — npm Docs | npm, Inc. / GitHub | 2 | — | 2026-08-17 | https://docs.npmjs.com/downloading-and-installing-packages-locally |
 | ntia-sbom-minimum-elements | The Minimum Elements For a Software Bill of Materials (SBOM) | NTIA, U.S. Department of Commerce | 2 | — | 2026-08-10 | https://www.ntia.gov/sites/default/files/publications/sbom_minimum_elements_report_0.pdf |
 | oasis-amqp-core-v1.0 | OASIS Advanced Message Queuing Protocol (AMQP) Version 1.0 | OASIS (also published as ISO/IEC 19464) | 2 | 2012-10 | 2026-08-11 | http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf |
 | oci-image-spec-config | OCI Image Format Specification — Image Configuration (history, empty_layer: "marks if the history item created a filesystem diff") | Open Container Initiative | 2 | — | 2026-08-10 | https://github.com/opencontainers/image-spec/blob/main/config.md |
@@ -255,11 +324,14 @@
 | openssh-ssh-keygen | ssh-keygen(1) manual page | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh-keygen |
 | openssh-ssh-manpage | ssh(1) - OpenSSH remote login client | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh.1 |
 | openssh-sshd-config | sshd_config(5) manual page (PermitRootLogin, PasswordAuthentication, PubkeyAuthentication) | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/sshd_config |
+| osi-mit-license | The MIT License — Open Source Initiative | Open Source Initiative | 2 | — | 2026-08-17 | https://opensource.org/license/mit |
 | osi-osd | The Open Source Definition | Open Source Initiative | 2 | — | 2026-08-10 | https://opensource.org/osd |
+| otel-observability-primer | Observability primer — OpenTelemetry | OpenTelemetry / CNCF | 2 | — | 2026-08-17 | https://opentelemetry.io/docs/concepts/observability-primer/ |
 | owasp-credential-stuffing | OWASP Credential Stuffing Prevention Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html |
 | owasp-password-storage | OWASP Password Storage Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html |
 | owasp-top10-injection | OWASP Top 10:2025 — A05 Injection | OWASP | 2 | — | 2026-08-11 | https://owasp.org/Top10/2025/A05_2025-Injection/ |
 | pci-dss-standards | PCI Data Security Standard — official standard page | PCI Security Standards Council | 2 | — | 2026-08-10 | https://www.pcisecuritystandards.org/standards/pci-dss/ |
+| pci-ssc-glossary | PCI SSC Glossary of Terms, Abbreviations and Acronyms | PCI Security Standards Council | 2 | — | 2026-08-17 | https://www.pcisecuritystandards.org/glossary/ |
 | posix-env-vars | POSIX.1-2024 (Issue 8) Base Definitions, Chapter 8: Environment Variables | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html |
 | posix-shell-command-language | POSIX.1-2024 (Issue 8), Shell Command Language | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html |
 | posix-utility-conventions | POSIX.1-2024 (Issue 8), Chapter 12: Utility Conventions | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html |
@@ -271,6 +343,8 @@
 | progit-branching-basics | Pro Git — Basic Branching and Merging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging |
 | progit-tagging | Pro Git — Git Basics: Tagging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Basics-Tagging |
 | progit-what-is-git | Pro Git — Getting Started: What is Git? (three states, working tree / staging area / Git directory) | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F |
+| pypa-externally-managed-environments | Externally Managed Environments — PyPA specification | Python Packaging Authority | 2 | — | 2026-08-17 | https://packaging.python.org/en/latest/specifications/externally-managed-environments/ |
+| redhat-centos-stream | What is CentOS Stream? | Red Hat | 2 | — | 2026-08-17 | https://www.redhat.com/en/topics/linux/what-is-centos-stream |
 | rfc-1034-dns-concepts | RFC 1034: Domain Names - Concepts and Facilities | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1034.html |
 | rfc-1035-dns-implementation | RFC 1035: Domain Names - Implementation and Specification | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1035.html |
 | rfc-1122-host-requirements | RFC 1122: Requirements for Internet Hosts -- Communication Layers | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1122.html |
@@ -301,6 +375,7 @@
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
 | rfc9110 | RFC 9110: HTTP Semantics | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rfc9111-http-caching | RFC 9111: HTTP Caching | IETF | 2 | 2022-06 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc9111 |
+| rocky-linux-about | About Rocky Linux | Rocky Enterprise Software Foundation | 2 | — | 2026-08-17 | https://rockylinux.org/about |
 | rsync-man | rsync(1) — a fast, versatile, remote (and local) file-copying tool | Samba / rsync project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/rsync.1.html |
 | sans-picerl | SANS Institute: Incident Response (glossary) — the six-step PICERL framework | SANS Institute | 2 | — | 2026-08-11 | https://www.sans.org/security-resources/glossary-of-terms/incident-response |
 | scrum-guide-2020 | The Scrum Guide (November 2020) | Ken Schwaber and Jeff Sutherland / Scrum.org | 2 | — | 2026-08-10 | https://scrumguides.org/scrum-guide.html |
@@ -318,8 +393,12 @@
 | systemd-timer-5 | systemd.timer(5) — timer unit configuration, Persistent= | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html |
 | systemd-unit-5 | systemd.unit(5) — unit configuration and unit type suffixes | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html |
 | tcpdump-manpage | tcpdump(1) manual page | The Tcpdump Group | 2 | — | 2026-08-10 | https://www.tcpdump.org/manpages/tcpdump.1.html |
+| terraform-intro | What is Terraform? — HashiCorp Developer | HashiCorp | 2 | — | 2026-08-17 | https://developer.hashicorp.com/terraform/intro |
+| twelve-factor-build-release-run | The Twelve-Factor App, factor V: Build, release, run | Adam Wiggins / Heroku | 2 | — | 2026-08-17 | https://12factor.net/build-release-run |
+| twelve-factor-dev-prod-parity | The Twelve-Factor App, factor X: Dev/prod parity | Adam Wiggins / Heroku | 2 | — | 2026-08-17 | https://12factor.net/dev-prod-parity |
 | ubuntu-release-cycle | Ubuntu release cycle and LTS support windows | Canonical | 2 | — | 2026-08-10 | https://ubuntu.com/about/release-cycle |
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
+| wayland-home | Wayland — a replacement for the X11 window system protocol and architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-17 | https://wayland.freedesktop.org/ |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |
 | verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |
 | vmware-hypervisor | What is a Hypervisor? (type 1 vs type 2) | VMware / Broadcom | 3 | — | 2026-08-10 | https://www.vmware.com/topics/hypervisor |

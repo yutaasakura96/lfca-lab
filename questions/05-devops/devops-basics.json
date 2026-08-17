@@ -30,7 +30,7 @@
         },
         {
           "ref": "o3",
-          "text": "Yes, provided the two groups coordinate informally on a regular basis, without anyone changing who is accountable for the outcome once the work has actually shipped to users., a distinction the exam treats as the whole difference between coordination and shared ownership",
+          "text": "Yes, provided the two groups coordinate informally on a regular basis, since regular coordination substitutes for changing who is accountable once work has shipped to users.",
           "correct": false,
           "why": "Coordination without changed accountability leaves the handoff, and the incentive split behind it, untouched.",
           "provenance": {
@@ -58,7 +58,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds against the CNCF DevOps entry verbatim: \"teams own the entire process from application development to production operations\" and it \"goes beyond implementing a set of technologies\". o2 (toolchain is the definition) and o3 (coordination without changed accountability) are both refuted by that sentence; o4 is true of the scenario but is a consequence of the handoff rather than the definitional failure, so it is not a second key. No two options assert the same claim.",
+        "sources_read": [
+          "https://glossary.cncf.io/devops/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.silos-and-shared-responsibility.01",
@@ -89,7 +102,7 @@
         },
         {
           "ref": "o3",
-          "text": "Yes, because the merged org chart is itself evidence that the organisation has adopted DevOps., since a reorganisation announced publicly is often mistaken for the incentive change that shared responsibility actually requires underneath it",
+          "text": "Yes, because a merged org chart is itself the evidence that an organisation has adopted DevOps, whatever the two groups are each still measured on individually.",
           "correct": false,
           "why": "A reorganisation on paper is not the culture change DevOps requires; the incentives described here have not moved.",
           "provenance": {
@@ -111,13 +124,28 @@
       "rationale": "A silo is an incentive boundary, not an org-chart boundary. Merging two teams while leaving developers rewarded for velocity and operators for uptime leaves the conflict, and the silo, exactly where it was.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "google-sre-book-embracing-risk"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.silos-and-shared-responsibility",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing: the CNCF glossary never frames a silo as an incentive boundary. The claim is carried by the SRE book chapter Embracing Risk, which states that product development and SRE are \"generally evaluated on different metrics\", development on velocity and SRE on reliability, and by the CNCF DevOps entry, which describes the handoff culture as \"a clear misalignment of priorities\". Citation fixed rather than the key weakened. o2 and o4 are each false for the reason their why gives; o3 as rewritten is false because the measures are unchanged.",
+        "sources_read": [
+          "https://sre.google/sre-book/embracing-risk/",
+          "https://glossary.cncf.io/devops/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.feedback-loops.01",
@@ -158,7 +186,7 @@
         },
         {
           "ref": "o4",
-          "text": "It does not reduce risk; releasing more often simply multiplies the number of chances something can go wrong., ignoring that every one of those smaller releases is also individually easier to diagnose and reverse",
+          "text": "It does not reduce risk, because releasing more often simply multiplies the number of separate occasions on which something can go wrong in front of users.",
           "correct": false,
           "why": "This mistakes release count for accumulated risk and ignores that each release now carries far less change.",
           "provenance": {
@@ -176,7 +204,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: the CNCF continuous delivery entry states that releasing less frequently means \"deploying more changes at once and increasing the risk that something goes wrong\", which is exactly the batch-size argument the key makes. o2 restates shift left, o3 asserts a coverage requirement no source makes, o4 as rewritten is the volume fallacy. None of the three is separately correct.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-integration/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.shift-left.01",
@@ -197,7 +239,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, because moving a task earlier in the pipeline transfers ownership of that task to whoever is already working at that earlier stage. regardless of what the lifecycle stage is actually meant to accomplish for the team as a whole",
+          "text": "Yes, because moving a task earlier in the pipeline transfers ownership of it to whoever is already working at that earlier stage, which in practice means the developers.",
           "correct": false,
           "why": "This is the exact conflation the guide warns against: earlier is a when, not a transfer of who does the work.",
           "provenance": {
@@ -235,7 +277,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds against the CNCF Shift Left entry: it is the practice of implementing tests and security \"early in the software development lifecycle rather than towards the end\", and responsibility \"is shared across the development team - from software engineers to quality assurance to operations\". That sentence refutes o2 directly. o3 is a true statement about a remaining gate but is not the reason the answer is no; o4 misattributes a feedback-loop claim.",
+        "sources_read": [
+          "https://glossary.cncf.io/shift-left/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.site-reliability-engineering.01",
@@ -266,7 +321,7 @@
         },
         {
           "ref": "o3",
-          "text": "SRE is the culture of shared ownership between development and operations, and DevOps is the specialist discipline built on top of it., which inverts the actual relationship the exam expects a candidate to know by name",
+          "text": "SRE is the culture of shared ownership between development and operations, and DevOps is the specialist operations discipline built on top of that culture once it is established.",
           "correct": false,
           "why": "This reverses the two: DevOps is the shared-ownership culture, and SRE is the specialist operations discipline.",
           "provenance": {
@@ -288,13 +343,28 @@
       "rationale": "SRE applies software engineering to reliability and uses an error budget to trade stability work against release velocity. DevOps is about getting code to production; SRE is about the production system continuing to work once it is there.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "google-sre-book-embracing-risk"
       ],
       "guide_anchor": "05-devops/devops-basics.md#s-devops-basics-culture",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing: the first half of the key is verbatim CNCF (\"while DevOps focuses on getting code to production, SRE ensures that code running in production works properly\") but the error budget clause appears nowhere on that page. Added the SRE book chapter Embracing Risk, which defines the error budget against the SLO and says it \"provides a common incentive that allows both product development and SRE to focus on finding the right balance between innovation and reliability\". Content kept, citation fixed. o2, o3 (reversal) and o4 (idempotency) are each false.",
+        "sources_read": [
+          "https://glossary.cncf.io/site-reliability-engineering/",
+          "https://sre.google/sre-book/embracing-risk/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-integration.01",
@@ -315,7 +385,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both teams, since owning an automated pipeline is what continuous integration means, whatever the merge frequency happens to be., because a pipeline definition file is treated as proof of the practice on its own",
+          "text": "Both teams, since owning an automated pipeline that builds and tests every change is what continuous integration means, whatever the merge frequency behind those runs happens to be.",
           "correct": false,
           "why": "A pipeline can run nightly against long-lived branches with no continuous integration behind it; the machinery is not the practice.",
           "provenance": {
@@ -353,7 +423,20 @@
       "comparison_block": "cmp-devops.devops-basics.continuous-integration",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF defines CI as \"the practice of integrating code changes as regularly as possible\", which is a statement about merge behaviour and not about owning a pipeline, so o2 is false and o4 inverts the criterion. o3 is false because CI \"ends with a tested artifact ready to be consumed by a CD system\" on the same page.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-integration/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-integration.02",
@@ -394,7 +477,7 @@
         },
         {
           "ref": "o4",
-          "text": "Build and artifact promotion in full, since an artifact was produced and every environment further along must now receive it., since an artifact being produced is treated as sufficient evidence that promotion has already begun",
+          "text": "Build and artifact promotion in full, since an artifact was produced and every environment further along the pipeline must therefore already have received it.",
           "correct": false,
           "why": "Nothing in the description says the artifact was promoted anywhere; promotion is a later, unstated step.",
           "provenance": {
@@ -412,7 +495,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds verbatim: CNCF says the CI process \"begins when code changes are committed to a source control system and ends with a tested artifact ready to be consumed by a CD system\". o2 is refuted by the CNCF delivery entry, which requires automatic deployment into an acceptance environment; o3 confuses the practice with the mechanism; o4 as rewritten asserts a promotion the description never states.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-integration/",
+          "https://glossary.cncf.io/continuous-delivery/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-delivery.01",
@@ -471,7 +568,22 @@
       "comparison_block": "cmp-devops.devops-basics.continuous-delivery",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. CNCF continuous delivery: changes \"are automatically deployed into an acceptance environment (or, in the case of continuous deployment, into production)\", and continuous deployment \"goes a step further ... by deploying finished software directly to production\". Team C stops at a tested artifact (CI), Team A reaches acceptance and waits on a person (delivery), Team B reaches production unattended (deployment). o2 mislabels an acceptance environment as production, o3 calls an undeployed artifact releasable, o4 erases the gate. No distractor is defensible and no two options coincide.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-deployment/",
+          "https://glossary.cncf.io/continuous-integration/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-delivery.02",
@@ -492,7 +604,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, since twenty releases a day is fast enough that the human step has become a formality rather than a genuine gate., since a release cadence that fast looks indistinguishable from full automation to anyone outside the team who approves it",
+          "text": "Yes, since twenty releases a day is fast enough that the human step has become a formality rather than a genuine decision point in the release.",
           "correct": false,
           "why": "However fast the cadence, the step is still a real decision point; frequency alone does not remove the gate.",
           "provenance": {
@@ -530,7 +642,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF separates the two by where the pipeline ends up unattended, not by cadence - deployment \"goes a step further\" by deploying to production, which is the step Team-style delivery leaves to a person. Frequency is never the criterion on either page, so o2 and o3 are false; o4 names a real practice that is not the distinguishing property.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-deployment.01",
@@ -551,7 +677,7 @@
         },
         {
           "ref": "o2",
-          "text": "Continuous delivery, since removing one step from the pipeline is still consistent with waiting on a human decision elsewhere., since an acceptance environment can look enough like production that the missing gate goes unnoticed until an incident forces the question",
+          "text": "Continuous delivery, since removing a single approval step from the pipeline is still consistent with the release waiting on a human decision made somewhere else in the organisation's approval chain before anything reaches users.",
           "correct": false,
           "why": "No gate remains anywhere in the description, which is exactly the property that makes this deployment rather than delivery.",
           "provenance": {
@@ -589,7 +715,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF continuous delivery states that CD \"crucially includes procedures to ensure that software is adequately tested before deployment and provides a way to rollback changes\", and that CD strategies deploy \"using various deployment strategies such as canary or blue-green releases\". A pipeline that reaches production unattended on unit tests alone is therefore a fault, not a configuration choice. o2 is false because no gate remains anywhere; o3 and o4 are each false for the reason given.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.continuous-deployment.02",
@@ -648,7 +788,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. CNCF: continuous deployment \"goes a step further than continuous delivery\", which makes deployment the strictly stronger claim - so deployment implies delivery and not the reverse. o2 states the implication backwards, o3 asserts equivalence, o4 denies any implication. Each distractor why is a true statement about the pair. No two options assert the same relation.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-deployment/",
+          "https://glossary.cncf.io/continuous-delivery/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.pipeline.01",
@@ -669,7 +823,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, since every stage associated with continuous integration, build, test, and package, is visibly present in the pipeline's own definition., regardless of how infrequently the pipeline is actually triggered against the shared branch",
+          "text": "Yes, since every stage associated with continuous integration, build, test, and package, is visibly present in this pipeline's own definition file kept in the repository beside the source.",
           "correct": false,
           "why": "Owning the stages is not the same as merging often; a pipeline is not CI/CD by itself, regardless of which stages it lists.",
           "provenance": {
@@ -707,7 +861,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: whether a team practises CI is settled by \"integrating code changes as regularly as possible\" (CNCF), which a monthly manual trigger does not satisfy however complete the stage list. o2 as rewritten is the machinery-for-practice error, o3 imports releasability from delivery, o4 makes the tool name decisive. None is separately correct.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-integration/",
+          "https://glossary.cncf.io/continuous-delivery/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.pipeline.02",
@@ -760,13 +928,28 @@
       "rationale": "A trigger starts a run, and stages execute in order so a failing stage stops the run from progressing. The artifact from a failed run is never promoted, which is why the artifact that reaches an environment is always the one that passed.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "gitlab-ci-yaml"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.pipeline",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: stage-failure semantics appear nowhere in the CNCF glossary, which was the only substantive citation. Added the GitLab CI YAML reference, which states that \"jobs in the next stage run after the jobs from the previous stage complete successfully\"; CNCF CI adds that the pipeline turns every commit into \"either a concrete failure or a viable release candidate\", which refutes o4 directly. Key content unchanged. o2 contradicts the GitLab rule, o3 describes rollback of something already released.",
+        "sources_read": [
+          "https://docs.gitlab.com/ci/yaml/",
+          "https://glossary.cncf.io/continuous-integration/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.build-and-artifact.01",
@@ -807,7 +990,7 @@
         },
         {
           "ref": "o4",
-          "text": "None at all, provided the two separate builds are triggered from the exact same commit hash both times., overlooking that the base image and dependency resolution were never pinned to match between the two builds",
+          "text": "None at all, provided the two separate builds are each triggered from the exact same commit hash, which fixes every input the build consumes.",
           "correct": false,
           "why": "An identical commit can still produce different binaries when the base image or dependency resolution differs between builds.",
           "provenance": {
@@ -819,13 +1002,27 @@
       "rationale": "One build produces one artifact, which is then promoted unchanged through every environment. Building separately per environment can silently produce different binaries from an identical commit, which is a whole class of hard-to-diagnose incidents.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "twelve-factor-build-release-run"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.build-and-artifact",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing: build once, deploy many is not in the CNCF glossary. Added twelve-factor V, which requires strict separation of build and run and defines the build as a transform of a commit into one executable bundle that later stages consume. Key content unchanged. o2 and o3 are false as their whys state; o4 as rewritten is false because an identical commit does not fix the base image or the dependency resolution, which is exactly the scenario given.",
+        "sources_read": [
+          "https://12factor.net/build-release-run"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.automated-testing.01",
@@ -846,7 +1043,7 @@
         },
         {
           "ref": "o2",
-          "text": "Nothing, because continuous deployment only requires the pipeline to have no manual gate, independent of what its tests cover., treating the absence of a manual gate as though it were sufficient on its own",
+          "text": "Nothing, because continuous deployment only requires the pipeline to have no manual gate, independent of what level its tests happen to exercise on the way through.",
           "correct": false,
           "why": "Removing the gate is necessary but not sufficient; the test coverage left standing has to be able to catch what the gate used to catch.",
           "provenance": {
@@ -884,7 +1081,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF continuous delivery states testing procedures are crucial before deployment, and continuous deployment removes the human step, so the suite is all that remains between a merge and users. o2 as rewritten treats the missing gate as sufficient, o3 describes a switch to continuous delivery, o4 confuses frequency with scope. No second correct option.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.artifact-registry.01",
@@ -925,7 +1136,7 @@
         },
         {
           "ref": "o4",
-          "text": "The rollback still succeeds without issue, since a registry only ever stores metadata and the real artifact lives in source control., overlooking that the binary itself, not merely a pointer to it, is what the registry actually retains",
+          "text": "The rollback still succeeds without issue, since a registry only ever stores metadata and the built artifact itself lives in source control beside the code.",
           "correct": false,
           "why": "A registry stores the built artifact itself, not merely metadata about it, which is exactly why losing it matters.",
           "provenance": {
@@ -944,7 +1155,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. The Docker overview describes registries as the store images are pushed to and pulled from, which is what makes a rollback a retrieval; once the image is garbage-collected the only remaining route is a rebuild from source, which is the key. o2 denies the registry ever mattered, o3 confuses a source repository (inputs) with a registry (built outputs), o4 as rewritten claims a registry stores only metadata, which the Docker overview contradicts. Each why is true.",
+        "sources_read": [
+          "https://docs.docker.com/get-started/docker-overview/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.semantic-versioning.01",
@@ -965,7 +1189,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both signal the same underlying thing, a version increase, since the position that changed is only a formatting convention., which discards the contract the scheme exists to communicate to every downstream consumer",
+          "text": "Both signal the same underlying thing, a version increase, since which position changed is only a formatting convention rather than a promise.",
           "correct": false,
           "why": "Treating the scheme as mere formatting rather than a contract is the exact error the concept exists to catch.",
           "provenance": {
@@ -1003,7 +1227,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds verbatim against semver.org: increment \"MAJOR version when you make incompatible API changes\" and \"MINOR version when you add functionality in a backward compatible manner\". o2 as rewritten denies the contract, o3 invents a registry meaning, o4 invents a rollback meaning. Neither retention nor storage is governed by the version number, so both whys are true.",
+        "sources_read": [
+          "https://semver.org/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.ci-cd-tooling.01",
@@ -1024,7 +1261,7 @@
         },
         {
           "ref": "o2",
-          "text": "Terraform is a CI server for build and test, Ansible provisions the infrastructure, and Jenkins configures hosts over SSH., swapping each tool into a role that its own design was never intended to serve",
+          "text": "Terraform is the CI server that runs build and test, Ansible provisions the infrastructure from a declaration, and Jenkins configures the hosts that already exist over SSH.",
           "correct": false,
           "why": "This is category confusion, assigning each tool to the wrong one of the three jobs it does not perform.",
           "provenance": {
@@ -1056,13 +1293,30 @@
       "rationale": "Recognition of the category each tool belongs to is what matters. Terraform provisions, Ansible configures existing hosts, and Jenkins (alongside GitHub Actions and GitLab CI) runs the pipeline's stages.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "terraform-intro",
+        "ansible-getting-started",
+        "jenkins-pipeline-doc"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.ci-cd-tooling",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing: the CNCF glossary never names Terraform, Ansible or Jenkins, so the only substantive citation did not carry the item. Replaced with the three vendors' own pages - Terraform is \"an infrastructure as code tool that lets you build, change, and version cloud and on-prem resources\" and provision them; Ansible is \"decentralized, using SSH with existing OS credentials to access remote machines\"; Jenkins Pipeline \"supports implementing and integrating continuous delivery pipelines into Jenkins\". Key content unchanged, and each of o2 (as rewritten), o3 and o4 is refuted by those three pages.",
+        "sources_read": [
+          "https://developer.hashicorp.com/terraform/intro",
+          "https://docs.ansible.com/ansible/latest/getting_started/introduction.html",
+          "https://www.jenkins.io/doc/book/pipeline/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.deployment-environments.01",
@@ -1093,7 +1347,7 @@
         },
         {
           "ref": "o3",
-          "text": "It fails to build once and deploy many, since a staging environment that differs from production clearly was built separately., since realistic data alone cannot compensate for a topology that behaves differently under load",
+          "text": "It fails to build once and deploy many, since a staging environment that differs from production in topology was clearly built separately from it.",
           "correct": false,
           "why": "Build-once concerns the artifact being promoted unchanged; the topology and configuration divergence described here is a separate failure.",
           "provenance": {
@@ -1115,13 +1369,27 @@
       "rationale": "Each environment exists to eliminate a class of defect before the next is reached, and that only works if each rung is genuinely more realistic than the last. A staging environment that diverges in topology or configuration tests a fourth environment nobody deploys to.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "twelve-factor-dev-prod-parity"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.deployment-environments",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing: the environment ladder and its parity requirement are absent from the CNCF glossary. Added twelve-factor X, \"keep development, staging, and production as similar as possible\", which names the time, personnel and tools gaps that a divergent topology and configuration mechanism reproduce. Key content unchanged. o2 confines parity to laptops, o3 misattributes the failure to build-once, o4 treats realistic data as sufficient - none is separately correct.",
+        "sources_read": [
+          "https://12factor.net/dev-prod-parity"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.blue-green-deployment.01",
@@ -1142,7 +1410,7 @@
         },
         {
           "ref": "o2",
-          "text": "Canary for the first release, since it can bound the exposure of the incompatible schema change to a small slice; blue-green for the second., which trades the incompatible schema change's protection for a database two versions would then be writing to at once",
+          "text": "Canary for the first release, since routing a small slice bounds the exposure of the incompatible schema change; blue-green for the second, since a full cutover settles it.",
           "correct": false,
           "why": "A canary briefly runs both versions against a live database, which is exactly what an incompatible schema change cannot tolerate.",
           "provenance": {
@@ -1180,7 +1448,21 @@
       "comparison_block": "cmp-devops.devops-basics.blue-green-deployment",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. CNCF blue-green: it addresses updating software \"that must be changed in \\\"lockstep\\\" owing to a lack of backwards compatibility\", with a website and an incompatible database as the worked example - the first release exactly. CNCF canary: traffic is moved gradually so organisations \"can test the new version of the software in production, get feedback, diagnose errors\" - the second release exactly. o2 (as rewritten) is refuted because a canary runs both versions against the live database at once, o3 by the mixed-version window a rolling deployment guarantees, o4 by the cost of a second environment. Each why is true.",
+        "sources_read": [
+          "https://glossary.cncf.io/blue-green-deployment/",
+          "https://glossary.cncf.io/canary-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.blue-green-deployment.02",
@@ -1221,7 +1503,7 @@
         },
         {
           "ref": "o4",
-          "text": "It still holds regardless, because the old environment is retained and untouched no matter what the new one wrote., a claim that only holds when nothing in the cutover was ever shared between the two environments",
+          "text": "It still holds regardless, because the old environment is retained and untouched no matter what the new version wrote while it was serving.",
           "correct": false,
           "why": "The old environment being untouched only protects the code path; a shared database is written to by whichever version is live.",
           "provenance": {
@@ -1233,13 +1515,28 @@
       "rationale": "A shared database that both versions must use silently removes the instant-rollback property, because switching traffic back does not un-apply a schema change or un-write rows the new version already created.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "fowler-blue-green-deployment"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.blue-green-deployment",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the shared-database limit on the near-instant rollback is not on the CNCF page, which only notes that a website and its database may have to move together. Added Fowler's BlueGreenDeployment, which describes using \"the same database, making the blue-green switches for web and domain layers\" and warns that \"databases can often be a challenge with this technique\", recommending schema changes be deployed separately so a rollback point exists. Key content unchanged. o2 conflates code and data rollback, o3 attributes a canary's traffic split to blue-green (CNCF: the entire environment is switched at once), o4 as rewritten ignores the shared store.",
+        "sources_read": [
+          "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+          "https://glossary.cncf.io/blue-green-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.canary-release.01",
@@ -1260,7 +1557,7 @@
         },
         {
           "ref": "o2",
-          "text": "The all-at-once cutover, since a canary release is only complete once every user has switched simultaneously at a single point., since both approaches ultimately move every user onto the new version once the process has fully run its course",
+          "text": "The all-at-once cutover, since a canary release is only complete once every user has been switched over simultaneously at a single point.",
           "correct": false,
           "why": "An all-at-once cutover describes blue-green; a canary is defined by gradual widening, not a single switch.",
           "provenance": {
@@ -1298,7 +1595,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF canary exists so organisations \"can test the new version of the software in production, get feedback, diagnose errors, and quickly rollback\" - widening on a fixed schedule with no measurement discards precisely that. o2 as rewritten describes a blue-green cutover, o3 describes a rolling deployment, o4 substitutes automation for evidence. No second correct option.",
+        "sources_read": [
+          "https://glossary.cncf.io/canary-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.canary-release.02",
@@ -1310,7 +1620,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A canary asks whether a new build is defective and is expected to reach every user; an A/B test asks which of two variants users prefer and is expected to end with one variant discarded.",
+          "text": "A canary asks whether a new build is defective and is expected to reach every user; an A/B test tests a hypothesis with two variant implementations and is expected to end with one of them discarded.",
           "correct": true,
           "why": "The two share a mechanism but ask different questions with different expected outcomes, which is the axis the comparison turns on.",
           "provenance": {
@@ -1319,7 +1629,7 @@
         },
         {
           "ref": "o2",
-          "text": "Nothing meaningfully separates them; a canary release is simply another name for an A/B test conducted against production infrastructure.",
+          "text": "Nothing meaningfully separates them, since a canary release is simply the name engineers use for an A/B test conducted against live production infrastructure rather than against a test environment of its own.",
           "correct": false,
           "why": "Treating them as synonyms erases the different questions each is designed to answer and the different outcome each expects.",
           "provenance": {
@@ -1351,13 +1661,28 @@
       "rationale": "Both split traffic between versions, but a canary is a health check expected to widen to 100 percent once the new build proves sound, while an A/B test is a preference experiment expected to end with the losing variant removed.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "fowler-canary-release"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.canary-release",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the CNCF glossary has no A/B testing entry, so half the key rested on nothing. Added Fowler's CanaryRelease, which states that canary and A/B testing should not be conflated: \"while canary releases are a good way to detect problems and regressions, A/B testing is a way to test a hypothesis using variant implementations\", and that a canary should complete in minutes or hours while an A/B test needs days to reach significance. The key's wording was tightened to the hypothesis-and-discard framing that source supports. o2 asserts they are synonyms, o3 gives A/B a single cutover, o4 makes its split a side effect of batch replacement - each refuted by that page or by the CNCF canary entry.",
+        "sources_read": [
+          "https://martinfowler.com/bliki/CanaryRelease.html",
+          "https://glossary.cncf.io/canary-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.rolling-deployment.01",
@@ -1378,7 +1703,7 @@
         },
         {
           "ref": "o2",
-          "text": "No, but that is expected, since a rolling deployment never allows two versions to serve traffic at the same time., since neither strategy is thought to keep two different versions running against production traffic at once",
+          "text": "No, but that is expected, since a rolling deployment never allows two different versions to serve production traffic at the same moment.",
           "correct": false,
           "why": "Both versions do serve real traffic simultaneously for the duration of the roll; that is exactly the risk the strategy carries.",
           "provenance": {
@@ -1417,7 +1742,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: the Kubernetes Deployment page advances a RollingUpdate on Pod availability alone and never evaluates application behaviour under traffic; the only failure signal it documents is progressDeadlineSeconds, which merely reports a stalled rollout in status. o2 as rewritten is false because both versions do serve traffic during the roll, o3 is false because restoring a revision is the manual kubectl rollout undo, o4 mistakes coexistence for measurement.",
+        "sources_read": [
+          "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "https://glossary.cncf.io/canary-deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.rolling-deployment.02",
@@ -1448,7 +1787,7 @@
         },
         {
           "ref": "o3",
-          "text": "RollingUpdate is the default, and Recreate is what restores a previous revision from the Deployment's retained rollout history.",
+          "text": "RollingUpdate is the default, and Recreate is the strategy that restores a previous revision from the rollout history the Deployment retains by default for exactly that purpose.",
           "correct": false,
           "why": "Restoring a previous revision describes a rollback action, not the Recreate strategy, which only governs how new Pods replace old ones.",
           "provenance": {
@@ -1477,7 +1816,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Kubernetes Deployment page verbatim: \".spec.strategy.type can be \\\"Recreate\\\" or \\\"RollingUpdate\\\". \\\"RollingUpdate\\\" is the default value\", and under Recreate \"all existing Pods are killed before new ones are created\". o2 inverts the default, o3 attributes rollback to Recreate, o4 denies Recreate's downtime - all three refuted by that page. No two options assert the same thing.",
+        "sources_read": [
+          "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.rollback.01",
@@ -1531,13 +1883,27 @@
       "source_ids": [
         "lf-objectives-2025",
         "k8s-deployment",
-        "cncf-glossary"
+        "fowler-blue-green-deployment"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.rollback",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: the code-versus-data distinction is not in the Kubernetes page or the CNCF glossary, which were the only citations. Added Fowler's BlueGreenDeployment, which treats schema change as the hard part and advises deploying a schema that supports both versions first \"so you have a rollback point\" - i.e. redeploying old code does not by itself reverse the data. Key content unchanged. o2 assumes rollback always suffices, o3 invents a wrong tag the scenario does not describe, o4 proposes a strategy change that does not touch the data.",
+        "sources_read": [
+          "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+          "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.developer-environments-and-parity.01",
@@ -1591,13 +1957,27 @@
       "source_ids": [
         "lf-objectives-2025",
         "docker-overview",
-        "cncf-glossary"
+        "twelve-factor-dev-prod-parity"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.developer-environments-and-parity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: shape-not-size parity is not in the CNCF glossary. Added twelve-factor X, which defines the gaps parity is about as time, personnel and tools - and never as capacity - alongside the Docker overview for the image pinning runtime and libraries. Key content unchanged. o2 and o3 both treat scale as part of parity, which that source does not; o4 is a true statement about artifact promotion that does not bear on a developer machine. Distinct claims throughout.",
+        "sources_read": [
+          "https://12factor.net/dev-prod-parity",
+          "https://docs.docker.com/get-started/docker-overview/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.language-package-managers.01",
@@ -1650,13 +2030,29 @@
       "rationale": "A language package manager resolves application-level dependencies for one project; the operating system's package manager installs system-wide software for the machine as a whole. The two answer different questions even though both share the word package.",
       "source_ids": [
         "lf-objectives-2025",
-        "maven-dependency-mechanism"
+        "pypa-externally-managed-environments",
+        "npm-install-locally"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.language-package-managers",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing - the known weakness recorded against this concept, confirmed. The Maven dependency-mechanism page never mentions an operating system package manager at all (its \"System Dependencies\" section is about a scope pointing at a jar path), so the application-versus-OS contrast the item turns on was cited to a document that does not make it. Replaced with the PyPA Externally Managed Environments specification, which defines a \"Python-specific package manager\" against a \"distro package manager ... capable of installing Python packages as well as non-Python packages\", and the npm local-install page, which shows an install landing in the project's own node_modules. Key content unchanged. o2 collapses the two tools, o3 substitutes a container for the install, o4 gives machine-wide software to the language manager.",
+        "sources_read": [
+          "https://packaging.python.org/en/latest/specifications/externally-managed-environments/",
+          "https://docs.npmjs.com/downloading-and-installing-packages-locally",
+          "https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.language-package-managers.02",
@@ -1677,7 +2073,7 @@
         },
         {
           "ref": "o2",
-          "text": "A missing container image, since a container is the only mechanism that can prevent two copies of a library from coexisting., since the packaging format itself looks identical regardless of which kind of manager originally installed the dependency in question",
+          "text": "A missing container image, since an isolated filesystem is the only mechanism that can prevent two copies of one library from coexisting on a machine.",
           "correct": false,
           "why": "Containers can reduce this risk, but the underlying cause is choosing the wrong manager, not the absence of a container.",
           "provenance": {
@@ -1709,13 +2105,26 @@
       "rationale": "Installing the same library through both kinds of manager is the classic failure of this boundary: two copies at different versions end up on the system, and which one an application loads depends on search order rather than intent.",
       "source_ids": [
         "lf-objectives-2025",
-        "maven-dependency-mechanism"
+        "pypa-externally-managed-environments"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.language-package-managers",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Refuted also on sourcing, for the same Maven reason as .01. The PyPA specification carries this item exactly: it exists because using Python-specific tools against a distro-managed environment \"can be confusing at best and outright break the entire underlying operating system at worst\", the two managers conflicting over the same files. Key content unchanged. o2 as rewritten misnames the cause, o3 describes what a package contains without explaining the conflict, o4 confuses manifest and lock files with cross-manager coordination.",
+        "sources_read": [
+          "https://packaging.python.org/en/latest/specifications/externally-managed-environments/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.infrastructure-as-code.01",
@@ -1736,7 +2145,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, since both approaches keep their declarations in version control and both are meant to converge toward the same eventual result., since both practices are commonly summarised the same way and the tools used for each are frequently swapped for one another in casual conversation",
+          "text": "Yes, since both approaches keep their definitions in version control and both are meant to converge on the same eventual result whenever the automation is run again from the top.",
           "correct": false,
           "why": "Being in Git is not what makes something infrastructure as code; the script here has no declared state to converge toward at all.",
           "provenance": {
@@ -1774,7 +2183,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF defines IaC as storing the definition of infrastructure as files that replace manual provisioning \"usually through shell scripts\", and its value as reproducible, converging infrastructure - a script that creates a second set of resources on a second run has no declared end state. o2 as rewritten and o3 both make version control the criterion; they are distinct claims (convergence versus review) and both false. o4 names idempotency, a separate property.",
+        "sources_read": [
+          "https://glossary.cncf.io/infrastructure-as-code/",
+          "https://glossary.cncf.io/idempotence/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.infrastructure-as-code.02",
@@ -1833,7 +2256,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. CNCF IaC is about bringing data-centre resources into existence from a stored definition; configuration management acts inside hosts that already exist, which the Ansible documentation describes as accessing remote machines over SSH to bring them to a declared state. o2 makes the line a vendor question, o3 invents trigger mechanisms, o4 claims configuration management is imperative - false, since Ansible is declarative and idempotent by design. No distractor is defensible.",
+        "sources_read": [
+          "https://glossary.cncf.io/infrastructure-as-code/",
+          "https://docs.ansible.com/ansible/latest/getting_started/introduction.html"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.idempotency-in-automation.01",
@@ -1886,13 +2323,28 @@
       "rationale": "An idempotent task checks the current state before acting; once the declared state is satisfied, a second or third run finds nothing to do. That is what makes automation safely re-runnable after an interrupted or retried run.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "ansible-getting-started"
       ],
       "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.idempotency-in-automation",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing only: CNCF idempotence is a one-line mathematical definition (\"executing an idempotent operation several times will have no additional effect\") that does not describe the check-then-act behaviour the item's scenario turns on. Added the Ansible introduction: \"when the system is in the state your playbook describes, Ansible does not change anything, even if the playbook runs multiple times\". Key content unchanged. o2 confuses idempotent with unconditional, o3 claims drift on a converged run, o4 relocates the property to the pipeline.",
+        "sources_read": [
+          "https://glossary.cncf.io/idempotence/",
+          "https://docs.ansible.com/ansible/latest/getting_started/introduction.html"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.observability.01",
@@ -1913,7 +2365,7 @@
         },
         {
           "ref": "o2",
-          "text": "It cannot happen this way, since a system with monitoring already in place is observable by definition once signals are being collected continuously.",
+          "text": "It cannot happen this way, since a system with monitoring already in place is observable by definition once signals are being collected continuously and displayed on a dashboard someone is watching.",
           "correct": false,
           "why": "Collecting quantitative signals continuously is what monitoring is; observability is a further property about answering questions nobody anticipated.",
           "provenance": {
@@ -1945,13 +2397,28 @@
       "rationale": "Monitoring watches signals chosen in advance and answers questions already known to be worth asking. Observability is the property that lets an operator answer a question nobody anticipated, without shipping new instrumentation to find out.",
       "source_ids": [
         "lf-objectives-2025",
-        "cncf-glossary"
+        "cncf-glossary",
+        "otel-observability-primer"
       ],
       "guide_anchor": "05-devops/devops-basics.md#s-devops-basics-automation",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on sourcing: CNCF calls observability a system property that yields actionable insight but never draws the pre-chosen-signals versus unforeseen-question line the key states. Added the OpenTelemetry observability primer: observability \"lets you understand a system from the outside by letting you ask questions about that system without knowing its inner workings\" and handle \"unknown unknowns\", and an application is properly instrumented \"when developers don't need to add more instrumentation to troubleshoot an issue\". Key content unchanged and now sourced clause by clause. o2 equates collection with observability, o3 substitutes alerting, o4 substitutes dashboard count.",
+        "sources_read": [
+          "https://opentelemetry.io/docs/concepts/observability-primer/",
+          "https://glossary.cncf.io/observability/"
+        ]
+      }
     },
     {
       "id": "q.devops.devops-basics.monolith-vs-microservices.01",
@@ -1972,7 +2439,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, since decomposing a monolith into services is the standard fix whenever a codebase becomes difficult to change over time., treating deployment shape as though it were interchangeable with the readability of the code that happens to live inside it",
+          "text": "Yes, since decomposing a monolith into services is the standard fix whenever a codebase has become difficult to read and to change over time, and the cost of running the extra services is repaid by how much easier each one is to reason about.",
           "correct": false,
           "why": "Splitting for readability spends operational effort on machinery that does not address a code-quality problem at all.",
           "provenance": {
@@ -2010,7 +2477,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-devops-basics",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on first pass: one distractor carried a padding clause spliced on after a sentence-final stop, leaving it ungrammatical and visibly different in shape from every other option. Rewritten as a single sentence with the same claim; re-checked after the rewrite. Key holds: CNCF microservices gives independent deployment and independent scaling as the benefit - with a sign-up surge against a monolith as its own worked example - and warns that the architecture \"creates operational overhead\". CNCF monolithic apps adds that decomposition is worth deferring until the value is proven. Neither page makes readability a reason to split, so o2 as rewritten is false; o3 and o4 raise unrelated practices. Distinct claims throughout.",
+        "sources_read": [
+          "https://glossary.cncf.io/microservices-architecture/",
+          "https://glossary.cncf.io/monolithic-apps/"
+        ]
+      }
     }
   ]
 }

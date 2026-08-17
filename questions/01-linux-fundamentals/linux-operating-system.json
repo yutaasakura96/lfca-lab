@@ -52,13 +52,28 @@
       "rationale": "The operating system is the full software layer — kernel plus userspace services and libraries — that intercepts every request an application makes so it need not address hardware directly. The kernel is that layer's most privileged component, not a synonym for the whole of it; treating the two as interchangeable is the exact trap this pairing is built to test.",
       "source_ids": [
         "lf-objectives-2025",
-        "kernel-readme"
+        "kernel-readme",
+        "man-syscalls-2"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.operating-system",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against syscalls(2): \"The system call is the fundamental interface between an application and the Linux kernel\", and system calls are \"generally not invoked directly, but rather via wrapper functions in glibc\" — the kernel supplies the lowest interface while libraries above it supply the rest, which is the key's distinction. o2/o3/o4 each state a falsehood (kernel as the source of every interface; the packager as the mediating layer; direct hardware access via an open device file) and each why is true. No two options assert the same answer. Citation fixed: man-syscalls-2 added, since kernel-readme alone does not carry the syscall/library split.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html",
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.operating-system.02",
@@ -117,7 +132,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: syscalls(2) establishes the system call as the fundamental application/kernel interface, with glibc wrappers above it — the editor calls a general interface and the layer beneath reaches the controller. o2 is false (a device path does not remove the mediating layer; the open/read/write path is still kernel-mediated per syscalls(2)); o3 is false (drivers are not linked by applications, and no kernel contains a driver for every model in advance); o4 is false (controllers still require drivers). Each why states a true fact. No duplicate assertions.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html",
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.kernel.01",
@@ -177,7 +206,21 @@
       "comparison_block": "cmp-linux.linux-operating-system.kernel",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against the kernel README: Linux \"has all the features you would expect in a modern fully-fledged Unix, including true multitasking, virtual memory, ... proper memory management\", i.e. scheduling and memory management are kernel properties, and syscalls(2) makes the kernel the privileged side of the boundary. o2 conflates OS and kernel; o3 misstates init as the scheduler (it is an ordinary process the kernel schedules); o4 misstates the shell. All whys true; options mutually exclusive.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.kernel.02",
@@ -238,7 +281,20 @@
         "uname -r"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against uname(1): \"-r, --kernel-release  print the kernel release\". o2 is a true statement about `uname -a` (\"-a, --all  print all information\") but does not isolate the release, and the stem asks which command reports the exact release string — the why says exactly that, so o2 is a near-miss rather than a second correct answer to the question as posed. o3 (/etc/os-release reports distribution identity, per os-release(5) \"Operating system identification\") and o4 (lsmod lists modules) are false. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uname.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.kernel-space-vs-user-space.01",
@@ -269,9 +325,9 @@
         },
         {
           "ref": "o3",
-          "text": "Yes, but only while the process is actively performing a privileged system call on the kernel's behalf, since that is when its instructions actually run with elevated rights.",
+          "text": "Yes — running as root places the process in the kernel's own address space, so it can reach kernel memory directly without going through a system call.",
           "correct": false,
-          "why": "A system call is the controlled crossing point into kernel space performed by the kernel on the process's behalf; the calling process itself never migrates into that execution mode.",
+          "why": "Every user-space process, root included, runs in its own address space with kernel memory unreachable from it; that is why even a root process must issue a system call to have the kernel act on its behalf.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.linux-operating-system.system-call"
@@ -292,13 +348,27 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-syscalls-2",
-        "kernel-license-rules"
+        "man-credentials-7"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.kernel-space-vs-user-space",
       "comparison_block": "cmp-linux.linux-operating-system.kernel-space-vs-user-space",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then repaired. Two defects. (1) o3 previously read \"Yes, but only while the process is actively performing a privileged system call ... that is when its instructions actually run with elevated rights\", which is defensible under the standard reading that a thread executes in kernel mode for the duration of a system call — a second arguably-correct option — and its why (\"the calling process itself never migrates into that execution mode\") states a falsehood, since the syscall is a synchronous mode switch in the same task. o3 and its why were rewritten to an unambiguously false claim about address spaces. (2) kernel-license-rules was cited for an execution-mode claim; that document covers SPDX licensing only and contains nothing about kernel space, user space or privileges — replaced with credentials(7), which defines root as a process UID credential, exactly the key's point. Key confirmed: root is a user-space credential, and syscalls(2) makes the system call the interface across the boundary. o2 and o4 false, whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html",
+          "https://man7.org/linux/man-pages/man7/credentials.7.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.kernel-space-vs-user-space.02",
@@ -351,13 +421,28 @@
       "rationale": "The CPU provides hardware privilege levels; ordinary processes run in a restricted one and cannot execute privileged instructions or touch arbitrary memory directly. A process must ask the kernel through a system call, and the CPU — not a software policy alone — enforces that boundary.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-syscalls-2"
+        "man-syscalls-2",
+        "man-signal-7"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.kernel-space-vs-user-space",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against signal(7), which describes SIGSEGV as generated \"as a consequence of executing a specific machine-language instruction that triggered a hardware exception (e.g., SIGSEGV for an invalid memory access)\" — the failure is a hardware fault, not a software policy check, which is precisely what the key asserts. Citation fixed: man-signal-7 added, since syscalls(2) does not discuss memory protection. o2 (file permission checks) is false — this is not a file operation; o3 misattributes the enforcement to a driver-like kernel process; o4 denies hardware enforcement, which signal(7) contradicts. Whys true; no duplicate assertions.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/signal.7.html",
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.system-call.01",
@@ -416,7 +501,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against syscalls(2): \"The system call is the fundamental interface between an application and the Linux kernel\", with library wrapper functions in glibc sitting above it and not crossing that boundary. o2 (speed, shell overhead), o3 (programming language) and o4 (no distinction) are each false, and each why states a true fact. Options are mutually exclusive.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.shell.01",
@@ -457,9 +555,9 @@
         },
         {
           "ref": "o4",
-          "text": "`$SHELL` always reports the shell that is actually running right now, so the two questions are the same.",
+          "text": "`echo $0`, which prints the name of the shell program the user is talking to at this prompt.",
           "correct": false,
-          "why": "The guide's own trap: `$SHELL` reports the configured login shell, which can differ from the shell currently running if it was overridden after login.",
+          "why": "`$0` names the shell that is currently running, which need not be the login shell configured for the account — bash(1) defines SHELL as \"the full pathname of the current user's login shell\", which is what the question asks for.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:linux.linux-operating-system.shell"
@@ -477,7 +575,20 @@
         "echo $SHELL"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then repaired. The key is correct against bash(1): \"SHELL  This variable expands to the full pathname to the shell. If it is not set when the shell starts, bash assigns to it the full pathname of the current user's login shell.\" But o4 was not a command at all — it was a bare assertion about `$SHELL` — while the stem asks \"which command reports it\" and o1/o2/o3 are all commands. That shape made o4 eliminable on sight without knowing anything about shells. o4 was rewritten as `echo $0`, a real command that reports the running shell rather than the configured login shell, preserving the item's intended trap while making the distractor indistinguishable from the key on form. o2 (PATH) and o3 (lsblk) are false; whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.shell.02",
@@ -536,7 +647,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against bash(1) COMMAND EXECUTION: \"the shell searches for it in the list of shell builtins. If a match is found, that builtin is invoked. If the name is neither a shell function nor a builtin, and contains no slashes, bash searches each element of the PATH\" — `cd` is listed under SHELL BUILTIN COMMANDS, so no PATH entry exists for an external `which` to find. o2 (terminal caching) is false: the terminal renders, it does not intercept execution; o3 is false because no `cd` binary exists to be missing from PATH; o4 is false — `which` behaves as designed. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.terminal.01",
@@ -595,7 +719,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against bash(1) JOB CONTROL: \"Members of the foreground process group (processes whose process group ID is equal to the current terminal process group ID) receive keyboard-generated signals such as SIGINT\" — Ctrl-C reaches the hung foreground command, which is the fix the key names, and the terminal is a separate program from the shell throughout bash(1). o2 equates terminal and shell (false), o3 invents a kernel scheduling failure where blocking on network I/O is ordinary, o4 restates the conflation. Whys true; no two options assert the same answer (o2 and o4 both answer \"Yes\" but on different grounds — same-thing-by-definition versus symptom-based — and are separately refutable).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.terminal.02",
@@ -648,13 +785,28 @@
       "rationale": "The terminal, historically a physical device, is today usually a terminal emulator window or a remote session over SSH. It manages display and input and hands typed input to whatever program it launched — usually a shell — over a pseudo-terminal device.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-bash-1"
+        "man-bash-1",
+        "openssh-ssh-manpage"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.terminal",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. man-bash-1 was the only technical source cited, and bash(1) does not contain the string \"ssh\" anywhere — it carries nothing about remote sessions or pseudo-terminals. ssh(1) was added: it documents \"-T Disable pseudo-terminal allocation. -t Force pseudo-terminal allocation\", establishing that the SSH client requests a pty and carries the session rather than interpreting commands. Key confirmed on that basis. o2 (SSH as the shell) is false — the remote shell interprets; o3 (SSH as the kernel) is false; o4 is a sharp near-miss but self-refuting as an answer, since it concedes the pty is a kernel object rather than the role the session fills. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/ssh.1.html",
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.everything-is-a-file.01",
@@ -708,13 +860,28 @@
       "source_ids": [
         "lf-objectives-2025",
         "kernel-readme",
-        "fhs-3.0"
+        "fhs-3.0",
+        "man-proc-5"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.everything-is-a-file",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. FHS 3.0 supports the claim only through its section title \"6.1.5. /proc : Kernel and process information virtual filesystem\", and kernel-readme says nothing about /proc at all; proc(5) was added as the source that actually describes /proc as a pseudo-filesystem presenting kernel data structures through ordinary file operations. Key confirmed on that basis. o2 is false — /proc/cpuinfo is machine-wide, not per-user; o3 names the wrong principle (the boundary explains why a system call is needed, not why a path exists); o4 is false — /proc is generated on read, not written to disk at boot. Whys true.",
+        "sources_read": [
+          "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html",
+          "https://man7.org/linux/man-pages/man5/proc.5.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.everything-is-a-file.02",
@@ -768,13 +935,28 @@
       "source_ids": [
         "lf-objectives-2025",
         "kernel-readme",
-        "fhs-3.0"
+        "fhs-3.0",
+        "man-syscalls-2"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.everything-is-a-file",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: FHS 3.0 lists \"3.6. /dev : Device files\" alongside the ordinary file hierarchy, and syscalls(2) establishes open/read/write as the same system-call interface in both cases. Citation fixed: man-syscalls-2 added for the \"same system calls\" half of the key, which neither FHS nor the kernel README carries. o2 pairs two ordinary files; o3 compares a path with a command's output; o4 pairs two configuration files — none illustrates a non-file reached through the file interface. Whys true; options distinct.",
+        "sources_read": [
+          "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html",
+          "https://man7.org/linux/man-pages/man2/syscalls.2.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.multi-user-and-multitasking.01",
@@ -827,13 +1009,28 @@
       "rationale": "Linux is designed to run many users and many processes concurrently, each isolated from the others by the kernel. Process ownership and permission checks are what let identically named processes coexist safely, whoever launched them.",
       "source_ids": [
         "lf-objectives-2025",
-        "kernel-readme"
+        "kernel-readme",
+        "man-credentials-7"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.multi-user-and-multitasking",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: the kernel README credits Linux with \"true multitasking\" and \"proper memory management\", and credentials(7) documents the per-process user and group IDs that keep two users' processes apart. Citation fixed: man-credentials-7 added for the ownership half. o2 is false — shells do not rename running processes, and identity is by PID; o3 is false — one kernel is shared by all users on a standard multi-user system; o4 is false — both processes genuinely run, time-sliced. Whys true.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
+          "https://man7.org/linux/man-pages/man7/credentials.7.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.multi-user-and-multitasking.02",
@@ -886,13 +1083,28 @@
       "rationale": "Every permission model in this domain rests on the assumption that many users and processes run concurrently, isolated by the kernel. Process ownership — not the program's name — is what a signal's permission check is actually evaluated against.",
       "source_ids": [
         "lf-objectives-2025",
-        "kernel-readme"
+        "man-kill-2",
+        "man-credentials-7"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.multi-user-and-multitasking",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. kernel-readme was cited for a signal-delivery permission rule it does not contain — the README lists kernel features and says nothing about signals or ownership checks. kill(2) was added and states the rule directly: \"For a process to have permission to send a signal, it must either be privileged (under Linux: have the CAP_KILL capability) ... or the real or effective user ID of the sending process must equal the real or saved set-user-ID of the target process.\" Key confirmed on that basis. o2 (PATH routing a signal) is false; o3 is false — kill(2) targets a PID, not a program name; o4 is false — the permission check is deterministic, not a race. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/kill.2.html",
+          "https://man7.org/linux/man-pages/man7/credentials.7.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.linux-distribution.01",
@@ -923,7 +1135,7 @@
         },
         {
           "ref": "o3",
-          "text": "`uname -a`, which prints a full summary that includes the operating system name field., a related but functionally different command whose behaviour does not match what the scenario is actually asking for",
+          "text": "`uname -a`, which prints a full summary line ending with the operating system name.",
           "correct": false,
           "why": "It can include an OS name field on some builds, but it does not report the distribution's specific identity the way `/etc/os-release` does.",
           "provenance": {
@@ -953,7 +1165,21 @@
         "cat /etc/os-release"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then repaired. o3 carried surviving template residue from the answer-length rewrite: it ended \"...operating system name field., a related but functionally different command whose behaviour does not match what the scenario is actually asking for\" — meta-commentary describing the option's role as a distractor, plus a stray \"., \". A candidate could eliminate it on sight without knowing anything about uname. The trailing clause and the stray punctuation were removed; the remaining claim is true per uname(1) (\"-a, --all print all information\", \"-o, --operating-system print the operating system\"), which keeps it a genuine near-miss. Key confirmed against os-release(5): the file contains \"operating system identification data\" and defines ID= as \"suitable for processing by scripts\", exactly what the scenario needs. o2 and o4 false; whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/os-release.5.html",
+          "https://man7.org/linux/man-pages/man1/uname.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.linux-distribution.02",
@@ -1007,13 +1233,28 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-os-release-5",
-        "gnu-linux-and-gnu"
+        "gnu-linux-and-gnu",
+        "archwiki-arch-linux"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.linux-distribution",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: os-release(5) defines ID= as the identity of one specific operating system and ID_LIKE= as the related-distribution list, which is precisely the singular-versus-lineage distinction the key draws. Citation fixed: archwiki-arch-linux added, because o3's why asserts Arch has a family of its own built around pacman and a rolling model, and the ArchWiki page states \"Arch is a rolling-release model backed by pacman\"; nothing previously cited carried that. o2 (kernel version determines both) is false, o3 is false, o4 is false. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/os-release.5.html",
+          "https://wiki.archlinux.org/title/Arch_Linux"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.distribution-families.01",
@@ -1067,13 +1308,28 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-os-release-5",
-        "archwiki-arch-linux"
+        "dnf-command-ref",
+        "man-rpm-8"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.distribution-families",
       "comparison_block": "cmp-linux.linux-operating-system.distribution-families",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. archwiki-arch-linux was cited for a Fedora/dnf/rpm claim; the ArchWiki Arch Linux page contains nothing about Fedora, dnf or rpm. Replaced with dnf-command-ref and man-rpm-8, the primary documentation for the Red Hat family's manager and format; os-release(5) carries ID=fedora as the machine-readable identity. Key confirmed. o2 (apt/.deb) is false; o3 is a well-built near-miss — zypper is genuinely rpm-based, but it is SUSE tooling, not what a Fedora system ships, so it is not a second correct answer; o4 is false — the shipped manager is fixed by the distribution. Whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/os-release.5.html",
+          "https://wiki.archlinux.org/title/Arch_Linux"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.distribution-families.02",
@@ -1126,14 +1382,28 @@
       "rationale": "CentOS Stream is not CentOS Linux — it is a rolling preview of upcoming RHEL, not the discontinued fixed-release CentOS Linux. Rocky Linux exists specifically as CentOS Linux's downstream, fixed-release replacement.",
       "source_ids": [
         "lf-objectives-2025",
-        "archwiki-arch-linux",
-        "ubuntu-release-cycle"
+        "redhat-centos-stream",
+        "rocky-linux-about"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.distribution-families",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. The item cited archwiki-arch-linux and ubuntu-release-cycle for a claim entirely about CentOS Stream and Rocky Linux; neither page mentions either product. Replaced with Red Hat's own page — \"CentOS Stream is a Linux distribution where open source community members can develop, test, and contribute to a continuously delivered distribution upstream for Red Hat Enterprise Linux\" — and Rocky Linux's About page, which records that Red Hat \"would discontinue development of CentOS, which has been a production-ready downstream version of Red Hat Enterprise Linux, in favor of ... CentOS Stream\" and that Rocky was started in response. Key confirmed on both halves. o2, o3 (Stream never switched to apt) and o4 are false; whys true.",
+        "sources_read": [
+          "https://www.redhat.com/en/topics/linux/what-is-centos-stream",
+          "https://rockylinux.org/about"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.lts-vs-rolling-release.01",
@@ -1192,7 +1462,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against Ubuntu's release-cycle page: \"LTS are released every two years and receive 5 years of standard security maintenance ... security maintained for 5 years with CVE patches for packages in the Main repository. They are recommended for production environments\" — security patches into an otherwise fixed release, which is exactly the stability property the scenario requires. o2 inverts the trade-off; o3 conflates family with release policy, and the why is true (Ubuntu ships both LTS and interim releases); o4 is false — a rolling release has no freeze. Whys true.",
+        "sources_read": [
+          "https://ubuntu.com/about/release-cycle"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.lts-vs-rolling-release.02",
@@ -1245,13 +1528,28 @@
       "rationale": "Rolling releases ship continuously with no version to freeze, trading stability for currency. That currency has to be actively managed, which is the real cost against an LTS track that changes only on a scheduled, security-focused basis.",
       "source_ids": [
         "lf-objectives-2025",
-        "archwiki-arch-linux"
+        "archwiki-arch-linux",
+        "ubuntu-release-cycle"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.lts-vs-rolling-release",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against the ArchWiki: \"Arch is a rolling-release model backed by pacman ... that allows for continuously upgrading the entire system with one command\" — updates arrive continuously rather than on a cadence. Citation fixed: ubuntu-release-cycle added so the contrasting scheduled cadence (\"LTS are released every two years\") is sourced too, rather than resting on the guide. o2 is false — support windows are an LTS-track concept; o3 is false, and its why is confirmed by the ArchWiki, which ties pacman to the distribution rather than to the release model; o4 denies a trade-off that both sources make plain. Whys true.",
+        "sources_read": [
+          "https://wiki.archlinux.org/title/Arch_Linux",
+          "https://ubuntu.com/about/release-cycle"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.gnu-and-the-linux-kernel.01",
@@ -1304,13 +1602,28 @@
       "rationale": "Linux, strictly, is the kernel Linus Torvalds began in 1991. Most Linux userlands trace to the GNU Project, which is why the pairing is sometimes called GNU/Linux — but not every Linux system has a GNU userland, so the two phrases are not interchangeable.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-linux-and-gnu"
+        "gnu-linux-and-gnu",
+        "gnu-android-freedom"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.gnu-and-the-linux-kernel",
       "comparison_block": "cmp-linux.linux-operating-system.gnu-and-the-linux-kernel",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. The key's why turns on Android as the counter-example, and gnu-linux-and-gnu — the only source cited for it — never mentions Android (zero occurrences in the page). Added gnu-android-freedom, which states it directly: \"Android is very different from the GNU/Linux operating system because it contains very little of GNU. Indeed, just about the only component in common between Android and GNU/Linux is Linux, the kernel.\" Key confirmed. o2 is false — the same page describes Android's userland as Google-developed libraries and a Java platform, not GNU; o3 is false — gnu-linux-and-gnu describes GNU as concrete software (\"a C compiler\", a text editor, the GNU C library, even GNU Chess), not a licence category; o4 invents a Linux Foundation certification requirement that does not exist. Whys true.",
+        "sources_read": [
+          "https://www.gnu.org/gnu/linux-and-gnu.html",
+          "https://www.gnu.org/philosophy/android-and-users-freedom.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.gnu-and-the-linux-kernel.02",
@@ -1333,7 +1646,7 @@
           "ref": "o2",
           "text": "A complete operating system including its own kernel, which Linux later replaced for better overall performance.",
           "correct": false,
-          "why": "GNU had no kernel of its own at the time; Linux did not replace an existing GNU kernel, it filled the one piece GNU was missing.",
+          "why": "GNU had no working free kernel at that point — it had started one, the GNU Hurd, but that kernel did not run reliably until 2001 — so Linux filled a gap rather than replacing a functioning GNU kernel.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "linux.linux-operating-system.kernel"
@@ -1364,13 +1677,29 @@
       "source_ids": [
         "lf-objectives-2025",
         "gnu-linux-and-gnu",
-        "kernel-readme"
+        "kernel-readme",
+        "gnu-bash-manual",
+        "gnu-coreutils-manual"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.gnu-and-the-linux-kernel",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then repaired. o2's why asserted \"GNU had no kernel of its own at the time\", which the cited source contradicts on its face: \"We had also started a kernel, the GNU Hurd, which runs on top of Mach. Developing this kernel has been a lot harder than we expected; the GNU Hurd started working reliably in 2001.\" A distractor's why must state a true fact; this one was false against the very page cited. Rewritten to say GNU had no working free kernel and to name the Hurd. Key confirmed: \"By the early 90s we had put together the whole system aside from the kernel\", and the same page confirms the compiler (\"It was not a project to develop a C compiler, although we did that\"); gnu-bash-manual and gnu-coreutils-manual were added to source the shell and core utilities, and the kernel README supplies the GPL half (\"It is distributed under the GNU General Public License v2\"). o3 and o4 remain false; their whys are true.",
+        "sources_read": [
+          "https://www.gnu.org/gnu/linux-and-gnu.html",
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.linux-history.01",
@@ -1382,9 +1711,9 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Torvalds and the kernel's maintainer hierarchy set technical direction; the Linux Foundation sponsors and hosts development infrastructure and funds core maintainers, an organisational role rather than a technical one.",
+          "text": "Torvalds and the kernel's maintainer hierarchy set technical direction; the Linux Foundation supplies the technical, financial and staffing support behind the project's infrastructure, an organisational role rather than a technical one.",
           "correct": true,
-          "why": "The guide draws this distinction directly: governance stays with the maintainer hierarchy, sponsorship and hosting sit with the Foundation.",
+          "why": "Subsystem maintainers merge patches and Torvalds closes each merge window, while the Foundation manages the Linux Kernel Organization and keeps the infrastructure running.",
           "provenance": {
             "kind": "key"
           }
@@ -1423,14 +1752,29 @@
       "rationale": "Kernel development runs through a maintainer hierarchy escalating to Torvalds. The Linux Foundation provides infrastructure, funding, and trademark stewardship — sponsorship and hosting, not technical governance.",
       "source_ids": [
         "lf-objectives-2025",
-        "kernel-readme",
-        "lf-about"
+        "kernel-org-about",
+        "kernel-development-process"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.linux-history",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED then repaired — the dominant defect of this pass. The item cited lf-about for the Foundation's role, and that page is marketing copy: it contains no occurrence of \"Torvalds\", \"maintainer\", \"fund\" or \"hosts\". Its only relevant phrase is \"Neutral home for code and collaboration\". kernel-readme carries nothing on governance either. Replaced with kernel.org's About page — \"The Linux Kernel Organization is managed by The Linux Foundation, which provides full technical, financial and staffing support for running and maintaining the kernel.org infrastructure\" — and the kernel development-process guide, which describes subsystem maintainers accepting patches into their trees and \"Linus Torvalds will declare that the window is closed and release the first of the rc kernels\". The key's unsourceable specific (\"funds core maintainers\") was replaced with the sourced formulation, which makes the same organisational-not-technical point. Key confirmed. o2, o3 (the development-process guide shows a maintainer hierarchy beneath Torvalds) and o4 are false; whys true.",
+        "sources_read": [
+          "https://www.linuxfoundation.org/about",
+          "https://www.kernel.org/category/about.html",
+          "https://docs.kernel.org/process/2.Process.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.linux-history.02",
@@ -1453,7 +1797,7 @@
           "ref": "o2",
           "text": "1991, as an official Linux Foundation project from its founding.",
           "correct": false,
-          "why": "The Linux Foundation did not exist in 1991; it was founded later and took on a sponsoring role after the kernel was already an established open project.",
+          "why": "In 1991 the kernel was Torvalds's own project, released under his personal copyright notice; the Linux Foundation came later and took a sponsoring role once the project was already established.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.linux-operating-system.linux-history"
@@ -1463,7 +1807,7 @@
           "ref": "o3",
           "text": "1983, as part of the GNU Project's effort to build a complete free Unix-like system.",
           "correct": false,
-          "why": "1983 is when the GNU Project itself began; Linux started later, in 1991, as the missing kernel piece GNU still lacked.",
+          "why": "1983 belongs to the GNU Project's beginnings, not to Linux; GNU had assembled the whole system apart from a kernel by the early 90s, and that is the gap Linux filled.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.linux-operating-system.gnu-and-the-linux-kernel"
@@ -1484,13 +1828,29 @@
       "source_ids": [
         "lf-objectives-2025",
         "kernel-readme",
-        "lf-about"
+        "linux-relnotes-0-01",
+        "gnu-linux-and-gnu"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.linux-history",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on citation, then repaired. Nothing cited stated 1991: the kernel README gives no year, lf-about gives none, and gnu-linux-and-gnu says \"Once Torvalds freed Linux in 1992\" (the relicensing), which would actively mislead a reader checking the key. Added the Linux 0.01 release notes from the kernel.org historic archive, which carry \"This kernel is (C) 1991 Linus Torvalds\" and describe \"a free minix-like kernel for i386(+) based AT-machines\" — the founding year and the capacity, both primary. Key confirmed. o2 and o3 whys were rewritten to rest on sourced facts (the 1991 personal copyright notice; gnu-linux-and-gnu's \"By the early 90s we had put together the whole system aside from the kernel\") rather than on unsourced dates. o4 is false — the record is unambiguous. Whys true.",
+        "sources_read": [
+          "https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01",
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
+          "https://www.gnu.org/gnu/linux-and-gnu.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.unix-heritage-and-posix.01",
@@ -1550,7 +1910,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against the kernel README, which states verbatim: 'Linux is a clone of the operating system Unix, written from scratch by Linus Torvalds... It aims towards POSIX and Single UNIX Specification compliance.' No distractor is also correct: o2 confuses licensing with runtime behaviour (the same README records the GPLv2 release separately from the POSIX aim), o3 is false because Unix-like systems run different kernels, and o4 is false because portability follows from shared conformance rather than from scripts being intrinsically portable. Each why states a true fact.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.open-source-licensing-of-linux.01",
@@ -1609,7 +1983,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim: the kernel licensing rules page opens 'The Linux Kernel is provided under the terms of the GNU General Public License version 2 only (GPL-2.0)... with an explicit syscall exception'. That same page shows 'GPL-2.0+' as the distinct 'or later' identifier, which is what o3 wrongly claims for the kernel, and lists the compatible licences a file may carry, none of which lets a distribution relicense the kernel as o4 claims. o2 is false — the kernel is not MIT. Every why states a true fact.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/process/license-rules.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.open-source-licensing-of-linux.02",
@@ -1668,7 +2055,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: the licensing rules page states the kernel is under GPL-2.0 and that individual files must carry GPL-compatible licences, and GPLv2's copyleft obligation (derivative stays GPLv2, source made available to recipients) is what the page's whole annotation regime exists to keep unambiguous. No distractor is defensible: GPLv2 does impose a source obligation (o2 false), does permit commercial redistribution (o3 false), and requires source to recipients rather than upstream contribution (o4 false). All three whys are true.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/process/license-rules.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.cpu.01",
@@ -1689,9 +2089,9 @@
         },
         {
           "ref": "o2",
-          "text": "`lscpu`, whose default summary reports the full installed CPU topology rather than what is available to the caller.",
+          "text": "`lscpu`, whose `CPU(s):` summary line gives the number of processing units the job can actually use.",
           "correct": false,
-          "why": "`lscpu` formats the machine's overall topology; it does not account for a cgroup or affinity restriction on the calling process the way `nproc` does.",
+          "why": "`lscpu` reports the machine’s CPU topology from sysfs and /proc/cpuinfo; its `CPU(s)` count does not account for a cgroup or affinity restriction on the calling process, which is what `nproc` reports.",
           "provenance": {
             "kind": "variant",
             "command": "lscpu"
@@ -1721,7 +2121,8 @@
       "rationale": "`nproc` reports processing units currently available to the calling process, which can be fewer than the physical total under cgroup or affinity constraints. `lscpu` describes the machine's overall topology instead.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-lscpu-1"
+        "man-lscpu-1",
+        "man-nproc-1"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.cpu",
       "comparison_block": null,
@@ -1729,7 +2130,21 @@
         "nproc"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass, then fixed and re-checked. Two defects. (1) Citation: the item cited only lscpu(1), which does not document `nproc` at all; nproc(1) was registered as man-nproc-1 and added, and it states verbatim 'Print the number of processing units available to the current process, which may be less than the number of online processors', which is exactly the key. (2) Shape: o2 originally read '...reports the full installed CPU topology rather than what is available to the caller', announcing its own wrongness so it could be eliminated without knowing anything; it was rewritten to assert that lscpu's `CPU(s):` line gives what the job can use, which is a genuine misreading rather than a giveaway. o3 (`free -h`) and o4 remain wrong: nproc(1) documents '--all print the number of installed processors, disregarding any OpenMP environment variables, or CPU quotas', so plain nproc and `nproc --all` are not interchangeable. All whys true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/nproc.1.html",
+          "https://man7.org/linux/man-pages/man1/lscpu.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.cpu.02",
@@ -1786,9 +2201,24 @@
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.cpu",
       "comparison_block": null,
-      "commands_covered": [],
+      "commands_covered": [
+        "lscpu"
+      ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against lscpu(1), whose DESCRIPTION says the output 'includes, for example, the number of CPUs, threads, cores, sockets', i.e. those are separate reported quantities, and whose -y option contrasts logical IDs assigned by lscpu with platform physical IDs. 16 logical processors on 8 SMT cores is therefore expected and the 'CPU(s)' figure is not a physical-core count, so o2 is false; o3 (two architectures) and o4 (a fault, or sockets) are false, and each why states a true fact.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/lscpu.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.ram.01",
@@ -1821,7 +2251,7 @@
           "ref": "o3",
           "text": "'used', since a large 'used' figure always means the system is close to the OOM killer no matter the surrounding context.",
           "correct": false,
-          "why": "'used' in `free`'s output already excludes reclaimable cache and is the honest figure, but a large value alone does not by itself confirm OOM proximity without checking swap.",
+          "why": "`free` calculates `used` as total minus available, so it does already exclude reclaimable memory, but a large `used` value on its own does not establish that the system is near an OOM kill.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.linux-operating-system.system-information-commands"
@@ -1849,7 +2279,20 @@
         "free -h"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim from free(1): 'available — Estimation of how much memory is available for starting new applications, without swapping. Unlike the data provided by the cache or free fields, this field takes into account page cache and also that not all reclaimable memory slabs will be reclaimed'. No distractor is also correct. o3's why was tightened: free(1) defines 'used' as 'total - available', so it does already exclude reclaimable memory, but the original why called it 'the honest figure', which competes with the key; it now states the arithmetic and why a large used value alone proves nothing.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/free.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.ram.02",
@@ -1902,13 +2345,28 @@
       "rationale": "When RAM is exhausted, the kernel either swaps pages to disk, slowing sharply, or under severe pressure invokes the OOM killer to terminate a process and reclaim memory — which explains an abrupt termination with no corresponding application-level warning.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-free-1"
+        "man-free-1",
+        "man-proc-pid-oom-score"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.ram",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass for a citation defect, then fixed and re-checked. The item cited only free(1), which never mentions the OOM killer — free(1) documents memory columns and nothing about process termination. proc_pid_oom_score(5) was added: it states the file 'displays the current score that the kernel gives to this process for the purpose of selecting a process for the OOM-killer', which establishes the kernel-initiated killing mechanism the key names. Key correct; o2 (swap exhaustion destroying the device), o3 (scheduler starvation terminating a process) and o4 (Linux never kills processes) are all false, and their whys are true.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/free.1.html",
+          "https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.storage-devices.01",
@@ -1969,7 +2427,20 @@
         "lsblk"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed from lsblk(8): 'By default, the command prints all block devices (except RAM disks) in a tree-like format', with the tree enabled when the NAME column is present — so sda1 nested under sda is a partition of that disk, and acting on it as the whole disk targets the wrong device. o2 (reboot loss) is false for a block device, o4 (identical contents) is false, and o3's why is true: lsblk's --fs output adds filesystem type and UUID that the default columns omit.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/lsblk.8.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.storage-devices.02",
@@ -2029,7 +2500,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct: lsblk(8) is explicitly about 'block devices' read from sysfs and the udev db, and free(1) is about physical and swap memory, so the block-addressed-through-a-driver half of the key is directly sourced. NOTE (recorded as a finding): neither cited man page states that RAM is volatile or byte-addressable; that half of the key rests on the objectives-level description alone. The claim is true and was not weakened to match the thin citation. No distractor is also correct — o2 collapses the distinction, o3 and o4 both misattribute the difference to kernel involvement, which is false in both directions.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "https://man7.org/linux/man-pages/man1/free.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.cpu-architecture.01",
@@ -2050,9 +2535,9 @@
         },
         {
           "ref": "o2",
-          "text": "`uname -r`, since it is the same command and any option returns comparable system information., a command from the same family that solves an adjacent problem rather than the one described in the scenario",
+          "text": "`uname -r`, whose kernel release string identifies the platform the container image must match.",
           "correct": false,
-          "why": "`-r` reports kernel release, a version string, not the hardware architecture; confusing the two options answers a different question than the one asked.",
+          "why": "`-r` reports the kernel release, a version string, not the machine hardware name; it answers a different question than the one the pipeline asked.",
           "provenance": {
             "kind": "variant",
             "command": "uname -r"
@@ -2060,9 +2545,9 @@
         },
         {
           "ref": "o3",
-          "text": "`lscpu`, since architecture information never appears anywhere in its output at all.",
+          "text": "`lscpu`, whose `Architecture:` line is the only place the system exposes the instruction set.",
           "correct": false,
-          "why": "`lscpu` does include architecture in its summary, but the task specifically calls for the machine hardware name via `uname -m`, the concept's own recorded command.",
+          "why": "`lscpu` does report an `Architecture:` line, but it is not the only place: `uname -m` prints the machine hardware name directly, which is the field the task calls for.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.linux-operating-system.cpu"
@@ -2082,7 +2567,8 @@
       "rationale": "`uname -m` reports the machine hardware name via its `-m` option, distinct from `-r`'s kernel release. `arch` reports the same value as a thin wrapper, so the two commands do not disagree on Linux.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-uname-1"
+        "man-uname-1",
+        "man-arch-1"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.cpu-architecture",
       "comparison_block": null,
@@ -2091,7 +2577,22 @@
         "arch"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass, then fixed and re-checked. o2 still carried a residue of the template-clause defect this file is known for: it ended '...comparable system information., a command from the same family that solves an adjacent problem rather than the one described in the scenario' — meta-commentary describing the distractor's role, complete with a stray comma after the full stop. The repair claimed for this file did NOT hold here. o2 was rewritten to a plain wrong answer about the kernel release string. o3 was also rewritten: it previously claimed architecture 'never appears anywhere' in lscpu output, which is false and which its own why conceded; it now overclaims that lscpu's Architecture line is the only place, which is wrong for the stated reason. Key confirmed from uname(1): '-m, --machine print the machine hardware name' versus '-r, --kernel-release print the kernel release'. o4's why confirmed from arch(1), whose NAME line is 'arch - print machine hardware name (same as uname -m)'; arch(1) was registered as man-arch-1 and added, since uname(1) does not document arch.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uname.1.html",
+          "https://man7.org/linux/man-pages/man1/arch.1.html",
+          "https://man7.org/linux/man-pages/man1/lscpu.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.cpu-architecture.02",
@@ -2132,9 +2633,9 @@
         },
         {
           "ref": "o4",
-          "text": "The error is unrelated to architecture, since containers are architecture-independent by design entirely, according to this claim.",
+          "text": "The error is unrelated to architecture, since container images are built to run on any host platform by design.",
           "correct": false,
-          "why": "Container images and binaries are architecture-specific; one built for one instruction set will not run natively on another without emulation, which is exactly this failure.",
+          "why": "Container images and the binaries inside them are architecture-specific; one built for one instruction set will not run natively on another without emulation, which is exactly this failure.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:linux.linux-operating-system.cpu-architecture"
@@ -2151,7 +2652,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass for a shape defect, then fixed and re-checked. o4 ended '...architecture-independent by design entirely, according to this claim' — a template residue that flags the option as the one being asserted rather than believed, eliminable on sight; it was rewritten to a plain false claim about container portability. Key correct: uname(1) documents -m as the machine hardware name, so aarch64 versus an amd64-targeted image is an instruction-set mismatch, and the kernel README's account of Linux as a portable Unix clone does not make binaries architecture-neutral. o2 and o3 remain wrong and their whys are true — a kernel version mismatch would be uname -r, a different field.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uname.1.html",
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.device-drivers-and-kernel-modules.01",
@@ -2215,7 +2730,22 @@
         "modprobe"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed. lsmod(8): 'lsmod is a trivial program which nicely formats the contents of the /proc/modules, showing what kernel modules are currently loaded' — loaded modules only, so a built-in driver cannot appear there, which is exactly the trap the key names. o3's why is confirmed by modprobe(8), which resolves dependencies (--show-depends lists 'the dependencies of a module (or alias), including the module itself') where insmod inserts exactly the file named. o2 and o4 are false; every why states a true fact.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/lsmod.8.html",
+          "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.device-drivers-and-kernel-modules.02",
@@ -2275,7 +2805,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct. The Kconfig language page states that tristate symbols carry 'one more state than normal boolean logic to express the module state' and uses FOO=y versus BAR=m throughout as the built-in versus loadable-module distinction; the kbuild external-modules page shows that a module build ('obj-m := <module_name>.o') is what produces a <module_name>.ko file, so a Y symbol yields no .ko — o2 is false. o3 (firmware) and o4 (Y deprecated) are false, and their whys are true. NOTE: neither cited kernel page spells out 'y means built-in' in one sentence; the reading rests on the tristate/module-state text plus the .ko rule, which is why the item stops at that level rather than quoting a definition.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html",
+          "https://www.kernel.org/doc/html/latest/kbuild/modules.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.firmware.01",
@@ -2334,7 +2878,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct: the kernel firmware API documentation treats device firmware as an artefact loaded and handed to hardware by the driver rather than as part of the driver, which is the OS/device layer split the key names — a successfully loaded module therefore does not settle the device's own firmware. o2 contradicts the stem's own premise, o3 (the shell) is not a fault layer for a kernel operation, and o4 is false because a loaded driver only establishes the kernel side. All whys true.",
+        "sources_read": [
+          "https://www.kernel.org/doc/html/latest/driver-api/firmware/index.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.gui-vs-cli.01",
@@ -2394,7 +2951,21 @@
       "comparison_block": "cmp-linux.linux-operating-system.gui-vs-cli",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct: bash(1)'s INVOCATION and COMMAND EXECUTION ENVIRONMENT describe a shell session that needs only a terminal or an SSH-supplied one, with no display server anywhere in the picture, and the X.Org project page confirms X is a separately installed implementation rather than a kernel-level requirement — so a headless server simply runs without it. o3 (no terminal available) and o4 (servers can never run a GUI) are both false; o2's why is true, since shell and terminal are CLI-side components rather than a bar on GUI software. NOTE (finding): the x.org front page is thin support for the resource-cost half of the key.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://www.x.org/wiki/"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.gui-vs-cli.02",
@@ -2453,7 +3024,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct: bash(1) describes the shell as 'an sh-compatible command language interpreter that executes commands read from the standard input or from a file' — an interpreter, i.e. a component on the CLI side, not a counterpart of the GUI as a whole; the terminal is the display half of that same side. o2 is therefore false; o4 is false because a display server is a GUI-side question that shell-versus-terminal never raises; o3's why is true — a terminal's absence from GUI administration is consistent with, but is not, the level distinction being asked about.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.desktop-environments.01",
@@ -2513,7 +3097,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct. o2 is false — desktop environment selection is a user-space package choice layered on a display server, and neither the X.Org project page nor the Wayland architecture page ties it to the kernel. o3 is false and o4 restates the assumption the item rejects. NOTE (recorded as a finding): neither cited source states that distributions ship several desktop environments as spins; that claim rests on the objectives-level description. It is true and was not weakened, but the citation is thin.",
+        "sources_read": [
+          "https://www.x.org/wiki/",
+          "https://wayland.freedesktop.org/architecture.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.desktop-environments.02",
@@ -2573,7 +3171,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key correct: the Wayland architecture page shows the compositor/display-server layer sitting under clients and toolkits (KMS, evdev, mesa, cairo, Qt), which is the layering that makes a desktop environment swappable above an unchanged display server — so o2 is false, no protocol layer needs reinstalling. o3 (distribution family) and o4 (CLI-to-GUI prerequisite) are false, and both whys are true. NOTE (finding): 'generally supported' is not stated by either cited source; the layering argument is what supports it.",
+        "sources_read": [
+          "https://wayland.freedesktop.org/architecture.html",
+          "https://www.x.org/wiki/"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.x11-and-wayland.01",
@@ -2627,13 +3239,29 @@
       "source_ids": [
         "lf-objectives-2025",
         "xorg-wiki",
-        "wayland-architecture"
+        "wayland-architecture",
+        "wayland-home"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#s-linux-operating-system-interfaces",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass for a citation defect, then fixed and re-checked. The cited Wayland architecture page compares Wayland with X but never says Wayland replaces or postdates it — it only notes that with Wayland 'the X server is now just a middle man'. The Wayland project front page, which states verbatim 'Wayland is a replacement for the X11 window system protocol and architecture with the aim to be easier to develop, extend, and maintain', was registered as wayland-home and added. Key confirmed on that text; o2, o3 and o4 are false and their whys are true.",
+        "sources_read": [
+          "https://wayland.freedesktop.org/",
+          "https://wayland.freedesktop.org/architecture.html",
+          "https://www.x.org/wiki/"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.environment-variables.01",
@@ -2692,11 +3320,24 @@
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.environment-variables",
       "comparison_block": null,
       "commands_covered": [
-        "export",
-        "echo $HOME"
+        "export"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim from environ(7): 'When a child process is created via fork(2), it inherits a copy of its parent's environment' and 'Environment variables may be placed in the shell's environment by the export command in sh(1)'; bash(1)'s ENVIRONMENT section adds that 'Executed commands inherit the environment' and that export is what adds a parameter to it. So an un-exported shell variable is visible to echo in the same shell and invisible to a child. o2's why is true — env(1) prints or runs with the environment and exports nothing; o3 (PATH) and o4 (guaranteed sharing) are false.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/environ.7.html",
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.environment-variables.02",
@@ -2727,9 +3368,9 @@
         },
         {
           "ref": "o3",
-          "text": "`export`, run with no arguments, since it is the command that creates environment variables in the first place.",
+          "text": "`export MYVAR`, since naming a variable with `export` prints that variable’s exported value back.",
           "correct": false,
-          "why": "Bare `export` does list exported names on most shells, but it is the variant of the concept's own list-and-set command, not the dedicated 'print the environment' tool `env` is.",
+          "why": "`export NAME` marks the named variable for export and prints nothing; it is bare `export` or `export -p` that lists exported names, and `env` that prints the environment itself.",
           "provenance": {
             "kind": "variant",
             "command": "export"
@@ -2750,13 +3391,32 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-environ-7",
-        "posix-env-vars"
+        "posix-env-vars",
+        "man-env-1"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.environment-variables",
       "comparison_block": null,
-      "commands_covered": [],
+      "commands_covered": [
+        "env",
+        "echo $HOME"
+      ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass for a SECOND CORRECT OPTION, then fixed and re-checked. o3 originally offered '`export`, run with no arguments' and its own why conceded that bare export 'does list exported names on most shells'. bash(1) is unambiguous: 'If no names are given, or if only the -p option is supplied, export displays a list of names of all exported variables on the standard output.' That answers the stem — exported variables only, no un-exported ones — exactly as well as the key does, so the item had two defensible answers. o3 was rewritten to `export MYVAR`, which marks one named variable for export and prints nothing. Key confirmed from env(1): 'If no COMMAND, print the resulting environment.' env(1) was registered as man-env-1 and added, since neither environ(7) nor the POSIX environment-variables chapter documents the env utility. o2 and o4 remain false with true whys.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/env.1.html",
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://man7.org/linux/man-pages/man7/environ.7.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.path.01",
@@ -2810,7 +3470,8 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-bash-1",
-        "fhs-3.0"
+        "fhs-3.0",
+        "posix-env-vars"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.path",
       "comparison_block": null,
@@ -2818,7 +3479,21 @@
         "echo $PATH"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED on the first pass for a citation defect, then fixed and re-checked. The key asserts left-to-right first-match search, which neither bash(1) nor the FHS states in those terms — bash(1) says only that the shell 'searches each element of the PATH for a directory containing an executable file by that name'. The POSIX environment-variables chapter, already registered as posix-env-vars, states it exactly: 'the list shall be searched from beginning to end, applying the filename to each prefix... until an executable file with appropriate execution permissions is found', and it was added to the item. Key confirmed. o2 is false (which reporting nothing does not imply a broken binary), o3 is false (PATH can be re-exported in a live shell, per bash(1)'s export), o4 inverts the documented search order.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.path.02",
@@ -2881,7 +3556,21 @@
         "type"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim from bash(1): 'type [-aftpP] name — Indicate how each name would be interpreted if used as a command name', printing 'alias, keyword, function, builtin, or file'. That is strictly wider than an external which, which only walks PATH. o2 is false and its why is true: bash(1) documents -a for type, while which's -a lists every PATH match and gains no visibility into builtins or aliases. o3 and o4 are false — the command visibly ran, so it exists in some form.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.system-information-commands.01",
@@ -2936,17 +3625,35 @@
         "lf-objectives-2025",
         "man-uname-1",
         "man-os-release-5",
-        "man-uptime-1"
+        "man-uptime-1",
+        "man-hostnamectl-1"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.system-information-commands",
       "comparison_block": null,
       "commands_covered": [
         "uname -a",
+        "hostnamectl",
         "cat /etc/os-release",
         "uptime"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed. uname(1): '-a, --all print all information', covering kernel name, release, version and '-m machine hardware name'. os-release(5) documents /etc/os-release as the distribution identification file (NAME, VERSION, ID). uptime(1): 'gives a one line display of... how long the system has been running... and the system load averages'. o2 is false — os-release(5) defines no kernel or uptime field. o3's why is confirmed by hostnamectl(1), which 'may be used to query and change the system hostname and related settings' and reports no uptime or load average; hostnamectl(1) was added to the item's sources, since the why makes a claim about it that no previously cited source covered. o4 is false.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uname.1.html",
+          "https://man7.org/linux/man-pages/man5/os-release.5.html",
+          "https://man7.org/linux/man-pages/man1/uptime.1.html",
+          "https://man7.org/linux/man-pages/man1/hostnamectl.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.linux-operating-system.system-information-commands.02",
@@ -3000,13 +3707,30 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-uptime-1",
-        "man-lscpu-1"
+        "man-lscpu-1",
+        "man-hostnamectl-1"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.system-information-commands",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-linux-operating-system-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim from uptime(1): 'Load averages are not normalized for the number of CPUs in a system, so a load average of 1 means a single CPU system is loaded all the time while on a 4 CPU system it means it was idle 75% of the time.' o2 is therefore false. o3's why is confirmed by hostnamectl(1), which queries hostname and related settings and reports no load average at all; hostnamectl(1) was added as a source for that claim. o4 is false — kernel version has no bearing on the interpretation. lscpu(1)/nproc are the core-count side the key calls for.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/uptime.1.html",
+          "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "https://man7.org/linux/man-pages/man1/nproc.1.html"
+        ]
+      }
     }
   ]
 }

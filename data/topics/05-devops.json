@@ -55,7 +55,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "google-sre-book-embracing-risk"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -148,7 +149,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "google-sre-book-embracing-risk"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -286,7 +288,8 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "gitlab-ci-yaml"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -319,7 +322,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "twelve-factor-build-release-run"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -450,7 +454,10 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "terraform-intro",
+        "ansible-getting-started",
+        "jenkins-pipeline-doc"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -483,7 +490,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "twelve-factor-dev-prod-parity"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -514,7 +522,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "fowler-blue-green-deployment"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -547,7 +556,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "fowler-canary-release"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -615,7 +625,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "k8s-deployment",
-        "cncf-glossary"
+        "cncf-glossary",
+        "fowler-blue-green-deployment"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -649,7 +660,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "docker-overview",
-        "cncf-glossary"
+        "cncf-glossary",
+        "twelve-factor-dev-prod-parity"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -682,7 +694,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "maven-dependency-mechanism"
+        "maven-dependency-mechanism",
+        "pypa-externally-managed-environments",
+        "npm-install-locally"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -754,7 +768,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "ansible-getting-started"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -787,7 +802,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary",
+        "otel-observability-primer"
       ],
       "candidate_evidence": [],
       "commands": [],

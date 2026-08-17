@@ -269,7 +269,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "kernel-readme"
+        "kernel-readme",
+        "man-kill-2"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -339,7 +340,9 @@
       "additional_sources": [
         "man-os-release-5",
         "ubuntu-release-cycle",
-        "archwiki-arch-linux"
+        "archwiki-arch-linux",
+        "redhat-centos-stream",
+        "rocky-linux-about"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -405,7 +408,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-linux-and-gnu",
-        "kernel-readme"
+        "kernel-readme",
+        "gnu-android-freedom"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -439,7 +443,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "kernel-readme",
-        "lf-about"
+        "lf-about",
+        "kernel-org-about",
+        "kernel-development-process",
+        "linux-relnotes-0-01"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -538,7 +545,8 @@
         "ch2.l4"
       ],
       "additional_sources": [
-        "man-lscpu-1"
+        "man-lscpu-1",
+        "man-nproc-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -643,7 +651,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-uname-1",
-        "kernel-readme"
+        "kernel-readme",
+        "man-arch-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -814,7 +823,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "xorg-wiki",
-        "wayland-architecture"
+        "wayland-architecture",
+        "wayland-home"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -847,7 +857,8 @@
       "additional_sources": [
         "man-environ-7",
         "posix-env-vars",
-        "man-bash-1"
+        "man-bash-1",
+        "man-env-1"
       ],
       "candidate_evidence": [],
       "commands": [

@@ -40,7 +40,7 @@ that made them.
 
 <a id="c-devops.devops-basics.silos-and-shared-responsibility"></a>
 ### Silos and shared responsibility
-*id: `devops.devops-basics.silos-and-shared-responsibility` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.silos-and-shared-responsibility` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, google-sre-book-embracing-risk*
 
 **What it is** The problem DevOps exists to address: a development group measured on shipping
 change and an operations group measured on keeping things stable, each rational on its own
@@ -290,7 +290,7 @@ rollout, rehearsed rollback) continuous deployment presupposes.
 
 <a id="c-devops.devops-basics.pipeline"></a>
 ### Pipeline
-*id: `devops.devops-basics.pipeline` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary*
+*id: `devops.devops-basics.pipeline` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary, gitlab-ci-yaml*
 
 **What it is** The automated sequence of stages a change passes through: build, test, package,
 deploy. It is a concrete, configured object — a definition file in a repository, a set of jobs
@@ -325,7 +325,7 @@ implementing.
 
 <a id="c-devops.devops-basics.build-and-artifact"></a>
 ### Build and artifact
-*id: `devops.devops-basics.build-and-artifact` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.build-and-artifact` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, twelve-factor-build-release-run*
 
 **What it is** The build is the act of compiling or packaging source into an artifact — a jar,
 a wheel, a tarball, a container image — and the artifact is that produced, versioned, deployable
@@ -420,7 +420,7 @@ and build metadata after a `+` is ignored entirely when comparing precedence.
 
 <a id="c-devops.devops-basics.ci-cd-tooling"></a>
 ### CI/CD tooling
-*id: `devops.devops-basics.ci-cd-tooling` · depth 2 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.ci-cd-tooling` · depth 2 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary, terraform-intro, ansible-getting-started, jenkins-pipeline-doc*
 
 **What it is** The common implementations, grouped by the job they do. Pipeline and CI servers:
 GitHub Actions and GitLab CI, both built into their hosting platform and driven by a definition
@@ -485,7 +485,7 @@ than being rebuilt from source.
 
 <a id="c-devops.devops-basics.deployment-environments"></a>
 ### Deployment environments
-*id: `devops.devops-basics.deployment-environments` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.deployment-environments` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, twelve-factor-dev-prod-parity*
 
 **What it is** The ladder a change climbs: development, testing, staging, production, each
 closer to real conditions than the last. Development is where code is written and broken
@@ -509,7 +509,7 @@ not a detail to forget.
 
 <a id="c-devops.devops-basics.blue-green-deployment"></a>
 ### Blue-green deployment
-*id: `devops.devops-basics.blue-green-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.blue-green-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, fowler-blue-green-deployment*
 
 **What it is** A strategy for updating a running system with minimal downtime by maintaining
 two environments, conventionally called blue and green. One serves production traffic while
@@ -560,7 +560,7 @@ versions.
 
 <a id="c-devops.devops-basics.canary-release"></a>
 ### Canary release
-*id: `devops.devops-basics.canary-release` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.canary-release` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, fowler-canary-release*
 
 **What it is** A strategy that starts with two environments — one carrying live traffic, one
 running the updated code with none — and then moves traffic gradually from the old version to
@@ -636,7 +636,7 @@ mixed-version window as the risk it introduces.
 
 <a id="c-devops.devops-basics.rollback"></a>
 ### Rollback
-*id: `devops.devops-basics.rollback` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-deployment, cncf-glossary*
+*id: `devops.devops-basics.rollback` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-deployment, cncf-glossary, fowler-blue-green-deployment*
 
 **What it is** Returning a system to the previous known-good version. A deployment strategy
 without a rehearsed rollback is incomplete: every strategy above is chosen partly for how
@@ -660,7 +660,7 @@ revision is pruned from that history, rolling back to it is no longer possible.
 
 <a id="c-devops.devops-basics.developer-environments-and-parity"></a>
 ### Developer environments and parity
-*id: `devops.devops-basics.developer-environments-and-parity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, cncf-glossary*
+*id: `devops.devops-basics.developer-environments-and-parity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, cncf-glossary, twelve-factor-dev-prod-parity*
 
 **What it is** Keeping the environment a developer works in close enough to production that
 "works on my machine" stops being a defence. Containers are one common way to achieve it: an
@@ -685,7 +685,7 @@ scale. Those stay the job of a production-like staging environment.
 
 <a id="c-devops.devops-basics.language-package-managers"></a>
 ### Language package managers
-*id: `devops.devops-basics.language-package-managers` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: maven-dependency-mechanism*
+*id: `devops.devops-basics.language-package-managers` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: maven-dependency-mechanism, pypa-externally-managed-environments, npm-install-locally*
 
 **What it is** Tools that resolve and install *application*-level dependencies for one project
 in one language — npm for JavaScript, pip for Python, Maven for Java, and their equivalents in
@@ -803,7 +803,7 @@ re-running it converges on a declared state rather than repeating an action.
 
 <a id="c-devops.devops-basics.idempotency-in-automation"></a>
 ### Idempotency in automation
-*id: `devops.devops-basics.idempotency-in-automation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.idempotency-in-automation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, ansible-getting-started*
 
 **What it is** The property of an operation that always leads to the same outcome no matter how
 many times it is executed: given the same parameters, running it repeatedly has no additional

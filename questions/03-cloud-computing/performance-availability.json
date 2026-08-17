@@ -40,7 +40,7 @@
         },
         {
           "ref": "o4",
-          "text": "A redundant, automatically-failing-over design is guaranteed to score higher than an unredundant one over any measurement window. — treating the design as a promise about the outcome of any single window, rather than about the long-run average it is actually meant to shift.",
+          "text": "A redundant, automatically-failing-over design is guaranteed to score higher than an unredundant one over any measurement window — treating the design as a promise about the outcome of any single window, rather than about the long-run average it is actually meant to shift.",
           "correct": false,
           "why": "High availability lowers the chance of a bad month; it does not guarantee the outcome of any single measured window, as this scenario shows.",
           "provenance": {
@@ -52,13 +52,28 @@
       "rationale": "Availability is what you measure over a window; high availability is what you build to raise it. The comparison block's whole point is that a number is not an architecture — each can occur without the other, as this scenario deliberately shows in both directions.",
       "source_ids": [
         "lf-objectives-2025",
-        "google-sre-book-slos"
+        "aws-reliability-availability"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.availability",
       "comparison_block": "cmp-cloud.performance-availability.availability",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against the Reliability Pillar availability page, which defines availability as \"the percentage of time that a workload is available for use\", calculated over a period such as a month — an observed quantity — and separately shows that independent redundant components raise the theoretical availability, i.e. a design choice. So a measured figure can exist with no redundancy behind it and a redundant design can still measure badly over one window. No distractor is also correct: o2 infers architecture from a single measured number, which the page's own definition does not license; o3 asserts the two figures describe the same property, contradicting the measured-versus-designed split; o4 claims a guarantee for any single window, whereas the page's calculation is of theoretical availability over a period, not of any individual month's outcome. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.availability.02",
@@ -111,13 +126,30 @@
       "rationale": "Monthly downtime allowance is (1 minus availability) times 30 days times 24 times 60 minutes: about 43.2 minutes at 99.9% and about 21.6 minutes at 99.95%, a difference of 21.6 minutes recomputed directly from the definition rather than copied from the guide's table.",
       "source_ids": [
         "lf-objectives-2025",
-        "google-sre-book-slos"
+        "google-sre-book-availability-table",
+        "aws-reliability-availability"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.availability",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the arithmetic was cited to Chapter 4 of the SRE book, which discusses SLO targets but carries no downtime table. Appendix A of the same book tabulates it directly: 99.9% allows 43.2 minutes and 99.95% allows 21.6 minutes per 30 days, so the difference is 21.6 minutes — the key, now cited to the table that states it. Recomputed independently: (1 - 0.999) x 43,200 minutes = 43.2, (1 - 0.9995) x 43,200 = 21.6. No distractor is also correct: 4.3 minutes matches no pair in the table; 7.2 hours is the 99.9%-to-99% step (the table gives 21.6 hours per 30 days at 99%, and 21.6 h - 43.2 min is about 20.9 h, so even that figure is not 7.2 h — o3's why correctly identifies it as a full-nine step away and it is wrong either way); and o4's \"no measurable difference\" is refuted by a factor-of-two gap. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/availability-table/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html",
+          "https://sre.google/sre-book/service-level-objectives/"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.high-availability.01",
@@ -170,13 +202,30 @@
       "rationale": "High availability requires both redundancy and automatic failover. This design has only the first ingredient — duplicate components with no health check and no redirection — so it is not yet highly available, though adding failover would complete it.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-failover-bp",
+        "aws-rds-multi-az"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.high-availability",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP02, which frames failing over as requiring systems in place to move to healthy resources and names detection as a design decision, and against the RDS Multi-AZ page, where high availability is delivered by a standby in another Availability Zone plus an automatic failover action — redundancy plus a mechanism that uses it. Two racked servers with nothing watching them supply only the first half. No distractor is also correct: o2 names redundancy alone, which is the ingredient not the design; o3 makes statelessness sufficient, and neither source treats statelessness as a detection-and-redirect mechanism; o4 asserts zero interruption is required for high availability, which the RDS page contradicts by calling a deployment with a failover event highly available. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_failover2good.html",
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.high-availability.02",
@@ -197,7 +246,7 @@
         },
         {
           "ref": "o2",
-          "text": "The customer's service inherits 99.99% availability automatically, since that is what the SLA guarantees them. — a substitution that ignores everything the customer’s own architecture would have to contribute for that number to hold.",
+          "text": "The customer's service inherits 99.99% availability automatically, since that is what the SLA guarantees them — a substitution that ignores everything the customer’s own architecture would have to contribute for that number to hold.",
           "correct": false,
           "why": "This is the substitution the SLA comparison warns against: a high provider SLA does not make an unredundant single-zone deployment highly available.",
           "provenance": {
@@ -229,13 +278,30 @@
       "rationale": "A high provider SLA is a promise about the platform's own shortfall risk. A customer who deploys a single instance in a single zone has built no redundancy or failover of their own, so their service's availability is set by their architecture, not by the number in the contract.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-sla-bp",
+        "aws-reliability-availability"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.high-availability",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP07, which states that if you publish or privately agree an availability target or uptime SLA you must verify your architecture and operational processes are designed to support it, and that a workload should weigh its dependencies' own SLAs — exactly the split between a contractual promise and what a customer's own single-zone architecture achieves. No distractor is also correct: o2's inheritance claim is what BP07 exists to deny; o3 calls an SLA an architecture, and neither the SLA best practice nor the availability page treats a contract as specifying redundancy or failover; o4 denies comparability, but the availability page defines a single percentage-over-a-period metric that both figures are instances of. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_service_level_agreements.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.fault-tolerance.01",
@@ -256,7 +322,7 @@
         },
         {
           "ref": "o2",
-          "text": "The first, because detecting a failure and redirecting traffic is the textbook definition of tolerating a fault. — collapsing the whole distinction the comparison exists to preserve between a brief switch and no interruption at all.",
+          "text": "The first, because detecting a failure and redirecting traffic is the textbook definition of tolerating a fault — collapsing the whole distinction the comparison exists to preserve between a brief switch and no interruption at all.",
           "correct": false,
           "why": "Detect-then-redirect is exactly the high-availability mechanism, and it is the brief interruption during that process that fault tolerance is defined against.",
           "provenance": {
@@ -288,13 +354,30 @@
       "rationale": "Fault tolerance is defined by the absence of interruption: concurrent redundant capacity absorbs the fault with nothing to switch, whereas high availability accepts a brief detection-and-failover window. The comparison block's separating axis is exactly this interruption, not whether the service ultimately survives.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "nist-glossary-fault-tolerance",
+        "aws-rds-multi-az"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.fault-tolerance",
       "comparison_block": "cmp-cloud.performance-availability.fault-tolerance",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against the NIST CSRC glossary, which defines fault tolerance as \"a property of a system that allows proper operation even if components fail\" — proper operation continuing through the failure, not resuming after a switch — read against the RDS Multi-AZ page, where high availability is delivered by a failover event to a standby, i.e. a switch with a window. The second system, with redundant nodes already doing the work, is the fault-tolerant one. No distractor is also correct: o2 names detect-then-redirect, which is the failover path both AWS pages describe, not proper operation through the fault; o3 makes survival alone sufficient, which erases the interruption axis; o4 demands survival of every conceivable failure, which \"even if components fail\" does not require. Each why states a true fact.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/fault_tolerance",
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.fault-tolerance.02",
@@ -325,7 +408,7 @@
         },
         {
           "ref": "o3",
-          "text": "It fails to promise a fast recovery, since fault-tolerant systems are only rated on how quickly they detect and fail over. — a claim that quietly assumes every fault-tolerant design is also the fastest-recovering one, which the definition never promises.",
+          "text": "It fails to promise a fast recovery, since fault-tolerant systems are only rated on how quickly they detect and fail over — a claim that quietly assumes every fault-tolerant design is also the fastest-recovering one, which the definition never promises.",
           "correct": false,
           "why": "Detection and failover describe high availability's recovery path; a fault-tolerant design has no switch to time in the first place.",
           "provenance": {
@@ -347,13 +430,28 @@
       "rationale": "Fault tolerance is a property against a defined class of faults. A quorum design tolerates the loss of a minority of members, but a partition that isolates every member simultaneously is a correlated failure outside that class, and the system is not obligated to survive it.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "nist-glossary-fault-tolerance"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.fault-tolerance",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against the NIST glossary definition, which is bounded by construction: proper operation \"even if components fail\" is a promise about component failures the design covers, not about a partition isolating every member at once. No distractor is also correct: o2 equates fault tolerance with 100% availability, which the definition never states and which the Reliability Pillar availability page contradicts by treating availability as a target below 100%; o3 rates fault tolerance on detection and failover speed, which is the failover path, not proper operation through the fault; o4 claims quorum systems can run on a single member, which contradicts the majority requirement stated in the stem. Each why states a true fact.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/fault_tolerance",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.redundancy.01",
@@ -374,7 +472,7 @@
         },
         {
           "ref": "o2",
-          "text": "Whether the servers are running the newest version of the operating system. — a detail that says nothing about whether the two machines could both be lost to the same rack, power feed or zone-level event.",
+          "text": "Whether the servers are running the newest version of the operating system — a detail that says nothing about whether the two machines could both be lost to the same rack, power feed or zone-level event.",
           "correct": false,
           "why": "Patch currency is a maintenance concern unrelated to whether the pair can survive a shared failure.",
           "provenance": {
@@ -406,13 +504,28 @@
       "rationale": "Redundancy is duplication placed so that one failure is survivable, which depends on the duplicates sharing no single failure domain. Two servers in the same rack on the same power feed are not redundant against a rack- or feed-level failure even though there are two of them.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-multi-location-bp"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.redundancy",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL10-BP01, which instructs distributing workload data and resources across multiple Availability Zones or Regions and states that a fundamental principle is to avoid single points of failure \"including the underlying physical infrastructure\" — so what is unestablished about two servers is whether the same physical event can take both. No distractor is also correct: patch currency (o2), load-test results (o3) and billing terms (o4) are each independently true statements about unrelated properties, and none of them bears on shared failure domains. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_fault_isolation_multiaz_region_system.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.redundancy.02",
@@ -465,13 +578,28 @@
       "rationale": "N+1 provisions one more unit than the load strictly requires, so the loss of any single unit — whether by failure or by planned maintenance — still leaves enough capacity to carry the full load on the survivors.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-static-stability-bp"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.redundancy",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP05, which states that the capacity needed after losing a zone must already have been provisioned before the failure so the workload operates in a single mode — spare capacity provisioned ahead of the loss is exactly what N+1 sizing buys, and the source draws no distinction between a planned and an unplanned reason for the unit being gone. No distractor is also correct: o2 makes N+1 conditional on the cause of the loss, which nothing in the static-stability guidance supports; o3 assumes active-passive, which the stem never states; o4 demands each survivor double its capacity, which contradicts one unit of spare capacity being enough. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_static_stability.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.failover.01",
@@ -492,7 +620,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both — a health check stopping traffic to a dead backend is exactly the same event as switching a whole service to a standby. — erasing the distinction the whole comparison exists to draw, between removing one member from a pool and switching the entire service.",
+          "text": "Both — a health check stopping traffic to a dead backend is exactly the same event as switching a whole service to a standby — erasing the distinction the whole comparison exists to draw, between removing one member from a pool and switching the entire service.",
           "correct": false,
           "why": "The two overlap only in that both react to a health check; one removes a single member from a working pool and the other switches the entire service, which is not the same event.",
           "provenance": {
@@ -524,14 +652,30 @@
       "rationale": "Failover is the exception path: the whole workload moves to a standby only when the active component fails. Load balancing is the normal path, acting on every request; a health check pulling one dead member from an otherwise-healthy pool is not the same event as switching the service.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar",
-        "aws-route53"
+        "aws-reliability-failover-bp",
+        "aws-elastic-load-balancing"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.failover",
       "comparison_block": "cmp-cloud.performance-availability.failover",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP02, which describes failover as moving to healthy resources in unimpaired locations — promoting a replica and then pointing traffic at the new endpoint, a whole-service switch — read against the ELB overview, where health checks mean \"the load balancer sends requests only to the healthy ones\", which is the normal request path continuing unchanged. No distractor is also correct: o2 equates the two events, which the sources separate; o3 calls continuous operation a reason to name the pool event failover, which does not follow; o4 calls both auto-scaling, and neither adds nor removes capacity against a metric. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_failover2good.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.failover.02",
@@ -584,13 +728,29 @@
       "rationale": "Failover's total delay is the sum of several configured values: probe interval times failure threshold, plus the time for the redirection to take effect. With DNS-based failover, a cached record means clients keep using the old address until the TTL expires, regardless of how fast detection and promotion were.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-route53"
+        "aws-route53",
+        "aws-route53-record-ttl"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.failover",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item turns on DNS record caching, and the Route 53 welcome page it cited covers domain registration, DNS routing and health checking without ever mentioning TTL or resolver caching. The Route 53 record-values page states it directly: TTL is the time \"that you want DNS recursive resolvers to cache information about this record\", and with a longer value \"it takes longer for changes to the record (for example, a new IP address) to take effect\" because \"recursive resolvers use the values in their cache for longer periods\" — which is the key. No distractor is also correct: o2 contradicts the stem, which says promotion happened within thirty seconds; o3 invokes failback, a later return to the recovered primary that the stem does not describe; o4 blames load-balancing rules, which do not govern what address a client's resolver returns. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html",
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.scalability-vs-elasticity.01",
@@ -602,7 +762,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — elasticity requires the change to happen automatically in both directions; a manual add-and-remove cycle is scalability without the automation elasticity adds.",
+          "text": "No — elasticity means capacity provisioned and released rapidly and in step with demand, which a cycle waiting on someone to remember is not.",
           "correct": true,
           "why": "Elasticity is scalability plus two things: automation, and capacity being released again as demand falls.",
           "provenance": {
@@ -611,9 +771,9 @@
         },
         {
           "ref": "o2",
-          "text": "Yes, because capacity is eventually returned to its original level once demand drops. — mistaking the eventual return of capacity for the automatic, no-human-involved behaviour the definition actually requires.",
+          "text": "Yes, because capacity is eventually returned to its original level once demand drops — mistaking the eventual return of capacity for the automatic, no-human-involved behaviour the definition actually requires.",
           "correct": false,
-          "why": "Bidirectionality alone is not enough; NIST ties elasticity to capacities provisioned and released automatically, and a human doing both steps by hand does not meet that bar.",
+          "why": "NIST defines rapid elasticity as capabilities \"elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand\"; capacity that comes back whenever a person next remembers is neither rapid nor commensurate with demand.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.performance-availability.scalability-vs-elasticity"
@@ -649,7 +809,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the distractor rationale: o2's why asserted that \"NIST ties elasticity to capacities provisioned and released automatically\", but SP 800-145 s2 actually reads \"capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand\" — the hedge \"in some cases\" makes automation typical rather than definitional, so the why overstated the source. The why now quotes NIST verbatim and rests on the two conditions NIST does state without hedge: rapid, and commensurate with demand. The key was rewritten to turn on the same two conditions rather than on automation alone, and still holds: a cycle that moves only when a person remembers is neither rapid nor tracking demand. No distractor is also correct: o2's \"eventually returned\" fails the rapid/commensurate test; o3 describes scalability, which NIST's on-demand self-service and elasticity characteristics treat as the weaker property; o4's unbounded-ceiling reason is not why the platform falls short. Each why now states a true fact.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.scalability-vs-elasticity.02",
@@ -709,7 +883,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against SP 800-145 s2, which lists rapid elasticity as an essential characteristic — capabilities provisioned and released to scale rapidly outward and inward commensurate with demand — and against the EC2 Auto Scaling page, where scaling policies \"launch or terminate instances as demand on your application increases or decreases\": adding for the sale and removing afterwards is the outward-and-inward pair, and dropping the inward half leaves growth only. No distractor is also correct: o2 names scalability for behaviour NIST describes as elasticity; o3 claims the shrink-back removes the ability to add, which does not follow; o4 names high availability, which concerns component failure and not demand tracking. Each why states a true fact.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.vertical-scaling.01",
@@ -762,13 +951,28 @@
       "rationale": "A single-writer path with no way to divide the work is the textbook case for vertical scaling: resize to a bigger instance, at the cost of a restart, and accept that the move is finished once the largest instance type is reached.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-ec2-auto-scaling"
+        "aws-ec2-change-instance-type"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.vertical-scaling",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: both vertical-scaling items cited the EC2 Auto Scaling page, which is entirely about adding and removing instances in a group and never mentions resizing one. The EC2 instance-type page states the key's cost directly: \"you must stop your instance before you can change its instance type\" and \"plan for downtime while your instance is stopped\", and resizing is described as moving between named instance types, which is what puts a ceiling at the largest one offered. No distractor is also correct: o2 proposes distributing a write path the stem says cannot be split; o3 proposes auto-scaling of instances for that same indivisible path, which the Auto Scaling page's launch-and-terminate model cannot serve; o4 proposes caching, which serves reads from a stored copy and cannot absorb writes. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/change-instance-type-of-ebs-backed-instance.html",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.vertical-scaling.02",
@@ -789,7 +993,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both goals, since a larger instance type also comes with the provider's redundant power and network infrastructure built in. — a belief that quietly assumes redundancy under the hypervisor is the same thing as redundancy at the level the application actually runs on.",
+          "text": "Both goals, since a larger instance type also comes with the provider's redundant power and network infrastructure built in — a belief that quietly assumes redundancy under the hypervisor is the same thing as redundancy at the level the application actually runs on.",
           "correct": false,
           "why": "Infrastructure redundancy underneath the instance does not make the instance itself redundant; the server is still a single point of failure at the application layer.",
           "provenance": {
@@ -821,13 +1025,28 @@
       "rationale": "Vertical scaling raises capacity up to the ceiling of the largest instance type offered, and it stops there — it does not remove the single point of failure a lone server represents, so an availability goal is left unaddressed.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-ec2-auto-scaling"
+        "aws-ec2-change-instance-type"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.vertical-scaling",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation, for the same reason as vertical-scaling.01: the EC2 Auto Scaling page says nothing about resizing an instance. Repointed to the instance-type page, which describes the resize as changing one instance's type — one machine before and after — with downtime while it is stopped, so capacity rises and the single point of failure remains. No distractor is also correct: o2 treats infrastructure redundancy beneath the instance as redundancy of the instance, which the resize page gives no basis for; o3 claims the resize required distributing the workload, which contradicts a procedure performed on one stopped instance; o4 claims larger instances fail less often, which no cited source states and which does not change the count of machines. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/change-instance-type-of-ebs-backed-instance.html",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.horizontal-scaling.01",
@@ -848,7 +1067,7 @@
         },
         {
           "ref": "o2",
-          "text": "Vertical scaling to the next instance size, since a bigger machine removes both the ceiling and the single point of failure at once. — an assumption that ignores both the restart the resize needs and the ceiling it will eventually hit, however large the next size is.",
+          "text": "Vertical scaling to the next instance size, since a bigger machine removes both the ceiling and the single point of failure at once — an assumption that ignores both the restart the resize needs and the ceiling it will eventually hit, however large the next size is.",
           "correct": false,
           "why": "Vertical scaling still stops at the largest instance type and leaves one machine as the single point of failure; it solves neither problem the scenario names.",
           "provenance": {
@@ -880,13 +1099,30 @@
       "rationale": "Horizontal scaling is effectively unbounded and removes the single point of failure a lone server represents, but it only works if any instance can serve any request — which requires externalising session state first. Vertical scaling solves neither problem the scenario names; it just delays the ceiling.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-ec2-auto-scaling"
+        "aws-ec2-auto-scaling",
+        "aws-reliability-autohealing-bp"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.horizontal-scaling",
       "comparison_block": "cmp-cloud.performance-availability.horizontal-scaling",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the statelessness precondition the key turns on is absent from the EC2 Auto Scaling page. REL11-BP03 states it — \"a best practice is to make services stateless where possible. This prevents loss of data or availability on resource restart\", and Auto Scaling \"can perform self-healing on stateless applications and add or remove capacity\" — so sessions on local disk block the move, which is the key. The Auto Scaling page still supports the capacity half. No distractor is also correct: o2 claims a bigger instance removes both the ceiling and the single point of failure, and the instance-type page shows the resize leaves one stopped-then-restarted machine; o3 says nothing must change first, which BP03 contradicts; o4 offers a scheduled policy while leaving the local-disk sessions in place. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/change-instance-type-of-ebs-backed-instance.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.horizontal-scaling.02",
@@ -939,13 +1175,29 @@
       "rationale": "Horizontal scaling only helps a workload that can actually be divided among instances. Putting more machines behind a load balancer does nothing for a single-threaded batch job with no distributable work, which is exactly the trap the exam sets with this shape of scenario.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-ec2-auto-scaling"
+        "aws-ec2-auto-scaling",
+        "aws-elastic-load-balancing"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.horizontal-scaling",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item turns on a load balancer having nothing to distribute, which the EC2 Auto Scaling page does not address. The ELB overview states that a load balancer \"distributes your incoming traffic across multiple targets\" and routes requests only to healthy ones — it acts on requests, so a single indivisible job gives it nothing to spread, which is the key. No distractor is also correct: o2 asserts throughput always rises with instances, which the request-distribution model refutes for work that is not requests; o3 claims high availability, which is not what the stem measures and does not speed the single thread; o4 calls the manual proposal elastic, and neither the Auto Scaling page's policy-driven model nor NIST's rapid elasticity covers ten instances added by hand. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.auto-scaling.01",
@@ -966,7 +1218,7 @@
         },
         {
           "ref": "o2",
-          "text": "Targets the group aims to reach as quickly as possible, ahead of the desired capacity. — a reading that quietly promotes the number the group is actively held at into a number it is racing toward as fast as possible.",
+          "text": "Targets the group aims to reach as quickly as possible, ahead of the desired capacity — a reading that quietly promotes the number the group is actively held at into a number it is racing toward as fast as possible.",
           "correct": false,
           "why": "Desired capacity is the target the group is actively held at; minimum and maximum only bound how far policies are allowed to move it.",
           "provenance": {
@@ -1004,7 +1256,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds verbatim against the EC2 Auto Scaling page: \"you can specify the minimum number of instances in each Auto Scaling group, and Amazon EC2 Auto Scaling ensures that your group never goes below this size... the maximum number... never goes above this size. If you specify the desired capacity... ensures that your group has this many instances\", and scaling policies \"adjust the number of instances, within your minimum and maximum number of instances\". Guardrails versus the actively held target is exactly the source's structure. No distractor is also correct: o2 makes minimum and maximum the target, which the page assigns to desired capacity; o3 confuses them with health status, which the page treats as a separate monitored property; o4 substitutes recovery objectives, which appear nowhere in the page's capacity model. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.auto-scaling.02",
@@ -1063,7 +1329,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds verbatim against the EC2 Auto Scaling page: it \"automatically monitors the health and availability of your instances using EC2 health checks and replaces terminated or impaired instances to maintain your desired capacity\", and a custom health-check failure means the instance \"is automatically replaced to maintain your desired capacity\" — replacement to desired capacity with no human step. No distractor is also correct: o2 requires human confirmation, which the word \"automatically\" denies; o3 has the group raise its configured maximum, which the page describes as a bound the user sets; o4 describes a cross-region DNS redirection, which is nowhere in the group's documented response. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.load-balancing.01",
@@ -1116,13 +1396,30 @@
       "rationale": "Sticky sessions pin a client to the backend holding its state, which is the standard workaround for an application that is not stateless. Their presence is the tell: a truly stateless design would let the balancer route any request to any instance.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-elastic-load-balancing"
+        "aws-elb-sticky-sessions",
+        "aws-reliability-autohealing-bp"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.load-balancing",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against the sticky-sessions page, which states a load balancer \"routes each request independently to the registered instance with the smallest load\" by default and that the sticky session feature \"enables the load balancer to bind a user's session to a specific instance... all requests from the user during the session are sent to the same instance\" — the configuration exists precisely because the instance holds the session, which REL11-BP03 identifies as the state that a stateless design would externalise. No distractor is also correct: o2 calls pinning highly available, and binding a session to one instance is what the stateless best practice warns loses availability on restart; o3 calls it failover, but the source describes stickiness acting on every request in the session, not on a failure; o4 raises instance sizing, which the source never ties to routing freedom. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.load-balancing.02",
@@ -1143,7 +1440,7 @@
         },
         {
           "ref": "o2",
-          "text": "The first is failover and the second is load balancing, since only the second reacts to every request. — a labelling error that assigns the failure-triggered name to two mechanisms that are both, in fact, acting on every single request.",
+          "text": "The first is failover and the second is load balancing, since only the second reacts to every request — a labelling error that assigns the failure-triggered name to two mechanisms that are both, in fact, acting on every single request.",
           "correct": false,
           "why": "Both examples described are load balancers acting on every request; failover is the separate, failure-triggered mechanism neither example describes.",
           "provenance": {
@@ -1175,13 +1472,31 @@
       "rationale": "Balancers operate either at the transport layer, forwarding connections without inspecting them, or at the application layer, where content such as hostname, path or header can drive the routing decision — the two examples in the stem are exactly that pair.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-elastic-load-balancing"
+        "aws-alb-introduction",
+        "aws-nlb-introduction"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.load-balancing",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the ELB overview page it cited never names an OSI layer. The two product pages state the key verbatim — an Application Load Balancer \"functions at the application layer, the seventh layer of the Open Systems Interconnection (OSI) model\" and can \"route requests to different target groups based on the content of the application traffic\", while a Network Load Balancer \"functions at the fourth layer of the Open Systems Interconnection (OSI) model\" and forwards to a target using the specified protocol and port. No distractor is also correct: o2 labels one of them failover, and both pages describe per-request routing; o3 ties the layers to internal versus internet traffic, which neither page does; o4 ties stickiness to layer, and the sticky-sessions page presents it as an optional feature independent of the OSI layer. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.stateless-design.01",
@@ -1202,7 +1517,7 @@
         },
         {
           "ref": "o2",
-          "text": "Yes — a stateless application by definition has no persistent data anywhere in the system. — the specific misreading the concept exists to correct, that no state anywhere is the same claim as no state pinned to one server.",
+          "text": "Yes — a stateless application by definition has no persistent data anywhere in the system — the specific misreading the concept exists to correct, that no state anywhere is the same claim as no state pinned to one server.",
           "correct": false,
           "why": "This is the specific misreading the concept guards against: statelessness is about the locality of state, not its absence.",
           "provenance": {
@@ -1234,13 +1549,28 @@
       "rationale": "Statelessness means no client-specific state is pinned to a particular server between requests. The data still exists — in a shared cache, a database, or object storage — the design choice is only about where it is not stored: locally.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-autohealing-bp"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.stateless-design",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP03, which recommends making services stateless \"where possible\" so that \"loss of data or availability on resource restart\" is prevented, and recommends replacing the entire resource — a recommendation that is only coherent if the state still exists somewhere off the resource. Statelessness is therefore about where state lives, not whether the system has any. No distractor is also correct: o2's \"no persistent data anywhere\" would make the best practice unimplementable for any real workload; o3 substitutes high availability for the reason the reading is wrong; o4 makes a load balancer's presence decide the property, which the best practice locates in how the service is built. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.stateless-design.02",
@@ -1281,7 +1611,7 @@
         },
         {
           "ref": "o4",
-          "text": "Whether the termination also triggers a scale-out event on a standby instance pool in another region. — describing a cross-region event that nothing in the scenario supports, when the change described is a routine single-pool scale-in.",
+          "text": "Whether the termination also triggers a scale-out event on a standby instance pool in another region — describing a cross-region event that nothing in the scenario supports, when the change described is a routine single-pool scale-in.",
           "correct": false,
           "why": "A routine scale-in within one pool of interchangeable instances is not a cross-region event; it only becomes user-visible if the application is not stateless.",
           "provenance": {
@@ -1293,13 +1623,30 @@
       "rationale": "Stateless design is what makes instance termination safe: because no request depends on reaching the same instance twice, an auto-scaling group can remove an instance mid-shift and the load balancer simply routes the next request to a survivor, with nothing user-visible lost.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-reliability-pillar"
+        "aws-reliability-autohealing-bp",
+        "aws-ec2-auto-scaling"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.stateless-design",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-reliability-pillar, whose page is the Reliability Pillar welcome page and contains only an abstract, the list of six pillars and a statement of the paper's audience — none of the content this item turns on. Citation repointed and re-verified. Key holds against REL11-BP03 read with the EC2 Auto Scaling page: stateless services prevent \"loss of data or availability on resource restart\", and Auto Scaling \"can perform self-healing on stateless applications and add or remove capacity\" — so whether a scale-in is user-visible turns on statelessness. No distractor is also correct: o2 offers the configured maximum, which the Auto Scaling page defines as an upper bound on group size and not a property of any instance's state; o3 offers active-passive placement, which describes how redundant capacity is deployed; o4 invents a cross-region scale-out that neither source attaches to a single-group scale-in. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html",
+          "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.latency-and-throughput.01",
@@ -1352,13 +1699,28 @@
       "rationale": "Latency is reported as a distribution because an average hides the slow tail. Percentiles such as p95 or p99 are quoted precisely because the worst few percent of requests are what users notice and complain about.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.latency-and-throughput",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. Key holds against SRE Chapter 6, which warns against designing on the mean and gives the arithmetic: \"if you run a web service with an average latency of 100 ms at 1,000 requests per second, 1% of requests might easily take 5 seconds\", adding that \"the 99th percentile of one backend can easily become the median response of your frontend\" and recommending latency histograms to separate a slow average from a slow tail. No distractor is also correct: o2 substitutes throughput, a volume measure the same chapter lists separately as traffic; o3 substitutes link bandwidth; o4 asserts the average equals the typical experience, which the chapter's own example disproves. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.latency-and-throughput.02",
@@ -1411,13 +1773,30 @@
       "rationale": "Optimising one of latency or throughput can actively worsen the other. Batching many small operations into one larger one raises throughput and simultaneously raises the latency of every item now waiting for the batch to fill — the exam's standard example of the trade-off.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring",
+        "aws-kinesis-kpl-aggregation"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.latency-and-throughput",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. Key holds: the Kinesis Producer Library page documents the throughput half directly — aggregation stores multiple records in one stream record and \"allows customers to increase the number of records sent per API call, which effectively increases producer throughput\", with the worked example of packing 1,000 records into 10 — and the per-item wait is entailed by that mechanism, since a record cannot be sent until the batch it is packed into is assembled, against Chapter 6's treatment of latency as per-request delay. Noted in qbank-findings: the delay half is entailed rather than stated, which is the thinnest sourcing left in this file. No distractor is also correct: o2 says batching lowers throughput, which the KPL page contradicts; o3 equates latency and throughput, which Chapter 6 separates as distinct golden signals; o4 claims batched writes are likelier to fail outright, which no source states and which grouping does not affect. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/streams/latest/dev/kinesis-kpl-concepts.html",
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.caching.01",
@@ -1438,7 +1817,7 @@
         },
         {
           "ref": "o2",
-          "text": "Both equally, since an in-process cache and a set of edge locations are simply two names for one identical mechanism. — collapsing the general technique and its geographically distributed special case into a single mechanism with no distinguishing property left.",
+          "text": "Both equally, since an in-process cache and a set of edge locations are simply two names for one identical mechanism — collapsing the general technique and its geographically distributed special case into a single mechanism with no distinguishing property left.",
           "correct": false,
           "why": "They are the same general technique at different scope: the CDN adds geographic distribution on top of the caching behaviour the in-process cache already has.",
           "provenance": {
@@ -1476,7 +1855,21 @@
       "comparison_block": "cmp-cloud.performance-availability.caching",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against the CloudFront introduction, which describes delivery \"through a worldwide network of data centers called edge locations\", each request \"routed to the edge location that provides the lowest latency\", with copies \"held (or cached) in multiple edge locations around the world\" — a CDN is caching distinguished by geography, so the second team's setup is the CDN and the in-process cache is the general technique. No distractor is also correct: o2 collapses the two into one mechanism, erasing the geographic distinction the page draws; o3 claims a CDN stores nothing, contradicted by \"if the content is already in the edge location... CloudFront delivers it immediately\"; o4 calls them unrelated techniques, contradicted by the page's own caching language. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.caching.02",
@@ -1497,7 +1890,7 @@
         },
         {
           "ref": "o2",
-          "text": "Nothing — a correctly configured cache never serves data more than a few seconds old. — an assumption that quietly rules out the entire mechanism time-to-live exists to permit, which is exactly what makes caching cheap.",
+          "text": "Nothing — a correctly configured cache never serves data more than a few seconds old — an assumption that quietly rules out the entire mechanism time-to-live exists to permit, which is exactly what makes caching cheap.",
           "correct": false,
           "why": "Staleness up to the full time-to-live is exactly what a cache can serve; describing it as never happening ignores the trade the technique makes by design.",
           "provenance": {
@@ -1529,13 +1922,29 @@
       "rationale": "Caching cuts latency and origin load at the cost of possibly serving a stale value until expiry, invalidation or eviction. Because a cached copy is not authoritative, the origin still has to be capable of handling the full load on a cold start or after invalidation.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-cloudfront-expiration",
         "aws-cloudfront"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.caching",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the staleness-until-expiry mechanism the item turns on is absent from the CloudFront introduction. The expiration page states it — CloudFront \"serves a file from an edge location until the cache duration that you specified passes — that is, until the file expires\", after which the next request is forwarded to the origin to check for a newer version, and a rarely requested file \"might\" be evicted early — and the introduction supplies the non-authoritative part: the origin \"stores the original, definitive version of your objects\". Together they give the key: staleness traded for latency and origin load, with the origin still required. No distractor is also correct: o2 denies staleness beyond a few seconds, contradicted by a configurable duration whose default TTL is 24 hours; o3 reverses the trade; o4 claims a miss makes the page unreachable, contradicted by the documented fall-through to the origin. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html",
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.content-delivery-network.01",
@@ -1556,7 +1965,7 @@
         },
         {
           "ref": "o2",
-          "text": "The second — a CDN accelerates any slow request regardless of cause, including database queries, once content is placed at the edge. — extending the edge’s reach to a class of request it was never built to accelerate, since a query’s own execution time never touches the network at all.",
+          "text": "The second — a CDN accelerates any slow request regardless of cause, including database queries, once content is placed at the edge — extending the edge’s reach to a class of request it was never built to accelerate, since a query’s own execution time never touches the network at all.",
           "correct": false,
           "why": "A CDN serves cacheable content from the edge; a search query's own execution time on the origin is unaffected by where static content is cached.",
           "provenance": {
@@ -1594,7 +2003,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against the CloudFront introduction: requests are routed \"to the edge location that provides the lowest latency\", the AWS backbone \"dramatically reduces the number of networks that your users' requests must pass through\", and what is served from the edge is the content copied from the origin — all of which addresses distance, and none of which touches work executed on the origin. A slowdown present beside the origin is therefore not the case a CDN answers. No distractor is also correct: o2 claims the edge accelerates any request including database queries, which the page's copy-at-the-edge model does not do; o3 claims every user gets a reduction, contradicted by the universal symptom in the stem; o4 claims a CDN serves only images and video, contradicted by the page's list of .html, .css, .js and image files, plus dynamic content. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.content-delivery-network.02",
@@ -1615,7 +2038,7 @@
         },
         {
           "ref": "o2",
-          "text": "Nothing extra — every edge location shares one global cache, so a miss at one edge is always a hit at another. — an assumption that erases the whole reason edges are described as geographically distributed rather than as one shared pool.",
+          "text": "Nothing extra — every edge location shares one global cache, so a miss at one edge is always a hit at another — an assumption that erases the whole reason edges are described as geographically distributed rather than as one shared pool.",
           "correct": false,
           "why": "Edge locations are geographically distributed caches; a miss at one is not automatically covered by another edge holding a copy.",
           "provenance": {
@@ -1653,7 +2076,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds verbatim against the CloudFront introduction: \"if the content is not in that edge location, CloudFront retrieves it from an origin that you've defined\", the origin \"stores the original, definitive version of your objects\", and copies are then \"held (or cached) in multiple edge locations\" — a first request at a cold edge costs an origin fetch, and later ones at that edge do not. No distractor is also correct: o2 posits one shared global cache, contradicted by the per-edge miss the page describes; o3 requires invalidating other edges first, and invalidation is the separate mechanism for removing content before expiry; o4 posits an origin push, contradicted by the documented retrieve-on-request model. Each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+          "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.monitoring-and-metrics.01",
@@ -1674,7 +2112,7 @@
         },
         {
           "ref": "o2",
-          "text": "The second is monitoring, since correlating multiple signal types is simply a more advanced form of threshold alerting. — reversing which practice requires the question to be known in advance and which one exists precisely because it cannot always be.",
+          "text": "The second is monitoring, since correlating multiple signal types is simply a more advanced form of threshold alerting — reversing which practice requires the question to be known in advance and which one exists precisely because it cannot always be.",
           "correct": false,
           "why": "This swaps the pair: threshold alerting on a predefined signal is monitoring, and combining logs, metrics and traces to answer an unanticipated question is observability instead.",
           "provenance": {
@@ -1694,9 +2132,9 @@
         },
         {
           "ref": "o4",
-          "text": "Neither is examinable here, since both describe internal engineering practice rather than architecture.",
+          "text": "Neither, because both are simply names for a dashboard, and any dashboard showing logs beside metrics already delivers everything either practice offers.",
           "correct": false,
-          "why": "The distinction between a practice built on predefined thresholds and a property that answers unanticipated questions is exactly the kind of discrimination this competency tests.",
+          "why": "A dashboard is a display surface for whichever signals were collected; it does not decide whether an unanticipated question can be answered, which is what separates the two practices.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.performance-availability.redundancy"
@@ -1706,13 +2144,30 @@
       "rationale": "Monitoring collects predefined numeric signals and alerts when a chosen threshold is crossed — it answers questions you knew to ask in advance. Observability is the broader property, built from logs, metrics and traces together, that lets you answer questions you had not anticipated; metrics are one input to it, not a synonym for it.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring",
+        "aws-well-architected-observability"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.monitoring-and-metrics",
       "comparison_block": "cmp-cloud.performance-availability.monitoring-and-metrics",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. The item also carried an eliminable-on-sight distractor: o4 read \"Neither is examinable here, since both describe internal engineering practice rather than architecture\", which announces itself as a non-answer by talking about the exam rather than the systems; it was rewritten as a substantive false claim about dashboards. Key holds against the two sources: SRE Chapter 6 presents monitoring as collecting and displaying chosen signals and alerting on thresholds, and the Well-Architected observability page states that \"observability goes beyond simple monitoring, providing a comprehensive understanding of a system's internal workings based on its external outputs\", \"rooted in metrics, logs, and traces\", letting teams \"discern patterns, anomalies, and trends\". No distractor is also correct: o2 reverses the pair; o3 claims both rest only on numeric time series, contradicted by observability's logs and traces; the rewritten o4 claims a dashboard is all either practice offers, which the \"goes beyond simple monitoring\" framing denies. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/implement-observability.html",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.monitoring-and-metrics.02",
@@ -1765,13 +2220,28 @@
       "rationale": "The four golden signals are latency, traffic, errors and saturation. Saturation specifically measures how full the constraining resource is — queued work against it — which is what actually drives user-visible latency as a system approaches its limit.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.monitoring-and-metrics",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. This was the sharpest instance in the file: the item's own why credited \"Google's SRE material\" for the four golden signals while the source_ids pointed at an AWS page listing six pillar names. SRE Chapter 6 states the key verbatim: \"the four golden signals of monitoring are latency, traffic, errors, and saturation. If you can only measure four metrics of your user-facing system, focus on these four\", and treats saturation as how full the service is against its most constrained resource, noting that \"measuring your 99th percentile response time... can give a very early signal of saturation\". No distractor is also correct: o2 substitutes four hardware resources, which the chapter's user-facing framing excludes; o3 substitutes uptime and cost and puts throughput in saturation's place; o4 omits traffic and saturation and adds elasticity, which is a design property and not one of the four. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.sla-slo-and-sli.01",
@@ -1830,7 +2300,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds against SRE Chapter 4, which defines an SLI as \"a carefully defined quantitative measure of some aspect of the level of service that is provided\", an SLO as \"a target value or range of values for a service level that is measured by an SLI\", and an SLA as \"an explicit or implicit contract with your users that includes consequences of meeting (or missing) the SLOs they contain\" — adding that the distinction is drawn by whether consequences attach, and that internal targets are commonly held tighter than what is promised externally. No distractor is also correct: o2 names the SLA for an internally held target with no remedy; o3 calls the target the measurement; o4 denies that a distinct internal target exists, which the chapter's treatment of SLOs contradicts. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/service-level-objectives/"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.bottleneck-identification.01",
@@ -1883,13 +2367,28 @@
       "rationale": "Utilisation measures how much of a resource is in use; saturation measures how much work is queued waiting for it, and only the saturated resource is the actual constraint. A moderately busy CPU next to a deeply queued disk means the disk, not the CPU, is where the fix belongs.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.bottleneck-identification",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. Key holds against SRE Chapter 6, which defines saturation as how full the service is, \"emphasizing the resources that are most constrained\", notes that utilisation-style measures are indirect signals with a known upper bound rather than the constraint itself, and that rising latency is a leading indicator of saturation — so a deep disk queue identifies the disk while a 40% CPU figure identifies nothing. No distractor is also correct: o2 reads the largest reported utilisation as the constraint, which the chapter's saturation framing denies; o3 asserts a network constraint with no evidence in the stem; o4 claims CPU and disk always saturate together, which the same framing (most-constrained resource) contradicts. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.performance-availability.bottleneck-identification.02",
@@ -1910,7 +2409,7 @@
         },
         {
           "ref": "o2",
-          "text": "Nothing was skipped, since adding instances is always the correct first response to any latency complaint. — the attractive wrong answer the exam is specifically testing for, since it skips locating the constraint before spending effort on it.",
+          "text": "Nothing was skipped, since adding instances is always the correct first response to any latency complaint — application capacity being the usual constraint behind a slow checkout, and the one lever a team can pull without waiting for a measurement.",
           "correct": false,
           "why": "Horizontal scaling helps only if application capacity was the actual constraint; if the real bottleneck sits elsewhere, such as a database's disk, added instances change nothing.",
           "provenance": {
@@ -1942,13 +2441,28 @@
       "rationale": "The ordering matters more than the technique: measure each resource under load, find the one that is actually saturated, and only then apply a fix aimed at it. Adding instances without first locating the constraint is exactly the attractive wrong answer the exam supplies.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-well-architected-pillars"
+        "google-sre-book-monitoring"
       ],
       "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.bottleneck-identification",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-performance-availability",
+        "verdict": "confirmed",
+        "initial_verdict": "refuted",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED as authored on the citation: the item cited aws-well-architected-pillars, whose entire page is the building analogy plus a bulleted list of the six pillar names — it contains nothing about this item's subject. Citation repointed and re-verified. The item also carried a distractor that announced its own wrongness: o2 ended \"— the attractive wrong answer the exam is specifically testing for, since it skips locating the constraint before spending effort on it\", which is eliminable without knowing anything about bottlenecks; the tail was replaced with a plausible false justification of comparable length. Key holds against SRE Chapter 6: the golden signals exist to be measured first, saturation names the most constrained resource, and the chapter's own worked example is a team acting on the wrong statistic until it measured the distribution. Adding instances without identifying the saturated resource changes nothing measurable. No distractor is also correct: the rewritten o2 is false because capacity was added and p99 did not move; o3 offers a recovery time objective, a disaster-recovery target not a tuning step; o4 offers a CDN, which addresses distance for cacheable content and not a dynamic checkout path. Each why states a true fact.",
+        "sources_read": [
+          "https://sre.google/sre-book/monitoring-distributed-systems/",
+          "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
+        ]
+      }
     }
   ]
 }

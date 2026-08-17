@@ -11,24 +11,24 @@
 | linux.linux-operating-system.shell | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 3 | HIGH |
 | linux.linux-operating-system.terminal | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 3 | HIGH |
 | linux.linux-operating-system.everything-is-a-file | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 2 | HIGH |
-| linux.linux-operating-system.multi-user-and-multitasking | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 2 | HIGH |
+| linux.linux-operating-system.multi-user-and-multitasking | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 2 | HIGH |
 | linux.linux-operating-system.linux-distribution | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
-| linux.linux-operating-system.distribution-families | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.linux-operating-system.distribution-families | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 5 | 0 | 3 | HIGH |
 | linux.linux-operating-system.lts-vs-rolling-release | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| linux.linux-operating-system.gnu-and-the-linux-kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.linux-operating-system.linux-history | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| linux.linux-operating-system.gnu-and-the-linux-kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.linux-operating-system.linux-history | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 5 | 0 | 2 | MEDIUM |
 | linux.linux-operating-system.unix-heritage-and-posix | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | linux.linux-operating-system.open-source-licensing-of-linux | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 2 | HIGH |
-| linux.linux-operating-system.cpu | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
+| linux.linux-operating-system.cpu | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | PARTIALLY COVERED | 2 | 0 | 3 | HIGH |
 | linux.linux-operating-system.ram | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 3 | HIGH |
 | linux.linux-operating-system.storage-devices | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.linux-operating-system.cpu-architecture | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 3 | HIGH |
+| linux.linux-operating-system.cpu-architecture | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
 | linux.linux-operating-system.device-drivers-and-kernel-modules | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 4 | 0 | 3 | MEDIUM |
 | linux.linux-operating-system.firmware | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | linux.linux-operating-system.gui-vs-cli | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 3 | HIGH |
 | linux.linux-operating-system.desktop-environments | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| linux.linux-operating-system.x11-and-wayland | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 2 | 0 | 1 | LOW |
-| linux.linux-operating-system.environment-variables | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.linux-operating-system.x11-and-wayland | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 1 | LOW |
+| linux.linux-operating-system.environment-variables | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 4 | 0 | 3 | HIGH |
 | linux.linux-operating-system.path | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
 | linux.linux-operating-system.system-information-commands | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 4 | 0 | 3 | HIGH |
 | linux.command-line.command-syntax | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
@@ -266,51 +266,51 @@
 | cloud.cloud-computing.object-block-and-file-storage | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.cloud-migration-approaches | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | cloud.cloud-computing.vendor-lock-in | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.performance-availability.availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.high-availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.fault-tolerance | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.redundancy | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.performance-availability.failover | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.performance-availability.availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 3 | HIGH |
+| cloud.performance-availability.high-availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.performance-availability.fault-tolerance | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 3 | HIGH |
+| cloud.performance-availability.redundancy | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 2 | HIGH |
+| cloud.performance-availability.failover | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 4 | 0 | 3 | HIGH |
 | cloud.performance-availability.scalability-vs-elasticity | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 2 | HIGH |
-| cloud.performance-availability.vertical-scaling | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.horizontal-scaling | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.performance-availability.vertical-scaling | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.performance-availability.horizontal-scaling | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.performance-availability.auto-scaling | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.performance-availability.load-balancing | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.stateless-design | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.latency-and-throughput | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.performance-availability.caching | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.performance-availability.load-balancing | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.performance-availability.stateless-design | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.performance-availability.latency-and-throughput | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 2 | HIGH |
+| cloud.performance-availability.caching | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.performance-availability.content-delivery-network | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.performance-availability.monitoring-and-metrics | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.performance-availability.monitoring-and-metrics | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.performance-availability.sla-slo-and-sli | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| cloud.performance-availability.bottleneck-identification | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.budgeting.pay-as-you-go | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 3 | 0 | 3 | HIGH |
-| cloud.budgeting.total-cost-of-ownership | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| cloud.budgeting.free-tier-and-pricing-calculators | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 4 | 0 | 2 | MEDIUM |
+| cloud.performance-availability.bottleneck-identification | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 2 | 0 | 2 | HIGH |
+| cloud.budgeting.capex-vs-opex | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 2 | HIGH |
+| cloud.budgeting.pay-as-you-go | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.budgeting.on-demand-reserved-and-spot-pricing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 7 | 0 | 3 | HIGH |
+| cloud.budgeting.total-cost-of-ownership | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| cloud.budgeting.free-tier-and-pricing-calculators | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 6 | 0 | 2 | MEDIUM |
 | cloud.budgeting.rightsizing | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.budgeting.orphaned-resources | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.budgeting.orphaned-resources | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.budgeting.data-egress-charges | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.budgeting.resource-tagging | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.budgeting.budgets-and-cost-alerts | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.budgeting.chargeback-and-showback | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| cloud.budgeting.budgets-and-cost-alerts | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.budgeting.chargeback-and-showback | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | cloud.budgeting.cost-monitoring | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.budgeting.storage-tiers-and-lifecycle-policies | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.best-practices.design-for-failure | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.budgeting.storage-tiers-and-lifecycle-policies | Cloud Computing Fundamentals | 18% | Budgeting | Budgeting | NOT COVERED | 3 | 0 | 3 | HIGH |
+| cloud.best-practices.design-for-failure | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | cloud.best-practices.multi-zone-deployment | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| cloud.best-practices.automation-over-manual-configuration | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.best-practices.immutable-infrastructure | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.best-practices.well-architected-review | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| cloud.best-practices.identity-and-access-management | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.best-practices.automation-over-manual-configuration | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 5 | 0 | 3 | MEDIUM |
+| cloud.best-practices.immutable-infrastructure | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| cloud.best-practices.well-architected-review | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 4 | 0 | 2 | MEDIUM |
+| cloud.best-practices.identity-and-access-management | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 4 | 0 | 2 | MEDIUM |
 | cloud.best-practices.secrets-management-in-cloud | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.best-practices.encryption-by-default | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.best-practices.encryption-by-default | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | cloud.best-practices.least-privilege-for-cloud-identities | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.best-practices.avoid-hardcoded-credentials | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | HIGH |
-| cloud.best-practices.backup-and-recovery-in-cloud | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.best-practices.logging-and-auditing-in-cloud | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.best-practices.documentation-and-tagging-standards | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.best-practices.right-size-before-you-scale | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.best-practices.health-checks-and-graceful-shutdown | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.best-practices.backup-and-recovery-in-cloud | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| cloud.best-practices.logging-and-auditing-in-cloud | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| cloud.best-practices.documentation-and-tagging-standards | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| cloud.best-practices.right-size-before-you-scale | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 4 | 0 | 2 | HIGH |
+| cloud.best-practices.health-checks-and-graceful-shutdown | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 3 | 0 | 2 | MEDIUM |
 | cloud.networking.virtual-private-cloud | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | cloud.networking.cloud-subnets | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | cloud.networking.public-vs-private-subnet | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
@@ -377,43 +377,43 @@
 | security.sensitive-data.data-breach-and-notification | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.sensitive-data.backups-of-sensitive-data | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.compliance.compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.compliance.policy-standard-and-procedure | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.compliance.controls-and-evidence | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 3 | HIGH |
-| security.compliance.audit | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.compliance.policy-standard-and-procedure | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| security.compliance.controls-and-evidence | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 3 | 0 | 3 | HIGH |
+| security.compliance.audit | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.compliance.risk-assessment | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.compliance.gdpr | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | security.compliance.hipaa | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.compliance.pci-dss | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| security.compliance.soc-2-and-iso-27001 | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| security.compliance.pci-dss | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| security.compliance.soc-2-and-iso-27001 | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | security.compliance.data-sovereignty-and-residency | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | security.compliance.data-retention-obligations | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 2 | 0 | 3 | MEDIUM |
 | security.compliance.consent-and-lawful-basis | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| security.compliance.licensing-compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 2 | HIGH |
+| security.compliance.licensing-compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 3 | 0 | 2 | HIGH |
 | security.compliance.consequences-of-non-compliance | Security Fundamentals | 14% | Compliance | Compliance | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | devops.devops-basics.devops | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | FULLY COVERED | 1 | 0 | 2 | HIGH |
-| devops.devops-basics.silos-and-shared-responsibility | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| devops.devops-basics.silos-and-shared-responsibility | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | devops.devops-basics.feedback-loops | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | devops.devops-basics.shift-left | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.devops-basics.site-reliability-engineering | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 1 | LOW |
+| devops.devops-basics.site-reliability-engineering | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 1 | LOW |
 | devops.devops-basics.continuous-integration | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
 | devops.devops-basics.continuous-delivery | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | FULLY COVERED | 1 | 0 | 3 | HIGH |
 | devops.devops-basics.continuous-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.devops-basics.pipeline | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
-| devops.devops-basics.build-and-artifact | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
+| devops.devops-basics.pipeline | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
+| devops.devops-basics.build-and-artifact | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
 | devops.devops-basics.automated-testing | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | MEDIUM |
 | devops.devops-basics.artifact-registry | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
 | devops.devops-basics.semantic-versioning | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.devops-basics.ci-cd-tooling | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.devops-basics.deployment-environments | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.devops-basics.blue-green-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.devops-basics.canary-release | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 3 | HIGH |
+| devops.devops-basics.ci-cd-tooling | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 4 | 0 | 2 | MEDIUM |
+| devops.devops-basics.deployment-environments | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
+| devops.devops-basics.blue-green-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 3 | HIGH |
+| devops.devops-basics.canary-release | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.devops-basics.rolling-deployment | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.devops-basics.rollback | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
-| devops.devops-basics.developer-environments-and-parity | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 3 | MEDIUM |
+| devops.devops-basics.rollback | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 3 | 0 | 2 | HIGH |
+| devops.devops-basics.developer-environments-and-parity | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
+| devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | devops.devops-basics.monolith-vs-microservices | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
 | devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 1 | 0 | 3 | HIGH |
 | devops.git-concepts.distributed-vs-centralized-version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 2 | MEDIUM |

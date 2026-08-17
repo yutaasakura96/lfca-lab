@@ -17,7 +17,7 @@ described problem, and which nearly identical practice does not.
 
 <a id="c-cloud.best-practices.design-for-failure"></a>
 ### Design for failure
-*id: `cloud.best-practices.design-for-failure` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-reliability-pillar*
+*id: `cloud.best-practices.design-for-failure` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-reliability-pillar, aws-wa-reliability-design-principles*
 
 **What it is** A design assumption, not a product: every component — instance, disk, zone,
 dependency, network path — will fail, so the architecture is built so that its failure is a
@@ -72,7 +72,7 @@ zone-redundant); others are pinned to one zone and must be deployed per zone del
 
 <a id="c-cloud.best-practices.automation-over-manual-configuration"></a>
 ### Automation over manual configuration
-*id: `cloud.best-practices.automation-over-manual-configuration` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-pillars*
+*id: `cloud.best-practices.automation-over-manual-configuration` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-pillars, aws-wa-deploy-with-automation, aws-cloudtrail, azure-activity-log, google-cloud-audit-logs*
 
 **What it is** Expressing infrastructure and configuration as code that a machine applies,
 rather than as a sequence of console clicks a person performs. The artifact of the change is a
@@ -130,7 +130,7 @@ table follows from that.
 
 <a id="c-cloud.best-practices.immutable-infrastructure"></a>
 ### Immutable infrastructure
-*id: `cloud.best-practices.immutable-infrastructure` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-reliability-pillar*
+*id: `cloud.best-practices.immutable-infrastructure` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-reliability-pillar, aws-wa-immutable-infrastructure*
 
 **What it is** A deployment model in which a running instance is never modified after it is
 created. Any change — a package update, a config edit, a new application version — produces a
@@ -172,7 +172,7 @@ disposable.
 
 <a id="c-cloud.best-practices.well-architected-review"></a>
 ### Well-architected review
-*id: `cloud.best-practices.well-architected-review` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-pillars, azure-well-architected-pillars*
+*id: `cloud.best-practices.well-architected-review` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-well-architected-pillars, azure-well-architected-pillars, aws-wa-document-revisions, aws-well-architected-tool*
 
 **What it is** A structured assessment of a workload against a published set of architectural
 pillars, rather than against the single question of whether it currently works. AWS names
@@ -238,7 +238,7 @@ respectively.
 
 <a id="c-cloud.best-practices.identity-and-access-management"></a>
 ### Identity and access management
-*id: `cloud.best-practices.identity-and-access-management` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-iam-best-practices*
+*id: `cloud.best-practices.identity-and-access-management` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-iam-best-practices, aws-iam-introduction, aws-iam-root-user-best-practices, aws-ec2-security-shared-responsibility*
 
 **What it is** The provider's own system of accounts, groups, roles and policies governing
 which identity may call which API against which resource. It covers both authentication (proving
@@ -289,7 +289,7 @@ what turns a long-lived secret into a short-lived one.
 
 <a id="c-cloud.best-practices.encryption-by-default"></a>
 ### Encryption by default
-*id: `cloud.best-practices.encryption-by-default` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-kms*
+*id: `cloud.best-practices.encryption-by-default` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-kms, aws-s3-data-encryption*
 
 **What it is** Turning on encryption at rest and encryption in transit as the standing setting
 for every resource, so that an unencrypted resource is a deliberate, justified exception rather
@@ -403,7 +403,7 @@ encryption at rest does not stop an over-broad policy from reading it.
 
 <a id="c-cloud.best-practices.backup-and-recovery-in-cloud"></a>
 ### Backup and recovery in cloud
-*id: `cloud.best-practices.backup-and-recovery-in-cloud` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-backup*
+*id: `cloud.best-practices.backup-and-recovery-in-cloud` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-backup, aws-backup-restore-testing, aws-ec2-security-shared-responsibility*
 
 **What it is** A policy-driven copy of data, held apart from the running system, together with a
 restore procedure that has actually been performed. Managed services such as AWS Backup
@@ -429,7 +429,7 @@ deliberately, because an untested restore path is an assumption, not a recovery 
 
 <a id="c-cloud.best-practices.logging-and-auditing-in-cloud"></a>
 ### Logging and auditing in cloud
-*id: `cloud.best-practices.logging-and-auditing-in-cloud` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-cloudtrail*
+*id: `cloud.best-practices.logging-and-auditing-in-cloud` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-cloudtrail, aws-cloudtrail-record-contents*
 
 **What it is** Recording which identity called which API, against which resource, when, from
 where, and with what result. AWS CloudTrail is the canonical example: actions taken by a user,
@@ -453,7 +453,7 @@ enabled deliberately. The log destination is then protected from the identities 
 
 <a id="c-cloud.best-practices.documentation-and-tagging-standards"></a>
 ### Documentation and tagging standards
-*id: `cloud.best-practices.documentation-and-tagging-standards` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-tagging-best-practices*
+*id: `cloud.best-practices.documentation-and-tagging-standards` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-tagging-best-practices, aws-tagging-what-are-tags, aws-organizing-multiple-accounts*
 
 **What it is** A tag is a key with an optional value attached to a resource as metadata —
 `Owner`, `Environment`, `CostCenter`, `Application`. A tagging standard is the enforced agreement
@@ -477,7 +477,7 @@ not itself an isolation boundary — accounts, subscriptions or projects are.
 
 <a id="c-cloud.best-practices.right-size-before-you-scale"></a>
 ### Right-size before you scale
-*id: `cloud.best-practices.right-size-before-you-scale` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper*
+*id: `cloud.best-practices.right-size-before-you-scale` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper, aws-rightsizing-identify-opportunities, aws-rightsizing-instance-families, aws-reserved-instances*
 
 **What it is** Right sizing is matching instance types and sizes to the workload's measured
 performance and capacity requirements at the lowest possible cost, and identifying deployed
@@ -485,8 +485,9 @@ instances that can be downsized or eliminated outright without compromising that
 it before scaling means correcting the unit before multiplying it.
 
 **Why it matters** Scaling multiplies whatever the unit costs, including its waste: autoscaling
-a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a
-higher price per unit. The documented failure mode is exactly the tempting one — organisations
+a workload that idles at 5% CPU on an oversized instance type buys more idle capacity, at a
+higher cost for the same useful work — the per-unit rate does not change, the number of
+oversized units does. The documented failure mode is exactly the tempting one — organisations
 lift and shift into the cloud, prioritise speed and performance over cost, intend to right size
 later, and end up with oversized instances and sustained wasted spend.
 
@@ -501,7 +502,7 @@ removing it.
 
 <a id="c-cloud.best-practices.health-checks-and-graceful-shutdown"></a>
 ### Health checks and graceful shutdown
-*id: `cloud.best-practices.health-checks-and-graceful-shutdown` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-elastic-load-balancing*
+*id: `cloud.best-practices.health-checks-and-graceful-shutdown` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-elastic-load-balancing, aws-nlb-health-checks, aws-target-group-attributes*
 
 **What it is** Two halves of one loop. A health check is a probe the platform runs against each
 registered target so the load balancer routes traffic only to healthy ones — Elastic Load
