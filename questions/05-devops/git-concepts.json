@@ -52,13 +52,28 @@
       "rationale": "Version control, backup and change management all produce evidence of \"what changed,\" which is why a scenario can present all three as plausible. Version control recovers author-chosen revisions of actively edited files; backup, taken here with a scheduled `tar` archive, recovers from loss of the whole system; change management records approvals, not file contents.",
       "source_ids": [
         "lf-objectives-2025",
+        "progit-about-version-control",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.version-control",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The cited progit-what-is-git page covers snapshots, locality, integrity and the three states; it never defines what version control is for, so it did not support the key's contrast between author-initiated revisions and a scheduled archive. Pro Git 1.1 'About Version Control' does: version control 'records changes to a file or set of files over time so that you can recall specific versions later', and it is now cited. Key re-checked against that page and correct. o2 is refuted by the same sentence (a clone/repo records deliberate commits, not the rest of the disk); o3's why is true (centralized vs distributed is an architecture axis — Pro Git 1.1 describes both as version control systems); o4's why is true and lies outside git documentation by design. No two options assert the same answer and no distractor satisfies the stem.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.version-control.02",
@@ -111,13 +126,28 @@
       "rationale": "Version control exists precisely to let any earlier state of a tracked file be recovered, with the author and reason attached. Git is one implementation of this practice; recovering one file's content as of a given day is a version-control operation, not a backup restore or a RAID rebuild.",
       "source_ids": [
         "lf-objectives-2025",
+        "progit-about-version-control",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.version-control",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Same citation defect as .01 and repaired the same way: 'recover exactly what one file looked like on a given day' is the definition given in Pro Git 1.1 ('recall specific versions later'), not anything on the What is Git? page that was cited. Key correct against the added page. Checked o2 for a second correct answer: a scheduled backup taken the day before would in fact contain the file, but the stem asks what kind of system provides per-file revision recovery, and o2's own text concedes it 'restores the whole system to one point in time, not a single document', so it does not satisfy the stem. o3 (RAID has no revision concept) and o4 (a ticket holds no file content) are both true as stated.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.distributed-vs-centralized-version-control.01",
@@ -170,13 +200,28 @@
       "rationale": "In a distributed system, cloning copies the object database, not just the latest files, so the clone is a full peer that can operate offline. A centralized system keeps one authoritative server copy and needs a round trip for most operations — the architectural fact this whole competency keeps circling back to.",
       "source_ids": [
         "lf-objectives-2025",
+        "progit-about-version-control",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.distributed-vs-centralized-version-control",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key holds directly against the cited page: 'Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous', and the same page names committing offline explicitly. o3's why claims a centralized working copy holds little or none of the history — true, but stated on Pro Git 1.1 rather than on the page originally cited, so that page was added. o2's why (a clone holds the complete history from the start, not a rolling window) is supported by the same sentence. o4's why is true: origin is a name git clone assigns by convention, not a role a peer acquires. No distractor answers the stem.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.repository.01",
@@ -229,6 +274,8 @@
       "rationale": "`git init` creates an empty repository — a `.git` directory with an object store and an initial branch carrying no commits — and configures no remote, which fits a directory with nothing to copy from. `git clone` is the other repository-creating command, but it requires an existing source and copies its history rather than starting fresh.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-init",
+        "git-clone",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.repository",
@@ -237,7 +284,22 @@
         "git init"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: neither git init nor git clone is documented on progit-what-is-git, so the command claims rested on nothing. git-init(1) and git-clone(1) added. Key confirmed against git-init(1), which creates an empty repository — an initial HEAD and object database with no commits — and configures no remote. o2 is genuinely wrong because git-clone(1) requires an existing repository as <repository>; cloning a directory that is not a repository fails. o3's why is true (git-add(1) stages content of paths inside an existing repository). o4's why is true: git-init(1) creates a complete repository with no remote configured.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-init",
+          "https://git-scm.com/docs/git-clone",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.repository.02",
@@ -290,7 +352,8 @@
       "rationale": "The `.git` directory is where every commit, branch ref and tag physically lives; the project files beside it are a checked-out view, not the history itself. Deleting or skipping `.git` leaves the files intact and destroys the repository, which is a different loss from losing files.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-clone"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.repository",
       "comparison_block": null,
@@ -298,7 +361,21 @@
         "git clone"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed on the cited page: 'The Git directory is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone', with the working tree described as 'a single checkout of one version of the project'. o2's why is true (remote config is one entry in .git/config among the whole object database). o3's why needed git-clone(1), which was added: clone copies an existing repository and cannot reconstruct history from working files. o4's why is true — .gitignore is an ordinary tracked file in the working tree, per gitignore(5). No two options assert the same answer.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+          "https://git-scm.com/docs/git-clone"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.working-directory-staging-area-and-repository.01",
@@ -351,6 +428,8 @@
       "rationale": "`git status` reports the working tree, the staging area and the repository in plain words: \"Changes to be committed\" is the index, \"Changes not staged for commit\" is the working tree, and \"Untracked files\" are paths Git has never seen. `git add` copies a file's content as it is at that instant, which is why editing again afterward leaves that file listed under both of the first two headings at once.",
       "source_ids": [
         "lf-objectives-2025",
+        "progit-recording-changes",
+        "git-status",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.working-directory-staging-area-and-repository",
@@ -359,7 +438,22 @@
         "git status"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: the key quotes the literal headings 'Changes to be committed' and 'Changes not staged for commit', which appear nowhere on progit-what-is-git. Pro Git 2.2 carries both headings and the exact worked example — stage a file, edit it again, and it is listed under both — together with the governing sentence 'Git stages a file exactly as it is when you run the git add command.' git-status(1)'s DESCRIPTION independently states the three categories (index vs HEAD, working tree vs index, untracked). Both added. Key confirmed. o2's why restates the same Pro Git sentence correctly; o3's why correctly defines untracked; o4's why is true — status compares all three states, so the file is not invisible.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "https://git-scm.com/docs/git-status",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.working-directory-staging-area-and-repository.02",
@@ -412,6 +506,7 @@
       "rationale": "`git commit -a` auto-stages modifications and deletions of already-tracked files as part of committing, but it never adds a file Git has never seen — that still needs an explicit `git add`. A commit records exactly what the index holds at the moment `git commit` runs, nothing else.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-commit",
         "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.working-directory-staging-area-and-repository",
@@ -421,7 +516,21 @@
         "git commit"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired with git-commit(1), which settles the item verbatim: '-a, --all: Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected.' The cited progit-what-is-git page documents no option of any command. Key confirmed word for word. o2 is the direct negation of that sentence; o3's why is true (-a exists to skip git add for tracked files and does commit their changes); o4's why is true (-a touches only already-tracked paths). Each why is consistent with its own option text.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-commit",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.commit.01",
@@ -474,7 +583,8 @@
       "rationale": "A commit is an immutable local snapshot; nothing leaves the machine it was made on until a push. That commit/push split is exactly what the \"Not to be confused with: Commit vs Push\" block on this concept exists to test — `git commit -m` records, push publishes, and only the second one needs a network.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-push"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.commit",
       "comparison_block": "cmp-devops.git-concepts.commit",
@@ -482,7 +592,21 @@
         "git commit -m"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed on the cited page, which states the offline case explicitly: 'you can commit happily (to your local copy, remember?) until you get to a network connection to upload.' The publishing half rests on git-push(1) ('Update remote refs along with associated objects'), which was not cited and has been added. o2's why is true of the centralized model, which the same page describes for Subversion and CVS. o3's why is true — message length has no bearing on transmission. o4's why is true: one fetch suffices for a commit that reached the remote, and nothing was pushed here.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F",
+          "https://git-scm.com/docs/git-push"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.commit.02",
@@ -535,7 +659,9 @@
       "rationale": "Each commit carries a link to its parent (two parents for an ordinary merge commit, more for an octopus merge of several branches at once, and none for the very first commit), and `git log` walks that chain backwards from HEAD. A commit sitting only on another, unmerged branch is not on that path and so does not appear, which is a statement about reachability, not about the commit being lost.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "git-log",
+        "git-status",
+        "git-diff"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.commit",
       "comparison_block": null,
@@ -543,7 +669,23 @@
         "git log"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: progit-what-is-git documents no command, so none of the four options had a source. git-log(1), git-status(1) and git-diff(1) added and read. Key confirmed: git-log(1) lists commits reachable from the given commit, defaulting to HEAD, so a commit only on an unmerged branch is off that path. o2 is the inverse of --all's documented meaning and is therefore not a second key. o3's why matches git-status(1)'s DESCRIPTION, which reports path differences and not commits. o4's why matches git-diff(1), which shows changes between trees rather than a commit list. Rationale's parent-count claim (two parents for an ordinary merge, more for an octopus, none for the root) is consistent with git-merge(1)'s octopus example.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-log",
+          "https://git-scm.com/docs/git-status",
+          "https://git-scm.com/docs/git-diff",
+          "https://git-scm.com/docs/git-merge"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.commit-messages.01",
@@ -596,13 +738,28 @@
       "rationale": "The convention of a short imperative summary followed by a body exists because the diff already shows what changed, in complete and permanent detail, while nothing else in the repository records why the change was made or what was rejected along the way.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "git-submitting-patches",
+        "git-commit"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.commit-messages",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired. The key asserts that a message adds why the change was made and what alternative was rejected; progit-what-is-git says nothing about commit messages. The Git project's own SubmittingPatches states the body should explain 'the problem the change tries to solve', justify 'why the result with the change is better', and record 'alternate solutions considered but discarded, if any' — the key confirmed almost clause for clause. git-commit(1)'s DISCUSSION supplies the short-summary-then-body convention the rationale states. o2 is refuted by the same passage (the diff already carries the line-level detail). o3's why is true: git-commit(1) records author and date on the commit object independently of the message. o4's why is true: branch membership is reachability, not commit content.",
+        "sources_read": [
+          "https://git-scm.com/docs/SubmittingPatches",
+          "https://git-scm.com/docs/git-commit"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.branch.01",
@@ -655,6 +812,8 @@
       "rationale": "A branch is a movable pointer stored under `refs/heads/`, and `git branch <name>` creates that pointer at the current commit without switching to it. `git switch -c <name>` and the older `git checkout -b <name>` both create and switch in one step, which is the distinct behaviour this question is testing against.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-branch",
+        "git-switch",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.branch",
@@ -664,7 +823,22 @@
         "git switch"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim against git-branch(1): 'Note that this will create the new branch, but it will not switch the working tree to it; use git switch <newbranch> to switch.' The cited progit-branching-basics page uses git checkout -b throughout and never states the non-switching behaviour, so git-branch(1) and git-switch(1) were added. o2 correctly describes git switch -c / git checkout -b, which is why it is a distractor and not a second key. o3's why is true (a branch is one ref, and a commit advances only the branch HEAD names). o4's why is true — HEAD still named main, so nothing is orphaned.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-branch",
+          "https://git-scm.com/docs/git-switch",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.branch.02",
@@ -717,6 +891,10 @@
       "rationale": "`git switch -c <name>` and the older `git checkout -b <name>` were both built to create a branch and switch to it in one step; `switch` and `restore` were added in Git 2.23 specifically to split `checkout`'s two unrelated jobs — moving between branches and restoring file contents — into separate commands, but the older combined form still works the same way.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-checkout",
+        "git-switch",
+        "git-branch",
+        "git-tag",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.branch",
@@ -725,7 +903,23 @@
         "git checkout -b"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against git-checkout(1), which documents -b as creating a new branch and switching to it. The '2.23' claim in the option text and rationale was unsourced as filed; git-switch(1)'s own version index on git-scm.com begins at 2.23.0, which is now cited. Checked every distractor for a second correct answer: o2 (git branch) creates without switching per git-branch(1); o3 (plain git switch) requires the branch to exist already, since creating needs -c per git-switch(1); o4 is refuted by git-checkout(1)'s DETACHED HEAD section, which is where checking out a tag lands you. Each why states a true fact consistent with its own option text.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-checkout",
+          "https://git-scm.com/docs/git-switch",
+          "https://git-scm.com/docs/git-branch",
+          "https://git-scm.com/docs/git-tag"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.head.01",
@@ -778,6 +972,7 @@
       "rationale": "HEAD is a pointer to whatever is currently checked out — normally the name of the current branch, which is why committing advances that branch. In detached-HEAD state it names a commit directly instead, with no branch to carry forward, which `git log HEAD` and a bare `git log` both display identically since HEAD is the default starting point either way.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-checkout",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#s-git-concepts-branching",
@@ -786,7 +981,21 @@
         "git log HEAD"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired with git-checkout(1), whose DETACHED HEAD section states that checking out a commit rather than a branch attaches HEAD directly to that commit; progit-branching-basics never covers detachment. Key confirmed. o2's why is true — HEAD marks where you are, not the furthest tip. o3's why is confirmed by the same section: no branch is created, which is what 'detached' names. o4's why is true: remote-tracking refs are separate local records and detaching does not repoint them. No distractor answers the stem.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-checkout",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.merge.01",
@@ -840,6 +1049,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "git-merge",
+        "git-rebase",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.merge",
@@ -848,7 +1058,22 @@
         "git merge"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim by git-merge(1)'s FAST-FORWARD MERGE section: when the current branch head is an ancestor of the named commit, 'a new commit is not needed... instead, the HEAD (along with the index) is updated to point at the named commit, without creating an extra merge commit.' o2 is refuted by the same page's TRUE MERGE section, which scopes the merge commit to the non-fast-forward case. o3's why needed git-rebase(1) and is true there — rebase replays commits, merge does not rewrite them; that source was added. o4's why is true and is settled by GitHub's own documentation, which places pull requests on the platform. No distractor satisfies the stem.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/docs/git-rebase",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.merge.02",
@@ -902,13 +1127,31 @@
       "source_ids": [
         "lf-objectives-2025",
         "git-merge",
-        "progit-branching-basics"
+        "git-rebase",
+        "git-request-pull",
+        "github-docs-about-pull-requests"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.merge",
       "comparison_block": "cmp-devops.git-concepts.merge",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation. o2's why asserts that git request-pull 'only prints a summary for a human to send', and the item cited neither git-request-pull(1) nor any GitHub page; both were added and read. git-request-pull(1) is titled 'Generates a summary of pending changes' and opens nothing, and GitHub's pull request documentation describes a pull request as a proposal to merge that lives on the platform. Key confirmed: merge is git-merge(1), rebase replays commits per git-rebase(1), and a pull request is neither. o3's why is true — rebase runs locally. o4's why is true: a pull request rewrites no hashes.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-request-pull",
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/docs/git-rebase"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.rebase.01",
@@ -951,14 +1194,14 @@
           "ref": "o4",
           "text": "No, because `git reset --hard` deleted the originals and nothing new was created to replace them",
           "correct": false,
-          "why": "Resetting the branch to the upstream tip is only the first half of what the documentation says a rebase does; the second half replays the saved commits as new objects, so something is created.",
+          "why": "The current documentation describes a rebase as checking out the upstream detached and then replaying the saved commits one by one, similar to `git cherry-pick`, so replacements are created rather than nothing.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.revert-vs-reset"
           }
         }
       ],
-      "rationale": "`git rebase` (here as `git rebase main`) takes the commits on a branch that are not on `main`, resets the branch to `main`'s tip — which the documentation notes has the same effect as `git reset --hard <upstream>` — and then reapplies those saved commits in order as brand-new objects. That rewriting property is the entire crux of why rebasing a branch other people have already pulled is discouraged: their repositories still hold the discarded originals.",
+      "rationale": "`git rebase` (here as `git rebase main`) lists the commits on the current branch that have no equivalent in `main`, checks out `main` with the equivalent of `git checkout --detach`, replays those commits one by one in a way the documentation likens to `git cherry-pick`, and then repoints the branch at the final replayed commit. The documentation's own diagram writes the results as `A'--B'--C'` rather than `A--B--C`. That rewriting property is the entire crux of why rebasing a branch other people have already pulled is discouraged: their repositories still hold the discarded originals.",
       "source_ids": [
         "lf-objectives-2025",
         "git-rebase"
@@ -969,7 +1212,20 @@
         "git rebase"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on a source contradiction, then fixed. Both the rationale and o4's why asserted that git-rebase(1) describes the reset step as 'the same effect as git reset --hard <upstream>'. The current git-rebase(1) says no such thing: its simplified description is list the commits, 'Check out <upstream> with the equivalent of git checkout --detach <upstream>', 'Replay the commits, one by one, in order. This is similar to running git cherry-pick <commit> for each commit', then 'Update your branch to point to the final commit with the equivalent of git checkout -B <branch>'. Rationale and o4's why rewritten to that text. Key confirmed by the same passage and by the page's A'--B'--C' diagram. o2 and o3 both claim hashes are preserved, which that diagram refutes; their whys are true as written and neither is a second key.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-rebase"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.rebase.02",
@@ -1022,13 +1278,28 @@
       "rationale": "Rebase does not undo anything and does not resolve a conflict by itself; it changes where commits sit in history by replacing them, which is exactly what separates it from revert and reset. That replacement is why rebasing a branch other people have already pulled is discouraged: the colleague's repository still contains the discarded originals, so the two histories have diverged even with identical content.",
       "source_ids": [
         "lf-objectives-2025",
-        "git-rebase"
+        "git-rebase",
+        "git-push"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.rebase",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against git-rebase(1)'s RECOVERING FROM UPSTREAM REBASE section: 'Rebasing (or any other form of rewriting) a branch that others have based work on is a bad idea: anyone downstream of it is forced to...' reconcile. o3's why claims a plain push is rejected as a non-fast-forward; that rests on git-push(1) ('Usually, git push will refuse to update a branch that is not an ancestor of the commit being pushed'), which was not cited and has been added. o2's why is true — a message changes no mechanics. Checked o4 hard as a candidate second key: it narrows the hazard to a colleague who has committed on top, but the divergence exists as soon as the colleague's repository holds the pre-rebase commits, so o4 is false and its why says exactly that.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-rebase",
+          "https://git-scm.com/docs/git-push"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.merge-conflict.01",
@@ -1090,7 +1361,21 @@
         "git status"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim by git-merge(1)'s HOW TO RESOLVE CONFLICTS section: 'Resolve the conflicts. Git will mark the conflicts in the working tree. Edit the files into shape and git add them to the index. Use git commit or git merge --continue to seal the deal.' o2's why is confirmed by the same section's first bullet, which scopes --abort to reversing the merge. o3's why is true: staging is what records the resolution, and Git never validates the content. o4's why is true. Citation checked and left as filed — the cited page carries the claim.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.merge-conflict.02",
@@ -1144,6 +1429,8 @@
       "source_ids": [
         "lf-objectives-2025",
         "git-merge",
+        "git-log",
+        "git-diff",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.merge-conflict",
@@ -1152,7 +1439,23 @@
         "git diff"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim by git-merge(1): 'Look at the diffs. git diff will show a three-way diff, highlighting changes from both the HEAD and MERGE_HEAD versions.' o2 is the direct negation of that sentence. o3's why is true — the same section lists git diff among the tools for working through a conflict, so it plainly runs. o4's why rests on git-log(1) and git-diff(1), which the item did not cite; both were added and read, and both support it. No distractor answers the stem.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/docs/git-log",
+          "https://git-scm.com/docs/git-diff",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.remote-and-origin.01",
@@ -1205,14 +1508,32 @@
       "rationale": "A remote is a short name bound to a URL, and `origin/main` is a remote-tracking branch: a local record of where the remote's branch stood the last time this repository communicated with it. Those records update on fetch, pull and push and nowhere else, so a report of being \"behind\" describes the last contact, not the server at this instant.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git",
-        "git-pull"
+        "git-fetch",
+        "git-push",
+        "git-remote",
+        "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.remote-and-origin",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: the item cited git-pull(1) and progit-what-is-git for a claim about when remote-tracking branches are refreshed, which neither page states. git-fetch(1) does — it downloads refs and updates remote-tracking branches — and git-push(1) documents the remote-tracking ref being updated on a successful push; both were added, and git-remote(1) supplies the remote-name-to-URL binding the rationale asserts. Key confirmed: origin/main is a local ref refreshed only by those operations. o2 is its direct negation. o3's why is true — origin is the name git-clone(1) assigns by default, not an authority. o4's why is true: an upstream setting changes where a bare push or pull goes, not when the remote-tracking ref moves.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-fetch",
+          "https://git-scm.com/docs/git-push",
+          "https://git-scm.com/docs/git-remote",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.remote-and-origin.02",
@@ -1265,8 +1586,9 @@
       "rationale": "A remote is a short name bound to the URL of another copy of the repository, and `git remote -v` lists every configured remote with its fetch and push URLs. `origin` is not a keyword; it is simply the name `git clone` assigns to the repository it cloned from, and additional remotes such as `upstream` are added the same way any other one is.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git",
-        "git-pull"
+        "git-remote",
+        "git-branch",
+        "git-log"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.remote-and-origin",
       "comparison_block": null,
@@ -1274,7 +1596,22 @@
         "git remote -v"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired with git-remote(1), which settles both the key and o4 in one sentence: '-v, --verbose: Be a little more verbose and show remote url after name. NOTE: This must be placed between remote and subcommand.' The item had cited git-pull(1) and progit-what-is-git, neither of which documents git remote. Checked whether o1 and o4 collapse into one answer: they name the same command but different command lines, and only the key's ordering is the documented one, so the discrimination is real. o2's why rests on git-branch(1) (-a lists local and remote-tracking branch names, not URLs) and o3's why on git-log(1); both sources added and both whys are true.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-remote",
+          "https://git-scm.com/docs/git-branch",
+          "https://git-scm.com/docs/git-log"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.push.01",
@@ -1327,14 +1664,28 @@
       "rationale": "Committing only records a snapshot in the local repository; nothing reaches the remote until a push. The commit/push split is the single most common misconception carried in from centralized tools, where committing itself publishes to the one shared history — Git keeps the two acts separate and only the second one needs a network.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git",
-        "git-push"
+        "git-push",
+        "progit-what-is-git"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.push",
       "comparison_block": "cmp-devops.git-concepts.commit",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed: git-push(1) is 'Update remote refs along with associated objects', and progit-what-is-git states that a commit goes to the local copy and waits for a network connection to upload. o2's why is confirmed by the same page's checksumming section — a commit's hash is computed from local content, and the page's whole point is that operations need only local files. o3's why simply reverses the two roles correctly. Checked o4 as a possible second key and it is false: git-push(1) states 'Usually, git push will refuse to update a branch that is not an ancestor of the commit being pushed', which is exactly what o4's why says.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-push",
+          "https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.push.02",
@@ -1387,7 +1738,6 @@
       "rationale": "`git push -u origin main` both pushes and sets that upstream, letting a later bare `git push` know where to send it. Separately, the remote refuses any update where its current commit is not an ancestor of what is being sent, because applying it would discard commits the remote already has — the documented explanation is that a rejected push also happens in a repository nobody else pushes to, whenever a commit already sent is amended or rebased.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git",
         "git-push"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.push",
@@ -1397,7 +1747,20 @@
         "git push -u origin main"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Both halves of the key confirmed on git-push(1): '-u, --set-upstream: For every branch that is up to date or successfully pushed, add upstream (tracking) reference, used by argument-less git-pull and other commands', and 'Usually, git push will refuse to update a branch that is not an ancestor of the commit being pushed.' o2's why is true — the same page documents --tags and --follow-tags as what sends tags, so a plain push does not. o3's why is true: --force is the flag that disables the ancestry check, and it is not what -u does. o4's why is true. Citation left as filed; the page carries every claim.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-push"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.fetch-vs-pull.01",
@@ -1420,7 +1783,7 @@
           "ref": "o2",
           "text": "`git pull` — it downloads commits the same way fetch does, so it is just as safe to run mid-edit without any risk of disturbing the branch currently checked out.",
           "correct": false,
-          "why": "Pull is fetch followed immediately by an integration step, a merge or a rebase, which can fast-forward silently, create a merge commit, or raise a conflict — exactly the disturbance being avoided here.",
+          "why": "Pull is fetch followed immediately by an integration step, which by default fast-forwards and fails outright if the branch has diverged, and merges or rebases when configured to — exactly the disturbance being avoided here.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:05-devops/git-concepts.md#c-devops.git-concepts.fetch-vs-pull"
@@ -1447,9 +1810,10 @@
           }
         }
       ],
-      "rationale": "Fetch cannot surprise you; pull can. `git fetch` downloads commits and updates remote-tracking branches, changing nothing about the current branch, index or working tree; `git pull` runs that same fetch and then immediately integrates the result — by default a merge, or a rebase if configured or requested — which is exactly the kind of disturbance a mid-edit developer wants to avoid.",
+      "rationale": "Fetch cannot surprise you; pull can. `git fetch` downloads commits and updates remote-tracking branches, changing nothing about the current branch, index or working tree; `git pull` runs that same fetch and then immediately integrates the result. The documentation lists four integration options: `--ff-only`, which is the default and fails if the local branch has diverged, `--rebase`, `--no-rebase`, which merges, and `--squash`. Any of them touches the branch a mid-edit developer is standing on.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-fetch",
         "git-pull",
         "git-merge"
       ],
@@ -1459,7 +1823,22 @@
         "git fetch"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on a source contradiction, then fixed. o2's why and the rationale both described pull's integration step as a merge by default. git-pull(1) says otherwise: 'git pull --ff-only will only do fast-forward updates: it fails if your local branch has diverged from the remote branch. This is the default', with --rebase, --no-rebase and --squash as the other three options. Both rewritten to that text. Key confirmed against git-fetch(1), which downloads refs and updates remote-tracking branches without touching the current branch, index or working tree; git-fetch(1) was not cited and has been added. o3's why is confirmed by git-pull(1) ('git pull --rebase runs git rebase'). o4's why is true.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-fetch",
+          "https://git-scm.com/docs/git-pull",
+          "https://git-scm.com/docs/git-merge"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.fetch-vs-pull.02",
@@ -1492,7 +1871,7 @@
           "ref": "o3",
           "text": "Pull refuses to run at all unless `--rebase` or `--no-rebase` is specified up front on the command line, regardless of whether the two branches have actually diverged from one another.",
           "correct": false,
-          "why": "That refusal is specific to the diverged case, where current Git will not guess a reconciliation method; a branch that is merely behind fast-forwards without needing either flag.",
+          "why": "Failure is specific to the diverged case: the documented default is `--ff-only`, which fails only when the local branch has diverged, so a branch that is merely behind fast-forwards with no flag at all.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.rebase"
@@ -1509,7 +1888,7 @@
           }
         }
       ],
-      "rationale": "`git pull` is literally fetch followed by `git merge` or `git rebase`. If the current branch is merely behind, that integration fast-forwards; only when the two histories have genuinely diverged does current Git refuse to guess, stopping until `--ff-only`, `--rebase`, `--no-rebase` or the `pull.rebase` configuration says which reconciliation to use.",
+      "rationale": "`git pull` is fetch followed by an integration step. The documentation gives four options for that step and names `--ff-only` the default, so a branch that is merely behind fast-forwards with nothing specified. Only when the two histories have genuinely diverged does that default fail, at which point the developer chooses `--rebase`, `--no-rebase` or `--squash`, or sets `pull.rebase`, `pull.squash` or `pull.ff`.",
       "source_ids": [
         "lf-objectives-2025",
         "git-pull",
@@ -1521,7 +1900,21 @@
         "git pull"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on a source contradiction, then fixed. The rationale listed `--ff-only` among the flags that resolve a diverged pull, but git-pull(1) names `--ff-only` the default and the thing that fails on divergence; the alternatives are `--rebase`, `--no-rebase` and `--squash`, or the pull.rebase/pull.squash/pull.ff configuration. Rationale and o3's why rewritten to that text. Key confirmed: a branch merely behind fast-forwards under the default. o2's why is true — a conflict needs changes on both sides. o4's why is true and correctly describes bare fetch instead. No distractor satisfies the stem.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-pull",
+          "https://git-scm.com/docs/git-merge"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.clone-vs-fork.01",
@@ -1574,13 +1967,30 @@
       "rationale": "Clone versus fork, and forking-a-project in the open-source sense, share only the word: a platform fork or a `git clone` is a mechanical copy made routinely, by any contributor, in order to send changes back; forking a project is a rare, deliberate, permanent split that a project's open-source licence explicitly protects the right to make.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "github-docs-about-forks",
+        "osi-osd",
+        "git-clone"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.clone-vs-fork",
       "comparison_block": "cmp-devops.git-concepts.clone-vs-fork",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, which was the item's real defect: progit-what-is-git was the only primary source and it never mentions forking in either sense. Repaired with GitHub's Forks page ('Forks are repositories that start as copies of another repository, called the upstream repository. A fork has its own settings and permissions but stays connected to the upstream repository'), the Open Source Definition clause 3 ('The license must allow modifications and derived works, and must allow them to be distributed under the same terms'), and git-clone(1). Key confirmed against that pairing. o2 is refuted by the Forks page: a fork is a separate repository and changes nothing about the upstream's ownership. o3's why is true. o4's why is true — there is no git fork command anywhere in git-scm.com's command list.",
+        "sources_read": [
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks",
+          "https://opensource.org/osd",
+          "https://git-scm.com/docs/git-clone"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.clone-vs-fork.02",
@@ -1633,7 +2043,9 @@
       "rationale": "Cloning is a Git operation that copies a repository with its full history into a new local directory; forking is a hosting-platform operation that creates a server-side copy under the contributor's own account. The standard route when write access is missing is fork on the platform, `git clone` the fork locally, then push changes to the fork the contributor can write to.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "github-docs-about-forks",
+        "github-docs-about-pull-requests",
+        "git-clone"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.clone-vs-fork",
       "comparison_block": null,
@@ -1641,7 +2053,22 @@
         "git clone"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired. GitHub's pull request documentation describes the fork and pull model directly: 'anyone can fork an existing (upstream) repository if they have read access and the owner of the upstream repository allows it... You do not need permission from the upstream repository to push to a fork you created' — which confirms the key end to end. o2 is refuted by the same passage plus git-clone(1), which copies a repository and confers nothing. o3's why is true: a pull request names a head branch that must already exist somewhere the contributor can push. Checked o4 as a candidate second key: asking for write access would work, but the stem asks for the correct first step for a contributor who has read access only, and o4's why says plainly that it needs action from the project's owners. Not a second key.",
+        "sources_read": [
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks",
+          "https://git-scm.com/docs/git-clone"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.pull-request.01",
@@ -1694,13 +2121,33 @@
       "rationale": "A pull request is a proposal, raised on a hosting platform rather than in Git, to merge one branch into another, and the place where review and automated checks attach before that merge happens. It is process, not mechanism: `git commit` and `git merge` both run locally with no platform involved, while a pull request has no Git command that opens one at all.",
       "source_ids": [
         "lf-objectives-2025",
-        "github-docs-about-pull-requests"
+        "github-docs-about-pull-requests",
+        "git-request-pull",
+        "git-merge",
+        "git-commit"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.pull-request",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The key turns on an absence claim, so it was tested rather than assumed: gitglossary(7) was fetched and searched in full and contains zero occurrences of the phrase 'pull request', and the only git-scm.com command carrying the words is git-request-pull(1), which merely 'generates a summary of pending changes' for a human to send. GitHub's own documentation carries the definition instead ('Pull requests are proposals to merge code changes into a project... GitHub's key collaboration feature'), which is what the item cites. Key confirmed. o2 is refuted by that same absence. o3's why rests on git-merge(1) and git-commit(1), both added, and is true — neither needs a network. o4's why is true: GitHub describes a pull request as a proposal, not an integration.",
+        "sources_read": [
+          "https://git-scm.com/docs/gitglossary",
+          "https://git-scm.com/docs/git-request-pull",
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/docs/git-commit"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.pull-request.02",
@@ -1753,13 +2200,30 @@
       "rationale": "A pull request is the place where review comments and automated checks attach to a proposed merge; pushing further commits to the source branch is typically how those comments get addressed, since it updates the same open request rather than requiring a new one. Merging is generally then carried out by the platform, using whichever strategy the project has configured.",
       "source_ids": [
         "lf-objectives-2025",
-        "github-docs-about-pull-requests"
+        "github-docs-creating-a-pull-request",
+        "github-docs-about-pull-requests",
+        "git-rebase"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.pull-request",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: the cited about-pull-requests URL now resolves to GitHub's Pull requests hub page, which describes tabs, drafts and the fork-and-pull model but never states that pushing more commits updates an open request — exactly the landing-page shape. The leaf page 'Creating a pull request' does: 'After you open your pull request, you can continue changing files by adding new commits to your head branch.' Added and cited. Key confirmed. o2's why is true — nothing is merged at review time. o3's why rests on git-rebase(1), added, and is true: rebasing is a separate and riskier choice, not a precondition for review. o4 is the stem's own named mistake and its why is consistent with its text.",
+        "sources_read": [
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request",
+          "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+          "https://git-scm.com/docs/git-rebase"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.tag.01",
@@ -1812,7 +2276,10 @@
       "rationale": "A tag is a fixed label on one commit, conventionally used to mark a release; the defining contrast with a branch is that a tag does not move, while committing advances a branch and leaves every tag exactly where it was. `git tag -a v1.4.0 -m \"Release 1.4.0\"` creates an annotated tag, the form the documentation describes as meant for releases.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-tagging"
+        "progit-tagging",
+        "git-tag",
+        "git-checkout",
+        "git-stash"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.tag",
       "comparison_block": null,
@@ -1820,7 +2287,23 @@
         "git tag"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed against Pro Git 2.6 and git-tag(1): a tag marks a specific point in history and, unlike a branch, does not move as new commits land. o2's why asserts that a tag can be checked out into detached HEAD, which is git-checkout(1)'s DETACHED HEAD section rather than anything on the cited page; git-checkout(1) and git-tag(1) were added. o3's why is true and states the real discriminator. o4's why rests on git-stash(1) ('saves your local modifications away and reverts the working directory to match the HEAD commit'), also added; a stash has nothing to do with release notes. No distractor satisfies the stem.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Git-Basics-Tagging",
+          "https://git-scm.com/docs/git-tag",
+          "https://git-scm.com/docs/git-checkout",
+          "https://git-scm.com/docs/git-stash"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.tag.02",
@@ -1873,13 +2356,30 @@
       "rationale": "`git tag <name>` creates a lightweight tag, a bare reference with no metadata; `git tag -a <name> -m \"<message>\"` creates an annotated tag, a real database object carrying the tagger's name and email, a creation date, a message and optionally a signature — and per the documentation, supplying `-m` without `-a`, `-s` or `-u` implies `-a`.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-tagging"
+        "git-tag",
+        "progit-tagging",
+        "git-push"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.tag",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired with git-tag(1), which settles every option: 'Annotated tags are meant for release while lightweight tags are meant for private or temporary object labels'; a lightweight tag 'is simply a name for an object'; and when -m is given 'and -a, -s, and -u <key-id> are absent, -a is implied' — the exact parenthetical in the key. o2's why is confirmed by the same page. o3's why is true: git-tag(1) defines no remote-tracking tag category. o4's why rests on git-push(1)'s --follow-tags, which was not cited and has been added; it sends annotated tags reachable from what is pushed and creates no metadata.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-tag",
+          "https://git-scm.com/book/en/v2/Git-Basics-Tagging",
+          "https://git-scm.com/docs/git-push"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.gitignore.01",
@@ -1932,13 +2432,28 @@
       "rationale": "`.gitignore` specifies intentionally untracked files, and files already tracked by Git are not affected by it at all. Once a secret is committed and pushed, it is in the history and in every existing clone; the only reliable remediation is to treat the credential as compromised and rotate it, since the copies that already left cannot be recalled.",
       "source_ids": [
         "lf-objectives-2025",
-        "gitignore"
+        "gitignore",
+        "git-reset"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.gitignore",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim by gitignore(5): 'A gitignore file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected.' o2 and o3 are both refuted by that same sentence and neither why contradicts its option text. o4's why claims git reset only moves the current branch pointer and rewrites nothing others already hold; that rests on git-reset(1) ('Set the current branch head (HEAD) to point at <commit>'), which the item did not cite and which has been added. The rotate-the-credential remediation is a consequence of the documented scope rather than a further sourced claim, and the key states it as such.",
+        "sources_read": [
+          "https://git-scm.com/docs/gitignore",
+          "https://git-scm.com/docs/git-reset"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.revert-vs-reset.01",
@@ -1992,7 +2507,10 @@
       "source_ids": [
         "lf-objectives-2025",
         "git-revert",
-        "git-reset"
+        "git-reset",
+        "git-rebase",
+        "git-push",
+        "git-merge"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.revert-vs-reset",
       "comparison_block": "cmp-devops.git-concepts.revert-vs-reset",
@@ -2000,7 +2518,24 @@
         "git revert"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed on git-revert(1) ('revert the changes that the related patches introduce, and record some new commits that record them') paired with git-rebase(1)'s RECOVERING FROM UPSTREAM REBASE ('Rebasing... a branch that others have based work on is a bad idea'). The rebase half of the key was unsourced as filed; git-rebase(1) added. o2's why asserts a non-fast-forward rejection, which is git-push(1)'s, also added. o3's why is true and names the mechanism difference. o4's why asserts merge never rewrites commits, which git-merge(1)'s FAST-FORWARD MERGE and TRUE MERGE sections support; git-merge(1) added. Checked o4 as a partial second key: its first clause is right but its second is wrong, so the option as a whole is false.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-revert",
+          "https://git-scm.com/docs/git-reset",
+          "https://git-scm.com/docs/git-rebase",
+          "https://git-scm.com/docs/git-push",
+          "https://git-scm.com/docs/git-merge"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.revert-vs-reset.02",
@@ -2053,8 +2588,8 @@
       "rationale": "Reset's three common modes differ only in how far the change propagates: `--soft` moves HEAD and leaves index and working tree alone, so changes remain staged; `--mixed`, the default, resets the index but not the working tree, leaving unstaged edits; `--hard` resets both together, discarding tracked changes since that commit with no commit left to recover them from.",
       "source_ids": [
         "lf-objectives-2025",
-        "git-revert",
-        "git-reset"
+        "git-reset",
+        "git-revert"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.revert-vs-reset",
       "comparison_block": null,
@@ -2062,7 +2597,21 @@
         "git reset"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed verbatim by git-reset(1): 'The <mode> must be one of the following (default --mixed)' and '--mixed: Leave your working directory unchanged. Update the index to match the new HEAD, so nothing will be staged.' o2's why matches '--soft: Leave your working tree files and the index unchanged.' o3's why matches '--hard: Overwrite all files and directories with the version from <commit>.' Checked o4 as a second key: git-revert(1) records new commits and requires a clean working tree, so it leaves nothing unstaged, and its why says so. Citation left as filed; both pages carry every claim.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-reset",
+          "https://git-scm.com/docs/git-revert"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.git-diff-and-git-log.01",
@@ -2115,7 +2664,9 @@
       "rationale": "Bare `git diff` compares the working tree with the index, showing what could still be staged; after `git add .` that difference is empty even though the index now differs from HEAD. `git diff --staged` (with `--cached` as a synonym) compares the index with HEAD instead, which is exactly what a commit right now would record.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "git-diff",
+        "git-status",
+        "gitignore"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.git-diff-and-git-log",
       "comparison_block": null,
@@ -2123,7 +2674,22 @@
         "git diff"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation: progit-what-is-git documents no command and could not support a claim about what bare git diff compares. git-diff(1) does, in its first synopsis form: it shows 'the changes you made relative to the index (staging area for the next commit)... the differences are what you could tell Git to further add to the index but you still haven't', with --cached (synonym --staged) comparing the index against a commit. Key confirmed. o2's why correctly describes the git diff <commit> form instead. o3's why rests on gitignore(5), added, and is true as a partial-stage explanation. o4's why rests on git-status(1)'s DESCRIPTION, also added, which reports index-vs-HEAD differences and so would still list the staged files.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-diff",
+          "https://git-scm.com/docs/git-status",
+          "https://git-scm.com/docs/gitignore"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.git-diff-and-git-log.02",
@@ -2176,7 +2742,10 @@
       "rationale": "`git log` answers \"what happened,\" walking parents backwards from HEAD so it lists only commits reachable from where you currently are; `--oneline` is shorthand for `--pretty=oneline --abbrev-commit`, giving one abbreviated hash and subject line per commit for quick scanning.",
       "source_ids": [
         "lf-objectives-2025",
-        "progit-what-is-git"
+        "git-log",
+        "git-diff",
+        "git-status",
+        "git-branch"
       ],
       "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.git-diff-and-git-log",
       "comparison_block": null,
@@ -2184,7 +2753,23 @@
         "git log --oneline"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and repaired. Key confirmed verbatim by git-log(1): '--oneline: This is a shorthand for --pretty=oneline --abbrev-commit used together', with <revision-range> defaulting to HEAD. o2's why rests on git-diff(1)'s --stat, o3's on git-status(1)'s short format, o4's on git-branch(1)'s -a; all three sources were added and all three whys are true. No distractor lists commits, so none is a second key.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-log",
+          "https://git-scm.com/docs/git-diff",
+          "https://git-scm.com/docs/git-status",
+          "https://git-scm.com/docs/git-branch"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.stash.01",
@@ -2237,7 +2822,9 @@
       "rationale": "`git stash` records the current working-tree and index changes, then reverts the working directory to match HEAD, so the developer can switch context with a clean tree and restore the work later with `git stash pop`. It sits in `refs/stash`, belongs to no branch, is never pushed to a remote, and is invisible to `git log`.",
       "source_ids": [
         "lf-objectives-2025",
-        "git-stash"
+        "git-stash",
+        "git-push",
+        "git-log"
       ],
       "guide_anchor": "05-devops/git-concepts.md#s-git-concepts-practice",
       "comparison_block": null,
@@ -2245,7 +2832,22 @@
         "git stash"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key confirmed in three parts. git-stash(1): 'The latest stash you created is stored in refs/stash', and the command 'saves your local modifications away and reverts the working directory to match the HEAD commit'. The 'never pushed' half is not on that page, so git-push(1) was added: its default push.default mode pushes the current branch, and a refspec source resolves under refs/heads/ or refs/tags/, neither of which is refs/stash. The 'invisible to git log' half rests on git-log(1), also added, whose <revision-range> defaults to HEAD. o2 is refuted by refs/stash sitting outside any branch. o3's why is true — git stash pop restores the work. o4's why is true.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-stash",
+          "https://git-scm.com/docs/git-push",
+          "https://git-scm.com/docs/git-log"
+        ]
+      }
     },
     {
       "id": "q.devops.git-concepts.branching-strategies.01",
@@ -2298,13 +2900,30 @@
       "rationale": "Branching strategies such as trunk-based development, feature branching and release branches are conventions governing how work travels from a developer to the main line. Git enforces none of them and offers no command for any of them, so a question naming a strategy is asking about team process, not about a command or an option.",
       "source_ids": [
         "lf-objectives-2025",
+        "git-branch",
+        "git-merge",
         "progit-branching-basics"
       ],
       "guide_anchor": "05-devops/git-concepts.md#s-git-concepts-practice",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-git-concepts",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key is an absence claim and was tested that way: git-branch(1) and git-merge(1) were read in full and neither documents any branch-age limit, any required merge cadence, or any strategy by name. o2 is therefore false. o3's why is confirmed by git-branch(1) ('-d: Delete a branch. The branch must be fully merged in its upstream branch, or in HEAD') with -D as the documented override, and that guarantee says nothing about cadence. o4's why is confirmed by git-merge(1), where --ff is the default and --ff-only is an option that only refuses a non-fast-forward. Both sources were added; the item had cited only progit-branching-basics, which names no strategy.",
+        "sources_read": [
+          "https://git-scm.com/docs/git-branch",
+          "https://git-scm.com/docs/git-merge",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+        ]
+      }
     }
   ]
 }

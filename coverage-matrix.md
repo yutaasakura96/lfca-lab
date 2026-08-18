@@ -415,28 +415,28 @@
 | devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
 | devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 1 | MEDIUM |
 | devops.devops-basics.monolith-vs-microservices | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.distributed-vs-centralized-version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.git-concepts.repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.working-directory-staging-area-and-repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.commit | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.commit-messages | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.git-concepts.branch | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.head | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| devops.git-concepts.merge | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.rebase | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
+| devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 2 | 0 | 3 | HIGH |
+| devops.git-concepts.distributed-vs-centralized-version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| devops.git-concepts.repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 3 | 0 | 3 | HIGH |
+| devops.git-concepts.working-directory-staging-area-and-repository | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 4 | 0 | 3 | HIGH |
+| devops.git-concepts.commit | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 3 | 0 | 3 | HIGH |
+| devops.git-concepts.commit-messages | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| devops.git-concepts.branch | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 4 | 0 | 3 | HIGH |
+| devops.git-concepts.head | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| devops.git-concepts.merge | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 4 | 0 | 3 | HIGH |
+| devops.git-concepts.rebase | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.merge-conflict | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.remote-and-origin | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
+| devops.git-concepts.remote-and-origin | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 4 | 0 | 3 | HIGH |
 | devops.git-concepts.push | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.fetch-vs-pull | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.clone-vs-fork | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.pull-request | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.git-concepts.tag | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
+| devops.git-concepts.fetch-vs-pull | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 3 | HIGH |
+| devops.git-concepts.clone-vs-fork | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 4 | 0 | 3 | HIGH |
+| devops.git-concepts.pull-request | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
+| devops.git-concepts.tag | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 3 | HIGH |
 | devops.git-concepts.gitignore | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.git-concepts.revert-vs-reset | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.git-concepts.git-diff-and-git-log | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 3 | HIGH |
+| devops.git-concepts.revert-vs-reset | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 3 | HIGH |
+| devops.git-concepts.git-diff-and-git-log | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 5 | 0 | 3 | HIGH |
 | devops.git-concepts.stash | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| devops.git-concepts.branching-strategies | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| devops.git-concepts.branching-strategies | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 1 | MEDIUM |
 | devops.containers.container | DevOps Fundamentals | 12% | Containers | Containers | FULLY COVERED | 2 | 0 | 3 | HIGH |
 | devops.containers.container-image | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 3 | HIGH |
 | devops.containers.image-layers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
@@ -523,21 +523,21 @@
 | pm.open-source-software-and-licensing.free-software-and-foss | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.open-source-initiative-and-the-open-source-definition | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.open-source-software-and-licensing.proprietary-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.source-code-and-binaries | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 2 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.lgpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.agpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.mit-and-bsd-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.apache-license-2-0 | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.creative-commons-and-public-domain | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.license-compatibility | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 2 | HIGH |
-| pm.open-source-software-and-licensing.license-compliance | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 2 | HIGH |
+| pm.open-source-software-and-licensing.source-code-and-binaries | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 4 | 0 | 2 | MEDIUM |
+| pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 4 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 4 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.lgpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 4 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.agpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.mit-and-bsd-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 3 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.apache-license-2-0 | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 3 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.creative-commons-and-public-domain | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.license-compatibility | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 2 | HIGH |
+| pm.open-source-software-and-licensing.license-compliance | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 2 | HIGH |
 | pm.open-source-software-and-licensing.dual-licensing | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.contributor-license-agreement | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.software-bill-of-materials | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.contributor-license-agreement | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.software-bill-of-materials | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | pm.open-source-software-and-licensing.open-source-community-roles | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 1 | MEDIUM |
-| pm.open-source-software-and-licensing.contributing-to-open-source | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| pm.open-source-software-and-licensing.forking-a-project | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| pm.open-source-software-and-licensing.governance-and-foundations | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| pm.open-source-software-and-licensing.contributing-to-open-source | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| pm.open-source-software-and-licensing.forking-a-project | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 3 | MEDIUM |
+| pm.open-source-software-and-licensing.governance-and-foundations | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 3 | 0 | 1 | MEDIUM |

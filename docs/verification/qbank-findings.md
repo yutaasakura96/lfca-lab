@@ -1034,3 +1034,281 @@ No six-token tail reused 3 or more times. Key is the longest option in **11 of 3
 limit 40%) — it was 16 of 32 immediately after the rewrites, fixed by extending five distractors
 with real, false, single-sentence content rather than by shortening any key. Scoped
 `check-bank` with only `q-answer-position-balance` suppressed: **0 errors, 0 warnings**.
+
+### DevOps Fundamentals :: Git Concepts (task 50, `verify-git-concepts`)
+
+38 items over 22 concepts, all 38 carrying a verdict. **34 items were refuted and repaired; 4
+confirmed as filed** (`merge-conflict.01`, `push.01`, `push.02`, `revert-vs-reset.02`). 32 were
+refuted because the sources as filed did not carry a claim made in the key or in a distractor's
+`why`, and gained at least one primary source; 3 were refuted because the item's prose quoted or
+paraphrased documentation that has since changed (`rebase.01`, `fetch-vs-pull.01`,
+`fetch-vs-pull.02` — the first and third of those needed no new source, only correct prose).
+**No item was refuted on a wrong key, and the second-correct-answer sweep found none.** An 89%
+refutation rate against wave B's 58% is a statement about this competency's sourcing, not about
+its content: the keys were overwhelmingly right and the citations overwhelmingly were not.
+
+#### The whole competency rested on a Pro Git page that documents no command
+
+Fourteen items cited `progit-what-is-git` (Pro Git 1.3, "What is Git?") as their only primary
+source. That page is a real leaf page, not an index — but its subject is snapshots, locality,
+integrity and the three states, and **it documents no command and no option anywhere.** It was
+cited for `git init`, `git log`, `git commit -a`, `git status`'s headings, bare `git diff`,
+commit-message conventions, forking, and the standard fork-and-clone contribution route, none of
+which appear on it. This is the landing-page shape in a form worth naming separately: not a page
+one click above the answer, but **a conceptual overview standing in for a reference page**. It
+reads as a plausible citation precisely because it is about Git and is correct about what it does
+cover.
+
+Eighteen sources were registered to repair it, each fetched and read before citing:
+`progit-about-version-control`, `progit-recording-changes`, `git-init`, `git-commit`,
+`git-status`, `git-log`, `git-diff`, `git-branch`, `git-checkout`, `git-switch`, `git-clone`,
+`git-remote`, `git-fetch`, `git-tag`, `git-request-pull`, `git-submitting-patches`,
+`github-docs-about-forks`, `github-docs-creating-a-pull-request`. Each was added to the citing
+concept's `additional_sources` as well, so the orphan-source count is unchanged.
+
+Two repairs are worth quoting because the added page settles the item outright rather than merely
+covering it:
+
+- `working-directory-staging-area-and-repository.02` keyed on `git commit -a` skipping untracked
+  files. git-commit(1): "**-a, --all**  Automatically stage files that have been modified and
+  deleted, but new files you have not told Git about are not affected."
+- `commit-messages.01` keyed on a message supplying *why* and what alternative was rejected. The
+  Git project's own **SubmittingPatches** says the body "explains the problem the change tries to
+  solve", "justifies the way the change solves the problem", and records "alternate solutions
+  considered but discarded, if any" — the key almost clause for clause. That document was not
+  registered as a source anywhere in the project before this pass.
+
+#### Two stale quotations of git documentation that has since changed
+
+Both the item and the guide attributed to `git-rebase(1)` a sentence it no longer contains.
+
+- `rebase.01`'s rationale and its `o4` why both said "the documentation notes this has the same
+  effect as `git reset --hard <upstream>`". The current git-rebase(1) simplified description is:
+  list the commits with no equivalent upstream, "**Check out `<upstream>` with the equivalent of
+  `git checkout --detach <upstream>`**", "**Replay the commits, one by one, in order. This is
+  similar to running `git cherry-pick <commit>` for each commit**", then repoint the branch "with
+  the equivalent of `git checkout -B <branch>`". Rationale and why rewritten.
+- The guide's **rebase** "How it works" paragraph carried the same dead quote and was rewritten to
+  the current four-step description. `data/`'s `description` for the concept was already correct.
+
+**For later verification tasks:** a quotation attributed to a man page is not verified by the page
+existing. Search the fetched text for the sentence. A doc quote that was true when the guide was
+written is the one defect no amount of internal consistency will catch.
+
+#### `git pull` no longer defaults to a merge, and three places said it did
+
+git-pull(1)'s DESCRIPTION now lists four integration options and states plainly: "`git pull
+--ff-only` will only do 'fast-forward' updates: it fails if your local branch has diverged from
+the remote branch. **This is the default.**" The other three are `--rebase`, `--no-rebase` (which
+runs `git merge`), and `--squash`.
+
+Three artefacts contradicted that, all corrected:
+
+- `fetch-vs-pull.01`'s rationale and `o2`'s why described the integration step as "by default a
+  merge, or a rebase if configured".
+- `fetch-vs-pull.02`'s rationale listed `--ff-only` among the flags that *resolve* a diverged
+  pull. It is the default and the thing that fails on divergence.
+- The **guide**'s fetch-vs-pull block was internally contradictory in a way that reads as correct
+  on a skim: its "What it is" paragraph said "by default a merge, or a rebase if configured or
+  asked for", while its "How it works" paragraph four lines below already said "`--ff-only` is the
+  default when no reconciliation method is given". "What the exam may test" repeated the wrong
+  half. Both corrected; `data/`'s `description` ("pull fetches and immediately merges") was stale
+  the same way and was corrected too.
+
+This is the **true-but-misreadable guide prose** class in its sharpest form — the block contained
+the right sentence, so a check-guide pass and a reader who scrolled far enough would both be
+satisfied, while the summary line a candidate actually memorises taught the opposite.
+
+#### The `pull-request` items: what they cite, and one landing page caught
+
+Both `pull-request` items cite **GitHub's** documentation, not git-scm.com, which is the correct
+outcome of the Task 2 un-waiving. `pull-request.01`'s key asserts that a pull request is "defined
+nowhere in git-scm.com's documentation" — an absence claim, so it was tested rather than assumed:
+**gitglossary(7) was fetched and searched in full and contains zero occurrences of the phrase
+"pull request"**, and the only git-scm.com command carrying those words is `git-request-pull(1)`,
+"Generates a summary of pending changes", which opens nothing. That command is now registered and
+cited, which also closes factcheck finding GC-031's concern about the flat "no Git command" claim.
+
+`pull-request.02` was a genuine landing-page failure. Its key — that pushing further commits to
+the source branch updates the open request — was cited to
+`github-docs-about-pull-requests`, whose URL **now redirects to GitHub's "Pull requests" hub
+page**. That page covers tabs, drafts, PR refs and the fork-and-pull model, and never states the
+claim. The leaf page "Creating a pull request" does: "After you open your pull request, you can
+continue changing files by adding new commits to your head branch." Registered as
+`github-docs-creating-a-pull-request`. **A citation that was a leaf page when it was filed can
+become a hub page later; re-fetch, do not trust the slug.**
+
+#### `clone-vs-fork` cited a page that never mentions forking, in either sense
+
+Both items rest on a comparison block whose two halves are a platform fork and an open-source
+project fork. The only primary source was `progit-what-is-git`, which contains neither.
+`github-docs-about-forks` supplies the first ("Forks are repositories that start as copies of
+another repository, called the upstream repository. A fork has its own settings and permissions
+but stays connected to the upstream repository"), and `osi-osd` clause 3 supplies the licence half
+("The license must allow modifications and derived works, and must allow them to be distributed
+under the same terms as the license of the original software") — the source the paired concept
+`pm.open-source-software-and-licensing.forking-a-project` already used, never wired to this side
+of the block. GitHub's pull-request documentation also states the contribution route the second
+item keys on: "You do not need permission from the upstream repository to push to a fork you
+created."
+
+#### No second-correct-answer defects and no duplicate options
+
+All 38 items were swept for a defensible second answer, with the command-semantics cases the wave
+notes single out checked individually: `reset`'s three modes against git-reset(1)'s mode table,
+`revert` versus `reset`, `fetch` versus `pull` under the new `--ff-only` default, `merge`'s
+fast-forward case, and `checkout -b` versus `switch -c` versus plain `switch`. **Zero double
+keys.** The four closest calls, each checked and each genuinely false:
+
+- `version-control.02` `o2` — a scheduled backup *would* contain yesterday's file, but the option
+  text itself concedes it "restores the whole system to one point in time, not a single document",
+  which is not what the stem asks for.
+- `rebase.02` `o4` — narrows the hazard to a colleague who has committed on top. Divergence exists
+  as soon as the colleague's clone holds the pre-rebase commits.
+- `clone-vs-fork.02` `o4` — asking an administrator for write access would work, but the stem asks
+  for the contributor's correct first step, and the option needs action from the project's owners.
+- `revert-vs-reset.01` `o4` — its first clause ("revert is safe") is right and its second names
+  merge instead of rebase, so the option as a whole is false.
+
+Every `why` was checked against its own option text for the wave-B contradiction pattern. One near
+miss worth recording: `remote-and-origin.02`'s `o1` and `o4` **name the same command**,
+`git remote -v`, differing only in where `-v` sits. That survives the duplicate-option rule
+because git-remote(1) makes the placement itself the documented fact — "NOTE: This must be placed
+between `remote` and subcommand" — so the discrimination is real rather than cosmetic. It is
+recorded here because it is the shape that would be a defect in almost any other item.
+
+#### Scan numbers
+
+Unchanged, because **no option text was rewritten** — all 34 repairs landed in `source_ids`,
+`why` and `rationale`. Em-dash trailing clause: keys **39%**, distractors **4%**, before and
+after. Two-clause options: keys 0%, distractors 0%. No six-token tail reused 3 or more times. The
+39/4 gap is the corpus-wide shape tell the separate rule-based pass will fix; nothing here was
+added to it. Scoped `check-bank` with only `q-answer-position-balance` suppressed: **0 errors,
+0 warnings**, `q-verdict-coverage` included.
+
+### IT Project Management :: Open Source Software and Licensing (task 48, `verify-oss-licensing`)
+
+31 items over 22 concepts, all 31 carrying a verdict. **8 items were refuted and repaired on
+content; 23 confirmed**, though 9 of those 23 were confirmed only after their citations were
+replaced. **No item was refuted on a wrong key**, and the second-correct-answer sweep found none:
+every key here was substantively right. What was wrong was where the items said their facts came
+from, and — in six cases — what a distractor's `why` asserted about the world.
+
+#### `spdx-license-list` was cited eight times for licence text it does not contain
+
+`https://spdx.org/licenses/` is the SPDX License List: a sortable table of full name, short
+identifier, "FSF Free/Libre?" and "OSI Approved?". It carries **no licence text**. The string
+`endorse` does not occur on it anywhere, and it was cited for BSD-3-Clause's non-endorsement
+clause; it was likewise cited for MIT's notice condition, MIT's silence on patents, Creative
+Commons compatibility, and SBOM formats. This is the landing-page shape in its purest form — the
+page is one click above every text it indexes, and each of those texts has its own canonical URL
+which the SPDX row links to.
+
+Repaired by registering and reading the texts themselves: `osi-bsd-3-clause`, `gnu-gpl-3`,
+`gnu-gpl-2`, `osi-lgpl-2-1` (added), alongside the pre-existing `osi-mit-license`,
+`apache-license-2`, `gnu-lgpl-3` and `gnu-agpl-3`. `spdx-license-list` was **retained only for
+`gpl`**, where the claim genuinely is about identifiers (`GPL-2.0-only` versus
+`GPL-2.0-or-later`), which is exactly what that page is authoritative for.
+
+#### The defect originates in `data/`, not in the questions
+
+Every question's `source_ids` mirrored its concept's `additional_sources` in
+`data/topics/06-it-project-management.json`. The concept `mit-and-bsd-licenses` cited
+`["spdx-license-list", "osi-osd"]` — an identifier table and the ten-criterion definition — for a
+concept whose whole content is what two licence texts say. Sixteen concepts' `additional_sources`
+were corrected to match the repaired citations, so no orphan sources were introduced;
+`npm run validate` warning count is unchanged at 16.
+
+#### `gnu-agpl-3` pointed at a navigation wrapper, not the licence
+
+`https://www.gnu.org/licenses/agpl-3.0.html` returns roughly 8 KB of site navigation and format
+links with **no licence text at all**; the text lives at `agpl-3.0.en.html` (36 KB, section 13
+"Remote Network Interaction" included). The source's URL was corrected. Same shape as the SPDX
+finding, one level smaller: a real page about the right document that does not contain it.
+
+#### Wrong section number, repeated across two `why` fields
+
+`gpl.02` attributed GPLv3's express patent grant to **section 5** in both the key's `why` and
+o3's `why`. GPLv3 section 5 is "Conveying Modified Source Versions"; the patent grant, with its
+contributor and essential-patent-claim definitions, is **section 11**. Corrected in both. The
+substantive claim survived: reading the full GPLv2 text, `patent` appears only in the preamble
+and in section 7's conflicting-obligations clause — there is no grant and no termination
+provision anywhere in it.
+
+#### Six distractor `why` fields asserted things that are false
+
+This was the dominant content defect, and it is the one that teaches a wrong lesson under the
+guise of a correction:
+
+- `gpl.01` o2 — "driver linking is instead addressed by [the kernel's] explicit syscall
+  exception". It is not. The kernel licensing rules describe the syscall note as the UAPI
+  boundary, which "does not extend the GPL requirements to any software which uses it to
+  communicate with the kernel" — user-space programs, not drivers built into the kernel.
+- `governance-and-foundations.01` o2 — "CLA terms are set per project even when a shared
+  foundation hosts several of them; there is no single agreement that overrides each project's
+  own." False for one of the two foundations the stem names: "An individual must have submitted a
+  signed ICLA to the ASF **before we give them commit rights to any ASF project**." The option was
+  replaced outright with a paid-staff option refuted verbatim by "All participants in ASF projects
+  are volunteers and nobody (not even members or officers) is paid directly by the foundation."
+- `contributor-license-agreement.01` o2 — repository access is "unrelated to either agreement".
+  Same ASF sentence refutes it; a signed CLA is a precondition there. Reworded so the option stays
+  false while every fact in the `why` is true.
+- `apache-license-2-0.01` — the stem asked what happens to "that contributor's patent grant",
+  which reads as the grant the contributor **made**. Section 3 terminates "any patent licenses
+  granted to **You** under this License" — the licences the litigant **holds**. Stem and key
+  rewritten in the licence's own direction.
+- `gpl.02` o4 — rested on the FSF's licence-list judgement about Apache-2.0/GPLv2
+  incompatibility, which no cited source carried. Rewritten to rest on Apache-2.0 section 3's own
+  words instead.
+- `proprietary-software.01` o3 — "Freeware is a price point layered on top of ordinary
+  proprietary terms" is a definitional claim about *freeware* that no cited source makes; the
+  gnu.org page that does define it (`philosophy/categories.html`) was not cited. Rewritten to rest
+  only on what `gnu-free-sw` says.
+
+#### One `why` argued from the exam rather than from the world
+
+`contributing-to-open-source.01`'s key `why` read: "The exam treats contribution as a process
+question, and the reliably testable fact is that the change is proposed, not applied, by the
+contributor." That states nothing about the world and cannot be checked against any document.
+Replaced with GitHub's own "Pull requests are proposals to merge code changes into a project" and
+the fork-and-pull model description, and `github-docs-about-pull-requests`,
+`github-docs-about-forks` and `git-clone` were registered against the two fork concepts, which had
+been citing `osi-osd` — a licensing definition — for the fork-versus-clone distinction.
+
+#### Guide adjudication: the compressed reference cells are correct
+
+Two instances of the "true-but-misreadable guide prose" class flagged after wave B appear in this
+file, both comparison-table cells that name a source and then state a rule:
+
+- `open-source-software-and-licensing.md` line 407: "Yes, under LGPLv3 section 4's relink
+  conditions (LGPL-2.1 section 6)". **Confirmed correct.** LGPLv3 section 4 and LGPL-2.1 section 6
+  are the corresponding provisions; 2.1 section 6 reads "you may also combine or link a work that
+  uses the Library with the Library... and distribute that work under terms of your choice", with
+  6(a)/6(b) carrying the relink and shared-library conditions. gnu.org's old-licenses pages would
+  not respond during this task, so the text was read at the OSI and registered as `osi-lgpl-2-1`.
+- line 501: "Yes, section 3, terminating on patent litigation". **Confirmed correct** against the
+  Apache-2.0 text.
+
+The guide's GPLv3 section numbering is right where the questions' was wrong: line 366 correctly
+assigns the modified-source conditions to section 5, and line 370 says only that "GPLv3 adds to
+GPLv2 an express patent grant" without naming a section. No guide or `data/` description needed
+changing on content; only `additional_sources` moved.
+
+#### Unresolved
+
+- Line 489 of the guide asserts the FSF treats Apache-2.0 as GPLv2-incompatible "including the
+  patent-termination provision". `gnu.org/licenses/license-list.html` and
+  `gnu.org/philosophy/categories.html` both timed out repeatedly from this host across the whole
+  task while other gnu.org pages served fine. Nothing contradicts the claim and it was not
+  changed, but it remains **unverified against a fetched primary source** and no question depends
+  on it any longer — `gpl.02` o4 was rewritten off it.
+
+#### Scan numbers
+
+Em-dash tell **unchanged at keys 52% / distractors 6%** before and after; the rewrites of
+`apache-license-2-0.01` and `governance-and-foundations.01` added no em dash to any option and the
+one removed from the Apache key was not in a position the scan counts. Two-clause tell 0%/0%. No
+six-token option tail is reused three or more times. **No item in this file cites
+`lf-objectives-2025` as its only source** (all 31 carry a `lf-objectives-2025` official source at
+the concept level plus at least one primary document). No item turns on a PCI DSS requirement
+number.

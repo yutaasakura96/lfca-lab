@@ -2000,7 +2000,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "osi-osd",
+        "gnu-gpl-3",
+        "osi-mit-license",
+        "apache-license-2",
         "gnu-gpl-faq"
       ],
       "candidate_evidence": [],
@@ -2034,8 +2036,9 @@
         "ch11.l4"
       ],
       "additional_sources": [
+        "osi-mit-license",
         "apache-license-2",
-        "spdx-license-list",
+        "gnu-gpl-3",
         "osi-osd"
       ],
       "candidate_evidence": [],
@@ -2071,8 +2074,9 @@
         "ch11.l4"
       ],
       "additional_sources": [
+        "gnu-gpl-3",
         "gnu-gpl-faq",
-        "gnu-free-sw"
+        "gnu-agpl-3"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2108,7 +2112,8 @@
       ],
       "additional_sources": [
         "kernel-license-rules",
-        "gnu-gpl-faq",
+        "gnu-gpl-2",
+        "gnu-gpl-3",
         "spdx-license-list"
       ],
       "candidate_evidence": [],
@@ -2143,6 +2148,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-lgpl-3",
+        "osi-lgpl-2-1",
+        "gnu-gpl-3",
         "gnu-gpl-faq"
       ],
       "candidate_evidence": [],
@@ -2176,7 +2183,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-agpl-3"
+        "gnu-agpl-3",
+        "gnu-gpl-3"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2211,8 +2219,9 @@
         "ch11.l4"
       ],
       "additional_sources": [
-        "spdx-license-list",
-        "osi-osd"
+        "osi-mit-license",
+        "osi-bsd-3-clause",
+        "apache-license-2"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2247,7 +2256,9 @@
         "ch11.l4"
       ],
       "additional_sources": [
-        "apache-license-2"
+        "apache-license-2",
+        "osi-mit-license",
+        "osi-bsd-3-clause"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2280,8 +2291,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cc-faq",
-        "spdx-license-list"
+        "cc-faq"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2313,7 +2323,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-gpl-faq",
-        "spdx-license-list"
+        "gnu-gpl-3",
+        "osi-mit-license"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2345,6 +2356,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "apache-license-2",
+        "gnu-gpl-3",
         "gnu-gpl-faq"
       ],
       "candidate_evidence": [],
@@ -2409,6 +2421,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "asf-contributor-agreements",
         "apache-license-2",
         "asf-how-it-works"
       ],
@@ -2441,8 +2454,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "ntia-sbom-minimum-elements",
-        "spdx-license-list"
+        "ntia-sbom-minimum-elements"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2504,6 +2516,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "github-docs-about-pull-requests",
+        "github-docs-about-forks",
         "asf-how-it-works"
       ],
       "candidate_evidence": [],
@@ -2537,7 +2551,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "osi-osd"
+        "osi-osd",
+        "github-docs-about-forks",
+        "git-clone"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2571,7 +2587,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "asf-how-it-works",
-        "linux-foundation-about"
+        "linux-foundation-about",
+        "asf-contributor-agreements"
       ],
       "candidate_evidence": [],
       "commands": [],

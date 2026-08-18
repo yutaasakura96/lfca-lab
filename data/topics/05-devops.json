@@ -871,7 +871,8 @@
         "ch10.l5"
       ],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "progit-about-version-control"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -904,7 +905,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "progit-about-version-control"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -937,7 +939,9 @@
         "ch10.l5"
       ],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-init",
+        "git-clone"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -971,7 +975,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-status",
+        "git-commit",
+        "progit-recording-changes"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1008,7 +1015,9 @@
         "ch10.l5"
       ],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-commit",
+        "git-log"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1042,7 +1051,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-commit",
+        "git-submitting-patches"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1075,7 +1086,10 @@
         "ch10.l5"
       ],
       "additional_sources": [
-        "progit-branching-basics"
+        "progit-branching-basics",
+        "git-branch",
+        "git-switch",
+        "git-checkout"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1110,7 +1124,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-branching-basics"
+        "progit-branching-basics",
+        "git-checkout"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1146,7 +1161,9 @@
       ],
       "additional_sources": [
         "git-merge",
-        "progit-branching-basics"
+        "progit-branching-basics",
+        "git-request-pull",
+        "github-docs-about-pull-requests"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1181,7 +1198,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "git-rebase"
+        "git-rebase",
+        "git-push"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1252,7 +1270,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "progit-what-is-git",
-        "git-pull"
+        "git-pull",
+        "git-remote",
+        "git-fetch"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1310,7 +1330,7 @@
       ],
       "domain": "DevOps Fundamentals",
       "competency": "Git Concepts",
-      "description": "fetch downloads remote changes without touching your working branch; pull fetches and immediately merges. pull can surprise you, fetch cannot.",
+      "description": "fetch downloads remote changes without touching your working branch; pull fetches and then integrates, fast-forwarding by default and merging or rebasing only when asked. pull can surprise you, fetch cannot.",
       "objective_verbatim": "Git Concepts",
       "sept_2025_status": "unchanged",
       "inferred": true,
@@ -1323,7 +1343,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "git-pull",
-        "git-merge"
+        "git-merge",
+        "git-fetch"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1357,7 +1378,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-clone",
+        "github-docs-about-forks",
+        "osi-osd"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1390,7 +1414,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "github-docs-about-pull-requests"
+        "github-docs-about-pull-requests",
+        "github-docs-creating-a-pull-request"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1423,7 +1448,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-tagging"
+        "progit-tagging",
+        "git-tag",
+        "git-checkout"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1490,7 +1517,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "git-revert",
-        "git-reset"
+        "git-reset",
+        "git-push"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1526,7 +1554,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-what-is-git"
+        "progit-what-is-git",
+        "git-diff",
+        "git-log",
+        "git-status",
+        "progit-recording-changes"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1593,7 +1625,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "progit-branching-basics"
+        "progit-branching-basics",
+        "git-branch",
+        "git-merge"
       ],
       "candidate_evidence": [],
       "commands": [],

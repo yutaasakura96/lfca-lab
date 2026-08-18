@@ -37,6 +37,7 @@
 | apache-license-2 | Apache License, Version 2.0 | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/licenses/LICENSE-2.0 |
 | apparmor-wiki | AppArmor project documentation wiki | AppArmor project | 2 | — | 2026-08-10 | https://gitlab.com/apparmor/apparmor/-/wikis/home |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
+| asf-contributor-agreements | ASF Contributor Agreements | Apache Software Foundation | 2 | — | 2026-08-18 | https://www.apache.org/licenses/contributor-agreements.html |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
 | aws-alb-introduction | What is an Application Load Balancer? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html |
 | aws-backup | What is AWS Backup? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html |
@@ -150,17 +151,33 @@
 | fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
 | fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
+| git-branch | git-branch(1) — "List, create, or delete branches" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-branch |
+| git-checkout | git-checkout(1) — including the DETACHED HEAD section | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-checkout |
+| git-clone | git-clone(1) — "Clone a repository into a new directory" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-clone |
+| git-commit | git-commit(1) — including the -a/--all option and commit-message guidance | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-commit |
+| git-diff | git-diff(1) — the bare, --cached/--staged and --stat forms | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-diff |
+| git-fetch | git-fetch(1) — "Download objects and refs from another repository" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-fetch |
+| git-init | git-init(1) — "Create an empty Git repository or reinitialize an existing one" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-init |
+| git-log | git-log(1) — including --oneline | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-log |
 | git-merge | git-merge(1) — including the FAST-FORWARD MERGE and MERGE COMMIT sections | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-merge |
 | git-pull | git-pull(1) — "Fetch from and integrate with another repository or a local branch" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-pull |
 | git-push | git-push(1) — "Update remote refs along with associated objects" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-push |
 | git-rebase | git-rebase(1) — "Reapply commits on top of another base tip" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-rebase |
+| git-remote | git-remote(1) — "Manage set of tracked repositories" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-remote |
+| git-request-pull | git-request-pull(1) — "Generates a summary of pending changes" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-request-pull |
 | git-reset | git-reset(1) — "Set HEAD or the index to a known state" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-reset |
 | git-revert | git-revert(1) — "Revert some existing commits" by recording new commits | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-revert |
 | git-stash | git-stash(1) — "Stash the changes in a dirty working directory away" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/git-stash |
+| git-status | git-status(1) — "Show the working tree status" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-status |
+| git-submitting-patches | SubmittingPatches — the Git project's commit-message guidance | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/SubmittingPatches |
+| git-switch | git-switch(1) — "Switch branches" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-switch |
+| git-tag | git-tag(1) — annotated versus lightweight tags | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-tag |
+| github-docs-about-forks | Forks | GitHub, Inc. | 2 | — | 2026-08-18 | https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks |
 | github-docs-about-pull-requests | About pull requests | GitHub, Inc. | 2 | 2025-01 | 2026-08-11 | https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests |
+| github-docs-creating-a-pull-request | Creating a pull request | GitHub, Inc. | 2 | — | 2026-08-18 | https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request |
 | gitignore | gitignore(5) — "Specifies intentionally untracked files to ignore" | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/docs/gitignore |
 | gitlab-ci-yaml | GitLab CI/CD YAML syntax reference — stages | GitLab Inc. | 2 | — | 2026-08-17 | https://docs.gitlab.com/ci/yaml/ |
-| gnu-agpl-3 | GNU Affero General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/licenses/agpl-3.0.html |
+| gnu-agpl-3 | GNU Affero General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-18 | https://www.gnu.org/licenses/agpl-3.0.en.html |
 | gnu-android-freedom | Android and Users' Freedom | GNU Project / Free Software Foundation | 2 | — | 2026-08-17 | https://www.gnu.org/philosophy/android-and-users-freedom.html |
 | gnu-bash-manual | GNU Bash Reference Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/bash.html |
 | gnu-coreutils-manual | GNU Coreutils Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/coreutils/manual/coreutils.html |
@@ -168,6 +185,8 @@
 | gnu-find-man | find(1) — search for files in a directory hierarchy | GNU findutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/find.1.html |
 | gnu-free-sw | What is Free Software? (The Free Software Definition) | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/philosophy/free-sw.html |
 | gnu-gawk-manual | GNU Awk User's Guide | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/gawk/manual/gawk.html |
+| gnu-gpl-2 | GNU General Public License, version 2 | Free Software Foundation | 2 | 1991-06-01 | 2026-08-18 | https://www.gnu.org/licenses/old-licenses/gpl-2.0.html |
+| gnu-gpl-3 | GNU General Public License, version 3 | Free Software Foundation | 2 | 2007-06-29 | 2026-08-18 | https://www.gnu.org/licenses/gpl-3.0.html |
 | gnu-gpl-faq | Frequently Asked Questions about the GNU Licenses | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/licenses/gpl-faq.html |
 | gnu-grep-man | grep(1) — print lines that match patterns | GNU Project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/grep.1.html |
 | gnu-lgpl-3 | GNU Lesser General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-10 | https://www.gnu.org/licenses/lgpl-3.0.html |
@@ -324,6 +343,8 @@
 | openssh-ssh-keygen | ssh-keygen(1) manual page | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh-keygen |
 | openssh-ssh-manpage | ssh(1) - OpenSSH remote login client | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh.1 |
 | openssh-sshd-config | sshd_config(5) manual page (PermitRootLogin, PasswordAuthentication, PubkeyAuthentication) | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/sshd_config |
+| osi-bsd-3-clause | The 3-Clause BSD License | Open Source Initiative | 2 | — | 2026-08-18 | https://opensource.org/license/bsd-3-clause |
+| osi-lgpl-2-1 | GNU Lesser General Public License, version 2.1 | Open Source Initiative | 2 | 1999-02-01 | 2026-08-18 | https://opensource.org/license/lgpl-2-1 |
 | osi-mit-license | The MIT License — Open Source Initiative | Open Source Initiative | 2 | — | 2026-08-17 | https://opensource.org/license/mit |
 | osi-osd | The Open Source Definition | Open Source Initiative | 2 | — | 2026-08-10 | https://opensource.org/osd |
 | otel-observability-primer | Observability primer — OpenTelemetry | OpenTelemetry / CNCF | 2 | — | 2026-08-17 | https://opentelemetry.io/docs/concepts/observability-primer/ |
@@ -340,7 +361,9 @@
 | postgresql-sql-commands | PostgreSQL Documentation: SQL Commands | PostgreSQL Global Development Group | 2 | 2025-01 | 2026-08-11 | https://www.postgresql.org/docs/current/sql-commands.html |
 | postgresql-transactions | PostgreSQL Documentation: Transactions | PostgreSQL Global Development Group | 2 | — | 2026-08-10 | https://www.postgresql.org/docs/current/tutorial-transactions.html |
 | postgresql-update | PostgreSQL Documentation: UPDATE | PostgreSQL Global Development Group | 2 | 2025-01 | 2026-08-12 | https://www.postgresql.org/docs/current/sql-update.html |
+| progit-about-version-control | Pro Git — Getting Started: About Version Control | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control |
 | progit-branching-basics | Pro Git — Basic Branching and Merging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging |
+| progit-recording-changes | Pro Git — Git Basics: Recording Changes to the Repository | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository |
 | progit-tagging | Pro Git — Git Basics: Tagging | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Git-Basics-Tagging |
 | progit-what-is-git | Pro Git — Getting Started: What is Git? (three states, working tree / staging area / Git directory) | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F |
 | pypa-externally-managed-environments | Externally Managed Environments — PyPA specification | Python Packaging Authority | 2 | — | 2026-08-17 | https://packaging.python.org/en/latest/specifications/externally-managed-environments/ |

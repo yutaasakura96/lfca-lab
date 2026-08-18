@@ -18,7 +18,7 @@ boundary rather than the definition.
 
 <a id="c-devops.git-concepts.version-control"></a>
 ### Version control
-*id: `devops.git-concepts.version-control` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.version-control` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git, progit-about-version-control*
 
 **What it is** The practice, and the tooling that implements it, of recording changes to a set
 of files over time so that any earlier state can be recovered and every change is attributable
@@ -57,7 +57,7 @@ management respectively, rather than to whichever term appears in the question s
 
 <a id="c-devops.git-concepts.distributed-vs-centralized-version-control"></a>
 ### Distributed vs centralized version control
-*id: `devops.git-concepts.distributed-vs-centralized-version-control` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.distributed-vs-centralized-version-control` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, progit-about-version-control*
 
 **What it is** Two architectures for the same job. In a distributed system — Git, Mercurial —
 every clone holds the entire history, so committing, branching, diffing and reading the log are
@@ -80,7 +80,7 @@ convention, usually because everyone configured it as their remote.
 
 <a id="c-devops.git-concepts.repository"></a>
 ### Repository
-*id: `devops.git-concepts.repository` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.repository` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git, git-init, git-clone*
 
 **What it is** The project's complete history, stored in the `.git` directory at the project
 root. Strictly, the repository is that directory; the project files sitting beside it are the
@@ -119,7 +119,7 @@ physically lives.
 
 <a id="c-devops.git-concepts.working-directory-staging-area-and-repository"></a>
 ### Working directory, staging area and repository
-*id: `devops.git-concepts.working-directory-staging-area-and-repository` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.working-directory-staging-area-and-repository` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-status, git-commit, progit-recording-changes*
 
 **What it is** Git's three states, and the single most important model in this competency. The
 working directory (working tree) holds the files you are editing; the staging area (also called
@@ -163,7 +163,7 @@ moves it forward.
 
 <a id="c-devops.git-concepts.commit"></a>
 ### Commit
-*id: `devops.git-concepts.commit` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.commit` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-what-is-git, git-commit, git-log*
 
 **What it is** An immutable snapshot of the tracked project at one moment, carrying an author, a
 committer, a timestamp, a log message, and a link to its parent commit (two parents for an
@@ -219,7 +219,7 @@ push is the separate, explicit act of making that history exist anywhere else.
 
 <a id="c-devops.git-concepts.commit-messages"></a>
 ### Commit messages
-*id: `devops.git-concepts.commit-messages` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.commit-messages` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-commit, git-submitting-patches*
 
 **What it is** The log message attached to a commit. The convention almost every project
 follows is a short imperative summary line ("Fix retry limit on upload"), a blank line, and then
@@ -280,7 +280,7 @@ and publishing are separate acts.
 
 <a id="c-devops.git-concepts.branch"></a>
 ### Branch
-*id: `devops.git-concepts.branch` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-branching-basics*
+*id: `devops.git-concepts.branch` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: progit-branching-basics, git-branch, git-switch, git-checkout*
 
 **What it is** A movable pointer to one commit, stored as a file of a few dozen bytes under
 `refs/heads/`. A branch is not a copy of the project, not a directory, and not a container that
@@ -323,7 +323,7 @@ branch is deleted or merged.
 
 <a id="c-devops.git-concepts.merge"></a>
 ### Merge
-*id: `devops.git-concepts.merge` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: git-merge, progit-branching-basics*
+*id: `devops.git-concepts.merge` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: git-merge, progit-branching-basics, git-request-pull, github-docs-about-pull-requests*
 
 **What it is** Joining two lines of development. Merging has two distinct outcomes, and the
 whole examinable content of this topic is knowing which one applies. If the current branch's tip
@@ -384,7 +384,7 @@ at all but a platform's review wrapper placed around one.
 
 <a id="c-devops.git-concepts.rebase"></a>
 ### Rebase
-*id: `devops.git-concepts.rebase` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-rebase*
+*id: `devops.git-concepts.rebase` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-rebase, git-push*
 
 **What it is** Reapplying a series of commits on top of a different base commit. `git rebase
 main` takes the commits on your branch that are not on `main`, resets your branch to `main`, and
@@ -398,9 +398,11 @@ manufacturing replacements, which is why rebasing a branch other people have alr
 discouraged: their repositories still contain the old commits, so the two histories have
 diverged even though the content is identical.
 
-**How it works** Git saves the commits that are on your branch but not on the upstream, resets
-the branch to the upstream tip — the documentation notes this has the same effect as
-`git reset --hard <upstream>` — and then reapplies the saved commits in order. A commit that
+**How it works** The documentation's own simplified description is: list the commits on your
+branch that have no equivalent commit in the upstream, check the upstream out with the equivalent
+of `git checkout --detach <upstream>`, replay those commits one by one in a way it likens to
+`git cherry-pick`, then repoint your branch at the final replayed commit with the equivalent of
+`git checkout -B <branch>`. A commit that
 introduces the same textual change as one already upstream is skipped. If a replay hits a
 conflict the rebase pauses, and you continue with `--continue`, drop the offending commit with
 `--skip`, or unwind the whole operation with `--abort`.
@@ -513,7 +515,7 @@ now holds commits that no longer exist upstream.
 
 <a id="c-devops.git-concepts.remote-and-origin"></a>
 ### Remote and origin
-*id: `devops.git-concepts.remote-and-origin` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-pull*
+*id: `devops.git-concepts.remote-and-origin` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-pull, git-remote, git-fetch*
 
 **What it is** A remote is a short name bound to the URL of another copy of the repository, so
 you can write `origin` instead of a URL. `origin` is a convention, not a keyword: it is simply
@@ -594,13 +596,14 @@ this" scenario, identifying what `-u` adds to a push, and choosing fetch-and-int
 
 <a id="c-devops.git-concepts.fetch-vs-pull"></a>
 ### Fetch vs pull
-*id: `devops.git-concepts.fetch-vs-pull` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-pull, git-merge*
+*id: `devops.git-concepts.fetch-vs-pull` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-pull, git-merge, git-fetch*
 
 **What it is** Two ways of getting the remote's new commits, differing in whether they touch your
 work. `git fetch` downloads commits and updates your remote-tracking branches, and changes
 nothing about your current branch, your index or your working tree. `git pull` runs that same
-fetch and then immediately integrates the result into the current branch — by default a merge,
-or a rebase if configured or asked for.
+fetch and then immediately integrates the result into the current branch. The documented default
+is `--ff-only`, which fast-forwards and fails if the branch has diverged; `--no-rebase` merges,
+`--rebase` rebases and `--squash` merges with `--squash`.
 
 **Why it matters** Fetch cannot surprise you; pull can. A pull may fast-forward silently, create
 a merge commit, drop you into a conflict, or start a rebase in the middle of unrelated work. When
@@ -629,11 +632,12 @@ pull; it is a rebase, with every history-rewriting consequence that carries for 
 already pushed.
 
 **What the exam may test** Choosing fetch when the requirement is inspection without disturbance,
-and knowing that pull is a compound operation whose second half is a merge unless told otherwise.
+and knowing that pull is a compound operation whose second half fast-forwards by default and
+merges or rebases only when asked.
 
 <a id="c-devops.git-concepts.clone-vs-fork"></a>
 ### Clone vs fork
-*id: `devops.git-concepts.clone-vs-fork` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.clone-vs-fork` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-clone, github-docs-about-forks, osi-osd*
 
 **What it is** Two different copies at two different layers. Cloning is a Git operation that
 copies a repository from a URL into a new directory on your machine, with its full history.
@@ -686,7 +690,7 @@ a permanent split that the licence, not the platform, makes possible.
 
 <a id="c-devops.git-concepts.pull-request"></a>
 ### Pull request
-*id: `devops.git-concepts.pull-request` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: github-docs-about-pull-requests*
+*id: `devops.git-concepts.pull-request` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: github-docs-about-pull-requests, github-docs-creating-a-pull-request*
 
 **What it is** A proposal, raised on a hosting platform rather than in Git, to merge one branch
 into another — and, in practice, the place where code review comments and automated checks
@@ -723,7 +727,7 @@ different platform.
 
 <a id="c-devops.git-concepts.tag"></a>
 ### Tag
-*id: `devops.git-concepts.tag` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-tagging*
+*id: `devops.git-concepts.tag` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-tagging, git-tag, git-checkout*
 
 **What it is** A fixed label on one commit, stored under `refs/tags/` and conventionally used to
 mark a release — `v1.4.0` and the like. The defining contrast with a branch is that a tag does
@@ -824,7 +828,7 @@ repository, and `core.excludesFile` applies to one user across all of them.
 
 <a id="c-devops.git-concepts.revert-vs-reset"></a>
 ### Revert vs reset
-*id: `devops.git-concepts.revert-vs-reset` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-revert, git-reset*
+*id: `devops.git-concepts.revert-vs-reset` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: git-revert, git-reset, git-push*
 
 **What it is** The two opposite ways of undoing, distinguished by what they do to history.
 `git revert <commit>` records a *new* commit that applies the inverse of an existing one, leaving
@@ -882,7 +886,7 @@ while rebase answers "put this work somewhere else in the history" and alters no
 
 <a id="c-devops.git-concepts.git-diff-and-git-log"></a>
 ### git diff and git log
-*id: `devops.git-concepts.git-diff-and-git-log` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git*
+*id: `devops.git-concepts.git-diff-and-git-log` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: progit-what-is-git, git-diff, git-log, git-status, progit-recording-changes*
 
 **What it is** The two inspection commands, answering two different questions. `git log` answers
 "what happened" — which commits exist on this path through history, by whom, when, and with what

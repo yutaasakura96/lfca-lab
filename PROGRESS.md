@@ -1651,3 +1651,111 @@ Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed) 0 error
 sources are cited from concepts, so no new `orphan-source` warning; `npm run generate` re-run and
 `npm run check-guide` 0/0. Keys and distractors both 0% two-clause; key is the longest option in
 11 of 32 items (34%), fixed by extending five distractors rather than shortening any key.
+
+### Task 50 verification — DevOps Fundamentals :: Git Concepts (`verify-git-concepts`)
+
+38 items over 22 concepts, all 38 carrying a verdict. **34 refuted and repaired, 4 confirmed as
+filed.** No item was refuted on a wrong key and no double key was found; the failure mode was
+almost entirely attribution.
+
+**Fourteen items cited Pro Git 1.3 "What is Git?" as their only primary source.** That page
+documents no command and no option anywhere, yet it was carrying `git init`, `git log`,
+`git commit -a`, `git status`'s headings, bare `git diff`, commit-message conventions, and both
+forking items. Eighteen sources were fetched, read and registered to repair it, each also added to
+the citing concept's `additional_sources` so the orphan-source count did not move:
+`progit-about-version-control`, `progit-recording-changes`, `git-init`, `git-commit`,
+`git-status`, `git-log`, `git-diff`, `git-branch`, `git-checkout`, `git-switch`, `git-clone`,
+`git-remote`, `git-fetch`, `git-tag`, `git-request-pull`, `git-submitting-patches`,
+`github-docs-about-forks`, `github-docs-creating-a-pull-request`.
+
+Three corrections landed outside the question file:
+
+- **Guide, `fetch-vs-pull`.** "What it is" said pull integrates "by default a merge, or a rebase
+  if configured or asked for", while "How it works" four lines below already said `--ff-only` is
+  the default. git-pull(1) settles it: "`git pull --ff-only` will only do 'fast-forward' updates:
+  it fails if your local branch has diverged from the remote branch. **This is the default.**"
+  "What it is" and "What the exam may test" corrected. `data/`'s `description` ("pull fetches and
+  immediately merges") was stale the same way and was corrected. Third confirmed instance of the
+  true-but-misreadable-prose class, and the first where the block contradicted itself.
+- **Guide, `rebase`.** "How it works" said "the documentation notes this has the same effect as
+  `git reset --hard <upstream>`". Current git-rebase(1) says no such thing; its simplified
+  description is check out the upstream "with the equivalent of `git checkout --detach
+  <upstream>`", replay the commits one by one "similar to running `git cherry-pick <commit>` for
+  each commit", then repoint the branch "with the equivalent of `git checkout -B <branch>`".
+  Rewritten to that. `data/`'s `description` was already correct. `rebase.01`'s rationale and
+  `o4`'s `why` carried the same dead quote and were rewritten.
+- **`pull-request.02`'s citation had rotted.** The `github-docs-about-pull-requests` URL now
+  redirects to GitHub's "Pull requests" hub, which never states that pushing further commits
+  updates an open request. The leaf page "Creating a pull request" does, verbatim. Registered as
+  `github-docs-creating-a-pull-request`.
+
+`pull-request.01` keys on a pull request being "defined nowhere in git-scm.com's documentation".
+Tested rather than assumed: gitglossary(7) was fetched and searched in full and contains **zero**
+occurrences of the phrase, and `git-request-pull(1)` — the only git-scm.com command carrying those
+words — merely "generates a summary of pending changes". That also closes factcheck finding
+GC-031's concern about the flat "no Git command" wording.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
+live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `npm run
+check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors /
+**19 warnings** — none of the eighteen new sources is orphaned, and the three warnings above the
+expected 16 are `gnu-gpl-2`, `gnu-gpl-3` and `osi-bsd-3-clause`, registered by the concurrent
+Task 51 agent working on IT Project Management and not yet wired to a concept. No option text was
+rewritten, so the shape scans are unchanged: em-dash trailing clause keys 39% / distractors 4%,
+two-clause 0% / 0%, no six-token tail reused 3 or more times.
+
+### Task 48 verification — IT Project Management :: Open Source Software and Licensing (`verify-oss-licensing`)
+
+31 items over 22 concepts, all 31 with a verdict. 8 refuted-and-repaired on content, 23 confirmed
+(9 of those only after their citations were replaced). **No wrong key, and no double key.** The
+keys in this file were right almost without exception; the sourcing was not.
+
+**The dominant defect was `spdx-license-list` standing in for licence text.**
+`https://spdx.org/licenses/` is a table of identifiers with FSF and OSI flags and **no licence
+text** — the string `endorse` does not appear on it, and it was the cited source for
+BSD-3-Clause's non-endorsement clause. Eight items cited it this way. Repaired by registering and
+reading the texts: `osi-bsd-3-clause`, `gnu-gpl-3`, `gnu-gpl-2`, `osi-lgpl-2-1` (LGPL-2.1 read at
+the OSI because gnu.org's old-licenses pages would not respond), plus the existing
+`osi-mit-license`, `apache-license-2`, `gnu-lgpl-3`, `gnu-agpl-3`. It was kept only for the `gpl`
+concept, where the claim really is about `GPL-2.0-only` versus `GPL-2.0-or-later` identifiers.
+
+**The defect lives in `data/`, and `data/` was fixed.** Each item's `source_ids` mirrored its
+concept's `additional_sources`; `mit-and-bsd-licenses` cited an identifier table and the OSD for a
+concept that is entirely about what two licence texts say. Sixteen concepts in
+`data/topics/06-it-project-management.json` were rewired to the documents that carry their claims,
+so no orphan sources were added and `npm run validate` is back to the expected **16 warnings**.
+
+**`gnu-agpl-3`'s URL was wrong.** `agpl-3.0.html` serves ~8 KB of navigation and format links with
+no licence text; `agpl-3.0.en.html` carries the text including section 13, "Remote Network
+Interaction". URL corrected in `data/sources.json`.
+
+**One factual error, repeated.** `gpl.02` placed GPLv3's express patent grant in **section 5** in
+two separate `why` fields. Section 5 is "Conveying Modified Source Versions"; the patent grant is
+**section 11**. The substantive claim held: `patent` occurs in the full GPLv2 text only in the
+preamble and section 7's conflicting-obligations clause, with no grant and no termination clause.
+
+**Six distractor `why` fields stated false facts**, the defect class that teaches a wrong lesson as
+a correction. The two sharpest: `gpl.01` o2 said the kernel's syscall exception addresses driver
+linking — the kernel licensing rules describe it as the UAPI boundary for software that "uses it
+to communicate with the kernel", i.e. user space; and `governance-and-foundations.01` o2 plus
+`contributor-license-agreement.01` o2 both denied that a foundation can have one CLA across its
+projects, contradicted verbatim by the ASF: "An individual must have submitted a signed ICLA to
+the ASF before we give them commit rights to any ASF project."
+
+**The guide needed no content change.** Its GPLv3 section numbering is right where the questions'
+was wrong, and both "compressed reference cell" instances of the true-but-misreadable class were
+checked and are correct: line 407's "LGPLv3 section 4's relink conditions (LGPL-2.1 section 6)"
+against both licence texts, and line 501's "Yes, section 3, terminating on patent litigation"
+against Apache-2.0.
+
+**Unresolved.** Guide line 489's claim that the FSF treats Apache-2.0 as GPLv2-incompatible over
+the patent-termination provision is unverified: `gnu.org/licenses/license-list.html` and
+`gnu.org/philosophy/categories.html` timed out repeatedly from this host across the whole task
+while other gnu.org pages served normally. Nothing contradicts it; it was left alone, and no
+question depends on it any more.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
+live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `npm run
+check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors / 16
+warnings. Shape scans unchanged by the rewrites: em-dash trailing clause keys 52% / distractors
+6%, two-clause 0% / 0%, no six-token tail reused 3 or more times.
