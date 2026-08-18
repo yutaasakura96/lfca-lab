@@ -1759,3 +1759,33 @@ live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `
 check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors / 16
 warnings. Shape scans unchanged by the rewrites: em-dash trailing clause keys 52% / distractors
 6%, two-clause 0% / 0%, no six-token tail reused 3 or more times.
+
+
+## Cycle 3, task 49b — verify Cloud Computing :: Cloud Computing, items 29–56
+
+28 of 28 items in the range verified against fetched primary sources and rewritten where needed.
+Full detail in `docs/verification/qbank-findings.md` under task 49b.
+
+**Guide correction, confirmed and applied.** `study-guide/03-cloud-computing/cloud-computing.md`
+attributed its type 1 and type 2 hypervisor example lists to VMware. That attribution is now
+unverifiable: `https://www.vmware.com/topics/hypervisor` (source `vmware-hypervisor`) returns 200
+but serves no body text to any HTTP fetch — it is a client-rendered shell whose only prose is its
+meta description, and grepping the served bytes for "type 1", "type 2", "bare metal" and "hosted"
+returns zero hits. The classifications themselves are correct and were kept; the attribution moved
+to sources that can be read. Settled by <https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor>,
+which names KVM, Microsoft Hyper-V and VMware vSphere as type 1 examples and VMware Workstation
+and Oracle VirtualBox as type 2, and by <https://www.linux-kvm.org/page/Main_Page>, which
+describes KVM as a loadable kernel module providing the core virtualization infrastructure.
+`data/`'s concept description needed no change.
+
+Nine sources were added to `data/sources.json` and wired into the owning concepts'
+`additional_sources` in `data/topics/03-cloud-computing.json`: `redhat-what-is-a-hypervisor`,
+`linux-kvm-main`, `aws-rds-welcome`, `aws-rds-maintenance`, `aws-s3-using-folders`, `gcs-objects`,
+`aws-ebs-multi-attach`, `aws-efs-what-is`, `cncf-glossary-iac`.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
+live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `npm run
+check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors / 16
+warnings. Shape scans on the whole file are unchanged by the rewrites: em-dash trailing clause
+keys 57% / distractors 40%, identical to the pre-task figures; within items 29–56 distractors sit
+at 36%, above the 33% they started at.
