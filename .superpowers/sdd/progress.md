@@ -1124,3 +1124,126 @@ Task 56 (a/b/c/d/e): complete (commit d976f24) - WAVE D, BATCH 3
   states baldly that a PID is reusable on exit; `swap.01`'s key is a synthesis of free(1) and
   vmstat(8); RAID minimums rest on Red Hat docs, not tool enforcement (`mdadm` does not reject
   `--level=5 --raid-devices=2`).
+
+Task 57 (a/b/c/d/e/f/g): complete (commit a5f0639) - WAVE D, BATCH 4
+  Networking, 183 items split seven ways (28/28/26/22/26/24/29). **183 of 183 confirmed.**
+  **VERIFICATION IS NOW COMPLETE: 1150/1150 items confirmed, 0 unverified, 0 non-confirmed,
+  22 of 22 competencies.** Unscoped check-bank 184 -> **1 error** (q-answer-position-balance only);
+  q-verdict-coverage is fully cleared. Sources 605 -> 657.
+  Controller verification against the FILESYSTEM: 0 unverified, 0 non-confirmed, 0 range
+  violations, 0 partial `checked` arrays, 0 empty `sources_read`. Gates: test 307/307,
+  validate 0 errors / 15 warnings (baseline held every reading), check-guide 0/0.
+
+  **THE CYCLE'S THESIS NOW HAS A NUMBER.** Across the 311 items of tasks 56+57 there were
+  **6 wrong keys and 3 also-correct distractors**. Everything else - many hundreds of refutations -
+  was a CITATION defect. Content largely sound, sourcing not.
+
+  **THE DOMINANT CAUSE IS A CLASS THIS WAVE DISCOVERED AND MEASURED: sources that return
+  200 OK and support nothing.** Five distinct instances, and they are not edge cases:
+  - **`netfilter.org/documentation/index.html`** - 31 KB of nav menu and release news, zero
+    statements about DROP/REJECT, conntrack, NAT, ufw or firewalld. It was the ONLY claim-bearing
+    source on **EIGHT items** (143-150).
+  - **`itu.int/rec/T-REC-X.200-199407-I/en`** - 19 KB whose only body word is "Summary". It was the
+    SOLE source for all FOUR OSI items, three of which turn on layer names/numbering. Settled by
+    the free-to-read X.200 PDF (which also confirms no item rests on a licence-gated document,
+    since ISO/IEC 7498-1 is paywalled but X.200 is not).
+  - **`ieee-802-1q`** - 360 KB of amendment abstracts, no definition of VLAN, tagging, access or
+    trunk port; the real PDF is licence-gated. Substituted RFC 5517. **The empty-source rule and
+    the paywalled-standard rule failing together in one citation.**
+  - **man7 `proc(5)`** - NOT an empty page (31 KB, real overview and mount options; the controller
+    initially mis-described it as an index shell and corrected that). Its PER-FILE sections were
+    split into ~100 `proc_*(5)` sub-pages. Five items cited it for facts it no longer carries.
+  - **man7 `ip(7)`** - no longer documents any `/proc/sys/net` file; could not source the
+    32768-60999 ephemeral range. Settled by the kernel ip-sysctl docs.
+  **Two of these (proc(5), ip(7)) are DOCUMENTATION SPLITS: the citation was correct when written
+  and rotted without the URL ever breaking.** A sixth variant: the ISC dhcpd page now banners
+  "ISC DHCP is EOL". **A link-checker would have caught NONE of this.** Task 59 must state that the
+  sourcing is not merely sloppy but DECAYING, and any future check must assert the CLAIM, not the
+  page. The proc(5) pattern needs a corpus-wide sweep - other competencies already marked verified
+  may cite it the same way. Folded into the `data/` cleanup task.
+
+  Wrong keys (6 across both tasks; the 3 in networking):
+  - **`dhcp-reservation.04` - false key AND an also-correct distractor, wrong in both directions.**
+    Key: an in-pool reservation may still go to another dynamic client. The cited ISC manual never
+    says it and its RESERVED LEASES section says the opposite; the Kea ARM 8.3.1 says in-pool and
+    out-of-pool reservations "are handled uniformly" and 8.2 makes skipping in-pool checks opt-in -
+    so distractor o2 ("a reservation always takes automatic precedence") was CORRECT BY DEFAULT.
+  - **`dns-resolution-order.03`** keyed that nsswitch's `resolve` entry routes through the
+    127.0.0.53 stub. nss-resolve(8): it uses the `io.systemd.Resolve` Varlink socket; 127.0.0.53 is
+    a SEPARATE glibc compatibility path. **The item conflated exactly the two paths its own concept
+    exists to separate.** The misconception is now the rewritten item's distractor.
+  - **`mac-address.02`** rested on the false premise that `ip addr` does not show a MAC (it prints
+    `link/ether` above `inet`).
+  Also-correct distractors (3 total): the DHCP one above, **`default-gateway.02`** (key blamed
+  delivery-time ARP; distractor o4's entry-time rejection is what actually happens -
+  `ip route add default via <off-subnet>` -> `Error: Nexthop has invalid gateway.` exit 2, and only
+  `onlink` installs it), and `foreground-and-background-jobs.02` from task 56.
+  Near-miss worth recording: **`dhcp-reservation.02`'s key was true only on a FIRST boot** -
+  RFC 2131 3.2 lets a client reuse its address for the remainder of an unexpired lease, making the
+  distractor defensible for any reboot inside the lease. Fixed by constraining the STEM, not by
+  weakening the key.
+
+  Concept-level citation findings, ~40 concepts re-cited:
+  - **The whole `sysadmin.networking.ssh` concept cited only ssh(1) + IANA, and ssh(1) documents
+    NONE of its four items' claims** (ssh-copy-id, authorized_keys permissions, scp flags, sftp
+    subsystem). One wrong concept, four wrong items - the propagation mechanism in miniature.
+  - **`resolv.conf(5)` cited for systemd-resolved material in BOTH `etc-resolv-conf` items** - the
+    string `127.0.0.53` does not occur in that man page. The hazard named in the handoff, real.
+  - **RFC 791 3.2 stops at "111 escape to extended addressing mode" and never defines class D or
+    E** - the `ipv4-address-classes` concept had no source for any class D claim (RFC 1112 4 does).
+  - **RFC 8499 2 states outright that "hostname" is not defined in RFC 1034/1035/1123/2181** -
+    yet `fqdn-and-hostname` cited only RFC 1034.
+  - `dhcp` cited only RFC 2131 for an item turning entirely on 169.254.0.0/16, a prefix that never
+    appears in it (RFC 3927). `ttl-and-dns-caching` cited RFC 1034/1035 for a decrement-on-serve
+    rule neither states (RFC 2308). `ip(8)` contains zero occurrences of `link/ether` and of
+    `route get` (ip-neighbour(8), ip-route(8)). RFC 1122 contains neither "bridge" nor "broadcast
+    domain" (RFC 1812). RFC 826 is silent on the broadcast MAC, the Local bit, MAC randomisation
+    and IPv6 ND.
+  - **Item 148 stated the firewalld runtime/permanent relationship BACKWARDS** (claimed
+    `--permanent` is lost on reload; firewall-cmd(1) says `--reload` discards RUNTIME-only changes).
+    A reader would have learned the exact inverse.
+  - **Item 133's key was contradicted by its own cited source** - RFC 9110 3.7 and nginx both say
+    reverse proxies do load balancing, so the exclusive "it has become a load balancer" made the
+    "still a reverse proxy" distractor defensible.
+
+  **TWO "DEPRECATED" CLAIMS FAILED TO SOURCE, independently, in different ranges.** `route(8)`
+  (task 57b) and **`ifconfig`** (57g) - man7's ifconfig(8) is the CURRENT upstream page, dated
+  2025-09-10, and nowhere says deprecated or obsolete. 57g restated the key to what is documented
+  and demonstrable (legacy net-tools, not installed by default) rather than cite something
+  adjacent - the `hypervisor` precedent applied correctly. **"Deprecated" is folklore the bank
+  repeats; treat any such claim as unsourced until proven.**
+  And the plausible-but-silent trap fired exactly where predicted: `ping-and-icmp.01`/`.04` turn on
+  "ICMP is commonly filtered", which **RFC 792 never says**; re-cited to Nmap host discovery, the
+  same resolution an earlier wave reached. The warning was carried forward and paid off.
+
+  Empirical verification did decisive work: the entry-time gateway rejection; `ping 127.200.5.9`
+  succeeding (the whole /8); a stale linkdown route still winning over a working higher-metric one;
+  TTL counting 300->270->240 against local unbound while the authoritative server returned 300;
+  MAXNS=3 binding in practice (4th nameserver fails, 3rd succeeds); `hosts: dns files` being legal
+  and merely reversing precedence; a DROP'd port timing out while BOTH plain `REJECT` and
+  `REJECT --reject-with tcp-reset` returned "Connection refused", i.e. **indistinguishable from
+  closed, which is item 153's whole teaching point**; a native `nft` rule invisible to
+  `iptables -L -n` while `iptables -V` reports `nf_tables`; an unlabelled `ip addr add` invisible
+  to `ifconfig -a` while a labelled `eth0:0` alias shows.
+  **Two container artifacts were caught rather than reported as facts**: privileged-port binding
+  needed `--sysctl net.ipv4.ip_unprivileged_port_start=1024` because **Docker's default is 0, not
+  the kernel's**; and DHCP was explicitly NOT tested - the RFCs were read instead, no experiment
+  fabricated. RAID likewise could not be measured in task 56 (linuxkit has no `md_mod`).
+
+  Restraint worth recording: task 57e **rejected an obvious distractor filler because it was TRUE**
+  (DROP vs REJECT producing hang vs refusal) and would have manufactured a second defensible
+  answer - the killer defect avoided DURING a repair rather than found afterwards. 57a recorded
+  four REJECTED findings with the source settling each, including declining to refute an ARP
+  layering item because no option offered the defensible answer, and noted using no
+  `factcheck-*.json` as evidence anywhere.
+
+  Shape: networking keys 60% -> 58%, distractors 17%, key-is-longest 27% - held, not fixed; the
+  corpus-wide tell is untouched and is the next task. **All seven ranges reproduced the
+  strip-exposes-length-cue side effect and closed it. That is 12 of 12 agents across three waves.
+  It is structural, not incidental, and any future option-text edit must assume it.**
+
+  Honest limits recorded in-item rather than dressed up: "layer 3 switch" is vendor marketing in no
+  primary standard; `traceroute.03` path asymmetry follows from the mechanism but is stated
+  nowhere; `dig-and-nslookup.01`'s diagnostic ORDER is methodology, not documentation;
+  `ip-and-ifconfig.04` (neither man page contains "persist" or "reboot", and a reboot test is
+  impossible in a container); item 150 rests on **Fedora Quick Docs substituting for RHEL docs**.
