@@ -52,14 +52,29 @@
       "rationale": "The three terms collide on sound alone but name different things: a virtual private cloud is an isolation model on shared hardware, a VPN is an encrypted tunnel, and a private cloud is a deployment model on dedicated infrastructure.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
+        "aws-vpc-security-groups-vs-nacls",
         "azure-virtual-network"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.virtual-private-cloud",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The item cited aws-vpc-configure-subnets, a subnet page that never defines a VPC. The AWS infrastructure-security page does: \"A virtual private cloud (VPC) is a virtual network in your own logically isolated area in the AWS Cloud\", and Microsoft's virtual-network overview supplies the chosen-address-space and Azure half. Key re-checked and correct: logical isolation on shared infrastructure with an operator-chosen range. o2 fails the stem because the object described is the whole address space and isolation boundary, and AWS documents the subnet as a range carved from the VPC that must sit entirely in one Availability Zone. o3's why is true (a site-to-site VPN is an encrypted tunnel joining networks, not a network). o4's why is true and is the confusion the term invites. No two options assert the same answer and no distractor satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.virtual-private-cloud.02",
@@ -112,14 +127,28 @@
       "rationale": "A virtual private cloud is the outermost isolation boundary in this competency: two of them cannot reach each other at all until an explicit peering connection or private link joins them.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
+        "aws-vpc-peering-basics",
         "azure-virtual-network"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.virtual-private-cloud",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. Neither cited page stated that two networks are unreachable from each other until connected. AWS's VPC-peering page does, by construction: \"To enable the flow of traffic between the VPCs using private IP addresses, the owner of each VPC in the VPC peering connection must manually add a route to one or more of their VPC route tables that points to the IP address range of the other VPC.\" Microsoft's overview says peering is what lets resources in two virtual networks communicate. Key re-checked and correct. o2's why is true: nothing is filtered because nothing is routed. o3's why is true: same-region placement adds no route, and AWS peering explicitly spans accounts and Regions. o4's why is true: shared or overlapping private ranges are not a route, and AWS in fact forbids overlapping CIDRs across a peering connection. No two options assert the same answer.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.virtual-private-cloud.03",
@@ -131,9 +160,9 @@
       "options": [
         {
           "ref": "o1",
-          "text": "AWS and Azure treat the network as a regional resource, but a Google Cloud VPC network is not itself confined to one region — its subnets are the regional resources.",
+          "text": "A Google Cloud VPC network is a global resource whose subnets carry the regional scope, whereas an AWS VPC exists within one Region and an Azure virtual network's resources must all sit in its own region.",
           "correct": true,
-          "why": "This matches each provider's documented scope for the network object itself, as distinct from its subnets.",
+          "why": "Google documents VPC networks as global resources and subnets as regional resources; AWS counts its quota as VPCs per Region, and Microsoft documents that any resource connected to a virtual network must be in the same region as that network.",
           "provenance": {
             "kind": "key"
           }
@@ -172,14 +201,32 @@
       "rationale": "Scope differs by provider and is worth holding separately from a subnet's zone relationship: an AWS VPC and an Azure virtual network are regional, while a Google Cloud VPC network is not itself confined to one region.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
-        "azure-virtual-network"
+        "gcp-vpc-networks",
+        "azure-manage-virtual-network",
+        "aws-vpc-quotas",
+        "aws-vpc-configure-subnets"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.virtual-private-cloud",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on both citation and wording, then repaired. The item made a three-provider scope claim citing only an AWS subnet page and an Azure overview, with no Google source at all, and its key asserted AWS and Azure \"treat the network as a regional resource\" in a voice neither page supports. Google's VPC overview settles the Google half outright: \"VPC networks, including their associated routes and firewall rules, are global resources. They are not associated with any particular region or zone. Subnets are regional resources.\" The key was rewritten to lead with that and to state the AWS and Azure halves only as their own documentation states them: Amazon's VPC quotas page counts \"VPCs per Region\" under \"these quotas are per Region\", and Microsoft's create-a-virtual-network page says any Azure resource connected to a virtual network must be in the same region as the network. o2's why is true: none of the three scopes the network object to a zone. o3's why is true: subnet scoping is where the three diverge, so borrowing it for the network is the error. o4's why is true: peering routes between two networks without merging them into one resource. Rewrite removed an em dash from the key rather than adding one.",
+        "sources_read": [
+          "https://cloud.google.com/vpc/docs/vpc",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.virtual-private-cloud.04",
@@ -232,14 +279,30 @@
       "rationale": "The network's address range is not frozen at creation on any of the three major providers; the correction survives from the earlier AWS-only version of this competency.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
-        "azure-virtual-network"
+        "aws-vpc-cidr-blocks",
+        "azure-manage-virtual-network",
+        "gcp-vpc-create-modify"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.virtual-private-cloud",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The key names three distinct growth mechanisms and cited a subnet page and a service overview, neither of which documents any of them. All three are now cited at the page that carries them: AWS, \"You can associate secondary IPv4 CIDR blocks with your VPC\"; Microsoft's create-change-or-delete-a-virtual-network page, which documents adding an address range to an existing network's address space; Google's create-and-modify page, \"Expand a primary IPv4 range -- you can expand the primary IPv4 range of an existing subnet by modifying its subnet mask, setting the prefix length to a smaller number.\" Key re-checked and correct on all three providers. o2's why is true and is the misconception the item exists to catch. o3's why is true: none of the three growth mechanisms requires re-addressing existing subnets, and AWS's constraint is on overlap, not on re-addressing. o4's why is true: a route table directs traffic and does not extend an address space.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network",
+          "https://cloud.google.com/vpc/docs/create-modify-vpc-networks"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-subnets.01",
@@ -280,9 +343,9 @@
         },
         {
           "ref": "o4",
-          "text": "Complete isolation, since each subnet has its own distinct private address range.",
+          "text": "Isolation only from the internet, since a private address range is not routable from outside.",
           "correct": false,
-          "why": "A distinct address range only means the subnets do not overlap; it says nothing about whether traffic between them is routed, which by default it is.",
+          "why": "The question asks what isolation the three resources have from each other, and internet reachability is a separate matter decided by the subnet's route table rather than by the resources sitting in different subnets.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.cloud-subnets"
@@ -292,13 +355,28 @@
       "rationale": "A subnet is a slice of a network's address range where resources are placed and routing is attached; the virtual private cloud, not the subnet, is where isolation actually lives.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-vpc-cidr-blocks",
         "aws-vpc-configure-subnets"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-subnets",
       "comparison_block": "cmp-cloud.networking.cloud-subnets",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on two counts, then repaired. First, o2 and o4 both opened \"Complete isolation\", asserting the same answer with different reasons; o4 was rewritten to a distinct answer (isolation from the internet only) so the four options now give four different answers. Second, the routing fact was cited to a subnet page that does not state it. AWS's VPC CIDR page does, showing the route table every VPC gets with its own address range as destination and target \"local\", which is what makes two subnets of one VPC mutually reachable with no configuration. Key re-checked and correct. o2's why is true: isolation is the VPC's property, not the subnet's. o3's why is true: a network ACL filters traffic, it does not remove the local route. New o4's why is true. No distractor satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-subnets.02",
@@ -351,13 +429,30 @@
       "rationale": "AWS documents that each subnet must reside entirely within one Availability Zone; Azure and Google Cloud both diverge from that, in slightly different ways, and generalising AWS's rule across providers is the predictable error.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets"
+        "aws-vpc-configure-subnets",
+        "azure-virtual-network",
+        "gcp-vpc-networks"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-subnets",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. A three-provider claim cited only the AWS subnet page. Each third is now cited where it is stated: AWS, \"Each subnet must reside entirely within one Availability Zone and cannot span zones\"; Microsoft, \"Virtual networks and subnets span all availability zones in a region\"; Google, \"Subnets are regional resources ... instances can have their network interfaces associated with any subnet in the same region that contains their zones.\" Key re-checked and correct, including the per-provider attribution the answer turns on. o2's why is true and names the exact over-generalisation. o3's why is true: the network's scope and the subnet's zone relationship are separate facts. o4's why is true: Azure associates a route table per subnet and its subnets still span every zone in the region, so per-subnet route tables do not cause zone confinement.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview",
+          "https://cloud.google.com/vpc/docs/vpc"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-subnets.03",
@@ -365,7 +460,7 @@
       "pool": "supplement",
       "type": "application",
       "difficulty": 3,
-      "stem": "Which of the following attaches directly to a subnet on AWS but has no equivalent per-subnet attachment on Google Cloud, which instead attaches the same kind of rule to the network as a whole?",
+      "stem": "Which packet-filtering layer attaches directly to a subnet on AWS but has no equivalent per-subnet attachment on Google Cloud, which instead configures the same kind of rule on the network as a whole?",
       "options": [
         {
           "ref": "o1",
@@ -400,7 +495,7 @@
           "ref": "o4",
           "text": "A route table, since Google Cloud has no notion of routing at all.",
           "correct": false,
-          "why": "Google Cloud does route traffic — it defines routes at the network level rather than per subnet, which is a different claim than having none.",
+          "why": "A route table directs traffic rather than filtering it, so it is not the layer this question asks about; Google Cloud does route traffic, defining routes at the network level rather than per subnet.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.networking.cloud-route-tables"
@@ -410,13 +505,28 @@
       "rationale": "Where a route table and the stateless filtering layer attach differs by provider: AWS and Azure associate a route table with the subnet, and only AWS offers a subnet-attached network ACL, while Google Cloud attaches equivalents at the network level instead.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets"
+        "aws-vpc-security-groups-vs-nacls",
+        "gcp-vpc-firewall-rules"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-subnets",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted for a second correct answer, then repaired. As written the stem asked which thing \"attaches directly to a subnet on AWS but has no equivalent per-subnet attachment on Google Cloud, which instead attaches the same kind of rule to the network as a whole\" -- which the route table in o4 satisfies exactly, since AWS associates a route table per subnet and Google Cloud defines routes at the network level. o4's own why admitted it: \"Google Cloud does route traffic -- it defines routes at the network level rather than per subnet.\" The stem now asks which packet-filtering layer, which excludes the route table and the address range, and excludes the security group because AWS attaches that at the instance level. o4's why was rewritten to say why a route table is not a filtering layer while keeping the true routing fact. Key re-checked and correct: AWS documents the network ACL at \"subnet level\", and Google documents that \"while firewall rules are defined at the network level, connections are allowed or denied on a per-instance basis.\" o2's why is true. o3's why is true: Google's VPC firewall rules are stateful and Azure's NSGs are stateful, so statefulness is not what varies.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html",
+          "https://cloud.google.com/firewall/docs/firewalls"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-subnets.04",
@@ -469,13 +579,28 @@
       "rationale": "The provider reserves a small number of addresses in every subnet for its own infrastructure, so a subnet's usable capacity is consistently lower than its nominal block size implies.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-vpc-subnet-sizing",
         "aws-vpc-configure-subnets"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-subnets",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The reserved-address fact is not on the Subnets-for-your-VPC page that was cited; it is on AWS's subnet-sizing page: \"The first four IP addresses and the last IP address in each subnet CIDR block are not available for your use, and they cannot be assigned to a resource\", listing the network address, the VPC router, the DNS server and a reserved future-use address plus the broadcast address. Key re-checked and correct, and it is stated in a provider-neutral voice that holds because every major provider reserves addresses per subnet, with AWS cited as the documented instance. o2's why is true: peering reserves no addresses inside a subnet. o3's why is true: reserved public addresses are a separate quota-limited resource, not a deduction from the private range. o4's why is true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-vs-private-subnet.01",
@@ -528,6 +653,7 @@
       "rationale": "AWS states the rule directly: association with a route table carrying a route to an internet gateway is what makes a subnet public, and no attribute on the subnet itself records that fact.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-vpc-internet-gateway",
         "aws-vpc-configure-subnets",
         "aws-vpc-route-tables"
       ],
@@ -535,7 +661,22 @@
       "comparison_block": "cmp-cloud.networking.public-vs-private-subnet",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The cited route-tables page is a table of contents that never states the classification rule; the internet-gateway page carries the sentence the key turns on: \"If a subnet is associated with a route table that has a route to an internet gateway, it's known as a public subnet. If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as a private subnet.\" The subnet page agrees, \"The subnet type is determined by how you configure routing for your subnets.\" Key re-checked and correct, including the negative half: no subnet attribute named public exists, the modifiable subnet attributes AWS lists being auto-assign IP, DNS and resource-name settings. o2's why is true: a NAT gateway grants outbound-only reachability. o3's why is true: the local route covers intra-VPC traffic. o4's why is true and is stated on the same page, \"instances in the private subnet can't communicate with the internet, even if they have public IP addresses.\"",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-vs-private-subnet.02",
@@ -588,14 +729,28 @@
       "rationale": "Azure diverges from the AWS route-table-only framing by exposing a subnet property, `defaultOutboundAccess`, that Microsoft itself calls making the subnet private when disabled.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
-        "aws-vpc-route-tables"
+        "ms-azure-default-outbound-access",
+        "aws-vpc-internet-gateway"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.public-vs-private-subnet",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The whole item is about Azure and cited two AWS pages, neither of which mentions Azure. Microsoft's default-outbound-access page settles it: \"Creating a subnet to be Private prevents any virtual machines on the subnet from utilizing default outbound access to connect to public endpoints\", and it names the mechanism as a subnet property, \"This explicitly sets the subnet property: defaultOutboundAccess = false.\" Key re-checked and correct, including the AWS contrast, which the internet-gateway page states as a route-table-only rule. o2's why is true. o3's why is true: the property governs outbound reachability generally and Microsoft lists a NAT gateway as only one of several explicit outbound methods. o4's why is true: Azure does associate route tables per subnet, but the mechanism here is the dedicated property.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-vs-private-subnet.03",
@@ -648,14 +803,30 @@
       "rationale": "Google Cloud has no per-subnet route table to move, so the same public/private question is answered per instance there rather than per subnet, through the external IP address plus firewall rules.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
+        "gcp-vpc-routes",
+        "gcp-vpc-firewall-rules",
         "aws-vpc-route-tables"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.public-vs-private-subnet",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. Every claim in the item is about Google Cloud and no Google source was cited. Google's routes page carries the routing half: \"When you create a VPC network, Google Cloud adds a system-generated IPv4 default route to the VPC network ... a local static route that has a 0.0.0.0/0 destination and default internet gateway next hop\", used by \"VMs with external IPv4 addresses\", and routes are network-scoped rather than per subnet. Google's firewall page carries the filtering half: rules \"are defined at the network level\" and are enforced per instance. Key re-checked and correct: with no per-subnet route table to re-point, reachability is evaluated at the instance. o2's why is true and directly contradicts o2's text. o3's why is true: the default route is one ingredient and is untouched by removing an external IP. o4's why is true: Cloud NAT is optional infrastructure for outbound-only reachability, and Google's routes page describes public Cloud NAT gateways as a separate consumer of the same default route.",
+        "sources_read": [
+          "https://cloud.google.com/vpc/docs/routes",
+          "https://cloud.google.com/firewall/docs/firewalls",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-vs-private-subnet.04",
@@ -708,14 +879,30 @@
       "rationale": "A private subnet routed through a NAT gateway can still initiate outbound connections; the classification only blocks unsolicited inbound reachability.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-configure-subnets",
-        "aws-vpc-route-tables"
+        "aws-vpc-nat-gateway",
+        "aws-vpc-internet-gateway",
+        "aws-vpc-configure-subnets"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.public-vs-private-subnet",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed on content with the citation strengthened. The cited subnet page does support the key (\"Resources in a private subnet require a NAT device to access the public internet\"), and the NAT-gateway page states it precisely: \"You can use a NAT gateway so that instances in a private subnet can connect to services outside your VPC but external services can't initiate a connection with those instances.\" Key correct. o2's why is true and is the mirror-image trap. o3's why is true and is stated verbatim on the internet-gateway page: instances in a private subnet \"can't communicate with the internet, even if they have public IP addresses\". o4's why is true: the local route exists in every route table and covers only the VPC's own range. No two options assert the same answer.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.security-group-vs-network-acl.01",
@@ -774,7 +961,20 @@
       "comparison_block": "cmp-cloud.networking.security-group-vs-network-acl",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS's comparison table states the two rows the item turns on: \"Return traffic -- Security group: Automatically allowed (stateful); Network ACL: Must be explicitly allowed (stateless)\", and \"Level of operation -- Instance level / Subnet level\". Key correct: a stateless subnet-attached layer with only an inbound allow rule drops the reply. o2's why is true -- statefulness is an implementation property, not implied by the word firewall -- and the layer described in the stem is subnet-attached with ordered allow and deny rules, which is the network ACL. o3's why is true: a missing route stops the reply being sent at all rather than dropping it at a filtering layer. o4's why is true and is the exact reversal AWS's table forbids. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.security-group-vs-network-acl.02",
@@ -833,7 +1033,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS's table states \"Rule type -- Security group: Allow rules only; Network ACL: Allow and deny rules\", and the same page recommends network ACLs \"to deny a specific subset of traffic\". Key correct, and correctly scoped to AWS in both stem and key. o2's why is true: there is no deny rule type in a security group. o3's why is true: the network ACL is a provider-managed subnet-level layer outside the guest OS and is the documented tool for this. o4's why is true: public-versus-private classification governs whether a route to the internet exists, not which addresses are permitted. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.security-group-vs-network-acl.03",
@@ -892,7 +1105,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS's table states \"Rule evaluation -- Security group: Evaluates all rules before deciding whether to allow traffic; Network ACL: Evaluates rules in ascending order until a match for the traffic is found\", which is exactly the key. The key's second half is also right for the reason it gives: with allow rules only, a security group has no deny to order against. o2's why is true and contradicts o2's own text. o3's why is true on both counts (different attachment levels, only one order-dependent). o4's why is true: route tables decide where traffic goes, not how a filtering layer evaluates its rules. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.security-group-vs-network-acl.04",
@@ -945,13 +1171,30 @@
       "rationale": "AWS's stateless, subnet-level network ACL has no equivalent on Azure or Google Cloud; both of those providers offer only a stateful filtering layer.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-security-groups-vs-nacls"
+        "azure-network-security-groups",
+        "aws-vpc-security-groups-vs-nacls",
+        "gcp-vpc-firewall-rules"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.security-group-vs-network-acl",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The key asserts that Azure NSGs are stateful and that Azure and Google Cloud offer no separate stateless layer, citing only an AWS page that says nothing about either provider. Microsoft states it: \"The flow record allows a network security group to be stateful. If you specify an outbound security rule to any address over port 80, for example, it's not necessary to specify an inbound security rule for the response.\" Google states its half: \"VPC firewall rules are stateful: when a connection is allowed through the firewall in either direction, return traffic matching this connection is also allowed. You cannot configure a firewall rule to deny associated response traffic.\" Key re-checked and correct. o2's why is true: the name resembles a network ACL, the behaviour matches a security group. o3's why is true: a guest-OS firewall is a different mechanism from a provider-managed subnet-attached layer. o4's why is true and describes Azure's outbound-access property, which is not a filtering rule set.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview",
+          "https://cloud.google.com/firewall/docs/firewalls",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.internet-gateway-and-nat-gateway.01",
@@ -1005,14 +1248,27 @@
       "source_ids": [
         "lf-objectives-2025",
         "aws-vpc-internet-gateway",
-        "aws-vpc-nat-gateway",
-        "ms-azure-default-outbound-access"
+        "aws-vpc-nat-gateway"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.internet-gateway-and-nat-gateway",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS's internet-gateway page gives the two-way half: an internet gateway \"enables resources in your public subnets to connect to the internet if the resource has a public IPv4 address ... Similarly, resources on the internet can initiate a connection to resources in your subnet.\" The NAT-gateway page gives the outbound-only half: instances \"can connect to services outside your VPC but external services can't initiate a connection with those instances.\" Key correct. o2's why is true: public and private are descriptions of which gateway a route table points at, not substitutes for attaching one. o3's why is true: security groups and network ACLs filter traffic that can already arrive. o4's why is true: the one-way property comes from address translation and is not a switchable rule. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.internet-gateway-and-nat-gateway.02",
@@ -1065,15 +1321,28 @@
       "rationale": "A public NAT gateway is provisioned in a public subnet and serves the private subnets that route their default traffic to it, from where it is routed on to the internet gateway; placing it in the private subnet it serves is a documented inversion of the intended layout.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-internet-gateway",
         "aws-vpc-nat-gateway",
-        "ms-azure-default-outbound-access"
+        "aws-vpc-internet-gateway"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.internet-gateway-and-nat-gateway",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS states the placement rule verbatim: \"You create a public NAT gateway in a public subnet and must associate an Elastic IP address with the NAT gateway at creation. You route traffic from the NAT gateway to the internet gateway for the VPC.\" Key correct on all three parts (public subnet, Elastic IP, routed on to the internet gateway), and correctly scoped to the public connectivity type, which is the one the stem names. o2's why is true. o3's why is true: the placement of the gateway is a decision distinct from the served subnet's classification. o4's why is true: no filtering rule changes where a gateway must sit. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.internet-gateway-and-nat-gateway.03",
@@ -1126,15 +1395,26 @@
       "rationale": "An internet gateway alone does not expose anything: without a public address on the resource, and a route pointing at the gateway, nothing is reachable from outside.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-internet-gateway",
-        "aws-vpc-nat-gateway",
-        "ms-azure-default-outbound-access"
+        "aws-vpc-internet-gateway"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.internet-gateway-and-nat-gateway",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS states it twice on the cited page: \"To enable communication over the internet for IPv4, your instance must have a public IPv4 address\", and of the private-subnet example, instances \"can't communicate with the internet, even if they have public IP addresses\" -- the converse case. Key correct. o2's why is true and restates the requirement. o3's why is true: the subnet is indeed public by AWS's definition once the route exists, and the option is wrong because subnet classification is not instance addressing -- the why says exactly that rather than denying the true half. o4's why is true: either an auto-assigned public IPv4 address or an Elastic IP would satisfy the requirement, and the instance has neither.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.internet-gateway-and-nat-gateway.04",
@@ -1146,9 +1426,9 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Google Cloud's routing documentation names a 'default internet gateway' as the next hop of its system-generated default route, while Azure has no separately named resource at all for inbound reachability.",
+          "text": "Google Cloud's routing documentation names a 'default internet gateway' as the next hop of the system-generated default route it adds to every VPC network, rather than as a resource you attach the way AWS does.",
           "correct": true,
-          "why": "This matches each provider's documented treatment of the internet-gateway role.",
+          "why": "Google's routes documentation names that next hop explicitly, and AWS documents its internet gateway as a component you attach to a VPC, so the same role is represented two different ways.",
           "provenance": {
             "kind": "key"
           }
@@ -1157,7 +1437,7 @@
           "ref": "o2",
           "text": "None of the three names an equivalent; AWS's internet gateway is the only such resource in the industry, with Azure and Google Cloud instead handling inbound reachability through routing rules that carry no dedicated resource name at all.",
           "correct": false,
-          "why": "Google Cloud does document a named next hop, its 'default internet gateway' — the absence of a provisioned resource by that name is true only of Azure, not of all three providers.",
+          "why": "Google Cloud does document a named next hop, its 'default internet gateway', so AWS is not the only provider that names the role.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.internet-gateway-and-nat-gateway"
@@ -1187,15 +1467,30 @@
       "rationale": "Google Cloud names a next hop for its system-generated default route as a default internet gateway, while Azure has no separately named gateway resource at all, relying instead on explicit outbound methods.",
       "source_ids": [
         "lf-objectives-2025",
+        "gcp-vpc-routes",
         "aws-vpc-internet-gateway",
-        "aws-vpc-nat-gateway",
         "ms-azure-default-outbound-access"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.internet-gateway-and-nat-gateway",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and on an unsourceable negative, then repaired. No Google source was cited for a claim about Google's naming, and the key's second half asserted that Azure \"has no separately named resource at all for inbound reachability\" -- a bare negative that neither the cited Azure page (which is about outbound access) nor anything else fetched establishes, and which is arguably false given Application Gateway and Front Door. The key now rests on two positively documented facts: Google's routes page, \"The system-generated IPv4 default route is a local static route that has a 0.0.0.0/0 destination and default internet gateway next hop\", and AWS's page, \"To use an internet gateway, you must attach it to a VPC and configure routing.\" o2's why was rewritten off the same Azure negative and now says only that Google names the role, which is sourced; o2's text remains false because Google does name an equivalent. o3's why is true and matches Microsoft's documented subnet property. o4's why is true: Microsoft describes peering as connecting virtual networks to each other, with no role in internet reachability. Neither rewrite added an em dash.",
+        "sources_read": [
+          "https://cloud.google.com/vpc/docs/routes",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-and-elastic-ip-addresses.01",
@@ -1238,7 +1533,7 @@
           "ref": "o4",
           "text": "A reserved static address, since only reserved addresses are assigned to instances by default.",
           "correct": false,
-          "why": "The default assignment is ephemeral; a reserved address has to be explicitly allocated and would have survived the replacement, which this one did not.",
+          "why": "A public address handed out automatically at launch is ephemeral; a reserved address has to be explicitly allocated to the account first, and would have survived the replacement, which this one did not.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.public-and-elastic-ip-addresses"
@@ -1254,7 +1549,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed on content, with one distractor rationale tightened. AWS's Elastic IP page carries both halves: an Elastic IP \"is allocated to your AWS account, and is yours until you release it\", and a non-reserved public IPv4 address \"is released back into Amazon's pool of public IPv4 addresses\". Key correct. o2's why is true: DNS maps a name to whatever address is current. o3's why is true: address type and resource type are independent. o4's why originally read \"The default assignment is ephemeral\", which is only true where AWS auto-assigns a public IPv4 address (default subnets), so it was reworded to the launch-time auto-assignment case; the load-bearing correction, that a reserved address must be explicitly allocated and would have survived, is unchanged and documented. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-and-elastic-ip-addresses.02",
@@ -1262,7 +1570,7 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "A requirement states that a failed instance must be replaced without waiting for any DNS record to update and re-cache. Which mechanism satisfies that on its own?",
+      "stem": "A failed instance must be replaced without waiting for any DNS record to update and re-cache, and without putting any additional network component in front of it. Which mechanism satisfies that?",
       "options": [
         {
           "ref": "o1",
@@ -1287,7 +1595,7 @@
           "ref": "o3",
           "text": "A layer 4 load balancer placed in front of the instance.",
           "correct": false,
-          "why": "A load balancer helps once it is already part of the design, but on its own it does not explain how a single failed instance's address is masked without introducing a new endpoint of its own.",
+          "why": "A load balancer would satisfy the DNS half of the requirement, but it is exactly the additional component in front of the instance that the requirement rules out.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.networking.cloud-load-balancer-types"
@@ -1313,7 +1621,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted for a second correct answer, then repaired. The old stem asked only for a replacement that does not wait for a DNS record to update and re-cache; a load balancer in front of the instance satisfies that as squarely as an Elastic IP remap does, so o3 was a second defensible answer and its why merely asserted that a load balancer \"does not explain\" the masking. The stem now also forbids putting an additional network component in front of the instance, which excludes o3 while leaving the key untouched, and o3's why now states plainly why it is excluded. Key re-checked and correct against AWS: \"By using an Elastic IP address, you can mask the failure of an instance or software by rapidly remapping the address to another instance in your account.\" o2's why is true and is the delay the requirement rules out. o4's why is true: an ephemeral address does not survive across instances. No em dash was added.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.public-and-elastic-ip-addresses.03",
@@ -1356,7 +1677,7 @@
           "ref": "o4",
           "text": "It does not — Elastic IP addresses are unlimited, since they cost nothing when attached to a running instance.",
           "correct": false,
-          "why": "AWS documents a default limit of five per Region regardless of billing status; cost and quota are separate mechanisms, and this option denies a documented limit that exists.",
+          "why": "AWS documents a default quota of five per Region and charges for every Elastic IP address whether it is in use or idle, so neither half of this option holds.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.public-and-elastic-ip-addresses"
@@ -1372,7 +1693,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed on content, with one distractor rationale corrected against the current page. AWS states the key almost word for word: \"By default, all AWS accounts have a quota of five (5) Elastic IP addresses per Region, because public (IPv4) internet addresses are a scarce public resource. We strongly recommend that you use Elastic IP addresses primarily for their ability to remap the address to another instance in the case of instance failure, and to use DNS hostnames for all other inter-node communication.\" Key correct, and it is a stated AWS figure attributed to AWS in the stem. o2's why is true: the VPC CIDR block size limit is a different constraint. o3's why is true: peering quotas are separate. o4's why previously said only that cost and quota are separate mechanisms, which left the option's \"cost nothing when attached to a running instance\" premise uncorrected and now stale -- the page states \"There is a charge for all Elastic IP addresses whether they are in use ... or idle\" -- so the why now refutes both halves. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-dns.01",
@@ -1425,13 +1759,28 @@
       "rationale": "AWS documents DNS failover as the mechanism by which traffic is routed away from an unhealthy resource to a healthy one when several resources perform the same function.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-route53-dns-failover",
         "aws-route53"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-dns",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, then repaired. The Route 53 Welcome page says the service can \"route internet traffic away from unhealthy resources\" but never names the mechanism, which is what the item asks for. AWS's Configuring DNS failover page does, naming DNS failover and tying it to health checks on \"the health of a specified resource, such as a web server.\" Key re-checked and correct. o2's why is true: layer 7 routing is a load balancer capability that chooses among backends by request content. o3's why is true: remapping a reserved address leaves the address unchanged and repoints it, which is a different mechanism from changing what a name resolves to. o4's why is true and states the real discrimination between the two. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html",
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-dns.02",
@@ -1439,7 +1788,7 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 2,
-      "stem": "A service relies on DNS failover with a five-minute TTL on its record, while a comparable service sits behind a load balancer whose health check marks a target unhealthy within seconds. After a failure, which recovers to serving traffic sooner, and why?",
+      "stem": "A service relies on DNS failover with a five-minute TTL on its record, while a comparable service sits behind a load balancer with several registered targets whose health check marks one unhealthy within seconds. After a failure, which recovers to serving traffic sooner, and why?",
       "options": [
         {
           "ref": "o1",
@@ -1484,13 +1833,30 @@
       "rationale": "A load balancer keeps one unchanged endpoint and stops routing to an unhealthy target, so no client has to learn anything new; DNS failover changes which endpoint clients are told to use and is bounded by the record's TTL.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-route53"
+        "aws-route53-record-ttl",
+        "aws-alb-target-group-health-checks",
+        "aws-route53-dns-failover"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-dns",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and on an edge case in the stem, then repaired. Neither half of the comparison was on the cited Route 53 Welcome page, which says nothing about TTL or load balancers. Both halves are now cited where they are stated: AWS defines TTL as \"the amount of time, in seconds, that you want DNS recursive resolvers to cache information about this record\", and the Application Load Balancer health-check page states \"Each load balancer node routes requests only to the healthy targets.\" The same page documents a fail-open: \"If a target group contains only unhealthy registered targets, the load balancer routes requests to all those targets\" -- so the key's claim that the balancer stops sending traffic to the unhealthy target held only if healthy targets remain, which the old stem did not say. The stem now specifies several registered targets with one marked unhealthy, closing that gap without touching any option. Key re-checked and correct. o2's why is true: detection is fast in both cases and the TTL wait is what differs. o3's why is true: request-parsing latency is nowhere near a multi-minute TTL. o4's why is true: remapping a reserved address is a real third option and the option dodges the comparison asked for. No em dash was added.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html",
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-dns.03",
@@ -1549,7 +1915,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. AWS's Route 53 Welcome page states the key verbatim: \"You can use Route 53 to perform three main functions in any combination: domain registration, DNS routing, and health checking\", and the page then walks the three in order. Key correct, and the stem attributes the claim to a managed DNS service rather than generalising it across providers. o2's why is true: layer 4 and layer 7 are load balancer distinctions. o3's why is true: private endpoint provisioning is a separate service. o4's why is true and is contradicted by the page's own list. No distractor also satisfies the stem.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-load-balancer-types.01",
@@ -1602,13 +1981,29 @@
       "rationale": "A layer 7 load balancer parses the request and can therefore make decisions on hostname, URL path, headers, or cookies, while a layer 4 balancer forwards connections by address and port alone.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-elastic-load-balancing"
+        "aws-alb-introduction",
+        "aws-nlb-introduction"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-load-balancer-types",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Content is correct but the cited aws-elastic-load-balancing page (the ELB overview) contains no layer-4/layer-7 material at all — the landing-page defect. The claims live one click down: the ALB guide says an ALB \"functions at the application layer, the seventh layer of the Open Systems Interconnection (OSI) model. After the load balancer receives a request, it evaluates\" the request, and the NLB guide says an NLB \"functions at the fourth layer\". source_ids replaced with aws-alb-introduction and aws-nlb-introduction. Key stands. o2 is false (a URL path is not a port and a layer 4 balancer never parses it) and its why is true; o3 is false (DNS resolves before the connection exists) and its why is true; o4 is false (an ACL matches address/port/protocol) and its why is true. No two options assert the same answer.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-load-balancer-types.02",
@@ -1661,13 +2056,29 @@
       "rationale": "A layer 4 load balancer forwards connections by address and port and does not read the application protocol at all, which is what makes it suited to an arbitrary TCP or UDP protocol with minimal added latency.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-elastic-load-balancing"
+        "aws-nlb-introduction",
+        "aws-alb-introduction"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-load-balancer-types",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Same landing-page defect as item 27: the ELB overview carries no layer-4 material. The NLB guide states the NLB \"functions at the fourth layer of the Open Systems Interconnection (OSI) model\" and selects a target by flow hash over protocol, source/destination address, port and TCP sequence number, supporting protocol-agnostic forwarding without parsing; NLB target groups support TCP, UDP, TCP_UDP, TLS, QUIC and TCP_QUIC, which is the non-HTTP case in the stem. source_ids replaced. Key stands. o2 is false (layer 7 parsing is built around the application protocol, normally HTTP) and its why is true; o3 and o4 are false and their whys are true. No duplicate answers.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-load-balancer-types.03",
@@ -1675,22 +2086,22 @@
       "pool": "supplement",
       "type": "recall",
       "difficulty": 2,
-      "stem": "Which of these correctly pairs a provider with its current layer 7 load balancer naming, including an older name still seen in documentation?",
+      "stem": "Which pairing of a provider with its layer 7 load balancer product name is correct?",
       "options": [
         {
           "ref": "o1",
-          "text": "Google Cloud calls its current product a proxy-based layer 7 load balancer, and older material still calls the same product HTTP(S) Load Balancing.",
           "correct": true,
-          "why": "This matches Google Cloud's current documentation and its documented earlier naming.",
+          "text": "AWS's is the Application Load Balancer, Azure's is Application Gateway, and Google Cloud's is the Application Load Balancer.",
+          "why": "Each of the three providers documents exactly this product as operating at the application layer, OSI layer 7.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "Google Cloud has never renamed this product; HTTP(S) Load Balancing is its only and current name.",
           "correct": false,
-          "why": "Google's current documentation describes the product as a proxy-based layer 7 load balancer; HTTP(S) Load Balancing was the name used in earlier documentation and still appears in older material.",
+          "text": "AWS's is the Network Load Balancer, since inspecting a URL path is a network-layer operation.",
+          "why": "AWS documents the Network Load Balancer as functioning at the fourth layer of the OSI model; the Application Load Balancer is the one that functions at the seventh layer and evaluates the request itself.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.cloud-load-balancer-types"
@@ -1698,9 +2109,9 @@
         },
         {
           "ref": "o3",
-          "text": "Azure calls its layer 7 product Azure DNS, matching its DNS service's naming pattern.",
           "correct": false,
-          "why": "Azure DNS is the managed DNS service, unrelated to load balancing; Azure's layer 7 load balancer is named Application Gateway.",
+          "text": "Azure's is Azure DNS, following the naming pattern of its DNS service.",
+          "why": "Azure DNS is the managed DNS service and performs no load balancing; Microsoft documents Application Gateway as operating at OSI layer 7 and routing on URL paths and host headers.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.networking.cloud-dns"
@@ -1708,25 +2119,44 @@
         },
         {
           "ref": "o4",
-          "text": "AWS calls its layer 7 product an Elastic Load Balancer, the same name it uses for its reserved public address.",
           "correct": false,
-          "why": "AWS's reserved public address is called an Elastic IP; its layer 7 load balancer is the Application Load Balancer, a distinct product with a different name despite the similar branding elsewhere in AWS.",
+          "text": "Google Cloud's is Cloud Interconnect, since that is its proxy-based traffic product.",
+          "why": "Cloud Interconnect is Google Cloud’s dedicated circuit to an on-premises network, not a load balancer; Google documents the Application Load Balancer as a proxy-based Layer 7 load balancer.",
           "provenance": {
             "kind": "sibling",
-            "concept_id": "cloud.networking.public-and-elastic-ip-addresses"
+            "concept_id": "cloud.networking.hybrid-connectivity"
           }
         }
       ],
       "rationale": "Google Cloud's documentation currently calls its layer 7 product a proxy-based layer 7 load balancer, while older material still uses the earlier name, HTTP(S) Load Balancing, for the same product.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-elastic-load-balancing"
+        "aws-alb-introduction",
+        "aws-nlb-introduction",
+        "azure-application-gateway",
+        "gcp-application-load-balancer"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-load-balancer-types",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AND REWRITTEN. The original item asked for \"current layer 7 load balancer naming\" but its key gave a description rather than a name (\"a proxy-based layer 7 load balancer\"), and its central factual claim — that Google renamed HTTP(S) Load Balancing — could not be substantiated in any current Google Cloud page I fetched. Worse, o2 was a near-duplicate of the key inverted, and o2’s why asserted the same content as the key, so the item effectively had two options making the same assertion. It was also cited to the ELB overview, which says nothing about Google Cloud. Rewritten as a three-provider naming pairing that each provider documents: AWS \"An Application Load Balancer functions at the application layer, the seventh layer of the Open Systems Interconnection (OSI) model\"; Microsoft \"Application Gateway operates at the application layer (OSI layer 7)\"; Google \"The Application Load Balancer is a proxy-based Layer 7 load balancer\". Distractors o2/o3/o4 are each false and each why states a true fact. No em-dash tail on any option, key or distractor.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+          "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html",
+          "https://learn.microsoft.com/en-us/azure/application-gateway/overview",
+          "https://cloud.google.com/load-balancing/docs/application-load-balancer"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.vpc-peering-and-private-connectivity.01",
@@ -1779,14 +2209,28 @@
       "rationale": "Peering is non-transitive: a hub-and-spoke arrangement gives the hub reachability to every spoke, but two spokes cannot reach each other through it without a direct peering or a transit service.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
+        "aws-vpc-peering-basics",
         "aws-privatelink"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.vpc-peering-and-private-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Non-transitivity is not on the cited what-is-vpc-peering landing page; it is on vpc-peering-basics: \"VPC peering does not support transitive peering relationships... you cannot route traffic from VPC B to VPC C through VPC A. To route traffic between VPC B and VPC C, you must create a VPC peering connection between them.\" aws-vpc-peering-basics substituted. Key stands, including the direct-peering-or-transit-gateway fix. o2 is the transitive misconception and its why matches its option text; o3 is false (a VPN is for reaching a network the provider does not run) and its why is true; o4 is false and its why is true — overlapping ranges disqualify peering outright, so a shared CIDR is the opposite of a fix.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.vpc-peering-and-private-connectivity.02",
@@ -1839,14 +2283,29 @@
       "rationale": "Overlapping addressing disqualifies a peering connection outright: it cannot be created between networks whose CIDR blocks match or overlap, which is the genuine, surviving exam point in this area.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
-        "aws-privatelink"
+        "aws-vpc-peering-basics",
+        "azure-manage-virtual-network"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.vpc-peering-and-private-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The overlap prohibition is on vpc-peering-basics, not the cited landing page: \"You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks\", and the request is rejected \"even if you intend to use only the non-overlapping CIDR blocks\". Key stands. o2 false, no provider re-addresses automatically. o3 false, and its why (\"a dedicated circuit and a peering connection both require non-overlapping ranges\") is now sourced: Microsoft states \"If a virtual network has address ranges that overlap with another virtual network or on-premises network, the two networks cannot be connected\" — azure-manage-virtual-network added for it. o4 false, no connection exists so no routes are generated.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.vpc-peering-and-private-connectivity.03",
@@ -1906,7 +2365,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "CONFIRMED AS CITED — the only item in this range whose sources needed no change. The cited what-is-vpc-peering page states verbatim: \"All inter-Region traffic is encrypted before leaving AWS facilities with no single point of failure, or bandwidth bottleneck. Traffic always stays on the global AWS backbone, and never traverses the public internet\". Key stands, including its explicit AWS attribution rather than a generic provider voice. o2 is false and its why is true against the same sentence; o3 is false (peering is not simply unencrypted) and its why correctly separates a self-managed VPN tunnel from provider fabric encryption; o4 is false and its why is true — security groups filter by address, port and protocol and have no encryption setting.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.vpc-peering-and-private-connectivity.04",
@@ -1959,14 +2431,27 @@
       "rationale": "A peering connection is requested from one side and accepted from the other, after which each side must still add routes for the other's address range; peering does not merge the two networks or fill in routing automatically.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
-        "aws-privatelink"
+        "aws-vpc-peering-basics"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.vpc-peering-and-private-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The route requirement is on vpc-peering-basics, not the landing page: after acceptance activates the connection, \"To enable the flow of traffic between the VPCs using private IP addresses, the owner of each VPC in the VPC peering connection must manually add a route to one or more of their VPC route tables that points to the IP address range of the other VPC\". Key stands. o2 is false and its why is true. o3 is false — public/private classification concerns a route to an internet gateway, not the peering routes. o4 is checked carefully because it is the near-miss: the same page does say to update security group rules if required, but it lists that step after the mandatory route addition and qualifies it with \"if required\", so o4 fails on its own words \"and that alone is what remains\"; its why states this correctly and does not contradict its option text.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.hybrid-connectivity.01",
@@ -2019,13 +2504,30 @@
       "rationale": "A site-to-site VPN needs only a public endpoint at each end and is a configuration task on equipment already owned, making it the fit for a short deadline and small budget; a dedicated circuit trades that speed for predictability.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-expressroute"
+        "aws-site-to-site-vpn",
+        "azure-expressroute",
+        "aws-vpc-peering-basics"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.hybrid-connectivity",
       "comparison_block": "cmp-cloud.networking.hybrid-connectivity",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The only non-objectives source was the ExpressRoute intro, which covers the dedicated circuit but nothing about a site-to-site VPN or about peering, and the key asserts things about both. Sources added and checked: AWS Site-to-Site VPN documents the customer gateway device as \"A physical device or software application on your side\" terminating an IPsec connection to a virtual private gateway, which is the key’s \"public endpoint at each end, on equipment already owned\"; ExpressRoute is documented as reaching Microsoft \"over a private connection with the help of a connectivity provider\", which is the provisioning lead time o3’s why relies on; vpc-peering-basics establishes that peering joins two VPCs the provider runs. Key stands. o2 is false — peering cannot reach a network outside the provider. o3 is false and its why is true, and importantly it does not overclaim: a dedicated circuit is a private path, not an encrypted one. o4 is false and its why is true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html",
+          "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.hybrid-connectivity.02",
@@ -2039,7 +2541,7 @@
           "ref": "o1",
           "text": "Not inherently — the circuit provides a private path, which is a separate property from encryption of the payload, and encryption there is a decision made separately from choosing the circuit.",
           "correct": true,
-          "why": "Privacy of path and encryption of payload are documented as separate properties for a dedicated circuit.",
+          "why": "Microsoft states that by default traffic over an ExpressRoute connection is not encrypted, and documents encryption as a separate option you add.",
           "provenance": {
             "kind": "key"
           }
@@ -2048,7 +2550,7 @@
           "ref": "o2",
           "text": "Yes, automatically, because never touching the public internet is the same thing as being encrypted.",
           "correct": false,
-          "why": "Privacy of path and encryption of payload are documented as separate properties; a dedicated circuit secures the former without touching the latter.",
+          "why": "Microsoft states plainly that by default traffic over an ExpressRoute connection is not encrypted; keeping traffic off the public internet is a property of the path, not of the payload.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.hybrid-connectivity"
@@ -2078,13 +2580,30 @@
       "rationale": "A dedicated circuit establishes a private path that never enters the public internet, but encryption of the payload is a separate decision from that path's privacy — the two properties are not the same thing.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-expressroute"
+        "azure-expressroute",
+        "azure-expressroute-encryption",
+        "aws-vpc-peering"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.hybrid-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The cited ExpressRoute introduction never mentions encryption at all, so the key rested on the absence of a statement rather than on a statement. Microsoft’s dedicated page settles it: \"ExpressRoute supports encryption technologies... By default, traffic over an ExpressRoute connection isn’t encrypted\", with MACsec and IPsec described as options the customer adds. azure-expressroute-encryption added, and the key’s why and o2’s why rewritten to cite that statement instead of gesturing at documentation. Key stands. o2 is false. o3 is false as an answer and its why states a true fact — the inter-Region peering encryption sentence is real (aws-vpc-peering added for it) but applies to AWS peering on AWS’s backbone, not to a dedicated circuit; this is the per-provider attribution trap and the item handles it correctly. o4 is false and its why is true.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-encryption",
+          "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction",
+          "https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.hybrid-connectivity.03",
@@ -2098,7 +2617,7 @@
           "ref": "o1",
           "text": "No — overlapping ranges break a dedicated circuit connection just as they break peering; the addressing constraint is not something a private path avoids.",
           "correct": true,
-          "why": "The guide documents this constraint as applying to both mechanisms, not just to peering.",
+          "why": "Microsoft states that a virtual network whose address ranges overlap with another virtual network or an on-premises network cannot be connected to it either way.",
           "provenance": {
             "kind": "key"
           }
@@ -2107,7 +2626,7 @@
           "ref": "o2",
           "text": "Yes — the addressing constraint is specific to peering, since only peering merges two address spaces.",
           "correct": false,
-          "why": "The dedicated-circuit case is documented as carrying the same overlapping-address problem as peering; neither is exempt from it.",
+          "why": "Microsoft states the overlap bar for an on-premises network in the same breath as for another virtual network, so the constraint is not specific to peering.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:cloud.networking.hybrid-connectivity"
@@ -2137,13 +2656,28 @@
       "rationale": "A dedicated circuit does not remove the addressing constraint: overlapping ranges between the on-premises network and the cloud network break the connection just as they break peering.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-expressroute"
+        "azure-manage-virtual-network",
+        "aws-vpc-peering-basics"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.hybrid-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Both the key’s why and o2’s why appealed to \"the guide\" rather than to any primary source, which is not a verdict basis. Microsoft supplies the primary statement: \"If a virtual network has address ranges that overlap with another virtual network or on-premises network, the two networks can’t be connected.\" That covers the hybrid case as well as the peering case, which is exactly the key’s claim. aws-vpc-peering-basics retained for the peering half (\"You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks\"). Both whys rewritten to the source. Key stands. o3 is false — no automatic re-addressing is documented anywhere. o4 is false and its why is true: longest-prefix preference disambiguates distinct ranges, not genuinely overlapping ones.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.hybrid-connectivity.04",
@@ -2196,13 +2730,32 @@
       "rationale": "AWS's dedicated-circuit product is Direct Connect, Azure's is ExpressRoute, and Google Cloud's is Cloud Interconnect — three different names for the same mechanism.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-expressroute"
+        "aws-direct-connect",
+        "azure-expressroute",
+        "gcp-cloud-interconnect",
+        "gcp-private-service-connect"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.hybrid-connectivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. A three-provider naming item cited only the Azure page. All three names verified in each vendor’s own overview: \"What is Direct Connect?\" (AWS, links your internal network over a standard Ethernet fiber-optic cable to a Direct Connect router); \"What is Azure ExpressRoute?\" (extend on-premises networks into the Microsoft cloud over a private connection with a connectivity provider); \"Cloud Interconnect overview\" (Google Cloud, low-latency high-availability connections, Dedicated and Partner Interconnect). o4’s why asserts that Private Service Connect is Google’s private-endpoint mechanism for managed services, which the Private Service Connect page confirms, so gcp-private-service-connect was added for it too. Key stands. o2, o3 and o4 are each false and each why states a true fact.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
+          "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction",
+          "https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview",
+          "https://cloud.google.com/vpc/docs/private-service-connect"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-route-tables.01",
@@ -2255,13 +2808,28 @@
       "rationale": "This is the mechanism behind the public/private classification: associating a subnet with a route table that contains a route to an internet gateway is what makes that subnet public, and nothing on the subnet records the fact.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-vpc-configure-subnets",
         "aws-vpc-route-tables"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-route-tables",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The cited VPC_Route_Tables page is a table-of-contents landing page and never defines a public subnet. The subnets page does, verbatim: \"Public subnet – The subnet has a direct route to an internet gateway\" and \"Private subnet – The subnet does not have a direct route to an internet gateway\". aws-vpc-configure-subnets added. Key stands, including its parenthetical that nothing on the subnet object itself records the classification. o2 is false (no such attribute exists). o3 is the strongest distractor and is genuinely false: attaching an internet gateway to the VPC only makes it available as a route target, and its why says exactly that. o4 is false and its why is true — an Elastic IP on an instance changes no routing.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-route-tables.02",
@@ -2314,13 +2882,26 @@
       "rationale": "Matching is by destination address, most specific route first, so a narrower route beats a broader default route for a packet addressed inside that narrower range.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-route-tables"
+        "aws-vpc-route-priority"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-route-tables",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Longest-prefix match is not on the cited landing page; it is on route-tables-priority, which states \"we direct traffic using the most specific route that matches the traffic. This is known as the longest prefix match\" and then gives this item’s exact scenario as its worked example: a table with 0.0.0.0/0 to an internet gateway and 172.31.0.0/16 to a peering connection, where \"Any traffic from the subnet that’s destined for the 172.31.0.0/16 IP address range uses the peering connection, because this route is more specific\". aws-vpc-route-priority added. Key stands. o2 is false and its why is true. o3 is checked closely because the same page does say the local route covers the VPC’s own range, but the packet in the stem is addressed inside the peered slice, not the local range, so o3 is false and its why says so accurately. o4 is false and its why is true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/route-tables-priority.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cloud-route-tables.03",
@@ -2332,9 +2913,9 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Google Cloud defines routes at the network level, matched by destination and instance tag, rather than associating a distinct route table with each subnet.",
+          "text": "Google Cloud defines routes at the network level, matched by destination and network tag, rather than associating a distinct route table with each subnet.",
           "correct": true,
-          "why": "This matches Google Cloud's documented network-level routing model.",
+          "why": "Google states that the routing table for a VPC network is defined at the VPC network level, and that static routes can be scoped to VM instances identified by network tags.",
           "provenance": {
             "kind": "key"
           }
@@ -2373,13 +2954,28 @@
       "rationale": "AWS and Azure both associate a route table with a subnet; Google Cloud instead defines routes at the network level, matched by destination and by instance tag.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-route-tables"
+        "aws-vpc-route-tables",
+        "gcp-vpc-routes"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cloud-route-tables",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. An item whose whole point is a Google Cloud behaviour cited only an AWS page. Google’s routes overview supplies it: \"Some routes can be applied selectively, but the routing table for a VPC network is defined at the VPC network level\", and \"Static routes can apply to: All VM instances... Only VM instances identified by network tags\". gcp-vpc-routes added. One content correction: the key said \"instance tag\", which is not Google’s term — changed to \"network tag\" to match the documentation, and the key’s why rewritten to the source. o2 is false. o3 is false and its why is true: Google does route, and the same page documents system-generated default routes with destination 0.0.0.0/0. o4 is false and its why is true — the routes page lists many next-hop types, not only a NAT gateway.",
+        "sources_read": [
+          "https://cloud.google.com/vpc/docs/routes",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.bastion-and-jump-hosts.01",
@@ -2432,13 +3028,28 @@
       "rationale": "A bastion or jump host concentrates administrative access at one auditable point instead of scattering open SSH or RDP ports across every host, so the private resources behind it need no inbound exposure of their own.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-bastion"
+        "azure-bastion",
+        "aws-session-manager"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.bastion-and-jump-hosts",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The key asserts two things — no direct inbound exposure on the targets, and a single auditable point — and the cited Azure Bastion page carries only the first (\"your virtual machines don’t need a public IP address, agent, or special client software\"; \"Your VMs are protected from port scanning\"). AWS Session Manager carries both: \"secure node management without the need to open inbound ports, maintain bastion hosts\", \"improve your security posture by letting you close these inbound ports\", plus a Logging session activity section. aws-session-manager added. Key stands. o2 is false and its why is true — security groups still apply to the targets. o3 is false and its why correctly distinguishes a private service endpoint to a managed service from administrative access to compute. o4 is false and its why is true, since SSH and RDP are already encrypted.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview",
+          "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.bastion-and-jump-hosts.02",
@@ -2491,13 +3102,28 @@
       "rationale": "The managed forms go a step further than a self-managed jump box: Microsoft documents Azure Bastion virtual machines needing no public IP, agent, or special client software, and AWS documents Session Manager as providing node management without opening inbound ports.",
       "source_ids": [
         "lf-objectives-2025",
-        "azure-bastion"
+        "azure-bastion",
+        "aws-session-manager"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.bastion-and-jump-hosts",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. o2’s why names AWS Session Manager explicitly while the item cited no AWS source at all. Both halves of the key now resolve to the page carrying the sentence: Microsoft, \"When you connect via Azure Bastion, your virtual machines don’t need a public IP address, agent, or special client software\"; AWS, \"No open inbound ports and no need to manage bastion hosts\". aws-session-manager added. Key stands. o2 is false and its why is true. o3 is false — NAT gateway egress is unrelated to inbound administrative access. o4 is false and its why is true. Checked specifically that no two options assert the same thing; o2 is the only near-miss and it claims the opposite of the key.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview",
+          "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.bastion-and-jump-hosts.03",
@@ -2550,13 +3176,28 @@
       "rationale": "Because every administrative session passes through one place, session logging and recording become possible in a way that per-host access never allows.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-session-manager",
         "azure-bastion"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.bastion-and-jump-hosts",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The Azure Bastion overview, the only non-objectives source cited, has no logging or auditing content whatsoever, and logging is the entire subject of the item. Session Manager does: a \"Logging session activity\" section and \"Session Manager provide you with options for logging session histories\", with CloudTrail, S3 and CloudWatch Logs integrations. aws-session-manager added and put first. Key stands. o2 is false and its why is true. o3 is false and its why is true. o4 is the reasonable-sounding one and is false: per-host logs exist but are scattered, which its why states without contradicting its own option text.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html",
+          "https://learn.microsoft.com/en-us/azure/bastion/bastion-overview"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cidr-planning-for-cloud-networks.01",
@@ -2609,14 +3250,28 @@
       "rationale": "Two networks with overlapping ranges cannot be peered or privately connected without re-addressing one of them, which is why non-overlapping ranges are chosen up front.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
-        "azure-virtual-network"
+        "aws-vpc-peering-basics",
+        "azure-manage-virtual-network"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cidr-planning-for-cloud-networks",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. Cited the peering landing page and the Azure Virtual Network overview, neither of which states the overlap bar. Both replacements do: AWS, \"You cannot create a VPC peering connection between VPCs that have matching or overlapping IPv4 or IPv6 CIDR blocks\"; Microsoft, \"If a virtual network has address ranges that overlap with another virtual network or on-premises network, the two networks can’t be connected.\" Key stands. o2 is false — no address translation is performed. o3 is false and its why is true: a more specific route disambiguates distinct ranges, and the request is rejected before routing is considered. o4 is false and its why is true, since acceptance is downstream of creation.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cidr-planning-for-cloud-networks.02",
@@ -2628,9 +3283,9 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The range can grow after creation on all three major providers, but by the time an overlap is discovered, subnets, peering connections, and on-premises routes have typically already been built around the original range.",
+          "text": "Address space can be added or expanded after creation on all three major providers, but by the time an overlap is discovered, subnets, peering connections, and on-premises routes have typically already been built around the original range.",
           "correct": true,
-          "why": "This matches the documented asymmetry: growth is well supported, but overlap disrupts everything already built on the original range.",
+          "why": "AWS documents adding a further CIDR block to an existing VPC, Azure documents adding an address range to a live virtual network, and Google Cloud documents expanding a subnet’s primary IPv4 range.",
           "provenance": {
             "kind": "key"
           }
@@ -2649,7 +3304,7 @@
           "ref": "o3",
           "text": "Neither is recoverable, since a subnet's CIDR block can never be resized once created.",
           "correct": false,
-          "why": "The competency concerns the parent network's address space, not a single subnet's block specifically, and growing the parent network's space is well documented as possible on all three providers.",
+          "why": "Azure documents changing a subnet address range after creation and Google Cloud documents expanding a subnet’s primary IPv4 range, so the premise that a subnet block can never be resized is itself false.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.networking.cloud-subnets"
@@ -2669,14 +3324,30 @@
       "rationale": "Running short of addresses is recoverable, because the range is not locked at creation on any of the three major providers; discovering an overlap is not recoverable in the same way, because other infrastructure has usually already been built on the original range.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
-        "azure-virtual-network"
+        "aws-vpc-cidr-blocks",
+        "azure-manage-virtual-network",
+        "gcp-vpc-create-modify"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cidr-planning-for-cloud-networks",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AND FIXED. Two defects. First, the key made a generic \"on all three major providers\" claim while citing only the AWS peering landing page and the Azure Virtual Network overview, neither of which says anything about growing address space — exactly the unattributed-generic-claim trap. Each provider’s mechanism is different and is now cited separately: AWS adds a further CIDR block to the VPC (the existing block’s size cannot be changed, so growth is by addition); Azure \"You can change the address space after the virtual network is created, under specific conditions\" and \"Add an address range\"; Google Cloud \"You can expand the primary IPv4 range of an existing subnet\" — note that a Google Cloud VPC network has no parent CIDR at all, so growth there is a subnet operation. Key text and why rewritten accordingly. Second, o3’s why claimed the competency \"concerns the parent network’s address space, not a single subnet’s block\", which dodges rather than refutes; o3 is false for a better reason — subnet ranges can be resized on Azure and Google Cloud — and its why now says that. o2 and o4 are false and their whys state true facts. Em-dash usage unchanged: no option in this item ends in an em-dash tail.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html",
+          "https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network",
+          "https://cloud.google.com/vpc/docs/create-modify-vpc-networks"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.cidr-planning-for-cloud-networks.03",
@@ -2719,7 +3390,7 @@
           "ref": "o4",
           "text": "It is capped at five addresses per Region, matching the reserved public address quota.",
           "correct": false,
-          "why": "The five-per-Region figure is the default quota on reserved public addresses like Elastic IPs, an entirely different resource from a virtual network's private CIDR block, which is sized in the tens of thousands of addresses at minimum.",
+          "why": "The five-per-Region figure is the default quota on Elastic IP addresses, an entirely different resource from a VPC CIDR block, whose size AWS bounds between a /16 and a /28 rather than by any per-Region address cap.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "cloud.networking.public-and-elastic-ip-addresses"
@@ -2729,14 +3400,26 @@
       "rationale": "AWS documents that a VPC's IPv4 CIDR block must be between a /16 and a /28, and that an existing block's size cannot change in place, requiring a second block to be added instead.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-vpc-peering",
-        "azure-virtual-network"
+        "aws-vpc-cidr-blocks"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.cidr-planning-for-cloud-networks",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AND FIXED. Citation: the item cited the peering landing page and the Azure Virtual Network overview for an AWS VPC sizing rule; vpc-cidr-blocks carries it verbatim — \"block size is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses)\", \"After you’ve created your VPC, you can add additional CIDR blocks\", and \"You cannot increase or decrease the size of an existing CIDR block\". Arithmetic recomputed by hand rather than trusted: 2^(32-16) = 65,536 and 2^(32-28) = 16, both matching the page. Key stands. Content defect found and fixed in o4: its why asserted that a VPC CIDR block is \"sized in the tens of thousands of addresses at minimum\", which is false — the minimum is a /28, sixteen addresses — a distractor why stating an untrue fact. Rewritten. o4 itself remains false, and the five-Elastic-IP-per-Region default quota it alludes to is real. o2 is false and its why is true: RFC 1918 defines private ranges, AWS separately bounds the block size. o3 is false and its why is true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.private-service-endpoints.01",
@@ -2789,13 +3472,28 @@
       "rationale": "AWS documents PrivateLink as connecting a VPC to services and resources as if they were in that VPC, with no internet gateway, NAT device, or public IP address needed — improving security posture and removing the internet egress a NAT path would otherwise bill.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-privatelink"
+        "aws-privatelink",
+        "aws-vpc-peering-basics"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.private-service-endpoints",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "CONFIRMED ON CONTENT AND ON THE KEY’S CITATION. The cited PrivateLink page carries the key’s claim on the page itself, not a click away: PrivateLink lets you \"privately connect your VPC to services and resources as if they were in your VPC. You do not need to use an internet gateway, NAT device, public IP address, Direct Connect connection, or AWS Site-to-Site VPN connection\". One citation addition: o2’s why asserts that peering carries an overlapping-address constraint, which lives on vpc-peering-basics, so that was added. o2 is false as an answer, o3 is false and its why is true (a larger NAT gateway still routes out to the public endpoint), o4 is false and its why is true. Checked that o2 and the key do not assert the same mechanism; they do not.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+          "https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.private-service-endpoints.02",
@@ -2848,13 +3546,32 @@
       "rationale": "AWS's version is PrivateLink, Azure's is Private Link, and Google Cloud's is Private Service Connect — functionally equivalent private-endpoint mechanisms under three different names.",
       "source_ids": [
         "lf-objectives-2025",
-        "aws-privatelink"
+        "aws-privatelink",
+        "azure-private-link",
+        "gcp-private-service-connect",
+        "azure-expressroute"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.private-service-endpoints",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. A three-provider naming item cited only the AWS page. All three verified in each vendor’s own overview: \"What is AWS PrivateLink?\"; \"What is Azure Private Link? Azure Private Link enables you to access Azure PaaS Services... over a private endpoint in your virtual network\"; \"Private Service Connect is a capability of Google Cloud networking\" giving consumers internal IP endpoints to reach services. o3’s why also asserts that ExpressRoute is Azure’s dedicated on-premises circuit, so azure-expressroute was added for it. Key stands. o2, o3 and o4 are each false and each why states a true fact — checked in particular that o4’s why correctly describes VPC Network Peering as joining two Google Cloud networks rather than reaching a managed service.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+          "https://learn.microsoft.com/en-us/azure/private-link/private-link-overview",
+          "https://cloud.google.com/vpc/docs/private-service-connect",
+          "https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction"
+        ]
+      }
     },
     {
       "id": "q.cloud.networking.private-service-endpoints.03",
@@ -2907,13 +3624,28 @@
       "rationale": "An endpoint is created inside the network and given a private address from the network's own address space; DNS for the service name resolves to that address, so existing clients keep working unchanged while the traffic stays inside the provider's network.",
       "source_ids": [
         "lf-objectives-2025",
+        "aws-privatelink-aws-services",
         "aws-privatelink"
       ],
       "guide_anchor": "03-cloud-computing/networking.md#c-cloud.networking.private-service-endpoints",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-cloud-networking-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED ON CITATION, FIXED. The what-is-privatelink page never mentions DNS, so the key’s whole premise was uncited. The private DNS section of the AWS services page states it directly: with private DNS enabled, the private hosted zone \"contains a record set for the default DNS name for the service that resolves it to the private IP addresses of the endpoint network interfaces in your VPC. Therefore, if you have existing applications that send requests to the AWS service using a public Regional endpoint, those requests now go through the endpoint network interfaces, without requiring that you make any changes to those applications.\" aws-privatelink-aws-services added and cited first. Key stands. o2 is false and its why is true. o3 is false as an answer to the question asked — the question is about application code — and its why concedes that filtering may still need review without claiming the code changes, so it does not contradict its own option text. o4 is false and its why is true.",
+        "sources_read": [
+          "https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-access-aws-services.html",
+          "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+        ]
+      }
     }
   ]
 }

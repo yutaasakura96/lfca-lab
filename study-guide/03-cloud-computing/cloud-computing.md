@@ -674,14 +674,15 @@ costs performance and adds a second thing that can crash.
 
 **How it works** Both types present each guest with virtual CPU, memory, disk and network
 devices, and multiplex real hardware behind them. The difference is what sits underneath. A
-type 1 hypervisor *is* the lowest software layer; VMware's own list of examples names ESX(i),
-Hyper-V, Citrix, Xen and Linux KVM. A type 2 hypervisor is an application on a general-purpose
-desktop OS; VMware's page names VMware Fusion, Oracle VM and VirtualBox as its type 2 examples
-— VMware Workstation is the equivalent product on Windows and Linux, the same class of
-software as Fusion on macOS, and is standard alongside it in most other treatments. KVM is the
-case that tests understanding rather than recall: it is a module inside the Linux kernel,
-which makes the kernel itself the hypervisor, and vendors classify it as type 1 even though a
-full Linux userland runs alongside it.
+type 1 hypervisor *is* the lowest software layer; Red Hat's hypervisor page names KVM,
+Microsoft Hyper-V and VMware vSphere as type 1 examples, and Xen belongs in the same class. A
+type 2 hypervisor is an application on a general-purpose desktop OS; the same page names
+VMware Workstation and Oracle VirtualBox as type 2 examples — VMware Fusion is the equivalent
+product on macOS, the same class of software as Workstation on Windows and Linux, and is
+standard alongside it in most other treatments. KVM is the case that tests understanding
+rather than recall: linux-kvm.org describes it as a loadable kernel module providing the core
+virtualization infrastructure, which makes the kernel itself the hypervisor, and vendors
+classify it as type 1 even though a full Linux userland runs alongside it.
 
 **Key terms** type 1 (bare-metal); type 2 (hosted); guest; host OS; KVM.
 

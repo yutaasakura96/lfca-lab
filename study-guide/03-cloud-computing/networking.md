@@ -36,7 +36,7 @@ names one vendor's product is nearly always asking about the mechanism in the le
 
 <a id="c-cloud.networking.virtual-private-cloud"></a>
 ### Virtual private cloud
-*id: `cloud.networking.virtual-private-cloud` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets, azure-virtual-network*
+*id: `cloud.networking.virtual-private-cloud` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets, azure-virtual-network, aws-vpc-security-groups-vs-nacls, aws-vpc-peering-basics, gcp-vpc-networks, azure-manage-virtual-network, aws-vpc-quotas, aws-vpc-cidr-blocks, gcp-vpc-create-modify*
 
 **What it is** An isolated, software-defined network you define inside a provider's shared
 infrastructure, with private address ranges and subnets of your own choosing rather than a
@@ -79,7 +79,7 @@ private cloud when all three appear as options to the same question.
 
 <a id="c-cloud.networking.cloud-subnets"></a>
 ### Cloud subnets
-*id: `cloud.networking.cloud-subnets` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets*
+*id: `cloud.networking.cloud-subnets` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets, aws-vpc-subnet-sizing, aws-vpc-cidr-blocks, azure-virtual-network, gcp-vpc-networks, aws-vpc-security-groups-vs-nacls, gcp-vpc-firewall-rules*
 
 **What it is** A subdivision of a virtual network that reserves part of its address range for
 a group of resources. The subnet is where a resource is actually placed, where — on AWS and
@@ -137,7 +137,7 @@ is attached. Isolation lives at the network level, placement and routing at the 
 
 <a id="c-cloud.networking.public-vs-private-subnet"></a>
 ### Public vs private subnet
-*id: `cloud.networking.public-vs-private-subnet` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets, aws-vpc-route-tables*
+*id: `cloud.networking.public-vs-private-subnet` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-configure-subnets, aws-vpc-route-tables, aws-vpc-internet-gateway, aws-vpc-nat-gateway, ms-azure-default-outbound-access, gcp-vpc-routes, gcp-vpc-firewall-rules*
 
 **What it is** A classification of a subnet by the routes available to it, not a setting on
 the subnet. AWS states the rule directly: a subnet associated with a route table that has a
@@ -203,7 +203,7 @@ one of them.
 
 <a id="c-cloud.networking.security-group-vs-network-acl"></a>
 ### Security group vs network ACL
-*id: `cloud.networking.security-group-vs-network-acl` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-security-groups-vs-nacls*
+*id: `cloud.networking.security-group-vs-network-acl` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-security-groups-vs-nacls, azure-network-security-groups, gcp-vpc-firewall-rules*
 
 **What it is** Two layers of cloud network filtering that differ on two axes at once, state
 and attachment point. A security group is stateful and operates at the instance level: allow
@@ -260,7 +260,7 @@ asking about a host firewall, not about either of these.
 
 <a id="c-cloud.networking.internet-gateway-and-nat-gateway"></a>
 ### Internet gateway and NAT gateway
-*id: `cloud.networking.internet-gateway-and-nat-gateway` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-internet-gateway, aws-vpc-nat-gateway, ms-azure-default-outbound-access*
+*id: `cloud.networking.internet-gateway-and-nat-gateway` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: aws-vpc-internet-gateway, aws-vpc-nat-gateway, ms-azure-default-outbound-access, gcp-vpc-routes*
 
 **What it is** Two routing targets with opposite reachability. An internet gateway gives a
 subnet's traffic two-way internet reachability: resources with a public address can be
@@ -338,7 +338,7 @@ every host.
 
 <a id="c-cloud.networking.cloud-dns"></a>
 ### Cloud DNS
-*id: `cloud.networking.cloud-dns` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-route53*
+*id: `cloud.networking.cloud-dns` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-route53, aws-route53-dns-failover, aws-route53-record-ttl, aws-alb-target-group-health-checks*
 
 **What it is** A managed, authoritative DNS service run by the cloud provider — it answers
 queries for the zones you host in it — typically integrated with the provider's health

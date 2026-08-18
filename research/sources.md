@@ -4,6 +4,7 @@
 
 | ID | Title | Organization | Tier | Published | Accessed | URL |
 | --- | --- | --- | --- | --- | --- | --- |
+| aws-s3-what-is | What is Amazon S3? — "Amazon Simple Storage Service (Amazon S3) is an object storage service" | Amazon Web Services | 1 | — | 2026-08-18 | https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html |
 | cncf-charter | CNCF Charter — neutral home for projects; projects keep their existing technical governance | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://github.com/cncf/foundation/blob/main/charter.md |
 | cncf-glossary | CNCF Cloud Native Glossary (DevOps, CI, CD, continuous deployment, blue-green, canary, IaC, idempotence, observability, shift left, SRE, microservices, containers, orchestration, cluster, pod, stateless/stateful apps) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://glossary.cncf.io/ |
 | cncf-glossary-container | CNCF Cloud Native Glossary: Container | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/container/ |
@@ -24,6 +25,7 @@
 | lf-objectives-2025 | LFCA Program Changes | The Linux Foundation | 1 | 2025-07 | 2026-08-09 | https://training.linuxfoundation.org/lfca-program-changes-2025/ |
 | lfs200-course | Fundamentals of Open Source IT and Cloud Computing (LFS200) — course content | The Linux Foundation | 1 | — | 2026-08-10 | https://trainingportal.linuxfoundation.org/learn/course/fundamentals-of-open-source-it-and-cloud-computing-lfs200 |
 | linux-foundation-about | About The Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
+| nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | agile-alliance-glossary-mvp | What is a Minimum Viable Product (MVP)? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-11 | https://agilealliance.org/glossary/mvp/ |
@@ -40,6 +42,7 @@
 | asf-contributor-agreements | ASF Contributor Agreements | Apache Software Foundation | 2 | — | 2026-08-18 | https://www.apache.org/licenses/contributor-agreements.html |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
 | aws-alb-introduction | What is an Application Load Balancer? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html |
+| aws-alb-target-group-health-checks | Health checks for Application Load Balancer target groups | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html |
 | aws-backup | What is AWS Backup? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html |
 | aws-backup-restore-testing | Restore testing - AWS Backup | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/aws-backup/latest/devguide/restore-testing.html |
 | aws-budgets | Managing your costs with AWS Budgets | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html |
@@ -49,13 +52,16 @@
 | aws-cloudtrail | What Is AWS CloudTrail? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html |
 | aws-cloudtrail-record-contents | CloudTrail record contents | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-record-contents.html |
 | aws-cost-and-usage-reports | What are AWS Cost and Usage Reports? | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html |
+| aws-direct-connect | What is AWS Direct Connect? | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html |
 | aws-drs-failback | Using Elastic Disaster Recovery for recovery and failback | Amazon Web Services | 2 | — | 2026-08-12 | https://docs.aws.amazon.com/drs/latest/userguide/failback.html |
+| aws-ebs-multi-attach | Attach an EBS volume to multiple EC2 instances using Multi-Attach | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html |
 | aws-ebs-snapshots | Amazon EBS snapshots | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html |
 | aws-ec2-auto-scaling | What is Amazon EC2 Auto Scaling? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html |
 | aws-ec2-change-instance-type | Change the instance type of an Amazon EC2 instance | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/change-instance-type-of-ebs-backed-instance.html |
 | aws-ec2-purchasing-options | Amazon EC2 billing and purchasing options | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html |
 | aws-ec2-reserved-instances | Reserved Instances for Amazon EC2 overview (significant savings compared to On-Demand) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html |
 | aws-ec2-security-shared-responsibility | Security in Amazon EC2 (shared responsibility model) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html |
+| aws-efs-what-is | What is Amazon Elastic File System? (NFS file storage shared across instances) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html |
 | aws-elastic-ip-addresses | Elastic IP addresses (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html |
 | aws-elastic-load-balancing | What is Elastic Load Balancing? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html |
 | aws-elb-sticky-sessions | Configure sticky sessions for your Classic Load Balancer | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html |
@@ -70,7 +76,10 @@
 | aws-organizing-multiple-accounts | Benefits of using multiple AWS accounts | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/benefits-of-using-multiple-aws-accounts.html |
 | aws-pricing-calculator | What is AWS Pricing Calculator? (model your solutions before building them) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/pricing-calculator/latest/userguide/what-is-pricing-calculator.html |
 | aws-privatelink | What is AWS PrivateLink? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html |
+| aws-privatelink-aws-services | Access AWS services through AWS PrivateLink | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-access-aws-services.html |
+| aws-rds-maintenance | Maintaining a DB instance (required maintenance cannot be deferred indefinitely) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html |
 | aws-rds-multi-az | Multi-AZ DB instance deployments - Amazon RDS | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html |
+| aws-rds-welcome | What is Amazon Relational Database Service? (comparison of responsibilities; RDS shared responsibility model) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html |
 | aws-regions-and-azs | Regions and Availability Zones (Amazon EC2 User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html |
 | aws-reliability-autohealing-bp | REL11-BP03 Automate healing on all layers - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_auto_healing_system.html |
 | aws-reliability-availability | Availability - AWS Well-Architected Framework, Reliability Pillar | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html |
@@ -83,10 +92,14 @@
 | aws-rightsizing-instance-families | Overview of Amazon EC2 and Amazon RDS Instance Families | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/overview-amazon-ec2-amazon-rds.html |
 | aws-rightsizing-whitepaper | Cost Optimization: Right Sizing | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html |
 | aws-route53 | What is Amazon Route 53? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html |
+| aws-route53-dns-failover | Configuring DNS failover (Amazon Route 53 Developer Guide) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html |
 | aws-route53-record-ttl | Values specific for simple records (TTL) - Amazon Route 53 | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html |
 | aws-s3-data-encryption | Protecting data with encryption (Amazon S3) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingEncryption.html |
+| aws-s3-using-folders | Organizing objects in the Amazon S3 console by using folders (flat structure, shared key prefixes) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-folders.html |
 | aws-secrets-manager | What is AWS Secrets Manager? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html |
+| aws-session-manager | AWS Systems Manager Session Manager | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html |
 | aws-shared-responsibility-model | Shared Responsibility Model | Amazon Web Services | 2 | — | 2026-08-10 | https://aws.amazon.com/compliance/shared-responsibility-model/ |
+| aws-site-to-site-vpn | What is AWS Site-to-Site VPN? | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html |
 | aws-six-advantages-cloud-computing | Six advantages of cloud computing | Amazon Web Services | 2 | — | 2026-08-11 | https://docs.aws.amazon.com/whitepapers/latest/aws-overview/six-advantages-of-cloud-computing.html |
 | aws-spot-instances | Amazon EC2 Spot Instances | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html |
 | aws-spot-interruption-notices | Spot Instance interruption notices (two-minute warning) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html |
@@ -94,12 +107,17 @@
 | aws-tagging-best-practices | Best Practices for Tagging AWS Resources | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html |
 | aws-tagging-what-are-tags | What are tags? - Best Practices for Tagging AWS Resources | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html |
 | aws-target-group-attributes | Target group attributes - deregistration delay | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/edit-target-group-attributes.html |
+| aws-vpc-cidr-blocks | VPC CIDR blocks | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html |
 | aws-vpc-configure-subnets | Subnets for your VPC (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html |
 | aws-vpc-internet-gateway | Connect to the internet using an internet gateway | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html |
 | aws-vpc-nat-gateway | NAT gateways (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html |
 | aws-vpc-peering | What is VPC peering? | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html |
+| aws-vpc-peering-basics | How VPC peering connections work | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html |
+| aws-vpc-quotas | Amazon VPC quotas | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html |
+| aws-vpc-route-priority | How route priority works | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/userguide/route-tables-priority.html |
 | aws-vpc-route-tables | Route tables for your VPC | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html |
 | aws-vpc-security-groups-vs-nacls | Infrastructure security in Amazon VPC (security groups vs network ACLs) | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html |
+| aws-vpc-subnet-sizing | Subnet sizing (Amazon VPC User Guide) | Amazon Web Services | 2 | — | 2026-08-18 | https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html |
 | aws-wa-deploy-with-automation | REL08-BP05 Deploy changes with automation | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_tracking_change_management_automated_changemgmt.html |
 | aws-wa-document-revisions | Document revisions - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/framework/document-revisions.html |
 | aws-wa-immutable-infrastructure | REL08-BP04 Deploy using immutable infrastructure | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_tracking_change_management_immutable_infrastructure.html |
@@ -111,14 +129,19 @@
 | aws-what-is-multicloud | What is Multicloud? Multicloud Explained | Amazon Web Services | 2 | — | 2026-08-11 | https://aws.amazon.com/what-is/multicloud/ |
 | aws-what-is-nosql | What is NoSQL? | Amazon Web Services | 2 | 2025-01 | 2026-08-11 | https://aws.amazon.com/nosql/ |
 | azure-activity-log | Activity log in Azure Monitor | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log |
+| azure-application-gateway | What is Azure Application Gateway? | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/azure/application-gateway/overview |
 | azure-availability-zones | What are Azure availability zones? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/reliability/availability-zones-overview |
 | azure-bandwidth-pricing | Bandwidth pricing (inbound data transfer is free) | Microsoft | 2 | — | 2026-08-10 | https://azure.microsoft.com/en-us/pricing/details/bandwidth/ |
 | azure-bastion | What is Azure Bastion? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/bastion/bastion-overview |
 | azure-blob-access-tiers | Access tiers for blob data (hot, cool, cold, archive) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview |
 | azure-blob-lifecycle-management | Optimize costs by automatically managing the data lifecycle | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview |
 | azure-expressroute | What is Azure ExpressRoute? | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction |
+| azure-expressroute-encryption | About encryption for Azure ExpressRoute | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-encryption |
 | azure-find-unattached-disks | Find and delete unattached Azure managed and unmanaged disks | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/virtual-machines/windows/find-unattached-disks |
 | azure-free-account-charges | Avoid charges with your Azure free account (usage beyond free quantities is billed at pay-as-you-go rates) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account |
+| azure-manage-virtual-network | Create, change, or delete a virtual network | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/azure/virtual-network/manage-virtual-network |
+| azure-network-security-groups | Network security groups overview (Azure) | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview |
+| azure-private-link | What is Azure Private Link? | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/azure/private-link/private-link-overview |
 | azure-spot-vms | About Azure Spot Virtual Machines | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms |
 | azure-storage-introduction | Introduction to Azure Storage (blob, file, disk) | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction |
 | azure-virtual-network | Azure Virtual Network overview | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview |
@@ -130,6 +153,7 @@
 | caf-cloud-accounting | Cost efficiency considerations for your cloud adoption strategy (shift from a CapEx model to an OpEx model) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting |
 | cc-faq | Creative Commons Frequently Asked Questions | Creative Commons | 2 | — | 2026-08-10 | https://creativecommons.org/faq/ |
 | cisa-data-backup-options | Data Backup Options (US-CERT/CISA) — the 3-2-1 rule | CISA / US-CERT | 2 | — | 2026-08-10 | https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf |
+| cncf-glossary-iac | CNCF Cloud Native Glossary: Infrastructure as Code (IaC) | Cloud Native Computing Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/infrastructure-as-code/ |
 | cncf-glossary-serverless | CNCF Cloud Native Glossary: Serverless | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/serverless/ |
 | cncf-glossary-virtualization | CNCF Cloud Native Glossary: Virtualization | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/virtualization/ |
 | cryptsetup-luks-faq | cryptsetup / LUKS Frequently Asked Questions | cryptsetup project | 2 | — | 2026-08-10 | https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions |
@@ -150,6 +174,14 @@
 | firewalld-documentation | firewalld documentation (including the nftables backend, default since 0.6.0) | firewalld project | 2 | — | 2026-08-10 | https://firewalld.org/documentation/ |
 | fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
 | fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
+| gcp-application-load-balancer | Application Load Balancer overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/load-balancing/docs/application-load-balancer |
+| gcp-cloud-interconnect | Cloud Interconnect overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview |
+| gcp-private-service-connect | Private Service Connect | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/private-service-connect |
+| gcp-vpc-create-modify | Create and modify VPC networks | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/create-modify-vpc-networks |
+| gcp-vpc-firewall-rules | VPC firewall rules overview (Google Cloud) | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/firewall/docs/firewalls |
+| gcp-vpc-networks | VPC networks overview (Google Cloud) | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/vpc |
+| gcp-vpc-routes | Routes overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/routes |
+| gcs-objects | Objects — Cloud Storage (object immutability: no incremental changes, replace only) | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/storage/docs/objects |
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
 | git-branch | git-branch(1) — "List, create, or delete branches" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-branch |
 | git-checkout | git-checkout(1) — including the DETACHED HEAD section | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-checkout |
@@ -229,6 +261,7 @@
 | kernel-org-about | About the Linux Kernel Archives (kernel.org) | Linux Kernel Organization / kernel.org | 2 | — | 2026-08-17 | https://www.kernel.org/category/about.html |
 | kernel-readme | Linux kernel release 6.x README (admin-guide) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/admin-guide/README.html |
 | kernel-sysctl-vm | Linux kernel admin guide: Documentation for /proc/sys/vm (OOM controls) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/admin-guide/sysctl/vm.html |
+| linux-kvm-main | KVM — Kernel-based Virtual Machine (project home) | KVM project | 2 | — | 2026-08-18 | https://www.linux-kvm.org/page/Main_Page |
 | linux-relnotes-0-01 | Notes for Linux release 0.01 | Linus Torvalds / kernel.org historic archive | 2 | — | 2026-08-17 | https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01 |
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
 | man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
@@ -368,6 +401,7 @@
 | progit-what-is-git | Pro Git — Getting Started: What is Git? (three states, working tree / staging area / Git directory) | Git project (git-scm.com) | 2 | — | 2026-08-10 | https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F |
 | pypa-externally-managed-environments | Externally Managed Environments — PyPA specification | Python Packaging Authority | 2 | — | 2026-08-17 | https://packaging.python.org/en/latest/specifications/externally-managed-environments/ |
 | redhat-centos-stream | What is CentOS Stream? | Red Hat | 2 | — | 2026-08-17 | https://www.redhat.com/en/topics/linux/what-is-centos-stream |
+| redhat-what-is-a-hypervisor | What is a hypervisor? (type 1 vs type 2) | Red Hat | 2 | — | 2026-08-18 | https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor |
 | rfc-1034-dns-concepts | RFC 1034: Domain Names - Concepts and Facilities | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1034.html |
 | rfc-1035-dns-implementation | RFC 1035: Domain Names - Implementation and Specification | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1035.html |
 | rfc-1122-host-requirements | RFC 1122: Requirements for Internet Hosts -- Communication Layers | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1122.html |

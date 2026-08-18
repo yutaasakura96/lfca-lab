@@ -245,27 +245,27 @@
 | sysadmin.disaster-recovery.disaster-recovery-drill | System Administration Fundamentals | 30% | Disaster Recovery | Disaster Recovery | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | cloud.cloud-computing.cloud-computing | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | FULLY COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.essential-characteristics | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.cloud-computing.major-cloud-providers | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 2 | 0 | 2 | MEDIUM |
-| cloud.cloud-computing.iaas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.paas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.saas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.cloud-computing.major-cloud-providers | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 4 | 0 | 2 | MEDIUM |
+| cloud.cloud-computing.iaas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.cloud-computing.paas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.cloud-computing.saas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.cloud-computing.serverless-and-faas | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | MEDIUM |
-| cloud.cloud-computing.public-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.cloud-computing.public-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.private-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.multi-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.cloud-computing.virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.cloud-computing.virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.cloud-computing.container-vs-virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.shared-responsibility-model | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |
 | cloud.cloud-computing.region-and-availability-zone | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 2 | HIGH |
-| cloud.cloud-computing.managed-services | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.cloud-control-planes | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.cloud-computing.service-level-agreement | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
-| cloud.cloud-computing.object-block-and-file-storage | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
+| cloud.cloud-computing.managed-services | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.cloud-computing.cloud-control-planes | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 2 | HIGH |
+| cloud.cloud-computing.service-level-agreement | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
+| cloud.cloud-computing.object-block-and-file-storage | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 5 | 0 | 3 | HIGH |
 | cloud.cloud-computing.cloud-migration-approaches | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.cloud-computing.vendor-lock-in | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |
+| cloud.cloud-computing.vendor-lock-in | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 2 | HIGH |
 | cloud.performance-availability.availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.performance-availability.high-availability | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 4 | 0 | 3 | HIGH |
 | cloud.performance-availability.fault-tolerance | Cloud Computing Fundamentals | 18% | Performance/Availability | Performance/Availability | NOT COVERED | 3 | 0 | 3 | HIGH |
@@ -311,20 +311,20 @@
 | cloud.best-practices.documentation-and-tagging-standards | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 3 | 0 | 2 | MEDIUM |
 | cloud.best-practices.right-size-before-you-scale | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 4 | 0 | 2 | HIGH |
 | cloud.best-practices.health-checks-and-graceful-shutdown | Cloud Computing Fundamentals | 18% | Best Practices | Best Practices | NOT COVERED | 3 | 0 | 2 | MEDIUM |
-| cloud.networking.virtual-private-cloud | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
-| cloud.networking.cloud-subnets | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.networking.public-vs-private-subnet | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
-| cloud.networking.security-group-vs-network-acl | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 3 | 0 | 3 | MEDIUM |
+| cloud.networking.virtual-private-cloud | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 9 | 0 | 3 | MEDIUM |
+| cloud.networking.cloud-subnets | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 7 | 0 | 3 | MEDIUM |
+| cloud.networking.public-vs-private-subnet | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 7 | 0 | 3 | MEDIUM |
+| cloud.networking.security-group-vs-network-acl | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 3 | 0 | 3 | MEDIUM |
+| cloud.networking.internet-gateway-and-nat-gateway | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 4 | 0 | 3 | MEDIUM |
 | cloud.networking.public-and-elastic-ip-addresses | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.networking.cloud-dns | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.networking.cloud-load-balancer-types | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| cloud.networking.vpc-peering-and-private-connectivity | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 3 | MEDIUM |
-| cloud.networking.hybrid-connectivity | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| cloud.networking.cloud-route-tables | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.networking.bastion-and-jump-hosts | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | HIGH |
-| cloud.networking.cidr-planning-for-cloud-networks | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 2 | HIGH |
-| cloud.networking.private-service-endpoints | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| cloud.networking.cloud-dns | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 4 | 0 | 2 | MEDIUM |
+| cloud.networking.cloud-load-balancer-types | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 5 | 0 | 2 | MEDIUM |
+| cloud.networking.vpc-peering-and-private-connectivity | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 4 | 0 | 3 | MEDIUM |
+| cloud.networking.hybrid-connectivity | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 7 | 0 | 3 | MEDIUM |
+| cloud.networking.cloud-route-tables | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 4 | 0 | 2 | HIGH |
+| cloud.networking.bastion-and-jump-hosts | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 2 | HIGH |
+| cloud.networking.cidr-planning-for-cloud-networks | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 6 | 0 | 2 | HIGH |
+| cloud.networking.private-service-endpoints | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 6 | 0 | 2 | MEDIUM |
 | security.security.cia-triad | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.authentication-vs-authorization | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.accounting-and-auditing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |

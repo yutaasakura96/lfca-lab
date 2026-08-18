@@ -91,7 +91,9 @@
       ],
       "additional_sources": [
         "aws-regions-and-azs",
-        "azure-availability-zones"
+        "azure-availability-zones",
+        "aws-s3-what-is",
+        "azure-storage-introduction"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -122,7 +124,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "nist-sp-800-145",
+        "aws-shared-responsibility-model"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -155,7 +158,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "nist-sp-800-145",
+        "cncf-glossary-faas"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -188,7 +192,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "nist-sp-800-145",
+        "cncf-glossary-faas",
+        "aws-shared-responsibility-model"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -256,7 +262,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-145"
+        "nist-sp-800-145",
+        "nist-sp-800-146"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -392,7 +399,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-virtualization",
-        "vmware-hypervisor"
+        "vmware-hypervisor",
+        "cncf-glossary-container",
+        "redhat-what-is-a-hypervisor"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -426,7 +435,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "vmware-hypervisor",
-        "cncf-glossary-virtualization"
+        "cncf-glossary-virtualization",
+        "redhat-what-is-a-hypervisor",
+        "linux-kvm-main"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -460,7 +471,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-virtualization",
-        "vmware-hypervisor"
+        "vmware-hypervisor",
+        "cncf-glossary-container"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -594,7 +606,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-shared-responsibility-model"
+        "aws-shared-responsibility-model",
+        "aws-rds-welcome",
+        "aws-rds-maintenance",
+        "nist-sp-800-145"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -627,7 +642,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-cloudtrail"
+        "aws-cloudtrail",
+        "cncf-glossary-iac",
+        "azure-activity-log"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -660,7 +677,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "google-sre-book-slos"
+        "google-sre-book-slos",
+        "aws-reliability-sla-bp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -693,7 +711,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "azure-storage-introduction"
+        "azure-storage-introduction",
+        "gcs-objects",
+        "aws-s3-using-folders",
+        "aws-ebs-multi-attach",
+        "aws-efs-what-is"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -755,7 +777,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-migration-7rs"
+        "aws-migration-7rs",
+        "aws-what-is-multicloud",
+        "azure-bandwidth-pricing"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2331,7 +2355,14 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-vpc-configure-subnets",
-        "azure-virtual-network"
+        "azure-virtual-network",
+        "aws-vpc-security-groups-vs-nacls",
+        "aws-vpc-peering-basics",
+        "gcp-vpc-networks",
+        "azure-manage-virtual-network",
+        "aws-vpc-quotas",
+        "aws-vpc-cidr-blocks",
+        "gcp-vpc-create-modify"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2364,7 +2395,13 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-vpc-configure-subnets"
+        "aws-vpc-configure-subnets",
+        "aws-vpc-subnet-sizing",
+        "aws-vpc-cidr-blocks",
+        "azure-virtual-network",
+        "gcp-vpc-networks",
+        "aws-vpc-security-groups-vs-nacls",
+        "gcp-vpc-firewall-rules"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2398,7 +2435,12 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-vpc-configure-subnets",
-        "aws-vpc-route-tables"
+        "aws-vpc-route-tables",
+        "aws-vpc-internet-gateway",
+        "aws-vpc-nat-gateway",
+        "ms-azure-default-outbound-access",
+        "gcp-vpc-routes",
+        "gcp-vpc-firewall-rules"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2431,7 +2473,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-vpc-security-groups-vs-nacls"
+        "aws-vpc-security-groups-vs-nacls",
+        "azure-network-security-groups",
+        "gcp-vpc-firewall-rules"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2466,7 +2510,8 @@
       "additional_sources": [
         "aws-vpc-internet-gateway",
         "aws-vpc-nat-gateway",
-        "ms-azure-default-outbound-access"
+        "ms-azure-default-outbound-access",
+        "gcp-vpc-routes"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2532,7 +2577,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-route53"
+        "aws-route53",
+        "aws-route53-dns-failover",
+        "aws-route53-record-ttl",
+        "aws-alb-target-group-health-checks"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2553,7 +2601,7 @@
       ],
       "domain": "Cloud Computing Fundamentals",
       "competency": "Networking",
-      "description": "A layer 4 (transport-layer) load balancer forwards connections by address and port alone, blind to the application protocol. A layer 7 (application-layer) load balancer reads the request itself and can route on details like hostname or URL path. AWS offers these as its Network Load Balancer and Application Load Balancer, Azure as Load Balancer and Application Gateway, and Google Cloud as its Network and HTTP(S) Load Balancers — different names for the same layer-4-versus-layer-7 split.",
+      "description": "A layer 4 (transport-layer) load balancer forwards connections by address and port alone, blind to the application protocol. A layer 7 (application-layer) load balancer reads the request itself and can route on details like hostname or URL path. AWS offers these as its Network Load Balancer and Application Load Balancer, Azure as Load Balancer and Application Gateway, and Google Cloud as its Network Load Balancer and Application Load Balancer (the layer 7 product was formerly named HTTP(S) Load Balancing) — different names for the same layer-4-versus-layer-7 split.",
       "objective_verbatim": "Networking",
       "sept_2025_status": "added",
       "inferred": true,
@@ -2565,7 +2613,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-elastic-load-balancing"
+        "aws-elastic-load-balancing",
+        "aws-alb-introduction",
+        "aws-nlb-introduction",
+        "azure-application-gateway",
+        "gcp-application-load-balancer"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2599,7 +2651,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-vpc-peering",
-        "aws-privatelink"
+        "aws-privatelink",
+        "aws-vpc-peering-basics",
+        "azure-manage-virtual-network"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2632,7 +2686,13 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "azure-expressroute"
+        "azure-expressroute",
+        "aws-direct-connect",
+        "gcp-cloud-interconnect",
+        "aws-site-to-site-vpn",
+        "azure-expressroute-encryption",
+        "azure-manage-virtual-network",
+        "gcp-private-service-connect"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2665,7 +2725,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-vpc-route-tables"
+        "aws-vpc-route-tables",
+        "aws-vpc-configure-subnets",
+        "aws-vpc-route-priority",
+        "gcp-vpc-routes"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2698,7 +2761,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "azure-bastion"
+        "azure-bastion",
+        "aws-session-manager"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2732,7 +2796,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "aws-vpc-peering",
-        "azure-virtual-network"
+        "azure-virtual-network",
+        "aws-vpc-peering-basics",
+        "aws-vpc-cidr-blocks",
+        "azure-manage-virtual-network",
+        "gcp-vpc-create-modify"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2765,7 +2833,12 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "aws-privatelink"
+        "aws-privatelink",
+        "azure-private-link",
+        "gcp-private-service-connect",
+        "azure-expressroute",
+        "aws-vpc-peering-basics",
+        "aws-privatelink-aws-services"
       ],
       "candidate_evidence": [],
       "commands": [],

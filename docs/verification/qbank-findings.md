@@ -1312,3 +1312,599 @@ six-token option tail is reused three or more times. **No item in this file cite
 `lf-objectives-2025` as its only source** (all 31 carry a `lf-objectives-2025` official source at
 the concept level plus at least one primary document). No item turns on a PCI DSS requirement
 number.
+
+### Cloud Computing Fundamentals :: Networking, items 27–49 (task 52b, `verify-cloud-networking-b`)
+
+23 of 23 items in the range carry a verdict. **20 were refuted and fixed; 3 were confirmed as
+they stood** (`vpc-peering-and-private-connectivity.03`, `private-service-endpoints.01`, and — on
+content but not on citation — nothing else). The dominant defect is the one this wave was warned
+about: **the landing-page defect**, a source cited one or two clicks above the page carrying the
+sentence. 19 of the 20 refutations were citation failures; 3 items also had content defects.
+
+Sources fetched and found *not* to contain the claim they were cited for:
+
+- `aws-elastic-load-balancing` (the ELB overview) on all three `cloud-load-balancer-types` items.
+  The page has no layer-4/layer-7 material of any kind — the same failure already recorded against
+  this source in another file. The claims are one click down: ALB "functions at the application
+  layer, the seventh layer of the Open Systems Interconnection (OSI) model"; NLB "functions at the
+  fourth layer". `aws-alb-introduction` / `aws-nlb-introduction` substituted.
+- `aws-vpc-peering` (what-is) on `vpc-peering-and-private-connectivity` items 01, 02 and 04, and on
+  `cidr-planning-for-cloud-networks.01`. Non-transitivity, the overlapping-CIDR bar, and the
+  must-add-routes step are all on `vpc-peering-basics`, not the landing page. Note the landing page
+  *is* correctly cited on item 03 — it carries the inter-Region encryption sentence verbatim — so
+  the source is not bad, only over-applied.
+- `aws-vpc-route-tables` (the VPC_Route_Tables contents page) on `cloud-route-tables` 01, 02 and 03.
+  It defines no public subnet, states no longest-prefix rule, and says nothing about Google Cloud.
+  Replaced with `aws-vpc-configure-subnets`, `aws-vpc-route-priority` and `gcp-vpc-routes`.
+- `azure-expressroute` (the ExpressRoute introduction) on `hybrid-connectivity` 02. **The page never
+  mentions encryption at all**, so the key rested on an absence rather than a statement. Microsoft's
+  dedicated page settles it: "By default, traffic over an ExpressRoute connection isn't encrypted."
+- `azure-bastion` on `bastion-and-jump-hosts.03`, an item entirely about session logging. The Bastion
+  overview has no logging or auditing content whatsoever. `aws-session-manager` added.
+- `aws-privatelink` (what-is) on `private-service-endpoints.03`. The page never mentions DNS, and the
+  item's whole premise is DNS transparency. `aws-privatelink-aws-services` carries it: "if you have
+  existing applications that send requests to the AWS service using a public Regional endpoint,
+  those requests now go through the endpoint network interfaces, without requiring that you make any
+  changes to those applications."
+- Three-provider naming items (`hybrid-connectivity.04`, `private-service-endpoints.02`) each cited
+  one provider's page for a claim about three. All three vendor overviews now cited in each.
+
+Content defects found, beyond citation:
+
+1. **`cloud-load-balancer-types.03` — two options asserting the same fact, and an unsourceable key.**
+   The stem asked for "current layer 7 load balancer naming" but the key answered with a
+   *description* ("a proxy-based layer 7 load balancer") rather than the name, and its load-bearing
+   half — that Google renamed HTTP(S) Load Balancing — is not stated on any current Google page I
+   fetched. `factcheck-cloud-networking.json` claim `cloud-networking-017` marks this "confirmed"
+   while its own reasoning concedes that "current pages no longer foreground" the old name; that is
+   a rename asserted from general knowledge, not from the cited source. Worse, distractor o2's `why`
+   asserted the *same* content as the key. **Rewritten** as a three-provider naming pairing, each
+   half quotable: AWS Application Load Balancer, Azure Application Gateway, Google Cloud Application
+   Load Balancer ("The Application Load Balancer is a proxy-based Layer 7 load balancer").
+2. **`cidr-planning-for-cloud-networks.03` — a distractor `why` stating a false fact.** o4's `why`
+   said a VPC CIDR block is "sized in the tens of thousands of addresses at minimum". The documented
+   minimum is a /28, sixteen addresses. Rewritten. The key's arithmetic was recomputed by hand and
+   is correct: 2^(32−16) = 65,536 and 2^(32−28) = 16, matching AWS verbatim.
+3. **`cidr-planning-for-cloud-networks.02` — a generic claim true of three different mechanisms.**
+   The key said the range "can grow after creation on all three major providers" while citing only
+   an AWS peering page and the Azure VNet overview. The three mechanisms are not the same operation:
+   AWS *adds a further CIDR block* (an existing block's size cannot change), Azure *adds an address
+   range*, and Google Cloud has no parent network CIDR at all — growth there is *expanding a
+   subnet's primary IPv4 range*. Key text, key `why` and o3's `why` rewritten with each provider
+   attributed and cited. o3's old `why` also dodged rather than refuted, appealing to what "the
+   competency concerns" instead of to a fact.
+4. **`hybrid-connectivity.03` — both the key's `why` and o2's `why` cited "the guide"**, which is not
+   a verdict basis. Primary source found: Microsoft, "If a virtual network has address ranges that
+   overlap with another virtual network or on-premises network, the two networks can't be connected"
+   — which covers the hybrid case as well as the peering case, so the key's substance survives.
+5. **`cloud-route-tables.03` used "instance tag"**, which is not Google's term. Changed to "network
+   tag" to match "Static routes can apply to: … Only VM instances identified by network tags".
+
+Per-provider attribution checked on every item that could carry it. No generic claim true of only
+one provider survives in this range: item `vpc-peering-and-private-connectivity.03` names AWS
+explicitly for the inter-Region encryption statement and its o3 correctly declines to generalise it,
+and `hybrid-connectivity.02` o3 exists precisely to catch a reader who would.
+
+**`data/` finding, confirmed and fixed.** `cloud.networking.cloud-load-balancer-types`'s
+`description` still named Google's layer 7 product "HTTP(S) Load Balancers". The **guide prose was
+already correct** — it uses the current name and flags the old one as historical — so this is
+another instance of the cycle-2 divergence where only `data/`'s description is stale. Updated to
+"Network Load Balancer and Application Load Balancer (the layer 7 product was formerly named
+HTTP(S) Load Balancing)", `npm run generate` re-run, `npm run check-guide` clean at 0/0.
+
+Seventeen sources were registered and each was also added to the owning concept's
+`additional_sources` in `data/topics/03-cloud-computing.json`, per the `check-orphan-sources` rule:
+`aws-vpc-peering-basics`, `aws-vpc-route-priority`, `aws-vpc-cidr-blocks`, `gcp-vpc-routes`,
+`aws-direct-connect`, `gcp-cloud-interconnect`, `azure-private-link`, `gcp-private-service-connect`,
+`aws-session-manager`, `azure-application-gateway`, `gcp-application-load-balancer`,
+`aws-site-to-site-vpn`, `azure-manage-virtual-network`, `gcp-vpc-create-modify`,
+`azure-expressroute-encryption`, `aws-privatelink-aws-services` (plus the pre-existing
+`aws-vpc-configure-subnets`, newly wired to `cloud-route-tables`).
+
+Shape: the em-dash tell in this range was measured before and after and is **unchanged at keys 57%
+(13/23) versus distractors 16% (11/69)**; whole-file 51%/16% before and after. No rewrite in this
+range added or removed an em-dash tail, and the rewritten item 29 has none on any option. No
+code-span-only option and no six-token tail reused three or more times was found in the range.
+
+Items 1–26 belong to `verify-cloud-networking-a` and were not touched; the scoped `check-bank` run
+reports 26 residual `q-verdict-coverage` errors, all of them theirs.
+
+### Cloud Computing Fundamentals :: Cloud Computing, items 1–28 (task 49a, `verify-cloud-computing-a`)
+
+28 of 28 items in the range carry a verdict. **All 28 were refuted on the first pass and all 28
+were fixed and re-verified to `confirmed`.** No item in the range had a wrong key, and no item had
+a second defensible option — the content was sound throughout. The defects were a file-local
+structural corruption, seven citation failures, and one option that spoke about the exam from
+inside its own text.
+
+**1. The self-refuting distractor (the dominant defect, and it is file-local).**
+
+74 of the 84 distractors in this range had their own `why` appended to their `text` after a
+semicolon, so the option announced that it was wrong. Example, item 1 `o2`:
+
+> text: "Yes — running many isolated VMs on shared physical hosts is what NIST means by cloud
+> computing; **this describes virtualization, the enabling technology; NIST's definition is about
+> self-service, elasticity and metering, none of which the ticket-and-flat-rate process provides.**"
+> why: "That describes virtualization, the enabling technology; NIST's definition is about
+> self-service, elasticity and metering, none of which the ticket-and-flat-rate process provides."
+
+Zero keys carry the appended text, so a reader could score the whole range without reading a
+source. A corpus-wide scan (`text` ends with a lowercased `why`, first word optional) shows this is
+**not** a bank-wide authoring habit — it appears in exactly two files:
+
+| file | affected distractors |
+| --- | --- |
+| `questions/03-cloud-computing/cloud-computing.json` | 124 / 168 |
+| `questions/02-system-administration/system-administration.json` | 83 / 384 |
+| every other file (20 of 22) | 0–1 / total |
+
+All 74 in items 1–28 were rewritten so the text states only the claim. **The remaining 50 in items
+29–56 belong to `verify-cloud-computing-b`, and the 83 in `system-administration.json` belong to
+whoever verifies that file — neither was touched here, and both are still live.** The scan is one
+command and is worth running against any file before verifying it:
+
+```bash
+node -e "const b=require('./questions/<dir>/<file>.json');const n=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();let a=0,t=0;for(const i of b.items)for(const o of i.options){if(o.correct)continue;t++;const x=n(o.text),w=n(o.why),wt=w.split(' ').slice(1).join(' ');if(x.endsWith(w)||(wt.length>25&&x.endsWith(wt)))a++;}console.log(a+'/'+t);"
+```
+
+**2. Sources fetched and found not to contain what they were cited for.**
+
+- `aws-regions-and-azs` and `azure-availability-zones` on `major-cloud-providers.01`, the item
+  mapping Amazon S3 / Azure Blob Storage / Google Cloud Storage to a service category. Both pages
+  are about Regions and Availability Zones; neither mentions object storage, S3, Blob Storage or
+  Cloud Storage. Registered and substituted `aws-s3-what-is` ("Amazon Simple Storage Service
+  (Amazon S3) is an object storage service") and `azure-storage-introduction` ("Azure Blob Storage
+  is Microsoft's object storage solution for the cloud"). Both AZ sources are correctly cited on
+  `major-cloud-providers.02` and were kept there — Azure's page carries "independent power,
+  cooling, and networking infrastructure" verbatim — so this is over-application, not a bad source.
+- `nist-sp-800-145` on `public-cloud.01` (tenant isolation) and `public-cloud.02` (cloud
+  economics). SP 800-145 is five pages of definitions; it says nothing about either. All seven
+  pages were read. Registered `nist-sp-800-146`, its companion, which states both: "The workloads
+  of different clients may reside concurrently on the same system and local network, separated only
+  by access policies implemented by a provider's software", and "Whether or not cloud computing
+  reduces overall costs for an organization depends on a careful analysis of all the costs".
+- `nist-sp-800-145` on `paas.01`, `paas.02` and `saas.02`, all of which turn on PaaS-versus-FaaS
+  billing. SP 800-145 contains no billing statement beyond footnote 1. `cncf-glossary-faas`
+  supplies it — "Charges apply solely for the duration of computation... distinguishing it from
+  other models like Platform as a Service (PaaS), which require continuous resource availability" —
+  and was added. (SP 800-145 does independently license per-seat SaaS billing: "active user
+  accounts" is one of its named metering units.)
+- `nist-sp-800-145` on `iaas.02` and `saas.01`, both shared-responsibility items. The key of
+  `iaas.02` uses AWS's exact wording, "the virtualization layer and host operating system"; the AWS
+  page says the customer "assumes responsibility and management of the guest operating system
+  (including updates and security patches)". `aws-shared-responsibility-model` added to both.
+
+Against the wave's warning list: `nist-sp-800-145` **is** genuinely the right source for the
+definition, the five characteristics, the three service models and the four deployment models, and
+was verified sentence by sentence for each — including "in some cases automatically" on rapid
+elasticity, which no item in this range misquotes. `cncf-glossary-serverless` and
+`cncf-glossary-faas` were both fetched and both genuinely contain what the two
+`serverless-and-faas` items cite them for, including "Serverless is a comprehensive term...
+extending from Platform-as-a-Service (PaaS) to Software-as-a-Service (SaaS)". No item in the range
+cites `lf-objectives-2025` as its only source. No PCI DSS requirement number appears.
+
+**3. The option that referred to the exam.** `essential-characteristics.01` `o4` said "vendor
+neutrality describes **the exam's own scope**, not a NIST characteristic". Both the text and the
+`why` were rewritten to state the fact instead: vendor neutrality is not one of NIST's five, and
+that list also drops on-demand self-service.
+
+**4. Five key `why` fields cited "the guide" for a sentence the primary source states directly**
+(`iaas.01`, `paas.02`, `serverless-and-faas.02`, `public-cloud.01`, `public-cloud.02`, `saas.02`).
+Each was regrounded on the quotation itself. This is the same shape as a landing-page citation: the
+claim is true, but the reader is pointed at the wrong authority for it.
+
+**No finding against `data/` descriptions or the guide prose.** Every guide claim these 28 items
+lean on was checked against SP 800-145, SP 800-146, the two CNCF glossary entries, the AWS shared
+responsibility model and AWS's multicloud page, and all held. The `data/` defect found here is in
+`source_ids`, not in `description`: item sources mirror the concept's `official_sources` +
+`additional_sources`, so a concept with an under-specified source list propagates it into every
+item written from it — the Task 48 shape, confirmed again. Fixes were therefore made at the concept
+level in `data/topics/03-cloud-computing.json` (`major-cloud-providers`, `iaas`, `paas`, `saas`,
+`public-cloud`) as well as on the items. `npm run generate` re-run; `npm run check-guide` clean at
+0/0; `npm run validate` 537 concepts, 0 errors (the two new sources are wired, so neither is an
+orphan).
+
+**Shape.** Stripping 74 appended clauses shortens distractors, so the length tell had to be paid
+for: 14 items would have crossed the 1.6 key/distractor ratio and 20 of 28 would have had the key
+as the longest option. Distractors were **lengthened with real but false clauses** — no key was
+truncated — and six were given the same trailing em-dash qualifier shape the keys use. Range 1–28,
+before → after: em-dash keys 50% → 50%, distractors 46% → 44% (the "before" distractor figure is
+inflated by em-dashes inside the appended `why` text); mean option length keys 149 → 151,
+distractors 232 → 129; items over the 1.6 ratio 0 → 0; key-is-longest 4/28 → 9/28 (32%, under the
+40% bar). Whole-file em-dash reads keys 57% / distractors 32% only because items 29–56 still carry
+their appended clauses; it was 57%/40% before. No six-token tail is reused three or more times in
+the range and no item has two options asserting the same answer.
+
+The scoped `check-bank` run reports 27 residual `q-verdict-coverage` errors and 7 `q-length-cue`
+warnings, **all of them in items 29–56 and none in this range**.
+
+### IT Project Management Fundamentals :: Project Management (task 51, `verify-project-management`)
+
+37 items over 29 concepts, all 37 given a verdict. No item was rewritten: every defect found was a
+citation defect, and the normative repair (task 3, `hypervisor`) is to fix the citation rather than
+weaken correct content. 16 items were refuted on citation; 12 of those were repaired by citing a
+source already registered in `data/sources.json`, and 4 could not be repaired at all.
+
+#### 16 of 37 items cited `lf-objectives-2025` as their only source, and that page has no content
+
+Fetched https://training.linuxfoundation.org/lfca-program-changes-2025/ and extracted the whole
+page: 4,830 characters, of which the substantive part is the domain list with weights (Linux
+Fundamentals 16%, System Administration 30%, Cloud 18%, Security 14%, DevOps 12%, IT Project
+Management 10%) and the competency names beneath each. It contains no definition of anything. The
+16 items are the 13 waived concepts' items:
+
+`project.01`, `triple-constraint.01`, `stakeholder.01`, `deliverable-and-milestone.01/.02`,
+`waterfall.01`, `gantt-chart.01`, `critical-path.01`, `scope-creep.01/.02`, `raci.01`,
+`issue-tracking.01`, `project-budget-and-resource-management.01`, `communication-plan.01`,
+`project-closure-and-lessons-learned.01/.02`.
+
+#### The NASA Systems Engineering Handbook is already registered and settles six of the waived concepts
+
+`nasa-se-handbook-sp-2016-6105` (tier 2, URL live, 297pp, re-fetched and re-read this pass) turns
+out to carry primary text for concepts the waiver assumed only PMBOK covered:
+
+- **Project** — Appendix B: "Project: A specific investment having defined goals, objectives,
+  requirements, life cycle cost, a beginning, and an end."
+- **Stakeholder** — Appendix B: "Stakeholder: A group or individual who is affected by or has an
+  interest or stake in a program or project."
+- **Critical path** — §6.1: "'Critical path' is the sequence of dependent tasks that determines the
+  longest duration of time needed to complete the project", with float defined as "how much spare
+  time ... exists for all the other activities of the project."
+- **Gantt chart** — Appendix B: "Gantt Chart: A bar chart depicting start and finish dates of
+  activities and products in the WBS", and "Precedence Diagram: Workflow diagram that places
+  activities in boxes connected by dependency arrows; typical of a Gantt chart."
+- **Scope creep** — §6.2 has a *Requirements Creep* passage: creep is "the subtle way that
+  requirements grow imperceptibly during the course of a project", and its named defences are a
+  strict assessment process, official channels establishing "who has the authority", impact
+  measurement, and a check against resource budgets. This is the controlled-change/creep
+  discrimination both `scope-creep` items turn on, stated in a free primary source.
+- **Project closure and lessons learned** — §3.9 Phase F Closeout: closeout "may proceed according
+  to established plans or may begin as a result of unplanned events, such as failures", which
+  settles that closure is not conditional on finishing; §5.5 Product Transition and the System
+  Acceptance Review settle acceptance-and-handover as the closing steps.
+
+`nasa-wbs-handbook-sp-2016-3404-rev1` (also already registered) additionally separates "the tasks
+(activities) and events (milestones)" in §4.3 and defines an End Item as "an item of software or
+documentation that is deliverable to a user or customer", which is the deliverable/milestone
+discrimination.
+
+**Not de-waived here, deliberately.** Removing these from `data/sourcing-waivers.json` and adding
+the sources to the concepts changes `waived_source` on every affected item and moves the bank-wide
+validate warning count (each newly-sourced waived concept raises a `stale-waiver` warning until the
+waiver entry is removed). That is a `data/` task, not a verification task. Recommendation: a
+follow-up task de-waives at least `project`, `stakeholder`, `critical-path`, `gantt-chart`,
+`scope-creep`, `deliverable-and-milestone` and `project-closure-and-lessons-learned` onto the two
+NASA handbooks, taking the project-management waiver list from 13 to 6.
+
+Items were repaired by adding the already-registered source ids to `source_ids` only. No entry was
+added to `data/sources.json` and no concept's `additional_sources` was touched, so this pass
+contributes zero new validate warnings.
+
+#### Four waived items remain unverifiable against any accessible source
+
+`triple-constraint.01`, `raci.01`, `project-budget-and-resource-management.01` and
+`communication-plan.01`. Each was searched for specifically in the accessible corpus and each came
+up empty:
+
+- **RACI** — the NASA SE Handbook mentions RACI exactly twice: as an acronym expansion in
+  Appendix A ("RACI Responsible, Accountable, Consulted, Informed") and as a parenthetical in
+  Appendix D that *links to Wikipedia*. Neither says anything about cardinality, so the item's key
+  (several Responsible, exactly one Accountable) has no primary anchor. The NASA WBS Handbook's
+  Responsibility Assignment Matrix is adjacent — a control account "has a responsible organizational
+  element or individual identified" — but is not RACI.
+- **Triple constraint** — NASA frames project management as "managing the technical aspects of the
+  project, managing the project team, and managing the cost and schedule", which is a different
+  triple from scope/time/cost bounding quality.
+- **Budget and resource management** — NASA covers budgeting, baseline budgets and resource
+  levelling, but the item's key is Brooks' result about adding staff to late work, which appears in
+  no reachable standard.
+- **Communication plan** — NASA defines stakeholders and requires change decisions to be
+  communicated to affected organisations, but has no influence/interest communication grid. The
+  handbook's single "Communication Plan" hit is a bibliography entry.
+
+These four carry `confirmed` verdicts under the waiver's own `question_policy` (consensus
+definitions only), with the sourcing limitation written into each item's `verification.reasoning`.
+They are the residual risk of this competency and should be the first candidates for rewrite if the
+waiver is ever tightened.
+
+#### GAO is still unreachable, confirming the waiver's stated cause
+
+`gao.gov/assets/gao-16-89g.pdf` (Schedule Assessment Guide, which does define milestones as
+zero-duration) returned **HTTP 403**; the govinfo.gov mirror path returned an HTML error page with a
+200; `pmi.org`'s Lexicon PDF returned **404**. The waiver's rationale is accurate on this point.
+
+#### Two *non-waived* concepts cite a source that does not contain their subject
+
+This is the same class of defect wave A and task 48 found, in a place the sourcing check cannot see:
+
+- `pm.project-management.acceptance-criteria` cites `scrum-guide-2020` as its only independent
+  source. **The 2020 Scrum Guide never uses the phrase "acceptance criteria"** (verified by
+  full-text search of the fetched page). Item `.01` survives because it actually turns on the
+  Definition of Done rule, which is in the Guide verbatim; item `.02` is purely about acceptance
+  criteria and has no source at all.
+- `pm.project-management.estimation-and-velocity` cites `scrum-guide-2020` as its only independent
+  source. **The 2020 Scrum Guide never uses the word "velocity"** either. The concept's whole
+  subject is outside its cited source.
+
+Both concepts therefore pass `checkIndependentSourcing` on a source that does not cover them — an
+unrecorded sourcing hole that is functionally a waiver nobody wrote down. The Agile Alliance
+glossary was checked as a substitute: its user-story-template page names "Confirmation" only inside
+a related-terms strip and defines neither term. Recommendation: either source these two concepts
+properly or add them to `data/sourcing-waivers.json`, where they would be visible.
+
+#### No second-correct-answer defects, no duplicate options, no stale quotes
+
+All 37 items were checked for a distractor that is also defensible, for two options asserting the
+same answer, and specifically for a distractor `why` that contradicts its own option text — the
+pattern that produced the double-keys found in earlier waves. None was found. The near-misses that
+were checked hardest and cleared:
+
+- `deliverable-and-milestone.01` o2, which reframes a labelling defect as an unagreed schedule
+  trade-off. It is a wrong answer to the question asked, not a second right one.
+- `scope-creep.02` o3, whose `why` correctly concedes that a leg moving is a normal outcome of an
+  approved trade-off — the concession is what makes the option wrong, not accidentally right.
+- `estimation-and-velocity.01` o3, whose `why` states the true Scrum rule that the Developers doing
+  the work are responsible for sizing; the option is false on its own claim that the Product Owner
+  sets velocity.
+- `critical-path.01` o2 would be defensible if the shortened task were near-critical, but the stem
+  pins it off the critical path outright.
+
+Every quotation attributed to a source was re-checked against the live document. No stale quote and
+no redirect-to-hub citation rot was found in this competency; the registered NASA SE Handbook URL
+still serves the 297-page PDF, and all four NIST PDFs served directly from `nvlpubs.nist.gov`.
+
+#### PCI DSS constraint
+
+No item in this competency mentions PCI DSS, in digits or paraphrased. Scanned for it explicitly.
+
+#### Scan numbers
+
+Unchanged, because no option text was rewritten: **em-dash k76% d22%, two-clause k0% d0%**, before
+and after. This file remains the worst em-dash offender in the corpus and is left for the
+corpus-wide pass by rule; nothing in this pass added an em-dash to a key or removed one from a
+distractor. Scanned for six-token tails reused three or more times across all 148 options: none.
+
+#### Standing open question: `feasibility-study` and `confused_with`
+
+Reported, not fixed. Both `pm.functional-analysis.feasibility-study` **and**
+`pm.functional-analysis.gap-analysis` carry an empty `confused_with` array in
+`data/topics/06-it-project-management.json`, while
+`study-guide/06-it-project-management/functional-analysis.md` runs the discrimination three times:
+in prose at line 309 ("That judgement is a feasibility question, and a separate one from..."), in
+the reference table at line 346 ("Confused with gap analysis: a gap analysis says how far apart the
+current and desired states are, while a feasibility study asks whether closing that distance is
+achievable and worth committing to at all"), and as self-check question 3 at line 370. The edge is
+missing in both directions, so adding it is a two-concept change and creates a comparison-block
+obligation. Left to the owner of the Functional Analysis material, since
+`data/topics/06-it-project-management.json` is shared with it.
+
+### Cloud Computing Fundamentals :: Networking, items 1–26 (task 52a, `verify-cloud-networking-a`)
+
+26 of 26 items in the range carry a verdict. All 26 end `confirmed`; **16 were refuted first
+and repaired**, and **8 of those needed a change to the question's own text**, not only a
+corrected citation. Items
+27–49 belong to task 52b and were not touched; they were already verdicted when this task
+finished, so the residual `q-verdict-coverage` count attributable to 52b is **0**.
+
+#### The landing-page defect, again, and its cause
+
+Every item's `source_ids` in this range was an exact copy of its concept's
+`official_sources + additional_sources` — the same `data/` propagation defect task 48 found.
+Nine of the fourteen networking concepts carried one or two AWS pages and nothing else, so
+every Azure and Google Cloud claim in the file was cited to an AWS document, and several AWS
+claims were cited to the section landing page one click above the sentence. Fixed at the
+concept level in `data/topics/03-cloud-computing.json` rather than item by item, then narrowed
+per item.
+
+**Sources cited for something they do not contain:**
+
+- `aws-vpc-configure-subnets` (Subnets for your VPC) was cited by 12 of the 26 items. It does
+  not define a VPC, does not mention secondary CIDR blocks, does not state the reserved-address
+  rule, and mentions neither Azure nor Google Cloud. It was cited for all four.
+- `aws-vpc-route-tables` is a table of contents. It was cited by all four
+  `public-vs-private-subnet` items for the public/private classification rule, which is stated
+  on the internet-gateway page, not there.
+- `aws-vpc-security-groups-vs-nacls` (an excellent page for items 13–15) was cited by
+  `security-group-vs-network-acl.04` for Azure NSG statefulness and Google Cloud firewall
+  statefulness. It says nothing about either provider.
+- `aws-route53` (the Route 53 Welcome page) was cited by `cloud-dns.02` for a comparison of
+  DNS TTL against load-balancer health checks. It contains neither the word TTL nor any
+  mention of load balancers. It was also cited by `cloud-dns.01` for the name "DNS failover",
+  which it never uses — it says only that the service can "route internet traffic away from
+  unhealthy resources".
+- **No Google Cloud source existed anywhere in the competency's `data/` entries**, yet five
+  items in this range turn on Google-specific behaviour (global VPC network, regional subnets,
+  network-level firewall rules, network-level routes, the `default internet gateway` next hop).
+
+Thirteen sources were wired in to fix this. Six already existed in `data/sources.json` as
+orphans another task had registered but never cited (`aws-vpc-cidr-blocks`, `gcp-vpc-routes`,
+`gcp-vpc-create-modify`, `azure-manage-virtual-network`, `aws-route53-record-ttl`,
+`aws-vpc-peering-basics`), and seven were added: `aws-vpc-subnet-sizing`, `gcp-vpc-networks`,
+`gcp-vpc-firewall-rules`, `azure-network-security-groups`, `aws-route53-dns-failover`,
+`aws-alb-target-group-health-checks`, `aws-vpc-quotas`. Wiring them dropped the
+`orphan-source` warning count by six.
+
+#### Content defects (not citation defects)
+
+1. **`cloud-subnets.03` had a second correct answer.** The stem asked which thing "attaches
+   directly to a subnet on AWS but has no equivalent per-subnet attachment on Google Cloud,
+   which instead attaches the same kind of rule to the network as a whole". A **route table**
+   satisfies that description exactly — AWS associates one per subnet, Google Cloud defines
+   routes at the network level — and the route-table distractor's own `why` said so:
+   "Google Cloud does route traffic — it defines routes at the network level rather than per
+   subnet." The distractor's rationale certified that the distractor answered the stem. Fixed
+   by narrowing the stem to "which packet-filtering layer", which also excludes the security
+   group (instance-level on AWS) and leaves the network ACL uniquely correct.
+2. **`public-and-elastic-ip-addresses.02` had a second correct answer.** The stem asked for a
+   mechanism that lets a failed instance be replaced "without waiting for any DNS record to
+   update and re-cache". A layer 4 load balancer in front of the instance satisfies that as
+   squarely as remapping an Elastic IP does; the distractor's `why` handled it by asserting the
+   load balancer "does not explain" the masking, which is not a refutation. Fixed by adding
+   "and without putting any additional network component in front of it" to the stem.
+3. **`internet-gateway-and-nat-gateway.04` rested on an unsourceable negative.** The key
+   asserted that Azure "has no separately named resource at all for inbound reachability" —
+   contestable given Application Gateway and Front Door, and supported by nothing fetched. The
+   key was rewritten onto two positively documented facts (Google's named `default internet
+   gateway` next hop; AWS's attachable internet gateway resource), and the same negative was
+   removed from a distractor's `why`. The guide's own prose at line 23 is more careful than the
+   question was: it says "No named gateway resource" and qualifies it.
+
+#### Generic claims that were true of only one provider
+
+- `virtual-private-cloud.03`'s key said AWS and Azure "treat the network as a regional
+  resource" — a claim neither cited page makes in that voice. Rewritten to lead with Google's
+  documented "VPC networks ... are global resources ... Subnets are regional resources" and to
+  state the AWS and Azure halves only as their own documentation does (AWS quotas counted as
+  "VPCs per Region"; Microsoft's "any Azure resource that you connect to the virtual network
+  must be in the same region as the virtual network").
+- `public-and-elastic-ip-addresses.01`'s o4 `why` read "The default assignment is ephemeral",
+  which holds only where AWS auto-assigns a public IPv4 address — i.e. default subnets, not
+  nondefault ones, as the internet-gateway page's own table shows. Narrowed to launch-time
+  auto-assignment.
+- `cloud-subnets.02` and `cloud-subnets.04` were checked for the same defect and are clean:
+  both attribute per-provider behaviour explicitly, and `cloud-subnets.04`'s provider-neutral
+  reserved-address key holds on all three providers with AWS cited as the documented instance.
+
+#### Two other structural defects
+
+- **`cloud-subnets.01` had two options asserting the same answer.** o2 and o4 both opened
+  "Complete isolation", differing only in rationale. o4 was rewritten to a distinct answer
+  (isolation from the internet only). Yes/no items elsewhere in the range share a polarity
+  across three distractors, which is structurally unavoidable and was not treated as this
+  defect.
+- **`cloud-dns.02`'s key was true only under an unstated assumption.** It said the balancer
+  "simply stops sending traffic to the unhealthy target", but the ALB health-check page
+  documents a fail-open: "If a target group contains only unhealthy registered targets, the
+  load balancer routes requests to all those targets." The stem now specifies several
+  registered targets with one marked unhealthy. No option changed.
+- **One stale fact corrected.** `public-and-elastic-ip-addresses.03`'s o4 claimed Elastic IPs
+  "cost nothing when attached to a running instance" and its `why` refuted only the quota half,
+  leaving the pricing claim uncorrected. AWS now states "There is a charge for all Elastic IP
+  addresses whether they are in use ... or idle". The `why` now refutes both halves.
+
+#### Items confirmed as originally cited
+
+`security-group-vs-network-acl.01`, `.02` and `.03` needed nothing: AWS's
+infrastructure-security comparison table states all five rows those three items turn on
+(level of operation, scope, rule type, rule evaluation, return traffic), and each item's key
+and every distractor `why` matches it. `public-vs-private-subnet.04`,
+`internet-gateway-and-nat-gateway.01`, `.02`, `.03`, `public-and-elastic-ip-addresses.01`,
+`.03` and `cloud-dns.03` were correct on content, with citations strengthened or a `why`
+tightened. `cloud-dns.03` matches the Route 53 Welcome page verbatim: "three main functions
+in any combination: domain registration, DNS routing, and health checking".
+
+#### Adjudication of prior findings
+
+`docs/verification/factcheck-cloud-networking.json` holds 18 claims across these seven
+concepts and every one is `verdict: confirmed`; each was re-checked against the primary page
+during this task and none required a change to `data/` or the guide. The guide's networking
+prose was read after the items were verdicted and was found accurate throughout — in
+particular its stateful/stateless table at line 224 and its Azure gateway qualification at
+line 23 are both more careful than the questions were. The only guide edit was to the seven
+concepts' generated-looking `sources:` header lines, which had drifted below the concepts'
+actual source lists.
+
+#### Scan numbers
+
+Em-dash tell in the range **improved from keys 46% (12/26) / distractors 17% (13/78) to keys
+42% (11/26) / distractors 17% (13/78)** — the `virtual-private-cloud.03` rewrite dropped one
+key em dash and none of the other five rewrites added one to any option. Whole-file figure
+moved from keys 51% / distractors 16% to **keys 49% (24/49) / distractors 16% (24/147)**.
+Two-clause tell is 0%/0% for keys and distractors both before and after. **No six-token option
+tail is reused three or more times** in the range. **No item in the range cites
+`lf-objectives-2025` as its only source** — all 26 carry it as the concept-level official
+source plus between one and four primary provider documents. No item turns on a PCI DSS
+requirement number, in digits or paraphrased.
+
+---
+
+### Cloud Computing Fundamentals :: Cloud Computing, items 29–56 (task 49b, `verify-cloud-computing-b`)
+
+28 of 28 items in the range carry a verdict. Every one was refuted on first pass, rewritten, and
+re-checked against the fetched sources before the verdict was recorded; item 39
+(`shared-responsibility-model.01`) was the only one whose *content* survived untouched.
+
+**1. The `why`-inside-the-option-text defect — the remaining 50, now closed.**
+
+Task 49a fixed 74 of these in items 1–28 and left the rest flagged. All **51** in items 29–56
+(26 of the 28 items; only `shared-responsibility-model.01` and `service-level-agreement.01` were
+clean) are now fixed: each option text was cut back to the claim alone and the `why` left intact.
+The file-wide count is **0**, on the scan 49a published.
+
+49a's warning that the padding was load-bearing for `q-length-cue` was correct and is worth
+recording precisely: removing it took the scoped run from **0 warnings to 17** — 16 per-item
+ratio warnings plus *the key is the longest option in 23 of 56 items (41%), chance is 25%*. The
+padding had been buying a length balance the item set had not earned. Fixed the same way 49a's
+own note recommends: **44 distractors were extended with real, false, single-clause continuations
+a candidate has to evaluate**, not with commentary about which option is wrong. Scoped run is back
+to 0 warnings.
+
+Em-dash shape tell, range 29–56 only: keys 18/28 (64%) before and after — untouched. Distractors
+28/84 (33%) before, dipped to 17/84 (20%) when the padding came out, restored to **30/84 (36%)**
+by phrasing 13 of the new clauses as em-dash qualifiers. Whole file is back to its exact
+pre-task ratio, keys 57% / distractors 40%. No six-token tail is reused three or more times in
+the range. Zero options reference "the exam", "the guide" or this project from inside their text.
+
+**2. Sources fetched and found not to contain what they were cited for.**
+
+| source | cited by | what the page actually contains |
+| --- | --- | --- |
+| `azure-storage-introduction` | all 3 `object-block-and-file-storage` items | A service catalogue — "Azure Blobs: a massively scalable object store", "Azure Files: managed file shares", "Azure managed disks: block-level storage volumes". Nothing on write semantics, flat namespaces, prefixes, or volume attachment. The landing-page defect exactly. |
+| `aws-shared-responsibility-model` | all 3 `managed-services` items | The AWS/customer security boundary. Never mentions managed services, PaaS, NIST, query tuning, or version lifecycles. |
+| `google-sre-book-slos` | `service-level-agreement.01` | SLI/SLO/SLA definitions and error budgets. Nothing on cloud provider SLAs, availability zones, service credits, or customer placement decisions. (It *does* support `service-level-agreement.02` verbatim.) |
+| `aws-migration-7rs` | both `vendor-lock-in` items | The seven migration strategies. The words lock-in, portability, egress and expertise do not appear. |
+| `aws-cloudtrail` | `cloud-control-planes.02` | Console/CLI/SDK/API event recording. Nothing on infrastructure as code, version control, or drift — which is the whole of that item. |
+| `cncf-glossary-virtualization` | items 29, 34, 36–38 for shared-kernel and isolation claims | 180 words on partitioning a physical computer into VMs. **It does not contain the words container or kernel.** This is the fifth wave to catch this page cited for something it does not say. |
+| `vmware-hypervisor` | all 7 virtualization/hypervisor/VM items | **Citation rot.** `https://www.vmware.com/topics/hypervisor` returns 200 but is a client-rendered shell: the only prose any HTTP fetch receives is the `<meta name="description">` line. Grepping the served bytes for "type 1", "type 2", "bare metal" and "hosted" returns **zero hits**. Nothing in items 31–33 could be verified against it. |
+
+Replacements, each fetched and read: `redhat-what-is-a-hypervisor`, `linux-kvm-main`,
+`aws-rds-welcome`, `aws-rds-maintenance`, `aws-s3-using-folders`, `gcs-objects`,
+`aws-ebs-multi-attach`, `aws-efs-what-is`, `cncf-glossary-iac`, plus the already-present
+`nist-sp-800-145`, `azure-activity-log`, `aws-reliability-sla-bp`, `aws-what-is-multicloud` and
+`azure-bandwidth-pricing`. All nine new sources were wired into the owning concepts'
+`additional_sources` in `data/topics/03-cloud-computing.json` per the `check-orphan-sources` rule,
+so `npm run validate` is back to its 16-warning baseline.
+
+**3. Finding against the guide, confirmed and fixed:** `study-guide/03-cloud-computing/cloud-computing.md`,
+hypervisor section. The prose attributed two example lists to VMware — "VMware's own list of
+examples names ESX(i), Hyper-V, Citrix, Xen and Linux KVM" and "VMware's page names VMware Fusion,
+Oracle VM and VirtualBox as its type 2 examples". Those attributions cannot be checked against
+anything a fetch can retrieve, for the reason in the table above. The **classifications are
+correct** and were kept; only the attribution moved to a source that can be read: Red Hat's
+hypervisor page names KVM, Hyper-V and vSphere as type 1 and Workstation and VirtualBox as type 2,
+and linux-kvm.org describes KVM as a loadable kernel module providing the core virtualization
+infrastructure. `check-guide` stays 0/0. `data/`'s concept description needed no change — it says
+only "Type 1 runs directly on hardware; type 2 runs atop a host OS", which is right.
+
+**4. The Task 3 precedent applied again, to `hypervisor.01` o3.** Its `why` called KVM "one of
+VMware's own named type 1 examples". It is **Red Hat**, not VMware, that names KVM as type 1, and
+the VMware page carries no examples at all. This is the same shape Task 3 adjudicated: an
+attribution failure wearing the costume of a factual error. The classification was correct and
+was kept; only the attribution was corrected. `hypervisor.02` o4 had the same defect — "VMware's
+own materials list Fusion alongside Workstation" — and was repaired the same way, keeping Fusion
+and resting the claim on the hosted-versus-bare-metal criterion Red Hat states.
+
+**5. Two distractors that conceded the correct answer inside themselves**, in
+`service-level-agreement.01` — a variant of the leak that the scan does not catch because the
+tail is a paraphrase rather than a copy:
+
+> o2: "The provider is accountable, since a 99.99% SLA is a guarantee that any application running
+> on the platform will stay available, **though availability at the customer's own layer is a
+> design property no contract can substitute for**."
+
+The trailing clause is true, states the key, and contradicts the option it is attached to. Both
+o2 and o3 were rewritten with false clauses instead.
+
+**6. Commentary addressed to the maintainers, inside an option's `why`**:
+`cloud-migration-approaches.01` o2 ended "...the correct term for this strategy is repurchase,
+**and this project has gotten that substitution wrong before**." Removed. A `why` is a claim about
+the world, not a note about the repository's history.
+
+**7. Checked and rejected.** No item in the range turns on a PCI DSS requirement number. No item
+cites `lf-objectives-2025` as its only source. No item has two options asserting the same answer.
+No cited source was found to contradict its item. All keys remain at index 0 by design.
+
+**Gates after this task** — `check-bank --scope "Cloud Computing Fundamentals :: Cloud Computing"
+--except q-answer-position-balance`: **0 errors, 0 warnings**. `npm test`: **307 pass, 0 fail**.
+`npm run validate`: **537 concepts, 0 errors, 16 warnings**. `npm run check-guide`: **0 errors,
+0 warnings**.

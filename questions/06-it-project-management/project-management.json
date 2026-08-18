@@ -51,13 +51,28 @@
       ],
       "rationale": "A project is temporary work with a defined end and a unique objective; its opposite is operations, the ongoing work of running what already exists. The migration ends and produces something new; the patching repeats indefinitely as part of keeping the fleet current, so it is operations regardless of its size.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. Fetched the sole cited source: the LFCA program-changes page carries only domain and competency names with percentage weights and no definitional content whatever, so the item rested on nothing checkable. NASA SE Handbook Appendix B glossary settles the key: \"Project: A specific investment having defined goals, objectives, requirements, life cycle cost, a beginning, and an end. A project yields new or revised products or services.\" Temporariness plus a unique objective is the definition; o2 (size/difficulty), o3 (sponsor priority) and o4 (budget and headcount) each name a property absent from it, and each why states a true fact. No two options assert the same answer \u2014 o1 and o2 both pick the migration but on different grounds, and only o1 gives the definitional ground.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.triple-constraint.01",
@@ -115,7 +130,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, lf-objectives-only. Fetched the cited page and confirmed it contains no definitional content. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. The key (with scope up and schedule and cost both frozen, quality is what absorbs) is the standard reading of the model; o2 names effort, which is not one of the three legs; o3 names a schedule marker, not a leg; o4 is the scope-creep trap and its why matches NASA SE Handbook 6.2 \"Requirements Creep\", which describes exactly this unassessed-growth mechanism. No distractor is also correct and no why contradicts its own option text.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.stakeholder.01",
@@ -167,13 +196,28 @@
       ],
       "rationale": "Stakeholder status turns on impact-or-influence, not on being a user or a team member. A reviewer who can block release without ever touching the system is a stakeholder on the influence test alone, and missing that is a commonly cited source of late-surfacing requirements.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.stakeholder",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook Appendix B: \"Stakeholder: A group or individual who is affected by or has an interest or stake in a program or project.\" A security reviewer holding release authority plainly has a stake, so the key is correct and o2 (users and direct beneficiaries only) is the definition the source excludes. o3 (communication plan) and o4 (RACI entry) invert cause and effect \u2014 both are built for stakeholders already identified \u2014 and both whys state that truly. Checked for a second defensible key: none, since every distractor adds a precondition the definition does not contain.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.deliverable-and-milestone.01",
@@ -225,13 +269,28 @@
       ],
       "rationale": "A milestone marks an instant, conventionally with no duration, effort or cost of its own; a schedule line carrying a duration is a task or a phase, however it is labelled. That is a different kind of error from a triple-constraint question, which asks what trades off against what when scope, time or cost changes \u2014 sorting deliverables and milestones by type is a categorisation question, not a trade-off question.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-wbs-handbook-sp-2016-3404-rev1"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.deliverable-and-milestone",
       "comparison_block": "cmp-pm.project-management.deliverable-and-milestone",
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA WBS Handbook \u00a74.3 separates \"the tasks (activities) and events (milestones) that are required to successfully complete the project objectives\" \u2014 a milestone is an event, a task is an activity that consumes duration, which is the discrimination the key turns on. A two-week schedule line is therefore a task or phase mislabelled. o2 is the near-miss (reframing a labelling defect as an unagreed schedule trade-off) and is false; o3 is false because milestones do appear on schedules as markers; o4 is false because the \"accepted\" label does not exempt an entry carrying duration. Note: no accessible source states the \"zero duration\" convention in those words \u2014 GAO-16-89G, which does, is unreachable \u2014 so the key rests on the NASA activity/event split plus consensus.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.deliverable-and-milestone.02",
@@ -283,13 +342,28 @@
       ],
       "rationale": "A deliverable is a tangible output \u2014 a document, an image, a migrated fleet. A milestone is a marked point signifying something is now true, typically carrying no duration of its own. 'Signed-off design' and 'base image' are things that exist; 'pilot batch accepted' and 'bulk migration complete' are checkpoints, not artefacts.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-wbs-handbook-sp-2016-3404-rev1"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.deliverable-and-milestone",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA WBS Handbook glossary: \"End Item \u2014 A final combination of end products, components, parts, or materials which is ready for its intended use; an item of software or documentation that is deliverable to a user or customer\", against \u00a74.3's \"tasks (activities) and events (milestones)\". A signed-off design and a base image are items; \"pilot batch accepted\" and \"bulk migration complete\" are events. Key correct. o2 mis-tests via work packages, o3 via closure, o4 via status-report visibility; each why is true and none of the three is also correct.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.software-development-lifecycle.01",
@@ -348,7 +422,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited NIST SP 800-64 Rev. 2, which settles the key directly: \"There are many SDLC methodologies... A traditional SDLC, a linear sequential model (also known as waterfall method)... However, the concepts discussed can be adapted to any SDLC model\", and \"The five-step SDLC cited in this document is an example of one method of development and is not intended to mandate this methodology.\" So the phase list is not the sequencing policy. o2 is false (agile does not skip design and testing), o3 is false (maintenance is not first), o4 is false (the phases are not a risk framework); each why states a true fact. Minor note, not a defect: NIST's own five phases are initiation, development/acquisition, implementation/assessment, operations/maintenance, disposal, while the stem quotes the conventional six-phase software list the candidate uses \u2014 the whys refer to \"the conventional list\", which is the stem's, so no contradiction with the source.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.waterfall.01",
@@ -400,13 +487,30 @@
       ],
       "rationale": "Waterfall moves the whole scope through completed, approved phases in sequence, which is predictable precisely when requirements won't change. A fixed regulatory contract with no tolerance for redesign is the textbook cue for it \u2014 the choice is about requirements stability, not about which approach is inherently faster or more modern.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nist-sp-800-64-sdlc-phases",
+        "agile-principles"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.waterfall",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. Waived concept previously resting only on the objectives page. NIST SP 800-64 Rev. 2 \u00a72 identifies waterfall as the linear sequential model that \"assumes that the system will be delivered in its final stages of the development life cycle\" and states that the choice of model turns on size, complexity, schedule and system life \u2014 i.e. on requirements stability, which is what the key asserts. The Agile principles page (\"Welcome changing requirements, even late in development\") is what o2 and o4 appeal to, and confirms their whys: welcoming late change is valuable under uncertainty, which is the opposite of the stem's fixed regulatory scope. o3 is false \u2014 a contract states what, not how. No second defensible key.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf",
+          "https://agilemanifesto.org/principles.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.agile.01",
@@ -466,7 +570,22 @@
       "comparison_block": "cmp-pm.project-management.agile",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited Manifesto. \"Responding to change over following a plan\" is the fourth value pair, and the Manifesto's closing line \u2014 \"That is, while there is value in the items on the right, we value the items on the left more\" \u2014 settles both that planning is not abolished (key) and that o3's \"no plan at all\" is the misreading the document itself forecloses. o2 inverts the pair; o4 is false because the Manifesto specifies no events, standups and reviews being Scrum's (verified absent from agilemanifesto.org and present in the Scrum Guide). Each why states a true fact and no distractor is also correct.",
+        "sources_read": [
+          "https://agilemanifesto.org/",
+          "https://agilemanifesto.org/principles.html",
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.agile.02",
@@ -526,7 +645,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. The Manifesto is a statement of values and names no events; the Scrum Guide defines Sprint, Daily Scrum, Sprint Review and Sprint Retrospective and closes \"While implementing only parts of Scrum is possible, the result is not Scrum\" \u2014 so running the calendar is a framework-layer fact, not a values-layer one, which is the key. o2 is false because the statement mentions neither Review nor Retrospective; o3 is false for the reason the Manifesto's own preamble gives; o4 is false because the statement describes a Scrum iteration, not Kanban flow. Checked specifically for a why contradicting its own option text: none does.",
+        "sources_read": [
+          "https://agilemanifesto.org/",
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.scrum.01",
@@ -585,7 +718,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Scrum Guide: Sprints \"are fixed length events of one month or less to create consistency\" and the Scrum Team comprises a Product Owner, a Scrum Master and Developers. Kanban Guide: the general practices are Visualize, Limit WIP, Manage Flow, Make Policies Explicit, Implement Feedback Loops, Improve Collaboratively, with no iteration boundary \u2014 so the timebox-versus-WIP-limited-flow axis is the deciding feature, as the key says. o2 is false on the second description; o3 is false because Scrum is a framework, not agile-in-general; o4 is false and its why is true \u2014 the Kanban Guide describes replenishment from a set of options with a commitment point, so a backlog is common to both and cannot be the discriminator.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html",
+          "https://kanban.university/kanban-guide/"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.sprint.01",
@@ -644,7 +791,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Scrum Guide: Sprints \"are fixed length events of one month or less to create consistency\", which is the property the key names; the rationale's aside that \"only the Product Owner has the authority to cancel a Sprint\" matches the Guide verbatim. o2 is the misconception the fixed-length rule exists to prevent; o3 is a non sequitur; o4 overstates \u2014 one extended Sprint distorts its own data point without invalidating every later figure, which is exactly what its why says, so the why does not contradict its option. Sourcing caveat: the Guide never uses the word \"velocity\" (verified by full-text search), so o4's subject matter is outside the cited source even though its why is true.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.scrum-roles.01",
@@ -703,7 +863,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Scrum Guide, Product Owner: \"accountable for effective Product Backlog management, which includes ... Ordering Product Backlog items\", and \"Those wanting to change the Product Backlog can do so by trying to convince the Product Owner\" \u2014 the key exactly. o2 is false against that text; o3 is false because the Scrum Master is accountable for Scrum's effectiveness and the process, not ordering; o4 is false because \"The Daily Scrum is a 15-minute event for the Developers of the Scrum Team\". All three whys state facts the Guide supports.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.scrum-ceremonies.01",
@@ -762,7 +935,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Scrum Guide: the Sprint Review inspects the outcome of the Sprint and determines future adaptations of the product, while \"The purpose of the Sprint Retrospective is to plan ways to increase quality and effectiveness\", inspecting individuals, interactions, processes and tools \u2014 a stalled handover process is Retrospective material, as the key says. o2 is false (the Daily Scrum is 15 minutes for the Developers); o3 is false (Planning covers what and how, not last Sprint's process); o4 is false and its why is true \u2014 closure happens once at the end, so it cannot address a recurring per-Sprint problem. No double key.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.product-and-sprint-backlog.01",
@@ -821,7 +1007,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed verbatim: \"The Sprint Backlog is composed of the Sprint Goal (why), the set of Product Backlog items selected for the Sprint (what), as well as an actionable plan for delivering the Increment (how).\" The key names the two omitted parts; o2 is the exact misconception the sentence refutes; o3 is false because velocity is not a component of the Sprint Backlog (and, checked, appears nowhere in the Guide); o4 is false because the Definition of Done is a commitment attached to the Increment, which the Guide states separately.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.kanban.01",
@@ -880,7 +1079,21 @@
       "comparison_block": "cmp-pm.project-management.kanban",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Kanban Guide, \"Limit Work in Progress (WIP)\" is a general practice and pull is defined through it: \"For pull signals to work, you will need to define your WIP limits as an expression of maximum capacity\" \u2014 without limits there is no pull system, which is the key. The guide also states \"Your Kanban board should reflect your specific workflow, which is usually more than columns labeled as To Do, Doing, Done\", which is what o3's why appeals to. o2 is false: the guide defines no accountabilities of its own and says Kanban \"should be applied to an existing process or way of working... It is not a replacement for what you already do\". o4 is false: the guide's Core Kanban Metrics are lead time and delivery rate, not velocity.",
+        "sources_read": [
+          "https://kanban.university/kanban-guide/",
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.kanban.02",
@@ -939,7 +1152,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. Kanban Guide, Core Kanban Metrics: lead time (\"the time it takes for a single work item to pass through the system\") and delivery rate \u2014 precisely the two measures the key names. Scrum Guide supplies the contrast: a Sprint is a fixed-length event with a Sprint Goal, so o2's one-day Sprint still breaks at the first unplanned incident. o3 is false because a burndown is tied to a timebox; o4 is false because a risk register tracks uncertain future events, which NIST SP 800-30 Rev. 1 confirms is what a risk is. Each why is true; none of the three distractors is also correct.",
+        "sources_read": [
+          "https://kanban.university/kanban-guide/",
+          "https://scrumguides.org/scrum-guide.html",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.user-story.01",
@@ -998,7 +1226,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited Agile Alliance page, which gives the template as \"As a (who wants to accomplish something) / I want to (what they want to accomplish) / So that (why they want to accomplish that thing)\" and explains it reminds people \"to pay attention not just to 'what' the desired software product is to do, but also 'for whom' it does it and in pursuit of 'what objectives'\" \u2014 the role and benefit clauses are the missing parts, as the key says. o2 is false (a technical task is not a story however well defined); o3 is false because criteria attach to a story that already exists; o4 is false because Sprint Backlog membership is scheduling, not format. No distractor is also correct.",
+        "sources_read": [
+          "https://agilealliance.org/glossary/user-story-template/"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.acceptance-criteria.01",
@@ -1057,7 +1298,20 @@
       "comparison_block": "cmp-pm.project-management.acceptance-criteria",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed on the point it actually turns on, which is the Definition of Done, and that is in the cited Scrum Guide verbatim: \"If a Product Backlog item does not meet the Definition of Done, it cannot be released or even presented at the Sprint Review. Instead, it returns to the Product Backlog for future consideration.\" Key correct. o2 is false and its why is precisely right that the Guide defines the Definition of Done, not acceptance criteria, as a Scrum element; o3 is false (the two differ in scope); o4 is false because the Guide forecloses presentation at the Review. Sourcing caveat recorded as a finding: the 2020 Scrum Guide contains the string \"acceptance criteria\" nowhere, so the concept's independent source does not cover half its subject.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.acceptance-criteria.02",
@@ -1116,7 +1370,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation and only partly repairable. Full-text search of the cited Scrum Guide shows it never uses \"acceptance criteria\", so the source does not contain what this item is cited for; the Agile Alliance user-story page names \"Confirmation\" only in a related-terms strip and defines nothing. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the item holds: the key (criteria agreed before work starts make \"complete\" decidable in advance) is the universal statement of their purpose; o2 is false, o3 is false because the Definition of Done being team-wide does not make per-item criteria less settled in advance, and o4 is false because this is not a project-level change-control question. No distractor is also correct and no why contradicts its option text.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html",
+          "https://agilealliance.org/glossary/user-story-template/"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.definition-of-done.01",
@@ -1175,7 +1443,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed verbatim: \"If the Definition of Done for an increment is part of the standards of the organization, all Scrum Teams must follow it as a minimum. If it is not an organizational standard, the Scrum Team must create a Definition of Done appropriate for the product.\" Key correct, including \"stricter, never weaker\". o2 is false because team ownership applies only where no organisational standard exists; o3 is false because logging a gap as a risk does not lift a minimum; o4 is false because the Definition of Done is a Scrum commitment, not a project scope item. Checked all three for a second defensible reading: none survives the quoted sentence.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.definition-of-done.02",
@@ -1234,7 +1515,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed on the same sentence as the sibling item and the adjacent \"Work cannot be considered part of an Increment unless it meets the Definition of Done.\" A missing runbook that the Definition of Done requires therefore blocks presentation at the Review \u2014 key correct. o2 is false (a working demo does not satisfy a definition that includes documentation); o3 is false because admission to the Review is settled before it happens; o4 is false because per-item criteria do not substitute for the team-wide bar. Verified the two definition-of-done items are not near-duplicates: one tests the organisational-minimum rule, the other the undone-work rule.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.minimum-viable-product.01",
@@ -1293,7 +1587,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited Agile Alliance MVP page, which states the common failure directly: \"Teams stress the minimum part of MVP to the exclusion of the viable part. The product delivered is not of sufficient quality to provide an accurate assessment of whether customers will use the product.\" That settles the key (an MVP minimises scope, not quality) and makes o2 the documented misconception. o3 is false because the standard applies at release; o4 is false because story format is unrelated to MVP status. The page also supports the rationale's learning half: Ries' \"maximum amount of validated learning about customers with the least effort\".",
+        "sources_read": [
+          "https://agilealliance.org/glossary/mvp/"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.estimation-and-velocity.01",
@@ -1352,7 +1659,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, content upheld. Full-text search of the cited Scrum Guide shows the word \"velocity\" does not appear in it at all, so the source does not contain what the item is cited for; this is recorded as a data/ finding against the concept, not just the item. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. The key (relative, team-local units can be inflated without delivering more) is the consensus account and nothing in the accessible corpus contradicts it. o2 is false; o3 is false as stated \u2014 the Product Owner does not set velocity \u2014 while its why correctly reflects the Guide's rule that the Developers who will do the work are responsible for sizing; o4 is false because velocity is measured from a normal-length Sprint. No second defensible key.",
+        "sources_read": [
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.gantt-chart.01",
@@ -1404,13 +1724,30 @@
       ],
       "rationale": "A Gantt chart is a bar chart of tasks against time, showing duration and, as usually drawn, dependencies \u2014 associated with plan-driven scheduling. A work breakdown structure decomposes the deliverable hierarchically and has no time axis at all; that absence is the entire basis of the comparison.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105",
+        "nasa-wbs-handbook-sp-2016-3404-rev1"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook Appendix B: \"Gantt Chart: A bar chart depicting start and finish dates of activities and products in the WBS\", and \"Precedence Diagram: Workflow diagram that places activities in boxes connected by dependency arrows; typical of a Gantt chart\" \u2014 so the time axis with durations and dependencies is the chart's defining feature, the key. The NASA WBS Handbook establishes the other half: the WBS hierarchy \"should be driven totally by the makeup of the work content\", is product-oriented, and carries no dates. o2 reverses the pair; o3 is false because they are not one hierarchy at two resolutions; o4 is false as the deciding axis while its why is true \u2014 the same NASA text confirms a Gantt chart can display the critical path.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.critical-path.01",
@@ -1462,13 +1799,29 @@
       ],
       "rationale": "The critical path is the longest chain of dependent tasks through the schedule, and its length sets the earliest possible finish. 'Critical' is a statement about duration and float, not importance or difficulty \u2014 shortening a task that isn't on that chain typically buys no time, which is the discrimination this question shape is built to test.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook \u00a76.1 settles the key almost word for word: \"'Critical path' is the sequence of dependent tasks that determines the longest duration of time needed to complete the project\", and a network schedule shows \"how much spare time (i.e., float) exists for all the other activities of the project\". A task off that chain has float, so shortening it moves nothing \u2014 key correct, o2 false. o3 is false because a Gantt chart displays rather than determines the schedule; o4 is false because the WBS has no time axis, which the NASA WBS Handbook confirms. Checked whether o2 could be defensible if the task were near-critical: the stem places it off the critical path outright, so it is pinned.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.work-breakdown-structure.01",
@@ -1527,7 +1880,21 @@
       "comparison_block": "cmp-pm.project-management.work-breakdown-structure",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited NASA WBS Handbook, which is product-oriented by construction and illustrates the failure mode o3 names as an explicit error case (\"Unsuitable Functional/Organizational Oriented WBS\"), while \u00a74.3 shows dates entering only when WBS elements are turned into \"tasks (activities) and events (milestones)\" in the schedule. Key correct: the slack question is answered by the schedule and its critical path, which NASA SE Handbook \u00a76.1 defines. o2 is false because the absence of dates is by design; o3 is false as stated and its why is true; o4 is false because velocity is a Scrum figure and identifies nothing about a critical path.",
+        "sources_read": [
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.risk-management.01",
@@ -1586,7 +1953,20 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited NIST SP 800-30 Rev. 1: \"Risk assessments are used to identify, estimate, and prioritize risk... The purpose of risk assessments is to inform decision makers and support risk responses\" \u2014 assessment produces a priority order and informs response; response is the separate component (SP 800-39's frame/assess/respond/monitor cycle). Key correct. o2 is false because ranking is not selecting; o3 is false and its why is true (an issue has occurred, a risk is a potential future event, which 800-30r1's \"likelihood that harm will occur\" framing supports); o4 is false because a contingency reserve follows from choosing acceptance rather than preceding any choice.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.scope-creep.01",
@@ -1638,13 +2018,28 @@
       ],
       "rationale": "Scope creep is growth that happens without a matching adjustment to time, cost or baseline. A customer asking for more is normal; what turns it into creep is the team absorbing the request informally, with no impact assessment and no re-baselining, which is exactly what happened here, however small the field.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook \u00a76.2 has a \"Requirements Creep\" passage that settles the key: creep is \"the subtle way that requirements grow imperceptibly during the course of a project\", and its named defences are \"a strict process for assessing requirement changes\", \"official channels for submitting change requests... who has the authority\", and measuring each change's impact against resource budgets. Absence of assessment and approval, not size, is therefore the defining property. o2 is false (the requesting party is irrelevant); o3 is false and is the very \"innocent\" small change the passage describes; o4 is false because unchanged baselines after added work mean silent absorption. No distractor is also correct.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.scope-creep.02",
@@ -1696,13 +2091,30 @@
       ],
       "rationale": "Change control and scope creep both involve scope growing \u2014 the difference is whether that growth was assessed, decided by a named authority, and reflected in an updated baseline. Here it was, on all three counts, so the two extra weeks are the price of an approved trade-off, not an uncontrolled failure mode.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105",
+        "nist-sp-800-128"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. Against the same NASA \"Requirements Creep\" passage plus NIST SP 800-128, which defines a baseline configuration as one \"which can be changed only through change control procedures\" and charters a CCB with \"responsibility for the process of controlling and approving changes\": an assessed change, approved by an authority, written back into the baseline is control working, not creep \u2014 the key. o2 is false because post-start additions are not creep per se; o3 is false and its why is true, a leg moving is a normal outcome of an approved trade-off; o4 is false because necessity of the extension is not the test. Verified this and item .01 are complementary rather than duplicates: one has all three controls absent, the other all three present.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.change-control.01",
@@ -1761,7 +2173,21 @@
       "comparison_block": "cmp-pm.project-management.change-control",
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed against the cited NIST SP 800-128, whose change-control account is a decision procedure \u2014 a CCB \"controlling and approving changes\", with security impact analysis performed on each request \u2014 not a refusal mechanism, which is the key. NASA SE Handbook Figure 6.5-4 (Typical Change Control Process) and its requirement to compare a change's impact \"with the consequences of not approving the change\" agree. o2 is false; o3 is false because the record, not the period, is what is suspicious; o4 is false and its why is true \u2014 a rejection specifically does not move a baseline, only an approval does. No second defensible key: only o1 answers both halves of the stem.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.change-control.02",
@@ -1820,7 +2246,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Confirmed. NIST SP 800-128: the baseline configuration is \"formally reviewed and agreed on at a given point in time, and which can be changed only through change control procedures\", so an approval that never reaches the baseline leaves the plan showing old scope \u2014 the key. NASA SE Handbook \u00a76.2 adds that on approval \"actions to update documentation need to be included as part of the change package\" and must be tracked. o2 is false because approval alone does not complete the process; o3 is false because the mismatch bites in every status report before closure; o4 is false because awareness does not substitute for the baseline. Each why states a true fact.",
+        "sources_read": [
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.raci.01",
@@ -1878,7 +2318,22 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, lf-objectives-only, and the strongest residual risk in this file. Searched the accessible corpus specifically: the NASA SE Handbook mentions RACI only twice \u2014 as an acronym expansion in Appendix A and as a parenthetical \"(e.g., RACI matrix, [Wikipedia link])\" in Appendix D \u2014 and states nothing about cardinality; the NASA WBS Handbook has a Responsibility Assignment Matrix whose control account \"has a responsible organizational element or individual identified\", which is adjacent to but not the same as RACI's singular A. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the key (several Responsible, exactly one Accountable) is the universal convention; o2 is false, o3 is false because shared Responsible is normal, o4 is false because omitting C and I is not a malformation. No distractor is also correct.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.issue-tracking.01",
@@ -1930,13 +2385,28 @@
       ],
       "rationale": "Issue tracking records work and defects, each with an identifier, an owner and a state, so status is visible without asking. An issue is something that has already occurred and needs resolving; a risk is an uncertain future event assessed for likelihood and impact. A missed delivery date last week has already happened, so it belongs in the tracker as an issue.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nist-sp-800-30r1"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.issue-tracking",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired for the half that is sourceable. NIST SP 800-30 Rev. 1 supplies the risk side that the whole discrimination turns on: risk is determined from \"impact (i.e., harm) to organizations that may occur\" and \"likelihood that harm will occur\" \u2014 an uncertain future event scored for likelihood and impact. A vendor miss that has already occurred is therefore not a risk, which is the key, and o2 and o3 fail for exactly that reason; o4 is false because a communication plan governs who is told, not where an item is recorded. The complementary definition of an issue as something already occurred has no accessible primary source; No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.project-budget-and-resource-management.01",
@@ -1994,7 +2464,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, lf-objectives-only. Searched the accessible corpus: the NASA SE Handbook covers budgeting, resource planning and resource levelling (\"move the start dates of tasks that have float to points where the resource profile is feasible\") but says nothing about the ramp-up cost of adding staff to late work, which is the key's claim and originates in Brooks rather than in any reachable standard. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the key is the consensus result; o2 is false because effort does not scale linearly with headcount added mid-project; o3 is false because cost and schedule do not improve together here; o4 is false because velocity reflects completed work and newcomers need ramp-up. No distractor is also correct and each why is true.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.communication-plan.01",
@@ -2052,7 +2536,21 @@
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, lf-objectives-only. Searched the accessible corpus for an influence/interest treatment: the NASA SE Handbook defines stakeholders and their expectations and requires change decisions to be communicated to affected organisations, but contains no stakeholder communication-planning grid; the single \"Communication Plan\" hit is a bibliography entry. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the key (content level, frequency and channel matched to influence and interest; periodic summaries plus threshold alerts for high influence, low day-to-day interest) is the consensus construction; o2 is false, o3 is false because influence alone confers stakeholder status \u2014 which the NASA glossary definition of stakeholder does support \u2014 and o4 is false because tracker access is not a decided cadence. No second defensible key.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.project-closure-and-lessons-learned.01",
@@ -2104,13 +2602,29 @@
       ],
       "rationale": "Closure formally ends a project \u2014 confirming acceptance, releasing resources, and recording lessons \u2014 and it applies to a cancelled project as much as a finished one, arguably more, since the lessons are the only thing a cancelled effort produced. That is a different kind of omission from a missed Sprint Retrospective, which repeats every Sprint for one team while work continues and directs its improvement inward, not outward to the organisation.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
       "comparison_block": "cmp-pm.project-management.project-closure-and-lessons-learned",
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook \u00a73.9 (Phase F: Closeout) settles the key's central claim that closure is not a reward for finishing: closeout \"may proceed according to established plans or may begin as a result of unplanned events, such as failures\", and the systems engineer is involved \"to ensure all technical information is properly identified and archived\". o2 is therefore false. o3 is false and its why is true \u2014 the Scrum Guide makes the Retrospective a per-Sprint event for one team, a smaller and repeating loss. o4 is false because a tracker holds items and states, not acceptance and organisation-wide lessons. Checked for a second key: only o1 answers both halves of the stem.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     },
     {
       "id": "q.pm.project-management.project-closure-and-lessons-learned.02",
@@ -2162,13 +2676,30 @@
       ],
       "rationale": "Closure is not the same as the last piece of work being finished. It requires confirming the deliverables were accepted against the criteria agreed at the start and handing the result over to whoever will operate it, including the runbook and support arrangement the operating team actually needs. A demoed but unaccepted, unhanded-over deliverable is an unfinished closure, not a completed one.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "nasa-se-handbook-sp-2016-6105"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": true,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-project-management",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Refuted on citation, repaired. NASA SE Handbook makes transition to the user a distinct process rather than a consequence of finishing work \u2014 Phase D ends by \"transition the end product to the user\", \u00a75.5 Product Transition is its own process, and acceptance is a named review (System Acceptance Review) \u2014 which is the key: acceptance against agreed criteria and handover are what end a project. o2 is false because the last task finishing is not acceptance; o3 is false because a milestone marks an event rather than confirming acceptance, consistent with the NASA WBS Handbook's activities/events split; o4 is false because a Retrospective is a per-Sprint improvement event, per the Scrum Guide. No distractor is also correct.",
+        "sources_read": [
+          "https://training.linuxfoundation.org/lfca-program-changes-2025/",
+          "https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf",
+          "https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf",
+          "https://scrumguides.org/scrum-guide.html"
+        ]
+      }
     }
   ]
 }
