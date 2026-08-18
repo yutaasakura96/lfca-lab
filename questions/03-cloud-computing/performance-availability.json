@@ -85,7 +85,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "About 21.6 more minutes — the allowance grows from roughly 21.6 minutes to roughly 43.2 minutes.",
+          "text": "About 21.6 more minutes; the allowance grows from roughly 21.6 minutes to roughly 43.2 minutes.",
           "correct": true,
           "why": "43.2 minus 21.6 minutes is 21.6 minutes; both figures follow from (1 minus availability) times the 30-day window.",
           "provenance": {
@@ -161,7 +161,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — redundancy is only one of the two required ingredients; nothing detects a failure or moves traffic away from it.",
+          "text": "No. Redundancy is only one of the two required ingredients; nothing detects a failure or moves traffic away from it.",
           "correct": true,
           "why": "High availability needs redundancy plus automatic failover; a spare with no mechanism to use it is not yet either.",
           "provenance": {
@@ -313,7 +313,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The second — fault tolerance means no user-visible interruption at all, because the redundant capacity was already doing the work rather than waiting to be switched to.",
+          "text": "The second. Fault tolerance means no user-visible interruption at all, because the redundant capacity was already doing the work rather than waiting to be switched to.",
           "correct": true,
           "why": "The absence of any interruption, not merely a fast one, is the property that separates fault tolerance from high availability.",
           "provenance": {
@@ -389,7 +389,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing beyond the defined fault class — a fault-tolerant system survives the failures it was designed for, and a total partition of every member falls outside that class.",
+          "text": "Nothing beyond the defined fault class, given that a fault-tolerant system survives the failures it was designed for, and a total partition of every member falls outside that class.",
           "correct": true,
           "why": "The definition is bounded: it guarantees continued correct operation for a stated class of faults, not immunity from every possible one.",
           "provenance": {
@@ -463,7 +463,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Whether they sit in independent failure domains — separate hosts, racks or zones — so the event that takes out one cannot also take out the other.",
+          "text": "Whether they sit in independent failure domains (separate hosts, racks or zones), so the event that takes out one cannot also take out the other.",
           "correct": true,
           "why": "Redundancy only survives failure if the duplicate is placed somewhere the same fault cannot reach both copies.",
           "provenance": {
@@ -687,7 +687,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Cached DNS records — resolvers and clients keep using the old address until the record's time-to-live expires.",
+          "text": "Cached DNS records; resolvers and clients keep using the old address until the record's time-to-live expires.",
           "correct": true,
           "why": "A long TTL can dominate the total outage even when detection and the record switch were both fast.",
           "provenance": {
@@ -762,7 +762,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — elasticity means capacity provisioned and released rapidly and in step with demand, which a cycle waiting on someone to remember is not.",
+          "text": "No, because elasticity means capacity provisioned and released rapidly and in step with demand, which a cycle waiting on someone to remember is not.",
           "correct": true,
           "why": "Elasticity is scalability plus two things: automation, and capacity being released again as demand falls.",
           "provenance": {
@@ -835,7 +835,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Elasticity — and dropping the automatic removal would leave only scalability, since capacity would grow but never shrink back.",
+          "text": "Elasticity; dropping the automatic removal would leave only scalability, since capacity would grow but never shrink back.",
           "correct": true,
           "why": "Automatic and bidirectional is exactly elasticity's definition; removing the shrink-back half leaves only the ability to grow.",
           "provenance": {
@@ -984,7 +984,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "More capacity only — the server is still one machine and still a single point of failure, and it has now reached its ceiling with nowhere further to grow.",
+          "text": "More capacity only. The server is still one machine and still a single point of failure, and it has now reached its ceiling with nowhere further to grow.",
           "correct": true,
           "why": "Vertical scaling does nothing for availability; a bigger single machine remains a single machine, and the largest instance type is a hard limit.",
           "provenance": {
@@ -1134,7 +1134,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing measurable — the extra instances sit idle, because the job's constraint is a single non-divisible thread of work that a load balancer cannot spread.",
+          "text": "Nothing measurable; the extra instances sit idle, because the job's constraint is a single non-divisible thread of work that a load balancer cannot spread.",
           "correct": true,
           "why": "Horizontal scaling only helps work that can actually be divided; a load balancer has no requests to distribute across a single indivisible job.",
           "provenance": {
@@ -1355,7 +1355,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "That the application is not stateless — sticky sessions exist specifically to route a client back to the one instance holding its state.",
+          "text": "That the application is not stateless; sticky sessions exist specifically to route a client back to the one instance holding its state.",
           "correct": true,
           "why": "Sticky sessions are the workaround for an application that has not externalised its session state, and their presence is the visible sign of that gap.",
           "provenance": {
@@ -1508,7 +1508,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — stateless describes where the state lives, not whether the system has any; the application still has state, just not pinned to one server.",
+          "text": "Stateless describes where the state lives, not whether the system has any, so no; the application still has state, just not pinned to one server.",
           "correct": true,
           "why": "Externalising state is what makes instances interchangeable; it does not mean the state has been eliminated.",
           "provenance": {
@@ -1658,7 +1658,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A slow tail of requests — a percentile such as p95 or p99 should be reported instead, since an average conceals the worst-performing minority.",
+          "text": "A slow tail of requests; a percentile such as p95 or p99 should be reported instead, since an average conceals the worst-performing minority.",
           "correct": true,
           "why": "Latency is a distribution, not a single number; percentiles surface the slow requests that an average smooths away.",
           "provenance": {
@@ -2029,7 +2029,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The edge must fetch the object from the origin — the definitive copy — before it can return anything, and it keeps a copy afterward for later requests.",
+          "text": "The edge must fetch the object from the origin, the definitive copy, before it can return anything, and it keeps a copy afterward for later requests.",
           "correct": true,
           "why": "A CDN does not make the origin faster and does not help the very first request to a given edge, which must be satisfied from the origin.",
           "provenance": {
@@ -2179,7 +2179,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Latency, traffic, errors and saturation — saturation meaning how full the constraining resource is, not merely how busy it appears.",
+          "text": "Latency, traffic, errors and saturation, saturation meaning how full the constraining resource is, not merely how busy it appears.",
           "correct": true,
           "why": "These are the four signals Google's SRE material names first, and saturation is specifically about queued work against the tightest resource, distinct from simple utilisation.",
           "provenance": {
@@ -2253,7 +2253,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The SLO — an internal target set on the SLI, distinct from the SLA because missing it carries no contractual consequence on its own.",
+          "text": "The SLO, an internal target set on the SLI, distinct from the SLA because missing it carries no contractual consequence on its own.",
           "correct": true,
           "why": "An SLO is a target value on a measurement; only the SLA, the separate contract with users, attaches an explicit remedy to a missed number.",
           "provenance": {
@@ -2326,7 +2326,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The disk — saturation, not utilisation, is what identifies the constraint, and the deep queue shows work is waiting on the disk specifically.",
+          "text": "The disk; saturation, not utilisation, is what identifies the constraint, and the deep queue shows work is waiting on the disk specifically.",
           "correct": true,
           "why": "Utilisation says how busy a resource looks; saturation says how much work is queued waiting for it, and it is saturation that tracks the latency users feel.",
           "provenance": {

@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — restricting a field of endeavour such as competing commercial use fails OSD 6, regardless of how visible the source is.",
+          "text": "No; restricting a field of endeavour such as competing commercial use fails OSD 6, regardless of how visible the source is.",
           "correct": true,
           "why": "OSD 6 bars discrimination against fields of endeavour, and a no-competing-service clause is exactly that kind of restriction.",
           "provenance": {
@@ -82,7 +82,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Product A — price is irrelevant to the definition, and its licence grants the modification and redistribution rights the definition requires.",
+          "text": "Product A, since price is irrelevant to the definition and its licence grants the modification and redistribution rights the definition requires.",
           "correct": true,
           "why": "OSD 1 permits selling open source software, and OSD 3 is what Product A grants and Product B withholds.",
           "provenance": {
@@ -373,7 +373,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Proprietary software — price is irrelevant here; the licence withholds the source and reserves modification and redistribution rights to the vendor.",
+          "text": "Proprietary software: price is irrelevant here, and the licence withholds the source and reserves modification and redistribution rights to the vendor.",
           "correct": true,
           "why": "Proprietary status turns on the rights withheld, and this licence withholds exactly the rights the definition cites.",
           "provenance": {
@@ -446,7 +446,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Proprietary — publishing the source does not grant the field-of-endeavour freedom the Open Source Definition requires, so the licence remains proprietary despite the visible code.",
+          "text": "Proprietary. Publishing the source does not grant the field-of-endeavour freedom the Open Source Definition requires, so the licence remains proprietary despite the visible code.",
           "correct": true,
           "why": "A source-available licence that restricts a field of endeavour fails the OSD and is proprietary software with published code.",
           "provenance": {
@@ -594,7 +594,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only that the copyright notice and permission notice travel with the copies distributed — nothing about the product's own source or its licence.",
+          "text": "Only that the copyright notice and permission notice travel with the copies distributed; nothing about the product's own source or its licence.",
           "correct": true,
           "why": "Notice retention is the single condition MIT imposes; it reaches no further into the surrounding product.",
           "provenance": {
@@ -669,7 +669,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Whether the licence conditions the licence of a derivative work — a permissive licence does not, while a copyleft licence requires the same terms to carry forward on distribution.",
+          "text": "Whether the licence conditions the licence of a derivative work: a permissive licence does not, while a copyleft licence requires the same terms to carry forward on distribution.",
           "correct": true,
           "why": "That condition on the derivative work's own licence is exactly the axis the whole comparison turns on.",
           "provenance": {
@@ -745,7 +745,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "None — the GPL's obligations attach to conveying a copy to someone else, and running or modifying a work that is never conveyed is entirely unconditioned.",
+          "text": "None, since the GPL's obligations attach to conveying a copy to someone else; running or modifying a work that is never conveyed is entirely unconditioned.",
           "correct": true,
           "why": "GPLv3 states plainly that you may make, run and propagate covered works you do not convey without conditions.",
           "provenance": {
@@ -893,7 +893,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "GPL-2.0-only — not \"version 2 or later\", so the kernel's terms cannot be swapped for GPLv3's without the consent of every copyright holder involved.",
+          "text": "GPL-2.0-only, not \"version 2 or later\", so the kernel's terms cannot be swapped for GPLv3's without the consent of every copyright holder involved.",
           "correct": true,
           "why": "The kernel is GPL-2.0-only, and an \"-only\" grant blocks the automatic upgrade path an \"-or-later\" grant would allow.",
           "provenance": {
@@ -966,7 +966,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "None from the licence text — GPLv2 contains no express patent grant and no patent-termination clause; GPLv3 is the version that added both.",
+          "text": "None from the licence text: GPLv2 contains no express patent grant and no patent-termination clause, and GPLv3 is the version that added both.",
           "correct": true,
           "why": "GPLv3's express patent grant and its termination and cure provisions live in its section 11; GPLv2's text contains no patent grant at all.",
           "provenance": {
@@ -1118,7 +1118,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An obligation to offer the Corresponding Source to users who interact with a modified version remotely over a network — triggered by that network interaction, not by conveying a copy.",
+          "text": "An obligation, triggered by that network interaction rather than by conveying a copy, to offer the Corresponding Source to users who interact with a modified version remotely over a network.",
           "correct": true,
           "why": "Section 13 extends the same-licence obligation past conveyance to reach users who only ever interact with the software across a network.",
           "provenance": {
@@ -1191,7 +1191,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The non-endorsement clause — using the copyright holder's or contributors' names to endorse a derived product without specific prior written permission is exactly what BSD-3-Clause's third clause forbids.",
+          "text": "The non-endorsement clause: using the copyright holder's or contributors' names to endorse a derived product without specific prior written permission is exactly what BSD-3-Clause's third clause forbids.",
           "correct": true,
           "why": "That third clause is what distinguishes BSD-3-Clause from BSD-2-Clause, and naming the company as a partner without permission is the textbook violation of it.",
           "provenance": {
@@ -1265,7 +1265,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "None — MIT says nothing about patents at all, which is the specific difference Apache-2.0's express patent grant addresses.",
+          "text": "None, because MIT says nothing about patents at all, which is the specific difference Apache-2.0's express patent grant addresses.",
           "correct": true,
           "why": "Neither MIT nor any BSD variant grants patent rights; that omission is exactly the gap Apache-2.0 was written to fill.",
           "provenance": {
@@ -1634,7 +1634,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — compatibility asks whether the combination was legally permitted at all; compliance separately asks whether the obligations that combination triggered, such as notices and source offers, were actually discharged before shipping.",
+          "text": "No. Compatibility asks whether the combination was legally permitted at all; compliance separately asks whether the obligations that combination triggered, such as notices and source offers, were actually discharged before shipping.",
           "correct": true,
           "why": "A perfectly compatible stack is still non-compliant if the required attribution file or source offer was never assembled.",
           "provenance": {
@@ -1709,7 +1709,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — only the copyright holder can offer a work under both an open source and a commercial licence; a recipient who merely received the code under one of those licences cannot grant it under the other.",
+          "text": "No; only the copyright holder can offer a work under both an open source and a commercial licence, and a recipient who merely received the code under one of those licences cannot grant it under the other.",
           "correct": true,
           "why": "Dual licensing is a right of the rights holder, and downstream recipients do not inherit the ability to relicense code they only received.",
           "provenance": {
@@ -2072,7 +2072,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the licence itself guarantees the right to make and distribute derived works, so no licence holder or foundation can block a community from continuing the code independently.",
+          "text": "No: the licence itself guarantees the right to make and distribute derived works, so no licence holder or foundation can block a community from continuing the code independently.",
           "correct": true,
           "why": "The Open Source Definition requires that a licence permit modifications and derived works, which is the structural reason governance disputes have an exit.",
           "provenance": {

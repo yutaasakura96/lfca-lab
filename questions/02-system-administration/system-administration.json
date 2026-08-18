@@ -262,7 +262,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The same identity — the kernel enforces access by the numeric UID, not by the account name",
+          "text": "The same identity, since the kernel enforces access by the numeric UID, not by the account name",
           "correct": true,
           "why": "Permission checks are made against the numeric UID the kernel holds, and both accounts share that number.",
           "provenance": {
@@ -884,7 +884,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the member list in `/etc/group` records supplementary membership only",
+          "text": "No. The member list in `/etc/group` records supplementary membership only",
           "correct": true,
           "why": "Primary membership is recorded on the user's own row in `/etc/passwd`, not in the group's member list.",
           "provenance": {
@@ -1658,7 +1658,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — removing permission from `other` never restricts the owner or group classes",
+          "text": "No; removing permission from `other` never restricts the owner or group classes",
           "correct": true,
           "why": "Each class is evaluated independently once matched; narrowing `other` has no bearing on what the owner's own triad allows.",
           "provenance": {
@@ -1812,7 +1812,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The directories keep their setgid bit but the helper binary loses its — `chmod` preserves that bit on directories unless told otherwise",
+          "text": "The directories keep their setgid bit but the helper binary loses its, because `chmod` preserves that bit on directories unless told otherwise",
           "correct": true,
           "why": "chmod(1) states the exception plainly: for directories it preserves set-user-ID and set-group-ID unless you explicitly specify otherwise, and a regular file gets no such exemption.",
           "provenance": {
@@ -2641,7 +2641,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — root bypasses the ordinary permission check entirely, so the mode bits are irrelevant to it",
+          "text": "Yes: root bypasses the ordinary permission check entirely, so the mode bits are irrelevant to it",
           "correct": true,
           "why": "Being UID 0 means the kernel skips the permission comparison altogether for that process, regardless of what the mode string says.",
           "provenance": {
@@ -2714,7 +2714,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`sudo` for individual commands — it logs each invocation, while `su -` only logs the single switch to a shell",
+          "text": "`sudo` for individual commands, which logs each invocation, while `su -` only logs the single switch to a shell",
           "correct": true,
           "why": "Once inside an `su -` shell everything run is anonymous within that shell, whereas `sudo` records each command as it is run.",
           "provenance": {
@@ -3778,7 +3778,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — it is still attached to the terminal session and dies with it; a daemon has no controlling terminal at all",
+          "text": "No. It is still attached to the terminal session and dies with it; a daemon has no controlling terminal at all",
           "correct": true,
           "why": "Backgrounding with `&` does not detach a process from its terminal session, which is exactly what distinguishes an ordinary background job from a daemon.",
           "provenance": {
@@ -4076,7 +4076,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`reload`, if the application supports it — it asks the running process to re-read its configuration without stopping it",
+          "text": "`reload`, if the application supports it, since that asks the running process to re-read its configuration without stopping it",
           "correct": true,
           "why": "`reload` tells the already-running process to re-read its own configuration in place, avoiding the interruption a stop-then-start restart causes.",
           "provenance": {
@@ -4903,7 +4903,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`systemctl daemon-reload` — it takes no unit argument and rebuilds the dependency graph from every unit file",
+          "text": "`systemctl daemon-reload`, which takes no unit argument and rebuilds the dependency graph from every unit file",
           "correct": true,
           "why": "It is a manager-wide operation, unlike the other two, which each act on one named unit rather than on the set of unit definitions itself.",
           "provenance": {
@@ -5646,7 +5646,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`apt upgrade` — `apt update` only refreshes the cached repository indexes and installs nothing",
+          "text": "`apt upgrade`; `apt update` only refreshes the cached repository indexes and installs nothing",
           "correct": true,
           "why": "The naming is misleading: despite its name, `update` changes only the local index; `upgrade` is the command that actually installs newer packages.",
           "provenance": {
@@ -5868,7 +5868,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The FHS is not a filesystem at all — it is a convention for what each directory means, not an on-disk format",
+          "text": "The FHS is not a filesystem at all; it is a convention for what each directory means, not an on-disk format",
           "correct": true,
           "why": "The Filesystem Hierarchy Standard names directory purposes such as `/etc` and `/var`; journaling and on-disk layout belong to a completely separate concept, the filesystem type.",
           "provenance": {
@@ -6309,7 +6309,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing — programs must not assume anything left there is preserved between invocations",
+          "text": "Nothing, because programs must not assume anything left there is preserved between invocations",
           "correct": true,
           "why": "The FHS is explicit on this point, and on many systems `/tmp` is cleared on reboot or actively aged out, reinforcing that nothing there should be relied upon to persist.",
           "provenance": {
@@ -6460,7 +6460,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — entries under `/proc` are generated by the kernel on demand, so they legitimately report zero size while still returning content when read",
+          "text": "No. Entries under `/proc` are generated by the kernel on demand, so they legitimately report zero size while still returning content when read",
           "correct": true,
           "why": "Reading a path under `/proc` causes the kernel to generate the contents at that moment, which is why the reported size and the actual read content do not match the way an ordinary file would.",
           "provenance": {
@@ -6679,7 +6679,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "ext4 — `resize2fs` can shrink it, though only while unmounted; XFS is designed to be grown online and offers no general way to shrink",
+          "text": "ext4, since `resize2fs` can shrink it, though only while unmounted; XFS is designed to be grown online and offers no general way to shrink",
           "correct": true,
           "why": "The two filesystem types differ specifically in what resizing operations they support, and only ext4 offers a supported route to a smaller filesystem.",
           "provenance": {
@@ -6829,7 +6829,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "They are hidden for as long as the mount lasts — not merged, and not deleted",
+          "text": "They are hidden for as long as the mount lasts, not merged and not deleted",
           "correct": true,
           "why": "Mounting attaches the new filesystem at that path, which obscures whatever was already there rather than combining or removing it; the original contents reappear once unmounted.",
           "provenance": {
@@ -7358,7 +7358,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Comparing their inode numbers with `ls -i` — the same number means the same underlying file",
+          "text": "Comparing their inode numbers with `ls -i`, where the same number means the same underlying file",
           "correct": true,
           "why": "The inode number is the identity of the file itself; two names sharing one number are definitively the same file, not merely similar copies.",
           "provenance": {

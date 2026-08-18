@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It changes the shape and reversibility of spending, from a fixed sum committed once to a variable charge stoppable at will — not that the eventual total is necessarily smaller.",
+          "text": "It changes the shape and reversibility of spending, from a fixed sum committed once to a variable charge stoppable at will, not that the eventual total is necessarily smaller.",
           "correct": true,
           "why": "The trade is predictability against elasticity — a known committed number versus an unknown continuous one — not a guarantee that the total is smaller.",
           "provenance": {
@@ -84,7 +84,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Fixed expense versus variable expense — the underlying trade is the same, but this page never uses the words 'CapEx' or 'OpEx.'",
+          "text": "Fixed expense versus variable expense: the underlying trade is the same, but this page never uses the words 'CapEx' or 'OpEx.'",
           "correct": true,
           "why": "The source behind this concept states the trade as fixed versus variable expense, not in the literal accounting vocabulary.",
           "provenance": {
@@ -155,7 +155,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Stopped (allocated) — the underlying hardware lease has not been released, and only deallocation does that.",
+          "text": "Stopped (allocated), since the underlying hardware lease has not been released and only deallocation does that.",
           "correct": true,
           "why": "Azure's states-and-billing model treats Stopped (allocated) as still billed; only Stopped (deallocated) releases the hardware and stops the meter.",
           "provenance": {
@@ -300,7 +300,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Identical — the meter counts provisioned, running capacity, not utilisation.",
+          "text": "Identical, because the meter counts provisioned, running capacity, not utilisation.",
           "correct": true,
           "why": "A cloud meter charges for capacity being provisioned and running, regardless of how much of it any workload actually uses.",
           "provenance": {
@@ -819,7 +819,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Resize it to a smaller instance and re-measure — the resource is wanted, only its size is wrong.",
+          "text": "Resize it to a smaller instance and re-measure; the resource is wanted, only its size is wrong.",
           "correct": true,
           "why": "The resource still serves a genuine purpose; rightsizing matches provisioned capacity to measured demand without removing what is still needed.",
           "provenance": {
@@ -891,7 +891,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Autoscaling — it is the practice that changes how many units run automatically in response to live load.",
+          "text": "Autoscaling, the practice that changes how many units run automatically in response to live load.",
           "correct": true,
           "why": "Capacity following live traffic minute by minute is the defining behaviour of autoscaling, whatever word a question attaches to it.",
           "provenance": {
@@ -1037,7 +1037,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An orphan — it serves no purpose at all, so the correct action is deletion, not resizing.",
+          "text": "An orphan; it serves no purpose at all, so the correct action is deletion, not resizing.",
           "correct": true,
           "why": "The volume's purpose is entirely gone, not merely mis-sized; deletion recovers the whole of its cost, while resizing would recover only a difference between two sizes.",
           "provenance": {
@@ -1110,7 +1110,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing — storage bills for existing, not for being attached or read.",
+          "text": "Nothing, since storage bills for existing, not for being attached or read.",
           "correct": true,
           "why": "Storage is charged for existing on the platform, not for being attached to a running instance or being read from; only deletion stops the meter.",
           "provenance": {
@@ -1182,7 +1182,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Inventory — attachment state, last activity, and owner tag — rather than utilisation telemetry.",
+          "text": "Inventory: attachment state, last activity, and owner tag, rather than utilisation telemetry.",
           "correct": true,
           "why": "Finding orphans means querying inventory rather than reading telemetry — attachment state and last activity, cross-referenced against the owner tag to find who to ask before deleting.",
           "provenance": {
@@ -1255,7 +1255,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only the outbound read — inbound transfer is generally free, and reading your own data back out is egress like any other transfer.",
+          "text": "Only the outbound read; inbound transfer is generally free, and reading your own data back out is egress like any other transfer.",
           "correct": true,
           "why": "Providers price data leaving their network per gigabyte while inbound is generally free; the meter does not care that the data being read out was your own earlier upload.",
           "provenance": {
@@ -1614,7 +1614,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing by default — a threshold breach sends a notification; it halts no resource and refuses no API call unless an action was explicitly configured.",
+          "text": "Nothing by default: a threshold breach sends a notification, and it halts no resource and refuses no API call unless an action was explicitly configured.",
           "correct": true,
           "why": "A budget is not a spending cap: nothing about crossing a threshold halts a running resource or refuses the next API call unless an administrator explicitly configured an action.",
           "provenance": {

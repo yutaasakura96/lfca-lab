@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Availability was violated, and yes — an attack-caused outage is a security incident even though nothing was read or changed.",
+          "text": "Availability was violated; yes, an attack-caused outage is a security incident even though nothing was read or changed.",
           "correct": true,
           "why": "Availability is a security property in its own right, so denying it through attack is a security incident, not merely an operations problem.",
           "provenance": {
@@ -545,7 +545,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — recording the events is accounting; auditing is the review activity, and records nobody reviews detect nothing.",
+          "text": "No. Recording the events is accounting; auditing is the review activity, and records nobody reviews detect nothing.",
           "correct": true,
           "why": "The guide separates the two explicitly: accounting is the recording, auditing is the review, and unreviewed logs satisfy only the first.",
           "provenance": {
@@ -918,7 +918,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing — being on the VPN confers no implicit trust, and the request is still authenticated and authorized on its own merits.",
+          "text": "Nothing, since being on the VPN confers no implicit trust; the request is still authenticated and authorized on its own merits.",
           "correct": true,
           "why": "Zero trust removes exactly this assumption: network location, including being on a VPN, does not grant access by itself.",
           "provenance": {
@@ -1283,7 +1283,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Not necessarily — risk combines likelihood and impact, and the described conditions drive likelihood toward zero even though the vulnerability is real.",
+          "text": "Not necessarily, because risk combines likelihood and impact, and the described conditions drive likelihood toward zero even though the vulnerability is real.",
           "correct": true,
           "why": "A severity score describes the flaw in the abstract; the scenario's lack of reachability and execution suppresses the likelihood term that risk actually depends on.",
           "provenance": {
@@ -1356,7 +1356,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only risk carries a magnitude, and removing any one of the three collapses it — patching the vulnerability, blocking the threat's access, or reducing the impact all work.",
+          "text": "Only risk carries a magnitude, and removing any one of the three collapses it, so patching the vulnerability, blocking the threat's access, or reducing the impact all work.",
           "correct": true,
           "why": "SP 800-30r1 determines risk as \"typically a function of the degree of harm and likelihood of harm occurring\" given the potential for threats exploiting vulnerabilities, so removing any factor in that relationship collapses the resulting risk.",
           "provenance": {
@@ -1795,7 +1795,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — SSO reduces credential sprawl and centralises the control point, but it changes how many times a user authenticates, not how strongly.",
+          "text": "No. SSO reduces credential sprawl and centralises the control point, but it changes how many times a user authenticates, not how strongly.",
           "correct": true,
           "why": "The guide is explicit that SSO and MFA are offered as alternatives on the exam precisely because SSO alone does not add authentication strength.",
           "provenance": {
@@ -1950,7 +1950,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A signature over session-specific data, never the private key or anything reusable — so an attacker recording the exchange gains nothing replayable.",
+          "text": "A signature over session-specific data, never the private key or anything reusable, so an attacker recording the exchange gains nothing replayable.",
           "correct": true,
           "why": "RFC 4252 has the client sign a session-specific challenge with the private key and send only the signature, unlike a password which the server must receive directly.",
           "provenance": {
@@ -2101,7 +2101,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Reversibility — encryption is meant to be undone by whoever holds the right key, while both hashing forms are one-way by construction.",
+          "text": "Reversibility, since encryption is meant to be undone by whoever holds the right key, while both hashing forms are one-way by construction.",
           "correct": true,
           "why": "The comparison table names reversibility and speed as the separating axis, and reversibility is what cleanly distinguishes encryption from either hashing form.",
           "provenance": {
@@ -2175,7 +2175,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — HTTPS protects data crossing the network, and a stolen backup tape is a data-at-rest exposure that a separate control must cover.",
+          "text": "No, because HTTPS protects data crossing the network, and a stolen backup tape is a data-at-rest exposure that a separate control must cover.",
           "correct": true,
           "why": "Encryption in transit and encryption at rest are separate controls covering separate exposures, and one does not substitute for the other.",
           "provenance": {
@@ -2250,7 +2250,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Data in use — a compromised running process reads the unlocked filesystem and live memory normally, and neither at-rest nor in-transit encryption applies there.",
+          "text": "Data in use, since a compromised running process reads the unlocked filesystem and live memory normally, and neither at-rest nor in-transit encryption applies there.",
           "correct": true,
           "why": "At rest and in transit are the two named controls, and both leave data being actively processed by a compromised application outside their coverage.",
           "provenance": {
@@ -2403,7 +2403,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "There is no such operation — hashing has no key and is one-way by construction, so the original input cannot be recovered from the digest.",
+          "text": "There is no such operation; hashing has no key and is one-way by construction, so the original input cannot be recovered from the digest.",
           "correct": true,
           "why": "The guide states directly that \"decrypt the hash\" is never the answer, because a digest carries no key and the function cannot be inverted.",
           "provenance": {
@@ -2479,7 +2479,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Third-party attestation that the public key really belongs to the named host — a self-signed certificate encrypts exactly as well, but nothing vouches for the binding.",
+          "text": "Third-party attestation that the public key really belongs to the named host; a self-signed certificate encrypts exactly as well, but nothing vouches for the binding.",
           "correct": true,
           "why": "The guide is explicit that a self-signed certificate encrypts identically to a CA-issued one; what it lacks is a third party attesting to the identity binding.",
           "provenance": {
@@ -2699,7 +2699,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An authenticated, encrypted channel to the named host — nothing about whether the content served over it is safe or the operator is trustworthy.",
+          "text": "An authenticated, encrypted channel to the named host, and nothing about whether the content served over it is safe or the operator is trustworthy.",
           "correct": true,
           "why": "HTTPS protects the channel, not the endpoint; a compromised or malicious server can serve harmful content over a perfectly valid TLS connection.",
           "provenance": {
@@ -2773,7 +2773,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Reissue the certificate with the correct name — renewal alone would not fix a hostname mismatch, since the dates were never the problem.",
+          "text": "Reissue the certificate with the correct name; renewal alone would not fix a hostname mismatch, since the dates were never the problem.",
           "correct": true,
           "why": "A hostname mismatch, an untrusted chain, and clock skew all produce a similar-looking warning to expiry but need different remediations, and reissuing with the right name is what a mismatch actually requires.",
           "provenance": {
@@ -2847,7 +2847,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — an expired certificate still encrypts perfectly well; what has failed is trust, and the client refuses the connection rather than downgrading it.",
+          "text": "No. An expired certificate still encrypts perfectly well; what has failed is trust, and the client refuses the connection rather than downgrading it.",
           "correct": true,
           "why": "Expiry invalidates trust in the certificate, not the cryptography itself, so \"the connection is unencrypted\" is the wrong reading of the failure.",
           "provenance": {
@@ -2995,7 +2995,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Unrecoverable — the header holds the wrapped volume key, and destroying it makes the data unreadable even with the correct passphrase.",
+          "text": "Unrecoverable, because the header holds the wrapped volume key, and destroying it makes the data unreadable even with the correct passphrase.",
           "correct": true,
           "why": "The passphrase only unwraps the volume key stored in the header; without that header, there is nothing left for the correct passphrase to unwrap.",
           "provenance": {
@@ -3291,7 +3291,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A rootkit — and yes, any of the propagation classes, rootkits included, can carry any payload, ransomware among them.",
+          "text": "A rootkit, and yes, any of the propagation classes, rootkits included, can carry any payload, ransomware among them.",
           "correct": true,
           "why": "The guide defines a rootkit specifically by its hiding behaviour and states that the classifications describe propagation and packaging, not payload, so any of them can carry ransomware.",
           "provenance": {
@@ -3443,7 +3443,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Whether anything runs on the victim host — a denial of service overwhelms from outside without executing there, while malware requires code on the host by definition.",
+          "text": "Whether anything runs on the victim host, since a denial of service overwhelms from outside without executing there, while malware requires code on the host by definition.",
           "correct": true,
           "why": "The comparison names execution on the victim as the separating axis: a DoS needs only traffic, while ransomware and malware generally require something to run.",
           "provenance": {
@@ -3739,7 +3739,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Who supplies the credential — the attacker derives or replays it themselves in one case, and the account holder hands it over in the other.",
+          "text": "Who supplies the credential: the attacker derives or replays it themselves in one case, and the account holder hands it over in the other.",
           "correct": true,
           "why": "The comparison's separating axis is exactly this: the user is unaware in a guessing or stuffing attack but has to actively participate in a phishing attack.",
           "provenance": {
@@ -4031,7 +4031,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — it is a post-access step; the phished credential was the way in, and the writable service unit is what turned that limited access into more.",
+          "text": "No. It is a post-access step; the phished credential was the way in, and the writable service unit is what turned that limited access into more.",
           "correct": true,
           "why": "The guide is explicit that escalation is a post-access step, not a way in, and that ordering is exactly what the exam tests.",
           "provenance": {
@@ -4105,7 +4105,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Horizontal escalation — reaching another account's data at the same privilege level rather than moving up to root.",
+          "text": "Horizontal escalation, reaching another account's data at the same privilege level rather than moving up to root.",
           "correct": true,
           "why": "The guide defines horizontal escalation as moving sideways to another account at the same level, which is exactly what reading a peer's private files without gaining root describes.",
           "provenance": {
@@ -4251,7 +4251,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — insider threat covers harm by someone with legitimate access whether it is deliberate or accidental, and a misdirected or misconfigured disclosure is the accidental case named directly.",
+          "text": "Yes. Insider threat covers harm by someone with legitimate access, deliberate or accidental, and a misdirected or misconfigured disclosure is the accidental case named directly.",
           "correct": true,
           "why": "The guide's definition explicitly includes accidental harm — a misdirected file or a public bucket — alongside deliberate theft or sabotage.",
           "provenance": {
@@ -4400,7 +4400,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The 6.5 on the login service, because deployment and reachability — not the raw CVSS number alone — should drive patch priority.",
+          "text": "The 6.5 on the login service, because deployment and reachability, not the raw CVSS number alone, should drive patch priority.",
           "correct": true,
           "why": "The guide states directly that a 9.8 in software that is never run and unreachable may matter less than a 6.5 on an internet-facing service, since exposure is what turns a score into actual risk.",
           "provenance": {
@@ -4625,7 +4625,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing, on a flat network — segmentation is the control that limits lateral movement once inside, and the perimeter firewall alone does not provide it.",
+          "text": "On a flat network, nothing; segmentation is the control that limits lateral movement once inside, and the perimeter firewall alone does not provide it.",
           "correct": true,
           "why": "The guide states this exactly: a strong perimeter firewall around a flat internal network still leaves an attacker who gets inside free to move laterally, which segmentation is what addresses.",
           "provenance": {
@@ -4699,7 +4699,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a stateful firewall tracks connection state and allows return traffic for a permitted outbound flow without a separate inbound rule.",
+          "text": "No, since a stateful firewall tracks connection state and allows return traffic for a permitted outbound flow without a separate inbound rule.",
           "correct": true,
           "why": "Stateful filtering is precisely what lets return traffic for a permitted flow through automatically, which is why the rule set can stay default-deny elsewhere.",
           "provenance": {
@@ -4845,7 +4845,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Present tense versus latent state — the IDPS answers whether something is happening right now, while the scanner answers what could be exploited if someone tried.",
+          "text": "Present tense versus latent state. The IDPS answers whether something is happening right now, while the scanner answers what could be exploited if someone tried.",
           "correct": true,
           "why": "The comparison names this exact axis: continuous observation of live activity versus a scheduled or pipeline-run check of configured state.",
           "provenance": {
@@ -4918,7 +4918,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Security logging and monitoring — it asks about the operational pipeline that makes records survive and get seen, not about the AAA-triad property of recording actions.",
+          "text": "Security logging and monitoring, since it asks about the operational pipeline that makes records survive and get seen, not about the AAA-triad property of recording actions.",
           "correct": true,
           "why": "The guide draws this line directly: accounting is the per-identity record itself, while shipping, clock synchronisation, retention and alerting are this topic's operational pipeline.",
           "provenance": {
@@ -5064,7 +5064,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — that six-step sequence is SANS's model, commonly abbreviated PICERL; no revision of NIST SP 800-61 has ever published it.",
+          "text": "No. That six-step sequence is SANS's model, commonly abbreviated PICERL; no revision of NIST SP 800-61 has ever published it.",
           "correct": true,
           "why": "The guide corrects this exact misattribution: Rev. 2 used a four-phase lifecycle and Rev. 3 replaced that with the six CSF 2.0 Functions, neither of which is PICERL.",
           "provenance": {
@@ -5212,7 +5212,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "None on the installed operating system itself — that requires boot-path controls such as a firmware password and a boot loader password, layered with physical access control.",
+          "text": "None on the installed operating system itself, which requires boot-path controls such as a firmware password and a boot loader password, layered with physical access control.",
           "correct": true,
           "why": "The guide states directly that an attacker at the console operates below the level most software controls occupy, so boot-path and physical controls, not the installed OS, are what address this.",
           "provenance": {
@@ -5286,7 +5286,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — media that leaves the building is wiped or destroyed rather than merely deleted, since ordinary deletion does not remove the underlying data.",
+          "text": "No, because media that leaves the building is wiped or destroyed rather than merely deleted; ordinary deletion does not remove the underlying data.",
           "correct": true,
           "why": "The guide's practice for secure disposal is explicitly wiping or destruction, not ordinary file deletion, which typically leaves the underlying bytes recoverable.",
           "provenance": {

@@ -158,7 +158,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The kernel — the privileged core that performs scheduling, memory management, and permission enforcement itself, with everything else built above it.",
+          "text": "The kernel, being the privileged core that performs scheduling, memory management, and permission enforcement itself, with everything else built above it.",
           "correct": true,
           "why": "These are the specific responsibilities the guide assigns to the kernel by name, not to the OS as a whole.",
           "provenance": {
@@ -306,7 +306,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — root is a user-space account privilege; the process still runs in the CPU's restricted execution mode and must still cross a system call to reach the kernel.",
+          "text": "Root is a user-space account privilege, so no; the process still runs in the CPU's restricted execution mode and must still cross a system call to reach the kernel.",
           "correct": true,
           "why": "Kernel space is a CPU-enforced execution mode entirely separate from any Unix user account, including root.",
           "provenance": {
@@ -600,7 +600,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`cd` is a shell builtin with no standalone binary on PATH, so the external `which` — which only searches PATH — finds nothing, even though the shell itself executes it directly.",
+          "text": "`cd` is a shell builtin with no standalone binary on PATH, so the external `which`, searching only PATH, finds nothing, even though the shell itself executes it directly.",
           "correct": true,
           "why": "The guide names `cd` specifically as a builtin that `which` cannot see, which is exactly this symptom.",
           "provenance": {
@@ -672,7 +672,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the terminal is displaying correctly; it is the shell's foreground command that is hung, which needs a signal (Ctrl-C) rather than restarting the terminal emulator.",
+          "text": "No; the terminal is displaying correctly. It is the shell's foreground command that is hung, which needs a signal (Ctrl-C) rather than restarting the terminal emulator.",
           "correct": true,
           "why": "Casual speech conflates the two, but the fix differs: a genuinely frozen emulator needs killing at the window-manager level, a hung command needs a signal instead.",
           "provenance": {
@@ -744,7 +744,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It is acting as the terminal — it carries keyboard input to the remote shell and renders the shell's output back, without interpreting any of the commands itself.",
+          "text": "It is acting as the terminal, carrying keyboard input to the remote shell and rendering the shell's output back, without interpreting any of the commands itself.",
           "correct": true,
           "why": "A remote session over SSH is named directly as a modern form of terminal in the guide, alongside a physical device or a terminal emulator window.",
           "provenance": {
@@ -1191,7 +1191,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the distribution names one specific installable system (for example Ubuntu 24.04), while the family names the packaging lineage it shares with others (the Debian family).",
+          "text": "No, since the distribution names one specific installable system (for example Ubuntu 24.04), while the family names the packaging lineage it shares with others (the Debian family).",
           "correct": true,
           "why": "Granularity is the separating axis: a distribution is a singular product, a family is a category spanning several products.",
           "provenance": {
@@ -1266,7 +1266,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`dnf`, using `.rpm` packages — Fedora belongs to the Red Hat family.",
+          "text": "`dnf`, using `.rpm` packages, since Fedora belongs to the Red Hat family.",
           "correct": true,
           "why": "Fedora is a Red Hat-family distribution, and `dnf`/`.rpm` is that family's tooling.",
           "provenance": {
@@ -1487,7 +1487,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "More frequent, active maintenance — updates arrive continuously, and the team must absorb behaviour changes as they land rather than on a scheduled cadence.",
+          "text": "More frequent, active maintenance; updates arrive continuously, and the team must absorb behaviour changes as they land rather than on a scheduled cadence.",
           "correct": true,
           "why": "The trade-off is explicit: rolling systems run the newest software at the cost of needing more frequent, active maintenance.",
           "provenance": {
@@ -1561,7 +1561,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — 'Linux' names the kernel alone and is always accurate wherever that kernel runs; 'GNU/Linux' names that kernel specifically paired with a GNU userland, which not every Linux system has.",
+          "text": "No. 'Linux' names the kernel alone and is always accurate wherever that kernel runs; 'GNU/Linux' names that kernel specifically paired with a GNU userland, which not every Linux system has.",
           "correct": true,
           "why": "Android is the guide's own counter-example: it runs the Linux kernel with a non-GNU userland, so 'Linux' is the safer umbrella term.",
           "provenance": {
@@ -2156,7 +2156,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — with hyperthreading, the logical processor count exceeds the physical core count; `lscpu` separates sockets, cores, and threads explicitly in its fuller output.",
+          "text": "No. With hyperthreading, the logical processor count exceeds the physical core count; `lscpu` separates sockets, cores, and threads explicitly in its fuller output.",
           "correct": true,
           "why": "This is the guide's own trap: 'number of CPUs' is ambiguous between sockets, physical cores, and logical processors, and 16 here counts logical processors.",
           "provenance": {
@@ -2230,7 +2230,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "'available' — it estimates what a new process could actually get, correctly accounting for reclaimable cache that the raw 'free' column does not credit back.",
+          "text": "'available', which estimates what a new process could actually get, correctly accounting for reclaimable cache that the raw 'free' column does not credit back.",
           "correct": true,
           "why": "The guide is explicit that 'free' looks misleadingly low because idle RAM is being used as disk cache; 'available' is the honest figure for this judgement.",
           "provenance": {
@@ -2378,7 +2378,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Acting on the wrong device — `sda1` is one partition of the whole disk `sda`, and operations meant for the full disk would then target only part of it.",
+          "text": "Acting on the wrong device; `sda1` is one partition of the whole disk `sda`, and operations meant for the full disk would then target only part of it.",
           "correct": true,
           "why": "The guide names this specific misreading: treating a partition row as if it were the whole disk and acting on the wrong device.",
           "provenance": {
@@ -2604,7 +2604,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An architecture mismatch — the image's instruction set does not match the host's, not a missing dependency inside the image.",
+          "text": "An architecture mismatch; the image's instruction set does not match the host's, not a missing dependency inside the image.",
           "correct": true,
           "why": "This exact symptom is named directly: an architecture mismatch producing an unhelpful failure message, easily misread as a missing-package error.",
           "provenance": {
@@ -2831,7 +2831,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The device's own firmware — low-level software embedded in the device itself, distinct from and running independently of the operating system.",
+          "text": "The device's own firmware, low-level software embedded in the device itself, distinct from and running independently of the operating system.",
           "correct": true,
           "why": "Firmware runs on the device's own controller, below the OS entirely; no kernel module load can fix a problem that lives at that separate layer.",
           "provenance": {
@@ -2977,7 +2977,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — GUI vs CLI names the interface paradigm as a whole, graphical or text-based; shell and terminal are both specifically components on the CLI side of that split.",
+          "text": "No. GUI vs CLI names the interface paradigm as a whole, graphical or text-based; shell and terminal are both specifically components on the CLI side of that split.",
           "correct": true,
           "why": "The separating axis is level: one is a category the other sits inside of, not two names for one comparison.",
           "provenance": {
@@ -3123,7 +3123,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — swapping desktop environments on the same distribution and display server is generally supported, since the choice is independent of the distribution.",
+          "text": "Yes. Swapping desktop environments on the same distribution and display server is generally supported, since the choice is independent of the distribution.",
           "correct": true,
           "why": "The guide states this directly: desktop environment choice is independent of which distribution is installed, and swapping is generally supported.",
           "provenance": {
@@ -3197,7 +3197,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Wayland — it is the newer replacement for the older X11 protocol.",
+          "text": "Wayland, the newer replacement for the older X11 protocol.",
           "correct": true,
           "why": "This is the recognition-level fact the concept tests: know that Wayland is newer, not the protocol internals of either.",
           "provenance": {

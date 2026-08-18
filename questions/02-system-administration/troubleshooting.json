@@ -227,7 +227,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "As unlikely to be literally true — certificate expiry, log growth filling a disk, a scheduled job, or an unattended upgrade can each alter behaviour with no deliberate human action.",
+          "text": "As unlikely to be literally true, since certificate expiry, log growth filling a disk, a scheduled job, or an unattended upgrade can each alter behaviour with no deliberate human action.",
           "correct": true,
           "why": "Passive changes happen constantly and are the whole reason this heuristic exists; treating them as \"nothing\" ends the investigation on a false premise.",
           "provenance": {
@@ -299,7 +299,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing about the reported fault — root is exempt from the ordinary mode checks, so the failing condition was never exercised.",
+          "text": "Nothing about the reported fault; root is exempt from the ordinary mode checks, so the failing condition was never exercised.",
           "correct": true,
           "why": "Reproducing as a different, more privileged user changes the conditions of the test and can make exactly the fault being investigated disappear.",
           "provenance": {
@@ -451,7 +451,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The command's own exit status was 0 — it succeeded from the shell's point of view even though its output looked like a failure.",
+          "text": "The command's own exit status was 0, so it succeeded from the shell's point of view even though its output looked like a failure.",
           "correct": true,
           "why": "Exit status, not printed output, is how scripts and pipelines detect failure, and 0 is unambiguous success regardless of what was written to the terminal.",
           "provenance": {
@@ -833,7 +833,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`df -i /var` — if `IUse%` is at 100%, the inode pool is exhausted, which rules out any remedy based on file size.",
+          "text": "`df -i /var`. If `IUse%` is at 100%, the inode pool is exhausted, which rules out any remedy based on file size.",
           "correct": true,
           "why": "Data blocks and inodes are exhausted independently, and the block figure alone cannot show which one has actually run out.",
           "provenance": {
@@ -1150,7 +1150,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It rules out CPU saturation — `uptime`'s figure counts D-state processes too, and `top`'s high `wa` shows they're waiting on storage, not the processor.",
+          "text": "It rules out CPU saturation; `uptime`'s figure counts D-state processes too, and `top`'s high `wa` shows they're waiting on storage, not the processor.",
           "correct": true,
           "why": "Load average counts runnable and uninterruptible-sleep processes together, and a high I/O-wait field on the CPU-state line identifies which of the two is actually queueing.",
           "provenance": {
@@ -1229,7 +1229,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It depends on core count; divide the load by `nproc` — 6 on a 32-core host is unremarkable, 6 on a 2-core host is severe.",
+          "text": "It depends on core count; divide the load by `nproc`. A load of 6 on a 32-core host is unremarkable, 6 on a 2-core host is severe.",
           "correct": true,
           "why": "Load average is a count of queued and running work, not normalised for CPU count on its own, so the same figure means different things on different hardware.",
           "provenance": {
@@ -1459,7 +1459,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`ss -tulpn` — if it shows the socket bound to `127.0.0.1` rather than `0.0.0.0`, that explains a refusal from every remote client without any firewall rule being involved.",
+          "text": "`ss -tulpn`. If it shows the socket bound to `127.0.0.1` rather than `0.0.0.0`, that explains a refusal from every remote client without any firewall rule being involved.",
           "correct": true,
           "why": "A daemon bound only to the loopback address is up, healthy and unreachable from anywhere else, and every remote test fails the same way regardless of firewall rules.",
           "provenance": {
@@ -1690,7 +1690,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "In `systemd-resolved`'s own configuration — 127.0.0.53 is the local stub resolver, and this file doesn't hold the actual upstream servers on such systems.",
+          "text": "In `systemd-resolved`'s own configuration, since 127.0.0.53 is the local stub resolver and this file doesn't hold the actual upstream servers on such systems.",
           "correct": true,
           "why": "On systems running `systemd-resolved`, `/etc/resolv.conf` is commonly a symlink to a generated stub file naming only the local stub address, while the real upstream servers are held by the resolver service.",
           "provenance": {

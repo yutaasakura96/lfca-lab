@@ -1340,7 +1340,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The directory exists — its permissions simply do not grant that user access",
+          "text": "The directory exists, but its permissions simply do not grant that user access",
           "correct": true,
           "why": "\"Permission denied\" is reported only when the target is present and access to it is refused; a genuinely missing path produces \"No such file or directory\" instead. Distributions ship `/root` with restrictive modes — 700 on Debian-derived systems, 550 on Red Hat-derived ones — so an unprivileged `cd` is turned away either way.",
           "provenance": {
@@ -6367,7 +6367,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The first file, `old.conf` — present there and absent from `new.conf`",
+          "text": "The first file, `old.conf`, which is present there and absent from `new.conf`",
           "correct": true,
           "why": "In unified output, the `---` header names the first file and `+++` names the second; a `-` line is present in the first file and absent from the second, while `+` marks the reverse.",
           "provenance": {
@@ -7962,7 +7962,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing conclusive — ICMP is commonly filtered, so a healthy host can still fail to answer echo requests",
+          "text": "Nothing conclusive, since ICMP is commonly filtered and a healthy host can still fail to answer echo requests",
           "correct": true,
           "why": "`ping` proves reachability when it succeeds, but failure proves neither reachability nor unreachability, because ICMP echo requests are very commonly filtered by firewalls even when the actual service answers fine.",
           "provenance": {

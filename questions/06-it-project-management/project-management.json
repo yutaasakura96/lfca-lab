@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The migration, because it has a defined end date and a unique objective \u2014 the monthly patching that follows is ongoing operations, however large an effort it continues to be.",
+          "text": "The migration, because it has a defined end date and a unique objective; the monthly patching that follows is ongoing operations, however large an effort it continues to be.",
           "correct": true,
           "why": "Temporariness \u2014 a defined start, end and objective \u2014 is the definition; effort and technical difficulty are not part of it.",
           "provenance": {
@@ -84,7 +84,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Quality \u2014 with scope up and both the schedule and the budget frozen, it is the only remaining quantity the model bounds.",
+          "text": "With scope up and both the schedule and the budget frozen, quality is the only remaining quantity the model bounds.",
           "correct": true,
           "why": "Fixing two of the three legs \u2014 schedule and cost here \u2014 determines the third; with scope added and nothing else allowed to move, quality is what gives.",
           "provenance": {
@@ -156,7 +156,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes \u2014 a stakeholder is anyone affected by the project or able to affect it, and the ability to block release satisfies that on its own.",
+          "text": "Yes. A stakeholder is anyone affected by the project or able to affect it, and the ability to block release satisfies that on its own.",
           "correct": true,
           "why": "The test is impact-or-influence, not proximity or use \u2014 someone who can block release plainly satisfies it.",
           "provenance": {
@@ -302,7 +302,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Signed-off design and base image \u2014 both are tangible artefacts the project produced and handed over.",
+          "text": "Signed-off design and base image, both of them tangible artefacts the project produced and handed over.",
           "correct": true,
           "why": "A design document and a base image are things that exist and were produced \u2014 the defining property of a deliverable.",
           "provenance": {
@@ -447,7 +447,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Waterfall \u2014 its main cost is expensive late change, which a genuinely fixed, stable scope has already ruled out.",
+          "text": "Waterfall, since its main cost is expensive late change, which a genuinely fixed, stable scope has already ruled out.",
           "correct": true,
           "why": "Waterfall's predictability is worth most exactly when requirements are genuinely stable, which fixed regulatory scope describes.",
           "provenance": {
@@ -744,7 +744,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Broken the one property a Sprint exists to provide \u2014 a fixed length inside which forecasting from past Sprints stays meaningful.",
+          "text": "Broken the one property a Sprint exists to provide, namely a fixed length inside which forecasting from past Sprints stays meaningful.",
           "correct": true,
           "why": "The box's fixed length is the mechanism, not a detail; extending it removes the one property forecasting from past Sprints depends on.",
           "provenance": {
@@ -888,7 +888,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The Sprint Retrospective \u2014 it inspects the team's own process, while the Review inspects the product and what to build next.",
+          "text": "The Sprint Retrospective, which inspects the team's own process, whereas the Review inspects the product and what to build next.",
           "correct": true,
           "why": "The Review inspects the Increment and discusses what to do next; process complaints about how the team works belong to the Retrospective.",
           "provenance": {
@@ -1179,7 +1179,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The role and benefit clauses \u2014 without a stated 'so that', the team cannot judge whether a different, cheaper implementation would satisfy the actual need.",
+          "text": "The role and benefit clauses; without a stated 'so that', the team cannot judge whether a different, cheaper implementation would satisfy the actual need.",
           "correct": true,
           "why": "The item names an implementation, not a role, a capability or a reason; the benefit clause is what lets the team propose an alternative solution to the same underlying need.",
           "provenance": {
@@ -1323,7 +1323,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Its function \u2014 criteria agreed before work starts exist to make 'complete' decidable in advance, and changing them mid-implementation reopens what should already be settled.",
+          "text": "Its function, since criteria agreed before work starts exist to make 'complete' decidable in advance, and changing them mid-implementation reopens what should already be settled.",
           "correct": true,
           "why": "Criteria drafted before work starts let 'complete' be decided objectively; changing them after implementation begins turns that decision into something argued about instead.",
           "provenance": {
@@ -1396,7 +1396,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 a team-level Definition of Done can only be stricter than an organisational standard where one exists, never weaker.",
+          "text": "No. A team-level Definition of Done can only be stricter than an organisational standard where one exists, never weaker.",
           "correct": true,
           "why": "Where an organisational standard exists, all Scrum Teams must follow it as a minimum; a team may add to it but not relax it.",
           "provenance": {
@@ -1468,7 +1468,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It cannot be presented at the Sprint Review \u2014 work that hasn't met the Definition of Done isn't part of the Increment and returns to the Product Backlog.",
+          "text": "It cannot be presented at the Sprint Review, because work that hasn't met the Definition of Done isn't part of the Increment and returns to the Product Backlog.",
           "correct": true,
           "why": "The Guide's rule ties directly to this scenario: undone work is not releasable and cannot even be shown at the Review.",
           "provenance": {
@@ -1684,7 +1684,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The time axis \u2014 a Gantt chart plots tasks against dates and shows durations and dependencies, which the work breakdown structure has none of.",
+          "text": "The time axis, since a Gantt chart plots tasks against dates and shows durations and dependencies, which the work breakdown structure has none of.",
           "correct": true,
           "why": "Time is the chart's defining axis; the work breakdown structure is a decomposition of scope and carries no dates or durations at all.",
           "provenance": {
@@ -1759,7 +1759,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing \u2014 only the longest chain of dependent tasks determines the earliest possible finish, and this task isn't part of it.",
+          "text": "Nothing, given that only the longest chain of dependent tasks determines the earliest possible finish, and this task isn't part of it.",
           "correct": true,
           "why": "'Critical' means longest-duration and zero-float, not most important \u2014 a task off that chain can typically shrink or grow without moving the finish.",
           "provenance": {
@@ -1906,7 +1906,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 assessment produces a priority order, never an action; deciding to avoid, mitigate, transfer or accept the risk is the separate step of response.",
+          "text": "No, because assessment produces a priority order, never an action; deciding to avoid, mitigate, transfer or accept the risk is the separate step of response.",
           "correct": true,
           "why": "Assessment scores likelihood and impact so risks can be ranked; response is the distinct activity of deciding what to actually do about the ranked ones.",
           "provenance": {
@@ -1978,7 +1978,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes \u2014 the defining property is the absence of assessment, approval and a re-baselined schedule and budget, not the size of the addition.",
+          "text": "Yes. The defining property is the absence of assessment, approval and a re-baselined schedule and budget, not the size of the addition.",
           "correct": true,
           "why": "Scope grew without an impact assessment, approval, or an updated baseline; that absence of control is what makes it creep, regardless of how small the field sounds.",
           "provenance": {
@@ -2051,7 +2051,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 this is change control working as intended: the change was assessed, decided by someone with authority, and written back into the baseline.",
+          "text": "No; this is change control working as intended: the change was assessed, decided by someone with authority, and written back into the baseline.",
           "correct": true,
           "why": "The examinable subtlety is that scope changing is not itself the failure; assessment, a named approver and a baseline update are exactly what separates a controlled change from creep.",
           "provenance": {
@@ -2199,7 +2199,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The approved change behaves exactly like creep \u2014 the plan still shows the old scope, so the extra work is absorbed silently rather than tracked.",
+          "text": "Because the plan still shows the old scope, the approved change behaves exactly like creep, and the extra work is absorbed silently rather than tracked.",
           "correct": true,
           "why": "Without a baseline update, the schedule and budget still show the old scope, so the extra work has no home in the plan and is absorbed the same way an uncontrolled addition would be.",
           "provenance": {
@@ -2272,7 +2272,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Exactly one person is conventionally Accountable per activity, though several may be Responsible \u2014 two Accountable owners is the malformed part.",
+          "text": "Exactly one person is conventionally Accountable per activity, though several may be Responsible; two Accountable owners is the malformed part.",
           "correct": true,
           "why": "Multiple people can share doing the work, which is what Responsible captures; Accountable is conventionally singular, so it names the one person answerable for the outcome.",
           "provenance": {
@@ -2345,7 +2345,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An issue \u2014 it has already happened and needs resolving and escalating, unlike a risk, which is an uncertain future event assessed for likelihood and impact.",
+          "text": "An issue, as it has already happened and needs resolving and escalating, unlike a risk, which is an uncertain future event assessed for likelihood and impact.",
           "correct": true,
           "why": "A risk is an uncertain future event; the vendor's miss has already occurred, which is exactly what puts it in the tracker as an issue rather than the risk register.",
           "provenance": {
@@ -2636,7 +2636,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No \u2014 acceptance against the original criteria and handover to operations are what actually end a project, and neither has happened yet.",
+          "text": "No, since acceptance against the original criteria and handover to operations are what actually end a project, and neither has happened yet.",
           "correct": true,
           "why": "The last piece of work finishing isn't the same as the project ending; acceptance against the agreed criteria and handover to operations are the steps that actually close it, and both are still outstanding.",
           "provenance": {

@@ -84,7 +84,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Documentation — reconstructing current state from a change history is exactly the work it exists to save.",
+          "text": "Documentation, since reconstructing current state from a change history is exactly the work it exists to save.",
           "correct": true,
           "why": "A stack of change records is not documentation, because nobody should have to replay history to learn what is true now.",
           "provenance": {
@@ -230,7 +230,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Independent approval — the approver must be someone other than the requestor.",
+          "text": "Independent approval, meaning the approver must be someone other than the requestor.",
           "correct": true,
           "why": "Configuration change control requires a change to be vetted by an authorised individual independent of whoever proposed it.",
           "provenance": {
@@ -447,7 +447,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Fifty files with duplicated entries — the script is fully automated but not idempotent.",
+          "text": "Fifty files with duplicated entries; the script is fully automated but not idempotent.",
           "correct": true,
           "why": "Automation without idempotency multiplies a mistake instead of removing it, and appending unconditionally is exactly that mistake.",
           "provenance": {
@@ -520,7 +520,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The system already matched the intended state — a no-op second run is the signal of success, not evidence the tool did nothing useful.",
+          "text": "The system already matched the intended state; a no-op second run is the signal of success, not evidence the tool did nothing useful.",
           "correct": true,
           "why": "An idempotent operation is expected to report no change once the desired state is already in force.",
           "provenance": {
@@ -593,7 +593,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Is this machine configured as declared — not whether the machine exists at all.",
+          "text": "Is this machine configured as declared, rather than whether the machine exists at all.",
           "correct": true,
           "why": "Configuration management acts on the state inside systems that already exist; it configures rather than creates.",
           "provenance": {
@@ -812,7 +812,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The risk remains unbounded — testing reduces the chance of a break, but only a rollback path bounds the damage if it happens anyway.",
+          "text": "The risk remains unbounded; testing reduces the chance of a break, but only a rollback path bounds the damage if it happens anyway.",
           "correct": true,
           "why": "The two halves are separately examinable: testing lowers the odds of failure, and a rollback path limits the consequence of one.",
           "provenance": {
@@ -1105,7 +1105,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a window states only when disruptive work may occur, not whether it may happen at all.",
+          "text": "No. A window states only when disruptive work may occur, not whether it may happen at all.",
           "correct": true,
           "why": "Approval and scheduling are two different boundaries, and being inside the window authorises nothing on its own.",
           "provenance": {
@@ -1254,7 +1254,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The runbook — a numbered, sequential procedure with an expected result at each step, written for exactly this situation.",
+          "text": "The runbook, a numbered, sequential procedure with an expected result at each step, written for exactly this situation.",
           "correct": true,
           "why": "A runbook is instruction rather than explanation, written to be followed under pressure by someone who may not know the system.",
           "provenance": {
@@ -1327,7 +1327,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Unknown — an untested runbook is an assumption, since its steps rot silently as the system changes.",
+          "text": "Unknown. An untested runbook is an assumption, since its steps rot silently as the system changes.",
           "correct": true,
           "why": "The correct maintenance of a runbook is exercising it, not merely storing it, and the moment of real use is the worst time to discover it has rotted.",
           "provenance": {
@@ -1546,7 +1546,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — SSH keys, API tokens, VPN certificates, third-party accounts and shared secrets typically survive the disabling of that one account.",
+          "text": "No. SSH keys, API tokens, VPN certificates, third-party accounts and shared secrets typically survive the disabling of that one account.",
           "correct": true,
           "why": "Disabling the login account is not revoking access; everything held outside that account survives its disabling untouched.",
           "provenance": {

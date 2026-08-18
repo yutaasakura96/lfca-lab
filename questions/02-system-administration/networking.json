@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Layer 4, Transport — the packet reached the host and something answered with a refusal, which is a transport-layer event.",
+          "text": "Layer 4, Transport. The packet reached the host and something answered with a refusal, which is a transport-layer event.",
           "correct": true,
           "why": "TCP and port numbers live at the transport layer, and an instant refusal is generated there, not by the application code above it.",
           "provenance": {
@@ -232,7 +232,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The device performs two functions — switching at layer 2 and routing at layer 3 — and combining them in one box does not move switching to a different layer.",
+          "text": "The device performs two functions (switching at layer 2 and routing at layer 3), and combining them in one box does not move switching to a different layer.",
           "correct": true,
           "why": "The layer at which a function operates is defined by what the function does, not by which chassis happens to also perform another function.",
           "provenance": {
@@ -378,7 +378,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "ARP joins layer 3 addressing to layer 2 delivery — it sits awkwardly across the link/internet boundary rather than cleanly inside one layer.",
+          "text": "Because ARP joins layer 3 addressing to layer 2 delivery, it sits awkwardly across the link/internet boundary rather than cleanly inside one layer.",
           "correct": true,
           "why": "ARP resolves an internet-layer address to a link-layer address, so its result is consumed at the boundary between the two layers rather than by either alone.",
           "provenance": {
@@ -523,7 +523,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the model is named after two of its protocols, but UDP and ICMP are part of the same TCP/IP stack, so a UDP application still uses it.",
+          "text": "No. The model is named after two of its protocols, but UDP and ICMP are part of the same TCP/IP stack, so a UDP application still uses it.",
           "correct": true,
           "why": "'TCP/IP' names the model, not an exclusive requirement to use TCP; UDP operates at the same transport layer alongside it.",
           "provenance": {
@@ -595,7 +595,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The IP address (IPv4 or IPv6) — it identifies the internetwork endpoint and is preserved end to end, while the MAC address is rewritten at every routed hop.",
+          "text": "The IP address (IPv4 or IPv6), which identifies the internetwork endpoint and is preserved end to end, while the MAC address is rewritten at every routed hop.",
           "correct": true,
           "why": "IP addressing scopes to the whole internetwork and survives every hop, while a MAC address only identifies an interface on one link and is replaced by each router along the way.",
           "provenance": {
@@ -889,7 +889,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — every interface self-assigns a link-local address automatically, so seeing `fe80::` is normal even when no site-wide IPv6 routing exists.",
+          "text": "No, every interface self-assigns a link-local address automatically, so seeing `fe80::` is normal even when no site-wide IPv6 routing exists.",
           "correct": true,
           "why": "Link-local addresses in the `fe80::/10` range are configured automatically and never routed off the link, independent of whether the site routes IPv6 at all.",
           "provenance": {
@@ -1038,7 +1038,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`::1`, checked with `ip -6 addr` to confirm it is present, then pinged — the IPv6 loopback address, the counterpart to `127.0.0.1`.",
+          "text": "`::1`, the IPv6 loopback address and the counterpart to `127.0.0.1`, checked with `ip -6 addr` to confirm it is present, then pinged.",
           "correct": true,
           "why": "`::1/128` is the IPv6 loopback address, and `ip -6 addr` restricts output to IPv6 addresses only, making it the natural place to confirm it is assigned.",
           "provenance": {
@@ -1187,7 +1187,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "255.255.255.192 — a /26 leaves 6 host bits, so the mask sets the top two bits of the last octet, giving 192 in that octet.",
+          "text": "A /26 leaves 6 host bits, so the mask sets the top two bits of the last octet, giving 192 there: 255.255.255.192.",
           "correct": true,
           "why": "/26 means 26 leading one-bits; the first three octets are entirely ones (255.255.255) and the last octet has its top two bits set, which is 192 in decimal.",
           "provenance": {
@@ -1263,7 +1263,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A /26 is smaller — a quarter the size of a /24, because each additional bit in the prefix halves the number of addresses in the block.",
+          "text": "A /26 is smaller, a quarter the size of a /24, because each additional bit in the prefix halves the number of addresses in the block.",
           "correct": true,
           "why": "/24 leaves 8 host bits (256 addresses) and /26 leaves 6 host bits (64 addresses); 64 is a quarter of 256, matching the two extra prefix bits.",
           "provenance": {
@@ -1336,7 +1336,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Six — /29 leaves 3 host bits, giving 8 total addresses, minus the network and broadcast addresses that cannot be assigned to a host.",
+          "text": "Six, because /29 leaves 3 host bits, giving 8 total addresses, minus the network and broadcast addresses that cannot be assigned to a host.",
           "correct": true,
           "why": "2^(32-29) = 2^3 = 8 total addresses; subtracting the network address and the broadcast address leaves 6 usable host addresses.",
           "provenance": {
@@ -1410,7 +1410,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — RFC 3021 defines /31 as a special case with no reserved network or broadcast address, so both addresses in the two-address block are usable.",
+          "text": "No. RFC 3021 defines /31 as a special case with no reserved network or broadcast address, so both addresses in the two-address block are usable.",
           "correct": true,
           "why": "The subtract-two rule does not apply universally; RFC 3021 carves out /31 specifically for point-to-point links so both addresses serve as host addresses.",
           "provenance": {
@@ -1484,7 +1484,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "10.4.20.0 must be rejected as a host address — /27 leaves 5 host bits for a 32-address block, and the all-zero address 10.4.20.0 is the network address, not a usable host.",
+          "text": "Since /27 leaves 5 host bits for a 32-address block, the all-zero address 10.4.20.0 is the network address and not a usable host, so it must be rejected as a host address.",
           "correct": true,
           "why": "/27 gives a 32-address block spanning 10.4.20.0 to 10.4.20.31; the network address is 10.4.20.0 and the broadcast is 10.4.20.31, so usable hosts run from .1 to .30.",
           "provenance": {
@@ -1558,7 +1558,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the broadcast address depends on the mask, not on the last octet; under a /16 mask, 10.0.0.255 is an ordinary usable host address, not a broadcast.",
+          "text": "No: the broadcast address depends on the mask, not on the last octet; under a /16 mask, 10.0.0.255 is an ordinary usable host address, not a broadcast.",
           "correct": true,
           "why": "In 10.0.0.0/16 the broadcast is 10.0.255.255, so 10.0.0.255 sits well inside the usable range; the same-looking address is only a broadcast under a different mask such as /24.",
           "provenance": {
@@ -1706,7 +1706,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "RFC 2644 (BCP 34) — it changed the required default so that modern routers block receipt and forwarding of directed broadcasts unless explicitly configured otherwise.",
+          "text": "RFC 2644 (BCP 34), which changed the required default so that modern routers block receipt and forwarding of directed broadcasts unless explicitly configured otherwise.",
           "correct": true,
           "why": "RFC 2644, published as BCP 34, is the authority that moved the default away from forwarding directed broadcasts, in response to their use in amplification attacks.",
           "provenance": {
@@ -1781,7 +1781,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — 100.64.0.0/10 is carrier-grade NAT space, a fourth non-globally-routable range defined separately from the three RFC 1918 blocks.",
+          "text": "No, 100.64.0.0/10 is carrier-grade NAT space, a fourth non-globally-routable range defined separately from the three RFC 1918 blocks.",
           "correct": true,
           "why": "RFC 1918 defines exactly three ranges — 10/8, 172.16/12 and 192.168/16 — and 100.64.0.0/10 is a distinct, later-defined range for carrier-grade NAT.",
           "provenance": {
@@ -1856,7 +1856,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — private versus public is a classification of the address itself, while NAT is a rewriting action performed for internet reachability; a network with no internet access needs no NAT at all.",
+          "text": "No. Private versus public is a classification of the address itself, while NAT is a rewriting action performed for internet reachability; a network with no internet access needs no NAT at all.",
           "correct": true,
           "why": "NAT exists specifically because private addresses cannot be routed on the public internet; if there is no internet path to reach, there is nothing for NAT to translate toward.",
           "provenance": {
@@ -1930,7 +1930,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "172.15.4.10 and 172.32.4.10 are wrongly marked — the 172 private range is /12, spanning only 172.16.0.0 through 172.31.255.255, so both fall outside it while 172.20.4.10 is correctly private.",
+          "text": "172.15.4.10 and 172.32.4.10 are wrongly marked. The 172 private range is /12, spanning only 172.16.0.0 through 172.31.255.255, so both fall outside it while 172.20.4.10 is correctly private.",
           "correct": true,
           "why": "The RFC 1918 172 block is 172.16.0.0/12, not the whole 172.0.0.0/8; 172.15.x.x sits just below it and 172.32.x.x sits just above it, both public.",
           "provenance": {
@@ -2003,7 +2003,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — 10.5.2.20 is RFC 1918 private space, which internet routers do not carry, so it can only be reached from outside once something translates it to a public address.",
+          "text": "No; 10.5.2.20 is RFC 1918 private space, which internet routers do not carry, so it can only be reached from outside once something translates it to a public address.",
           "correct": true,
           "why": "Private addresses are not globally routable by design; NAT or an equivalent translation mechanism is required before any external client can reach a service hosted on one.",
           "provenance": {
@@ -2303,7 +2303,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — the whole 127.0.0.0/8 block is reserved for loopback, so 127.0.0.2 and 127.0.0.3 loop back to the host exactly as 127.0.0.1 does, and are occasionally used this way.",
+          "text": "Yes. The whole 127.0.0.0/8 block is reserved for loopback, so 127.0.0.2 and 127.0.0.3 loop back to the host exactly as 127.0.0.1 does, and are occasionally used this way.",
           "correct": true,
           "why": "Loopback reservation covers the entire /8 block, not just the single address 127.0.0.1, so any address in that range behaves identically on the local host.",
           "provenance": {
@@ -2524,7 +2524,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — \"static\" means the configuration is written into the host's persistent network configuration; `ip addr add` is a temporary runtime change that disappears at the next reboot or reconfiguration.",
+          "text": "No, \"static\" means the configuration is written into the host's persistent network configuration; `ip addr add` is a temporary runtime change that disappears at the next reboot or reconfiguration.",
           "correct": true,
           "why": "The distinction is about who holds the configuration and whether it persists, not about whether the address happens to stay the same for now.",
           "provenance": {
@@ -2598,7 +2598,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a dynamic address can remain identical for a long time and still be dynamic; the distinction is about who owns the configuration, not whether the value happens to stay constant.",
+          "text": "No: a dynamic address can remain identical for a long time and still be dynamic; the distinction is about who owns the configuration, not whether the value happens to stay constant.",
           "correct": true,
           "why": "An address staying the same over time is a coincidence of lease renewal, not evidence of static configuration; the server, not the host, still owns and could reassign it.",
           "provenance": {
@@ -2832,7 +2832,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — MAC addresses can be overridden in software, and many systems deliberately randomise them on wireless networks for privacy, which is normal behaviour rather than a fault.",
+          "text": "No. MAC addresses can be overridden in software, and many systems deliberately randomise them on wireless networks for privacy, which is normal behaviour rather than a fault.",
           "correct": true,
           "why": "A MAC is not permanent in practice; software overrides and privacy-driven randomisation on Wi-Fi are expected, documented behaviour, not a sign of hardware failure.",
           "provenance": {
@@ -3061,7 +3061,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The ARP request for 192.0.2.44 went unanswered on this segment — nothing responded, which points at that specific host being off, misconfigured, or on a different segment than assumed.",
+          "text": "The ARP request for 192.0.2.44 went unanswered on this segment; nothing responded, which points at that specific host being off, misconfigured, or on a different segment than assumed.",
           "correct": true,
           "why": "A FAILED state means the address did not answer an ARP request on this segment, which localises the problem to that specific host rather than to routing or a wider network issue.",
           "provenance": {
@@ -3138,7 +3138,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — ARP never crosses a router, so a host never resolves the MAC of an off-subnet destination; the neighbour cache instead holds an entry for the gateway, which is what actually receives the frame.",
+          "text": "No, ARP never crosses a router, so a host never resolves the MAC of an off-subnet destination; the neighbour cache instead holds an entry for the gateway, which is what actually receives the frame.",
           "correct": true,
           "why": "A host addresses off-subnet traffic to the gateway's MAC while keeping the destination's IP, so the neighbour cache legitimately has no entry for a remote address at all.",
           "provenance": {
@@ -3288,7 +3288,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Class C — the first octet 192-223 identifies class C — but under modern classless routing, its real mask could be anything and is not implied by the class at all.",
+          "text": "Class C, identified by the first octet range 192-223. Under modern classless routing, though, its real mask could be anything and is not implied by the class at all.",
           "correct": true,
           "why": "200 falls in the 192-223 range that defines class C historically, but CIDR replaced classful addressing, so the class no longer implies the actual prefix in use.",
           "provenance": {
@@ -3365,7 +3365,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Classful addressing fixed three network sizes (/8, /16, /24) inferred from the address itself; CIDR allows any prefix from /0 to /32 stated explicitly, so a /26 is not a class C network — a class C network was specifically /24.",
+          "text": "Classful addressing fixed three network sizes (/8, /16, /24) inferred from the address itself; CIDR allows any prefix from /0 to /32 stated explicitly, so a /26 is not a class C network; a class C network was specifically /24.",
           "correct": true,
           "why": "The colleague conflates a historical, address-implied /24 default with a CIDR prefix that is explicitly stated and can be any length, including /26, which was never a classful size at all.",
           "provenance": {
@@ -3442,7 +3442,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Class D, the 224-239 range, is reserved for multicast, one-to-many delivery to subscribed group members — it is commonly, and wrongly, read as \"broadcast.\"",
+          "text": "Class D, the 224-239 range, is reserved for multicast, one-to-many delivery to subscribed group members; it is commonly, and wrongly, read as \"broadcast.\"",
           "correct": true,
           "why": "Class D is specifically the multicast range; multicast delivers to subscribers of a group, which is a different delivery model from broadcasting to everyone on a segment.",
           "provenance": {
@@ -3597,7 +3597,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The default gateway, shown by `ip route show default` — a missing or wrong 0.0.0.0/0 entry produces exactly this \"local works, remote does not\" pattern.",
+          "text": "The default gateway, shown by `ip route show default`; a missing or wrong 0.0.0.0/0 entry produces exactly this \"local works, remote does not\" pattern.",
           "correct": true,
           "why": "This is one of the highest-yield troubleshooting symptoms: everything on the local subnet works while nothing beyond it does, which is the signature of a missing or wrong default route.",
           "provenance": {
@@ -3824,7 +3824,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — `ip route show default` without `-6` shows only the IPv4 table; a separate IPv6 default route could still exist and must be checked with `ip -6 route`.",
+          "text": "No. `ip route show default` without `-6` shows only the IPv4 table; a separate IPv6 default route could still exist and must be checked with `ip -6 route`.",
           "correct": true,
           "why": "IPv4 and IPv6 routing tables are separate, so an empty IPv4-only query says nothing about IPv6 connectivity, which requires its own explicit check.",
           "provenance": {
@@ -3898,7 +3898,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The /24 route wins by longest prefix match — 24 matching bits beats 0 — and `ip route get 198.51.100.7` asks the kernel to show the entry it would actually select.",
+          "text": "The /24 route wins by longest prefix match (24 matching bits beats 0), and `ip route get 198.51.100.7` asks the kernel to show the entry it would actually select.",
           "correct": true,
           "why": "Selection is by longest prefix match regardless of listing order, and `ip route get` settles the question definitively by asking the kernel directly rather than inferring from the printed table.",
           "provenance": {
@@ -3976,7 +3976,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Adding a /32 host route for that one destination — a more specific route always beats the default, so it redirects only that address and nothing else.",
+          "text": "Adding a /32 host route for that one destination; a more specific route always beats the default, so it redirects only that address and nothing else.",
           "correct": true,
           "why": "A /32 matches only the single address it names, and longest-prefix-match rules guarantee it is preferred over any less specific route, leaving everything else on the existing path.",
           "provenance": {
@@ -4051,7 +4051,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — `route -n` comes from the deprecated net-tools package, which is frequently absent by default; its absence reflects a distribution choice, not a broken system.",
+          "text": "No, `route -n` comes from the deprecated net-tools package, which is frequently absent by default; its absence reflects a distribution choice, not a broken system.",
           "correct": true,
           "why": "net-tools is legacy and often not installed on current distributions in favour of iproute2; `ip route` remains available and fully functional regardless.",
           "provenance": {
@@ -4585,7 +4585,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — NAT blocks unsolicited inbound traffic as a side effect of having no mapping, not as a policy decision, and it inspects nothing; a network can run NAT with no filtering rules at all.",
+          "text": "No. NAT blocks unsolicited inbound traffic as a side effect of having no mapping, not as a policy decision, and it inspects nothing; a network can run NAT with no filtering rules at all.",
           "correct": true,
           "why": "NAT performs address and port rewriting only; any security benefit is incidental to that mechanism, not the result of NAT applying or enforcing any policy of its own.",
           "provenance": {
@@ -4807,7 +4807,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — separate VLANs are separate broadcast domains, exactly as if the hosts were on physically distinct switches, so a router or a layer 3 switch is required to forward between them.",
+          "text": "No; separate VLANs are separate broadcast domains, exactly as if the hosts were on physically distinct switches, so a router or a layer 3 switch is required to forward between them.",
           "correct": true,
           "why": "A VLAN divides a single physical switch into what behave as separate networks; hosts in different VLANs cannot reach each other without a device that forwards between broadcast domains.",
           "provenance": {
@@ -4954,7 +4954,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "DNS is implicated — it translates names to addresses, and its failure signature is addresses working while names do not; DHCP failure instead shows up as no address at all, or a 169.254 link-local one.",
+          "text": "DNS is implicated: it translates names to addresses, and its failure signature is addresses working while names do not; DHCP failure instead shows up as no address at all, or a 169.254 link-local one.",
           "correct": true,
           "why": "DNS and DHCP are the two automatic-sounding services most often conflated, but their failure signatures are opposite and distinct: one affects naming, the other affects getting an address in the first place.",
           "provenance": {
@@ -5032,7 +5032,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`host` gives the terse output the script wants; `dig` gives the full response detail — sections, flags, TTLs — that a full investigation needs.",
+          "text": "`host` gives the terse output the script wants; `dig` gives the full response detail (sections, flags, TTLs) that a full investigation needs.",
           "correct": true,
           "why": "`host` is deliberately terse and easy to parse, while `dig` shows the complete response structure that a thorough diagnosis needs and the others hide.",
           "provenance": {
@@ -5114,7 +5114,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a resolver being reachable does not mean it will answer for that zone; NXDOMAIN from a working resolver is a data problem, not a connectivity problem.",
+          "text": "No: a resolver being reachable does not mean it will answer for that zone; NXDOMAIN from a working resolver is a data problem, not a connectivity problem.",
           "correct": true,
           "why": "DNS assigns nothing and configures nothing; it only answers questions, and a working, reachable resolver returning NXDOMAIN is reporting that the name does not exist in that zone as far as it knows.",
           "provenance": {
@@ -5191,7 +5191,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Both UDP and TCP, on port 53 — ordinary queries usually travel over UDP, while TCP is used when a response is too large for UDP or for zone transfers.",
+          "text": "Both UDP and TCP, on port 53. Ordinary queries usually travel over UDP, while TCP is used when a response is too large for UDP or for zone transfers.",
           "correct": true,
           "why": "DNS is defined to use both transports on the same port number, with UDP as the common case and TCP reserved for larger responses and zone transfers specifically.",
           "provenance": {
@@ -5504,7 +5504,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — the order is configurable, and reversing it to `dns files` is legal and changes which source wins when both have an entry for the same name.",
+          "text": "Yes, the order is configurable, and reversing it to `dns files` is legal and changes which source wins when both have an entry for the same name.",
           "correct": true,
           "why": "The `hosts:` line is a configuration choice, not a fixed rule; swapping the order to `dns files` is a legitimate configuration that changes precedence.",
           "provenance": {
@@ -5582,7 +5582,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — `/etc/hosts` holds name-to-address mappings directly and takes effect immediately with no restart; `/etc/resolv.conf` only lists which nameservers to ask and contains no name-to-address data at all.",
+          "text": "No. `/etc/hosts` holds name-to-address mappings directly and takes effect immediately with no restart; `/etc/resolv.conf` only lists which nameservers to ask and contains no name-to-address data at all.",
           "correct": true,
           "why": "`/etc/hosts` is the fastest way to override name resolution on one host for exactly this kind of testing, while `/etc/resolv.conf` cannot express a name-to-address mapping in the first place.",
           "provenance": {
@@ -5655,7 +5655,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only the name-to-address alias — `/etc/hosts` can map a name (and aliases) to an address, but it has no record types at all and cannot express an MX record or anything beyond a literal mapping.",
+          "text": "Only the name-to-address alias; `/etc/hosts` can map a name (and aliases) to an address, but it has no record types at all and cannot express an MX record or anything beyond a literal mapping.",
           "correct": true,
           "why": "`/etc/hosts` lines are address, canonical hostname, then optional aliases — nothing more; it has no wildcards, no record types, and no TTL, so an MX-style entry is simply not expressible.",
           "provenance": {
@@ -5727,7 +5727,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It persists indefinitely until someone edits the file, and it affects only this one host — an override in `/etc/hosts` is per host and changes nothing for anyone else on the network.",
+          "text": "Because an override in `/etc/hosts` is per host, it persists indefinitely until someone edits the file and affects only this one host, changing nothing for anyone else on the network.",
           "correct": true,
           "why": "`/etc/hosts` has no expiry mechanism of its own, and because it is per host, the stale entry silently affects only whichever host holds the file until someone notices and removes it.",
           "provenance": {
@@ -5800,7 +5800,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`127.0.0.1 localhost`, and on IPv6-aware systems also `::1 localhost` — the loopback address mapped to the conventional name for the local host.",
+          "text": "The loopback address mapped to the conventional name for the local host: `127.0.0.1 localhost`, and on IPv6-aware systems also `::1 localhost`.",
           "correct": true,
           "why": "Every system ships this default pairing so that the name `localhost` resolves to the loopback address on both address families where IPv6 is present.",
           "provenance": {
@@ -5945,7 +5945,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Up to MAXNS, currently 3 — further lines beyond the third are simply ignored, so listing five does not add any resilience.",
+          "text": "Up to MAXNS, currently 3; further lines beyond the third are simply ignored, so listing five does not add any resilience.",
           "correct": true,
           "why": "MAXNS caps the number of nameserver lines the resolver will use at 3; entries beyond that limit are present in the file but never consulted.",
           "provenance": {
@@ -6017,7 +6017,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — this is normal on a systemd-resolved system, where the file names the local stub resolver at 127.0.0.53 rather than the actual upstream nameserver directly.",
+          "text": "No, this is normal on a systemd-resolved system, where the file names the local stub resolver at 127.0.0.53 rather than the actual upstream nameserver directly.",
           "correct": true,
           "why": "Seeing only `nameserver 127.0.0.53` is normal on a systemd-resolved system and does not mean DNS is misconfigured; the stub itself forwards to the real upstream servers.",
           "provenance": {
@@ -6236,7 +6236,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The mail exchanger records, checked with `dig MX example.com` — a working A record says nothing about whether mail-directing MX records exist or point anywhere valid.",
+          "text": "The mail exchanger records, checked with `dig MX example.com`, since a working A record says nothing about whether mail-directing MX records exist or point anywhere valid.",
           "correct": true,
           "why": "A working forward lookup implies nothing about mail delivery; MX records are a completely separate entry that directs where mail for the domain should go.",
           "provenance": {
@@ -6312,7 +6312,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "At `10.2.0.192.in-addr.arpa`, in a zone usually delegated to whoever owns the address block — not to whoever owns the domain name the address happens to be used for.",
+          "text": "At `10.2.0.192.in-addr.arpa`, in a zone usually delegated to whoever owns the address block, not to whoever owns the domain name the address happens to be used for.",
           "correct": true,
           "why": "PTR records live in the reverse in-addr.arpa hierarchy, keyed by address, and control of that zone follows address-block ownership rather than domain-name ownership.",
           "provenance": {
@@ -6385,7 +6385,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An A record maps a name directly to an IPv4 address; a CNAME aliases one name to another name, which is then itself resolved — the two solve different problems and cannot substitute for each other everywhere.",
+          "text": "An A record maps a name directly to an IPv4 address; a CNAME aliases one name to another name, which is then itself resolved. The two solve different problems and cannot substitute for each other everywhere.",
           "correct": true,
           "why": "A CNAME depends on further resolution of the name it points to, while an A record terminates directly in an address, a structural difference candidates commonly gloss over.",
           "provenance": {
@@ -6539,7 +6539,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It means nothing resolves the short name to a qualified one — usually a missing `/etc/hosts` line — not that the hostname itself is unset.",
+          "text": "It means nothing resolves the short name to a qualified one (usually a missing `/etc/hosts` line), not that the hostname itself is unset.",
           "correct": true,
           "why": "`hostname -f` depends on resolution succeeding, so its failure is a resolution problem, most often a missing hosts entry, and not evidence that the hostname configuration is absent.",
           "provenance": {
@@ -6693,7 +6693,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a name with a dot is not automatically fully qualified; `web01.lab` is qualified only if `lab` is a real domain in the hierarchy being queried.",
+          "text": "No: a name with a dot is not automatically fully qualified; `web01.lab` is qualified only if `lab` is a real domain in the hierarchy being queried.",
           "correct": true,
           "why": "A dot alone does not confer full qualification; what matters is whether the suffix names a genuine position in the DNS hierarchy being resolved against.",
           "provenance": {
@@ -6844,7 +6844,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a caching resolver returns the remaining lifetime of the cached record on each answer, so a falling TTL across repeated queries is the expected countdown, not an error.",
+          "text": "No. A caching resolver returns the remaining lifetime of the cached record on each answer, so a falling TTL across repeated queries is the expected countdown, not an error.",
           "correct": true,
           "why": "A recursive resolver caches a record and returns it with the remaining TTL on each subsequent answer, so watching the number count down across repeated queries is exactly the expected behaviour.",
           "provenance": {
@@ -6994,7 +6994,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It has a real cost — a low TTL raises query volume against the authoritative servers, since resolvers must re-ask far more often, so it is a deliberate trade rather than a free margin.",
+          "text": "It has a real cost: a low TTL raises query volume against the authoritative servers, since resolvers must re-ask far more often, so it is a deliberate trade rather than a free margin.",
           "correct": true,
           "why": "A low TTL raises query volume and is a cost, not a free safety margin, which is why it is applied deliberately and temporarily around a planned change rather than left low permanently.",
           "provenance": {
@@ -7069,7 +7069,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The first case implicates DHCP — no address means the addressing exchange failed; the second implicates DNS — an address that works while names do not is DNS's signature, not DHCP's.",
+          "text": "The first case implicates DHCP, since no address means the addressing exchange failed; the second implicates DNS, since an address that works while names do not is DNS's signature, not DHCP's.",
           "correct": true,
           "why": "DHCP hands out addresses and configuration; DNS answers questions about names — the two failure signatures are opposite and distinct, which is exactly why conflating them is the classic error.",
           "provenance": {
@@ -7219,7 +7219,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the laptop received no lease at all; it self-configured a link-local address because no DHCP server answered its broadcast DISCOVER.",
+          "text": "No, the laptop received no lease at all; it self-configured a link-local address because no DHCP server answered its broadcast DISCOVER.",
           "correct": true,
           "why": "A client showing a 169.254 address has not been given a bad lease; it has received no lease at all and self-configured, which is a distinct and more specific diagnosis.",
           "provenance": {
@@ -7294,7 +7294,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "DISCOVER, OFFER, REQUEST, ACK — using UDP port 67 for the server and port 68 for the client.",
+          "text": "DISCOVER, OFFER, REQUEST, ACK, using UDP port 67 for the server and port 68 for the client.",
           "correct": true,
           "why": "This is the DORA sequence: the client broadcasts DISCOVER, a server replies OFFER, the client broadcasts REQUEST naming the accepted offer, and the server confirms with ACK.",
           "provenance": {
@@ -7513,7 +7513,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A DHCP reservation fits — the client stays an ordinary DHCP client while the server binds its MAC to a fixed address, keeping every address centrally managed rather than configured by hand on the host.",
+          "text": "A DHCP reservation fits. The client stays an ordinary DHCP client while the server binds its MAC to a fixed address, keeping every address centrally managed rather than configured by hand on the host.",
           "correct": true,
           "why": "A reservation gives a device a predictable address without visiting it, and keeps every address in one authoritative place, the DHCP server, instead of scattering hand-written configurations across machines.",
           "provenance": {
@@ -7884,7 +7884,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A service is identified by protocol and port together — TCP 53 and UDP 53 are different sockets — so an unopened TCP 53 leaves large responses, which fall back to TCP, blocked while ordinary UDP queries keep working.",
+          "text": "A service is identified by protocol and port together (TCP 53 and UDP 53 are different sockets), so an unopened TCP 53 leaves large responses, which fall back to TCP, blocked while ordinary UDP queries keep working.",
           "correct": true,
           "why": "The port number alone does not identify the service; the transport protocol is part of the identity, so opening UDP 53 does nothing for the separate TCP 53 socket that oversized responses use.",
           "provenance": {
@@ -7960,7 +7960,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The hang means a SYN went out and got nothing back — a silent drop, usually a firewall; the instant refusal means a SYN reached a live host that answered with RST because nothing was listening on that port.",
+          "text": "The hang means a SYN went out and got nothing back, a silent drop usually caused by a firewall; the instant refusal means a SYN reached a live host that answered with RST because nothing was listening on that port.",
           "correct": true,
           "why": "Being able to name which of the three handshake messages went missing, or which response arrived, turns \"it won't connect\" into a specific, testable hypothesis about where the fault sits.",
           "provenance": {
@@ -8033,7 +8033,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — UDP has no handshake at all, so \"the handshake failed\" can never accurately describe a UDP service; the report itself reflects a misunderstanding of the transport in use.",
+          "text": "No. UDP has no handshake at all, so \"the handshake failed\" can never accurately describe a UDP service; the report itself reflects a misunderstanding of the transport in use.",
           "correct": true,
           "why": "The three-way handshake is a TCP concept entirely; UDP sends datagrams with no connection setup of any kind, so there is no handshake for a UDP service to fail.",
           "provenance": {
@@ -8176,7 +8176,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "TIME_WAIT — held for twice the maximum segment lifetime so that delayed segments from the old connection cannot be mistaken for part of a new one.",
+          "text": "TIME_WAIT, held for twice the maximum segment lifetime so that delayed segments from the old connection cannot be mistaken for part of a new one.",
           "correct": true,
           "why": "Closing is a separate exchange from opening, and the side that initiates the close holds TIME_WAIT specifically to absorb any stray, delayed segments before the connection's resources are fully released.",
           "provenance": {
@@ -8249,7 +8249,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "By the full four-tuple — source address, source port, destination address, destination port — since each client's own address and ephemeral source port make its connection unique even though the destination port is shared.",
+          "text": "By the full four-tuple (source address, source port, destination address, destination port), since each client's own address and ephemeral source port make its connection unique even though the destination port is shared.",
           "correct": true,
           "why": "A connection is identified by the pair of sockets, and it is the client side of that pair, a different source address and ephemeral port for each client, that keeps a shared destination port unambiguous.",
           "provenance": {
@@ -8328,7 +8328,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The Local Address column decides it — `127.0.0.1` accepts only from the same machine, while `0.0.0.0` accepts on every address the host holds, including from remote clients.",
+          "text": "The Local Address column decides it: `127.0.0.1` accepts only from the same machine, while `0.0.0.0` accepts on every address the host holds, including from remote clients.",
           "correct": true,
           "why": "The bind address in the Local Address column is exactly what determines whether a listener accepts connections from other hosts or only from itself; the port number alone does not decide reachability.",
           "provenance": {
@@ -8484,7 +8484,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The kernel picks an unused source port automatically from a configured ephemeral range — on Linux, from `/proc/sys/net/ipv4/ip_local_port_range`, 32768 to 60999 by default — without the administrator choosing it per connection.",
+          "text": "The kernel picks an unused source port automatically from a configured ephemeral range (on Linux, from `/proc/sys/net/ipv4/ip_local_port_range`, 32768 to 60999 by default), without the administrator choosing it per connection.",
           "correct": true,
           "why": "The client side of a connection needs a locally unique port, and the kernel handles this automatically from its configured local port range rather than requiring manual selection.",
           "provenance": {
@@ -8560,7 +8560,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — strictly, only 0-1023 is the well-known range; 3306 and 5432 both sit above 1023 in the 1024-49151 registered range, so they are registered ports, not well-known ones, however familiar they are.",
+          "text": "No. Strictly, only 0-1023 is the well-known range; 3306 and 5432 both sit above 1023 in the 1024-49151 registered range, so they are registered ports, not well-known ones, however familiar they are.",
           "correct": true,
           "why": "The terminology trap is exactly this: 3306, 3389 and 5432 sit above 1023, so they are registered ports, not well-known ones, regardless of how commonly they are used.",
           "provenance": {
@@ -8634,7 +8634,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 143 IMAP, 443 HTTPS — each the conventional assignment recognised in the well-known range.",
+          "text": "22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 143 IMAP, 443 HTTPS, each the conventional assignment recognised in the well-known range.",
           "correct": true,
           "why": "These are exactly the conventional service-to-port assignments an administrator is expected to recognise on sight in the well-known 0-1023 range.",
           "provenance": {
@@ -8708,7 +8708,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — nothing forces a service onto its conventional port; SSH can genuinely run on 2222, and a port number is evidence about intent, never proof of protocol.",
+          "text": "No, nothing forces a service onto its conventional port; SSH can genuinely run on 2222, and a port number is evidence about intent, never proof of protocol.",
           "correct": true,
           "why": "A port number is a convention, not an enforced binding between protocol and number; running SSH on a nonstandard port is a common, deliberate practice, and `ss -tulpn` combined with actually probing the service is what confirms what is really there.",
           "provenance": {
@@ -8785,7 +8785,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes, it does — but note that Linux's default ephemeral range, 32768 to 60999, overlaps the registered range rather than matching IANA's dynamic range exactly, so a source port can also land below 49152 in the registered band.",
+          "text": "Yes, it does, but note that Linux's default ephemeral range, 32768 to 60999, overlaps the registered range rather than matching IANA's dynamic range exactly, so a source port can also land below 49152 in the registered band.",
           "correct": true,
           "why": "51000 does fall in IANA's 49152-65535 dynamic range, but the more testable fact is that Linux's actual default ephemeral range often produces source ports below 49152, inside the registered band, contrary to a naive reading of the IANA ranges alone.",
           "provenance": {
@@ -8859,7 +8859,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`ss -tulpn` answers whether it is running, by showing the LISTEN socket; `ss -t state established` answers who is using it, by showing active ESTAB connections — the two are mutually exclusive views of the same table.",
+          "text": "The two are mutually exclusive views of the same table: `ss -tulpn` answers whether it is running, by showing the LISTEN socket, while `ss -t state established` answers who is using it, by showing active ESTAB connections.",
           "correct": true,
           "why": "\"Is the service running and accepting connections\" is answered by the presence of a LISTEN socket, while \"is anyone actually using it\" is answered by established connections, and combining `-l` with a state filter is not meaningful because they select opposite things.",
           "provenance": {
@@ -8936,7 +8936,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a UDP socket showing ESTAB only records that its application called `connect()` to fix a default peer locally; unlike TCP, it involved no handshake and proves nothing about the far end.",
+          "text": "No. A UDP socket showing ESTAB only records that its application called `connect()` to fix a default peer locally; unlike TCP, it involved no handshake and proves nothing about the far end.",
           "correct": true,
           "why": "That ESTAB is only a local socket property — a default destination the kernel records — not a negotiated connection, which is the key difference from TCP's ESTAB state.",
           "provenance": {
@@ -9011,7 +9011,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The refusal tells you the load balancer's SYN reached a host with nothing listening on that specific address — the service is up but bound to loopback only, so it answers with RST when addressed from elsewhere.",
+          "text": "The refusal tells you the load balancer's SYN reached a host with nothing listening on that specific address; the service is up but bound to loopback only, so it answers with RST when addressed from elsewhere.",
           "correct": true,
           "why": "A listening socket bound to 127.0.0.1 shows up in `ss -tulpn` exactly like one bound to 0.0.0.0, so a service that \"is listening\" can still be unreachable from every other host, producing exactly this refusal pattern.",
           "provenance": {
@@ -9086,7 +9086,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It typically indicates the peer closed the connection but the local application has not yet closed its end — usually an application bug, not a network problem.",
+          "text": "It typically indicates the peer closed the connection but the local application has not yet closed its end, usually an application bug rather than a network problem.",
           "correct": true,
           "why": "CLOSE-WAIT specifically means the far side has finished and sent FIN, but the local process has not called close() on its own socket, which is an application-level oversight rather than a network fault.",
           "provenance": {
@@ -9160,7 +9160,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — 502 is a gateway or proxy reporting a bad or missing answer from the server behind it, not the origin server answering for itself; the investigation should look at the proxy and what lies behind it.",
+          "text": "No: 502 is a gateway or proxy reporting a bad or missing answer from the server behind it, not the origin server answering for itself; the investigation should look at the proxy and what lies behind it.",
           "correct": true,
           "why": "Knowing that 502 and 504 are by definition a gateway or proxy reporting a problem with the server behind it, rather than that server answering for itself, redirects an investigation immediately toward the right component.",
           "provenance": {
@@ -10881,7 +10881,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — NAT is not filtering; a NAT router with no rules applies no policy at all, even though it rewrites addresses as traffic crosses it.",
+          "text": "No. NAT is not filtering; a NAT router with no rules applies no policy at all, even though it rewrites addresses as traffic crosses it.",
           "correct": true,
           "why": "Address rewriting and policy filtering are separate concerns; a NAT device performs the former by its nature, but it applies no policy of its own unless separate filtering rules are configured.",
           "provenance": {
@@ -11705,7 +11705,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A router along the path generated it, reporting that it could not deliver the packet — it is a third party's report, not the target host answering.",
+          "text": "A router along the path generated it, reporting that it could not deliver the packet; it is a third party's report, not the target host answering.",
           "correct": true,
           "why": "A router replying \"Destination Host Unreachable\" is not the target answering; it is a third party reporting that it could not deliver, an important distinction when localising a fault.",
           "provenance": {
@@ -12382,7 +12382,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Neither does — both change only the running kernel state, and permanence belongs to NetworkManager, Netplan or systemd-networkd instead of either command.",
+          "text": "Neither does, because both change only the running kernel state; permanence belongs to NetworkManager, Netplan or systemd-networkd instead of either command.",
           "correct": true,
           "why": "Neither command persists anything: both change the running kernel state only, and permanence belongs to the distribution's network configuration layer, which is a common source of \"why did my change disappear\" confusion.",
           "provenance": {
@@ -13500,7 +13500,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`en` for Ethernet, `p0` for PCI bus 0, `s3` for slot 3 — an Ethernet interface located at PCI bus 0, slot 3, derived from the hardware's own topology.",
+          "text": "`en` for Ethernet, `p0` for PCI bus 0, `s3` for slot 3: an Ethernet interface located at PCI bus 0, slot 3, derived from the hardware's own topology.",
           "correct": true,
           "why": "A predictable name starts with a two-character prefix for the interface type, `en` for Ethernet, followed by a suffix derived from where the device sits, here a PCI bus and slot combination.",
           "provenance": {

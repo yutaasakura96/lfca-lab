@@ -1651,7 +1651,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No, it is stopped, not removed — it still holds its writable layer, configuration, and logs, and continues to consume disk until it is explicitly removed.",
+          "text": "No, it is stopped, not removed; it still holds its writable layer, configuration, and logs, and continues to consume disk until it is explicitly removed.",
           "correct": true,
           "why": "Stopping asks the main process to terminate; the container object itself, and everything it holds, remains on disk afterward.",
           "provenance": {
@@ -2994,7 +2994,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It generally still works, because Docker Engine keeps a local cache of the stream even under a remote driver — unless that cache is explicitly disabled.",
+          "text": "Unless that cache is explicitly disabled, it generally still works, because Docker Engine keeps a local cache of the stream even under a remote driver.",
           "correct": true,
           "why": "Dual logging keeps a local copy alongside whatever a remote driver does, so `docker logs` continues to function in the ordinary case.",
           "provenance": {
@@ -3140,7 +3140,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The API is stateless — any instance can serve any request and is freely replaceable; the queue is stateful and needs persistent storage and careful handling.",
+          "text": "The API is stateless, so any instance can serve any request and is freely replaceable; the queue is stateful and needs persistent storage and careful handling.",
           "correct": true,
           "why": "Statelessness is about whether an instance owns data that must outlive it; the API pushes its state outward while the queue keeps its own.",
           "provenance": {
@@ -3579,7 +3579,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "How many hosts are involved and whether anything keeps watching afterward — Compose applies a file to one machine once, an orchestrator schedules across many and keeps reconciling.",
+          "text": "How many hosts are involved and whether anything keeps watching afterward: Compose applies a file to one machine once, an orchestrator schedules across many and keeps reconciling.",
           "correct": true,
           "why": "The number of containers is not the discriminator; Compose happily runs a dozen. Hosts and continuous reconciliation are what actually separate the two.",
           "provenance": {
@@ -3729,7 +3729,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It stays down, because Compose has no cross-host scheduling or automatic rescheduling after a host failure — nothing was watching to bring it back.",
+          "text": "It stays down, because Compose has no cross-host scheduling or automatic rescheduling after a host failure; nothing was watching to bring it back.",
           "correct": true,
           "why": "Compose applies the file once when the command is run; once that machine is gone, nothing external notices or reacts on its own.",
           "provenance": {
@@ -3950,7 +3950,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No, it is still present in the layer where it was written, and unsetting it later does not erase it — it must never enter a layer in the first place.",
+          "text": "No, it is still present in the layer where it was written, and unsetting it later does not erase it; it must never enter a layer in the first place.",
           "correct": true,
           "why": "A layer records history rather than current state, so a value written and then unset is still readable from the earlier layer that recorded it.",
           "provenance": {
@@ -4095,7 +4095,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Orchestration across a pool of hosts with continuous reconciliation — the requirement is about surviving a host failure and rescheduling, which a bigger single host cannot provide.",
+          "text": "Orchestration across a pool of hosts with continuous reconciliation: the requirement is about surviving a host failure and rescheduling, which a bigger single host cannot provide.",
           "correct": true,
           "why": "The discriminating property is many hosts plus a controller that keeps comparing actual state to desired state, not how many containers run on one machine.",
           "provenance": {
@@ -4470,7 +4470,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Vocabulary and purpose — recognising what Kubernetes is for and naming its core objects — not operational skill such as writing manifests.",
+          "text": "Vocabulary and purpose, meaning recognising what Kubernetes is for and naming its core objects, not operational skill such as writing manifests.",
           "correct": true,
           "why": "LFCA depth stays at recognition and understanding, deliberately stopping short of the hands-on skill a CKA-level assessment would require.",
           "provenance": {
@@ -4693,7 +4693,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The node level — no node has enough spare resource capacity for the scheduler to place the pod, which is exactly the constraint it schedules against.",
+          "text": "The node level, because no node has enough spare resource capacity for the scheduler to place the pod, which is exactly the constraint it schedules against.",
           "correct": true,
           "why": "The scheduler places workloads against node capacity, so \"why is this pod not starting\" frequently resolves to insufficient room on the available nodes.",
           "provenance": {
@@ -4840,7 +4840,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Five pods — the scheduler places pods, never containers directly, so scaling means creating more pods, not adding more containers to one.",
+          "text": "Five pods, since the scheduler places pods, never containers directly, so scaling means creating more pods, not adding more containers to one.",
           "correct": true,
           "why": "Kubernetes manages pods, not containers directly, so scale-out is expressed entirely in terms of the number of pods, not containers packed into one.",
           "provenance": {
@@ -4983,7 +4983,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Something else — pods are ephemeral, so a failing one is not repaired but replaced by a new pod with a new name and a new IP address.",
+          "text": "Something else; pods are ephemeral, so a failing one is not repaired but replaced by a new pod with a new name and a new IP address.",
           "correct": true,
           "why": "Kubernetes treats pods as disposable rather than long-lived: replacement, not repair, is the mechanism.",
           "provenance": {
@@ -5562,7 +5562,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The Service exists and resolves normally but has no endpoints, so connections fail — a label mismatch, not a networking fault.",
+          "text": "The Service exists and resolves normally but has no endpoints, so connections fail; the cause is a label mismatch, not a networking fault.",
           "correct": true,
           "why": "Everything about the Service object itself is correctly created; only the set of pods it routes to is empty, which is a labeling problem.",
           "provenance": {

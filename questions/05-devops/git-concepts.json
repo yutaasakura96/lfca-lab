@@ -85,7 +85,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Version control — it retains prior revisions of files under active change, each attributable to an author and a timestamp.",
+          "text": "Version control, which retains prior revisions of files under active change, each attributable to an author and a timestamp.",
           "correct": true,
           "why": "This is the archetypal version-control use case: recovering one earlier revision of one actively edited file, not the whole machine.",
           "provenance": {
@@ -311,7 +311,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Every commit, branch and tag — the repository itself, which lives entirely inside `.git`, leaving only the checked-out files behind.",
+          "text": "Every commit, branch and tag, since the repository itself lives entirely inside `.git`, leaving only the checked-out files behind.",
           "correct": true,
           "why": "The repository is strictly the `.git` directory; the working tree beside it is only a checked-out view of one point in that history.",
           "provenance": {
@@ -387,7 +387,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Under both \"Changes to be committed\" and \"Changes not staged for commit\" — the staged content from the first edit, and the later edit shown as unstaged.",
+          "text": "Under both \"Changes to be committed\" and \"Changes not staged for commit\", listing the staged content from the first edit and the later edit as unstaged.",
           "correct": true,
           "why": "`git add` copies content into the index at the instant it runs; edits made afterwards are a further difference between the working tree and that already-staged snapshot.",
           "provenance": {
@@ -465,7 +465,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Only the two edited tracked files — `-a` auto-stages modifications and deletions of files Git already tracks, and never adds a new untracked file.",
+          "text": "Only the two edited tracked files, because `-a` auto-stages modifications and deletions of files Git already tracks and never adds a new untracked file.",
           "correct": true,
           "why": "The new file is untracked; `-a` covers only tracked-file modifications and deletions, so it is silently left out of the commit.",
           "provenance": {
@@ -771,7 +771,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "On `main` — `git branch` only creates the new pointer at the current commit and does not move HEAD, so the developer never left `main`.",
+          "text": "Still on `main`: `git branch` only creates the new pointer at the current commit and does not move HEAD, so the developer never left `main`.",
           "correct": true,
           "why": "Creating a branch is instant precisely because nothing is copied and HEAD is left where it was; only a command like `git switch` moves it.",
           "provenance": {
@@ -1163,7 +1163,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — each is replayed as a new commit with a new hash, even though the resulting content looks the same as if the work had started from the current `main` all along.",
+          "text": "No. Each is replayed as a new commit with a new hash, even though the resulting content looks the same as if the work had started from the current `main` all along.",
           "correct": true,
           "why": "Rebase resets the branch to the new base and reapplies the saved commits one at a time; each replay produces a new commit object, not a relocated copy of the old one.",
           "provenance": {
@@ -1237,7 +1237,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Rebasing is unsafe here — the colleague's clone still holds the original commits, and rewriting them would make the histories diverge even though the content is identical.",
+          "text": "Rebasing is unsafe here, because the colleague's clone still holds the original commits, and rewriting them would make the histories diverge even though the content is identical.",
           "correct": true,
           "why": "Rebase discards the original commit objects and manufactures replacements; anyone who already pulled the originals now has a repository that disagrees with the rewritten branch.",
           "provenance": {
@@ -1467,7 +1467,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — `origin/main` is a local, read-only record of where the remote's `main` stood at the last fetch, pull or push, so the server may have moved further since.",
+          "text": "No, because `origin/main` is a local, read-only record of where the remote's `main` stood at the last fetch, pull or push, so the server may have moved further since.",
           "correct": true,
           "why": "Remote-tracking branches update only on fetch, pull and push, and at no other time, so the comparison is always against a possibly-stale snapshot rather than a live view.",
           "provenance": {
@@ -1772,7 +1772,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`git fetch` — it downloads commits and updates remote-tracking branches only, leaving the current branch, index and working tree untouched.",
+          "text": "`git fetch`, which downloads commits and updates remote-tracking branches only, leaving the current branch, index and working tree untouched.",
           "correct": true,
           "why": "Fetch is inspection without disturbance by design: it writes into `refs/remotes/<remote>/*` and never touches what the developer currently has checked out.",
           "provenance": {
@@ -1850,7 +1850,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The fetch retrieves the new commits, and the integration step fast-forwards `main` to match — no conflict, no merge commit, because there was nothing to diverge from.",
+          "text": "The fetch retrieves the new commits, and the integration step fast-forwards `main` to match; there is no conflict and no merge commit, because there was nothing to diverge from.",
           "correct": true,
           "why": "Pull is fetch followed by merge or rebase; when the local branch is merely behind, that integration is a fast-forward, the same painless case a plain `git merge` would also take.",
           "provenance": {
@@ -2080,7 +2080,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "\"Pull request\" is not a Git operation at all — it is a hosting platform's concept, defined nowhere in git-scm.com's documentation, and its own primary source here is GitHub's own documentation rather than a Git manual page.",
+          "text": "\"Pull request\" is not a Git operation at all; it is a hosting platform's concept, defined nowhere in git-scm.com's documentation, and its own primary source here is GitHub's own documentation rather than a Git manual page.",
           "correct": true,
           "why": "Unlike commit and merge, a pull request runs entirely on the platform layer; opening one changes no history and there is no `git pull-request` command that performs it.",
           "provenance": {
@@ -2235,7 +2235,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A tag — committing advances a branch, but leaves every tag exactly where it was, so a tag is the fixed marker this needs.",
+          "text": "A tag, since committing advances a branch but leaves every tag exactly where it was, making a tag the fixed marker this needs.",
           "correct": true,
           "why": "The defining contrast is movable versus fixed: a branch is meant to keep advancing, while a tag is meant to stay pointed at one specific commit forever.",
           "provenance": {
@@ -2391,7 +2391,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — `.gitignore` only affects files Git does not yet track; a file already committed keeps its history and stays in every clone taken since, so the credential must be rotated instead.",
+          "text": "No. `.gitignore` only affects files Git does not yet track; a file already committed keeps its history and stays in every clone taken since, so the credential must be rotated instead.",
           "correct": true,
           "why": "The scope of `.gitignore` is stated as intentionally untracked files specifically; a tracked file's existing commits are entirely unaffected by adding it there afterward.",
           "provenance": {
@@ -2465,7 +2465,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`git revert` is safe — it adds a new commit undoing the old one and leaves the original in place; rebase shares reset's unsafe property of rewriting history that others have already pulled.",
+          "text": "`git revert` is safe, as it adds a new commit undoing the old one and leaves the original in place; rebase shares reset's unsafe property of rewriting history that others have already pulled.",
           "correct": true,
           "why": "Revert grows history without rewriting it, which is exactly why it works on a branch others have already pulled, while reset and rebase both make the branch disagree with what those colleagues hold.",
           "provenance": {
@@ -2547,7 +2547,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "`--mixed`, the default — it resets the index but leaves the working tree alone, so the undone changes remain as unstaged edits ready to rework.",
+          "text": "`--mixed`, the default, which resets the index but leaves the working tree alone, so the undone changes remain as unstaged edits ready to rework.",
           "correct": true,
           "why": "`--mixed` unstages without discarding anything from disk, which is exactly the \"keep editing, but unstaged\" outcome described here.",
           "provenance": {
@@ -2623,7 +2623,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — a bare `git diff` compares the working tree with the index, and staging moved the changes into the index; `git diff --staged` compares the index with HEAD and would show them.",
+          "text": "No: a bare `git diff` compares the working tree with the index, and staging moved the changes into the index; `git diff --staged` compares the index with HEAD and would show them.",
           "correct": true,
           "why": "Bare `git diff` shows only what could still be staged, which is nothing once everything has been staged, even though the last commit is plainly different from the files now.",
           "provenance": {
@@ -2859,7 +2859,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — trunk-based development, feature branching and similar strategies are team conventions governing how work travels to the main line; Git provides branches and no opinion about how they are used.",
+          "text": "No. Trunk-based development, feature branching and similar strategies are team conventions governing how work travels to the main line; Git provides branches and no opinion about how they are used.",
           "correct": true,
           "why": "Recognition of the term is what matters here: these are agreements between people, not a feature Git enforces or offers a command for.",
           "provenance": {

@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Design for failure — the design stance that failure is expected and built for, not a fault-tolerance mechanism or a recovery plan.",
+          "text": "Design for failure: the design stance that failure is expected and built for, not a fault-tolerance mechanism or a recovery plan.",
           "correct": true,
           "why": "It is a design assumption, distinct from the mechanisms and plans it motivates.",
           "provenance": {
@@ -85,7 +85,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "That every component — instance, disk, zone, dependency, network path — will fail, so its failure must be absorbed as routine rather than treated as an incident.",
+          "text": "That every component, whether an instance, disk, zone, dependency or network path, will fail, so its failure must be absorbed as routine rather than treated as an incident.",
           "correct": true,
           "why": "This is the design assumption the competency names as the reasoning behind those three practices.",
           "provenance": {
@@ -382,7 +382,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Automation over manual configuration only — it is fully automated, but each server still accumulates its own unique history of applied changes because none of them is ever replaced.",
+          "text": "Automation over manual configuration only; it is fully automated, but each server still accumulates its own unique history of applied changes because none of them is ever replaced.",
           "correct": true,
           "why": "Automating the application of a change is independent of whether the target is replaced or edited in place.",
           "provenance": {
@@ -456,7 +456,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The console change leaves no reproducible artifact — no reviewable definition that can be diffed, approved and reapplied to recreate the environment — even though CloudTrail, Activity Log or Cloud Audit Logs still record by default that the action happened.",
+          "text": "Although CloudTrail, Activity Log or Cloud Audit Logs still record by default that the action happened, the console change leaves no reproducible artifact: no reviewable definition that can be diffed, approved and reapplied to recreate the environment.",
           "correct": true,
           "why": "Console actions are logged by the provider's audit service by default; what they lack is a reviewable, reapplicable definition of the change.",
           "provenance": {
@@ -607,7 +607,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Immutable infrastructure — nothing survives long enough on a running instance to drift, because replacement removes the possibility outright.",
+          "text": "Immutable infrastructure: nothing survives long enough on a running instance to drift, because replacement removes the possibility outright.",
           "correct": true,
           "why": "A maximum instance age of one deployment cycle means history cannot accumulate on any single server.",
           "provenance": {
@@ -827,7 +827,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A prioritised list of findings and tradeoffs across the pillars — an improvement exercise, not a pass/fail audit or a certification.",
+          "text": "A prioritised list of findings and tradeoffs across the pillars, making it an improvement exercise rather than a pass/fail audit or a certification.",
           "correct": true,
           "why": "Nothing is issued at the end of a review except findings and the tradeoffs between pillars.",
           "provenance": {
@@ -1053,7 +1053,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A managed secret store — not a key management service, which creates and controls encryption keys rather than holding credential values.",
+          "text": "A managed secret store rather than a key management service, which creates and controls encryption keys instead of holding credential values.",
           "correct": true,
           "why": "AWS's own guidance routes database, application and third-party credentials, OAuth tokens and API keys to a secret store, and encryption keys to a separate key management service.",
           "provenance": {
@@ -1198,7 +1198,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the service decrypts for any caller it has authorised, so neither protects against an over-privileged identity; that is a least-privilege problem, not an encryption problem.",
+          "text": "No. The service decrypts for any caller it has authorised, so neither protects against an over-privileged identity; that is a least-privilege problem, not an encryption problem.",
           "correct": true,
           "why": "Encryption at rest and in transit both defend against attackers without valid credentials, not against a credentialed caller with too much access.",
           "provenance": {
@@ -1274,7 +1274,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Encryption at rest defends the stolen disk; encryption in transit, by TLS, defends the sniffed request — neither substitutes for the other.",
+          "text": "Encryption at rest defends the stolen disk; encryption in transit, by TLS, defends the sniffed request, and neither substitutes for the other.",
           "correct": true,
           "why": "The two protect different points in the data's path and address different threats.",
           "provenance": {
@@ -1420,7 +1420,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — read access to those three is exactly what data exfiltration requires; least privilege scopes both resources and actions, not write access alone.",
+          "text": "No; read access to those three is exactly what data exfiltration requires, and least privilege scopes both resources and actions, not write access alone.",
           "correct": true,
           "why": "Reading a secret, a database, or a bucket is enough to exfiltrate data, so 'read-only' is not automatically safe.",
           "provenance": {
@@ -1493,7 +1493,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Where the key is stored, not what it is — it remains a static, long-lived credential that can be copied once and used until somebody revokes it.",
+          "text": "Where the key is stored, not what it is; it remains a static, long-lived credential that can be copied once and used until somebody revokes it.",
           "correct": true,
           "why": "Moving a key between storage locations does not change its nature as a static, long-lived secret.",
           "provenance": {
@@ -1863,7 +1863,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing — Event history retains only the past 90 days of management events per region; longer retention needs a configured trail or a CloudTrail Lake event data store.",
+          "text": "Nothing: Event history retains only the past 90 days of management events per region, and longer retention needs a configured trail or a CloudTrail Lake event data store.",
           "correct": true,
           "why": "The 90-day window is fixed and free by default, and reaching further back requires deliberately configuring a trail or a Lake event data store beforehand.",
           "provenance": {

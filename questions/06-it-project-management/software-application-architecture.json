@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A server to the browser and a client to the database — the same program can hold both roles on different connections.",
+          "text": "A server to the browser and a client to the database, since the same program can hold both roles on different connections.",
           "correct": true,
           "why": "RFC 9110 defines client and server per connection, so one program answering a browser while calling a database occupies both roles at once.",
           "provenance": { "kind": "key" }
@@ -62,7 +62,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Three — presentation (browser), application (the Java artefact), and data (the database); instance count does not change the layer count.",
+          "text": "Three: presentation (browser), application (the Java artefact), and data (the database); instance count does not change the layer count.",
           "correct": true,
           "why": "A tier is a layer of responsibility, and twenty copies of the same artefact still perform the same one application-tier role.",
           "provenance": { "kind": "key" }
@@ -113,7 +113,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the defining property is the shared release, not instance count; six copies of one artefact is still one deployable unit.",
+          "text": "No. The defining property is the shared release, not instance count; six copies of one artefact is still one deployable unit.",
           "correct": true,
           "why": "A monolith replicated across many instances is still a monolith, because the deployment unit, not the instance count, is the criterion.",
           "provenance": { "kind": "key" }
@@ -164,7 +164,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Team A — independent deployment, network calls between services, and each service owning its data are the defining traits.",
+          "text": "Team A, because independent deployment, network calls between services, and each service owning its data are the defining traits.",
           "correct": true,
           "why": "Independent deployment and per-service data ownership are exactly what turns a networked split into microservices rather than an organised monolith.",
           "provenance": { "kind": "key" }
@@ -266,7 +266,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It has an API, and it is not necessarily RESTful — an API is a contract that need not involve a network at all, while REST is one network-based style of building one.",
+          "text": "It has an API, and it is not necessarily RESTful; an API is a contract that need not involve a network at all, while REST is one network-based style of building one.",
           "correct": true,
           "why": "REST requires resource URLs and HTTP method semantics over a network; a library's in-process function signatures are a contract without any of that.",
           "provenance": { "kind": "key" }
@@ -419,7 +419,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "That JSON only works with JavaScript — RFC 8259 defines it as independent of any particular language.",
+          "text": "That JSON only works with JavaScript, whereas RFC 8259 defines it as independent of any particular language.",
           "correct": true,
           "why": "The standard explicitly separates JSON's syntax origin from any requirement to use it only with JavaScript.",
           "provenance": { "kind": "key" }
@@ -470,7 +470,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "That the producer and consumer must both be available at the same moment — the queue buffers messages between two elements that need not coincide in time.",
+          "text": "That the producer and consumer must both be available at the same moment; the queue buffers messages between two elements that need not coincide in time.",
           "correct": true,
           "why": "Store-and-forward between two separate elements is exactly the decoupling-in-time property that distinguishes a queue from a direct call.",
           "provenance": { "kind": "key" }
@@ -572,7 +572,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A NoSQL key-value store — fetching a record whole by one key with no joins is the access pattern that model is designed for.",
+          "text": "A NoSQL key-value store, given that fetching a record whole by one key with no joins is the access pattern that model is designed for.",
           "correct": true,
           "why": "No cross-entity joins and a single-key lookup are exactly the shape a document/key-value store optimises for, at the cost of the schema and join guarantees it doesn't offer.",
           "provenance": { "kind": "key" }

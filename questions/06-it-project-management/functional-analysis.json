@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Functional — it names a function the system must execute, which is the axis the classification actually turns on.",
+          "text": "Functional, since it names a function the system must execute, which is the axis the classification actually turns on.",
           "correct": true,
           "why": "Functional requirements describe the functions the software is to execute, while non-functional ones act to constrain the solution, so a stated behaviour lands on the functional side.",
           "provenance": {
@@ -417,7 +417,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — an actor is anything outside the system boundary that initiates or participates in the interaction, human or not.",
+          "text": "No. An actor is anything outside the system boundary that initiates or participates in the interaction, human or not.",
           "correct": true,
           "why": "A scheduled trigger, or another system, qualifies as an actor for the same reason a person in a role does: it sits outside the boundary and starts the interaction.",
           "provenance": {
@@ -484,7 +484,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The as-is map — without a baseline of the current workflow there is nothing to demonstrate the difference against.",
+          "text": "The as-is map; without a baseline of the current workflow there is nothing to demonstrate the difference against.",
           "correct": true,
           "why": "A single map of the intended future proves nothing on its own; process maps are usually drawn in two versions precisely so improvement is arguable rather than asserted.",
           "provenance": {
@@ -551,7 +551,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Whether closing the gaps is achievable and worth committing to — that judgement belongs to a feasibility study.",
+          "text": "Whether closing the gaps is achievable and worth committing to, a judgement that belongs to a feasibility study.",
           "correct": true,
           "why": "Gap analysis names the distance between two states; it delivers no judgement about whether closing that distance is achievable, affordable or worth doing.",
           "provenance": {
@@ -683,7 +683,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Nothing — a scheme where every item is Must has simply relabeled the whole list without forcing any trade-off.",
+          "text": "Nothing. A scheme where every item is Must has simply relabeled the whole list without forcing any trade-off.",
           "correct": true,
           "why": "Prioritization only does work when it forces a choice about what gets dropped under pressure; a list that is entirely Must-have has ordered nothing.",
           "provenance": {
@@ -955,7 +955,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It is ambiguous and unverifiable as written — 'flexible' has no measurable meaning, and it bundles two requirements into a single statement.",
+          "text": "It is ambiguous and unverifiable as written: 'flexible' has no measurable meaning, and it bundles two requirements into a single statement.",
           "correct": true,
           "why": "Two readers can hold opposite readings of 'flexible' and both be right, and stating two requirements in one sentence means half of it can pass while the other half fails unnoticed.",
           "provenance": {

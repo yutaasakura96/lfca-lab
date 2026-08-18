@@ -11,7 +11,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — without on-demand self-service and measured service, virtualizing the hardware alone does not satisfy NIST's definition.",
+          "text": "No. Without on-demand self-service and measured service, virtualizing the hardware alone does not satisfy NIST's definition.",
           "correct": true,
           "why": "Two of the five essential characteristics fail outright, and the definition requires all five, not the presence of virtual machines.",
           "provenance": {
@@ -299,7 +299,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Rapid elasticity — capacity scales inward as well as outward to match demand.",
+          "text": "Rapid elasticity, since capacity scales inward as well as outward to match demand.",
           "correct": true,
           "why": "NIST's definition explicitly includes scaling inward, and the weekend shrink is that inward direction in action.",
           "provenance": {
@@ -445,7 +445,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "An availability zone — AWS's and Azure's shared name for an isolated datacentre grouping within a region.",
+          "text": "An availability zone, which is AWS's and Azure's shared name for an isolated datacentre grouping within a region.",
           "correct": true,
           "why": "Both AWS and Azure use exactly this term for the concept described, and Google Cloud calls the equivalent a zone.",
           "provenance": {
@@ -519,7 +519,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Team A is using IaaS; the boundary is who owns the operating system — IaaS leaves it to the customer, while Team B's model puts it below the provider's line.",
+          "text": "Team A is using IaaS; the boundary is who owns the operating system, which IaaS leaves to the customer, while Team B's model puts it below the provider's line.",
           "correct": true,
           "why": "NIST gives the IaaS consumer 'control over operating systems' and denies the PaaS consumer control of 'the underlying cloud infrastructure including network, servers, operating systems' — OS ownership is exactly that boundary.",
           "provenance": {
@@ -737,7 +737,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Team X — PaaS is distinguished by deploying application code the consumer wrote, unlike Team Y's finished application or Team Z's per-event functions.",
+          "text": "Team X, since PaaS is distinguished by deploying application code the consumer wrote, unlike Team Y's finished application or Team Z's per-event functions.",
           "correct": true,
           "why": "Who wrote the running code, and whether it is deployed as a whole application versus invoked per event, is exactly the axis separating the three models.",
           "provenance": {
@@ -885,7 +885,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — nothing of the team's is deployed onto the database, so it is a managed service rather than PaaS, even though the team's application is PaaS.",
+          "text": "No. Nothing of the team's is deployed onto the database, so it is a managed service rather than PaaS, even though the team's application is PaaS.",
           "correct": true,
           "why": "PaaS is defined by deploying consumer-created application code; a managed database the team merely connects to has no such deployment, which is exactly the managed-services distinction.",
           "provenance": {
@@ -1619,7 +1619,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — both parts are themselves clouds and are bound together by technology enabling data and application portability, which is exactly NIST's two-part test; without the connective tissue, it would be two separate estates rather than one hybrid cloud.",
+          "text": "Yes. Both parts are themselves clouds and are bound together by technology enabling data and application portability, which is exactly NIST's two-part test; without the connective tissue, it would be two separate estates rather than one hybrid cloud.",
           "correct": true,
           "why": "NIST's definition requires both conditions together: each component being a cloud, and the components being bound together for portability — and this scenario states both explicitly.",
           "provenance": {
@@ -1764,7 +1764,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the self-hosted cluster is not itself a cloud, since it lacks the essential characteristics such as self-service and metering, so there is only one cloud infrastructure in this picture, not the two or more NIST's composition requires.",
+          "text": "No. The self-hosted cluster is not itself a cloud, since it lacks the essential characteristics such as self-service and metering, so there is only one cloud infrastructure in this picture, not the two or more NIST's composition requires.",
           "correct": true,
           "why": "Hybrid cloud presupposes each component already qualifies as a cloud on its own; a manually planned, unmetered cluster fails that threshold regardless of the VPN link.",
           "provenance": {
@@ -1836,7 +1836,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The claim is wrong — multi-cloud does not automatically deliver high availability; a deployment that is not actually tested and ready to take over fails just as hard as a single-provider setup when its own provider goes down.",
+          "text": "The claim is wrong: multi-cloud does not automatically deliver high availability; a deployment that is not actually tested and ready to take over fails just as hard as a single-provider setup when its own provider goes down.",
           "correct": true,
           "why": "The guide states this directly: running on two providers only survives an outage if the workload is actually deployed, tested and able to fail over on both.",
           "provenance": {
@@ -2209,7 +2209,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Type 1 — the kernel module makes the Linux kernel itself the hypervisor, and it is classified as type 1 despite the full userland running alongside it.",
+          "text": "Type 1: the kernel module makes the Linux kernel itself the hypervisor, and it is classified as type 1 despite the full userland running alongside it.",
           "correct": true,
           "why": "KVM is precisely the case the guide singles out as testing understanding rather than recall: being a kernel module makes the kernel the lowest software layer, which is what type 1 means, regardless of what else runs on top.",
           "provenance": {
@@ -2283,7 +2283,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Type 2 — the hypervisor runs as an application on the conventional host OS, and Workstation is the same class of product as Fusion, just on Windows and Linux instead of macOS.",
+          "text": "Type 2, because the hypervisor runs as an application on the conventional host OS; Workstation is the same class of product as Fusion, just on Windows and Linux instead of macOS.",
           "correct": true,
           "why": "Both coexist with a normal desktop OS as an application rather than replacing it, which is exactly what makes each a type 2, hosted hypervisor.",
           "provenance": {
@@ -2428,7 +2428,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "A VM boots its own kernel, which lets it run a different operating system family than the host and gives a stronger isolation boundary — at the cost of the memory, CPU and patching overhead of a full guest OS.",
+          "text": "A VM boots its own kernel, which lets it run a different operating system family than the host and gives a stronger isolation boundary, at the cost of the memory, CPU and patching overhead of a full guest OS.",
           "correct": true,
           "why": "The guide's separating axis is again the kernel: a VM brings its own and pays for it in overhead; a container borrows the host's and pays for it in a weaker boundary.",
           "provenance": {
@@ -2502,7 +2502,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Because a VM is a software-defined computer — a disk image plus configuration — it can be live-migrated to another host and snapshotted, cloned and rolled back with little or no downtime.",
+          "text": "Because a VM is a software-defined computer (a disk image plus configuration), it can be live-migrated to another host and snapshotted, cloned and rolled back with little or no downtime.",
           "correct": true,
           "why": "Being defined entirely as data rather than physical hardware is what makes both live migration and rollback-by-snapshot possible in the first place.",
           "provenance": {
@@ -2574,7 +2574,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The appliance and the regulated workload need VMs — a foreign kernel and the strongest isolation boundary, respectively — while the HTTP service is a good fit for containers; underneath all three, even the containerised one, sits a hypervisor the platform team never manages directly.",
+          "text": "The appliance and the regulated workload need VMs, for a foreign kernel and the strongest isolation boundary respectively, while the HTTP service is a good fit for containers; underneath all three, even the containerised one, sits a hypervisor the platform team never manages directly.",
           "correct": true,
           "why": "This matches the guide's own worked scenario precisely: two VM placements for two different reasons, one container placement for density and speed, and virtualization present underneath regardless of the choice.",
           "provenance": {
@@ -3308,7 +3308,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Yes — on the major providers, console actions are logged by default alongside CLI, SDK and API actions; what the console lacks is a reviewable artifact, not an audit trail.",
+          "text": "Yes: on the major providers, console actions are logged by default alongside CLI, SDK and API actions; what the console lacks is a reviewable artifact, not an audit trail.",
           "correct": true,
           "why": "AWS CloudTrail explicitly records console actions alongside the CLI, SDKs and APIs, and equivalent logging exists on the other two major providers — the real gap is reproducibility, not auditability.",
           "provenance": {
@@ -3530,7 +3530,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Ask what happens if the target is not met — if there is no explicit consequence, it is an SLO, not an SLA.",
+          "text": "Ask what happens if the target is not met; if there is no explicit consequence, it is an SLO, not an SLA.",
           "correct": true,
           "why": "This is the SRE book's own stated test: an SLA is an explicit or implicit contract that includes consequences of meeting or missing the objectives it contains.",
           "provenance": {

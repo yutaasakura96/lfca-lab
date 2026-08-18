@@ -372,7 +372,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Restricted — aggregation conventionally takes the highest label present, because the merged set discloses everything its most sensitive member discloses.",
+          "text": "Restricted; aggregation conventionally takes the highest label present, because the merged set discloses everything its most sensitive member discloses.",
           "correct": true,
           "why": "A set that includes the Restricted file exposes that file's contents whenever the whole set is exposed, so the aggregate cannot be labelled any lower.",
           "provenance": {
@@ -445,7 +445,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "In use — plaintext exists inside the server process's memory while it operates on the data, and neither the disk encryption nor the TLS session reaches that memory.",
+          "text": "In use. Plaintext exists inside the server process's memory while it operates on the data, and neither the disk encryption nor the TLS session reaches that memory.",
           "correct": true,
           "why": "Both controls guard a boundary the data crosses or sits behind; the address space of a running process is outside both boundaries.",
           "provenance": {
@@ -518,7 +518,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Encryption — recovering the original value requires the key, and without it the ciphertext does not yield the plaintext.",
+          "text": "Encryption, since recovering the original value requires the key, and without it the ciphertext does not yield the plaintext.",
           "correct": true,
           "why": "Reversibility gated on key possession is exactly what separates encryption from both hashing and encoding.",
           "provenance": {
@@ -881,7 +881,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "No — the blob survives in history, in every existing clone and fork, and in CI caches; only rotating the credential closes the exposure.",
+          "text": "No. The blob survives in history, in every existing clone and fork, and in CI caches; only rotating the credential closes the exposure.",
           "correct": true,
           "why": "Rewriting or deleting the latest commit is cleanup, not remediation, because the exposed value remains reachable through history and prior copies.",
           "provenance": {
@@ -1023,7 +1023,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "Anonymization — it removes the association between the data and the data subject outright, unlike masking or pseudonymization.",
+          "text": "Anonymization, which removes the association between the data and the data subject outright, unlike masking or pseudonymization.",
           "correct": true,
           "why": "Only anonymization is genuinely one-way; both masking and pseudonymization leave something behind that can be reversed.",
           "provenance": {
@@ -1167,7 +1167,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "The emailed customer list — DLP addresses loss of control over data leaving the organisation, not loss of availability.",
+          "text": "The emailed customer list; DLP addresses loss of control over data leaving the organisation, not loss of availability.",
           "correct": true,
           "why": "The name is a trap: 'loss' in data loss prevention means leakage and exfiltration, which is exactly what the emailed list represents.",
           "provenance": {
@@ -1309,7 +1309,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It is kept — the tax rule is a floor that has not yet been reached, even though the privacy ceiling was crossed two years ago.",
+          "text": "It is kept, because the tax rule is a floor that has not yet been reached, even though the privacy ceiling was crossed two years ago.",
           "correct": true,
           "why": "A floor and a ceiling can bind the same dataset at once, and neither one being satisfied excuses violating the other; here the floor still governs.",
           "provenance": {
@@ -1383,7 +1383,7 @@
       "options": [
         {
           "ref": "o1",
-          "text": "It is suspended — records under a legal hold must not be destroyed even though the schedule says their time is up, until the hold is lifted.",
+          "text": "It is suspended: records under a legal hold must not be destroyed even though the schedule says their time is up, until the hold is lifted.",
           "correct": true,
           "why": "A legal hold overrides the schedule for as long as it is in place, regardless of what the retention period would otherwise require.",
           "provenance": {
