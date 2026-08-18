@@ -692,3 +692,121 @@ Tasks 48 and 50: complete (commit e8e495f) - WAVE C, PARTIAL
   osi-bsd-3-clause registered by the parallel agent, not yet wired to concepts) and returned to the
   expected 16 once that agent finished. Same pattern as the wave-B linux split. Mid-wave gate
   readings from inside a parallel agent are not the wave's gate.
+
+Tasks 49a/49b, 51, 52a/52b: complete (commit f02fc2d) - WAVE C COMPLETE
+  Five agents over three competencies, 142 items: cloud-computing 56 (SPLIT 28/28),
+  project-management 37, cloud networking 49 (SPLIT 26/23). With Tasks 48 and 50 this closes
+  wave C at 211 items. **142 of 142 carry a verdict; 100 refuted on first pass.**
+  Corpus 419 -> 561/1150 (49%), 14 of 22 competencies. Unscoped check-bank 732 -> 590 errors
+  (589 verdict-coverage + 1 position-balance). Gates green: npm test 307/307, validate 537/0/16,
+  check-guide 0/0. Controller re-verified all 1,150 items for verdict-field quality:
+  **0 violations corpus-wide** - every verdict has a complete `checked` list, a non-empty
+  `sources_read`, an agent_label, a verdict and reasoning.
+  Both splits held: 28/28 and 26/23 by label, zero range violations, zero lost edits.
+
+  **THE ROOT CAUSE OF THE CITATION EPIDEMIC IS IN `data/`, AND IT IS NOW CONFIRMED TWICE.**
+  Task 48 found item `source_ids` mirroring the concept's `additional_sources`. Task 52a found it
+  exactly: **every item's `source_ids` was a verbatim copy of its concept's
+  `official_sources + additional_sources`.** Nine networking concepts carried only AWS pages, so
+  every Azure and Google Cloud claim in the file was cited to an AWS document, and **no Google
+  Cloud source existed anywhere in the competency** while five items in one range turned on
+  Google-specific behaviour. This is not 200 authoring mistakes; it is one propagation rule
+  applied 1,150 times. Fixes belong at concept level in `data/topics/*.json`, and Task 59 should
+  say so plainly.
+
+  **Attribution failure without content failure held across the whole wave.** Of 211 wave-C items,
+  142 refuted and the substantive defects numbered under a dozen. Task 51 rewrote **no option text
+  at all** - all 16 of its refutations were citation-only. Task 49a refuted all 28 of its items
+  and found no wrong key and no second defensible option in any of them.
+
+  **A NEW DEFECT CLASS, MEASURED RATHER THAN ACCEPTED: the distractor's own `why` appended into
+  its `text`.** Task 49a reported 74 of its 84 distractors carrying it - the option announcing its
+  own wrongness, keys never doing so, the range scoreable without reading a source. Its
+  corpus-wide figures did not survive checking: a semicolon-plus-lowercase pattern matches 217
+  KEYS too, because semicolons are ordinary prose. Measuring the actual claim - token overlap
+  between the text tail and the option's own `why` - gives:
+      system-administration.json  54/384 distractors vs 2/128 keys   <-- LIVE, file unverified
+      command-line.json            5/330 vs 2/110
+      every other file             0-4
+  So the class is real and sharply concentrated, and its size in system-administration is 54, not
+  the 83 reported. cloud-computing is repaired in both ranges (items 29-56 now 0 of 84).
+  **Wave D must carry system-administration.json's 54 as a named, measured target.**
+
+  **An agent corrected the controller's briefing priors, and was right.** Task 49a was warned that
+  `nist-sp-800-145` had been caught twice and that the CNCF glossary was a repeat offender. It read
+  all seven pages and reported that SP 800-145 genuinely supports the definition, five
+  characteristics and both model taxonomies - including "in some cases automatically", with no item
+  in its range misquoting it - and that both CNCF entries genuinely contain what
+  `serverless-and-faas` cites them for. The real failures were **over-application**: those sources
+  cited for tenant isolation, cloud economics and PaaS-vs-FaaS billing, which they do not discuss.
+  "This source is unreliable" and "this source was stretched past what it says" need different
+  fixes; the controller had supplied the blunter version.
+
+  **A prior verification artifact was found actively wrong.** `factcheck-cloud-networking.json`
+  claim 017 records a Google load-balancer rename as `confirmed` while its own reasoning concedes
+  current pages "no longer foreground" it - a claim asserted from general knowledge and then
+  blessed by a verification record. Every brief in this cycle has said the `factcheck-*.json` files
+  are not clearances; this is the first hard instance of one being wrong rather than merely
+  incomplete. Lens 1 of Task 60 should ask what else those files certified.
+
+  **`lf-objectives-2025`-only items: 26 -> 14 corpus-wide.** Task 51 fetched the page whole (4,830
+  chars: domain weights and competency names, no definition of anything) and took its own file from
+  16 to 4. The remaining 14 sit in sysadmin best-practices (4), disaster-recovery (1),
+  functional-analysis (5) and project-management (4) - all in ALREADY-VERIFIED files, so they are a
+  known, enumerated residue rather than an open question.
+
+  **A free source settles six of the 13 waived PM concepts - reported, not applied.**
+  `nasa-se-handbook-sp-2016-6105` is already registered, live and tier 2, and states verbatim
+  definitions of project, stakeholder, critical path (with float) and Gantt chart, a section 6.2
+  "Requirements Creep" passage settling both `scope-creep` items, and a section 3.9 Phase F passage
+  establishing that closeout may begin from unplanned events such as failures - which is exactly
+  what `project-closure` turns on. `nasa-wbs-handbook-sp-2016-3404-rev1` covers
+  `deliverable-and-milestone`. Task 51 repaired items by adding already-registered ids to
+  `source_ids` only, touching no waiver file, so the pass added zero validate warnings. Follow-up
+  `data/` task can take this competency from 13 waived to 6. **Third independent demonstration that
+  the waiver rationale does not survive a search.**
+
+  **Four PM concepts are genuinely unsourceable and are now labelled as such inside the artifact**:
+  triple-constraint, raci, project-budget-and-resource-management, communication-plan. Checked
+  specifically - NASA mentions RACI twice, once as a bare acronym and once in a parenthetical
+  linking to Wikipedia; NASA's triple is technical/team/cost-and-schedule, not scope/time/cost
+  bounding quality; GAO-16-89G returns 403 from gao.gov and an error page from govinfo; the PMI
+  Lexicon 404s. They carry `confirmed` under the waiver's own `question_policy` with the limitation
+  written into each `verification.reasoning`. This is the competency's residual risk, recorded
+  where a reader will meet it.
+
+  **Two non-waived concepts are functionally undeclared waivers.**
+  `pm.project-management.acceptance-criteria` cites the 2020 Scrum Guide, which never uses the
+  phrase "acceptance criteria"; `pm.project-management.estimation-and-velocity` cites it too, and it
+  never uses the word "velocity" - the concept's entire subject sits outside its only source.
+  `checkIndependentSourcing` cannot see this: the concept DOES cite a tier-1/2 source, it just is
+  not about the thing. The citation defect and the waiver system failing at the same point.
+
+  Substantive content defects found this wave (the short list, against 142 refutations):
+  - **Two more second-correct-answer defects, both in cloud networking.** `cloud-subnets.03` asked
+    what "attaches directly to a subnet on AWS but has no equivalent per-subnet attachment on
+    Google Cloud" - a route table satisfies that exactly, and the route-table distractor's own
+    `why` certified it ("Google Cloud does route traffic - it defines routes at the network level
+    rather than per subnet"). `public-and-elastic-ip-addresses.02` - a load balancer satisfies
+    "replace a failed instance without waiting for DNS to re-cache" as squarely as an Elastic IP
+    remap. Both fixed by narrowing the stem.
+  - **A `why` asserting false arithmetic**: `cidr-planning.03` claimed a VPC CIDR block is "sized in
+    the tens of thousands of addresses at minimum"; the minimum is a /28, 16 addresses. Recomputed
+    by hand: 2^(32-16)=65,536 and 2^(32-28)=16, both matching AWS verbatim.
+  - **A key resting on an absence**: `hybrid-connectivity.02` cited Azure's ExpressRoute page for an
+    encryption claim; that page never mentions encryption. Microsoft's dedicated page states
+    ExpressRoute traffic is not encrypted by default.
+  - **A stale fact**: `public-and-elastic-ip-addresses.03` said Elastic IPs "cost nothing when
+    attached". AWS now charges for all EIPs, in use or idle.
+  - Two more stale `data/` descriptions where the guide prose was already correct - Google's layer-7
+    product still called "HTTP(S) Load Balancers" in `data/`. Cycle 2's divergence pattern, again.
+
+  Em-dash shape tell: no wave-C agent worsened it, and 52a improved its range 46% -> 42%.
+  Corpus-wide it stands where wave B left it and still needs the dedicated by-rule pass before
+  Task 58.
+
+  Process: the wave's first dispatch lost FIVE agents to a stall at the moment of fetching, all
+  having written nothing; the curl-plus-incremental-save pattern recovered every one of them on
+  re-dispatch, 7 for 7. Mid-wave validate readings ran as high as 31 warnings from parallel agents'
+  unwired sources and settled at exactly 16 once the wave finished - a mid-wave gate reading from
+  inside a parallel agent is not the wave's gate.
