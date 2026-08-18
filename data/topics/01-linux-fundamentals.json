@@ -972,7 +972,9 @@
       ],
       "additional_sources": [
         "posix-utility-conventions",
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-ls-1",
+        "apple-ls-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1007,7 +1009,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-pages-7",
-        "man-man-1"
+        "man-man-1",
+        "man-apropos",
+        "man-crontab-5",
+        "man-ls-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1045,7 +1050,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-path-resolution-7",
-        "posix-shell-command-language"
+        "posix-shell-command-language",
+        "man-bash-1",
+        "man-pwd-1",
+        "man-crontab-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1081,7 +1089,8 @@
       "additional_sources": [
         "man-path-resolution-7",
         "gnu-bash-manual",
-        "fhs-3-0"
+        "man-bash-1",
+        "man-crontab-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1116,7 +1125,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-coreutils-manual",
-        "gnu-bash-manual"
+        "gnu-bash-manual",
+        "man-bash-1",
+        "man-ls-1",
+        "man-pwd-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1152,7 +1164,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "fhs-3-0",
-        "gnu-bash-manual"
+        "gnu-bash-manual",
+        "man-bash-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1189,7 +1202,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-mkdir-1",
+        "man-rmdir-1",
+        "man-rm-1",
+        "man-bash-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1227,7 +1244,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-less-1",
+        "man-tail-1",
+        "man-cat-1",
+        "man-head-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1267,7 +1288,9 @@
       "additional_sources": [
         "gnu-find-man",
         "gnu-locate-man",
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "gnu-which-1",
+        "man-whereis-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1306,7 +1329,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-file-1",
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-stat-1",
+        "man-ls-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1759,7 +1784,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
-        "posix-shell-command-language"
+        "posix-shell-command-language",
+        "gnu-coreutils-manual"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1796,7 +1822,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
-        "posix-shell-command-language"
+        "posix-shell-command-language",
+        "gnu-coreutils-manual",
+        "sudo-man-sudo"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1831,7 +1859,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-grep-man"
+        "gnu-grep-man",
+        "gnu-find-man",
+        "gnu-locate-man",
+        "man-whereis-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1872,7 +1903,8 @@
       ],
       "additional_sources": [
         "gnu-grep-man",
-        "gnu-sed-manual"
+        "gnu-sed-manual",
+        "gnu-bash-manual"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1903,7 +1935,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-sed-manual"
+        "gnu-sed-manual",
+        "posix-sed",
+        "bsd-sed-man"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1939,7 +1973,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-gawk-manual"
+        "gnu-gawk-manual",
+        "posix-awk",
+        "gnu-bash-manual",
+        "gnu-coreutils-manual",
+        "gnu-sed-manual"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2012,7 +2050,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-diffutils-manual"
+        "gnu-diffutils-manual",
+        "posix-diff",
+        "man-sha256sum-1",
+        "gnu-bash-manual"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2046,7 +2087,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "posix-vi"
+        "posix-vi",
+        "posix-ex"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2081,7 +2123,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-tar-manual"
+        "gnu-tar-manual",
+        "man-gzip-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2228,7 +2271,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-ps-1",
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-free-1",
+        "man-signal-7",
+        "man-kill-1",
+        "man-unlink-2"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2271,7 +2318,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-coreutils-manual",
-        "man-w-1"
+        "man-w-1",
+        "man-last-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2309,7 +2357,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "iproute2-ip-address-man",
-        "iproute2-ss-man"
+        "iproute2-ss-man",
+        "man-ping-8",
+        "nmap-host-discovery",
+        "man-dig-1",
+        "man-nsswitch-conf-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2353,7 +2405,9 @@
       "additional_sources": [
         "rfc-6335",
         "man-ip-7",
-        "kernel-ip-sysctl"
+        "kernel-ip-sysctl",
+        "iproute2-ss-man",
+        "man-services-5"
       ],
       "candidate_evidence": [],
       "commands": [

@@ -31,16 +31,16 @@
 | linux.linux-operating-system.environment-variables | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 4 | 0 | 3 | HIGH |
 | linux.linux-operating-system.path | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
 | linux.linux-operating-system.system-information-commands | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 4 | 0 | 3 | HIGH |
-| linux.command-line.command-syntax | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
-| linux.command-line.getting-help | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.absolute-vs-relative-paths | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.dot-dotdot-and-tilde | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
-| linux.command-line.navigating-the-filesystem | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.root-directory-vs-root-vs-home | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.creating-and-removing-files-and-directories | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.viewing-file-contents | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.finding-files | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 3 | 0 | 3 | HIGH |
-| linux.command-line.file-type-and-metadata | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
+| linux.command-line.command-syntax | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 4 | 0 | 3 | HIGH |
+| linux.command-line.getting-help | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
+| linux.command-line.absolute-vs-relative-paths | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
+| linux.command-line.dot-dotdot-and-tilde | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 4 | 0 | 3 | HIGH |
+| linux.command-line.navigating-the-filesystem | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
+| linux.command-line.root-directory-vs-root-vs-home | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.command-line.creating-and-removing-files-and-directories | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
+| linux.command-line.viewing-file-contents | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
+| linux.command-line.finding-files | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 5 | 0 | 3 | HIGH |
+| linux.command-line.file-type-and-metadata | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 4 | 0 | 3 | HIGH |
 | linux.command-line.file-management-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
 | linux.command-line.reading-ls-l-output | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 5 | HIGH |
 | linux.command-line.case-sensitivity | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 2 | MEDIUM |
@@ -53,23 +53,23 @@
 | linux.command-line.aliases | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
 | linux.command-line.command-exit-status | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
 | linux.command-line.standard-streams | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.redirection | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.pipes | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.grep | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.regular-expressions | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 2 | 0 | 2 | MEDIUM |
-| linux.command-line.sed | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.awk | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
+| linux.command-line.redirection | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.command-line.pipes | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 4 | 0 | 3 | HIGH |
+| linux.command-line.grep | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 4 | 0 | 3 | HIGH |
+| linux.command-line.regular-expressions | Linux Fundamentals | 16% | Command Line | Command Line | MENTIONED ONLY | 3 | 0 | 2 | MEDIUM |
+| linux.command-line.sed | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.command-line.awk | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
 | linux.command-line.cut-sort-uniq-and-wc | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.diff-and-comparison | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| linux.command-line.text-editors | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
-| linux.command-line.archiving-and-compression | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 1 | 0 | 3 | HIGH |
+| linux.command-line.diff-and-comparison | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 4 | 0 | 3 | MEDIUM |
+| linux.command-line.text-editors | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
+| linux.command-line.archiving-and-compression | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
 | linux.command-line.file-transfer | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
 | linux.command-line.shell-scripting-basics | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
 | linux.command-line.script-control-flow | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| linux.command-line.system-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.who-is-logged-in | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.general-networking-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 2 | 0 | 3 | HIGH |
-| linux.command-line.port-ranges | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.command-line.system-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 6 | 0 | 3 | HIGH |
+| linux.command-line.who-is-logged-in | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 3 | 0 | 3 | HIGH |
+| linux.command-line.general-networking-commands | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 6 | 0 | 3 | HIGH |
+| linux.command-line.port-ranges | Linux Fundamentals | 16% | Command Line | Command Line | NOT COVERED | 5 | 0 | 3 | HIGH |
 | sysadmin.system-administration.user-account | System Administration Fundamentals | 30% | System Administration | System Administration | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
 | sysadmin.system-administration.group | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 2 | 0 | 3 | HIGH |
 | sysadmin.system-administration.uid-and-gid | System Administration Fundamentals | 30% | System Administration | System Administration | NOT COVERED | 2 | 0 | 3 | HIGH |

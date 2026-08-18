@@ -28,6 +28,7 @@
 | lfs200-course | Fundamentals of Open Source IT and Cloud Computing (LFS200) — course content | The Linux Foundation | 1 | — | 2026-08-10 | https://trainingportal.linuxfoundation.org/learn/course/fundamentals-of-open-source-it-and-cloud-computing-lfs200 |
 | linux-foundation-about | About The Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
+| posix-ex | POSIX.1-2024 (Issue 8), ex — text editor | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ex.html |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | aa-status-man8 | aa-status(8) manual page — display the current AppArmor policy state | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/aa-status.8.en.html |
@@ -41,6 +42,7 @@
 | ansible-glossary-idempotency | Ansible Glossary -- Idempotency | Red Hat / Ansible Project | 2 | 2026-08 | 2026-08-11 | https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html |
 | apache-license-2 | Apache License, Version 2.0 | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/licenses/LICENSE-2.0 |
 | apparmor-man7 | apparmor(7) manual page — kernel enhancement to confine programs, enforcement and complain modes | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/apparmor.7.en.html |
+| apple-ls-1 | ls(1) — macOS (BSD) list directory contents | Apple (Xcode command line tools man pages) | 2 | — | 2026-08-18 | https://keith.github.io/xcode-man-pages/ls.1.html |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
 | asf-contributor-agreements | ASF Contributor Agreements | Apache Software Foundation | 2 | — | 2026-08-18 | https://www.apache.org/licenses/contributor-agreements.html |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
@@ -153,6 +155,7 @@
 | azure-waf-cost-model | Architecture strategies for creating a cost model (Azure Well-Architected Framework) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/cost-model |
 | azure-well-architected-pillars | Azure Well-Architected Framework pillars | Microsoft | 2 | — | 2026-08-10 | https://learn.microsoft.com/en-us/azure/well-architected/pillars |
 | bash-exit-status | GNU Bash Reference Manual: Exit Status | GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html |
+| bsd-sed-man | sed(1) — FreeBSD/BSD stream editor manual page | The FreeBSD Project | 2 | — | 2026-08-18 | https://man.freebsd.org/cgi/man.cgi?query=sed&sektion=1 |
 | caf-cloud-accounting | Cost efficiency considerations for your cloud adoption strategy (shift from a CapEx model to an OpEx model) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting |
 | cc-faq | Creative Commons Frequently Asked Questions | Creative Commons | 2 | — | 2026-08-10 | https://creativecommons.org/faq/ |
 | cisa-data-backup-options | Data Backup Options (US-CERT/CISA) — the 3-2-1 rule | CISA / US-CERT | 2 | — | 2026-08-10 | https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf |
@@ -260,6 +263,7 @@
 | gnu-locate-man | locate(1) — list files in databases that match a pattern | GNU findutils / mlocate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/locate.1.html |
 | gnu-sed-manual | GNU sed Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/sed/manual/sed.html |
 | gnu-tar-manual | GNU tar: an archiver tool | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/tar/manual/tar.html |
+| gnu-which-1 | which(1) — shows the full path of (shell) commands | GNU which / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/trixie/gnu-which/which.1.en.html |
 | gnupg-manual-verify | Using the GNU Privacy Guard — Operational GPG Commands (--verify) | GnuPG Project | 2 | — | 2026-08-18 | https://www.gnupg.org/documentation/manuals/gnupg/Operational-GPG-Commands.html |
 | gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-18 | https://www.gnupg.org/gph/en/manual.html |
 | google-cloud-audit-logs | Cloud Audit Logs overview | Google Cloud | 2 | — | 2026-08-17 | https://cloud.google.com/logging/docs/audit |
@@ -309,11 +313,13 @@
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
 | man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
 | man-bash-1 | bash(1) — GNU Bourne-Again Shell manual page | GNU Project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/bash.1.html |
+| man-cat-1 | cat(1) — concatenate files and print on the standard output | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cat.1.html |
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
 | man-chown-2 | chown(2) — change ownership of a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/chown.2.html |
 | man-credentials-7 | credentials(7) — process identifiers, UIDs and GIDs | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/credentials.7.html |
 | man-crontab-5 | crontab(5) — cron table format and the five time fields | Linux man-pages project / cronie | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/crontab.5.html |
 | man-df | df(1) — report file system space usage (--inodes) | GNU coreutils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/df.1.html |
+| man-dig-1 | dig(1) — DNS lookup utility | ISC BIND 9 / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/bind9-dnsutils/dig.1.en.html |
 | man-dmesg | dmesg(1) — print or control the kernel ring buffer | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/dmesg.1.html |
 | man-env-1 | env(1) — run a program in a modified environment | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/env.1.html |
 | man-environ-7 | environ(7) — user environment | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/environ.7.html |
@@ -322,43 +328,58 @@
 | man-free-1 | free(1) — display amount of free and used memory in the system | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/free.1.html |
 | man-fstab-5 | fstab(5) — static information about filesystems | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/fstab.5.html |
 | man-group-5 | group(5) — user group file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/group.5.html |
+| man-gzip-1 | gzip(1) — compress or expand files | GNU gzip / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/gzip/gzip.1.en.html |
+| man-head-1 | head(1) — output the first part of files | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/head.1.html |
 | man-hier-7 | hier(7) — description of the filesystem hierarchy | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/hier.7.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
 | man-journalctl | journalctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/journalctl.1.html |
+| man-kill-1 | kill(1) — terminate a process | util-linux / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/kill.1.html |
 | man-kill-2 | kill(2) — send a signal to a process | Linux man-pages project | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man2/kill.2.html |
+| man-last-1 | last(1) — show a listing of last logged in users | util-linux / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/util-linux/last.1.en.html |
+| man-less-1 | less(1) — opposite of more | less project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/less.1.html |
 | man-logrotate-8 | logrotate(8) — rotates, compresses and mails system logs | logrotate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/logrotate.8.html |
+| man-ls-1 | ls(1) — list directory contents | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ls.1.html |
 | man-lsblk-8 | lsblk(8) — list block devices | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsblk.8.html |
 | man-lscpu-1 | lscpu(1) — display information about the CPU architecture | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/lscpu.1.html |
 | man-lsmod-8 | lsmod(8) — show the status of modules in the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsmod.8.html |
 | man-lvcreate-8 | lvcreate(8) — create a logical volume, including COW snapshots | LVM2 project / man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man8/lvcreate.8.html |
 | man-man-1 | man(1) — an interface to the system reference manuals | man-db project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/man.1.html |
+| man-mkdir-1 | mkdir(1) — make directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/mkdir.1.html |
 | man-modprobe-8 | modprobe(8) — add and remove modules from the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/modprobe.8.html |
 | man-mount-8 | mount(8) — mount a filesystem | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/mount.8.html |
 | man-namei | namei(1) — follow a pathname until a terminal point is found | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/namei.1.html |
 | man-nologin-8 | nologin(8) — politely refuse a login | Linux man-pages project / util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/nologin.8.html |
 | man-nproc-1 | nproc(1) — print the number of processing units available | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/nproc.1.html |
+| man-nsswitch-conf-5 | nsswitch.conf(5) — Name Service Switch configuration file | GNU C Library / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/nsswitch.conf.5.html |
 | man-os-release-5 | os-release(5) — operating system identification | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/os-release.5.html |
 | man-pages-7 | man-pages(7) — conventions for writing Linux man pages (manual section list) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/man-pages.7.html |
 | man-passwd-5 | passwd(5) — the password file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/passwd.5.html |
 | man-path-resolution | path_resolution(7) — how a pathname is resolved to a file (directory search permission) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
 | man-path-resolution-7 | path_resolution(7) — how a pathname is resolved to a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
+| man-ping-8 | ping(8) — send ICMP ECHO_REQUEST to network hosts | iputils / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/ping.8.html |
 | man-proc-5 | proc(5) — the /proc filesystem | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc.5.html |
 | man-proc-loadavg | proc_loadavg(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_loadavg.5.html |
 | man-proc-pid-oom-score | proc_pid_oom_score(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html |
 | man-proc-pid-oom-score-adj | proc_pid_oom_score_adj(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-11 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score_adj.5.html |
 | man-ps-1 | ps(1) — report a snapshot of the current processes | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/ps.1.html |
+| man-pwd-1 | pwd(1) — print name of current/working directory | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/pwd.1.html |
 | man-resolv-conf | resolv.conf(5) — resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/resolv.conf.5.html |
+| man-rm-1 | rm(1) — remove files or directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/rm.1.html |
+| man-rmdir-1 | rmdir(1) — remove empty directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/rmdir.1.html |
 | man-rpm-8 | rpm(8) — RPM package manager | RPM Project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/rpm.8.html |
+| man-services-5 | services(5) — Internet network services list | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/services.5.html |
 | man-setpriority-2 | getpriority(2)/setpriority(2) — nice value, CAP_SYS_NICE, RLIMIT_NICE | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/setpriority.2.html |
 | man-sha256sum-1 | sha256sum(1) — compute and check SHA256 message digests (-c reads recorded checksums) | man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/sha256sum.1.html |
 | man-shadow-5 | shadow(5) — shadowed password file | Linux man-pages project / shadow-utils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/shadow.5.html |
 | man-signal-7 | signal(7) — overview of signals; SIGKILL/SIGSTOP cannot be caught | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/signal.7.html |
 | man-ss | ss(8) — another utility to investigate sockets | iproute2 | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
+| man-stat-1 | stat(1) — display file or file system status | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/stat.1.html |
 | man-su-1 | su(1) — run a command with substitute user and group ID | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/su.1.html |
 | man-syscalls-2 | syscalls(2) — Linux system calls | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/syscalls.2.html |
 | man-systemctl | systemctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/systemctl.1.html |
+| man-tail-1 | tail(1) — output the last part of files | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/tail.1.html |
 | man-top-1 | top(1) — display Linux processes | procps-ng | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man1/top.1.html |
 | man-umask-2 | umask(2) — set file mode creation mask | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/umask.2.html |
 | man-uname-1 | uname(1) — print system information | GNU coreutils / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uname.1.html |
@@ -366,6 +387,7 @@
 | man-uptime | uptime(1) — Linux manual page | Linux man-pages project / procps-ng | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-uptime-1 | uptime(1) — tell how long the system has been running | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-w-1 | w(1) — show who is logged on and what they are doing | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/w.1.html |
+| man-whereis-1 | whereis(1) — locate the binary, source, and manual page files for a command | util-linux / kernel.org man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/whereis.1.html |
 | man7-hosts | hosts(5) - static table lookup for hostnames | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/hosts.5.html |
 | man7-ifconfig-nettools | ifconfig(8) - configure a network interface (net-tools) | net-tools / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ifconfig.8.html |
 | man7-ip-iproute2 | ip(8) - show / manipulate routing, network devices, interfaces and tunnels (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ip.8.html |
@@ -457,7 +479,10 @@
 | owasp-wstg-privilege-escalation | OWASP Web Security Testing Guide — Testing for Privilege Escalation (vertical vs horizontal) | OWASP | 2 | — | 2026-08-18 | https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation |
 | pci-dss-standards | PCI Data Security Standard — official standard page | PCI Security Standards Council | 2 | — | 2026-08-10 | https://www.pcisecuritystandards.org/standards/pci-dss/ |
 | pci-ssc-glossary | PCI SSC Glossary of Terms, Abbreviations and Acronyms | PCI Security Standards Council | 2 | — | 2026-08-17 | https://www.pcisecuritystandards.org/glossary/ |
+| posix-awk | POSIX.1-2024 (Issue 8), awk — pattern scanning and processing language | The Open Group / IEEE | 2 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html |
+| posix-diff | POSIX.1-2024 (Issue 8), diff — compare two files | The Open Group / IEEE | 2 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/diff.html |
 | posix-env-vars | POSIX.1-2024 (Issue 8) Base Definitions, Chapter 8: Environment Variables | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html |
+| posix-sed | POSIX.1-2024 (Issue 8), sed — stream editor | The Open Group / IEEE | 2 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/sed.html |
 | posix-shell-command-language | POSIX.1-2024 (Issue 8), Shell Command Language | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html |
 | posix-utility-conventions | POSIX.1-2024 (Issue 8), Chapter 12: Utility Conventions | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html |
 | posix-vi | POSIX.1-2024 (Issue 8), vi — screen-oriented (visual) display editor | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/vi.html |
@@ -530,6 +555,7 @@
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
 | wayland-home | Wayland — a replacement for the X11 window system protocol and architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-17 | https://wayland.freedesktop.org/ |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |
+| nmap-host-discovery | Nmap Network Scanning — Host Discovery (ICMP echo and firewalls) | Nmap Project (Gordon Lyon) | 3 | — | 2026-08-18 | https://nmap.org/book/man-host-discovery.html |
 | verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |
 | vmware-hypervisor | What is a Hypervisor? (type 1 vs type 2) | VMware / Broadcom | 3 | — | 2026-08-10 | https://www.vmware.com/topics/hypervisor |
 | devto-lfca-2025-09 | Cleared Linux Foundation Certified IT Associate (LFCA) + Preparation Guide | DEV Community (individual author) | 4 | 2025-09-03 | 2026-08-10 | https://dev.to/shivansh_barapatre_7/cleared-linux-foundation-certified-it-associate-lfca-preparation-guide-fd6 |

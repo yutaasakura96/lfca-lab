@@ -2795,3 +2795,509 @@ and would be **wrong for a StatefulSet**, whose pods keep a sticky per-ordinal n
 rescheduling. This bank has no StatefulSet concept, and the distractor that could have exploited
 the gap fails anyway because it claims the *same pod* survives. The item's
 `verification.reasoning` records this rather than claiming a verbatim source.
+
+## Task 54a — Linux Fundamentals :: Command Line (items 1–29, agent `verify-command-line-a`)
+
+29 of 29 items in range verified, all ending `confirmed`. **20 were refuted as authored and
+repaired**; 9 were confirmed unchanged. Two wrong premises, one double key, one over-claiming key,
+nine self-refuting distractors, one misdescribed stem, and a broad citation failure across seven
+of the ten concepts. Every source cited below was fetched with `curl` and read.
+
+### The blocking environment fact, recorded first
+
+**`gnu.org` was unreachable for the whole task** — `curl https://www.gnu.org/` timed out at 20s,
+`ctx_fetch_and_index` failed on all eight coreutils node pages, and the single-page coreutils
+manual (`gnu-coreutils-manual`, the most-cited source in this competency) could not be retrieved.
+Nothing was confirmed against it. Where the coreutils manual was the only documentation source for
+a claim, the corresponding **man7.org man page for that exact tool** was registered and read
+instead. `gnu-coreutils-manual` was left in place where the tool genuinely is a coreutils program;
+it was never used as the basis for a verdict.
+
+### Two wrong premises — content defects, not citation defects
+
+1. **`dot-dotdot-and-tilde.01` taught a scenario that does not happen.** It put a tilde in a
+   crontab job and explained the failure with "cron does not read that file with a shell".
+   crontab(5) says the opposite of the load-bearing half: *"The entire command portion of the
+   line, up to a newline or a `%` character, will be executed by /bin/sh or by the shell specified
+   in the SHELL variable of the cronfile."* A tilde in the command field **is** expanded, by that
+   shell. The item was re-set on a crontab **environment-assignment line**, which cron parses
+   itself (*"An environment setting is of the form: name = value ... any subsequent non-leading
+   white spaces in value is a part of the value assigned to name"*), where the lesson is real. All
+   four options were rewritten against crontab(5), bash(1) and path_resolution(7).
+2. **`root-directory-vs-root-vs-home.01` attributed a rationale to the FHS that the FHS does not
+   give.** The key's `why` said the FHS keeps `/root` on the root filesystem "so it stays
+   available even if a separately mounted `/home` fails to come up". FHS 3.0 §3.14 says only *"The
+   root account's home directory may be determined by developer or local preference, but this is
+   the recommended default location"*, and footnote [16] says *"If the home directory of the root
+   account is not stored on the root partition it will be necessary to make certain it will
+   default to / if it cannot be located"* — adjacent, but not that claim. The answer (`cd /root`)
+   was correct and was kept; the rationale was rewritten to what §3.14, footnote [16] and §3.8
+   actually say.
+
+### The double key
+
+**`creating-and-removing-files-and-directories.03`** asked why `rm -rf "$DIR/"` with `$DIR` unset
+is *catastrophic*, and offered as a distractor "The command is aborted automatically, since GNU
+`rm` always refuses an empty variable". rm(1): **`--preserve-root[=all] do not remove '/'
+(default)`**. For the operand this key actually produces — `/` — the distractor's leading clause is
+**true**; only its stated reason is wrong. Its own `why` compounded the error by calling the
+protection something that applies "in some configurations", understating a documented default. The
+stem now asks the falsifiable question ("What single operand does the shell hand to `rm`?"), the
+distractor was replaced with a false claim about parameter expansion, and the key's `why` states
+the `--preserve-root` default explicitly instead of implying an unprotected disaster.
+
+### The over-claiming key
+
+**`root-directory-vs-root-vs-home.03`** keyed on "The directory exists — it is conventionally mode
+700". No cited source says so, and it is not universal: Debian-derived systems ship `/root` as
+`drwx------` (700), Red Hat-derived ones as `dr-xr-x---` (550). The EACCES-versus-ENOENT
+distinction the item actually teaches is untouched; the mode assertion was replaced with
+"its permissions simply do not grant that user access", with both conventional modes named in the
+`why` rather than one asserted as *the* convention.
+
+### One stem that misdescribed its own output
+
+**`finding-files.02`** said that `find . -name *.log`, in a directory containing `error.log`,
+"only matches that one file". It does not: the shell rewrites the command to
+`find . -name error.log`, which still recurses and returns **every** file named `error.log` in the
+tree. Stem corrected to "the results contain nothing but files named `error.log`".
+
+### Sources that did not contain what they were cited for
+
+| Item(s) | Claim | Cited source | Verdict |
+| --- | --- | --- | --- |
+| `command-syntax.02` | macOS's BSD `ls` rejects `--all` | POSIX ch.12, coreutils manual | Neither documents Apple's `ls` at all. Apple's own ls(1) SYNOPSIS lists `--color` as its only long option; `--all` appears nowhere. Registered `apple-ls-1`. |
+| `getting-help.02` | `apropos` searches an index built by `mandb` | man(1), man-pages(7) | man(1) mentions mandb only under `-u`; man-pages(7) is about *writing* pages. apropos(1) states it outright: *"The database searched by apropos is updated by the mandb program."* Added `man-apropos`. |
+| `getting-help.03` | `--help` text ships inside the binary | man(1), man-pages(7) | Neither mentions `--help`. Re-grounded on man(1) FILES (*"/usr/share/man A global manual page hierarchy"* — the page is a separate installed file) plus ls(1)'s `--help` entry. |
+| `absolute-vs-relative-paths.02` | `pwd -P` prints the physical path | path_resolution(7), POSIX Shell Command Language | Neither covers the `pwd` utility. pwd(1): *"-P, --physical resolve all symlinks."* Added `man-pwd-1`, `man-bash-1`. |
+| `absolute-vs-relative-paths.03` | a child cannot change its parent's cwd | path_resolution(7), POSIX Shell Command Language | Neither covers process inheritance or `cd`'s scope. Added `man-bash-1`. |
+| `dot-dotdot-and-tilde.02` | bash's `cd ..` is logical by default | path_resolution(7), FHS, LF objectives | None documents bash's `cd`. bash(1): *"If neither -L nor -P is supplied, cd behaves as if -L had been supplied."* Added `man-bash-1`; dropped `fhs-3-0`, which supported nothing in this concept. |
+| `viewing-file-contents.01` | `less` reads lazily | coreutils manual | **`less` is not a coreutils program.** less(1): *"Less does not have to read the entire input file before starting."* Registered `man-less-1` (plus `man-cat-1`, `man-head-1`). |
+| `finding-files.01`, `.03` | `which -a` lists every match on `PATH`; `whereis` searches fixed locations | find(1), locate(1), coreutils manual | None documents either tool. which(1): *"--all, -a  Print all matching executables in PATH, not just the first."* whereis(1): *"locate the desired program in the standard Linux places, and in the places specified by $PATH and $MANPATH."* Registered `gnu-which-1`, `man-whereis-1`. |
+| `file-type-and-metadata.02` | `ctime` semantics | file(1), coreutils manual | file(1) says nothing about timestamps. stat(1): *"%z time of last status change."* Registered `man-stat-1`. |
+
+### Twelve sources registered in `data/sources.json`
+
+`man-ls-1`, `man-mkdir-1`, `man-rmdir-1`, `man-rm-1`, `man-tail-1`, `man-cat-1`, `man-head-1`,
+`man-pwd-1`, `man-stat-1`, `man-less-1`, `man-whereis-1`, `gnu-which-1`, `apple-ls-1` (one of
+these already existed and was reused). All were wired into the ten concepts'
+`additional_sources` in `data/topics/01-linux-fundamentals.json` — **the fix is at concept level**,
+because every item's `source_ids` is a verbatim copy of its concept's source lists, which is the
+root cause confirmed in earlier waves.
+
+### The `%w` problem — a key that its own cited tool would have contradicted
+
+`file-type-and-metadata.02` keyed on "traditional Unix metadata has no creation time at all", and
+o4's `why` generalised it to "none of the three fields `stat` reports is a creation time". But
+stat(1) documents **`%w`, "time of file birth"**. A reader checking the cited tool would find a
+creation field and conclude the item was wrong. The key was narrowed to the precise, defensible
+claim (`ctime` is the inode's status-change time, not a creation time) and the `why` fields now
+name `%w` explicitly. No distractor is rescued by the clarification: all three name the wrong
+field.
+
+### Guide corrections — true-but-misreadable prose, two instances
+
+Both in `study-guide/01-linux-fundamentals/command-line.md`; the guide is hand-maintained, so
+these were edited directly and `npm run generate` + `npm run check-guide` re-run (0 errors,
+0 warnings).
+
+1. **The crontab tilde claim was wrong, not merely misreadable.** The guide said a tilde "pasted
+   into a crontab, a systemd unit file, or a quoted argument silently fails", and knowledge-check
+   question 3 answered "those files are not read by a shell". crontab(5) hands the command field
+   to `/bin/sh`. Both passages now distinguish the crontab's environment lines (cron assigns them
+   verbatim) from its command field (run through `/bin/sh`, which does expand a tilde).
+2. **`stat`'s "common mistake" cell** read "it is the inode change time, and traditional Unix
+   metadata has no creation time at all" — which reads, next to GNU `stat`, as a claim that no
+   birth time is ever reported. `study-guide/02-system-administration/system-administration.md`
+   already states the correct nuance ("ext4, XFS and Btrfs do record a birth time"), so the two
+   guides disagreed. The command-line cell now says the creation time, where a filesystem records
+   one, is reported separately as `%w`, never as `ctime`.
+
+### Shape work — measured before and after, over items 1–29
+
+| Scan | Before | After |
+| --- | --- | --- |
+| Self-refuting distractors (trailing clause reversing the option's own claim) | 9 | 0 |
+| Six-token tails reused 3+ times | 1 (`"not what actually happens in practice"`, ×4) | 0 |
+| Options that are nothing but a code span | 0 | 0 |
+| Key-is-longest | 1/29 (3%) | 2/29 (7%) |
+| Em-dash trailing qualifier, key / distractor | 3% / 5% | 3% / 2% |
+
+The nine self-refuting options were not detected by n-gram overlap; the reliable signal was a
+trailing subordinate clause (`though` / `even though` / `— a natural guess, but`) that reverses
+the claim the option had just made. Four of the nine shared one verbatim tail, which is why the
+tail scan and the self-refutation scan cleared together. **Every strip was repaired by replacing
+the giveaway with a concrete false mechanism, never by truncating**, which is why clearing the
+padding moved key-is-longest by only one item and left keys shorter than distractors on average
+(74 vs 81 characters).
+
+**On the em-dash tell**, this file was flagged as one of the very few with no key/distractor gap
+(2% / 3% corpus-wide) and marked *do not open*. Stripping four self-refuting distractors removed
+four distractor em-dashes as a side effect and drove the in-range distractor rate to 1%, opening a
+gap in the wrong direction. Two rewritten distractors were given trailing em-dash qualifiers
+carrying real false clauses to close it back to 3% / 2%. **Anyone editing this file should measure
+this after removing padding, not before** — the padding was carrying the em-dashes.
+
+### Adjudication of prior findings
+
+`docs/verification/qbank-findings.md` contained **no prior section for Linux Fundamentals ::
+Command Line**, so there were no findings to adjudicate. `docs/verification/factcheck-command-line.json`
+(64 claims) is not a clearance and was not treated as one; CL-001, the claim covering
+`command-syntax`, was independently re-derived from POSIX Guidelines 3, 5 and 10 and is sound.
+
+### Residual limit, recorded rather than hidden
+
+`getting-help.03`'s key says `--help` output "is compiled into the binary itself". The strictly
+sourced half is that a man page is a **separate installed file** (man(1) FILES) that a stripped
+image can omit, while `--help` is an option of the program itself (ls(1)). No fetchable document
+states the implementation detail that the help string is linked into the executable; the `why` now
+rests on the separable-file contrast rather than on that detail. The item's
+`verification.reasoning` records this rather than claiming a verbatim source.
+
+### Linux Fundamentals :: Command Line, items 61–86 (task 54c, `verify-command-line-c`)
+
+Range: array items 61–86, the nine concepts `standard-streams`, `redirection`, `pipes`, `grep`,
+`regular-expressions`, `sed`, `awk`, `cut-sort-uniq-and-wc` and `diff-and-comparison`. All 26 end
+`confirmed`. Nine were confirmed as authored; **17 were refuted as authored, repaired, and
+re-verified**, with the pre-repair defect preserved behind a `REFUTED AS AUTHORED.` marker in each
+item's `verification.reasoning`.
+
+#### The network limit, stated up front because it shapes every citation below
+
+`www.gnu.org` is unreachable from this sandbox. `curl` and the indexing fetch tool both time out at
+the TCP level on every gnu.org URL tried, including the site root, over both IPv4 and plain HTTP —
+`HTTP:000`, connection timed out, not a 404 and not an empty 200. Seven of this range's registered
+sources are gnu.org manuals. This is a sandbox egress restriction rather than citation rot, so it
+was **not** recorded as a source defect. Every gnu.org-cited claim was instead verified against the
+identical GNU manual page rendered at man7.org and against POSIX.1-2024, and the reachable URLs are
+what the items' `sources_read` arrays list. Where the man7.org rendering is an abridgement that
+genuinely omits the behaviour (the `s///g` flag and sed's default auto-print are the two cases), a
+POSIX source was registered and added rather than leaving the claim resting on a page nobody in this
+environment can open.
+
+#### The dominant defect, again: a source cited for content it does not contain — 11 of 26 items
+
+The root cause held for a third time. Every item's `source_ids` was a verbatim copy of its concept's
+sources in `data/topics/01-linux-fundamentals.json`, so wherever a concept's source set was thin,
+every item under it inherited the same hole. Fixed at the concept level and then mirrored onto the
+items. The specific misses, each established by reading the cited document rather than by assuming:
+
+- `pipes.02` keys on **`ls` taking operands rather than standard input**, cited to the bash manual
+  and the POSIX Shell Command Language chapter. Neither documents `ls`. ls(1): `ls [OPTION]...
+  [FILE]...`, "List information about the FILEs (the current directory by default)".
+- `pipes.03` is entirely about **the scope of `sudo`** in a pipeline, with no sudo source cited.
+  sudo(8): "sudo allows a permitted user to execute **a** command as the superuser or another user".
+- `redirection.01` turns on `sort`, `redirection.03` on `tee` — both coreutils, neither cited.
+- `grep.01` asserts what **`find`, `locate` and `whereis`** do in three separate distractor `why`
+  fields, cited only to grep(1). All three were checked against their own manuals and all three
+  `why` fields are true; the citation, not the content, was the defect.
+- `awk.01` asserts what **`sed` and `cut`** do, cited only to the gawk manual.
+- `awk.02` keys on **shell** behaviour — double quotes still expanding `$1` as a positional
+  parameter — with no shell source cited.
+- `diff-and-comparison.02` keys on **`sha256sum`**, a coreutils tool, cited only to diffutils.
+- `diff-and-comparison.03` turns half on **`&&`**, cited only to diffutils.
+- `regular-expressions.02` is half about **shell globs**, cited only to grep and sed.
+- `sed.02` — see below, the worst of the set.
+
+#### A GNU extension taught as POSIX, in an item and in the guide
+
+This is the finding this range exists to catch, and it appeared twice.
+
+`regular-expressions.01`'s key `why` read: *"In POSIX basic regular expressions — grep's default —
+the operator meanings of `+ ? | ( ) { }` are reached only by backslashing them."* That is true of
+GNU grep and false of POSIX. POSIX BRE defines the backslashed forms `\( \)` and `\{ \}` only;
+**`\?`, `\+` and `\|` are GNU extensions the standard does not provide**, which is exactly why `-E`
+is the portable route to `?`. The `why` now attributes the behaviour to grep's default dialect,
+drops the false claim about the standard, and points at `-E`.
+
+The **guide carried the same error in prose**, in `linux.command-line.regular-expressions`:
+*"In POSIX basic regular expressions — grep's and sed's default — the characters `+ ? | ( ) { }` are
+literal, and the operator meanings are reached by backslashing them: `\+`, `\?`, `\|`, `\(`, `\)`."*
+Corrected in `study-guide/01-linux-fundamentals/command-line.md`: the paragraph now separates the
+two POSIX BRE pairs from the three GNU extensions and says plainly that a script relying on the
+latter is not portable. `data/topics/01-linux-fundamentals.json`'s `description` for the concept
+("Pattern syntax used by grep, sed, and others. Basic anchors, character classes and quantifiers are
+enough at this level.") is accurate and needed no change — this was a guide-prose defect only.
+
+**Finding against `docs/verification/factcheck-command-line.json`, recorded not deleted.** Claim
+`CL-039` states *"In POSIX BRE, `+ ? | ( ) { }` are literal unless backslashed"* and is marked
+`confirmed`, sourced to grep(1) plus the POSIX Regular Expressions chapter. The first half is right
+and the second half is the same overreach: under POSIX BRE, `\?` and `\+` are not defined operators.
+grep(1) — the cited page — describes GNU grep's behaviour, and the POSIX chapter does not support
+the claim as worded. This is the second prior factcheck artifact in this project found to assert
+more than its source does, and it is the artifact that most likely seeded both defects above.
+
+#### The man-page trap in its exact form: `sed.02`
+
+The item asks what happens when a GNU `sed -i` script is run on macOS's BSD sed. The **only** cited
+source was the GNU sed manual, which documents GNU sed and says nothing whatever about the BSD build
+the stem runs on — the cited page cannot settle the question the item asks. Registered a new source
+`bsd-sed-man` (FreeBSD sed(1), the lineage macOS ships) and added it to the concept and the item.
+
+The content is right, and two things were established rather than assumed. First, the BSD family is
+**not uniform**: FreeBSD sed(1) and the macOS man page read locally both document `-i extension`
+with the extension as a separate argument, while **OpenBSD sed(1) documents `-i[extension]` with the
+suffix attached, exactly as GNU does**. The stem names macOS, so the item is correct, but the key's
+`why` said "BSD sed" flatly and has been narrowed to the macOS/FreeBSD lineage. Second, confirmed
+empirically on this macOS 25.5 host: `sed -i 's/a/b/g' t54c.txt` exits 1 with
+`sed: 2: "t54c.txt": undefined label '54c.txt'` and leaves the file unchanged — the script text is
+swallowed as the suffix, precisely as the key predicts. The guide's `sed` **Traps** paragraph made
+the same flat "BSD sed" claim and now names macOS and FreeBSD and records the OpenBSD divergence.
+
+#### The shape work: 14 self-flagging distractors, and the length cue they were masking
+
+Scanned by the trailing-subordinate-clause signal rather than by n-gram overlap, as instructed. Two
+distinct shapes were present.
+
+**Verbatim-`why` self-refutation — 4 options across 2 items.** `pipes.01` was the worst item in the
+range: **three of its four options** ended in a clause that reversed the claim the option had just
+made — o2 "…since this swaps the two roles", o3 "…since the three are distinct", and o4, at 227
+characters, whose tail was a straight paste of its own `why`. `regular-expressions.02` o3 was the
+single most blatant: *"Regular expressions do not use `.` at all; only globs assign it a meaning,
+since A regular expression's `.` is one of its most common metacharacters…"* — capital A mid-sentence
+and all, the option contradicted itself inside one sentence.
+
+**The "on the assumption that" / "is assumed to" tell — 10 options.** `redirection.02` o4,
+`redirection.03` o3, `pipes.03` o2, `grep.02` o3, `regular-expressions.01` o3, `sed.02` o3,
+`awk.02` o2, `cut-sort-uniq-and-wc.02` o2, `cut-sort-uniq-and-wc.03` o4, `diff-and-comparison.02`
+o4, `diff-and-comparison.03` o4. This construction announces that the option is the one holding the
+mistaken belief, so a reader eliminates it on form without knowing the subject. Every one was
+rewritten to assert its false claim in the option's own voice; the `why` fields, which are where the
+correction belongs, were left to do that work. `grep.02` o3's tail was also garbled English ("adds
+the line-number output line numbers require"), and its rewrite claims two things, so its `why` was
+extended to rebut both halves.
+
+**Clearing the padding did not expose a length cue, and this was measured rather than hoped for.**
+Distractors were rewritten at comparable length rather than truncated, and no key was touched. In
+the two items where the padded option was by far the longest — `pipes.01` (o4 was 227 characters
+against a 135-character key) and `cut-sort-uniq-and-wc.02` (o2 was 195 against 107) — the rewritten
+option is still the longest in its item.
+
+Scan numbers for this range, before → after:
+
+| Scan | Before | After |
+| --- | --- | --- |
+| Key is the longest option | 0 of 26 | 0 of 26 |
+| Self-flagging / verbatim-`why` distractors | 14 | 0 |
+| Options that are nothing but a code span | 0 | 0 |
+| Six-token tails reused 3+ times | 0 | 0 |
+| Em-dash rate, keys vs distractors (whole file) | 2% / 3% | 2% / 2% |
+
+The em-dash check was run and **not** acted on, as instructed: keys and distractors sit at the same
+rate, so there is no gap to open.
+
+#### No second-correct-answer defect found, and here is what was actually run
+
+This range is dense with the shapes that produce one, so each was reasoned through rather than
+eyeballed. `redirection.02`/`.03`: `> out 2>&1` versus `2>&1 > out` was checked against bash(1)'s own
+worked example (`ls > dirlist 2>&1` versus `ls 2>&1 > dirlist`) and against POSIX 2.7's
+beginning-to-end evaluation order — the reversal distractor is genuinely the reverse, not a second
+truth. `&>` was searched for across the entire POSIX Shell Command Language chapter and does not
+appear, so calling it non-POSIX is right and the item does not attribute a bash construct to the
+standard. `cut-sort-uniq-and-wc.02`: `sort -u` ("output only the first of lines with equal keys")
+against `uniq -u` ("only print unique lines") are opposite selections even on sorted input, so the
+"yes, if sorted first" option is false rather than defensible. `awk.03`: POSIX awk's FS rules were
+read in full — the whitespace-collapsing behaviour belongs **only** to the `<space>` default, and
+`-F:` falls under "if FS is any other character c, fields shall be delimited by each single
+occurrence of c" — so o2 is false rather than a second key. `diff-and-comparison.03`: diff(1)'s
+0/1/2 and bash(1)'s "command2 is executed if, and only if, command1 returns an exit status of zero"
+settle it in one direction only. `grep.03` o3's "Is a directory" claim was checked against grep(1)'s
+`-d ACTION` default of `read` rather than assumed.
+
+#### Sources registered and concept-level fixes
+
+Five new sources in `data/sources.json`: `posix-sed`, `posix-awk`, `posix-diff`, `bsd-sed-man`,
+`man-whereis-1`. Concept `additional_sources` in `data/topics/01-linux-fundamentals.json`:
+`redirection` += coreutils; `pipes` += coreutils, sudo; `grep` += find, locate, whereis;
+`regular-expressions` += bash; `sed` += posix-sed, bsd-sed-man; `awk` += posix-awk, bash, coreutils,
+sed; `diff-and-comparison` += posix-diff, sha256sum, bash. The guide's `sources:` metadata lines for
+the seven affected concepts were updated to match.
+
+#### `data/` descriptions checked, and found correct
+
+All nine concept `description` fields in `data/topics/01-linux-fundamentals.json` were checked
+against the primary sources and are accurate as written — including `cut-sort-uniq-and-wc`'s "uniq
+only collapses adjacent duplicates, so sort usually precedes it", which uniq(1) states almost
+verbatim ("`uniq` does not detect repeated lines unless they are adjacent. You may want to sort the
+input first, or use `sort -u` without uniq"). The only guide correction required from this range is
+the POSIX-BRE paragraph and the BSD-sed narrowing described above.
+
+## Task 54d — Linux Fundamentals :: Command Line (items 87–110, agent `verify-command-line-d`)
+
+Range: the nine concepts `text-editors` (2), `archiving-and-compression` (3), `file-transfer` (3),
+`shell-scripting-basics` (3), `script-control-flow` (2), `system-commands` (3), `who-is-logged-in` (2),
+`general-networking-commands` (3), `port-ranges` (3). 24 of 24 verified; 18 refuted as authored,
+repaired, re-checked and now `confirmed`; 6 confirmed as authored.
+
+### 1. The one wrong key — and its distractor was the right answer
+
+`q.linux.command-line.archiving-and-compression.02` asked what `tar cfz logs.tar.gz /var/log`
+produces, and keyed "an archive where `z` is misread as the archive filename". That is false for
+that command line, and the authored o2 ("a correctly gzip-compressed archive, since the letters
+can be given in any order") was correct.
+
+GNU tar documents two different rules and the item applied the wrong one. In **traditional style**
+— the first argument a cluster of letters with no hyphen — "the arguments are read in the same
+order as the option letters", and GNU tar's own worked example is `tar cfv etc.tar /etc`, with `f`
+ahead of `v`. The last-in-cluster requirement belongs to **UNIX short-option style**: "Options that
+take arguments (whether mandatory or optional), can appear at the end of such a cluster, e.g.
+`-vkpf a.tar`."
+
+Verified empirically against GNU tar 1.35 in a `ubuntu:24.04` container:
+
+- `tar cfz logs.tar.gz src` → exit 0, real gzip archive, `tar tzf` lists `src/` and `src/a.txt`.
+- `tar -cfz d.tgz src` → creates a file literally named `z`, then `tar: d.tgz: Cannot stat: No such
+  file or directory`, exit 2.
+
+**Fix.** The item was rewritten around `tar -cfz logs.tar.gz /var/log`, the hyphenated form where
+the key's mechanism is the real one, with o2's `why` now stating the traditional-style contrast
+explicitly so the distinction is taught rather than papered over.
+
+### 2. Source of the error: `docs/verification/factcheck-command-line.json`, claim CL-049
+
+CL-049 reads, verdict `confirmed`: "`tar czf archive.tar.gz dir` creates a gzip-compressed archive
+(`f` must be the last clustered letter since it takes an argument)". The parenthetical is true only
+of the hyphenated style and is stated unconditionally. The item, and the guide, inherited it. The
+factcheck artifact is **not a clearance**; this is the second recorded instance of one being wrong.
+
+### 3. Guide prose corrected — the same error, in two places
+
+`study-guide/01-linux-fundamentals/command-line.md`:
+
+- The **Traps** paragraph under `command-syntax` said "which is why `tar czf` works and `tar cfz`
+  does not." Replaced with the hyphenated-vs-traditional distinction, quoting tar's own wording.
+- The `archiving-and-compression` **Commands** table listed "Writing `tar cfz`, which makes `z` the
+  archive name" as the common mistake, and its **How it works** paragraph said the archive name
+  "must come immediately after the `f`". Both corrected to scope the strict-order rule to the
+  hyphenated form.
+
+This is not the true-but-misreadable class seen in earlier waves. The guide was flatly wrong.
+`data/topics/01-linux-fundamentals.json`'s description for the concept ("tar czf creates a
+compressed archive in one step") is correct and was left alone.
+
+### 4. Sources that did not contain what they were cited for
+
+The confirmed root cause held again: every item's `source_ids` was a verbatim copy of its concept's
+list, so a concept-level gap propagated to every item under it.
+
+| Concept | Was cited to | Claim it does not cover |
+| --- | --- | --- |
+| `text-editors` | `posix-vi` only | `:wq` and `:q!` — vi(1p) only says `:` shall "Execute one or more ex commands"; the commands are in ex(1p) |
+| `archiving-and-compression` | `gnu-tar-manual` only | `gzip -l`'s output, a gzip option |
+| `system-commands` | `man-ps-1`, `gnu-coreutils-manual` | `free`'s columns (procps-ng, not coreutils and not ps); SIGKILL being uncatchable; a deleted-but-open file keeping its blocks |
+| `who-is-logged-in` | `gnu-coreutils-manual`, `man-w-1` | `last` and wtmp — `last` is util-linux |
+| `general-networking-commands` | `iproute2-ip-address-man`, `iproute2-ss-man` | everything in the `ping` item and everything in the `dig` item |
+| `port-ranges` | `rfc-6335`, `man-ip-7`, `kernel-ip-sysctl` | an item entirely about an `ss` flag and the `/etc/services` lookup |
+
+**A near-miss worth recording.** The `ping` item's central fact is that ICMP is commonly filtered.
+Re-citing it to ping(8) would have looked like a fix and been one. ping(8) does **not** say this —
+it documents only that ping sends ICMP ECHO_REQUEST and that "If ping does not receive any reply
+packets at all it will exit with code 1". The claim is sourced instead to the Nmap host-discovery
+documentation: "many hosts and firewalls now block these packets, rather than responding as
+required by RFC 1122". Both are now cited, for their respective halves.
+
+### 5. A key rationale contradicted by the source that would carry it
+
+`q.linux.command-line.general-networking-commands.02`'s key `why` said `/etc/nsswitch.conf`
+"normally consults `/etc/hosts` first". That is a common configuration, not a documented default,
+and nsswitch.conf(5)'s own worked example is `hosts: dns [!UNAVAIL=return] files` — DNS first. The
+`why` now states the switch mechanism without asserting an order the source does not fix.
+
+### 6. Two keys tightened for accuracy, without weakening them
+
+- `file-transfer.03`: the key said the port selection "silently fails to apply". `scp`'s `-p` takes
+  no argument, so `2222` becomes an extra source operand and scp reports it. Reworded; o3's `why`
+  (which turns on there being no syntax error) was rewritten to match what actually happens.
+- `port-ranges.03`: the key asserted an `/etc/services` lookup with neither ss(8) nor services(5)
+  cited. Both now are, and the `why` quotes them.
+
+### 7. Sources registered in `data/sources.json` (9)
+
+`posix-ex`, `man-gzip-1`, `man-last-1`, `man-ping-8`, `nmap-host-discovery`, `man-dig-1`,
+`man-nsswitch-conf-5`, `man-services-5`, `man-kill-1`. Checked against existing ids and URLs first:
+`man-free-1`, `man-signal-7` and `man-unlink-2` were already registered and were reused rather than
+duplicated. None of the nine introduces a new duplicate URL.
+
+### 8. Duplicate source ids — reported, not removed
+
+`data/sources.json` carries 9 id pairs sharing one URL. The pair this task's brief names:
+
+- `rfc-6335` and `rfc-6335-port-number-procedures`, both → `https://www.rfc-editor.org/rfc/rfc6335.html`
+
+The other eight: `man-uptime-1`/`man-uptime`, `fhs-3.0`/`fhs-3-0`, `lf-about`/`linux-foundation-about`,
+`man-path-resolution-7`/`man-path-resolution`, `iproute2-ss-man`/`man-ss`,
+`rfc-9110-http-semantics`/`rfc9110`, `aws-reserved-instances`/`aws-ec2-reserved-instances`,
+`docker-container-start`/`docker-cli-start`.
+
+Not consolidated here: `rfc-6335-port-number-procedures` is cited by
+`questions/02-system-administration/networking.json` and `data/topics/02-system-administration.json`,
+and `iproute2-ss-man`/`man-ss` similarly span competencies. Deduplication is a whole-bank edit and
+would collide with the three agents working this file concurrently. This range uses `rfc-6335` and
+`iproute2-ss-man` throughout.
+
+### 9. The self-refuting distractor shape — measured, stripped, and what it was masking
+
+Counted by the reliable signal rather than n-gram overlap: a trailing clause that names the
+reader's error instead of asserting a claim (`on the assumption that…`, `treating … as if…`,
+`dismissing…`, `…assumed to…`). **14 of 72 distractors in the range carried one; 0 remain.**
+
+The worst two were not merely padding:
+
+- `port-ranges.03` o4 ended "since protocol selection is controlled by the separate `t` and `u`
+  flags" — a **true** statement, restating the opening clause of its own `why`, attached to a false
+  option.
+- `file-transfer.03` o4 ended "since `scp` does not simply discard an unrecognized-for-this-purpose
+  flag", which negates the claim the option had just made.
+
+Every one was replaced with an assertive **false** clause of comparable length, never truncated,
+and each affected `why` was rewritten to rebut the new clause. Scan numbers before → after,
+over the 24 items:
+
+| Measure | Before | After |
+| --- | --- | --- |
+| Self-refuting distractor tails | 14 / 72 | 0 / 72 |
+| Mean option length, keys | 91.2 | 92.7 |
+| Mean option length, distractors | 95.3 | 92.3 |
+| Items where the key is the longest option | 1 / 24 | 1 / 24 |
+| Six-token tails reused 3+ times | 0 | 0 |
+| Options that are nothing but a code span | 0 | 0 |
+| Duplicate options within an item | 0 | 0 |
+
+Em-dash tell, file-wide (the file was flagged as having no gap, keys 2% / distractors 3%): after
+the strip it reads **keys 2% (2/110), distractors 2% (8/330)** — the gap narrowed to zero rather
+than opening. Within this range: keys 0/24, distractors 1/72.
+
+### 10. Second-correct-answer sweep
+
+Checked at every site the brief named. `tar -c`/`-x`/`-t` and whether `-z` is needed to read
+(`archiving-and-compression.03`); `scp` vs `rsync` vs `sftp` for differential transfer
+(`file-transfer.01`); `[` vs `[[` (`script-control-flow.02`); `who` vs `w` vs `last` vs `id` vs
+`whoami` (`who-is-logged-in.02`, five commands named in one stem); `ss` vs `curl` vs `traceroute`
+vs `hostname` (`general-networking-commands.03`, checked with the wave-A `curl -I -X DELETE`
+precedent in mind — this `curl -I` distractor does not satisfy its stem, which asks which *process*
+is listening). One genuine second-correct-answer defect found, in finding 1 above. No duplicate
+options anywhere in the range.
+
+### 11. Residual limits, recorded rather than hidden
+
+- **www.gnu.org was unreachable from this sandbox** for the whole task (curl exit 28 on repeated
+  attempts, https and http; `ctx_fetch_and_index` failed on the same three URLs while
+  pubs.opengroup.org succeeded in the same batch). Three cited sources live there:
+  `gnu-tar-manual`, `gnu-coreutils-manual`, `gnu-bash-manual`. No item was refuted for this. Where
+  a claim rested on one, the same project's man page was read instead — tar(1) and GNU df(1)/du(1)
+  and who(1)/id(1) at manpages.debian.org, and for Bash the maintainer's own copy of the Bash
+  Reference Manual at tiswww.case.edu plus bash(1) at man7.org. Each affected item's
+  `verification.reasoning` names the substitution. The gnu.org URLs are the right sources and were
+  left in place; this is a sandbox network limit, not citation rot.
+- **No citation rot found** in this range: every non-gnu.org URL cited by these items served the
+  text it was cited for.
+- **No stale quote found.** The class was live here — scp(1)'s BUGS section now reads "Since
+  OpenSSH 9.0, scp has used the SFTP protocol for transfers by default", which would falsify any
+  item asserting the legacy SCP protocol. `file-transfer.01` and `.03` were checked against it
+  specifically; neither makes a wire-protocol claim, and whole-file transfer is true of scp under
+  either protocol.
+- **Not adjudicated:** `qbank-findings.md` had no prior Command Line section at the time this task
+  ran, so there were no prior findings for this competency to accept or reject. The one prior
+  artifact bearing on the range, `factcheck-command-line.json` CL-049, is adjudicated in finding 2.
+- `q-verdict-coverage` still reports 31 errors in this competency, all on items 1–86, which belong
+  to agents `verify-command-line-a`/`-b`/`-c`. Zero errors on items 87–110.

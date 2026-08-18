@@ -48,8 +48,10 @@ operands, which strict POSIX ordering does not.
 **Traps** Long options are a GNU convention, not a POSIX requirement: the POSIX Utility Syntax
 Guidelines define only single-character options, so a script relying on `--all` or `--recursive`
 is not portable to a BSD or macOS userland even though the short forms work everywhere. And
-clustering only applies to short options that take no argument — the option that takes a value
-must come last in the cluster, which is why `tar czf` works and `tar cfz` does not.
+clustering only applies to short options that take no argument — in a hyphenated cluster the
+option that takes a value must come last, which is why `tar -cfz logs.tar.gz /var/log` makes `z`
+the archive name. GNU tar also accepts a hyphen-less traditional style in which "the arguments
+are read in the same order as the option letters", so `tar czf` and `tar cfz` both work there.
 
 **What the exam may test** Given a stated need, pick the command plus option that meets it, and
 recognise that a one-hyphen string is a cluster of single letters while a two-hyphen string is
@@ -183,8 +185,10 @@ shell syntax that the shell replaces with the value of `$HOME` before the comman
 
 **Why it matters** The layer difference decides where each one works. `.` and `..` work anywhere a
 path is accepted: in a config file, in a `find` expression, in a C program. `~` works only where a
-shell is doing the expanding, which is why a tilde pasted into a crontab, a systemd unit file, or
-a quoted argument silently fails to become a home directory.
+shell is doing the expanding, which is why a tilde in a crontab *environment line* (cron assigns
+those values itself), in a systemd unit's `ExecStart=`, or in a quoted argument silently fails to
+become a home directory. The crontab's *command* field is the exception worth knowing: crontab(5)
+hands that whole field to `/bin/sh`, and that shell does expand a tilde in it.
 
 **How it works** At `/`, `..` refers to `/` itself, so `cd ..` from the root is a no-op rather than
 an error. In bash, `cd ..` is logical by default: the shell strips the last component from `$PWD`
@@ -322,10 +326,12 @@ directory is per-process and does not propagate back to the parent.
    tilde.
 2. Root runs `cd ~`. Where do they end up, and where would an ordinary user named alice end up?
    Root lands in `/root`; alice lands in her own home, typically `/home/alice`.
-3. Why does a tilde written into a crontab or a systemd unit file usually fail to reach a home
-   directory, while `..` in the same file works?
-   `~` is expanded by the shell and those files are not read by a shell; `.` and `..` are real
-   directory entries resolved by the kernel wherever a path is accepted.
+3. Why does a tilde in a crontab *environment line* (`ARCHIVE=~/archive`) fail to reach a home
+   directory, while `..` in the same value works?
+   Cron assigns that line's value verbatim, with no shell involved, and the shell that later runs
+   the command does not re-expand a tilde out of a variable's value; `.` and `..` are real
+   directory entries resolved by the kernel wherever a path is accepted. A tilde in the crontab's
+   *command* field does expand — crontab(5) runs that field through `/bin/sh`.
 4. A script ends with `cd /var/log`. After running it, why is the calling shell still in the old
    directory?
    The script runs as a child process, and a child cannot change its parent's working directory.
@@ -506,7 +512,7 @@ inode itself, including a permission or ownership change). `ls -l` shows `mtime`
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `file` | Identify a file's type from its content | `-b` brief (no filename), `--mime-type` report the MIME type, `-L` follow symlinks | `file` | Trusting the extension instead — `file` reads the content and is the only one of the two that can be right |
-| `stat` | Print all inode metadata for a file | GNU coreutils forms: `-c '%a'` octal permissions, `-c '%s'` size, `-f` report on the filesystem instead | `stat` | Reading `ctime` as "creation time" — it is the inode change time, and traditional Unix metadata has no creation time at all |
+| `stat` | Print all inode metadata for a file | GNU coreutils forms: `-c '%a'` octal permissions, `-c '%s'` size, `-f` report on the filesystem instead | `stat` | Reading `ctime` as "creation time" — it is the inode change time; where a filesystem records a creation time, `stat` reports it separately as `%w` (birth), never as `ctime` |
 | `ls -l` | Show the metadata subset a listing displays: mode, links, owner, group, size, time, name | `-l` long format, `-h` human-readable sizes, `--time=atime` or `-u` show access time | `ls -l` | Assuming the timestamp column is when the file was created; it is `mtime`, the last content modification |
 
 **Traps** `ctime` is change time, not creation time, and it moves whenever ownership or permissions
@@ -1083,7 +1089,7 @@ recognising that redirecting one stream leaves the other where it was.
 
 <a id="c-linux.command-line.redirection"></a>
 ### Redirection
-*id: `linux.command-line.redirection` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-bash-manual, posix-shell-command-language*
+*id: `linux.command-line.redirection` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-bash-manual, posix-shell-command-language, gnu-coreutils-manual*
 
 **What it is** Operators that attach a process's standard streams to files instead of the terminal.
 `>` sends standard output to a file, creating it or truncating it to zero length; `>>` appends
@@ -1126,7 +1132,7 @@ distinguishing `>` from `>>`, and choosing the portable form of "both streams to
 
 <a id="c-linux.command-line.pipes"></a>
 ### Pipes
-*id: `linux.command-line.pipes` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-bash-manual, posix-shell-command-language*
+*id: `linux.command-line.pipes` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-bash-manual, posix-shell-command-language, gnu-coreutils-manual, sudo-man-sudo*
 
 **What it is** The pipe operator connects one command's standard output directly to the next
 command's standard input, so that small single-purpose tools can be composed into a larger one
@@ -1218,7 +1224,7 @@ target before `sort` ever opened it.
 
 <a id="c-linux.command-line.grep"></a>
 ### grep
-*id: `linux.command-line.grep` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-grep-man*
+*id: `linux.command-line.grep` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-grep-man, gnu-find-man, gnu-locate-man, man-whereis-1*
 
 **What it is** A filter that reads lines from files or standard input and prints those matching a
 pattern. It answers questions about what is *inside* files, and it is the single most-used text tool
@@ -1258,7 +1264,7 @@ that grep searches file contents while `find` searches file names.
 
 <a id="c-linux.command-line.regular-expressions"></a>
 ### Regular expressions
-*id: `linux.command-line.regular-expressions` · depth 2 · importance 2 · LFS200: MENTIONED ONLY · sources: gnu-grep-man, gnu-sed-manual*
+*id: `linux.command-line.regular-expressions` · depth 2 · importance 2 · LFS200: MENTIONED ONLY · sources: gnu-grep-man, gnu-sed-manual, gnu-bash-manual*
 
 **What it is** The pattern language `grep`, `sed`, `awk` and many other tools use to describe text.
 At this level the pieces needed are anchors (`^` start of line, `$` end of line), the dot for any
@@ -1272,18 +1278,20 @@ more of the preceding item" and `.` matches any character. The glob `*.txt` beco
 expression `.*\.txt`. Second, there are two POSIX dialects, and which one applies depends on the tool
 and its flags.
 
-**How it works** In POSIX basic regular expressions — grep's and sed's default — the characters
-`+ ? | ( ) { }` are literal, and the operator meanings are reached by backslashing them: `\+`, `\?`,
-`\|`, `\(`, `\)`. In POSIX extended regular expressions — reached with `grep -E`, `sed -E` or by
-using `awk`, which is extended by default — those characters are operators and a backslash makes them
-literal. This inversion is the reason a pattern copied from documentation for one tool can silently
+**How it works** In basic regular expressions — grep's and sed's default — the characters
+`+ ? | ( ) { }` are literal rather than operators. POSIX BRE provides backslashed forms for only two
+of those pairs, `\( \)` for grouping and `\{ \}` for intervals; GNU grep and GNU sed extend that
+with `\+`, `\?` and `\|`, which are GNU extensions and not part of the standard, so a script that
+relies on them is not portable. In POSIX extended regular expressions — reached with `grep -E`,
+`sed -E` or by using `awk`, which is extended by default — all of those characters are operators and
+a backslash makes them literal. `-E` is therefore the portable way to get `?`, `+` and `|`. This inversion is the reason a pattern copied from documentation for one tool can silently
 match nothing in another: nothing errors, the semantics simply change.
 
 **Key terms** anchor; character class; quantifier; basic versus extended regular expressions.
 
 <a id="c-linux.command-line.sed"></a>
 ### sed
-*id: `linux.command-line.sed` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-sed-manual*
+*id: `linux.command-line.sed` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-sed-manual, posix-sed, bsd-sed-man*
 
 **What it is** A stream editor: it reads input a line at a time, applies an editing script to each
 line, and writes the result to standard output. In practice it is used almost entirely for one
@@ -1311,9 +1319,11 @@ the first ten.
 | `sed 's/a/b/g'` | Replace every occurrence of `a` with `b` on every line | `g` all matches per line, `i` case-insensitive, `2` only the second match | `sed 's/a/b/g'` | Dropping the `g` and replacing only the first occurrence on each line, then concluding the pattern was wrong |
 
 **Traps** In-place editing is where GNU and BSD diverge, and the difference is not cosmetic. GNU sed
-takes an optional suffix attached to the flag: `-i` edits with no backup, `-i.bak` keeps one. BSD sed,
-including the one shipped with macOS, requires the suffix as a separate argument, so the portable-
-looking `sed -i 's/a/b/g' file` fails there and `sed -i '' 's/a/b/g' file` is needed. A script written
+takes an optional suffix attached to the flag: `-i` edits with no backup, `-i.bak` keeps one. The BSD
+sed shipped with macOS and FreeBSD documents `-i extension` and requires the suffix as a separate
+argument, so the portable-looking `sed -i 's/a/b/g' file` fails there — the script text is swallowed
+as the suffix — and `sed -i '' 's/a/b/g' file` is needed. The BSD family is not uniform here: OpenBSD
+sed documents `-i[extension]` with the suffix attached, as GNU does. A script written
 on one and run on the other either errors or silently creates a backup file named after the script.
 
 **What the exam may test** Predicting the output of a substitution with and without `g`, and knowing
@@ -1323,7 +1333,7 @@ that sed writes to standard output unless `-i` is used.
 
 <a id="c-linux.command-line.awk"></a>
 ### awk
-*id: `linux.command-line.awk` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-gawk-manual*
+*id: `linux.command-line.awk` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-gawk-manual, posix-awk, gnu-bash-manual, gnu-coreutils-manual, gnu-sed-manual*
 
 **What it is** A field-aware text processing language. It reads input one record (by default one
 line) at a time, splits each record into fields, and runs pattern-action pairs against it. Its
@@ -1419,7 +1429,7 @@ repeated.
 
 <a id="c-linux.command-line.diff-and-comparison"></a>
 ### diff and comparison
-*id: `linux.command-line.diff-and-comparison` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-diffutils-manual*
+*id: `linux.command-line.diff-and-comparison` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gnu-diffutils-manual, posix-diff, man-sha256sum-1, gnu-bash-manual*
 
 **What it is** `diff` reports the changes that would turn its first file into its second. Its unified
 output format, produced by `-u`, is the format patches and code review use, which is why the tool
@@ -1569,8 +1579,10 @@ no compression at all on its own. Compression shrinks a single stream; that is `
 file. A question that asks what a given command produces is really asking whether the candidate
 knows that `tar` alone does not compress.
 
-**How it works** `tar czf archive.tar.gz dir` reads as create, gzip, file — and the archive name must
-come immediately after the `f`, since `f` is the option that takes an argument. `tar xzf` extracts the
+**How it works** `tar czf archive.tar.gz dir` reads as create, gzip, file — and the archive name is
+the next word, since `f` is the option that takes an argument. Written with a leading hyphen the
+letter order becomes strict: `f` must end the cluster, so `tar -cfz archive.tar.gz dir` hands `z` to
+`f` as the archive name and fails. `tar xzf` extracts the
 same archive. GNU tar detects the compression format when reading, so `tar xf archive.tar.gz` also
 works, and `-a` picks the compression from the suffix when creating. `gzip file` compresses in place:
 it writes `file.gz` and removes the original unless `-k` keeps it or `-c` sends output to standard
@@ -1582,7 +1594,7 @@ output instead. bzip2 and xz trade speed for ratio, xz compressing hardest and s
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `tar czf` | Create a gzip-compressed archive | `c` create, `z` gzip, `f` archive file (must be last of the clustered letters), `v` verbose, `-C` change directory first | `tar czf logs.tar.gz /var/log` | Writing `tar cfz`, which makes `z` the archive name; and `tar cf archive.tar.gz dir`, which produces an uncompressed archive with a misleading name |
+| `tar czf` | Create a gzip-compressed archive | `c` create, `z` gzip, `f` archive file (must be last of the letters in a hyphenated cluster), `v` verbose, `-C` change directory first | `tar czf logs.tar.gz /var/log` | Writing `tar -cfz`, which hands `z` to `f` as the archive name (hyphen-less `tar cfz` does work); and `tar cf archive.tar.gz dir`, which produces an uncompressed archive with a misleading name |
 | `tar xzf` | Extract a gzip-compressed archive | `x` extract, `t` list without extracting, `-C` extract into a given directory | `tar xzf logs.tar.gz` | Extracting without listing first — `tar tzf` shows whether the archive unpacks into a directory or scatters files into the current one |
 | `gzip` | Compress a single file | `-d` decompress (same as `gunzip`), `-k` keep the original, `-c` write to standard output, `-9` best compression | `gzip access.log` | Expecting the original to survive: by default gzip replaces it with the `.gz` version |
 | `zip` | Create a zip archive, compressing as it goes | `-r` recurse into directories, `-e` encrypt | `zip -r site.zip site/` | Assuming it is installed — Info-ZIP's `zip` and `unzip` are separate packages that minimal Linux systems often omit |
