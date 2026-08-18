@@ -946,3 +946,99 @@ Tasks 53a/b/c and 55a/b/c: complete (commit 408e379) - WAVE D, BATCH 1
   (concentrated in containers 17/258 and command-line 12/330) - the asymmetry is real and points
   the same way as 55b's report, but the magnitude could not be confirmed, because a regex measures
   the phrase list rather than the class. Recorded as asymmetric-and-unquantified.
+
+Task 54 (a/b/c/d): complete (commits 1c4485f, 4d0b1c0) - WAVE D, BATCH 2
+  Command Line, 110 items split four ways (29/31/26/24). **110 of 110 confirmed; 73 refuted on
+  first pass.** Corpus 729 -> 839/1150 (73%), 20 of 22 competencies. Unscoped check-bank
+  422 -> 312 errors. Sources 529 -> 559. Gates green throughout; validate baseline now 15.
+
+  **CONTROLLER ERROR, and the most important process finding of the wave.** The host machine slept
+  mid-run. Task 54d returned a "failed" notification AFTER it had already reported and been
+  verified (a spurious post-completion failure). Task 54b sent no notification and had written
+  nothing, so the controller inspected the file, saw 31 nulls, concluded it was dead, committed the
+  other three ranges, and **re-dispatched a second agent under the same label**.
+  **54b was not dead. It was suspended, and it woke up.** Its final duration was 103 minutes.
+  Both instances were then live on the same JSON array with the identical `agent_label`.
+  Disaster was averted only because the replacement **detected the file changing under it**
+  (4 -> 10 -> 19 -> 25 -> 31 verified items across four minutes, each batch carrying its own label)
+  and **refused to write a single byte**, auditing the delivered result instead and reporting the
+  duplicate. Had it written a whole-file update from its in-memory copy, it would have silently
+  destroyed the original's in-flight batches.
+  Verified afterwards: 110/110 confirmed, correct label per range, zero range violations, and a
+  diff proving **no committed item outside 30-60 was altered**.
+  **Rules that follow, both now mandatory:**
+  1. **"Wrote nothing" is not "dead".** A missing notification plus an empty artifact is consistent
+     with suspension. Check liveness (ListAgents) before re-dispatching; the cycle's own rule that
+     an agent's report describes intent while only the artifact describes reality cuts BOTH ways -
+     the artifact also cannot prove an agent has stopped.
+  2. **Never reuse an agent_label for a re-dispatch.** Two writers sharing a label on one array is
+     how a batch gets lost with no trace, because the label check that would catch a stray write
+     passes for both.
+  The replacement's judgement is the reason this is a near-miss rather than an incident.
+
+  **A third and fourth prior-artifact defect, both seeding live errors.**
+  `factcheck-command-line.json` CL-039 marks as `confirmed` the claim that in POSIX BRE
+  `+ ? | ( ) { }` are literal unless backslashed. POSIX BRE defines only `\( \)` and `\{ \}`;
+  **`\?`, `\+`, `\|` are GNU extensions.** CL-049 states tar's last-in-cluster option rule
+  unconditionally, which is **false for traditional no-hyphen style** - GNU tar's own example is
+  `tar cfv etc.tar /etc`. Each seeded a matching error in an item AND in the guide.
+  With `factcheck-cloud-networking.json` claim 017 (wave C), that is **three artifacts caught
+  certifying falsehoods, two of them demonstrably propagating into the bank and the study guide.**
+  These files were produced by earlier cycles' verification passes. **A verification record that is
+  not itself verified is an error source carrying a credential.** Task 59 should state this as a
+  finding about method; Task 60 lens 1 should treat every `factcheck-*.json` as suspect input.
+
+  **The wrong-key count finally moved, and both came with a correct distractor.**
+  - `archiving-and-compression.02` keyed "`z` is misread as the archive filename" for
+    `tar cfz logs.tar.gz /var/log`. False for traditional style; the authored distractor
+    ("a correctly gzip-compressed archive, since the letters can be given in any order") was RIGHT.
+    Confirmed empirically on GNU tar 1.35 in ubuntu:24.04: `tar cfz` exits 0 and produces a
+    listable archive, `tar -cfz` creates a file named `z` and errors.
+  - `file-management-commands.01` keyed `cp -a`; distractor `cp -r` is a WORKING answer - GNU
+    coreutils 9.8, tested on this host, copies a symlink operand as a symlink under `-r`, `-R` and
+    `-a`, and only plain `cp`, `-L` and `-p` dereference. The distractor's `why` stated a false
+    fact. cp(1) never spells out the default for `-R` alone, so this rests on a reproduced test.
+  Plus `reading-ls-l-output.03`, where `ls -la` is defensible because `-a` adds the `.` entry whose
+  long-listing line IS the directory's own mode string.
+
+  **Two outright WRONG guide statements - a new class, distinct from true-but-misreadable.**
+  - The crontab-tilde prose claimed cron does not run the command through a shell. crontab(5):
+    "The entire command portion of the line ... will be executed by /bin/sh." Wrong in the body AND
+    in a knowledge-check answer; both corrected, and the item re-set on a crontab environment
+    assignment line where the lesson is real.
+  - The tar option-order prose, inherited from CL-049, in two places.
+  Plus the fifth and sixth true-but-misreadable instances (the regular-expressions GNU/POSIX
+  overreach, and a `cp -r` row implying it follows symlinks).
+
+  **gnu.org was unreachable for the entire batch** - controller probe: coreutils and grep manuals
+  time out at 25s while man7.org returns 200 in 868ms; agents independently reproduced it (curl
+  exit 28 at 20/45/90s, IPv4 and plain HTTP, including the site root). `gnu-coreutils-manual` is
+  this competency's most-cited source. Handled correctly by every agent: **unreachable is not
+  disproven** - nothing was refuted for it, nothing confirmed from memory, claims were re-verified
+  against man7.org GNU man pages and POSIX.1-2024, and each affected item names the substitution in
+  its `reasoning`. Task 54c registered POSIX sources where the man7 rendering is genuinely abridged.
+
+  **Empirical verification entered the toolkit and settled three items** no document could:
+  `sed -i` on this host (exit 1, `undefined label`), `tar cfz` vs `tar -cfz` in a container, and
+  `cp -r` on a symlink. Where a manual is silent on a default, running it is the primary source.
+
+  Also found: a GNU/POSIX dialect split that must be honoured in citations (`sed -i`, `grep -P`,
+  gawk extensions are GNU; man7's Linux man pages document GNU behaviour and are legitimate for it,
+  POSIX is not); the BSD family is NOT uniform (FreeBSD/macOS `-i extension` separate, OpenBSD
+  `-i[extension]` attached like GNU); `less` cited to coreutils, which does not contain it; and a
+  near-miss where re-citing a `ping` item to ping(8) would have LOOKED like a fix - ping(8) never
+  says ICMP is commonly filtered, so it went to Nmap host discovery instead. **Fixing a citation to
+  something plausible-but-silent is the same defect in a new coat.**
+
+  Shape: em-dash held at keys 2% / distractors 2% across the file - three agents were warned that
+  stripping self-refuting padding also strips distractor em-dashes and can open the gap in the
+  WRONG direction, which 54a hit and corrected deliberately. 45+ self-refuting distractors cleared
+  across the four ranges; the dominant tell here was a trailing "since X is assumed to Y" clause,
+  and one option was its own `why` pasted in verbatim, "since since" included.
+
+  Data hygiene recorded, not fixed: **9 duplicate-URL source id pairs** (`rfc-6335`/
+  `rfc-6335-port-number-procedures`, `man-uptime-1`/`man-uptime`, `fhs-3.0`/`fhs-3-0`,
+  `lf-about`/`linux-foundation-about`, `man-path-resolution-7`/`man-path-resolution`,
+  `iproute2-ss-man`/`man-ss`, `rfc-9110-http-semantics`/`rfc9110`, `aws-reserved-instances`/
+  `aws-ec2-reserved-instances`, `docker-container-start`/`docker-cli-start`). Deduping would
+  collide with concurrent agents; it belongs in the `data/` cleanup task.
