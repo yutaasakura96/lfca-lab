@@ -4284,3 +4284,1133 @@ the Red Hat documentation, not on tool enforcement.
 No item in this range turns on a PCI DSS requirement, in digits or paraphrased. The single
 regex hit for "requirement" is `raid-levels.01` o2's `why` referring to the stem's own stated
 requirement.
+
+---
+
+## Task 57a — System Administration Fundamentals :: Networking (items 1–28, agent `verify-sysnet-a`)
+
+Range: `sysadmin.networking.osi-model` … `sysadmin.networking.private-vs-public-ip-addresses`
+(array indices 0–27). **28 items, 28 `confirmed`, 0 left at `refuted`.** No wrong key was found
+and **no distractor was found to be also correct**. Every defect below is either an attribution
+failure or an option-writing defect.
+
+### 1. Confirmed finding — the cited ITU-T X.200 URL contains no OSI text at all
+
+`itu-t-x200-osi-basic-reference-model` pointed at `https://www.itu.int/rec/T-REC-X.200-199407-I/en`.
+Fetched: 200, 19 KB, and the only body word after tag-stripping is "Summary". Zero layer text.
+This is hazard 2 exactly — a live URL that is not a source for the claim — and it was the **sole**
+source for all four OSI items, three of which turn on layer names and numbering.
+
+Settled by the free-to-read PDF of the same Recommendation (47 pages, downloaded and text-extracted),
+**X.200 §6.1.2**: *"The Reference Model contains seven layers: a) the Application Layer (layer 7);
+b) the Presentation Layer (layer 6); c) the Session Layer (layer 5); d) the Transport Layer (layer 4);
+e) the Network Layer (layer 3); f) the Data Link Layer (layer 2); and g) the Physical Layer (layer 1)."*
+
+Fix: registered `itu-t-x200-osi-basic-reference-model-pdf` (the `dologin_pub.asp` PDF URL) and wired
+it into the `sysadmin.networking.osi-model` concept. The old id was **not** removed — siblings share
+`data/sources.json`, and the landing page remains a correct identity record for the Recommendation.
+**Paywall check:** ISO/IEC 7498-1 is licence-gated, ITU-T X.200 is not; the PDF downloaded without
+credentials, so no item in this range rests on a paywalled document.
+
+### 2. Confirmed finding — three items turn on RFCs they do not cite
+
+| Item | Claim | Missing authority | Fix |
+| --- | --- | --- | --- |
+| `osi-model.02` | "the internet implements the four-layer TCP/IP model" (the `why` names RFC 1122 outright) | RFC 1122 §1.1.3 | `rfc-1122-host-requirements` wired into the `osi-model` concept |
+| `subnet-mask-and-cidr.04` | "/31 … RFC 3021" — named by number in the key | RFC 3021 §2.1 | `rfc-3021-31-bit-prefixes` registered and wired |
+| `private-vs-public-ip-addresses.01` | 100.64.0.0/10 is carrier-grade NAT space, not RFC 1918 | RFC 6598 | `rfc-6598-shared-address-space` registered and wired |
+
+Neither RFC 4632 nor RFC 791 mentions /31; neither RFC 1918 nor RFC 3022 mentions 100.64.0.0/10.
+Both were verified by grepping the full RFC texts, not a section (hazard 8). Settling text:
+RFC 3021 §2.1 *"the two addresses above MUST be interpreted as host addresses"*; RFC 6598
+*"Shared Address Space is distinct from RFC 1918 private address space"* and *"The Shared Address
+Space address range is 100.64.0.0/10."*
+
+Also wired: `rfc-4862-ipv6-slaac` into `sysadmin.networking.ipv6-address`. RFC 4291 §2.1 requires
+every interface to *have* a link-local address; the *self-assignment without any server* that
+`ipv6-address.01`'s key asserts is specified in RFC 4862 §5.3.
+
+**Root cause honoured:** every fix was made at concept level in
+`data/topics/02-system-administration.json`, then propagated to the items' `source_ids`. All four
+affected concepts have all four of their items inside this range, so no sibling range was touched.
+
+### 3. Confirmed finding — 19 self-refuting distractors across 15 items
+
+The reliable tell (not n-gram overlap) was a clause that labels the option as a mistake rather than
+asserting anything: passive self-narration (*"a larger prefix number **was assumed** to mean…"*,
+*"the host-bit count for a /28 **was used by mistake**"*, *"half of the block **was subtracted
+rather than** the fixed two"*), meta-description instead of an answer (*"**treating** the prefix
+number 26 **as if** it applied to the third octet"*), and belief-labelling tails (*"which is the
+assumption most administrators start from"*, *"which is why the assumption spreads so easily"*,
+*"a belief that persists because it sounds intuitive"*, *"as commonly understood by less experienced
+staff"*, *"which feels reasonable on first encounter"*).
+
+Repaired in: `osi-model.01` o4, `osi-model.04` o4, `tcp-ip-model.03` o2, `ipv4-address.02` o4,
+`ipv6-address.02` o4, `subnet-mask-and-cidr.01` o3, `.02` o2/o3/o4, `.03` o2/o3/o4, `.04` o2/o4,
+`network-host-and-broadcast-addresses.01` o4, `.02` o3, `.04` o2, `private-vs-public-ip-addresses.03` o2,
+`.04` o2. Each was replaced by a **substantive false claim** of comparable length, never truncated.
+One repair also fixed a factual sloppiness: `private-vs-public-ip-addresses.03` o2 claimed 172.15
+"begins with the same first two octets as 172.16.0.0", which is not even true of the option's own
+premise.
+
+Neutral hedges (*"in every configuration seen in practice"*, *"under typical operating conditions"*,
+*"regardless of which distribution or vendor is involved"*) were **left alone**: they pad length but
+do not announce wrongness, and stripping them would have widened the length cue for no gain.
+
+### 4. Shape measurements, before and after (this range only)
+
+| Metric | Before | After |
+| --- | --- | --- |
+| Key ends in an em-dash clause | 18/28 (64%) | 18/28 (64%) |
+| Distractors ending in an em-dash clause | 25/84 (30%) | 25/84 (30%) |
+| Key is the longest option | 2/28 | 2/28 |
+
+The documented side effect reproduced: stripping the self-refuting padding pushed key-is-longest to
+**5/28** mid-pass (`subnet-mask-and-cidr.02`, `network-host-and-broadcast-addresses.01`,
+`private-vs-public-ip-addresses.03` flipped). Each reworded distractor was then extended with further
+false detail until the cue closed, returning the range to its 2/28 baseline. The em-dash gap is
+**unchanged** — no key gained or lost a dash, and no distractor's dash was stripped. The remaining
+64%-vs-30% gap is real and is left for the by-rule pass, per instruction.
+
+`npm run check-bank --scope "System Administration Fundamentals :: Networking"` reports no
+`q-length-cue` and no other non-verdict finding against any item in this range. (The one
+`q-length-cue` warning in the competency, `mac-address.02`, is outside this range.)
+
+### 5. Empirical verification (hazard 9) — commands run and output
+
+All in `docker run --rm [--privileged] ubuntu:24.04` with `iproute2`/`ipcalc`/`iputils-ping`.
+
+- `ipcalc -n -b 10.20.30.5/26` → `Netmask: 255.255.255.192 = 26` — settles `subnet-mask-and-cidr.01`.
+- `ipcalc -n -b 192.0.2.8/29` → `HostMin: 192.0.2.9  HostMax: 192.0.2.14  Broadcast: 192.0.2.15
+  Hosts/Net: 6` — settles `subnet-mask-and-cidr.03`.
+- `ipcalc -n -b 10.4.20.0/27` → `Network: 10.4.20.0/27  HostMin: 10.4.20.1  HostMax: 10.4.20.30
+  Broadcast: 10.4.20.31` — settles `network-host-and-broadcast-addresses.01` exactly as authored.
+- `ip link add dummy0 type dummy; ip link set dummy0 up; ip -6 -o addr show dummy0` →
+  `inet6 fe80::7480:90ff:fe20:ffcb/64 scope link` **on a brand-new interface with no DHCPv6 anywhere**
+  — settles `ipv6-address.01` and directly refutes its o2 ("a rogue DHCPv6 server assigned it").
+- `ip addr add 192.0.2.100/31 dev dummy0` accepted; `ip route show dev dummy0` →
+  `192.0.2.100/31 proto kernel scope link src 192.0.2.100`, no broadcast derived — corroborates RFC 3021
+  and `subnet-mask-and-cidr.04`.
+- `ip addr add 10.0.0.255/16 dev dummy0` accepted, `inet 10.0.0.255/16 scope global` — settles
+  `network-host-and-broadcast-addresses.02`: `.255` is an ordinary host address under a /16.
+- `ip -6 addr` → `inet6 ::1/128 scope host` on `lo`; `ping -c1 ::1` → `1 received, 0% packet loss` —
+  settles `ipv6-address.03`.
+- Python `connect(("127.0.0.1", 9))` → `ConnectionRefusedError(111) elapsed=0.0001s` with **no
+  application listening at all** — settles `osi-model.01`: an instant refusal is generated below the
+  application layer.
+- Bind to `0.0.0.0:8099`; `ss -ltn` → `LISTEN 0 1 0.0.0.0:8099 0.0.0.0:*`; the same socket then
+  accepted connections via `127.0.0.1` **and** via the container's global address `172.17.0.4` —
+  settles `ipv4-address.04`.
+- `ip addr add 192.0.2.50/24 dev d0` then
+  `grep -rl 192.0.2.50 /etc/netplan /etc/systemd/network /etc/network | wc -l` → `0` — the runtime
+  command writes nothing to the configuration layer, settling `ipv4-address.03`, whose claim ip(8)
+  itself does not state.
+
+The two-node lab was **not** started; the container tests covered every claim and carried no risk to
+the lab's state.
+
+### 6. Rejected findings — suspicions checked and not upheld
+
+- **`tcp-ip-model.02` (ARP's layer).** Suspected wrong because RFC 1122 files ARP under chapter 2,
+  **LINK LAYER**, at §2.3.2 — which would make "sits across the link/internet boundary" imprecise.
+  **Rejected:** the same chapter's §2.4 is titled *LINK/INTERNET LAYER INTERFACE*, ARP frames are
+  carried in link-layer encapsulation while resolving an internet-layer address, and no option offers
+  "link layer" — so the key remains the only defensible choice. The nuance is recorded in the item's
+  `verification.reasoning` rather than hidden.
+- **`tcp-ip-model.03` ("OSI 5, 6 and 7 fold into the application layer").** RFC 1122 §1.1.3 says only
+  *"combines the functions of the top two layers -- Presentation and Application"*. **Rejected as a
+  defect:** the suite defines no session layer for OSI layer 5 to map to, so the key's grouping is the
+  consequence of the model rather than a claim in conflict with it. Recorded as a stated limit in the
+  item's `verification.reasoning` — RFC 1122 does not spell out "5, 6 and 7" verbatim.
+- **`ipv4-address.01` (IP address survives end to end).** Suspected because NAT rewrites addresses.
+  **Rejected:** the stem describes a plain routed path across several routers, which is the case RFC 791
+  §2.3/§3.1 describes; the item does not claim NAT does not exist.
+- **`network-host-and-broadcast-addresses.03` ("directed broadcasts could historically be forwarded").**
+  Checked against RFC 919 §6 — *"If a gateway receives a directed broadcast for a network to which it is
+  not connected, it simply forwards it using the usual mechanism"* — and against RFC 919 §7 for the
+  limited broadcast: *"The address 255.255.255.255 denotes a broadcast on a local hardware network, which
+  must not be forwarded."* Upheld as authored, no change.
+- **Prior `factcheck-*.json` artifacts were not used as evidence** anywhere in this range (hazard 6);
+  every verdict rests on a document fetched in this task or on a command run in this task.
+
+### 7. Residual limits
+
+- `PROGRESS.md` was **not** edited: five sibling agents were writing this competency concurrently and
+  the file is large and hand-maintained. Every correction is recorded here and in each item's
+  `verification.reasoning`.
+- The X.200 PDF is served from a `dologin_pub.asp` query URL. It downloaded anonymously and is the only
+  free-to-read form of the text, but the URL shape is less durable than an RFC's. Recorded in the source's
+  `notes` so a future link-rot pass knows what to look for.
+
+---
+
+## Task 57b — System Administration Fundamentals :: Networking (items 29–56, agent `verify-sysnet-b`)
+
+Range: `sysadmin.networking.loopback-address` … `sysadmin.networking.routing-table` (7 concepts,
+28 items). All 28 carry `verdict: "confirmed"` from `verify-sysnet-b`; **zero** sit at `refuted`.
+Three items were **refuted as authored**, rewritten and re-verified; the history is preserved in each
+item's `verification.reasoning` behind the marker `REFUTED AS AUTHORED.`
+
+### 1. Confirmed findings — defects found and repaired
+
+- **`mac-address.02` — false premise in the stem and a false fact in the key's `why`.**
+  The stem read "A candidate runs `ip addr` and cannot find it", and the key's `why` said "`ip addr`
+  reports layer 3 addresses instead". `ip addr` prints the MAC. Settled empirically:
+  `docker run --rm ubuntu:24.04` + iproute2, `ip addr show eth0` →
+  `link/ether e6:b2:f0:63:2c:e1 brd ff:ff:ff:ff:ff:ff` on the line above `inet 172.17.0.4/16`.
+  Rewritten to ask which command is the *layer 2 view* of an interface, with the key stating truthfully
+  that `ip addr` prints the same link line. o2 was repaired at the same time and is now empirically
+  settled the other way: `ip -6 addr show eth0` printed **nothing at all** in that container, so
+  restricting to IPv6 removes hardware information rather than adding it.
+- **`default-gateway.02` — two defensible answers (the killer defect).**
+  The key blamed delivery-time ARP failure; distractor o4 said the routing table rejects the route at
+  entry time. **On Linux o4 is what actually happens.** Settled empirically:
+  `docker run --rm --privileged ubuntu:24.04` + iproute2, sole address `172.17.0.2/16` —
+  `ip route add default via 192.168.9.1` → `Error: Nexthop has invalid gateway.`, exit 2. Re-running
+  with `dev eth0 onlink` exited 0 and installed `default via 192.168.9.1 dev eth0 onlink`, after which
+  `ip route get 8.8.8.8` returned `8.8.8.8 via 192.168.9.1 dev eth0 src 172.17.0.2` — so *only* with
+  `onlink` is the failure deferred to delivery. Settling document: ip-route(8) NHFLAG
+  *"onlink — pretend that the nexthop is directly attached to this link, even if it does not match any
+  interface prefix"*, a flag that would be meaningless if unforced off-link nexthops were accepted.
+  Rewritten so the key states the entry-time rejection with the literal error text, the `onlink` escape
+  hatch moved to the key's `why`, and the old key's ARP-at-delivery reasoning became a correctly false o4.
+- **`default-gateway.04` — self-contradictory stem.** It stated the host "has a working default IPv4
+  route and internet access" *and* that "`ip route show default` prints nothing". Both cannot hold:
+  without `-6` that command prints the IPv4 default route (`default via 172.17.0.1 dev eth0`, measured).
+  Stem rewritten to say the command prints the IPv4 default route and nothing about IPv6, which is the
+  situation the item was reaching for. Key untouched and re-verified: `ip -6 route show default` and
+  `ip -6 route` both printed nothing on the same host while the IPv4 table was populated.
+- **`mac-address.04` o4 — distractor `why` stated a false fact.** It claimed multicast MAC addresses
+  "follow a different, vendor-defined pattern". Settled by **RFC 7042 §2.1**: multicast identifiers are
+  formed by turning on the **Group bit**, the bottom bit of the first octet — an IEEE architectural bit,
+  not a vendor pattern (§2.3.1 confirms IANA's own `33-33` IPv6 multicast prefix has the Group bit on).
+  `why` rewritten to the Group bit rule. Recorded and deliberately *not* made an option:
+  `ff:ff:ff:ff:ff:ff` does have the Group bit set, so broadcast is formally a special case of layer 2
+  group addressing — but o4 fails regardless on its "delivered only to subscribers" claim, so this does
+  not create a second defensible answer.
+- **`ipv4-address-classes.04` key's `why` — unsupportable chronological claim.** It said the loopback
+  reservation "predates and overrides" 127's place in class A. **RFC 6890 §2.2.2** gives 127.0.0.0/8 an
+  Allocation Date of **September 1981**, the same month RFC 791 was published, so "predates" cannot be
+  sustained. Rewritten to state the carve-out without the chronology. Correct key, wrong supporting fact.
+
+### 2. Concept-level citation fixes — the root cause, fixed in `data/`
+
+Every item's `source_ids` is a verbatim copy of its concept's `additional_sources`, so each of these was
+propagating to four items at once. Ten new sources registered in `data/sources.json` (all fetched and
+read in this task) and wired into `data/topics/02-system-administration.json`; no orphans — `validate`
+reports 0 errors and the baseline 15 warnings.
+
+| Concept | Added | Why the old citation could not carry the claim |
+|---|---|---|
+| `loopback-address` | `rfc-6890-special-purpose-addresses`, `man7-hosts` | RFC 6890 §2.2.2 is the modern registry entry for the **whole** 127.0.0.0/8 block (supersedes RFC 5735); neither cited RFC documents `/etc/hosts` at all, which item `.03` turns on |
+| `static-vs-dynamic-addressing` | `man7-ip-address` | the umbrella **ip(8)** page does not document `ip address add` — it only lists OBJECT names |
+| `mac-address` | `man7-ip-link`, `rfc-894-ip-over-ethernet`, `rfc-7042-ieee-802-parameters`, `rfc-7844-dhcp-anonymity-profiles` | ip(8) contains **zero** occurrences of `link/ether`; RFC 826 is silent on the broadcast address (RFC 894 supplies it), on the Local bit (RFC 7042) and on MAC randomisation (RFC 7844 §2.1) |
+| `arp` | `man7-ip-neighbour`, `rfc-4861-ipv6-neighbor-discovery` | the `FAILED` neighbour state is documented **only** on ip-neighbour(8); RFC 826 cannot source a claim about IPv6 Neighbor Discovery |
+| `ipv4-address-classes` | `rfc-1112-ip-multicasting`, `rfc-6890-special-purpose-addresses`, `rfc-1918-private-address-space` | **RFC 791 §3.2 stops at "111 escape to extended addressing mode" and never defines class D or class E** — the concept's original citation could not support any class D claim. RFC 1112 §4 does: *"Host groups are identified by class D IP addresses, i.e., those with \"1110\" as their high-order four bits … 224.0.0.0 to 239.255.255.255"* |
+| `default-gateway` | `man7-ip-route` | ip(8) has no `route show` documentation and no `onlink` |
+| `routing-table` | `man7-ip-route`, `man7-ifconfig-nettools` | ip(8) contains **zero** occurrences of `route get`, the command the key names; nothing in RFC 1122 or ip(8) speaks to net-tools packaging |
+
+This is hazard 1 from the task brief measured directly: **ip(8) is an umbrella page and is not a source
+for anything ip-link(8), ip-route(8), ip-address(8) or ip-neighbour(8) actually documents.** The
+original `man7-ip-iproute2` citation was left in place alongside the specific pages rather than removed,
+since it is not *wrong* — merely insufficient on its own.
+
+### 3. Empirical verification — commands run and what they settled
+
+All in throwaway containers (`docker run --rm [--privileged] ubuntu:24.04` + `iproute2`, `iputils-ping`).
+**The two-node lab was not started**; `./lab reset` / `./lab rebuild` were never invoked.
+
+- `ping -c2 127.0.0.2` → `0% packet loss`; `ping -c2 127.200.5.9` → `64 bytes from 127.200.5.9 … time=0.548 ms`.
+  Settles `loopback-address.04`: the **whole /8** loops back, not merely `127.0.0.x`, directly disproving
+  the "only up to 127.0.0.255" distractor. `ip addr` shows only `inet 127.0.0.1/8 scope host lo`, so the
+  /8 prefix on `lo` is the mechanism.
+- `ip addr show eth0` / `ip link` / `ip -6 addr show eth0` — see `mac-address.02` above.
+- `ip route add default via 192.168.9.1` → `Error: Nexthop has invalid gateway.` (exit 2); same with
+  `onlink` → exit 0. See `default-gateway.02` above.
+- **Stale-route black-hole, reproduced end to end** (`default-gateway.03`): with
+  `default via 10.9.9.1 dev veth0 metric 50` and `default via 172.17.0.1 dev eth0 metric 100`,
+  `ip route get 8.8.8.8` chose veth0. Bringing the veth **peer** down so veth0 reads
+  `<NO-CARRIER,…,UP> … state LOWERLAYERDOWN` left the route in place as
+  `default via 10.9.9.1 dev veth0 metric 50 linkdown`, and `ip route get 8.8.8.8` **still** returned
+  `via 10.9.9.1 dev veth0` — the dead low-metric route kept winning over the working one.
+  `/proc/sys/net/ipv4/conf/all/ignore_routes_with_linkdown` was `0`, the default. One run disproves both
+  "the kernel falls back automatically" and "both routes are used simultaneously".
+- `ip route get 172.17.0.5` → `172.17.0.5 dev eth0 src 172.17.0.2` (connected route, no `via`) while
+  `ip route get 8.8.8.8` → `via 172.17.0.1`, with the default route printed **first** in `ip route`
+  output. Settles `routing-table.01` on all three counts: longest prefix wins, print order is irrelevant,
+  and `ip route get` answers from the kernel.
+- Host route: with a second next hop on `dummy0` (10.9.9.2/24), `ip route add 8.8.8.8/32 via 10.9.9.1 dev dummy0`
+  gave `ip route get 8.8.8.8` → `via 10.9.9.1 dev dummy0` and `ip route get 8.8.4.4` → `via 172.17.0.1 dev eth0`.
+  Exactly one destination moved (`routing-table.02`).
+- `ip route del default` → `ping 8.8.8.8` = `connect: Network is unreachable` while `ping 172.17.0.1`
+  succeeds. The "local works, remote does not" signature in `default-gateway.01`, measured.
+- `which route` on an `ubuntu:24.04` image carrying only iproute2 → **not found**, while `ip route`
+  works. Settles `routing-table.03` on a current mainstream distribution.
+- `ping 8.8.8.8` then `ip neigh` → one line, `172.17.0.1 dev eth0 lladdr d2:f8:03:7d:c8:7f REACHABLE`,
+  and **no** entry for the off-subnet 8.8.8.8 (`arp.03`).
+
+### 4. Shape — measured before and after, for items 29–56 only
+
+| Metric | Before (HEAD) | After |
+|---|---|---|
+| Keys ending in a trailing em-dash clause | 15/28 (54%) | **14/28 (50%)** |
+| Distractors ending in a trailing em-dash clause | 10/84 (12%) | **10/84 (12%)** |
+| Key is the longest option | 6/28 (21%) | **5/28 (18%)** |
+
+The gap narrowed slightly on both axes and widened on neither. The documented side effect did appear
+once: the first pass at the `mac-address.02` and `default-gateway.02` rewrites pushed key-is-longest to
+7/28 (25%). Caught by re-running the scan, then repaired by shortening both keys and lengthening two
+distractors each — recorded as a "Shape note" in those items' `verification.reasoning`. The competency
+still needs its dedicated by-rule pass; 50% is far from 25%.
+
+### 5. Rejected findings — suspicions checked and not upheld
+
+- **`loopback-address.02` ("the service process is eliminated").** Suspected of overclaiming, since a
+  service can answer on loopback while bound only to `127.0.0.1`. **Rejected:** the key explicitly leaves
+  "a listening-address binding, a firewall rule, or routing between the two hosts" as live suspects, so
+  it eliminates only the process itself, which is exactly what the loopback response proves.
+- **`static-vs-dynamic-addressing.02` (duplicate-address conflict).** Suspected because RFC 2131 §2.2
+  says a server *SHOULD* probe a reused address "e.g., with an ICMP echo request" and the client *SHOULD*
+  probe with ARP, which would often catch the conflict. **Rejected:** the key says a conflict is
+  **"likely"**, not certain — the hedge survives the nuance where an absolute claim would not.
+- **`mac-address.01` (IP addresses survive end to end).** Suspected because NAT rewrites them.
+  **Rejected:** the stem describes plain routing across two routers, no option raises NAT, and RFC 1122
+  §3.3.1 describes exactly this per-hop next-hop model. The scope limit is recorded in the item's
+  `verification.reasoning` rather than hidden.
+- **`default-gateway.03` (stale route wins).** Suspected because a *down* interface has its routes
+  removed by the kernel, which would make the item wrong. **Rejected:** the stem says *physically
+  disconnected*, i.e. carrier loss, not `ip link set down`. Reproduced above — the route survives as
+  `linkdown`, keeps its metric, and still wins.
+- **Prior `factcheck-*.json` artifacts were not used as evidence** anywhere in this range (hazard 6).
+  Every verdict rests on a document fetched in this task or a command run in this task.
+
+### 6. Residual limits — stated honestly
+
+- **`routing-table.03`'s "deprecated".** No primary document fetched here uses the word *deprecated* for
+  `route(8)` itself. What **is** documented is the net-tools → iproute2 hand-off — man7's ifconfig(8)
+  COLOPHON places the page in "the net-tools (networking utilities) project", its SEE ALSO lists
+  `route(8)`, and its text directs readers to *"use ip-link(8) from the iproute2 package to display link
+  layer informations including the hardware address"* — plus the **measured absence** of the binary on a
+  current image. The key's claim rests on that absence, not on a vendor deprecation notice. Recorded in
+  the item's `verification.reasoning`.
+- **`gnu.org` was unreachable** for the duration of this task (per the controller's probe). Nothing in
+  this range was refuted on that basis and nothing was confirmed from memory; every claim was settled
+  against man7.org, an RFC, or a command run here.
+- **`PROGRESS.md` was not edited.** Five sibling agents were writing this competency concurrently and the
+  file is large and hand-maintained. Every correction is recorded here and in each item's
+  `verification.reasoning`.
+
+## Task 57e — System Administration Fundamentals :: Networking (items 105–130, agent `verify-sysnet-e`)
+
+Range: `sysadmin.networking.tcp-vs-udp` … `sysadmin.networking.ssh` (array indices 104–129).
+**26 items, 26 `confirmed`, 0 left at `refuted`.** One item was **refuted as authored** and rewritten
+(a false premise in the stem). **No wrong key was found and no distractor was found to be also
+correct.** Everything else was an attribution failure or an option-writing defect.
+
+### 1. Confirmed finding — `scp.03`'s stem asserted an error `scp` does not produce
+
+The stem said `scp -p 2222 report.tar.gz user@web01:/tmp/` "gets an error about an unrecognised
+option". It does not. scp(1) documents *"-p   Preserves modification times, access times, and file
+mode bits from the source file"* — lowercase `-p` is a **valid** scp flag, so `2222` is simply
+consumed as an extra source operand.
+
+Empirical, `docker run --rm ubuntu:24.04` with `openssh-client`:
+
+```
+$ scp -p 2222 report.tar.gz user@web01:/tmp/
+scp: stat local "2222": No such file or directory
+$ scp -Z 2222 report.tar.gz user@web01:/tmp/
+scp: unknown option -- Z
+usage: scp [-346ABCOpqRrsTv] ...
+```
+
+The item was teaching a false diagnostic signature, and distractor `o4`'s `why` ("An
+unrecognised-option error specifically flags an invalid flag") rested on the same false premise.
+Fixed: stem now reports the real error; the key explains why lowercase `-p` is *accepted* rather
+than rejected; `o2` and `o4` `why` texts rewritten. Re-verified against scp(1) *"-P port … Note that
+this option is written with a capital 'P', because -p is already reserved for preserving the times
+and mode bits of the file."* Verdict recorded `confirmed`, history preserved behind the marker
+`REFUTED AS AUTHORED.` in the item's `reasoning`.
+
+### 2. Confirmed finding — man7.org's `ip(7)` no longer documents any `/proc/sys/net` file
+
+`ports-and-sockets.04`'s key states Linux's default ephemeral range is 32768–60999. The natural
+man-page citation, `ip(7)`, **no longer carries it**: grepping the fetched page for `/proc/sys/net`
+returns nothing, and the only cross-reference is `IP_LOCAL_PORT_RANGE(2const)`, a socket option, not
+the sysctl. This is hazard 2 in its live form — a 200 OK page that is not a source for the claim.
+
+Settled by the Linux kernel networking documentation, `ip_local_port_range`: *"The default values are
+32768 and 60999 respectively."* Empirically, `cat /proc/sys/net/ipv4/ip_local_port_range` in
+`ubuntu:24.04` returned `32768	60999`. Fix: `kernel-ip-sysctl` (already registered by an earlier
+pass — reused, not duplicated) wired into `sysadmin.networking.ports-and-sockets` and
+`sysadmin.networking.well-known-ports`. `man-ip-7` was still added to `ports-and-sockets`, but only
+for what it *does* say — INADDR_ANY binding semantics, which `well-known-ports.02` and
+`listening-vs-established-connections.03` turn on.
+
+### 3. Confirmed finding — six concepts turned on documents they did not cite
+
+Fixed at concept level in `data/topics/02-system-administration.json`, then propagated verbatim to
+the items' `source_ids`. All four items of each affected concept are inside this range, so no sibling
+range was touched.
+
+| Concept | Claim with no cited authority | Settling source | Settling text |
+| --- | --- | --- | --- |
+| `tcp-vs-udp` | DNS rides UDP and falls back to TCP for oversized answers | `rfc-7766-dns-over-tcp` (new) | RFC 7766: truncate a response that does not fit, then *"retry over TCP instead"* |
+| `ports-and-sockets` | ports below 1024 require privilege to bind | `man-capabilities-7` (new) | capabilities(7): *"CAP_NET_BIND_SERVICE — Bind a socket to Internet domain privileged ports (port numbers less than 1024)"* |
+| `ports-and-sockets` | 32768–60999 ephemeral default | `kernel-ip-sysctl` (reused) | see finding 2 |
+| `http-and-https` | `curl` stops at a 301 without `-L` | `curl-manpage` (reused) | curl(1) `-L, --location`: opt-in redirect following |
+| `http-and-https` | TLS SNI carries the server name in the clear | `rfc-8744-sni-encryption` (new) | RFC 8744 §1: *"The SNI extension is carried in cleartext in the TLS ClientHello message"* |
+| `ssh` | `ssh-copy-id` installs only the public half | `openssh-ssh-copy-id` (reused) | ssh-copy-id(1): appends keys to *"~/.ssh/authorized_keys"*; under `-i`, *"If the filename does not end in .pub this is added"* |
+| `ssh` | loose permissions silently disable key auth | `openssh-sshd-8` (reused) | sshd(8): *"If this file, the ~/.ssh directory, or the user's home directory are writable by other users … sshd will not allow it to be used unless the StrictModes option has been set to 'no'."* |
+| `ssh` | `scp -P` versus `-p` | `openssh-scp-man` (reused) | see finding 1 |
+| `ssh` | SFTP is an SSH subsystem; FTPS is FTP in TLS | `openssh-sftp-man` (new), `rfc-4217-ftp-over-tls` (new) | sftp(1): *"performs all operations over an encrypted ssh(1) transport"*; RFC 4217 *Securing FTP with TLS* |
+
+**The man-page trap (hazard 1) was live here.** The whole `sysadmin.networking.ssh` concept cited
+only `ssh(1)` plus the IANA port registry. ssh(1) documents neither `ssh-copy-id`, nor
+`authorized_keys` permissions, nor `scp`'s flags, nor the sftp subsystem — i.e. **none of the four
+items' operative claims**. Five OpenSSH pages plus RFC 4217 now back it.
+
+### 4. Confirmed finding — 6 self-refuting distractors and 9 padding tails
+
+Detected by the trailing-subordinate-clause tell, not n-gram overlap. Self-refuting (a clause that
+announces the option is a novice mistake): `tcp-vs-udp.02` o2 and `tcp-three-way-handshake.01` o2
+(*"as commonly understood by less experienced staff"*), `tcp-three-way-handshake.02` o4 and
+`well-known-ports.04` o3 (*"a belief that persists because it sounds intuitive"*),
+`tcp-three-way-handshake.04` o4 (*"which is why the assumption spreads so easily"*),
+`listening-vs-established-connections.04` o4 (*"an assumption that holds until it does not"*).
+
+Nine further options carried contentless length padding of the same machine-paste family
+(*"regardless of which distribution or vendor is involved"*, *"under the great majority of ordinary
+configurations"*, *"in every configuration seen in practice"*, *"across virtually every environment
+of this kind"*, *"as a matter of routine operational practice"*, *"in most textbooks and quick
+references"*, *"by default on most systems administrators encounter"*).
+
+Every one was replaced with a **real false claim of comparable length**, never deleted — deletion is
+what exposes length cues (hazard 5). One replacement was deliberately reworked twice: for
+`listening-vs-established-connections.03` o2 and `tcp-three-way-handshake.01` o2 the obvious filler
+would have been a DROP-versus-REJECT distinction, which is **true** and would have manufactured a
+second defensible answer. The client-connect-timeout claim was substituted instead.
+
+### 5. Shape — measured before and after, gap not widened
+
+Range-local counts (items 105–130), key text ending in a trailing em-dash clause, and key strictly
+longest:
+
+| Metric | Before (HEAD) | After |
+| --- | --- | --- |
+| Keys ending in a trailing em-dash clause | 8 / 26 | 8 / 26 |
+| Distractors ending in a trailing em-dash clause | 3 / 78 | 3 / 78 |
+| Key is strictly the longest option | 6 / 26 | 6 / 26 |
+
+The first pass of rewrites moved key-is-longest to 8/26 (`well-known-ports.04` and `ssh.03`, both
+because a padding tail had been masking the key's length). Two distractors in those items were
+lengthened with substantive false content until the baseline was restored. Nothing in this range
+widened the file-wide em-dash gap.
+
+### 6. Empirical verification performed
+
+All in `docker run --rm ubuntu:24.04` (and, where the kernel default mattered, with
+`--sysctl net.ipv4.ip_unprivileged_port_start=1024`, because Docker's own default sets it to `0` —
+a container override, not the Linux default, and a trap for anyone testing privileged ports in a
+container).
+
+| Item | Command | Result |
+| --- | --- | --- |
+| `ports-and-sockets.03` | bind 80 and 8080 as `nobody` | `PermissionError: [Errno 13] Permission denied` on 80; `BOUND` on 8080 |
+| `ports-and-sockets.04`, `well-known-ports.04` | `cat /proc/sys/net/ipv4/ip_local_port_range` | `32768	60999`; an observed outbound connection used source port **47566** — below 49152, i.e. inside IANA's *registered* band, exactly as `well-known-ports.04`'s key claims |
+| `listening-vs-established-connections.02` | UDP socket `connect()` to a peer, then `ss -uan` | `ESTAB 0 0 127.0.0.1:9998 127.0.0.1:9999` alongside `UNCONN … 127.0.0.1:9999` — **no packet ever sent**, proving ESTAB here is a purely local property |
+| `listening-vs-established-connections.01`, `.04`, `tcp-three-way-handshake.04` | listener on 127.0.0.1:7777, client connects then closes, `ss -tan sport = :7777 or dport = :7777` | `LISTEN` only under `-l`; `LISTEN` + two `ESTAB` rows while connected; `FIN-WAIT-2` / `CLOSE-WAIT` after the client close, with no packet loss and no firewall |
+| `ssh.03` | `scp -p 2222 …` versus `scp -Z 2222 …` | see finding 1 |
+
+### 7. Rejected findings (checked, not acted on)
+
+- **`well-known-ports.01`'s key `why` mentions 3389, which the stem never names.** Checked against
+  the IANA registry: `ms-wbt-server 3389/tcp` is a registered-range assignment, so the sentence is
+  true and consistent with the point being made. Cosmetic, not a defect — no change.
+- **`ssh.02` o2 ("the key was never copied to this server") looked potentially also-correct.**
+  Rejected: the option's own `why` concedes it is possible in general and defers to the scenario's
+  explicitly flagged world-writable home directory. sshd(8)'s StrictModes text makes the permission
+  cause the determinate one. Not a second defensible answer.
+- **`tcp-vs-udp.01` key ("a retransmitted answer arriving late is worse than useless").** Checked
+  against RFC 768 (*"delivery and duplicate protection are not guaranteed"*) and RFC 9293 §1. The
+  phrasing is a rationale, not a specification claim, and neither RFC contradicts it. No change.
+- **Suspicion that `well-known-ports.03` o3 might be right — that 2222 is a second registered SSH
+  port.** Checked directly in the IANA registry CSV: `2222/tcp` is `EtherNet/IP-1 (EtherNet/IP I/O)`.
+  The distractor is false and its `why` is true. Finding rejected.
+- **RFC 8446 as the source for "SNI is sent in the clear".** I searched the whole 338 KB RFC 8446
+  text (hazard 8 — not one section) and found no plain statement of it. Rather than cite a document
+  that is silent on the claim (hazard 7), the item now cites RFC 8744, which states it outright.
+
+### 8. Not verified
+
+Nothing in this range was left unverified. Every key and every distractor `why` was checked against a
+fetched primary source, an empirical observation, or both; `gnu.org` was not needed for any item in
+this range, so no substitution was required on that account.
+
+## Task 57c — System Administration Fundamentals :: Networking (items 57–82, agent `verify-sysnet-c`)
+
+Range: `sysadmin.networking.router-vs-switch` … `sysadmin.networking.etc-resolv-conf`
+(concepts `router-vs-switch`, `nat`, `vlan`, `dns`, `dns-resolution-order`, `etc-hosts`,
+`etc-resolv-conf`). 26 of 26 items verified; all 26 end at `confirmed`, none at `refuted`.
+No pre-existing finding in this file touched any of these seven concepts, so there was
+nothing to adjudicate beyond what this pass produced.
+
+### Confirmed finding 1 — wrong key: `resolve` in `nsswitch.conf` does **not** go through the 127.0.0.53 stub
+
+`q.sysadmin.networking.dns-resolution-order.03`'s key asserted that "the `resolve` entry routes
+lookups through systemd-resolved's local stub, commonly at 127.0.0.53". That is false.
+**Settled by `nss-resolve(8)`:** "Communication between nss-resolve and systemd-resolved.service
+takes place via the `/run/systemd/resolve/io.systemd.Resolve`" Varlink socket. The 127.0.0.53
+listener is a *separate* compatibility path — `systemd-resolved.service(8)` describes it as
+"a local DNS stub listener on the IP addresses 127.0.0.53 and 127.0.0.54", provided for programs
+that go through `/etc/resolv.conf` and the glibc DNS path (`dig`, and `dns` in nsswitch). The item
+conflated the NSS route with the DNS-stub route — the exact confusion the concept exists to dispel —
+while citing only `nsswitch.conf(5)` and `hosts(5)`, neither of which documents the `resolve` module
+at all. Rewritten: the key now names the IPC route and the three real sources of a resolved answer
+(cache, resolved's internal `/etc/hosts` handling with caching, synthesized records — all from
+`nss-resolve(8)`), and distractor `o2` was replaced with the 127.0.0.53 misconception itself so the
+item now teaches the distinction its old key got wrong. Re-verified after rewrite.
+
+### Confirmed finding 2 — `resolv.conf(5)` was cited for systemd-resolved material it does not contain
+
+Both `q.sysadmin.networking.etc-resolv-conf.01` (the file being regenerated by NetworkManager /
+a DHCP client / systemd-resolved) and `.03` (the 127.0.0.53 stub) cited `man7-resolv-conf` and
+nothing else. I fetched the whole page: the string `127.0.0.53` does not occur in it, `systemd-resolved`
+appears only in SEE ALSO, and there is no statement anywhere that the file is generated or overwritten
+by anything. Both claims are nonetheless **true**, and are settled by `systemd-resolved.service(8)`:
+its `/ETC/RESOLV.CONF` section sets out four modes of handling the file, states that
+`/run/systemd/resolve/stub-resolv.conf` "lists the 127.0.0.53 DNS stub … as the only DNS server" and
+"may be symlinked from /etc/resolv.conf", and adds that "Alternatively, /etc/resolv.conf may be managed
+by other packages". Per the standing precedent (task 3, `hypervisor`), the **citation** was fixed, not
+the content: `systemd-resolved-service` (already registered, freedesktop.org URL) wired into
+`sysadmin.networking.etc-resolv-conf`. This is the hazard the task brief named in advance, and it was
+real in both items.
+
+### Confirmed finding 3 — `ieee-802-1q` is a "200 OK and no content" source
+
+`https://standards.ieee.org/ieee/802.1Q/10323/` returns HTTP 200 and 360 KB, but the extracted text is
+a catalogue of ~15,000 words of amendment abstracts. It contains **no** definition of a VLAN, of tagging,
+of an access port or of a trunk port. It also points at the IEEE GET programme for the PDF, i.e. the
+substance is licence-gated, so no item may turn on it. Substituted **RFC 5517** (freely readable, IETF),
+which carries both facts the two VLAN items need: §1 "In an Ethernet switch, a VLAN is a broadcast domain
+in which hosts can establish direct communication with one another at Layer 2", and §4 that ports "can
+either be access ports or hybrid/trunk ports (according to the terminology presented in Annex D of the
+IEEE 802.1Q specification, up to its 2004 revision)" — which also settles `vlan.02` `o3`'s `why`, that
+access and trunk are standard roles rather than two vendors' names for one configuration.
+`ieee-802-1q` was **not** removed (siblings share it); `rfc-5517-private-vlans` was added alongside.
+
+### Confirmed finding 4 — RFC 1122 cited for bridging and broadcast-domain claims it never makes
+
+All four `router-vs-switch` items cited `rfc-1122-host-requirements`. Fetched in full (289 KB): the words
+"bridge" and "broadcast domain" do not appear. The content is settled instead by **RFC 1812** §2.1 —
+"Packet switching devices may also operate at the Link Layer; such devices are usually called bridges.
+Network segments that are connected by bridges share the same IP network prefix forming a single IP subnet"
+— and §5.3.5.1, "Limited broadcasts MUST NOT be forwarded", which is precisely the router-terminates-the-
+broadcast-domain half of `router-vs-switch.02`. `rfc-1812-router-requirements` registered and wired in.
+
+### Confirmed finding 5 — overstated key: DHCP relay forwarding is not specified as unicast
+
+`q.sysadmin.networking.router-vs-switch.03`'s key said the relay agent "forwards the discovery as unicast
+to the remote server". **RFC 1542 §4.1.1** says the relaying destination "MUST be configurable" and that
+"The network manager may wish the relaying destination to be an IP unicast, multicast, broadcast, or some
+combination." Unicast is common practice, not the specification. The key now reads "forwards the discovery
+onward to the configured server address", and its `why` was aligned. The surrounding mechanism is settled by
+RFC 2131 §1 ("Using BOOTP relay agents eliminates the necessity of having a DHCP server on each physical
+network segment") plus RFC 1812 §5.3.5.1. `rfc-2131-dhcp` (already registered) and
+`rfc-1542-bootp-clarifications` wired in.
+
+### Confirmed finding 6 — three concepts cited RFCs that are silent on the claim
+
+- `sysadmin.networking.nat` / `nat.04`: cited RFC 3022 and RFC 1918 for an **IPv6** claim; neither mentions
+  IPv6. Settled by **RFC 4864**, abstract: NAT's "primary benefit of 'amplifying' available address space is
+  not needed in IPv6" and "IPv6 was designed with the intention of making NAT unnecessary"; §3.2 (Unique Local
+  Addresses) settles `o3`'s `why` that IPv6 retains a private-style addressing concept.
+- `sysadmin.networking.dns` / `dns.01`: cited RFC 1034/1035 for the **169.254** DHCP-failure signature; neither
+  mentions it. Settled by **RFC 3927**.
+- `sysadmin.networking.dns` / `dns.02`: cited RFC 1034/1035 for the relative verbosity of `dig`, `host` and
+  `nslookup` — protocol RFCs that name none of the three tools. Settled by the BIND 9 manual pages:
+  host(1) "host is a simple utility for performing DNS lookups"; dig(1) "dig is a flexible tool … Other lookup
+  tools tend to have less functionality than dig", with `+short` documented as the non-default terse mode;
+  nslookup(1) "two modes: interactive and non-interactive". `man-dig-1` reused (registered by task 54d),
+  `man-host-1` and `man-nslookup-1` added.
+- `sysadmin.networking.dns-resolution-order` / `.01`: cited `nsswitch.conf(5)` and `hosts(5)`, neither of which
+  documents `getent`. Settled by getent(1): "get entries from Name Service Switch libraries … configured in
+  /etc/nsswitch.conf". `man7-getent-1` added.
+
+### Rejected findings (checked, no change made)
+
+- **`hosts:` order is fixed** — rejected. `nsswitch.conf(5)` prints `hosts: dns [!UNAVAIL=return] files` as one
+  of its own worked examples, so the reversal in `dns-resolution-order.04` is not merely legal but documented.
+- **MAXNS might be a header constant only** — rejected as a defect; empirically 3 (see below), so
+  `etc-resolv-conf.02` stands exactly as authored.
+- **`etc-hosts.04`'s `::1 localhost` claim** — rejected as a finding; it is verbatim in hosts(5) EXAMPLES
+  (`127.0.0.1  localhost` and `::1  localhost ip6-localhost ip6-loopback`).
+- **`dns.04` might overstate TCP's role** — rejected. RFC 1035 §4.2 assigns both transports port 53, §4.2.1
+  restricts UDP messages to 512 bytes and states "UDP is not acceptable for zone transfers, but is the
+  recommended method for standard queries". The key matches the RFC clause for clause.
+- **`dns-resolution-order.01`'s premise that `dig` always disagrees with `/etc/hosts`** — checked and recorded as
+  a nuance, not a defect. Where systemd-resolved owns `/etc/resolv.conf`, `dig` aimed at 127.0.0.53 *can* see
+  `/etc/hosts`, because nss-resolve(8) notes resolved "supports /etc/hosts internally, but with caching". The
+  stem posits dig disagreeing, i.e. the ordinary upstream-nameserver case, so the item is correct as written; the
+  nuance is recorded in the item's `reasoning`.
+- **`router-vs-switch.04` ("layer 3 switch")** — no confirmed finding, but a **limit recorded in the item**:
+  "layer 3 switch" is vendor marketing terminology and appears in no primary standard I could reach (RFC 1812,
+  RFC 1122, RFC 5517 do not use the phrase). The key's two halves are sourced from RFC 1812 §2.1; the claim about
+  what the *name* should not be read to imply is reasoned from those definitions rather than quoted, and the item
+  says so rather than asserting a source it does not have.
+
+### Self-refuting and hedged distractors repaired (11 across 11 items)
+
+None were verbatim pastes; every one was a trailing subordinate clause that reversed or hedged the claim the
+option had just made. Repaired by substituting a confident **false** clause of similar length, never by truncation,
+and never touching a key:
+`router-vs-switch.02` o4 and `etc-hosts.02` o4 and `etc-resolv-conf.03` o4 ("a conclusion that seems to follow from
+everyday experience"); `router-vs-switch.03` o2 and `etc-hosts.03` o3 ("under the great majority of ordinary
+configurations"); `nat.03` o2 ("which is why the assumption spreads so easily"); `nat.04` o3 and
+`dns-resolution-order.02` o2 ("in every configuration seen in practice"); `vlan.02` o2 ("the opposite of the usual
+arrangement in the overwhelming majority of real deployments"); `dns.02` o2 ("under the great majority of ordinary
+configurations"); `dns.04` o3 ("as a matter of routine operational practice"). `dns.01` additionally had **all three**
+distractors written in a self-refuting "is assumed to" / "are described as" voice; each was rewritten as a plain
+confident false assertion.
+
+### Empirical verification
+
+All in `docker run --rm ubuntu:24.04` with `dnsutils` installed.
+
+1. **`/etc/hosts` beats DNS, and that is nsswitch's doing.** With `hosts: files dns` and
+   `192.0.2.99 example.com` appended: `getent ahosts example.com` → `192.0.2.99  STREAM example.com`,
+   while `dig +short example.com` → `104.20.23.154`, `host example.com` → "example.com has address
+   104.20.23.154", `nslookup example.com` → `104.20.23.154`. All three DNS tools bypass the switch; getent does not.
+   (Settles `dns-resolution-order.01` and all three of its distractors at once.)
+2. **Reversal changes the winner.** `sed` the line to `hosts: dns files`; the same `getent ahosts example.com`
+   → `104.20.23.154`, no error, no warning. (Settles `.02` and `.04`.)
+3. **MAXNS is 3 in practice, not just in `<resolv.h>`.** `/etc/resolv.conf` written as `options timeout:1 attempts:1`
+   plus `nameserver 192.0.2.1`, `192.0.2.2`, `192.0.2.3` and the real resolver **fourth** →
+   `getent hosts example.com` **failed**. Rewriting the same file with the real resolver **third** → returned the
+   address. The fourth line is never consulted. (Settles `etc-resolv-conf.02` including all three distractors.)
+
+### Shape (range items 57–82, measured before and after)
+
+| metric | before | after |
+| --- | --- | --- |
+| key ends in em-dash clause | 13/26 (50%) | 13/26 (50%) |
+| distractor ends in em-dash clause | 9/78 (12%) | 9/78 (12%) |
+| key is longest option | 13/26 (50%) | 13/26 (50%) |
+
+The documented side effect reproduced: stripping the hedged padding first pushed key-is-longest to **16/26 (62%)**,
+because the padding had been masking a length cue in `vlan.02`, `etc-hosts.02` and `etc-hosts.03`. The three
+replacement clauses were re-sized so each option stays longer than its key, returning the range to its 50% baseline.
+The rewritten `dns-resolution-order.03` key was also trimmed from 244 to 196 characters (distractors lengthened to a
+170-character mean) to clear the `q-length-cue` per-item warning it had tripped. No em-dash was added to or removed
+from any option, so the file-wide em-dash gap is unchanged by this task.
+
+### `data/` edits
+
+Registered in `data/sources.json` (appended, not re-sorted, to avoid churning siblings' entries):
+`rfc-1812-router-requirements`, `rfc-1542-bootp-clarifications`, `rfc-4864-local-network-protection-ipv6`,
+`rfc-5517-private-vlans`, `rfc-3927-ipv4-link-local`, `man7-getent-1`, `man7-nss-resolve-8`, `man-host-1`,
+`man-nslookup-1`. Reused rather than duplicated: `rfc-2131-dhcp`, `systemd-resolved-service`, `man-dig-1`
+(the last registered by task 54d at the same URL).
+
+Wired into `data/topics/02-system-administration.json` (`additional_sources`, additive only — nothing removed):
+`router-vs-switch` += RFC 1812, RFC 2131, RFC 1542; `nat` += RFC 4864; `vlan` += RFC 5517;
+`dns` += RFC 3927, dig(1), host(1), nslookup(1); `dns-resolution-order` += getent(1), nss-resolve(8),
+systemd-resolved.service(8), dig(1); `etc-resolv-conf` += systemd-resolved.service(8). `etc-hosts` needed no
+change — hosts(5) and nsswitch.conf(5) carry every claim its four items make. Each item's `source_ids` was
+updated to mirror its concept, so no orphans. `npm run generate` re-run.
+
+### Gates
+
+`npm test` 307/307. `npm run validate` 0 errors, 15 warnings (baseline). `npm run check-guide` 0/0.
+`npm run check-bank -- --scope "System Administration Fundamentals :: Networking" --except q-answer-position-balance`
+reports **0 warnings** and no error inside items 57–82; the remaining `q-verdict-coverage` errors all name items in
+sibling agents' ranges, which were still in flight.
+
+## Task 57d — System Administration Fundamentals :: Networking (items 83–104, agent `verify-sysnet-d`)
+
+Range: `sysadmin.networking.dns-record-types` (83–86), `fqdn-and-hostname` (87–90),
+`ttl-and-dns-caching` (91–94), `dhcp` (95–98), `dhcp-lease` (99–100), `dhcp-reservation` (101–104).
+All 22 items now carry `verdict: "confirmed"` from `verify-sysnet-d`. Four were **refuted as authored**,
+rewritten and re-checked; the history is preserved in each item's `reasoning` behind the marker
+`REFUTED AS AUTHORED.`
+
+### Confirmed findings
+
+**F57d-1 — `dhcp-reservation.04` had two defensible answers and a false key.** (Item 104, now rewritten.)
+The item asked what risk a reservation placed inside the active dynamic range creates, and keyed
+"a collision risk — unless the pool explicitly excludes the reserved address, the server may still hand that
+same address to a different dynamic client". Two defects. *Attribution*: the cited `isc-dhcpd-conf-manual`
+never says this; searching its whole text, the only related passage is RESERVED LEASES, which describes the
+opposite — reserved leases "are not placed on the queue for allocation to other clients". *Substance*: the
+Kea ARM §8.3.1 states "a host reservation can reserve any address that belongs to the subnet … There is no
+formal difference in the reservation syntax and both reservation types are handled uniformly", and §8.2
+shows that skipping in-pool reservation checks is opt-in via `reservations-out-of-pool: true`. So the
+default behaviour is to honour an in-pool reservation, which is exactly what distractor o2 ("a reservation
+always takes automatic precedence over the dynamic pool") asserted and the key denied. The item was
+rewritten around the conflict Kea *does* document (§8.3.2: a reservation added over an address already
+leased to another host). Settling source: <https://kea.readthedocs.io/en/latest/arm/dhcp4-srv.html>.
+
+**F57d-2 — `dhcp-reservation.02`'s key was unconditionally true only on a first boot.** (Item 102, now
+rewritten.) The stem said only "a DHCP server is briefly unreachable at boot time" and the key asserted the
+reservation-based machine "gets nothing". RFC 2131 §3.2 contradicts that for a client that already holds a
+lease: "If the client receives neither a DHCPACK or a DHCPNAK message after employing the retransmission
+algorithm, the client MAY choose to use the previously allocated network address and configuration
+parameters for the remainder of the unexpired lease." Distractor o4's headline claim was therefore
+defensible for any reboot inside the lease period. Repaired by fixing the stem to a first boot of brand-new
+machines, tightening the key, and rewriting o4's `why` to state the real nuance (a client caches a *lease*,
+never a *reservation*). Settling source: <https://www.rfc-editor.org/rfc/rfc2131.txt>.
+
+**F57d-3 — `dhcp.02` overstated relay-agent unicast as a protocol requirement.** (Item 96, key repaired.)
+RFC 2131 §2 only defines a relay agent as a host or router "that passes DHCP messages between DHCP clients
+and DHCP servers" and defers to RFC 951/RFC 1542. RFC 1542 §4.1.1 says the relaying destination "MUST be
+configurable" and that it "may wish the relaying destination to be an IP unicast, multicast, broadcast, or
+some combination". Key now reads "at a configured address, normally by unicast".
+Settling source: <https://www.rfc-editor.org/rfc/rfc1542.txt>.
+
+**F57d-4 — `fqdn-and-hostname.03`'s key misattributed the transient hostname to the kernel and omitted the
+priority rule.** (Item 89, key repaired.) hostname(5) HOSTNAME SEMANTICS: "a transient hostname may be set
+during runtime, for example based on information in a DHCP lease … systemd-hostnamed.service(8) gives higher
+priority to the static hostname, so the transient hostname will only be used if the static hostname is not
+configured." Settling source: <https://man7.org/linux/man-pages/man5/hostname.5.html>.
+
+**F57d-5 — concept-level citation gaps (the root cause, fixed in `data/`).** Four concepts cited sources
+that do not carry the claims their items make:
+
+- `fqdn-and-hostname` cited **only RFC 1034**, yet items 88 and 89 turn on `hostname -f` and on
+  `hostnamectl`'s static/transient/pretty split. RFC 8499 §2 makes the gap explicit: "host name" … "and its
+  equivalent, 'hostname', have been widely used but are not defined in [RFC1034], [RFC1035], [RFC1123], or
+  [RFC2181]".
+- `dhcp` cited **only RFC 2131**, yet item 97 turns entirely on 169.254.0.0/16. Searching the full RFC 2131
+  text, the prefix does not appear; RFC 3927 is the authority, and its §1.6 also settles the RFC 1918
+  distinction the item's o4 rests on.
+- `ttl-and-dns-caching` cited RFC 1034/1035, which define the TTL but never state the decrement-on-serve
+  rule item 92 turns on, nor the modern negative-caching mechanism item 93 turns on. RFC 2308 §5–§6 does
+  both, and replaces RFC 1034 §4.3.4 outright.
+- `dns-record-types` cited RFC 1034/1035; RFC 1034 §3.6.2 says only that other data "should" not be present
+  at a CNAME. RFC 2181 §10.1 gives the exhaustive rule item 83 needs.
+
+**F57d-6 — the `isc-dhcpd-conf-manual` source is documentation for end-of-life software.** The kb.isc.org
+page now carries a banner: "ISC DHCP is EOL. ISC no longer maintains this software. See this web page for
+resources on migrating to ISC's newer Kea DHCP server." It remains valid for `dhcpd.conf` syntax — items 101
+and 103 are settled by its `host` statement section — but it is not a source for current server behaviour.
+`kea-arm-dhcp4-server` was registered alongside it rather than replacing it.
+
+### Rejected findings (checked, no change made)
+
+- **`dns-record-types.01`'s "a CNAME cannot coexist with other records" is not too strong.** RFC 2181 §10.1
+  permits SIG, NXT and KEY alongside a CNAME under DNSSEC, which looked like a counterexample. Rejected: the
+  exception does not include NS or SOA, so it cannot rescue a zone apex, which RFC 1034 §4.2.1 requires to
+  carry both. Checked: <https://www.rfc-editor.org/rfc/rfc2181.txt>, <https://www.rfc-editor.org/rfc/rfc1034.txt>.
+- **`dhcp.01`'s o2 `why` ("DHCP … does not create DNS records by itself") is not false.** DHCP servers
+  commonly perform DDNS updates, which looked like a contradiction. Rejected: DDNS is a separate server-side
+  integration, and RFC 2131 defines no name-record mechanism; "by itself" is accurate for the protocol as
+  specified. Checked: <https://www.rfc-editor.org/rfc/rfc2131.txt>.
+- **`dns-record-types.03`'s claim that the reverse zone follows address-block ownership is sourced, not
+  folklore.** RFC 1035 §3.5: the octet reversal "allows zones to be delegated which are exactly one network
+  of address space". Confirmed empirically as well (below).
+- **`dhcp-lease.02`'s o2 is not also correct despite stating T2 ≈ 7/8 accurately.** RFC 2131 §4.4.5 puts
+  unicast renewal at T1 first and broadcast rebinding at T2; o2 reverses that order, so the option as a whole
+  is false while its `why` remains true. Checked: <https://www.rfc-editor.org/rfc/rfc2131.txt>.
+
+### Empirical verification
+
+Run in throwaway containers, exact commands and output recorded in the relevant items' `reasoning`.
+
+- `dig +noall +question -x 192.0.2.10` → `;10.2.0.192.in-addr.arpa. IN PTR` — the exact reverse name item 85
+  keys. `dig +noall +answer -x 192.0.43.8` → `8.43.0.192.in-addr.arpa. 4502 IN PTR 43-8.any.icann.org.`,
+  a PTR served from the address-block owner's zone rather than iana.org's forward zone.
+- `dig +noall +answer A iana.org` returned the A record and nothing else, while `dig +noall +answer MX
+  iana.org` returned four MX RRs — refuting item 84's o2 directly.
+- Local `unbound` (minimal config, `interface: 127.0.0.1`, `access-control: 127.0.0.0/8 allow`) queried three
+  times at 30-second intervals: `example.com. 300`, then `270`, then `240`. The authoritative control,
+  `dig @a.iana-servers.net A example.com` run twice, returned `300` both times. This is item 92's scenario
+  reproduced exactly, with the authoritative contrast its o2 and o4 rest on.
+- `dig +noall +authority @127.0.0.1 A nosuchname-t57d.example.com` returned
+  `example.com. 1800 IN SOA elliott.ns.cloudflare.com. dns.cloudflare.com. 2411783310 10000 2400 604800 1800`
+  — the SOA carried in the authority section with its negative-cache lifetime, the mechanism item 93 names.
+- DHCP was **not** tested empirically. RFC 2131 and RFC 2132 were read instead; no experiment was fabricated.
+
+### Distractor shape
+
+Six self-refuting distractor tails were repaired (items 85/o4, 86/o4, 94/o2, 97/o3, 102/o2, 104/o3), each
+replaced with a clause of comparable length asserting a genuinely false mechanism rather than announcing the
+option's own wrongness. The generic universality padding ("a pattern that holds across most deployments
+encountered", "as a matter of routine operational practice", and similar) was **left in place**: it asserts a
+false claim rather than hedging, and stripping it is the documented way to expose length cues it was masking.
+
+Before/after for items 83–104: keys ending in an em-dash clause **12/22 → 11/22**; distractors with an
+em-dash **9/66 → 9/66**; key-is-longest **5/22 → 5/22**. The key/distractor em-dash gap narrowed slightly and
+key-is-longest is unchanged. Key-is-longest did rise to 9/22 mid-task — the documented side effect of both
+repairing self-refuting tails (which shortens distractors) and tightening keys (which lengthens them) — and
+was brought back to baseline by trimming the four rewritten keys and extending two replacement distractors.
+
+### `data/` edits
+
+Registered in `data/sources.json` (appended, never re-sorted): `man-hostname-1`, `man-hostname-5`,
+`rfc-2181-dns-clarifications`, `rfc-2308-negative-caching`, `rfc-8499-dns-terminology`,
+`kea-arm-dhcp4-server`. Reused rather than duplicated: `man-hostnamectl-1`, `rfc-3927-ipv4-link-local`,
+`rfc-1542-bootp-clarifications` — all three already registered by sibling tasks at the URLs needed here.
+
+Wired into `data/topics/02-system-administration.json` (`additional_sources`, additive only):
+`dns-record-types` += RFC 2181; `fqdn-and-hostname` += hostname(1), hostname(5), hostnamectl(1), RFC 8499;
+`ttl-and-dns-caching` += RFC 2308, RFC 2181; `dhcp` += RFC 3927, RFC 1542, RFC 1034;
+`dhcp-lease` += RFC 3927; `dhcp-reservation` += Kea ARM DHCPv4. Each item's `source_ids` was updated to
+mirror its concept, so no orphans. `npm run generate` re-run; `npm run check-guide` still 0/0, so no guide
+prose needed changing.
+
+### Gates
+
+`npm test` 307/307. `npm run validate` 0 errors, 15 warnings (baseline). `npm run check-guide` 0/0.
+`npm run check-bank -- --scope "System Administration Fundamentals :: Networking" --except q-answer-position-balance`
+reports 0 warnings and no error inside items 83–104; the remaining `q-verdict-coverage` errors all name items
+in sibling agents' ranges, still in flight at the time of writing.
+
+---
+
+## Task 57f — System Administration Fundamentals :: Networking (items 131–154, agent `verify-sysnet-f`)
+
+Range: `sysadmin.networking.proxy` through `sysadmin.networking.open-closed-and-filtered-ports`
+(24 items, seven concepts). All 24 now carry `verdict: "confirmed"` from `verify-sysnet-f`; zero sit at
+`refuted`, checked by re-reading the file rather than notes.
+
+### Confirmed findings
+
+**F57f-1 — `netfilter-documentation` is a 200-OK-with-no-content citation, and it was the only
+claim-bearing source on eight items.** `https://www.netfilter.org/documentation/index.html` was fetched:
+31 KB consisting of a project navigation menu and a release-news list. It contains no statement about DROP,
+REJECT, connection tracking, NAT, ufw or firewalld. It was cited by `sysadmin.networking.firewall`
+(items 143–146) and `sysadmin.networking.ufw-firewalld-and-iptables` (items 147–150). Settled by
+re-sourcing at concept level to pages that carry the claims: iptables(8) TARGETS
+(`ACCEPT means to let the packet through.  DROP means to drop the packet on the floor.`),
+iptables-extensions(8) REJECT (`used to send back an error packet in response to the matched packet:
+otherwise it is equivalent to DROP`) and its conntrack/state module, NIST SP 800-41r1, ufw(8), the Ubuntu
+Server firewalls guide, firewall-cmd(1), firewalld.conf(5), Fedora Quick Docs, and iptables-nft(8). The
+netfilter index is retained in the two concepts as the project landing page so it does not become an
+orphan source, but no item now rests on it.
+
+**F57f-2 — item 148's key stated the runtime/permanent relationship backwards.** The key's `why` read
+"a `--permanent` change is lost at the next reload if not saved". firewall-cmd(1) says the opposite:
+`--reload` means "Current permanent configuration will become new runtime configuration, i.e. all runtime
+only changes done until reload are lost with reload if they have not been also in permanent configuration."
+Fedora Quick Docs agrees ("Any changes made while firewalld is running will be lost when firewalld is
+restarted… the settings revert to their permanent values"). The key's *text* was correct and is now
+supported by the sentence that actually states it — Permanent Options: "--permanent … These changes are not
+effective immediately, only after service restart/reload or system reboot." The `why` was rewritten.
+
+**F57f-3 — item 152 option o4 was wrong for a false stated reason.** Its `why` claimed "a definitively
+'closed' reading is not the UDP case at all". Nmap's Port Scanning Techniques chapter states that closed
+UDP ports "usually send back an ICMP port unreachable error" and are classified closed on that basis; it is
+*open and filtered* ports that "rarely send any response". Both the option text and the `why` were rewritten
+so the option is wrong for a true reason.
+
+**F57f-4 — item 153's key over-claimed the source address of a REJECT reply.** The key asserted that a
+REJECT rule "sources its RST or ICMP reply from the original packet's destination address".
+iptables-extensions(8) documents only that REJECT sends back an error packet (`--reject-with` selecting an
+ICMP unreachable type or `tcp-reset`) and says nothing about the reply's source address; for a forwarding
+firewall an ICMP error is normally sourced from the rejecting device. The key was narrowed to the claim the
+sources and the experiment support — that a REJECT rule answers on the destination's behalf, so an
+immediate refusal proves only that something on the path answered.
+
+**F57f-5 — item 133's key made an exclusive rename that its own source contradicts.** The key read
+"it has become a load balancer"; RFC 9110 §3.7 says gateways (reverse proxies) are used "to enable
+partitioning or load balancing of HTTP services across multiple machines", and nginx's guide says
+"Reverse proxy implementation in nginx includes load balancing". A reader could therefore defend the
+"it is still a reverse proxy" distractor. Key rewritten to "it is now acting as a load balancer as well",
+which the sources support while leaving the distractor false (its stated reason — that a reverse proxy is
+"defined to always distribute traffic across multiple backends" — remains false).
+
+**F57f-6 — four concepts cited sources that were silent on the claims their items turn on.**
+`proxy` cited only RFC 9110, which never mentions recovering the original client address (item 132); fixed
+by adding RFC 7239, whose §1 states the loss of information and its effect on IP-based access control
+directly. `load-balancer` cited only RFC 9110, which never defines a load balancer, a scheduling algorithm,
+a health check, session affinity, layer 4/layer 7, or balancer redundancy (items 135–138); fixed by adding
+nginx's HTTP load-balancing guide and the HAProxy Starter Guide, §3.3.2–3.3.5 of which carry all four.
+`bandwidth-latency-and-throughput` cited only RFC 6349, which mentions jitter twice in passing and never
+explains voice sensitivity (item 142); fixed by adding RFC 5481 §3.2 on de-jitter buffers.
+`open-closed-and-filtered-ports` cited the Nmap port-states chapter, which does not name the RST that two
+items rely on; fixed by adding the Port Scanning Techniques chapter ("A SYN/ACK indicates the port is
+listening (open), while a RST (reset) is indicative of a non-listener").
+
+**F57f-7 — seven self-refuting distractors repaired.** Options carrying a trailing clause that announced
+their own wrongness: 131 o3 ("as commonly understood by less experienced staff"), 132 o2 ("a belief that
+persists because it sounds intuitive"), 137 o4 ("a pattern that holds across most deployments
+encountered"), 140 o4 ("which many take as self-evident without checking further under typical operating
+conditions"), 144 o2 ("which is the assumption most administrators start from as a matter of routine
+operational practice"), 147 o3 ("under the great majority of ordinary configurations"), 149 o3
+("deliberately hidden by default as a matter of routine operational practice"). Each was replaced with a
+genuinely false clause of similar length; no key was truncated. (This departs from Task 57d's choice to
+leave generic universality padding in place; the instruction for this task was to substitute a real false
+clause, and the shape metrics below were re-measured afterwards.)
+
+### Rejected findings
+
+- **Item 147 — "ufw refuses to enable under SSH", rejected.** ufw(8) REMOTE MANAGEMENT documents a *prompt*,
+  not a refusal: "By default, ufw will prompt when enabling the firewall while running under ssh. This can
+  be disabled by using 'ufw --force enable'." The key ("likely locked out") stands, sourced to the same
+  section: "ufw will flush its chains… but it may drop existing connections (eg ssh)". Option o3's `why` was
+  extended to name the prompt so the correction is not itself misleading.
+- **Item 146 — "NAT does apply a default-deny policy", rejected.** NIST SP 800-41r1 settles it three times:
+  §2.1 "NAT is sometimes thought of as a firewall technology, but it is actually a routing technology";
+  §2.4 "The use of NAT should be considered a form of routing, not a type of firewall"; §3.2 "Despite the
+  popular misconception, NAT is not part of the security functionality of a firewall."
+- **Item 134 — "unqualified 'proxy' always means forward proxy", rejected but recorded as a limit.**
+  RFC 9110 §3.7 reserves the bare word for the client-chosen intermediary and calls the other a
+  "gateway (a.k.a. reverse proxy)" — which is itself the ambiguity the item describes. No primary source
+  can settle a question about conventional usage outright; that is recorded in the item's `reasoning`.
+- **Item 141 — "RFC 6349 does not support the latency-dominance claim", rejected.** RFC 6349 §1.2 and §3.2
+  define RTT and Bottleneck Bandwidth as independent baseline quantities and BDP as their product, so
+  raising capacity provably leaves the RTT term untouched. The RFC does not use the phrase "interactive
+  application"; that gap is recorded in the item's `reasoning` rather than papered over.
+- **Item 145 — "intersection" wording, rejected.** SP 800-41r1 §3.3 states the layering
+  ("multiple layers of firewalls is quite common to provide defense-in-depth… a host-based firewall creates
+  a boundary just before the host it is installed upon and adds another set of firewall policies") and
+  §2.2.2 states that each layer keeps filtering when the other fails. It never uses the word "intersection";
+  that is the key's summary of cumulative filtering, and the limit is recorded in the item.
+
+### Empirical verification
+
+Two container experiments, both recorded verbatim in the relevant items' `reasoning`. No third-party host
+was scanned; both ran against loopback inside a throwaway container. The repo's lab was not touched.
+
+Port states — `docker run --rm --privileged ubuntu:24.04` with `iproute2`, `netcat-openbsd`, `iptables`;
+listener started with `nc -l -p 9001 -k`; `ss -tuln` showed only `tcp LISTEN 0 1 0.0.0.0:9001`; rules
+`iptables -A INPUT -p tcp --dport 9003 -j DROP`, `--dport 9004 -j REJECT --reject-with tcp-reset`,
+`--dport 9005 -j REJECT`. Results of `nc -zv -w 3 127.0.0.1 <port>`:
+
+| port | condition | result |
+| --- | --- | --- |
+| 9001 | listener | `Connection to 127.0.0.1 9001 port [tcp/*] succeeded!` |
+| 9002 | no listener, no rule (closed) | `failed: Connection refused` |
+| 9003 | `-j DROP` (filtered) | `timed out: Operation now in progress` |
+| 9004 | `-j REJECT --reject-with tcp-reset` | `failed: Connection refused` |
+| 9005 | `-j REJECT` (icmp-port-unreachable) | `failed: Connection refused` |
+
+This confirms items 143, 151, 152 and 153 directly, including the point of 153: both REJECT forms are
+indistinguishable at the client from the genuinely closed port.
+
+iptables-as-nftables-front-end — same image with `iptables` and `nftables`. `iptables -V` printed
+`iptables v1.8.10 (nf_tables)`. After `nft add table inet t57f`, `nft add chain inet t57f input
+{ type filter hook input priority 0 ; }`, `nft add rule inet t57f input tcp dport 9999 drop`,
+`nft list ruleset` showed the rule while `iptables -L -n` printed the three built-in chains with no rules,
+and `iptables -L -n -v` likewise showed nothing. This confirms item 149's key and, separately, its o3 `why`
+(`-v` adds counters, not visibility of nft-native rules).
+
+### Shape (hazard 5)
+
+Before/after for items 131–154: keys containing an em-dash clause **13/24 → 12/24**; distractors with an
+em-dash **10/72 → 10/72**; key-is-longest **9/24 → 10/24 → 9/24**. Key-is-longest rose by one on item 149
+after the self-refuting tail was stripped from o3 — the documented side effect — and was returned to
+baseline by extending that replacement distractor. Item 153's key opened `No — `; the rewrite reads `No, `,
+which is why the key em-dash count fell by one. Net effect on the file-level gap: one key em-dash removed,
+no distractor em-dash removed.
+
+### `data/` edits
+
+Registered in `data/sources.json` (appended, never re-sorted, nothing deleted): `rfc-7239-forwarded`,
+`nginx-http-load-balancing`, `haproxy-starter-guide`, `rfc-5481-delay-variation`, `man-iptables-8`,
+`man-iptables-extensions-8`, `ubuntu-ufw-man`, `firewalld-firewall-cmd-man`, `firewalld-conf-man`,
+`man-iptables-nft-8`, `nmap-port-scanning-techniques`, `ubuntu-server-firewalls`,
+`fedora-quick-docs-firewalld`. Reused rather than duplicated: `nist-sp-800-41r1` (already registered at the
+URL needed here), plus the existing `rfc-9110-http-semantics`, `nist-sp-800-77r1`, `rfc6349-tcp-throughput`,
+`nmap-port-scanning-basics`, `man7-ss`, `firewalld-documentation`. The duplicate ids
+`rfc-9110-http-semantics` / `rfc9110` were left alone as instructed; `rfc-9110-http-semantics` is used
+consistently throughout this range.
+
+Wired into `data/topics/02-system-administration.json` (`additional_sources`, additive only):
+`proxy` += RFC 7239; `load-balancer` += nginx HTTP load balancing, HAProxy Starter Guide;
+`bandwidth-latency-and-throughput` += RFC 5481; `firewall` += NIST SP 800-41r1, iptables(8),
+iptables-extensions(8); `ufw-firewalld-and-iptables` += ufw(8), firewall-cmd(1), firewalld.conf(5),
+iptables-nft(8), Ubuntu Server firewalls, Fedora Quick Docs; `open-closed-and-filtered-ports` +=
+Nmap Port Scanning Techniques, iptables-extensions(8). No source was removed from any concept, so no
+orphans were created. `npm run generate` re-run; `npm run check-guide` still 0/0, so no guide prose needed
+changing — the guide's networking blocks were read after verdicts were formed and no guide-vs-primary
+disagreement was found in this range.
+
+`sysadmin.networking.vpn` was left on `nist-sp-800-77r1` alone: the PDF was fetched and searched in full
+(166 pages) and §8.2 supplies the virtual-interface-plus-routes mechanism verbatim, §6.5 the routing
+dependency, §6.10 the DNS one.
+
+### Gates
+
+`npm test` 307/307. `npm run validate` 0 errors, 15 warnings (baseline). `npm run check-guide` 0/0.
+`npm run check-bank -- --scope "System Administration Fundamentals :: Networking" --except q-answer-position-balance`
+reports 0 warnings and no finding of any rule against items 131–154; the remaining `q-verdict-coverage`
+errors all name items in sibling agents' ranges, still in flight at the time of writing.
+
+### Unresolved
+
+`gnu.org` was reported unreachable by the controller and was not exercised here; nothing in this range
+turned on it, so no substitution was needed on that account. The one named substitution is Fedora Quick Docs standing in for
+RHEL documentation on item 150's Red Hat-family half; it is recorded in that item's `reasoning`.
+
+## Task 57g
+
+Verification pass over `questions/02-system-administration/networking.json`, items at 1-based
+indices 155-183 (`sysadmin.networking.ping-and-icmp` through
+`sysadmin.networking.network-interface-naming`), agent label `verify-sysnet-g`. All 29 items end
+at `verdict: "confirmed"`; six were refuted as authored and repaired, with the history preserved
+behind `REFUTED AS AUTHORED.` in each item's `reasoning`.
+
+### Confirmed findings
+
+**F57g-1 — RFC 792 is silent on ICMP being filtered (items `ping-and-icmp.01`, `.04`).**
+Both items turn on "ICMP is commonly blocked while TCP works", and both cited only RFC 792, which
+defines ICMP message formats and says nothing about filtering policy. This is the same
+plausible-but-silent citation defect recorded earlier in this file for a `ping` item.
+**Settled by** Nmap's host-discovery chapter (`https://nmap.org/book/man-host-discovery.html`):
+"many hosts and firewalls now block these packets, rather than responding as required by RFC 1122.
+For this reason, ICMP-only scans are rarely reliable enough against unknown targets over the
+Internet." `nmap-host-discovery` was already registered and was reused, not duplicated; it is now
+wired into `sysadmin.networking.ping-and-icmp`.
+
+**F57g-2 — `ping`'s CLI behaviour was cited to RFC 792 (item `ping-and-icmp.02`).**
+"Name or service not known" is a message from `ping`, not an RFC 792 concept.
+**Settled by** ping(8) (`man7-ping`, newly registered and wired into the concept) plus a direct
+test: `ping -c1 web01` on Ubuntu 24.04 printed exactly `ping: web01: Name or service not known`.
+
+**F57g-3 — traceroute's ICMP-deprioritisation claim was unsourced (item `traceroute.01`).**
+traceroute(8) settles the asterisk half ("If there is no response within a certain timeout, an
+`*` (asterisk) is printed for that probe") but says nothing about routers rate-limiting their own
+replies. **Settled by** RFC 1812 section 4.3.2.8: a router "SHOULD also be able to limit the rate at
+which it sends other sorts of ICMP error messages (Destination Unreachable, Redirect, Time
+Exceeded, Parameter Problem)... a router may limit the frequency at which some other sorts of
+messages, such as ICMP Echo Replies, are generated." `rfc-1812-router-requirements` was already
+registered and was reused.
+
+**F57g-4 — "`ifconfig` is deprecated" is not stated by any cited source (item `ip-and-ifconfig.01`).**
+The man7 ifconfig(8) page is the current upstream net-tools page (dated 2025-09-10) and nowhere
+calls itself deprecated or obsolete; its only steer to iproute2 is in BUGS and is scoped to
+Infiniband hardware addresses. Per the Task 3 `hypervisor` precedent the content was not weakened to
+match a weak source — the key was restated to the claim that *is* documented and demonstrable:
+`ifconfig` comes from the legacy net-tools package, which many current distributions no longer
+install. **Settled empirically:** on Ubuntu 24.04.4 LTS with `iproute2` installed, `command -v
+ifconfig` and `command -v netstat` both return nothing while `/usr/sbin/ip` and `/usr/bin/ss` exist.
+
+**F57g-5 — NODATA vs NXDOMAIN was cited to the BIND man pages (item `dig-and-nslookup.02`).**
+The BIND 9 manual pages document `dig`'s options, not DNS response semantics.
+**Settled by** RFC 2308 section 1: "NXDOMAIN - an alternate expression for the Name Error RCODE"
+and "NODATA - a pseudo RCODE which indicates that the name is valid, for the given class, but are no
+records of the given type." Reproduced against a local authoritative BIND 9 zone.
+`rfc-2308-negative-caching` reused; now wired into the concept.
+
+**F57g-6 — "Non-authoritative answer" appears nowhere in the cited source, and the key's gloss was
+imprecise (item `dig-and-nslookup.04`).** The string "Non-authoritative" does not occur anywhere in
+`https://bind9.readthedocs.io/en/latest/manpages.html` (grepped in full, 9321 lines). Separately,
+the key defined the label as "the answer came from a cache", which is the common gloss rather than
+the definition — a recursive resolver may have fetched the answer fresh and the label still appears.
+**Settled by** RFC 1035: "AA Authoritative Answer - this bit is valid in responses, and specifies
+that the responding name server is an authority for the domain name in question section." The key
+now leads with the accurate meaning and keeps the cache case as the typical instance.
+`rfc-1035-dns-implementation` reused.
+
+**F57g-7 — every `wget` claim was cited to the curl manual page (items `curl-and-wget.01`, `.03`).**
+curl(1) says nothing about wget's defaults. `gnu.org` was unreachable from this environment, so as a
+**named substitution** the GNU Wget man page mirrored by the Linux man-pages project
+(`https://www.man7.org/linux/man-pages/man1/wget.1.html`, HTTP 200, 124 KB) was registered as
+`man7-wget` and wired into the concept. The substitution is named in each affected item's
+`reasoning`.
+
+**F57g-8 — "neither tool executes JavaScript" is not in curl(1) (item `curl-and-wget.04`).**
+**Settled by** the curl FAQ (`https://curl.se/docs/faq.html`), "Does curl support JavaScript or PAC":
+"curl and libcurl have no built-in support for that, so it is treated like any other contents."
+Registered as `curl-faq`.
+
+**F57g-9 — `net.ifnames=0` is not documented by systemd.net-naming-scheme(7) (item
+`network-interface-naming.04`).** The naming-scheme page documents the scheme; the kernel parameter
+lives in systemd-udevd.service(8): "net.ifnames= Network interfaces are renamed to give them
+predictable names when possible. It is enabled by default; specifying 0 disables it." Registered as
+`systemd-udevd-service` and wired into the concept, which also supplies the item's second half via
+`net.ifname_policy=`.
+
+**F57g-10 — nine self-refuting distractors.** Options carrying a trailing subordinate clause that
+announced their own wrongness: `ping-and-icmp.01` o2 and `.02` o2 and `.04` o2, `traceroute.01` o3,
+`ip-and-ifconfig.02` o3, `ss-and-netstat.02` o4 and `.03` o2, `dig-and-nslookup.02` o3,
+`curl-and-wget.02` o4, `network-interface-naming.03` o2. The productive tells were exactly the ones
+the wave brief names — "as commonly understood by less experienced staff", "a belief that persists
+because it sounds intuitive", "which is why the assumption spreads so easily", "which feels
+reasonable on first encounter", "a conclusion that seems to follow from everyday experience". Each
+was replaced with a *real* false clause of equal or greater length, which also keeps the length
+gap from widening.
+
+### Rejected findings
+
+**R57g-1 — "`ping` prints Destination Host Unreachable locally, so `ping-and-icmp.03` o4's `why` is
+false."** Rejected. Tested on Ubuntu 24.04: `ip route add unreachable 198.51.100.5; ping -c1 -W1
+198.51.100.5` produces `ping: connect: No route to host`, a distinct local error, not the
+"Destination Host Unreachable" line the stem describes. RFC 792 independently settles the item:
+code 1 (host unreachable) is among the codes that "may be received from a gateway". The `why` stands.
+
+**R57g-2 — "`ip link show` might report addresses when some are configured
+(`ip-and-ifconfig.02` o3)."** Rejected empirically: `lo` has `127.0.0.1/8` and `::1/128` configured,
+and `ip link show lo` still printed only link state and `link/loopback`, while `ip addr show lo`
+printed both `inet` lines.
+
+**R57g-3 — "`ss -tulpn` without root hides the sockets themselves (`ss-and-netstat.01` o4)."**
+Rejected empirically: as `nobody`, `ss -tulpn` printed the full row
+`tcp LISTEN 0 5 127.0.0.1:8099 0.0.0.0:*` with only the Process column blank. ss(8) itself is silent
+on this, which is why it was tested rather than asserted.
+
+**R57g-4 — "`network-interface-naming.03` o4 is also correct, since a MAC-based scheme exists."**
+Rejected. `ID_NET_NAME_MAC=prefixxAABBCCDDEEFF` does exist, but the item describes PCI path/slot
+naming, documented as "PCI geographical location" and "This property describes the device
+installation location" — location-derived, exactly as o4's own `why` states. o4's claim that the
+name therefore stays identical is false for the scheme in question.
+
+**R57g-5 — "`network-interface-naming.01` o2 is right that `eth0` cannot exist."** Rejected
+empirically: `ip -o link show` inside a Docker Ubuntu 24.04 container lists an interface literally
+named `eth0`, because udev's renaming does not apply there. `eth0` is a legacy convention, not a
+reserved name.
+
+### Empirical verification performed
+
+All tests ran against locally controlled targets only — Docker containers on this machine and
+loopback. No third-party host was pinged, traced or scanned.
+
+- `docker run --rm ubuntu:24.04` — `ifconfig`/`netstat` absent after installing `iproute2`.
+- `ping -c1 web01` → `ping: web01: Name or service not known`; `ping -c1 127.0.0.1` → success.
+- `ip route add unreachable 198.51.100.5; ping -c1 -W1 198.51.100.5` → `connect: No route to host`.
+- `ip link show lo` vs `ip addr show lo` — layer 2 vs layer 3 objects.
+- `ip addr add 192.0.2.20/24 dev eth0` (unlabelled) and `... 192.0.2.21/24 ... label eth0:0`:
+  `ip -4 addr show eth0` lists both; `ifconfig -a` shows only the labelled one as `eth0:0`.
+  This is the decisive test for `ip-and-ifconfig.03`.
+- `ss -tulpn` as root vs as `nobody` against a `python3 -m http.server` listener — Process column
+  blanked, socket row intact. `ss -tln` vs `ss -t state established`.
+- `tcpdump -i lo -c1` as `nobody` → "You don't have permission to perform this capture on that
+  device"; as root, captured `ICMP echo request`/`echo reply` on `lo` during a concurrent ping.
+- `curl -sI` (headers only); `curl` on a 404 → exit 0, `curl --fail` → exit 22; `curl` leaves no
+  file and writes the body to stdout while `wget` leaves `index.html`.
+- Local authoritative BIND 9 (`example.test`, `127.0.0.1:5301`): `AAAA` for an existing name →
+  `status: NOERROR`, `ANSWER: 0`; a nonexistent name → `status: NXDOMAIN`; `nslookup` against that
+  authoritative server printed **no** "Non-authoritative answer" line, and `dig` showed `flags: qr aa rd`.
+
+### Shape
+
+Measured over the 29 items in this range, before and after the rewrites:
+
+| metric | before | after |
+| --- | --- | --- |
+| key ends in an em-dash clause | 18/29 | 18/29 |
+| distractors ending in an em-dash clause | 10/87 | 10/87 |
+| key is the longest option | 9/29 | 9/29 |
+
+Both scans are unchanged: stripping the self-refuting padding did not expose a length cue or strip a
+distractor em-dash, because every replacement clause was written to be at least as long as the text
+it replaced. The range does not widen the file-level gap; the by-rule pass still has the same work
+to do here as it did at HEAD.
+
+### Unresolved
+
+- **`traceroute.03` (path asymmetry)** — traceroute(8) establishes that the tool probes outward from
+  the host it runs on, but neither it nor RFC 1812 contains an explicit statement that internet paths
+  are frequently asymmetric. The key is supported by the mechanism the man page describes rather than
+  quoted from a source; recorded in the item's `reasoning`. No distractor becomes correct as a result.
+- **`ip-and-ifconfig.04` (persistence)** — neither ip(8) nor ifconfig(8) contains the words "persist"
+  or "reboot" (grepped in full). `systemd-network-man` was registered and wired in for the other half
+  of the key (systemd.network(5): "A plain ini-style text file that encodes network configuration"),
+  but a reboot test was not possible inside a container, so non-persistence rests on documentation
+  plus the absence of any documented on-disk write. Recorded in the item's `reasoning`.
+- **`dig-and-nslookup.01` (diagnostic order)** — the BIND manual pages prescribe no ordering, so the
+  key is a methodology claim rather than a sourced one. It survives because each distractor asserts
+  its own step is "defined to always" be first, which the BIND pages contradict on their own terms.
+- **`gnu.org`** was unreachable, as the controller reported. The named substitution is `man7-wget`
+  for the GNU Wget manual; nothing else in this range depended on it.

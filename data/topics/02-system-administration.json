@@ -3337,7 +3337,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "itu-t-x200-osi-basic-reference-model"
+        "itu-t-x200-osi-basic-reference-model",
+        "itu-t-x200-osi-basic-reference-model-pdf",
+        "rfc-1122-host-requirements"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3443,7 +3445,8 @@
       ],
       "additional_sources": [
         "rfc-4291-ipv6-addressing-architecture",
-        "rfc-1752-ipng-recommendation"
+        "rfc-1752-ipng-recommendation",
+        "rfc-4862-ipv6-slaac"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3481,7 +3484,8 @@
       ],
       "additional_sources": [
         "rfc-4632-cidr",
-        "rfc-791-internet-protocol"
+        "rfc-791-internet-protocol",
+        "rfc-3021-31-bit-prefixes"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3550,7 +3554,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1918-private-address-space",
-        "rfc-3022-traditional-nat"
+        "rfc-3022-traditional-nat",
+        "rfc-6598-shared-address-space"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3584,7 +3589,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "rfc-791-internet-protocol"
+        "rfc-791-internet-protocol",
+        "rfc-6890-special-purpose-addresses",
+        "man7-hosts"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3618,7 +3625,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-2131-dhcp",
-        "man7-ip-iproute2"
+        "man7-ip-iproute2",
+        "man7-ip-address"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3652,7 +3660,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-826-arp",
-        "man7-ip-iproute2"
+        "man7-ip-iproute2",
+        "man7-ip-link",
+        "rfc-894-ip-over-ethernet",
+        "rfc-7042-ieee-802-parameters",
+        "rfc-7844-dhcp-anonymity-profiles"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3688,7 +3700,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-826-arp",
-        "man7-ip-iproute2"
+        "man7-ip-iproute2",
+        "man7-ip-neighbour",
+        "rfc-4861-ipv6-neighbor-discovery"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3725,7 +3739,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-791-internet-protocol",
-        "rfc-4632-cidr"
+        "rfc-4632-cidr",
+        "rfc-6890-special-purpose-addresses",
+        "rfc-1918-private-address-space",
+        "rfc-1112-ip-multicasting"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3761,7 +3778,8 @@
       ],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "man7-ip-iproute2"
+        "man7-ip-iproute2",
+        "man7-ip-route"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3796,7 +3814,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "man7-ip-iproute2"
+        "man7-ip-iproute2",
+        "man7-ip-route",
+        "man7-ifconfig-nettools"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3831,7 +3851,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "ieee-802-1q"
+        "ieee-802-1q",
+        "rfc-1812-router-requirements",
+        "rfc-2131-dhcp",
+        "rfc-1542-bootp-clarifications"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3865,7 +3888,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-3022-traditional-nat",
-        "rfc-1918-private-address-space"
+        "rfc-1918-private-address-space",
+        "rfc-4864-local-network-protection-ipv6"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3898,7 +3922,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "ieee-802-1q"
+        "ieee-802-1q",
+        "rfc-5517-private-vlans"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3930,7 +3955,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1034-dns-concepts",
-        "rfc-1035-dns-implementation"
+        "rfc-1035-dns-implementation",
+        "rfc-3927-ipv4-link-local",
+        "man-dig-1",
+        "man-host-1",
+        "man-nslookup-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3968,7 +3997,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man7-nsswitch-conf",
-        "man7-hosts"
+        "man7-hosts",
+        "man7-getent-1",
+        "man7-nss-resolve-8",
+        "systemd-resolved-service",
+        "man-dig-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4005,7 +4038,8 @@
         "ch7.l2"
       ],
       "additional_sources": [
-        "man7-resolv-conf"
+        "man7-resolv-conf",
+        "systemd-resolved-service"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4073,7 +4107,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1035-dns-implementation",
-        "rfc-1034-dns-concepts"
+        "rfc-1034-dns-concepts",
+        "rfc-2181-dns-clarifications"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4107,7 +4142,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-1034-dns-concepts"
+        "rfc-1034-dns-concepts",
+        "man-hostname-1",
+        "man-hostname-5",
+        "man-hostnamectl-1",
+        "rfc-8499-dns-terminology"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4142,7 +4181,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1034-dns-concepts",
-        "rfc-1035-dns-implementation"
+        "rfc-1035-dns-implementation",
+        "rfc-2308-negative-caching",
+        "rfc-2181-dns-clarifications"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4177,7 +4218,10 @@
         "ch7.l3"
       ],
       "additional_sources": [
-        "rfc-2131-dhcp"
+        "rfc-2131-dhcp",
+        "rfc-3927-ipv4-link-local",
+        "rfc-1542-bootp-clarifications",
+        "rfc-1034-dns-concepts"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4210,7 +4254,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-2131-dhcp"
+        "rfc-2131-dhcp",
+        "rfc-3927-ipv4-link-local"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4244,7 +4289,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "isc-dhcpd-conf-manual",
-        "rfc-2131-dhcp"
+        "rfc-2131-dhcp",
+        "kea-arm-dhcp4-server"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4280,7 +4326,8 @@
       ],
       "additional_sources": [
         "rfc-9293-tcp",
-        "rfc-768-udp"
+        "rfc-768-udp",
+        "rfc-7766-dns-over-tcp"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4349,7 +4396,10 @@
       ],
       "additional_sources": [
         "rfc-9293-tcp",
-        "rfc-6335-port-number-procedures"
+        "rfc-6335-port-number-procedures",
+        "man-ip-7",
+        "man-capabilities-7",
+        "kernel-ip-sysctl"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4383,7 +4433,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-6335-port-number-procedures",
-        "iana-service-name-port-registry"
+        "iana-service-name-port-registry",
+        "kernel-ip-sysctl"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4417,7 +4468,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-9293-tcp",
-        "man7-ss"
+        "man7-ss",
+        "man-ip-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4452,7 +4504,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-9110-http-semantics",
-        "iana-service-name-port-registry"
+        "iana-service-name-port-registry",
+        "curl-manpage",
+        "rfc-8744-sni-encryption"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4490,7 +4544,12 @@
       ],
       "additional_sources": [
         "openssh-ssh-manpage",
-        "iana-service-name-port-registry"
+        "iana-service-name-port-registry",
+        "openssh-sshd-8",
+        "openssh-ssh-copy-id",
+        "openssh-scp-man",
+        "openssh-sftp-man",
+        "rfc-4217-ftp-over-tls"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4529,7 +4588,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-9110-http-semantics"
+        "rfc-9110-http-semantics",
+        "rfc-7239-forwarded"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4562,7 +4622,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-9110-http-semantics"
+        "rfc-9110-http-semantics",
+        "nginx-http-load-balancing",
+        "haproxy-starter-guide"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4628,7 +4690,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc6349-tcp-throughput"
+        "rfc6349-tcp-throughput",
+        "rfc-5481-delay-variation"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4659,7 +4722,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "netfilter-documentation"
+        "netfilter-documentation",
+        "nist-sp-800-41r1",
+        "man-iptables-8",
+        "man-iptables-extensions-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4696,7 +4762,13 @@
       "lfs200_sources": [],
       "additional_sources": [
         "netfilter-documentation",
-        "firewalld-documentation"
+        "firewalld-documentation",
+        "ubuntu-ufw-man",
+        "firewalld-firewall-cmd-man",
+        "firewalld-conf-man",
+        "man-iptables-nft-8",
+        "ubuntu-server-firewalls",
+        "fedora-quick-docs-firewalld"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4734,7 +4806,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nmap-port-scanning-basics",
-        "man7-ss"
+        "man7-ss",
+        "nmap-port-scanning-techniques",
+        "man-iptables-extensions-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4770,7 +4844,9 @@
         "ch7.l3"
       ],
       "additional_sources": [
-        "rfc-792-icmp"
+        "rfc-792-icmp",
+        "nmap-host-discovery",
+        "man7-ping"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4804,7 +4880,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man7-traceroute",
-        "rfc-792-icmp"
+        "rfc-792-icmp",
+        "rfc-1812-router-requirements"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4840,7 +4917,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man7-ip-iproute2",
-        "man7-ifconfig-nettools"
+        "man7-ifconfig-nettools",
+        "systemd-network-man"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4910,7 +4988,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "isc-bind9-manpages"
+        "isc-bind9-manpages",
+        "rfc-2308-negative-caching",
+        "rfc-1035-dns-implementation"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4945,7 +5025,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "curl-manpage"
+        "curl-manpage",
+        "man7-wget",
+        "curl-faq"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -5013,7 +5095,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "systemd-net-naming-scheme"
+        "systemd-net-naming-scheme",
+        "systemd-udevd-service"
       ],
       "candidate_evidence": [],
       "commands": [

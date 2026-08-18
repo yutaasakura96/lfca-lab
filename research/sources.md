@@ -30,6 +30,8 @@
 | nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
 | posix-ex | POSIX.1-2024 (Issue 8), ex — text editor | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ex.html |
 | posix-ls | POSIX.1-2024 (Issue 8), ls — list directory contents | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html |
+| rfc-5481-delay-variation | RFC 5481: Packet Delay Variation Applicability Statement | IETF | 1 | 2009-03 | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc5481.html |
+| rfc-7239-forwarded | RFC 7239: Forwarded HTTP Extension | IETF | 1 | 2014-06 | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc7239.html |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | aa-status-man8 | aa-status(8) manual page — display the current AppArmor policy state | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/aa-status.8.en.html |
@@ -169,6 +171,7 @@
 | cncf-glossary-stateless-apps | CNCF Cloud Native Glossary: Stateless Apps | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/stateless-apps/ |
 | cncf-glossary-virtualization | CNCF Cloud Native Glossary: Virtualization | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/virtualization/ |
 | cryptsetup-luks-faq | cryptsetup / LUKS Frequently Asked Questions | cryptsetup project | 2 | — | 2026-08-10 | https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions |
+| curl-faq | curl FAQ | curl project | 2 | — | 2026-08-18 | https://curl.se/docs/faq.html |
 | curl-manpage | curl(1) manual page | curl project | 2 | — | 2026-08-10 | https://curl.se/docs/manpage.html |
 | cve-program-overview | CVE Program — About / Overview | CVE Program (MITRE / CISA) | 2 | — | 2026-08-10 | https://www.cve.org/About/Overview |
 | debian-apt-8 | apt(8) — Debian package handling; update vs upgrade | Debian Project / APT team | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/apt/apt.8.en.html |
@@ -210,9 +213,12 @@
 | docker-what-is-a-container | What is a container? — Docker concepts ("they all share the same kernel") | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/ |
 | docker-what-is-a-registry | What is a registry? — Docker concepts (registry as centralized store, Docker Hub as the default) | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/ |
 | dockerfile-reference | Dockerfile reference (EXPOSE, ENV, CMD, WORKDIR, LABEL semantics) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/reference/dockerfile/ |
+| fedora-quick-docs-firewalld | Fedora Quick Docs: Using firewalld | Fedora Project | 2 | — | 2026-08-18 | https://docs.fedoraproject.org/en-US/quick-docs/firewalld/ |
 | fedora-setup-spec | Fedora `setup` package spec — ships /etc/shadow as 0000 root:root | Fedora Project | 2 | — | 2026-08-10 | https://src.fedoraproject.org/rpms/setup/blob/rawhide/f/setup.spec |
 | finops-invoicing-and-chargeback | FinOps Framework capability: Invoicing & Chargeback (showback vs chargeback) | FinOps Foundation | 2 | — | 2026-08-17 | https://www.finops.org/framework/capabilities/chargeback/ |
+| firewalld-conf-man | firewalld.conf(5) - firewalld configuration file | firewalld project | 2 | — | 2026-08-18 | https://firewalld.org/documentation/man-pages/firewalld.conf.html |
 | firewalld-documentation | firewalld documentation (including the nftables backend, default since 0.6.0) | firewalld project | 2 | — | 2026-08-10 | https://firewalld.org/documentation/ |
+| firewalld-firewall-cmd-man | firewall-cmd(1) - firewalld command line client | firewalld project | 2 | — | 2026-08-18 | https://firewalld.org/documentation/man-pages/firewall-cmd.html |
 | first-cvss-v31 | CVSS v3.1 Specification Document — Common Vulnerability Scoring System | FIRST | 2 | — | 2026-08-18 | https://www.first.org/cvss/v3.1/specification-document |
 | fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
 | fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
@@ -281,6 +287,7 @@
 | google-sre-book-monitoring | Site Reliability Engineering, Chapter 6: Monitoring Distributed Systems | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/monitoring-distributed-systems/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |
 | grub-mkpasswd-pbkdf2 | grub-mkpasswd-pbkdf2(1) manual page — generate a hashed password for GRUB | GNU GRUB / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/grub-common/grub-mkpasswd-pbkdf2.1.en.html |
+| haproxy-starter-guide | HAProxy Starter Guide (documentation 3.0) | HAProxy | 2 | — | 2026-08-18 | https://docs.haproxy.org/3.0/intro.html |
 | hipaa-45-cfr-164 | 45 CFR Part 164 — HIPAA Security and Privacy Rules (eCFR) | US Government Publishing Office / HHS | 2 | — | 2026-08-10 | https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164 |
 | iana-service-name-port-registry | Service Name and Transport Protocol Port Number Registry | IANA | 2 | — | 2026-08-10 | https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml |
 | ieee-802-1q | IEEE 802.1Q: Bridges and Bridged Networks (VLAN tagging) | IEEE | 2 | — | 2026-08-10 | https://standards.ieee.org/ieee/802.1Q/10323/ |
@@ -291,6 +298,7 @@
 | iso-certification | ISO — Certification | ISO | 2 | — | 2026-08-17 | https://www.iso.org/certification.html |
 | istqb-standard-glossary-v2.2 | Standard Glossary of Terms Used in Software Testing, Version 2.2 | International Software Testing Qualifications Board (ISTQB) | 2 | 2012-10 | 2026-08-11 | https://glossary.istqb.org/en_US/term/user-acceptance-testing |
 | itu-t-x200-osi-basic-reference-model | ITU-T X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model | ITU-T (technically aligned with ISO/IEC 7498-1) | 2 | — | 2026-08-10 | https://www.itu.int/rec/T-REC-X.200-199407-I/en |
+| itu-t-x200-osi-basic-reference-model-pdf | ITU-T X.200 (07/94), free-to-read PDF: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model (identical text to ISO/IEC 7498-1:1994) | ITU-T (identical text published as ISO/IEC 7498-1:1994) | 2 | — | 2026-08-18 | https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.200-199407-I!!PDF-E&type=items |
 | jenkins-pipeline-doc | Jenkins Pipeline — Jenkins User Handbook | Jenkins project / CD Foundation | 2 | — | 2026-08-17 | https://www.jenkins.io/doc/book/pipeline/ |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
 | k8s-controllers | Kubernetes Controllers — "controllers are control loops that watch the state of your cluster, then make or request changes where needed" | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/architecture/controller/ |
@@ -305,6 +313,7 @@
 | k8s-statefulset | Kubernetes StatefulSets — sticky per-pod identity, stable network identifiers, and stable per-replica storage, unlike a Deployment | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/ |
 | k8s-steering-charter | Kubernetes Steering Committee Charter — "the governing body of the Kubernetes project" | Kubernetes project | 2 | — | 2026-08-10 | https://github.com/kubernetes/steering/blob/master/charter.md |
 | kanban-guide | The Kanban Guide | Kanban University | 2 | — | 2026-08-10 | https://kanban.university/kanban-guide/ |
+| kea-arm-dhcp4-server | Kea Administrator Reference Manual: The DHCPv4 Server | Internet Systems Consortium | 2 | — | 2026-08-18 | https://kea.readthedocs.io/en/latest/arm/dhcp4-srv.html |
 | kernel-development-process | A guide to the Kernel Development Process — How the development process works | Linux kernel project (kernel.org) | 2 | — | 2026-08-17 | https://docs.kernel.org/process/2.Process.html |
 | kernel-firmware-api | Firmware API (driver-api) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/driver-api/firmware/index.html |
 | kernel-ip-sysctl | Linux kernel networking: IP sysctl (ip_local_port_range) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/networking/ip-sysctl.html |
@@ -320,6 +329,7 @@
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
 | man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
 | man-bash-1 | bash(1) — GNU Bourne-Again Shell manual page | GNU Project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/bash.1.html |
+| man-capabilities-7 | capabilities(7) - overview of Linux capabilities (CAP_NET_BIND_SERVICE) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/capabilities.7.html |
 | man-cat-1 | cat(1) — concatenate files and print on the standard output | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cat.1.html |
 | man-chage-1 | chage(1) — change user password expiry information (-d, -m, -M, -W, -E) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/chage.1.html |
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
@@ -349,10 +359,16 @@
 | man-gzip-1 | gzip(1) — compress or expand files | GNU gzip / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/gzip/gzip.1.en.html |
 | man-head-1 | head(1) — output the first part of files | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/head.1.html |
 | man-hier-7 | hier(7) — description of the filesystem hierarchy | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/hier.7.html |
+| man-host-1 | host(1) - DNS lookup utility | ISC BIND 9 / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/bind9-host/host.1.en.html |
+| man-hostname-1 | hostname(1) — show or set the system's host name | net-tools project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/hostname.1.html |
+| man-hostname-5 | hostname(5) — local hostname configuration file | systemd project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/hostname.5.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
 | man-id-1 | id(1) — print real and effective user and group IDs | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/id.1.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
+| man-iptables-8 | iptables(8) - administration tool for IPv4/IPv6 packet filtering and NAT | man7.org / netfilter | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/iptables.8.html |
+| man-iptables-extensions-8 | iptables-extensions(8) - iptables/ip6tables extension modules | man7.org / netfilter | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/iptables-extensions.8.html |
+| man-iptables-nft-8 | iptables-nft(8) / xtables-nft - iptables using the nftables API | Canonical / netfilter | 2 | — | 2026-08-18 | https://manpages.ubuntu.com/manpages/noble/en/man8/iptables-nft.8.html |
 | man-journalctl | journalctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/journalctl.1.html |
 | man-kill-1 | kill(1) — terminate a process | util-linux / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/kill.1.html |
 | man-kill-2 | kill(2) — send a signal to a process | Linux man-pages project | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man2/kill.2.html |
@@ -377,6 +393,7 @@
 | man-nohup-1 | nohup(1) — run a command immune to hangups | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/nohup.1.html |
 | man-nologin-8 | nologin(8) — politely refuse a login | Linux man-pages project / util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/nologin.8.html |
 | man-nproc-1 | nproc(1) — print the number of processing units available | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/nproc.1.html |
+| man-nslookup-1 | nslookup(1) - query Internet name servers interactively | ISC BIND 9 / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/bind9-dnsutils/nslookup.1.en.html |
 | man-nsswitch-conf-5 | nsswitch.conf(5) — Name Service Switch configuration file | GNU C Library / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/nsswitch.conf.5.html |
 | man-null-4 | null(4) — data sink (/dev/null and /dev/zero) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man4/null.4.html |
 | man-os-release-5 | os-release(5) — operating system identification | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/os-release.5.html |
@@ -430,13 +447,21 @@
 | man-w-1 | w(1) — show who is logged on and what they are doing | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/w.1.html |
 | man-whereis-1 | whereis(1) — locate the binary, source, and manual page files for a command | util-linux / kernel.org man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/whereis.1.html |
 | man-xfs-growfs-8 | xfs_growfs(8) — expand an XFS filesystem | Linux man-pages project / xfsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/xfs_growfs.8.html |
+| man7-getent-1 | getent(1) - get entries from Name Service Switch libraries | Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man1/getent.1.html |
 | man7-hosts | hosts(5) - static table lookup for hostnames | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/hosts.5.html |
 | man7-ifconfig-nettools | ifconfig(8) - configure a network interface (net-tools) | net-tools / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ifconfig.8.html |
+| man7-ip-address | ip-address(8) - protocol address management (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/ip-address.8.html |
 | man7-ip-iproute2 | ip(8) - show / manipulate routing, network devices, interfaces and tunnels (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ip.8.html |
+| man7-ip-link | ip-link(8) - network device configuration (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/ip-link.8.html |
+| man7-ip-neighbour | ip-neighbour(8) - neighbour/ARP table management (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/ip-neighbour.8.html |
+| man7-ip-route | ip-route(8) - routing table management (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/ip-route.8.html |
+| man7-nss-resolve-8 | nss-resolve(8) - hostname resolution via systemd-resolved.service | systemd / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/nss-resolve.8.html |
 | man7-nsswitch-conf | nsswitch.conf(5) - Name Service Switch configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/nsswitch.conf.5.html |
+| man7-ping | ping(8) - send ICMP ECHO_REQUEST to network hosts | iputils / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man8/ping.8.html |
 | man7-resolv-conf | resolv.conf(5) - resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man7-ss | ss(8) - another utility to investigate sockets | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ss.8.html |
 | man7-traceroute | traceroute(8) - print the route packets trace to network host | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/traceroute.8.html |
+| man7-wget | wget(1) - The non-interactive network downloader | GNU Wget / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man1/wget.1.html |
 | maven-dependency-mechanism | Introduction to the Dependency Mechanism | Apache Software Foundation | 2 | 2024-01 | 2026-08-11 | https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html |
 | microsoft-microservices-architecture-style | Microservices architecture style - Azure Architecture Center | Microsoft | 2 | — | 2026-08-12 | https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices |
 | microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
@@ -448,6 +473,7 @@
 | nasa-wbs-handbook-sp-2016-3404-rev1 | NASA Work Breakdown Structure (WBS) Handbook, NASA/SP-2016-3404/REV1 | NASA | 2 | 2018-01 | 2026-08-11 | https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf |
 | netfilter-documentation | netfilter/iptables project documentation | Netfilter Project | 2 | — | 2026-08-10 | https://www.netfilter.org/documentation/index.html |
 | nginx-beginners-guide | Beginner's Guide | F5, Inc. (nginx project) | 2 | 2024-01 | 2026-08-11 | https://nginx.org/en/docs/beginners_guide.html |
+| nginx-http-load-balancing | Using nginx as HTTP load balancer | nginx | 2 | — | 2026-08-18 | https://nginx.org/en/docs/http/load_balancing.html |
 | nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
 | nist-csrc-glossary-accountability | NIST CSRC Glossary — Accountability | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/accountability |
 | nist-csrc-glossary-audit | NIST CSRC Glossary — Audit | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/audit |
@@ -496,6 +522,7 @@
 | nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/88/r1/final |
 | nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/94/final |
 | nmap-port-scanning-basics | Nmap Reference Guide: Port Scanning Basics (open / closed / filtered port states) | Nmap Project | 2 | — | 2026-08-10 | https://nmap.org/book/man-port-scanning-basics.html |
+| nmap-port-scanning-techniques | Nmap Reference Guide: Port Scanning Techniques | Nmap Project | 2 | — | 2026-08-18 | https://nmap.org/book/man-port-scanning-techniques.html |
 | npm-install-locally | Downloading and installing packages locally — npm Docs | npm, Inc. / GitHub | 2 | — | 2026-08-17 | https://docs.npmjs.com/downloading-and-installing-packages-locally |
 | ntia-sbom-minimum-elements | The Minimum Elements For a Software Bill of Materials (SBOM) | NTIA, U.S. Department of Commerce | 2 | — | 2026-08-10 | https://www.ntia.gov/sites/default/files/publications/sbom_minimum_elements_report_0.pdf |
 | oasis-amqp-core-v1.0 | OASIS Advanced Message Queuing Protocol (AMQP) Version 1.0 | OASIS (also published as ISO/IEC 19464) | 2 | 2012-10 | 2026-08-11 | http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf |
@@ -505,6 +532,7 @@
 | omg-bpmn-2-0-2-process | Business Process Model and Notation (BPMN), Version 2.0.2 - Clause 10, Process; Clause on Lane/Pool | Object Management Group (OMG) | 2 | 2013-12 | 2026-08-11 | https://www.omg.org/spec/BPMN/2.0.2/PDF |
 | omg-uml-2-5-1-usecases | OMG Unified Modeling Language (OMG UML), Version 2.5.1 - Clause 18, Use Cases | Object Management Group (OMG) | 2 | 2017-12 | 2026-08-11 | https://www.omg.org/spec/UML/2.5.1/PDF |
 | openssh-scp-man | scp(1) — OpenSSH secure file copy | OpenSSH / OpenBSD project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/scp.1.html |
+| openssh-sftp-man | sftp(1) - OpenSSH secure file transfer program | OpenSSH / OpenBSD project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/sftp.1.html |
 | openssh-ssh-copy-id | ssh-copy-id(1) manual page | OpenSSH | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ssh-copy-id.1.html |
 | openssh-ssh-keygen | ssh-keygen(1) manual page | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh-keygen |
 | openssh-ssh-manpage | ssh(1) - OpenSSH remote login client | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh.1 |
@@ -543,26 +571,45 @@
 | redhat-what-is-a-hypervisor | What is a hypervisor? (type 1 vs type 2) | Red Hat | 2 | — | 2026-08-18 | https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor |
 | rfc-1034-dns-concepts | RFC 1034: Domain Names - Concepts and Facilities | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1034.html |
 | rfc-1035-dns-implementation | RFC 1035: Domain Names - Implementation and Specification | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1035.html |
+| rfc-1112-ip-multicasting | RFC 1112: Host Extensions for IP Multicasting | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc1112.html |
 | rfc-1122-host-requirements | RFC 1122: Requirements for Internet Hosts -- Communication Layers | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1122.html |
+| rfc-1542-bootp-clarifications | RFC 1542: Clarifications and Extensions for the Bootstrap Protocol | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc1542.html |
 | rfc-1752-ipng-recommendation | RFC 1752: The Recommendation for the IP Next Generation Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1752.html |
+| rfc-1812-router-requirements | RFC 1812: Requirements for IP Version 4 Routers | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc1812.html |
 | rfc-1918-private-address-space | RFC 1918: Address Allocation for Private Internets | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc1918.html |
 | rfc-2131-dhcp | RFC 2131: Dynamic Host Configuration Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc2131.html |
+| rfc-2181-dns-clarifications | RFC 2181: Clarifications to the DNS Specification | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc2181.html |
+| rfc-2308-negative-caching | RFC 2308: Negative Caching of DNS Queries (DNS NCACHE) | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc2308.html |
 | rfc-2644-bcp34 | RFC 2644 / BCP 34: Changing the Default for Directed Broadcasts in Routers | IETF | 2 | — | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc2644.html |
+| rfc-3021-31-bit-prefixes | RFC 3021: Using 31-Bit Prefixes on IPv4 Point-to-Point Links | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc3021.html |
 | rfc-3022-traditional-nat | RFC 3022: Traditional IP Network Address Translator (Traditional NAT) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc3022.html |
+| rfc-3927-ipv4-link-local | RFC 3927: Dynamic Configuration of IPv4 Link-Local Addresses | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc3927.html |
+| rfc-4217-ftp-over-tls | RFC 4217: Securing FTP with TLS | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc4217.html |
 | rfc-4251-ssh-architecture | RFC 4251 — The Secure Shell (SSH) Protocol Architecture | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4251.html |
 | rfc-4252-ssh-auth | RFC 4252 — The Secure Shell (SSH) Authentication Protocol (publickey method) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4252.html |
 | rfc-4291-ipv6-addressing-architecture | RFC 4291: IP Version 6 Addressing Architecture | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4291.html |
 | rfc-4632-cidr | RFC 4632: Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc4632.html |
+| rfc-4861-ipv6-neighbor-discovery | RFC 4861: Neighbor Discovery for IP version 6 (IPv6) | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc4861.html |
+| rfc-4862-ipv6-slaac | RFC 4862: IPv6 Stateless Address Autoconfiguration | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc4862.html |
+| rfc-4864-local-network-protection-ipv6 | RFC 4864: Local Network Protection for IPv6 | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc4864.html |
 | rfc-5280-x509 | RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc5280.html |
 | rfc-5424 | RFC 5424 — The Syslog Protocol (severity levels 0 Emergency … 7 Debug) | IETF | 2 | — | 2026-08-10 | https://datatracker.ietf.org/doc/html/rfc5424 |
 | rfc-6335 | RFC 6335 — IANA Procedures for Service Name and Transport Protocol Port Number Registry | IETF / IANA | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc6335.html |
 | rfc-6335-port-number-procedures | RFC 6335 (BCP 165): IANA Procedures for the Management of the Service Name and Transport Protocol Port Number Registry | IETF/IANA | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc6335.html |
+| rfc-6598-shared-address-space | RFC 6598 / BCP 153: IANA-Reserved IPv4 Prefix for Shared Address Space | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc6598.html |
+| rfc-6890-special-purpose-addresses | RFC 6890: Special-Purpose IP Address Registries | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc6890.html |
+| rfc-7042-ieee-802-parameters | RFC 7042: IANA Considerations and IETF Protocol and Documentation Usage for IEEE 802 Parameters | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc7042.html |
 | rfc-7568-ssl3-deprecation | RFC 7568 — Deprecating Secure Sockets Layer Version 3.0 | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc7568.html |
 | rfc-768-udp | RFC 768: User Datagram Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc768.html |
+| rfc-7766-dns-over-tcp | RFC 7766: DNS Transport over TCP - Implementation Requirements | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc7766.html |
+| rfc-7844-dhcp-anonymity-profiles | RFC 7844: Anonymity Profiles for DHCP Clients | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc7844.html |
 | rfc-791-internet-protocol | RFC 791: Internet Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc791.html |
 | rfc-792-icmp | RFC 792: Internet Control Message Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc792.html |
 | rfc-826-arp | RFC 826: An Ethernet Address Resolution Protocol | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc826.html |
 | rfc-8446-tls13 | RFC 8446 — The Transport Layer Security (TLS) Protocol Version 1.3 | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8446.html |
+| rfc-8499-dns-terminology | RFC 8499: DNS Terminology | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc8499.html |
+| rfc-8744-sni-encryption | RFC 8744: Issues and Requirements for Server Name Identification (SNI) Encryption in TLS | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc8744.html |
+| rfc-894-ip-over-ethernet | RFC 894: A Standard for the Transmission of IP Datagrams over Ethernet Networks | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc894.html |
 | rfc-9110-http-semantics | RFC 9110: HTTP Semantics (including intermediaries: proxy, gateway/reverse proxy) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rfc-919-broadcasting-internet-datagrams | RFC 919: Broadcasting Internet Datagrams | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc919.html |
 | rfc-9293-tcp | RFC 9293: Transmission Control Protocol (TCP) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9293.html |
@@ -589,12 +636,14 @@
 | systemd-bootup-7 | bootup(7) — system bootup process | freedesktop.org / systemd | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/bootup.html |
 | systemd-journald-8 | systemd-journald.service(8) — the journal log store | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html |
 | systemd-net-naming-scheme | systemd.net-naming-scheme(7) - Predictable network interface device names | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.net-naming-scheme.html |
+| systemd-network-man | systemd.network(5) - Network configuration | systemd / freedesktop.org | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/systemd.network.html |
 | systemd-resolved-service | systemd-resolved.service(8) — network name resolution manager | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html |
 | systemd-runlevel-8 | runlevel(8) — SysV runlevel to systemd target mapping | freedesktop.org / systemd (page served by man7.org) | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/runlevel.8.html |
 | systemd-service-5 | systemd.service(5) — service unit configuration | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html |
 | systemd-special-7 | systemd.special(7) — special units and targets | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html |
 | systemd-systemctl-1 | systemctl(1) — start, enable, daemon-reload, isolate, get-default | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemctl.html |
 | systemd-timer-5 | systemd.timer(5) — timer unit configuration, Persistent= | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.timer.html |
+| systemd-udevd-service | systemd-udevd.service(8) - Device event managing daemon (kernel command line options) | systemd / freedesktop.org | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/systemd-udevd.service.html |
 | systemd-unit-5 | systemd.unit(5) — unit configuration and unit type suffixes | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html |
 | tcpdump-manpage | tcpdump(1) manual page | The Tcpdump Group | 2 | — | 2026-08-10 | https://www.tcpdump.org/manpages/tcpdump.1.html |
 | terraform-intro | What is Terraform? — HashiCorp Developer | HashiCorp | 2 | — | 2026-08-17 | https://developer.hashicorp.com/terraform/intro |
@@ -602,10 +651,13 @@
 | twelve-factor-dev-prod-parity | The Twelve-Factor App, factor X: Dev/prod parity | Adam Wiggins / Heroku | 2 | — | 2026-08-17 | https://12factor.net/dev-prod-parity |
 | ubuntu-release-cycle | Ubuntu release cycle and LTS support windows | Canonical | 2 | — | 2026-08-10 | https://ubuntu.com/about/release-cycle |
 | ubuntu-rootsudo | RootSudo — Ubuntu community documentation on the locked root password and sudo | Canonical / Ubuntu community | 2 | — | 2026-08-18 | https://help.ubuntu.com/community/RootSudo |
+| ubuntu-server-firewalls | Ubuntu Server documentation: Firewalls | Canonical / Ubuntu | 2 | — | 2026-08-18 | https://documentation.ubuntu.com/server/how-to/security/firewalls/ |
+| ubuntu-ufw-man | ufw(8) - program for managing a netfilter firewall (Ubuntu manpage) | Canonical / Ubuntu | 2 | — | 2026-08-18 | https://manpages.ubuntu.com/manpages/noble/en/man8/ufw.8.html |
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
 | wayland-home | Wayland — a replacement for the X11 window system protocol and architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-17 | https://wayland.freedesktop.org/ |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |
 | nmap-host-discovery | Nmap Network Scanning — Host Discovery (ICMP echo and firewalls) | Nmap Project (Gordon Lyon) | 3 | — | 2026-08-18 | https://nmap.org/book/man-host-discovery.html |
+| rfc-5517-private-vlans | RFC 5517: Cisco Systems' Private VLANs -- Scalable Security in a Multi-Client Environment | IETF | 3 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc5517.html |
 | verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |
 | vmware-hypervisor | What is a Hypervisor? (type 1 vs type 2) | VMware / Broadcom | 3 | — | 2026-08-10 | https://www.vmware.com/topics/hypervisor |
 | devto-lfca-2025-09 | Cleared Linux Foundation Certified IT Associate (LFCA) + Preparation Guide | DEV Community (individual author) | 4 | 2025-09-03 | 2026-08-10 | https://dev.to/shivansh_barapatre_7/cleared-linux-foundation-certified-it-associate-lfca-preparation-guide-fd6 |
