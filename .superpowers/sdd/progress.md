@@ -1042,3 +1042,85 @@ Task 54 (a/b/c/d): complete (commits 1c4485f, 4d0b1c0) - WAVE D, BATCH 2
   `iproute2-ss-man`/`man-ss`, `rfc-9110-http-semantics`/`rfc9110`, `aws-reserved-instances`/
   `aws-ec2-reserved-instances`, `docker-container-start`/`docker-cli-start`). Deduping would
   collide with concurrent agents; it belongs in the `data/` cleanup task.
+
+Task 56 (a/b/c/d/e): complete (commit d976f24) - WAVE D, BATCH 3
+  System Administration, 128 items split five ways (27/27/27/24/23). **128 of 128 confirmed**,
+  roughly 75 refuted on first pass. Corpus 839 -> 967/1150 (84%), 21 of 22 competencies.
+  Unscoped check-bank 312 -> 184 errors = exactly 183 q-verdict-coverage (networking, the last
+  unverified file) + 1 q-answer-position-balance. The arithmetic closes with no residue.
+  Sources 559 -> 605. Gates green: test 307/307, validate 0 errors / 15 warnings (baseline held),
+  check-guide 0/0, scoped check-bank 0 errors / 0 warnings.
+  Controller verification was done against the FILESYSTEM and checked verdict VALUE, `checked`
+  completeness and label-vs-range for all 128: 0 unverified, 0 non-confirmed, 0 range violations,
+  0 partial `checked` arrays.
+
+  **FOUR WRONG KEYS - the count moved again, and three were settled by running the command.**
+  - `symbolic-vs-numeric-chmod.02` claimed `chmod 755` over a tree clears setgid on directories.
+    chmod(1): "For directories chmod preserves set-user-ID and set-group-ID bits unless you
+    explicitly specify otherwise." Measured: `chmod -R 2775` then `chmod -R 755` left `drwxr-sr-x`.
+    **The study guide was ALREADY CORRECT and the item had drifted from it** - the inverse of the
+    usual pattern, and the reason Step A insists the guide is read only after forming a view.
+  - `login-shell.02` claimed a nologin shell blocks interactive login but permits `ssh host command`.
+    nologin(8) ignores `-c/--command` and "The exit status returned by nologin is always 1."
+    **As authored NO option was correct.**
+  - `filesystem-type.01` claimed XFS "cannot be shrunk at all"; xfs_growfs(8) documents a narrow
+    shrink of the last AG. **Here the guide carried the identical absolute and was corrected too** -
+    item and guide had drifted together.
+  - `dnf-yum-and-rpm.02` claimed `-p` is needed to query a package file. Disproved on rockylinux:9:
+    `rpm -q /dl/zsh-5.8-9.el9.aarch64.rpm` -> `zsh-5.8-9.el9.aarch64`, exit 0, no `-p`. The real
+    distinction is bare name vs file path.
+
+  **One distractor certified correct BY ITS OWN `why`.** `foreground-and-background-jobs.02` o4
+  said the job "needed to be run as a daemon" and its `why` conceded "Converting it into a properly
+  detached daemon would also work..." The killer defect, announcing itself in writing.
+
+  **A NEW INSTANCE OF THE "200 OK AND NO CONTENT" CLASS, in a source nobody would distrust.**
+  man7.org's **proc(5) no longer documents individual /proc files.** It retains the filesystem
+  overview and mount options (31 KB of real content - it is NOT an empty shell, and the controller
+  initially mis-described it as one), but every per-file section was split into ~100 `proc_*(5)`
+  sub-pages (`proc_net(5)`, `proc_meminfo(5)`, `proc_pid_status(5)`, all live and substantial).
+  Five items cited proc(5) for per-file facts it no longer carries. **Upstream documentation SPLITS,
+  and a citation that was correct when written can rot without the URL ever breaking.** This is a
+  distinct failure mode from the empty-glossary class and should be checked corpus-wide; other
+  competencies already marked verified may cite proc(5) the same way.
+
+  Other citation findings, ~55 concepts re-cited across the five ranges, all at concept level:
+  - `disk-usage-vs-free-space` cited mount(8)+inode(7) for deleted-but-open files - **that is
+    unlink(2)**, the SAME misattribution recorded in an earlier wave, sitting in a different concept.
+    Confirms the source-propagation root cause is systemic, not incidental.
+  - `runlevel` cited systemd.special(7), which contains **ZERO occurrences of "runlevel"**.
+  - `patch-management` cited apt(8) and the DNF reference, **neither of which mentions the practice
+    at all**. Re-based on NIST SP 800-40r4.
+  - `service.01` cited systemd.unit(5) for `Restart=`, which only systemd.service(5) documents.
+  - `read-write-execute-permissions`/`owner-group-other` cited inode(7), which tabulates the mode
+    bits but never states that execute means search on a directory, nor the first-match class rule -
+    both are in path_resolution(7).
+  - `chown-and-chgrp` cited chown(2), the SYSCALL, for the `alice:` operand syntax, which is chown(1).
+  - apt(8) cited for `--fix-broken`, which **apt-get(8)** documents; and for `/etc/apt/sources.list`,
+    which it only cross-references to sources.list(5).
+
+  **Empirical verification is now routine, not exceptional** - ~25 claims settled by running the
+  command across the five ranges (same-UID identity collapse, `/etc/shadow` mode differing between
+  Ubuntu and Fedora which VALIDATED a distractor's `why`, setuid-on-script ignored, cron's exact
+  environment, dpkg's `iU` half-configured state reproduced end to end, rpm file query). Two honest
+  negatives recorded rather than faked: **RAID could not be measured** (Docker Desktop's linuxkit
+  kernel has no `md_mod`) and **DHCP was not testable**, so both rest on documentation.
+
+  Shape: file-wide keys 40% -> 40%, distractors 27% -> 28% (gap narrowed 13pt -> 12pt);
+  key-is-longest 0 -> 5 items (4%), well under the 25% chance line. **Both documented side effects
+  of stripping self-refuting padding reproduced in range C alone**: removing item 74's padding
+  tripped `q-length-cue` (ratio 1.87 vs 1.6) that the padding had been MASKING, and two distractors
+  lost their em-dashes. Fixed by extending distractors and re-punctuating - never by truncating a
+  key. ~95 self-refuting distractors repaired across the file, confirming this was indeed the
+  corpus's worst concentration; the machine-paste tell (`- sUID changes...`, `- sIGSTOP freezes...`,
+  and one "since since") recurred in every range.
+
+  Unreachable, handled correctly and named in the items: **gnu.org down for this entire batch too**
+  (coreutils manual times out at 20-25s while man7.org answers in ~1.1s); **uefi.org 403s to curl**;
+  freedesktop.org 404s `/man/latest/runlevel.html`. Nothing refuted for any of them.
+
+  Honest limits recorded IN the items rather than dressed up: `service-account.01` rests on a
+  practice principle, not a sentence; `journald.02`'s diagnostic ordering is judgement; no man page
+  states baldly that a PID is reusable on exit; `swap.01`'s key is a synthesis of free(1) and
+  vmstat(8); RAID minimums rest on Red Hat docs, not tool enforcement (`mdadm` does not reject
+  `--level=5 --raid-devices=2`).
