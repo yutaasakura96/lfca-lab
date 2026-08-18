@@ -847,3 +847,102 @@ Tasks 49a/49b, 51, 52a/52b: complete (commit f02fc2d) - WAVE C COMPLETE
   could have destroyed four agents' uncommitted work in one command. The agent flagged it itself
   and did not repeat it. **Wave D briefs must forbid `git stash` explicitly**; the existing "no git
   mutation" wording was read as being about commits.
+
+Tasks 53a/b/c and 55a/b/c: complete (commit 408e379) - WAVE D, BATCH 1
+  Six agents over two competencies, 168 items: security 82 (SPLIT 27/29/26), containers 86
+  (SPLIT 30/29/27). **168 of 168 carry a `confirmed` verdict; 131 refuted on first pass.**
+  Corpus 561 -> 729/1150 (63%), 19 of 22 competencies. Unscoped check-bank 590 -> 422 errors
+  (421 verdict-coverage + 1 position-balance). Sources 456 -> 529. npm test 307/307,
+  check-guide 0/0. **The validate baseline moved 16 -> 15 warnings** - a concept-level source fix
+  retired an orphan. New baseline is 15 (9 orphan-source + 6 inferred-ratio).
+
+  **A PARALLEL AGENT CAUGHT A DEFECT THAT TWO AGENTS' SELF-REPORTS MISSED AND THE CONTROLLER'S
+  OWN CHECK WOULD HAVE SHIPPED.** Task 55b ran the scoped check, read the errors as belonging to
+  SOMEBODY, and reported that agents A and C had left verdicts as `refuted` - a state check 21
+  rejects by design ("a refuted item must be rewritten and re-verified, not shipped").
+  Measured: **41 items across two files** - 24 in containers (55a), 17 in security (53b).
+  Both agents HAD done the repair; both recorded the pre-repair verdict. 55a's own report said
+  "6 confirmed, 24 refuted" and 53b's said "17 refuted, every refutation fixed in place and
+  re-checked" - the work was right and only the field was stale, which is exactly the shape that
+  reads in a summary like 41 shipped-broken items.
+  **The controller's verification was blind to it**: it checked verdict PRESENCE, `checked`
+  completeness, `sources_read` and agent_label, never the verdict VALUE. Fixed by resuming both
+  agents to re-read their own items and re-record; neither was allowed to flip a field it had not
+  re-checked. Both then found MORE defects on the re-read (below).
+  Third time in this cycle a parallel agent has caught another agent's error - after Task 9 on the
+  fixture and Task 43b on unwired sources. The overlap the splits create is a feature.
+  **Controller check list must now include verdict value, not just presence.**
+
+  **The re-read was not a formality.** 53b found seven further self-refuting distractors its own
+  earlier scan had missed, and diagnosed why: **n-gram overlap between an option's `text` and its
+  own `why` catches only the VERBATIM paste.** Seven carried a PARAPHRASED version - a trailing
+  `, when ...` / `, though ...` clause reversing the claim the option had just made. It
+  under-counted by roughly a third. **The reliable signal is a subordinate clause (when/though/
+  which) that reverses the option's own claim, not text overlap.** This retrospectively
+  invalidates every n-gram figure in this ledger, including the controller's 54/384 for
+  system-administration: treat those as order-of-magnitude floors, not counts. Measured per range:
+  53a 24/81, 53c 14/26 of its refutations, 55b 22, 53b 12+7 - density varies sharply WITHIN a file,
+  so only per-range measurement is meaningful.
+
+  **"200 OK and no content" is now a source class, not an anomaly.** Confirmed by controller fetch:
+    nist-csrc-glossary  csrc.nist.gov/glossary  200, 7,314 visible chars, ZERO definitions
+                        (no "least privilege", "attack surface", "defense in depth", "phishing")
+    cncf-glossary       glossary.cncf.io/       200, 4,174 visible chars, ZERO definitions
+    vmware-hypervisor   200, body is a meta description only (wave C)
+    cve-program-overview 200, an 880-byte Vue shell (53c)
+    apparmor-wiki       200, ~1,100 chars of GitLab script - REMOVED rather than repointed
+  The TERM pages work (`/glossary/term/phishing` carries real text), so the defect is citing the
+  front door. **A liveness check asserting HTTP 200 passes every one of these.** Any URL check
+  must assert CONTENT. 41 items still cite one of the five; that is an enumerable cleanup list.
+  Also found 404: `term/ransomware`, `term/privilege_escalation`, `term/system_hardening`,
+  `term/configuration_drift`, `gnupg-verify-docs`.
+
+  **A body of unverifiable claims survives IN THE GUIDE and must not be left looking verified.**
+  `verizon-dbir` is unretrievable: the registered .pdf returns 200 `text/html` (a marketing page),
+  every other PDF path on that host returns content-length 0, and the Wayback capture is the HTML
+  too - tried with and without a browser UA. The item keying on its 31%/16%/13% initial-access
+  figures was rewritten onto the methodological point, but **the guide states those figures in four
+  places** (security.md:863, :865, :1114-1115, :1148). Left standing and recorded: the source is
+  UNVERIFIABLE, not disproven, and silently deleting sourced-looking statistics is worse than
+  flagging them. This is the second such body after the PCI DSS requirement numbers. **Task 59 must
+  name both explicitly.**
+
+  Content defects, the short list against 131 refutations:
+  - **A wrong key**: containers `environment-variables-in-containers.02` keyed on "`docker start`
+    accepts no new flags". The reference lists `-a`, `-i`, `--detach-keys`, `--checkpoint`,
+    `--checkpoint-dir`; what it lacks is `-e/--env`, which is the actual reason the command fails.
+    The DISTRACTOR's `why` had been right all along and the key was the wrong half.
+  - **Two double keys**: `docker-compose.03` asked what happens after power loss "if no one
+    intervenes" while saying nothing about restart policies, making "it resumes automatically"
+    correct for any service declaring `restart: always`; and security `defense-in-depth.01` keyed
+    "yes" on two firewalls running the SAME default-deny rule set, where SP 800-53r5 SA-8 says
+    replicated mechanisms give protection that "may be illusory, as the adversary can simply attack
+    in series". The guide was right and the item had drifted.
+  - **A false `why` hiding a second correct answer**: `public-key-authentication.01`'s distractor
+    `ssh-copy-id -i ~/.ssh/id_ed25519 user@host` had `why` "This copies the private key rather than
+    the public one". ssh-copy-id(1): "If the filename does not end in .pub this is added."
+  - **A stem that was wrong while every option was right**: `symmetric-vs-asymmetric-encryption.01`
+    said ephemeral Diffie-Hellman authenticates the server. RFC 8446 section 2 separates the jobs -
+    (EC)DHE is key exchange, authentication is Certificate/CertificateVerify. Stem rewritten, key
+    and all three distractors untouched.
+  - **An under-qualified key**: `full-disk-encryption.02` keyed "unrecoverable" on LUKS header
+    loss; the cryptsetup FAQ names two exceptions (header backup, volume-key extraction from an
+    open container), so a knowledgeable reader could defensibly reject the key.
+  - **NIST SP 800-190 is the source container-security always wanted** - section 3.5.2 states the
+    shared-kernel-vs-hypervisor point nearly verbatim, 3.1.1 the continuous-scanning point.
+    `docker-build-best-practices` had been cited for a hypervisor comparison; "hypervisor" occurs
+    0 times on it.
+  - **Fourth true-but-misreadable guide instance**: containers.md:392 gave the pitfall as
+    "Expecting it to accept new run-time flags" - true, but it reads as "accepts no flags", which
+    is the over-generalisation the refuted key made, two columns from a list of `-a` and `-i`.
+
+  Shape work: containers held at keys 14% / distractors 0% em-dash - the three agents were told not
+  to open the gap in one of the only three files where it is small, and none did. Security moved
+  43%/6% -> 40%/7%. A controller sweep for a SECOND suspected tell (a multi-clause construction
+  with no sentence-final punctuation, which is why the two-clause scan reads 0%/0% corpus-wide)
+  measured **keys 6% / distractors 7%** - real construction, NO asymmetry, therefore a style
+  inconsistency and not a scoring leak. Recorded so nobody re-litigates it as a fourth crisis.
+  A controller phrase-list scan for meta-commentary tails found 30 distractors vs 5 keys corpus-wide
+  (concentrated in containers 17/258 and command-line 12/330) - the asymmetry is real and points
+  the same way as 55b's report, but the magnitude could not be confirmed, because a regex measures
+  the phrase list rather than the class. Recorded as asymmetric-and-unquantified.
