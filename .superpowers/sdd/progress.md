@@ -697,7 +697,7 @@ Tasks 49a/49b, 51, 52a/52b: complete (commit f02fc2d) - WAVE C COMPLETE
   Five agents over three competencies, 142 items: cloud-computing 56 (SPLIT 28/28),
   project-management 37, cloud networking 49 (SPLIT 26/23). With Tasks 48 and 50 this closes
   wave C at 211 items. **142 of 142 carry a verdict; 100 refuted on first pass.**
-  Corpus 419 -> 561/1150 (49%), 14 of 22 competencies. Unscoped check-bank 732 -> 590 errors
+  Corpus 419 -> 561/1150 (49%), 17 of 22 competencies. Unscoped check-bank 732 -> 590 errors
   (589 verdict-coverage + 1 position-balance). Gates green: npm test 307/307, validate 537/0/16,
   check-guide 0/0. Controller re-verified all 1,150 items for verdict-field quality:
   **0 violations corpus-wide** - every verdict has a complete `checked` list, a non-empty
