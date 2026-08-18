@@ -1867,3 +1867,38 @@ check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts
 warnings. Shape scans over items 30–60: em-dash keys 0% / distractors 2%, identical before and
 after; key-is-longest 0 of 31 before, 2 of 31 after, against a 25% chance baseline; no repeated
 six-token tails and no code-span-only options in either pass.
+
+## Cycle 3, task 56d — verify System Administration :: System Administration, items 82–105
+
+Range `home` … `lvm`, twenty-four items over fourteen storage- and hierarchy-shaped concepts,
+`agent_label: verify-sysadmin-d`. All twenty-four end at `confirmed`; none left at `refuted`.
+
+**Guide correction.** `study-guide/02-system-administration/system-administration.md`, filesystem
+type, "Traps", said *"XFS can be grown while mounted but cannot be shrunk at all."* That absolute
+is wrong. xfs_growfs(8) documents under `-d`: *"A filesystem with only 1 AG cannot be shrunk
+further, and a filesystem cannot be shrunk to the point where it would only have 1 AG. [NOTE: Only
+shrinking the last AG without removing it is implemented]"* — a narrow last-allocation-group shrink
+exists. The guide and `filesystem-type.01`'s key now say XFS offers no *general* shrink path, which
+is both true and still the exam-relevant contrast with ext4. The ext4 half was confirmed verbatim
+against resize2fs(8). Source that settles it:
+<https://man7.org/linux/man-pages/man8/xfs_growfs.8.html>. The `data/` `description` for the
+concept never carried the claim; only the guide's prose did.
+
+**Root cause fixed in `data/`, not item by item.** Twelve of the fourteen concepts cited a page
+that does not document what their items claim — the recurring shape being a man page for the right
+tool standing in for a source for the claim. `disk-usage-vs-free-space` cited mount(8) and inode(7)
+for deleted-but-open files (it is unlink(2)); `partition` cited mount(8) for MBR limits (it is
+fdisk(8)); `lvm` cited mount(8) (it is lvm(8)); `swap` cited fstab(5) for `mkswap` (it is
+mkswap(8)); `dev` cited only the FHS for `/dev/null` versus `/dev/zero` (it is null(4));
+`proc-and-sys` cited proc(5) for `/etc/sysctl.d` persistence, which proc(5) never mentions (it is
+sysctl.d(5)). Fifteen new sources registered in `data/sources.json` and every one wired into a
+concept in `data/topics/02-system-administration.json`; `npm run generate` re-run; validate back at
+the 15-warning baseline.
+
+**Seventeen self-refuting distractors repaired** — options whose text carried their own `why`
+verbatim after an em-dash. Replacements carry real false clauses, so the shape ratios did not move:
+keys with a trailing em-dash clause 12/24 (50%) before and after, distractors 19/72 (26%) before
+and after, key-is-longest 2/24 (8%) before and after.
+
+Full detail, including five rejected suspicions and the residual limits, is in
+`docs/verification/qbank-findings.md` under `verify-sysadmin-d`.

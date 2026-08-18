@@ -45,6 +45,8 @@
 | apparmor-man7 | apparmor(7) manual page — kernel enhancement to confine programs, enforcement and complain modes | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/apparmor.7.en.html |
 | apple-ls-1 | ls(1) — macOS (BSD) list directory contents | Apple (Xcode command line tools man pages) | 2 | — | 2026-08-18 | https://keith.github.io/xcode-man-pages/ls.1.html |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
+| archwiki-partitioning | Partitioning (ArchWiki) — GPT versus MBR | Arch Linux project | 2 | — | 2026-08-18 | https://wiki.archlinux.org/title/Partitioning |
+| archwiki-secure-boot | UEFI/Secure Boot (ArchWiki) | Arch Linux project | 2 | — | 2026-08-18 | https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot |
 | asf-contributor-agreements | ASF Contributor Agreements | Apache Software Foundation | 2 | — | 2026-08-18 | https://www.apache.org/licenses/contributor-agreements.html |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
 | aws-alb-introduction | What is an Application Load Balancer? | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html |
@@ -170,7 +172,10 @@
 | curl-manpage | curl(1) manual page | curl project | 2 | — | 2026-08-10 | https://curl.se/docs/manpage.html |
 | cve-program-overview | CVE Program — About / Overview | CVE Program (MITRE / CISA) | 2 | — | 2026-08-10 | https://www.cve.org/About/Overview |
 | debian-apt-8 | apt(8) — Debian package handling; update vs upgrade | Debian Project / APT team | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/apt/apt.8.en.html |
+| debian-apt-get-8 | apt-get(8) — --fix-broken, --no-install-recommends, --install-suggests | Debian Project / APT team | 2 | — | 2026-08-18 | https://manpages.debian.org/stable/apt/apt-get.8.en.html |
 | debian-dpkg-1 | dpkg(1) — Debian package manager for local .deb files | Debian Project | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/dpkg/dpkg.1.en.html |
+| debian-sources-list-5 | sources.list(5) — /etc/apt/sources.list and /etc/apt/sources.list.d/ | Debian Project / APT team | 2 | — | 2026-08-18 | https://manpages.debian.org/stable/apt/sources.list.5.en.html |
+| debian-update-grub-8 | update-grub(8) — stub for grub-mkconfig (Debian) | Debian project | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/grub2-common/update-grub.8.en.html |
 | dnf-command-ref | DNF command reference | Fedora Project / DNF | 2 | — | 2026-08-10 | https://dnf.readthedocs.io/en/latest/command_ref.html |
 | docker-bind-mounts | Bind mounts — "a file or directory on the host machine is mounted from the host into a container" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/storage/bind-mounts/ |
 | docker-build-best-practices | Building best practices (base images, USER/non-root, ENV layer behaviour, ADD vs COPY) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/build/building/best-practices/ |
@@ -311,30 +316,41 @@
 | kernel-sysctl-vm | Linux kernel admin guide: Documentation for /proc/sys/vm (OOM controls) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/admin-guide/sysctl/vm.html |
 | linux-kvm-main | KVM — Kernel-based Virtual Machine (project home) | KVM project | 2 | — | 2026-08-18 | https://www.linux-kvm.org/page/Main_Page |
 | linux-relnotes-0-01 | Notes for Linux release 0.01 | Linus Torvalds / kernel.org historic archive | 2 | — | 2026-08-17 | https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01 |
+| man-anacron-8 | anacron(8) — runs commands periodically on machines not running continuously | cronie project / Linux man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/anacron.8.html |
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
 | man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
 | man-bash-1 | bash(1) — GNU Bourne-Again Shell manual page | GNU Project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/bash.1.html |
 | man-cat-1 | cat(1) — concatenate files and print on the standard output | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cat.1.html |
+| man-chage-1 | chage(1) — change user password expiry information (-d, -m, -M, -W, -E) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/chage.1.html |
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
+| man-chown-1 | chown(1) — change file owner and group (the OWNER[:[GROUP]] operand syntax) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/chown.1.html |
 | man-chown-2 | chown(2) — change ownership of a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/chown.2.html |
 | man-cp-1 | cp(1) — copy files and directories | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cp.1.html |
 | man-credentials-7 | credentials(7) — process identifiers, UIDs and GIDs | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/credentials.7.html |
+| man-crontab-1 | crontab(1) — maintain crontab files for individual users | cronie project / Linux man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/crontab.1.html |
 | man-crontab-5 | crontab(5) — cron table format and the five time fields | Linux man-pages project / cronie | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/crontab.5.html |
+| man-daemon-7 | daemon(7) — writing and packaging system daemons | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/daemon.7.html |
 | man-df | df(1) — report file system space usage (--inodes) | GNU coreutils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/df.1.html |
 | man-dig-1 | dig(1) — DNS lookup utility | ISC BIND 9 / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/bind9-dnsutils/dig.1.en.html |
 | man-dmesg | dmesg(1) — print or control the kernel ring buffer | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/dmesg.1.html |
+| man-du-1 | du(1) — estimate file space usage | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/du.1.html |
 | man-env-1 | env(1) — run a program in a modified environment | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/env.1.html |
 | man-environ-7 | environ(7) — user environment | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/environ.7.html |
 | man-execve-2 | execve(2) — execute program (interpreter scripts / shebang) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/execve.2.html |
 | man-ext4-5 | ext4(5) — the fourth extended filesystem | Linux man-pages project / e2fsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/ext4.5.html |
+| man-fdisk-8 | fdisk(8) — manipulate disk partition table | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/fdisk.8.html |
 | man-file-1 | file(1) — determine file type | file/libmagic project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/file.1.html |
 | man-free-1 | free(1) — display amount of free and used memory in the system | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/free.1.html |
 | man-fstab-5 | fstab(5) — static information about filesystems | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/fstab.5.html |
+| man-fuser-1 | fuser(1) — identify processes using files or sockets | Linux man-pages project / psmisc | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/fuser.1.html |
 | man-group-5 | group(5) — user group file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/group.5.html |
+| man-groupadd-8 | groupadd(8) — create a new group | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/groupadd.8.html |
+| man-groupdel-8 | groupdel(8) — delete a group | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/groupdel.8.html |
 | man-gzip-1 | gzip(1) — compress or expand files | GNU gzip / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/gzip/gzip.1.en.html |
 | man-head-1 | head(1) — output the first part of files | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/head.1.html |
 | man-hier-7 | hier(7) — description of the filesystem hierarchy | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/hier.7.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
+| man-id-1 | id(1) — print real and effective user and group IDs | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/id.1.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
 | man-journalctl | journalctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/journalctl.1.html |
@@ -342,6 +358,7 @@
 | man-kill-2 | kill(2) — send a signal to a process | Linux man-pages project | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man2/kill.2.html |
 | man-last-1 | last(1) — show a listing of last logged in users | util-linux / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/util-linux/last.1.en.html |
 | man-less-1 | less(1) — opposite of more | less project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/less.1.html |
+| man-link-2 | link(2) — make a new name for a file | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man2/link.2.html |
 | man-ln-1 | ln(1) — make links between files | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ln.1.html |
 | man-logrotate-8 | logrotate(8) — rotates, compresses and mails system logs | logrotate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/logrotate.8.html |
 | man-ls-1 | ls(1) — list directory contents | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ls.1.html |
@@ -349,30 +366,42 @@
 | man-lscpu-1 | lscpu(1) — display information about the CPU architecture | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/lscpu.1.html |
 | man-lsmod-8 | lsmod(8) — show the status of modules in the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsmod.8.html |
 | man-lvcreate-8 | lvcreate(8) — create a logical volume, including COW snapshots | LVM2 project / man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man8/lvcreate.8.html |
+| man-lvm-8 | lvm(8) — LVM2 logical volume manager | Linux man-pages project / LVM2 | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/lvm.8.html |
 | man-man-1 | man(1) — an interface to the system reference manuals | man-db project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/man.1.html |
+| man-md-4 | md(4) — Multiple Device driver (Linux software RAID) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man4/md.4.html |
 | man-mkdir-1 | mkdir(1) — make directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/mkdir.1.html |
+| man-mkswap-8 | mkswap(8) — set up a Linux swap area | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/mkswap.8.html |
 | man-modprobe-8 | modprobe(8) — add and remove modules from the Linux kernel | kmod project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/modprobe.8.html |
 | man-mount-8 | mount(8) — mount a filesystem | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/mount.8.html |
 | man-namei | namei(1) — follow a pathname until a terminal point is found | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/namei.1.html |
+| man-nohup-1 | nohup(1) — run a command immune to hangups | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/nohup.1.html |
 | man-nologin-8 | nologin(8) — politely refuse a login | Linux man-pages project / util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/nologin.8.html |
 | man-nproc-1 | nproc(1) — print the number of processing units available | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/nproc.1.html |
 | man-nsswitch-conf-5 | nsswitch.conf(5) — Name Service Switch configuration file | GNU C Library / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/nsswitch.conf.5.html |
+| man-null-4 | null(4) — data sink (/dev/null and /dev/zero) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man4/null.4.html |
 | man-os-release-5 | os-release(5) — operating system identification | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/os-release.5.html |
 | man-pages-7 | man-pages(7) — conventions for writing Linux man pages (manual section list) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/man-pages.7.html |
+| man-passwd-1 | passwd(1) — change user password (-e expire, -l lock) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/passwd.1.html |
 | man-passwd-5 | passwd(5) — the password file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/passwd.5.html |
 | man-path-resolution | path_resolution(7) — how a pathname is resolved to a file (directory search permission) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
 | man-path-resolution-7 | path_resolution(7) — how a pathname is resolved to a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
+| man-pid-namespaces-7 | pid_namespaces(7) — PID namespaces, init process, adoption of orphaned children | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/pid_namespaces.7.html |
 | man-ping-8 | ping(8) — send ICMP ECHO_REQUEST to network hosts | iputils / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/ping.8.html |
 | man-proc-5 | proc(5) — the /proc filesystem | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc.5.html |
 | man-proc-loadavg | proc_loadavg(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_loadavg.5.html |
 | man-proc-pid-oom-score | proc_pid_oom_score(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html |
 | man-proc-pid-oom-score-adj | proc_pid_oom_score_adj(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-11 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score_adj.5.html |
+| man-proc-pid-stat-5 | proc_pid_stat(5) — process state codes (D uninterruptible sleep, Z zombie) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_pid_stat.5.html |
+| man-proc-sys-5 | proc_sys(5) — the /proc/sys sysctl pseudo-filesystem | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_sys.5.html |
+| man-proc-sys-kernel-5 | proc_sys_kernel(5) — /proc/sys/kernel, including pid_max and PID wraparound | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_sys_kernel.5.html |
 | man-ps-1 | ps(1) — report a snapshot of the current processes | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/ps.1.html |
 | man-pwd-1 | pwd(1) — print name of current/working directory | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/pwd.1.html |
+| man-resize2fs-8 | resize2fs(8) — ext2/ext3/ext4 filesystem resizer | Linux man-pages project / e2fsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/resize2fs.8.html |
 | man-resolv-conf | resolv.conf(5) — resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man-rm-1 | rm(1) — remove files or directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/rm.1.html |
 | man-rmdir-1 | rmdir(1) — remove empty directories | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/rmdir.1.html |
 | man-rpm-8 | rpm(8) — RPM package manager | RPM Project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/rpm.8.html |
+| man-sched-7 | sched(7) — overview of CPU scheduling; the nice value | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/sched.7.html |
 | man-services-5 | services(5) — Internet network services list | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/services.5.html |
 | man-setpriority-2 | getpriority(2)/setpriority(2) — nice value, CAP_SYS_NICE, RLIMIT_NICE | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/setpriority.2.html |
 | man-sha256sum-1 | sha256sum(1) — compute and check SHA256 message digests (-c reads recorded checksums) | man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/sha256sum.1.html |
@@ -381,17 +410,26 @@
 | man-ss | ss(8) — another utility to investigate sockets | iproute2 | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
 | man-stat-1 | stat(1) — display file or file system status | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/stat.1.html |
 | man-su-1 | su(1) — run a command with substitute user and group ID | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/su.1.html |
+| man-swapon-8 | swapon(8) — enable devices and files for paging and swapping | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/swapon.8.html |
+| man-symlink-7 | symlink(7) — symbolic link handling | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/symlink.7.html |
 | man-syscalls-2 | syscalls(2) — Linux system calls | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/syscalls.2.html |
+| man-sysctl-d-5 | sysctl.d(5) — configure kernel parameters at boot | Linux man-pages project / systemd | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/sysctl.d.5.html |
 | man-systemctl | systemctl(1) — Linux manual page | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/systemctl.1.html |
 | man-tail-1 | tail(1) — output the last part of files | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/tail.1.html |
 | man-top-1 | top(1) — display Linux processes | procps-ng | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man1/top.1.html |
 | man-umask-2 | umask(2) — set file mode creation mask | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/umask.2.html |
+| man-umount-8 | umount(8) — unmount filesystems | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/umount.8.html |
 | man-uname-1 | uname(1) — print system information | GNU coreutils / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uname.1.html |
 | man-unlink-2 | unlink(2) — delete a name and possibly the file it refers to | Linux man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man2/unlink.2.html |
 | man-uptime | uptime(1) — Linux manual page | Linux man-pages project / procps-ng | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-uptime-1 | uptime(1) — tell how long the system has been running | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
+| man-useradd-8 | useradd(8) — create a new user or update default new user information | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/useradd.8.html |
+| man-userdel-8 | userdel(8) — delete a user account and related files | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/userdel.8.html |
+| man-usermod-8 | usermod(8) — modify a user account (-a, -G, -g, -L) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/usermod.8.html |
+| man-vmstat-8 | vmstat(8) — report virtual memory statistics | Linux man-pages project / procps-ng | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/vmstat.8.html |
 | man-w-1 | w(1) — show who is logged on and what they are doing | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/w.1.html |
 | man-whereis-1 | whereis(1) — locate the binary, source, and manual page files for a command | util-linux / kernel.org man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/whereis.1.html |
+| man-xfs-growfs-8 | xfs_growfs(8) — expand an XFS filesystem | Linux man-pages project / xfsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/xfs_growfs.8.html |
 | man7-hosts | hosts(5) - static table lookup for hostnames | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man5/hosts.5.html |
 | man7-ifconfig-nettools | ifconfig(8) - configure a network interface (net-tools) | net-tools / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ifconfig.8.html |
 | man7-ip-iproute2 | ip(8) - show / manipulate routing, network devices, interfaces and tunnels (iproute2) | iproute2 / Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/ip.8.html |
@@ -404,6 +442,7 @@
 | microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
 | mitre-attack-privilege-escalation | MITRE ATT&CK — Privilege Escalation (TA0004) | MITRE | 2 | — | 2026-08-18 | https://attack.mitre.org/tactics/TA0004/ |
 | ms-azure-default-outbound-access | Default outbound access in Azure | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access |
+| ms-uefi-gpt-partitions | Configure UEFI/GPT-based hard drive partitions | Microsoft | 2 | — | 2026-08-18 | https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/configure-uefigpt-based-hard-drive-partitions |
 | nasa-expanded-guidance-se-requirements-management | NASA Systems Engineering Handbook, Section 6.2 - Requirements Management | NASA | 2 | 2023-02 | 2026-08-11 | https://www.nasa.gov/reference/6-2-requirements-management/ |
 | nasa-se-handbook-sp-2016-6105 | NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2) | NASA | 2 | 2016-12 | 2026-08-11 | https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf |
 | nasa-wbs-handbook-sp-2016-3404-rev1 | NASA Work Breakdown Structure (WBS) Handbook, NASA/SP-2016-3404/REV1 | NASA | 2 | 2018-01 | 2026-08-11 | https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf |
@@ -533,6 +572,8 @@
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
 | rfc9110 | RFC 9110: HTTP Semantics | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rfc9111-http-caching | RFC 9111: HTTP Caching | IETF | 2 | 2022-06 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc9111 |
+| rh-grub-config | Configuring kernel command-line parameters / GRUB configuration (RHEL 9) | Red Hat | 2 | — | 2026-08-18 | https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_monitoring_and_updating_the_kernel/configuring-kernel-command-line-parameters_managing-monitoring-and-updating-the-kernel |
+| rh-raid-levels | Managing RAID — RAID levels and linear support (RHEL 9) | Red Hat | 2 | — | 2026-08-18 | https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_storage_devices/managing-raid_managing-storage-devices |
 | rocky-linux-about | About Rocky Linux | Rocky Enterprise Software Foundation | 2 | — | 2026-08-17 | https://rockylinux.org/about |
 | rsync-man | rsync(1) — a fast, versatile, remote (and local) file-copying tool | Samba / rsync project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/rsync.1.html |
 | sans-picerl | SANS Institute: Incident Response (glossary) — the six-step PICERL framework | SANS Institute | 2 | — | 2026-08-11 | https://www.sans.org/security-resources/glossary-of-terms/incident-response |
@@ -541,11 +582,15 @@
 | semver | Semantic Versioning 2.0.0 — MAJOR for incompatible API changes, MINOR for backward-compatible features, PATCH for fixes | Semantic Versioning (Tom Preston-Werner) | 2 | — | 2026-08-10 | https://semver.org/ |
 | sudo-man | sudo(8) manual page | OpenBSD / Sudo project | 2 | — | 2026-08-18 | https://man.openbsd.org/sudo |
 | sudo-man-sudo | sudo(8) — execute a command as another user | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/sudo.man/ |
+| sudo-man-sudoers | sudoers(5) — sudo security policy plugin; log_allowed and log_denied | Todd C. Miller / sudo project | 2 | — | 2026-08-18 | https://www.sudo.ws/docs/man/sudoers.man/ |
 | sudo-man-visudo | visudo(8) — edit the sudoers file safely | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/visudo.man/ |
 | systemd-1 | systemd(1) — system and service manager, PID 1 | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.html |
+| systemd-analyze-1 | systemd-analyze(1) — blame and critical-chain | freedesktop.org / systemd | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/systemd-analyze.html |
+| systemd-bootup-7 | bootup(7) — system bootup process | freedesktop.org / systemd | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/bootup.html |
 | systemd-journald-8 | systemd-journald.service(8) — the journal log store | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html |
 | systemd-net-naming-scheme | systemd.net-naming-scheme(7) - Predictable network interface device names | systemd / freedesktop.org | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.net-naming-scheme.html |
 | systemd-resolved-service | systemd-resolved.service(8) — network name resolution manager | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd-resolved.service.html |
+| systemd-runlevel-8 | runlevel(8) — SysV runlevel to systemd target mapping | freedesktop.org / systemd (page served by man7.org) | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/runlevel.8.html |
 | systemd-service-5 | systemd.service(5) — service unit configuration | freedesktop.org / systemd | 2 | — | 2026-08-12 | https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html |
 | systemd-special-7 | systemd.special(7) — special units and targets | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html |
 | systemd-systemctl-1 | systemctl(1) — start, enable, daemon-reload, isolate, get-default | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemctl.html |
@@ -556,6 +601,7 @@
 | twelve-factor-build-release-run | The Twelve-Factor App, factor V: Build, release, run | Adam Wiggins / Heroku | 2 | — | 2026-08-17 | https://12factor.net/build-release-run |
 | twelve-factor-dev-prod-parity | The Twelve-Factor App, factor X: Dev/prod parity | Adam Wiggins / Heroku | 2 | — | 2026-08-17 | https://12factor.net/dev-prod-parity |
 | ubuntu-release-cycle | Ubuntu release cycle and LTS support windows | Canonical | 2 | — | 2026-08-10 | https://ubuntu.com/about/release-cycle |
+| ubuntu-rootsudo | RootSudo — Ubuntu community documentation on the locked root password and sudo | Canonical / Ubuntu community | 2 | — | 2026-08-18 | https://help.ubuntu.com/community/RootSudo |
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
 | wayland-home | Wayland — a replacement for the X11 window system protocol and architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-17 | https://wayland.freedesktop.org/ |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |

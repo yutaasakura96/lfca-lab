@@ -25,7 +25,11 @@
       ],
       "additional_sources": [
         "man-passwd-5",
-        "man-credentials-7"
+        "man-credentials-7",
+        "man-useradd-8",
+        "man-userdel-8",
+        "man-usermod-8",
+        "man-id-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -67,7 +71,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-group-5",
-        "man-credentials-7"
+        "man-credentials-7",
+        "man-usermod-8",
+        "man-groupadd-8",
+        "man-groupdel-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -145,7 +152,9 @@
       "additional_sources": [
         "man-credentials-7",
         "man-group-5",
-        "man-inode-7"
+        "man-inode-7",
+        "man-usermod-8",
+        "man-passwd-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -221,7 +230,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-shadow-5",
-        "fedora-setup-spec"
+        "fedora-setup-spec",
+        "man-chage-1",
+        "man-usermod-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -257,7 +268,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-group-5"
+        "man-group-5",
+        "man-passwd-5",
+        "man-shadow-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -293,7 +306,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-passwd-5",
-        "man-nologin-8"
+        "man-nologin-8",
+        "man-passwd-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -364,7 +378,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-shadow-5"
+        "man-shadow-5",
+        "man-chage-1",
+        "man-passwd-1",
+        "man-usermod-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -399,7 +416,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-inode-7",
-        "man-chmod-1"
+        "man-chmod-1",
+        "man-path-resolution-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -434,7 +452,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-inode-7",
-        "man-chmod-1"
+        "man-chmod-1",
+        "man-path-resolution-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -505,7 +524,8 @@
         "ch6.l2"
       ],
       "additional_sources": [
-        "man-chown-2"
+        "man-chown-2",
+        "man-chown-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -575,7 +595,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-inode-7"
+        "man-inode-7",
+        "man-execve-2"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -612,7 +633,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-inode-7"
+        "man-inode-7",
+        "man-execve-2",
+        "man-umask-2"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -649,7 +672,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-inode-7",
-        "fhs-3-0"
+        "fhs-3-0",
+        "posix-ls"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -686,7 +710,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-credentials-7",
-        "sudo-man-sudo"
+        "sudo-man-sudo",
+        "man-path-resolution-7",
+        "ubuntu-rootsudo"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -721,7 +747,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "sudo-man-sudo",
-        "man-su-1"
+        "man-su-1",
+        "sudo-man-sudoers",
+        "ubuntu-rootsudo"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -796,7 +824,9 @@
       ],
       "additional_sources": [
         "man-credentials-7",
-        "man-proc-5"
+        "man-proc-5",
+        "man-ps-1",
+        "man-top-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -834,7 +864,10 @@
       "additional_sources": [
         "man-credentials-7",
         "man-proc-5",
-        "systemd-1"
+        "systemd-1",
+        "man-pid-namespaces-7",
+        "man-proc-sys-kernel-5",
+        "systemd-service-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -868,7 +901,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-signal-7"
+        "man-signal-7",
+        "man-bash-1",
+        "man-nohup-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -904,7 +939,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-signal-7"
+        "man-signal-7",
+        "man-proc-pid-stat-5",
+        "man-daemon-7",
+        "man-kill-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -940,7 +978,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-setpriority-2"
+        "man-setpriority-2",
+        "man-sched-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -977,7 +1016,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "systemd-1",
-        "man-proc-5"
+        "man-proc-5",
+        "man-daemon-7",
+        "systemd-service-5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1013,7 +1054,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-proc-5",
-        "man-credentials-7"
+        "man-credentials-7",
+        "man-proc-pid-stat-5",
+        "man-pid-namespaces-7",
+        "man-ps-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1051,7 +1095,8 @@
       ],
       "additional_sources": [
         "systemd-unit-5",
-        "systemd-systemctl-1"
+        "systemd-systemctl-1",
+        "systemd-service-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1088,7 +1133,9 @@
         "ch6.l2"
       ],
       "additional_sources": [
-        "systemd-1"
+        "systemd-1",
+        "systemd-systemctl-1",
+        "systemd-analyze-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1124,7 +1171,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "systemd-unit-5"
+        "systemd-unit-5",
+        "systemd-systemctl-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1196,7 +1244,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "systemd-special-7",
-        "systemd-systemctl-1"
+        "systemd-systemctl-1",
+        "systemd-runlevel-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1232,6 +1281,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "systemd-runlevel-8",
         "systemd-special-7"
       ],
       "candidate_evidence": [],
@@ -1303,7 +1353,8 @@
       ],
       "additional_sources": [
         "debian-dpkg-1",
-        "man-rpm-8"
+        "man-rpm-8",
+        "npm-install-locally"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1336,8 +1387,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "debian-apt-8",
-        "dnf-command-ref"
+        "debian-sources-list-5",
+        "dnf-command-ref",
+        "debian-apt-8"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1373,7 +1425,8 @@
       ],
       "additional_sources": [
         "debian-apt-8",
-        "debian-dpkg-1"
+        "debian-dpkg-1",
+        "debian-apt-get-8"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1408,7 +1461,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "debian-apt-8",
-        "debian-dpkg-1"
+        "debian-dpkg-1",
+        "debian-apt-get-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1521,6 +1575,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "nist-sp-800-40r4",
         "debian-apt-8",
         "dnf-command-ref"
       ],
@@ -1731,7 +1786,7 @@
       ],
       "additional_sources": [
         "fhs-3-0",
-        "man-inode-7"
+        "man-hier-7"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1768,6 +1823,8 @@
       ],
       "additional_sources": [
         "man-proc-5",
+        "man-proc-sys-5",
+        "man-sysctl-d-5",
         "fhs-3-0"
       ],
       "candidate_evidence": [],
@@ -1804,7 +1861,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "fhs-3-0"
+        "fhs-3-0",
+        "man-null-4",
+        "man-fstab-5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1841,7 +1900,9 @@
       ],
       "additional_sources": [
         "man-mount-8",
-        "man-fstab-5"
+        "man-ext4-5",
+        "man-resize2fs-8",
+        "man-xfs-growfs-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1880,7 +1941,9 @@
         "ch5.l3"
       ],
       "additional_sources": [
-        "man-mount-8"
+        "man-mount-8",
+        "man-umount-8",
+        "man-fuser-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1955,7 +2018,9 @@
         "ch5.l3"
       ],
       "additional_sources": [
-        "man-mount-8"
+        "man-fdisk-8",
+        "man-lsblk-8",
+        "man-df"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1994,7 +2059,9 @@
         "ch5.l4"
       ],
       "additional_sources": [
-        "man-inode-7"
+        "man-inode-7",
+        "man-df",
+        "man-ls-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2029,7 +2096,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-inode-7"
+        "man-inode-7",
+        "man-symlink-7",
+        "man-link-2",
+        "man-unlink-2",
+        "man-ln-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2066,7 +2137,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-mount-8",
+        "man-df",
+        "man-du-1",
+        "man-unlink-2",
         "man-inode-7"
       ],
       "candidate_evidence": [],
@@ -2104,8 +2177,12 @@
         "ch5.l3"
       ],
       "additional_sources": [
-        "man-fstab-5",
-        "man-proc-5"
+        "man-swapon-8",
+        "man-mkswap-8",
+        "man-free-1",
+        "man-vmstat-8",
+        "man-proc-pid-oom-score",
+        "man-fstab-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2140,7 +2217,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-mount-8"
+        "man-lvm-8",
+        "man-lvcreate-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2176,7 +2254,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-proc-5"
+        "man-md-4",
+        "rh-raid-levels"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2211,7 +2290,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-crontab-5"
+        "man-crontab-5",
+        "man-crontab-1",
+        "man-anacron-8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2281,6 +2362,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "systemd-timer-5",
+        "systemd-systemctl-1",
         "systemd-journald-8"
       ],
       "candidate_evidence": [],
@@ -2316,7 +2398,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "fhs-3-0"
+        "fhs-3-0",
+        "man-tail-1",
+        "man-less-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2352,7 +2436,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-5424"
+        "rfc-5424",
+        "man-journalctl"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2385,7 +2470,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "systemd-journald-8"
+        "systemd-journald-8",
+        "man-journalctl"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2424,6 +2510,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-logrotate-8",
+        "man-unlink-2",
         "systemd-journald-8"
       ],
       "candidate_evidence": [],
@@ -2461,8 +2548,10 @@
         "ch5.l4"
       ],
       "additional_sources": [
+        "systemd-bootup-7",
         "systemd-1",
-        "systemd-special-7"
+        "systemd-special-7",
+        "systemd-analyze-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2497,8 +2586,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "systemd-1",
-        "fhs-3-0"
+        "ms-uefi-gpt-partitions",
+        "archwiki-partitioning",
+        "archwiki-secure-boot"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2531,6 +2621,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "debian-update-grub-8",
+        "rh-grub-config",
         "fhs-3-0"
       ],
       "candidate_evidence": [],
@@ -2566,7 +2658,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-credentials-7",
+        "man-uname-1",
+        "kernel-readme",
+        "systemd-bootup-7",
         "man-proc-5"
       ],
       "candidate_evidence": [],

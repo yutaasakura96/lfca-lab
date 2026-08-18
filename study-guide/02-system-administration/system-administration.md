@@ -2336,8 +2336,9 @@ interrupted write can be replayed or discarded instead of leaving the structure 
 | `mkfs` | Create a filesystem on a device | `-t TYPE` selects the format; the frontend is deprecated in favour of the type-specific `mkfs.ext4`, `mkfs.xfs` builders it dispatches to | `mkfs -t ext4 /dev/sdb1` | Naming the whole disk (`/dev/sdb`) instead of the partition (`/dev/sdb1`) and destroying the partition table with it |
 | `blkid` | Report the type, UUID and label of block devices | `-s TYPE` or `-s UUID` to print one field, `-o value` for bare output | `blkid /dev/sdb1` | Expecting it to report anything about a device that has no filesystem on it yet — an unformatted partition has no superblock to read |
 
-**Traps** XFS can be grown while mounted but cannot be shrunk at all; ext4 can be shrunk, but only
-while unmounted. A plan that says "we will resize it later" is only safe once the type is known.
+**Traps** XFS is built to be grown while mounted and offers no general way to shrink —
+`xfs_growfs` implements only a narrow last-allocation-group case, so shrinking is not something to
+plan around; ext4 can be shrunk with `resize2fs`, but only while unmounted. A plan that says "we will resize it later" is only safe once the type is known.
 And vFAT stores no ownership or permission bits, so files copied onto it come back with whatever
 the mount options dictate rather than what they had — a data-loss surprise that looks like a
 `chmod` failure.

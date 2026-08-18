@@ -3450,3 +3450,837 @@ same claim's second half states the unmatched case correctly.
   running GNU coreutils 9.8 rather than by a sentence, because cp(1) states the `-a`/`-d`/`-L`/`-P`
   option meanings but never spells out the default for `-R` alone. The test is reproduced above so
   it can be re-run.
+
+---
+
+## Task 56a — System Administration Fundamentals :: System Administration (items 1–27, agent `verify-sysadmin-a`)
+
+Range: `sysadmin.system-administration.user-account` through `sysadmin.system-administration.umask`
+(1-based array indices 1–27 of `questions/02-system-administration/system-administration.json`).
+27 items, 27 verdicts, all `confirmed` at end of task. **Two wrong keys** found and rewritten;
+**twelve self-refuting distractors** repaired; **ten concepts re-cited**; **nine sources
+registered**.
+
+### 1. Wrong key — `symbolic-vs-numeric-chmod.02`: GNU `chmod` does *not* clear setgid on directories
+
+**Confirmed.** The item asserted that `chmod 755` across a directory tree "cleared the setgid bit
+on every directory" and that this explained new files no longer inheriting the shared group. That
+is false on GNU coreutils, which is what every distribution in scope ships. chmod(1), section
+SETUID AND SETGID BITS: *"For directories chmod preserves set-user-ID and set-group-ID bits unless
+you explicitly specify otherwise. You can set or clear the bits with symbolic modes like u+s and
+g-s. To clear these bits for directories with a numeric mode requires an additional leading zero
+like 00755, leading minus like -6000, or leading equals like =755."*
+
+Settled empirically on the exact authored scenario, recursion included:
+
+```
+docker run --rm ubuntu:24.04 bash -c '
+  mkdir -p /t/tree/sub; touch /t/tree/sub/file
+  chmod -R 2775 /t/tree; chmod -R 755 /t/tree
+  ls -ld /t/tree /t/tree/sub /t/tree/sub/file'
+# drwxr-sr-x  /t/tree          <- setgid SURVIVED
+# drwxr-sr-x  /t/tree/sub      <- setgid SURVIVED
+# -rwxr-xr-x  /t/tree/sub/file <- setgid cleared (regular file, no exemption)
+```
+
+Group inheritance was confirmed still working afterwards, and `chmod 00755` was confirmed to clear
+the bit. **The study guide was already correct and the item contradicted it** —
+`study-guide/02-system-administration/system-administration.md`, Traps: *"Directories are the
+exception worth memorising — `chmod` preserves a directory's set-user-ID and set-group-ID bits
+unless told otherwise."* No guide or `data/` change was needed; the item was the defect. It was
+rewritten to make the directory exception the thing tested, and re-verified.
+
+Source: <https://man7.org/linux/man-pages/man1/chmod.1.html>.
+
+### 2. Wrong key — `login-shell.02`: a nologin shell blocks `ssh host command` too
+
+**Confirmed.** The item's key asserted "a nologin shell blocks an interactive session, but SSH can
+still run a single remote command through it", with a `why` that hedged to "does not intercept in
+every configuration". nologin(8) lists `-c, --command command` among the shell options that *"are
+ignored to avoid nologin error"*, and states *"The exit status returned by nologin is always 1."*
+Since `sshd` runs a non-interactive remote command as `$SHELL -c command`, the command cannot run.
+
+```
+docker run --rm ubuntu:24.04 bash -c '/usr/sbin/nologin -c "echo HELLO_RAN"; echo rc=$?'
+# This account is currently not available.
+# rc=1
+docker run --rm ubuntu:24.04 bash -c 'useradd -m -s /usr/sbin/nologin svc; su svc -c "echo HELLO_RAN"'
+# This account is currently not available.  (HELLO_RAN never printed)
+```
+
+As authored, **no option was correct**. The item was rewritten around the true behaviour, keeping
+the genuinely useful distinction it was groping at — the shell field and `authorized_keys` are
+managed independently, and key authentication still succeeds before the shell refuses — and
+re-verified.
+
+Source: <https://man7.org/linux/man-pages/man8/nologin.8.html>.
+
+### 3. Overbroad `why` on the sibling item, tightened
+
+**Confirmed.** `symbolic-vs-numeric-chmod.01` o2's `why` stated the numeric rule universally
+("rewrites all nine permission bits plus clears the special-bit digit"). That is the exact
+falsehood that broke item .02. The stem's target is a regular file, where the claim holds — verified
+by experiment (`chmod 2755 /t/f` → `-rwxr-sr-x`; `chmod 775 /t/f` → `-rwxrwxr-x`) — so the `why`
+was narrowed to regular files rather than the option being changed.
+
+### 4. Citations that did not contain what they were cited for (all fixed at concept level)
+
+Every one of these is an **attribution** failure, not a factual error: the claim was true and the
+cited source was silent. Following the Task 3 `hypervisor` precedent, the citation was fixed and no
+correct content was weakened.
+
+| Concept | Item turned on | Cited only | Added |
+| --- | --- | --- | --- |
+| `user-account` | `useradd`/`userdel`/`id` | passwd(5) — a file format | useradd(8), userdel(8), usermod(8), id(1) |
+| `group` | `usermod -aG`, `groupadd`, `groupdel` | group(5) | usermod(8), groupadd(8), groupdel(8) |
+| `primary-vs-supplementary-group` | `usermod -G` replacing the list | group(5), credentials(7), inode(7) | usermod(8), passwd(5) |
+| `etc-group` | `/etc/passwd`'s 7 and `/etc/shadow`'s 9 field counts | group(5) | passwd(5), shadow(5) |
+| `etc-shadow` | `chage -d 0`, `usermod -L` | shadow(5) | chage(1), usermod(8) |
+| `login-shell` | `passwd -l` semantics | passwd(5), nologin(8) | passwd(1) |
+| `password-policy-and-ageing` | `chage -M/-W/-m/-E`, `passwd -e`, `usermod -L` | shadow(5) | chage(1), passwd(1), usermod(8) |
+| `read-write-execute-permissions` | execute = *search* on a directory | inode(7), chmod(1) | path_resolution(7) |
+| `owner-group-other` | the owner→group→other first-match rule | inode(7), chmod(1) | path_resolution(7) |
+| `chown-and-chgrp` | the `OWNER[:[GROUP]]` operand syntax | chown(2) — the *syscall*, which has no colon | chown(1) |
+
+The two permission concepts are the sharpest cases and are exactly hazard 1: **inode(7) tabulates
+the mode bits but never says execute means search on a directory, and never states the class-matching
+rule.** path_resolution(7) states both: *"the last execute permission in case of ordinary files, or
+search permission in case of directories"*, and *"The first group of three is used when the
+effective user ID of the calling process equals the owner ID of the file … When neither holds, the
+third group is used."* Likewise `chown-and-chgrp.02` turns entirely on chown(1)'s operand grammar:
+*"If a colon but no group name follows the user name, that user is made the owner of the files and
+the group of the files is changed to that user's login group."*
+
+### 5. Sources registered in `data/sources.json` (9)
+
+`man-useradd-8`, `man-userdel-8`, `man-usermod-8`, `man-groupadd-8`, `man-groupdel-8`,
+`man-chage-1`, `man-passwd-1`, `man-chown-1`, `man-id-1` — all man7.org, all fetched and read
+(HTTP 200 with the claimed text located in the body, not merely a 200). `man-path-resolution-7` was
+already registered and only needed wiring.
+
+### 6. The self-refuting distractor shape — twelve repaired
+
+Twelve distractors in this range carried their own `why` verbatim as a trailing em-dash clause,
+announcing their own wrongness: `group.01` o4, `uid-and-gid.01` o4, `etc-passwd.02` o3,
+`service-account.02` o4, `password-policy-and-ageing.02` o4,
+`read-write-execute-permissions.01` o3, `read-write-execute-permissions.02` o2,
+`symbolic-vs-numeric-chmod.01` o3, `chown-and-chgrp.01` o4, `chown-and-chgrp.02` o2, `umask.01` o3,
+plus `login-shell.02` o3 which was absorbed into that item's full rewrite.
+
+**Repaired by replacement, not truncation, and the em-dash was kept.** Each appended explanation
+was swapped for a genuinely false clause of comparable length. This was deliberate: stripping the
+padding outright would have cut distractor em-dashes from 15 to 3 and widened this file's known
+key-vs-distractor shape gap rather than leaving it alone (hazard 5).
+
+### 7. Shape scans, measured before and after (this range only)
+
+| Measure | Before | After |
+| --- | --- | --- |
+| Key ends in an em-dash qualifying clause | 7/27 (26%) | 7/27 (26%) |
+| Distractor ends in an em-dash qualifying clause | 15/81 (19%) | 16/81 (20%) |
+| Key is the longest option | 0/27 (0%) | 0/27 (0%) |
+
+The gap narrowed from 7 points to 6. Both rewritten items were adjusted after the first scan — the
+`login-shell.02` key initially took an em-dash and became the longest option, and both were undone.
+Re-run **after** the rewrites, per hazard 5.
+
+### 8. Second-correct-answer sweep
+
+All 81 distractors were checked for being *also* correct, not merely for being labelled wrong. One
+genuine case was found, in `login-shell.02`, and it was the inverse of the usual defect: the key was
+wrong and **no** option was right. Elsewhere the near-misses were all excluded by a fetched
+sentence — `service-account.02` o2 ("service accounts are unprivileged by definition") by
+credentials(7) tying privilege to the process's IDs and capabilities rather than the account's
+purpose; `chown-and-chgrp.01` o3 ("she may chown to her own account") by chown(2)'s *"Only a
+privileged process … may change the owner of a file"*, confirmed by experiment in both directions
+(EPERM giving a file away, EPERM taking a root-owned file).
+
+### 9. Empirical verification used where a manual is silent
+
+Nine claims in this range were settled by running them in `ubuntu:24.04`, each with the command and
+output recorded in the item's `verification.reasoning`: same-UID accounts resolving to one identity
+(`id` as `bea` printing `uid=5000(ann)`, and `bea` reading `ann`'s mode-600 file); the primary group
+owning a newly created file; `getent group` omitting a primary member; `d-wx------` denying `ls`
+while `cat` by name succeeds; `chage -d 0` and `passwd -e` both writing `0` into shadow field 3;
+`/etc/shadow` at `640 root:shadow` on Debian-family; the field counts 7/4/9; `chown alice:` setting
+the login group; `umask 022` yielding `644`/`755`; and the two `chmod` results in findings 1 and 3.
+
+### 10. Rejected findings — checked and not changed
+
+- **`etc-shadow.01`'s two-mode claim.** Suspected as too neat. **Rejected**: Fedora's `setup.spec`
+  ships `%attr(0000,root,root) … /etc/shadow` (rawhide, line 145), and `stat -c '%a %U:%G'` in
+  ubuntu:24.04 returns `640 root:shadow`. Both halves hold as written.
+  Sources: <https://src.fedoraproject.org/rpms/setup/raw/rawhide/f/setup.spec>,
+  <https://man7.org/linux/man-pages/man5/shadow.5.html>.
+- **`login-shell.01` o2, "`passwd -l` still allows key-based login".** Suspected as an
+  over-claim. **Rejected**: passwd(1) says it outright — *"Note that this does not disable the
+  account. The user may still be able to login using another authentication token (e.g. an SSH
+  key)."* Source: <https://man7.org/linux/man-pages/man1/passwd.1.html>.
+- **`chown-and-chgrp.01` o4, "an unprivileged user may change a file's group, but only to a group
+  they belong to".** **Rejected**: chown(2) states it, and `su alice -c 'chgrp extra /t/afile'`
+  where alice is not in `extra` returned *Operation not permitted*, rc=1.
+
+### 11. Residual limits, recorded rather than hidden
+
+- **`service-account.01` has no single sentence behind it.** "Service account" is a practice term,
+  not a documented kernel concept. Its key rests on the least-privilege principle plus nologin(8)'s
+  stated purpose and credentials(7)'s treatment of privilege. That basis is recorded in the item's
+  `reasoning` rather than dressed up as a citation.
+- **`etc-group.02`'s key is empirical, not documentary.** group(5) describes `user_list` only as
+  *"a list of the usernames that are members of this group"* and never says *supplementary only*.
+  passwd(5) supplies the complement — field four *"is the numeric primary group ID for this user.
+  (Additional groups for the user are defined in the system group file; see group(5))"* — and the
+  `getent` experiment closes it.
+- **gnu.org was not reached and nothing was refuted for it.** No item in this range needed it: the
+  GNU-tool behaviour at issue (chmod's directory exception, chown's colon operand) is stated in
+  man7.org's chmod(1) and chown(1), which document the GNU versions, and both were additionally
+  confirmed by running GNU coreutils in a container. The substitution is named in each affected
+  item's `reasoning`.
+
+## verify-sysadmin-d — System Administration, items 82–105 (`home` … `lvm`)
+
+Twenty-four items, fourteen concepts, all storage- and hierarchy-shaped. All twenty-four end at
+`verdict: "confirmed"`; none was left at `refuted`. Two items were refuted as authored on content,
+one on a `why`'s attribution, and seventeen distractors were self-refuting. Every claim below was
+settled by a page fetched with `curl` and grepped locally, or by a command actually run.
+
+### Confirmed findings
+
+- **`filesystem-type.01`'s key was factually wrong, and the study guide carried the same error.**
+  The key asserted XFS "cannot be shrunk at all" and o2's `why` doubled down with "no shrink
+  support at all, online or offline." xfs_growfs(8) contradicts the absolute under `-d`: *"A
+  filesystem with only 1 AG cannot be shrunk further, and a filesystem cannot be shrunk to the
+  point where it would only have 1 AG. [NOTE: Only shrinking the last AG without removing it is
+  implemented]"* — a narrow last-allocation-group shrink exists. Key and `why` rewritten to the
+  defensible claim: XFS offers no *general* shrink path. `study-guide/02-system-administration/`
+  `system-administration.md` ("Traps", filesystem type) carried the identical absolute and was
+  corrected in the same terms. The ext4 half stands verbatim: resize2fs(8) — *"It can be used to
+  enlarge or shrink an unmounted file system located on device. If the file system is mounted, it
+  can be used to expand the size of the mounted file system."*
+  Sources: <https://man7.org/linux/man-pages/man8/xfs_growfs.8.html>,
+  <https://man7.org/linux/man-pages/man8/resize2fs.8.html>.
+
+- **`home.01` o3's `why` contradicted the FHS.** It read "Root's home is unshareable, host-specific
+  data." FHS chapter 2 says the opposite of home directories generally: *"the files in user home
+  directories are shareable whereas device lock files are not."* Rewritten to rest on FHS 4.1,
+  which does settle the option — `/usr` is *"shareable, read-only data ... must not be written
+  to"*, which rules out any home directory living there. The key itself is confirmed by FHS 3.14
+  footnote 16.
+  Sources: <https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch02.html>,
+  <https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04.html>,
+  <https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s14.html>.
+
+- **`dev.01` o2's `why` misattributed the UUID recommendation to the FHS.** The FHS never mentions
+  device-name stability or UUIDs; the concept cited `fhs-3-0` alone. fstab(5) does make the
+  recommendation, in the first-field description: *"LABEL=<label> or UUID=<uuid> may be given
+  instead of a device name. This is the recommended method, as device names are often a coincidence
+  of hardware detection order, and can change when other disks are added or removed."* Attribution
+  corrected and the concept re-cited. Source: <https://man7.org/linux/man-pages/man5/fstab.5.html>.
+
+- **Seventeen self-refuting distractors, repaired.** Each carried its own `why` appended after an
+  em-dash, announcing its own wrongness: `home.01` o2, `usr.01` o4, `tmp.01` o4,
+  `proc-and-sys.01` o2, `proc-and-sys.02` o3, `dev.02` o4, `filesystem-type.02` o2, `mounting.02`
+  o3, `etc-fstab.02` o4, `partition.02` o3, `hard-link-vs-symbolic-link.01` o2,
+  `hard-link-vs-symbolic-link.02` o4, `disk-usage-vs-free-space.01` o3,
+  `disk-usage-vs-free-space.02` o3, `swap.01` o3, `swap.02` o4, `lvm.01` o2 — seventeen in total
+  across the range. Each was rewritten with a real false clause after the em-dash, so the em-dash
+  shape ratio did not move: keys 12/24 (50%) before and after, distractors 19/72 (26%) before and
+  after, key-is-longest 2/24 (8%) before and after. `lvm.01` o2 additionally misrendered "LVM" as
+  "lVM", a tell that the text was machine-pasted from the `why`.
+
+- **`disk-usage-vs-free-space` cited mount(8) and inode(7) for deleted-but-open files.** The exact
+  miss this pass exists to catch, and the same defect previously found on `man-df`. Neither page
+  documents it; unlink(2) does: *"If the name was the last link to a file but any processes still
+  have the file open, the file will remain in existence until the last file descriptor referring
+  to it is closed."* Both items re-cited to unlink(2), du(1) and df(1) at the concept level.
+  Source: <https://man7.org/linux/man-pages/man2/unlink.2.html>.
+
+- **`partition` cited mount(8) for MBR-versus-GPT limits, and `lvm` cited mount(8) for LVM.**
+  mount(8) says nothing about either. Re-cited to fdisk(8), whose DISK LABELS section gives both
+  MBR limits — *"In sector 0 there is room for the description of 4 partitions (called `primary')"*
+  and *"an absolute number of sectors (given in 32 bits) ... with 512-byte sectors this will work
+  up to 2 TB"* — and to lvm(8), which gives the LVM answer — *"A Volume Group (VG) is a collection
+  of one or more physical devices ... Each block of data in an LV is stored on one or more PV in
+  the VG."*
+  Sources: <https://man7.org/linux/man-pages/man8/fdisk.8.html>,
+  <https://man7.org/linux/man-pages/man8/lvm.8.html>.
+
+- **Nine further concept-level citation fixes**, all the same shape — the claim true, the cited
+  page silent. `tmp` cited inode(7) (replaced with hier(7)); `dev.02` cited only the FHS for
+  `/dev/null` versus `/dev/zero` read behaviour (added null(4)); `proc-and-sys` cited proc(5) for
+  `/etc/sysctl.d` persistence, which proc(5) never mentions (added proc_sys(5), sysctl.d(5));
+  `mounting` cited mount(8) for the busy-target diagnosis (added umount(8), fuser(1)); `inode`
+  cited inode(7) for `df -i` and `ls -i` (added df(1), ls(1));
+  `hard-link-vs-symbolic-link` cited inode(7) for deletion and cross-filesystem semantics (added
+  unlink(2), symlink(7), link(2), ln(1)); `swap` cited fstab(5) and proc(5) for swap
+  interpretation and `mkswap` (added swapon(8), mkswap(8), free(1), vmstat(8),
+  proc_pid_oom_score(5)); `filesystem-type` cited mount(8) and fstab(5) for resize capability
+  (added resize2fs(8), xfs_growfs(8), ext4(5)); `etc-fstab.02` gained mount(8), where `-a` is
+  actually documented. Fifteen new sources registered in `data/sources.json`, every one wired into
+  a concept, and validate settles back at the 15-warning baseline.
+
+- **`etc-fstab.02` o2's `why` asserted unsourced systemd behaviour.** It claimed a malformed entry
+  leaves "systemd waiting on a device that is never found and dropping into emergency mode." No
+  cited page states that. Replaced with fstab(5)'s `nofail` definition — *"do not report errors for
+  this device if it does not exist"* — which does establish that a bad entry is otherwise an error
+  rather than a silent skip, without over-claiming the failure mode.
+
+- **`mounting.02` o2's `why` claimed the manual flags `umount -l` as a wrong habit.** umount(8)
+  does not editorialise that way. Rewritten to what it does say: *"Detach the filesystem from the
+  file hierarchy now, and clean up all references to this filesystem as soon as it is not busy
+  anymore"*, plus its reboot warning. Source:
+  <https://man7.org/linux/man-pages/man8/umount.8.html>.
+
+### Rejected findings
+
+- **Suspected: `partition.01`'s "roughly 2 TiB" is wrong because fdisk(8) says "2 TB".**
+  **Rejected.** The ceiling is 2^32 sectors of 512 bytes = 2 TiB exactly; fdisk(8)'s "2 TB" is the
+  loose form of the same number, and the item hedges with "roughly". Source:
+  <https://man7.org/linux/man-pages/man8/fdisk.8.html>.
+
+- **Suspected: `usr.01` o2's `why` is wrong to call `/usr` read-only "a convention, not a
+  filesystem-level restriction".** **Rejected.** FHS 4.1 states `/usr` "must not be written to" as
+  a requirement on the hierarchy, not a property enforced by any on-disk format; a writable `/usr`
+  mount is perfectly possible and normal. The `why` is accurate. Source:
+  <https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04.html>.
+
+- **Suspected: `proc-and-sys.02`'s key is unverifiable, since no manual states that `/proc` entries
+  report size zero.** **Rejected** — settled empirically instead of documentarily.
+  `docker run --rm ubuntu:24.04 sh -c 'ls -l /proc/1/status; cat /proc/1/status | wc -c'` returned
+  `-r--r--r-- 1 root root 0 Aug 18 10:59 /proc/1/status` and `1090`. Zero reported size, 1090 bytes
+  on read, healthy filesystem. The same run gave `stat -c "%s" /proc/sys/vm/swappiness` = `0` with
+  `cat` returning `60`, which corroborates `proc-and-sys.01` as well.
+
+- **Suspected: `mounting.01`'s key overstates what happens to files under a mount point.**
+  **Rejected.** mount(8) states it exactly: *"The previous contents (if any) and owner and mode of
+  dir become invisible, and as long as this filesystem remains mounted, the pathname dir refers to
+  the root of the filesystem on the special device."* Hidden, not merged and not deleted.
+  Source: <https://man7.org/linux/man-pages/man8/mount.8.html>.
+
+- **Suspected: `filesystem-type.02`'s claim that vFAT permissions come "entirely from the mount
+  options" is an overstatement.** **Rejected.** mount(8)'s fat section sets owner, group and mode
+  for *all* files from `uid=`, `gid=`, `umask=`, `dmask=` and `fmask=`, defaulting to the mounting
+  process — which is only possible because nothing per-file is stored on disk.
+  Source: <https://man7.org/linux/man-pages/man8/mount.8.html>.
+
+### Residual limits, recorded rather than hidden
+
+- **`swap.01`'s key is a synthesis of two pages, not a quotation from one.** No manual states
+  "swap in use is not swapping in progress" in those words. The distinction is established by
+  putting free(1) — reporting the standing `SwapTotal`/`SwapFree` levels from `/proc/meminfo` —
+  beside vmstat(8), which defines *"si: Amount of memory swapped in from disk (/s)"* and *"so:
+  Amount of memory swapped to disk (/s)"* as per-second rates. That reasoning is recorded in the
+  item rather than dressed up as a single citation.
+
+- **`disk-usage-vs-free-space.02`'s key is an ordering claim.** Each of its three steps is
+  individually sourced (df(1) default report, df(1) `-i`, du(1)'s recursive walk), but the claim
+  that this is the *correct order* is pedagogical judgement, not a documented rule. Recorded in the
+  item's `reasoning`.
+
+- **gnu.org was unreachable and nothing was refuted for it.** The GNU tools in this range — df(1),
+  du(1), ls(1) — were verified against man7.org's pages, which document the GNU versions
+  explicitly ("This manual page documents the GNU version of df"). The substitution is named in
+  each affected item's `reasoning`.
+
+- **`data/sources.json`'s duplicate pair `fhs-3.0`/`fhs-3-0` was left alone** as instructed; items
+  in this range use `fhs-3-0` consistently.
+
+---
+
+## Task 56b — System Administration Fundamentals :: System Administration (items 28–54, agent `verify-sysadmin-b`)
+
+27 items verified (`suid.01` … `service.02`). **23 refuted as authored, all 23 repaired and
+re-verified; 0 sit at `refuted`.** No wrong key was found in this range. One distractor was found
+also-correct. The dominant defect was citation attribution, exactly as the plan predicted for this
+competency.
+
+### 1. Also-correct distractor — `foreground-and-background-jobs.02` o4
+
+The only two-defensible-answers case in the range, and it announced itself: o4 said the job "needed
+to be run as a daemon rather than backgrounded with a shell operator", and its own `why` conceded
+**"Converting it into a properly detached daemon would also work, but the direct and much simpler
+fix for this scenario is `nohup`."** A distractor certified correct by its own explanation. Replaced
+outright (text, `why`, provenance) with a claim that only PID 1 can hold a process open across a
+hangup — false, and conceding nothing.
+
+### 2. Citations that did not contain what they were cited for (all fixed at concept level)
+
+The plan's warning that "a man page for the right tool is not automatically a source for the claim"
+held in eleven items:
+
+| Item(s) | Cited | Says nothing about | Substituted |
+| --- | --- | --- | --- |
+| `suid.01` | inode(7) | the euid change itself — inode(7) lists `S_ISUID 04000 set-user-ID bit (see execve(2))` and stops | execve(2) |
+| `suid.02` | inode(7) | scripts | execve(2): "Linux (like most other modern UNIX systems) ignores the set-user-ID and set-group-ID bits on scripts" |
+| `sticky-bit.02` | inode(7) | `ls` output formatting, which is the whole item | POSIX.1-2024 ls (`T`/`t` in the third character position) |
+| `root-and-least-privilege.01` | credentials(7) | least privilege | Ubuntu RootSudo |
+| `root-and-least-privilege.02` | credentials(7) | root bypassing permission checks | path_resolution(7) §"Bypassing permission checks: superuser and capabilities" |
+| `sudo-vs-su.01` | sudo(8) | that logging is on by default | sudoers(5) `log_allowed` |
+| `sudo-vs-su.02` | sudo(8), su(1) | Ubuntu's locked root account | Ubuntu RootSudo |
+| `process.01`, `process.02`, `pid-and-ppid.01/.02`, `zombie…01` | proc(5) | anything — man7.org's proc(5) is now only an index page deferring to the `proc_pid(5)` family | ps(1), top(1), pid_namespaces(7), proc_sys_kernel(5), proc_pid_stat(5) |
+| `foreground-and-background-jobs.01` | signal(7) | `bg`/`fg`/`jobs`, which are shell builtins | bash(1) |
+| `signals.01` | signal(7) | what `kill` sends by default | kill(1): "If no signal is specified, the TERM signal is sent" |
+| `signals.02` | signal(7) | uninterruptible sleep — signal(7) covers dispositions, not process states | proc_pid_stat(5) `D`/`Z` |
+| `service.01` | systemd.unit(5) | `Restart=` | **systemd.service(5)** — the precise split the plan flagged |
+| `process-priority-and-nice.02` | setpriority(2) | what the nice value influences | sched(7) |
+
+All fixes were made at the **concept level** in `data/topics/02-system-administration.json`, not item
+by item, so siblings on the same concepts inherit them.
+
+### 3. Sources registered in `data/sources.json` (8)
+
+`man-pid-namespaces-7`, `man-proc-pid-stat-5`, `man-proc-sys-kernel-5`, `man-daemon-7`,
+`man-nohup-1`, `man-sched-7`, `sudo-man-sudoers`, `ubuntu-rootsudo`. Already-registered sources
+newly wired to these concepts: `man-execve-2`, `man-path-resolution-7`, `man-umask-2`, `posix-ls`,
+`man-ps-1`, `man-top-1`, `man-bash-1`, `man-kill-1`, `systemd-service-5`.
+
+### 4. The self-refuting distractor shape — 23 repaired
+
+23 of the 81 distractors in this range (28%) carried a trailing em-dash clause that was a paste of
+the option's own `why`, several with the tell-tale lowercase-mangled first letter (`sUID…`,
+`sIGSTOP…`, `pID number assignment…`) that proves a mechanical paste. One (`service.02` o2) left the
+fragment "— avoids entirely for a configuration-only change" dangling mid-sentence. Each was
+repaired by replacing the refuting clause with a **false** elaboration of the same shape and roughly
+the same length; no key was truncated and every `why` was left intact.
+
+### 5. Shape scans, measured after the repairs, not before
+
+| Measure (this range) | Before | After |
+| --- | --- | --- |
+| Key ends in an em-dash qualifying clause | 12/27 (44%) | 12/27 (44%) |
+| Distractor ends in an em-dash qualifying clause | 25/81 (31%) | 26/81 (32%) |
+| Key is the longest option | 0/27 (0%) | 0/27 (0%) |
+| Self-refuting distractors | 23 | **0** |
+
+The em-dash gap **narrowed by one point** rather than widening, because the repairs kept the em-dash
+and replaced only the clause after it. Key-is-longest stayed at zero.
+
+### 6. Empirical verification, where a document was silent or a `why` deserved checking
+
+- `suid.02` — `docker run --rm ubuntu:24.04` … `chmod 4755` a shell script, run it as an
+  unprivileged user: `id -u` → `1001`, `id -un` → `t`, while `ls -l` showed `-rwsr-xr-x`. The bit is
+  set; the euid is unchanged.
+- `sticky-bit.02` — `chmod 1774 /srv/x; ls -ld` → `drwxrwxr-T`; `chmod 1775` → `drwxrwxr-t`.
+- `sudo-vs-su.02` — `docker run --rm ubuntu:24.04 passwd -S root` → `root L …`.
+- `root-and-least-privilege.02` — o2's `why` claims Red Hat-family systems ship `/etc/shadow` at
+  `0000`. `docker run --rm fedora:41 stat -c '%a %n' /etc/shadow` → `0 /etc/shadow`
+  (Ubuntu 24.04 → `640`). The `why` is true.
+- `suid.01` — `ls -l /usr/bin/passwd` → `-rwsr-xr-x 1 root root`, i.e. SUID root, not SGID shadow,
+  which is what kills o3 on the shipped binary.
+- `process-priority-and-nice.01` — unprivileged user, own process at nice 10:
+  `renice -n 0 -p $PID` → `renice: failed to set priority for 16 (process ID): Permission denied`,
+  exit 1. Confirms "by default allows no reduction".
+
+### 7. gnu.org substitution, named
+
+gnu.org was unreachable from this host, so **nothing was refuted for it and nothing was confirmed
+from memory.** One item needed it: `sticky-bit.02` turns on the `t`/`T` distinction in `ls -l`
+output, documented in the GNU coreutils manual. **POSIX.1-2024 `ls` was substituted** as the
+normative source and quoted in the item's `reasoning`, and the behaviour was additionally reproduced
+in a container.
+
+### 8. Residual limits, recorded rather than hidden
+
+Each of these is also recorded in the affected item's own `reasoning`; none was allowed to pass as a
+quoted fact.
+
+- **`pid-and-ppid.02`** — no man page states baldly "a PID is reusable as soon as its process exits".
+  proc_sys_kernel(5)'s `pid_max` ("the value at which PIDs wrap around") plus the absence of any
+  reservation mechanism is the closest normative support; the item's `reasoning` records this as
+  inference, not quotation.
+- **`zombie-and-orphan-processes.01`** — that `kill -9` has no effect on a zombie is not a sentence
+  in ps(1), proc_pid_stat(5) or signal(7). It follows from ps(1)'s "Processes marked <defunct> are
+  dead processes"; recorded as inference.
+- **`sudo-vs-su.01`** — su(1) is silent on logging entirely, so the key's claim that `su -` "only
+  logs the single switch" is inference from su(1)'s description of handing over a shell. The
+  substantive half (sudo logs each invocation) is quoted from sudoers(5) `log_allowed`.
+- **`daemon.02`** — daemon(7) opens "A daemon is a service process that runs in the background",
+  using "service" loosely, which sits in mild tension with the item's daemon-vs-service distinction.
+  The distinction itself is sourced to systemd.service(5) ("encodes information about a process
+  controlled and supervised by systemd"), and o3 remains wrong for the reason its `why` gives.
+- **`pid-and-ppid.01`** — pid_namespaces(7) excepts an ancestor holding `PR_SET_CHILD_SUBREAPER`, so
+  re-parenting is to the nearest subreaper rather than strictly PID 1 in that case. Does not touch
+  the key.
+- **`root-and-least-privilege.02`** — path_resolution(7) notes CAP_DAC_OVERRIDE "grants execute
+  permission only when at least one of the file's three execute permission bits is set". The stem
+  asks only about read and write, so the key stands.
+- **`etc-sudoers-and-visudo.02`** — because `visudo -c` already walks included files, the key's
+  second clause is belt-and-braces rather than strictly necessary. The item's own rationale already
+  says so and the key remains the only defensible option.
+
+### 9. No PCI DSS dependency
+
+No item in this range turns on a PCI DSS requirement number in digits or in paraphrase; the range is
+permissions, privilege, processes, signals and systemd throughout.
+
+---
+
+## Task 56c — System Administration Fundamentals :: System Administration (items 55–81, agent `verify-sysadmin-c`)
+
+Range: `questions/02-system-administration/system-administration.json` items at 1-based indices 55–81,
+`sysadmin.system-administration.systemd` through `sysadmin.system-administration.var`.
+27 items, 108 options, 81 distractors. All 27 now carry `verdict: "confirmed"`; **24 were refuted as
+authored** and repaired in place, with the pre-repair history preserved in each item's `reasoning`
+behind the literal marker `REFUTED AS AUTHORED.`
+
+### 1. Wrong key — `dnf-yum-and-rpm.02` (item 74): `-p` is *not* required to query an `.rpm` file
+
+The key asserted that "`rpm -q` without `-p` queries the installed package database by name, not the
+file on disk — `-p` is needed to query the file itself". The second half is false on current `rpm`.
+
+`rpm(8)` states under OPERATIONS: "`-q, --query`: Query package **files** or installed package(s)",
+and under ARGUMENTS lists both `PACKAGE_FILE` ("Either an rpm package or an `rpm-manifest(5)` file")
+and `PACKAGE_NAME` ("Installed package named PACKAGE_NAME"). `--nomanifest` exists precisely to switch
+the file handling off. Confirmed empirically:
+
+```
+$ docker run --rm rockylinux:9 bash -c '...'
+installed?        package zsh is not installed          # exit 1
+rpm -q  /dl/zsh-5.8-9.el9.aarch64.rpm   ->  zsh-5.8-9.el9.aarch64   exit=0   # no -p
+rpm -qp /dl/zsh-5.8-9.el9.aarch64.rpm   ->  zsh-5.8-9.el9.aarch64   exit=0
+rpm -ql /dl/zsh-5.8-9.el9.aarch64.rpm   ->  /etc/skel/.zshrc ...     exit=0
+```
+
+The real distinction is *name vs file*, not *`-p` vs no `-p`*: a bare name is resolved against the
+installed-package database, a path (or a filename in the cwd) is read as a package file. Key and
+`rationale` rewritten to say that; `o2`'s `why` rewritten in the same terms. Source: rpm(8).
+
+### 2. Citations that did not contain what they were cited for (all fixed at the concept level)
+
+Every one of these is an attribution failure, not a factual error — the claim was true and the cited
+source silent. Per the Task 3 `hypervisor` precedent the citation was fixed rather than the content
+weakened. Fixes were applied in `data/topics/02-system-administration.json`, not item by item.
+
+| Concept (items) | Cited | Problem | Now cites |
+|---|---|---|---|
+| `systemd` (55) | `systemd-1` | systemd(1) never says what `systemctl` is | + `systemd-systemctl-1` |
+| `systemd` (56) | `systemd-1` | systemd(1) documents neither `systemd-analyze blame` nor `critical-chain` | + `systemd-analyze-1` |
+| `unit-and-unit-file` (57) | `systemd-unit-5` | the `cat` verb is documented in systemctl(1), not systemd.unit(5) | + `systemd-systemctl-1` |
+| `systemd-target` (61) | `systemd-special-7` (item had dropped systemctl(1)) | `isolate` semantics are in systemctl(1) | item now cites both |
+| `runlevel` (62, 63) | `systemd-special-7` | **the current systemd.special(7) contains ZERO occurrences of the string "runlevel"** | + `systemd-runlevel-8` |
+| `systemd-target` (60) | — | nothing cited documented the `runlevel` command in `o4` | + `systemd-runlevel-8` |
+| `package` (66) | `debian-dpkg-1`, `man-rpm-8` | half the item is about `npm install`; neither source mentions npm | + `npm-install-locally` |
+| `repository` (69) | `debian-apt-8` | apt(8) states neither `/etc/apt/sources.list` nor `sources.list.d/`; it only cross-references sources.list(5) | + `debian-sources-list-5` |
+| `dependency` (70) | `debian-apt-8`, `debian-dpkg-1` | neither states that Recommends/Suggests are softer than Depends | + `debian-apt-get-8` |
+| `apt-and-dpkg` (71) | `debian-apt-8` | **apt(8) does not document `--fix-broken` at all** — it is the short end-user page | + `debian-apt-get-8` |
+| `patch-management` (76, 77) | `debian-apt-8`, `dnf-command-ref` | **neither source mentions patch management as a practice**; the whole concept was unsourced | + `nist-sp-800-40r4` |
+
+The `runlevel` and `patch-management` rows are the two serious ones. For `runlevel` the mapping table
+lives in `runlevel(8)`, whose OVERVIEW carries "Table 1. Mapping between runlevels and systemd
+targets" (0 → poweroff.target, 1 → rescue.target, 2/3/4 → multi-user.target, 5 → graphical.target,
+6 → reboot.target) *and* the sentence that settles item 63 nearly verbatim: "only one runlevel can be
+'active' at a given time, while systemd can activate multiple targets concurrently, so the mapping to
+runlevels is confusing and only approximate." For `patch-management`, NIST SP 800-40r4 supplies the
+definition ("Enterprise patch management is the process of identifying, prioritizing, acquiring,
+installing, and verifying the installation of patches, updates, and upgrades throughout an
+organization") and the rollback step ("Patch installation can also cause operational issues that may
+necessitate uninstalling the patch, reverting to the previous version of the software, or restoring
+the software or asset from backups"). The full 28-page PDF was searched, not one section.
+
+### 3. Sources registered in `data/sources.json` (3 new; 1 already present)
+
+- `systemd-runlevel-8` — runlevel(8), https://man7.org/linux/man-pages/man8/runlevel.8.html
+- `debian-sources-list-5` — sources.list(5), https://manpages.debian.org/stable/apt/sources.list.5.en.html
+- `debian-apt-get-8` — apt-get(8), https://manpages.debian.org/stable/apt/apt-get.8.en.html
+- `systemd-analyze-1` was already registered by `verify-sysadmin-e` at the same URL; reused, not duplicated.
+- `nist-sp-800-40r4` and `npm-install-locally` already existed; wired into concepts rather than re-registered.
+- `fhs-3-0` / `fhs-3.0` duplicate id pair left alone (separate scheduled task); `fhs-3-0` used consistently.
+
+### 4. The self-refuting distractor shape — 23 repaired across 22 items
+
+This range is the epicentre the brief warned about. In 22 of 27 items a distractor's `text` carried
+its own `why` verbatim (usually pasted after an em-dash), so the option announced its own wrongness:
+
+`55 o3 · 56 o2 · 57 o3 · 58 o3 · 59 o2 · 61 o2 · 63 o3 · 64 o3 · 65 o4 · 66 o2 · 66 o4 · 67 o3 ·
+68 o2 · 69 o3 · 70 o4 · 71 o3 · 73 o4 · 74 o4 · 75 o3 · 76 o4 · 78 o2 · 80 o4 · 81 o4`
+(23 distractors across 21 items).
+
+Repaired by replacing the pasted rebuttal with a **real false clause** and extending the `why` to
+rebut the new clause — never by truncating. Examples: `61 o2` now claims `rescue.target` sets
+`IgnoreOnIsolate=yes` for units outside its group (false: `IgnoreOnIsolate=` is set on the individual
+units to be spared, per systemctl(1)); `71 o3` now claims `dpkg` checks dependencies before extracting
+(false: it unpacks first, shown empirically); `80 o4` now claims FHS 3.0 relocated system-wide
+configuration to `/usr/local/etc` (false: FHS 4.9.2 defines that path as "Host-specific system
+configuration for local binaries").
+
+### 5. Shape scans, re-run *after* stripping, not before
+
+| Metric (items 55–81) | Before | After |
+|---|---|---|
+| Key ends in trailing em-dash clause | 12/27 (44%) | 12/27 (44%) |
+| Distractor ends in trailing em-dash clause | 26/81 (32%) | 26/81 (32%) |
+| Key is the longest option | 0/27 (0%) | 3/27 (11%) |
+
+Both documented side effects appeared and were handled:
+
+- **Exposed length cue.** Stripping `74 o4`'s pasted `why` (202 → 115 chars) unmasked a key-length
+  cue and `q-length-cue` fired (key 172 vs 92-char distractor mean, ratio 1.87 against a 1.6
+  threshold). Fixed by trimming the key and extending `o2` and `o3` with real false clauses, not by
+  truncating the key. Scoped `check-bank` is now clean for this range.
+- **Stripped distractor em-dashes.** The first pass cost two distractor em-dashes (`55 o3`, `67 o3`),
+  moving distractors from 32% to 30% and widening the shape gap. Both were re-punctuated so the gap
+  is byte-for-byte unchanged from the baseline. Key-is-longest rose from 0% to 11% — still under the
+  25% chance line and well under the 40% population threshold; this is the unavoidable cost of
+  removing padding from distractors, and per-item length cues are clean.
+
+### 6. Second-correct-answer sweep
+
+Every distractor in the range was read against the primary source for whether it is *also* correct.
+None is. The closest calls, and why they fail:
+
+- `73 o2` ("`yum` was removed entirely once `dnf` became the default") — plausible if the DNF command
+  reference's "roughly maintains CLI compatibility with YUM" were the only evidence. Settled
+  empirically instead (see §7): `yum` is a live symlink.
+- `77 o3` (maintenance window) — a maintenance window *is* a genuine component of the practice (NIST
+  §3.4 "Assign Each Asset to a Maintenance Group"), so the option is wrong for a true reason, not a
+  false one. The stem omits rollback, not the window. Left as authored.
+- `75 o4` (`apt full-upgrade`) — true that `full-upgrade` installs; false that only it does. apt(8)
+  settles it: "full-upgrade performs the function of upgrade but will remove currently installed
+  packages if this is needed".
+
+### 7. Empirical verification, where a document was ambiguous or silent
+
+Docker was used rather than leaving three items on inference. Commands and outputs are recorded in
+each item's `reasoning`.
+
+- **Item 73** — `docker run --rm rockylinux:9 bash -c 'ls -l /usr/bin/yum; yum --version'` →
+  `lrwxrwxrwx 1 root root 5 Nov 1 2023 /usr/bin/yum -> dnf-3` and `4.14.0 / Installed:
+  dnf-0:4.14.0-8.el9.noarch`. `yum` is literally dnf on a current Red Hat-family system.
+- **Item 74** — see §1. This is the run that produced the wrong-key finding.
+- **Items 71, 72, 67** — `docker run --rm debian:12`, building a `.deb` with
+  `Depends: totally-nonexistent-lib (>= 99)`:
+  `dpkg -i` → "Unpacking lfcatest (1.0) ... dpkg: dependency problems prevent configuration of
+  lfcatest ... dependency problems - leaving unconfigured"; `dpkg -l lfcatest` → status `iU`;
+  `dpkg -L lfcatest` → `/., /usr, /usr/bin, /usr/bin/lfcatest`; a later `apt-get install -y bash` →
+  "You might want to run 'apt --fix-broken install' to correct these. The following packages have
+  unmet dependencies: lfcatest : Depends: totally-nonexistent-lib (>= 99)"; and
+  `apt-get --fix-broken install` → "Correcting dependencies... Done". Every clause of item 71's key
+  is reproduced, including "blocking further operations".
+
+The two-node lab was not needed: every systemd claim in this range is stated in systemctl(1),
+systemd(1), systemd.special(7) or runlevel(8) and did not turn on an undocumented default.
+
+### 8. gnu.org substitution, named
+
+No item in this range cited gnu.org, so no substitution was needed for that host. A different
+unreachability did bite: **freedesktop.org returns 404 for `/man/latest/runlevel.html` and
+`/man/latest/telinit.html`**. runlevel(8) was therefore read on man7.org, whose COLOPHON names systemd
+as the source project — a legitimate substitution for a systemd page, and it is recorded in the
+`systemd-runlevel-8` source note and in items 60, 62 and 63.
+
+### 9. Rejected findings — checked and not changed
+
+- **"`systemd-analyze blame`'s key reasons differently from the manual."** The item's `o1` why says a
+  slow unit nothing waits on runs in parallel and costs nothing; systemd-analyze(1)'s stated caution is
+  the converse (a unit may be slow *because* it waits). Checked and rejected as a defect: both are
+  true, both support "not necessarily the cause", and the manual's own `critical-chain` entry ("prints
+  a tree of the time-critical chain of units") is what makes the key's remedy correct. Recorded in the
+  item rather than acted on.
+- **"Item 68 turns on an undocumented error string."** The literal text "no installation candidate" is
+  apt runtime output and appears in no manual page fetched. Rejected as a defect: the item's reasoning
+  rests on the caching model, which apt(8) does state ("update is used to download package information
+  from all configured sources. Other commands operate on this data"). Recorded as a limit in the item.
+- **"Item 66 o3 is a straw man."** "the `npm` package did not come from anywhere at all" is a weak
+  distractor. Checked and left: it is a false assertion the option makes, not a rebuttal it carries,
+  so it is not the self-refuting shape, and its `why` correctly identifies scope rather than
+  provenance as the distinguishing factor.
+- **Prior `factcheck-sysadmin-core.json` entries** were not treated as assurance. Every claim above was
+  re-derived from the primary source or from a container run.
+
+### 10. Residual limits, recorded rather than hidden
+
+- **Item 81** ("a full `/var` is one of the most common causes of exactly this symptom") is an
+  operational frequency claim that no specification states. What FHS 5.1 supports is the *mechanism*
+  (variable, growing data under `/var`, frequently on its own filesystem: "If /var cannot be made a
+  separate partition, it is often preferable to move /var out of the root partition"). Recorded in the
+  item's `reasoning` as a judgement, not asserted as sourced.
+- **Item 56 `o4`'s why** ("`blame` has no dependency on `daemon-reload`") is supported by the absence
+  of any such dependency in systemd-analyze(1) rather than by a positive sentence. Recorded as such.
+- **Item 68 `o3`/`o4` whys** are judgements about which error a given fault produces. Consistent with
+  apt(8)'s separation of index from status database, but not documented sentence-for-sentence.
+- Two `q-verdict-coverage` errors classes remain in the scoped `check-bank` run for this competency
+  (`boot-process`, `bios-vs-uefi`, `bootloader-and-grub`, `kernel` — 8 items). **Those are outside
+  this range** (indices 47–54) and belong to a sibling agent. Likewise the residual `q-length-cue`
+  warning on `journald.02`.
+
+### 11. No PCI DSS dependency
+
+Neither patch-management item, nor any other in this range, turns on a PCI DSS requirement number in
+digits or in paraphrase. The patch-management pair rests on NIST SP 800-40r4, which is freely
+published, and the specific sentences relied on are quoted in the items' `reasoning`.
+
+---
+
+## Task 56e — System Administration Fundamentals :: System Administration (items 106–128, agent `verify-sysadmin-e`)
+
+Range: `raid-levels.01` … `kernel.02` (23 items, 12 concepts, to the end of the array).
+All 23 items now carry `verification.verdict: "confirmed"` under `agent_label: verify-sysadmin-e`,
+with `checked` listing `key` plus every distractor ref. **Zero items sit at `refuted`.**
+
+### 1. Confirmed findings — wrong facts in distractor `why` text
+
+**1a. `raid-levels.01` o4 asserted a false minimum device count.** The distractor's `why` read
+"RAID 10 needs at least four drives, correctly". That is textbook RAID 1+0, but it is false on
+Linux, which is what the bank teaches. Red Hat's RHEL 9 RAID chapter states that the installer
+cannot build a RAID 10 device on two disks because "it requires a minimum of three separate
+disks", and describes "a 3-drive array configured to store only two copies of each piece of
+data, which then allows the overall array size to be 1.5 times the size of the smallest
+devices". The option was rewritten to turn purely on capacity — the discriminator the stem
+actually asks about — and re-verified.
+Source that settles it: <https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_storage_devices/managing-raid_managing-storage-devices>
+
+**1b. `log-rotation.02` o4 overstated `delaycompress`.** The `why` said deferred compression
+"does not address the stated problem at all". logrotate(8) introduces `delaycompress` for
+precisely the stated problem class: it "can be used when some program cannot be told to close
+its logfile and thus might continue writing to the previous log file for some time". The `why`
+was rewritten to what is true — `delaycompress` changes only *when* compression happens and
+still leaves the daemon writing to the renamed file, so the log keeps growing — which preserves
+the item's discrimination without a false lesson.
+Source: <https://man7.org/linux/man-pages/man8/logrotate.8.html>
+
+**1c. `bios-vs-uefi.01` o4 implied a raw partition count is a firmware distinction.** MBR already
+exceeds four partitions through extended partitions; the genuine firmware-linked limit is MBR's
+~2 TiB addressing. `why` rewritten.
+Source: <https://wiki.archlinux.org/title/Partitioning>
+
+**No wrong key was found in this range, and no distractor was found to be also correct.**
+Every item was checked for a second defensible answer; the closest call was `log-rotation.02`
+o4 (above), which is a `why` defect rather than a second correct answer, because `delaycompress`
+does not stop the growth the stem requires stopping.
+
+### 2. Citations that did not contain what they were cited for (all fixed at concept level)
+
+Confirming the root cause recorded four times already: every item's `source_ids` is a verbatim
+copy of its concept's `additional_sources` in `data/topics/02-system-administration.json`, so
+each of these was one wrong entry propagating to two items.
+
+| Concept | Cited (wrong) | Why it fails | Now cited |
+| --- | --- | --- | --- |
+| `raid-levels` | `man-proc-5` | proc(5) contains nothing about RAID levels, minimum members or capacity | `man-md-4`, `rh-raid-levels` |
+| `cron` | `man-crontab-5` only | crontab(5) is the file format; it never covers `crontab -e`'s install path, and never mentions anacron | + `man-crontab-1`, `man-anacron-8` |
+| `var-log` | `fhs-3-0` only | FHS locates `/var/log` and says nothing about `tail -f` vs `-F`, which is what the item turns on | + `man-tail-1`, `man-less-1` |
+| `log-rotation` | `man-logrotate-8`, `systemd-journald-8` | neither documents that a deleted-but-open file keeps its blocks — the item's whole mechanism | + `man-unlink-2` (same defect class as the earlier df(1) finding) |
+| `syslog-and-severity-levels` | `rfc-5424` only | RFC 5424 fixes the 0–7 scale but defines no filter semantics ("level 3 and above") | + `man-journalctl` |
+| `journald` | `systemd-journald-8` only | journald(8) does not document `journalctl`'s `-b` offsets or `--list-boots` | + `man-journalctl` |
+| `boot-process` | `systemd-1`, `systemd-special-7` | neither states the firmware → bootloader → kernel handover; and systemd(1) does not document `systemd-analyze blame` | + `systemd-bootup-7`, `systemd-analyze-1` |
+| `bios-vs-uefi` | `systemd-1`, `fhs-3-0` | neither documents the ESP, GPT limits or Secure Boot | `ms-uefi-gpt-partitions`, `archwiki-partitioning`, `archwiki-secure-boot` |
+| `bootloader-and-grub` | `fhs-3-0` only | FHS locates `/boot`; it documents no GRUB tooling and cannot support the `update-grub` vs `grub2-mkconfig` split | `debian-update-grub-8`, `rh-grub-config`, `fhs-3-0` |
+| `kernel` | `man-credentials-7`, `man-proc-5` | credentials(7) is about process UIDs/GIDs — the "right subject area, wrong man page" class again | `man-uname-1`, `kernel-readme`, `systemd-bootup-7`, `man-proc-5` |
+| `systemd-timer` | `systemd-timer-5`, `systemd-journald-8` | correct as far as they go, but "enabling a service starts it at boot" lives in systemctl(1) | + `systemd-systemctl-1` |
+
+`crontab-syntax` was the one concept whose citation needed no change: crontab(5) contains the
+OR-of-day-fields rule *and the item's exact example*, `30 4 1,15 * 5`.
+
+### 3. Sources registered in `data/sources.json` (11 new; 4 reused)
+
+New: `man-md-4`, `rh-raid-levels`, `man-crontab-1`, `man-anacron-8`, `systemd-bootup-7`,
+`systemd-analyze-1`, `debian-update-grub-8`, `rh-grub-config`, `archwiki-partitioning`,
+`archwiki-secure-boot`, `ms-uefi-gpt-partitions`. Already present and newly wired:
+`man-tail-1`, `man-less-1`, `man-unlink-2`, `man-uname-1`, `kernel-readme`, `man-journalctl`,
+`systemd-systemctl-1`. All are wired into concepts — `validate` reports the baseline 15 warnings
+with no new orphan-source entries.
+
+### 4. The self-refuting distractor shape — 20 repaired
+
+Twenty of this range's 69 distractors (29%) carried their own `why` appended to the option text,
+usually behind an em-dash or a "which"/"since" clause, so the option announced its own wrongness:
+
+`raid-levels.02` o2 · `cron.02` o3 · `crontab-syntax.02` o3 · `systemd-timer.02` o3, o4 ·
+`var-log.01` o3 · `syslog-and-severity-levels.01` o3 · `syslog-and-severity-levels.02` o2 ·
+`journald.01` o4 · `journald.02` o3 · `log-rotation.01` o4 · `log-rotation.02` o2 ·
+`boot-process.01` o2, o3 · `boot-process.02` o4 · `bios-vs-uefi.01` o2 ·
+`bootloader-and-grub.01` o3 · `bootloader-and-grub.02` o4 · `kernel.01` o4 · `kernel.02` o4
+
+Each was repaired by replacing the appended refutation with a **false** trailing clause that the
+primary source contradicts (e.g. `journald.01` o4 now claims journalctl "rejects negative boot
+offsets", where journalctl(1) says "Negative values mean earlier boots"). No key was truncated;
+every `why` was left stating a true fact.
+
+### 5. Shape scans, re-run *after* stripping — both documented side effects observed
+
+| Measure (this range) | Before | After stripping | After length rebalance |
+| --- | --- | --- | --- |
+| Key ends in em-dash clause | 35% (8/23) | 35% | 35% |
+| Distractor em-dash | 29% (20/69) | 29% | 29% |
+| Key is the longest option | 4% (1/23) | **35% (8/23)** | 9% (2/23) |
+
+The key-is-longest flip predicted in the hazard notes reproduced exactly: stripping the padding
+exposed a length cue it had been masking. Seven distractors were then lengthened (meaning and
+`why` unchanged) to remove it. The em-dash gap was deliberately held at +6pp — unchanged from
+where this range started — so the dedicated by-rule pass has no new damage to undo.
+`check-bank` scoped to this competency, minus `q-answer-position-balance`: **0 errors,
+0 warnings** (the one `q-length-cue` warning my repairs introduced on `journald.02` was fixed
+before finishing, not suppressed).
+
+### 6. Empirical verification — one decisive run, one failed attempt honestly recorded
+
+**Settled by measurement** (`docker run --rm debian:12`, cron installed):
+- `crontab` refuses to install an invalid table: `"/tmp/bad":1: bad command` /
+  `errors in crontab file, can't install.`, exit 1, and `crontab -l` then reports
+  "no crontab for root" — while writing the same bytes straight into
+  `/var/spool/cron/crontabs/root` succeeded silently. This is `cron.01`'s key, which no man page
+  states outright.
+- A cron job's environment is exactly `HOME=/root LOGNAME=root PATH=/usr/bin:/bin SHELL=/bin/sh
+  PWD=/root`, against an interactive `PATH` of
+  `/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin` in the same container. This is
+  `crontab-syntax.02`'s key; crontab(5) documents `SHELL`, `HOME` and `LOGNAME` but **never
+  mentions `PATH` at all**.
+
+**Attempted and impossible on this host, recorded rather than glossed:** RAID minimums and
+capacities could not be measured. `docker run --rm --privileged ubuntu:24.04` with `mdadm` over
+loopback devices fails because the Docker Desktop linuxkit kernel 6.12.76 ships no `md_mod`
+(`modprobe: FATAL: Module md_mod not found`). Note also that `mdadm` did **not** reject
+`--level=5 --raid-devices=2` at validation time, so the "at least three drives" claim rests on
+the Red Hat documentation, not on tool enforcement.
+
+### 7. Substitutions named
+
+- **gnu.org unreachable:** the GNU GRUB manual could not be fetched. `bootloader-and-grub` is
+  cited instead to Debian's `update-grub(8)` ("a stub for running `grub-mkconfig -o
+  /boot/grub/grub.cfg`") and Red Hat's RHEL 9 GRUB chapter (`grub2-mkconfig -o
+  /boot/grub2/grub.cfg` after editing `/etc/default/grub`). Both were fetched and read.
+- **uefi.org returns HTTP 403 to `curl`** for the specification's HTML chapters
+  (`/specs/UEFI/2.10/…`), so the UEFI specification itself was not read. `bios-vs-uefi` is cited
+  to Microsoft's UEFI/GPT partition guidance (ESP), ArchWiki Partitioning (GPT vs MBR's 2 TiB
+  addressing limit) and ArchWiki Secure Boot ("a security feature found in the UEFI standard",
+  with a documented disable procedure). This is a weaker citation than the specification and is
+  recorded as such.
+
+### 8. Rejected findings — checked and not changed
+
+- **`less +F` in `var-log.01` o3** — suspected false. Checked less(1): the `F` command's
+  "behavior is similar to the `tail -f` command", and only `--follow-name` makes less
+  "periodically attempt to reopen the file by name". The `why` is true by default behaviour; it
+  was reworded to say so explicitly and cited, not removed.
+- **`syslog-and-severity-levels.01` key ("3 and above" = 3,2,1,0)** — suspected of inverting the
+  reader's convention. Confirmed correct: RFC 5424 Table 2 (0 Emergency … 7 Debug) and
+  journalctl(1) `-p` ("all messages with this log level or a lower (hence more important) log
+  level are shown").
+- **`raid-levels.02`'s "RAID is not a backup"** — searched md(4), mdadm(8) and the Red Hat RAID
+  chapter in full; **the slogan appears in none of them**. Not refuted: the claim is derived from
+  documented behaviour (md(4): RAID1 members "contain exactly the same data" and "changes are
+  written to all devices in parallel"), and the item's `verification.reasoning` says so rather
+  than implying a quotation.
+- **`systemd-timer.01` key** — suspected of assuming an `[Install]` section. Left as authored:
+  the stem states the administrator enabled the service, so the section exists; systemctl(1)
+  supports the rest.
+
+### 9. Residual limits, recorded rather than hidden
+
+- **`journald.02`'s diagnostic ordering is a best-practice judgement, not a documented rule.**
+  Every command's semantics is confirmed against journalctl(1), but no source states that
+  `systemctl status` must precede unit logs which must precede a severity-wide sweep. The item's
+  `verification.reasoning` records this explicitly. It is defensible (narrowest to widest scope)
+  and no distractor is also correct, so it is `confirmed` — but a reader should know the ordering
+  is pedagogy, not specification.
+- **RAID minimum device counts rest on vendor documentation only** (see §6).
+- **`bios-vs-uefi` rests on vendor/community sources, not the UEFI specification** (see §7).
+- `PROGRESS.md` was deliberately **not** edited: four agents were writing this competency
+  concurrently and the file is large and hand-maintained. Every correction above is recorded here
+  and in each item's `verification.reasoning`.
+
+### 10. No PCI DSS dependency
+
+No item in this range turns on a PCI DSS requirement, in digits or paraphrased. The single
+regex hit for "requirement" is `raid-levels.01` o2's `why` referring to the stem's own stated
+requirement.
