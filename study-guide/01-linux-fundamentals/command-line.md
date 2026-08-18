@@ -557,7 +557,7 @@ including dotfiles.
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
 | `ls -la` | List every entry, dotfiles included, in long format | `-l` long, `-a` all, `-h` human-readable sizes | `ls -la` | Missing dotfiles because plain `ls` omits them |
-| `cp -r` | Copy a directory tree | `-r` recursive, `-a` archive, `-u` copy only when newer | `cp -r` | Expecting a symlink to be copied as a link — plain `cp` follows it and copies the target's contents; `cp -a` (or `-d`) preserves the link |
+| `cp -r` | Copy a directory tree | `-r` recursive, `-a` archive, `-u` copy only when newer | `cp -r` | Expecting every form of `cp` to treat a symlink alike — plain `cp`, `cp -L` and `cp -p` follow it and copy the target's contents, while `cp -r`, `cp -a`, `cp -d` and `cp -P` copy the link itself |
 | `mv` | Rename or move | `-i` prompt, `-n` no-clobber, `-v` verbose | `mv` | Assuming it always copies data — within one filesystem it only rewrites the directory entry |
 | `rm -i` | Remove with a confirmation prompt for each file | `-i` prompt always, `-I` prompt once for more than three files | `rm -i` | Relying on `-i` being the default; it is not, and adding `-f` later in the same command line overrides it |
 | `ln -s` | Create a symbolic link | `-s` symbolic (omit for a hard link), `-f` replace an existing link, `-r` make the target relative | `ln -s` | Reversing the operands — the order is target first, then the name of the link to create |

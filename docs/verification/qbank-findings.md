@@ -3301,3 +3301,152 @@ options anywhere in the range.
   artifact bearing on the range, `factcheck-command-line.json` CL-049, is adjudicated in finding 2.
 - `q-verdict-coverage` still reports 31 errors in this competency, all on items 1–86, which belong
   to agents `verify-command-line-a`/`-b`/`-c`. Zero errors on items 87–110.
+
+## Task 54b — Linux Fundamentals :: Command Line (items 30–60, agent `verify-command-line-b`)
+
+Range: array items 30–60 (indices 29–59), the eleven concepts `file-management-commands`,
+`reading-ls-l-output`, `case-sensitivity`, `wildcards-and-globbing`, `quoting`,
+`command-chaining`, `command-substitution`, `shell-variables-and-export`,
+`history-and-tab-completion`, `aliases` and `command-exit-status`. **31 of 31 end at
+`confirmed`.** 18 were refuted as authored, repaired in place and re-checked; 13 were clean.
+No key in the range was factually wrong.
+
+### The two second-correct-answer defects, and both were real
+
+**`file-management-commands.01` — `cp -r` was a working answer offered as a distractor.** The stem
+asks how to copy a symlink as a symlink; the key was `cp -a` and o2 was `cp -r`, whose `why`
+claimed `-r` "does not change how an individual symlink is handled — that still follows the link
+unless archive mode is used". That is false. cp(1) documents `-a` as `-dR --preserve=all` and `-d`
+as `--no-dereference --preserve=links`, and GNU coreutils 9.8 tested directly on this machine
+copied a symlink operand **as a symlink** under `-r`, `-R` and `-a`, while plain `cp`, `-L` and
+`-p` each wrote a dereferenced regular file:
+
+```
+$ cp -r link.txt copy_r.txt ; cp -a link.txt copy_a.txt ; cp -L link.txt copy_L.txt
+lrwxr-xr-x  copy_a.txt -> big.txt
+lrwxr-xr-x  copy_r.txt -> big.txt
+-rw-r--r--  copy_L.txt
+```
+
+o2 is now `cp -L`, "always follow symbolic links in SOURCE", which is unambiguously the wrong
+tool, and the distractor `why` states that true fact instead of the false one.
+
+**`reading-ls-l-output.03` — `ls -la` very nearly answers the stem.** The stem was "Which command
+shows the directory's own mode string?", the key was `ls -ld`, and o2 was `ls -la`. But `-a` adds
+the `.` entry, and `.` **is** the directory itself, so its long-listing line carries exactly the
+mode string asked for. The stem now asks which command *replaces the listing of contents with a
+single line for the directory entry*, and o2 is `ls -lR`, whose recursive output prints the path as
+a bare header and never a mode line for the named directory.
+
+### Sources that did not contain what they were cited for
+
+- **`posix-shell-command-language` cited for filesystem case sensitivity** — both
+  `case-sensitivity` items. The POSIX Shell Command Language chapter specifies shell grammar,
+  expansion and quoting and says nothing about how a filesystem compares filenames. Replaced with
+  `man-ext4-5` and `man-path-resolution-7`.
+- **`posix-shell-command-language` cited for regular-expression syntax** —
+  `wildcards-and-globbing.02` turns on what `*` quantifies in a regex. Chapter 2 covers shell
+  pattern matching only; regular expressions are POSIX XBD chapter 9. Replaced with `gnu-grep-man`,
+  whose REGULAR EXPRESSIONS section states "* The preceding item will be matched zero or more times".
+- **`gnu-bash-manual` + `posix-shell-command-language` cited for grep's exit codes** —
+  `command-exit-status.02`. Neither specifies them. Replaced with `gnu-grep-man`: "Normally the
+  exit status is 0 if a line is selected, 1 if no lines were selected, and 2 if an error occurred."
+- **`posix-shell-command-language` cited for `set` versus `env`** —
+  `shell-variables-and-export.03`. Neither utility's no-argument output is described there, and
+  `env` is not part of the shell command language at all. Replaced with `man-env-1` ("If no
+  COMMAND, print the resulting environment") and `man-bash-1`.
+
+Root cause confirmed again: every item's `source_ids` was a verbatim copy of its concept's
+`official_sources` + `additional_sources` in `data/topics/01-linux-fundamentals.json`. Fixed at
+concept level for all eleven concepts, and per item.
+
+### Four sources registered in `data/sources.json`
+
+`man-cp-1`, `man-ln-1`, `man-ext4-5` and `posix-ls`, all wired into the owning concepts'
+`additional_sources` so none is an orphan. The two that settle the most:
+
+- **`man-ln-1`** carries the sentence `file-management-commands.02` needed verbatim: "Symbolic
+  links can hold arbitrary text; if later resolved, a relative link is interpreted in relation to
+  its parent directory."
+- **`posix-ls`** carries the normative `-l` record format — `"%s %u %s %s %u %s %s\n"`, file mode,
+  number of links, owner, group, size, date and time, pathname — and the entry-type table where
+  `l` is "Symbolic link" and `-` is "Regular file", which is the home for four `reading-ls-l-output`
+  items previously pointed at the coreutils manual.
+
+Checked against the existing register first; no duplicate URL was created.
+
+### The self-refuting distractor shape — eleven stripped
+
+The reliable tell in this range was not an n-gram overlap with the option's own `why` but a
+**trailing clause that names the reader's error instead of asserting anything** — most often of the
+form "since X **is assumed to** Y", and once, in `reading-ls-l-output.04`, an option whose entire
+text was its own `why` pasted in, duplicated conjunction included: "Whether `svc` is a member of
+any supplementary groups at all, **since since** `svc` is the file's owner, the owner triad governs
+the attempt regardless of group membership".
+
+Stripped in: `reading-ls-l-output.02` o4, `reading-ls-l-output.04` o4, `wildcards-and-globbing.01`
+o4, `quoting.01` o4 (which ended "the reverse of the actual behaviour"), `command-chaining.01` o4,
+`shell-variables-and-export.01` o3, `shell-variables-and-export.02` o2,
+`history-and-tab-completion.01` o3, `history-and-tab-completion.03` o4, `aliases.03` o4, plus
+`command-chaining.03` o4, whose `why` argued from what "the exam uses to test" rather than from the
+grammar rule. Every replacement asserts a concrete false claim of comparable length, with the
+correction moved into the `why`; none was merely truncated.
+
+### Shape scans, measured before and after
+
+| | before | after |
+| --- | --- | --- |
+| em-dash, range (keys / distractors) | 0% / 2% | 0% / 2% |
+| em-dash, file (keys / distractors) | 2% / 2% | 2% / 2% |
+| key is longest option, range | 0 of 31 (0%) | 2 of 31 (6%) |
+| key is longest option, file | 1 of 110 (1%) | 3 of 110 (3%) |
+| six-token tails reused 3+ times | none | none |
+| options that are nothing but a code span | none | none |
+
+The em-dash gap this file is noted for having closed (keys 2% / distractors 3% at task start,
+2% / 2% here) was **not opened in either direction** by the stripping work. Key-is-longest rose by
+two items and remains far below the 25% chance baseline, so no length cue was exposed; no key was
+shortened at any point.
+
+### `data/` and the guide
+
+One guide correction, of the true-but-misreadable class. `study-guide/01-linux-fundamentals/command-line.md`,
+the links section, listed under **`cp -r`**: "Expecting a symlink to be copied as a link — plain
+`cp` follows it and copies the target's contents; `cp -a` (or `-d`) preserves the link". Every
+clause is true, but placing it in the `cp -r` row teaches that `cp -r` is the trap, when `cp -r` in
+fact preserves the link. Now reads: "Expecting every form of `cp` to treat a symlink alike — plain
+`cp`, `cp -L` and `cp -p` follow it and copy the target's contents, while `cp -r`, `cp -a`, `cp -d`
+and `cp -P` copy the link itself". `npm run generate` re-run and `npm run check-guide` clean.
+
+No concept `description` in `data/` needed correcting; the three most exposed
+(`file-management-commands`, `reading-ls-l-output`, `case-sensitivity`) were read against the
+primary sources and are accurate.
+
+### Adjudication of prior findings
+
+`qbank-findings.md` still carries no prior findings section for Linux Fundamentals :: Command Line
+other than the sibling verification tasks' own, so there was nothing to accept or reject.
+`docs/verification/factcheck-command-line.json` was read and **not** treated as a clearance; the
+eleven claims covering this range (CL-025 through CL-036) were each re-derived from the primary
+sources rather than taken on trust. All eleven hold as written. Note that CL-030's phrasing, "`ls
+*.txt` never passes `*.txt` to `ls`", is loose — it is true only when the glob matches, and the
+same claim's second half states the unmatched case correctly.
+
+### Residual limits, recorded rather than hidden
+
+- **www.gnu.org was unreachable for the whole task** (curl exit 28 at 20s, 45s and 90s, over both
+  the coreutils and bash manual URLs and the site root; `ctx_fetch_and_index` failed on the same
+  two URLs in the same minute that man7.org and pubs.opengroup.org returned 200). `gnu-bash-manual`
+  and `gnu-coreutils-manual` are therefore unverified rather than disproven, and **no item was
+  refuted for this**. Each affected item now cites the same project's manual page instead — bash(1),
+  cp(1), ln(1), ls(1), chmod(1), env(1), grep(1) at man7.org, and POSIX at pubs.opengroup.org —
+  and each `verification.reasoning` names the substitution. The gnu.org ids were left in place at
+  concept level.
+- **`case-sensitivity`'s key rests on an inference, and the item says so.** ext4(5) documents
+  casefold as an opt-in feature ("for directories with the casefold (+F) flag enabled", available
+  since 5.2), which establishes that ordinary ext4 lookup is exact; no fetchable page states "ext4
+  is case-sensitive" in those words.
+- **One empirical result stands in for a document.** The `cp -r` finding above was settled by
+  running GNU coreutils 9.8 rather than by a sentence, because cp(1) states the `-a`/`-d`/`-L`/`-P`
+  option meanings but never spells out the default for `-R` alone. The test is reproduced above so
+  it can be re-run.

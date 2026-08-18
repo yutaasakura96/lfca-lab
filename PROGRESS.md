@@ -1829,3 +1829,41 @@ leaving 16 in items 1–30 as the file's last; clearing them flipped the key int
 18 of 27 items, so twelve distractors were re-lengthened with substantive false content, bringing
 key-is-longest to 26% against a 25% chance baseline. The em-dash gap was not widened — keys 22% /
 distractors 0% in range, identical before and after, and keys 14% / distractors 0% file-wide.
+
+## Cycle 3, task 54b — verify Linux Fundamentals :: Command Line, items 30–60
+
+31 of 31 items in the range verified against fetched primary sources and rewritten where needed:
+18 refuted as authored, 13 clean, all 18 fixed in place and re-verified. Full detail in
+`docs/verification/qbank-findings.md` under task 54b.
+
+**No key in the range was factually wrong, but two distractors were working answers.**
+`file-management-commands.01` offered `cp -r` as wrong when GNU coreutils 9.8, tested directly,
+copies a symlink operand as a symlink under `-r`, `-R` and `-a` alike (only plain `cp`, `-L` and
+`-p` dereference); it is now `cp -L`. `reading-ls-l-output.03` offered `ls -la` as wrong when the
+`.` entry it adds is the directory itself and carries exactly the mode string the stem asked for;
+the stem is now sharper and the option is `ls -lR`. Eleven self-refuting distractors were stripped,
+the dominant tell being a trailing "since X is assumed to Y" clause, and in one case an option
+whose text was its own `why` pasted in with a duplicated "since since".
+
+Four sources added to `data/sources.json` and wired into the owning concepts' `additional_sources`:
+`man-cp-1`, `man-ln-1`, `man-ext4-5` and `posix-ls`. Citation defects found and fixed:
+`posix-shell-command-language` had been cited for filesystem case sensitivity (both
+`case-sensitivity` items), for regular-expression syntax (`wildcards-and-globbing.02`), for `set`
+versus `env` (`shell-variables-and-export.03`), and — with `gnu-bash-manual` — for grep's exit
+codes (`command-exit-status.02`); none of those pages carries the claim. Root cause confirmed
+again: item `source_ids` were verbatim copies of the concept's lists, fixed at concept level for
+all eleven concepts.
+
+One guide correction, true-but-misreadable: `study-guide/01-linux-fundamentals/command-line.md`
+put "Expecting a symlink to be copied as a link" in the **`cp -r`** row, which teaches that `cp -r`
+is the trap when `cp -r` preserves the link; the row now names which forms of `cp` follow a link
+and which copy it. `www.gnu.org` was unreachable for the whole task, so `gnu-bash-manual` and
+`gnu-coreutils-manual` are unverified rather than disproven; no item was refuted for it, and each
+affected item cites the same project's man page instead.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
+live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `npm run
+check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors / 15
+warnings. Shape scans over items 30–60: em-dash keys 0% / distractors 2%, identical before and
+after; key-is-longest 0 of 31 before, 2 of 31 after, against a 25% chance baseline; no repeated
+six-token tails and no code-span-only options in either pass.

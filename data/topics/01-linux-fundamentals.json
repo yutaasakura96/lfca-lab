@@ -1366,7 +1366,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-cp-1",
+        "man-ln-1",
+        "man-unlink-2"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1405,7 +1408,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-coreutils-manual"
+        "gnu-coreutils-manual",
+        "man-ls-1",
+        "posix-ls",
+        "man-chmod-1",
+        "man-path-resolution-7"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1442,7 +1449,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-path-resolution-7",
-        "posix-shell-command-language"
+        "man-ext4-5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1474,7 +1481,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1",
+        "posix-shell-command-language",
+        "gnu-grep-man"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1508,6 +1517,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "candidate_evidence": [],
@@ -1540,6 +1550,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "candidate_evidence": [],
@@ -1578,6 +1589,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "candidate_evidence": [],
@@ -1610,7 +1622,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1",
+        "man-env-1",
+        "posix-env-vars"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1645,7 +1659,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-bash-manual"
+        "gnu-bash-manual",
+        "man-bash-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1680,7 +1695,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "gnu-bash-manual"
+        "gnu-bash-manual",
+        "man-bash-1"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1714,7 +1730,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1",
+        "posix-shell-command-language",
+        "gnu-grep-man"
       ],
       "candidate_evidence": [],
       "commands": [

@@ -2289,16 +2289,16 @@
           "ref": "o1",
           "text": "`cp -a`, which preserves symlinks instead of following them",
           "correct": true,
-          "why": "Plain `cp` follows a symlink and copies the target's contents; `cp -a` (archive mode) preserves the link itself along with mode, ownership and timestamps.",
+          "why": "Plain `cp` follows a symbolic link and copies the target's contents; `cp -a` is archive mode, documented as `-dR --preserve=all`, and the `-d` part is `--no-dereference`, so the link itself is copied along with mode, ownership and timestamps.",
           "provenance": {
             "kind": "key"
           }
         },
         {
           "ref": "o2",
-          "text": "Plain `cp -r`, since recursive copying automatically preserves link structure",
+          "text": "`cp -L`, since dereferencing is what tells `cp` to copy the link entry itself",
           "correct": false,
-          "why": "`-r` makes `cp` walk directory trees, but it does not change how an individual symlink is handled — that still follows the link unless archive mode is used.",
+          "why": "`-L` is `--dereference`, documented as \"always follow symbolic links in SOURCE\", so it produces a full copy of the target's contents, which is the opposite of what is wanted.",
           "provenance": {
             "kind": "variant",
             "command": "cp -r"
@@ -2325,10 +2325,10 @@
           }
         }
       ],
-      "rationale": "Plain `cp` follows a symbolic link and copies the target's contents. `cp -a` (or `-d`) preserves the link itself instead, along with mode, ownership and timestamps. The same family also covers `ls -la` for a full listing, `stat` and `file` for inspecting an entry, and `rm -i` for a confirmed removal.",
+      "rationale": "Plain `cp` follows a symbolic link and copies the target's contents, and so do `cp -L` and `cp -p`. Archive mode `cp -a` expands to `-dR --preserve=all`, and its `-d` (`--no-dereference`) component is what preserves the link itself; `cp -d`, `cp -P` and recursive `cp -r` preserve links for the same reason. The same family also covers `ls -la` for a full listing, `stat` and `file` for inspecting an entry, `mv` for relocation, `ln -s` for creating a link, and `rm -i` for a confirmed removal.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-cp-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.file-management-commands",
       "comparison_block": null,
@@ -2336,7 +2336,21 @@
         "cp -r"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. Distractor o2 offered `cp -r` with the why \"it does not change how an individual symlink is handled — that still follows the link unless archive mode is used\". That why is false and the option was a second correct answer: cp(1) documents `-a` as `-dR --preserve=all` and `-d` as `--no-dereference --preserve=links`, and GNU coreutils 9.8 tested directly on this machine copied a symlink operand as a symlink under `-r`, `-R` and `-a`, while plain `cp`, `-L` and `-p` all wrote a dereferenced regular file (`cp -r link.txt copy_r.txt` produced `copy_r.txt -> big.txt`). A candidate choosing `cp -r` would have been marked wrong for giving a working answer. REPAIR AND RE-VERIFICATION: o2 replaced with `cp -L`, whose man-page text is \"always follow symbolic links in SOURCE\", so it is unambiguously the wrong tool for preserving a link; its why now states that true fact. The key's why now quotes the documented `-a` = `-dR --preserve=all` expansion rather than the vaguer 'archive mode'. The rationale now says plainly which options preserve a link and which follow it, and keeps the `cp -r` code span the command-coverage check requires. o3 (`ln -s` after the fact) and o4 (`mv`) re-read and remain false with true whys: recreating a link does not undo a completed full copy, and `mv` relocates rather than copies. Citation moved off gnu-coreutils-manual (www.gnu.org is unreachable from this environment) to cp(1) on man7.org, which carries the sentences relied on.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "https://man7.org/linux/man-pages/man1/ln.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.file-management-commands.02",
@@ -2389,7 +2403,7 @@
       "rationale": "`ln -s` records exactly the text it is given as the link's target. A relative target is resolved relative to the link's own directory, not the directory the operator was standing in when they ran the command, so `ln -s config.yaml /etc/app/current.yaml` points at `/etc/app/config.yaml`.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-ln-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.file-management-commands",
       "comparison_block": null,
@@ -2397,7 +2411,20 @@
         "ln -s"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified verbatim against ln(1): \"Symbolic links can hold arbitrary text; if later resolved, a relative link is interpreted in relation to its parent directory.\" The link is created at /etc/app/current.yaml, so the recorded text `config.yaml` resolves to /etc/app/config.yaml, exactly as the key says. Distractors checked one by one: o2 asserts resolution from the creator's working directory, which the quoted sentence contradicts; o3 claims creation fails for a relative target, but ln(1) states a symbolic link may hold arbitrary text and imposes no absolute-path requirement (the man page documents no such error, and the SYNOPSIS accepts any TARGET); o4 invokes PATH, which governs command lookup, not symlink resolution, and appears nowhere in ln(1)'s description of link targets. No two options assert the same thing. Citation moved off gnu-coreutils-manual (www.gnu.org unreachable from this environment) to ln(1) on man7.org, the page that carries the sentence.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/ln.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.file-management-commands.03",
@@ -2450,7 +2477,8 @@
       "rationale": "A hard link is an additional directory entry pointing at the same inode, with no \"original.\" Deleting either name leaves the data reachable through the other, and the link count `ls -l` shows drops by one.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-unlink-2",
+        "posix-ls"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.file-management-commands",
       "comparison_block": null,
@@ -2460,7 +2488,21 @@
         "file"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against unlink(2): \"unlink() deletes a name from the filesystem. If that name was the last link to a file and no processes have the file open, the file is deleted\" — so with two hard links, removing one leaves the data reachable through the other. The link-count column is settled by POSIX ls, whose -l record format is \"%s %u %s %s %u %s %s\", <file mode>, <number of links>, <owner name>, <group name>, <size>, <date and time>, <pathname>, putting the number of links in the second field as the item states. Distractors: o2 (data lost immediately) contradicts unlink(2)'s last-link condition; o3 (dangling reference) describes a symbolic-link failure mode, and unlink(2) treats a symlink as its own separate case (\"If the name referred to a symbolic link, the link is removed\"); o4 claims the second column counts only subdirectories, which POSIX ls contradicts by defining it as the number of links for every file type. Each why states a true fact. Citation moved off gnu-coreutils-manual (unreachable) to unlink(2) and POSIX ls.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man2/unlink.2.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.reading-ls-l-output.01",
@@ -2513,7 +2555,9 @@
       "rationale": "On a directory, `r` means list the names inside, `x` means traverse it, and `w` means create, delete or rename entries inside it. In `drwxr-xr-x`, only the owner triad (`rwx`) has `w` set, so only the owner may create a file there.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-chmod-1",
+        "man-path-resolution-7",
+        "man-unlink-2"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output",
       "comparison_block": null,
@@ -2521,7 +2565,22 @@
         "ls -l"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against chmod(1) — \"The letters rwxXst select file mode bits for the affected users: read (r), write (w), execute (or search for directories) (x)\" — and against unlink(2), whose EACCES is \"Write access to the directory containing path is not allowed\", i.e. creating and removing entries in a directory is governed by that directory's w bit. path_resolution(7) confirms the triad reading: \"Of the three bits used, the first bit determines read permission, the second write permission, and the last execute permission in case of ordinary files, or search permission in case of directories.\" In drwxr-xr-x only the owner triad carries w, so only the owner may create an entry. Distractors: o2 says r and x suffice, contradicted by the search-permission sentence above; o3 says x alone allows creation, same contradiction; o4 claims no triad has w, which is false on inspection of rwxr-xr-x. Whys all state true facts and no two options agree. Citation moved off gnu-coreutils-manual (unreachable) to chmod(1), path_resolution(7) and unlink(2), which carry the sentences.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
+          "https://man7.org/linux/man-pages/man2/unlink.2.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.reading-ls-l-output.02",
@@ -2562,9 +2621,9 @@
         },
         {
           "ref": "o4",
-          "text": "444, a file no one, including the owner, can modify, treating the two trailing `r--` triads as if they defined the whole permission set including the owner's",
+          "text": "444, a file that is read-only for every class, since none of the three triads carries a write bit",
           "correct": false,
-          "why": "444 corresponds to `r--r--r--`, with no write bit anywhere; the owner triad here is `rw-`, which does include write.",
+          "why": "444 corresponds to `r--r--r--`, and it is true that it grants no write anywhere; the mode string here is `-rw-r--r--`, whose owner triad is `rw-` and does include write, so 644 is the value.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output"
@@ -2574,7 +2633,8 @@
       "rationale": "Each permission triad is one octal digit, with `r`=4, `w`=2 and `x`=1 added together. `-rw-r--r--` is owner `rw-` (6), group `r--` (4), other `r--` (4), giving 644 — a regular file the owner can read and write and everyone else can only read.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-chmod-1",
+        "posix-ls"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output",
       "comparison_block": null,
@@ -2582,7 +2642,21 @@
         "ls -l"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. Content was right but o4 was a self-refuting distractor: its text ended \"...treating the two trailing `r--` triads as if they defined the whole permission set including the owner's\", a trailing clause that names the misreading and so tells the reader the option is the wrong one before they reason about it. REPAIR AND RE-VERIFICATION: o4 rewritten to assert the false claim plainly (\"none of the three triads carries a write bit\") with the correction moved into its why, keeping its length in line with the other distractors so no length cue opens. Key re-verified against chmod(1): \"A numeric mode is from one to four octal digits (0-7), derived by adding up the bits with values 4, 2, and 1 ... The second digit selects permissions for the user who owns the file: read (4), write (2), and execute (1); the third selects permissions for other users in the file's group ... and the fourth for other users not in the file's group\" — rw- = 6, r-- = 4, r-- = 4, so 644. The leading `-` is settled by POSIX ls's entry-type table, where `-` is \"Regular file\" and `d` is \"Directory\". o2 (755) and o3 (600) re-checked: both name modes with different bit patterns than `-rw-r--r--`, and their whys state that correctly. Citation moved off gnu-coreutils-manual (unreachable) to chmod(1) and POSIX ls.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.reading-ls-l-output.03",
@@ -2590,7 +2664,7 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 5,
-      "stem": "An operator runs `ls -l /etc/nginx` to check that directory's own permissions, but the output lists the files inside it instead. Which command shows the directory's own mode string?",
+      "stem": "An operator runs `ls -l /etc/nginx` to check that directory's own permissions, but the output lists the files inside it instead. Which command replaces the listing of contents with a single line for the directory entry itself?",
       "options": [
         {
           "ref": "o1",
@@ -2603,19 +2677,19 @@
         },
         {
           "ref": "o2",
-          "text": "`ls -la /etc/nginx`, since adding all entries includes the directory's own line",
+          "text": "`ls -lR /etc/nginx`, since a recursive listing opens with a line describing the directory itself",
           "correct": false,
-          "why": "`-a` adds dotfiles and the `.`/`..` entries to the listing of contents; it does not stop `ls` from listing the contents in the first place.",
+          "why": "A recursive listing prints the directory's path as a plain header followed by its contents, then repeats that for each subdirectory; no mode string for `/etc/nginx` itself appears in that output.",
           "provenance": {
             "kind": "variant",
-            "command": "ls -la"
+            "command": "ls -l"
           }
         },
         {
           "ref": "o3",
           "text": "`stat -d /etc/nginx`, since `-d` means \"directory mode\" for `stat` as well",
           "correct": false,
-          "why": "`stat` has no `-d` option with that meaning; conflating it with `ls -ld`'s flag is exactly the kind of cross-command mistake the exam probes.",
+          "why": "`stat` has no `-d` option with that meaning, and borrowing another command's flag letter is a guess rather than a reading of `stat`'s own option list.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output"
@@ -2635,7 +2709,8 @@
       "rationale": "`ls -l` on a directory path lists the contents rather than the directory itself; only `ls -ld` shows the directory's own mode, combining `-d` (operate on the directory itself) with `-l`.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-ls-1",
+        "posix-ls"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output",
       "comparison_block": null,
@@ -2643,7 +2718,21 @@
         "ls -ld"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. Distractor o2 was `ls -la /etc/nginx`, described as showing \"the directory's own line\", and it very nearly does: `-a` adds the `.` entry, and `.` IS the directory itself, so its long-listing line carries exactly the mode string the stem asks for. Against the original stem (\"Which command shows the directory's own mode string?\") that option was defensible, which is the two-correct-answers defect. REPAIR AND RE-VERIFICATION: the stem now asks which command replaces the listing of contents with a single line for the directory entry, and o2 is replaced by `ls -lR`, whose recursive output prints the path as a bare header and never a mode line for the named directory itself. Key verified against ls(1): \"-d, --directory: list directories themselves, not their contents\". o3 re-read: `stat` has no such `-d`; its why was reworded to drop a reference to what \"the exam probes\" and to state the plain fact instead. o4 (`ls -l /etc/nginx/.`) re-checked: a trailing `.` still names the directory whose contents are listed, so the output is unchanged; POSIX ls confirms that without -d a directory operand causes its contents to be written. Citation moved off gnu-coreutils-manual (unreachable) to ls(1) and POSIX ls.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.reading-ls-l-output.04",
@@ -2684,9 +2773,9 @@
         },
         {
           "ref": "o4",
-          "text": "Whether `svc` is a member of any supplementary groups at all, since since `svc` is the file's owner, the owner triad governs the attempt regardless of group membership",
+          "text": "Whether the filesystem is mounted read-only, since a read-only mount refuses to open any file on it",
           "correct": false,
-          "why": "Since `svc` is the file's owner, the owner triad governs the attempt regardless of group membership; group membership only matters when the owner triad does not apply.",
+          "why": "A read-only mount blocks writes, and an attempt to write there fails with \"Read-only file system\" rather than \"Permission denied\"; opening a file for reading on such a mount still succeeds.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.who-is-logged-in"
@@ -2696,13 +2785,28 @@
       "rationale": "For a \"permission denied\" on a path, the diagnostic order works outward: first decide which triad applies (here, owner, which 644 already permits), then check the execute bit on every directory in the path — a file with a permissive mode in a directory that blocks traversal is still unreachable.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "man-path-resolution-7",
+        "man-chmod-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o4 was a self-refuting distractor in the purest form: its text was \"Whether `svc` is a member of any supplementary groups at all, since since `svc` is the file's owner, the owner triad governs the attempt regardless of group membership\" — the option's own text carried its refutation verbatim (and a duplicated \"since since\"). REPAIR AND RE-VERIFICATION: o4 replaced with a read-only-mount claim, false for a reason stated in its new why and not overlapping o3's group-ownership reasoning. Key verified against path_resolution(7): \"If the process does not have search permission on the current lookup directory, an EACCES error is returned (\\\"Permission denied\\\")\", and \"the last execute permission in case of ordinary files, or search permission in case of directories\" — so a missing x on any parent directory blocks the open regardless of the file's own 644 mode. o2 re-checked against the same page: a missing component yields ENOENT, \"No such file or directory\", not \"Permission denied\", so its why is true. o3 re-checked: path_resolution(7) states the owner triad is the one applied when the process's effective UID matches the file owner, so group ownership is indeed irrelevant here. chmod(1) supplies the r/w/x letter meanings. Citation moved off gnu-coreutils-manual (unreachable).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
+          "https://man7.org/linux/man-pages/man1/chmod.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.reading-ls-l-output.05",
@@ -2755,13 +2859,26 @@
       "rationale": "The type character is `-` for a regular file, `d` for a directory, `l` for a symbolic link, and several other letters for device files, pipes and sockets. `l` specifically identifies a symbolic link.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-coreutils-manual"
+        "posix-ls"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.reading-ls-l-output",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against POSIX ls, which defines the -l record as \"%c%s%s%s%s\", <entry type>, <owner permissions>, <group permissions>, <other permissions>, <optional alternate access method flag>, and tabulates the entry-type characters: d Directory, b Block special file, c Character special file, l (ell) Symbolic link, p FIFO, s Socket, - Regular file. So a leading `l` is a symbolic link and nothing else. Distractors: o2 (immutable attribute) and o3 (link-count limit) both claim the type character encodes something outside that table, and the table is exhaustive apart from implementation-defined additional file types, so neither is a type character for a regular file or a directory; o4 (hard link) is refuted by the same table, since a hard link is another name for an inode of some existing type and shows that type's character. Each why states a true fact and no two options assert the same answer. Citation moved off gnu-coreutils-manual (unreachable) to POSIX ls, which carries the entry-type table.",
+        "sources_read": [
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.case-sensitivity.01",
@@ -2814,14 +2931,28 @@
       "rationale": "Case sensitivity is a property of the filesystem, not of Linux itself. ext4 compares names byte for byte, so a repository built on a case-insensitive, case-preserving filesystem like macOS's default can expand on Linux into two files where the author saw one.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-path-resolution-7",
-        "posix-shell-command-language"
+        "man-ext4-5",
+        "man-path-resolution-7"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.case-sensitivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED for its sourcing: the item cited posix-shell-command-language, the POSIX Shell Command Language chapter, for a claim about how a filesystem compares filenames. That chapter specifies shell grammar, expansion and quoting; it contains no statement about filesystem case sensitivity, so it could not carry the key. REPAIR AND RE-VERIFICATION: Key checked against ext4(5), which documents case-insensitive lookup as an opt-in feature rather than the norm: \"casefold: This ext4 feature provides file system level character encoding support for directories with the casefold (+F) flag enabled. This feature is name-preserving on the disk, but it allows applications to lookup for a file in the file system using an encoding equivalent version of the file name\", and lists casefold as a feature first available in 5.2. An ordinary ext4 filesystem without that feature therefore resolves a name exactly, so `Readme.md` and `readme.md` are two entries. path_resolution(7) describes lookup as looking the component up in the current lookup directory with no folding step anywhere in the procedure. Distractors: o2 asserts Linux folds case for archive-tool compatibility, which contradicts the opt-in nature of casefold; o3 claims extraction fails on a case collision, and no such rejection exists in ext4(5)'s feature or error description; o4 describes overwrite-on-collision, which is the case-insensitive behaviour the scenario is contrasting against. Citations replaced: posix-shell-command-language was cited but says nothing about filesystem case sensitivity — it is the shell grammar, not a filesystem specification. RESIDUAL LIMIT: this is settled from the casefold feature description rather than a sentence that says \"ext4 is case-sensitive\" in so many words; the GNU manuals that might phrase it directly are on www.gnu.org, which is unreachable from this environment.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/ext4.5.html",
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.case-sensitivity.02",
@@ -2875,13 +3006,28 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-path-resolution-7",
-        "posix-shell-command-language"
+        "man-ext4-5"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.case-sensitivity",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED for its sourcing: posix-shell-command-language was cited for a filename-comparison claim it does not make anywhere; the shell grammar chapter says nothing about filesystem case. REPAIR AND RE-VERIFICATION: Key checked against path_resolution(7): a component that is not found yields ENOENT, \"No such file or directory\", which is the error the scenario reports, and the lookup procedure contains no case-folding step; ext4(5) confirms case-insensitive lookup is the opt-in casefold feature, not the default. So a script naming `Config.yaml` where `config.yaml` exists gets exactly this error. Distractors: o2 (dotfile visibility) is false because a leading dot affects only whether ls writes the entry, not whether open() can resolve an exact path — POSIX ls states such entries \"shall not be written out unless explicitly referenced, the -A or -a option is supplied\", a display rule only; o3 (extension enforcement) has no basis anywhere in path resolution, which treats the name as an opaque component; o4 is refuted by the same page's EACCES text, \"Permission denied\", which is a different message from the one in the stem. Each why states a true fact. Citation replaced: posix-shell-command-language does not discuss filename case at all.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
+          "https://man7.org/linux/man-pages/man5/ext4.5.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.wildcards-and-globbing.01",
@@ -2922,9 +3068,9 @@
         },
         {
           "ref": "o4",
-          "text": "`ls` created a file named `*.txt` to satisfy the command, the way some tools synthesize a placeholder result rather than report that nothing matched",
+          "text": "`ls` created a file named `*.txt` to satisfy the command, since a listing tool creates any operand it cannot find",
           "correct": false,
-          "why": "`ls` only lists existing entries; it never creates files as a side effect of a failed match.",
+          "why": "`ls` only reports on entries that already exist and has no option that creates one; the error proves the shell handed it a name that was never expanded, not that a file appeared.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.creating-and-removing-files-and-directories"
@@ -2934,7 +3080,7 @@
       "rationale": "Before executing, the shell scans an unquoted word for pattern characters and replaces it with matching pathnames. If nothing matches, bash leaves the word exactly as typed, so `ls *.txt` in an empty-of-.txt directory produces an error about a file literally named `*.txt`.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.wildcards-and-globbing",
@@ -2943,7 +3089,21 @@
         "ls *.txt"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. Content correct, but o4's text carried a trailing self-labelling clause (\"the way some tools synthesize a placeholder result rather than report that nothing matched\") that reads as an apology for the option rather than a claim, marking it as the wrong one on sight. REPAIR AND RE-VERIFICATION: o4 rewritten as a flat false claim of the same length, with the correction in its why. Key verified against bash(1), Pathname Expansion: \"If no matching filenames are found, and the shell option nullglob is not enabled, the word is left unchanged. If the nullglob option is set, and no matches are found, the word is removed\"; POSIX agrees: \"If the pattern does not match any existing filenames or pathnames, the pattern string shall be left unchanged.\" o2 re-checked: bash(1) makes pathname expansion the shell's job before the command is invoked, so `ls` never interprets `*` itself; o3 is refuted by the stem's own premise that no .txt files exist. Citation moved off gnu-bash-manual (www.gnu.org unreachable here) to bash(1), which carries the sentence.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.wildcards-and-globbing.02",
@@ -2996,14 +3156,28 @@
       "rationale": "A glob is not a regular expression, even though both use `*`. In a glob, `*` means \"any run of characters\"; in a regular expression, `*` means \"zero or more of the preceding item,\" so the regex equivalent of the glob `*.txt` is `.*\\.txt`.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1",
+        "gnu-grep-man"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.wildcards-and-globbing",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED for its sourcing: the item turns on what `*` means in a regular expression, and cited posix-shell-command-language, whose pattern-matching notation covers shell patterns only; regular-expression syntax lives in a different document entirely (POSIX XBD chapter 9), so the cited page could not settle the key. REPAIR AND RE-VERIFICATION: grep(1)'s REGULAR EXPRESSIONS section now carries that half. Key verified from both sides. Glob `*`: bash(1) Pattern Matching states the asterisk \"Matches any string, including the null string\", and POSIX pathname expansion treats it the same way. Regex `*`: grep(1) REGULAR EXPRESSIONS lists the repetition operators and defines \"* The preceding item will be matched zero or more times\", so an equivalent of the glob `*.txt` needs `.` for \"any character\" before the star, giving `.*\\.txt` with the literal dot escaped, exactly as the key says. Distractors: o2 (same meaning in both) is refuted by those two definitions being different; o3 claims globs do not use `*` at all, contradicted by bash(1)'s pattern-matching table; o4 claims anchoring alone makes `*.txt` a working regex, but anchors do not supply the preceding item the star quantifies. Each why states a true fact. Citation moved off gnu-bash-manual (unreachable) to bash(1), and grep(1) added as the page that actually defines the regex operator this item turns on.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://man7.org/linux/man-pages/man1/grep.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.quoting.01",
@@ -3044,9 +3218,9 @@
         },
         {
           "ref": "o4",
-          "text": "`rm $file` passes one operand and `rm \"$file\"` passes two, the reverse of the actual behaviour",
+          "text": "`rm $file` passes one operand and `rm \"$file\"` passes two, because the quotes are themselves passed along as a second argument",
           "correct": false,
-          "why": "This reverses which form splits: it is the unquoted expansion that splits into multiple words, while quoting keeps the value together as one.",
+          "why": "Quotes are removed by the shell during quote removal and never reach the command; what actually differs is that the unquoted expansion is split into two words on the internal space.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.command-substitution"
@@ -3056,14 +3230,28 @@
       "rationale": "After the shell substitutes a variable's value, an unquoted result is subject to word splitting on the characters in `IFS`. Inside double quotes neither word splitting nor pathname expansion happens, so quoting every variable expansion is the rule that avoids this entire class of bug.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.quoting",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o4's text ended \"the reverse of the actual behaviour\", which announces that the option is wrong inside the option itself. REPAIR AND RE-VERIFICATION: o4 now asserts a concrete false mechanism (the quote characters being passed through as an argument) and its why states the true fact that quote removal strips them. Key verified against bash(1), Word Splitting: \"The shell scans the results of parameter expansion, command substitution, and arithmetic expansion that did not occur within double quotes for word splitting ... The shell treats each character of IFS as a delimiter\", with the default IFS including space; POSIX 2.6.5 Field Splitting says the same. So `rm $file` yields the two operands `my` and `report.txt`, and `rm \"$file\"` yields the single operand `my report.txt`. o2 (quoting has no effect) and o3 (spaces in a value cause a syntax error) are both refuted by that same passage, and their whys state it correctly. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.quoting.02",
@@ -3116,14 +3304,28 @@
       "rationale": "Single quotes suppress everything: no character inside them has any special meaning to the shell. That is also why a single quote can never appear inside single quotes — there is no escape mechanism available there.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.quoting",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1): \"Enclosing characters in single quotes preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash\", and POSIX 2.2.2 Single-Quotes: \"Enclosing characters in single-quotes ('') shall preserve the literal value of each character within the single-quotes.\" That covers all four characters the stem names, so \"none of them\" is right. The contrast is real and documented: bash(1)'s double-quote paragraph exempts $, `, \\ and, with history expansion enabled, !, which is why o3's why can truthfully say a backslash keeps a limited role inside double quotes but not inside single quotes. o2 (dollar sign still expands) and o4 (wildcard still globs) are each refuted by the single-quote sentence, and no two options assert the same answer. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-chaining.01",
@@ -3164,9 +3366,9 @@
         },
         {
           "ref": "o4",
-          "text": "The `&&` form still runs the deletion, and the `;` form does not, treating `&&` as the operator that always proceeds and `;` as the one that checks the previous exit status first",
+          "text": "The `&&` form still runs the deletion and the `;` form does not, because `&&` joins commands unconditionally while `;` waits for a zero exit status",
           "correct": false,
-          "why": "This reverses the actual behaviour: `&&` is the one that requires success first, and `;` is the one that always proceeds regardless.",
+          "why": "It is the other way round: bash documents `command1 && command2` as running command2 if and only if command1 returns zero, while `;` simply separates commands and imposes no such condition.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.pipes"
@@ -3176,7 +3378,7 @@
       "rationale": "`;` runs the next command unconditionally. `&&` runs it only if the previous command exited 0. So `cd /tmp/build; rm -rf *` still deletes in whatever directory the shell happened to be if the `cd` fails, while the `&&` form protects against exactly that.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-chaining",
@@ -3186,7 +3388,21 @@
         "&&"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o4's text ended with \"treating `&&` as the operator that always proceeds and `;` as the one that checks the previous exit status first\", a trailing clause that labels the option as the misreading it embodies. REPAIR AND RE-VERIFICATION: o4 now states the swapped rule as a plain claim, with the correction in its why. Key verified against bash(1): \"command1 && command2 ... command2 is executed if, and only if, command1 returns an exit status of zero (success)\", and POSIX 2.9.3 Lists, where ';' is a separator terminating the preceding AND-OR list with no status condition attached. So after a failed `cd`, the `;` form still runs `rm -rf *` in whatever directory the shell is in, and the `&&` form does not run it at all. o2 (identical behaviour) and o3 (a failed cd aborts the line) are both refuted by those two passages, and their whys state that correctly. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-chaining.02",
@@ -3239,7 +3455,7 @@
       "rationale": "`||` runs the next command only if the previous one exited non-zero. `ping -c1 host || echo unreachable` prints the message exactly when the ping fails, and does nothing when it succeeds.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-chaining",
@@ -3248,7 +3464,21 @@
         "||"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1): \"An OR list has the form command1 || command2 ... command2 is executed if, and only if, command1 returns a non-zero exit status\", which is exactly \"print unreachable only when the ping fails, and not at all when it succeeds\". Distractors: o2 (`&&`) is the documented opposite, running the right side only on success; o3 (`;`) imposes no condition, so the message would print on every run, as its why says; o4 (a pipe) connects standard output to standard input and branches on nothing, which bash(1)'s Pipelines section confirms. No two options assert the same behaviour. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-chaining.03",
@@ -3291,7 +3521,7 @@
           "ref": "o4",
           "text": "The chain raises a syntax error, since `&&` and `||` cannot be combined on one line",
           "correct": false,
-          "why": "Combining `&&` and `||` on one line is valid syntax; it is exactly this construct the exam uses to test whether a candidate expects if/then/else semantics that are not actually there.",
+          "why": "Combining `&&` and `||` on one line is valid syntax; the two operators have equal precedence and associate left to right, which is what produces the behaviour the key describes.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.script-control-flow"
@@ -3301,7 +3531,7 @@
       "rationale": "The operators associate left to right with equal precedence, which is why `a && b || c` is not an if/then/else: if `a` succeeds but `b` then fails, `c` runs too, because `||` reacts to the failure of everything to its left, not specifically to `a`.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-chaining",
@@ -3312,7 +3542,21 @@
         "||"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. Content correct, but o4's why appealed to what \"the exam uses ... to test\" instead of stating the fact that refutes the option. REPAIR AND RE-VERIFICATION: that why now states the grammar rule. Key verified against bash(1) (\"AND and OR lists are executed with left associativity\") and, decisively, POSIX 2.9.3 Lists: \"The operators \\\"&&\\\" and \\\"||\\\" shall have equal precedence and shall be evaluated with left associativity. For example, both of the following commands write solely bar to standard output: false && echo foo || echo bar / true || echo foo && echo bar.\" The second example is this item's case with a succeeding left command and a skipped middle, and the standard's own worked example shows the `||` branch firing on the left-hand AND-OR list's status rather than on `a` alone; with `b` run and failing, `a && b` has failed and `c` runs. o2 (c never runs once a succeeded) and o3 (only a ran) are refuted by the same rule, and o4's syntax-error claim by the standard printing valid examples of the construct. Citation moved off gnu-bash-manual (unreachable) to bash(1) and POSIX.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-substitution.01",
@@ -3365,14 +3609,28 @@
       "rationale": "Command substitution runs the inner command in a subshell, captures its standard output, strips trailing newlines, and splices the result into the surrounding word — which is exactly how `backup-$(date +%F).tar.gz` gets today's date baked into the archive name.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-substitution",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1), Command Substitution: \"Command substitution allows the output of a command to replace the command itself. There are two standard forms: $(command) or (deprecated) `command`. Bash performs the expansion by executing command in a subshell environment and replacing the command substitution with the standard output of the command, with any trailing newlines deleted\" — which is what the key and its why say, splice-into-the-word included. Distractors: o2 describes piping the archive's contents through `date`, and bash(1)'s Pipelines section shows a pipe connects standard output to standard input rather than building an argument; o3 is refuted by bash(1)'s separate Arithmetic Expansion entry, written `$((expression))` and evaluating a numeric expression; o4 describes single-quoted literal text, and bash(1)'s single-quote rule confirms that is what suppresses the expansion, so the unquoted form does run the command. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-substitution.02",
@@ -3425,14 +3683,28 @@
       "rationale": "A pipe sends output to another command's standard input; substitution turns output into arguments instead. A command that does not read standard input, such as `echo` or `rm`, can only be fed by substitution.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-substitution",
       "comparison_block": null,
       "commands_covered": [],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1): command substitution replaces the construct with the command's standard output inside the word, so the value arrives in the argument list, which is the only channel `echo` reads (bash(1)'s echo builtin is documented as \"Output the args, separated by spaces, followed by a newline\", taking arguments and never reading standard input). Distractors: o2 claims a pipe works regardless of whether the receiver reads standard input, which is false because a pipe only attaches a file descriptor and cannot force a command to read it; o3 claims `<` feeds a command's argument list, but bash(1) Redirection defines `<` as redirecting input, the same channel `echo` ignores; o4 claims the thing is impossible, refuted by the key itself. Each why states a true fact and no two options assert the same answer. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.shell-variables-and-export.01",
@@ -3463,9 +3735,9 @@
         },
         {
           "ref": "o3",
-          "text": "The script needs to be run with `sudo` before it can see any variables, since elevating privilege is assumed to rebuild the environment from scratch",
+          "text": "The script needs to be run with `sudo` before it can see any variables, because a child process only receives an environment when it runs as root",
           "correct": false,
-          "why": "Running as a different user changes the environment `sudo` constructs, but the scenario describes an ordinary invocation, and the fix is exporting the variable, not elevating privilege.",
+          "why": "Every child process inherits the exported environment of its parent regardless of user; `sudo` in fact strips much of that environment rather than supplying it, and the described symptom is a missing export.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.who-is-logged-in"
@@ -3485,8 +3757,7 @@
       "rationale": "A variable that has not been exported is local to the shell that set it. `export NAME` marks it for inclusion in the environment handed to child processes from then on; without that, a script — a child process — cannot see it even though `echo` shows it correctly at the prompt.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.shell-variables-and-export",
       "comparison_block": null,
@@ -3494,7 +3765,20 @@
         "export"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o3's text carried the self-labelling tail \"since elevating privilege is assumed to rebuild the environment from scratch\" — the phrase 'is assumed to' marks the option as a described misconception rather than a claim, so it reads as the wrong answer on sight. REPAIR AND RE-VERIFICATION: o3 now asserts the false rule directly and its why states two true facts in its place. Key verified against bash(1)'s export builtin: \"The supplied names are marked for automatic export to the environment of subsequently executed commands\" — so an unexported variable is visible to the current shell and not to a script it launches, exactly the symptom described. o2 (scripts start with an empty environment) is refuted by the same sentence, since a marked variable is by definition passed to subsequently executed commands; o4 (case-sensitivity differing between prompt and script) is refuted by bash(1) treating variable names identically in both, and its why says so. Citation moved off gnu-bash-manual (www.gnu.org unreachable here) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.shell-variables-and-export.02",
@@ -3515,9 +3799,9 @@
         },
         {
           "ref": "o2",
-          "text": "No — `export` and assignment must always be written on two separate lines, since combining them is assumed to export only the literal word `staging` rather than the variable's value",
+          "text": "No — `export` and assignment must always be written on two separate lines, since `export NAME=value` is rejected as a syntax error",
           "correct": false,
-          "why": "`export NAME=value` combining assignment and export in one statement is valid and commonly used; there is no requirement to split them.",
+          "why": "bash(1) gives the builtin's synopsis as `export [-fn] [name[=value]] ...`, so assigning and exporting in one statement is documented syntax, not an error.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "guide:01-linux-fundamentals/command-line.md#c-linux.command-line.shell-variables-and-export"
@@ -3547,8 +3831,7 @@
       "rationale": "`export NAME=value` assigns and exports in one step, and `export` may also be applied after a plain assignment; either way, what matters is that the variable has been exported before the child process that needs it starts.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.shell-variables-and-export",
       "comparison_block": null,
@@ -3556,7 +3839,20 @@
         "export"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o2's text ended \"since combining them is assumed to export only the literal word `staging` rather than the variable's value\", a trailing clause that both names the misconception and refutes itself. REPAIR AND RE-VERIFICATION: o2 now makes the plain false claim that the combined form is a syntax error, and its why quotes the synopsis that disproves it. Key verified against bash(1): the export synopsis is `export [-fn] [name[=value]] ...` and the builtin \"marked for automatic export to the environment of subsequently executed commands\", so `export DEPLOY_ENV=staging` does both at once and either order works provided the export precedes the child process. o3 (spaces around `=`) is refuted by bash(1)'s simple-command grammar, where `NAME = value` is a command word followed by two arguments rather than an assignment, as its why states; o4 (export discards the value) is refuted by the same export paragraph, which speaks only of marking existing names. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.shell-variables-and-export.03",
@@ -3609,8 +3905,8 @@
       "rationale": "`set` with no arguments lists all shell variables and functions; `env` (and `printenv`) lists only exported ones. A variable visible in `set` but absent from `env` is exactly a shell variable that was never exported.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1",
+        "man-env-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.shell-variables-and-export",
       "comparison_block": null,
@@ -3618,7 +3914,21 @@
         "export"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED for its sourcing: the item compares `set` against `env`, and cited posix-shell-command-language, which describes neither utility's no-argument output (`set` and `env` have their own utility pages, and `env` is not part of the shell command language at all). REPAIR AND RE-VERIFICATION: env(1) now carries the `env` half and bash(1) the `set` half. Key verified from both sides. bash(1)'s set builtin: \"Without options, display the name and value of each shell variable in a format that can be reused as input for setting or resetting the currently-set variables ... In posix mode, only shell variables are listed\" — the posix-mode caveat is what establishes that ordinary bash also lists function definitions, so the key's \"all shell variables and functions\" holds for the default interactive shell the item describes. env(1): \"If no COMMAND, print the resulting environment\", and the environment is by definition the exported set (bash(1) export: names \"marked for automatic export to the environment\"). A variable in set but not env is therefore an unexported shell variable. Distractors: o2 reverses the two roles, refuted by both sentences; o3 says identical output signals corruption, refuted because unexported variables are ordinary; o4 claims env spans other users' login shells, refuted by env(1) describing the current invocation's own environment. Citation moved off gnu-bash-manual (unreachable) to bash(1) and env(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://man7.org/linux/man-pages/man1/env.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.history-and-tab-completion.01",
@@ -3649,9 +3959,9 @@
         },
         {
           "ref": "o3",
-          "text": "`!!` is bash-only syntax that fails identically whether typed or scripted, since the scenario is read as a portability problem rather than an interactive-versus-script distinction",
+          "text": "`!!` is bash-only syntax that fails the same way at a prompt and in a script, since no shell has ever implemented it",
           "correct": false,
-          "why": "The scenario states `!!` behaves as expected at the interactive prompt, so it is not uniformly broken — the difference specifically appears in non-interactive execution.",
+          "why": "The scenario states `!!` behaves as expected at the interactive prompt, so it is not uniformly broken; bash documents `!` style history substitution and enables it by default for interactive shells.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.shell-scripting-basics"
@@ -3671,7 +3981,7 @@
       "rationale": "History expansion is an interactive-shell feature. `!!` is replaced by the previous command line at a live prompt, but a script containing the same characters runs in a non-interactive shell, where history expansion is off.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.history-and-tab-completion",
       "comparison_block": null,
@@ -3679,7 +3989,20 @@
         "!!"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o3's text ended \"since the scenario is read as a portability problem rather than an interactive-versus-script distinction\", which describes the reader's error instead of making a claim, marking the option as wrong before it is evaluated. REPAIR AND RE-VERIFICATION: o3 now states a flatly false claim and its why carries the refutation. Key verified against bash(1)'s set builtin option list: \"-H Enable ! style history substitution. This option is on by default when the shell is interactive\" — so a non-interactive shell running a script does not perform history expansion at all. o2 (a script rewrites `!!` from the interactive session's history) is refuted because a script's shell has its own history state and, per the same option, no expansion enabled; o4 (`source` would enable it) is refuted because -H tracks interactivity, not the method of invocation, and its why says exactly that. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.history-and-tab-completion.02",
@@ -3732,7 +4055,7 @@
       "rationale": "`Ctrl-R` starts a reverse incremental search through the history list: typing narrows the match, pressing it again steps to the next older one, which is exactly the tool for finding a specific past command without scrolling.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.history-and-tab-completion",
       "comparison_block": null,
@@ -3740,7 +4063,20 @@
         "Ctrl-R"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1)'s readline command list: \"reverse-search-history (C-r): Search backward starting at the current line and moving 'up' through the history as necessary. This is an incremental search\" — an incremental backward search by content, which is what the operator needs. Distractors: o2 claims `history` jumps to the most relevant past command, but bash(1) documents the history builtin as displaying the history list with line numbers, with no search-and-jump behaviour; o3 claims tab completion recalls whole previous commands, refuted by bash(1)'s Completing section, which completes words against filenames, commands, variables and the like rather than history lines; o4 claims `!$` finds a command by keyword, refuted by bash(1)'s Word Designators, where `$` is \"The last word\" of the referenced line. Each why states a true fact. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.history-and-tab-completion.03",
@@ -3781,9 +4117,9 @@
         },
         {
           "ref": "o4",
-          "text": "Only commands that used `sudo` are written to the shared history file, since privileged commands are assumed to be logged separately from ordinary ones",
+          "text": "Only commands run through `sudo` are written to the shared history file, and everything else is discarded at exit",
           "correct": false,
-          "why": "History logging is not restricted to privileged commands; every command in a session is recorded, subject to the usual write-on-exit timing.",
+          "why": "Bash copies the session's history entries to the history file without regard to privilege; nothing in its history handling singles out `sudo` or drops unprivileged commands.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.who-is-logged-in"
@@ -3793,7 +4129,7 @@
       "rationale": "The shell keeps its history list in memory and writes it to `HISTFILE` — `~/.bash_history` by default — when the session ends, which is why a second terminal opened at the same time does not see the first session's commands until it exits.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.history-and-tab-completion",
       "comparison_block": null,
@@ -3801,7 +4137,20 @@
         "history"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o4's text ended \"since privileged commands are assumed to be logged separately from ordinary ones\", a trailing clause of the 'is assumed to' form that labels the option as a misconception rather than asserting it. REPAIR AND RE-VERIFICATION: o4 now makes the claim plainly, with the correction in its why. Key verified against bash(1): \"When a shell with history enabled exits, bash copies the last $HISTSIZE entries from the history list to $HISTFILE. If the histappend shell option is enabled ... bash appends the entries to the history file, otherwise it overwrites the history file\" — so a still-open first session has not written its lines, and a second session that read the file at startup sees nothing new. o2 (a separate HISTFILE per window) is refuted by \"HISTFILE ... Bash assigns a default value of ~/.bash_history\", one default path per user; o3 (history sharing requires tab completion) is refuted by the two being unrelated readline and history features. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.aliases.01",
@@ -3854,7 +4203,7 @@
       "rationale": "A script runs in a non-interactive shell, and bash does not expand aliases there unless `expand_aliases` is set with `shopt`. A name that exists only as an alias in the interactive shell is therefore not found when the same line runs inside a script. `alias` itself, run with no arguments, lists every alias currently defined.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.aliases",
       "comparison_block": null,
@@ -3862,7 +4211,20 @@
         "alias"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified verbatim against bash(1), ALIASES: \"Aliases are not expanded when the shell is not interactive, unless the expand_aliases shell option is set using shopt\", and the shopt entry confirms \"expand_aliases: If set, aliases are expanded as described above under ALIASES. This option is enabled by default for interactive shells.\" A name that exists only as an alias therefore fails inside a script with command not found, exactly as the key says. Distractors: o2 (aliases copied into scripts automatically) is refuted by that first sentence; o3 (export the alias) is refuted by bash(1)'s export builtin, whose names are variables or, with -f, functions, with no alias form anywhere in the builtin; o4 (aliases only work when defined in the script file) is refuted by ~/.bashrc being read for interactive shells, where the alias does work. Each why states a true fact. Citation moved off gnu-bash-manual (www.gnu.org unreachable here) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.aliases.02",
@@ -3915,7 +4277,7 @@
       "rationale": "`type` distinguishes an alias from a function, a builtin and a file on `PATH`, while `which` cannot see the first three at all — it only reports the file `rm` would resolve to if there were no alias shadowing it.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.aliases",
       "comparison_block": null,
@@ -3923,7 +4285,20 @@
         "alias"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1)'s type builtin: \"Indicate how each name would be interpreted if used as a command name ... type prints a string which is one of alias, keyword, function, builtin, or file if name is an alias, shell reserved word, function, builtin, or executable file\" — so `type rm` is what distinguishes an alias from the binary. Distractors: o2 (`which`) is wrong because `which` is an external command that searches PATH and cannot see the calling shell's alias table, so it prints the same /usr/bin/rm on both accounts; o3 (`man rm`) is wrong because a manual page documents the program, not one account's shell configuration; o4 (`history | grep rm`) is wrong because the history list records lines that were typed, not what a name currently resolves to, as bash(1)'s history builtin (\"display the command history list with numbers\") shows. Each why states a true fact and no two options assert the same answer. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.aliases.03",
@@ -3964,9 +4339,9 @@
         },
         {
           "ref": "o4",
-          "text": "`ll` conflicts with a built-in command name and was silently overridden, since the shell is assumed to reject a user-defined alias that collides with one of its own names",
+          "text": "`ll` collides with a built-in command name, and the shell silently drops any alias that would shadow a builtin",
           "correct": false,
-          "why": "`ll` is not a standard builtin, and nothing about a naming conflict is described; the alias simply never outlived the session it was typed into.",
+          "why": "Bash has no such rule: an alias is expanded before a builtin is looked up, so an alias may shadow one, and `ll` is not a bash builtin in any case.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "linux.command-line.command-exit-status"
@@ -3976,7 +4351,7 @@
       "rationale": "Aliases are defined in a shell startup file, conventionally `~/.bashrc`, and exist only inside the shell that read that file. Defining one at the prompt without saving it means it does not survive into a new shell session.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.aliases",
       "comparison_block": null,
@@ -3984,7 +4359,20 @@
         "alias"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED. o4's text ended \"since the shell is assumed to reject a user-defined alias that collides with one of its own names\", an 'is assumed to' clause that flags the option as a misconception instead of asserting it. REPAIR AND RE-VERIFICATION: o4 now states the false rule plainly and its why gives the two facts that refute it. Key verified against bash(1): the alias builtin defines aliases in the running shell, and startup files are what a new shell reads, since \"When an interactive shell that is not a login shell is started, bash reads and executes commands from ~/.bashrc, if that file exists\" — an alias typed at the prompt is in no such file, so the next day's shell never learns it. o2 (24-hour expiry) has no counterpart anywhere in bash(1)'s ALIASES section or alias builtin; o3 (different user) contradicts the scenario, which describes the same operator opening a new terminal. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-exit-status.01",
@@ -4037,8 +4425,7 @@
       "rationale": "`$?` holds the status of the most recently completed foreground command. Running any other command first — including the `echo` used to report it — overwrites that value, so it must be checked immediately. Checking it manually is always `echo $?`, run immediately after the command in question.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-exit-status",
       "comparison_block": null,
@@ -4046,7 +4433,20 @@
         "echo $?"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified against bash(1)'s special parameters: \"? ($?) Expands to the exit status of the most recently executed command\", together with the echo builtin's own documented status: \"Output the args, separated by spaces, followed by a newline. The return status is 0 unless a write error occurs.\" `echo` is therefore a command that sets $? like any other, and after it runs the original command's status is gone. Distractors: o2 claims echo does not affect shell parameters, refuted by that return-status sentence; o3 invents a logical OR of two statuses, which appears nowhere in bash(1)'s definition of $? as a single most-recent status; o4 points at PIPESTATUS, which bash(1) defines as \"An array variable ... containing a list of exit status values from the commands in the most-recently-executed foreground pipeline\", a separate variable and not what $? reports. Each why states a true fact. Citation moved off gnu-bash-manual (unreachable) to bash(1).",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-exit-status.02",
@@ -4099,8 +4499,8 @@
       "rationale": "`grep` returns 1 when it simply found no matching line and 2 when it hit a real error, so treating grep's 1 as a failure of the search misreads an ordinary, expected outcome.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
-        "posix-shell-command-language"
+        "gnu-grep-man",
+        "man-bash-1"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-exit-status",
       "comparison_block": null,
@@ -4108,7 +4508,21 @@
         "echo $?"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "REFUTED AS AUTHORED for its sourcing: the whole item is about grep's exit codes, and it cited the bash manual and the POSIX Shell Command Language chapter. Neither specifies grep's statuses; the shell chapter defines only the general 0/127/126/signal cases. REPAIR AND RE-VERIFICATION: Key verified against grep(1), EXIT STATUS: \"Normally the exit status is 0 if a line is selected, 1 if no lines were selected, and 2 if an error occurred. However, if the -q or --quiet or --silent is used and a line is selected, the exit status is 0 even if an error occurred.\" So 1 means no match, an ordinary outcome, and 2 is the error code, exactly as the key and its why say. Distractors: o2 (every non-zero status is a real failure) is refuted by that same sentence; o3 (status 1 only because the file was empty) is refuted because the status turns on whether any line was selected, with no separate empty-file case in the specification; o4 (grep collapses 1 and 2 into one generic failure) is refuted by the standard three-way split. Citation corrected: this item previously cited the bash manual and POSIX shell command language, neither of which specifies grep's exit codes; grep(1) is the page that carries them, and bash(1) is retained only for $? itself.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "https://man7.org/linux/man-pages/man1/bash.1.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.command-exit-status.03",
@@ -4161,7 +4575,7 @@
       "rationale": "A command killed by signal N returns 128 plus N, so a process killed by SIGKILL (9) reports 137, and one killed by SIGTERM (15) reports 143. A command not found returns 127, and one found but not executable returns 126.",
       "source_ids": [
         "lf-objectives-2025",
-        "gnu-bash-manual",
+        "man-bash-1",
         "posix-shell-command-language"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.command-exit-status",
@@ -4170,7 +4584,21 @@
         "echo $?"
       ],
       "waived_source": false,
-      "verification": null
+      "verification": {
+        "agent_label": "verify-command-line-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key verified twice in bash(1): \"The return value of a simple command is its exit status, or 128+n if the command is terminated by signal n\", and in EXIT STATUS: \"When a command terminates on a fatal signal N, bash uses the value of 128+N as the exit status.\" SIGKILL is signal 9, so 137, and SIGTERM 15 gives 143 as the why states. POSIX agrees on the shape of the rule: \"if the command terminated due to the receipt of a signal, the shell shall assign it an exit status greater than 128.\" Distractors: o2 (the raw signal number) is refuted by the 128+N sentence; o3 (126) is refuted by bash(1)'s adjacent statuses, \"If a command is not found ... 127. If a command is found but is not [executable] ... 126\", which is a different case; o4 (generic 1) is refuted by the same specific convention. Each why states a true fact. Citation moved off gnu-bash-manual (unreachable) to bash(1), with POSIX kept for the portable form of the rule.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+        ]
+      }
     },
     {
       "id": "q.linux.command-line.standard-streams.01",

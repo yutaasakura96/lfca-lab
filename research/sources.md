@@ -29,6 +29,7 @@
 | linux-foundation-about | About The Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
 | posix-ex | POSIX.1-2024 (Issue 8), ex — text editor | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ex.html |
+| posix-ls | POSIX.1-2024 (Issue 8), ls — list directory contents | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | aa-status-man8 | aa-status(8) manual page — display the current AppArmor policy state | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/aa-status.8.en.html |
@@ -316,6 +317,7 @@
 | man-cat-1 | cat(1) — concatenate files and print on the standard output | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cat.1.html |
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
 | man-chown-2 | chown(2) — change ownership of a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/chown.2.html |
+| man-cp-1 | cp(1) — copy files and directories | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cp.1.html |
 | man-credentials-7 | credentials(7) — process identifiers, UIDs and GIDs | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/credentials.7.html |
 | man-crontab-5 | crontab(5) — cron table format and the five time fields | Linux man-pages project / cronie | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/crontab.5.html |
 | man-df | df(1) — report file system space usage (--inodes) | GNU coreutils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/df.1.html |
@@ -324,6 +326,7 @@
 | man-env-1 | env(1) — run a program in a modified environment | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/env.1.html |
 | man-environ-7 | environ(7) — user environment | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/environ.7.html |
 | man-execve-2 | execve(2) — execute program (interpreter scripts / shebang) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/execve.2.html |
+| man-ext4-5 | ext4(5) — the fourth extended filesystem | Linux man-pages project / e2fsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/ext4.5.html |
 | man-file-1 | file(1) — determine file type | file/libmagic project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/file.1.html |
 | man-free-1 | free(1) — display amount of free and used memory in the system | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/free.1.html |
 | man-fstab-5 | fstab(5) — static information about filesystems | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/fstab.5.html |
@@ -339,6 +342,7 @@
 | man-kill-2 | kill(2) — send a signal to a process | Linux man-pages project | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man2/kill.2.html |
 | man-last-1 | last(1) — show a listing of last logged in users | util-linux / Debian manpages | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/util-linux/last.1.en.html |
 | man-less-1 | less(1) — opposite of more | less project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/less.1.html |
+| man-ln-1 | ln(1) — make links between files | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ln.1.html |
 | man-logrotate-8 | logrotate(8) — rotates, compresses and mails system logs | logrotate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/logrotate.8.html |
 | man-ls-1 | ls(1) — list directory contents | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ls.1.html |
 | man-lsblk-8 | lsblk(8) — list block devices | util-linux project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/lsblk.8.html |
