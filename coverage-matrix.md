@@ -325,44 +325,44 @@
 | cloud.networking.bastion-and-jump-hosts | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 2 | 0 | 2 | HIGH |
 | cloud.networking.cidr-planning-for-cloud-networks | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 6 | 0 | 2 | HIGH |
 | cloud.networking.private-service-endpoints | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 6 | 0 | 2 | MEDIUM |
-| security.security.cia-triad | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.authentication-vs-authorization | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.accounting-and-auditing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.cia-triad | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
+| security.security.authentication-vs-authorization | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
+| security.security.accounting-and-auditing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.principle-of-least-privilege | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.defense-in-depth | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.zero-trust | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| security.security.attack-surface | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.risk-threat-and-vulnerability | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
+| security.security.defense-in-depth | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
+| security.security.zero-trust | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
+| security.security.attack-surface | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
+| security.security.risk-threat-and-vulnerability | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.security.multi-factor-authentication | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
 | security.security.password-hashing-and-salting | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.single-sign-on | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.security.public-key-authentication | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
+| security.security.single-sign-on | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| security.security.public-key-authentication | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.symmetric-vs-asymmetric-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
-| security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
 | security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.certificate-expiry-and-validation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
+| security.security.certificate-expiry-and-validation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.full-disk-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| security.security.phishing-and-social-engineering | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
-| security.security.malware-and-ransomware | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
-| security.security.denial-of-service | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
+| security.security.phishing-and-social-engineering | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
+| security.security.malware-and-ransomware | Security Fundamentals | 14% | Security | Security | NOT COVERED | 7 | 0 | 3 | HIGH |
+| security.security.denial-of-service | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.man-in-the-middle | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
-| security.security.brute-force-and-credential-stuffing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.brute-force-and-credential-stuffing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
 | security.security.injection-attacks | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.security.privilege-escalation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
+| security.security.privilege-escalation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.insider-threat | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
+| security.security.vulnerabilities-cves-and-patching | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.system-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
-| security.security.firewalls-and-network-segmentation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
+| security.security.firewalls-and-network-segmentation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.intrusion-detection-and-prevention | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | MEDIUM |
 | security.security.security-logging-and-monitoring | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
 | security.security.incident-response | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | HIGH |
-| security.security.physical-security | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| security.security.ssh-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 5 | HIGH |
-| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| security.security.physical-security | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| security.security.ssh-hardening | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 5 | HIGH |
+| security.security.selinux-and-apparmor | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | MEDIUM |
 | security.security.package-and-download-verification | Security Fundamentals | 14% | Security | Security | FULLY COVERED | 1 | 0 | 3 | HIGH |
-| security.security.vulnerability-scanning | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| security.security.vulnerability-scanning | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | security.sensitive-data.personally-identifiable-information | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.sensitive-data.protected-health-and-payment-data | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | security.sensitive-data.data-classification | Security Fundamentals | 14% | Sensitive Data | Sensitive Data | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -437,30 +437,30 @@
 | devops.git-concepts.git-diff-and-git-log | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 5 | 0 | 3 | HIGH |
 | devops.git-concepts.stash | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 1 | 0 | 1 | MEDIUM |
 | devops.git-concepts.branching-strategies | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 3 | 0 | 1 | MEDIUM |
-| devops.containers.container | DevOps Fundamentals | 12% | Containers | Containers | FULLY COVERED | 2 | 0 | 3 | HIGH |
-| devops.containers.container-image | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 3 | HIGH |
-| devops.containers.image-layers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| devops.containers.registry | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.containers.image-tags | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | HIGH |
+| devops.containers.container | DevOps Fundamentals | 12% | Containers | Containers | FULLY COVERED | 5 | 0 | 3 | HIGH |
+| devops.containers.container-image | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 4 | 0 | 3 | HIGH |
+| devops.containers.image-layers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 2 | MEDIUM |
+| devops.containers.registry | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 3 | HIGH |
+| devops.containers.image-tags | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 2 | HIGH |
 | devops.containers.dockerfile | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 3 | HIGH |
-| devops.containers.container-lifecycle | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.containers.port-mapping | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.containers.volumes-and-bind-mounts | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.containers.environment-variables-in-containers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.containers.container-logs-and-exec | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | HIGH |
-| devops.containers.stateless-vs-stateful-containers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 2 | HIGH |
-| devops.containers.container-runtime-and-oci | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| devops.containers.docker-compose | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| devops.containers.container-security-basics | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.containers.container-orchestration | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 3 | HIGH |
-| devops.containers.kubernetes | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 4 | 0 | 2 | MEDIUM |
-| devops.containers.cluster-and-node | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.containers.pod | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| devops.containers.deployment | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | MEDIUM |
+| devops.containers.container-lifecycle | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 3 | HIGH |
+| devops.containers.port-mapping | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 3 | HIGH |
+| devops.containers.volumes-and-bind-mounts | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 3 | HIGH |
+| devops.containers.environment-variables-in-containers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 4 | 0 | 3 | HIGH |
+| devops.containers.container-logs-and-exec | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 3 | HIGH |
+| devops.containers.stateless-vs-stateful-containers | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 2 | HIGH |
+| devops.containers.container-runtime-and-oci | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| devops.containers.docker-compose | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 3 | MEDIUM |
+| devops.containers.container-security-basics | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 4 | 0 | 2 | MEDIUM |
+| devops.containers.container-orchestration | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 3 | HIGH |
+| devops.containers.kubernetes | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 6 | 0 | 2 | MEDIUM |
+| devops.containers.cluster-and-node | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 2 | MEDIUM |
+| devops.containers.pod | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 3 | MEDIUM |
+| devops.containers.deployment | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | devops.containers.kubernetes-service | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 3 | MEDIUM |
-| devops.containers.control-plane | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 1 | 0 | 2 | MEDIUM |
-| devops.containers.declarative-configuration-and-desired-state | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
-| devops.containers.cncf | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| devops.containers.control-plane | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 2 | 0 | 2 | MEDIUM |
+| devops.containers.declarative-configuration-and-desired-state | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 5 | 0 | 2 | MEDIUM |
+| devops.containers.cncf | DevOps Fundamentals | 12% | Containers | Containers | NOT COVERED | 6 | 0 | 2 | MEDIUM |
 | pm.project-management.project | IT Project Management Fundamentals | 10% | Project Management | Project Management | FULLY COVERED | 0 | 0 | 2 | HIGH |
 | pm.project-management.triple-constraint | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 3 | HIGH |
 | pm.project-management.stakeholder | IT Project Management Fundamentals | 10% | Project Management | Project Management | NOT COVERED | 0 | 0 | 2 | MEDIUM |

@@ -1908,3 +1908,890 @@ No cited source was found to contradict its item. All keys remain at index 0 by 
 --except q-answer-position-balance`: **0 errors, 0 warnings**. `npm test`: **307 pass, 0 fail**.
 `npm run validate`: **537 concepts, 0 errors, 16 warnings**. `npm run check-guide`: **0 errors,
 0 warnings**.
+
+---
+
+## Task 53a — Security Fundamentals :: Security (items 1–27, agent `verify-security-a`)
+
+Range: the first 12 concepts of `questions/04-security/security.json`, 27 items. **27 of 27 carry
+a verdict.** 1 passed as authored; 26 were refuted as authored, fixed in place, and re-verified.
+Items 28–82 belong to `verify-security-b` and `verify-security-c` and were not touched.
+
+**1. `nist-csrc-glossary` supports nothing at all — the landing-page defect, again.**
+`https://csrc.nist.gov/glossary` is a JavaScript search shell. Fetched and stripped, it is 6.4 KB
+of site chrome with **zero term definitions**. It was cited by 21 of the 27 items in this range
+(and by all 12 of my concepts in `data/topics/04-security.json`). Term-page probes:
+
+| term page | status |
+|---|---|
+| `/glossary/term/audit` | 200, real definition |
+| `/glossary/term/accountability` | 200, real definition |
+| `/glossary/term/authentication` | 200, real definition |
+| `/glossary/term/authorization` | 200, real definition |
+| `/glossary/term/least-privilege` | **404** |
+| `/glossary/term/attack-surface` | **404** |
+| `/glossary/term/defense-in-depth` | **404** |
+| `/glossary/term/single-sign-on` | **404** |
+| `/glossary/term/detective-control` | **404** (as wave A found) |
+
+Fixed at concept level: the four concepts whose term page exists now cite the term page; the rest
+cite the document that actually carries the claim. The landing page is still cited by the 12
+concepts behind items 28–82 — **agents B and C should expect the same finding.**
+
+**2. `lf-objectives-2025` is an announcement, not an objectives list.** Fetched
+`https://training.linuxfoundation.org/lfca-program-changes-2025/`: 0 occurrences of
+*confidentiality*, *least privilege*, *zero trust*, *attack surface*, *single sign*, *multi-factor*.
+It remains as the domain anchor on every concept but supports no individual claim; no item in this
+range now depends on it alone.
+
+**3. A double key, from a source that says the opposite of the key.** `defense-in-depth.01` asked
+whether a host firewall added behind a network firewall "running the same default-deny rule set"
+is a genuine second layer, and keyed **yes**. SP 800-53r5 (SA-8 discussion) says the reverse of
+the stem as posed: replicated enforcement mechanisms are "sometimes called defense in depth …
+**If the mechanisms are similar, however, the additional protection may be illusory, as the
+adversary can simply attack in series.**" Distractor o2 ("same rule set → one layer, not two") was
+at least as defensible as the key, and o2's own `why` conceded it. Item rewritten to ask what
+*determines* independence rather than to assert an answer about an identical pair.
+The **study guide prose is correct here** (`study-guide/04-security/security.md:193`) — the item,
+not the guide, had drifted.
+
+**4. A second double key, from a man page nobody had read.** `public-key-authentication.01`
+offered `ssh-copy-id -i ~/.ssh/id_ed25519 user@host` as a distractor with the `why` "This copies
+the private key rather than the public one — the classic error." **That `why` is false and the
+option is a second correct answer**: ssh-copy-id(1) states of `-i` that "**If the filename does
+not end in .pub this is added**", so naming the private key installs the public half exactly as
+the key does. Replaced with `ssh-add`, which genuinely installs nothing remotely. Compounding it,
+`ssh-copy-id` appears **0 times** in ssh-keygen(1), the only tool page cited; `man.openbsd.org/ssh-copy-id`
+404s. Added `openssh-ssh-copy-id` (man7.org).
+
+**5. Two concepts had no supporting source whatsoever.** `single-sign-on` cited only
+`lf-objectives-2025` (0 hits for "single sign") and the empty glossary landing page. Added
+`nist-sp-800-63c-4`, which states federation "allows the subscriber to obtain services from
+multiple RPs without the need to hold or maintain separate authenticators at each RP. **This
+process is sometimes known as single sign-on**."
+
+**6. An item keyed on HTTP semantics with no HTTP source.** `authentication-vs-authorization.01`
+turns entirely on `401`; SP 800-63B-4 contains no status codes (3 occurrences of "authorization"
+in the whole document). Added `rfc-9110-http-semantics`: §15.5.2 — 401 "indicates that the request
+has not been applied because it **lacks valid authentication credentials**".
+
+**7. "Detective control" is still unsourceable in SP 800-53r5.** 0 occurrences in the 492-page
+PDF; also 0 in SP 800-12r1. Wave A's finding stands. Resolved rather than re-reported: NIST
+SP 800-100 §4 says selected controls "are either preventive or detective in nature" (1 occurrence
+in 178 pages) — already added to `data/sources.json` by Task 46 — and is now wired to
+`security.security.accounting-and-auditing`. The guide already recorded this attribution correctly
+at `study-guide/04-security/compliance.md:126`; **no guide change was needed.**
+
+**8. An item that could only be answered from the guide.** `attack-surface.03`'s stem asked for
+the answer "in the sense **the guide** uses the term", and `authentication-vs-authorization.02`
+keyed on what "the comparison block names as the separating axis" while its stem named a trio the
+key did not match. Both rewritten to bind on primary sources (SP 800-53r5 AC-2(3); the CSRC
+authentication/audit term pages).
+
+**9. The distractor-announces-its-own-wrongness class, at 24 of 81 distractors.** Far denser here
+than the 9/246 file-wide figure suggested, because the padding is a trailing subordinate clause
+rather than a second sentence (the two-clause detector reads 0% across the whole file). Example,
+`cia-triad.02` o4 — also **the file's one option that references the exam from inside its own
+text**:
+
+> "The restore demonstrated authentication and authorization, since only a permitted operator
+> could run it, ~~a category the exam expects candidates to name correctly rather than borrow
+> from a different trio entirely~~."
+
+All 24 stripped. Removing them exposed `q-length-cue` on both `accounting-and-auditing.01` and
+`.02`, exactly as predicted; repaired by extending the distractors with real false clauses, never
+by truncating a key. Both warnings now clear.
+
+**10. A key whose `why` misquoted its source.** `risk-threat-and-vulnerability.02` said SP 800-30r1
+"frames risk as likelihood **times** impact". The document says risk is "typically **a function of**
+the degree of harm and likelihood of harm occurring", and Appendix I assesses it with qualitative
+tables, not multiplication. Corrected. Separately, `risk-threat-and-vulnerability.02` o4's `why`
+appealed to what "this exam" tests rather than to a source; rebound to the NIST definitions.
+
+**11. Em-dash tell, this range.** Key 26% → **22%**, distractor 4% → **6%**. Gap narrowed from
+22pp to 16pp without adding an em-dash to any key. File-wide: 43%/6% → 41%/7%.
+
+**12. Checked and rejected.** No item in the range turns on a PCI DSS requirement number, in
+digits or paraphrased — the only compliance-adjacent content is the AAA/audit vocabulary, bound to
+SP 800-53r5 AU-6 and SP 800-100. No two options assert the same answer. No six-token option tail
+repeats 3+ times. All keys remain at index 0 by design. `multi-factor-authentication.01` was
+checked and **passed as authored**: SP 800-63B-4 states "Out-of-band authentication is not
+phishing-resistant" and requires phishing resistance only at AAL3, which is exactly the key's claim.
+
+**Gates after this task** — `check-bank --scope "Security Fundamentals :: Security"
+--except q-answer-position-balance`: **0 errors and 0 warnings on items 1–27**; 47 residual
+`q-verdict-coverage` errors, all attributable to items 28–82 (agents B and C, 14 of their 55 items
+verified at the time of this run). `npm test`: **307 pass, 0 fail**. `npm run check-guide`:
+**0 errors, 0 warnings**. `npm run validate`: **537 concepts, 0 errors, 38 warnings** — above the
+16-warning baseline because five agents are adding sources in parallel that are not yet wired to
+concepts (`nist-glossary-*`, `cncf-glossary-*`, `docker-*` orphan-source warnings are not mine;
+all 8 sources this task added are wired).
+
+## Task 55a — DevOps Fundamentals :: Containers (items 1–30, agent `verify-containers-a`)
+
+Range: array items 1–30 (indices 0–29), the eight concepts `container`, `container-image`,
+`image-layers`, `registry`, `image-tags`, `dockerfile`, `container-lifecycle`, `port-mapping`.
+All 30 carry a verdict, and all 30 now record `confirmed`. **24 of the 30 were refuted as
+authored, repaired here, and re-verified; 6 needed no change. Every one of the 24 defects was a
+citation defect. No wrong key, no double key, and no false `why` was found anywhere in the
+range.** The content of
+this competency is sound; its sourcing was not.
+
+### The defect, stated once
+
+All 30 items inherited their `source_ids` verbatim from the concept's `additional_sources` in
+`data/topics/05-devops.json`. Four source assignments were wrong at concept level, so the same
+defect repeated across every item on that concept:
+
+1. **The CNCF glossary landing page again** (`cncf-glossary`, `https://glossary.cncf.io/`),
+   cited on `container.01` and `container.03`. The fetched page is a list of term links plus
+   maintainer acknowledgements: it contains the word **"kernel" zero times** and no container
+   or pod prose at all. `container.03` turns entirely on containers sharing the host kernel.
+   This is the fourth consecutive wave in which this landing page has been cited for something
+   it does not say. Even the `/container/` term page says only "containers share the same
+   operating system" and never says kernel — the shared-kernel sentence lives in Docker's
+   *What is a container?* page ("they all share the same kernel").
+2. **`docker-overview` used as a command reference.** The page never contains the string
+   `docker ps` (cited for it on `container.02`) and its only occurrence of "docker images" is
+   inside the sentence "A Docker registry stores Docker images" (cited for the command on
+   `container-image.02` and `registry.03`). It also contains **no `-p`/port-publishing content
+   whatsoever** — its only "port" hits are sidebar navigation links — yet all four
+   `port-mapping` items cited it. Landing-page defect, fifth ecosystem.
+3. **`dockerfile-reference` cited for tag and digest semantics.** All three `image-tags` items
+   cited the Dockerfile reference, which documents build instructions and says nothing about
+   tags, `latest`, digests or rollback. `docker-overview` contains "latest" and "digest" zero
+   times each. The tag model is documented in *Build, tag, and publish an image*
+   (`[HOST[:PORT_NUMBER]/]PATH[:TAG]`, "If no tag is specified, `latest` is used by default")
+   and the digest form in the `docker image pull` reference ("Pull an image by digest
+   (immutable identifier)").
+4. **`docker-container-ls` cited for stop/start/prune semantics.** All four
+   `container-lifecycle` items cited the *list* reference. It contains neither `SIGTERM` nor
+   `SIGKILL` (`container-lifecycle.04` is entirely about that sequence), documents nothing
+   about what `docker stop` does or does not delete, and nothing about disk reclamation.
+
+### Fixes applied
+
+Fourteen sources were added to `data/sources.json` and the eight concepts' `additional_sources`
+in `data/topics/05-devops.json` were rewritten, with each item's `source_ids` narrowed to the
+subset that actually carries its claims:
+
+`docker-what-is-a-container`, `docker-what-is-a-registry`, `docker-build-tag-publish`,
+`docker-image-pull`, `docker-image-push`, `docker-image-ls`, `docker-container-stop`,
+`docker-container-start`, `docker-build-cache`, `docker-publishing-ports`,
+`docker-network-overview`, `docker-buildx-build`, `docker-system-prune`,
+`oci-image-spec-layer`.
+
+No option text, stem or `why` was changed anywhere in the range — the content did not need it.
+The em-dash shape tell was therefore left untouched: file-wide 14% keys / 0% distractors,
+unchanged, and within items 1–30 it is 3% / 0%.
+
+### Sources that did not contain what they were cited for
+
+| Source | Cited on | What it does not contain |
+| --- | --- | --- |
+| `cncf-glossary` (landing) | `container.01`, `container.03` | "kernel" (0 hits); any pod or container prose |
+| `docker-overview` | `container.02` | the string `docker ps` |
+| `docker-overview` | `container-image.02`, `registry.03` | the `docker images` command |
+| `docker-overview` | `registry.01` | any parse of an image reference |
+| `docker-overview` | `image-tags.01`, `.02` | "latest" (0 hits) |
+| `docker-overview` | all four `port-mapping` items | any port-publishing content |
+| `dockerfile-reference` | all three `image-tags` items | tags, `latest`, digests |
+| `docker-image-layers` | `image-layers.02` | "invalidat" (0 hits) — no build-cache content |
+| `docker-image-layers` | `image-layers.03` | that a later deletion leaves the earlier file readable |
+| `docker-container-ls` | `container-lifecycle.04` | `SIGTERM`, `SIGKILL` (0 hits each) |
+| `docker-container-ls` | `container-lifecycle.02` | the `docker start` option table |
+
+### Adjudication of prior findings
+
+`qbank-findings.md` carried **no** prior section for this competency, so there was nothing to
+adjudicate here. `docs/verification/factcheck-containers.json` was read but not treated as a
+clearance; two of its entries (`containers-cmd-014`, `containers-cmd-029`, both `refuted`)
+independently corroborate the key of `image-layers.01` — that `WORKDIR` is not metadata-only —
+with the Dockerfile reference ("If the `WORKDIR` doesn't exist, it will be created even if it's
+not used in any subsequent Dockerfile instruction") plus an empirical layer count. The guide
+prose at `study-guide/05-devops/containers.md` and `appendix-b-container-to-cluster.md` already
+names `WORKDIR` as the exception, so no guide change was needed.
+
+### Residual limit, recorded rather than hidden
+
+`port-mapping.02` turns on an application bound to the *container's* loopback interface being
+unreachable through a correct `-p` publish. That is true and follows from each container having
+its own network interface (Docker's networking overview: a container "only sees a network
+interface with an IP address, a gateway, a routing table"), but **no fetched Docker page states
+the 127.0.0.1-inside-the-container case in those words**. The item is cited to the two pages
+that come closest and its `verification.reasoning` records the gap.
+
+### Note for the whole file, outside this range
+
+Many distractors in this file append a second sentence with **no sentence-ending punctuation**
+before it — e.g. "…bundles several unrelated images together Under that framing, deleting the
+pod would…". It reads as a typo and it is also why the file's two-clause scan measures 0% for
+both keys and distractors. It is a file-wide pattern, not a range-local one, so it was left
+alone deliberately: fixing it in items 1–30 only would make this range differ visibly from
+items 31–86. It should be fixed for the whole file in one pass, by one agent.
+
+### Process note — how the verdict field was mis-recorded here
+
+On the first write, all 24 repaired items were left carrying `verdict: "refuted"`. That is the
+pre-repair state, and `q-verdict-coverage` rejected it: a refuted item is one that ships broken.
+The repairs themselves were complete and the reasoning strings already described them, so this
+was purely a recording error — the protocol's Step D requires the *post*-repair verdict. Each of
+the 24 was re-read on disk, re-checked against the URLs in its `sources_read`, and set to
+`confirmed`, with the original defect narrative preserved behind a leading `REFUTED AS AUTHORED`
+marker so the history is not lost. Worth stating plainly for later waves: "refuted" is the
+verdict for an item still wrong at the end of the task, not a label for work performed.
+
+### Security Fundamentals :: Security, items 28–56 (task 53b, `verify-security-b`)
+
+29 items over 14 concepts, all 29 carrying a verdict. **12 held as authored; 17 were refuted,
+repaired in place, and re-verified**, so all 29 now record `confirmed` — the `REFUTED ...`
+narrative is retained inside each item's `reasoning`, which is where the history belongs. (The
+verdict field is not a defect log: `check-bank` rejects a shipped `refuted`, correctly, because a
+refuted item is meant to be rewritten rather than shipped.) Sources fetched and read in full: RFC 8446, RFC 7568,
+RFC 5280, RFC 9525, NIST SP 800-57 Part 1 Rev. 5 (the PDF, not the landing page), NIST SP
+800-63B-4, the cryptsetup/LUKS FAQ (as `.md`), the OWASP Credential Stuffing Prevention Cheat
+Sheet, OWASP Password Storage Cheat Sheet, OWASP Top 10:2025 A05 Injection, the OWASP WSTG
+authorization-testing page, MITRE ATT&CK TA0004, `sha256sum(1)`, the GnuPG manual's
+`--verify` entry, and eleven NIST CSRC glossary term pages.
+
+**The content was almost entirely sound. 14 of the 17 refutations were citation defects; one was a
+wrong stem, one was a key stated without the qualifier its own source requires, and one was a key
+rationale resting on an unverifiable claim.**
+
+#### 1. `nist-csrc-glossary` is the glossary *search* page and defines nothing
+
+It is registered as `https://csrc.nist.gov/glossary` — the A–Z landing page. Fetched, it carries
+navigation and an "About" note, and not one term definition. Twelve items in this range cited it
+for a definition it does not contain: hashing (2), malware and ransomware (2), denial of service
+(2), man-in-the-middle (2), privilege escalation (2), phishing (2). This is wave A's
+`nist-sp-800-53r5`/"detective" shape, one level up: the right corpus, the wrong page.
+
+The term pages do carry the definitions, and each was fetched and checked before being cited:
+
+- `term/hash_function` — "(One-way) It is computationally infeasible to find any input that maps
+  to any new pre-specified output" (FIPS 186-5, FIPS 203). This is the entire basis of both
+  hashing items and it was previously uncited.
+- `term/rootkit`, `term/trojan_horse`, `term/virus`, `term/worm` — each defined by propagation or
+  packaging, never by payload, which is exactly what `malware-and-ransomware.02` keys on.
+- `term/denial_of_service` — "the prevention of authorized access to resources or the delaying of
+  time-critical operations", with no component on the victim, which against `term/malware`
+  ("software that is intentionally included or inserted in a system") supplies the execution axis
+  `denial-of-service.02` turns on.
+- `term/man_in_the_middle_attack` — "an attacker is positioned between two communicating parties
+  in order to intercept and/or alter data traveling between them".
+- `term/availability` and `term/confidentiality` — what a ransomware restore does and does not
+  return. Note `term/ransomware` **404s**; the attack name has no glossary entry at all.
+
+**`term/privilege_escalation` returns 404, and so does the taxonomy.** Vertical versus horizontal
+escalation had no home anywhere in `data/sources.json`. Both privilege-escalation items now cite
+the OWASP WSTG, which states it directly — "vertical escalation when it is possible to access
+resources granted to more privileged accounts ... horizontal escalation when it is possible to
+access resources granted to a similarly configured account" — and MITRE ATT&CK TA0004 for the
+post-access ordering ("adversaries can often enter and explore a network with unprivileged access
+but require elevated permissions to follow through on their objectives").
+
+Also checked and found empty: `term/data_at_rest` and `term/data_in_transit` exist but carry only
+the DAR/DIT acronyms, **no definition**. The at-rest/in-transit/in-use trio is instead stated
+verbatim in SP 800-57 Part 1 Rev. 5 §6.2 — information is either "in transit", "at rest", or
+"in use" — which is why both `encryption-at-rest-vs-in-transit` items were confirmed rather than
+refuted.
+
+#### 2. `verizon-dbir` cannot be retrieved — 200, `text/html`, and a marketing page
+
+The registered URL ends `.pdf` and answers **200 with `content-type: text/html`** and an 87 KB
+Verizon page. Every other PDF path under that host answers **200 with `content-length: 0`**. The
+Wayback capture of the same URL is the HTML page too. Tried with and without a browser
+user-agent. **No one can read this report through the citation the bank carries.**
+
+`phishing-and-social-engineering.01` keyed entirely on three figures from it — 31% vulnerability
+exploitation, 16% phishing, 13% credential abuse. Refuted and **rewritten** so it keys on the
+methodological point instead (an unattributed frequency superlative is not defensible), which is
+checkable without the report. The guide states the same three figures at
+`study-guide/04-security/security.md:863` and `:1148`. **Left standing and recorded here rather
+than corrected: the source is unverifiable, not disproven, and inventing a replacement number
+would be worse than an unverifiable one.** `security.security.vulnerabilities-cves-and-patching`
+(items 57–82, agent C's range) cites it too and is affected identically.
+
+#### 3. `gnupg-verify-docs` 404s
+
+`https://www.gnupg.org/gph/en/manual/x135.html` returns 404. Registered
+`gnupg-manual-verify` in its place — the GnuPG manual's Operational GPG Commands page, which
+carries `--verify` ("Assume that the first argument is a signed file and verify it without
+generating any output"). The dead id is still cited by
+`security.security.package-and-download-verification` in agent C's range.
+
+#### 4. RFC 5280 does not specify hostname verification
+
+`certificate-expiry-and-validation.01` turns entirely on a hostname mismatch being a distinct
+validation failure from expiry. RFC 5280's only uses of "host name" are in name constraints and
+URI syntax; it profiles the certificate and the path algorithm, not the identity check a client
+performs. **RFC 9525** (obsoleting RFC 6125) is the document: §6.1, "The client MUST construct a
+list of acceptable reference identifiers", and §6.3 on matching the DNS domain name portion.
+Registered and cited; RFC 5280 retained for the validity window (§4.1.2.5) the distractors use.
+
+#### 5. A stem that mis-stated TLS 1.3 — the one wrong fact in the range
+
+`symmetric-vs-asymmetric-encryption.01` said the handshake "uses an ephemeral Diffie-Hellman
+exchange to authenticate the server and agree keys". RFC 8446 §2 separates the two jobs: (EC)DHE
+is a key-exchange mode, and authentication is CertificateVerify, "a signature over the entire
+handshake using the private key corresponding to the public key in the Certificate message". The
+key and all three distractors were correct as authored; only the stem was wrong. Stem rewritten,
+options untouched.
+
+#### 6. A key that needed the qualifier its own source states
+
+`full-disk-encryption.02` asked for the state of a LUKS volume whose header was overwritten, and
+keyed on "unrecoverable". The cryptsetup FAQ makes that true only under conditions the stem did
+not state: there is "no way to recover a damaged key-slot, **except from a header backup**", and
+a still-open container can have its volume key extracted from the running system. As authored, a
+reader who knew either exception could defensibly reject the key. The stem now excludes both.
+Same class as the "true but incomplete" findings of waves A and C, but in a bank item rather than
+in guide prose.
+
+#### 7. A key rationale resting on an unverifiable claim about licensed course material
+
+`tls-and-https.01`'s key `why` asserted that the exam expects "TLS" by name and that LFS200's own
+material never uses the term. Neither is checkable against any fetchable primary source, and the
+second is a claim about licensed content. Replaced with RFC 7568 §3 — "SSLv3 MUST NOT be used" —
+and the RFC 5280 certificate profile. The option text was correct and is unchanged.
+
+#### 8. PCI DSS: clean, on substance as well as digits
+
+Regex over all 29 items for `requirement|req\.?\s*\d+(\.\d+)*` and bare `\d+\.\d+\.\d+`: **0
+hits**. Read for substance as well, since the encryption, hashing and full-disk-encryption
+concepts are where laundered requirement text would land: no item turns on stored-PAN
+readability, key-rotation intervals, or any other Council requirement, before or after the
+rewrites. Every encryption claim traces to SP 800-57, RFC 8446 or the LUKS FAQ.
+
+#### 9. No second-correct-answer defects, and no duplicate options
+
+Every distractor was read against its own `why` and against the key. The concepts the task flagged
+as densest for this — hashing versus encryption, at-rest versus in-transit, MITM versus downgrade,
+brute force versus stuffing, DoS versus DDoS — each hold: in every case the distractor is false on
+the axis the stem asks about, not merely less complete. No distractor `why` contradicts its own
+option text, and no distractor paraphrases the key.
+
+#### 10. Scan numbers
+
+Em-dash trailing clause, this range: keys **14/29 → 13/29**, distractors **9/87 → 9/87**. No
+em-dash was added to any key. Whole file moved 41%/7% → 40%/7% (the file-wide by-rule pass is
+still owed).
+
+Self-refuting padding — the distractor's own `why` spliced onto the end of its `text`, so the
+option announces its wrongness — is far more common here than the file-wide verbatim scan
+suggests, because most instances are **paraphrase rather than paste**. A 6-gram `text`/`why`
+overlap scan caught 12 of 87 distractors and 11 were rewritten; a second pass on re-verification,
+using a subordinate-reversal-clause pattern (`, when ... rather than/is not/cannot`) instead of
+n-gram overlap, caught **7 more that the n-gram scan had missed entirely** — in `hashing.01`,
+`certificate-expiry-and-validation.01`, `malware-and-ransomware.02`, `denial-of-service.01`,
+`man-in-the-middle.01`, `man-in-the-middle.02` and
+`digital-certificates-and-certificate-authorities.01`. **18 distractors rewritten in total**, each
+by substituting a false clause of comparable length rather than truncating, so no key was
+shortened and no `q-length-cue` warning was exposed (scoped `check-bank`: 0 errors, 0 warnings).
+
+**Recommendation for the file-wide pass: do not scan for this defect with n-gram overlap.** It
+under-counts by roughly a third here. The reliable signal is a distractor whose text contains a
+subordinate clause introduced by `when`, `though` or `which` that then reverses the claim the
+option just made.
+
+Six-token tails reused three or more times across the range: **none**.
+
+#### 11. Concept-level fix, per the propagation rule
+
+Because every item's `source_ids` is a verbatim copy of its concept's source lists, all eight
+affected concepts were corrected in `data/topics/04-security.json` rather than item by item:
+`hashing`, `certificate-expiry-and-validation`, `phishing-and-social-engineering`,
+`malware-and-ransomware`, `denial-of-service`, `man-in-the-middle`,
+`brute-force-and-credential-stuffing`, `privilege-escalation`. `npm run generate` re-run;
+`npm run check-guide` 0/0. 16 new sources registered in `data/sources.json`, every one fetched
+and read before registration, and every one wired to at least one item.
+
+## Task 55b — DevOps Fundamentals :: Containers (items 31–59, agent `verify-containers-b`)
+
+Range: array items 31–59 (indices 30–58), the eight concepts `volumes-and-bind-mounts` (4),
+`environment-variables-in-containers` (4), `container-logs-and-exec` (4),
+`stateless-vs-stateful-containers` (3), `container-runtime-and-oci` (3), `docker-compose` (4),
+`container-security-basics` (3), `container-orchestration` (4). **All 29 carry a verdict.
+6 confirmed as authored, 23 refuted, every one rewritten in place and re-verified.**
+
+The wave-A conclusion holds for this range too, with two exceptions: the content is sound but
+the sourcing was not — **20 of the 23 refutations are citation defects**, and no key was
+factually wrong except one, and no distractor was co-correct except one. Both exceptions are
+recorded below because they are the two defect classes this pass exists to catch.
+
+### The one wrong key
+
+`environment-variables-in-containers.02` keyed on "`docker start` accepts no new flags". The
+`docker container start` reference disproves it: the option table lists `-a/--attach`,
+`-i/--interactive`, `--detach-keys`, `--checkpoint` and `--checkpoint-dir`. What that table does
+*not* contain is any `-e/--env`, which is the actual reason the operator's command cannot work.
+The key now says exactly that. Note the distractor `o2`'s `why` was already correct on this
+point ("does not accept new run-time flags such as `-e`") — the key was the wrong half.
+
+### The one double key
+
+`docker-compose.03` asked what happens to a Compose project after its host loses power, "if no
+one intervenes". The stem said nothing about restart policies, so `o2` — "it resumes
+automatically on the same machine" — is genuinely correct for any service declaring
+`restart: always`, which the daemon does honour on boot. Two defensible answers. The stem now
+states that the project declares no restart policy, which leaves only the key.
+
+### Citation defects, by concept
+
+| Concept | Was cited | What the cited page does not contain |
+| --- | --- | --- |
+| `container-logs-and-exec` (all 4) | `docker-overview` | `docker exec`, `docker attach`, or any logging-driver content. Its single "Docker logs" hit is the prose "Docker logs the output to your terminal" in a `docker run -it` walkthrough |
+| `environment-variables-in-containers` (all 4) | `docker-overview` | the phrase "environment variable" — **0 occurrences** |
+| `stateless-vs-stateful-containers` (all 3) | `cncf-glossary` (landing) | any definition at all. The fetched body is a browse-by-tag link list plus a project blurb and a maintainer list |
+| `container-orchestration` (all 4) | `cncf-glossary` (landing) | as above |
+| `container-orchestration.02` | `k8s-architecture` | "heartbeat" — **0 occurrences**; no node-failure rescheduling text. Its only "evict" hits are sidebar nav |
+| `container-orchestration.03` | `k8s-architecture` | any reconciliation or control-loop description |
+| `container-security-basics.01` | `docker-build-best-practices` | "hypervisor" — **0 occurrences**; "kernel" — 1, unrelated. The item turns entirely on the shared-kernel-versus-hypervisor comparison |
+| `container-security-basics.03` | `docker-build-best-practices` | any vulnerability-scanning guidance. Its four "scan" hits are all site navigation to a separate product |
+| `container-security-basics.02` | `docker-build-best-practices` | the rule that build args persist in the finished image |
+| `container-runtime-and-oci.03` | `oci-overview` | "Kubernetes", "dockershim" or "CRI" — the item is entirely about the dockershim removal |
+| `volumes-and-bind-mounts.02` | `docker-volumes` | the bind-mount definition the key states; that lives on the separate bind-mounts page |
+| `docker-compose.04` | `docker-compose-features` | `docker compose stop` or `docker compose down` — the page's "stop" count is 0 |
+
+**The CNCF glossary landing page has now failed in five consecutive waves.** In this range it was
+cited on seven items across two concepts. Both are now cited to per-term pages
+(`/stateless-apps/`, `/stateful-apps/`, `/container-orchestration/`), which do carry the prose
+the items need — the orchestration page states reconciliation almost verbatim: the tool "will
+then automatically monitor the infrastructure and correct it if its state deviates from the
+declared one (e.g., spin up a new container if one crashes)".
+
+### Fixes applied
+
+Twenty-one sources added to `data/sources.json`, each fetched and read before registration, each
+wired to at least one item, none left orphaned:
+
+`docker-bind-mounts`, `docker-cli-run`, `docker-cli-start`, `docker-cli-logs`, `docker-cli-exec`,
+`docker-cli-attach`, `docker-json-file-logging`, `docker-dual-logging`, `docker-compose-cli-up`,
+`docker-compose-cli-stop`, `docker-compose-cli-down`, `docker-build-secrets`,
+`docker-engine-security`, `cncf-glossary-stateless-apps`, `cncf-glossary-stateful-apps`,
+`cncf-glossary-container-orchestration`, `k8s-nodes`, `k8s-controllers`,
+`k8s-dockershim-removal-check`, `k8s-statefulset`, `nist-sp-800-190`.
+
+All eight concepts' `additional_sources` in `data/topics/05-devops.json` were rewritten and each
+item's `source_ids` narrowed to the subset that carries its own claims. `npm run generate` re-run;
+`npm run check-guide` 0/0.
+
+`nist-sp-800-190` (Application Container Security Guide) is the source the security concept
+wanted all along. §3.5.2 states the key of `container-security-basics.01` almost word for word —
+"the use of a shared kernel invariably results in a larger inter-object attack surface than seen
+with hypervisors ... the level of isolation provided by container runtimes is not as high as that
+provided by hypervisors" — and §3.1.1 states the key of `.03`: "An image created with fully
+up-to-date components may be free of known vulnerabilities for days or weeks after its creation,
+but at some time vulnerabilities will be discovered in one or more image components."
+
+### Guide correction: true-but-misreadable prose
+
+`study-guide/05-devops/containers.md` line 392 gave the `docker start` pitfall as "Expecting it
+to accept new run-time flags". That is true as written — `-p` and `-e` are run-time flags — but
+it reads as "accepts no flags", which is precisely the over-generalisation the refuted key made,
+two lines below a column that correctly lists `-a` and `-i`. Reworded to "Expecting it to accept
+the configuration flags `docker run` takes — it has no `-p` and no `-e`". The guide's substance
+was already right; only the pitfall phrasing invited the misread. This is the fourth confirmed
+instance of the pattern.
+
+### The appended-clause shape tell — measured, and why this range diverges from 55a
+
+Task 55a observed the missing-punctuation second sentence and left it alone. Measuring it turns
+it into something stronger than a typo. A distractor in this file may append a meta-commentary
+clause — "… That framing invents …", "…, on the assumption that …", "…, treating X as Y" —
+and at baseline that clause appeared on **48 of 258 distractors and 0 of 86 keys.
+Its presence identified a wrong option with 100% precision**, on more than one option in six of
+every ten items. That is a harder giveaway than any length or em-dash cue this project has
+tracked, so it was fixed within this range rather than preserved for consistency: all 22
+instances in items 31–59 were rewritten into the distractor's own assertive voice, keeping the
+false claim and discarding the commentary. **33 instances remain, in items 1–30 and 60–86, and
+should be cleared in one pass.**
+
+Removing 22 long tails shortened those distractors, which flipped six items into
+key-is-longest. Six distractors were then re-lengthened. Final scan numbers:
+
+| Scan | Range 31–59 before | Range 31–59 after | Items outside the range | File |
+| --- | --- | --- | --- | --- |
+| em-dash trailing clause | k 17% / d 0% | k 17% / d 0% | k 12% / d 0% | k 14% / d 0% |
+| two-clause option text | k 0% / d 0% | k 0% / d 0% | k 0% / d 0% | k 0% / d 0% |
+| meta-commentary tail | k 0 / d 22 | k 0 / d 0 | k 0 / d 33 | k 0 / d 33 |
+| key is longest option | 14% | 17% | 12% | 14% |
+| six-token tail reused 3+ times | 0 | 0 | 0 | 0 |
+| `why` pasted into own `text` | 0 | 0 | 0 | 0 |
+
+The em-dash gap was not widened. Mean option length in this range is now k153 / d132 against
+k140 / d138 outside it; that gap is entirely the 33 uncleared tails inflating the other ranges'
+distractor mean, and it closes on its own once they are fixed. No key was truncated. No option
+in this range is a bare code span. No item turns on a PCI DSS requirement number.
+
+Two options in this range pointed at the study material from inside themselves —
+`stateless-vs-stateful-containers.03` `o4`'s `why` ("the real distinction this concept tests")
+and `container-orchestration.04` `o1`'s `why` ("the confusion this concept warns against").
+Both reworded to describe the question rather than the curriculum.
+
+### Adjudication of prior findings
+
+No prior `qbank-findings.md` section existed for this competency other than task 55a's, which
+concerns items 1–30 and required no adjudication here; its Note-for-the-whole-file is answered
+above. `docs/verification/factcheck-containers.json` was read and not treated as a clearance;
+none of its entries bears on items 31–59.
+
+### Residual limit, recorded rather than hidden
+
+`container-logs-and-exec.01` keys on `docker logs` still working against an exited container.
+The `docker container logs` reference does not say so in those words — it says the command
+"batch-retrieves logs present at the time of execution" and imposes no running-container
+condition, while the `docker exec` page *does* state its condition explicitly ("only runs while
+the container's primary process (PID 1) is running"). The key rests on that asymmetry plus the
+json-file driver page's "Docker captures the standard output (and standard error) of all your
+containers, and writes them in files" — a file read back, not a live process. The item's
+`verification.reasoning` records the gap rather than claiming a verbatim source.
+
+### Security Fundamentals :: Security, items 57–82 (task 53c, `verify-security-c`)
+
+26 items over 12 concepts, **26 of 26 carrying a verdict**. 9 passed as authored; 17 were refuted
+as authored, fixed in place, and re-verified. Items 1–56 belong to `verify-security-a` and
+`verify-security-b` and were not touched.
+
+Sources fetched and read in full: `sshd_config(5)` on man.openbsd.org **and** the Debian portable
+edition, `sshd(8)`, `selinux(8)`, `getenforce(8)`, `apparmor(7)`, `aa-status(8)`,
+`grub-mkpasswd-pbkdf2(1)`, the GNU Privacy Handbook, the FIRST CVSS v3.1 specification, the SANS
+incident-response glossary, and four NIST PDFs from `nvlpubs.nist.gov` — SP 800-53 Rev. 5 (492
+pages), SP 800-61 Rev. 3, SP 800-94, SP 800-41 Rev. 1 — plus four CSRC glossary term pages.
+
+**As in waves A and B, the content was largely sound and the sourcing was not. Not one key in this
+range was factually wrong, and no double key was found. 8 of the 17 refutations were citation
+defects; 14 were the pasted-`why` option shape; several items carried both.**
+
+#### 1. Three cited URLs do not serve the text they were cited for
+
+| source id | URL | what it actually returns |
+|---|---|---|
+| `gnupg-verify-docs` | `https://www.gnupg.org/gph/en/manual/x135.html` | **HTTP 404 Not Found** from www.gnupg.org |
+| `cve-program-overview` | `https://www.cve.org/About/Overview` | HTTP 200, 880 bytes, a Vue application shell; the only prose is the `noscript` notice |
+| `apparmor-wiki` | `https://gitlab.com/apparmor/apparmor/-/wikis/home` | HTTP 200, strips to ~1,100 characters of GitLab script; `aa-status`, `enforce`, `complain` all absent |
+
+This is the `vmware-hypervisor` shape twice over and outright rot once. Fixes:
+`gnupg-verify-docs` repointed to the single-page GNU Privacy Handbook
+(`https://www.gnupg.org/gph/en/manual.html`), which carries both sentences the two
+package-verification items need — "Both the document and detached signature are needed to verify
+the signature", with the worked `gpg --verify doc.sig doc`, and "A key is validated by verifying
+the key's fingerprint and then signing the key to certify it as a valid key". `apparmor-wiki`
+**removed** from `data/sources.json` (it had exactly one referencing concept, so leaving it would
+have raised an `orphan-source` warning) and replaced by `apparmor-man7` and `aa-status-man8`.
+`cve-program-overview` kept — items 1–56 may still cite it — but annotated in `data/sources.json`
+with the finding, and no claim in this range now rests on it alone.
+
+#### 2. The right man page, one page away from the sentence — four times
+
+Wave A's `man-df`/`man-apropos` shape, repeated in this range's operational concepts:
+
+- **`sshd -T` versus `sshd -t`** (`ssh-hardening.04`) was cited to `sshd_config(5)`. Neither flag
+  is documented there; both are `sshd(8)` options — "-T Extended test mode … output the effective
+  configuration to stdout", "-t Test mode. Only check the validity of the configuration file".
+  Added `openssh-sshd-8`.
+- **PAM** (`ssh-hardening.01`). The key turns on keyboard-interactive still prompting through PAM.
+  `man.openbsd.org/sshd_config` contains the string "PAM" **zero times** — OpenBSD has no PAM. The
+  portable page carries the decisive sentence: "Because PAM keyboard-interactive authentication
+  usually serves an equivalent role to password authentication, you should disable either
+  `PasswordAuthentication` or `KbdInteractiveAuthentication`." Added
+  `openssh-sshd-config-portable`. The portable page also states outright what the precedence item
+  needs — "`/etc/ssh/sshd_config.d/*.conf` files are included at the start of the configuration
+  file, so options set there will override those in `/etc/ssh/sshd_config`".
+- **`getenforce`** (`selinux-and-apparmor.01`). Every option in that item turns on what
+  `getenforce` reports, and `selinux(8)` names it only in SEE ALSO. Added `getenforce-man8`
+  ("getenforce reports whether SELinux is enforcing, permissive, or disabled"). The *mode*
+  semantics the key depends on are in `selinux(8)` and were confirmed there: permissive "causes it
+  to operate in a mode where accesses that would be denied by policy are permitted but audited".
+- **The boot loader password** (`physical-security.01`). Cited to SP 800-53 Rev. 5, which covers
+  boot *firmware* integrity (SI-7(10)) and documents no boot loader password anywhere. Added
+  `grub-mkpasswd-pbkdf2`. `www.gnu.org` was unreachable from the verification environment, so the
+  Debian-hosted upstream manual page is what is cited.
+
+#### 3. A claim cited to a 492-page document that never uses the word
+
+`firewalls-and-network-segmentation.02` is entirely about stateful firewall behaviour. Its only
+substantive citation was NIST SP 800-53 Rev. 5, in which **"stateful" does not occur once in 492
+pages**. Added `nist-sp-800-41r1`, whose §2.1.2 states it directly: "stateful inspection keeps
+track of each connection in a state table", blocking "packets that deviate from the expected
+state". The segmentation item keeps SP 800-53r5, which does support it — SC-7 requires monitoring
+"at the external managed interfaces … and at key internal managed interfaces" and separated
+subnetworks, which is exactly what a flat network lacks.
+
+#### 4. Severity belongs to FIRST, not to a program overview page
+
+Both CVE items and both vulnerability-scanning items sourced CVSS claims to `cve-program-overview`
+(see finding 1). `first-cvss-v31` added: CVSS "outputs include numerical scores indicating the
+severity of a vulnerability", the Base equation "computes a score ranging from 0.0 to 10.0", and
+the Base Score "assumes the reasonable worst case impact across different deployed environments" —
+that last clause is what makes the reachability item's key correct rather than merely plausible.
+No item in this range turns on a PCI DSS requirement, in digits or in paraphrase.
+
+#### 5. Task 53a finding 1, applied to this range's three affected concepts
+
+`nist-csrc-glossary` (`https://csrc.nist.gov/glossary`) was still cited by `insider-threat`,
+`vulnerabilities-cves-and-patching` and `system-hardening`. Term pages probed and fetched:
+`term/insider_threat` **200** — "The threat that an insider will use her/his authorized access,
+**wittingly or unwittingly**, to do harm", which is the sentence that puts the accidental public
+bucket inside the definition and was previously uncited; `term/common_vulnerabilities_and_exposures`
+**200** — "unique, common names for publicly known information system vulnerabilities", a name and
+a description with no severity component; `term/hardening` **200** — "A process intended to
+eliminate a means of attack by patching vulnerabilities and turning off nonessential services".
+`term/system_hardening` and `term/configuration_drift` both **404**. Three per-term sources added
+following the `nist-glossary-<term>` convention wave B established.
+
+#### 6. The pasted-`why` option shape — measured, fixed, and the warning it was masking
+
+Measured across the file at the start of this task: **23 of 246 distractors** carried a ≥40-character
+verbatim paste of their own `why` as a trailing "…, when …" clause. **14 of the 23 were in items
+57–82** — one per item in eleven of the twelve concepts. All 14 replaced with distinct false clauses
+of comparable length, never by truncation; my range now measures **0**.
+
+Stripping the padding from `selinux-and-apparmor.02`'s o3 exposed a `q-length-cue` warning the
+padding had been masking (key 218 characters against a 136-character distractor mean, ratio 1.61
+against a 1.60 threshold). **Repaired by extending o4 with a further false clause — `getfacl`
+reports POSIX ACL entries, not an access-control taxonomy — not by shortening the key.** This is
+the trap the task brief predicted, and it fired exactly once.
+
+Em-dash shape, items 57–82, measured before and after: **key 54% (14/26), distractor 4% (3/78) —
+unchanged**. No em-dash was added to any key; the one distractor rewrite that replaced an
+em-dash clause (`system-hardening.01` o2) kept an em-dash so distractor usage was not reduced
+either. The range's 54/4 split is worse than the file's 43/6 and is left for the by-rule pass.
+Six-token tail reuse across the range: **no tail appears 3 or more times**. No option in the range
+is a bare code span.
+
+#### 7. Checked for a second correct answer, and none found
+
+The four `ssh-hardening` items were checked directive by directive against `sshd_config(5)`, since
+that is where a second defensible answer would hide:
+
+- `ssh-hardening.02` (timeout): `AuthorizedKeysFile`, `StrictModes` and `Port` were each traced to
+  the failure mode they actually produce — a post-connection rejection, a post-connection refusal
+  to use the file, and a connection refused, respectively. None produces a pre-daemon timeout, so
+  none is a second key.
+- `ssh-hardening.03`: o3 ("`PasswordAuthentication no` makes `PermitRootLogin` irrelevant") is the
+  near miss and is false — `prohibit-password` leaves root's **key** path open, which
+  `PasswordAuthentication` does not touch.
+- `package-and-download-verification.02` o3 was the closest call in the range: it asserts
+  `gpg --verify` needs a detached signature *and* a clearsigned document together. The Handbook's
+  detached-signature section shows exactly `gpg --verify doc.sig doc`, so the stem's command is
+  already the correct pair and o3 is false.
+- `intrusion-detection-and-prevention.01` o2 (blocking from a passive tap) was checked against SP
+  800-94's hedge — "most techniques … require that the sensor be deployed in inline mode" and a
+  passive sensor "can place packets onto a network to attempt to disrupt a connection". The hedge
+  does not rescue o2, which claims a passive sensor can *block*; SP 800-94 says passive techniques
+  "typically provide no reliable way for a sensor to stop the traffic from reaching its
+  destination".
+
+#### 8. Guide prose checked, and found correct
+
+`study-guide/04-security/security.md` needed no correction for these twelve concepts. The
+`ssh-hardening` block in particular is accurate down to the details this range tests: first-obtained
+value, the drop-in include near the top, `KbdInteractiveAuthentication` defaulting to `yes` on a
+PAM-backed system, `prohibit-password` still permitting key-based root login, and `sshd -t` to
+validate against `sshd -T` to print the effective configuration. Only the per-concept
+`sources:` lines were edited, to track the source changes above.
+
+#### 9. Left alone deliberately
+
+- **`lf-objectives-2025`** remains the domain anchor on all twelve concepts. Wave A established it
+  supports no individual claim; no item in this range depends on it alone.
+- **The NIST `csrc.nist.gov/pubs/…/final` landing pages** (`nist-sp-800-53r5`, `nist-sp-800-61r3`,
+  `nist-sp-800-94`) are one click above the PDFs that carry the text, which is the landing-page
+  shape — but unlike a year-agnostic report page they name an exact revision and cannot drift, and
+  they are shared with concepts outside this range. Recorded here rather than changed. The PDFs
+  actually read are the `nvlpubs.nist.gov` ones listed at the top of this section.
+
+#### Residual, recorded rather than hidden
+
+`npm run check-bank -- --scope "Security Fundamentals :: Security"` reports **17
+`q-verdict-coverage` errors, all of them items 1–56 carrying a stored verdict of `refuted`** —
+`symmetric-vs-asymmetric-encryption.01`, `hashing.01`/`.02`, `tls-and-https.01`,
+`certificate-expiry-and-validation.01`, `full-disk-encryption.02`, `phishing-and-social-engineering.01`/`.02`,
+`malware-and-ransomware.01`/`.02`, `denial-of-service.01`/`.02`, `man-in-the-middle.01`/`.02`,
+`brute-force-and-credential-stuffing.02`, `privilege-escalation.01`/`.02`. None is in items 57–82.
+Check 21 treats any verdict other than `confirmed` as an error — "a refuted item must be rewritten
+and re-verified, not shipped" — so a refuted-and-fixed item must be re-recorded as `confirmed` with
+the refutation described in its `reasoning`, which is what this range does. Agents A and B need to
+re-record those 17 before the file is clean.
+
+## Task 55c — DevOps Fundamentals :: Containers (items 60–86, agent `verify-containers-c`)
+
+27 of 27 items in range verified: the Kubernetes-and-CNCF tail of the file — `kubernetes` (3),
+`cluster-and-node` (3), `pod` (4), `deployment` (4), `kubernetes-service` (4), `control-plane` (3),
+`declarative-configuration-and-desired-state` (3), `cncf` (3). **23 refuted as authored, 4 clean.**
+All 23 were rewritten and re-verified in place, so every item now carries `confirmed`; each item's
+`verification.reasoning` opens by naming the defect it was refuted for.
+
+**No key in this range was factually wrong.** Every refutation was a sourcing defect, a shape
+tell, a rationale that argued from the exam rather than from a fact, or — in two cases — a
+distractor that a precise stem would have excluded and a loose one did not.
+
+### The pattern, stated once: a component catalogue used as a landing page
+
+`k8s-architecture` (`kubernetes.io/docs/concepts/architecture/`) was cited by 9 items across four
+concepts. It is an excellent page and it is the right source for exactly two of the things it was
+asked to carry: the cluster/node containment hierarchy and the four control plane components. It
+was also cited for
+
+- **node draining** (`cluster-and-node.03`) — the page does not contain the word *drain*;
+- **what happens to running pods during a control plane outage** (`control-plane.01`) — the page
+  describes what each component does and never discusses an outage;
+- **declarative configuration and desired state** (all three items) — the phrase *desired state*
+  appears on it once, incidentally, inside the kube-controller-manager blurb.
+
+This is the same landing-page defect the wave has now confirmed in four unrelated ecosystems (AWS
+`welcome.html`, Pro Git's "What is Git?", `spdx-license-list`, and now the Kubernetes cluster
+architecture page). Fixed at concept level in `data/topics/05-devops.json` so it cannot recur
+item by item.
+
+### The CNCF glossary failed again, and the CNCF's own site failed differently
+
+`cncf-glossary` was cited by `kubernetes.02`, an item about **how deep LFCA goes on Kubernetes**.
+The glossary root contains zero occurrences of *governance*, *Steering*, or *LFCA*. That is the
+sixth wave in a row in which this source has been cited for something it does not say.
+
+The `cncf` concept is the one place in this competency where citing CNCF's own site is legitimate,
+and it still went wrong: `cncf.03` is entirely about the **sandbox → incubating → graduated**
+ladder and cited `cncf-who-we-are` and `cncf-charter`. Who-we-are names none of the three stages;
+the charter's only occurrence of any of them is the incidental phrase "non-sandbox project
+maintainers" in the TOC election clause. Five further items (`kubernetes.01`, `kubernetes.03`,
+`cncf.01`, `cncf.02`, and `cncf.03`) asserted Kubernetes' **graduated status** against pages that
+never state a maturity level for any project.
+
+### Sources that did not contain what they were cited for
+
+| Item(s) | Source cited | What it does not contain |
+| --- | --- | --- |
+| `kubernetes.02` | `cncf-glossary` (`glossary.cncf.io`) | any mention of LFCA, exam scope, CKA, governance, or the Steering Committee |
+| `kubernetes.02` | `k8s-steering-charter` | anything about what an exam expects |
+| `kubernetes.01`, `cncf.01` | `cncf-charter`, `cncf-who-we-are` | Kubernetes' graduated maturity level |
+| `kubernetes.03` | `cncf-who-we-are`, `cncf-charter` | the Linux Foundation's relationship to the Linux kernel — the item's actual subject |
+| `cluster-and-node.03` | `k8s-architecture` | the word "drain" |
+| `control-plane.01` | `k8s-architecture` | anything about a control plane outage |
+| `declarative-*.01/.02/.03` | `k8s-architecture` | the declarative model, beyond one incidental "desired state" |
+| `deployment.01`, `deployment.02`, `declarative-*.02` | `k8s-deployment` alone | any definition of a Service, which the key or a distractor turns on |
+| `deployment.04` | `k8s-deployment` alone | per-instance identity or per-replica storage |
+| `pod.03` | `k8s-pods` alone | that a replacement pod carries a different **name** |
+| `cncf.03` | `cncf-who-we-are`, `cncf-charter` | the words sandbox, incubating, or graduated as maturity levels |
+
+**Citation rot found:** `github.com/cncf/toc/blob/main/process/graduation_criteria.md`, the natural
+home for the graduation criteria, now returns a 281-byte stub that only forwards to
+`.github/ISSUE_TEMPLATE/template-graduation-application.md`. The template, not the old path, is
+what is registered.
+
+### Seven sources registered in `data/sources.json`
+
+`k8s-drain`, `k8s-statefulset`, `k8s-objects`, `k8s-declarative-config`, `cncf-project-kubernetes`,
+`cncf-graduation-application`, plus `k8s-nodes` which task 55b had already registered. Each carries
+in `notes` the sentence that made it necessary. The one that settles the most items is
+`cncf-project-kubernetes`: *"Kubernetes was accepted to CNCF on March 10, 2016 at the Incubating
+maturity level and then moved to the Graduated maturity level on March 6, 2018."*
+
+**Duplicate registration noticed, not fixed:** `lf-about` and `linux-foundation-about` are two ids
+for the same URL, `https://www.linuxfoundation.org/about`. This range uses `lf-about`. Worth a
+single deduplication pass rather than an edit from inside a verification task.
+
+### The two double-key risks, and they were real
+
+1. **`cluster-and-node.03`** asked what happens to "several running pods" on a drained node and
+   keyed "recreated on other nodes". A **bare pod** evicted by a drain is not recreated by
+   anything, which makes o3 ("deleted permanently") defensible on the stem as written. Stem
+   tightened to pods that belong to Deployments.
+2. **`deployment.03`** asked what happens when a Deployment's pod template changes and keyed the
+   rolling ReplicaSet swap. o3 describes the **Recreate** strategy, which the Deployment page
+   documents as a real option: "All existing Pods are killed before new ones are created when
+   `.spec.strategy.type==Recreate`". The only thing excluding o3 was a run-on meta-clause appended
+   to o3's own text. Stem now names the default strategy, which is what the page calls
+   RollingUpdate.
+
+Both are exactly the failure mode task 55b flagged: **the appended commentary clause was doing
+work a precise stem should do**, so removing the tell exposed the ambiguity underneath it. Any
+agent clearing the remaining tails in items 1–30 should expect the same and check each stem.
+
+### One distractor `why` that stated a false fact
+
+`control-plane.02` o2's `why` asserted that the API server "is the only component that talks to
+etcd". No Kubernetes page states that as fact. The etcd administration task page states it as a
+*recommendation* — "Access to etcd is equivalent to root permission in the cluster so ideally only
+the API server should have access to it" — and then explains how an administrator configures TLS
+to achieve it. Rewritten to the architecture page's own description of the API server.
+
+### Rationales that argued from the exam rather than from a fact
+
+Four rationales in this range corrected a reader by appealing to the paper: `kubernetes.03` o1
+("The exam deliberately mirrors this shape across two different domains"), and all of `cncf.02`
+o1, o2 and o4 ("The exam's recurring pattern is exactly this…", "hosting foundations in this exam
+consistently do not govern…", "The exam expects the vocabulary and the shape…"). A rationale that
+cites the exam teaches pattern-matching on the paper and is checkable against nothing. All four
+rewritten to the two documents that actually settle the hosting-versus-governing split: CNCF
+charter §8(c) and the Kubernetes Steering Committee charter.
+
+Two options referred to **the exam from inside their own text** — `kubernetes.02` o3 ("since the
+exam confines itself entirely to single-host Docker concepts") and o4 (in its appended clause).
+These are the two the corpus scan finds in this file; both reworded.
+
+### The appended-clause shape tell — this range's 16 cleared
+
+Task 55b measured this and cleared items 31–59; task 55a left items 1–30 alone. Re-measured at the
+start of this task: **43 of 258 distractors and 0 of 86 keys**, 16 of them in items 60–86. All 16
+cleared here, in the distractor's own assertive voice, keeping the false claim and discarding the
+commentary. **16 remain, all in items 1–30, and are now the only ones left in the file.**
+
+Removing 16 long tails shortened this range's distractors and flipped the key into being the
+longest option in **18 of 27 items, against 7% at baseline** — a worse tell than the one being
+fixed, and it also tripped `q-length-cue` on two items. Twelve distractors were re-lengthened with
+substantive false content — a wrong mechanism stated plainly, never a commentary tail and never a
+paraphrase of the option's own `why`. **No key was truncated.**
+
+| Scan | 60–86 before | 60–86 after | 1–30 | 31–59 | File |
+| --- | --- | --- | --- | --- | --- |
+| em-dash trailing clause | k 22% / d 0% | k 22% / d 0% | k 3% / d 0% | k 17% / d 0% | k 14% / d 0% |
+| two-clause option text | k 0% / d 0% | k 0% / d 0% | k 0% / d 0% | k 0% / d 0% | k 0% / d 0% |
+| meta-commentary tail | k 0 / d 16 | k 0 / d 0 | k 0 / d 16 | k 0 / d 0 | k 0 / d 16 |
+| key is longest option | 7% | 26% | 3% | 17% | 15% |
+| mean option length | k147 / d145 | k147 / d129 | k134 / d138 | k153 / d132 | k145 / d133 |
+| six-token tail reused 3+ times | 0 | 0 | 0 | 0 | 0 |
+| `why` pasted into own `text` | 0 | 0 | 0 | 0 | 0 |
+
+The em-dash gap was **not widened** — this is one of the three files where it is nearly closed and
+it stands exactly where it did. Key-is-longest at 26% in this range is chance (25%). No option in
+this range is a bare code span. No item in this range turns on a PCI DSS requirement number.
+
+### Adjudication of prior findings
+
+- **Task 55a's "Note for the whole file, outside this range"** (leave the unpunctuated appended
+  clause alone until one agent fixes it file-wide): **rejected for this range**, on the same
+  ground task 55b rejected it. The measurement is decisive — the clause identified a wrong option
+  with 100% precision and appeared on more than one option in six of ten items at baseline. The
+  consistency argument does not survive a tell that strong, and the file is now down to the 16
+  instances in items 1–30.
+- **Task 55b's finding** that clearing the tails flips items into key-is-longest and needs
+  re-lengthening: **confirmed independently here**, at larger scale (18 of 27 items flipped).
+  Recorded above so the agent clearing items 1–30 budgets for it.
+- **`docs/verification/factcheck-containers.json`** was read and not treated as a clearance. All
+  52 of its entries concern Docker commands and image/registry concepts in items 1–59; **none
+  bears on items 60–86**, so there was nothing here to adjudicate.
+
+### `data/` and the guide
+
+The eight concept `description` fields in `data/topics/05-devops.json` covering this range were
+each checked against the primary sources and are **accurate as written** — including the
+`kubernetes` description's "hosted by the CNCF as a graduated project while governing itself
+through its own community structures", which is precisely the distinction the items test and
+which is now sourced to the CNCF's own project page rather than to the charter. **No factual
+correction to `data/` or to `study-guide/` was required from this range.** The only `data/`
+changes are the seven new source registrations and the concept-level `additional_sources`
+additions that fix the landing-page defect at its root.
+
+### Residual limit, recorded rather than hidden
+
+`pod.03` keys on a replacement pod having a **new name** as well as a new address. The Pods page
+supports the address (it calls the pod's identity "an ephemeral network identity") but says
+nothing about the name; the name claim rests on the Deployment page's worked example, where
+ReplicaSet-created pods are named `nginx-deployment-75675f5897-7ci7o`, that is Deployment name +
+`pod-template-hash` + a random suffix. The claim is therefore sound for a Deployment-managed pod
+and would be **wrong for a StatefulSet**, whose pods keep a sticky per-ordinal name across
+rescheduling. This bank has no StatefulSet concept, and the distractor that could have exploited
+the gap fails anyway because it claims the *same pod* survives. The item's
+`verification.reasoning` records this rather than claiming a verbatim source.

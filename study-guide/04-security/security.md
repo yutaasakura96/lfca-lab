@@ -1073,7 +1073,7 @@ structural defences, because both shrink what the first foothold is worth.
 
 <a id="c-security.security.insider-threat"></a>
 ### Insider threat
-*id: `security.security.insider-threat` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary*
+*id: `security.security.insider-threat` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-insider-threat*
 
 **What it is** Harm caused by someone who already holds legitimate access — an employee,
 contractor, or partner — whether deliberately (theft, sabotage) or accidentally (a
@@ -1136,7 +1136,7 @@ undoes the encryption but not the breach of confidentiality.
 
 <a id="c-security.security.vulnerabilities-cves-and-patching"></a>
 ### Vulnerabilities, CVEs and patching
-*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-csrc-glossary, verizon-dbir*
+*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-glossary-cve, verizon-dbir, first-cvss-v31*
 
 **What it is** A publicly known software weakness is catalogued under the CVE Program with a
 unique identifier of the form CVE-YYYY-NNNN, where the sequence number is four or more
@@ -1173,7 +1173,7 @@ choosing patch priority from deployment and reachability rather than from the ra
 
 <a id="c-security.security.system-hardening"></a>
 ### System hardening
-*id: `security.security.system-hardening` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-csrc-glossary*
+*id: `security.security.system-hardening` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-glossary-hardening*
 
 **What it is** Configuring a system to expose and permit as little as its purpose requires:
 removing unnecessary packages, disabling and stopping unused services, closing listening
@@ -1194,7 +1194,7 @@ is verified periodically rather than done once.
 
 <a id="c-security.security.firewalls-and-network-segmentation"></a>
 ### Firewalls and network segmentation
-*id: `security.security.firewalls-and-network-segmentation` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
+*id: `security.security.firewalls-and-network-segmentation` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-sp-800-41r1*
 
 **What it is** Two complementary network controls. A firewall filters traffic against a rule
 set at a boundary it sits on — a network perimeter, a subnet edge, or the host itself.
@@ -1328,7 +1328,7 @@ remains the form the exam's vocabulary uses.
 
 <a id="c-security.security.physical-security"></a>
 ### Physical security
-*id: `security.security.physical-security` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
+*id: `security.security.physical-security` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, grub-mkpasswd-pbkdf2*
 
 **What it is** Controlling who can physically reach hardware: locked facilities and racks,
 badge access, visitor escort, cameras, and secure disposal of decommissioned media.
@@ -1348,7 +1348,7 @@ deleted.
 
 <a id="c-security.security.ssh-hardening"></a>
 ### SSH hardening
-*id: `security.security.ssh-hardening` · depth 5 · importance 2 · LFS200: NOT COVERED · sources: openssh-sshd-config, rfc-4252-ssh-auth*
+*id: `security.security.ssh-hardening` · depth 5 · importance 2 · LFS200: NOT COVERED · sources: openssh-sshd-config, openssh-sshd-config-portable, openssh-sshd-8, rfc-4252-ssh-auth*
 
 **What it is** The standard configuration baseline for an internet-facing OpenSSH server:
 disable direct root login, disable password authentication in favour of public keys, and
@@ -1443,7 +1443,7 @@ effective configuration when a drop-in file may be overriding what you just edit
 
 <a id="c-security.security.selinux-and-apparmor"></a>
 ### SELinux and AppArmor
-*id: `security.security.selinux-and-apparmor` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: selinux-man8, apparmor-wiki*
+*id: `security.security.selinux-and-apparmor` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: selinux-man8, getenforce-man8, apparmor-man7, aa-status-man8*
 
 **What it is** Linux's two mainstream mandatory access control implementations. Policy —
 written by the distribution, not by the file's owner — confines what a process may do,
@@ -1553,7 +1553,7 @@ and identifying why a digest published beside the download adds little.
 
 <a id="c-security.security.vulnerability-scanning"></a>
 ### Vulnerability scanning
-*id: `security.security.vulnerability-scanning` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, cve-program-overview*
+*id: `security.security.vulnerability-scanning` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, cve-program-overview, first-cvss-v31*
 
 **What it is** Systematically probing hosts, applications, container images, and
 configurations against a database of known weaknesses, on a schedule or as a build-pipeline

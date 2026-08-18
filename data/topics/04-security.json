@@ -22,7 +22,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
         "nist-sp-800-53r5"
       ],
       "candidate_evidence": [],
@@ -54,7 +53,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
+        "nist-csrc-glossary-authentication",
+        "nist-csrc-glossary-authorization",
+        "rfc-9110-http-semantics",
         "nist-sp-800-63b-4"
       ],
       "candidate_evidence": [],
@@ -86,8 +87,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
-        "nist-sp-800-53r5"
+        "nist-csrc-glossary-audit",
+        "nist-csrc-glossary-accountability",
+        "nist-sp-800-53r5",
+        "nist-sp-800-100"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -120,8 +123,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
-        "nist-sp-800-53r5"
+        "nist-sp-800-53r5",
+        "sudo-man"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -154,7 +157,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
         "nist-sp-800-53r5"
       ],
       "candidate_evidence": [],
@@ -188,8 +190,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-207",
-        "nist-csrc-glossary"
+        "nist-sp-800-207"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -220,8 +221,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-53r5",
-        "nist-csrc-glossary"
+        "nist-sp-800-53r5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -254,8 +254,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-30r1",
-        "nist-csrc-glossary"
+        "nist-sp-800-30r1"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -353,7 +352,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary"
+        "nist-sp-800-63c-4",
+        "nist-sp-800-63b-4"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -386,6 +386,7 @@
       "additional_sources": [
         "rfc-4252-ssh-auth",
         "openssh-ssh-keygen",
+        "openssh-ssh-copy-id",
         "rfc-4251-ssh-architecture"
       ],
       "candidate_evidence": [],
@@ -486,8 +487,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
-        "owasp-password-storage"
+        "nist-glossary-hash-function",
+        "owasp-password-storage",
+        "man-sha256sum-1",
+        "gnupg-manual-verify"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -590,7 +593,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-5280-x509"
+        "rfc-5280-x509",
+        "rfc-9525-service-identity"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -657,7 +661,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary",
+        "nist-glossary-phishing",
+        "nist-sp-800-63b-4",
         "verizon-dbir"
       ],
       "candidate_evidence": [],
@@ -689,7 +694,13 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary"
+        "nist-glossary-malware",
+        "nist-glossary-rootkit",
+        "nist-glossary-trojan-horse",
+        "nist-glossary-virus",
+        "nist-glossary-worm",
+        "nist-glossary-availability",
+        "nist-glossary-confidentiality"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -722,7 +733,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary"
+        "nist-glossary-denial-of-service",
+        "nist-glossary-malware"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -756,7 +768,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-8446-tls13",
-        "nist-csrc-glossary"
+        "nist-glossary-mitm"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -790,7 +802,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "owasp-credential-stuffing",
-        "nist-sp-800-63b-4"
+        "nist-sp-800-63b-4",
+        "nist-glossary-phishing"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -854,7 +867,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary"
+        "owasp-wstg-privilege-escalation",
+        "mitre-attack-privilege-escalation"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -887,7 +901,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-csrc-glossary"
+        "nist-glossary-insider-threat"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -921,8 +935,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cve-program-overview",
-        "nist-csrc-glossary",
-        "verizon-dbir"
+        "nist-glossary-cve",
+        "verizon-dbir",
+        "first-cvss-v31"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -956,7 +971,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-53r5",
-        "nist-csrc-glossary"
+        "nist-glossary-hardening"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -989,7 +1004,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-53r5"
+        "nist-sp-800-53r5",
+        "nist-sp-800-41r1"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1119,7 +1135,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-53r5"
+        "nist-sp-800-53r5",
+        "grub-mkpasswd-pbkdf2"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1151,6 +1168,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "openssh-sshd-config",
+        "openssh-sshd-config-portable",
+        "openssh-sshd-8",
         "rfc-4252-ssh-auth"
       ],
       "candidate_evidence": [],
@@ -1187,7 +1206,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "selinux-man8",
-        "apparmor-wiki"
+        "getenforce-man8",
+        "apparmor-man7",
+        "aa-status-man8"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1262,7 +1283,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-53r5",
-        "cve-program-overview"
+        "cve-program-overview",
+        "first-cvss-v31"
       ],
       "candidate_evidence": [],
       "commands": [],

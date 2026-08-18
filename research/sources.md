@@ -9,6 +9,8 @@
 | cncf-glossary | CNCF Cloud Native Glossary (DevOps, CI, CD, continuous deployment, blue-green, canary, IaC, idempotence, observability, shift left, SRE, microservices, containers, orchestration, cluster, pod, stateless/stateful apps) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://glossary.cncf.io/ |
 | cncf-glossary-container | CNCF Cloud Native Glossary: Container | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/container/ |
 | cncf-glossary-faas | CNCF Cloud Native Glossary: Function as a Service (FaaS) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/function-as-a-service/ |
+| cncf-graduation-application | CNCF TOC Graduation Application template — the adoption and governance criteria a project must meet to graduate | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-18 | https://github.com/cncf/toc/blob/main/.github/ISSUE_TEMPLATE/template-graduation-application.md |
+| cncf-project-kubernetes | CNCF project page for Kubernetes — accepted at Incubating in 2016, moved to Graduated maturity level in 2018 | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-18 | https://www.cncf.io/projects/kubernetes/ |
 | cncf-who-we-are | CNCF — Who we are ("CNCF hosts critical components…"; "CNCF is part of the nonprofit Linux Foundation") | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://www.cncf.io/about/who-we-are/ |
 | fhs-3-0 | Filesystem Hierarchy Standard 3.0 | Linux Foundation | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
 | fhs-3.0 | Filesystem Hierarchy Standard, Version 3.0 | The Linux Foundation (LSB Workgroup) | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
@@ -28,6 +30,7 @@
 | nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
+| aa-status-man8 | aa-status(8) manual page — display the current AppArmor policy state | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/aa-status.8.en.html |
 | agile-alliance-glossary-mvp | What is a Minimum Viable Product (MVP)? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-11 | https://agilealliance.org/glossary/mvp/ |
 | agile-alliance-glossary-user-story-template | User Story Template for Agile \| Agile Alliance | Agile Alliance | 2 | 2015-12 | 2026-08-11 | https://agilealliance.org/glossary/user-story-template/ |
 | agile-business-consortium-moscow | What is MoSCoW Prioritization? | Agile Business Consortium (DSDM Consortium) | 2 | 2024-01 | 2026-08-11 | https://www.agilebusiness.org/resource/what-is-moscow-prioritization/ |
@@ -37,7 +40,7 @@
 | ansible-getting-started | Getting started with Ansible — Introduction | Red Hat / Ansible Project | 2 | — | 2026-08-17 | https://docs.ansible.com/ansible/latest/getting_started/introduction.html |
 | ansible-glossary-idempotency | Ansible Glossary -- Idempotency | Red Hat / Ansible Project | 2 | 2026-08 | 2026-08-11 | https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html |
 | apache-license-2 | Apache License, Version 2.0 | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/licenses/LICENSE-2.0 |
-| apparmor-wiki | AppArmor project documentation wiki | AppArmor project | 2 | — | 2026-08-10 | https://gitlab.com/apparmor/apparmor/-/wikis/home |
+| apparmor-man7 | apparmor(7) manual page — kernel enhancement to confine programs, enforcement and complain modes | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/apparmor.7.en.html |
 | archwiki-arch-linux | Arch Linux (ArchWiki) — rolling release model | Arch Linux project | 2 | — | 2026-08-10 | https://wiki.archlinux.org/title/Arch_Linux |
 | asf-contributor-agreements | ASF Contributor Agreements | Apache Software Foundation | 2 | — | 2026-08-18 | https://www.apache.org/licenses/contributor-agreements.html |
 | asf-how-it-works | How the ASF works | Apache Software Foundation | 2 | — | 2026-08-10 | https://www.apache.org/foundation/how-it-works/ |
@@ -153,8 +156,11 @@
 | caf-cloud-accounting | Cost efficiency considerations for your cloud adoption strategy (shift from a CapEx model to an OpEx model) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting |
 | cc-faq | Creative Commons Frequently Asked Questions | Creative Commons | 2 | — | 2026-08-10 | https://creativecommons.org/faq/ |
 | cisa-data-backup-options | Data Backup Options (US-CERT/CISA) — the 3-2-1 rule | CISA / US-CERT | 2 | — | 2026-08-10 | https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf |
+| cncf-glossary-container-orchestration | CNCF Cloud Native Glossary: Container Orchestration | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/container-orchestration/ |
 | cncf-glossary-iac | CNCF Cloud Native Glossary: Infrastructure as Code (IaC) | Cloud Native Computing Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/infrastructure-as-code/ |
 | cncf-glossary-serverless | CNCF Cloud Native Glossary: Serverless | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/serverless/ |
+| cncf-glossary-stateful-apps | CNCF Cloud Native Glossary: Stateful Apps | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/stateful-apps/ |
+| cncf-glossary-stateless-apps | CNCF Cloud Native Glossary: Stateless Apps | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/stateless-apps/ |
 | cncf-glossary-virtualization | CNCF Cloud Native Glossary: Virtualization | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/virtualization/ |
 | cryptsetup-luks-faq | cryptsetup / LUKS Frequently Asked Questions | cryptsetup project | 2 | — | 2026-08-10 | https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions |
 | curl-manpage | curl(1) manual page | curl project | 2 | — | 2026-08-10 | https://curl.se/docs/manpage.html |
@@ -162,16 +168,43 @@
 | debian-apt-8 | apt(8) — Debian package handling; update vs upgrade | Debian Project / APT team | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/apt/apt.8.en.html |
 | debian-dpkg-1 | dpkg(1) — Debian package manager for local .deb files | Debian Project | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/dpkg/dpkg.1.en.html |
 | dnf-command-ref | DNF command reference | Fedora Project / DNF | 2 | — | 2026-08-10 | https://dnf.readthedocs.io/en/latest/command_ref.html |
+| docker-bind-mounts | Bind mounts — "a file or directory on the host machine is mounted from the host into a container" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/storage/bind-mounts/ |
 | docker-build-best-practices | Building best practices (base images, USER/non-root, ENV layer behaviour, ADD vs COPY) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/build/building/best-practices/ |
+| docker-build-cache | Using the build cache — layer invalidation cascades to all downstream layers | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/build/cache/ |
+| docker-build-secrets | Build secrets — "Build arguments and environment variables are inappropriate for passing secrets to your build, because they persist in the final image" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/build/building/secrets/ |
+| docker-build-tag-publish | Build, tag, and publish an image — image reference anatomy [HOST[:PORT_NUMBER]/]PATH[:TAG] | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/ |
+| docker-buildx-build | docker buildx build / docker build — usage is [OPTIONS] PATH \| URL \| - | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/buildx/build/ |
+| docker-cli-attach | docker container attach CLI reference — attaches to a running container’s main process; CTRL-c signals it | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/attach/ |
+| docker-cli-exec | docker container exec CLI reference — "runs a new command in a running container" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/exec/ |
+| docker-cli-logs | docker container logs CLI reference — "batch-retrieves logs present at the time of execution" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/logs/ |
+| docker-cli-run | docker container run CLI reference (-e/--env, --env-file, -v) | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/run/ |
+| docker-cli-start | docker container start CLI reference — options are -a, -i, --checkpoint, --detach-keys only | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/start/ |
+| docker-compose-cli-down | docker compose down CLI reference — "Stops containers and removes containers, networks, volumes, and images created by up" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/down/ |
+| docker-compose-cli-stop | docker compose stop CLI reference — "Stops running containers without removing them" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/stop/ |
+| docker-compose-cli-up | docker compose up CLI reference — "Builds, (re)creates, starts, and attaches to containers"; --detach | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/up/ |
 | docker-compose-features | Why use Compose? — multi-container applications, single host deployments | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/compose/intro/features-uses/ |
 | docker-container-ls | docker container ls — canonical container status values (created, running, paused, restarting, exited, removing, dead) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/reference/cli/docker/container/ls/ |
+| docker-container-start | docker container start — start one or more stopped containers | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/start/ |
+| docker-container-stop | docker container stop — "SIGTERM, and after a grace period, SIGKILL" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/stop/ |
+| docker-dual-logging | Use docker logs with remote logging drivers — dual logging local cache, and how to disable it | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/logging/dual-logging/ |
+| docker-engine-security | Docker Engine security — kernel namespaces, cgroups, and daemon attack surface | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/security/ |
 | docker-image-layers | Understanding the image layers | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/ |
+| docker-image-ls | docker image ls / docker images — list images in the local image store | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/image/ls/ |
+| docker-image-pull | docker image pull — pulling by tag and by digest ("immutable identifier") | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/image/pull/ |
+| docker-image-push | docker image push — upload an image to a registry | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/image/push/ |
+| docker-json-file-logging | JSON File logging driver — "Docker captures the standard output (and standard error) of all your containers" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/logging/drivers/json-file/ |
+| docker-network-overview | Networking overview — user-defined networks and the embedded DNS server | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/engine/network/ |
 | docker-overview | Docker overview — the Docker platform, images and containers | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/get-started/docker-overview/ |
+| docker-publishing-ports | Publishing and exposing ports — -p HOST_PORT:CONTAINER_PORT, -P and ephemeral ports | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/ |
+| docker-system-prune | docker system prune — remove unused containers, networks and images | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/system/prune/ |
 | docker-volumes | Volumes — "the preferred mechanism for persisting data generated by and used by Docker containers" | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/engine/storage/volumes/ |
+| docker-what-is-a-container | What is a container? — Docker concepts ("they all share the same kernel") | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/ |
+| docker-what-is-a-registry | What is a registry? — Docker concepts (registry as centralized store, Docker Hub as the default) | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/ |
 | dockerfile-reference | Dockerfile reference (EXPOSE, ENV, CMD, WORKDIR, LABEL semantics) | Docker Inc. | 2 | — | 2026-08-10 | https://docs.docker.com/reference/dockerfile/ |
 | fedora-setup-spec | Fedora `setup` package spec — ships /etc/shadow as 0000 root:root | Fedora Project | 2 | — | 2026-08-10 | https://src.fedoraproject.org/rpms/setup/blob/rawhide/f/setup.spec |
 | finops-invoicing-and-chargeback | FinOps Framework capability: Invoicing & Chargeback (showback vs chargeback) | FinOps Foundation | 2 | — | 2026-08-17 | https://www.finops.org/framework/capabilities/chargeback/ |
 | firewalld-documentation | firewalld documentation (including the nftables backend, default since 0.6.0) | firewalld project | 2 | — | 2026-08-10 | https://firewalld.org/documentation/ |
+| first-cvss-v31 | CVSS v3.1 Specification Document — Common Vulnerability Scoring System | FIRST | 2 | — | 2026-08-18 | https://www.first.org/cvss/v3.1/specification-document |
 | fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
 | fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
 | gcp-application-load-balancer | Application Load Balancer overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/load-balancing/docs/application-load-balancer |
@@ -183,6 +216,7 @@
 | gcp-vpc-routes | Routes overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/routes |
 | gcs-objects | Objects — Cloud Storage (object immutability: no incremental changes, replace only) | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/storage/docs/objects |
 | gdpr-eurlex | Regulation (EU) 2016/679 (GDPR) — official consolidated text | European Union (EUR-Lex) | 2 | — | 2026-08-10 | https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng |
+| getenforce-man8 | getenforce(8) manual page — report the current SELinux mode | SELinux project / Linux man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/getenforce.8.html |
 | git-branch | git-branch(1) — "List, create, or delete branches" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-branch |
 | git-checkout | git-checkout(1) — including the DETACHED HEAD section | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-checkout |
 | git-clone | git-clone(1) — "Clone a repository into a new directory" | Git project (git-scm.com) | 2 | — | 2026-08-18 | https://git-scm.com/docs/git-clone |
@@ -226,7 +260,8 @@
 | gnu-locate-man | locate(1) — list files in databases that match a pattern | GNU findutils / mlocate project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/locate.1.html |
 | gnu-sed-manual | GNU sed Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/sed/manual/sed.html |
 | gnu-tar-manual | GNU tar: an archiver tool | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/tar/manual/tar.html |
-| gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-10 | https://www.gnupg.org/gph/en/manual/x135.html |
+| gnupg-manual-verify | Using the GNU Privacy Guard — Operational GPG Commands (--verify) | GnuPG Project | 2 | — | 2026-08-18 | https://www.gnupg.org/documentation/manuals/gnupg/Operational-GPG-Commands.html |
+| gnupg-verify-docs | The GNU Privacy Handbook — validating and verifying signatures (gpg --verify) | GnuPG project | 2 | — | 2026-08-18 | https://www.gnupg.org/gph/en/manual.html |
 | google-cloud-audit-logs | Cloud Audit Logs overview | Google Cloud | 2 | — | 2026-08-17 | https://cloud.google.com/logging/docs/audit |
 | google-cloud-spot-vms | Preemptible VM instances / Spot VMs | Google Cloud | 2 | — | 2026-08-11 | https://cloud.google.com/compute/docs/instances/preemptible |
 | google-sre-book-availability-table | Site Reliability Engineering, Appendix A: Availability Table | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/availability-table/ |
@@ -235,6 +270,7 @@
 | google-sre-book-embracing-risk | Site Reliability Engineering, Chapter 3: Embracing Risk — error budgets | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/embracing-risk/ |
 | google-sre-book-monitoring | Site Reliability Engineering, Chapter 6: Monitoring Distributed Systems | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/monitoring-distributed-systems/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |
+| grub-mkpasswd-pbkdf2 | grub-mkpasswd-pbkdf2(1) manual page — generate a hashed password for GRUB | GNU GRUB / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/grub-common/grub-mkpasswd-pbkdf2.1.en.html |
 | hipaa-45-cfr-164 | 45 CFR Part 164 — HIPAA Security and Privacy Rules (eCFR) | US Government Publishing Office / HHS | 2 | — | 2026-08-10 | https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164 |
 | iana-service-name-port-registry | Service Name and Transport Protocol Port Number Registry | IANA | 2 | — | 2026-08-10 | https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml |
 | ieee-802-1q | IEEE 802.1Q: Bridges and Bridged Networks (VLAN tagging) | IEEE | 2 | — | 2026-08-10 | https://standards.ieee.org/ieee/802.1Q/10323/ |
@@ -247,9 +283,16 @@
 | itu-t-x200-osi-basic-reference-model | ITU-T X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model | ITU-T (technically aligned with ISO/IEC 7498-1) | 2 | — | 2026-08-10 | https://www.itu.int/rec/T-REC-X.200-199407-I/en |
 | jenkins-pipeline-doc | Jenkins Pipeline — Jenkins User Handbook | Jenkins project / CD Foundation | 2 | — | 2026-08-17 | https://www.jenkins.io/doc/book/pipeline/ |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
+| k8s-controllers | Kubernetes Controllers — "controllers are control loops that watch the state of your cluster, then make or request changes where needed" | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/architecture/controller/ |
+| k8s-declarative-config | Kubernetes — Declarative Management of Kubernetes Objects Using Configuration Files (kubectl apply) | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/ |
 | k8s-deployment | Kubernetes Deployments — declarative updates, desired state reconciled by the Deployment controller, rollout and rollback | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ |
+| k8s-dockershim-removal-check | Check whether dockershim removal affects you — "If you are using Docker for building your application containers, you can still run these containers on any container runtime" | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/ |
+| k8s-drain | Kubernetes — Safely Drain a Node (kubectl drain evicts a node’s pods before maintenance) | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/ |
+| k8s-nodes | Kubernetes Nodes — node heartbeats, node controller health monitoring, eviction | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/architecture/nodes/ |
+| k8s-objects | Kubernetes Objects — object spec as desired state, continuously reconciled by the control plane | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/overview/working-with-objects/ |
 | k8s-pods | Kubernetes Pods — "the smallest deployable units of computing that you can create and manage in Kubernetes" | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/workloads/pods/ |
 | k8s-service | Kubernetes Service — exposing an application behind a single outward-facing endpoint | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/services-networking/service/ |
+| k8s-statefulset | Kubernetes StatefulSets — sticky per-pod identity, stable network identifiers, and stable per-replica storage, unlike a Deployment | Kubernetes / CNCF | 2 | — | 2026-08-18 | https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/ |
 | k8s-steering-charter | Kubernetes Steering Committee Charter — "the governing body of the Kubernetes project" | Kubernetes project | 2 | — | 2026-08-10 | https://github.com/kubernetes/steering/blob/master/charter.md |
 | kanban-guide | The Kanban Guide | Kanban University | 2 | — | 2026-08-10 | https://kanban.university/kanban-guide/ |
 | kernel-development-process | A guide to the Kernel Development Process — How the development process works | Linux kernel project (kernel.org) | 2 | — | 2026-08-17 | https://docs.kernel.org/process/2.Process.html |
@@ -309,6 +352,7 @@
 | man-resolv-conf | resolv.conf(5) — resolver configuration file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/resolv.conf.5.html |
 | man-rpm-8 | rpm(8) — RPM package manager | RPM Project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/rpm.8.html |
 | man-setpriority-2 | getpriority(2)/setpriority(2) — nice value, CAP_SYS_NICE, RLIMIT_NICE | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/setpriority.2.html |
+| man-sha256sum-1 | sha256sum(1) — compute and check SHA256 message digests (-c reads recorded checksums) | man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/sha256sum.1.html |
 | man-shadow-5 | shadow(5) — shadowed password file | Linux man-pages project / shadow-utils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/shadow.5.html |
 | man-signal-7 | signal(7) — overview of signals; SIGKILL/SIGSTOP cannot be caught | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/signal.7.html |
 | man-ss | ss(8) — another utility to investigate sockets | iproute2 | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
@@ -332,6 +376,7 @@
 | maven-dependency-mechanism | Introduction to the Dependency Mechanism | Apache Software Foundation | 2 | 2024-01 | 2026-08-11 | https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html |
 | microsoft-microservices-architecture-style | Microservices architecture style - Azure Architecture Center | Microsoft | 2 | — | 2026-08-12 | https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices |
 | microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
+| mitre-attack-privilege-escalation | MITRE ATT&CK — Privilege Escalation (TA0004) | MITRE | 2 | — | 2026-08-18 | https://attack.mitre.org/tactics/TA0004/ |
 | ms-azure-default-outbound-access | Default outbound access in Azure | Microsoft | 2 | — | 2026-08-11 | https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access |
 | nasa-expanded-guidance-se-requirements-management | NASA Systems Engineering Handbook, Section 6.2 - Requirements Management | NASA | 2 | 2023-02 | 2026-08-11 | https://www.nasa.gov/reference/6-2-requirements-management/ |
 | nasa-se-handbook-sp-2016-6105 | NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2) | NASA | 2 | 2016-12 | 2026-08-11 | https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf |
@@ -339,27 +384,48 @@
 | netfilter-documentation | netfilter/iptables project documentation | Netfilter Project | 2 | — | 2026-08-10 | https://www.netfilter.org/documentation/index.html |
 | nginx-beginners-guide | Beginner's Guide | F5, Inc. (nginx project) | 2 | 2024-01 | 2026-08-11 | https://nginx.org/en/docs/beginners_guide.html |
 | nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
+| nist-csrc-glossary-accountability | NIST CSRC Glossary — Accountability | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/accountability |
+| nist-csrc-glossary-audit | NIST CSRC Glossary — Audit | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/audit |
+| nist-csrc-glossary-authentication | NIST CSRC Glossary — Authentication | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/authentication |
+| nist-csrc-glossary-authorization | NIST CSRC Glossary — Authorization | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/authorization |
+| nist-glossary-availability | NIST CSRC Glossary — availability | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/availability |
 | nist-glossary-bcp | NIST CSRC Glossary: business continuity plan (BCP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/business_continuity_plan |
+| nist-glossary-confidentiality | NIST CSRC Glossary — confidentiality | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/confidentiality |
+| nist-glossary-cve | NIST CSRC Glossary — Common Vulnerabilities and Exposures (CVE) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/common_vulnerabilities_and_exposures |
+| nist-glossary-denial-of-service | NIST CSRC Glossary — denial of service (DoS) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/denial_of_service |
 | nist-glossary-drp | NIST CSRC Glossary: disaster recovery plan (DRP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/disaster_recovery_plan |
 | nist-glossary-fault-tolerance | NIST CSRC Glossary: fault tolerance | NIST Computer Security Resource Center | 2 | — | 2026-08-17 | https://csrc.nist.gov/glossary/term/fault_tolerance |
+| nist-glossary-hardening | NIST CSRC Glossary — hardening | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/hardening |
+| nist-glossary-hash-function | NIST CSRC Glossary — hash function (one-way, collision-resistant; FIPS 186-5/203) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/hash_function |
+| nist-glossary-insider-threat | NIST CSRC Glossary — insider threat | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/insider_threat |
+| nist-glossary-malware | NIST CSRC Glossary — malware | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/malware |
+| nist-glossary-mitm | NIST CSRC Glossary — man-in-the-middle attack (MitM) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/man_in_the_middle_attack |
+| nist-glossary-phishing | NIST CSRC Glossary — phishing | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/phishing |
+| nist-glossary-rootkit | NIST CSRC Glossary — rootkit | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/rootkit |
 | nist-glossary-rpo | NIST CSRC Glossary: Recovery Point Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_point_objective |
 | nist-glossary-rto | NIST CSRC Glossary: Recovery Time Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_time_objective |
+| nist-glossary-trojan-horse | NIST CSRC Glossary — Trojan horse | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/trojan_horse |
+| nist-glossary-virus | NIST CSRC Glossary — virus | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/virus |
 | nist-glossary-warm-site | NIST CSRC Glossary: warm site | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/warm_site |
+| nist-glossary-worm | NIST CSRC Glossary — worm | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/worm |
 | nist-sp-800-100 | NIST SP 800-100 — Information Security Handbook: A Guide for Managers | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/100/upd1/final |
 | nist-sp-800-122 | NIST SP 800-122 — Guide to Protecting the Confidentiality of Personally Identifiable Information (PII) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/122/final |
 | nist-sp-800-128 | NIST SP 800-128, Guide for Security-Focused Configuration Management of Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf |
 | nist-sp-800-145 | NIST SP 800-145: The NIST Definition of Cloud Computing | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf |
 | nist-sp-800-162 | NIST SP 800-162 — Guide to Attribute Based Access Control (ABAC) Definition and Considerations (covers DAC, MAC, RBAC) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/162/upd2/final |
+| nist-sp-800-190 | NIST SP 800-190, Application Container Security Guide | NIST | 2 | — | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf |
 | nist-sp-800-207 | NIST SP 800-207 — Zero Trust Architecture | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/207/final |
 | nist-sp-800-30r1 | NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/30/r1/final |
 | nist-sp-800-34r1 | NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf |
 | nist-sp-800-39 | NIST SP 800-39 — Managing Information Security Risk: Organization, Mission, and Information System View | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/39/final |
 | nist-sp-800-40r4 | NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf |
+| nist-sp-800-41r1 | NIST SP 800-41 Rev. 1 — Guidelines on Firewalls and Firewall Policy | NIST | 2 | 2009-09 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-41r1.pdf |
 | nist-sp-800-53Ar5 | NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls in Information Systems and Organizations | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/53/a/r5/final |
 | nist-sp-800-53r5 | NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final |
 | nist-sp-800-57p1r5 | NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final |
 | nist-sp-800-61r3 | NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/61/r3/final |
 | nist-sp-800-63b-4 | NIST SP 800-63B-4 — Digital Identity Guidelines: Authentication and Authenticator Management | NIST | 2 | — | 2026-08-10 | https://pages.nist.gov/800-63-4/sp800-63b.html |
+| nist-sp-800-63c-4 | NIST SP 800-63C-4 — Digital Identity Guidelines: Federation and Assertions | NIST | 2 | — | 2026-08-18 | https://pages.nist.gov/800-63-4/sp800-63c.html |
 | nist-sp-800-64-sdlc-phases | Security Considerations in the System Development Life Cycle (SP 800-64 Rev. 2) | NIST | 2 | 2008-10 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf |
 | nist-sp-800-77r1 | SP 800-77 Rev. 1: Guide to IPsec VPNs | NIST | 2 | 2020-06 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf |
 | nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/88/r1/final |
@@ -369,13 +435,17 @@
 | ntia-sbom-minimum-elements | The Minimum Elements For a Software Bill of Materials (SBOM) | NTIA, U.S. Department of Commerce | 2 | — | 2026-08-10 | https://www.ntia.gov/sites/default/files/publications/sbom_minimum_elements_report_0.pdf |
 | oasis-amqp-core-v1.0 | OASIS Advanced Message Queuing Protocol (AMQP) Version 1.0 | OASIS (also published as ISO/IEC 19464) | 2 | 2012-10 | 2026-08-11 | http://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-complete-v1.0-os.pdf |
 | oci-image-spec-config | OCI Image Format Specification — Image Configuration (history, empty_layer: "marks if the history item created a filesystem diff") | Open Container Initiative | 2 | — | 2026-08-10 | https://github.com/opencontainers/image-spec/blob/main/config.md |
+| oci-image-spec-layer | OCI Image Format Specification — Layer changesets and whiteout entries | Open Container Initiative | 2 | — | 2026-08-18 | https://github.com/opencontainers/image-spec/blob/main/layer.md |
 | oci-overview | About the Open Container Initiative — open standards for container formats and runtimes, formed under the Linux Foundation | Open Container Initiative | 2 | — | 2026-08-10 | https://opencontainers.org/about/overview/ |
 | omg-bpmn-2-0-2-process | Business Process Model and Notation (BPMN), Version 2.0.2 - Clause 10, Process; Clause on Lane/Pool | Object Management Group (OMG) | 2 | 2013-12 | 2026-08-11 | https://www.omg.org/spec/BPMN/2.0.2/PDF |
 | omg-uml-2-5-1-usecases | OMG Unified Modeling Language (OMG UML), Version 2.5.1 - Clause 18, Use Cases | Object Management Group (OMG) | 2 | 2017-12 | 2026-08-11 | https://www.omg.org/spec/UML/2.5.1/PDF |
 | openssh-scp-man | scp(1) — OpenSSH secure file copy | OpenSSH / OpenBSD project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/scp.1.html |
+| openssh-ssh-copy-id | ssh-copy-id(1) manual page | OpenSSH | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/ssh-copy-id.1.html |
 | openssh-ssh-keygen | ssh-keygen(1) manual page | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh-keygen |
 | openssh-ssh-manpage | ssh(1) - OpenSSH remote login client | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/ssh.1 |
+| openssh-sshd-8 | sshd(8) manual page — -T extended test mode and -t test mode | OpenBSD / OpenSSH | 2 | — | 2026-08-18 | https://man.openbsd.org/sshd |
 | openssh-sshd-config | sshd_config(5) manual page (PermitRootLogin, PasswordAuthentication, PubkeyAuthentication) | OpenBSD / OpenSSH | 2 | — | 2026-08-10 | https://man.openbsd.org/sshd_config |
+| openssh-sshd-config-portable | sshd_config(5), portable OpenSSH (Debian) — UsePAM, KbdInteractiveAuthentication, drop-in include order | Debian / OpenSSH portable | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/openssh-server/sshd_config.5.en.html |
 | osi-bsd-3-clause | The 3-Clause BSD License | Open Source Initiative | 2 | — | 2026-08-18 | https://opensource.org/license/bsd-3-clause |
 | osi-lgpl-2-1 | GNU Lesser General Public License, version 2.1 | Open Source Initiative | 2 | 1999-02-01 | 2026-08-18 | https://opensource.org/license/lgpl-2-1 |
 | osi-mit-license | The MIT License — Open Source Initiative | Open Source Initiative | 2 | — | 2026-08-17 | https://opensource.org/license/mit |
@@ -384,6 +454,7 @@
 | owasp-credential-stuffing | OWASP Credential Stuffing Prevention Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html |
 | owasp-password-storage | OWASP Password Storage Cheat Sheet | OWASP | 2 | — | 2026-08-10 | https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html |
 | owasp-top10-injection | OWASP Top 10:2025 — A05 Injection | OWASP | 2 | — | 2026-08-11 | https://owasp.org/Top10/2025/A05_2025-Injection/ |
+| owasp-wstg-privilege-escalation | OWASP Web Security Testing Guide — Testing for Privilege Escalation (vertical vs horizontal) | OWASP | 2 | — | 2026-08-18 | https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/03-Testing_for_Privilege_Escalation |
 | pci-dss-standards | PCI Data Security Standard — official standard page | PCI Security Standards Council | 2 | — | 2026-08-10 | https://www.pcisecuritystandards.org/standards/pci-dss/ |
 | pci-ssc-glossary | PCI SSC Glossary of Terms, Abbreviations and Acronyms | PCI Security Standards Council | 2 | — | 2026-08-17 | https://www.pcisecuritystandards.org/glossary/ |
 | posix-env-vars | POSIX.1-2024 (Issue 8) Base Definitions, Chapter 8: Environment Variables | The Open Group / IEEE | 2 | — | 2026-08-10 | https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html |
@@ -427,6 +498,7 @@
 | rfc-9110-http-semantics | RFC 9110: HTTP Semantics (including intermediaries: proxy, gateway/reverse proxy) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rfc-919-broadcasting-internet-datagrams | RFC 919: Broadcasting Internet Datagrams | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc919.html |
 | rfc-9293-tcp | RFC 9293: Transmission Control Protocol (TCP) | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9293.html |
+| rfc-9525-service-identity | RFC 9525 — Service Identity in TLS (obsoletes RFC 6125; DNS-ID matching of the requested name) | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc9525.html |
 | rfc5789 | RFC 5789: PATCH Method for HTTP | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc5789.html |
 | rfc6349-tcp-throughput | RFC 6349: Framework for TCP Throughput Testing | IETF | 2 | 2011-08 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc6349 |
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
@@ -438,6 +510,7 @@
 | scrum-guide-2020 | The Scrum Guide (November 2020) | Ken Schwaber and Jeff Sutherland / Scrum.org | 2 | — | 2026-08-10 | https://scrumguides.org/scrum-guide.html |
 | selinux-man8 | selinux(8) manual page — NSA Security-Enhanced Linux overview | SELinux project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/selinux.8.html |
 | semver | Semantic Versioning 2.0.0 — MAJOR for incompatible API changes, MINOR for backward-compatible features, PATCH for fixes | Semantic Versioning (Tom Preston-Werner) | 2 | — | 2026-08-10 | https://semver.org/ |
+| sudo-man | sudo(8) manual page | OpenBSD / Sudo project | 2 | — | 2026-08-18 | https://man.openbsd.org/sudo |
 | sudo-man-sudo | sudo(8) — execute a command as another user | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/sudo.man/ |
 | sudo-man-visudo | visudo(8) — edit the sudoers file safely | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/visudo.man/ |
 | systemd-1 | systemd(1) — system and service manager, PID 1 | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.html |

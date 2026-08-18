@@ -1661,7 +1661,10 @@
       ],
       "additional_sources": [
         "docker-overview",
-        "cncf-glossary"
+        "docker-what-is-a-container",
+        "docker-container-ls",
+        "cncf-glossary-container",
+        "k8s-pods"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1700,8 +1703,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "docker-overview",
-        "oci-image-spec-config",
-        "cncf-glossary"
+        "docker-image-ls",
+        "docker-image-layers",
+        "oci-image-spec-config"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1738,7 +1742,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "docker-image-layers",
-        "oci-image-spec-config"
+        "oci-image-spec-config",
+        "oci-image-spec-layer",
+        "dockerfile-reference",
+        "docker-build-cache"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1769,7 +1776,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-overview"
+        "docker-overview",
+        "docker-what-is-a-registry",
+        "docker-build-tag-publish",
+        "docker-image-push",
+        "docker-image-ls"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1805,8 +1816,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-overview",
-        "dockerfile-reference"
+        "docker-build-tag-publish",
+        "docker-image-pull",
+        "docker-overview"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1839,7 +1851,7 @@
       "additional_sources": [
         "dockerfile-reference",
         "docker-build-best-practices",
-        "oci-image-spec-config"
+        "docker-buildx-build"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1874,7 +1886,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-container-ls"
+        "docker-container-ls",
+        "docker-container-stop",
+        "docker-container-start",
+        "docker-system-prune",
+        "docker-overview"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1909,8 +1925,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
+        "docker-publishing-ports",
         "dockerfile-reference",
-        "docker-overview"
+        "docker-network-overview"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1945,7 +1962,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-volumes"
+        "docker-volumes",
+        "docker-bind-mounts"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -1980,7 +1998,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "dockerfile-reference",
-        "docker-overview"
+        "docker-cli-run",
+        "docker-cli-start",
+        "docker-build-secrets"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2015,7 +2035,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-overview"
+        "docker-cli-logs",
+        "docker-cli-exec",
+        "docker-cli-attach",
+        "docker-json-file-logging",
+        "docker-dual-logging"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2049,7 +2073,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-stateless-apps",
+        "cncf-glossary-stateful-apps",
+        "k8s-statefulset"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2083,7 +2109,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "oci-overview",
-        "k8s-architecture"
+        "k8s-architecture",
+        "k8s-dockershim-removal-check"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2114,7 +2141,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-compose-features"
+        "docker-compose-features",
+        "docker-compose-cli-up",
+        "docker-compose-cli-stop",
+        "docker-compose-cli-down",
+        "cncf-glossary-container-orchestration"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2149,7 +2180,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "docker-build-best-practices"
+        "docker-build-best-practices",
+        "nist-sp-800-190",
+        "docker-build-secrets",
+        "docker-engine-security"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2182,8 +2216,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
-        "k8s-architecture"
+        "cncf-glossary-container-orchestration",
+        "k8s-architecture",
+        "k8s-nodes",
+        "k8s-controllers",
+        "k8s-dockershim-removal-check"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2219,7 +2256,9 @@
         "k8s-steering-charter",
         "cncf-charter",
         "cncf-who-we-are",
-        "cncf-glossary"
+        "cncf-glossary",
+        "cncf-project-kubernetes",
+        "lf-lfca-cert-page"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2250,7 +2289,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "k8s-architecture"
+        "k8s-architecture",
+        "k8s-pods",
+        "k8s-drain"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2281,7 +2322,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "k8s-pods"
+        "k8s-pods",
+        "k8s-deployment"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2314,7 +2356,9 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "k8s-deployment"
+        "k8s-deployment",
+        "k8s-service",
+        "k8s-statefulset"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2380,7 +2424,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "k8s-architecture"
+        "k8s-architecture",
+        "k8s-nodes"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2412,7 +2457,10 @@
       "lfs200_sources": [],
       "additional_sources": [
         "k8s-deployment",
-        "k8s-architecture"
+        "k8s-architecture",
+        "k8s-objects",
+        "k8s-declarative-config",
+        "k8s-service"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2446,7 +2494,11 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-who-we-are",
-        "cncf-charter"
+        "cncf-charter",
+        "cncf-project-kubernetes",
+        "cncf-graduation-application",
+        "k8s-steering-charter",
+        "lf-about"
       ],
       "candidate_evidence": [],
       "commands": [],

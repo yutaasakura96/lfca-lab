@@ -1789,3 +1789,43 @@ check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts
 warnings. Shape scans on the whole file are unchanged by the rewrites: em-dash trailing clause
 keys 57% / distractors 40%, identical to the pre-task figures; within items 29–56 distractors sit
 at 36%, above the 33% they started at.
+
+
+## Cycle 3, task 55c — verify DevOps Fundamentals :: Containers, items 60–86
+
+27 of 27 items in the range verified against fetched primary sources and rewritten where needed:
+23 refuted as authored, 4 clean, all 23 fixed in place and re-verified. Full detail in
+`docs/verification/qbank-findings.md` under task 55c.
+
+**No key in the range was factually wrong.** Every refutation was a sourcing defect, a shape tell,
+a rationale that argued from the exam rather than from a fact, or a distractor that a precise stem
+would have excluded. The dominant defect was the landing-page pattern: `k8s-architecture`
+(`https://kubernetes.io/docs/concepts/architecture/`) was cited by 9 items across four concepts,
+including for node draining (the page never uses the word), for what happens to running pods
+during a control plane outage (it never discusses an outage), and for all three
+declarative-configuration items. Fixed at concept level in `data/topics/05-devops.json`. The CNCF
+glossary failed for the sixth wave running, cited by `kubernetes.02` — an item about LFCA's depth
+on Kubernetes — while containing no mention of LFCA, governance, or the Steering Committee.
+
+Seven sources added to `data/sources.json` and wired into the owning concepts'
+`additional_sources`: `k8s-drain`, `k8s-statefulset`, `k8s-objects`, `k8s-declarative-config`,
+`cncf-project-kubernetes`, `cncf-graduation-application`, and `k8s-nodes` (already registered by
+task 55b). The one that settles the most items is `cncf-project-kubernetes`, which states that
+Kubernetes "was accepted to CNCF on March 10, 2016 at the Incubating maturity level and then moved
+to the Graduated maturity level on March 6, 2018" — the graduated-status and maturity-ladder claim
+that five items had been making against the CNCF charter and Who-we-are page, neither of which
+names a maturity level. Citation rot recorded: `cncf/toc` `process/graduation_criteria.md` is now
+a stub forwarding to the graduation application template, which is what was registered.
+
+**No factual correction to `data/` or to `study-guide/` was required from this range.** The eight
+concept descriptions covering it were checked against the primary sources and are accurate as
+written.
+
+Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
+live) 0 errors / 0 warnings; `npm test` 307/307; `npm run generate` re-run and `npm run
+check-guide` 537/130/175, 0 errors / 0 warnings; `npm run validate` 537 concepts / 0 errors / 15
+warnings. Shape scans: the 16 meta-commentary distractor tails in items 60–86 were cleared,
+leaving 16 in items 1–30 as the file's last; clearing them flipped the key into longest option in
+18 of 27 items, so twelve distractors were re-lengthened with substantive false content, bringing
+key-is-longest to 26% against a 25% chance baseline. The em-dash gap was not widened — keys 22% /
+distractors 0% in range, identical before and after, and keys 14% / distractors 0% file-wide.

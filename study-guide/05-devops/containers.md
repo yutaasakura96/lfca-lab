@@ -389,7 +389,7 @@ creating a new container, not restarting the old one.
 
 | Command | Purpose | Key options | Example | Common mistake |
 | --- | --- | --- | --- | --- |
-| `docker start` | Start one or more stopped containers | `-a` attach output, `-i` attach stdin | `docker start web` | Expecting it to accept new run-time flags — port and environment settings are fixed when the container is created |
+| `docker start` | Start one or more stopped containers | `-a` attach output, `-i` attach stdin | `docker start web` | Expecting it to accept the configuration flags `docker run` takes — it has no `-p` and no `-e`; port and environment settings are fixed when the container is created |
 | `docker stop` | Stop a running container gracefully | `-t` seconds to wait before killing | `docker stop web` | Assuming it deletes the container — it leaves a stopped container behind, visible with `docker ps -a` |
 | `docker rm` | Remove one or more stopped containers | `-f` force-remove a running container, `-v` also remove anonymous volumes | `docker rm web` | Confusing it with `docker rmi`, which removes images; removing a container reclaims only its writable layer |
 
