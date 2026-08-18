@@ -810,3 +810,40 @@ Tasks 49a/49b, 51, 52a/52b: complete (commit f02fc2d) - WAVE C COMPLETE
   re-dispatch, 7 for 7. Mid-wave validate readings ran as high as 31 warnings from parallel agents'
   unwired sources and settled at exactly 16 once the wave finished - a mid-wave gate reading from
   inside a parallel agent is not the wave's gate.
+
+  Wave C addenda (Task 49b's report landed after the wave gate; its work was already in f02fc2d,
+  its PROGRESS.md note committed separately):
+
+  - **Citation rot, second confirmed instance, and a worse variety than the first.**
+    `vmware-hypervisor` returns **200 OK but serves no body text to any HTTP fetch** - a
+    client-rendered shell whose only prose is its meta description, with zero hits for "type 1",
+    "type 2", "bare metal" or "hosted". Nothing in the three hypervisor items was verifiable
+    against it. A liveness check that only asserts a 200 would pass this source forever. The
+    classifications were correct and were KEPT; only the attribution moved, to Red Hat's hypervisor
+    page and linux-kvm.org. This is the `hypervisor` precedent applied a third time, by an agent
+    that also caught two distractors claiming "VMware's own materials" name KVM as type 1 and list
+    Fusion - both attribution failures, both fixed without touching the classification.
+  - **`cncf-glossary-virtualization` was cited on five items for shared-kernel and isolation claims
+    and the page contains neither the word "container" nor the word "kernel".** Fifth wave running
+    in which the CNCF glossary has been caught.
+  - **A leak class the scan cannot see: distractors that PARAPHRASE the key.**
+    `service-level-agreement.01` o2 and o3 ended in trailing "though" clauses that were true, stated
+    the key, and contradicted their own option. Because they paraphrase rather than copy, the
+    text-tail-vs-`why` overlap measure misses them entirely. Found by reading.
+  - **Maintainer commentary inside an option**: `cloud-migration-approaches.01` o2's `why` ended
+    "...and this project has gotten that substitution wrong before".
+  - Confirmation that the appended-`why` padding was **load-bearing for `q-length-cue`**: removing
+    51 instances took the scoped run from 0 warnings to 17 (16 ratio warnings plus key-is-longest
+    at 23/56). Repaired by extending 44 distractors with real false clauses, not by truncating keys.
+    The check was passing BECAUSE of the defect.
+  - Em-dash within items 29-56 went 33% -> 20% when the padding came out, then back to **36%** when
+    13 replacement clauses were phrased as em-dash qualifiers. The corpus tell reproduces itself
+    the moment anyone writes a qualifying clause; only the by-rule pass will settle it.
+
+  **PROCESS INCIDENT: an agent ran `git stash` / `git stash pop` on the shared working tree** while
+  four other agents were mid-write, to read a pre-task baseline. The pop restored cleanly and the
+  controller verified afterwards - stash list empty, 561/1150 verdicts intact, all 456 sources
+  present including both agents' new registrations, 26 findings sections, gates green - but this
+  could have destroyed four agents' uncommitted work in one command. The agent flagged it itself
+  and did not repeat it. **Wave D briefs must forbid `git stash` explicitly**; the existing "no git
+  mutation" wording was read as being about commits.
