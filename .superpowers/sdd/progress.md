@@ -619,3 +619,76 @@ Tasks 42-47: complete (commit 9616c95) - VERIFICATION WAVE B
   WebFetch, and eCFR's web UI refuses programmatic access. GDPR was read via legislation.gov.uk's
   EU-as-adopted text and 45 CFR 164 via the eCFR versioner API.
 
+
+Tasks 48 and 50: complete (commit e8e495f) - WAVE C, PARTIAL
+  oss-licensing 31 items, git-concepts 38 items. **69 of 69 carry a verdict; 42 refuted on first
+  pass, rewritten and re-verified.** Corpus 350 -> 419/1150. Unscoped check-bank 801 -> 732 errors
+  (731 verdict-coverage + 1 position-balance). Sources 399 -> 422. Gates green: npm test 307/307,
+  validate 537/0/16, check-guide 0/0. Both files controller-verified against the filesystem.
+
+  **NOT RUN, and recorded as unrun rather than clean: Tasks 49a, 49b (cloud-computing, 56 items),
+  51 (project-management, 37) and 52 (cloud networking, 49).** Nothing was written for any of them.
+
+  **The wave's first dispatch lost five agents to a stall, all at the same point.** Tasks 48, 49a,
+  49b, 50 and 51 each died having written nothing, every one of them with a last message about
+  fetching sources. The host network was not the cause - curl returned 200 from nvlpubs.nist.gov,
+  git-scm.com and gnu.org in under two seconds while the agents were dying. Re-dispatched as a
+  TWO-agent probe with three changes: fetch via `curl` in Bash and read the local file (WebFetch
+  last resort, one page at a time), write verdicts to disk in batches of 5-8 items instead of
+  holding the file in memory, and two agents rather than seven so a wrong hypothesis costs two.
+  **Both probe agents completed in full.** The curl path is the pattern for the remaining waves.
+
+  **Attribution failure without content failure - the cleanest demonstration yet.** 42 of 69 items
+  refuted, and between them: **no wrong key, no double key, no duplicate option.** The keys were
+  substantively right almost throughout; what was wrong was where they said the knowledge came
+  from. This is the strongest evidence so far that the bank's content is sound and its sourcing is
+  not, and it is the sentence Task 59 should lead with.
+
+  **The landing-page defect is a property of the AUTHORING, not of any vendor's docs.** Wave B
+  found it in AWS documentation. Here it appears in two unrelated ecosystems:
+    - **Pro Git 1.3 "What is Git?" was the sole primary source on 14 of 38 git items** - a page
+      that documents no command and no option, carrying `git init`, `git log`, `git commit -a`,
+      `git status` headings, bare `git diff`, commit-message conventions and both forking items.
+    - **`spdx-license-list` was cited by 8 of 31 licensing items** - a table of identifiers and
+      FSF/OSI flags with NO licence text. The string "endorse" does not occur on it, yet it was
+      the source for BSD-3-Clause's non-endorsement clause.
+  In both cases the fix was to cite the leaf page; no correct content was weakened.
+
+  Two new sub-classes, both invisible to every check:
+  - **CITATION ROT.** `github-docs-about-pull-requests` now redirects to GitHub's Pull requests hub.
+    The item was correctly cited when written and is wrong today. Nothing re-checks that a URL still
+    resolves to the page it was chosen for, so citation correctness decays silently. Argues the
+    liveness check must carry a content assertion, not just a fetch.
+  - **STALE QUOTE.** `rebase.01` quoted git-rebase(1) as describing the reset step as equivalent to
+    `git reset --hard <upstream>`; the current page says `git checkout --detach <upstream>`, replay
+    "similar to running `git cherry-pick`", then `git checkout -B <branch>`. The quote was real
+    once. Same shape: both `fetch-vs-pull` items said pull merges by default, where git-pull(1) now
+    says `--ff-only` "is the default".
+
+  **A wrong section number inside a licence.** `gpl.02` attributed GPLv3's patent grant to section 5
+  in two `why` fields; it is section 11 (section 5 is Conveying Modified Source Versions). The guide
+  had it right and the questions had it wrong - the reverse of the usual direction.
+
+  **Third true-but-misreadable guide instance, and the first SELF-CONTRADICTING one**: the
+  `fetch-vs-pull` guide entry said merge-by-default under "What it is" and `--ff-only`-is-default
+  four lines below under "How it works". Guide and `data/` description both fixed. The class now
+  has three instances and is no longer plausibly incidental.
+
+  **A defect that originates in `data/`, not in the questions.** Task 48 found each item's
+  `source_ids` mirrored its concept's `additional_sources`, so 16 concepts in
+  data/topics/06-it-project-management.json were propagating the wrong sources into every item
+  written from them. Rewired at the concept level. Where else this holds is unmeasured and worth a
+  sweep: if `additional_sources` is wrong, every item derived from that concept inherits it.
+
+  Also fixed: `gnu-agpl-3` pointed at `agpl-3.0.html`, ~8 KB of navigation with no licence text;
+  the text including section 13 Remote Network Interaction is at `agpl-3.0.en.html`. URL corrected.
+
+  Recorded unresolved, not silently dropped: the guide's FSF Apache-2.0/GPLv2 incompatibility claim
+  at line 489 is unverified - gnu.org/licenses/license-list.html and philosophy/categories.html
+  timed out repeatedly across a whole task while other gnu.org pages served normally. Nothing
+  contradicts it and no question now depends on it.
+
+  Transient warning count seen and dismissed: validate read 19 mid-wave (gnu-gpl-2, gnu-gpl-3,
+  osi-bsd-3-clause registered by the parallel agent, not yet wired to concepts) and returned to the
+  expected 16 once that agent finished. Same pattern as the wave-B linux split. Mid-wave gate
+  readings from inside a parallel agent are not the wave's gate.
