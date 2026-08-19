@@ -516,28 +516,28 @@
 | nist-glossary-virus | NIST CSRC Glossary — virus | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/virus |
 | nist-glossary-warm-site | NIST CSRC Glossary: warm site | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/warm_site |
 | nist-glossary-worm | NIST CSRC Glossary — worm | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/worm |
-| nist-sp-800-100 | NIST SP 800-100 — Information Security Handbook: A Guide for Managers | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/100/upd1/final |
-| nist-sp-800-122 | NIST SP 800-122 — Guide to Protecting the Confidentiality of Personally Identifiable Information (PII) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/122/final |
+| nist-sp-800-100 | NIST SP 800-100 — Information Security Handbook: A Guide for Managers | NIST | 2 | — | 2026-08-17 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-100.pdf |
+| nist-sp-800-122 | NIST SP 800-122 — Guide to Protecting the Confidentiality of Personally Identifiable Information (PII) | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf |
 | nist-sp-800-128 | NIST SP 800-128, Guide for Security-Focused Configuration Management of Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-128.pdf |
 | nist-sp-800-145 | NIST SP 800-145: The NIST Definition of Cloud Computing | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf |
-| nist-sp-800-162 | NIST SP 800-162 — Guide to Attribute Based Access Control (ABAC) Definition and Considerations (covers DAC, MAC, RBAC) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/162/upd2/final |
+| nist-sp-800-162 | NIST SP 800-162 — Guide to Attribute Based Access Control (ABAC) Definition and Considerations (covers DAC, MAC, RBAC) | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-162.pdf |
 | nist-sp-800-190 | NIST SP 800-190, Application Container Security Guide | NIST | 2 | — | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf |
-| nist-sp-800-207 | NIST SP 800-207 — Zero Trust Architecture | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/207/final |
-| nist-sp-800-30r1 | NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/30/r1/final |
+| nist-sp-800-207 | NIST SP 800-207 — Zero Trust Architecture | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf |
+| nist-sp-800-30r1 | NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf |
 | nist-sp-800-34r1 | NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf |
-| nist-sp-800-39 | NIST SP 800-39 — Managing Information Security Risk: Organization, Mission, and Information System View | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/39/final |
+| nist-sp-800-39 | NIST SP 800-39 — Managing Information Security Risk: Organization, Mission, and Information System View | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf |
 | nist-sp-800-40r4 | NIST SP 800-40 Rev. 4, Guide to Enterprise Patch Management Planning | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf |
 | nist-sp-800-41r1 | NIST SP 800-41 Rev. 1 — Guidelines on Firewalls and Firewall Policy | NIST | 2 | 2009-09 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-41r1.pdf |
-| nist-sp-800-53Ar5 | NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls in Information Systems and Organizations | NIST | 2 | — | 2026-08-17 | https://csrc.nist.gov/pubs/sp/800/53/a/r5/final |
-| nist-sp-800-53r5 | NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final |
-| nist-sp-800-57p1r5 | NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final |
-| nist-sp-800-61r3 | NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/61/r3/final |
+| nist-sp-800-53Ar5 | NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls in Information Systems and Organizations | NIST | 2 | — | 2026-08-17 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf |
+| nist-sp-800-53r5 | NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf |
+| nist-sp-800-57p1r5 | NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf |
+| nist-sp-800-61r3 | NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf |
 | nist-sp-800-63b-4 | NIST SP 800-63B-4 — Digital Identity Guidelines: Authentication and Authenticator Management | NIST | 2 | — | 2026-08-10 | https://pages.nist.gov/800-63-4/sp800-63b.html |
 | nist-sp-800-63c-4 | NIST SP 800-63C-4 — Digital Identity Guidelines: Federation and Assertions | NIST | 2 | — | 2026-08-18 | https://pages.nist.gov/800-63-4/sp800-63c.html |
 | nist-sp-800-64-sdlc-phases | Security Considerations in the System Development Life Cycle (SP 800-64 Rev. 2) | NIST | 2 | 2008-10 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf |
 | nist-sp-800-77r1 | SP 800-77 Rev. 1: Guide to IPsec VPNs | NIST | 2 | 2020-06 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf |
-| nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/88/r1/final |
-| nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/pubs/sp/800/94/final |
+| nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf |
+| nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf |
 | nmap-port-scanning-basics | Nmap Reference Guide: Port Scanning Basics (open / closed / filtered port states) | Nmap Project | 2 | — | 2026-08-10 | https://nmap.org/book/man-port-scanning-basics.html |
 | nmap-port-scanning-techniques | Nmap Reference Guide: Port Scanning Techniques | Nmap Project | 2 | — | 2026-08-18 | https://nmap.org/book/man-port-scanning-techniques.html |
 | npm-install-locally | Downloading and installing packages locally — npm Docs | npm, Inc. / GitHub | 2 | — | 2026-08-17 | https://docs.npmjs.com/downloading-and-installing-packages-locally |

@@ -471,7 +471,7 @@
     {
       "id": "nist-sp-800-53r5",
       "title": "NIST SP 800-53 Rev. 5 — Security and Privacy Controls for Information Systems and Organizations",
-      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -495,7 +495,7 @@
     {
       "id": "nist-sp-800-207",
       "title": "NIST SP 800-207 — Zero Trust Architecture",
-      "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -507,7 +507,7 @@
     {
       "id": "nist-sp-800-61r3",
       "title": "NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management",
-      "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -519,7 +519,7 @@
     {
       "id": "nist-sp-800-39",
       "title": "NIST SP 800-39 — Managing Information Security Risk: Organization, Mission, and Information System View",
-      "url": "https://csrc.nist.gov/pubs/sp/800/39/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-39.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -531,7 +531,7 @@
     {
       "id": "nist-sp-800-30r1",
       "title": "NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments",
-      "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -543,7 +543,7 @@
     {
       "id": "nist-sp-800-88r1",
       "title": "NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization",
-      "url": "https://csrc.nist.gov/pubs/sp/800/88/r1/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -555,7 +555,7 @@
     {
       "id": "nist-sp-800-57p1r5",
       "title": "NIST SP 800-57 Part 1 Rev. 5 — Recommendation for Key Management: General",
-      "url": "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -567,7 +567,7 @@
     {
       "id": "nist-sp-800-122",
       "title": "NIST SP 800-122 — Guide to Protecting the Confidentiality of Personally Identifiable Information (PII)",
-      "url": "https://csrc.nist.gov/pubs/sp/800/122/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -579,7 +579,7 @@
     {
       "id": "nist-sp-800-94",
       "title": "NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS)",
-      "url": "https://csrc.nist.gov/pubs/sp/800/94/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -591,7 +591,7 @@
     {
       "id": "nist-sp-800-162",
       "title": "NIST SP 800-162 — Guide to Attribute Based Access Control (ABAC) Definition and Considerations (covers DAC, MAC, RBAC)",
-      "url": "https://csrc.nist.gov/pubs/sp/800/162/upd2/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-162.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
@@ -4647,7 +4647,7 @@
     {
       "id": "nist-sp-800-53Ar5",
       "title": "NIST SP 800-53A Rev. 5 — Assessing Security and Privacy Controls in Information Systems and Organizations",
-      "url": "https://csrc.nist.gov/pubs/sp/800/53/a/r5/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53Ar5.pdf",
       "organization": "NIST",
       "category": "primary-documentation",
       "authority_tier": 2,
@@ -4659,7 +4659,7 @@
     {
       "id": "nist-sp-800-100",
       "title": "NIST SP 800-100 — Information Security Handbook: A Guide for Managers",
-      "url": "https://csrc.nist.gov/pubs/sp/800/100/upd1/final",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-100.pdf",
       "organization": "NIST",
       "category": "primary-documentation",
       "authority_tier": 2,
