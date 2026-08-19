@@ -6442,7 +6442,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed in two halves. Immediate effect: proc_sys(5) describes /proc/sys as \"a number of files and subdirectories corresponding to kernel variables. These variables can be read and in some cases modified using the /proc filesystem.\" Non-persistence plus the /etc/sysctl.d remedy: sysctl.d(5) — \"At boot, systemd-sysctl.service(8) reads configuration files from the above directories to configure sysctl(8) kernel parameters,\" each line written to the corresponding path under /proc/sys. proc(5) confirms /proc is \"a pseudo-filesystem\". Empirical corroboration on this host: `docker run --rm ubuntu:24.04 sh -c 'stat -c \"%s %n\" /proc/sys/vm/swappiness; cat /proc/sys/vm/swappiness'` printed \"0 /proc/sys/vm/swappiness\" and \"60\" — a zero-size file with live content, nothing disk-backed. o2 was SELF-REFUTING as authored; rewritten with a real false clause (a kernel that writes /etc/sysctl.conf), refuted by sysctl.d(5). o3 and o4 `why` statements checked and true. CITATION FIX at concept level: added proc_sys(5) and sysctl.d(5), since proc(5) alone never mentions /etc/sysctl.d. No distractor is also correct.",
+        "reasoning": "Key confirmed in two halves. Immediate effect: proc_sys(5) describes /proc/sys as \"a number of files and subdirectories corresponding to kernel variables. These variables can be read and in some cases modified using the /proc filesystem.\" Non-persistence plus the /etc/sysctl.d remedy: sysctl.d(5) — \"At boot, systemd-sysctl.service(8) reads configuration files from the above directories to configure sysctl(8) kernel parameters,\" each line written to the corresponding path under /proc/sys. proc(5) confirms /proc is \"a pseudo-filesystem\". Empirical corroboration on this host: `docker run --rm ubuntu:24.04 sh -c 'stat -c \"%s %n\" /proc/sys/vm/swappiness; cat /proc/sys/vm/swappiness'` printed \"0 /proc/sys/vm/swappiness\" and \"60\" — a zero-size file with live content, nothing disk-backed. o2 was SELF-REFUTING as authored; rewritten with a real false clause (a kernel that writes /etc/sysctl.conf), refuted by sysctl.d(5). o3 and o4 `why` statements checked and true. CITATION FIX at concept level: added proc_sys(5) and sysctl.d(5), since proc(5) alone never mentions /etc/sysctl.d. No distractor is also correct. Dead-citation pass 2026-08-19 (resource-security-proc): re-fetched proc(5) and grepped it for the claim it is cited for here. The page is live (31 KB) and its DESCRIPTION still reads \"The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures\", so the citation is retained rather than swapped for a plausible sub-page. The persistence half of the key was already on proc_sys(5) and sysctl.d(5). Verdict unchanged.",
         "sources_read": [
           "https://man7.org/linux/man-pages/man5/proc_sys.5.html",
           "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
@@ -6500,7 +6500,10 @@
       ],
       "rationale": "Reading a path under `/proc` causes the kernel to generate its contents on demand, which is why such entries report a size of zero to `ls -l` yet return real data when read — an artefact of `/proc` being a virtual filesystem with no disk-backed size, not a sign of corruption.",
       "source_ids": [
-        "man-proc-5"
+        "man-proc-5",
+        "man-proc-pid-status-5",
+        "man-proc-sys-5",
+        "man-sysctl-d-5"
       ],
       "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.proc-and-sys",
       "comparison_block": null,
@@ -6517,9 +6520,10 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed by proc(5) — \"The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures\" — and settled empirically, since no manual states the reported size directly. Command run: `docker run --rm ubuntu:24.04 sh -c 'ls -l /proc/1/status; cat /proc/1/status | wc -c'`. Output: \"-r--r--r-- 1 root root 0 Aug 18 10:59 /proc/1/status\" followed by \"1090\". Reported size zero, 1090 bytes returned on read, on a healthy filesystem — exactly the behaviour the key describes and the direct refutation of o2 and o4. o3 was SELF-REFUTING as authored (text carried its own `why` verbatim after an em-dash); rewritten with a real false mechanism. All three distractor `why` statements checked and true. No distractor is also correct.",
+        "reasoning": "Key confirmed by proc(5) — \"The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures\" — and settled empirically, since no manual states the reported size directly. Command run: `docker run --rm ubuntu:24.04 sh -c 'ls -l /proc/1/status; cat /proc/1/status | wc -c'`. Output: \"-r--r--r-- 1 root root 0 Aug 18 10:59 /proc/1/status\" followed by \"1090\". Reported size zero, 1090 bytes returned on read, on a healthy filesystem — exactly the behaviour the key describes and the direct refutation of o2 and o4. o3 was SELF-REFUTING as authored (text carried its own `why` verbatim after an em-dash); rewritten with a real false mechanism. All three distractor `why` statements checked and true. No distractor is also correct. Dead-citation pass 2026-08-19 (resource-security-proc): proc(5) re-fetched and confirmed to still carry the pseudo-filesystem sentence this key rests on, so it stays. But the stem names /proc/1234/status specifically, and the per-file sections of proc(5) were split out into ~100 proc_*(5) pages; proc_pid_status(5) was fetched and does describe that exact file field by field (Name, State, Tgid, Pid, \"PPid  PID of parent process\", Uid, Gid), so it is added. The reported-size-zero behaviour itself remains empirically established rather than documented — no manual states it — and that limit is unchanged. Verdict unchanged.",
         "sources_read": [
-          "https://man7.org/linux/man-pages/man5/proc.5.html"
+          "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "https://man7.org/linux/man-pages/man5/proc_pid_status.5.html"
         ]
       }
     },
@@ -9602,7 +9606,7 @@
         "man-uname-1",
         "kernel-readme",
         "systemd-bootup-7",
-        "man-proc-5"
+        "man-proc-version-5"
       ],
       "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.kernel",
       "comparison_block": null,
@@ -9619,10 +9623,12 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed: uname(1) documents '-r, --kernel-release: print the kernel release', and uname reports the running system, not what is staged on disk; the kernel's own admin-guide README treats a reboot as the step that puts a newly installed kernel into service ('Shutdown the system, reboot, and enjoy!... Reboot with the new kernel and enjoy'), and advises keeping an entry for the old image in the boot loader in case the new one does not work — which also establishes that two kernels coexist on disk. o2's why is true, and o3's why is true (uname(1) prints the kernel release; the distribution release is in os-release(5)). REFUTED AS AUTHORED on o4: the option text ended with its own why appended verbatim; rewritten with a false trailing claim, contradicted by the README's advice to keep the previous image available, while the why is unchanged and still true. Re-checked: confirmed. Citation refuted as authored: the concept cited credentials(7), which is about process UIDs and GIDs and has nothing to do with kernel versions — this is the same 'right subject area, wrong man page' defect class flagged earlier in this competency. Replaced at concept level with uname(1), the kernel README and bootup(7); proc(5) was kept, since it documents /proc/version and /proc/sys/kernel/osrelease for the running kernel.",
+        "reasoning": "Key confirmed: uname(1) documents '-r, --kernel-release: print the kernel release', and uname reports the running system, not what is staged on disk; the kernel's own admin-guide README treats a reboot as the step that puts a newly installed kernel into service ('Shutdown the system, reboot, and enjoy!... Reboot with the new kernel and enjoy'), and advises keeping an entry for the old image in the boot loader in case the new one does not work — which also establishes that two kernels coexist on disk. o2's why is true, and o3's why is true (uname(1) prints the kernel release; the distribution release is in os-release(5)). REFUTED AS AUTHORED on o4: the option text ended with its own why appended verbatim; rewritten with a false trailing claim, contradicted by the README's advice to keep the previous image available, while the why is unchanged and still true. Re-checked: confirmed. Citation refuted as authored: the concept cited credentials(7), which is about process UIDs and GIDs and has nothing to do with kernel versions — this is the same 'right subject area, wrong man page' defect class flagged earlier in this competency. Replaced at concept level with uname(1), the kernel README and bootup(7); proc(5) was kept, since it documents /proc/version and /proc/sys/kernel/osrelease for the running kernel. Dead-citation pass 2026-08-19 (resource-security-proc): proc(5) was kept at the previous pass because it documented /proc/version and /proc/sys/kernel/osrelease — and that is precisely the material the man-pages split moved out. proc(5) was re-fetched and no longer mentions /proc/version at all. Replaced with proc_version(5), fetched and confirmed: \"/proc/version - kernel version ... This string identifies the kernel version that is currently running\" — the running-kernel-versus-installed-package distinction the key turns on. Verdict unchanged.",
         "sources_read": [
           "https://man7.org/linux/man-pages/man1/uname.1.html",
-          "https://www.kernel.org/doc/html/latest/admin-guide/README.html"
+          "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
+          "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "https://man7.org/linux/man-pages/man5/proc_version.5.html"
         ]
       }
     },
@@ -9678,8 +9684,7 @@
       "source_ids": [
         "man-uname-1",
         "kernel-readme",
-        "systemd-bootup-7",
-        "man-proc-5"
+        "systemd-bootup-7"
       ],
       "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.kernel",
       "comparison_block": null,
@@ -9696,10 +9701,11 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed against bootup(7), which fixes the stage order the diagnosis depends on: firmware hands to the boot loader, the boot loader invokes the kernel, the kernel mounts the initramfs and then the root file system, and systemd then activates units. A GRUB menu on screen therefore proves firmware and boot loader ran, and kernel messages prove the kernel started, leaving initramfs, root filesystem or an init-system unit — exactly the key. o2's why and o3's why are both true. REFUTED AS AUTHORED on o4: the option text ended with its own why appended verbatim; rewritten with a false trailing claim, since Secure Boot verification (per ArchWiki's Secure Boot page) applies to the pre-boot binaries — boot manager, kernel, initramfs — and so would stop the kernel starting rather than firing during userspace start-up. Why unchanged and still true. Re-checked: confirmed. Citation refuted as authored: credentials(7) documents process UIDs/GIDs and says nothing about boot stages; replaced at concept level with bootup(7) alongside uname(1), the kernel README and proc(5). Distractor `o4` was then lengthened, without changing its meaning or its why, to remove the key-is-longest length cue that stripping the self-refuting padding had exposed.",
+        "reasoning": "Key confirmed against bootup(7), which fixes the stage order the diagnosis depends on: firmware hands to the boot loader, the boot loader invokes the kernel, the kernel mounts the initramfs and then the root file system, and systemd then activates units. A GRUB menu on screen therefore proves firmware and boot loader ran, and kernel messages prove the kernel started, leaving initramfs, root filesystem or an init-system unit — exactly the key. o2's why and o3's why are both true. REFUTED AS AUTHORED on o4: the option text ended with its own why appended verbatim; rewritten with a false trailing claim, since Secure Boot verification (per ArchWiki's Secure Boot page) applies to the pre-boot binaries — boot manager, kernel, initramfs — and so would stop the kernel starting rather than firing during userspace start-up. Why unchanged and still true. Re-checked: confirmed. Citation refuted as authored: credentials(7) documents process UIDs/GIDs and says nothing about boot stages; replaced at concept level with bootup(7) alongside uname(1), the kernel README and proc(5). Distractor `o4` was then lengthened, without changing its meaning or its why, to remove the key-is-longest length cue that stripping the self-refuting padding had exposed. Dead-citation pass 2026-08-19 (resource-security-proc): proc(5) dropped from this item with no replacement. Its /proc/version material moved to proc_version(5) in the man-pages split, but this item is about boot stages, and neither proc(5) nor any proc_*(5) sub-page says anything about the firmware / boot loader / kernel / init ordering the key depends on. Citing a sub-page here would have been a silent citation, so it was not done; the key stays on bootup(7), which states that order explicitly. Verdict unchanged.",
         "sources_read": [
           "https://www.freedesktop.org/software/systemd/man/latest/bootup.html",
-          "https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot"
+          "https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot",
+          "https://man7.org/linux/man-pages/man5/proc.5.html"
         ]
       }
     }

@@ -6,7 +6,6 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | aws-s3-what-is | What is Amazon S3? — "Amazon Simple Storage Service (Amazon S3) is an object storage service" | Amazon Web Services | 1 | — | 2026-08-18 | https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html |
 | cncf-charter | CNCF Charter — neutral home for projects; projects keep their existing technical governance | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://github.com/cncf/foundation/blob/main/charter.md |
-| cncf-glossary | CNCF Cloud Native Glossary (DevOps, CI, CD, continuous deployment, blue-green, canary, IaC, idempotence, observability, shift left, SRE, microservices, containers, orchestration, cluster, pod, stateless/stateful apps) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://glossary.cncf.io/ |
 | cncf-glossary-container | CNCF Cloud Native Glossary: Container | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/container/ |
 | cncf-glossary-faas | CNCF Cloud Native Glossary: Function as a Service (FaaS) | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-11 | https://glossary.cncf.io/function-as-a-service/ |
 | cncf-graduation-application | CNCF TOC Graduation Application template — the adoption and governance criteria a project must meet to graduate | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-18 | https://github.com/cncf/toc/blob/main/.github/ISSUE_TEMPLATE/template-graduation-application.md |
@@ -164,16 +163,27 @@
 | caf-cloud-accounting | Cost efficiency considerations for your cloud adoption strategy (shift from a CapEx model to an OpEx model) | Microsoft | 2 | — | 2026-08-17 | https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/cloud-accounting |
 | cc-faq | Creative Commons Frequently Asked Questions | Creative Commons | 2 | — | 2026-08-10 | https://creativecommons.org/faq/ |
 | cisa-data-backup-options | Data Backup Options (US-CERT/CISA) — the 3-2-1 rule | CISA / US-CERT | 2 | — | 2026-08-10 | https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf |
+| cncf-glossary-blue-green-deployment | CNCF Cloud Native Glossary: Blue Green Deployment | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/blue-green-deployment/ |
+| cncf-glossary-canary-deployment | CNCF Cloud Native Glossary: Canary Deployment | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/canary-deployment/ |
 | cncf-glossary-container-orchestration | CNCF Cloud Native Glossary: Container Orchestration | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/container-orchestration/ |
+| cncf-glossary-continuous-delivery | CNCF Cloud Native Glossary: Continuous Delivery (CD) | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/continuous-delivery/ |
+| cncf-glossary-continuous-deployment | CNCF Cloud Native Glossary: Continuous Deployment (CD) | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/continuous-deployment/ |
+| cncf-glossary-continuous-integration | CNCF Cloud Native Glossary: Continuous Integration (CI) | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/continuous-integration/ |
+| cncf-glossary-devops | CNCF Cloud Native Glossary: DevOps | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/devops/ |
 | cncf-glossary-iac | CNCF Cloud Native Glossary: Infrastructure as Code (IaC) | Cloud Native Computing Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/infrastructure-as-code/ |
+| cncf-glossary-idempotence | CNCF Cloud Native Glossary: Idempotence | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/idempotence/ |
+| cncf-glossary-microservices-architecture | CNCF Cloud Native Glossary: Microservices Architecture | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/microservices-architecture/ |
+| cncf-glossary-monolithic-apps | CNCF Cloud Native Glossary: Monolithic Apps | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/monolithic-apps/ |
+| cncf-glossary-observability | CNCF Cloud Native Glossary: Observability | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/observability/ |
 | cncf-glossary-serverless | CNCF Cloud Native Glossary: Serverless | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/serverless/ |
+| cncf-glossary-shift-left | CNCF Cloud Native Glossary: Shift Left | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/shift-left/ |
+| cncf-glossary-sre | CNCF Cloud Native Glossary: Site Reliability Engineering | Cloud Native Computing Foundation | 2 | — | 2026-08-19 | https://glossary.cncf.io/site-reliability-engineering/ |
 | cncf-glossary-stateful-apps | CNCF Cloud Native Glossary: Stateful Apps | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/stateful-apps/ |
 | cncf-glossary-stateless-apps | CNCF Cloud Native Glossary: Stateless Apps | Cloud Native Computing Foundation / Linux Foundation | 2 | — | 2026-08-18 | https://glossary.cncf.io/stateless-apps/ |
 | cncf-glossary-virtualization | CNCF Cloud Native Glossary: Virtualization | Cloud Native Computing Foundation | 2 | — | 2026-08-10 | https://glossary.cncf.io/virtualization/ |
 | cryptsetup-luks-faq | cryptsetup / LUKS Frequently Asked Questions | cryptsetup project | 2 | — | 2026-08-10 | https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions |
 | curl-faq | curl FAQ | curl project | 2 | — | 2026-08-18 | https://curl.se/docs/faq.html |
 | curl-manpage | curl(1) manual page | curl project | 2 | — | 2026-08-10 | https://curl.se/docs/manpage.html |
-| cve-program-overview | CVE Program — About / Overview | CVE Program (MITRE / CISA) | 2 | — | 2026-08-10 | https://www.cve.org/About/Overview |
 | debian-apt-8 | apt(8) — Debian package handling; update vs upgrade | Debian Project / APT team | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/apt/apt.8.en.html |
 | debian-apt-get-8 | apt-get(8) — --fix-broken, --no-install-recommends, --install-suggests | Debian Project / APT team | 2 | — | 2026-08-18 | https://manpages.debian.org/stable/apt/apt-get.8.en.html |
 | debian-dpkg-1 | dpkg(1) — Debian package manager for local .deb files | Debian Project | 2 | — | 2026-08-10 | https://manpages.debian.org/stable/dpkg/dpkg.1.en.html |
@@ -222,6 +232,7 @@
 | first-cvss-v31 | CVSS v3.1 Specification Document — Common Vulnerability Scoring System | FIRST | 2 | — | 2026-08-18 | https://www.first.org/cvss/v3.1/specification-document |
 | fowler-blue-green-deployment | BlueGreenDeployment (martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/BlueGreenDeployment.html |
 | fowler-canary-release | Canary Release (Danilo Sato, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-17 | https://martinfowler.com/bliki/CanaryRelease.html |
+| fowler-continuous-integration | Continuous Integration (Martin Fowler, martinfowler.com) | Martin Fowler / Thoughtworks | 2 | — | 2026-08-19 | https://martinfowler.com/articles/continuousIntegration.html |
 | gcp-application-load-balancer | Application Load Balancer overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/load-balancing/docs/application-load-balancer |
 | gcp-cloud-interconnect | Cloud Interconnect overview | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview |
 | gcp-private-service-connect | Private Service Connect | Google Cloud | 2 | — | 2026-08-18 | https://cloud.google.com/vpc/docs/private-service-connect |
@@ -286,18 +297,17 @@
 | google-sre-book-embracing-risk | Site Reliability Engineering, Chapter 3: Embracing Risk — error budgets | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/embracing-risk/ |
 | google-sre-book-monitoring | Site Reliability Engineering, Chapter 6: Monitoring Distributed Systems | Google | 2 | — | 2026-08-17 | https://sre.google/sre-book/monitoring-distributed-systems/ |
 | google-sre-book-slos | Site Reliability Engineering, Chapter 4: Service Level Objectives | Google | 2 | — | 2026-08-10 | https://sre.google/sre-book/service-level-objectives/ |
+| google-sre-book-testing-reliability | Site Reliability Engineering, Chapter 17: Testing for Reliability | Google | 2 | — | 2026-08-19 | https://sre.google/sre-book/testing-reliability/ |
 | grub-mkpasswd-pbkdf2 | grub-mkpasswd-pbkdf2(1) manual page — generate a hashed password for GRUB | GNU GRUB / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/grub-common/grub-mkpasswd-pbkdf2.1.en.html |
 | haproxy-starter-guide | HAProxy Starter Guide (documentation 3.0) | HAProxy | 2 | — | 2026-08-18 | https://docs.haproxy.org/3.0/intro.html |
 | hipaa-45-cfr-164 | 45 CFR Part 164 — HIPAA Security and Privacy Rules (eCFR) | US Government Publishing Office / HHS | 2 | — | 2026-08-10 | https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164 |
 | iana-service-name-port-registry | Service Name and Transport Protocol Port Number Registry | IANA | 2 | — | 2026-08-10 | https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml |
-| ieee-802-1q | IEEE 802.1Q: Bridges and Bridged Networks (VLAN tagging) | IEEE | 2 | — | 2026-08-10 | https://standards.ieee.org/ieee/802.1Q/10323/ |
 | iproute2-ip-address-man | ip-address(8) — protocol address management | iproute2 project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ip-address.8.html |
 | iproute2-ss-man | ss(8) — another utility to investigate sockets | iproute2 project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
 | isc-bind9-manpages | BIND 9 ARM: Manual pages (dig, host, nslookup) | Internet Systems Consortium | 2 | — | 2026-08-10 | https://bind9.readthedocs.io/en/latest/manpages.html |
 | isc-dhcpd-conf-manual | ISC DHCP 4.4 manual pages: dhcpd.conf | Internet Systems Consortium | 2 | — | 2026-08-10 | https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcpdconf |
 | iso-certification | ISO — Certification | ISO | 2 | — | 2026-08-17 | https://www.iso.org/certification.html |
 | istqb-standard-glossary-v2.2 | Standard Glossary of Terms Used in Software Testing, Version 2.2 | International Software Testing Qualifications Board (ISTQB) | 2 | 2012-10 | 2026-08-11 | https://glossary.istqb.org/en_US/term/user-acceptance-testing |
-| itu-t-x200-osi-basic-reference-model | ITU-T X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model | ITU-T (technically aligned with ISO/IEC 7498-1) | 2 | — | 2026-08-10 | https://www.itu.int/rec/T-REC-X.200-199407-I/en |
 | itu-t-x200-osi-basic-reference-model-pdf | ITU-T X.200 (07/94), free-to-read PDF: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model (identical text to ISO/IEC 7498-1:1994) | ITU-T (identical text published as ISO/IEC 7498-1:1994) | 2 | — | 2026-08-18 | https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.200-199407-I!!PDF-E&type=items |
 | jenkins-pipeline-doc | Jenkins Pipeline — Jenkins User Handbook | Jenkins project / CD Foundation | 2 | — | 2026-08-17 | https://www.jenkins.io/doc/book/pipeline/ |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
@@ -335,6 +345,7 @@
 | man-chmod-1 | chmod(1) — change file mode bits (symbolic and octal) | GNU coreutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/chmod.1.html |
 | man-chown-1 | chown(1) — change file owner and group (the OWNER[:[GROUP]] operand syntax) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/chown.1.html |
 | man-chown-2 | chown(2) — change ownership of a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man2/chown.2.html |
+| man-connect-2 | connect(2) — initiate a connection on a socket | Linux man-pages project | 2 | — | 2026-08-19 | https://man7.org/linux/man-pages/man2/connect.2.html |
 | man-cp-1 | cp(1) — copy files and directories | Linux man-pages project / GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cp.1.html |
 | man-credentials-7 | credentials(7) — process identifiers, UIDs and GIDs | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/credentials.7.html |
 | man-crontab-1 | crontab(1) — maintain crontab files for individual users | cronie project / Linux man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/crontab.1.html |
@@ -405,12 +416,15 @@
 | man-pid-namespaces-7 | pid_namespaces(7) — PID namespaces, init process, adoption of orphaned children | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/pid_namespaces.7.html |
 | man-ping-8 | ping(8) — send ICMP ECHO_REQUEST to network hosts | iputils / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/ping.8.html |
 | man-proc-5 | proc(5) — the /proc filesystem | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc.5.html |
+| man-proc-cpuinfo-5 | proc_cpuinfo(5) — /proc/cpuinfo, CPU and system architecture information | Linux man-pages project | 2 | — | 2026-08-19 | https://man7.org/linux/man-pages/man5/proc_cpuinfo.5.html |
 | man-proc-loadavg | proc_loadavg(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_loadavg.5.html |
 | man-proc-pid-oom-score | proc_pid_oom_score(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html |
 | man-proc-pid-oom-score-adj | proc_pid_oom_score_adj(5) — Linux manual page | Linux man-pages project | 2 | — | 2026-08-11 | https://man7.org/linux/man-pages/man5/proc_pid_oom_score_adj.5.html |
 | man-proc-pid-stat-5 | proc_pid_stat(5) — process state codes (D uninterruptible sleep, Z zombie) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_pid_stat.5.html |
+| man-proc-pid-status-5 | proc_pid_status(5) — /proc/PID/status fields (Name, State, Pid, PPid, Uid, Gid) | Linux man-pages project | 2 | — | 2026-08-19 | https://man7.org/linux/man-pages/man5/proc_pid_status.5.html |
 | man-proc-sys-5 | proc_sys(5) — the /proc/sys sysctl pseudo-filesystem | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_sys.5.html |
 | man-proc-sys-kernel-5 | proc_sys_kernel(5) — /proc/sys/kernel, including pid_max and PID wraparound | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/proc_sys_kernel.5.html |
+| man-proc-version-5 | proc_version(5) — /proc/version, the running kernel version | Linux man-pages project | 2 | — | 2026-08-19 | https://man7.org/linux/man-pages/man5/proc_version.5.html |
 | man-ps-1 | ps(1) — report a snapshot of the current processes | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/ps.1.html |
 | man-pwd-1 | pwd(1) — print name of current/working directory | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/pwd.1.html |
 | man-resize2fs-8 | resize2fs(8) — ext2/ext3/ext4 filesystem resizer | Linux man-pages project / e2fsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/resize2fs.8.html |
@@ -445,6 +459,7 @@
 | man-usermod-8 | usermod(8) — modify a user account (-a, -G, -g, -L) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/usermod.8.html |
 | man-vmstat-8 | vmstat(8) — report virtual memory statistics | Linux man-pages project / procps-ng | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/vmstat.8.html |
 | man-w-1 | w(1) — show who is logged on and what they are doing | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/w.1.html |
+| man-wait-2 | wait(2) — waitpid and the zombie state of an unreaped child | Linux man-pages project | 2 | — | 2026-08-19 | https://man7.org/linux/man-pages/man2/wait.2.html |
 | man-whereis-1 | whereis(1) — locate the binary, source, and manual page files for a command | util-linux / kernel.org man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/whereis.1.html |
 | man-xfs-growfs-8 | xfs_growfs(8) — expand an XFS filesystem | Linux man-pages project / xfsprogs | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/xfs_growfs.8.html |
 | man7-getent-1 | getent(1) - get entries from Name Service Switch libraries | Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man1/getent.1.html |
@@ -471,10 +486,8 @@
 | nasa-expanded-guidance-se-requirements-management | NASA Systems Engineering Handbook, Section 6.2 - Requirements Management | NASA | 2 | 2023-02 | 2026-08-11 | https://www.nasa.gov/reference/6-2-requirements-management/ |
 | nasa-se-handbook-sp-2016-6105 | NASA Systems Engineering Handbook (NASA SP-2016-6105 Rev2) | NASA | 2 | 2016-12 | 2026-08-11 | https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf |
 | nasa-wbs-handbook-sp-2016-3404-rev1 | NASA Work Breakdown Structure (WBS) Handbook, NASA/SP-2016-3404/REV1 | NASA | 2 | 2018-01 | 2026-08-11 | https://essp.larc.nasa.gov/EVM-3/pdf_files/NASA_WBS_Handbook_20180000844.pdf |
-| netfilter-documentation | netfilter/iptables project documentation | Netfilter Project | 2 | — | 2026-08-10 | https://www.netfilter.org/documentation/index.html |
 | nginx-beginners-guide | Beginner's Guide | F5, Inc. (nginx project) | 2 | 2024-01 | 2026-08-11 | https://nginx.org/en/docs/beginners_guide.html |
 | nginx-http-load-balancing | Using nginx as HTTP load balancer | nginx | 2 | — | 2026-08-18 | https://nginx.org/en/docs/http/load_balancing.html |
-| nist-csrc-glossary | NIST Computer Security Resource Center Glossary | NIST | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary |
 | nist-csrc-glossary-accountability | NIST CSRC Glossary — Accountability | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/accountability |
 | nist-csrc-glossary-audit | NIST CSRC Glossary — Audit | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/audit |
 | nist-csrc-glossary-authentication | NIST CSRC Glossary — Authentication | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/authentication |
@@ -483,15 +496,19 @@
 | nist-glossary-bcp | NIST CSRC Glossary: business continuity plan (BCP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/business_continuity_plan |
 | nist-glossary-confidentiality | NIST CSRC Glossary — confidentiality | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/confidentiality |
 | nist-glossary-cve | NIST CSRC Glossary — Common Vulnerabilities and Exposures (CVE) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/common_vulnerabilities_and_exposures |
+| nist-glossary-dac | NIST CSRC Glossary — discretionary access control (DAC) | NIST | 2 | — | 2026-08-19 | https://csrc.nist.gov/glossary/term/discretionary_access_control |
 | nist-glossary-denial-of-service | NIST CSRC Glossary — denial of service (DoS) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/denial_of_service |
 | nist-glossary-drp | NIST CSRC Glossary: disaster recovery plan (DRP) | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/disaster_recovery_plan |
+| nist-glossary-encryption | NIST CSRC Glossary — encryption (plaintext to ciphertext using a cryptographic algorithm and key) | NIST | 2 | — | 2026-08-19 | https://csrc.nist.gov/glossary/term/encryption |
 | nist-glossary-fault-tolerance | NIST CSRC Glossary: fault tolerance | NIST Computer Security Resource Center | 2 | — | 2026-08-17 | https://csrc.nist.gov/glossary/term/fault_tolerance |
 | nist-glossary-hardening | NIST CSRC Glossary — hardening | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/hardening |
 | nist-glossary-hash-function | NIST CSRC Glossary — hash function (one-way, collision-resistant; FIPS 186-5/203) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/hash_function |
 | nist-glossary-insider-threat | NIST CSRC Glossary — insider threat | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/insider_threat |
+| nist-glossary-mac | NIST CSRC Glossary — mandatory access control (MAC) | NIST | 2 | — | 2026-08-19 | https://csrc.nist.gov/glossary/term/mandatory_access_control |
 | nist-glossary-malware | NIST CSRC Glossary — malware | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/malware |
 | nist-glossary-mitm | NIST CSRC Glossary — man-in-the-middle attack (MitM) | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/man_in_the_middle_attack |
 | nist-glossary-phishing | NIST CSRC Glossary — phishing | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/phishing |
+| nist-glossary-rbac | NIST CSRC Glossary — role-based access control (RBAC) | NIST | 2 | — | 2026-08-19 | https://csrc.nist.gov/glossary/term/role_based_access_control |
 | nist-glossary-rootkit | NIST CSRC Glossary — rootkit | NIST | 2 | — | 2026-08-18 | https://csrc.nist.gov/glossary/term/rootkit |
 | nist-glossary-rpo | NIST CSRC Glossary: Recovery Point Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_point_objective |
 | nist-glossary-rto | NIST CSRC Glossary: Recovery Time Objective | NIST CSRC | 2 | — | 2026-08-10 | https://csrc.nist.gov/glossary/term/recovery_time_objective |

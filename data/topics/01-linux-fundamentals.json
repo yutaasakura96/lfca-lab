@@ -236,7 +236,9 @@
       "additional_sources": [
         "kernel-readme",
         "fhs-3.0",
-        "man-syscalls-2"
+        "man-syscalls-2",
+        "man-proc-5",
+        "man-proc-cpuinfo-5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2423,6 +2425,7 @@
       "additional_sources": [
         "rfc-6335",
         "man-ip-7",
+        "man-capabilities-7",
         "kernel-ip-sysctl",
         "iproute2-ss-man",
         "man-services-5"

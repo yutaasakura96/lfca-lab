@@ -485,7 +485,6 @@
       ],
       "rationale": "Full-disk encryption protects information located on the storage component, and TLS protects it while it is on the wire between endpoints. Neither reaches the address space of the process that is actually working on the data, which is why data in use is the hardest of the three states and has no everyday answer built from 'we encrypted it'.",
       "source_ids": [
-        "nist-csrc-glossary",
         "nist-sp-800-53r5"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-states",
@@ -501,10 +500,12 @@
           "o3",
           "o4"
         ],
-        "reasoning": "SOURCE CORRECTED. The item was cited to the NIST CSRC glossary alone, which carries Data-at-Rest and Data in Transit but has NO entry for 'data in use' — /glossary/term/data_in_use returns 404 and a glossary search for the phrase returns no such term — so the key's own state was not in the cited source. nist-sp-800-53r5 was added: the SC-28 discussion states 'Information at rest refers to the state of information when it is not in process or in transit and is located on system components', which establishes the three-state partition and places the processing state outside both the storage and the transmission boundaries. Full-disk encryption is a control on the storage component and TLS on the wire, so neither reaches the running process's memory, which is the key. o2 raises a genuine key-custody concern that does not make the at-rest state uncovered here; o3 is refuted by the existence of the third state; o4 describes a specific TLS-inspection architecture rather than a gap in TLS. Each distractor's why is true.",
+        "reasoning": "SOURCE CORRECTED. The item was cited to the NIST CSRC glossary alone, which carries Data-at-Rest and Data in Transit but has NO entry for 'data in use' — /glossary/term/data_in_use returns 404 and a glossary search for the phrase returns no such term — so the key's own state was not in the cited source. nist-sp-800-53r5 was added: the SC-28 discussion states 'Information at rest refers to the state of information when it is not in process or in transit and is located on system components', which establishes the three-state partition and places the processing state outside both the storage and the transmission boundaries. Full-disk encryption is a control on the storage component and TLS on the wire, so neither reaches the running process's memory, which is the key. o2 raises a genuine key-custody concern that does not make the at-rest state uncovered here; o3 is refuted by the existence of the third state; o4 describes a specific TLS-inspection architecture rather than a gap in TLS. Each distractor's why is true. Dead-citation pass 2026-08-19 (resource-security-proc): the nist-csrc-glossary root is now dropped rather than merely supplemented. Re-fetched it and the two nearest term pages: /glossary/term/data_at_rest and /glossary/term/data_in_transit render with no Definitions block at all (acronym entries only), and there is no data_in_use term. The key therefore stands on the SP 800-53 Rev. 5 SC-28 discussion already cited, which partitions the states by defining information at rest as information \"not in process or in transit\". Limit recorded: NIST publishes no definition of the in-use state; the partition is what carries it. Verdict unchanged.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
-          "https://csrc.nist.gov/glossary"
+          "https://csrc.nist.gov/glossary",
+          "https://csrc.nist.gov/glossary/term/data_at_rest",
+          "https://csrc.nist.gov/glossary/term/data_in_transit"
         ]
       }
     },
@@ -558,7 +559,8 @@
       ],
       "rationale": "The three transformations sit on a fixed axis. Encryption is reversible with a key. Hashing is one-way, keyless, and produces a digest nothing is recovered from. Encoding is reversible by anyone with no key at all and provides no security whatsoever. Only encryption sits at the 'reversible, but only with a key' point on that axis.",
       "source_ids": [
-        "nist-csrc-glossary"
+        "nist-glossary-encryption",
+        "nist-glossary-hash-function"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.data-states",
       "comparison_block": null,
@@ -573,7 +575,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "The NIST glossary defines encryption as the cryptographic transformation of plaintext into ciphertext and notes that where the transformation is reversible the reversal is decryption, and SP 800-133 Rev. 2 / SP 800-57 Part 1 Rev. 5 both define it there as 'the process of changing plaintext into ciphertext using a cryptographic algorithm and key' — reversibility gated on the key, which is the key option. The glossary's hash function entry (FIPS 186-5) gives the one-way property: 'it is computationally infeasible to find any input that maps to any new pre-specified output', refuting o2 and the salted-hash claim in o4. Noted limit: the glossary has no general 'encoding' entry (only BER/DER), so o3's Base64 claim rests on the definitional fact that Base64 is a keyless, publicly reversible transfer encoding rather than on the cited source; it is true and not load-bearing for the key. Each distractor's why states a true fact.",
+        "reasoning": "The NIST glossary defines encryption as the cryptographic transformation of plaintext into ciphertext and notes that where the transformation is reversible the reversal is decryption, and SP 800-133 Rev. 2 / SP 800-57 Part 1 Rev. 5 both define it there as 'the process of changing plaintext into ciphertext using a cryptographic algorithm and key' — reversibility gated on the key, which is the key option. The glossary's hash function entry (FIPS 186-5) gives the one-way property: 'it is computationally infeasible to find any input that maps to any new pre-specified output', refuting o2 and the salted-hash claim in o4. Noted limit: the glossary has no general 'encoding' entry (only BER/DER), so o3's Base64 claim rests on the definitional fact that Base64 is a keyless, publicly reversible transfer encoding rather than on the cited source; it is true and not load-bearing for the key. Each distractor's why states a true fact. Dead-citation pass 2026-08-19 (resource-security-proc): the glossary root replaced by the two term pages the verification actually rested on, both re-fetched and grepped. /glossary/term/encryption gives \"The process of changing plaintext into ciphertext using a cryptographic algorithm and key\" (SP 800-133 Rev. 2 / SP 800-57 Part 1 Rev. 5) and \"If the transformation is reversible, the corresponding reversal process is called “decryption”\" — key-gated reversibility, which is the key. /glossary/term/hash_function gives the one-way property, \"It is computationally infeasible to find any input that maps to any new pre-specified output\", refuting o2 and o4. The previously recorded limit stands unchanged: there is no NIST glossary entry for encoding, so o3's Base64 claim rests on the definitional fact rather than on a cited source, and it is not load-bearing for the key. Verdict unchanged.",
         "sources_read": [
           "https://csrc.nist.gov/glossary/term/encryption",
           "https://csrc.nist.gov/glossary/term/hash_function",
@@ -631,7 +633,9 @@
       ],
       "rationale": "Under DAC, a subject granted access may pass it on at the owner's discretion. Under MAC, the policy is uniformly enforced and a subject granted access is constrained from passing it on regardless of who owns the object. The separating axis is who holds the decision: the owner in the first case, a system-enforced policy the owner cannot override in the second.",
       "source_ids": [
-        "nist-csrc-glossary"
+        "nist-glossary-dac",
+        "nist-glossary-mac",
+        "nist-glossary-rbac"
       ],
       "guide_anchor": "04-security/sensitive-data.md#c-security.sensitive-data.access-control-models",
       "comparison_block": null,
@@ -646,7 +650,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "The NIST glossary quotes CNSSI 4009-2015 for both models. DAC: 'An access control policy that is enforced over all subjects and objects ... where the policy specifies that a subject that has been granted access to information can ... pass the information to other subjects or objects', with SP 800-192 adding that DAC 'leaves a certain amount of access control to the discretion of the object's owner'. MAC: 'An access control policy that is uniformly enforced across all subjects and objects within the boundary of an information system. A subject that has been granted access to information is constrained from ... passing the information to unauthorized subjects or objects'. That is the key, word for word in substance. o2 is false because nothing in the scenario names a role; o3 is false because a label is enforced by a mechanism rather than being one; o4 is false because uniform enforcement across all subjects and objects is MAC's defining feature, not an attribute evaluation. Each distractor's why is true.",
+        "reasoning": "The NIST glossary quotes CNSSI 4009-2015 for both models. DAC: 'An access control policy that is enforced over all subjects and objects ... where the policy specifies that a subject that has been granted access to information can ... pass the information to other subjects or objects', with SP 800-192 adding that DAC 'leaves a certain amount of access control to the discretion of the object's owner'. MAC: 'An access control policy that is uniformly enforced across all subjects and objects within the boundary of an information system. A subject that has been granted access to information is constrained from ... passing the information to unauthorized subjects or objects'. That is the key, word for word in substance. o2 is false because nothing in the scenario names a role; o3 is false because a label is enforced by a mechanism rather than being one; o4 is false because uniform enforcement across all subjects and objects is MAC's defining feature, not an attribute evaluation. Each distractor's why is true. Dead-citation pass 2026-08-19 (resource-security-proc): the item cited the nist-csrc-glossary root, which is a JavaScript search page carrying zero definitions; it is replaced by the three CSRC term pages the verification quoted, each re-fetched and grepped for the claim. DAC (CNSSI 4009-2015): a subject granted access \"can ... pass the information to other subjects or objects\", with SP 800-192 adding that DAC \"leaves a certain amount of access control to the discretion of the object's owner\". MAC (CNSSI 4009-2015): \"An access control policy that is uniformly enforced across all subjects and objects within the boundary of an information system\", under which a granted subject \"is constrained from ... passing the information to unauthorized subjects or objects\", and \"access control policy decisions are made by a central authority, not by the individual owner of an object\". RBAC: \"Access control based on user roles\", which is what refutes o2 in a scenario that names no role. Verdict unchanged.",
         "sources_read": [
           "https://csrc.nist.gov/glossary/term/discretionary_access_control",
           "https://csrc.nist.gov/glossary/term/mandatory_access_control",

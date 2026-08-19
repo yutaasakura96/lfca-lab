@@ -998,7 +998,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-monolithic-apps"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1033,7 +1033,7 @@
         "ch11.l3"
       ],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-microservices-architecture",
         "microsoft-microservices-architecture-style"
       ],
       "candidate_evidence": [],

@@ -5414,3 +5414,47 @@ to do here as it did at HEAD.
   its own step is "defined to always" be first, which the BIND pages contradict on their own terms.
 - **`gnu.org`** was unreachable, as the controller reported. The named substitution is `man7-wget`
   for the GNU Wget manual; nothing else in this range depended on it.
+
+## Dead-source cleanup (controller, 2026-08-19)
+
+Six registered sources were removed from `data/sources.json` after being decited from every
+concept and item. Each returned HTTP 200 and supported nothing. Measurements are the controller's,
+taken immediately before removal:
+
+| id | URL | measured |
+| --- | --- | --- |
+| `nist-csrc-glossary` | `csrc.nist.gov/glossary` | 98,327 b, ~13,416 chars of text, **zero definitions** (search/nav shell) |
+| `cncf-glossary` | `glossary.cncf.io/` | 47,427 b, ~5,005 chars, **zero definitions** (nav chrome) |
+| `cve-program-overview` | `cve.org/About/Overview` | **880 b, 156 chars** — an empty Vue shell |
+| `itu-t-x200-osi-basic-reference-model` | `itu.int/rec/T-REC-X.200-199407-I/en` | 19,423 b, ~2,557 chars, **0 occurrences of "physical layer"**; only body word is "Summary" |
+| `ieee-802-1q` | `standards.ieee.org/ieee/802.1Q/10323/` | 360,595 b, 155,513 chars, **0 occurrences of "broadcast domain"**; real PDF is licence-gated |
+| `netfilter-documentation` | `netfilter.org/documentation/index.html` | 31,190 b, ~4,534 chars, **0 occurrences of "REJECT"** |
+
+`netfilter-documentation` was the ONLY claim-bearing source on eight items;
+`itu-t-x200-…-en` was the sole source for all four OSI items.
+
+**Two sources initially listed as dead were NOT dead, and both agents said so rather than comply.**
+The controller derived "dead" for each from a single probe and wrote that into three briefs. Both
+were partially valid and are RETAINED:
+- **`man-proc-5`** — its per-file sections were split into ~100 `proc_*(5)` sub-pages, but its
+  DESCRIPTION still reads verbatim *"The proc filesystem is a pseudo-filesystem which provides an
+  interface to kernel data structures."* Three items rest on exactly that sentence. Kept for
+  overview claims; replaced only where the claim was per-file.
+- **`man-ip-7`** — `/proc/sys/net` and `ip_local_port_range` are gone (0 occurrences, and SEE ALSO
+  now points to `Documentation/networking/ip-sysctl.rst`), but the privileged-ports /
+  `CAP_NET_BIND_SERVICE` paragraph, `INADDR_LOOPBACK`/`INADDR_ANY`, and the auto-bind-on-connect
+  rule are all still present verbatim. Kept. One genuine misattribution WAS found and fixed:
+  `listening-vs-established-connections.02` credited ip(7) with the UDP default-peer mechanism
+  (0 occurrences there); re-sourced to connect(2).
+
+**A citation can rot without its URL ever breaking, and rot is not all-or-nothing.** A page can
+lose the specific sentence an item depends on while remaining a valid source for other items on
+the same page. Any future sourcing check must assert the CLAIM, not the page, and must be
+per-claim rather than per-source. A link-checker would have caught none of this, and a
+per-source blocklist would have wrongly stripped two live citations.
+
+**The "term pages work" generalisation is also too broad.** The controller verified four CSRC and
+CNCF term pages, found real content, and generalised. `csrc.nist.gov/glossary/term/data_at_rest`
+and `/term/data_in_transit` render with **no Definitions block at all** (~45 KB of chrome and
+acronym entries). Those citations were dropped with the limit recorded in the items rather than
+replaced with something silent.

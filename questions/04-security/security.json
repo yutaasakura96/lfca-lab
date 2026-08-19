@@ -2216,8 +2216,7 @@
       "rationale": "Encryption at rest protects stored data — disks, backups, object storage; encryption in transit protects data moving across a network. HTTPS on a public endpoint says nothing about whether a backup tape is encrypted, since the two controls address separate exposures and neither substitutes for the other.",
       "source_ids": [
         "lf-objectives-2025",
-        "nist-sp-800-57p1r5",
-        "nist-csrc-glossary"
+        "nist-sp-800-57p1r5"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.encryption-at-rest-vs-in-transit",
       "comparison_block": null,
@@ -2232,7 +2231,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key o1 holds. SP 800-57 Pt1 Rev5 Sec 6.2 names the three states verbatim — information is either \"in transit\", \"at rest\", or \"in use\" — and prescribes protection separately for each, so in-transit protection does not cover stored media. RFC 8446 Sec 1 scopes TLS to the channel between two communicating peers. o2 is false on that basis; o3 is false, a TLS certificate binds a key to a network peer name (RFC 5280 Sec 3.2) and says nothing about custody of media; o4 names compression, which is irrelevant. No second defensible answer. Citation note: nist-csrc-glossary is the glossary search landing page and defines nothing; the Data-at-Rest and Data in Transit entries carry only the DAR/DIT acronyms and no definition, so the state trio rests on SP 800-57 Sec 6.2, which was read.",
+        "reasoning": "Key o1 holds. SP 800-57 Pt1 Rev5 Sec 6.2 names the three states verbatim — information is either \"in transit\", \"at rest\", or \"in use\" — and prescribes protection separately for each, so in-transit protection does not cover stored media. RFC 8446 Sec 1 scopes TLS to the channel between two communicating peers. o2 is false on that basis; o3 is false, a TLS certificate binds a key to a network peer name (RFC 5280 Sec 3.2) and says nothing about custody of media; o4 names compression, which is irrelevant. No second defensible answer. Citation note: nist-csrc-glossary is the glossary search landing page and defines nothing; the Data-at-Rest and Data in Transit entries carry only the DAR/DIT acronyms and no definition, so the state trio rests on SP 800-57 Sec 6.2, which was read. Dead-citation pass 2026-08-19 (resource-security-proc): the nist-csrc-glossary root (https://csrc.nist.gov/glossary) is a JavaScript search shell that defines nothing, and it has now been dropped from this item and from the concept. Re-fetched /glossary/term/data_at_rest and /glossary/term/data_in_transit to confirm the earlier finding: both pages render without any Definitions block, so neither state has a citable NIST definition. The at-rest/in-transit/in-use trio therefore rests entirely on SP 800-57 Part 1 Rev. 5 Sec. 6.2, which remains cited. Limit recorded: no authoritative page states the three data states as a closed set of definitions; the SP is the strongest available home. Verdict unchanged.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
           "https://csrc.nist.gov/glossary/term/data_at_rest",
@@ -2291,8 +2290,7 @@
       "rationale": "Encryption at rest and encryption in transit are two separate controls, and both stop short of data being actively processed. A compromised running application reads the unlocked filesystem and live memory as any permitted process would, which is why data in use is the exposure neither control was built to close.",
       "source_ids": [
         "lf-objectives-2025",
-        "nist-sp-800-57p1r5",
-        "nist-csrc-glossary"
+        "nist-sp-800-57p1r5"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.encryption-at-rest-vs-in-transit",
       "comparison_block": null,
@@ -2307,7 +2305,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key o1 (data in use) holds: SP 800-57 Pt1 Rev5 Sec 6.2 names \"in use\" as the third state alongside in transit and at rest, and notes a key in use resides inside a cryptographic module while the process holds it — the compromised-process case sits outside both other controls. o2 is false and its why is accurate (an unlocked LUKS volume reads normally; the cryptsetup FAQ Sec 6 records that a volume key can be extracted from a still-open container). o3 is false, nothing in the scenario intercepts network traffic. o4 is false because the third state exists. No second defensible answer.",
+        "reasoning": "Key o1 (data in use) holds: SP 800-57 Pt1 Rev5 Sec 6.2 names \"in use\" as the third state alongside in transit and at rest, and notes a key in use resides inside a cryptographic module while the process holds it — the compromised-process case sits outside both other controls. o2 is false and its why is accurate (an unlocked LUKS volume reads normally; the cryptsetup FAQ Sec 6 records that a volume key can be extracted from a still-open container). o3 is false, nothing in the scenario intercepts network traffic. o4 is false because the third state exists. No second defensible answer. Dead-citation pass 2026-08-19 (resource-security-proc): nist-csrc-glossary dropped at concept level (the /glossary root is a search shell with zero definitions). This item's key was already carried by SP 800-57 Part 1 Rev. 5 Sec. 6.2 and the cryptsetup FAQ, both of which were read at verification time; nothing in the item depended on the glossary root. Verdict unchanged.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf",
           "https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions.md"
@@ -4364,7 +4362,6 @@
       "rationale": "A CVE identifier of the form CVE-YYYY-NNNN is a name for a publicly known defect, assigned by a CVE Numbering Authority; it carries no severity information. CVSS is the separate 0.0 to 10.0 scoring system that supplies severity, and databases such as the National Vulnerability Database enrich CVE records with those scores.",
       "source_ids": [
         "lf-objectives-2025",
-        "cve-program-overview",
         "nist-glossary-cve",
         "verizon-dbir",
         "first-cvss-v31"
@@ -4382,7 +4379,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED as authored on citation and option shape, then fixed. Citation defect: the only cited home for the severity half of this item was cve-program-overview (https://www.cve.org/About/Overview), which returns HTTP 200 but serves a Vue application shell of 880 bytes with no prose - the vmware-hypervisor shape. first-cvss-v31 added to the concept and to this item: the FIRST CVSS v3.1 specification states that CVSS \"outputs include numerical scores indicating the severity of a vulnerability\" and that the Base equation \"computes a score ranging from 0.0 to 10.0\". The identifier half is carried by the NIST CSRC glossary, which defines CVE as providing \"unique, common names for publicly known information system vulnerabilities\". Key correct. o2 false (the sequence number is assignment order, no severity content); o3 false and its why true; o4 false (the qualitative risk framework is not where a CVE's 0.0-10.0 number comes from). Defect fixed: o3's text repeated 74 characters of its own why; replaced. Also applied task 53a finding 1 at concept level: the bare nist-csrc-glossary landing page (https://csrc.nist.gov/glossary) is a JavaScript search shell that defines nothing, so this concept now cites the CSRC term page that carries the definition instead.",
+        "reasoning": "REFUTED as authored on citation and option shape, then fixed. Citation defect: the only cited home for the severity half of this item was cve-program-overview (https://www.cve.org/About/Overview), which returns HTTP 200 but serves a Vue application shell of 880 bytes with no prose - the vmware-hypervisor shape. first-cvss-v31 added to the concept and to this item: the FIRST CVSS v3.1 specification states that CVSS \"outputs include numerical scores indicating the severity of a vulnerability\" and that the Base equation \"computes a score ranging from 0.0 to 10.0\". The identifier half is carried by the NIST CSRC glossary, which defines CVE as providing \"unique, common names for publicly known information system vulnerabilities\". Key correct. o2 false (the sequence number is assignment order, no severity content); o3 false and its why true; o4 false (the qualitative risk framework is not where a CVE's 0.0-10.0 number comes from). Defect fixed: o3's text repeated 74 characters of its own why; replaced. Also applied task 53a finding 1 at concept level: the bare nist-csrc-glossary landing page (https://csrc.nist.gov/glossary) is a JavaScript search shell that defines nothing, so this concept now cites the CSRC term page that carries the definition instead. Dead-citation pass 2026-08-19 (resource-security-proc): cve-program-overview (https://www.cve.org/About/Overview) is an 880-byte Vue application shell with ~156 characters of text and supports nothing; it is now dropped from this item and from the concept rather than left as a plausible-looking citation. Both halves of the key already have real homes: the identifier half on the CSRC term page for CVE, the severity half on the FIRST CVSS v3.1 specification. No replacement CVE Program page was substituted, because none was fetched that states the CNA-assignment claim in prose. Verdict unchanged.",
         "sources_read": [
           "https://www.cve.org/About/Overview",
           "https://csrc.nist.gov/glossary/term/common_vulnerabilities_and_exposures",
@@ -4441,10 +4438,10 @@
       "rationale": "Patch priority should follow severity, whether the affected component is actually deployed and reachable, and whether exploitation is observed in the wild — not the raw CVSS number in isolation. An unreachable, unused package's high score matters less than a lower score on a service actively exposed to attackers.",
       "source_ids": [
         "lf-objectives-2025",
-        "cve-program-overview",
         "nist-glossary-cve",
         "verizon-dbir",
-        "first-cvss-v31"
+        "first-cvss-v31",
+        "nist-sp-800-40r4"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.vulnerabilities-cves-and-patching",
       "comparison_block": "cmp-security.security.attack-surface",
@@ -4459,10 +4456,11 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED as authored on citation and option shape, then fixed. The key's claim - that deployment and reachability, not the raw base score, should drive patch order - is now cited to its actual home: the FIRST CVSS v3.1 specification states the Base Score \"reflects the severity of a vulnerability according to its intrinsic characteristics which are constant over time and assumes the reasonable worst case impact across different deployed environments\", and that the Environmental group is the one representing a specific environment. That sentence is what makes a 9.8 in unreachable software rankable below a 6.5 on an exposed login. No PCI DSS requirement, numbered or paraphrased, is involved. o2 false; o3 false and its why true; o4 false (patching a defect in software that keeps running does not remove the surface). Defect fixed: o3's text repeated 54 characters of its own why; replaced. Also applied task 53a finding 1 at concept level: the bare nist-csrc-glossary landing page (https://csrc.nist.gov/glossary) is a JavaScript search shell that defines nothing, so this concept now cites the CSRC term page that carries the definition instead.",
+        "reasoning": "REFUTED as authored on citation and option shape, then fixed. The key's claim - that deployment and reachability, not the raw base score, should drive patch order - is now cited to its actual home: the FIRST CVSS v3.1 specification states the Base Score \"reflects the severity of a vulnerability according to its intrinsic characteristics which are constant over time and assumes the reasonable worst case impact across different deployed environments\", and that the Environmental group is the one representing a specific environment. That sentence is what makes a 9.8 in unreachable software rankable below a 6.5 on an exposed login. No PCI DSS requirement, numbered or paraphrased, is involved. o2 false; o3 false and its why true; o4 false (patching a defect in software that keeps running does not remove the surface). Defect fixed: o3's text repeated 54 characters of its own why; replaced. Also applied task 53a finding 1 at concept level: the bare nist-csrc-glossary landing page (https://csrc.nist.gov/glossary) is a JavaScript search shell that defines nothing, so this concept now cites the CSRC term page that carries the definition instead. Dead-citation pass 2026-08-19 (resource-security-proc): cve-program-overview dropped (880-byte Vue shell, no prose). NIST SP 800-40 Rev. 4 added and read: it states that planning the risk response means \"assessing the risk the vulnerability poses to your organization\", giving as its worked example that \"risk is elevated because the vulnerability is present in many organization assets and is being exploited in the wild\" — deployment and exposure, not the base score, driving the response. That is the key's claim in the source's own words, alongside the FIRST CVSS v3.1 sentence that the Base Score \"assumes the reasonable worst case impact across different deployed environments\". Confirmed the item still does not turn on a CVSS number alone, and no PCI DSS requirement is involved in digits or in paraphrase. Verdict unchanged.",
         "sources_read": [
           "https://www.first.org/cvss/v3.1/specification-document",
-          "https://www.cve.org/About/Overview"
+          "https://www.cve.org/About/Overview",
+          "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf"
         ]
       }
     },
@@ -6019,7 +6017,6 @@
       "source_ids": [
         "lf-objectives-2025",
         "nist-sp-800-53r5",
-        "cve-program-overview",
         "first-cvss-v31"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.vulnerability-scanning",
@@ -6035,7 +6032,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED as authored on option shape, then fixed. Key correct against NIST SP 800-53 Rev. 5 RA-5: enhancement (5) VULNERABILITY MONITORING AND SCANNING | PRIVILEGED ACCESS exists precisely because \"the nature of the vulnerability scanning may be more intrusive\" and needs authorised access to system components, and (3) BREADTH AND DEPTH OF COVERAGE makes depth an explicit, variable property of a scan rather than a constant. An unauthenticated scan sees only what is network-exposed, so a clean result is weak evidence. o2 false and its why true; o3 false, a scan reports state and not activity in progress; o4 false and its why true. Defect fixed: o4's text carried a 118-character verbatim paste of its own why - the largest in the file - replaced with a distinct false clause of similar length.",
+        "reasoning": "REFUTED as authored on option shape, then fixed. Key correct against NIST SP 800-53 Rev. 5 RA-5: enhancement (5) VULNERABILITY MONITORING AND SCANNING | PRIVILEGED ACCESS exists precisely because \"the nature of the vulnerability scanning may be more intrusive\" and needs authorised access to system components, and (3) BREADTH AND DEPTH OF COVERAGE makes depth an explicit, variable property of a scan rather than a constant. An unauthenticated scan sees only what is network-exposed, so a clean result is weak evidence. o2 false and its why true; o3 false, a scan reports state and not activity in progress; o4 false and its why true. Defect fixed: o4's text carried a 118-character verbatim paste of its own why - the largest in the file - replaced with a distinct false clause of similar length. Dead-citation pass 2026-08-19 (resource-security-proc): cve-program-overview dropped from this item and from the concept — the URL returns 200 but serves an 880-byte Vue shell, and it never supported the authenticated-versus-unauthenticated scan claim in any case. That claim rests on SP 800-53 Rev. 5 RA-5(5) and RA-5(3), which remain cited. Verdict unchanged.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
         ]
@@ -6093,7 +6090,6 @@
       "source_ids": [
         "lf-objectives-2025",
         "nist-sp-800-53r5",
-        "cve-program-overview",
         "first-cvss-v31"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.vulnerability-scanning",
@@ -6109,7 +6105,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "CONFIRMED as authored. The scanner/IDPS boundary holds against both primaries: SP 800-53 Rev. 5 RA-5 frames scanning as monitoring and scanning \"for vulnerabilities in the system and hosted applications\" at a defined frequency, while SP 800-94 places live-traffic detection with the IDPS. Key correct. o2 false as an answer to this stem, and its why is true and now cited: the FIRST CVSS v3.1 specification is what supplies the severity a scanner reports, so severity reporting is something the scanner does do. o3 false - signature and checksum verification is a download-time supply-chain control, per the GNU Privacy Handbook. o4 false - confinement is mandatory access control's job, per apparmor(7) and selinux(8). No two options assert the same answer, and no option is a bare code span.",
+        "reasoning": "CONFIRMED as authored. The scanner/IDPS boundary holds against both primaries: SP 800-53 Rev. 5 RA-5 frames scanning as monitoring and scanning \"for vulnerabilities in the system and hosted applications\" at a defined frequency, while SP 800-94 places live-traffic detection with the IDPS. Key correct. o2 false as an answer to this stem, and its why is true and now cited: the FIRST CVSS v3.1 specification is what supplies the severity a scanner reports, so severity reporting is something the scanner does do. o3 false - signature and checksum verification is a download-time supply-chain control, per the GNU Privacy Handbook. o4 false - confinement is mandatory access control's job, per apparmor(7) and selinux(8). No two options assert the same answer, and no option is a bare code span. Dead-citation pass 2026-08-19 (resource-security-proc): cve-program-overview dropped (880-byte Vue shell with ~156 characters of text; it was listed in sources_read at verification time but contributed nothing). The scanner/IDPS boundary stays on SP 800-53 Rev. 5 RA-5 and SP 800-94, and o2's severity claim stays on the FIRST CVSS v3.1 specification. Verdict unchanged.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
           "https://www.first.org/cvss/v3.1/specification-document",

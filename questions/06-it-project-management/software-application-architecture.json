@@ -141,7 +141,7 @@
         }
       ],
       "rationale": "The CNCF glossary and the guide agree the criterion is the deployable unit, not the instance count, the team size, or the internal module structure. Six replicas of one artefact behind a load balancer is exactly the common way to run a monolith at scale.",
-      "source_ids": ["cncf-glossary"],
+      "source_ids": ["cncf-glossary-monolithic-apps"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.monolithic-architecture",
       "comparison_block": null,
       "commands_covered": [],
@@ -150,7 +150,7 @@
         "agent_label": "verify-software-application-architecture",
         "verdict": "confirmed",
         "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "The CNCF glossary's Monolithic Apps entry defines a monolith as an application that 'contains all functionality in a single deployable program' — the deployable unit, not the instance count, which is the key. o2 is false: six replicas of one artefact are released together, whereas the CNCF Microservices Architecture entry describes services that are deployed, updated and scaled independently. o3 is false because the CNCF definition makes no reference to team size. o4 is false on two counts, both stated truly in its why. No distractor answers the stem correctly. Citation checked: cncf-glossary contains the single-deployable-program definition.",
+        "reasoning": "The CNCF glossary's Monolithic Apps entry defines a monolith as an application that 'contains all functionality in a single deployable program' — the deployable unit, not the instance count, which is the key. o2 is false: six replicas of one artefact are released together, whereas the CNCF Microservices Architecture entry describes services that are deployed, updated and scaled independently. o3 is false because the CNCF definition makes no reference to team size. o4 is false on two counts, both stated truly in its why. No distractor answers the stem correctly. Citation checked: cncf-glossary contains the single-deployable-program definition. Source repair 2026-08-19: this item cited the CNCF glossary root (https://glossary.cncf.io/), a navigation-only page carrying no definitions; it now cites https://glossary.cncf.io/monolithic-apps/ instead, fetched and confirmed to carry the claim.",
         "sources_read": ["https://glossary.cncf.io/monolithic-apps/", "https://glossary.cncf.io/microservices-architecture/"]
       }
     },
@@ -192,7 +192,7 @@
         }
       ],
       "rationale": "The comparison's separating axis is the release boundary. Team A has many independently deployed units with network calls and separate data; Team B has one release and one shared database — a distributed-monolith risk if it split the process without splitting the data.",
-      "source_ids": ["cncf-glossary", "microsoft-microservices-architecture-style"],
+      "source_ids": ["cncf-glossary-microservices-architecture", "microsoft-microservices-architecture-style"],
       "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.microservices",
       "comparison_block": "cmp-pm.software-application-architecture.microservices",
       "commands_covered": [],
@@ -201,7 +201,7 @@
         "agent_label": "verify-software-application-architecture",
         "verdict": "confirmed",
         "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. The key asserts three traits — independent deployment, network calls, and per-service data ownership — but the CNCF glossary page cited alone says only that microservices are 'individual independent services' that are 'easier to deploy, update, and scale independently'; it says nothing about data ownership and does not name the interfaces between services, which o4's why also relies on. Rather than weaken correct content to match a thin citation, the Microsoft Azure Architecture Center's microservices page was registered and added: it states that services 'can be deployed independently', that 'microservices are responsible for persisting their own data or external state', that they 'communicate through well-defined APIs', and that messaging frameworks are used for asynchronous communication. With that source the key and o4's why are both supported. o2 is false because shipping one artefact from one codebase is a modular monolith under the CNCF monolith definition. o3 is false because it drops the deployment and data requirements. Team B is not defensible as an answer.",
+        "reasoning": "Refuted on first pass for a citation defect, then fixed and re-checked. The key asserts three traits — independent deployment, network calls, and per-service data ownership — but the CNCF glossary page cited alone says only that microservices are 'individual independent services' that are 'easier to deploy, update, and scale independently'; it says nothing about data ownership and does not name the interfaces between services, which o4's why also relies on. Rather than weaken correct content to match a thin citation, the Microsoft Azure Architecture Center's microservices page was registered and added: it states that services 'can be deployed independently', that 'microservices are responsible for persisting their own data or external state', that they 'communicate through well-defined APIs', and that messaging frameworks are used for asynchronous communication. With that source the key and o4's why are both supported. o2 is false because shipping one artefact from one codebase is a modular monolith under the CNCF monolith definition. o3 is false because it drops the deployment and data requirements. Team B is not defensible as an answer. Source repair 2026-08-19: this item cited the CNCF glossary root (https://glossary.cncf.io/), a navigation-only page carrying no definitions; it now cites https://glossary.cncf.io/microservices-architecture/ instead, fetched and confirmed to carry the claim.",
         "sources_read": ["https://glossary.cncf.io/microservices-architecture/", "https://glossary.cncf.io/monolithic-apps/", "https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices"]
       }
     },

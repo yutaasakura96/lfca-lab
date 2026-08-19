@@ -24,7 +24,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-devops"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -55,7 +55,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-devops",
         "google-sre-book-embracing-risk"
       ],
       "candidate_evidence": [],
@@ -87,7 +87,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "fowler-continuous-integration"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -118,7 +118,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-shift-left"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -149,7 +149,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-sre",
         "google-sre-book-embracing-risk"
       ],
       "candidate_evidence": [],
@@ -183,7 +183,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-continuous-integration"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -218,7 +218,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-continuous-delivery"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -253,7 +253,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-continuous-deployment"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -288,7 +288,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary",
+        "jenkins-pipeline-doc",
         "gitlab-ci-yaml"
       ],
       "candidate_evidence": [],
@@ -322,7 +322,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
         "twelve-factor-build-release-run"
       ],
       "candidate_evidence": [],
@@ -354,7 +353,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "google-sre-book-testing-reliability"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -386,7 +385,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "docker-overview",
-        "cncf-glossary"
+        "docker-what-is-a-registry"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -454,7 +453,6 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary",
         "terraform-intro",
         "ansible-getting-started",
         "jenkins-pipeline-doc"
@@ -490,7 +488,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
         "twelve-factor-dev-prod-parity"
       ],
       "candidate_evidence": [],
@@ -522,7 +519,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-blue-green-deployment",
         "fowler-blue-green-deployment"
       ],
       "candidate_evidence": [],
@@ -556,7 +553,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-canary-deployment",
         "fowler-canary-release"
       ],
       "candidate_evidence": [],
@@ -590,7 +587,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
         "k8s-deployment"
       ],
       "candidate_evidence": [],
@@ -625,7 +621,6 @@
       "lfs200_sources": [],
       "additional_sources": [
         "k8s-deployment",
-        "cncf-glossary",
         "fowler-blue-green-deployment"
       ],
       "candidate_evidence": [],
@@ -660,7 +655,6 @@
       "lfs200_sources": [],
       "additional_sources": [
         "docker-overview",
-        "cncf-glossary",
         "twelve-factor-dev-prod-parity"
       ],
       "candidate_evidence": [],
@@ -733,7 +727,7 @@
         "ch10.l2"
       ],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-iac"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -768,7 +762,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-idempotence",
         "ansible-getting-started"
       ],
       "candidate_evidence": [],
@@ -802,7 +796,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary",
+        "cncf-glossary-observability",
         "otel-observability-primer"
       ],
       "candidate_evidence": [],
@@ -836,7 +830,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cncf-glossary"
+        "cncf-glossary-monolithic-apps",
+        "cncf-glossary-microservices-architecture"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2256,7 +2251,6 @@
         "k8s-steering-charter",
         "cncf-charter",
         "cncf-who-we-are",
-        "cncf-glossary",
         "cncf-project-kubernetes",
         "lf-lfca-cert-page"
       ],

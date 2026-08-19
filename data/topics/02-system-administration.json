@@ -824,7 +824,7 @@
       ],
       "additional_sources": [
         "man-credentials-7",
-        "man-proc-5",
+        "man-proc-pid-status-5",
         "man-ps-1",
         "man-top-1"
       ],
@@ -863,7 +863,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-credentials-7",
-        "man-proc-5",
+        "man-proc-pid-status-5",
         "systemd-1",
         "man-pid-namespaces-7",
         "man-proc-sys-kernel-5",
@@ -1016,7 +1016,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "systemd-1",
-        "man-proc-5",
+        "man-proc-pid-stat-5",
         "man-daemon-7",
         "systemd-service-5"
       ],
@@ -1053,7 +1053,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-proc-5",
+        "man-wait-2",
         "man-credentials-7",
         "man-proc-pid-stat-5",
         "man-pid-namespaces-7",
@@ -1823,6 +1823,7 @@
       ],
       "additional_sources": [
         "man-proc-5",
+        "man-proc-pid-status-5",
         "man-proc-sys-5",
         "man-sysctl-d-5",
         "fhs-3-0"
@@ -2661,7 +2662,8 @@
         "man-uname-1",
         "kernel-readme",
         "systemd-bootup-7",
-        "man-proc-5"
+        "man-proc-version-5",
+        "man-proc-sys-kernel-5"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -3337,7 +3339,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "itu-t-x200-osi-basic-reference-model",
         "itu-t-x200-osi-basic-reference-model-pdf",
         "rfc-1122-host-requirements"
       ],
@@ -3373,7 +3374,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "itu-t-x200-osi-basic-reference-model"
+        "itu-t-x200-osi-basic-reference-model-pdf"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -3851,8 +3852,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-1122-host-requirements",
-        "ieee-802-1q",
         "rfc-1812-router-requirements",
+        "rfc-5517-private-vlans",
         "rfc-2131-dhcp",
         "rfc-1542-bootp-clarifications"
       ],
@@ -3922,8 +3923,8 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "ieee-802-1q",
-        "rfc-5517-private-vlans"
+        "rfc-5517-private-vlans",
+        "rfc-1812-router-requirements"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -4469,7 +4470,8 @@
       "additional_sources": [
         "rfc-9293-tcp",
         "man7-ss",
-        "man-ip-7"
+        "man-ip-7",
+        "man-connect-2"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4722,10 +4724,11 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "netfilter-documentation",
         "nist-sp-800-41r1",
         "man-iptables-8",
-        "man-iptables-extensions-8"
+        "man-iptables-extensions-8",
+        "ubuntu-ufw-man",
+        "nmap-port-scanning-basics"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -4761,7 +4764,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "netfilter-documentation",
         "firewalld-documentation",
         "ubuntu-ufw-man",
         "firewalld-firewall-cmd-man",

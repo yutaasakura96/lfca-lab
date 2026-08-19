@@ -455,8 +455,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-57p1r5",
-        "nist-csrc-glossary"
+        "nist-sp-800-57p1r5"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -934,10 +933,10 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "cve-program-overview",
         "nist-glossary-cve",
         "verizon-dbir",
-        "first-cvss-v31"
+        "first-cvss-v31",
+        "nist-sp-800-40r4"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1283,7 +1282,6 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-53r5",
-        "cve-program-overview",
         "first-cvss-v31"
       ],
       "candidate_evidence": [],
@@ -1419,7 +1417,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-57p1r5",
-        "nist-csrc-glossary"
+        "nist-sp-800-53r5",
+        "nist-glossary-encryption",
+        "nist-glossary-hash-function"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -1453,7 +1453,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-162",
-        "nist-csrc-glossary"
+        "nist-glossary-dac",
+        "nist-glossary-mac",
+        "nist-glossary-rbac"
       ],
       "candidate_evidence": [],
       "commands": [],

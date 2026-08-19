@@ -861,7 +861,8 @@
         "lf-objectives-2025",
         "kernel-readme",
         "fhs-3.0",
-        "man-proc-5"
+        "man-proc-5",
+        "man-proc-cpuinfo-5"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.everything-is-a-file",
       "comparison_block": null,
@@ -876,10 +877,11 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED on citation, then repaired. FHS 3.0 supports the claim only through its section title \"6.1.5. /proc : Kernel and process information virtual filesystem\", and kernel-readme says nothing about /proc at all; proc(5) was added as the source that actually describes /proc as a pseudo-filesystem presenting kernel data structures through ordinary file operations. Key confirmed on that basis. o2 is false — /proc/cpuinfo is machine-wide, not per-user; o3 names the wrong principle (the boundary explains why a system call is needed, not why a path exists); o4 is false — /proc is generated on read, not written to disk at boot. Whys true.",
+        "reasoning": "REFUTED on citation, then repaired. FHS 3.0 supports the claim only through its section title \"6.1.5. /proc : Kernel and process information virtual filesystem\", and kernel-readme says nothing about /proc at all; proc(5) was added as the source that actually describes /proc as a pseudo-filesystem presenting kernel data structures through ordinary file operations. Key confirmed on that basis. o2 is false — /proc/cpuinfo is machine-wide, not per-user; o3 names the wrong principle (the boundary explains why a system call is needed, not why a path exists); o4 is false — /proc is generated on read, not written to disk at boot. Whys true. Dead-citation pass 2026-08-19 (resource-security-proc): proc(5) was checked, not assumed. Its URL still resolves and its DESCRIPTION still states \"The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures\", which is the sentence this key rests on, so proc(5) is retained here. What proc(5) no longer carries after the man-pages split is the per-file material: /proc/cpuinfo now lives at proc_cpuinfo(5), which was fetched and states \"/proc/cpuinfo - CPU and system architecture information ... This is a collection of CPU and system architecture dependent items\". Added, so the specific file named in the stem has a live home. Verdict unchanged.",
         "sources_read": [
           "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html",
-          "https://man7.org/linux/man-pages/man5/proc.5.html"
+          "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "https://man7.org/linux/man-pages/man5/proc_cpuinfo.5.html"
         ]
       }
     },
