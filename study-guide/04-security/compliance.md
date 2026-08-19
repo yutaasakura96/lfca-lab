@@ -515,7 +515,7 @@ depends on whose law the operator answers to.
 
 <a id="c-security.compliance.data-retention-obligations"></a>
 ### Data retention obligations
-*id: `security.compliance.data-retention-obligations` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gdpr-eurlex, nist-sp-800-88r1*
+*id: `security.compliance.data-retention-obligations` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: gdpr-eurlex, nist-sp-800-88r2*
 
 **What it is** Rules requiring that data be *kept* for a minimum period — tax and accounting
 records, clinical records, employment files, transaction logs — imposed by statute, a sector
@@ -535,7 +535,7 @@ that carve-out must still be erased. Pulling in the other direction, Article 5(1
 limitation — requires personal data be kept in a form permitting identification of data
 subjects for no longer than is necessary for the purposes. A retention schedule is where the
 two meet: for each category of data, a minimum set by obligation and a maximum set by purpose.
-When the maximum arrives, the data is disposed of, and NIST SP 800-88 Rev. 1 frames that
+When the maximum arrives, the data is disposed of, and NIST SP 800-88 Rev. 2 frames that
 disposal as one of Clear, Purge or Destroy, chosen by the confidentiality of the data and
 whether the media will be reused, with the outcome verified and documented.
 
@@ -547,7 +547,7 @@ an investigation is anticipated, the relevant data is frozen in place until rele
 where the erasure half of that is actually written — Article 17(3)(e) disapplies the erasure
 right to the extent processing is necessary "for the establishment, exercise or defence of legal
 claims" — and it is worth citing that article rather than the phrase "legal hold", which appears
-nowhere in NIST SP 800-88 Rev. 1, NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the
+nowhere in NIST SP 800-88 Rev. 2, NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the
 Regulation. A
 retention *obligation* is also not a retention *policy* — the obligation is imposed from
 outside and cannot be shortened by writing a policy that disagrees with it. And "we deleted

@@ -1820,7 +1820,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "gdpr-eurlex",
-        "nist-sp-800-88r1"
+        "nist-sp-800-88r2"
       ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": "cmp-security.compliance.data-retention-obligations",
@@ -1835,7 +1835,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed verbatim against Article 17(3)(b): paragraphs 1 and 2 \"shall not apply to the extent that processing is necessary … for compliance with a legal obligation which requires processing by Union or Member State law to which the controller is subject\". \"To the extent\" is what makes the split-the-difference key right and o2’s blanket erasure wrong. o3 and o4 both let an internal practice or policy override an externally imposed obligation, which it cannot. All whys true.",
+        "reasoning": "Key confirmed verbatim against Article 17(3)(b): paragraphs 1 and 2 \"shall not apply to the extent that processing is necessary … for compliance with a legal obligation which requires processing by Union or Member State law to which the controller is subject\". \"To the extent\" is what makes the split-the-difference key right and o2’s blanket erasure wrong. o3 and o4 both let an internal practice or policy override an externally imposed obligation, which it cannot. All whys true. CITATION UPDATED 2026-08-19 (controller): SP 800-88 Rev. 1 was withdrawn 2025-09-26 and superseded in its entirety by Rev. 2, so this item now cites Rev. 2. The verification recorded above was performed against Rev. 1 and its section numbers refer to Rev. 1. Re-checked in Rev. 2: the Clear/Purge/Destroy taxonomy survives at Sec. 3.1.1-3.1.3; \"legal hold\" and \"litigation hold\" appear 0 times in Rev. 2 as well, so the absence finding stands; and Rev. 2 retains the Certificate of Sanitization (8 occurrences), which carries the verified-and-documented disposal point.",
         "sources_read": [
           "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf"
@@ -1894,7 +1894,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "gdpr-eurlex",
-        "nist-sp-800-88r1"
+        "nist-sp-800-88r2"
       ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": null,
@@ -1909,7 +1909,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED as authored, rewritten, re-verified. The original key turned on a \"legal hold\" overriding both the schedule and the erasure request, and neither \"legal hold\" nor \"litigation hold\" appears anywhere in NIST SP 800-88 Rev. 1 (65 pages), NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the GDPR text — and csrc.nist.gov has no glossary entry for it. The substance is nonetheless right and GDPR states it directly, so the item was re-anchored rather than weakened: Article 17(3)(e) disapplies the erasure right \"for the establishment, exercise or defence of legal claims\". Rewritten key and all distractors re-checked against that article; o4’s Clear/Purge/Destroy claim is true of NIST SP 800-88 Rev. 1 and correctly identified as inapplicable while disposal is deferred. All whys true.",
+        "reasoning": "REFUTED as authored, rewritten, re-verified. The original key turned on a \"legal hold\" overriding both the schedule and the erasure request, and neither \"legal hold\" nor \"litigation hold\" appears anywhere in NIST SP 800-88 Rev. 1 (65 pages), NIST SP 800-53 Rev. 5, NIST SP 800-53A Rev. 5, or the GDPR text — and csrc.nist.gov has no glossary entry for it. The substance is nonetheless right and GDPR states it directly, so the item was re-anchored rather than weakened: Article 17(3)(e) disapplies the erasure right \"for the establishment, exercise or defence of legal claims\". Rewritten key and all distractors re-checked against that article; o4’s Clear/Purge/Destroy claim is true of NIST SP 800-88 Rev. 1 and correctly identified as inapplicable while disposal is deferred. All whys true. CITATION UPDATED 2026-08-19 (controller): SP 800-88 Rev. 1 was withdrawn 2025-09-26 and superseded in its entirety by Rev. 2, so this item now cites Rev. 2. The verification recorded above was performed against Rev. 1 and its section numbers refer to Rev. 1. Re-checked in Rev. 2: the Clear/Purge/Destroy taxonomy survives at Sec. 3.1.1-3.1.3; \"legal hold\" and \"litigation hold\" appear 0 times in Rev. 2 as well, so the absence finding stands; and Rev. 2 retains the Certificate of Sanitization (8 occurrences), which carries the verified-and-documented disposal point.",
         "sources_read": [
           "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true",
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
@@ -1969,7 +1969,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "gdpr-eurlex",
-        "nist-sp-800-88r1"
+        "nist-sp-800-88r2"
       ],
       "guide_anchor": "04-security/compliance.md#c-security.compliance.data-retention-obligations",
       "comparison_block": null,
@@ -1984,7 +1984,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key confirmed against NIST SP 800-88 Rev. 1 sections 4.7 Verify Methods (\"Verifying the selected information sanitization and disposal process is an essential step in maintaining confidentiality\") and 4.8 Documentation, with its Certificate of Sanitization — so disposal is verified and documented, not merely actioned. o2 and o3 both stop at the primary database, and o3’s log entry evidences one action rather than the destruction of every copy. o4 is false because analytics copies of personal data are processing like any other. All whys true.",
+        "reasoning": "Key confirmed against NIST SP 800-88 Rev. 1 sections 4.7 Verify Methods (\"Verifying the selected information sanitization and disposal process is an essential step in maintaining confidentiality\") and 4.8 Documentation, with its Certificate of Sanitization — so disposal is verified and documented, not merely actioned. o2 and o3 both stop at the primary database, and o3’s log entry evidences one action rather than the destruction of every copy. o4 is false because analytics copies of personal data are processing like any other. All whys true. CITATION UPDATED 2026-08-19 (controller): SP 800-88 Rev. 1 was withdrawn 2025-09-26 and superseded in its entirety by Rev. 2, so this item now cites Rev. 2. The verification recorded above was performed against Rev. 1 and its section numbers refer to Rev. 1. Re-checked in Rev. 2: the Clear/Purge/Destroy taxonomy survives at Sec. 3.1.1-3.1.3; \"legal hold\" and \"litigation hold\" appear 0 times in Rev. 2 as well, so the absence finding stands; and Rev. 2 retains the Certificate of Sanitization (8 occurrences), which carries the verified-and-documented disposal point.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
           "https://www.legislation.gov.uk/eur/2016/679/adopted/data.xht?view=snippet&wrap=true"

@@ -541,16 +541,16 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "nist-sp-800-88r1",
-      "title": "NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization",
-      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf",
+      "id": "nist-sp-800-88r2",
+      "title": "NIST SP 800-88 Rev. 2 — Media Sanitization",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r2.pdf",
       "organization": "NIST",
       "published": null,
       "updated": null,
-      "accessed": "2026-08-10",
+      "accessed": "2026-08-19",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Supersedes SP 800-88r1 in its entirety (r1 withdrawn 2025-09-26). r2 retains the Clear/Purge/Destroy taxonomy (Sec. 3.1.1-3.1.3) and defines cryptographic erase in its glossary as \"A purge sanitization technique in which key sanitization is applied\"; Sec. 3.2 adds that CE effectiveness depends on the pedigree of cryptographic capabilities, and refers to IEEE 2883 for acceptable purge techniques."
     },
     {
       "id": "nist-sp-800-57p1r5",

@@ -536,7 +536,7 @@
 | nist-sp-800-63c-4 | NIST SP 800-63C-4 — Digital Identity Guidelines: Federation and Assertions | NIST | 2 | — | 2026-08-18 | https://pages.nist.gov/800-63-4/sp800-63c.html |
 | nist-sp-800-64-sdlc-phases | Security Considerations in the System Development Life Cycle (SP 800-64 Rev. 2) | NIST | 2 | 2008-10 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-64r2.pdf |
 | nist-sp-800-77r1 | SP 800-77 Rev. 1: Guide to IPsec VPNs | NIST | 2 | 2020-06 | 2026-08-11 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-77r1.pdf |
-| nist-sp-800-88r1 | NIST SP 800-88 Rev. 1 — Guidelines for Media Sanitization | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf |
+| nist-sp-800-88r2 | NIST SP 800-88 Rev. 2 — Media Sanitization | NIST | 2 | — | 2026-08-19 | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r2.pdf |
 | nist-sp-800-94 | NIST SP 800-94 — Guide to Intrusion Detection and Prevention Systems (IDPS) | NIST | 2 | — | 2026-08-10 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-94.pdf |
 | nmap-port-scanning-basics | Nmap Reference Guide: Port Scanning Basics (open / closed / filtered port states) | Nmap Project | 2 | — | 2026-08-10 | https://nmap.org/book/man-port-scanning-basics.html |
 | nmap-port-scanning-techniques | Nmap Reference Guide: Port Scanning Techniques | Nmap Project | 2 | — | 2026-08-18 | https://nmap.org/book/man-port-scanning-techniques.html |

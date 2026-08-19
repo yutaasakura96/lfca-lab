@@ -1616,7 +1616,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-88r1",
+        "nist-sp-800-88r2",
         "nist-sp-800-53r5"
       ],
       "candidate_evidence": [],
@@ -1650,7 +1650,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "nist-sp-800-88r1"
+        "nist-sp-800-88r2"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -2081,7 +2081,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "gdpr-eurlex",
-        "nist-sp-800-88r1"
+        "nist-sp-800-88r2"
       ],
       "candidate_evidence": [],
       "commands": [],

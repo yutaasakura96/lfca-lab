@@ -430,7 +430,7 @@ not address or port.
 
 <a id="c-security.sensitive-data.data-retention-and-disposal"></a>
 ### Data retention and disposal
-*id: `security.sensitive-data.data-retention-and-disposal` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-88r1, nist-sp-800-53r5*
+*id: `security.sensitive-data.data-retention-and-disposal` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-88r2, nist-sp-800-53r5*
 
 **What it is** A retention schedule states how long each category of data is kept and what
 happens to it afterwards. NIST SP 800-53's SI-12 requires information to be managed and retained
@@ -472,7 +472,7 @@ recognising that a legal hold suspends deletion; and distinguishing the retentio
 
 <a id="c-security.sensitive-data.secure-deletion"></a>
 ### Secure deletion
-*id: `security.sensitive-data.secure-deletion` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-88r1*
+*id: `security.sensitive-data.secure-deletion` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-88r2*
 
 **What it is** Making data genuinely unrecoverable, as opposed to unlinking it. Deleting a file
 with `rm` removes a directory entry and decrements the link count; the blocks holding the
@@ -485,7 +485,7 @@ operation, sanitization is a data operation, and an exam option that offers "del
 as a disposal method for sensitive media is offering the wrong one. NIST SP 800-88 warns
 specifically against methods that simply remove file pointers.
 
-**How it works** SP 800-88 Rev. 1 defines three categories. Clear applies logical techniques
+**How it works** SP 800-88 Rev. 2 defines three categories. Clear applies logical techniques
 across all user-addressable locations, typically by rewriting through ordinary read and write
 commands, and defeats simple non-invasive recovery. Purge applies physical or logical techniques
 that render recovery infeasible against state-of-the-art laboratory techniques — overwrite,
