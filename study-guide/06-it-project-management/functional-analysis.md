@@ -85,10 +85,7 @@ worthless, since there is no threshold left to measure against.
 
 <a id="c-pm.functional-analysis.non-functional-requirements"></a>
 ### Non-functional requirements
-*id: `pm.functional-analysis.non-functional-requirements` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.non-functional-requirements` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: swebok-v3*
 
 **What it is** Constraints on how well the system performs the behaviours the functional
 requirements describe: performance, availability and reliability, scalability, security,
@@ -172,10 +169,7 @@ higher-priority of the two; being non-functional says nothing about that.
 
 <a id="c-pm.functional-analysis.requirements-elicitation"></a>
 ### Requirements elicitation
-*id: `pm.functional-analysis.requirements-elicitation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.functional-analysis.requirements-elicitation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: swebok-v3*
 
 **What it is** The work of drawing requirements out of people, rather than collecting them:
 interviews, facilitated workshops, observing people doing the job, studying existing documents
@@ -312,6 +306,31 @@ is root cause analysis, again a different activity.
 
 **Key terms** current state; desired state; capability inventory; remediation; scope input.
 
+<a id="cmp-pm.functional-analysis.gap-analysis"></a>
+#### Not to be confused with: Gap analysis vs Feasibility study
+*compares: `pm.functional-analysis.gap-analysis`, `pm.functional-analysis.feasibility-study`*
+
+| | Gap analysis | Feasibility study |
+| --- | --- | --- |
+| Question answered | How far is the current state from the desired one, and what work closes the difference? | Can the proposed thing be done at all, and should it be done? |
+| When it runs | Once both states have been described; its output becomes scope | Before commitment, while alternatives are still genuinely open |
+| What it needs first | A described current state and a described desired state | A stated proposal and the alternatives it is being weighed against |
+| What it produces | An enumerated set of differences, and the work that closes each one | A judgement on achievability and worth, and a recommended alternative |
+| Dimensions it works along | Capability, process step, control, skill, tooling | Technical, operational and economic, with legal and schedule often added |
+| What it deliberately cannot say | Whether closing the gaps is achievable, affordable or worth funding | How large any individual shortfall is, or which specific gaps exist |
+
+The separating axis is what each technique is entitled to conclude. A gap analysis is a
+measurement: it says how far apart two described states are and what work would close the
+distance, and it is silent on whether that work can be done or is worth funding. A feasibility
+study is a decision input — SWEBOK v3.0 (Ch. 7 §1.2, Feasibility Analysis) describes it as
+evaluating "alternative approaches in order to determine whether the proposed project is the
+best alternative given the constraints of technology, resources, finances, and social/political
+considerations," a judgement made while alternatives are still open. In practice the two run in
+that order, and the gaps are precisely what a feasibility study is then asked to price. The
+inversion an exam item reaches for is treating a completed gap analysis as though it had already
+settled the commitment question: six well-described gaps say nothing about whether any of them
+can be closed.
+
 <a id="c-pm.functional-analysis.requirements-prioritization"></a>
 ### Requirements prioritization
 *id: `pm.functional-analysis.requirements-prioritization` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: agile-business-consortium-moscow*
@@ -343,7 +362,7 @@ effort; priority versus estimate.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.functional-analysis.feasibility-study` | Feasibility study | An assessment, made before commitment, of whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* Confused with gap analysis: a gap analysis says how far apart the current and desired states are, while a feasibility study asks whether closing that distance is achievable and worth committing to at all. Recognition of the term and its dimensions is enough at this level. |
+| `pm.functional-analysis.feasibility-study` | Feasibility study | An assessment, made before commitment, of whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. | Confused with gap analysis: a gap analysis says how far apart the current and desired states are, while a feasibility study asks whether closing that distance is achievable and worth committing to at all. Recognition of the term and its dimensions is enough at this level. [Not to be confused with gap analysis](functional-analysis.md#cmp-pm.functional-analysis.gap-analysis). |
 
 #### Scenario
 

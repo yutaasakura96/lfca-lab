@@ -17,7 +17,7 @@ published standard.
 
 <a id="c-pm.software-application-architecture.client-server-model"></a>
 ### Client-server model
-*id: `pm.software-application-architecture.client-server-model` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc9110*
+*id: `pm.software-application-architecture.client-server-model` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc-9110-http-semantics*
 
 **What it is** The interaction shape in which one program (the client) initiates a request and
 another program (the server) waits for requests and returns responses. RFC 9110 defines both
@@ -296,7 +296,7 @@ correctly and the fault sits in the application tier or the data tier behind it.
 
 <a id="c-pm.software-application-architecture.api"></a>
 ### API
-*id: `pm.software-application-architecture.api` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: rfc9110*
+*id: `pm.software-application-architecture.api` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: rfc-9110-http-semantics*
 
 **What it is** An application programming interface: the published contract by which one piece of
 software calls another — the operations available, the inputs each takes, the outputs and errors
@@ -345,7 +345,7 @@ transport.
 
 <a id="c-pm.software-application-architecture.rest"></a>
 ### REST
-*id: `pm.software-application-architecture.rest` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: rfc9110*
+*id: `pm.software-application-architecture.rest` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: rfc-9110-http-semantics*
 
 **What it is** Representational State Transfer: an architectural style in which the things a
 service exposes are modelled as resources, each addressed by a URL, and acted on with the
@@ -383,7 +383,7 @@ protocol underneath it and the JSON format inside it.
 
 <a id="c-pm.software-application-architecture.http-methods-and-status-codes"></a>
 ### HTTP methods and status codes
-*id: `pm.software-application-architecture.http-methods-and-status-codes` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: rfc9110, rfc5789*
+*id: `pm.software-application-architecture.http-methods-and-status-codes` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: rfc-9110-http-semantics, rfc5789*
 
 **What it is** The two halves of an HTTP exchange's meaning: the request method states what the
 client wants done to the target resource, and the three-digit status code states what happened.
@@ -652,7 +652,7 @@ survive a fix applied at the origin.
 
 <a id="c-pm.software-application-architecture.stateless-vs-stateful-applications"></a>
 ### Stateless vs stateful applications
-*id: `pm.software-application-architecture.stateless-vs-stateful-applications` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc9110*
+*id: `pm.software-application-architecture.stateless-vs-stateful-applications` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: rfc-9110-http-semantics*
 
 **What it is** Whether a server retains anything about a client between that client's requests. A
 stateless application keeps nothing locally: every request arrives carrying whatever identity and

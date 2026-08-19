@@ -346,7 +346,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "man-hostnamectl-1",
@@ -370,30 +370,6 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
-      "id": "fhs-3.0",
-      "title": "Filesystem Hierarchy Standard, Version 3.0",
-      "url": "https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html",
-      "organization": "The Linux Foundation (LSB Workgroup)",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 1,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
-      "id": "lf-about",
-      "title": "About the Linux Foundation",
-      "url": "https://www.linuxfoundation.org/about",
-      "organization": "The Linux Foundation",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 1,
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
@@ -1162,7 +1138,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 1,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "man-hier-7",
@@ -1642,7 +1618,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "gnu-find-man",
@@ -1753,18 +1729,6 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "rfc-6335",
-      "title": "RFC 6335 — IANA Procedures for Service Name and Transport Protocol Port Number Registry",
-      "url": "https://www.rfc-editor.org/rfc/rfc6335.html",
-      "organization": "IETF / IANA",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
       "id": "man-ip-7",
       "title": "ip(7) — Linux IPv4 protocol implementation (privileged ports)",
       "url": "https://man7.org/linux/man-pages/man7/ip.7.html",
@@ -1798,7 +1762,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "man-file-1",
@@ -1981,18 +1945,6 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "man-uptime",
-      "title": "uptime(1) — Linux manual page",
-      "url": "https://man7.org/linux/man-pages/man1/uptime.1.html",
-      "organization": "Linux man-pages project / procps-ng",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
       "id": "man-proc-pid-oom-score",
       "title": "proc_pid_oom_score(5) — Linux manual page",
       "url": "https://man7.org/linux/man-pages/man5/proc_pid_oom_score.5.html",
@@ -2065,34 +2017,10 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "man-path-resolution",
-      "title": "path_resolution(7) — how a pathname is resolved to a file (directory search permission)",
-      "url": "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
-      "organization": "Linux man-pages project",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
       "id": "man-namei",
       "title": "namei(1) — follow a pathname until a terminal point is found",
       "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
       "organization": "util-linux",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
-      "id": "man-ss",
-      "title": "ss(8) — another utility to investigate sockets",
-      "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
-      "organization": "iproute2",
       "published": null,
       "updated": null,
       "accessed": "2026-08-10",
@@ -2350,7 +2278,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "iana-service-name-port-registry",
@@ -2374,7 +2302,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "openssh-ssh-manpage",
@@ -3061,18 +2989,6 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "rfc9110",
-      "title": "RFC 9110: HTTP Semantics",
-      "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
-      "organization": "IETF",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
       "id": "rfc5789",
       "title": "RFC 5789: PATCH Method for HTTP",
       "url": "https://www.rfc-editor.org/rfc/rfc5789.html",
@@ -3250,7 +3166,7 @@
       "accessed": "2026-08-10",
       "category": "primary-documentation",
       "authority_tier": 1,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
+      "notes": "Primary documentation consulted during stage 5 concept verification. (Deduplicated 2026-08-19: a second registration of this same URL under a different id was removed.)"
     },
     {
       "id": "man-proc-pid-oom-score-adj",
@@ -3766,7 +3682,7 @@
       "id": "kernel-org-about",
       "title": "About the Linux Kernel Archives (kernel.org)",
       "url": "https://www.kernel.org/category/about.html",
-      "notes": "States that \"The Linux Kernel Organization is managed by The Linux Foundation, which provides full technical, financial and staffing support for running and maintaining the kernel.org infrastructure\" — the Foundation's organisational, non-technical role. Added 2026-08-17 by verification task 43a, which found lf-about cited for a Foundation-funds-maintainers claim the page does not contain."
+      "notes": "States that \"The Linux Kernel Organization is managed by The Linux Foundation, which provides full technical, financial and staffing support for running and maintaining the kernel.org infrastructure\" — the Foundation's organisational, non-technical role. Added 2026-08-17 by verification task 43a, which found linux-foundation-about cited for a Foundation-funds-maintainers claim the page does not contain."
     },
     {
       "organization": "Linux kernel project (kernel.org)",
@@ -4069,18 +3985,6 @@
       "notes": "States that picking an instance means finding the family that matches the workload’s CPU and memory needs — compute optimized for CPU-bound, memory optimized for memory-bound. Added 2026-08-17 by the Cloud Best Practices question verification pass (task 45)."
     },
     {
-      "id": "aws-reserved-instances",
-      "title": "Reserved Instances (Amazon EC2)",
-      "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html",
-      "organization": "Amazon Web Services",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-17",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "States that Reserved Instances are not physical instances but a billing discount applied to matching On-Demand usage — a rate discount, not a resizing. Added 2026-08-17 by the Cloud Best Practices question verification pass (task 45)."
-    },
-    {
       "id": "aws-nlb-health-checks",
       "title": "Health checks for Network Load Balancer target groups",
       "url": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html",
@@ -4174,7 +4078,7 @@
       "accessed": "2026-08-17",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Added 2026-08-17 by the Budgeting question-bank verification pass (Task 42), which found the cited source did not carry the claim."
+      "notes": "Added 2026-08-17 by the Budgeting question-bank verification pass (Task 42), which found the cited source did not carry the claim. States that Reserved Instances are not physical instances but a billing discount applied to matching On-Demand usage — a rate discount, not a resizing. Added 2026-08-17 by the Cloud Best Practices question verification pass (task 45). (Merged 2026-08-19 from a second registration of this same URL under a different id.)"
     },
     {
       "id": "azure-waf-cost-model",
@@ -5722,7 +5626,7 @@
       "accessed": "2026-08-18",
       "category": "primary-documentation",
       "authority_tier": 2,
-      "notes": "Option table shows start accepts only attach/checkpoint/detach-keys/interactive options -- no port, environment or other creation-time flags. Added 2026-08-18 by the Containers verification pass (task 55a)."
+      "notes": "Option table shows start accepts only attach/checkpoint/detach-keys/interactive options -- no port, environment or other creation-time flags. Added 2026-08-18 by the Containers verification pass (task 55a). Primary documentation fetched and read during cycle 3 verification task 55b (DevOps Fundamentals :: Containers). (Merged 2026-08-19 from a second registration of this same URL under a different id.)"
     },
     {
       "id": "docker-build-cache",
@@ -5812,18 +5716,6 @@
       "id": "docker-cli-run",
       "title": "docker container run CLI reference (-e/--env, --env-file, -v)",
       "url": "https://docs.docker.com/reference/cli/docker/container/run/",
-      "organization": "Docker Inc.",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-18",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Primary documentation fetched and read during cycle 3 verification task 55b (DevOps Fundamentals :: Containers)."
-    },
-    {
-      "id": "docker-cli-start",
-      "title": "docker container start CLI reference — options are -a, -i, --checkpoint, --detach-keys only",
-      "url": "https://docs.docker.com/reference/cli/docker/container/start/",
       "organization": "Docker Inc.",
       "published": null,
       "updated": null,
@@ -8087,6 +7979,42 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "States the UDP/datagram semantics that ip(7) does not: \"If the socket sockfd is of type SOCK_DGRAM, then addr is the address to which datagrams are sent by default, and the only address from which datagrams are received.\" That is the documentary basis for a UDP socket showing ESTAB after connect() without any handshake. Added 2026-08-19 by the dead-citation pass, which found the claim attributed to ip(7); ip(7) was fetched and contains no occurrence of \"default peer\"."
+    },
+    {
+      "id": "swebok-v3",
+      "title": "SWEBOK Guide V3.0 — Guide to the Software Engineering Body of Knowledge",
+      "url": "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+      "organization": "IEEE Computer Society",
+      "published": "2014",
+      "updated": null,
+      "accessed": "2026-08-19",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Freely published by the IEEE Computer Society (the computer.org landing page refuses automated fetch; the direct PDF above serves the full 335-page text). Ch.1 §1.3 defines functional and nonfunctional requirements ('Nonfunctional requirements are the ones that act to constrain the solution... sometimes known as constraints or quality requirements'); Ch.1 §3 defines requirements elicitation and §3.2 its techniques; Ch.7 §1.2 defines feasibility analysis; Ch.8 §2 states that the acceptance criteria for an output work product are among the conditions that must be satisfied before a process concludes. Added 2026-08-19 by the PM waiver-reduction pass."
+    },
+    {
+      "id": "agile-alliance-glossary-velocity",
+      "title": "What is Velocity in Agile? | Agile Alliance",
+      "url": "https://agilealliance.org/glossary/velocity/",
+      "organization": "Agile Alliance",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-19",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Defines velocity: 'At the end of each iteration, the team adds up effort estimates associated with user stories that were completed during that iteration. This total is called velocity,' used to forecast remaining iterations. Its Common Pitfalls section states that 'velocity is a “measurement”, made after the fact... it is not itself a budget or a forecast, and phrases such as “setting the velocity” reveal a basic misunderstanding,' and that 'there is no meaningful comparison of velocity “between” different teams, since such teams may have different approaches to estimation.' Added 2026-08-19: the Scrum Guide, previously cited for this concept, never uses the word 'velocity'."
+    },
+    {
+      "id": "agile-alliance-glossary-atdd",
+      "title": "What is Acceptance Test Driven Development (ATDD)? | Agile Alliance",
+      "url": "https://agilealliance.org/glossary/atdd/",
+      "organization": "Agile Alliance",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-08-19",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that ATDD 'involves team members with different perspectives (customer, development, testing) collaborating to write acceptance tests in advance of implementing the corresponding functionality,' and that those tests 'act as a form of requirements to describe how the system will function, as well as serve as a way of verifying that the system functions as intended.' Carries the agreed-before-work-starts property at story level. Added 2026-08-19: the Scrum Guide, previously cited for the acceptance-criteria concept, never uses the phrase 'acceptance criteria'."
     }
   ]
 }

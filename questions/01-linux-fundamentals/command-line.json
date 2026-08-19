@@ -8234,7 +8234,7 @@
         "lf-objectives-2025",
         "man-ip-7",
         "man-capabilities-7",
-        "rfc-6335"
+        "rfc-6335-port-number-procedures"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.port-ranges",
       "comparison_block": null,
@@ -8309,7 +8309,7 @@
       "rationale": "RFC 6335 puts dynamic ports at 49152-65535, but the kernel's `net.ipv4.ip_local_port_range` defaults to 32768-60999, so a real Linux client's source port usually falls in the User (registered) Ports range instead of the RFC's Dynamic Ports range.",
       "source_ids": [
         "lf-objectives-2025",
-        "rfc-6335",
+        "rfc-6335-port-number-procedures",
         "kernel-ip-sysctl"
       ],
       "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.port-ranges",
@@ -8325,7 +8325,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED AS AUTHORED. o4's option text ended \"...on the assumption that the kernel's local port range setting applies per protocol rather than uniformly\", meta-commentary rather than a claim. CHECKS: key - RFC 6335 section 6 gives \"the Dynamic Ports, also known as the Private or Ephemeral Ports, from 49152-65535 (never assigned)\", and the kernel's ip-sysctl documentation gives \"ip_local_port_range ... The default values are 32768 and 60999 respectively\". Both numbers in the key are verbatim from their own authorities, and the divergence the key asserts is real. Key correct. o2 - false. o3 - false, and its `why` is true: the Linux default starts at 32768, far above the 0-1023 System Ports range. o4 - false. No second correct answer; no duplicate options. REPAIR AND RE-VERIFICATION: replaced o4's meta tail with an assertive false mechanism and rewrote its `why` around the kernel documentation's own \"used by TCP and UDP\" wording. Re-read RFC 6335 and the kernel ip-sysctl page; verdict confirmed. NOTE: data/sources.json registers this RFC twice, as `rfc-6335` and `rfc-6335-port-number-procedures`, both pointing at https://www.rfc-editor.org/rfc/rfc6335.html; this item uses `rfc-6335`, and the duplicate is recorded as a finding rather than removed, because the other id is cited by System Administration :: Networking items outside this task's range.",
+        "reasoning": "REFUTED AS AUTHORED. o4's option text ended \"...on the assumption that the kernel's local port range setting applies per protocol rather than uniformly\", meta-commentary rather than a claim. CHECKS: key - RFC 6335 section 6 gives \"the Dynamic Ports, also known as the Private or Ephemeral Ports, from 49152-65535 (never assigned)\", and the kernel's ip-sysctl documentation gives \"ip_local_port_range ... The default values are 32768 and 60999 respectively\". Both numbers in the key are verbatim from their own authorities, and the divergence the key asserts is real. Key correct. o2 - false. o3 - false, and its `why` is true: the Linux default starts at 32768, far above the 0-1023 System Ports range. o4 - false. No second correct answer; no duplicate options. REPAIR AND RE-VERIFICATION: replaced o4's meta tail with an assertive false mechanism and rewrote its `why` around the kernel documentation's own \"used by TCP and UDP\" wording. Re-read RFC 6335 and the kernel ip-sysctl page; verdict confirmed. NOTE (resolved 2026-08-19): data/sources.json previously registered this RFC twice under two ids both pointing at https://www.rfc-editor.org/rfc/rfc6335.html. The duplicate registration has since been removed and every citation consolidated onto `rfc-6335-port-number-procedures`, which is what this item now uses.",
         "sources_read": [
           "https://www.rfc-editor.org/rfc/rfc6335.html",
           "https://docs.kernel.org/networking/ip-sysctl.html"

@@ -341,7 +341,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "google-sre-book-effective-troubleshooting",
-        "man-path-resolution"
+        "man-path-resolution-7"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.reproducing-the-fault",
       "comparison_block": null,
@@ -356,7 +356,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key rests on root being exempt from the ordinary mode checks; path_resolution(7) documents the three permission-bit groups and carries an explicit \"Bypassing permission checks\" section for the privileged case, so a run as root never exercises the failing condition. SRE ch.12 \"Cure\" supports reproduction as the thing that proves causation. o2 (fault fixed), o3 (modes must be fine), o4 (escalate as resolved) are all false and their whys true. Added man-path-resolution because the root-exemption claim was not in either originally cited source.",
+        "reasoning": "Key rests on root being exempt from the ordinary mode checks; path_resolution(7) documents the three permission-bit groups and carries an explicit \"Bypassing permission checks\" section for the privileged case, so a run as root never exercises the failing condition. SRE ch.12 \"Cure\" supports reproduction as the thing that proves causation. o2 (fault fixed), o3 (modes must be fine), o4 (escalate as resolved) are all false and their whys true. Added man-path-resolution-7 because the root-exemption claim was not in either originally cited source.",
         "sources_read": [
           "https://man7.org/linux/man-pages/man7/path_resolution.7.html",
           "https://sre.google/sre-book/effective-troubleshooting/"
@@ -719,7 +719,7 @@
         "lf-objectives-2025",
         "man-systemctl",
         "man-journalctl",
-        "man-ss",
+        "iproute2-ss-man",
         "systemd-service-5"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
@@ -798,7 +798,7 @@
         "lf-objectives-2025",
         "man-systemctl",
         "man-journalctl",
-        "man-ss"
+        "iproute2-ss-man"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
       "comparison_block": null,
@@ -1192,7 +1192,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-proc-loadavg",
-        "man-uptime",
+        "man-uptime-1",
         "man-top-1"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.high-cpu-load",
@@ -1271,7 +1271,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-proc-loadavg",
-        "man-uptime"
+        "man-uptime-1"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.high-cpu-load",
       "comparison_block": null,
@@ -1346,7 +1346,7 @@
       "rationale": "The single most common miss on this fault is the traversal case: the file's own mode is fine and a parent directory's is not. `namei -l` walks the path component by component and shows exactly where that traversal bit is missing, which `ls -l` on the file alone cannot reveal.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-path-resolution",
+        "man-path-resolution-7",
         "man-namei"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.permission-denied",
@@ -1425,7 +1425,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-credentials-7",
-        "man-path-resolution"
+        "man-path-resolution-7"
       ],
       "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.permission-denied",
       "comparison_block": null,
@@ -1442,7 +1442,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "CITATION FIXED: the item cited man-path-resolution and man-namei; namei(1) contains nothing about group credentials. credentials(7) documents supplementary group IDs as a per-process credential set, obtained with getgroups(2) and used for file permission checks, and path_resolution(7) confirms permission checks consult \"the supplementary group IDs of the calling process\" — together those establish that a shell started before the change still carries the old set and that a new login is the remedy. man-namei was dropped and man-credentials-7 added. Key correct; o2 (directory service broken), o3 (DNS caching) and o4 (systemctl status) are all false with true whys.",
+        "reasoning": "CITATION FIXED: the item cited man-path-resolution-7 and man-namei; namei(1) contains nothing about group credentials. credentials(7) documents supplementary group IDs as a per-process credential set, obtained with getgroups(2) and used for file permission checks, and path_resolution(7) confirms permission checks consult \"the supplementary group IDs of the calling process\" — together those establish that a shell started before the change still carries the old set and that a new login is the remedy. man-namei was dropped and man-credentials-7 added. Key correct; o2 (directory service broken), o3 (DNS caching) and o4 (systemctl status) are all false with true whys.",
         "sources_read": [
           "https://man7.org/linux/man-pages/man7/credentials.7.html",
           "https://man7.org/linux/man-pages/man7/path_resolution.7.html"
@@ -1500,7 +1500,7 @@
       "rationale": "The layers of a connection failure are separately testable, and `ss -tulpn`'s Local Address column is the highest-value command once the process is confirmed running: `127.0.0.1` accepts only local clients while `0.0.0.0` accepts any, and that single field explains \"works locally, fails remotely\" without touching the firewall.",
       "source_ids": [
         "lf-objectives-2025",
-        "man-ss",
+        "iproute2-ss-man",
         "man-systemctl",
         "man-ip-7"
       ],
@@ -1597,7 +1597,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED on first pass and rewritten. The key asserted that the 502 \"proves the connection and TLS handshake succeeded\" — the scenario never says the API is served over TLS, so the key stated a fact the stem does not support. It now claims only that the connection completed and an HTTP response came back. RFC 9110 15.6.3 confirms the substance: \"The 502 (Bad Gateway) status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server\", which is only reachable after a completed request. The citation was also wrong: man-ss and man-systemctl contain nothing about curl, 502 or dig; replaced with curl-manpage and rfc-9110-http-semantics. o2 (one firewall rule for both), o3 (502 means the backend crashed) and o4 (host CPU-saturated) are each false with true whys. Follow-up pass: the rewritten key was 244 characters and became the longest option, which tripped q-length-cue both per-item and across the file; the key was tightened without dropping a claim and o2 was lengthened with a real (and still false) mechanism rather than the key being truncated.",
+        "reasoning": "REFUTED on first pass and rewritten. The key asserted that the 502 \"proves the connection and TLS handshake succeeded\" — the scenario never says the API is served over TLS, so the key stated a fact the stem does not support. It now claims only that the connection completed and an HTTP response came back. RFC 9110 15.6.3 confirms the substance: \"The 502 (Bad Gateway) status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server\", which is only reachable after a completed request. The citation was also wrong: iproute2-ss-man and man-systemctl contain nothing about curl, 502 or dig; replaced with curl-manpage and rfc-9110-http-semantics. o2 (one firewall rule for both), o3 (502 means the backend crashed) and o4 (host CPU-saturated) are each false with true whys. Follow-up pass: the rewritten key was 244 characters and became the longest option, which tripped q-length-cue both per-item and across the file; the key was tightened without dropping a claim and o2 was lengthened with a real (and still false) mechanism rather than the key being truncated.",
         "sources_read": [
           "https://www.rfc-editor.org/rfc/rfc9110.html",
           "https://curl.se/docs/manpage.html"

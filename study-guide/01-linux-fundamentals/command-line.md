@@ -1963,7 +1963,7 @@ that a successful `dig` proves the system will resolve the name.
 
 <a id="c-linux.command-line.port-ranges"></a>
 ### Port ranges
-*id: `linux.command-line.port-ranges` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: rfc-6335, man-ip-7, kernel-ip-sysctl*
+*id: `linux.command-line.port-ranges` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: rfc-6335-port-number-procedures, man-ip-7, kernel-ip-sysctl*
 
 **What it is** IANA divides the TCP and UDP port space into three ranges: the System Ports, also
 called the Well Known Ports, 0-1023; the User Ports, also called the Registered Ports, 1024-49151;

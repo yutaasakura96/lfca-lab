@@ -477,7 +477,7 @@ not itself an isolation boundary — accounts, subscriptions or projects are.
 
 <a id="c-cloud.best-practices.right-size-before-you-scale"></a>
 ### Right-size before you scale
-*id: `cloud.best-practices.right-size-before-you-scale` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper, aws-rightsizing-identify-opportunities, aws-rightsizing-instance-families, aws-reserved-instances*
+*id: `cloud.best-practices.right-size-before-you-scale` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: aws-rightsizing-whitepaper, aws-rightsizing-identify-opportunities, aws-rightsizing-instance-families, aws-ec2-reserved-instances*
 
 **What it is** Right sizing is matching instance types and sizes to the workload's measured
 performance and capacity requirements at the lowest possible cost, and identifying deployed

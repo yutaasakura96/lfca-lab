@@ -222,7 +222,7 @@ behaviour belongs to the terminal (display, input) or the shell (interpretation,
 
 <a id="c-linux.linux-operating-system.everything-is-a-file"></a>
 ### Everything is a file
-*id: `linux.linux-operating-system.everything-is-a-file` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: kernel-readme, fhs-3.0, man-syscalls-2*
+*id: `linux.linux-operating-system.everything-is-a-file` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: kernel-readme, fhs-3-0, man-syscalls-2*
 
 **What it is** The Unix design principle that devices, sockets, pipes, and much of the
 kernel's own live state are exposed through the same filesystem interface used for ordinary
@@ -472,7 +472,7 @@ Linux system uses.
 
 <a id="c-linux.linux-operating-system.linux-history"></a>
 ### Linux history
-*id: `linux.linux-operating-system.linux-history` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: kernel-readme, lf-about*
+*id: `linux.linux-operating-system.linux-history` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: kernel-readme, linux-foundation-about*
 
 **What it is** Linus Torvalds began the Linux kernel in 1991 as a free Unix-like kernel and
 has developed it openly, with a large contributor base, ever since. The Linux Foundation,
@@ -922,7 +922,7 @@ script, service, or subprocess — the export/inheritance boundary.
 
 <a id="c-linux.linux-operating-system.path"></a>
 ### PATH
-*id: `linux.linux-operating-system.path` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: man-bash-1, posix-env-vars, fhs-3.0*
+*id: `linux.linux-operating-system.path` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: man-bash-1, posix-env-vars, fhs-3-0*
 
 **What it is** `PATH` is an environment variable holding an ordered, colon-separated list of
 directories the shell searches, in order, when resolving a bare command name to an

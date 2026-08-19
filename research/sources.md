@@ -12,9 +12,7 @@
 | cncf-project-kubernetes | CNCF project page for Kubernetes — accepted at Incubating in 2016, moved to Graduated maturity level in 2018 | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-18 | https://www.cncf.io/projects/kubernetes/ |
 | cncf-who-we-are | CNCF — Who we are ("CNCF hosts critical components…"; "CNCF is part of the nonprofit Linux Foundation") | Cloud Native Computing Foundation / Linux Foundation | 1 | — | 2026-08-10 | https://www.cncf.io/about/who-we-are/ |
 | fhs-3-0 | Filesystem Hierarchy Standard 3.0 | Linux Foundation | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
-| fhs-3.0 | Filesystem Hierarchy Standard, Version 3.0 | The Linux Foundation (LSB Workgroup) | 1 | — | 2026-08-10 | https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html |
 | kernel-docs-proc-rst | Linux kernel Documentation/filesystems/proc.rst | Linux kernel project | 1 | — | 2026-08-11 | https://raw.githubusercontent.com/torvalds/linux/master/Documentation/filesystems/proc.rst |
-| lf-about | About the Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
 | lf-candidate-handbook | Linux Foundation Certification Exam: Candidate Handbook (PSI BRIDGE) | The Linux Foundation | 1 | — | 2026-08-09 | https://docs.linuxfoundation.org/tc-docs/certification/lf-handbook2 |
 | lf-faq-mc | Multiple Choice Exams: Frequently Asked Questions | The Linux Foundation | 1 | — | 2026-08-11 | https://docs.linuxfoundation.org/tc-docs/certification/faq-mc |
 | lf-important-instructions-mc | Multiple Choice Exams: Important Instructions | The Linux Foundation | 1 | — | 2026-08-11 | https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-mc |
@@ -34,8 +32,10 @@
 | spdx-license-list | SPDX License List | SPDX project, The Linux Foundation | 1 | — | 2026-08-10 | https://spdx.org/licenses/ |
 | wayback-lfca-2025-08 | LFCA certification page, archived snapshot (pre-2025-09-16 syllabus) | Internet Archive (archiving The Linux Foundation) | 1 | 2025-08-01 | 2026-08-09 | https://web.archive.org/web/20250801000000/https://training.linuxfoundation.org/certification/certified-it-associate/ |
 | aa-status-man8 | aa-status(8) manual page — display the current AppArmor policy state | AppArmor project / Debian | 2 | — | 2026-08-18 | https://manpages.debian.org/bookworm/apparmor/aa-status.8.en.html |
+| agile-alliance-glossary-atdd | What is Acceptance Test Driven Development (ATDD)? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-19 | https://agilealliance.org/glossary/atdd/ |
 | agile-alliance-glossary-mvp | What is a Minimum Viable Product (MVP)? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-11 | https://agilealliance.org/glossary/mvp/ |
 | agile-alliance-glossary-user-story-template | User Story Template for Agile \| Agile Alliance | Agile Alliance | 2 | 2015-12 | 2026-08-11 | https://agilealliance.org/glossary/user-story-template/ |
+| agile-alliance-glossary-velocity | What is Velocity in Agile? \| Agile Alliance | Agile Alliance | 2 | — | 2026-08-19 | https://agilealliance.org/glossary/velocity/ |
 | agile-business-consortium-moscow | What is MoSCoW Prioritization? | Agile Business Consortium (DSDM Consortium) | 2 | 2024-01 | 2026-08-11 | https://www.agilebusiness.org/resource/what-is-moscow-prioritization/ |
 | agile-manifesto | Manifesto for Agile Software Development | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/ |
 | agile-principles | Principles behind the Agile Manifesto | Agile Manifesto authors | 2 | — | 2026-08-10 | https://agilemanifesto.org/principles.html |
@@ -96,7 +96,6 @@
 | aws-reliability-multi-location-bp | REL10-BP01 Deploy the workload to multiple locations - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_fault_isolation_multiaz_region_system.html |
 | aws-reliability-sla-bp | REL11-BP07 Architect your product to meet availability targets and uptime SLAs - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_service_level_agreements.html |
 | aws-reliability-static-stability-bp | REL11-BP05 Use static stability to prevent bimodal behavior - AWS Well-Architected Framework | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_withstand_component_failures_static_stability.html |
-| aws-reserved-instances | Reserved Instances (Amazon EC2) | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html |
 | aws-rightsizing-identify-opportunities | Identifying Opportunities to Right Size | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/identifying-opportunities-to-right-size.html |
 | aws-rightsizing-instance-families | Overview of Amazon EC2 and Amazon RDS Instance Families | Amazon Web Services | 2 | — | 2026-08-17 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/overview-amazon-ec2-amazon-rds.html |
 | aws-rightsizing-whitepaper | Cost Optimization: Right Sizing | Amazon Web Services | 2 | — | 2026-08-10 | https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html |
@@ -200,7 +199,6 @@
 | docker-cli-exec | docker container exec CLI reference — "runs a new command in a running container" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/exec/ |
 | docker-cli-logs | docker container logs CLI reference — "batch-retrieves logs present at the time of execution" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/logs/ |
 | docker-cli-run | docker container run CLI reference (-e/--env, --env-file, -v) | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/run/ |
-| docker-cli-start | docker container start CLI reference — options are -a, -i, --checkpoint, --detach-keys only | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/container/start/ |
 | docker-compose-cli-down | docker compose down CLI reference — "Stops containers and removes containers, networks, volumes, and images created by up" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/down/ |
 | docker-compose-cli-stop | docker compose stop CLI reference — "Stops running containers without removing them" | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/stop/ |
 | docker-compose-cli-up | docker compose up CLI reference — "Builds, (re)creates, starts, and attaches to containers"; --detach | Docker Inc. | 2 | — | 2026-08-18 | https://docs.docker.com/reference/cli/docker/compose/up/ |
@@ -411,7 +409,6 @@
 | man-pages-7 | man-pages(7) — conventions for writing Linux man pages (manual section list) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/man-pages.7.html |
 | man-passwd-1 | passwd(1) — change user password (-e expire, -l lock) | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/passwd.1.html |
 | man-passwd-5 | passwd(5) — the password file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/passwd.5.html |
-| man-path-resolution | path_resolution(7) — how a pathname is resolved to a file (directory search permission) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
 | man-path-resolution-7 | path_resolution(7) — how a pathname is resolved to a file | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/path_resolution.7.html |
 | man-pid-namespaces-7 | pid_namespaces(7) — PID namespaces, init process, adoption of orphaned children | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/pid_namespaces.7.html |
 | man-ping-8 | ping(8) — send ICMP ECHO_REQUEST to network hosts | iputils / man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/ping.8.html |
@@ -438,7 +435,6 @@
 | man-sha256sum-1 | sha256sum(1) — compute and check SHA256 message digests (-c reads recorded checksums) | man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/sha256sum.1.html |
 | man-shadow-5 | shadow(5) — shadowed password file | Linux man-pages project / shadow-utils | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man5/shadow.5.html |
 | man-signal-7 | signal(7) — overview of signals; SIGKILL/SIGSTOP cannot be caught | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/signal.7.html |
-| man-ss | ss(8) — another utility to investigate sockets | iproute2 | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/ss.8.html |
 | man-stat-1 | stat(1) — display file or file system status | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/stat.1.html |
 | man-su-1 | su(1) — run a command with substitute user and group ID | util-linux | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/su.1.html |
 | man-swapon-8 | swapon(8) — enable devices and files for paging and swapping | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/swapon.8.html |
@@ -452,7 +448,6 @@
 | man-umount-8 | umount(8) — unmount filesystems | Linux man-pages project / util-linux | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/umount.8.html |
 | man-uname-1 | uname(1) — print system information | GNU coreutils / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uname.1.html |
 | man-unlink-2 | unlink(2) — delete a name and possibly the file it refers to | Linux man-pages | 2 | — | 2026-08-12 | https://man7.org/linux/man-pages/man2/unlink.2.html |
-| man-uptime | uptime(1) — Linux manual page | Linux man-pages project / procps-ng | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-uptime-1 | uptime(1) — tell how long the system has been running | procps-ng project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/uptime.1.html |
 | man-useradd-8 | useradd(8) — create a new user or update default new user information | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/useradd.8.html |
 | man-userdel-8 | userdel(8) — delete a user account and related files | Linux man-pages project / shadow-utils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/userdel.8.html |
@@ -611,7 +606,6 @@
 | rfc-4864-local-network-protection-ipv6 | RFC 4864: Local Network Protection for IPv6 | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc4864.html |
 | rfc-5280-x509 | RFC 5280 — Internet X.509 Public Key Infrastructure Certificate and CRL Profile | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc5280.html |
 | rfc-5424 | RFC 5424 — The Syslog Protocol (severity levels 0 Emergency … 7 Debug) | IETF | 2 | — | 2026-08-10 | https://datatracker.ietf.org/doc/html/rfc5424 |
-| rfc-6335 | RFC 6335 — IANA Procedures for Service Name and Transport Protocol Port Number Registry | IETF / IANA | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc6335.html |
 | rfc-6335-port-number-procedures | RFC 6335 (BCP 165): IANA Procedures for the Management of the Service Name and Transport Protocol Port Number Registry | IETF/IANA | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc6335.html |
 | rfc-6598-shared-address-space | RFC 6598 / BCP 153: IANA-Reserved IPv4 Prefix for Shared Address Space | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc6598.html |
 | rfc-6890-special-purpose-addresses | RFC 6890: Special-Purpose IP Address Registries | IETF | 2 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc6890.html |
@@ -634,7 +628,6 @@
 | rfc5789 | RFC 5789: PATCH Method for HTTP | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc5789.html |
 | rfc6349-tcp-throughput | RFC 6349: Framework for TCP Throughput Testing | IETF | 2 | 2011-08 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc6349 |
 | rfc8259 | RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc8259.html |
-| rfc9110 | RFC 9110: HTTP Semantics | IETF | 2 | — | 2026-08-10 | https://www.rfc-editor.org/rfc/rfc9110.html |
 | rfc9111-http-caching | RFC 9111: HTTP Caching | IETF | 2 | 2022-06 | 2026-08-11 | https://www.rfc-editor.org/rfc/rfc9111 |
 | rh-grub-config | Configuring kernel command-line parameters / GRUB configuration (RHEL 9) | Red Hat | 2 | — | 2026-08-18 | https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_monitoring_and_updating_the_kernel/configuring-kernel-command-line-parameters_managing-monitoring-and-updating-the-kernel |
 | rh-raid-levels | Managing RAID — RAID levels and linear support (RHEL 9) | Red Hat | 2 | — | 2026-08-18 | https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_storage_devices/managing-raid_managing-storage-devices |
@@ -648,6 +641,7 @@
 | sudo-man-sudo | sudo(8) — execute a command as another user | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/sudo.man/ |
 | sudo-man-sudoers | sudoers(5) — sudo security policy plugin; log_allowed and log_denied | Todd C. Miller / sudo project | 2 | — | 2026-08-18 | https://www.sudo.ws/docs/man/sudoers.man/ |
 | sudo-man-visudo | visudo(8) — edit the sudoers file safely | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/visudo.man/ |
+| swebok-v3 | SWEBOK Guide V3.0 — Guide to the Software Engineering Body of Knowledge | IEEE Computer Society | 2 | 2014 | 2026-08-19 | https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf |
 | systemd-1 | systemd(1) — system and service manager, PID 1 | freedesktop.org / systemd | 2 | — | 2026-08-10 | https://www.freedesktop.org/software/systemd/man/latest/systemd.html |
 | systemd-analyze-1 | systemd-analyze(1) — blame and critical-chain | freedesktop.org / systemd | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/systemd-analyze.html |
 | systemd-bootup-7 | bootup(7) — system bootup process | freedesktop.org / systemd | 2 | — | 2026-08-18 | https://www.freedesktop.org/software/systemd/man/latest/bootup.html |

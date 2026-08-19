@@ -2286,7 +2286,7 @@
         "aws-rightsizing-whitepaper",
         "aws-rightsizing-identify-opportunities",
         "aws-rightsizing-instance-families",
-        "aws-reserved-instances"
+        "aws-ec2-reserved-instances"
       ],
       "candidate_evidence": [],
       "commands": [],

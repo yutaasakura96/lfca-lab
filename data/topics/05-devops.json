@@ -1994,7 +1994,7 @@
       "additional_sources": [
         "dockerfile-reference",
         "docker-cli-run",
-        "docker-cli-start",
+        "docker-container-start",
         "docker-build-secrets"
       ],
       "candidate_evidence": [],
@@ -2492,7 +2492,7 @@
         "cncf-project-kubernetes",
         "cncf-graduation-application",
         "k8s-steering-charter",
-        "lf-about"
+        "linux-foundation-about"
       ],
       "candidate_evidence": [],
       "commands": [],

@@ -860,7 +860,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "kernel-readme",
-        "fhs-3.0",
+        "fhs-3-0",
         "man-proc-5",
         "man-proc-cpuinfo-5"
       ],
@@ -937,7 +937,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "kernel-readme",
-        "fhs-3.0",
+        "fhs-3-0",
         "man-syscalls-2"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.everything-is-a-file",
@@ -1770,7 +1770,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED then repaired — the dominant defect of this pass. The item cited lf-about for the Foundation's role, and that page is marketing copy: it contains no occurrence of \"Torvalds\", \"maintainer\", \"fund\" or \"hosts\". Its only relevant phrase is \"Neutral home for code and collaboration\". kernel-readme carries nothing on governance either. Replaced with kernel.org's About page — \"The Linux Kernel Organization is managed by The Linux Foundation, which provides full technical, financial and staffing support for running and maintaining the kernel.org infrastructure\" — and the kernel development-process guide, which describes subsystem maintainers accepting patches into their trees and \"Linus Torvalds will declare that the window is closed and release the first of the rc kernels\". The key's unsourceable specific (\"funds core maintainers\") was replaced with the sourced formulation, which makes the same organisational-not-technical point. Key confirmed. o2, o3 (the development-process guide shows a maintainer hierarchy beneath Torvalds) and o4 are false; whys true.",
+        "reasoning": "REFUTED then repaired — the dominant defect of this pass. The item cited linux-foundation-about for the Foundation's role, and that page is marketing copy: it contains no occurrence of \"Torvalds\", \"maintainer\", \"fund\" or \"hosts\". Its only relevant phrase is \"Neutral home for code and collaboration\". kernel-readme carries nothing on governance either. Replaced with kernel.org's About page — \"The Linux Kernel Organization is managed by The Linux Foundation, which provides full technical, financial and staffing support for running and maintaining the kernel.org infrastructure\" — and the kernel development-process guide, which describes subsystem maintainers accepting patches into their trees and \"Linus Torvalds will declare that the window is closed and release the first of the rc kernels\". The key's unsourceable specific (\"funds core maintainers\") was replaced with the sourced formulation, which makes the same organisational-not-technical point. Key confirmed. o2, o3 (the development-process guide shows a maintainer hierarchy beneath Torvalds) and o4 are false; whys true.",
         "sources_read": [
           "https://www.linuxfoundation.org/about",
           "https://www.kernel.org/category/about.html",
@@ -1846,7 +1846,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED on citation, then repaired. Nothing cited stated 1991: the kernel README gives no year, lf-about gives none, and gnu-linux-and-gnu says \"Once Torvalds freed Linux in 1992\" (the relicensing), which would actively mislead a reader checking the key. Added the Linux 0.01 release notes from the kernel.org historic archive, which carry \"This kernel is (C) 1991 Linus Torvalds\" and describe \"a free minix-like kernel for i386(+) based AT-machines\" — the founding year and the capacity, both primary. Key confirmed. o2 and o3 whys were rewritten to rest on sourced facts (the 1991 personal copyright notice; gnu-linux-and-gnu's \"By the early 90s we had put together the whole system aside from the kernel\") rather than on unsourced dates. o4 is false — the record is unambiguous. Whys true.",
+        "reasoning": "REFUTED on citation, then repaired. Nothing cited stated 1991: the kernel README gives no year, linux-foundation-about gives none, and gnu-linux-and-gnu says \"Once Torvalds freed Linux in 1992\" (the relicensing), which would actively mislead a reader checking the key. Added the Linux 0.01 release notes from the kernel.org historic archive, which carry \"This kernel is (C) 1991 Linus Torvalds\" and describe \"a free minix-like kernel for i386(+) based AT-machines\" — the founding year and the capacity, both primary. Key confirmed. o2 and o3 whys were rewritten to rest on sourced facts (the 1991 personal copyright notice; gnu-linux-and-gnu's \"By the early 90s we had put together the whole system aside from the kernel\") rather than on unsourced dates. o4 is false — the record is unambiguous. Whys true.",
         "sources_read": [
           "https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01",
           "https://www.kernel.org/doc/html/latest/admin-guide/README.html",
@@ -3472,7 +3472,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "man-bash-1",
-        "fhs-3.0",
+        "fhs-3-0",
         "posix-env-vars"
       ],
       "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.path",

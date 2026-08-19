@@ -235,7 +235,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "kernel-readme",
-        "fhs-3.0",
+        "fhs-3-0",
         "man-syscalls-2",
         "man-proc-5",
         "man-proc-cpuinfo-5"
@@ -445,7 +445,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "kernel-readme",
-        "lf-about",
+        "linux-foundation-about",
         "kernel-org-about",
         "kernel-development-process",
         "linux-relnotes-0-01"
@@ -897,7 +897,7 @@
       "additional_sources": [
         "man-bash-1",
         "posix-env-vars",
-        "fhs-3.0"
+        "fhs-3-0"
       ],
       "candidate_evidence": [],
       "commands": [
@@ -2423,7 +2423,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "rfc-6335",
+        "rfc-6335-port-number-procedures",
         "man-ip-7",
         "man-capabilities-7",
         "kernel-ip-sysctl",

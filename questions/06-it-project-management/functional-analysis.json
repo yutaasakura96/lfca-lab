@@ -61,7 +61,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "REFUTED as authored, rewritten, re-checked. The original key and o2 turned on 'no threshold attached', which is false on its own stem: 'five failed login attempts' is a numeric threshold, so the item taught that any number pushes a requirement to the non-functional side. SWEBOK v3.0 s1.3 states functional requirements 'describe the functions that the software is to execute' and non-functional ones 'act to constrain the solution'; NASA SEH s4.2.1.2.2 splits functional (what functions are performed) from performance (how well they are performed). Key rewritten to that axis; o2 rewritten to carry the numbers-mean-non-functional misconception explicitly and is false against both sources. o3 (design decision / use-case exception flow) is false: lockout is the behaviour itself. o4 is false because SWEBOK lists security among non-functional categories only as a class of quality constraints, while a security behaviour the system executes is a function; its why was corrected to say so.",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
@@ -129,7 +134,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "REFUTED as authored, rewritten, re-checked. The original key asserted the sentence 'is not itself a requirement'. SWEBOK v3.0 s1.2 defines a product requirement as 'a need or constraint on the software to be developed' and s1.3 says non-functional requirements 'act to constrain the solution' — so a mandated product is a constraint that can legitimately sit in the document, which made the original key wrong and the original o3 (non-functional because it bounds the solution) defensible: two answers. NASA SEH s4.2.1 settles the real lesson: 'If the requirement states a method of implementation, the rationale should state why the decision was made to limit the solution to this one method.' Key rewritten to that. o3 rewritten to claim a measurable bound, which is false — SWEBOK s1.5 requires quality requirements to be quantified. o2 is false because the sentence is testable and specific, unlike 'flexible reporting'. o4 is false: the label follows what a sentence states, not where it sits.",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
@@ -188,17 +198,23 @@
       ],
       "rationale": "Non-functional requirements constrain how well a behaviour performs, and that classification says nothing about necessity. A team that conflates the two can drop a requirement — often the one deciding the architecture — on no stronger basis than its label.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "swebok-v3"
       ],
       "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.non-functional-requirements",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "Waived concept, but the point is settleable and consensus. SWEBOK v3.0 s4.1 lists requirements classification dimensions and treats 'whether the requirement is functional or nonfunctional' and 'the requirement priority' as separate dimensions; s1.1 records priority as an attribute carried alongside a requirement. So the key's claim that classification and priority are independent axes is directly supported, and o4 (non-functional as the conventional label for lower priority) is false. o2 is false because relabelling as Won't-have still lets classification stand in for a priority judgement. o3 is false: nothing in the stem concerns testability. No distractor is defensible as an answer to what is wrong with the reasoning given.",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, but the point is settleable and consensus. SWEBOK v3.0 s4.1 lists requirements classification dimensions and treats 'whether the requirement is functional or nonfunctional' and 'the requirement priority' as separate dimensions; s1.1 records priority as an attribute carried alongside a requirement. So the key's claim that classification and priority are independent axes is directly supported, and o4 (non-functional as the conventional label for lower priority) is false. o2 is false because relabelling as Won't-have still lets classification stand in for a priority judgement. o3 is false: nothing in the stem concerns testability. No distractor is defensible as an answer to what is wrong with the reasoning given. Sourcing resolved 2026-08-19: the waiver on this concept is lifted. SWEBOK Guide V3.0 Ch.1 s1.3 is now a registered, cited source: \"Nonfunctional requirements are the ones that act to constrain the solution. Nonfunctional requirements are sometimes known as constraints or quality requirements.\"",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
           "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/"
@@ -255,17 +271,23 @@
       ],
       "rationale": "A usable non-functional requirement carries an attribute, a metric, a threshold, and the conditions the threshold is measured under. Sentences that state a behaviour without a bound, a priority label, or an unmeasurable adjective all fail one of those parts.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "swebok-v3"
       ],
       "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.non-functional-requirements",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "Waived concept; the point is a consensus definition and is settleable. SWEBOK v3.0 s1.5 requires requirements to be stated quantitatively where appropriate and names 'the software shall be user-friendly' as the failure mode, which is exactly o4's defect. NASA SEH s4.2.1.2.2 states expected performance 'is expressed as a quantitative measure to indicate how well each product function needs to be accomplished', and Appendix C's verifiability checklist asks whether requirements are free of terms such as flexible, fast and easy. The key carries attribute, threshold and measurement condition, so it is the only well-formed quality requirement. o2 states behaviour with no bound (functional), o3 is a MoSCoW priority label carrying no measurable attribute, o4 is unmeasurable adjectives. No distractor is also correct.",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept; the point is a consensus definition and is settleable. SWEBOK v3.0 s1.5 requires requirements to be stated quantitatively where appropriate and names 'the software shall be user-friendly' as the failure mode, which is exactly o4's defect. NASA SEH s4.2.1.2.2 states expected performance 'is expressed as a quantitative measure to indicate how well each product function needs to be accomplished', and Appendix C's verifiability checklist asks whether requirements are free of terms such as flexible, fast and easy. The key carries attribute, threshold and measurement condition, so it is the only well-formed quality requirement. o2 states behaviour with no bound (functional), o3 is a MoSCoW priority label carrying no measurable attribute, o4 is unmeasurable adjectives. No distractor is also correct. Sourcing resolved 2026-08-19: the waiver on this concept is lifted and SWEBOK Guide V3.0, already relied on in this reasoning, is now a registered and directly cited source.",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
           "https://www.nasa.gov/reference/4-2-technical-requirements-definition/",
@@ -323,17 +345,23 @@
       ],
       "rationale": "Elicitation is the work of drawing requirements out of people — interviews, workshops, observation, document study — rather than collecting requirements that already exist in finished form. A team that only transcribes what it was asked for can build exactly that and still fail the people who asked.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "swebok-v3"
       ],
       "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.requirements-elicitation",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "Waived concept, but SWEBOK v3.0 settles it directly. s3.2: 'requirements are seldom elicited ready-made. Rather, the software engineer elicits information from which he or she formulates requirements'; 'elicitation is not a passive activity and ... the software engineer has to work hard to elicit the right information. Many business or technical requirements are tacit'; observational techniques are listed precisely because 'many user tasks and business processes are too subtle and complex for their actors to describe easily'. That is the key, including the workarounds-invisible-to-their-performers claim. o4 is therefore false. o2 is false: SWEBOK lists interviews, facilitated meetings, observation, user stories and prototyping, so elicitation is not defined by a diagram artifact. o3 is false: comparing a current to a desired state is gap analysis, a separate technique operating on states already described.",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept, but SWEBOK v3.0 settles it directly. s3.2: 'requirements are seldom elicited ready-made. Rather, the software engineer elicits information from which he or she formulates requirements'; 'elicitation is not a passive activity and ... the software engineer has to work hard to elicit the right information. Many business or technical requirements are tacit'; observational techniques are listed precisely because 'many user tasks and business processes are too subtle and complex for their actors to describe easily'. That is the key, including the workarounds-invisible-to-their-performers claim. o4 is therefore false. o2 is false: SWEBOK lists interviews, facilitated meetings, observation, user stories and prototyping, so elicitation is not defined by a diagram artifact. o3 is false: comparing a current to a desired state is gap analysis, a separate technique operating on states already described. Sourcing resolved 2026-08-19: the waiver on this concept is lifted. SWEBOK Guide V3.0 is freely published and is now cited directly (Ch.1 s3.2).",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
         ]
@@ -399,7 +427,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "Checked against the cited OMG UML 2.5.1 PDF, text extracted locally (clause 18, p.639 of the spec): a UseCase's behaviours 'can be described by a set of Behaviors ... as well as by pre-conditions, post-conditions and natural language text', and 'A UseCase can include possible variations of its basic behavior, including exceptional behavior and error handling'; UseCases have associated Actors. That supports every element the key names except the numbering of the main success scenario, which is template convention rather than a spec requirement and is not what the item turns on. SWEBOK v3.0 s3.2 describes a user story as containing 'just enough information so that the developers can produce a reasonable estimate', which is the intended-incompleteness contrast, so o2 is false. o3 (swimlane) and o4 (MoSCoW tag) name artifacts that add none of the missing interaction detail. No distractor is also correct.",
         "sources_read": [
           "https://www.omg.org/spec/UML/2.5.1/PDF",
@@ -467,7 +500,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "Settled verbatim by the cited source. OMG UML 2.5.1 clause 18: 'An Actor models a type of role played by an entity that interacts with the subjects of its associated UseCases ... Actors may represent roles played by human users, external hardware, or other systems', with the note that an Actor is a role of some entity external to the subject. The key is correct and o2 (only a person in a role) is false against that sentence. o3 is false: elicitation is a separate activity and does not govern what may be modelled as an actor. o4 is false: a swimlane map is a different artifact and does not settle the actor question. No distractor is also correct.",
         "sources_read": [
           "https://www.omg.org/spec/UML/2.5.1/PDF"
@@ -534,7 +572,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "Cited source checked directly (BPMN 2.0.2 PDF, text extracted locally). Clause 2's list of business processes that can be modelled with BPMN names 'As-is or old Business Process' and 'To-be or new Business Process' as separate model types, and the spec's Relationship example documents 'An as-is and to-be relationship' with type 'reengineered' linking the two models — so the paired current/intended model is a first-class notion in the cited spec, not an invention of the item. The key follows: with only the to-be model there is no baseline the improvement can be shown against. o2 is false because a gap analysis takes both states as input rather than substituting for the missing map. o3 is false: a use case covers one actor's interaction with the system, while the workflow spans steps no software touches. o4 restates the error. No distractor is also correct.",
         "sources_read": [
           "https://www.omg.org/spec/BPMN/2.0.2/PDF"
@@ -594,13 +637,18 @@
         "lf-objectives-2025"
       ],
       "guide_anchor": "06-it-project-management/functional-analysis.md#c-pm.functional-analysis.gap-analysis",
-      "comparison_block": null,
+      "comparison_block": "cmp-pm.functional-analysis.gap-analysis",
       "commands_covered": [],
       "waived_source": true,
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "REFUTED as authored for a double key, rewritten, re-checked. The stem asks what the analysis cannot tell, and the original o3 opened 'Which of the six differences should be addressed first' — which the analysis genuinely cannot tell, so the option's leading clause was a second correct answer and only its trailing justification was false. Any option naming something outside gap analysis has that flaw, so o3 was rewritten to name something inside it: the work that closes each difference, which data/topics/06-it-project-management.json defines as part of gap analysis ('Comparing current state to desired state and defining the work that closes the difference') and which the item's own rationale repeats. o3 is now unambiguously false, as are o2 (the sizes are its output) and o4 (it does not rank by cost and risk). The key is correct: achievability and worth are the feasibility question, matching the feasibility-study concept description in the same data file. Waived concept; consensus definition only.",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
@@ -657,17 +705,23 @@
       ],
       "rationale": "A feasibility study assesses, before commitment, whether a proposal is technically, operationally and economically achievable — with legal and schedule feasibility often added. Recognition of the term and its dimensions is what this level of the exam expects.",
       "source_ids": [
-        "lf-objectives-2025"
+        "lf-objectives-2025",
+        "swebok-v3"
       ],
       "guide_anchor": "06-it-project-management/functional-analysis.md#s-functional-analysis-analysis",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
-        "reasoning": "Waived concept; the item turns on the term's standard dimensions only, which is what the waiver policy permits. SWEBOK v3.0 s2.1 places feasibility studies among the activities that provide input into the requirements process, i.e. before commitment, which is consistent with the key. Checked for a second defensible answer: unlike the paired gap-analysis item, every distractor here is false on its leading clause too — o2 names the gap analysis's own output, o3 names prioritization rather than anything a feasibility study adds, and o4 denies a difference the two concept descriptions state. Recognition-level item; no distractor is also correct.",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Waived concept; the item turns on the term's standard dimensions only, which is what the waiver policy permits. SWEBOK v3.0 s2.1 places feasibility studies among the activities that provide input into the requirements process, i.e. before commitment, which is consistent with the key. Checked for a second defensible answer: unlike the paired gap-analysis item, every distractor here is false on its leading clause too — o2 names the gap analysis's own output, o3 names prioritization rather than anything a feasibility study adds, and o4 denies a difference the two concept descriptions state. Recognition-level item; no distractor is also correct. Sourcing resolved 2026-08-19: the waiver on this concept is lifted. SWEBOK Guide V3.0 Ch.7 s1.2 (Feasibility Analysis) is now a registered, cited source and carries the key's three dimensions plus its before-commitment placement: \"The purpose of feasibility analysis is to develop a clear description of project objectives and evaluate alternative approaches in order to determine whether the proposed project is the best alternative given the constraints of technology, resources, finances, and social/political considerations.\" It sits in Ch.7 s1, Initiation and Scope Definition, ahead of Software Project Planning.",
         "sources_read": [
           "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf"
         ]
@@ -733,7 +787,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "Checked against the cited Agile Business Consortium page. Must Haves 'provide the Minimum Usable SubseT (MUST) of requirements which the project guarantees to deliver' — a subset by construction — and DSDM recommends 'typically no more than 60% Must Have effort', stating that 'the safe percentage of Must Have requirements, in order to be confident of project success, is not to exceed 60% Must Have effort', with roughly 20% Could Have contingency. An all-Must backlog therefore leaves no contingency and no trade-off, which is the key, and makes o4 false. o2 is false because MoSCoW labelling performs no current-versus-desired comparison. o3 is false: the scenario does not distinguish functional from non-functional at all. No distractor is also correct.",
         "sources_read": [
           "https://www.agilebusiness.org/resource/what-is-moscow-prioritization/"
@@ -800,7 +859,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "REFUTED as authored on a narrow point, corrected, re-checked. The original key claimed the matrix showed 'a design and test link', but the stem establishes only test links, so the key asserted evidence the scenario did not contain; it now reads 'at least one test linked to it'. The cited NASA source supports the substance: requirements management maintains 'bidirectional traceability between stakeholder expectations, customer requirements, technical product requirements, product component requirements, design documents, and test plans and procedures', and defines traceability as 'a discernible association between two or more logical entities' — an association, never an outcome. o2 is false (a link is not validation of the need), o3 is false (the matrix records links, not who ran a test), o4 is false (a link is not a pass). No distractor is also correct.",
         "sources_read": [
           "https://www.nasa.gov/reference/6-2-requirements-management/"
@@ -867,7 +931,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "Settled by the cited NASA handbook, read on nasa.gov (section 5.4): 'While verification proves whether the product was done right, validation proves whether the right product was done ... verification provides objective evidence that every shall statement in the requirements document or specification was met, whereas validation is performed for the benefit of the customers and users to ensure that the system functions in the expected manner when placed in the intended environment.' A fully verified, unused system is exactly that gap, so the key holds. o2 is false: coverage is not correctness. o3 is false and inverted — ISTQB CTFL v4.0.1 s2.2.1 states acceptance testing 'focuses on validation', not on conformance to the specification, which is what the option's why already says. o4 is false. No distractor is also correct.",
         "sources_read": [
           "https://www.nasa.gov/reference/5-4-product-validation/",
@@ -936,7 +1005,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "The cited istqb-standard-glossary-v2.2 URL could not be verified: glossary.istqb.org serves a JavaScript application and returns no term text to a fetch, so the quotation recorded in data/sources.json is not checkable by fetching (reported to the controller, not silently accepted). The claim was settled instead against the ISTQB CTFL v4.0.1 syllabus, s2.2.1: 'Acceptance testing focuses on validation and on demonstrating readiness for deployment, which means that the system fulfills the user's business needs. Ideally, acceptance testing should be performed by the intended users', with UAT named as its main form. That confirms the key: re-running system-test scripts spends the validation slot on verification. o2 is false — traceability links survive re-execution. o3 is false because the repeated verification consumes the time meant for validation. o4 is false against the same sentence. No distractor is also correct.",
         "sources_read": [
           "https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf",
@@ -1005,7 +1079,12 @@
       "verification": {
         "agent_label": "verify-functional-analysis",
         "verdict": "confirmed",
-        "checked": ["key", "o2", "o3", "o4"],
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
         "reasoning": "REFUTED as authored on its premise, rewritten, re-checked. The stem asserted that a reviewer 'cannot fail it in review', which contradicts the cited source: NASA SEH Appendix C's requirements validation checklist exists so that a reviewer can and should fail exactly this sentence — it asks whether requirements are 'free of unverifiable terms (e.g., flexible, easy, sufficient, safe ... user-friendly ...)' and whether they 'express only one thought per requirement statement'. The stem now asks why no test can settle whether the delivered system meets the statement, which is the true defect, and the rationale no longer claims review is powerless. Key confirmed against that checklist and SWEBOK v3.0 s1.5 on avoiding vague, unverifiable requirements. o2 is false ('flexible' names no measurable attribute), o3 is false (traceability and testability are separate properties), o4 is false (the shall form guarantees nothing about measurability). No distractor is also correct.",
         "sources_read": [
           "https://www.nasa.gov/reference/appendix-c-how-to-write-a-good-requirement/",

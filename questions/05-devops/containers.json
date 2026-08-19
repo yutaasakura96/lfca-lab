@@ -2656,7 +2656,7 @@
       ],
       "rationale": "`ENV` in a Dockerfile writes a default every container from that image inherits; `-e` at run time overrides it for one container, but only at creation. Because those values are fixed once a container exists, `docker start` cannot apply a new one.",
       "source_ids": [
-        "docker-cli-start",
+        "docker-container-start",
         "docker-cli-run",
         "dockerfile-reference"
       ],
@@ -4586,7 +4586,7 @@
       "source_ids": [
         "cncf-who-we-are",
         "cncf-charter",
-        "lf-about",
+        "linux-foundation-about",
         "k8s-steering-charter"
       ],
       "guide_anchor": "05-devops/containers.md#c-devops.containers.kubernetes",
@@ -4602,7 +4602,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Confirmed only after rewrite; the defect found as authored, the fix, and the re-check are all recorded here. Refuted as authored on two counts. First, the item turns on a claim about the LINUX FOUNDATION and the Linux kernel and cited only cncf-who-we-are and the CNCF charter, neither of which mentions the kernel or the Linux Foundation's relationship to it. Added lf-about, which describes the Linux Foundation as a 501(c)(6) non-profit that has provided a neutral home and unmatched support for cutting-edge projects, and enumerates its support programs (marketing and events, training and certification, infrastructure management) while claiming no technical direction, which is exactly what the key asserts. Second, o1's why stated no fact at all: it said the exam deliberately mirrors this shape, which is an authoring note rather than a correction, so a reader learned nothing checkable from it. Rewritten to the sourced fact. Re-checked: o2 is false in both halves; o3 is refuted by Who-we-are, CNCF is part of the nonprofit Linux Foundation; o4 is false and its why is accurate, the Steering charter's seven members are elected for Kubernetes alone.",
+        "reasoning": "Confirmed only after rewrite; the defect found as authored, the fix, and the re-check are all recorded here. Refuted as authored on two counts. First, the item turns on a claim about the LINUX FOUNDATION and the Linux kernel and cited only cncf-who-we-are and the CNCF charter, neither of which mentions the kernel or the Linux Foundation's relationship to it. Added linux-foundation-about, which describes the Linux Foundation as a 501(c)(6) non-profit that has provided a neutral home and unmatched support for cutting-edge projects, and enumerates its support programs (marketing and events, training and certification, infrastructure management) while claiming no technical direction, which is exactly what the key asserts. Second, o1's why stated no fact at all: it said the exam deliberately mirrors this shape, which is an authoring note rather than a correction, so a reader learned nothing checkable from it. Rewritten to the sourced fact. Re-checked: o2 is false in both halves; o3 is refuted by Who-we-are, CNCF is part of the nonprofit Linux Foundation; o4 is false and its why is accurate, the Steering charter's seven members are elected for Kubernetes alone.",
         "sources_read": [
           "https://www.linuxfoundation.org/about",
           "https://www.cncf.io/about/who-we-are/",

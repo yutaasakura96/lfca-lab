@@ -57,7 +57,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -202,7 +202,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.stakeholder",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -1364,7 +1364,9 @@
       "rationale": "Acceptance criteria are meant to be agreed before work starts and stated as pass/fail conditions, precisely so that whether an item is complete does not have to be argued about afterward. Changing them once implementation is underway removes the property that made them useful in the first place.",
       "source_ids": [
         "lf-objectives-2025",
-        "scrum-guide-2020"
+        "scrum-guide-2020",
+        "swebok-v3",
+        "agile-alliance-glossary-atdd"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.acceptance-criteria",
       "comparison_block": null,
@@ -1379,10 +1381,12 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Refuted on citation and only partly repairable. Full-text search of the cited Scrum Guide shows it never uses \"acceptance criteria\", so the source does not contain what this item is cited for; the Agile Alliance user-story page names \"Confirmation\" only in a related-terms strip and defines nothing. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the item holds: the key (criteria agreed before work starts make \"complete\" decidable in advance) is the universal statement of their purpose; o2 is false, o3 is false because the Definition of Done being team-wide does not make per-item criteria less settled in advance, and o4 is false because this is not a project-level change-control question. No distractor is also correct and no why contradicts its option text.",
+        "reasoning": "Refuted on citation and only partly repairable. Full-text search of the cited Scrum Guide shows it never uses \"acceptance criteria\", so the source does not contain what this item is cited for; the Agile Alliance user-story page names \"Confirmation\" only in a related-terms strip and defines nothing. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. On content the item holds: the key (criteria agreed before work starts make \"complete\" decidable in advance) is the universal statement of their purpose; o2 is false, o3 is false because the Definition of Done being team-wide does not make per-item criteria less settled in advance, and o4 is false because this is not a project-level change-control question. No distractor is also correct and no why contradicts its option text. Sourcing repaired 2026-08-19. The Scrum Guide gap recorded above stands, but the item is now sourced rather than left resting on a citation that does not carry it. SWEBOK Guide V3.0 Ch.8 s2 supplies the term in the item's own sense: \"All specified conditions should be satisfied before a process can be successfully concluded, including the acceptance criteria for the output work product or work products.\" The agreed-before-work-starts property is carried by the Agile Alliance ATDD glossary entry, which describes team members \"collaborating to write acceptance tests in advance of implementing the corresponding functionality\" that \"act as a form of requirements... as well as serve as a way of verifying that the system functions as intended.\" SWEBOK s2.2.1 (Acceptance/Qualification Testing) was examined and deliberately NOT relied on: it is the system-level acceptance-testing sense, not the story-level pre-agreed-criteria sense this item turns on.",
         "sources_read": [
           "https://scrumguides.org/scrum-guide.html",
-          "https://agilealliance.org/glossary/user-story-template/"
+          "https://agilealliance.org/glossary/user-story-template/",
+          "https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf",
+          "https://agilealliance.org/glossary/atdd/"
         ]
       }
     },
@@ -1653,7 +1657,8 @@
       "rationale": "Velocity is the amount of work a team completes per Sprint, denominated in the team's own relative units and used to forecast, not to score productivity. A team told to raise it can do so by inflating estimates without delivering anything more, because nothing external calibrates the unit \u2014 and velocity figures aren't comparable between teams for the same reason.",
       "source_ids": [
         "lf-objectives-2025",
-        "scrum-guide-2020"
+        "scrum-guide-2020",
+        "agile-alliance-glossary-velocity"
       ],
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.estimation-and-velocity",
       "comparison_block": null,
@@ -1668,9 +1673,10 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Refuted on citation, content upheld. Full-text search of the cited Scrum Guide shows the word \"velocity\" does not appear in it at all, so the source does not contain what the item is cited for; this is recorded as a data/ finding against the concept, not just the item. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. The key (relative, team-local units can be inflated without delivering more) is the consensus account and nothing in the accessible corpus contradicts it. o2 is false; o3 is false as stated \u2014 the Product Owner does not set velocity \u2014 while its why correctly reflects the Guide's rule that the Developers who will do the work are responsible for sizing; o4 is false because velocity is measured from a normal-length Sprint. No second defensible key.",
+        "reasoning": "Refuted on citation, content upheld. Full-text search of the cited Scrum Guide shows the word \"velocity\" does not appear in it at all, so the source does not contain what the item is cited for; this is recorded as a data/ finding against the concept, not just the item. No accessible primary source exists for this concept (PMBOK/PMI Lexicon paywalled, pmi.org and gao.gov refuse automated fetch: GAO-16-89G returned 403 from gao.gov and an HTML error page from govinfo.gov during this pass). The item was checked against the waiver question_policy in data/sourcing-waivers.json \u2014 it turns only on a definition every consensus source agrees about \u2014 and against the accessible NASA/NIST corpus for contradiction, of which there is none. It is NOT verified against a primary source and is reported as residual risk. The key (relative, team-local units can be inflated without delivering more) is the consensus account and nothing in the accessible corpus contradicts it. o2 is false; o3 is false as stated \u2014 the Product Owner does not set velocity \u2014 while its why correctly reflects the Guide's rule that the Developers who will do the work are responsible for sizing; o4 is false because velocity is measured from a normal-length Sprint. No second defensible key. Sourcing repaired 2026-08-19. The Scrum Guide gap recorded above stands; the concept is now sourced to the Agile Alliance velocity glossary entry rather than waived. It defines the term (\"the team adds up effort estimates associated with user stories that were completed during that iteration. This total is called velocity\") and states the key's exact point: \"velocity is a 'measurement', made after the fact; though it can help plan ahead, it is not itself a budget or a forecast, and phrases such as 'setting the velocity' reveal a basic misunderstanding\", and \"there is no meaningful comparison of velocity 'between' different teams, since such teams may have different approaches to estimation.\" SWEBOK v3.0 was searched and contains zero occurrences of both \"velocity\" and \"story point\", so it is not cited here.",
         "sources_read": [
-          "https://scrumguides.org/scrum-guide.html"
+          "https://scrumguides.org/scrum-guide.html",
+          "https://agilealliance.org/glossary/velocity/"
         ]
       }
     },
@@ -1731,7 +1737,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -1805,7 +1811,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#s-project-management-planning",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -2024,7 +2030,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -2098,7 +2104,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.scope-creep",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -2608,7 +2614,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
       "comparison_block": "cmp-pm.project-management.project-closure-and-lessons-learned",
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",
@@ -2682,7 +2688,7 @@
       "guide_anchor": "06-it-project-management/project-management.md#c-pm.project-management.project-closure-and-lessons-learned",
       "comparison_block": null,
       "commands_covered": [],
-      "waived_source": true,
+      "waived_source": false,
       "verification": {
         "agent_label": "verify-project-management",
         "verdict": "confirmed",

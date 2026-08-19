@@ -22,10 +22,7 @@ standards body has stated.
 
 <a id="c-pm.project-management.project"></a>
 ### Project
-*id: `pm.project-management.project` · depth 2 · importance 1 · LFS200: FULLY COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.project` · depth 2 · importance 1 · LFS200: FULLY COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** A temporary effort with a defined start, a defined end, and a defined
 objective. Temporariness is the definition — not size, not budget, not how technical the work
@@ -90,10 +87,7 @@ that the correct answer is a trade-off, not an appeal to effort, is the whole sk
 
 <a id="c-pm.project-management.stakeholder"></a>
 ### Stakeholder
-*id: `pm.project-management.stakeholder` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.stakeholder` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** Anyone affected by the project or able to affect it. That is a deliberately
 wide net: it includes the sponsor who funds it, the end users, the operations team who will
@@ -629,7 +623,7 @@ clothing.
 
 <a id="c-pm.project-management.acceptance-criteria"></a>
 ### Acceptance criteria
-*id: `pm.project-management.acceptance-criteria` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: scrum-guide-2020*
+*id: `pm.project-management.acceptance-criteria` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: scrum-guide-2020, swebok-v3, agile-alliance-glossary-atdd*
 
 **What it is** The specific conditions one work item must satisfy before it can be considered
 complete, agreed before the work starts and written so each condition is objectively pass or
@@ -775,7 +769,7 @@ in quality, and it exists to test whether self-service actually cuts service-des
 
 <a id="c-pm.project-management.estimation-and-velocity"></a>
 ### Estimation and velocity
-*id: `pm.project-management.estimation-and-velocity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: scrum-guide-2020*
+*id: `pm.project-management.estimation-and-velocity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: scrum-guide-2020, agile-alliance-glossary-velocity*
 
 **What it is** Two linked practices. Estimation here means sizing work relatively — judging
 one item against another rather than predicting hours — and velocity means the amount of work a
@@ -853,8 +847,8 @@ dates at all, while the Gantt chart schedules that same work along a timeline.
 
 | Concept | Term | In one sentence | Why it is examinable |
 | --- | --- | --- | --- |
-| `pm.project-management.gantt-chart` | Gantt chart | A bar chart of tasks plotted against a time axis, showing each task's duration and, as the chart is typically drawn today, its dependencies, associated with plan-driven scheduling. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* It is typically confused with the work breakdown structure: the Gantt chart is a schedule view with time as its defining axis, while the work breakdown structure decomposes the deliverable and has no time axis at all. [Not to be confused with work breakdown structure](project-management.md#cmp-pm.project-management.work-breakdown-structure). |
-| `pm.project-management.critical-path` | Critical path | The longest chain of dependent tasks through a schedule; its length sets the earliest possible finish, so any delay on it delays the whole project. | *No primary documentation source. The authoritative references are paywalled (see `data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.* "Critical" is generally taken to mean longest-duration and zero-float, not most important or most difficult: shortening a task that is not on the critical path typically buys no time at all, which is the discrimination a question is usually after. |
+| `pm.project-management.gantt-chart` | Gantt chart | A bar chart of tasks plotted against a time axis, showing each task's duration and, as the chart is typically drawn today, its dependencies, associated with plan-driven scheduling. | It is typically confused with the work breakdown structure: the Gantt chart is a schedule view with time as its defining axis, while the work breakdown structure decomposes the deliverable and has no time axis at all. [Not to be confused with work breakdown structure](project-management.md#cmp-pm.project-management.work-breakdown-structure). |
+| `pm.project-management.critical-path` | Critical path | The longest chain of dependent tasks through a schedule; its length sets the earliest possible finish, so any delay on it delays the whole project. | "Critical" is generally taken to mean longest-duration and zero-float, not most important or most difficult: shortening a task that is not on the critical path typically buys no time at all, which is the discrimination a question is usually after. |
 
 #### Scenario
 
@@ -918,10 +912,7 @@ accept; contingency; issue.
 
 <a id="c-pm.project-management.scope-creep"></a>
 ### Scope creep
-*id: `pm.project-management.scope-creep` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.scope-creep` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** Growth of scope that happens without a matching adjustment to time, cost, or
 the baseline — uncontrolled growth, not growth as such. It is usually described as the most
@@ -1093,10 +1084,7 @@ is told, in what timeframe, when something exceeds the project's tolerance.
 
 <a id="c-pm.project-management.project-closure-and-lessons-learned"></a>
 ### Project closure and lessons learned
-*id: `pm.project-management.project-closure-and-lessons-learned` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: none*
-
-*No primary documentation source. The authoritative references are paywalled (see
-`data/sourcing-waivers.json`). Treat the following as consensus practice, not citable fact.*
+*id: `pm.project-management.project-closure-and-lessons-learned` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: nasa-se-handbook-sp-2016-6105*
 
 **What it is** The formal ending of a project: confirming that the deliverables were accepted
 against the criteria agreed for them, handing the result over to whoever will operate it,

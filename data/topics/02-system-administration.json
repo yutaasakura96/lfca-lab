@@ -5396,7 +5396,7 @@
       "additional_sources": [
         "man-systemctl",
         "man-journalctl",
-        "man-ss",
+        "iproute2-ss-man",
         "systemd-service-5"
       ],
       "candidate_evidence": [],
@@ -5512,7 +5512,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "man-proc-loadavg",
-        "man-uptime",
+        "man-uptime-1",
         "man-top-1"
       ],
       "candidate_evidence": [],
@@ -5548,7 +5548,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-path-resolution",
+        "man-path-resolution-7",
         "man-namei"
       ],
       "candidate_evidence": [],
@@ -5585,7 +5585,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "man-ss",
+        "iproute2-ss-man",
         "man-systemctl"
       ],
       "candidate_evidence": [],

@@ -2202,7 +2202,7 @@
         "aws-rightsizing-whitepaper",
         "aws-rightsizing-identify-opportunities",
         "aws-rightsizing-instance-families",
-        "aws-reserved-instances"
+        "aws-ec2-reserved-instances"
       ],
       "guide_anchor": "03-cloud-computing/best-practices.md#c-cloud.best-practices.right-size-before-you-scale",
       "comparison_block": null,

@@ -413,7 +413,7 @@ escalation with the eliminations attached.
 
 <a id="c-sysadmin.troubleshooting.service-will-not-start"></a>
 ### Service will not start
-*id: `sysadmin.troubleshooting.service-will-not-start` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-systemctl, man-journalctl, man-ss*
+*id: `sysadmin.troubleshooting.service-will-not-start` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-systemctl, man-journalctl, iproute2-ss-man*
 
 **What it is** A unit that is not running — which is several distinct states, not one.
 `inactive (dead)` means it was never started or was stopped cleanly. `failed` means it ran and
@@ -625,7 +625,7 @@ against a cgroup limit while the host has ample free memory.
 
 <a id="c-sysadmin.troubleshooting.high-cpu-load"></a>
 ### High CPU load
-*id: `sysadmin.troubleshooting.high-cpu-load` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-proc-loadavg, man-uptime*
+*id: `sysadmin.troubleshooting.high-cpu-load` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-proc-loadavg, man-uptime-1*
 
 **What it is** The load average: three figures, over 1, 5, and 15 minutes, giving the number
 of processes that are either runnable (state R — using or waiting for the CPU) or in
@@ -689,7 +689,7 @@ I/O-blocked or being starved by its hypervisor.
 
 <a id="c-sysadmin.troubleshooting.permission-denied"></a>
 ### Permission denied
-*id: `sysadmin.troubleshooting.permission-denied` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-path-resolution, man-namei*
+*id: `sysadmin.troubleshooting.permission-denied` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-path-resolution-7, man-namei*
 
 **What it is** An access refusal that has several structurally different causes behind one
 message. The file's own mode and ownership are only the first. Path resolution requires search
@@ -759,7 +759,7 @@ requiring a fresh login rather than another permission change.
 
 <a id="c-sysadmin.troubleshooting.cannot-connect-to-a-service"></a>
 ### Cannot connect to a service
-*id: `sysadmin.troubleshooting.cannot-connect-to-a-service` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: man-ss, man-systemctl*
+*id: `sysadmin.troubleshooting.cannot-connect-to-a-service` · depth 4 · importance 4 · LFS200: NOT COVERED · sources: iproute2-ss-man, man-systemctl*
 
 **What it is** A connection failure decomposed into independent layers, each of which is
 separately testable: is the process running at all; is it listening on the address and port
