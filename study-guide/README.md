@@ -133,7 +133,7 @@ The guide is hand-written and machine-checked. From the repository root:
 
 It also checks that each topic's stated depth, importance, and LFS200 coverage match the
 dataset, that every cited source id exists, that every section with a definition has a scenario
-and a knowledge check, that every cross-file link resolves, and that each of the 22 waived
+and a knowledge check, that every cross-file link resolves, and that each of the 13 waived
 concepts carries its waiver marker. `--scope "<Domain> :: <Competency>"` narrows a run to one
 file while writing; the unscoped run is the one that counts.
 

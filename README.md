@@ -207,13 +207,13 @@ Apple-Silicon-specific, so it should work on Intel and on Linux too, but that's 
 Alongside the lab, this repo holds a source-traceable map of what the **current** LFCA exam
 requires — the one updated on 16 September 2025. 537 concepts across all 22 official
 competencies, each with a required depth, a coverage status against the official LFS200 course,
-and primary-documentation citations for 485 of them; the remaining 52 are waived by name in
+and primary-documentation citations for 524 of them; the remaining 13 are waived by name in
 `data/sourcing-waivers.json`.
 
 ```
 data/            canonical, hand-maintained
   competencies.json    6 domains, 22 competencies, current + previous weights, 2025 change set
-  sources.json         282 sources, each with an authority tier
+  sources.json         668 sources, each with an authority tier
   topics/*.json        537 concepts, one file per domain
 research/        generated — do not hand-edit
   official-lfca-objectives.md    the syllabus, with what changed in 2025
@@ -230,7 +230,13 @@ study-guide/     hand-written prose that studies FROM the dataset above
   NN-<domain>/*.md     22 competency files, one per official competency
   appendix-a-*.md      packet's-life narrative linking concept anchors end to end
   appendix-b-*.md      container-to-cluster narrative, same purpose
-tools/           validate.mjs (18 checks), generate-views.mjs, check-guide.mjs, guide-plan.mjs
+questions/       source, hand-maintained — 1,150 items over all 537 concepts
+  README.md            what the bank is, what check-bank proves and does not
+  NN-<domain>/*.json   22 files, one per official competency
+exams/           generated — 16 practice papers, 16 answer keys, index.json
+drills/          generated — 22 by competency, 6 by domain, weak-areas
+tools/           validate.mjs (18 checks), generate-views.mjs, check-guide.mjs, guide-plan.mjs,
+                 check-bank.mjs, question-plan.mjs, build-exams.mjs
 coverage-matrix.md  generated — the full join, one row per concept
 PROGRESS.md      what was found, what is still missing, and how confident each claim is
 ```
@@ -265,6 +271,28 @@ must link out to — computed from `data/`, not maintained by hand.
 **Everything in `research/` and `coverage-matrix.md` is generated from `data/`.** Edit the JSON
 and regenerate; don't edit the markdown. The two exceptions carry a notice at the top of the
 file.
+
+### The question bank
+
+`questions/` holds 1,150 multiple-choice items covering all 537 concepts, and
+`npm run build-exams` turns them into 16 practice papers with answer keys plus 29 drills. See
+[`questions/README.md`](questions/README.md) for what it contains and how the per-concept
+allocation is derived.
+
+```bash
+npm run check-bank                                     # the whole bank — must be 0 errors, 0 warnings
+npm run check-bank -- --scope "Security Fundamentals :: Security"
+npm run build-exams                                    # rebuild exams/ and drills/
+```
+
+Sit `exams/exam-01.md` under the clock — **60 questions, 90 minutes, 45 of 60 to pass** — then
+mark it against `exams/exam-01-answers.md`, which explains every distractor and links back into
+the guide.
+
+`check-bank` proves the bank is structurally complete and that every item carries an adversarial
+verdict from a named agent. **It does not prove any key is correct**; that evidence lives in each
+item's `verification` field, alongside the URLs actually fetched to settle it. `exams/` and
+`drills/` are generated — rebuild them, don't edit them.
 
 ### Three findings worth knowing before you study
 

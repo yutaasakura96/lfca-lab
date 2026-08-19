@@ -1148,21 +1148,232 @@ Cycle 3 turns the verified, guide-covered dataset into a question bank. Spec:
 | 2 | Source what can be sourced among the 52 waived concepts | **complete** |
 | 3 | Second adversarial pass over the eight singly-checked files | **complete** |
 | 4 | Bring PROGRESS.md current | **complete** |
-| 5 | The derived allocation | pending |
-| 6 | A seeded PRNG for deterministic assembly | pending |
-| 7 | Stem normalization and duplicate similarity | pending |
-| 8 | The bank loader and the test fixtures | pending |
-| 9 | Checks 1–6 and 11 — coverage and derivation | pending |
-| 10 | Checks 7–10 and 12–14 — item integrity | pending |
-| 11 | Checks 15–21 and the runner | pending |
-| 12 | The two CLIs | pending |
-| 13 | The exam and drill assembler | pending |
-| 14 | Pilot — System Administration :: Disaster Recovery | pending |
-| 15–35 | The remaining 21 competency files | pending |
-| 36–57 | Verify all 22 competencies | pending |
-| 58 | Build the exams and the drills | pending |
-| 59 | Close the cycle in PROGRESS.md and the READMEs | pending |
+| 5 | The derived allocation | **complete** |
+| 6 | A seeded PRNG for deterministic assembly | **complete** |
+| 7 | Stem normalization and duplicate similarity | **complete** |
+| 8 | The bank loader and the test fixtures | **complete** |
+| 9 | Checks 1–6 and 11 — coverage and derivation | **complete** |
+| 10 | Checks 7–10 and 12–14 — item integrity | **complete** |
+| 11 | Checks 15–21 and the runner | **complete** |
+| 12 | The two CLIs | **complete** |
+| 13 | The exam and drill assembler | **complete** |
+| 14 | Pilot — System Administration :: Disaster Recovery | **complete** |
+| 15–35 | The remaining 21 competency files | **complete** |
+| 36–57 | Verify all 22 competencies | **complete** |
+| 58 | Build the exams and the drills | **complete** |
+| 59 | Close the cycle in PROGRESS.md and the READMEs | **complete** |
 | 60 | Final adversarial whole-branch review | pending |
+
+### Cycle 3 outcome — the question bank
+
+**1,150 items across all 537 concepts**, 1,000 in the exam pool and 150 in the supplement, plus
+16 practice papers, 16 answer keys and 29 drills built from them. Every figure below was
+recomputed from the data at close, not carried forward from a task report.
+
+| | |
+| --- | --- |
+| Items | 1,150 — exam 1,000 / supplement 150 |
+| Concepts covered | 537 of 537 |
+| Comparison blocks named | 131 of 131 |
+| Items over waived concepts | 14, across 13 concepts |
+| Registered sources | 668 |
+| Distinct URLs fetched during verification | 715 |
+| Distinct verifying agents | 42 |
+
+By domain — System Administration 391, Cloud Computing 201, Linux Fundamentals 160, DevOps 158,
+Security 140, IT Project Management 100. By type — application 527, recall 297, discrimination
+212, diagnostic 71, command 43. Distractors by provenance — sibling 2,161, misconception 907,
+confusable 339, command variant 43.
+
+Sixteen 60-question papers consume 960 of the 1,000-item pool, so **40 items appear on no paper
+by construction**; they are named by id in `exams/index.json` rather than left as a silent
+residue of the rounding.
+
+### What the harness proves, and what it does not
+
+`npm run check-bank` is structural and referential, exactly as `check-guide` is. It proves that
+every concept carries its derived number of items, that every comparison block and every dataset
+command string is covered, that every distractor is traceable to a declared provenance, that
+keys are evenly distributed across answer positions, and that every item carries an adversarial
+verdict from a named agent.
+
+**It does not prove that any item's key is correct.** No harness can. That is what the
+verification layer did, item by item, and its evidence is the `verification` field on each item —
+agent label, verdict, options checked, reasoning, and the URLs actually fetched — not a claim in
+this document. A reader who wants to know why an answer is what it is should read that field on
+the item.
+
+### The finding this cycle exists to have produced
+
+**The bank's content was largely sound; its sourcing was not.** Across the 1,150 items, roughly
+500 were refuted on first pass and repaired. Only a handful of genuinely wrong keys were found in
+the whole corpus — in the last two competencies, 311 items yielded **6 wrong keys and 3
+also-correct distractors**. Everything else was a citation defect: the claim true, the cited
+source silent on it.
+
+Two wrong keys came with a *correct distractor* — `tar cfz logs.tar.gz` (keyed as producing a
+file named `z`, false for traditional no-hyphen style, confirmed empirically on GNU tar 1.35) and
+`cp -r` on a symlink (GNU coreutils copies the link, so the distractor worked). Two more had no
+correct option at all as authored.
+
+**The dominant cause is a source class this cycle discovered and measured: pages that return
+HTTP 200 and support nothing.** Six were removed outright after being decited from every concept
+and item:
+
+| removed | measured |
+| --- | --- |
+| `nist-csrc-glossary` (`csrc.nist.gov/glossary`) | 98 KB, ~13,416 chars, **zero definitions** — a search shell |
+| `cncf-glossary` (`glossary.cncf.io/`) | 47 KB, ~5,005 chars, **zero definitions** — nav chrome |
+| `cve-program-overview` | **880 bytes, 156 chars** — an empty Vue shell |
+| `itu-t-x200-…-/en` | ~2,557 chars, **0 hits for "physical layer"**; only body word is "Summary" |
+| `ieee-802-1q` | 155,513 chars, **0 hits for "broadcast domain"**; the real PDF is licence-gated |
+| `netfilter-documentation` | ~4,534 chars, **0 hits for "REJECT"** |
+
+`netfilter-documentation` was the **only** claim-bearing source on eight items;
+`itu-t-x200-…-/en` was the sole source for all four OSI items. Both were replaced with sources
+that state the claim — the free-to-read X.200 PDF (§6.1.2 lists all seven layers), RFC 5517
+(§1 "a VLAN is a broadcast domain"), RFC 1812 §2.1, and the iptables/ufw/nftables man pages.
+
+**Twelve NIST Special Publications were citing CSRC landing pages that do not contain their own
+control text** — the SP 800-53r5 landing page has 11,531 chars and **zero occurrences** of
+`SC-28`, `AC-6`, "at rest", "in transit" or "least privilege", while items quote SC-28 and SC-8
+by control number. All twelve were repointed to their full texts and each claim re-grepped there:
+47 concept-citations and 83 item-citations. This is the subtlest instance of the class — a CSRC
+publication page is authoritative, correct, and *about* the right document; it simply is not the
+document.
+
+**`nist-sp-800-88r1` had been withdrawn.** Its own first page is a NIST notice: withdrawn
+2025-09-26, "superseded in its entirety by NIST SP 800-88r2", provided "solely for historical
+purposes". Three concepts and five items cited it. Migrated to r2 after confirming r2 preserves
+the Clear/Purge/Destroy taxonomy (§3.1.1–3.1.3) and still defines cryptographic erase in its
+glossary as "A purge sanitization technique". Each affected item's `verification.reasoning` keeps
+its original r1 text — it records what was actually read — with an appended note recording the
+withdrawal and the re-check.
+
+**Rot is per-claim, not per-source, and this was established the hard way.** Two sources were
+initially judged dead from a single probe each and both judgements were wrong; the agents said so
+rather than comply. `man-proc-5` lost its per-file sections to a split into ~100 `proc_*(5)`
+sub-pages, but its DESCRIPTION still reads verbatim "The proc filesystem is a pseudo-filesystem
+which provides an interface to kernel data structures", which three items rest on. `man-ip-7`
+lost `/proc/sys/net` and `ip_local_port_range` (0 occurrences, SEE ALSO now points at
+`ip-sysctl.rst`) while keeping verbatim the privileged-ports/`CAP_NET_BIND_SERVICE` paragraph,
+`INADDR_LOOPBACK`/`INADDR_ANY`, and the auto-bind-on-connect rule. Both were retained. The
+generalisation that "the term pages work" also proved too broad:
+`csrc.nist.gov/glossary/term/data_at_rest` and `/term/data_in_transit` render with **no
+Definitions block at all**.
+
+**A link-checker would have caught none of this.** Every one of these sources returns 200. Any
+future sourcing check must assert the *claim*, per item, not the page.
+
+### Corrections written back to `data/` and the guide
+
+Roughly 150 concepts were re-cited at concept level — the root cause being that each item's
+`source_ids` is a copy of its concept's, so one wrong concept propagates to every item on it.
+The instructive ones, each with the source that settles it:
+
+- **`resolv.conf(5)` cited for systemd-resolved and `127.0.0.53`** in both `etc-resolv-conf`
+  items — that man page contains neither. Settled by `systemd-resolved.service(8)`.
+- **`disk-usage-vs-free-space` cited mount(8)+inode(7) for deleted-but-open files** — that is
+  `unlink(2)`. The same misattribution had already been recorded in an earlier wave under a
+  different concept, which is what established the propagation as systemic.
+- **`systemd.special(7)` cited for `runlevel`** — the word occurs **zero** times on it;
+  `runlevel(8)` carries the mapping table.
+- **`patch-management` cited apt(8) and the DNF reference**, neither of which mentions the
+  practice. Re-based on NIST SP 800-40r4.
+- **`Restart=` cited to systemd.unit(5)** — only `systemd.service(5)` documents it.
+- **RFC 791 §3.2 never defines class D or E**, so `ipv4-address-classes` had no source for any
+  class D claim (RFC 1112 §4 does). **RFC 8499 §2 states outright** that "hostname" is not
+  defined in RFC 1034/1035/1123/2181, yet `fqdn-and-hostname` cited only RFC 1034.
+- **The whole `sysadmin.networking.ssh` concept cited only ssh(1) + IANA**, and ssh(1) documents
+  none of its four items' claims (ssh-copy-id, authorized_keys permissions, scp flags, sftp).
+- **`inode(7)` cited for the directory-execute-means-search rule** it never states, and
+  **`chown(2)`, the syscall, cited for chown(1)'s `alice:` operand syntax**.
+- **The firewalld runtime/permanent relationship was stated backwards** in an item — it claimed a
+  `--permanent` change is lost on reload, where firewall-cmd(1) says `--reload` discards
+  *runtime-only* changes.
+
+Guide corrections: the XFS "cannot be shrunk at all" absolute (xfs_growfs(8) documents a narrow
+last-AG shrink), the crontab-tilde claim that cron does not use a shell (crontab(5): "The entire
+command portion of the line … will be executed by `/bin/sh`"), and the tar option-order rule
+stated unconditionally. In one case — `chmod` preserving setgid on directories — **the guide was
+already right and the item had drifted from it**, which is why the protocol has verifiers form a
+view before reading the guide.
+
+**"Deprecated" is folklore this bank repeated.** Two independent ranges tried to source it, for
+`route(8)` and for `ifconfig`, and neither could: man7's ifconfig(8) is the current upstream page,
+dated 2025-09-10, and nowhere says deprecated or obsolete. Both keys were restated to what is
+documented and demonstrable rather than re-cited to something adjacent.
+
+### Empirical verification became part of the method
+
+Where a manual is silent on a default, running it is the primary source. Roughly 40 claims were
+settled by execution, each with its command and output recorded in the item's `reasoning` —
+`ip route add default via <off-subnet>` returning `Error: Nexthop has invalid gateway.` (which
+proved the *distractor* right and the key wrong), `ping 127.200.5.9` succeeding across the whole
+/8, a DROP'd port timing out while both plain `REJECT` and `REJECT --reject-with tcp-reset`
+return "Connection refused" — **indistinguishable from closed, which is that item's whole
+teaching point** — a TTL counting 300→270→240 against local unbound while the authoritative
+server returns 300, and MAXNS=3 binding in practice.
+
+Two container artifacts were caught rather than reported as facts: privileged-port binding needed
+`--sysctl net.ipv4.ip_unprivileged_port_start=1024` because **Docker's default is 0, not the
+kernel's**, and RAID could not be measured at all because Docker Desktop's linuxkit kernel has no
+`md_mod`. DHCP was not testable and the RFCs were read instead; no experiment was fabricated.
+
+### A corpus-wide answer-shape leak, found and closed
+
+In 20 of 22 files the correct answer was far likelier than a distractor to end in a trailing
+em-dash qualifying clause — **corpus-wide keys 44% against distractors 16%**, and as wide as
+76%/23% in project management and 82%/30% in performance/availability. **Picking the option with
+the em dash beat chance across the whole bank.** 325 keys were re-punctuated — content preserved
+in full, never truncated, since every item was already verified and a semantic change would have
+invalidated its verdict. Corpus now **16% / 16%**, every file within ±1 point, key-is-longest 22%
+against a 25% chance line.
+
+The repair has a documented side effect that recurred in **13 of 13 agents** across three waves:
+stripping padding exposes length cues the padding was masking. It is structural, not incidental,
+and any future edit to option text must re-measure length after the edit, not before.
+
+### What remains unverified
+
+- **LFS200's text is still not in the repository**, so every `coverage_status` in `data/` is taken
+  on trust. Cycle 3 did not close this.
+- **The 537-concept expansion is still unvalidated against anything external.** The Linux
+  Foundation publishes nothing below the competency name; the concepts, their grouping and their
+  depths remain this project's inference.
+- **`candidate_evidence` is empty on all 537 concepts.** No post-2025 candidate report exists;
+  none is used.
+- **No individual verdict among cycle 2's 765 fact-check records was re-derived.** Worse, this
+  cycle caught **three `factcheck-*.json` artifacts certifying falsehoods**, two of which
+  demonstrably seeded defects into both the items and the guide — a vendor rename in
+  `factcheck-cloud-networking.json` claim 017, and in `factcheck-command-line.json` CL-039 (GNU
+  regex extensions asserted as POSIX) and CL-049 (tar's option-order rule stated
+  unconditionally). **A verification record that is not itself verified is an error source
+  carrying a credential.**
+- **Two bodies of claims survive that are unverifiable rather than disproven**, and neither may be
+  left looking verified. The **PCI DSS requirement numbers** (3.3.1, 3.3.3, 3.5.1, 11.3.2) are
+  licence-gated and were never checked; no item may turn on one, in digits or paraphrased. The
+  **Verizon DBIR figures** (31%/16%/13%, at `study-guide/04-security/security.md` lines 863, 865,
+  1114–1115, 1148) rest on an unretrievable source: the registered `.pdf` returns 200 with
+  `text/html`, other PDF paths return `content-length: 0`, and the Wayback capture is the HTML
+  too. The item that keyed on those figures was rewritten onto the methodological point; the
+  guide still states them in four places, flagged rather than silently deleted.
+- **13 concepts have no primary-documentation citation** and are waived by name. Four PM concepts
+  are genuinely unsourceable and say so inside their items' `verification.reasoning`:
+  `triple-constraint`, `raci`, `project-budget-and-resource-management`, `communication-plan`.
+- **`gap-analysis` remains waived** — SWEBOK v3 has zero occurrences of the term.
+- **`router-vs-switch.04` turns on "layer 3 switch"**, vendor terminology in no reachable primary
+  standard; the limit is recorded in the item rather than papered over.
+- The waiver list fell from 22 concepts to 13 (PM 17 → 8) because **NASA SP-2016-6105** settled
+  six PM concepts verbatim and **SWEBOK Guide v3.0**, which is free, settled
+  `requirements-elicitation`, `non-functional-requirements` and `feasibility-study`. Both were
+  already reachable in earlier cycles and simply had not been tried.
+
+### Braindump exclusions
+
+**No new site was encountered in cycle 3.** No braindump or exam-dump site was visited, and no
+question in the bank derives from a report of a real exam. The standing exclusion from cycles 1
+and 2 held unchanged.
 
 ### What the last three commits of cycle 2 actually did, recorded late
 
@@ -1692,7 +1903,7 @@ Three corrections landed outside the question file:
 `pull-request.01` keys on a pull request being "defined nowhere in git-scm.com's documentation".
 Tested rather than assumed: gitglossary(7) was fetched and searched in full and contains **zero**
 occurrences of the phrase, and `git-request-pull(1)` — the only git-scm.com command carrying those
-words — merely "generates a summary of pending changes". That also closes factcheck finding
+words — merely "generates a summary of **complete** changes". That also closes factcheck finding
 GC-031's concern about the flat "no Git command" wording.
 
 Gates: scoped `check-bank` (only `q-answer-position-balance` suppressed, `q-verdict-coverage`
