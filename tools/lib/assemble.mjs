@@ -148,7 +148,31 @@ export function partitionIntoExams(ctx) {
     // Presentation order is deterministic and does not follow the domain
     // grouping the partition happened to build, so an exam does not read as
     // six blocks by subject.
-    items: [...items].sort((a, b) => (a.id < b.id ? -1 : 1)),
+    //
+    // Sorting by id would NOT achieve that: ids carry the domain as their
+    // second segment (q.cloud.*, q.devops.*, q.linux.*, q.pm.*, q.security.*,
+    // q.sysadmin.*), so an id sort is a domain sort, and exam 01 read as
+    // 11 Cloud, 7 DevOps, 10 Linux, 6 PM, 8 Security, 18 System Administration.
+    // Instead each domain's items are spread evenly across the paper by the
+    // same stride idea used for the sit-outs above: item k of a domain's n
+    // takes position key (k + 0.5) / n, so every domain is dealt through the
+    // whole paper rather than blocked. Deterministic, id-tie-broken, and no
+    // randomness, so the build stays byte-identical on re-run.
+    items: (() => {
+      const byDomain = new Map();
+      for (const item of [...items].sort((a, b) => (a.id < b.id ? -1 : 1))) {
+        const domain = byId.get(item.concept_id)?.domain ?? '';
+        if (!byDomain.has(domain)) byDomain.set(domain, []);
+        byDomain.get(domain).push(item);
+      }
+      const keyed = [];
+      for (const group of byDomain.values()) {
+        group.forEach((item, k) => keyed.push([(k + 0.5) / group.length, item]));
+      }
+      return keyed
+        .sort((a, b) => a[0] - b[0] || (a[1].id < b[1].id ? -1 : 1))
+        .map(([, item]) => item);
+    })(),
   }));
 
   return { exams, unused: unused.sort((a, b) => (a.id < b.id ? -1 : 1)) };
