@@ -117,7 +117,7 @@ High availability avoids downtime from component failure within a site. Disaster
 - **A.** Correct. Availability within a site does not address losing the site itself.
 - **B.** That is precisely what the arrangement does provide.
 - **C.** Shifting work off a failed member is part of how the cluster stays available.
-- **D.** That is the recovery plan, which is a document rather than something a cluster provides.
+- **D.** Rolling maintenance is one of the things node redundancy is for, so the cluster does provide this.
 
 Study it: [02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery](../study-guide/02-system-administration/disaster-recovery.md#c-sysadmin.disaster-recovery.high-availability-vs-disaster-recovery)
 

@@ -963,8 +963,12 @@ and send it to a nameserver.
 returns the right address and `getent hosts` returns a different one, look in `/etc/hosts`
 first and at the `hosts:` line second. Reversing the switch order to `dns files` is legal and
 changes which source wins. On systems running systemd-resolved the `hosts:` line commonly
-includes `resolve`, so lookups may be served by a local stub at 127.0.0.53 rather than by the
-nameserver a naive reading of `/etc/resolv.conf` suggests.
+includes `resolve`, which answers from systemd-resolved directly over the
+`/run/systemd/resolve/io.systemd.Resolve` socket — not through the 127.0.0.53 stub, which is the
+separate compatibility path taken by the glibc DNS module when it reads a generated
+`/etc/resolv.conf`. Either way the answer need not come from the nameserver a naive reading of
+`/etc/resolv.conf` suggests, but the two routes are distinct and nss-resolve(8) documents only
+the socket.
 
 **What the exam may test** Predicting which source answers a lookup given a `hosts:` line, and
 choosing `getent hosts` over `dig` when the question is about application behaviour rather

@@ -96,7 +96,7 @@ A cluster survives the loss of any single node without interruption. What does t
 - **A.** Recovery if the whole site or system is lost.
 - **B.** Continued service when one node fails.
 - **C.** Automatic transfer of work away from the failed node.
-- **D.** A documented order for bringing systems back after a major failure.
+- **D.** Continued service while one node is taken out of the cluster for a planned upgrade.
 
 ### 10.
 

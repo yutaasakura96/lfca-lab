@@ -864,7 +864,11 @@ Verizon 2026 DBIR puts exploitation of vulnerabilities first at 31% of initial a
 from 20%, and the first time in the report's 19-year history that it has displaced
 credentials — with phishing second at 16% and credential abuse third at 13%. Credential abuse
 still leads at 39% when counted anywhere in the breach chain rather than only as the first
-step, but phishing is not first on either measure. Second trap:
+step, but phishing is not first on either measure. **These DBIR percentages are the one set of
+figures in this guide that could not be verified against their source**: the registered PDF
+returns HTML, every other PDF path on that host returns an empty body, and the Wayback capture
+is the same HTML. They are unverified rather than disproven — do not rely on the exact numbers,
+only on the ordering they illustrate, which the surrounding sourced material supports. Second trap:
 MFA reduces phishing damage but does not end it, since a real-time relay can capture and
 replay a one-time code; only a phishing-resistant authenticator, such as a FIDO2 security
 key, breaks that. Third: filters and DMARC reduce delivery, not susceptibility.
@@ -1114,7 +1118,9 @@ undoes the encryption but not the breach of confidentiality.
    No. The Verizon 2026 DBIR puts exploitation of vulnerabilities first at 31% of initial
    access, ahead of phishing at 16% and credential abuse at 13%. Credential abuse is still
    the most pervasive technique overall at 39% of breaches when counted anywhere in the
-   chain, but phishing leads on neither measure.
+   chain, but phishing leads on neither measure. (These DBIR figures are unverified — the
+   source could not be retrieved; see the Traps note above. The answer to this question is
+   the ordering, not the percentages.)
 3. Which CIA leg does a DDoS attack target, and what does it tell you about the data?
    Availability; nothing was necessarily read or altered, so a data-breach conclusion does
    not follow.
@@ -1145,7 +1151,8 @@ is expressed separately, through CVSS, on a 0.0 to 10.0 scale. Patching — appl
 vendor's corrected version — is the primary remediation.
 
 **Why it matters** Exploitation of vulnerabilities is the leading initial-access route in the
-Verizon 2026 DBIR at 31%, ahead of phishing at 16% and credential abuse at 13%, and unlike
+Verizon 2026 DBIR at 31%, ahead of phishing at 16% and credential abuse at 13% — figures this
+project could not retrieve from their source and therefore reports as unverified — and unlike
 most threats it is defeated by a fully mechanical action: install the update. Patch latency is therefore one
 of the few security metrics that maps directly onto exposure.
 

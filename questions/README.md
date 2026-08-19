@@ -21,8 +21,15 @@ Every file there carries a generated-file notice at the top.
 | Comparison blocks named | **131 of 131** |
 | Registered sources | 668 |
 
-By domain, following the exam's own weight table — System Administration 391, Cloud Computing
-201, Linux Fundamentals 160, DevOps 158, Security 140, IT Project Management 100.
+**The 1,000-item exam pool follows the exam's own weight table exactly, with no residual** —
+each domain holds `weight × 10` items: Linux Fundamentals 160 (16%), System Administration 300
+(30%), Cloud Computing 180 (18%), Security 140 (14%), DevOps 120 (12%), IT Project Management
+100 (10%).
+
+Counting the 150-item supplement as well gives System Administration 391, Cloud Computing 201,
+Linux Fundamentals 160, DevOps 158, Security 140, IT Project Management 100. Those totals do
+**not** track the weight table, and are not meant to: the supplement is deliberately
+concentrated in the competencies that needed extra practice, and it appears on no exam paper.
 
 By type — application 527, recall 297, discrimination 212, diagnostic 71, command 43.
 
@@ -55,6 +62,32 @@ verification layer did, item by item, and its evidence is the `verification` fie
 the agent label, the verdict, which options were checked, the reasoning, and the URLs actually
 fetched — not a claim in this file. If you want to know why an answer is what it is, read that
 field on the item, not this README.
+
+### What it demonstrably misses
+
+Cycle 3's final review mutation-tested the checks against the real bank. These gaps are measured,
+not theoretical, and they are the reason the human review steps in the plan exist:
+
+- **The exam papers themselves are never inspected.** `check-bank` reads `exams/index.json`, the
+  generated sidecar, and nothing in the harness opens `exams/*.md`. Truncating that index from 16
+  exams to 1, or forging the recorded key positions so the tally still balances, both pass with 0
+  errors. The papers are trustworthy because `build-exams` is deterministic and its output is
+  committed — not because a check compares them to anything.
+- **Four mutually indistinguishable options pass.** Rewriting all four options of an item as
+  paraphrases of each other — so three distractors are also correct — produces 0 errors.
+  `q-distractor-distinct` catches only token-identical text, and similarity is measured between
+  stems, never between options within one item.
+- **Near-duplicate detection is lexical.** A verbatim stem copy fires; reorder a clause, swap two
+  synonyms and change a number and similarity falls to 0.571, under the 0.70 warn bar.
+- **A distractor's provenance relation is enforced only for `confusable`.** `sibling` and
+  `lookalike` accept any real concept in any domain, and `variant` any real command.
+- **`q-length-cue` compares the key against the distractor mean, not the longest distractor**, so
+  one long distractor masks an arbitrarily long key. The threshold is 1.6, strict.
+- **`sources_read` is never read by any check.** A verdict claiming confirmation while having
+  fetched nothing is accepted.
+
+The honest summary: the harness enforces structure, provenance bookkeeping, derived counts and
+verdict-record completeness firmly. It cannot tell whether an item teaches anything.
 
 ## Taking a practice exam
 

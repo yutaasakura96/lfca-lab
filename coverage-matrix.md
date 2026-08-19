@@ -341,7 +341,7 @@
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
-| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.tls-and-https | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
 | security.security.certificate-expiry-and-validation | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.full-disk-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | security.security.phishing-and-social-engineering | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |

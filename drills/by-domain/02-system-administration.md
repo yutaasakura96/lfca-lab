@@ -616,14 +616,14 @@ A cluster survives the loss of any single node without interruption. What does t
 
 - **A.** Continued service when one node fails.
 - **B.** Automatic transfer of work away from the failed node.
-- **C.** A documented order for bringing systems back after a major failure.
+- **C.** Continued service while one node is taken out of the cluster for a planned upgrade.
 - **D.** Recovery if the whole site or system is lost.
 
 **Answer: D.** High availability avoids downtime from component failure within a site. Disaster recovery restores service after a site or system is lost. They solve different problems and are not substitutes — a perfectly available cluster in a flooded building is unavailable.
 
 - A is wrong: That is precisely what the arrangement does provide.
 - B is wrong: Shifting work off a failed member is part of how the cluster stays available.
-- C is wrong: That is the recovery plan, which is a document rather than something a cluster provides.
+- C is wrong: Rolling maintenance is one of the things node redundancy is for, so the cluster does provide this.
 
 ### 42.
 
@@ -1384,7 +1384,7 @@ A host running systemd-resolved has `resolve` included on its `hosts:` line, and
 - **C.** The `resolve` entry means the nsswitch order has been silently reversed to `dns files`, so DNS is now consulted ahead of `/etc/hosts` for every lookup this host performs.
 - **D.** The `resolve` entry means the answer must have come from a DHCP-supplied static name mapping handed out with the lease, rather than from any resolver at all.
 
-**Answer: B.** On systems running systemd-resolved the `hosts:` line commonly includes `resolve`, so lookups may be served by a local stub at 127.0.0.53 rather than by the nameserver a naive reading of `/etc/resolv.conf` suggests, which is exactly the kind of source `getent hosts` reveals and `dig` does not.
+**Answer: B.** On systems running systemd-resolved the `hosts:` line commonly includes `resolve`, which answers from systemd-resolved over the `/run/systemd/resolve/io.systemd.Resolve` socket rather than through the 127.0.0.53 stub that the separate glibc DNS path uses — either way the answer need not come from the nameserver a naive reading of `/etc/resolv.conf` suggests, which is exactly the kind of source `getent hosts` reveals and `dig` does not.
 
 - A is wrong: The 127.0.0.53 stub serves clients that go through the glibc DNS path or a tool such as `dig`; the `resolve` nsswitch module reaches systemd-resolved over a separate IPC socket, so the stub is not the only route.
 - C is wrong: `resolve` names a distinct nsswitch source served by systemd-resolved, not evidence that the files-versus-dns order has been reversed on the `hosts:` line.
@@ -1778,7 +1778,7 @@ A script written years ago runs `ifconfig` on a freshly provisioned server and f
 
 - A is wrong: `ifconfig`'s absence reflects a deliberate packaging choice on many current distributions, not corruption; the fully functional `ip` command remains available for every task `ifconfig` used to perform.
 - C is wrong: Privilege level does not affect whether a shell can locate a command at all; `ifconfig` is simply not installed on many current distributions, unrelated to sudo.
-- D is wrong: Installing net-tools would technically restore `ifconfig`, but the exam-relevant, forward-looking answer is that `ip` is the current, supported tool the script should be migrated to.
+- D is wrong: Installing net-tools restores the `ifconfig` binary, but the option's premise is still false: the network stack was never broken, so "yes" is the wrong answer to the question asked, whatever is installed afterwards.
 
 ### 119.
 
@@ -4189,7 +4189,7 @@ A team plans to grow a filesystem while it stays mounted, and possibly shrink it
 - **C.** Neither, since resizing any mounted Linux filesystem always requires reformatting first
 - **D.** ext4, since `resize2fs` can shrink it, though only while unmounted; XFS is designed to be grown online and offers no general way to shrink
 
-**Answer: D.** Filesystem type determines resizing capability directly: XFS can be grown while mounted but cannot be shrunk at all, while ext4 can be shrunk, but only while unmounted. A plan that assumes "we will resize it later" is only safe once the type is known — created with `mkfs` and confirmed afterward with `blkid`.
+**Answer: D.** Filesystem type determines resizing capability directly: XFS can be grown while mounted but offers no general way to shrink (xfs_growfs(8) implements only the narrow last-allocation-group case), while ext4 can be shrunk, but only while unmounted. A plan that assumes "we will resize it later" is only safe once the type is known — created with `mkfs` and confirmed afterward with `blkid`.
 
 - A is wrong: Being more modern does not imply broader capability here — xfs_growfs(8) expands a mounted filesystem, and the only shrink it implements is the narrow last-allocation-group case, so XFS cannot be relied on to shrink.
 - B is wrong: Resize capability is a property of the on-disk format itself, which is exactly what filesystem type governs; the FHS says nothing about it.

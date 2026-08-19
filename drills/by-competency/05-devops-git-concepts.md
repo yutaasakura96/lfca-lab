@@ -72,7 +72,7 @@ A block on this concept also compares it to "forking a project" in the open-sour
 
 ### 5.
 
-A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
+A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix without asking the maintainers to change their access settings. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
 
 - **A.** `git clone` the original repository directly, since a clone always grants push access to wherever it was copied from once the URL resolves and the transfer finishes successfully.
 - **B.** Fork the project on the hosting platform first, to obtain a server-side copy the contributor can push to, then `git clone` that fork locally.
@@ -83,7 +83,7 @@ A contributor has read access but no write access to a project's hosted reposito
 
 - A is wrong: Clone copies what the contributor can read; whether they may push is decided entirely by the remote's permissions, and cloning changes none of that.
 - C is wrong: A pull request names a source branch that must already exist somewhere the contributor can push to; without a fork or write access, there is no branch of theirs to name.
-- D is wrong: That would work but is not the usual contribution route for an outside contributor; forking is the standard first step that needs no administrative action from the project's owners.
+- D is wrong: Being granted write access is a change to the project's access settings, which the stem rules out; forking needs no action from the maintainers at all.
 
 ### 6.
 

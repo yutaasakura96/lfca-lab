@@ -1442,9 +1442,9 @@
         },
         {
           "ref": "o4",
-          "text": "A documented order for bringing systems back after a major failure.",
+          "text": "Continued service while one node is taken out of the cluster for a planned upgrade.",
           "correct": false,
-          "why": "That is the recovery plan, which is a document rather than something a cluster provides.",
+          "why": "Rolling maintenance is one of the things node redundancy is for, so the cluster does provide this.",
           "provenance": {
             "kind": "confusable",
             "concept_id": "sysadmin.disaster-recovery.disaster-recovery-plan"
@@ -1469,7 +1469,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"HA can be implemented at a single site, with all system redundancy resident at that site. This will keep the system running at an HA level as long as there is no interruption of the facility housing the system.\" Losing the site is exactly what the cluster does not cover. o2 and o3 name things the cluster does provide, and their whys say so. o4 is a document, not a property of a cluster. No distractor is also correct.",
+        "reasoning": "Key holds. NIST SP 800-34 Rev. 1: \"HA can be implemented at a single site, with all system redundancy resident at that site. This will keep the system running at an HA level as long as there is no interruption of the facility housing the system.\" Losing the site is exactly what the cluster does not cover. o2 and o3 name things the cluster does provide, and their whys say so. o4 is a document, not a property of a cluster. No distractor is also correct. FINAL REVIEW (lens 3, 2026-08-19): o4 as authored read \"A documented order for bringing systems back after a major failure\", and its own why conceded \"That is the recovery plan, which is a document rather than something a cluster provides\" — i.e. the why stated exactly why o4 was a CORRECT answer to a stem asking what the arrangement does not provide. Two defensible answers. Repaired by replacing o4 with something the cluster does provide (rolling single-node maintenance), so the key remains the only option naming something absent. Key, o2 and o3 untouched.",
         "sources_read": [
           "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf"
         ]

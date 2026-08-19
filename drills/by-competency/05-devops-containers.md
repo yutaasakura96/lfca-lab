@@ -1077,7 +1077,7 @@ A bare pod is created directly through the Kubernetes API, with no Deployment in
 
 ### 72.
 
-A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. It is not. What is wrong?
+A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. The application inside the container listens on port 80, not 8080. What is wrong?
 
 - **A.** The mapping is reversed: the host port is written first, so this actually forwards host port 80 to container port 8080, not the intended pairing.
 - **B.** `docker run -p` only works for ports below 1024, so port 80 silently fails to bind and needs root privileges specified separately That framing borrows a general Unix privileged-port rule and applies it directly to the containerized process without checking it.

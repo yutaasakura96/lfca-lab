@@ -1998,7 +1998,7 @@
       "pool": "exam",
       "type": "application",
       "difficulty": 3,
-      "stem": "A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?",
+      "stem": "A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix without asking the maintainers to change their access settings. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?",
       "options": [
         {
           "ref": "o1",
@@ -2033,7 +2033,7 @@
           "ref": "o4",
           "text": "Ask an administrator to add the contributor as a collaborator with write access to the original repository.",
           "correct": false,
-          "why": "That would work but is not the usual contribution route for an outside contributor; forking is the standard first step that needs no administrative action from the project's owners.",
+          "why": "Being granted write access is a change to the project's access settings, which the stem rules out; forking needs no action from the maintainers at all.",
           "provenance": {
             "kind": "sibling",
             "concept_id": "devops.git-concepts.remote-and-origin"
@@ -2062,7 +2062,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "Refuted on citation and repaired. GitHub's pull request documentation describes the fork and pull model directly: 'anyone can fork an existing (upstream) repository if they have read access and the owner of the upstream repository allows it... You do not need permission from the upstream repository to push to a fork you created' — which confirms the key end to end. o2 is refuted by the same passage plus git-clone(1), which copies a repository and confers nothing. o3's why is true: a pull request names a head branch that must already exist somewhere the contributor can push. Checked o4 as a candidate second key: asking for write access would work, but the stem asks for the correct first step for a contributor who has read access only, and o4's why says plainly that it needs action from the project's owners. Not a second key.",
+        "reasoning": "Refuted on citation and repaired. GitHub's pull request documentation describes the fork and pull model directly: 'anyone can fork an existing (upstream) repository if they have read access and the owner of the upstream repository allows it... You do not need permission from the upstream repository to push to a fork you created' — which confirms the key end to end. o2 is refuted by the same passage plus git-clone(1), which copies a repository and confers nothing. o3's why is true: a pull request names a head branch that must already exist somewhere the contributor can push. Checked o4 as a candidate second key: asking for write access would work, but the stem asks for the correct first step for a contributor who has read access only, and o4's why says plainly that it needs action from the project's owners. Not a second key. FINAL REVIEW (lens 3, 2026-08-19): o4 (ask an administrator for write access) was defensible under the stem as authored — its own why conceded \"That would work but is not the usual contribution route\", and \"usual\" is a criterion the stem never stated. Repaired the way dhcp-reservation.02 was: the stem now excludes asking maintainers to change access settings, so o4 is ruled out by the scenario rather than by convention. Key unchanged.",
         "sources_read": [
           "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
           "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks",

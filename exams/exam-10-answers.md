@@ -507,7 +507,7 @@ Cloning is a Git operation that copies a repository with its full history into a
 - **A.** Correct. Forking solves the write-access problem by creating a copy the contributor owns; cloning that fork afterward gets the history onto their machine to work with.
 - **B.** Clone copies what the contributor can read; whether they may push is decided entirely by the remote's permissions, and cloning changes none of that.
 - **C.** A pull request names a source branch that must already exist somewhere the contributor can push to; without a fork or write access, there is no branch of theirs to name.
-- **D.** That would work but is not the usual contribution route for an outside contributor; forking is the standard first step that needs no administrative action from the project's owners.
+- **D.** Being granted write access is a change to the project's access settings, which the stem rules out; forking needs no action from the maintainers at all.
 
 Study it: [05-devops/git-concepts.md#c-devops.git-concepts.clone-vs-fork](../study-guide/05-devops/git-concepts.md#c-devops.git-concepts.clone-vs-fork)
 

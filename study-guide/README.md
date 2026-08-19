@@ -16,7 +16,7 @@ tests the boundary between plausible options, not recall of a definition sitting
 
 The prose sits on top of a dataset built in an earlier cycle. That cycle took the Linux
 Foundation's published objectives — which stop at the competency name — expanded the 22
-competencies into 537 leaf concepts, attached primary documentation to all but 52 of them (RFCs,
+competencies into 537 leaf concepts, attached primary documentation to all but 13 of them (RFCs,
 NIST publications, kernel.org, GNU and systemd manuals, git-scm, kubernetes.io, the OCI specs,
 the Scrum Guide, and AWS and Azure product documentation), assigned every concept a
 depth rating and a derived importance, recorded which concepts LFS200 actually teaches, and
@@ -123,7 +123,7 @@ The guide is hand-written and machine-checked. From the repository root:
 - **Every one of the 537 concepts has exactly one definition site.** Not zero — a concept
   silently dropped from the prose is an error. Not two — a concept taught in two places is also
   an error, so there is exactly one place to look for anything, and no second copy to drift.
-- **Every confusable pair the dataset records is compared exactly once.** The 130 comparison
+- **Every confusable pair the dataset records is compared exactly once.** The 131 comparison
   blocks are derived from the dataset's `confused_with` graph, and ownership of each pair is
   decided by rule. A concept that is a member rather than the owner carries a link to the block
   instead of a second, competing comparison.
@@ -157,13 +157,13 @@ itself: `candidate_evidence` is empty on all 537 concepts. Nothing in this guide
 anyone reports having been asked, and nothing here should be read as a report of what appeared
 on a real exam.
 
-**22 concepts have no primary-documentation citation, and they are marked where they sit.**
+**13 concepts have no primary-documentation citation, and they are marked where they sit.**
 The authoritative references for classical project management and business analysis — the PMBOK
 Guide, the PMI Lexicon, ISO 21500/21502, BABOK, ISO/IEC/IEEE 12207 and 29148 — are paywalled,
 and pmi.org and gao.gov refuse automated fetches. This was 52 before the cycle 3 waiver sourcing
 sprint (`docs/verification/waiver-sprint-2026-08-11.json`) cleared 30 of them against
-independent primary sources. The remainder is concentrated in IT Project Management (13 in
-Project Management, 4 in Functional Analysis) and System Administration :: Best Practices (4),
+independent primary sources. The remainder is concentrated in IT Project Management (7 in
+Project Management, 1 in Functional Analysis) and System Administration :: Best Practices (4),
 with the remaining 1 in Disaster Recovery. Every one of them carries a
 marker in place saying so, and its claims are hedged as consensus practice rather than stated as
 citable fact. Read the difference between the two registers as real: a hedged claim is the

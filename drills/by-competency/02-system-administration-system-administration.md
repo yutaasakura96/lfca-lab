@@ -589,7 +589,7 @@ A team plans to grow a filesystem while it stays mounted, and possibly shrink it
 - **C.** Either — resizing capability is governed by the Filesystem Hierarchy Standard, not by the filesystem type
 - **D.** Neither, since resizing any mounted Linux filesystem always requires reformatting first
 
-**Answer: A.** Filesystem type determines resizing capability directly: XFS can be grown while mounted but cannot be shrunk at all, while ext4 can be shrunk, but only while unmounted. A plan that assumes "we will resize it later" is only safe once the type is known — created with `mkfs` and confirmed afterward with `blkid`.
+**Answer: A.** Filesystem type determines resizing capability directly: XFS can be grown while mounted but offers no general way to shrink (xfs_growfs(8) implements only the narrow last-allocation-group case), while ext4 can be shrunk, but only while unmounted. A plan that assumes "we will resize it later" is only safe once the type is known — created with `mkfs` and confirmed afterward with `blkid`.
 
 - B is wrong: Being more modern does not imply broader capability here — xfs_growfs(8) expands a mounted filesystem, and the only shrink it implements is the narrow last-allocation-group case, so XFS cannot be relied on to shrink.
 - C is wrong: Resize capability is a property of the on-disk format itself, which is exactly what filesystem type governs; the FHS says nothing about it.

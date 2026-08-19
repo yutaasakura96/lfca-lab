@@ -1812,7 +1812,7 @@ A bare pod is created directly through the Kubernetes API, with no Deployment in
 
 ### 121.
 
-A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. It is not. What is wrong?
+A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. The application inside the container listens on port 80, not 8080. What is wrong?
 
 - **A.** `docker run -p` only works for ports below 1024, so port 80 silently fails to bind and needs root privileges specified separately That framing borrows a general Unix privileged-port rule and applies it directly to the containerized process without checking it.
 - **B.** `EXPOSE` was never declared in the Dockerfile, so `-p` has no effect regardless of which order the ports are written in.
@@ -2554,7 +2554,7 @@ A host running systemd-resolved has `resolve` included on its `hosts:` line, and
 - **C.** The `resolve` entry means the nsswitch order has been silently reversed to `dns files`, so DNS is now consulted ahead of `/etc/hosts` for every lookup this host performs.
 - **D.** The `resolve` entry means the answer must have come from a DHCP-supplied static name mapping handed out with the lease, rather than from any resolver at all.
 
-**Answer: A.** On systems running systemd-resolved the `hosts:` line commonly includes `resolve`, so lookups may be served by a local stub at 127.0.0.53 rather than by the nameserver a naive reading of `/etc/resolv.conf` suggests, which is exactly the kind of source `getent hosts` reveals and `dig` does not.
+**Answer: A.** On systems running systemd-resolved the `hosts:` line commonly includes `resolve`, which answers from systemd-resolved over the `/run/systemd/resolve/io.systemd.Resolve` socket rather than through the 127.0.0.53 stub that the separate glibc DNS path uses — either way the answer need not come from the nameserver a naive reading of `/etc/resolv.conf` suggests, which is exactly the kind of source `getent hosts` reveals and `dig` does not.
 
 - B is wrong: The 127.0.0.53 stub serves clients that go through the glibc DNS path or a tool such as `dig`; the `resolve` nsswitch module reaches systemd-resolved over a separate IPC socket, so the stub is not the only route.
 - C is wrong: `resolve` names a distinct nsswitch source served by systemd-resolved, not evidence that the files-versus-dns order has been reversed on the `hosts:` line.
@@ -2948,7 +2948,7 @@ A script written years ago runs `ifconfig` on a freshly provisioned server and f
 
 - A is wrong: `ifconfig`'s absence reflects a deliberate packaging choice on many current distributions, not corruption; the fully functional `ip` command remains available for every task `ifconfig` used to perform.
 - C is wrong: Privilege level does not affect whether a shell can locate a command at all; `ifconfig` is simply not installed on many current distributions, unrelated to sudo.
-- D is wrong: Installing net-tools would technically restore `ifconfig`, but the exam-relevant, forward-looking answer is that `ip` is the current, supported tool the script should be migrated to.
+- D is wrong: Installing net-tools restores the `ifconfig` binary, but the option's premise is still false: the network stack was never broken, so "yes" is the wrong answer to the question asked, whatever is installed afterwards.
 
 ### 197.
 

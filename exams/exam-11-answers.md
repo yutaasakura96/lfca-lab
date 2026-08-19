@@ -647,7 +647,7 @@ Study it: [02-system-administration/system-administration.md#c-sysadmin.system-a
 
 *security.security.tls-and-https · Security Fundamentals :: Security · depth 3 · application*
 
-"SSL" names TLS's obsolete predecessor, deprecated by RFC 7568, while the object people call an "SSL certificate" is simply an X.509 certificate used by TLS. LFS200 discusses SSL and never uses the term TLS at all, which is why an engineer trained on that course carries a real vocabulary gap into an exam that expects the current name.
+"SSL" names TLS's obsolete predecessor, deprecated by RFC 7568, while the object people call an "SSL certificate" is simply an X.509 certificate (RFC 5280) used by TLS. The naming lag is why material written before TLS 1.3 became common still says "SSL" for what is in fact TLS, and an exam expects the current name.
 
 - **A.** SSL is an obsolete predecessor to TLS, not an alternate name for the same current protocol, and offering it as a current choice is the trap the guide names directly.
 - **B.** Correct. RFC 7568 states "SSLv3 MUST NOT be used" and requires that negotiation of SSLv3 from any version of TLS be prohibited; the object usually called an "SSL certificate" is the X.509 certificate profiled by RFC 5280 and consumed by TLS.

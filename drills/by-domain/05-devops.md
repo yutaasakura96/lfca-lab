@@ -1077,7 +1077,7 @@ A bare pod is created directly through the Kubernetes API, with no Deployment in
 
 ### 72.
 
-A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. It is not. What is wrong?
+A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. The application inside the container listens on port 80, not 8080. What is wrong?
 
 - **A.** `docker run -p` only works for ports below 1024, so port 80 silently fails to bind and needs root privileges specified separately That framing borrows a general Unix privileged-port rule and applies it directly to the containerized process without checking it.
 - **B.** The mapping is reversed: the host port is written first, so this actually forwards host port 80 to container port 8080, not the intended pairing.
@@ -1872,7 +1872,7 @@ A block on this concept also compares it to "forking a project" in the open-sour
 
 ### 125.
 
-A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
+A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix without asking the maintainers to change their access settings. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
 
 - **A.** `git clone` the original repository directly, since a clone always grants push access to wherever it was copied from once the URL resolves and the transfer finishes successfully.
 - **B.** Open a pull request against the original repository directly, without cloning or forking anything first.
@@ -1883,7 +1883,7 @@ A contributor has read access but no write access to a project's hosted reposito
 
 - A is wrong: Clone copies what the contributor can read; whether they may push is decided entirely by the remote's permissions, and cloning changes none of that.
 - B is wrong: A pull request names a source branch that must already exist somewhere the contributor can push to; without a fork or write access, there is no branch of theirs to name.
-- C is wrong: That would work but is not the usual contribution route for an outside contributor; forking is the standard first step that needs no administrative action from the project's owners.
+- C is wrong: Being granted write access is a change to the project's access settings, which the stem rules out; forking needs no action from the maintainers at all.
 
 ### 126.
 

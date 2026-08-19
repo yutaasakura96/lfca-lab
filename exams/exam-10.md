@@ -361,7 +361,7 @@ A job was started with `./long-job.sh &` over SSH and the connection later drops
 
 ### 39.
 
-A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
+A contributor has read access but no write access to a project's hosted repository and wants to submit a bug fix without asking the maintainers to change their access settings. What is the correct first step, given that write access is decided by the remote, not by having a copy of the code?
 
 - **A.** Fork the project on the hosting platform first, to obtain a server-side copy the contributor can push to, then `git clone` that fork locally.
 - **B.** `git clone` the original repository directly, since a clone always grants push access to wherever it was copied from once the URL resolves and the transfer finishes successfully.

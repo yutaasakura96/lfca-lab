@@ -1129,7 +1129,7 @@ An engineer trained on LFS200 refers to a service's "SSL certificate" and propos
 - **C.** The terminology is fine because TLS is a transport protocol that replaced TCP for encrypted connections.
 - **D.** SSL is TLS's obsolete predecessor and must not be enabled; the object commonly called an "SSL certificate" is an X.509 certificate used by TLS, which is what should be configured instead.
 
-**Answer: D.** "SSL" names TLS's obsolete predecessor, deprecated by RFC 7568, while the object people call an "SSL certificate" is simply an X.509 certificate used by TLS. LFS200 discusses SSL and never uses the term TLS at all, which is why an engineer trained on that course carries a real vocabulary gap into an exam that expects the current name.
+**Answer: D.** "SSL" names TLS's obsolete predecessor, deprecated by RFC 7568, while the object people call an "SSL certificate" is simply an X.509 certificate (RFC 5280) used by TLS. The naming lag is why material written before TLS 1.3 became common still says "SSL" for what is in fact TLS, and an exam expects the current name.
 
 - A is wrong: SSL is an obsolete predecessor to TLS, not an alternate name for the same current protocol, and offering it as a current choice is the trap the guide names directly.
 - B is wrong: TLS is not web-only and is used across SMTP, IMAP, LDAP and database protocols, but that does not make the obsolete SSL protocol an acceptable substitute for any of them.

@@ -212,13 +212,13 @@ A cluster survives the loss of any single node without interruption. What does t
 - **A.** Recovery if the whole site or system is lost.
 - **B.** Continued service when one node fails.
 - **C.** Automatic transfer of work away from the failed node.
-- **D.** A documented order for bringing systems back after a major failure.
+- **D.** Continued service while one node is taken out of the cluster for a planned upgrade.
 
 **Answer: A.** High availability avoids downtime from component failure within a site. Disaster recovery restores service after a site or system is lost. They solve different problems and are not substitutes — a perfectly available cluster in a flooded building is unavailable.
 
 - B is wrong: That is precisely what the arrangement does provide.
 - C is wrong: Shifting work off a failed member is part of how the cluster stays available.
-- D is wrong: That is the recovery plan, which is a document rather than something a cluster provides.
+- D is wrong: Rolling maintenance is one of the things node redundancy is for, so the cluster does provide this.
 
 ### 15.
 

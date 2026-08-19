@@ -1949,7 +1949,7 @@
       "pool": "exam",
       "type": "discrimination",
       "difficulty": 3,
-      "stem": "A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. It is not. What is wrong?",
+      "stem": "A container is started with `docker run -p 80:8080 api`, and the operator expected the application to become reachable on port 80. The application inside the container listens on port 80, not 8080. What is wrong?",
       "options": [
         {
           "ref": "o1",
@@ -2009,7 +2009,7 @@
           "o3",
           "o4"
         ],
-        "reasoning": "REFUTED AS AUTHORED. Key is correct: Docker documents the syntax as \"docker run -d -p HOST_PORT:CONTAINER_PORT\" with \"HOST_PORT: The port number on your host machine where you want to receive traffic\", so -p 80:8080 forwards host 80 to container 8080. o3's why (EXPOSE is not a prerequisite for -p) is true per the Dockerfile reference. Citation defect: docker-overview carries no port-publishing content whatsoever -- its only \"port\" hits are sidebar navigation links. Replaced with docker-publishing-ports. REPAIR AND RE-VERIFICATION (verify-containers-a): the citations named above were replaced; no stem, option text or why was altered, because none of them was wrong. The item was re-read on disk after the fix and re-checked against the URLs in sources_read -- the key holds, no distractor is defensible, and every distractor why states a true fact. Verdict after repair: confirmed.",
+        "reasoning": "REFUTED AS AUTHORED. Key is correct: Docker documents the syntax as \"docker run -d -p HOST_PORT:CONTAINER_PORT\" with \"HOST_PORT: The port number on your host machine where you want to receive traffic\", so -p 80:8080 forwards host 80 to container 8080. o3's why (EXPOSE is not a prerequisite for -p) is true per the Dockerfile reference. Citation defect: docker-overview carries no port-publishing content whatsoever -- its only \"port\" hits are sidebar navigation links. Replaced with docker-publishing-ports. REPAIR AND RE-VERIFICATION (verify-containers-a): the citations named above were replaced; no stem, option text or why was altered, because none of them was wrong. The item was re-read on disk after the fix and re-checked against the URLs in sources_read -- the key holds, no distractor is defensible, and every distractor why states a true fact. Verdict after repair: confirmed. FINAL REVIEW (lens 2, 2026-08-19): the STEM as authored said only that the operator expected reachability on port 80, which `-p 80:8080` does publish, so under the stem as written nothing was wrong with the direction and a candidate could defend that reading. The rationale silently assumed the opposite arrangement (8080 host-facing, 80 inside). Stem tightened to state that the application listens on 80, which is the case the key and rationale actually describe. Key, options and rationale unchanged.",
         "sources_read": [
           "https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/",
           "https://docs.docker.com/reference/dockerfile/",

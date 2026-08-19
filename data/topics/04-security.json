@@ -559,7 +559,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-8446-tls13",
-        "rfc-7568-ssl3-deprecation"
+        "rfc-7568-ssl3-deprecation",
+        "rfc-5280-x509"
       ],
       "candidate_evidence": [],
       "commands": [],

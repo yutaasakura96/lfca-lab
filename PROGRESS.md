@@ -1162,7 +1162,7 @@ Cycle 3 turns the verified, guide-covered dataset into a question bank. Spec:
 | 36–57 | Verify all 22 competencies | **complete** |
 | 58 | Build the exams and the drills | **complete** |
 | 59 | Close the cycle in PROGRESS.md and the READMEs | **complete** |
-| 60 | Final adversarial whole-branch review | pending |
+| 60 | Final adversarial whole-branch review | **complete** |
 
 ### Cycle 3 outcome — the question bank
 
@@ -1205,8 +1205,13 @@ the item.
 
 ### The finding this cycle exists to have produced
 
-**The bank's content was largely sound; its sourcing was not.** Across the 1,150 items, roughly
-500 were refuted on first pass and repaired. Only a handful of genuinely wrong keys were found in
+**The bank's content was largely sound; its sourcing was not.** Across the 1,150 items, the
+execution ledger's own per-wave counts sum to **at least 576 refuted on first pass and repaired**
+over the 967 items verified before task 57, with task 57's 183 adding an unstated further number.
+**That figure is not recomputable from the committed artifacts**: the `REFUTED AS AUTHORED.`
+marker convention only began in wave D, so six files carry zero repair markers despite the
+ledger recording refutations in all of them (247 items carry the marker; 486 carry any repair
+marker at all). Take ">=576, per the ledger" as the claim, and the artifact count as a floor. Only a handful of genuinely wrong keys were found in
 the whole corpus — in the last two competencies, 311 items yielded **6 wrong keys and 3
 also-correct distractors**. Everything else was a citation defect: the claim true, the cited
 source silent on it.
@@ -1330,7 +1335,7 @@ in full, never truncated, since every item was already verified and a semantic c
 invalidated its verdict. Corpus now **16% / 16%**, every file within ±1 point, key-is-longest 22%
 against a 25% chance line.
 
-The repair has a documented side effect that recurred in **13 of 13 agents** across three waves:
+The repair has a documented side effect that recurred in **12 of 12 agents** across three waves:
 stripping padding exposes length cues the padding was masking. It is structural, not incidental,
 and any future edit to option text must re-measure length after the edit, not before.
 
@@ -1344,8 +1349,10 @@ and any future edit to option text must re-measure length after the edit, not be
 - **`candidate_evidence` is empty on all 537 concepts.** No post-2025 candidate report exists;
   none is used.
 - **No individual verdict among cycle 2's 765 fact-check records was re-derived.** Worse, this
-  cycle caught **three `factcheck-*.json` artifacts certifying falsehoods**, two of which
-  demonstrably seeded defects into both the items and the guide — a vendor rename in
+  cycle caught **three false claims certified across two `factcheck-*.json` artifacts** — an
+  earlier draft of this section, and the ledger it summarised, both miscounted these as three
+  separate files — two of which
+  demonstrably seeded defects into both the items and the guide: a vendor rename in
   `factcheck-cloud-networking.json` claim 017, and in `factcheck-command-line.json` CL-039 (GNU
   regex extensions asserted as POSIX) and CL-049 (tar's option-order rule stated
   unconditionally). **A verification record that is not itself verified is an error source
@@ -1357,7 +1364,10 @@ and any future edit to option text must re-measure length after the edit, not be
   1114–1115, 1148) rest on an unretrievable source: the registered `.pdf` returns 200 with
   `text/html`, other PDF paths return `content-length: 0`, and the Wayback capture is the HTML
   too. The item that keyed on those figures was rewritten onto the methodological point; the
-  guide still states them in four places, flagged rather than silently deleted.
+  guide stated them in three places with **no caveat at all** until the final review caught it —
+  the flag existed only here, in PROGRESS.md, where no learner would meet it. All three sites in
+  `study-guide/04-security/security.md` now carry the unverifiability note in place, and the
+  knowledge-check answer says explicitly that the ordering is the answer, not the percentages.
 - **13 concepts have no primary-documentation citation** and are waived by name. Four PM concepts
   are genuinely unsourceable and say so inside their items' `verification.reasoning`:
   `triple-constraint`, `raci`, `project-budget-and-resource-management`, `communication-plan`.
@@ -1374,6 +1384,118 @@ and any future edit to option text must re-measure length after the edit, not be
 **No new site was encountered in cycle 3.** No braindump or exam-dump site was visited, and no
 question in the bank derives from a report of a real exam. The standing exclusion from cycles 1
 and 2 held unchanged.
+
+### Task 60 — the final adversarial review
+
+Seven lenses, dispatched in two waves, then synthesis. **The environment degraded badly during
+this task: six agents died — five to the host sleeping mid-response, one to a watchdog stall.**
+Lenses 5 (Claims) and 6 (Consistency) died twice each with nothing recoverable and are recorded
+below as **partially run**, not as lenses that found nothing. Two process rules came out of it:
+every replacement agent was told to append findings to a `/tmp` file as it went (which is the only
+reason lens 4b's work survived), and no agent label was ever reused.
+
+| Lens | Raw findings | Status |
+| --- | --- | --- |
+| 1 Arithmetic | 11 | complete |
+| 2 Keys | 8 (0 wrong keys in 60 items) | complete |
+| 3 Distractors | 4 | complete |
+| 4a Harness core | 6 | complete on re-run |
+| 4b Harness build/coverage | 4 | complete after resume |
+| 5 Claims | 0 delivered | **died twice; partially run** |
+| 6 Consistency | 0 delivered | **died twice; core check completed by the controller instead** |
+| 7 Constraints | 8 | complete on re-dispatch |
+
+**41 raw findings. 19 confirmed and applied, 3 recorded as accepted limits, 19 rejected or
+superseded.**
+
+**The most important result is a rejection.** Lens 4a reported that all six `q-verdict-coverage`
+mutations passed silently — that setting `verdict: "refuted"`, or deleting an entire
+`verification` block, produced 0 errors. That would have been the single worst finding possible,
+since every item in the bank rests on that check. **It was false.** Re-derived independently: five
+of the six fire, with the exact messages the code intends. The lens's mutation code was being
+eval'd by bash and never reached the JSON it then checked. **A lens reporting "the check does not
+fire" is indistinguishable from a lens whose mutation did not apply, unless someone re-derives
+it** — which is precisely why the plan mandates synthesis, and it caught a fabricated Critical.
+Only `sources_read: []` genuinely passes silently (Minor, now recorded in `questions/README.md`).
+
+**Confirmed and applied — the project's own documentation, which was the largest class:**
+- `study-guide/README.md` **contradicted itself on the waiver count** — 22 at line 160, 13 at
+  line 136, because the task 59 edit was applied to one line only. Its waiver breakdown also
+  summed to 22 against the file's own `by_competency` data (7+1+4+1=13), and it still said
+  "all but 52" sourced and "130 comparison blocks". All four corrected.
+- `questions/README.md` attached "following the exam's own weight table" to the **all-pool**
+  domain counts, which miss the table by up to 4 points. It is the **1,000-item exam pool** that
+  matches exactly, `weight x 10`, zero residual. Rewritten to say both, and to say the supplement
+  deliberately does not track the table.
+- "roughly 500 refuted" **understated the ledger's own >=576** and is not recomputable from the
+  artifacts at all, because the `REFUTED AS AUTHORED.` convention only began in wave D.
+- "three factcheck artifacts certifying falsehoods" was **three claims across two files**.
+- "13 of 13 agents" was **12 of 12** in the ledger it summarised.
+
+**Confirmed and applied — content:**
+- **CRITICAL, and the same defect this cycle had already caught once.**
+  `high-availability-vs-disaster-recovery.01` o4 read "A documented order for bringing systems
+  back after a major failure", with its own `why` conceding "that is the recovery plan, which is
+  a document rather than something a cluster provides" — i.e. the `why` stated exactly why o4 was
+  a **correct** answer to a stem asking what the cluster does **not** provide. Two defensible
+  answers, and it slipped past a verifier who had already fixed the identical pattern in
+  `foreground-and-background-jobs.02`. Repaired by replacing o4 with something a cluster does
+  provide (rolling single-node maintenance).
+- **Three items whose repair reached the key and stopped there.** `filesystem-type.01`'s
+  rationale still carried the refuted "cannot be shrunk at all"; `dns-resolution-order.03`'s
+  rationale still routed lookups through the 127.0.0.53 stub, which is the very misconception its
+  own o2 is scored false for; `port-mapping.01`'s stem and rationale described different
+  scenarios, so a candidate could defend "nothing is wrong with the direction". **The shape pass
+  deliberately did not touch `rationale`, so nothing had ever swept rationales for staleness.**
+- **The guide carried the same nsswitch error**, at
+  `study-guide/02-system-administration/networking.md`: "the `hosts:` line commonly includes
+  `resolve`, so lookups may be served by a local stub at 127.0.0.53". nss-resolve(8) has **0**
+  occurrences of 127.0.0.53 and documents the `io.systemd.Resolve` socket. Corrected. That concept
+  was wrong in three places and the fix had reached one.
+- `clone-vs-fork.02` o4 was defensible ("that would work", falling back on "not the usual route",
+  a criterion the stem never set) — stem constrained, the way `dhcp-reservation.02` was.
+- `ip-and-ifconfig.01` o4's `why` justified the option's wrongness by exam preference while
+  conceding the technical claim. **The correct falsification was already in the item's own
+  verification record and had simply never reached the reader.**
+- `tls-and-https.01`'s rationale asserted "LFS200 discusses SSL and never uses the term TLS at
+  all" — a claim about licensed course material this project does not hold, which its own
+  verification record already claimed to have replaced and had not. Rewritten onto the RFCs, and
+  `rfc-5280-x509` wired in at concept level after confirming the document (112 occurrences of
+  "X.509").
+
+**The Verizon DBIR framing was not met, and this section previously said it was.** PROGRESS.md
+claimed the figures were "flagged rather than silently deleted". The flag existed **only here**.
+The guide stated 31%/16%/13% flatly in three places with no caveat — a grep of that file for
+`unretriev|unverif|not verified|caveat|flagged` returned **0 hits** — and listed `verizon-dbir` in
+its `sources:` headers like any retrievable source. To a learner they read as verified. All three
+sites now carry the unverifiability note in place, and the knowledge-check answer says explicitly
+that the ordering is the answer, not the percentages.
+
+**Accepted limits, recorded not fixed** (now in `questions/README.md` under "What it demonstrably
+misses"): the exam papers are never inspected by any check — `check-bank` reads only the generated
+`exams/index.json`, and truncating it from 16 exams to 1 or forging its key positions both pass
+green; four mutually indistinguishable options pass; near-duplicate detection is lexical, so three
+substitutions drop similarity from 1.00 to 0.571; provenance relations are enforced only for
+`confusable`; `q-length-cue` compares against the distractor mean rather than the longest.
+
+**Rejected, with reasons:** the `q-verdict-coverage` accidental-pass path (false, above). The
+"ten exams" figures in the plan and spec (historical drift inside superseded planning documents,
+recorded but not edited — the artifact is 16 and `check-bank` agrees). The "every file within +/-1
+point" shape claim (reproduces on rounded points, 22 of 22; the raw-percentage reading gives 15 of
+22 with a 2.0-point maximum — ambiguous wording, not a wrong number). The spec's invariant that all
+comparison-block owners are depth 3+ (now false because the new `gap-analysis` block owns at depth
+2 — genuine spec-vs-reality drift, no harness enforces it, recorded here rather than silently
+"fixed" by moving a concept's depth). Six of lens 7's sourcing observations were already recorded
+as explicit limits inside the items themselves and needed no change.
+
+**Coverage the review itself reports as missing:** lens 2 reached 60 of 1,150 items (5.2%), though
+that is 65% of all depth-4/5 items; lens 3 reached all 339 `confusable` distractors but swept
+neither `misconception` (907) nor `variant` (43); lens 7 sampled 44 items for the uncited-source
+constraint and content-asserted 5 of ~660 sources; the ISO half of four compliance items could not
+be content-asserted because `iso.org` returns a JS-rendered shell; ~50 gnu.org-hosted sources went
+unchecked because that host was unreachable for the entire session. Lens 4 did not test whether
+`data/` itself can be mutated to relax the derived allocations, which it names as the most likely
+remaining accidental-pass surface.
 
 ### What the last three commits of cycle 2 actually did, recorded late
 
