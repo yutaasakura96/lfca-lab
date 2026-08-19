@@ -16,7 +16,7 @@ taken to the point where the reader can name what the concept is *not*.
 
 <a id="c-sysadmin.networking.osi-model"></a>
 ### OSI model
-*id: `sysadmin.networking.osi-model` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: itu-t-x200-osi-basic-reference-model*
+*id: `sysadmin.networking.osi-model` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: itu-t-x200-osi-basic-reference-model-pdf*
 
 **What it is** A seven-layer reference model for how communication functions stack: 1
 Physical, 2 Data Link, 3 Network, 4 Transport, 5 Session, 6 Presentation, 7 Application. It
@@ -70,7 +70,7 @@ Everything else in the table follows from that.
 
 <a id="c-sysadmin.networking.tcp-ip-model"></a>
 ### TCP/IP model
-*id: `sysadmin.networking.tcp-ip-model` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-1122-host-requirements, itu-t-x200-osi-basic-reference-model*
+*id: `sysadmin.networking.tcp-ip-model` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-1122-host-requirements, itu-t-x200-osi-basic-reference-model-pdf*
 
 **What it is** The four-layer model the internet is genuinely built on, as set out in RFC
 1122's host requirements: link, internet, transport, application. Every host on the internet
@@ -737,7 +737,7 @@ short table, and reading the default route out of both `ip route` and `route -n`
 
 <a id="c-sysadmin.networking.router-vs-switch"></a>
 ### Router vs switch
-*id: `sysadmin.networking.router-vs-switch` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-1122-host-requirements, ieee-802-1q*
+*id: `sysadmin.networking.router-vs-switch` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: rfc-1122-host-requirements, rfc-1812-router-requirements*
 
 **What it is** A switch forwards frames within one network by MAC address, at layer 2. A
 router forwards packets between networks by IP address, at layer 3. Both "move traffic", which
@@ -823,7 +823,7 @@ and rejecting "NAT secures the network" as a security control in its own right.
 
 <a id="c-sysadmin.networking.vlan"></a>
 ### VLAN
-*id: `sysadmin.networking.vlan` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: ieee-802-1q*
+*id: `sysadmin.networking.vlan` · depth 2 · importance 4 · LFS200: NOT COVERED · sources: rfc-5517-private-vlans*
 
 **What it is** A Virtual LAN is a logical grouping of ports and devices into a separate
 broadcast domain, independent of where they physically sit. One switch can host several
@@ -1907,7 +1907,7 @@ nothing about either on its own.
 
 <a id="c-sysadmin.networking.firewall"></a>
 ### Firewall
-*id: `sysadmin.networking.firewall` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: netfilter-documentation*
+*id: `sysadmin.networking.firewall` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: nist-sp-800-41r1, man-iptables-8*
 
 **What it is** A policy engine that decides, packet by packet, what is allowed through, based
 on source and destination address, port, protocol, interface and — on a stateful firewall —
@@ -1966,7 +1966,7 @@ and ufw, firewalld and iptables are three ways of telling one kernel to do it.
 
 <a id="c-sysadmin.networking.ufw-firewalld-and-iptables"></a>
 ### ufw, firewalld and iptables
-*id: `sysadmin.networking.ufw-firewalld-and-iptables` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: netfilter-documentation, firewalld-documentation*
+*id: `sysadmin.networking.ufw-firewalld-and-iptables` · depth 3 · importance 4 · LFS200: NOT COVERED · sources: man-iptables-nft-8, ubuntu-ufw-man, firewalld-documentation*
 
 **What it is** Three names at two different levels. `iptables` is the classic rule-level
 interface to the kernel's packet filter; `ufw` (Uncomplicated Firewall) is the simplified

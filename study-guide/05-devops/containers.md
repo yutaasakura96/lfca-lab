@@ -16,7 +16,7 @@ image (layers, tag) → registry → runtime on a node → pod → Deployment �
 
 <a id="c-devops.containers.container"></a>
 ### Container
-*id: `devops.containers.container` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: docker-overview, cncf-glossary*
+*id: `devops.containers.container` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: docker-overview, cncf-glossary-container*
 
 **What it is** A container is a process — sometimes a small group of processes — running on the
 host's own kernel with its view of the system deliberately narrowed, packaged together with the
@@ -79,7 +79,7 @@ instances plus the network and storage they share.
 
 <a id="c-devops.containers.container-image"></a>
 ### Container image
-*id: `devops.containers.container-image` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, oci-image-spec-config, cncf-glossary*
+*id: `devops.containers.container-image` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, oci-image-spec-config, docker-image-layers*
 
 **What it is** The immutable, read-only template a container is created from: a stack of
 filesystem layers plus a configuration object recording the default command, environment
@@ -567,7 +567,7 @@ filesystem or configuration — and recognising the stdout/stderr logging conven
 
 <a id="c-devops.containers.stateless-vs-stateful-containers"></a>
 ### Stateless vs stateful containers
-*id: `devops.containers.stateless-vs-stateful-containers` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.containers.stateless-vs-stateful-containers` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-stateless-apps, cncf-glossary-stateful-apps*
 
 **What it is** A stateless container keeps nothing that has to outlive it: every instance is
 interchangeable, any instance can serve any request, and killing one costs nothing but the
@@ -757,7 +757,7 @@ differs, the image format does not.
 
 <a id="c-devops.containers.container-orchestration"></a>
 ### Container orchestration
-*id: `devops.containers.container-orchestration` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, k8s-architecture*
+*id: `devops.containers.container-orchestration` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-container-orchestration, k8s-architecture*
 
 **What it is** Automating the placement, scaling, networking, health-checking and restart of
 containers across many hosts treated as a single pool. It answers questions a container engine on
@@ -813,7 +813,7 @@ once, an orchestrator schedules across many machines and never stops reconciling
 
 <a id="c-devops.containers.kubernetes"></a>
 ### Kubernetes
-*id: `devops.containers.kubernetes` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-steering-charter, cncf-charter, cncf-who-we-are, cncf-glossary*
+*id: `devops.containers.kubernetes` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-steering-charter, cncf-charter, cncf-who-we-are, cncf-project-kubernetes*
 
 **What it is** The dominant open source container orchestrator. Two facts about its standing are
 routinely confused and both are examinable: it is *hosted by* the CNCF as a graduated project,

@@ -16,7 +16,7 @@ which is exactly the shape the questions take.
 
 <a id="c-devops.devops-basics.devops"></a>
 ### DevOps
-*id: `devops.devops-basics.devops` · depth 2 · importance 1 · LFS200: FULLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.devops` · depth 2 · importance 1 · LFS200: FULLY COVERED · sources: cncf-glossary-devops*
 
 **What it is** A methodology in which one team owns the whole path from application
 development through to production operations, rather than handing work between a development
@@ -40,7 +40,7 @@ that made them.
 
 <a id="c-devops.devops-basics.silos-and-shared-responsibility"></a>
 ### Silos and shared responsibility
-*id: `devops.devops-basics.silos-and-shared-responsibility` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, google-sre-book-embracing-risk*
+*id: `devops.devops-basics.silos-and-shared-responsibility` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-devops, google-sre-book-embracing-risk*
 
 **What it is** The problem DevOps exists to address: a development group measured on shipping
 change and an operations group measured on keeping things stable, each rational on its own
@@ -64,7 +64,7 @@ are the people paged when it misbehaves, which changes what they choose to write
 
 <a id="c-devops.devops-basics.feedback-loops"></a>
 ### Feedback loops
-*id: `devops.devops-basics.feedback-loops` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.feedback-loops` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: fowler-continuous-integration*
 
 **What it is** The time between making a change and learning its effect. Shortening that
 interval is the mechanism that makes small, frequent releases safer than large, rare ones —
@@ -86,7 +86,7 @@ and shortening the outer ones is what shift left and continuous delivery are bot
 
 <a id="c-devops.devops-basics.shift-left"></a>
 ### Shift left
-*id: `devops.devops-basics.shift-left` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.shift-left` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-shift-left*
 
 **What it is** Moving testing, security, and other quality practices earlier in the software
 lifecycle — "left" being earlier on a timeline drawn left to right — rather than performing
@@ -152,7 +152,7 @@ from the delivery-focused work the product teams now own end to end.
 
 <a id="c-devops.devops-basics.continuous-integration"></a>
 ### Continuous integration
-*id: `devops.devops-basics.continuous-integration` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.continuous-integration` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary-continuous-integration*
 
 **What it is** The practice of integrating code changes into a shared branch as regularly as
 possible, with an automated build and test run triggered by every change. The process
@@ -206,7 +206,7 @@ meaningfully having the other.
 
 <a id="c-devops.devops-basics.continuous-delivery"></a>
 ### Continuous delivery
-*id: `devops.devops-basics.continuous-delivery` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.continuous-delivery` · depth 3 · importance 1 · LFS200: FULLY COVERED · sources: cncf-glossary-continuous-delivery*
 
 **What it is** A set of practices in which every change that passes the pipeline is
 automatically deployed into an acceptance environment and is therefore *releasable* at any
@@ -256,7 +256,7 @@ person, and continuous deployment walks it through.
 
 <a id="c-devops.devops-basics.continuous-deployment"></a>
 ### Continuous deployment
-*id: `devops.devops-basics.continuous-deployment` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.continuous-deployment` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary-continuous-deployment*
 
 **What it is** Continuous deployment goes a step further than continuous delivery by deploying
 finished software directly to production. Every change that passes the pipeline reaches real
@@ -290,7 +290,7 @@ rollout, rehearsed rollback) continuous deployment presupposes.
 
 <a id="c-devops.devops-basics.pipeline"></a>
 ### Pipeline
-*id: `devops.devops-basics.pipeline` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary, gitlab-ci-yaml*
+*id: `devops.devops-basics.pipeline` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: jenkins-pipeline-doc, gitlab-ci-yaml*
 
 **What it is** The automated sequence of stages a change passes through: build, test, package,
 deploy. It is a concrete, configured object — a definition file in a repository, a set of jobs
@@ -325,7 +325,7 @@ implementing.
 
 <a id="c-devops.devops-basics.build-and-artifact"></a>
 ### Build and artifact
-*id: `devops.devops-basics.build-and-artifact` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, twelve-factor-build-release-run*
+*id: `devops.devops-basics.build-and-artifact` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: twelve-factor-build-release-run*
 
 **What it is** The build is the act of compiling or packaging source into an artifact — a jar,
 a wheel, a tarball, a container image — and the artifact is that produced, versioned, deployable
@@ -348,7 +348,7 @@ per environment.
 
 <a id="c-devops.devops-basics.automated-testing"></a>
 ### Automated testing
-*id: `devops.devops-basics.automated-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.automated-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: google-sre-book-testing-reliability*
 
 **What it is** Unit, integration, and end-to-end tests executed by the pipeline rather than by
 a person. The three names describe scope, not tooling: a unit test exercises one function or
@@ -373,7 +373,7 @@ in someone's queue.
 
 <a id="c-devops.devops-basics.artifact-registry"></a>
 ### Artifact registry
-*id: `devops.devops-basics.artifact-registry` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, cncf-glossary*
+*id: `devops.devops-basics.artifact-registry` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, docker-what-is-a-registry*
 
 **What it is** A store for built artifacts and container images, versioned so that a specific
 build can be retrieved and redeployed later. A registry holds outputs; a source-code repository
@@ -420,7 +420,7 @@ and build metadata after a `+` is ignored entirely when comparing precedence.
 
 <a id="c-devops.devops-basics.ci-cd-tooling"></a>
 ### CI/CD tooling
-*id: `devops.devops-basics.ci-cd-tooling` · depth 2 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary, terraform-intro, ansible-getting-started, jenkins-pipeline-doc*
+*id: `devops.devops-basics.ci-cd-tooling` · depth 2 · importance 1 · LFS200: PARTIALLY COVERED · sources: terraform-intro, ansible-getting-started, jenkins-pipeline-doc*
 
 **What it is** The common implementations, grouped by the job they do. Pipeline and CI servers:
 GitHub Actions and GitLab CI, both built into their hosting platform and driven by a definition
@@ -485,7 +485,7 @@ than being rebuilt from source.
 
 <a id="c-devops.devops-basics.deployment-environments"></a>
 ### Deployment environments
-*id: `devops.devops-basics.deployment-environments` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, twelve-factor-dev-prod-parity*
+*id: `devops.devops-basics.deployment-environments` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: twelve-factor-dev-prod-parity*
 
 **What it is** The ladder a change climbs: development, testing, staging, production, each
 closer to real conditions than the last. Development is where code is written and broken
@@ -509,7 +509,7 @@ not a detail to forget.
 
 <a id="c-devops.devops-basics.blue-green-deployment"></a>
 ### Blue-green deployment
-*id: `devops.devops-basics.blue-green-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, fowler-blue-green-deployment*
+*id: `devops.devops-basics.blue-green-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-blue-green-deployment, fowler-blue-green-deployment*
 
 **What it is** A strategy for updating a running system with minimal downtime by maintaining
 two environments, conventionally called blue and green. One serves production traffic while
@@ -560,7 +560,7 @@ versions.
 
 <a id="c-devops.devops-basics.canary-release"></a>
 ### Canary release
-*id: `devops.devops-basics.canary-release` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, fowler-canary-release*
+*id: `devops.devops-basics.canary-release` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-canary-deployment, fowler-canary-release*
 
 **What it is** A strategy that starts with two environments — one carrying live traffic, one
 running the updated code with none — and then moves traffic gradually from the old version to
@@ -596,7 +596,7 @@ without metrics on the canary slice cannot do the job it is chosen for.
 
 <a id="c-devops.devops-basics.rolling-deployment"></a>
 ### Rolling deployment
-*id: `devops.devops-basics.rolling-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, k8s-deployment*
+*id: `devops.devops-basics.rolling-deployment` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: k8s-deployment*
 
 **What it is** Replacing running instances with the new version in batches, scaling the old set
 down as the new set comes up, so the service stays available throughout. It is the default
@@ -636,7 +636,7 @@ mixed-version window as the risk it introduces.
 
 <a id="c-devops.devops-basics.rollback"></a>
 ### Rollback
-*id: `devops.devops-basics.rollback` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-deployment, cncf-glossary, fowler-blue-green-deployment*
+*id: `devops.devops-basics.rollback` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: k8s-deployment, fowler-blue-green-deployment*
 
 **What it is** Returning a system to the previous known-good version. A deployment strategy
 without a rehearsed rollback is incomplete: every strategy above is chosen partly for how
@@ -660,7 +660,7 @@ revision is pruned from that history, rolling back to it is no longer possible.
 
 <a id="c-devops.devops-basics.developer-environments-and-parity"></a>
 ### Developer environments and parity
-*id: `devops.devops-basics.developer-environments-and-parity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, cncf-glossary, twelve-factor-dev-prod-parity*
+*id: `devops.devops-basics.developer-environments-and-parity` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: docker-overview, twelve-factor-dev-prod-parity*
 
 **What it is** Keeping the environment a developer works in close enough to production that
 "works on my machine" stops being a defence. Containers are one common way to achieve it: an
@@ -765,7 +765,7 @@ artifact staging already ran, only configuration differing.
 
 <a id="c-devops.devops-basics.infrastructure-as-code"></a>
 ### Infrastructure as code
-*id: `devops.devops-basics.infrastructure-as-code` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.infrastructure-as-code` · depth 3 · importance 1 · LFS200: PARTIALLY COVERED · sources: cncf-glossary-iac*
 
 **What it is** The practice of storing the definition of infrastructure as one or more
 version-controlled files, replacing a model in which servers, networks, and load balancers are
@@ -803,7 +803,7 @@ re-running it converges on a declared state rather than repeating an action.
 
 <a id="c-devops.devops-basics.idempotency-in-automation"></a>
 ### Idempotency in automation
-*id: `devops.devops-basics.idempotency-in-automation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary, ansible-getting-started*
+*id: `devops.devops-basics.idempotency-in-automation` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-idempotence, ansible-getting-started*
 
 **What it is** The property of an operation that always leads to the same outcome no matter how
 many times it is executed: given the same parameters, running it repeatedly has no additional
@@ -871,7 +871,7 @@ be found at all.
 
 <a id="c-devops.devops-basics.monolith-vs-microservices"></a>
 ### Monolith vs microservices
-*id: `devops.devops-basics.monolith-vs-microservices` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `devops.devops-basics.monolith-vs-microservices` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-monolithic-apps, cncf-glossary-microservices-architecture*
 
 **What it is** Two architectural shapes distinguished by one thing: how many independently
 deployable units the application has. A monolithic application contains all its functionality

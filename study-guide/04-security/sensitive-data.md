@@ -151,7 +151,7 @@ has labelled it or not.
 
 <a id="c-security.sensitive-data.data-states"></a>
 ### Data states
-*id: `security.sensitive-data.data-states` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-57p1r5, nist-csrc-glossary*
+*id: `security.sensitive-data.data-states` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-57p1r5, nist-sp-800-53r5, nist-glossary-encryption*
 
 **What it is** Three states data can be in, each needing its own control. At rest is data
 sitting on storage — the discussion under NIST SP 800-53's SC-28 describes it as the state of
@@ -231,7 +231,7 @@ of them.
 
 <a id="c-security.sensitive-data.access-control-models"></a>
 ### Access control models
-*id: `security.sensitive-data.access-control-models` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-162, nist-csrc-glossary*
+*id: `security.sensitive-data.access-control-models` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-162, nist-glossary-dac, nist-glossary-mac, nist-glossary-rbac*
 
 **What it is** Three named models for deciding who may do what. Under discretionary access
 control (DAC), a subject granted access may pass that information or those privileges on to

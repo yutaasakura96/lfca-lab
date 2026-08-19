@@ -82,7 +82,7 @@ store to data — and recognising that physical host count is irrelevant to the 
 
 <a id="c-pm.software-application-architecture.monolithic-architecture"></a>
 ### Monolithic architecture
-*id: `pm.software-application-architecture.monolithic-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary*
+*id: `pm.software-application-architecture.monolithic-architecture` · depth 3 · importance 1 · LFS200: NOT COVERED · sources: cncf-glossary-monolithic-apps*
 
 **What it is** An application built and released as one deployable unit: all of its modules
 compile, package, and ship together, and a change to any one of them typically requires
@@ -117,7 +117,7 @@ having made it something else.
 
 <a id="c-pm.software-application-architecture.microservices"></a>
 ### Microservices
-*id: `pm.software-application-architecture.microservices` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary*
+*id: `pm.software-application-architecture.microservices` · depth 3 · importance 1 · LFS200: MENTIONED ONLY · sources: cncf-glossary-microservices-architecture*
 
 **What it is** An architecture in which an application is split into services that are
 independently deployable, communicate over the network, and each own their data. LFS200 names

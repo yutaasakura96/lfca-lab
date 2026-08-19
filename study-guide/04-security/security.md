@@ -16,7 +16,7 @@ discriminating between terms that sound interchangeable and are not.
 
 <a id="c-security.security.cia-triad"></a>
 ### CIA triad
-*id: `security.security.cia-triad` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, nist-sp-800-53r5*
+*id: `security.security.cia-triad` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-confidentiality, nist-glossary-availability, nist-sp-800-53r5*
 
 **What it is** The three properties every security control ultimately serves:
 confidentiality (only authorised parties can read the data), integrity (the data has not
@@ -53,7 +53,7 @@ server), name the leg of the triad it serves or violates.
 
 <a id="c-security.security.authentication-vs-authorization"></a>
 ### Authentication vs authorization
-*id: `security.security.authentication-vs-authorization` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, nist-sp-800-63b-4*
+*id: `security.security.authentication-vs-authorization` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary-authentication, nist-csrc-glossary-authorization, nist-sp-800-63b-4*
 
 **What it is** Authentication establishes *who you are* by verifying evidence bound to an
 identity. Authorization decides *what that identity may do* against a specific resource.
@@ -101,7 +101,7 @@ fourth thing at all — it acts at the same moment as authentication, only harde
 
 <a id="c-security.security.accounting-and-auditing"></a>
 ### Accounting and auditing
-*id: `security.security.accounting-and-auditing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, nist-sp-800-53r5*
+*id: `security.security.accounting-and-auditing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary-audit, nist-csrc-glossary-accountability, nist-sp-800-53r5*
 
 **What it is** The third A of AAA: recording what an authenticated identity actually did —
 which resource, which action, at what time, from where — and reviewing those records.
@@ -136,7 +136,7 @@ that a scenario asking "how would we know this happened" is an accounting questi
 
 <a id="c-security.security.principle-of-least-privilege"></a>
 ### Principle of least privilege
-*id: `security.security.principle-of-least-privilege` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, nist-sp-800-53r5*
+*id: `security.security.principle-of-least-privilege` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
 
 **What it is** Granting each identity — human account, service account, or process — exactly
 the access its task requires and nothing beyond it, for no longer than it needs it. The
@@ -170,7 +170,7 @@ never revoked), and separating it from a layering question.
 
 <a id="c-security.security.defense-in-depth"></a>
 ### Defense in depth
-*id: `security.security.defense-in-depth` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, nist-sp-800-53r5*
+*id: `security.security.defense-in-depth` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
 
 **What it is** Layering multiple, *independent* controls so that the failure or bypass of any
 one of them does not by itself expose the asset. The independence is the substance of the
@@ -217,7 +217,7 @@ them. Both shrink impact, but along different dimensions.
 
 <a id="c-security.security.zero-trust"></a>
 ### Zero trust
-*id: `security.security.zero-trust` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-207, nist-csrc-glossary*
+*id: `security.security.zero-trust` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-207*
 
 **What it is** An architectural approach that grants no request implicit trust on the basis
 of where it came from. Being inside the corporate network, on a VPN, or in the same subnet
@@ -239,7 +239,7 @@ verification.
 
 <a id="c-security.security.attack-surface"></a>
 ### Attack surface
-*id: `security.security.attack-surface` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, nist-csrc-glossary*
+*id: `security.security.attack-surface` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5*
 
 **What it is** The total set of points at which an attacker can attempt to interact with a
 system: listening network ports, exposed APIs and web endpoints, installed packages, running
@@ -287,7 +287,7 @@ what remains exposed.
 
 <a id="c-security.security.risk-threat-and-vulnerability"></a>
 ### Risk, threat and vulnerability
-*id: `security.security.risk-threat-and-vulnerability` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-30r1, nist-csrc-glossary*
+*id: `security.security.risk-threat-and-vulnerability` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-30r1*
 
 **What it is** Three terms used loosely in conversation and precisely in exams. A
 vulnerability is a weakness in a system, control, or procedure. A threat is a circumstance or
@@ -423,7 +423,7 @@ does (raises the cost of every single guess).
 
 <a id="c-security.security.single-sign-on"></a>
 ### Single sign-on
-*id: `security.security.single-sign-on` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary*
+*id: `security.security.single-sign-on` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-63c-4*
 
 **What it is** One authentication event at a central identity provider granting access to
 many separate applications, without the user re-entering credentials at each one.
@@ -582,7 +582,7 @@ this table exists to prevent.
 
 <a id="c-security.security.encryption-at-rest-vs-in-transit"></a>
 ### Encryption at rest vs in transit
-*id: `security.security.encryption-at-rest-vs-in-transit` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-57p1r5, nist-csrc-glossary*
+*id: `security.security.encryption-at-rest-vs-in-transit` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-57p1r5, nist-glossary-encryption*
 
 **What it is** Two separate controls covering two separate exposures. Encryption at rest
 protects data written to storage — disks, backups, object storage, database files.
@@ -602,7 +602,7 @@ asymmetry, since at-rest encryption authenticates nobody.
 
 <a id="c-security.security.hashing"></a>
 ### Hashing
-*id: `security.security.hashing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, owasp-password-storage*
+*id: `security.security.hashing` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-hash-function, owasp-password-storage*
 
 **What it is** A one-way function producing a fixed-length digest from input of any size. The
 same input always produces the same digest, a one-bit change produces a completely different
@@ -839,7 +839,7 @@ cannot undo it.
 
 <a id="c-security.security.phishing-and-social-engineering"></a>
 ### Phishing and social engineering
-*id: `security.security.phishing-and-social-engineering` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary, verizon-dbir*
+*id: `security.security.phishing-and-social-engineering` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-phishing, verizon-dbir*
 
 **What it is** Attacks that manipulate a person into acting against their own interest —
 revealing a credential, approving a transfer, running an attachment, or clicking an MFA
@@ -877,7 +877,7 @@ avoiding unsupported "most common attack" claims.
 
 <a id="c-security.security.malware-and-ransomware"></a>
 ### Malware and ransomware
-*id: `security.security.malware-and-ransomware` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary*
+*id: `security.security.malware-and-ransomware` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-malware, nist-glossary-virus, nist-glossary-worm, nist-glossary-trojan-horse, nist-glossary-rootkit*
 
 **What it is** Malware is any software written to cause harm or gain unauthorised access —
 viruses, worms, trojans, rootkits, spyware, cryptominers. Ransomware is the subset that
@@ -911,7 +911,7 @@ not recover.
 
 <a id="c-security.security.denial-of-service"></a>
 ### Denial of service
-*id: `security.security.denial-of-service` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary*
+*id: `security.security.denial-of-service` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-glossary-denial-of-service*
 
 **What it is** An attack that exhausts a resource — bandwidth, connections, CPU, memory,
 disk, or an application-level limit — so that legitimate users cannot be served. It is
@@ -958,7 +958,7 @@ therefore leaves the data itself in question.
 
 <a id="c-security.security.man-in-the-middle"></a>
 ### Man-in-the-middle
-*id: `security.security.man-in-the-middle` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: rfc-8446-tls13, nist-csrc-glossary*
+*id: `security.security.man-in-the-middle` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: rfc-8446-tls13, nist-glossary-mitm*
 
 **What it is** An attacker positioned between two communicating parties, relaying and
 potentially altering traffic while each side believes it is talking directly to the other.
@@ -1053,7 +1053,7 @@ scripting.
 
 <a id="c-security.security.privilege-escalation"></a>
 ### Privilege escalation
-*id: `security.security.privilege-escalation` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: nist-csrc-glossary*
+*id: `security.security.privilege-escalation` · depth 2 · importance 2 · LFS200: NOT COVERED · sources: mitre-attack-privilege-escalation, owasp-wstg-privilege-escalation*
 
 **What it is** Turning access you already have into more access than you were granted.
 Vertical escalation moves up — an ordinary user becoming root or administrator. Horizontal
@@ -1136,7 +1136,7 @@ undoes the encryption but not the breach of confidentiality.
 
 <a id="c-security.security.vulnerabilities-cves-and-patching"></a>
 ### Vulnerabilities, CVEs and patching
-*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cve-program-overview, nist-glossary-cve, verizon-dbir, first-cvss-v31*
+*id: `security.security.vulnerabilities-cves-and-patching` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-40r4, nist-glossary-cve, verizon-dbir, first-cvss-v31*
 
 **What it is** A publicly known software weakness is catalogued under the CVE Program with a
 unique identifier of the form CVE-YYYY-NNNN, where the sequence number is four or more
@@ -1553,7 +1553,7 @@ and identifying why a digest published beside the download adds little.
 
 <a id="c-security.security.vulnerability-scanning"></a>
 ### Vulnerability scanning
-*id: `security.security.vulnerability-scanning` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, cve-program-overview, first-cvss-v31*
+*id: `security.security.vulnerability-scanning` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: nist-sp-800-53r5, first-cvss-v31*
 
 **What it is** Systematically probing hosts, applications, container images, and
 configurations against a database of known weaknesses, on a schedule or as a build-pipeline
