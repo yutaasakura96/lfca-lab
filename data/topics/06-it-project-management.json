@@ -1827,7 +1827,7 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "istqb-standard-glossary-v2.2"
+        "swebok-v3"
       ],
       "candidate_evidence": [],
       "commands": [],

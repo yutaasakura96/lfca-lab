@@ -99,7 +99,7 @@ Study it: [02-system-administration/best-practices.md#c-sysadmin.best-practices.
 
 *cloud.best-practices.right-size-before-you-scale · Cloud Computing Fundamentals :: Best Practices · depth 2 · application*
 
-Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher price per unit, which is the documented failure mode of scaling before correcting the unit.
+Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher total cost for the same useful work — the per-unit rate is unchanged — which is the documented failure mode of scaling before correcting the unit.
 
 - **A.** Autoscaling adjusts how many instances run, not the type or size of the instance itself.
 - **B.** Reserved pricing is a separate purchasing decision; enabling autoscaling does not change the rate charged per instance.

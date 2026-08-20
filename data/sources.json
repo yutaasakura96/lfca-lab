@@ -2929,18 +2929,6 @@
       "notes": "Primary documentation consulted during stage 5 concept verification."
     },
     {
-      "id": "vmware-hypervisor",
-      "title": "What is a Hypervisor? (type 1 vs type 2)",
-      "url": "https://www.vmware.com/topics/hypervisor",
-      "organization": "VMware / Broadcom",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-10",
-      "category": "primary-documentation",
-      "authority_tier": 3,
-      "notes": "Primary documentation consulted during stage 5 concept verification."
-    },
-    {
       "id": "scrum-guide-2020",
       "title": "The Scrum Guide (November 2020)",
       "url": "https://scrumguides.org/scrum-guide.html",
@@ -3359,18 +3347,6 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "States that requirements management maintains bidirectional traceability 'between stakeholder expectations, customer requirements, technical product requirements, product component requirements, design documents, and test plans and procedures.'"
-    },
-    {
-      "id": "istqb-standard-glossary-v2.2",
-      "title": "Standard Glossary of Terms Used in Software Testing, Version 2.2",
-      "url": "https://glossary.istqb.org/en_US/term/user-acceptance-testing",
-      "organization": "International Software Testing Qualifications Board (ISTQB)",
-      "published": "2012-10",
-      "updated": null,
-      "accessed": "2026-08-11",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Cross-references user acceptance testing to acceptance testing, defined as testing 'with respect to user needs ... to enable the user, customers or other authorized entity to determine whether or not to accept the system' (after IEEE 610)."
     },
     {
       "id": "nasa-wbs-handbook-sp-2016-3404-rev1",
@@ -5507,18 +5483,6 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "Fetched and read during task 53b verification (verify-security-b)."
-    },
-    {
-      "id": "sudo-man",
-      "title": "sudo(8) manual page",
-      "url": "https://man.openbsd.org/sudo",
-      "organization": "OpenBSD / Sudo project",
-      "published": null,
-      "updated": null,
-      "accessed": "2026-08-18",
-      "category": "primary-documentation",
-      "authority_tier": 2,
-      "notes": "Added by task 53a verification: the least-privilege question turning on per-command elevation cited no source documenting sudo."
     },
     {
       "id": "gnupg-manual-verify",

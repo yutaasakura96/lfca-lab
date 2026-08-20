@@ -664,7 +664,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "nist-sp-800-53r5",
-        "sudo-man"
+        "sudo-man-sudo"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.principle-of-least-privilege",
       "comparison_block": null,
@@ -738,7 +738,7 @@
       "source_ids": [
         "lf-objectives-2025",
         "nist-sp-800-53r5",
-        "sudo-man"
+        "sudo-man-sudo"
       ],
       "guide_anchor": "04-security/security.md#c-security.security.principle-of-least-privilege",
       "comparison_block": null,

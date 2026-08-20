@@ -426,7 +426,7 @@ Study it: [02-system-administration/networking.md#c-sysadmin.networking.static-v
 
 *linux.command-line.root-directory-vs-root-vs-home · Linux Fundamentals :: Command Line · depth 3 · diagnostic*
 
-An unprivileged user typing `cd /root` normally gets "Permission denied" rather than "No such file or directory," because the directory exists and is conventionally mode 700 — the error message itself distinguishes the two situations.
+An unprivileged user typing `cd /root` normally gets "Permission denied" rather than "No such file or directory," because the directory exists and ships with a restrictive mode — 700 on Debian-derived systems, 550 on Red Hat-derived ones — so the error message itself distinguishes the two situations.
 
 - **A.** The two messages correspond to different failures on Linux: one means the target is not there, the other means it is there but access was refused.
 - **B.** A missing path produces "No such file or directory", not "Permission denied", so this error confirms the opposite — the directory is present.

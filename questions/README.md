@@ -19,7 +19,7 @@ Every file there carries a generated-file notice at the top.
 | Items | **1,150** — 1,000 exam pool + 150 supplement |
 | Concepts covered | **537 of 537** |
 | Comparison blocks named | **131 of 131** |
-| Registered sources | 668 |
+| Registered sources | 665 |
 
 **The 1,000-item exam pool follows the exam's own weight table exactly, with no residual** —
 each domain holds `weight × 10` items: Linux Fundamentals 160 (16%), System Administration 300

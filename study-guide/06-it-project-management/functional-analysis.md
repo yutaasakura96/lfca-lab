@@ -434,7 +434,7 @@ acceptance.
 
 <a id="c-pm.functional-analysis.user-acceptance-testing"></a>
 ### User acceptance testing
-*id: `pm.functional-analysis.user-acceptance-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: istqb-standard-glossary-v2.2*
+*id: `pm.functional-analysis.user-acceptance-testing` · depth 2 · importance 1 · LFS200: NOT COVERED · sources: swebok-v3*
 
 **What it is** Testing performed by the people who will actually use the system — or business
 representatives standing in for them — against their real work and agreed acceptance criteria,

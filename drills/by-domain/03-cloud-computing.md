@@ -409,7 +409,7 @@ A workload idles at 5% CPU on an oversized instance type. The team responds by a
 - **C.** More idle capacity at a higher cost for the same useful work, because scaling multiplies the number of units and every added unit carries the same waste the first one did.
 - **D.** A higher measured utilisation figure, because spreading the same load across more instances raises the per-instance CPU percentage that the report shows.
 
-**Answer: C.** Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher price per unit, which is the documented failure mode of scaling before correcting the unit.
+**Answer: C.** Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher total cost for the same useful work — the per-unit rate is unchanged — which is the documented failure mode of scaling before correcting the unit.
 
 - A is wrong: Autoscaling adjusts how many instances run, not the type or size of the instance itself.
 - B is wrong: Reserved pricing is a separate purchasing decision; enabling autoscaling does not change the rate charged per instance.

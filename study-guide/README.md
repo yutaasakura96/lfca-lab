@@ -162,7 +162,8 @@ The authoritative references for classical project management and business analy
 Guide, the PMI Lexicon, ISO 21500/21502, BABOK, ISO/IEC/IEEE 12207 and 29148 — are paywalled,
 and pmi.org and gao.gov refuse automated fetches. This was 52 before the cycle 3 waiver sourcing
 sprint (`docs/verification/waiver-sprint-2026-08-11.json`) cleared 30 of them against
-independent primary sources. The remainder is concentrated in IT Project Management (7 in
+independent primary sources, and 9 more fell during verification, when NASA SP-2016-6105
+settled six project-management concepts and the free SWEBOK Guide v3.0 settled three others. The remainder is concentrated in IT Project Management (7 in
 Project Management, 1 in Functional Analysis) and System Administration :: Best Practices (4),
 with the remaining 1 in Disaster Recovery. Every one of them carries a
 marker in place saying so, and its claims are hedged as consensus practice rather than stated as

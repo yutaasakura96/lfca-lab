@@ -1497,6 +1497,144 @@ unchecked because that host was unreachable for the entire session. Lens 4 did n
 `data/` itself can be mutated to relax the derived allocations, which it names as the most likely
 remaining accidental-pass surface.
 
+### The review-debt pass, 2026-08-21
+
+Task 60 left five named gaps: two lenses that died with nothing delivered, the coverage those
+lenses and lens 3 never reached, the `data/`-mutation surface lens 4 skipped, and the source
+content-assertion that reached 5 of ~660. This pass closed four of the five and measured the
+fifth. **It ran in one session with no subagents**, so every finding below was adjudicated by
+the same reader who produced it — a weaker independence guarantee than the wave protocol, and
+the reason the residue at the end of this section is stated rather than dismissed.
+
+**Lens 3, extended to the 907 `misconception` and 43 `variant` distractors it never swept —
+no killer defect.** Two mechanical axes, both corpus-wide over all 3,450 distractors. The
+concession axis (a distractor whose own `why` grants that it is also correct — the tell that
+caught `foreground-and-background-jobs.02` and `high-availability-vs-disaster-recovery.01`)
+returned **2 hits, neither conceding**. The similarity axis flagged 49 key/distractor pairs at
+Jaccard >= 0.45, including 11 at 1.00; **every one is a deliberate mirror or permutation**
+(`osi-model.03` lists the seven layers reordered; `load-balancer.04` swaps the layer 4 and
+layer 7 definitions), which the order-blind token metric cannot distinguish from a duplicate.
+A clean negative on both axes, and a second demonstration that the near-duplicate metric is
+lexical.
+
+**A convention I declined to convert into 51 edits.** 82 distractor `why` fields ground their
+falsification partly in "the guide states" or "the exam expects"; on a clause-level reading, 51
+lean on it heavily. Task 60 fixed one such instance (`ip-and-ifconfig.01` o4) — but that one
+*also conceded the technical claim*, and none of these 51 do. Fixing 2 of 51 because a regex
+surfaced those 2 would have been arbitrary. **Recorded as an unresolved style question for the
+owner, not applied**: in a bank keyed to a guide, "the guide states X, which is false because Y"
+may be legitimate pedagogy or may be a crutch, and that is a taste call, not a defect finding.
+
+**Lens 6 (Consistency), which died twice in Task 60, run mechanically — 3 confirmed, all the
+same defect.** The numeric axis (every number-noun pair in an item's stem, key and rationale
+against the prose at its own `guide_anchor` and its concept's `description`) produced 64
+candidates and **zero real conflicts** — all extraction artifacts. The second axis is the one
+Task 60 named and never swept: **`rationale` staleness**. Scanning every item for text its own
+`verification.reasoning` says was removed returned 17 candidates, of which **3 confirmed**:
+
+- `root-directory-vs-root-vs-home.03` — the verifier refuted the key's claim that `/root` "is
+  conventionally mode 700" as not universal (Debian 700, Red Hat 550) and fixed the key's `why`.
+  **The rationale still asserted it.**
+- `right-size-before-you-scale.01` — the verifier refuted "at a higher price per unit" as false
+  as written and fixed the key. **The rationale still carried the refuted phrase.**
+- `service.02` — o2's *text* was replaced with a new false claim (that `restart` re-reads the
+  unit file) and **its `why` was left rebutting the old one**, so the option's actual assertion
+  went unanswered.
+
+All three are the class Task 60 found three of and named as never swept: **a repair that reached
+the key and stopped**. Six instances now across two passes. The rationale field has never been
+under any check, and `q-rationale-complete` tests presence, not agreement.
+
+**Lens 4's untested surface — `data/` cannot be mutated to relax the allocations.** Three levers,
+each mutated against the real bank and reverted: forging the domain weight table
+(PM 10→11, Security 14→13) produced **22 errors** across `q-domain-distribution` and
+`q-count-derived`; lowering one concept's `required_depth` was caught by `q-difficulty-derived`;
+deleting a concept produced **7 errors**. The surface lens 4 called the most likely remaining
+accidental-pass path is defended. What no check can defend — and this is inherent, not a gap —
+is the weight table's own agreement with the Linux Foundation's published figures; that rests on
+the capture in `docs/verification/exam-facts-2026-08-11/`.
+
+**Lens 7, extended from 5 sources to all 668 — three dead citations, all fixed.** Every
+registered source was fetched and its extracted text measured. Three failed on content:
+
+| Source | What it returns | Was cited for |
+| --- | --- | --- |
+| `sudo-man` | **404** — the OpenBSD man server's not-found page | `principle-of-least-privilege` + 2 items |
+| `vmware-hypervisor` | 200 OK, **30 characters** — "What is a Hypervisor? \| VMware", body entirely JS | 3 cloud concepts, for type 1 vs type 2 |
+| `istqb-standard-glossary-v2.2` | 200 OK, **14 characters** — "ISTQB Glossary" | `user-acceptance-testing` + 1 item |
+
+Two more instances of the "200 OK and no content" class, and one plain dead link. Fixed by
+re-pointing rather than by weakening any claim: `sudo-man` → `sudo-man-sudo`
+(sudo.ws, already registered, 37 KB, carries "privilege" and "sudoers"); `vmware-hypervisor`
+dropped, with `redhat-what-is-a-hypervisor` (17 KB, verified to contain "type 1", "type 2" and
+"bare metal") already on two of the three concepts and added to `virtual-machine`;
+`istqb-standard-glossary-v2.2` → `swebok-v3`. The three records were deleted from the registry,
+which is the precedent set when the contentless ITU X.200 landing page was replaced. Registry
+668 → 665.
+
+**The ISTQB case is the sharper one, because the verifier had already caught it.**
+`user-acceptance-testing.01`'s own record says the glossary was unfetchable and that the claim
+was settled instead against the ISTQB CTFL v4.0.1 syllabus s2.2.1 — **and that syllabus was
+never registered, so the concept went on citing the 14-character page.** The syllabus PDF 404s
+at both plausible astqb.org paths and istqb.org's certification page carries no
+acceptance-testing text, so it was not registered now either. The citation rests on SWEBOK v3
+instead, verified to carry "Acceptance Tests" under Requirements Validation plus alpha and beta
+testing. **Recorded limit: SWEBOK v3 does not use the phrase "user acceptance testing"** — it
+supports the substance, not the label. A dated addendum saying so is in the item's own record.
+The general lesson is the one this project keeps relearning: **a verifier naming a better source
+does not put that source in `data/`.**
+
+**The proc(5) rot, checked corpus-wide as batch 3 demanded — already clean.** 11 concepts cite
+the proc family; all cite the split sub-pages (`proc_pid_status(5)`, `proc_cpuinfo(5)`,
+`proc_sys(5)`), and the two citing bare `proc(5)` want the filesystem overview it still carries.
+No further instances.
+
+**gnu.org is reachable again** — the coreutils manual answered 200 in 3.3 s, against the 20–25 s
+timeouts that cost Task 60 ~50 sources. Those sources are now fetched and non-empty.
+
+**What the sweep found that is not a defect but is not nothing.** `freedesktop.org` now returns
+**418 to every automated client**, browser User-Agent included — 14 systemd sources, and the
+only non-LFS200 citation for 8 concepts. The content is not gone: `manpages.debian.org` was
+checked and carries `systemd.unit(5)`, `systemctl(1)`, `systemd.service(5)`,
+`systemd.net-naming-scheme(7)` and `bootup(7)` with the exact cited strings (`Requires=`,
+`daemon-reload`, `Restart=`, `enp`, `basic.target`). **Deliberately not re-pointed**: upstream
+freedesktop is the canonical source and is fine in a browser, and swapping 14 canonical citations
+for a distribution's rendering is a decision with taste in it. Recorded for the owner with the
+remedy already evidenced. Also persistently bot-blocked: `docs.redhat.com` (403, 2 sources),
+`iso.org` (403, already known), `raw.githubusercontent.com` (429, transient). `agilealliance.org`
+and the cryptsetup wiki answer fine to a browser UA and were false alarms in the first pass.
+
+**Lens 5 (Claims), which delivered nothing in Task 60 — one confirmed.** Every number in
+`questions/README.md` was recomputed from `data/` and the artifacts and **all of them reproduce**:
+1,150 items, 1,000/150 pools, 537 concepts, 22 files, 131 comparison blocks, the six exam-pool
+domain counts at exactly weight x 10, the six all-pool totals, the five type counts, all four
+provenance counts, 16 x 60 consuming 960 with 40 unused, 29 drills, and the 14 items marked
+`waived_source`. `README.md`'s "18 checks" and "524 of them" and the guide's "380 command
+strings across 171 concepts" (380 entries, 282 distinct) all reproduce too.
+
+The one that did not: **`study-guide/README.md` said the waiver list "was 52 ... cleared 30",
+which lands on 22, in a paragraph whose own headline is 13.** The later 22 → 13 fall — NASA
+SP-2016-6105 settling six PM concepts, SWEBOK v3.0 settling three — is in this document and was
+never carried across. This is the *second* instance in that file of a task-59 edit applied to one
+line only; Task 60 confirmed the first and did not find this one. Corrected, along with the
+668 → 665 source count in two READMEs.
+
+**What this pass did NOT do, and what therefore stands.** **Lens 2 was not extended.** Re-deriving
+a key against its cited primary source is per-item semantic work; roughly 25 items were read
+closely in the course of adjudicating the sweeps above, which is not a Lens 2 pass and is not
+recorded as one. Task 60's 5.2% coverage of keys stands as the project's independent
+re-derivation rate. **The harness limits recorded in `questions/README.md` were left alone** —
+the exam papers are still never opened by any check, four indistinguishable options still pass,
+near-duplicate detection is still lexical. Those are owner-accepted limits, and this pass had no
+mandate to overturn them. **The PDF-hosted sources were not content-asserted**: 84 concepts rest
+on NIST, NASA, SWEBOK, OMG or OASIS PDFs, and the sweep measured only that they fetch. **And the
+whole pass was single-reader**, so it carries the weakness the wave protocol exists to remove.
+
+Gates after the pass: `npm test` 307/307; `npm run validate` 537 concepts, 0 errors, 15 warnings;
+`npm run check-guide` 537 definitions, 131 comparison blocks, 175 sections, 0 errors, 0 warnings;
+`npm run build-exams` 16 exams, 29 drills, 61 documents; `npm run check-bank` **0 errors,
+0 warnings** unscoped.
+
 ### What the last three commits of cycle 2 actually did, recorded late
 
 Cycle 2 ended with three commits that closed real work but were never written into this

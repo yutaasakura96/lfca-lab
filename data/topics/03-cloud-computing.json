@@ -399,7 +399,6 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-virtualization",
-        "vmware-hypervisor",
         "cncf-glossary-container",
         "redhat-what-is-a-hypervisor"
       ],
@@ -434,7 +433,6 @@
       ],
       "lfs200_sources": [],
       "additional_sources": [
-        "vmware-hypervisor",
         "cncf-glossary-virtualization",
         "redhat-what-is-a-hypervisor",
         "linux-kvm-main"
@@ -471,8 +469,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-virtualization",
-        "vmware-hypervisor",
-        "cncf-glossary-container"
+        "cncf-glossary-container",
+        "redhat-what-is-a-hypervisor"
       ],
       "candidate_evidence": [],
       "commands": [],

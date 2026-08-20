@@ -2122,7 +2122,7 @@
           }
         }
       ],
-      "rationale": "Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher price per unit, which is the documented failure mode of scaling before correcting the unit.",
+      "rationale": "Scaling multiplies whatever the unit costs, including its waste: autoscaling a workload that idles at 5% CPU on an oversized instance type buys more idle capacity at a higher total cost for the same useful work — the per-unit rate is unchanged — which is the documented failure mode of scaling before correcting the unit.",
       "source_ids": [
         "lf-objectives-2025",
         "aws-rightsizing-whitepaper",

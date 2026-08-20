@@ -4087,7 +4087,7 @@
           "ref": "o2",
           "text": "`restart`, since it is always the safer choice regardless of what changed — a restart re-reads the unit file and the application's own configuration in a single step, which reload cannot do",
           "correct": false,
-          "why": "Restart stops and starts the process, causing an interruption that a reload — when supported — avoids entirely for a configuration-only change.",
+          "why": "A plain `restart` does not re-read the unit file — only `daemon-reload` does — and it stops and starts the process, causing an interruption that a reload avoids when only the application configuration changed.",
           "provenance": {
             "kind": "misconception",
             "documented_at": "data:notes:sysadmin.system-administration.service"

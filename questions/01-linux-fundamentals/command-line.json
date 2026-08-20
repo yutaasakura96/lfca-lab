@@ -1378,7 +1378,7 @@
           }
         }
       ],
-      "rationale": "An unprivileged user typing `cd /root` normally gets \"Permission denied\" rather than \"No such file or directory,\" because the directory exists and is conventionally mode 700 — the error message itself distinguishes the two situations.",
+      "rationale": "An unprivileged user typing `cd /root` normally gets \"Permission denied\" rather than \"No such file or directory,\" because the directory exists and ships with a restrictive mode — 700 on Debian-derived systems, 550 on Red Hat-derived ones — so the error message itself distinguishes the two situations.",
       "source_ids": [
         "lf-objectives-2025",
         "fhs-3-0",

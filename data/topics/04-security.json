@@ -124,7 +124,7 @@
       "lfs200_sources": [],
       "additional_sources": [
         "nist-sp-800-53r5",
-        "sudo-man"
+        "sudo-man-sudo"
       ],
       "candidate_evidence": [],
       "commands": [],

@@ -305,7 +305,6 @@
 | isc-bind9-manpages | BIND 9 ARM: Manual pages (dig, host, nslookup) | Internet Systems Consortium | 2 | — | 2026-08-10 | https://bind9.readthedocs.io/en/latest/manpages.html |
 | isc-dhcpd-conf-manual | ISC DHCP 4.4 manual pages: dhcpd.conf | Internet Systems Consortium | 2 | — | 2026-08-10 | https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcpdconf |
 | iso-certification | ISO — Certification | ISO | 2 | — | 2026-08-17 | https://www.iso.org/certification.html |
-| istqb-standard-glossary-v2.2 | Standard Glossary of Terms Used in Software Testing, Version 2.2 | International Software Testing Qualifications Board (ISTQB) | 2 | 2012-10 | 2026-08-11 | https://glossary.istqb.org/en_US/term/user-acceptance-testing |
 | itu-t-x200-osi-basic-reference-model-pdf | ITU-T X.200 (07/94), free-to-read PDF: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model (identical text to ISO/IEC 7498-1:1994) | ITU-T (identical text published as ISO/IEC 7498-1:1994) | 2 | — | 2026-08-18 | https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.200-199407-I!!PDF-E&type=items |
 | jenkins-pipeline-doc | Jenkins Pipeline — Jenkins User Handbook | Jenkins project / CD Foundation | 2 | — | 2026-08-17 | https://www.jenkins.io/doc/book/pipeline/ |
 | k8s-architecture | Kubernetes Cluster Architecture — control plane (kube-apiserver, etcd, kube-scheduler, kube-controller-manager) plus worker nodes | Kubernetes / CNCF | 2 | — | 2026-08-10 | https://kubernetes.io/docs/concepts/architecture/ |
@@ -637,7 +636,6 @@
 | scrum-guide-2020 | The Scrum Guide (November 2020) | Ken Schwaber and Jeff Sutherland / Scrum.org | 2 | — | 2026-08-10 | https://scrumguides.org/scrum-guide.html |
 | selinux-man8 | selinux(8) manual page — NSA Security-Enhanced Linux overview | SELinux project / Linux man-pages | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man8/selinux.8.html |
 | semver | Semantic Versioning 2.0.0 — MAJOR for incompatible API changes, MINOR for backward-compatible features, PATCH for fixes | Semantic Versioning (Tom Preston-Werner) | 2 | — | 2026-08-10 | https://semver.org/ |
-| sudo-man | sudo(8) manual page | OpenBSD / Sudo project | 2 | — | 2026-08-18 | https://man.openbsd.org/sudo |
 | sudo-man-sudo | sudo(8) — execute a command as another user | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/sudo.man/ |
 | sudo-man-sudoers | sudoers(5) — sudo security policy plugin; log_allowed and log_denied | Todd C. Miller / sudo project | 2 | — | 2026-08-18 | https://www.sudo.ws/docs/man/sudoers.man/ |
 | sudo-man-visudo | visudo(8) — edit the sudoers file safely | Sudo Project | 2 | — | 2026-08-10 | https://www.sudo.ws/docs/man/visudo.man/ |
@@ -670,5 +668,4 @@
 | nmap-host-discovery | Nmap Network Scanning — Host Discovery (ICMP echo and firewalls) | Nmap Project (Gordon Lyon) | 3 | — | 2026-08-18 | https://nmap.org/book/man-host-discovery.html |
 | rfc-5517-private-vlans | RFC 5517: Cisco Systems' Private VLANs -- Scalable Security in a Multi-Client Environment | IETF | 3 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc5517.html |
 | verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |
-| vmware-hypervisor | What is a Hypervisor? (type 1 vs type 2) | VMware / Broadcom | 3 | — | 2026-08-10 | https://www.vmware.com/topics/hypervisor |
 | devto-lfca-2025-09 | Cleared Linux Foundation Certified IT Associate (LFCA) + Preparation Guide | DEV Community (individual author) | 4 | 2025-09-03 | 2026-08-10 | https://dev.to/shivansh_barapatre_7/cleared-linux-foundation-certified-it-associate-lfca-preparation-guide-fd6 |

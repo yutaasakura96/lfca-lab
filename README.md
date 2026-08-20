@@ -213,7 +213,7 @@ and primary-documentation citations for 524 of them; the remaining 13 are waived
 ```
 data/            canonical, hand-maintained
   competencies.json    6 domains, 22 competencies, current + previous weights, 2025 change set
-  sources.json         668 sources, each with an authority tier
+  sources.json         665 sources, each with an authority tier
   topics/*.json        537 concepts, one file per domain
 research/        generated — do not hand-edit
   official-lfca-objectives.md    the syllabus, with what changed in 2025

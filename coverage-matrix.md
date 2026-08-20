@@ -254,8 +254,8 @@
 | cloud.cloud-computing.private-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.hybrid-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | MENTIONED ONLY | 1 | 0 | 3 | HIGH |
 | cloud.cloud-computing.multi-cloud | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
-| cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 4 | 0 | 3 | HIGH |
-| cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 4 | 0 | 3 | HIGH |
+| cloud.cloud-computing.virtualization | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | HIGH |
+| cloud.cloud-computing.hypervisor | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.cloud-computing.virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 3 | 0 | 3 | HIGH |
 | cloud.cloud-computing.container-vs-virtual-machine | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 2 | 0 | 3 | HIGH |
 | cloud.cloud-computing.shared-responsibility-model | Cloud Computing Fundamentals | 18% | Cloud Computing | Cloud Computing | NOT COVERED | 1 | 0 | 2 | HIGH |

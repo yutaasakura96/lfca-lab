@@ -606,7 +606,7 @@ where they are.
 
 <a id="c-cloud.cloud-computing.virtualization"></a>
 ### Virtualization
-*id: `cloud.cloud-computing.virtualization` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization, vmware-hypervisor*
+*id: `cloud.cloud-computing.virtualization` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization, redhat-what-is-a-hypervisor*
 
 **What it is** Taking one physical computer and allowing it to run multiple isolated
 operating systems, each with its own dedicated share of CPU, memory and network. Those
@@ -659,7 +659,7 @@ share one. Density, start time and isolation strength all follow from that singl
 
 <a id="c-cloud.cloud-computing.hypervisor"></a>
 ### Hypervisor
-*id: `cloud.cloud-computing.hypervisor` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: vmware-hypervisor, cncf-glossary-virtualization*
+*id: `cloud.cloud-computing.hypervisor` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: redhat-what-is-a-hypervisor, cncf-glossary-virtualization*
 
 **What it is** The software layer that creates, runs and schedules virtual machines. Type 1,
 also called native or bare-metal, runs directly on the host's hardware and takes the place of
@@ -712,7 +712,7 @@ hypervisor is the thing doing it. Type 1 and type 2 classify hypervisors only.
 
 <a id="c-cloud.cloud-computing.virtual-machine"></a>
 ### Virtual machine
-*id: `cloud.cloud-computing.virtual-machine` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization, vmware-hypervisor*
+*id: `cloud.cloud-computing.virtual-machine` · depth 3 · importance 2 · LFS200: NOT COVERED · sources: cncf-glossary-virtualization, redhat-what-is-a-hypervisor*
 
 **What it is** A computer and its operating system that is not bound to a particular piece of
 hardware — a software-defined computer that looks and behaves like a real one while sharing

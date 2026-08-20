@@ -1416,7 +1416,7 @@ A running application's configuration file has changed and it must pick up the c
 
 **Answer: A.** `systemctl restart` stops and starts the process, while `systemctl reload` tells the already-running process to re-read its own configuration file — the appropriate choice when only the application's configuration, not the unit definition, has changed and the daemon supports reload.
 
-- B is wrong: Restart stops and starts the process, causing an interruption that a reload — when supported — avoids entirely for a configuration-only change.
+- B is wrong: A plain `restart` does not re-read the unit file — only `daemon-reload` does — and it stops and starts the process, causing an interruption that a reload avoids when only the application configuration changed.
 - C is wrong: `daemon-reload` re-reads unit files, not an application's own configuration file; it would not make the running process notice the change at all.
 - D is wrong: Enabling changes only boot-time activation; it does not make the currently running process re-read anything right now.
 
