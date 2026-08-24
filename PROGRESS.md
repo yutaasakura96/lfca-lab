@@ -2373,3 +2373,29 @@ and after, key-is-longest 2/24 (8%) before and after.
 
 Full detail, including five rejected suspicions and the residual limits, is in
 `docs/verification/qbank-findings.md` under `verify-sysadmin-d`.
+
+---
+
+## Repo split — the practice lab moved out (2026-08-25)
+
+The two-node Docker lab that shared this repo now lives on its own at
+[yutaasakura96/linux-lab](https://github.com/yutaasakura96/linux-lab). Removed from here:
+`Dockerfile`, `compose.yml`, `lab`, `labs/`, `.env.example` (and the local `.env`), along
+with their `.gitignore` entries and the lab half of `README.md`. In the new repo the compose
+project, image, and network are renamed `linux-lab` / `linux-labnet`, and the default
+account password is `linux123` rather than `lfca123`.
+
+What remains here is the research/content pipeline only: `data/`, `tools/`, `research/`,
+`study-guide/`, `questions/`, `exams/`, `drills/`, `coverage-matrix.md`. `npm test` (307),
+`npm run validate`, and `npm run check-guide` were all green after the removal, confirming
+nothing in the pipeline depended on the lab.
+
+Three references deliberately **not** rewritten, because they are historical records and
+editing them would falsify the log: the review-scope note at line ~1108 above; the empirical-
+verification note under Task 57b (`verify-sysnet-b`) in `docs/verification/qbank-findings.md`,
+which records that the two-node lab was never started; and the global constraint in
+`docs/superpowers/plans/2026-08-09-lfca-research-foundation.md`. Each accurately describes the
+repo as it stood when written.
+
+Exam and question content still discusses Docker, `node1`/`node2`, and systemd. That is LFCA
+syllabus material, not a dependency on the lab repo.
