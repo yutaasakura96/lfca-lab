@@ -1,11 +1,2 @@
-# Local password overrides — see .env.example
-.env
-
-# Your practice notes and scratch scripts. The labs/ folder itself is tracked
-# (via labs/.gitkeep) so it exists on clone and the bind mount works, but what
-# you put in it is yours and stays local.
-labs/*
-!labs/.gitkeep
-
 # macOS
 .DS_Store
