@@ -79,8 +79,8 @@
         <div class="stack" style="gap: var(--space-2)">
           <span class="eyebrow">Length</span>
           <div class="seg">
-            <button type="button">20</button>
-            <button type="button" class="on">40</button>
+            <button type="button" class="on">20</button>
+            <button type="button">40</button>
             <button type="button">All 84</button>
           </div>
         </div>
