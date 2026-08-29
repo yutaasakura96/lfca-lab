@@ -1,0 +1,147 @@
+[CSS]
+.page { padding: var(--space-8) var(--space-8) var(--space-9); display: flex; flex-direction: column; gap: var(--space-8); }
+.sec { display: flex; flex-direction: column; gap: var(--space-5); }
+.sec__head { display: flex; flex-direction: column; gap: var(--space-2); }
+.tok { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--ink-secondary); line-height: var(--leading-snug); }
+.tok--faint { color: var(--ink-faint); }
+.tyrow { display: grid; grid-template-columns: 132px 96px 92px 1fr; gap: var(--space-5); align-items: baseline; padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle); }
+.measure { position: relative; padding-right: var(--space-6); }
+.measure__edge { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--accent-line); }
+.measure__edge::after { content: "--measure-prose"; position: absolute; top: -18px; left: 0; font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--accent-ink); white-space: nowrap; }
+.spacescale { display: flex; align-items: flex-end; gap: var(--space-5); }
+.spacecell { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.spacebar { background: var(--accent-solid); border-radius: var(--radius-sm); height: 14px; }
+.radii { display: flex; gap: var(--space-5); }
+.radbox { width: 96px; height: 72px; background: var(--surface-inset); border: 1px solid var(--line-default); display: flex; align-items: flex-end; justify-content: flex-start; }
+.elev { display: flex; gap: var(--space-5); }
+.elevbox { width: 176px; height: 88px; background: var(--surface-raised); border: 1px solid var(--line-subtle); border-radius: var(--radius-lg); padding: var(--space-3); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":2270}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+  <div class="page">
+
+    <header class="sec__head" style="gap: var(--space-3)">
+      <div class="eyebrow">LFCA Practice &middot; design system &middot; 02</div>
+      <h1 class="h1" style="font-size: var(--text-2xl)">Type, space, form</h1>
+      <p class="prose prose--secondary" style="max-width: var(--measure-wide)">One ramp, one scale. IBM Plex carries all three voices: sans for interface chrome, serif for everything anyone actually reads, mono for numerals, timers and shell text. The review screen renders four explanations for each of sixty questions &mdash; it is the reading-heavy surface in this product, and the prose spec below is set for it first, not for the chrome.</p>
+    </header>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Type ramp</h2>
+        <p class="meta">Ten steps. A component picks a step; it never picks a pixel.</p>
+      </div>
+      <div>
+        <div class="tyrow" style="border-top: 0; padding-bottom: var(--space-2)">
+          <div class="eyebrow">Token</div>
+          <div class="eyebrow">Size / leading</div>
+          <div class="eyebrow">Face</div>
+          <div class="eyebrow">Specimen</div>
+        </div>
+        <sc-for list="{{ramp}}" as="t" hint-placeholder-count="10">
+          <div class="tyrow">
+            <div class="tok">{{t.token}}</div>
+            <div class="tok tok--faint">{{t.size}}</div>
+            <div class="tok tok--faint">{{t.face}}</div>
+            <div style="font-family: {{t.family}}; font-size: {{t.px}}; line-height: {{t.lh}}; font-weight: {{t.weight}}; color: var(--ink-primary)">{{t.sample}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">The reading spec</h2>
+        <p class="meta" style="max-width: var(--measure-ui)">Explanations, question stems and option text all share it: <span class="code">--text-prose</span> 17px, <span class="code">--leading-prose</span> 1.65, <span class="code">--measure-prose</span> 68ch.</p>
+      </div>
+      <div class="measure" style="max-width: 900px">
+        <div class="measure__edge" style="left: var(--measure-prose)"></div>
+        <p class="prose">The default field separator is a run of whitespace, with leading and trailing whitespace ignored &mdash; but with an explicit single-character separator set by <span class="code">-F</span>, every occurrence separates a field, so consecutive delimiters produce empty fields.</p>
+        <p class="prose prose--secondary" style="margin-top: var(--space-4)">Field numbering is a straightforward left-to-right count including empty fields; it does not reset partway through a record. A reader working through sixty questions of this is doing an hour of continuous reading, so the measure is capped where the eye can still find the next line without hunting.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Space</h2>
+        <p class="meta">One scale, 2 to 96. Gaps and padding come from it; margins are avoided in favour of <span class="code">gap</span>.</p>
+      </div>
+      <div class="spacescale">
+        <sc-for list="{{spaces}}" as="s" hint-placeholder-count="10">
+          <div class="spacecell">
+            <div class="spacebar" style="width: {{s.px}}"></div>
+            <div class="tok">{{s.token}}</div>
+            <div class="tok tok--faint">{{s.px}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Radius, elevation, focus</h2>
+        <p class="meta">Squared off rather than soft. Elevation is used only to lift a surface off the page, never for decoration.</p>
+      </div>
+      <div style="display: flex; gap: var(--space-8); align-items: flex-start; flex-wrap: wrap">
+        <div class="radii">
+          <sc-for list="{{radii}}" as="r" hint-placeholder-count="4">
+            <div>
+              <div class="radbox" style="border-radius: {{r.px}}"></div>
+              <div class="tok" style="margin-top: var(--space-2)">{{r.token}}</div>
+              <div class="tok tok--faint">{{r.px}}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div class="elev">
+          <div>
+            <div class="elevbox" style="box-shadow: var(--shadow-sm)"><span class="tok">--shadow-sm</span></div>
+            <div class="tok tok--faint" style="margin-top: var(--space-2)">cards at rest</div>
+          </div>
+          <div>
+            <div class="elevbox" style="box-shadow: var(--shadow-md)"><span class="tok">--shadow-md</span></div>
+            <div class="tok tok--faint" style="margin-top: var(--space-2)">sticky bars</div>
+          </div>
+          <div>
+            <div class="elevbox" style="box-shadow: var(--shadow-lg)"><span class="tok">--shadow-lg</span></div>
+            <div class="tok tok--faint" style="margin-top: var(--space-2)">submit dialog</div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn--focus" type="button">Focus ring</button>
+          <div class="tok" style="margin-top: var(--space-3)">--focus-ring</div>
+          <div class="tok tok--faint">2px solid, 2px offset</div>
+          <div class="tok tok--faint">never removed, never colour-only</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const S = 'IBM Plex Sans, Segoe UI, system-ui, sans-serif';
+    const P = 'IBM Plex Serif, Georgia, serif';
+    const M = 'IBM Plex Mono, ui-monospace, Menlo, monospace';
+    const ramp = [
+      ['--text-2xs',   '11 / 1.35', 'mono',  M, '11px', '1.35', '500', '23'],
+      ['--text-xs',    '12.5 / 1.35', 'sans', S, '12.5px', '1.35', '600', 'ANSWERED 46 OF 60'],
+      ['--text-sm',    '14 / 1.35', 'sans',  S, '14px', '1.35', '500', 'Flag for review'],
+      ['--text-base',  '16 / 1.5', 'sans',   S, '16px', '1.5', '400', 'Practice exam 04'],
+      ['--text-prose', '17 / 1.65', 'serif', P, '17px', '1.65', '400', 'Monitoring watches only the systems someone configured it to watch.'],
+      ['--text-lg',    '20 / 1.35', 'sans',  S, '20px', '1.35', '600', 'Study by domain'],
+      ['--text-xl',    '26 / 1.15', 'sans',  S, '26px', '1.15', '600', 'Practice exams'],
+      ['--text-clock', '30 / 1.15', 'mono',  M, '30px', '1.15', '500', '12:48'],
+      ['--text-2xl',   '34 / 1.15', 'sans',  S, '34px', '1.15', '600', 'Review'],
+      ['--text-3xl',   '44 / 1.15', 'mono',  M, '44px', '1.15', '500', '41 / 60'],
+    ].map((r) => ({ token: r[0], size: r[1], face: r[2], family: r[3], px: r[4], lh: r[5], weight: r[6], sample: r[7] }));
+
+    const spaces = [['--space-0','2px'],['--space-1','4px'],['--space-2','8px'],['--space-3','12px'],
+      ['--space-4','16px'],['--space-5','24px'],['--space-6','32px'],['--space-7','48px'],
+      ['--space-8','64px'],['--space-9','96px']].map((s) => ({ token: s[0], px: s[1] }));
+
+    const radii = [['--radius-sm','4px'],['--radius-md','6px'],['--radius-lg','10px'],['--radius-pill','999px']]
+      .map((r) => ({ token: r[0], px: r[1] }));
+
+    return { theme: this.props.theme ?? 'light', ramp: ramp, spaces: spaces, radii: radii };
+  }

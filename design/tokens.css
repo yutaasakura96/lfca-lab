@@ -1,0 +1,263 @@
+/* ============================================================
+   LFCA Practice — design tokens
+   Single source of truth. Every colour, space, radius, font
+   size and duration in the product is one of these values.
+   Light is the default; [data-theme="dark"] redefines only
+   the semantic aliases, never the ramps.
+   ============================================================ */
+
+:root,
+[data-theme="light"] {
+  /* ---------- Neutral ramp (one ramp, cool-neutral hue 250-258) ---------- */
+  --n-0:   oklch(0.995 0.002 250);
+  --n-50:  oklch(0.977 0.003 250);
+  --n-100: oklch(0.958 0.004 250);
+  --n-200: oklch(0.918 0.006 250);
+  --n-300: oklch(0.858 0.008 250);
+  --n-400: oklch(0.650 0.012 250);
+  --n-500: oklch(0.588 0.013 250);
+  --n-600: oklch(0.472 0.015 252);
+  --n-700: oklch(0.362 0.016 254);
+  --n-800: oklch(0.268 0.017 256);
+  --n-900: oklch(0.196 0.016 258);
+  --n-950: oklch(0.148 0.014 258);
+
+  /* ---------- Surfaces ---------- */
+  --surface-page:   var(--n-50);
+  --surface-raised: var(--n-0);
+  --surface-sunken: var(--n-100);
+  --surface-inset:  var(--n-200);
+  --surface-hover:  var(--n-100);  /* pointer over a control */
+  --surface-active: var(--n-200);  /* control held down */
+
+  /* ---------- Ink ---------- */
+  --ink-primary:   var(--n-900);  /* 18.0:1 on a card */
+  --ink-secondary: var(--n-700);  /* 10.6:1 — explanation prose */
+  --ink-muted:     var(--n-600);  /*  6.7:1 — meta text */
+  --ink-faint:     var(--n-400);  /*  3.2:1 — decorative only, never small copy */
+  --ink-inverse:   var(--n-0);
+
+  /* ---------- Lines ---------- */
+  --line-subtle:  var(--n-200);   /* decorative rules and separators */
+  --line-default: var(--n-300);   /* decorative, slightly heavier */
+  --line-strong:  var(--n-400);
+  --line-control: var(--n-500);   /* control and state boundaries — >=3:1 both themes */
+
+  /* Every alias above resolves to a ramp step. No alias invents a grey,
+     and all twelve steps are used across the two themes. */
+
+  /* ---------- Semantic: CORRECT (hue 150) ----------
+     non-colour cue: check glyph + 3px solid left rule + "Correct" label */
+  --correct-ink:      oklch(0.435 0.108 150);
+  --correct-solid:    oklch(0.520 0.118 150);
+  --correct-surface:  oklch(0.955 0.032 150);
+  --correct-line:     oklch(0.815 0.070 150);
+  --correct-on-solid: oklch(0.990 0.010 150);
+
+  /* ---------- Semantic: INCORRECT (hue 27) ----------
+     non-colour cue: cross glyph + 3px solid left rule + "Your answer" label */
+  --incorrect-ink:      oklch(0.470 0.150 27);
+  --incorrect-solid:    oklch(0.555 0.170 27);
+  --incorrect-surface:  oklch(0.960 0.026 27);
+  --incorrect-line:     oklch(0.830 0.070 27);
+  --incorrect-on-solid: oklch(0.990 0.008 27);
+  --incorrect-solid-hover:  oklch(0.500 0.170 27);
+  --incorrect-solid-active: oklch(0.455 0.160 27);
+
+  /* ---------- Semantic: FLAGGED (hue 78, ochre) ----------
+     non-colour cue: flag glyph + folded top-right corner on tiles.
+     Orthogonal to answered/unanswered — a tile can be both. */
+  --flagged-ink:      oklch(0.470 0.098 75);
+  --flagged-solid:    oklch(0.600 0.135 78);
+  --flagged-surface:  oklch(0.960 0.040 80);
+  --flagged-line:     oklch(0.835 0.078 78);
+  --flagged-on-solid: oklch(0.200 0.030 75);
+
+  /* ---------- Semantic: CURRENT / accent (hue 258) ----------
+     The neutral ramp's own hue with chroma turned up, so "you are here"
+     never reads as a new colour in the system.
+     non-colour cue: 2px ring + offset + filled tile */
+  --accent-ink:      oklch(0.455 0.135 258);
+  --accent-solid:    oklch(0.520 0.150 258);
+  --accent-surface:  oklch(0.958 0.028 258);
+  --accent-line:     oklch(0.800 0.080 258);
+  --accent-on-solid: oklch(0.990 0.005 258);
+  --accent-solid-hover:  oklch(0.470 0.150 258);
+  --accent-solid-active: oklch(0.425 0.145 258);
+
+  /* ---------- Semantic: UNANSWERED ----------
+     Deliberately colourless. Cue is the dashed border + em-dash. */
+  --unanswered-ink:          var(--ink-muted);
+  --unanswered-line:         var(--line-control);
+  --unanswered-surface:      transparent;
+  --unanswered-border-style: dashed;
+
+  /* ---------- Clock ramp: normal -> warning -> critical ----------
+     A ramp of WEIGHT as well as hue: quiet ink, then tinted chip,
+     then solid fill. Warning reuses flagged, critical reuses incorrect;
+     no new hue is introduced for time. */
+  --clock-normal-ink:     var(--ink-primary);
+  --clock-normal-surface: transparent;
+  --clock-normal-line:    var(--line-subtle);
+
+  --clock-warning-ink:     var(--flagged-ink);
+  --clock-warning-surface: var(--flagged-surface);
+  --clock-warning-line:    var(--flagged-line);
+
+  --clock-critical-ink:     var(--incorrect-on-solid);
+  --clock-critical-surface: var(--incorrect-solid);
+  --clock-critical-line:    var(--incorrect-solid);
+
+  /* Machine-readable thresholds: the countdown crosses into warning with
+     20 minutes left and into critical with 5. */
+  --clock-threshold-warning:  1200s;
+  --clock-threshold-critical: 300s;
+
+  /* ---------- Focus ---------- */
+  --focus-ring:        var(--accent-solid);
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 2px;
+
+  /* ---------- Scrim (modal backdrop) ---------- */
+  --scrim: oklch(0.20 0.02 258 / 0.45);
+
+  /* ---------- Elevation ---------- */
+  --shadow-sm: 0 1px 2px oklch(0.20 0.02 258 / 0.06);
+  --shadow-md: 0 1px 2px oklch(0.20 0.02 258 / 0.05), 0 8px 18px -8px oklch(0.20 0.02 258 / 0.10);
+  --shadow-lg: 0 2px 4px oklch(0.20 0.02 258 / 0.05), 0 18px 36px -14px oklch(0.20 0.02 258 / 0.14);
+
+  /* ---------- Type: families ---------- */
+  --font-ui:    "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-prose: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---------- Type: ramp (one ramp, base 16) ---------- */
+  --text-2xs:   11px;   /* tile numerals, table micro-labels */
+  --text-xs:    12.5px; /* eyebrows, meta, legend */
+  --text-sm:    14px;   /* UI chrome, buttons, table cells */
+  --text-base:  16px;   /* default interface text */
+  --text-prose: 17px;   /* question stems and every explanation */
+  --text-lg:    20px;   /* card titles */
+  --text-xl:    26px;   /* screen titles */
+  --text-2xl:   34px;   /* section numerals */
+  --text-3xl:   44px;   /* score numeral */
+  --text-clock: 30px;   /* countdown */
+
+  /* ---------- Type: leading ---------- */
+  --leading-tight:  1.15;
+  --leading-snug:   1.35;
+  --leading-normal: 1.5;
+  --leading-prose:  1.65;
+
+  /* ---------- Type: weight ---------- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  /* ---------- Type: tracking ---------- */
+  --tracking-eyebrow: 0.08em;
+  --tracking-tight:  -0.011em;
+  --tracking-display: -0.02em;
+
+  /* ---------- Type: measure ----------
+     The review screen carries four explanations per question across
+     60 questions. Prose is capped so a line never outruns the eye. */
+  --measure-prose: 68ch;  /* stems, options, explanations */
+  --measure-wide:  78ch;  /* section ledes, which are read once */
+  --measure-ui:    52ch;
+
+  /* ---------- Space (one scale) ---------- */
+  --space-0: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ---------- Radius ---------- */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-pill: 999px;
+
+  /* ---------- Sizing ---------- */
+  --tile-size:    34px;  /* question-navigator tile */
+  --key-size:     28px;  /* option letter, avatar, swatch */
+  --control-h-xs: 22px;  /* inline score chips */
+  --control-h-sm: 26px;  /* chips */
+  --control-h-md: 30px;  /* compact buttons, filters */
+  --control-h:    36px;  /* buttons */
+  --control-h-lg: 44px;  /* primary actions, minimum touch target */
+  --meter-h-sm:    6px;
+  --meter-h:       8px;
+  --meter-h-lg:   14px;  /* the pass-mark bar */
+
+  /* ---------- Motion ---------- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.15, 1);
+}
+
+/* ============================================================
+   Dark theme — first class, not an inversion.
+   Only the aliases move; the ramp and every scale stay put.
+   ============================================================ */
+[data-theme="dark"] {
+  /* Dark is not the light theme reversed: a raised surface is lighter than
+     the page, where in light it is lighter still. Same ramp, different map. */
+  --surface-page:   var(--n-900);
+  --surface-raised: var(--n-800);
+  --surface-sunken: var(--n-950);
+  --surface-inset:  var(--n-900);  /* recessed, so darker than the card it sits on */
+  --surface-hover:  var(--n-700);
+  --surface-active: var(--n-600);
+
+  --ink-primary:   var(--n-100);
+  --ink-secondary: var(--n-300);
+  --ink-muted:     var(--n-400);
+  --ink-faint:     var(--n-500);
+  --ink-inverse:   var(--n-950);
+
+  --line-subtle:  var(--n-800);
+  --line-default: var(--n-700);
+  --line-strong:  var(--n-600);
+  --line-control: var(--n-500);
+
+  --correct-ink:      oklch(0.800 0.115 150);
+  --correct-solid:    oklch(0.640 0.130 150);
+  --correct-surface:  oklch(0.308 0.046 152);
+  --correct-line:     oklch(0.455 0.075 150);
+  --correct-on-solid: oklch(0.145 0.020 150);
+
+  --incorrect-ink:      oklch(0.760 0.135 27);
+  --incorrect-solid:    oklch(0.610 0.175 27);
+  --incorrect-solid-hover:  oklch(0.672 0.165 27);
+  --incorrect-solid-active: oklch(0.720 0.150 27);
+  --incorrect-surface:  oklch(0.312 0.054 27);
+  --incorrect-line:     oklch(0.465 0.086 27);
+  --incorrect-on-solid: oklch(0.150 0.020 27);
+
+  --flagged-ink:      oklch(0.815 0.115 80);
+  --flagged-solid:    oklch(0.720 0.135 78);
+  --flagged-surface:  oklch(0.318 0.050 80);
+  --flagged-line:     oklch(0.470 0.076 78);
+  --flagged-on-solid: oklch(0.150 0.020 75);
+
+  --accent-ink:      oklch(0.790 0.105 258);
+  --accent-solid:    oklch(0.658 0.145 258);
+  --accent-solid-hover:  oklch(0.712 0.135 258);
+  --accent-solid-active: oklch(0.752 0.125 258);
+  --accent-surface:  oklch(0.312 0.054 258);
+  --accent-line:     oklch(0.460 0.086 258);
+  --accent-on-solid: oklch(0.150 0.015 258);
+
+  --scrim: oklch(0.06 0.01 258 / 0.66);
+
+  --shadow-sm: 0 1px 2px oklch(0.05 0.01 258 / 0.40);
+  --shadow-md: 0 1px 2px oklch(0.05 0.01 258 / 0.35), 0 8px 18px -8px oklch(0.05 0.01 258 / 0.55);
+  --shadow-lg: 0 2px 4px oklch(0.05 0.01 258 / 0.35), 0 18px 36px -14px oklch(0.05 0.01 258 / 0.65);
+}

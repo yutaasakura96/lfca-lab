@@ -1,0 +1,142 @@
+[CSS]
+.page { padding: var(--space-6); display: grid; grid-template-columns: 1fr 470px; gap: var(--space-6); align-items: start; }
+.qhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line-subtle); }
+.kbd { font-family: var(--font-mono); font-size: var(--text-2xs); border: 1px solid var(--line-control); border-bottom-width: var(--space-0); border-radius: var(--radius-sm); padding: var(--space-0) var(--space-1); color: var(--ink-secondary); background: var(--surface-inset); }
+.btn--flag { border-color: var(--flagged-line); background: var(--flagged-surface); color: var(--flagged-ink); }
+.railcount { display: flex; justify-content: space-between; padding: var(--space-2) 0; border-top: 1px solid var(--line-subtle); font-size: var(--text-sm); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"dark","section":"Theme"},"$preview":{"width":1440,"height":900}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar" style="box-shadow: var(--shadow-md)">
+    <div class="row" style="gap: var(--space-4)">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name">Practice exam 04</span>
+      </div>
+      <span class="chip chip--accent">Exam mode</span>
+      <span class="meta">No feedback until you submit</span>
+    </div>
+
+    <div class="clock clock--warning"><span class="clock__label">Left</span>12:48</div>
+
+    <div class="row" style="gap: var(--space-3)">
+      <span class="chip"><span class="mono">38</span>&nbsp;of 60 answered</span>
+      <span class="chip chip--flagged">
+        <svg class="ico" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+        <span class="mono">5</span>&nbsp;flagged
+      </span>
+      <button class="btn btn--primary" type="button">Submit exam</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="stack" style="gap: var(--space-5)">
+
+      <div class="qhead">
+        <div class="stack" style="gap: var(--space-2)">
+          <div class="row" style="gap: var(--space-3)">
+            <span class="eyebrow">Question 23 of 60</span>
+            <span class="meta">Linux Fundamentals &middot; Command Line</span>
+          </div>
+          <div class="meter" style="width: 320px"><div class="meter__fill meter__fill--accent" style="width: 38%"></div></div>
+        </div>
+        <button class="btn btn--flag" type="button">
+          <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+          Flagged for review
+        </button>
+      </div>
+
+      <p class="stem">A colon-delimited file has some rows with consecutive colons producing empty fields, and the task is to extract the fourth field with awk using <span class="code">-F:</span>. What happens to a run of consecutive delimiters when the separator is set to a single explicit character this way?</p>
+
+      <div class="opts">
+        <div class="opt opt--interactive">
+          <div class="opt__key">A</div>
+          <div class="opt__body"><p class="opt__text">Consecutive delimiters are automatically collapsed into one, the same as the default whitespace behaviour</p></div>
+        </div>
+        <div class="opt opt--interactive">
+          <div class="opt__key">B</div>
+          <div class="opt__body"><p class="opt__text">awk raises an error whenever two delimiters appear next to each other</p></div>
+        </div>
+        <div class="opt opt--selected opt--interactive">
+          <div class="opt__key">C</div>
+          <div class="opt__body">
+            <div class="opt__verdict" style="color: var(--accent-ink)">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="4.2" fill="currentColor"></circle></svg>
+              Selected
+            </div>
+            <p class="opt__text">Every occurrence separates a field, so consecutive delimiters produce empty fields between them</p>
+          </div>
+        </div>
+        <div class="opt opt--interactive">
+          <div class="opt__key">D</div>
+          <div class="opt__body"><p class="opt__text">The field numbering resets at each empty field, so <span class="code">$4</span> no longer refers to the fourth field</p></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="row" style="gap: var(--space-3)">
+          <span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span><span class="kbd">4</span>
+          <span class="meta">choose</span>
+          <span class="kbd">F</span><span class="meta">flag</span>
+          <span class="kbd">&larr;</span><span class="kbd">&rarr;</span><span class="meta">move</span>
+        </div>
+        <div class="row" style="gap: var(--space-2)">
+          <button class="btn btn--quiet" type="button">Clear answer</button>
+          <button class="btn" type="button">Previous</button>
+          <button class="btn btn--primary" type="button">Next</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="padding: var(--space-5)">
+      <div class="row" style="justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4)">
+        <h2 class="h2">Navigator</h2>
+        <span class="meta">jump anywhere, any time</span>
+      </div>
+
+      <div class="grid60">
+        <sc-for list="{{tiles}}" as="t" hint-placeholder-count="60">
+          <div class="{{t.cls}}">{{t.n}}</div>
+        </sc-for>
+      </div>
+
+      <div class="legend" style="margin-top: var(--space-5)">
+        <div class="legend__item"><span class="legend__swatch"></span>Unanswered</div>
+        <div class="legend__item"><span class="legend__swatch" style="border-style: solid; border-color: var(--line-control); background: var(--surface-inset)"></span>Answered</div>
+        <div class="legend__item"><span class="legend__swatch" style="border-style: solid; border-color: var(--accent-solid); background: var(--accent-solid); outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset)"></span>Current</div>
+        <div class="legend__item"><span class="legend__swatch tile--flagged" style="border-style: solid; border-color: var(--line-control); background: var(--surface-inset)"></span>Flagged</div>
+      </div>
+
+      <div style="margin-top: var(--space-5)">
+        <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Answered</span><span class="mono">38</span></div>
+        <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Unanswered</span><span class="mono">22</span></div>
+        <div class="railcount"><span class="meta" style="font-size: var(--text-sm); color: var(--flagged-ink)">Flagged for review</span><span class="mono" style="color: var(--flagged-ink)">5</span></div>
+        <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Needed to pass</span><span class="mono">45</span></div>
+      </div>
+
+      <p class="meta" style="margin-top: var(--space-5); line-height: var(--leading-normal)">Submitting ends the sitting and reveals every answer at once. Nothing is marked before then.</p>
+    </div>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const flagged = [7, 17, 19, 29, 41];
+    const tiles = [];
+    for (let n = 1; n <= 60; n++) {
+      let cls = 'tile';
+      if (n <= 38) cls += ' tile--answered';
+      if (n === 23) cls += ' tile--current';
+      if (flagged.indexOf(n) !== -1) cls += ' tile--flagged';
+      tiles.push({ n: String(n), cls: cls });
+    }
+    return { theme: this.props.theme ?? 'dark', tiles: tiles };
+  }

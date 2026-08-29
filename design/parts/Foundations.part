@@ -1,0 +1,151 @@
+[CSS]
+.page { padding: var(--space-8) var(--space-8) var(--space-9); display: flex; flex-direction: column; gap: var(--space-8); }
+.sec { display: flex; flex-direction: column; gap: var(--space-5); }
+.sec__head { display: flex; flex-direction: column; gap: var(--space-2); }
+.ramp { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-2); }
+.ramp__cell { display: flex; flex-direction: column; gap: var(--space-2); }
+.ramp__chip { height: 64px; border-radius: var(--radius-md); border: 1px solid var(--line-subtle); }
+.tok { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--ink-secondary); line-height: var(--leading-snug); }
+.tok--faint { color: var(--ink-faint); }
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.panel { border-radius: var(--radius-lg); border: 1px solid var(--line-subtle); background: var(--surface-page); color: var(--ink-primary); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-5); }
+.fam { display: flex; flex-direction: column; gap: var(--space-2); }
+.fam__head { display: flex; align-items: baseline; gap: var(--space-3); }
+.fam__roles { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); }
+.role__chip { height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--line-subtle); }
+.alias { display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3); align-items: center; }
+.alias__chip { height: var(--key-size); border-radius: var(--radius-sm); border: 1px solid var(--line-subtle); }
+.aliases { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-5); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":2000}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+  <div class="page">
+
+    <header class="sec__head" style="gap: var(--space-3)">
+      <div class="eyebrow">LFCA Practice &middot; design system &middot; 01</div>
+      <h1 class="h1" style="font-size: var(--text-2xl)">Colour</h1>
+      <p class="prose prose--secondary" style="max-width: var(--measure-wide)">One neutral ramp and four semantic families. Nothing in the interface invents a grey: if an existing step is close, that step is the answer. Every value below is a CSS custom property in <span class="code">tokens.css</span>, and the dark theme redefines only the aliases &mdash; never the ramp, and never a scale.</p>
+    </header>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Neutral ramp</h2>
+        <p class="meta" style="max-width: var(--measure-ui)">Cool-neutral, hue 250&ndash;258, chroma held under 0.02. Twelve steps serve both themes; the aliases below decide which step means what.</p>
+      </div>
+      <div class="ramp">
+        <sc-for list="{{ramp}}" as="s" hint-placeholder-count="12">
+          <div class="ramp__cell">
+            <div class="ramp__chip" style="background: {{s.v}}"></div>
+            <div class="tok">{{s.t}}</div>
+            <div class="tok tok--faint">{{s.l}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Semantic families</h2>
+        <p class="meta" style="max-width: var(--measure-wide)">Four families, each with the same five roles, so any component can be restated in another state by swapping one prefix. <strong style="color: var(--ink-secondary); font-weight: var(--weight-semibold)">Current</strong> deliberately borrows the neutral ramp's own hue with the chroma turned up &mdash; &ldquo;you are here&rdquo; should never read as a new colour. Colour is never the only signal; the cue in each row is what carries the state in greyscale.</p>
+      </div>
+      <div class="panels">
+        <div class="panel" data-theme="light">
+          <div class="eyebrow">Light</div>
+          <sc-for list="{{families}}" as="f" hint-placeholder-count="4">
+            <div class="fam">
+              <div class="fam__head">
+                <h3 class="h3">{{f.name}}</h3>
+                <span class="tok tok--faint">{{f.cue}}</span>
+              </div>
+              <div class="fam__roles">
+                <sc-for list="{{f.roles}}" as="r" hint-placeholder-count="5">
+                  <div>
+                    <div class="role__chip" style="background: var({{r.t}})"></div>
+                    <div class="tok" style="margin-top: var(--space-1)">{{r.n}}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div class="panel" data-theme="dark">
+          <div class="eyebrow">Dark</div>
+          <sc-for list="{{families}}" as="f" hint-placeholder-count="4">
+            <div class="fam">
+              <div class="fam__head">
+                <h3 class="h3">{{f.name}}</h3>
+                <span class="tok tok--faint">{{f.cue}}</span>
+              </div>
+              <div class="fam__roles">
+                <sc-for list="{{f.roles}}" as="r" hint-placeholder-count="5">
+                  <div>
+                    <div class="role__chip" style="background: var({{r.t}})"></div>
+                    <div class="tok" style="margin-top: var(--space-1)">{{r.n}}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Aliases</h2>
+        <p class="meta" style="max-width: var(--measure-ui)">The only names a component is allowed to use. Swapping the theme moves these and nothing else.</p>
+      </div>
+      <div class="panels">
+        <div class="panel" data-theme="light">
+          <div class="eyebrow">Light</div>
+          <div class="aliases">
+            <sc-for list="{{aliases}}" as="a" hint-placeholder-count="12">
+              <div class="alias">
+                <div class="alias__chip" style="background: var({{a.t}})"></div>
+                <div class="tok">{{a.t}}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="panel" data-theme="dark">
+          <div class="eyebrow">Dark</div>
+          <div class="aliases">
+            <sc-for list="{{aliases}}" as="a" hint-placeholder-count="12">
+              <div class="alias">
+                <div class="alias__chip" style="background: var({{a.t}})"></div>
+                <div class="tok">{{a.t}}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const ramp = [
+      ['--n-0', '0.995 0.002 250'], ['--n-50', '0.977 0.003 250'], ['--n-100', '0.958 0.004 250'],
+      ['--n-200', '0.918 0.006 250'], ['--n-300', '0.858 0.008 250'], ['--n-400', '0.722 0.011 250'],
+      ['--n-500', '0.588 0.013 250'], ['--n-600', '0.472 0.015 252'], ['--n-700', '0.362 0.016 254'],
+      ['--n-800', '0.268 0.017 256'], ['--n-900', '0.196 0.016 258'], ['--n-950', '0.148 0.014 258'],
+    ].map(([t, l]) => ({ t: t, l: 'oklch(' + l + ')', v: 'oklch(' + l + ')' }));
+
+    const roles = (p) => ['ink', 'solid', 'surface', 'line', 'on-solid']
+      .map((n) => ({ n: n, t: '--' + p + '-' + n }));
+
+    const families = [
+      { name: 'correct',   cue: 'check glyph + left rule', roles: roles('correct') },
+      { name: 'incorrect', cue: 'cross glyph + left rule', roles: roles('incorrect') },
+      { name: 'flagged',   cue: 'flag glyph + folded corner', roles: roles('flagged') },
+      { name: 'current',   cue: 'ring + offset + fill', roles: roles('accent') },
+    ];
+
+    const aliases = ['--surface-page', '--surface-raised', '--surface-sunken', '--surface-inset',
+      '--ink-primary', '--ink-secondary', '--ink-muted', '--ink-faint',
+      '--line-subtle', '--line-default', '--line-strong', '--ink-inverse'].map((t) => ({ t: t }));
+
+    return { theme: this.props.theme ?? 'light', ramp: ramp, families: families, aliases: aliases };
+  }

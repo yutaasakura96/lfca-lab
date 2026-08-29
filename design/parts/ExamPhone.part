@@ -1,0 +1,87 @@
+[CSS]
+.topbar { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-raised); border-bottom: 1px solid var(--line-subtle); }
+.body { padding: var(--space-4) var(--space-4) var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.opt { min-height: var(--control-h-lg); }
+.navbtn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-h-lg); padding: 0 var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--line-control); background: var(--surface-raised); color: var(--ink-primary); font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-medium); }
+.actionbar { display: grid; grid-template-columns: var(--control-h-lg) 1fr 1fr; gap: var(--space-2); padding: var(--space-3) var(--space-4); background: var(--surface-raised); border-top: 1px solid var(--line-subtle); box-shadow: var(--shadow-md); }
+.actionbar .btn { height: var(--control-h-lg); justify-content: center; }
+.iconbtn { display: flex; align-items: center; justify-content: center; width: var(--control-h-lg); height: var(--control-h-lg); border-radius: var(--radius-md); border: 1px solid var(--flagged-line); background: var(--flagged-surface); color: var(--flagged-ink); }
+.sheet { border-top: 1px solid var(--line-subtle); background: var(--surface-raised); padding: var(--space-4); box-shadow: var(--shadow-lg); }
+.grid60--touch { display: grid; grid-template-columns: repeat(7, var(--control-h-lg)); gap: var(--space-2); }
+.grid60--touch .tile { width: var(--control-h-lg); height: var(--control-h-lg); font-size: var(--text-sm); }
+.grab { width: 36px; height: 4px; border-radius: var(--radius-pill); background: var(--line-control); margin: 0 auto var(--space-4); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"dark","section":"Theme"},"$preview":{"width":390,"height":1400}}
+[BODY]
+<div class="app" data-theme="{{theme}}" style="display: flex; flex-direction: column; min-height: 100%">
+
+  <div class="topbar">
+    <button class="navbtn" type="button">
+      <span class="mono">23</span><span style="color: var(--ink-muted)">/60</span>
+      <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.2 7 9.2l4-4"></path></svg>
+    </button>
+    <div class="clock clock--warning" style="font-size: var(--text-lg); padding: var(--space-1) var(--space-3)"><span class="clock__label">Left</span>12:48</div>
+    <button class="btn" type="button" style="height: var(--control-h-lg)">Submit</button>
+  </div>
+
+  <div class="body" style="flex: 1">
+    <div class="stack" style="gap: var(--space-2)">
+      <span class="meta">Linux Fundamentals &middot; Command Line</span>
+      <div class="meter"><div class="meter__fill meter__fill--accent" style="width: 38%"></div></div>
+    </div>
+
+    <p class="stem">A colon-delimited file has some rows with consecutive colons producing empty fields, and the task is to extract the fourth field with awk using <span class="code">-F:</span>. What happens to a run of consecutive delimiters when the separator is set to a single explicit character this way?</p>
+
+    <div class="opts">
+      <div class="opt opt--interactive"><div class="opt__key">A</div><div class="opt__body"><p class="opt__text">Consecutive delimiters are automatically collapsed into one, the same as the default whitespace behaviour</p></div></div>
+      <div class="opt opt--interactive"><div class="opt__key">B</div><div class="opt__body"><p class="opt__text">awk raises an error whenever two delimiters appear next to each other</p></div></div>
+      <div class="opt opt--selected opt--interactive">
+        <div class="opt__key">C</div>
+        <div class="opt__body">
+          <div class="opt__verdict" style="color: var(--accent-ink)">
+            <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="4.2" fill="currentColor"></circle></svg>
+            Selected
+          </div>
+          <p class="opt__text">Every occurrence separates a field, so consecutive delimiters produce empty fields between them</p>
+        </div>
+      </div>
+      <div class="opt opt--interactive"><div class="opt__key">D</div><div class="opt__body"><p class="opt__text">The field numbering resets at each empty field, so <span class="code">$4</span> no longer refers to the fourth field</p></div></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="grab"></div>
+    <div class="row" style="justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4)">
+      <h2 class="h2" style="font-size: var(--text-base)">Jump to question</h2>
+      <span class="meta">38 answered &middot; 5 flagged</span>
+    </div>
+    <div class="grid60--touch">
+      <sc-for list="{{tiles}}" as="t" hint-placeholder-count="21">
+        <div class="{{t.cls}}">{{t.n}}</div>
+      </sc-for>
+    </div>
+    <p class="meta" style="margin-top: var(--space-3)">Scroll for questions 22 to 60. Tiles are 44px here &mdash; the 34px desktop tile is a pointer-only size.</p>
+  </div>
+
+  <div class="actionbar">
+    <button class="iconbtn" type="button">
+      <svg class="ico" width="18" height="18" viewBox="0 0 14 14" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+    </button>
+    <button class="btn" type="button">Previous</button>
+    <button class="btn btn--primary" type="button">Next</button>
+  </div>
+
+</div>
+[LOGIC]
+  renderVals() {
+    const flagged = [7, 17, 19];
+    const tiles = [];
+    for (let n = 1; n <= 21; n++) {
+      let cls = 'tile';
+      if (n <= 21) cls += ' tile--answered';
+      if (flagged.indexOf(n) !== -1) cls += ' tile--flagged';
+      tiles.push({ n: String(n), cls: cls });
+    }
+    return { theme: this.props.theme ?? 'dark', tiles: tiles };
+  }

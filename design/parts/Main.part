@@ -1,0 +1,209 @@
+[CSS]
+.page { padding: var(--space-6) var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6); }
+.cols { display: grid; grid-template-columns: 1fr 340px; gap: var(--space-6); align-items: start; }
+.list { display: flex; flex-direction: column; }
+.erow { display: grid; grid-template-columns: 40px 1fr 150px 150px 232px; gap: var(--space-5); align-items: center; padding: var(--space-3) var(--space-4); border-top: 1px solid var(--line-subtle); }
+.erow:first-child { border-top: 0; }
+.erow--head { padding-top: 0; padding-bottom: var(--space-2); border-top: 0; }
+.enum { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.score { display: flex; align-items: baseline; gap: var(--space-0); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.score__num { font-size: var(--text-lg); font-weight: var(--weight-medium); color: var(--ink-primary); }
+.score__den { font-size: var(--text-xs); color: var(--ink-faint); }
+.score--first .score__num { font-size: var(--text-base); color: var(--ink-secondary); }
+.threshbar { position: relative; height: var(--meter-h-sm); border-radius: var(--radius-pill); background: var(--surface-inset); border: 1px solid var(--line-subtle); overflow: hidden; margin-top: var(--space-2); }
+.threshbar__fill { position: absolute; inset: 0 auto 0 0; }
+.threshbar__tick { position: absolute; top: calc(var(--space-0) * -1); bottom: calc(var(--space-0) * -1); width: var(--space-0); background: var(--ink-secondary); }
+.drow { display: grid; grid-template-columns: 1fr 44px; gap: var(--space-3); align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle); }
+.drow:first-of-type { border-top: 0; }
+.actions { display: flex; gap: var(--space-2); justify-content: flex-end; }
+.btn--sm { height: var(--control-h-md); padding: 0 var(--space-3); font-size: var(--text-xs); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":1500}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar">
+    <div class="brandmark">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+        <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+      </svg>
+      <span class="brandmark__name">LFCA Practice</span>
+    </div>
+    <div class="row" style="gap: var(--space-4)">
+      <span class="meta">Exam version 2025-09-16</span>
+      <button class="btn btn--quiet btn--sm" type="button">
+        <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1.6v1.5M7 10.9v1.5M1.6 7h1.5M10.9 7h1.5M3.2 3.2l1 1M9.8 9.8l1 1M10.8 3.2l-1 1M4.2 9.8l-1 1"></path><circle cx="7" cy="7" r="2.6"></circle></svg>
+        Dark
+      </button>
+      <div class="avatar">YA</div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="row" style="justify-content: space-between; align-items: flex-end; gap: var(--space-6)">
+      <div class="stack" style="gap: var(--space-2)">
+        <h1 class="h1">Practice exams</h1>
+        <p class="meta" style="font-size: var(--text-sm); max-width: var(--measure-prose)">Sixteen exams, sixty questions each, drawn from the same bank as the real syllabus. The pass mark is <strong style="color: var(--ink-primary); font-weight: var(--weight-semibold)">45 of 60</strong>, and the real thing gives you 90 minutes.</p>
+      </div>
+      <div class="row" style="gap: var(--space-5)">
+        <div class="stack" style="gap: var(--space-1)">
+          <span class="eyebrow">Sat</span>
+          <span class="mono" style="font-size: var(--text-xl); font-weight: var(--weight-medium)">9<span style="font-size: var(--text-sm); color: var(--ink-faint)">/16</span></span>
+        </div>
+        <div class="stack" style="gap: var(--space-1)">
+          <span class="eyebrow">Best average</span>
+          <span class="mono" style="font-size: var(--text-xl); font-weight: var(--weight-medium)">46.1<span style="font-size: var(--text-sm); color: var(--ink-faint)">/60</span></span>
+        </div>
+        <div class="stack" style="gap: var(--space-1)">
+          <span class="eyebrow">Passing</span>
+          <span class="mono" style="font-size: var(--text-xl); font-weight: var(--weight-medium); color: var(--correct-ink)">6<span style="font-size: var(--text-sm); color: var(--ink-faint)">/9</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols">
+
+      <div class="card" style="padding: var(--space-5) var(--space-4) var(--space-4)">
+        <div class="erow erow--head">
+          <div class="eyebrow">#</div>
+          <div class="eyebrow">Exam</div>
+          <div class="eyebrow">Best</div>
+          <div class="eyebrow">First attempt</div>
+          <div class="eyebrow" style="text-align: right">Start</div>
+        </div>
+        <div class="list">
+          <sc-for list="{{exams}}" as="e" hint-placeholder-count="16">
+            <div class="erow">
+              <div class="enum">{{e.num}}</div>
+              <div class="stack" style="gap: var(--space-0)">
+                <span style="font-size: var(--text-sm); font-weight: var(--weight-medium)">{{e.title}}</span>
+                <span class="meta">{{e.meta}}</span>
+              </div>
+
+              <sc-if value="{{e.attempted}}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div class="row" style="gap: var(--space-2)">
+                    <span class="score"><span class="score__num">{{e.best}}</span><span class="score__den">/60</span></span>
+                    <sc-if value="{{e.bestPass}}" hint-placeholder-val="{{ true }}">
+                      <span class="chip chip--correct" style="height: var(--control-h-xs); padding: 0 var(--space-2); font-size: var(--text-2xs)">
+                        <svg class="ico" width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                        Pass
+                      </span>
+                    </sc-if>
+                    <sc-if value="{{e.bestFail}}" hint-placeholder-val="{{ false }}">
+                      <span class="chip chip--incorrect" style="height: var(--control-h-xs); padding: 0 var(--space-2); font-size: var(--text-2xs)">
+                        <svg class="ico" width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+                        Short
+                      </span>
+                    </sc-if>
+                  </div>
+                  <div class="threshbar">
+                    <div class="threshbar__fill" style="width: {{e.bestPct}}; background: {{e.bestFillVar}}"></div>
+                    <div class="threshbar__tick" style="left: 75%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="row" style="gap: var(--space-2)">
+                    <span class="score score--first"><span class="score__num">{{e.first}}</span><span class="score__den">/60</span></span>
+                    <span class="meta mono">{{e.delta}}</span>
+                  </div>
+                  <div class="threshbar">
+                    <div class="threshbar__fill" style="width: {{e.firstPct}}; background: var(--line-strong)"></div>
+                    <div class="threshbar__tick" style="left: 75%"></div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{e.fresh}}" hint-placeholder-val="{{ false }}">
+                <div><span class="chip chip--unanswered">Not attempted</span></div>
+                <div><span class="meta mono" style="color: var(--ink-faint)">&mdash;</span></div>
+              </sc-if>
+
+              <div class="actions">
+                <sc-if value="{{e.attempted}}" hint-placeholder-val="{{ true }}">
+                  <button class="btn btn--sm" type="button">Review</button>
+                </sc-if>
+                <button class="btn btn--sm" type="button">Exam</button>
+                <button class="btn btn--sm" type="button">Practice</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="stack" style="gap: var(--space-5)">
+
+        <div class="card" style="padding: var(--space-5); border-color: var(--accent-line); background: var(--accent-surface)">
+          <div class="eyebrow" style="color: var(--accent-ink)">In progress</div>
+          <div class="h2" style="margin-top: var(--space-2)">Practice exam 04</div>
+          <p class="meta" style="margin-top: var(--space-1)">Exam mode &middot; 38 of 60 answered &middot; 5 flagged</p>
+          <div class="row" style="gap: var(--space-3); margin-top: var(--space-4)">
+            <span class="clock clock--warning" style="font-size: var(--text-lg); padding: var(--space-1) var(--space-3)"><span class="clock__label">Left</span>12:48</span>
+            <button class="btn btn--primary" type="button">Resume</button>
+          </div>
+        </div>
+
+        <div class="card" style="padding: var(--space-5)">
+          <div class="row" style="justify-content: space-between; align-items: baseline">
+            <h2 class="h2">Study by domain</h2>
+            <span class="meta">weight</span>
+          </div>
+          <p class="meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4)">Practice mode, one domain at a time. No clock.</p>
+          <sc-for list="{{domains}}" as="d" hint-placeholder-count="6">
+            <div class="drow">
+              <div class="stack" style="gap: var(--space-2)">
+                <span style="font-size: var(--text-sm); font-weight: var(--weight-medium)">{{d.name}}</span>
+                <div class="meter"><div class="meter__fill meter__fill--accent" style="width: {{d.pct}}"></div></div>
+                <span class="meta">{{d.detail}}</span>
+              </div>
+              <span class="mono" style="font-size: var(--text-sm); color: var(--ink-secondary); text-align: right">{{d.weight}}</span>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const raw = [
+      [1, 47, 38], [2, 44, 44], [3, 49, 41], [4, null, null], [5, 46, 35],
+      [6, 52, 45], [7, 43, 43], [8, null, null], [9, 48, 40], [10, null, null],
+      [11, 45, 39], [12, null, null], [13, 41, 41], [14, null, null],
+      [15, null, null], [16, null, null],
+    ];
+    const pad = (n) => (n < 10 ? '0' + n : '' + n);
+    const exams = raw.map((r) => {
+      const n = r[0], best = r[1], first = r[2];
+      const attempted = best !== null;
+      const pass = attempted && best >= 45;
+      return {
+        num: pad(n),
+        title: 'Practice exam ' + pad(n),
+        meta: '60 questions · 90 min',
+        attempted: attempted,
+        fresh: !attempted,
+        best: attempted ? String(best) : '',
+        first: attempted ? String(first) : '',
+        bestPass: pass,
+        bestFail: attempted && !pass,
+        bestPct: attempted ? Math.round((best / 60) * 100) + '%' : '0%',
+        firstPct: attempted ? Math.round((first / 60) * 100) + '%' : '0%',
+        bestFillVar: pass ? 'var(--correct-solid)' : 'var(--incorrect-solid)',
+        delta: attempted ? (best - first > 0 ? '+' + (best - first) : (best - first === 0 ? 'first sitting' : String(best - first))) : '',
+      };
+    });
+
+    const domains = [
+      ['System Administration Fundamentals', '30%', '68%', '182 questions · 68% seen'],
+      ['Cloud Computing Fundamentals', '18%', '54%', '109 questions · 54% seen'],
+      ['Linux Fundamentals', '16%', '81%', '97 questions · 81% seen'],
+      ['Security Fundamentals', '14%', '42%', '84 questions · 42% seen'],
+      ['DevOps Fundamentals', '12%', '37%', '73 questions · 37% seen'],
+      ['IT Project Management Fundamentals', '10%', '25%', '60 questions · 25% seen'],
+    ].map((d) => ({ name: d[0], weight: d[1], pct: d[2], detail: d[3] }));
+
+    return { theme: this.props.theme ?? 'light', exams: exams, domains: domains };
+  }

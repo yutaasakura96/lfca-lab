@@ -1,0 +1,52 @@
+[CSS]
+.wrap { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: var(--space-7) var(--space-6); }
+.panel { width: 100%; max-width: 400px; padding: var(--space-7) var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
+.gbtn { display: flex; align-items: center; justify-content: center; gap: var(--space-3); height: var(--control-h-lg); width: 100%; border-radius: var(--radius-md); border: 1px solid var(--line-control); background: var(--surface-raised); color: var(--ink-primary); font-family: var(--font-ui); font-size: var(--text-base); font-weight: var(--weight-medium); }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); padding-top: var(--space-5); border-top: 1px solid var(--line-subtle); }
+.fact { display: flex; flex-direction: column; gap: var(--space-1); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":560,"height":780}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+  <div class="wrap">
+    <div class="card panel">
+
+      <div class="brandmark">
+        <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name" style="font-size: var(--text-base)">LFCA Practice</span>
+      </div>
+
+      <div class="stack" style="gap: var(--space-3)">
+        <h1 class="h1">Sixteen exams, one bank.</h1>
+        <p class="prose prose--secondary" style="font-size: var(--text-base); line-height: var(--leading-normal)">Practice for the Linux Foundation Certified IT Associate under the real format &mdash; or with the clock off and every answer explained as you go.</p>
+      </div>
+
+      <button class="gbtn" type="button">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+          <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"></path>
+          <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"></path>
+          <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"></path>
+          <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"></path>
+        </svg>
+        Continue with Google
+      </button>
+
+      <p class="meta" style="line-height: var(--leading-normal)">Scores, flags and the questions you have already seen are stored against your Google account. Nothing else is kept.</p>
+
+      <div class="facts">
+        <div class="fact"><span class="eyebrow">Questions</span><span class="mono" style="font-size: var(--text-lg)">60</span></div>
+        <div class="fact"><span class="eyebrow">Minutes</span><span class="mono" style="font-size: var(--text-lg)">90</span></div>
+        <div class="fact"><span class="eyebrow">To pass</span><span class="mono" style="font-size: var(--text-lg)">45</span></div>
+      </div>
+
+      <p class="meta">Figures from the Linux Foundation&rsquo;s published exam format, syllabus version 2025-09-16.</p>
+
+    </div>
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    return { theme: this.props.theme ?? 'light' };
+  }

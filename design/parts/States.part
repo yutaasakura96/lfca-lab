@@ -1,0 +1,308 @@
+[CSS]
+.page { padding: var(--space-8) var(--space-8) var(--space-9); display: flex; flex-direction: column; gap: var(--space-8); }
+.sec { display: flex; flex-direction: column; gap: var(--space-5); }
+.sec__head { display: flex; flex-direction: column; gap: var(--space-2); }
+.tok { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--ink-secondary); line-height: var(--leading-snug); }
+.tok--faint { color: var(--ink-faint); }
+.strow { display: grid; grid-template-columns: 128px 1fr 190px 1fr; gap: var(--space-5); align-items: start; padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle); }
+.specimen { display: grid; grid-template-columns: 210px 1fr; gap: var(--space-5); align-items: start; padding: var(--space-4) 0; border-top: 1px solid var(--line-subtle); }
+.tiles { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+.tilecell { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; width: 128px; }
+.clocks { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+.clockcell { display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+.grayproof { filter: grayscale(1); }
+.istack { display: flex; gap: var(--space-5); flex-wrap: wrap; align-items: flex-start; }
+.icell { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.proofwrap { border: 1px solid var(--line-default); border-radius: var(--radius-lg); padding: var(--space-5); background: var(--surface-raised); display: flex; flex-direction: column; gap: var(--space-5); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":3860}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+  <div class="page">
+
+    <header class="sec__head" style="gap: var(--space-3)">
+      <div class="eyebrow">LFCA Practice &middot; design system &middot; 03</div>
+      <h1 class="h1" style="font-size: var(--text-2xl)">Semantic states</h1>
+      <p class="prose prose--secondary" style="max-width: var(--measure-wide)">The review screen is almost entirely red and green, which makes it the screen most likely to fail a colour-blind reader. So no state in this product is carried by hue alone. Each one pairs its colour with a glyph, a border treatment and a written label, and each is designed to survive being desaturated &mdash; the proof is at the bottom of this board.</p>
+    </header>
+
+    <section class="sec">
+      <div>
+        <div class="strow" style="border-top: 0">
+          <div class="eyebrow">State</div>
+          <div class="eyebrow">Means</div>
+          <div class="eyebrow">Colour</div>
+          <div class="eyebrow">Cue without colour</div>
+        </div>
+        <sc-for list="{{states}}" as="s" hint-placeholder-count="5">
+          <div class="strow">
+            <div class="h3" style="color: var(--ink-primary)">{{s.name}}</div>
+            <div class="meta" style="font-size: var(--text-sm); color: var(--ink-secondary)">{{s.means}}</div>
+            <div class="tok">{{s.color}}</div>
+            <div class="meta" style="font-size: var(--text-sm); color: var(--ink-secondary)">{{s.cue}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Answer options</h2>
+        <p class="meta" style="max-width: var(--measure-ui)">Six states, one component. The label above each option's text is the state, spelled out.</p>
+      </div>
+      <div>
+
+        <div class="specimen" style="border-top: 0">
+          <div>
+            <div class="h3">Resting</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">--line-subtle</div>
+          </div>
+          <div class="opt">
+            <div class="opt__key">C</div>
+            <div class="opt__body"><p class="opt__text">Security baselines &mdash; the host fell below the minimum secure configuration.</p></div>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div>
+            <div class="h3">Selected</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">--accent-*</div>
+            <div class="meta" style="margin-top: var(--space-2)">Exam mode. Chosen, no verdict yet.</div>
+          </div>
+          <div class="opt opt--selected">
+            <div class="opt__key">B</div>
+            <div class="opt__body">
+              <div class="opt__verdict" style="color: var(--accent-ink)">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="7" cy="7" r="4.2" fill="currentColor" stroke="none"></circle></svg>
+                Selected
+              </div>
+              <p class="opt__text">Monitoring and alerting &mdash; the host should have triggered a threshold alert.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div>
+            <div class="h3">Correct &mdash; chosen</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">--correct-*</div>
+          </div>
+          <div class="opt opt--correct">
+            <div class="opt__key">A</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                Correct &middot; your answer
+              </div>
+              <p class="opt__text">Asset and inventory management &mdash; you cannot patch, secure or decommission what you do not know about.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div>
+            <div class="h3">Incorrect &mdash; chosen</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">--incorrect-*</div>
+          </div>
+          <div class="opt opt--incorrect">
+            <div class="opt__key">B</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+                Your answer
+              </div>
+              <p class="opt__text">Monitoring and alerting &mdash; the host should have triggered a threshold alert.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div>
+            <div class="h3">Correct &mdash; not chosen</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">--correct-*</div>
+          </div>
+          <div class="opt opt--correct">
+            <div class="opt__key">A</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                Correct answer
+              </div>
+              <p class="opt__text">Asset and inventory management &mdash; you cannot patch, secure or decommission what you do not know about.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div>
+            <div class="h3">Wrong &mdash; not chosen</div>
+            <div class="tok tok--faint" style="margin-top: var(--space-1)">neutral</div>
+            <div class="meta" style="margin-top: var(--space-2)">Still explained: every option says why it is tempting.</div>
+          </div>
+          <div class="opt opt--muted">
+            <div class="opt__key">D</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">Nothing is missing &mdash; the compromise itself is an adequate discovery mechanism.</p>
+              <p class="opt__why">Discovering a host only once it is attacked is the failure state the practice exists to avoid, not a substitute for it.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Navigator tiles</h2>
+        <p class="meta" style="max-width: var(--measure-wide)">Sixty of these sit beside every exam. <strong style="font-weight: var(--weight-semibold); color: var(--ink-secondary)">Flagged is orthogonal</strong> &mdash; it is a folded corner drawn over whatever the tile already is, so a question can be answered and flagged, or unanswered and flagged, without a sixth colour.</p>
+      </div>
+      <div class="tiles">
+        <div class="tilecell"><div class="tile">14</div><div class="tok">unanswered</div><div class="tok tok--faint">dashed, no fill</div></div>
+        <div class="tilecell"><div class="tile tile--answered">15</div><div class="tok">answered</div><div class="tok tok--faint">solid border + fill</div></div>
+        <div class="tilecell"><div class="tile tile--current">23</div><div class="tok">current</div><div class="tok tok--faint">filled + ring offset</div></div>
+        <div class="tilecell"><div class="tile tile--flagged">17</div><div class="tok">flagged &middot; unanswered</div><div class="tok tok--faint">folded corner</div></div>
+        <div class="tilecell"><div class="tile tile--answered tile--flagged">19</div><div class="tok">flagged &middot; answered</div><div class="tok tok--faint">fold over fill</div></div>
+        <div class="tilecell"><div class="tile tile--correct">
+          <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+        </div><div class="tok">correct (review)</div><div class="tok tok--faint">check replaces numeral</div></div>
+        <div class="tilecell"><div class="tile tile--incorrect">
+          <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+        </div><div class="tok">incorrect (review)</div><div class="tok tok--faint">cross replaces numeral</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Clock</h2>
+        <p class="meta" style="max-width: var(--measure-wide)">Three states, and the ramp is weight as much as hue: quiet ink on the page, then a tinted chip, then a solid fill. Warning reuses <span class="code">--flagged</span> and critical reuses <span class="code">--incorrect</span>, so the clock introduces no colour of its own. The remaining time is also written out in words beneath, because a glance at a colour is not a reading.</p>
+      </div>
+      <div class="clocks">
+        <div class="clockcell">
+          <div class="clock"><span class="clock__label">Left</span>1:12:04</div>
+          <div><div class="tok">normal</div><div class="tok tok--faint">above 20:00</div></div>
+        </div>
+        <div class="clockcell">
+          <div class="clock clock--warning"><span class="clock__label">Left</span>12:48</div>
+          <div><div class="tok">warning</div><div class="tok tok--faint">20:00 to 5:00 &middot; tinted chip</div></div>
+        </div>
+        <div class="clockcell">
+          <div class="clock clock--critical"><span class="clock__label">Left</span>04:11</div>
+          <div><div class="tok">critical</div><div class="tok tok--faint">under 5:00 &middot; solid fill</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Interaction states</h2>
+        <p class="meta" style="max-width: var(--measure-wide)">Rest, hover, pressed, keyboard focus, disabled. Focus is a 2px ring at 2px offset in <span class="code">--focus-ring</span>, applied by one rule to every control &mdash; it is never removed and never carried by colour alone, so it reads over a filled button as well as an outlined one. Hover and press move the surface, not the text, so nothing reflows under the pointer. All of it respects <span class="code">prefers-reduced-motion</span>.</p>
+      </div>
+
+      <div class="istack">
+        <div class="icell"><button class="btn" type="button">Previous</button><div class="tok">rest</div></div>
+        <div class="icell"><button class="btn" type="button" style="background: var(--surface-hover); border-color: var(--line-control)">Previous</button><div class="tok">hover</div><div class="tok tok--faint">--surface-hover</div></div>
+        <div class="icell"><button class="btn" type="button" style="background: var(--surface-active); border-color: var(--line-control)">Previous</button><div class="tok">pressed</div><div class="tok tok--faint">--surface-active</div></div>
+        <div class="icell"><button class="btn btn--focus" type="button">Previous</button><div class="tok">focus-visible</div><div class="tok tok--faint">--focus-ring</div></div>
+        <div class="icell"><button class="btn" type="button" disabled>Previous</button><div class="tok">disabled</div><div class="tok tok--faint">--ink-faint</div></div>
+      </div>
+
+      <div class="istack">
+        <div class="icell"><button class="btn btn--primary" type="button">Next question</button><div class="tok">primary &middot; rest</div></div>
+        <div class="icell"><button class="btn btn--primary" type="button" style="background: var(--accent-solid-hover); border-color: var(--accent-solid-hover)">Next question</button><div class="tok">hover</div><div class="tok tok--faint">--accent-solid-hover</div></div>
+        <div class="icell"><button class="btn btn--primary" type="button" style="background: var(--accent-solid-active); border-color: var(--accent-solid-active)">Next question</button><div class="tok">pressed</div><div class="tok tok--faint">--accent-solid-active</div></div>
+        <div class="icell"><button class="btn btn--danger" type="button">Submit and see score</button><div class="tok">destructive &middot; rest</div></div>
+        <div class="icell"><button class="btn btn--danger" type="button" style="background: var(--incorrect-solid-hover); border-color: var(--incorrect-solid-hover)">Submit and see score</button><div class="tok">hover</div><div class="tok tok--faint">--incorrect-solid-hover</div></div>
+      </div>
+
+      <div class="istack">
+        <div class="icell" style="width: 128px"><div class="tile">14</div><div class="tok">tile &middot; rest</div></div>
+        <div class="icell" style="width: 128px"><div class="tile" style="background: var(--surface-hover); border-color: var(--line-control)">14</div><div class="tok">hover</div></div>
+        <div class="icell" style="width: 128px"><div class="tile" style="outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset)">14</div><div class="tok">focus-visible</div></div>
+        <div class="icell" style="width: 128px"><div class="tile tile--answered">15</div><div class="tok">answered &middot; rest</div></div>
+        <div class="icell" style="width: 128px"><div class="tile tile--answered" style="background: var(--surface-active)">15</div><div class="tok">hover</div></div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4)">
+        <div>
+          <div class="opt">
+            <div class="opt__key">C</div>
+            <div class="opt__body"><p class="opt__text">Security baselines &mdash; the host fell below the minimum secure configuration.</p></div>
+          </div>
+          <div class="tok" style="margin-top: var(--space-2)">answer &middot; rest</div>
+        </div>
+        <div>
+          <div class="opt" style="background: var(--surface-hover); border-color: var(--line-control); border-left-color: var(--line-control)">
+            <div class="opt__key" style="border-color: var(--line-control)">C</div>
+            <div class="opt__body"><p class="opt__text">Security baselines &mdash; the host fell below the minimum secure configuration.</p></div>
+          </div>
+          <div class="tok" style="margin-top: var(--space-2)">answer &middot; hover, before it is graded</div>
+        </div>
+      </div>
+
+      <p class="meta" style="max-width: var(--measure-wide)">Touch: on the phone layouts every answer row, navigator tile and primary action is at least 44&times;44px (<span class="code">--control-h-lg</span>). The 34px navigator tile is a pointer-only size and is never used on a touch layout.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <h2 class="h2">Greyscale proof</h2>
+        <p class="meta" style="max-width: var(--measure-ui)">The same components, fully desaturated. If a state is only legible in the panel above, it is not finished.</p>
+      </div>
+      <div class="proofwrap grayproof">
+        <div class="tiles">
+          <div class="tilecell"><div class="tile">14</div><div class="tok">unanswered</div></div>
+          <div class="tilecell"><div class="tile tile--answered">15</div><div class="tok">answered</div></div>
+          <div class="tilecell"><div class="tile tile--current">23</div><div class="tok">current</div></div>
+          <div class="tilecell"><div class="tile tile--answered tile--flagged">19</div><div class="tok">flagged</div></div>
+          <div class="tilecell"><div class="tile tile--correct">
+            <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+          </div><div class="tok">correct</div></div>
+          <div class="tilecell"><div class="tile tile--incorrect">
+            <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+          </div><div class="tok">incorrect</div></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4)">
+          <div class="opt opt--correct">
+            <div class="opt__key">A</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                Correct &middot; your answer
+              </div>
+              <p class="opt__text">Asset and inventory management.</p>
+            </div>
+          </div>
+          <div class="opt opt--incorrect">
+            <div class="opt__key">B</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+                Your answer
+              </div>
+              <p class="opt__text">Monitoring and alerting.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clocks">
+          <div class="clock"><span class="clock__label">Left</span>1:12:04</div>
+          <div class="clock clock--warning"><span class="clock__label">Left</span>12:48</div>
+          <div class="clock clock--critical"><span class="clock__label">Left</span>04:11</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const states = [
+      { name: 'correct',    means: 'This option is the right answer.', color: '--correct-*',   cue: 'Check glyph, 3px solid left rule, filled key letter, and the words "Correct answer".' },
+      { name: 'incorrect',  means: 'You picked this and it was wrong.', color: '--incorrect-*', cue: 'Cross glyph, 3px solid left rule, filled key letter, and the words "Your answer".' },
+      { name: 'flagged',    means: 'Come back to this one.', color: '--flagged-*',  cue: 'Flag glyph in the toolbar; a folded top-right corner on the tile. Layers over any other state.' },
+      { name: 'unanswered', means: 'Nothing chosen yet.', color: 'neutral only',    cue: 'Dashed 1px border and no fill. Deliberately has no hue of its own.' },
+      { name: 'current',    means: 'The question on screen.', color: '--accent-*',   cue: 'Filled tile plus a 2px ring at 2px offset, matching the focus ring.' },
+    ];
+    return { theme: this.props.theme ?? 'light', states: states };
+  }

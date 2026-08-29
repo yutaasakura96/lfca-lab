@@ -1,0 +1,114 @@
+[CSS]
+.app { position: relative; }
+.page { padding: var(--space-6); display: grid; grid-template-columns: 1fr 470px; gap: var(--space-6); align-items: start; }
+.qhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.scrim { position: absolute; inset: 0; background: var(--scrim); display: flex; align-items: center; justify-content: center; padding: var(--space-6); }
+.dialog { width: 100%; max-width: 620px; background: var(--surface-raised); border: 1px solid var(--incorrect-line); border-top: 3px solid var(--incorrect-solid); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
+.tally { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-4) 0; border-top: 1px solid var(--line-subtle); border-bottom: 1px solid var(--line-subtle); }
+.tally__cell { display: flex; flex-direction: column; gap: var(--space-1); }
+.tally__num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--text-xl); font-weight: var(--weight-medium); line-height: var(--leading-tight); }
+.blanks { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--unanswered-line); border-style: var(--unanswered-border-style); }
+.jumps { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.dialog__actions { display: flex; justify-content: flex-end; gap: var(--space-3); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"dark","section":"Theme"},"$preview":{"width":1440,"height":900}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar">
+    <div class="row" style="gap: var(--space-4)">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name">Practice exam 04</span>
+      </div>
+      <span class="chip chip--accent">Exam mode</span>
+    </div>
+    <div class="clock clock--critical"><span class="clock__label">Left</span>00:00</div>
+    <div class="row" style="gap: var(--space-3)">
+      <span class="chip"><span class="mono">56</span>&nbsp;of 60 answered</span>
+      <button class="btn" type="button" disabled>Submit exam</button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="stack" style="gap: var(--space-5)">
+      <div class="qhead">
+        <div class="stack" style="gap: var(--space-2)">
+          <div class="row" style="gap: var(--space-3)">
+            <span class="eyebrow">Question 56 of 60</span>
+            <span class="meta">Linux Fundamentals &middot; Command Line</span>
+          </div>
+          <div class="meter" style="width: 320px"><div class="meter__fill meter__fill--accent" style="width: 93%"></div></div>
+        </div>
+      </div>
+      <p class="stem">A colon-delimited file has some rows with consecutive colons producing empty fields, and the task is to extract the fourth field with awk using <span class="code">-F:</span>. What happens to a run of consecutive delimiters when the separator is set to a single explicit character this way?</p>
+      <div class="opts">
+        <div class="opt opt--interactive"><div class="opt__key">A</div><div class="opt__body"><p class="opt__text">Consecutive delimiters are automatically collapsed into one, the same as the default whitespace behaviour</p></div></div>
+        <div class="opt opt--interactive"><div class="opt__key">B</div><div class="opt__body"><p class="opt__text">awk raises an error whenever two delimiters appear next to each other</p></div></div>
+        <div class="opt opt--interactive"><div class="opt__key">C</div><div class="opt__body"><p class="opt__text">Every occurrence separates a field, so consecutive delimiters produce empty fields between them</p></div></div>
+        <div class="opt opt--interactive"><div class="opt__key">D</div><div class="opt__body"><p class="opt__text">The field numbering resets at each empty field, so <span class="code">$4</span> no longer refers to the fourth field</p></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: var(--space-5)">
+      <h2 class="h2" style="margin-bottom: var(--space-4)">Navigator</h2>
+      <div class="grid60">
+        <sc-for list="{{tiles}}" as="t" hint-placeholder-count="60">
+          <div class="{{t.cls}}">{{t.n}}</div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrim">
+    <div class="dialog">
+      <div class="stack" style="gap: var(--space-4)">
+        <div class="row" style="gap: var(--space-4)">
+          <span class="clock clock--critical" style="font-size: var(--text-xl); padding: var(--space-1) var(--space-3)">00:00</span>
+          <span class="eyebrow" style="color: var(--incorrect-ink)">Time expired</span>
+        </div>
+        <h2 class="h1">Your exam was submitted automatically.</h2>
+        <p class="prose" style="font-size: var(--text-base); line-height: var(--leading-normal)">The ninety minutes are up. Answers are saved as you go, so everything you chose is recorded &mdash; but the four questions you had not reached are marked incorrect.</p>
+      </div>
+
+      <div class="tally">
+        <div class="tally__cell"><span class="eyebrow">Answered</span><span class="tally__num">56</span></div>
+        <div class="tally__cell"><span class="eyebrow">Left blank</span><span class="tally__num" style="color: var(--incorrect-ink)">4</span></div>
+        <div class="tally__cell"><span class="eyebrow">Flagged</span><span class="tally__num" style="color: var(--flagged-ink)">5</span></div>
+        <div class="tally__cell"><span class="eyebrow">Time used</span><span class="tally__num">1:30:00</span></div>
+      </div>
+
+      <div class="blanks">
+        <div class="jumps">
+          <svg class="ico" width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--ink-secondary)"><circle cx="7" cy="7" r="5.2" stroke-dasharray="2.4 2.2"></circle></svg>
+          <span style="font-size: var(--text-sm); font-weight: var(--weight-semibold)">Left blank:</span>
+          <sc-for list="{{jumps}}" as="j" hint-placeholder-count="4">
+            <span class="tile" style="width: var(--control-h-sm); height: var(--control-h-sm)">{{j.n}}</span>
+          </sc-for>
+        </div>
+        <p class="meta" style="font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--ink-secondary)">The review screen shows these alongside the rest, with all four explanations, so an unreached question still teaches you something.</p>
+      </div>
+
+      <div class="dialog__actions">
+        <button class="btn btn--lg btn--primary" type="button">See your score</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+[LOGIC]
+  renderVals() {
+    const flagged = [7, 17, 19, 29, 41];
+    const blank = [57, 58, 59, 60];
+    const tiles = [];
+    for (let n = 1; n <= 60; n++) {
+      let cls = 'tile';
+      if (blank.indexOf(n) === -1) cls += ' tile--answered';
+      if (flagged.indexOf(n) !== -1) cls += ' tile--flagged';
+      tiles.push({ n: String(n), cls: cls });
+    }
+    return { theme: this.props.theme ?? 'dark', tiles: tiles, jumps: blank.map((n) => ({ n: String(n) })) };
+  }

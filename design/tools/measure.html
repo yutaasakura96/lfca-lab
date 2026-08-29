@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>measure</title></head>
+<body style="font:13px ui-monospace,monospace;background:#111;color:#eee;padding:12px">
+<pre id="out">measuring…</pre>
+<script type="module">
+const list = await (await fetch('./index.json')).json();
+const results = [];
+for (const it of list) {
+  const f = document.createElement('iframe');
+  f.style.cssText = 'position:absolute;left:-99999px;top:0;border:0;width:' + it.w + 'px;height:100px';
+  f.src = './' + it.name + '.html';
+  document.body.appendChild(f);
+  await new Promise(r => { f.onload = r; });
+  const d = f.contentDocument;
+  try { await d.fonts.ready; } catch {}
+  await new Promise(r => setTimeout(r, 250));
+  const content = Math.max(d.documentElement.scrollHeight, d.body.scrollHeight);
+  // widest laid-out element vs the frame width: catches rails/grids that overrun
+  let over = 0, culprit = '';
+  for (const el of d.querySelectorAll('*')) {
+    const r = el.getBoundingClientRect();
+    if (r.width === 0) continue;
+    const x = r.right;
+    if (x - it.w > over + 0.5) { over = Math.round(x - it.w); culprit = el.className || el.tagName; }
+  }
+  results.push({ name: it.name, w: it.w, frame: it.h, content, slack: it.h - content, over, culprit });
+  f.remove();
+}
+results.sort((a,b) => a.slack - b.slack);
+document.getElementById('out').textContent =
+  'artboard'.padEnd(14) + 'width'.padStart(6) + 'frame'.padStart(8) + 'content'.padStart(9) + 'slack'.padStart(8) + '  verdict\n' +
+  results.map(r => r.name.padEnd(14) + String(r.w).padStart(6) + String(r.frame).padStart(8) +
+    String(r.content).padStart(9) + String(r.slack).padStart(8) +
+    '  ' + (r.slack < 0 ? 'CLIPS-V ' + (-r.slack) : 'ok') +
+    (r.over > 0 ? '  | OVERFLOWS-H ' + r.over + 'px: ' + String(r.culprit).slice(0,40) : '')).join('\n');
+window.__done = true;
+</script></body></html>

@@ -1,0 +1,135 @@
+[CSS]
+.page { padding: var(--space-6) var(--space-6) var(--space-8); display: flex; flex-direction: column; gap: var(--space-6); }
+.dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.dcard { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); }
+.dcard--on { border-color: var(--accent-solid); background: var(--accent-surface); outline: var(--focus-ring-width) solid var(--focus-ring); outline-offset: var(--focus-ring-offset); }
+.comps { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); }
+.comp { font-size: var(--text-2xs); color: var(--ink-muted); border: 1px solid var(--line-subtle); border-radius: var(--radius-sm); padding: var(--space-0) var(--space-2); }
+.setup { padding: var(--space-5) var(--space-6); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line-control); border-radius: var(--radius-md); overflow: hidden; }
+.seg > button { height: var(--control-h); padding: 0 var(--space-4); border: 0; background: var(--surface-raised); color: var(--ink-secondary); font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-medium); border-left: 1px solid var(--line-control); }
+.seg > button:first-child { border-left: 0; }
+.seg > button.on { background: var(--accent-solid); color: var(--accent-on-solid); }
+.toggle { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--ink-secondary); }
+.box { width: 16px; height: 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-control); display: inline-flex; align-items: center; justify-content: center; }
+.box--on { background: var(--accent-solid); border-color: var(--accent-solid); color: var(--accent-on-solid); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":1100}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar">
+    <div class="row" style="gap: var(--space-4)">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name">LFCA Practice</span>
+      </div>
+      <span class="chip">Domain mode</span>
+    </div>
+    <div class="row" style="gap: var(--space-4)">
+      <button class="btn btn--quiet" type="button">Back to exams</button>
+      <div class="avatar">YA</div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="stack" style="gap: var(--space-2)">
+      <h1 class="h1">Study by domain</h1>
+      <p class="meta" style="font-size: var(--text-sm); max-width: var(--measure-wide)">Practice mode restricted to one domain. Same immediate feedback, same four explanations per question, no clock. The percentages beside each domain are its weight on the real exam &mdash; System Administration is nearly a third of it.</p>
+    </div>
+
+    <div class="dgrid">
+      <sc-for list="{{domains}}" as="d" hint-placeholder-count="6">
+        <div class="{{d.cls}}">
+          <div class="row" style="justify-content: space-between; align-items: flex-start; gap: var(--space-3)">
+            <h2 class="h2" style="font-size: var(--text-base)">{{d.name}}</h2>
+            <span class="chip" style="height: var(--control-h-xs); padding: 0 var(--space-2); font-size: var(--text-2xs)">{{d.weight}} of exam</span>
+          </div>
+          <div class="comps">
+            <sc-for list="{{d.comps}}" as="c" hint-placeholder-count="4">
+              <span class="comp">{{c.name}}</span>
+            </sc-for>
+          </div>
+          <div class="stack" style="gap: var(--space-2); margin-top: auto; padding-top: var(--space-3)">
+            <div class="row" style="justify-content: space-between">
+              <span class="meta">{{d.seen}}</span>
+              <span class="mono" style="font-size: var(--text-xs); color: var(--ink-secondary)">{{d.pct}}</span>
+            </div>
+            <div class="meter"><div class="{{d.fillCls}}" style="width: {{d.pct}}"></div></div>
+            <span class="meta">{{d.last}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div class="card setup">
+      <div class="stack" style="gap: var(--space-2)">
+        <span class="eyebrow">Selected</span>
+        <div class="row" style="gap: var(--space-3)">
+          <span class="h2">Security Fundamentals</span>
+          <span class="chip chip--accent">84 questions available</span>
+        </div>
+        <span class="meta">Security &middot; Sensitive Data &middot; Compliance &middot; 42% of its questions seen</span>
+      </div>
+
+      <div class="row" style="gap: var(--space-6); flex-wrap: wrap">
+        <div class="stack" style="gap: var(--space-2)">
+          <span class="eyebrow">Length</span>
+          <div class="seg">
+            <button type="button">20</button>
+            <button type="button" class="on">40</button>
+            <button type="button">All 84</button>
+          </div>
+        </div>
+        <div class="stack" style="gap: var(--space-3)">
+          <span class="eyebrow">Draw from</span>
+          <div class="row" style="gap: var(--space-5)">
+            <span class="toggle">
+              <span class="box box--on">
+                <svg class="ico" width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+              </span>
+              Unseen questions
+            </span>
+            <span class="toggle">
+              <span class="box"></span>
+              Previously missed
+            </span>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--lg" type="button">Start domain practice</button>
+      </div>
+    </div>
+
+    <div class="row" style="gap: var(--space-3); flex-wrap: wrap">
+      <span class="meta">Recent:</span>
+      <span class="chip">DevOps &middot; 20 questions &middot; <span class="mono">16/20</span></span>
+      <span class="chip">Cloud &middot; 40 questions &middot; <span class="mono">29/40</span></span>
+      <span class="chip">Linux &middot; 20 questions &middot; <span class="mono">18/20</span></span>
+    </div>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const src = [
+      ['Linux Fundamentals', '16%', ['Linux Operating System', 'Command Line'], 97, 81, '3 days ago'],
+      ['System Administration Fundamentals', '30%', ['System Administration', 'Best Practices', 'Networking', 'Troubleshooting', 'Disaster Recovery'], 182, 68, 'yesterday'],
+      ['Cloud Computing Fundamentals', '18%', ['Cloud Computing', 'Performance/Availability', 'Budgeting', 'Best Practices', 'Networking'], 109, 54, '5 days ago'],
+      ['Security Fundamentals', '14%', ['Security', 'Sensitive Data', 'Compliance'], 84, 42, '2 weeks ago'],
+      ['DevOps Fundamentals', '12%', ['DevOps Basics', 'Git Concepts', 'Containers'], 73, 37, '4 days ago'],
+      ['IT Project Management Fundamentals', '10%', ['Project Management', 'Software Application Architecture', 'Functional Analysis', 'Open Source Software and Licensing'], 60, 25, 'not started'],
+    ];
+    const domains = src.map((d) => ({
+      name: d[0], weight: d[1],
+      comps: d[2].map((n) => ({ name: n })),
+      seen: Math.round((d[4] / 100) * d[3]) + ' of ' + d[3] + ' seen',
+      pct: d[4] + '%',
+      last: 'Last practised ' + d[5],
+      fillCls: d[4] >= 70 ? 'meter__fill meter__fill--correct' : 'meter__fill meter__fill--accent',
+      cls: d[0] === 'Security Fundamentals' ? 'card dcard dcard--on' : 'card dcard',
+    }));
+    return { theme: this.props.theme ?? 'light', domains: domains };
+  }

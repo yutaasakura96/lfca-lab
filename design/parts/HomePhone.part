@@ -1,0 +1,127 @@
+[CSS]
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-raised); border-bottom: 1px solid var(--line-subtle); }
+.body { padding: var(--space-4) var(--space-4) var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.erow { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+.scores { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle); border-bottom: 1px solid var(--line-subtle); }
+.scorecell { display: flex; flex-direction: column; gap: var(--space-1); }
+.score { display: flex; align-items: baseline; gap: var(--space-0); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.score__num { font-size: var(--text-lg); font-weight: var(--weight-medium); }
+.score__den { font-size: var(--text-xs); color: var(--ink-muted); }
+.threshbar { position: relative; height: var(--meter-h-sm); border-radius: var(--radius-pill); background: var(--surface-inset); border: 1px solid var(--line-subtle); overflow: hidden; }
+.threshbar__fill { position: absolute; inset: 0 auto 0 0; }
+.threshbar__tick { position: absolute; top: calc(var(--space-0) * -1); bottom: calc(var(--space-0) * -1); width: var(--space-0); background: var(--ink-secondary); }
+.acts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-2); }
+.acts .btn { height: var(--control-h-lg); justify-content: center; padding: 0 var(--space-2); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":390,"height":1500}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="topbar">
+    <div class="brandmark">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+        <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+      </svg>
+      <span class="brandmark__name">LFCA Practice</span>
+    </div>
+    <div class="avatar">YA</div>
+  </div>
+
+  <div class="body">
+
+    <div class="stack" style="gap: var(--space-2)">
+      <h1 class="h1">Practice exams</h1>
+      <p class="meta">Sixteen exams &middot; 60 questions &middot; 45 to pass</p>
+    </div>
+
+    <div class="card" style="padding: var(--space-4); border-color: var(--accent-line); background: var(--accent-surface)">
+      <div class="eyebrow" style="color: var(--accent-ink)">In progress</div>
+      <div class="row" style="justify-content: space-between; align-items: center; gap: var(--space-3); margin-top: var(--space-3)">
+        <div class="stack" style="gap: var(--space-1)">
+          <span style="font-size: var(--text-base); font-weight: var(--weight-semibold)">Exam 04</span>
+          <span class="meta">38 of 60 answered</span>
+        </div>
+        <span class="clock clock--warning" style="font-size: var(--text-base); padding: var(--space-1) var(--space-2)">12:48</span>
+      </div>
+      <button class="btn btn--primary btn--lg" type="button" style="width: 100%; justify-content: center; margin-top: var(--space-3)">Resume</button>
+    </div>
+
+    <sc-for list="{{exams}}" as="e" hint-placeholder-count="4">
+      <div class="card erow">
+        <div class="row" style="justify-content: space-between; align-items: baseline; gap: var(--space-3)">
+          <span style="font-size: var(--text-base); font-weight: var(--weight-semibold)">{{e.title}}</span>
+          <sc-if value="{{e.bestPass}}" hint-placeholder-val="{{ true }}">
+            <span class="chip chip--correct">
+              <svg class="ico" width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+              Pass
+            </span>
+          </sc-if>
+          <sc-if value="{{e.bestFail}}" hint-placeholder-val="{{ false }}">
+            <span class="chip chip--incorrect">
+              <svg class="ico" width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+              Short
+            </span>
+          </sc-if>
+          <sc-if value="{{e.fresh}}" hint-placeholder-val="{{ false }}">
+            <span class="chip chip--unanswered">Not attempted</span>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{e.attempted}}" hint-placeholder-val="{{ true }}">
+          <div class="scores">
+            <div class="scorecell">
+              <span class="eyebrow">Best</span>
+              <span class="score"><span class="score__num">{{e.best}}</span><span class="score__den">/60</span></span>
+              <div class="threshbar">
+                <div class="threshbar__fill" style="width: {{e.bestPct}}; background: {{e.bestFillVar}}"></div>
+                <div class="threshbar__tick" style="left: 75%"></div>
+              </div>
+            </div>
+            <div class="scorecell">
+              <span class="eyebrow">First attempt</span>
+              <span class="score"><span class="score__num" style="color: var(--ink-secondary)">{{e.first}}</span><span class="score__den">/60</span></span>
+              <div class="threshbar">
+                <div class="threshbar__fill" style="width: {{e.firstPct}}; background: var(--line-control)"></div>
+                <div class="threshbar__tick" style="left: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div class="acts">
+          <sc-if value="{{e.attempted}}" hint-placeholder-val="{{ true }}">
+            <button class="btn" type="button">Review</button>
+          </sc-if>
+          <button class="btn" type="button">Exam</button>
+          <button class="btn" type="button">Practice</button>
+        </div>
+      </div>
+    </sc-for>
+
+    <p class="meta" style="text-align: center">Exams 05 to 16 below</p>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const raw = [[1, 47, 38], [2, 44, 44], [3, 49, 41], [4, null, null]];
+    const pad = (n) => (n < 10 ? '0' + n : '' + n);
+    const exams = raw.map((r) => {
+      const n = r[0], best = r[1], first = r[2];
+      const attempted = best !== null;
+      const pass = attempted && best >= 45;
+      return {
+        title: 'Practice exam ' + pad(n),
+        attempted: attempted,
+        fresh: !attempted,
+        best: attempted ? String(best) : '',
+        first: attempted ? String(first) : '',
+        bestPass: pass,
+        bestFail: attempted && !pass,
+        bestPct: attempted ? Math.round((best / 60) * 100) + '%' : '0%',
+        firstPct: attempted ? Math.round((first / 60) * 100) + '%' : '0%',
+        bestFillVar: pass ? 'var(--correct-solid)' : 'var(--incorrect-solid)',
+      };
+    });
+    return { theme: this.props.theme ?? 'light', exams: exams };
+  }

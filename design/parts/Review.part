@@ -1,0 +1,348 @@
+[CSS]
+.page { padding: var(--space-6); display: grid; grid-template-columns: 1fr 470px; gap: var(--space-6); align-items: start; }
+.result { display: grid; grid-template-columns: 300px 1fr; gap: var(--space-7); padding: var(--space-6); }
+.bigscore { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--text-3xl); font-weight: var(--weight-medium); line-height: var(--leading-tight); letter-spacing: var(--tracking-display); }
+.passbar { position: relative; height: var(--meter-h-lg); border-radius: var(--radius-pill); background: var(--surface-inset); border: 1px solid var(--line-subtle); }
+.passbar__fill { position: absolute; top: 0; bottom: 0; left: 0; border-radius: var(--radius-pill); background: var(--incorrect-solid); }
+.passbar__tick { position: absolute; top: calc(var(--space-2) * -1); bottom: calc(var(--space-2) * -1); width: var(--space-0); background: var(--ink-primary); }
+.passbar__label { position: absolute; top: -26px; transform: translateX(-50%); font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--ink-primary); white-space: nowrap; }
+.dgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-6); }
+.dcell { display: grid; grid-template-columns: 1fr 74px; gap: var(--space-3); align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle); }
+.filters { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.filter { height: var(--control-h-md); padding: 0 var(--space-4); border-radius: var(--radius-pill); border: 1px solid var(--line-control); background: var(--surface-raised); color: var(--ink-secondary); font-size: var(--text-sm); font-weight: var(--weight-medium); display: inline-flex; align-items: center; gap: var(--space-2); }
+.filter--on { background: var(--incorrect-solid); border-color: var(--incorrect-solid); color: var(--incorrect-on-solid); }
+.qcard { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
+.qcard__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding-bottom: var(--space-4); border-bottom: 1px solid var(--line-subtle); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.concept { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--ink-muted); word-break: break-all; }
+.railcount { display: flex; justify-content: space-between; padding: var(--space-2) 0; border-top: 1px solid var(--line-subtle); font-size: var(--text-sm); }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":3480}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar">
+    <div class="row" style="gap: var(--space-4)">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name">Practice exam 04</span>
+      </div>
+      <span class="chip">Review</span>
+      <span class="meta">Submitted 29 Aug, 09:41 &middot; second attempt</span>
+    </div>
+    <div class="row" style="gap: var(--space-2)">
+      <button class="btn btn--quiet" type="button">Retake in practice mode</button>
+      <button class="btn" type="button">Back to exams</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="stack" style="gap: var(--space-6)">
+
+      <div class="card result">
+        <div class="stack" style="gap: var(--space-3)">
+          <span class="eyebrow">Score</span>
+          <div class="row" style="align-items: baseline; gap: var(--space-3)">
+            <span class="bigscore">41<span style="font-size: var(--text-lg); color: var(--ink-faint)">&thinsp;/&thinsp;60</span></span>
+            <span class="mono" style="font-size: var(--text-lg); color: var(--ink-secondary)">68%</span>
+          </div>
+          <span class="chip chip--incorrect" style="align-self: flex-start">
+            <svg class="ico" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+            Four short of the pass mark
+          </span>
+          <p class="meta" style="margin-top: var(--space-2)">Your first attempt at this exam was <span class="mono">35</span>. Best is now <span class="mono">41</span>.</p>
+        </div>
+
+        <div class="stack" style="gap: var(--space-5); padding-top: var(--space-5)">
+          <div style="padding-top: var(--space-5)">
+            <div class="passbar">
+              <div class="passbar__fill" style="width: 68.3%"></div>
+              <div class="passbar__tick" style="left: 75%"></div>
+              <div class="passbar__label" style="left: 75%">Pass &middot; 45</div>
+            </div>
+            <div class="row" style="justify-content: space-between; margin-top: var(--space-2)">
+              <span class="meta mono">0</span>
+              <span class="meta mono">60</span>
+            </div>
+          </div>
+          <div class="row" style="gap: var(--space-7)">
+            <div class="stack" style="gap: var(--space-1)"><span class="eyebrow">Time used</span><span class="mono" style="font-size: var(--text-lg)">1:16:22</span></div>
+            <div class="stack" style="gap: var(--space-1)"><span class="eyebrow">Left unanswered</span><span class="mono" style="font-size: var(--text-lg)">0</span></div>
+            <div class="stack" style="gap: var(--space-1)"><span class="eyebrow">Flagged</span><span class="mono" style="font-size: var(--text-lg); color: var(--flagged-ink)">5</span></div>
+            <div class="stack" style="gap: var(--space-1)"><span class="eyebrow">Slowest question</span><span class="mono" style="font-size: var(--text-lg)">4:07</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: var(--space-6)">
+        <div class="row" style="justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4)">
+          <h2 class="h2">By domain</h2>
+          <span class="meta">weighted as the real exam is</span>
+        </div>
+        <div class="dgrid">
+          <sc-for list="{{domains}}" as="d" hint-placeholder-count="6">
+            <div class="dcell">
+              <div class="stack" style="gap: var(--space-2)">
+                <div class="row" style="justify-content: space-between; gap: var(--space-3)">
+                  <span style="font-size: var(--text-sm); font-weight: var(--weight-medium)">{{d.name}}</span>
+                  <span class="meta mono">{{d.weight}}</span>
+                </div>
+                <div class="meter"><div class="{{d.fillCls}}" style="width: {{d.pct}}"></div></div>
+              </div>
+              <span class="mono" style="font-size: var(--text-sm); text-align: right; color: var(--ink-secondary)">{{d.score}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content: space-between; gap: var(--space-5); flex-wrap: wrap">
+        <div class="filters">
+          <button class="filter filter--on" type="button">
+            <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+            Incorrect <span class="mono">19</span>
+          </button>
+          <button class="filter" type="button">
+            <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+            Correct <span class="mono">41</span>
+          </button>
+          <button class="filter" type="button">
+            <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+            Flagged <span class="mono">5</span>
+          </button>
+          <button class="filter" type="button">All <span class="mono">60</span></button>
+        </div>
+        <span class="meta">Showing 19 questions &middot; every option explained</span>
+      </div>
+
+      <div class="card qcard">
+        <div class="qcard__head">
+          <div class="row" style="gap: var(--space-4)">
+            <div class="tile tile--incorrect tile--flagged">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+            </div>
+            <div class="stack" style="gap: var(--space-0)">
+              <span class="eyebrow">Question 23</span>
+              <span class="meta">Linux Fundamentals &middot; Command Line &middot; application</span>
+            </div>
+          </div>
+          <div class="row" style="gap: var(--space-2)">
+            <span class="chip chip--flagged">
+              <svg class="ico" width="12" height="12" viewBox="0 0 14 14" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+              You flagged this
+            </span>
+            <span class="meta mono">1:12 spent</span>
+          </div>
+        </div>
+
+        <p class="stem">A colon-delimited file has some rows with consecutive colons producing empty fields, and the task is to extract the fourth field with awk using <span class="code">-F:</span>. What happens to a run of consecutive delimiters when the separator is set to a single explicit character this way?</p>
+
+        <div class="opts">
+          <div class="opt opt--incorrect">
+            <div class="opt__key">A</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+                Your answer
+              </div>
+              <p class="opt__text">Consecutive delimiters are automatically collapsed into one, the same as the default whitespace behaviour</p>
+              <p class="opt__why">Tempting because collapsing is exactly what awk does &mdash; but only for the default separator. The whitespace-collapsing behaviour does not carry over to an explicit single-character separator like <span class="code">-F:</span>.</p>
+            </div>
+          </div>
+          <div class="opt opt--muted">
+            <div class="opt__key">B</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">awk raises an error whenever two delimiters appear next to each other</p>
+              <p class="opt__why">awk does not error on adjacent delimiters; it simply produces an empty field between them, silently. That silence is what makes the real behaviour worth knowing.</p>
+            </div>
+          </div>
+          <div class="opt opt--correct">
+            <div class="opt__key">C</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                Correct answer
+              </div>
+              <p class="opt__text">Every occurrence separates a field, so consecutive delimiters produce empty fields between them</p>
+              <p class="opt__why">With an explicit single-character separator such as <span class="code">-F:</span>, awk treats every colon as its own delimiter, so two colons in a row create an empty field rather than being collapsed together.</p>
+            </div>
+          </div>
+          <div class="opt opt--muted">
+            <div class="opt__key">D</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">The field numbering resets at each empty field, so <span class="code">$4</span> no longer refers to the fourth field</p>
+              <p class="opt__why">Field numbering is a straightforward left-to-right count including empty fields; it does not reset partway through a record.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: var(--space-5); border-radius: var(--radius-md); background: var(--surface-sunken); border: 1px solid var(--line-subtle)">
+          <div class="eyebrow">Why this is the answer</div>
+          <p class="prose" style="margin-top: var(--space-3)">The default field separator is a run of whitespace, with leading and trailing whitespace ignored &mdash; but with an explicit single-character separator set by <span class="code">-F</span>, every occurrence separates a field, so consecutive delimiters produce empty fields.</p>
+          <div class="row" style="gap: var(--space-4); margin-top: var(--space-4); flex-wrap: wrap">
+            <span class="concept">linux.command-line.awk</span>
+            <a href="#" style="font-size: var(--text-sm)">Open in the study guide &rarr;</a>
+            <a href="#" style="font-size: var(--text-sm)">Drill this competency</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card qcard">
+        <div class="qcard__head">
+          <div class="row" style="gap: var(--space-4)">
+            <div class="tile tile--correct">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+            </div>
+            <div class="stack" style="gap: var(--space-0)">
+              <span class="eyebrow">Question 24</span>
+              <span class="meta">System Administration Fundamentals &middot; Disaster Recovery &middot; discrimination</span>
+            </div>
+          </div>
+          <span class="meta mono">0:38 spent</span>
+        </div>
+
+        <p class="stem">How do business continuity and disaster recovery relate to each other?</p>
+
+        <div class="opts">
+          <div class="opt opt--muted">
+            <div class="opt__key">A</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">Business continuity is the IT subset of the wider disaster recovery discipline.</p>
+              <p class="opt__why">This inverts the containment; the technical procedure sits inside the organisational one.</p>
+            </div>
+          </div>
+          <div class="opt opt--correct">
+            <div class="opt__key">B</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+                Correct &middot; your answer
+              </div>
+              <p class="opt__text">Disaster recovery is one component of business continuity, which is broader.</p>
+              <p class="opt__why">Continuity covers keeping the organisation operating; IT recovery is one part of that.</p>
+            </div>
+          </div>
+          <div class="opt opt--muted">
+            <div class="opt__key">C</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">They are two names for the same set of activities.</p>
+              <p class="opt__why">They differ in scope, and treating them as synonyms is what the comparison tests.</p>
+            </div>
+          </div>
+          <div class="opt opt--muted">
+            <div class="opt__key">D</div>
+            <div class="opt__body">
+              <div class="opt__verdict">
+                <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+                Not correct
+              </div>
+              <p class="opt__text">Business continuity applies during an incident; disaster recovery applies afterwards.</p>
+              <p class="opt__why">Tempting because the two do have different centres of gravity in time &mdash; but both span the incident and its aftermath. The difference is breadth, not timing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: var(--space-5); border-radius: var(--radius-md); background: var(--surface-sunken); border: 1px solid var(--line-subtle)">
+          <div class="eyebrow">Why this is the answer</div>
+          <p class="prose" style="margin-top: var(--space-3)">Business continuity is the discipline of keeping the organisation operating through disruption &mdash; staff, premises, suppliers, communications and systems. Disaster recovery is the part of that concerned with restoring IT service. The axis is scope: one contains the other.</p>
+          <div class="row" style="gap: var(--space-4); margin-top: var(--space-4); flex-wrap: wrap">
+            <span class="concept">sysadmin.disaster-recovery.business-continuity</span>
+            <a href="#" style="font-size: var(--text-sm)">Open in the study guide &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content: center; padding: var(--space-4)">
+        <span class="meta">17 more incorrect questions below</span>
+      </div>
+
+    </div>
+
+    <div class="stack" style="gap: var(--space-5)">
+      <div class="card" style="padding: var(--space-5)">
+        <div class="row" style="justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4)">
+          <h2 class="h2">All 60</h2>
+          <span class="meta">jump to any</span>
+        </div>
+        <div class="grid60">
+          <sc-for list="{{tiles}}" as="t" hint-placeholder-count="60">
+            <div class="{{t.cls}}">
+              <sc-if value="{{t.correct}}" hint-placeholder-val="{{ true }}">
+                <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+              </sc-if>
+              <sc-if value="{{t.incorrect}}" hint-placeholder-val="{{ false }}">
+                <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div class="legend" style="margin-top: var(--space-5)">
+          <div class="legend__item"><span class="legend__swatch" style="border-style: solid; border-color: var(--correct-solid); background: var(--correct-solid); color: var(--correct-on-solid)"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg></span>Correct</div>
+          <div class="legend__item"><span class="legend__swatch" style="border-style: solid; border-color: var(--incorrect-solid); background: var(--incorrect-solid); color: var(--incorrect-on-solid)"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg></span>Incorrect</div>
+          <div class="legend__item"><span class="legend__swatch tile--flagged" style="border-style: solid; border-color: var(--line-control); background: var(--surface-inset)"></span>Flagged</div>
+        </div>
+        <div style="margin-top: var(--space-5)">
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Score</span><span class="mono">41 / 60</span></div>
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Needed</span><span class="mono">45 / 60</span></div>
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Gap</span><span class="mono" style="color: var(--incorrect-ink)">4 questions</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: var(--space-5)">
+        <h2 class="h2">What to do next</h2>
+        <p class="prose" style="font-size: var(--text-sm); line-height: var(--leading-normal); margin-top: var(--space-3); color: var(--ink-secondary)">Eleven of the nineteen misses sit in two competencies. A targeted drill is a better use of the next hour than another full sitting.</p>
+        <button class="btn btn--primary btn--lg" type="button" style="margin-top: var(--space-4); width: 100%; justify-content: center">Drill the 19 missed</button>
+        <button class="btn" type="button" style="margin-top: var(--space-2); width: 100%; justify-content: center">Retake exam 04</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const domains = [
+      ['System Administration Fundamentals', '30%', 13, 18],
+      ['Cloud Computing Fundamentals', '18%', 7, 11],
+      ['Linux Fundamentals', '16%', 7, 10],
+      ['Security Fundamentals', '14%', 5, 8],
+      ['DevOps Fundamentals', '12%', 5, 7],
+      ['IT Project Management Fundamentals', '10%', 4, 6],
+    ].map((d) => {
+      const pct = Math.round((d[2] / d[3]) * 100);
+      return {
+        name: d[0], weight: d[1], score: d[2] + ' / ' + d[3],
+        pct: pct + '%',
+        fillCls: pct >= 75 ? 'meter__fill meter__fill--correct' : 'meter__fill meter__fill--incorrect',
+      };
+    });
+
+    const wrong = [3, 5, 9, 12, 14, 17, 19, 23, 27, 30, 33, 36, 39, 42, 45, 48, 51, 55, 58];
+    const flagged = [7, 17, 19, 23, 41];
+    const tiles = [];
+    for (let n = 1; n <= 60; n++) {
+      const bad = wrong.indexOf(n) !== -1;
+      let cls = 'tile ' + (bad ? 'tile--incorrect' : 'tile--correct');
+      if (flagged.indexOf(n) !== -1) cls += ' tile--flagged';
+      tiles.push({ n: String(n), cls: cls, correct: !bad, incorrect: bad });
+    }
+
+    return { theme: this.props.theme ?? 'light', domains: domains, tiles: tiles };
+  }

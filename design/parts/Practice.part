@@ -1,0 +1,202 @@
+[CSS]
+.page { padding: var(--space-6); display: grid; grid-template-columns: 1fr 470px; gap: var(--space-6); align-items: start; }
+.qhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.verdictbar { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--incorrect-line); border-left: 3px solid var(--incorrect-solid); background: var(--incorrect-surface); color: var(--incorrect-ink); }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line-subtle); }
+.kbd { font-family: var(--font-mono); font-size: var(--text-2xs); border: 1px solid var(--line-control); border-bottom-width: var(--space-0); border-radius: var(--radius-sm); padding: var(--space-0) var(--space-1); color: var(--ink-secondary); background: var(--surface-inset); }
+.railcount { display: flex; justify-content: space-between; padding: var(--space-2) 0; border-top: 1px solid var(--line-subtle); font-size: var(--text-sm); }
+.concept { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--ink-muted); word-break: break-all; }
+[PROPS]
+{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":1620}}
+[BODY]
+<div class="app" data-theme="{{theme}}">
+
+  <div class="bar">
+    <div class="row" style="gap: var(--space-4)">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="color: var(--accent-solid)">
+          <path d="M3 15.5V7M7.3 15.5V3.5M11.7 15.5V10M16 15.5V5.5"></path>
+        </svg>
+        <span class="brandmark__name">Practice exam 01</span>
+      </div>
+      <span class="chip">Practice mode</span>
+      <span class="meta">No time limit &middot; answers revealed as you go</span>
+    </div>
+    <div class="row" style="gap: var(--space-3)">
+      <span class="chip chip--correct"><span class="mono">12</span>&nbsp;correct</span>
+      <span class="chip chip--incorrect"><span class="mono">3</span>&nbsp;wrong</span>
+      <button class="btn btn--quiet" type="button">Save and exit</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <div class="stack" style="gap: var(--space-5)">
+
+      <div class="qhead">
+        <div class="stack" style="gap: var(--space-2)">
+          <div class="row" style="gap: var(--space-3)">
+            <span class="eyebrow">Question 16 of 60</span>
+            <span class="meta">System Administration Fundamentals &middot; Best Practices</span>
+          </div>
+          <div class="meter" style="width: 320px"><div class="meter__fill meter__fill--accent" style="width: 27%"></div></div>
+        </div>
+        <button class="btn" type="button">
+          <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 12.6V2.2h7.2L9.1 5.1l1.7 2.9H3.6"></path></svg>
+          Flag for review
+        </button>
+      </div>
+
+      <p class="stem">A host is compromised, and nobody remembers it exists &mdash; it was never entered into any system record. What discipline&rsquo;s absence does that reveal?</p>
+
+      <div class="verdictbar">
+        <svg class="ico" width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+        <span style="font-size: var(--text-sm); font-weight: var(--weight-semibold)">Not quite. The answer is A.</span>
+        <span class="meta" style="color: var(--incorrect-ink)">Every option is explained below, including why the one you picked reads as right.</span>
+      </div>
+
+      <div class="opts">
+
+        <div class="opt opt--correct">
+          <div class="opt__key">A</div>
+          <div class="opt__body">
+            <div class="opt__verdict">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+              Correct answer
+            </div>
+            <p class="opt__text">Asset and inventory management &mdash; you cannot patch, secure or decommission what you do not know about.</p>
+            <p class="opt__why">The dangerous host is always the one nobody remembered, which is exactly what a maintained inventory exists to prevent.</p>
+          </div>
+        </div>
+
+        <div class="opt opt--incorrect">
+          <div class="opt__key">B</div>
+          <div class="opt__body">
+            <div class="opt__verdict">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+              Your answer
+            </div>
+            <p class="opt__text">Monitoring and alerting &mdash; the host should have triggered a threshold alert.</p>
+            <p class="opt__why">Tempting because a compromise really should raise an alert. But monitoring watches only the systems someone configured it to watch, which by construction excludes a forgotten host.</p>
+          </div>
+        </div>
+
+        <div class="opt opt--muted">
+          <div class="opt__key">C</div>
+          <div class="opt__body">
+            <div class="opt__verdict">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+              Not correct
+            </div>
+            <p class="opt__text">Security baselines &mdash; the host fell below the minimum secure configuration.</p>
+            <p class="opt__why">A baseline shortfall assumes the host is already known and enrolled; the failure here happened before that point.</p>
+          </div>
+        </div>
+
+        <div class="opt opt--muted">
+          <div class="opt__key">D</div>
+          <div class="opt__body">
+            <div class="opt__verdict">
+              <svg class="ico" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.4 7h7.2"></path></svg>
+              Not correct
+            </div>
+            <p class="opt__text">Nothing is missing &mdash; the compromise itself is an adequate discovery mechanism.</p>
+            <p class="opt__why">Discovering a host only once it is attacked is the failure state the practice exists to avoid, not a substitute for it.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card" style="padding: var(--space-5); background: var(--surface-sunken); box-shadow: none">
+        <div class="eyebrow">Why this is the answer</div>
+        <p class="prose" style="margin-top: var(--space-3)">The inventory is the prerequisite every other discipline in this competency quietly assumes: patch cadence applies to the estate it lists, baselines are enforced on the hosts it names, and monitoring watches what it was told exists. A host outside that record is invisible to all of them.</p>
+        <div class="row" style="gap: var(--space-4); margin-top: var(--space-4); flex-wrap: wrap">
+          <span class="concept">sysadmin.best-practices.asset-and-inventory-management</span>
+          <a href="#" style="font-size: var(--text-sm)">Open in the study guide &rarr;</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="row" style="gap: var(--space-3)">
+          <span class="kbd">Enter</span><span class="meta">next question</span>
+          <span class="kbd">F</span><span class="meta">flag</span>
+        </div>
+        <div class="row" style="gap: var(--space-2)">
+          <button class="btn" type="button">Previous</button>
+          <button class="btn btn--primary" type="button">Next question</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stack" style="gap: var(--space-5)">
+      <div class="card" style="padding: var(--space-5)">
+        <div class="row" style="justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4)">
+          <h2 class="h2">This session</h2>
+          <span class="meta">graded live</span>
+        </div>
+        <div class="grid60">
+          <sc-for list="{{tiles}}" as="t" hint-placeholder-count="60">
+            <div class="{{t.cls}}">
+              <sc-if value="{{t.correct}}" hint-placeholder-val="{{ true }}">
+                <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.4 5.4 10.3 11.5 3.6"></path></svg>
+              </sc-if>
+              <sc-if value="{{t.incorrect}}" hint-placeholder-val="{{ false }}">
+                <svg class="ico" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3.6 3.6 10.4 10.4M10.4 3.6 3.6 10.4"></path></svg>
+              </sc-if>
+              <sc-if value="{{t.plain}}" hint-placeholder-val="{{ false }}">
+                <span>{{t.n}}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: var(--space-5)">
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm); color: var(--correct-ink)">Correct</span><span class="mono" style="color: var(--correct-ink)">12</span></div>
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm); color: var(--incorrect-ink)">Incorrect</span><span class="mono" style="color: var(--incorrect-ink)">3</span></div>
+          <div class="railcount"><span class="meta" style="font-size: var(--text-sm)">Remaining</span><span class="mono">45</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: var(--space-5)">
+        <h2 class="h2">Weakest so far</h2>
+        <p class="meta" style="margin-top: var(--space-2); margin-bottom: var(--space-4)">Missed questions grouped by competency.</p>
+        <sc-for list="{{weak}}" as="w" hint-placeholder-count="3">
+          <div style="padding: var(--space-3) 0; border-top: 1px solid var(--line-subtle)">
+            <div class="row" style="justify-content: space-between; gap: var(--space-3)">
+              <span style="font-size: var(--text-sm)">{{w.name}}</span>
+              <span class="mono" style="font-size: var(--text-sm); color: var(--incorrect-ink)">{{w.count}}</span>
+            </div>
+          </div>
+        </sc-for>
+        <button class="btn" type="button" style="margin-top: var(--space-4); width: 100%; justify-content: center">Drill these after the run</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+[LOGIC]
+  renderVals() {
+    const wrong = [4, 9, 13];
+    const tiles = [];
+    for (let n = 1; n <= 60; n++) {
+      const done = n <= 15;
+      const bad = wrong.indexOf(n) !== -1;
+      let cls = 'tile';
+      if (done && bad) cls += ' tile--incorrect';
+      else if (done) cls += ' tile--correct';
+      else if (n === 16) cls += ' tile--current';
+      tiles.push({
+        n: String(n), cls: cls,
+        correct: done && !bad,
+        incorrect: done && bad,
+        plain: !done,
+      });
+    }
+    const weak = [
+      { name: 'Best Practices', count: '2' },
+      { name: 'Cloud Service Models', count: '1' },
+      { name: 'Command Line', count: '1' },
+    ];
+    return { theme: this.props.theme ?? 'light', tiles: tiles, weak: weak };
+  }
