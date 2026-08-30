@@ -65,13 +65,14 @@ Hand-maintained: `PROGRESS.md`, `README.md`, `study-guide/`.
 
 ## Gotchas
 
-- **The 40-item holdout is the project's only defence against its riskiest assumption, and
-  `npm run build-exams` can void it silently.** That script rewrites `exams/index.json.unused` as
-  whatever the composition left over. `data/holdout.json` now pins the 40 by identity and
-  `npm run validate` fails when the two stop agreeing as sets, so a rebuild that would promote a
-  holdout item onto an exam is caught — **but only if someone runs the validator.** `build-exams`
-  itself does not yet refuse to write; that guard is the next ticket. Until it lands, run
-  `npm run validate` immediately after any rebuild. @docs/03-technical-design.md §3.1.
+- **The 40-item holdout is the project's only defence against its riskiest assumption.**
+  `npm run build-exams` rewrites `exams/index.json.unused` as whatever the composition left over.
+  `data/holdout.json` pins the 40 by identity, and two guards read it through the same function:
+  `npm run validate` fails when the pin and `unused` stop agreeing as sets, and **`build-exams`
+  itself refuses to write — before its first write — when the composition it just computed would
+  put a pinned item onto a paper.** A refusal leaves every generated file exactly as it was. If it
+  ever fires, fix the composition; **never rewrite `data/holdout.json` to match a build.**
+  @docs/03-technical-design.md §3.1.
 - **Renaming a question id is a destructive act.** The JSON `id` is the Postgres primary key and the
   foreign key every answer row points at. Renumbering the bank and keeping attempt history are
   mutually exclusive.

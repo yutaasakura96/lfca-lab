@@ -5,10 +5,10 @@
 // by every `npm run build-exams`. The two are equal today, and this function is
 // the only place that says what it means for them to stop being equal.
 //
-// `tools/validate.mjs` calls it. `tools/build-exams.mjs` will call it too, before
-// it writes, so that the builder and the validator can never hold a second
-// opinion about what a violation is — that is the next ticket's work, and until
-// it lands the builder can still write a paper this function would reject.
+// `tools/validate.mjs` calls it, and so does `tools/build-exams.mjs` — there,
+// against the composition it has just computed and before its first write, so
+// that the builder and the validator can never hold a second opinion about what
+// a violation is. A build this function rejects is refused rather than written.
 //
 // No file I/O lives here on purpose: both callers already hold the two lists,
 // and a function that reads its own inputs cannot be tested against the cases
