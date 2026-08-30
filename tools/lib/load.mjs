@@ -1,11 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-async function readJson(path) {
+// Absent is a legitimate state for some dataset files; malformed never is.
+// Swallowing both would turn a typo into a silently skipped check, so absence
+// is opt-in per file and parse failure always throws.
+async function readJson(path, { optional = false } = {}) {
   let raw;
   try {
     raw = await readFile(path, 'utf8');
   } catch (cause) {
+    if (optional) return null;
     throw new Error(`Could not read dataset file: ${path}`, { cause });
   }
   try {
@@ -30,6 +34,11 @@ export async function loadDataset(rootDir) {
   let waivers = { waived: [] };
   try { waivers = await readJson(join(rootDir, 'sourcing-waivers.json')); } catch { /* none */ }
 
+  // Optional at the loader, mandatory at the check: the fixtures pin no
+  // holdout, and `checkHoldoutIntegrity` is what turns its absence into an
+  // error rather than a skipped comparison.
+  const holdout = await readJson(join(rootDir, 'holdout.json'), { optional: true });
+
   const topics = [];
   for (const domain of competencies.domains) {
     const doc = await readJson(join(rootDir, 'topics', domain.file));
@@ -38,5 +47,5 @@ export async function loadDataset(rootDir) {
     }
   }
 
-  return { competencies, sources, topics, waivers };
+  return { competencies, sources, topics, waivers, holdout };
 }
