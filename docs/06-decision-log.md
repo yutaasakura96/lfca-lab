@@ -219,3 +219,227 @@ of `node build.mjs`.
 every token change and invite hand-editing the generated file.
 **Consequence:** `tokens.css` is unambiguously the source of truth. Anyone cloning runs
 `node build.mjs` before re-seeding.
+
+### [2026-08-30] Next.js App Router, Drizzle, Vercel + Neon
+- **Decision:** Next.js App Router in `app/` in this repo, TypeScript strict, Drizzle ORM with
+  `drizzle-kit` migrations, deployed on Vercel with Neon Postgres. Plain CSS over
+  `design/tokens.css` copied in verbatim.
+- **Alternatives considered:** React Router 7 and SvelteKit (equivalent single-deployable shape;
+  rejected for a smaller Better-Auth-plus-Postgres path and, for Svelte, because doc 05 and doc 10
+  are written in React-shaped component language). Vite SPA + separate API (two deploy targets,
+  hand-rolled browser sessions, an API with no second consumer). Prisma (heavier serverless runtime,
+  schema language that is not SQL). Railway, Fly.io and a self-hosted VPS (all viable; Vercel + Neon
+  is $0 at this scale with branch-per-preview databases). Tailwind (would re-express values doc 05
+  already pins).
+- **Reason:** one deployable, first-class Better Auth integration, and — decisively — server
+  components mean the answer key is read on the server and never has to approach a client bundle.
+- **Revisit if:** the 90-minute clock ever needs server-side scheduling (it does not — the clock is
+  derived), or Vercel's non-commercial Hobby terms stop fitting.
+
+### [2026-08-30] Seed the question bank into Postgres rather than bundling it
+- **Decision:** `npm run seed` projects `questions/**`, `exams/index.json` and `data/holdout.json`
+  into read-only content tables, idempotently, inside one transaction, on every deploy.
+- **Alternatives considered:** bundling the JSON into the app server-side only (no seed step, no
+  drift — but no referential integrity between answers and questions, and one careless import away
+  from shipping the answer key to the browser); a hybrid id-registry table (integrity without
+  duplication, at the cost of two places a question can be missing from).
+- **Reason:** answers get real foreign keys, so renaming a bank id fails loudly instead of orphaning
+  history; unseen-first selection becomes one SQL query; and the `why` text stays server-side by
+  construction rather than by discipline.
+- **Revisit if:** the bank grows past the point a full truncate-and-reinsert is comfortable, which is
+  nowhere near 1,150 items.
+
+### [2026-08-30] The holdout must be pinned by identity, not derived
+- **Decision:** add `data/holdout.json` with the 40 ids as committed source; assert set-equality with
+  `exams/index.json.unused` in `npm run validate`; carry `is_holdout` into Postgres; filter on it in
+  every selection query.
+- **Alternatives considered:** continuing to read `index.unused` at seed time (what exists today).
+- **Reason:** `unused` is a *residue* of the composition, rewritten by every `npm run build-exams`.
+  An ordinary, well-intentioned rebuild could promote a holdout item onto a paper and silently void
+  the project's only mitigation for its riskiest assumption. Three independent checks now have to
+  fail together.
+- **Revisit if:** never, while the holdout exists. This is the first task of the build phase.
+
+### [2026-08-30] One `attempt` table discriminated by mode
+- **Decision:** exam, practice, domain and holdout sittings are all rows in `attempt`, with check
+  constraints tying the nullable columns to the mode. Answers hang off an attempt in every mode.
+- **Alternatives considered:** attempts for scored sittings only with loose practice answers
+  (smaller schema, but no resume for practice and no record that a session happened as a unit);
+  a table per mode (triples the query surface and makes review branch on provenance).
+- **Reason:** one code path for answering, resume for free in every mode, and the check constraints
+  make the nullable columns honest rather than conventional.
+- **Revisit if:** a fifth mode arrives whose columns share nothing with these four.
+
+### [2026-08-30] "Seen" is derived from the answer table
+- **Decision:** a question counts as seen when the user has an answer row for it; least-recently-seen
+  is `max(answered_at)`. No exposure table, no second write path.
+- **Alternatives considered:** a `question_exposure` table upserted when a question is *served*
+  (cheaper query, counts served-but-skipped as seen, but a second write on the hot path that can
+  drift from the answers).
+- **Reason:** one source of truth. The consequence — a question served but never answered stays
+  "unseen" — is the behaviour we want: you did not engage with it.
+- **Revisit if:** practice sessions ever get long enough that scanning history is slow, which at one
+  user and 1,150 questions they will not.
+
+### [2026-08-30] `is_first_attempt` is set when the attempt is created
+- **Decision:** the flag is written in the attempt's `INSERT`, as `NOT EXISTS (an earlier attempt at
+  this exam)`, guarded by a unique partial index. Submission never touches it.
+- **Alternatives considered:** setting it in the same conditional update that sets `submitted_at`
+  (which the first draft of docs 03/04/07 said).
+- **Reason:** it is wrong, and not hypothetically. Start exam 07, abandon it, sit it again the next
+  day and finish the second sitting first — at submit-time the *second* attempt claims the flag,
+  while the abandoned one is finalised later and cannot. PRD §5 says an abandoned attempt **is** the
+  first attempt. Setting it at start makes the flag a property of being earliest, independent of the
+  order sittings are finalised in.
+- **Revisit if:** never. This is the number the project exists to keep honest.
+
+### [2026-08-30] The exam clock is derived, never stored
+- **Decision:** `started_at` and `time_limit_seconds` are written once; remaining time is always
+  computed server-side and sent as an absolute deadline. Expired attempts are finalised **lazily**,
+  on the next read. No cron, no background worker.
+- **Alternatives considered:** a stored countdown updated by the client (trivially tamperable, and
+  disagrees between tabs); a scheduled job to close expired attempts (infrastructure for nothing —
+  an expired attempt's score is already fully determined by its answer rows).
+- **Reason:** one decision answers three PRD edge cases at once — tab closed for 90 minutes, two tabs
+  open, and a wrong system clock.
+- **Revisit if:** an attempt's outcome ever needs to be visible to someone other than the person
+  sitting it, at which point "finalised when read" stops being sufficient.
+
+### [2026-08-30] In-memory outbox for failed answer writes, not a durable one
+- **Decision:** each answer POSTs immediately to an endpoint that upserts on
+  `(attempt_id, question_id)`. Failures queue in memory and retry with exponential backoff while the
+  "Not saved — retrying" chip shows. Submit is blocked while the queue is non-empty.
+- **Alternatives considered:** a durable outbox in IndexedDB (would buy offline answering, strictly
+  more than the PRD asks — at the cost of replaying stale writes against an attempt the server has
+  already auto-submitted at 90 minutes); retrying only the failed write with no queue (simplest; a
+  persistently failing write is simply lost).
+- **Reason:** doc 10's contract is "at most the in-flight answer is lost", and the in-memory queue
+  meets it exactly. The durable version adds a hard correctness problem to buy a scenario — answering
+  offline for minutes — that does not happen at a desk.
+- **Revisit if:** the app is ever used somewhere with genuinely intermittent connectivity.
+
+### [2026-08-30] Button loading state: disabled plus a label swap, no spinner
+- **Decision:** resolving the item doc 05 §7.2 deferred to this phase. A busy button takes the
+  existing disabled tokens and changes its label — "Submit and see score" → "Scoring…". No spinner,
+  no icon slot, no animation. Three places only: sign-in, start-attempt, submit.
+- **Alternatives considered:** a 14px inline spinner in a reserved icon slot (more conventional,
+  reads as busy at a glance); no loading state at all.
+- **Reason:** the design system currently has no animated primitive and no icon slot on a button.
+  Adding both, for three buttons whose operations are sub-second, is exactly the improvisation doc 05
+  warned against.
+- **Revisit if:** any of those three operations routinely exceeds about a second.
+
+### [2026-08-30] Google sign-in is closed by an email allowlist
+- **Decision:** `ALLOWED_EMAILS` is checked in Better Auth's sign-in hook before any row is written.
+  A non-listed account gets no `user`, no `account`, no `session`. An empty or unset variable rejects
+  **everyone**.
+- **Alternatives considered:** open sign-up with per-user isolation (not a data-leak risk, since
+  every query is already scoped by `user_id` — but it means shipping a public product without
+  deciding to, on a free-tier database with no rate limiting); first-account-wins (no variable to
+  maintain, awkward to undo after signing in with the wrong account).
+- **Reason:** without it, deploying is publishing. Failing closed on an empty variable is the only
+  safe default.
+- **Revisit if:** the app opens to other users — at which point rate limiting arrives with it.
+
+### [2026-08-30] Testing: pure logic exhaustively, one browser test, no database tests
+- **Decision:** Vitest over `app/src/domain/` covering scoring, selection, unseen-first ordering,
+  clock derivation, the first-attempt rule and bank integrity; one Playwright run covering
+  start → answer → resume → auto-submit → review → double-submit; everything visual on a written
+  manual checklist.
+- **Alternatives considered:** unit tests only (leaves the resume-and-auto-submit path, the hardest
+  thing in the app, with no automated coverage); adding integration tests against a real Postgres
+  branch (strongest, but meaningful CI apparatus for one user).
+- **Reason:** a silently wrong number is worse than a crash, because it is believed. The tests go
+  where numbers are decided.
+- **Revisit if:** the unseen-first `LATERAL` query is edited — it is the one piece of real SQL with
+  no direct coverage, and that is an accepted, named risk.
+
+### [2026-08-30] No "discard this attempt" action, in any mode
+- **Decision:** there is no delete or discard endpoint, no soft-delete column, and no UI affordance.
+  Abandoned attempts are kept and auto-submitted.
+- **Alternatives considered:** letting the user discard a sitting that went badly.
+- **Reason:** a discard button is precisely the dodge that first-attempt scoring exists to close.
+- **Revisit if:** never, while first-attempt scoring is the honest signal.
+
+### [2026-08-30] Doc 13 (Infrastructure & Security) skipped
+- **Decision:** not created. The mandatory security baseline in doc 03 §9 and the environment,
+  rollback and backup content in doc 12 cover what exists.
+- **Alternatives considered:** writing a short version anyway.
+- **Reason:** none of its four triggers fire — one Next.js app on a PaaS, one managed database, no
+  IaC, and user data consisting of one email address and study history.
+- **Revisit if:** sign-up opens to strangers, a second service or worker appears, or infrastructure
+  moves to code.
+
+### [2026-08-30] mattpocock/skills enabled here; superpowers and frontend-design stay off
+- **Decision:** `claude plugin enable mattpocock-skills --scope project`. `superpowers` and
+  `frontend-design` remain `false` in `.claude/settings.json`.
+- **Alternatives considered:** re-enabling superpowers for the build phase; enabling
+  frontend-design for the app's UI work; enabling nothing and building unassisted.
+- **Reason:** Phase 6 hands off to `/grill-with-docs`, which is mattpocock's. The two packs must
+  not share a repo — superpowers' `brainstorming` sets no `disable-model-invocation` and will seize
+  interviews that belong to the template's question banks. frontend-design forces a design frame
+  before code, but every visual value here is already pinned in `design/tokens.css` and verified by
+  computation; re-deciding them is the drift doc 05 exists to prevent.
+- **Consequence:** `/setup-matt-pocock-skills` must be run once, choosing **local files** as the
+  tracker — Backlog (Nulab) is not supported. Tickets will live in `.scratch/<feature>/issues/`.
+- **Revisit if:** the pack goes unused for two weeks, per the catalog's standing evaluation.
+
+### [2026-08-30] No `.mcp.json`, no `.claude/rules/`, no `.claude/agents/`
+- **Decision:** none written. `CLAUDE.md` names the trigger for each MCP instead.
+- **Alternatives considered:** copying portfolio-v2's starter pack — `nextjs-app-router`,
+  `tailwind-v4`, `shadcn`, `prisma-neon` skills, the code-reviewer/db-agent roster, and a `rules/`
+  set; wiring Neon, Sentry, Playwright and GitHub MCPs now.
+- **Reason:** three of those four skills contradict doc 03 outright (plain CSS, not Tailwind; own
+  components, not shadcn; Drizzle, not Prisma), and `nextjs-app-router` was read and found hardcoded
+  to portfolio-v2's route groups and JWT admin. The MCPs have nothing to connect to — no Neon
+  project, no Sentry project, no `app/`. `rules/` would duplicate docs 03 §4, 04 and 07 and drift
+  from them; context7 is already user-scoped and covers the live library docs.
+- **Revisit if:** add Neon MCP when the Neon project exists, Sentry MCP when the Sentry project
+  exists, Playwright MCP when the e2e run is written.
+
+### [2026-08-30] `build-exams` and `seed` are `ask`, not `allow`
+- **Decision:** `npm run build-exams`, `npm run seed`, `npm run db:migrate`, `drizzle-kit`,
+  `vercel`, `pg_dump`/`psql` and `git push` all require a prompt. `.env` reads are denied.
+- **Alternatives considered:** allowing `build-exams` as an ordinary build script.
+- **Reason:** `build-exams` rewrites `exams/index.json.unused`, which is the holdout until
+  `data/holdout.json` pins it — the one action that can silently void the project's only defence
+  against its riskiest assumption. `seed` truncates the content tables.
+- **Revisit if:** never, for `build-exams`, while the holdout matters.
+
+### [2026-08-30] One hook: a branch guard on `main`
+- **Decision:** `.claude/hooks/pre-edit-branch-guard.sh`, `PreToolUse` on `Edit|Write|NotebookEdit`.
+  Verified to exit 2 on `main` and 0 elsewhere.
+- **Alternatives considered:** the catalog's fuller pipeline — `post-edit-format` and
+  `pre-commit-gate` alongside it.
+- **Reason:** push to `main` deploys production (doc 12 §3), so that guard earns its keep today.
+  The other two do not yet: the bank half has no formatter and the app has not chosen one, and the
+  gate would duplicate CI (doc 11 §5) on every commit.
+- **Revisit if:** add `post-edit-format` when `app/` picks a formatter.
+
+### [2026-08-30] Issues live in GitHub Issues, not local markdown
+- **Decision:** the mattpocock/skills issue tracker for this repo is **GitHub Issues** on
+  `yutaasakura96/lfca-lab`, driven by the `gh` CLI. `/setup-matt-pocock-skills` was run and wrote
+  `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md` and `docs/agents/domain.md`, with an
+  `## Agent skills` block in `CLAUDE.md` pointing at all three. The five canonical triage labels are
+  kept unrenamed; four were created on the repo (`wontfix` already existed as a GitHub default).
+  **This reverses the consequence recorded in the [2026-08-30] entry
+  "mattpocock/skills enabled here; superpowers and frontend-design stay off"**, which said to choose
+  local files with tickets under `.scratch/<feature>/issues/`. That log entry stands as written — the
+  log is append-only — and this entry supersedes its tracker choice.
+- **Alternatives considered:** local markdown under `.scratch/` (what the earlier entry specified —
+  no remote dependency, and invisible to anyone but the owner); Backlog (Nulab), which the skills do
+  not support and which was the reason local files looked like the only option.
+- **Reason:** the GitHub remote already exists and `gh` is already authenticated, so the tracker the
+  skills were designed against costs nothing to adopt. It also gives `/wayfinder` its native issue
+  dependencies and sub-issues, which the local-file layout cannot express, and it survives a wiped
+  working tree — `.scratch/` is untracked by design and one `git clean` from gone.
+- **Consequence:** tickets are public, because the repo is. Nothing in this project's tickets is
+  sensitive — the bank is publicly-derived study material — but `ALLOWED_EMAILS`, the Neon string and
+  the other three secrets in doc 12 §2 must never appear in an issue body. `docs/agents/` is now the
+  place these conventions live; re-run the setup skill only to switch trackers.
+  `.claude/settings.json` gains the `gh` rules the skills need, on the same split as everything else
+  in that file: reads (`gh issue view`/`list`, `gh label list`, `gh repo view`) allowed, every write
+  (`gh issue create`/`edit`/`comment`/`close`, `gh label create`, and `gh api`, which `/wayfinder`
+  uses to POST dependency edges) in `ask`. Writing to a public tracker gets a prompt.
+- **Revisit if:** the repo goes private for a reason that also makes issues awkward, or the ticket
+  volume never justifies leaving the terminal.
