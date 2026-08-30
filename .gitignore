@@ -1,2 +1,19 @@
 # macOS
 .DS_Store
+
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Secrets — four real ones, see docs/12-deployment.md §2
+.env
+.env.*
+app/.env
+app/.env.*
+!app/.env.example
+
+# Vercel
+.vercel/

@@ -1,0 +1,98 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch)",
+      "Bash(git branch --show-current)",
+      "Bash(git show:*)",
+      "Bash(git ls-files:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(sed -n:*)",
+      "Bash(jq:*)",
+      "Bash(npm test)",
+      "Bash(npm run validate)",
+      "Bash(npm run generate)",
+      "Bash(npm run check-guide)",
+      "Bash(npm run check-bank)",
+      "Bash(npm run guide-plan)",
+      "Bash(npm run question-plan)",
+      "Bash(node --test:*)",
+      "Bash(node design/build.mjs)",
+      "Bash(npm run test:unit)",
+      "Bash(npm run test:e2e)",
+      "Bash(npm run lint)",
+      "Bash(npm run build)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(npx vitest run:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh label list:*)",
+      "Bash(gh repo view:*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./app/.env)",
+      "Read(./app/.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.local)"
+    ],
+    "ask": [
+      "Bash(npm run build-exams)",
+      "Bash(npm run seed)",
+      "Bash(npm run db:migrate)",
+      "Bash(npx drizzle-kit:*)",
+      "Bash(npx vercel:*)",
+      "Bash(pg_dump:*)",
+      "Bash(psql:*)",
+      "Bash(git push:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh issue edit:*)",
+      "Bash(gh issue comment:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh label create:*)",
+      "Bash(gh api:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-edit-branch-guard.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": false,
+    "mattpocock-skills@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  }
+}
