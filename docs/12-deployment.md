@@ -86,7 +86,9 @@ that has never been run pretending it will work under pressure. Instead:
 1. Promote the previous deployment (above). If the migration was additive, the old code ignores the
    new column and the system is already correct.
 2. If the migration was destructive, restore from a Neon **point-in-time branch** at a timestamp
-   before the deploy, verify it, then repoint `DATABASE_URL`.
+   before the deploy, verify it, then repoint `DATABASE_URL`. **Only available within the 6-hour
+   history window (§5)** — past that, the last `pg_dump` is the restore point, so a destructive
+   migration noticed the next day costs whatever attempt history came after the dump.
 3. Write a new forward migration to undo it properly.
 
 This is why §3 forbids renames and drops in the same deploy as dependent code: it keeps step 1
@@ -99,10 +101,13 @@ worth preserving; they are a projection of the repo.
 
 ## 5. Backups, and the restore that must actually be tested
 
-Neon's history window provides point-in-time restore. **On the free tier that window is short** —
-verify the current figure at signup and treat it as the real retention, not a promise.
+Neon's history window provides point-in-time restore. **Measured at signup, 2026-08-31: the free
+plan's window is 6 hours** — both its default and its maximum, and capped at 1 GB of history. That is
+the real retention. It is short enough that point-in-time restore is not a backup here; it is an
+undo for a mistake you notice the same morning.
 
-The user data is small, irreplaceable and cheap to copy, so it also gets its own belt:
+So the `pg_dump` below is not a belt-and-braces extra. **It is the backup.** The user data is small,
+irreplaceable and cheap to copy:
 
 ```bash
 pg_dump "$DATABASE_URL" --table=attempt --table=answer --table='"user"' --table=account \
