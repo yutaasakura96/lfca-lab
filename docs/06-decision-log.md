@@ -443,3 +443,24 @@ every token change and invite hand-editing the generated file.
   uses to POST dependency edges) in `ask`. Writing to a public tracker gets a prompt.
 - **Revisit if:** the repo goes private for a reason that also makes issues awkward, or the ticket
   volume never justifies leaving the terminal.
+
+### [2026-08-30] `build-exams` refuses to write rather than building around the pin
+- **Decision:** `npm run build-exams` computes its composition exactly as before, then compares the
+  resulting `unused` against `data/holdout.json` through `checkHoldoutIntegrity` — the same function
+  `npm run validate` calls — and on any disagreement prints the directional errors and exits non-zero
+  **before its first write**. A refusal leaves all sixty-three generated files exactly as they were.
+- **Alternatives considered:** teaching the allocation to build *around* the pinned ids, so a holdout
+  item could never be selected onto a paper in the first place; leaving detection to
+  `npm run validate` alone, as #2 shipped it; keeping `build-exams` in `permissions.ask` and calling
+  the prompt the guard.
+- **Reason:** building around the pin means editing the allocation — the most load-bearing and
+  best-tested code in the repo — to defend against an event a refusal already prevents, and it would
+  silently *absorb* a drifted pin instead of reporting it. Validate-only detection is real but late:
+  it fires after sixty-three files have been overwritten, leaving a dirty tree to unpick and inviting
+  the one repair that must never happen — rewriting `data/holdout.json` to match the build. The
+  permissions prompt is a seatbelt against an unprompted run, not a check on what the run would do.
+- **Consequence:** the pin now has two guards sharing one definition of a violation, so the builder
+  and the validator cannot disagree. The composition is untouched: `tools/lib/assemble.mjs` has no
+  diff. A missing or malformed `data/holdout.json` stops the builder rather than reading as
+  agreement.
+- **Revisit if:** never, while the holdout matters.

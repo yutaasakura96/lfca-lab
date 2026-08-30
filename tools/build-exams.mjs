@@ -23,10 +23,18 @@ try {
   bank = await loadBank('questions');
   guide = await loadGuide('study-guide');
 } catch (err) {
-  // A pinned holdout file that will not parse stops the builder here, before
-  // anything is composed and long before anything is written. Absence is
-  // handled below, by the same check the validator uses.
+  // Every source file the builder reads is opened here, the pinned holdout
+  // among them: one that will not parse stops the builder before anything is
+  // composed and long before anything is written. An *absent* pin is not an
+  // error at this layer — it is handled below, by the same check the validator
+  // uses.
+  //
+  // The cause chain is printed rather than dropped. `readJson` attaches the
+  // parse error deliberately, and it is the half that names the offending
+  // syntax; a one-line message that loses it would make every malformed file in
+  // the dataset harder to fix, not just this one.
   console.error(`ERROR  ${err.message}`);
+  for (let cause = err.cause; cause; cause = cause.cause) console.error(`       ${cause.message}`);
   process.exit(1);
 }
 const ctx = bankContext({ dataset, bank, guide });

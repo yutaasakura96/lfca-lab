@@ -32,13 +32,19 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   (`wontfix` already existed). `.claude/settings.json` now **42 allow, 14 ask, 6 deny** — read-only
   `gh issue`/`gh label`/`gh repo view` allowed, every `gh` write (`issue create`/`edit`/`comment`/
   `close`, `label create`, `gh api`) moved to `ask`. One decision appended to the log.
+- **Phase 6, feature 1 — the holdout is pinned.** Issue #1 and its two children. `data/holdout.json`
+  commits the 40 ids as source; `tools/lib/holdout.mjs` is the single definition of "the holdout is
+  intact"; `npm run validate` fails on drift (#2); and `npm run build-exams` now **refuses to write**
+  on the same comparison, before its first write, so a rebuild that would promote a holdout item onto
+  a paper leaves all sixty-three generated files untouched (#3). The remaining two of PRD §5's five
+  places — `is_holdout` in Postgres and the selection filter — arrive with the seed.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass, and is driven by
 commands only you can type.
 
-The skills setup is done (see Done). **The next command is `/grill-with-docs`**, on the first
-feature — which is **pinning the holdout**, not the app. See Blocked. Then `/to-spec` →
+The skills setup is done, and so is the first feature — pinning the holdout (see Done).
+**The next command is `/grill-with-docs`** on the feature after it, then `/to-spec` →
 `/to-tickets` → `/implement`.
 
 Tickets land in **GitHub Issues**, so `/to-tickets` and `/triage` need `gh` authenticated. The five
@@ -49,14 +55,9 @@ Flow, context hygiene and phase boundaries:
 `~/Documents/GitHub/claude-setup-inventory/mattpocock-skills-guide.md`.
 
 ## Blocked
-Nothing blocks Phase 6. But **the first feature is not the app** — it is
-**`data/holdout.json`**, and it should not be deferred:
-
-The 40 holdout ids are currently *derived* — they are `exams/index.json.unused`, a residue rewritten
-by every `npm run build-exams`. PRD §5 requires them pinned by identity. Commit the 40 ids, assert
-set-equality with `unused` in `npm run validate`, seed `is_holdout`, filter on it in every selection
-query. `npm run build-exams` is now in `permissions.ask` so it cannot fire unprompted, but that is a
-seatbelt, not the fix.
+Nothing. The holdout is pinned and both bank-side guards have shipped (see Done). What remains of
+PRD §5 is app-side and cannot start before `app/` exists: the seed marks the 40 rows
+`is_holdout = true`, and every selection query filters on it.
 
 ## Carrying
 

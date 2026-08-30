@@ -89,24 +89,30 @@ question id is a destructive act**: the seed's insert will fail against existing
 is the intended alarm. Renumbering the bank and keeping history are mutually exclusive, and the
 build fails loudly rather than orphaning answers silently.
 
-### 3.1 The holdout must be pinned, and today it is not
+### 3.1 The holdout is pinned by identity, and two guards keep it that way
 
 PRD §5 requires the 40 holdout items to be defined **by identity**, so that a future
-`npm run build-exams` cannot quietly promote one onto an exam. Today they are not: they are derived.
-`tools/build-exams.mjs` writes `exams/index.json.unused` as *whatever the composition left over* —
-40 ids, correct right now, but a residue rather than a commitment.
+`npm run build-exams` cannot quietly promote one onto an exam. They were once derived —
+`tools/build-exams.mjs` wrote `exams/index.json.unused` as *whatever the composition left over*, 40
+ids that were correct but were a residue rather than a commitment. Two of the three steps below have
+shipped; the third belongs to the seed and waits on `app/`.
 
-**Required before the app serves anything:**
+1. **Done.** `data/holdout.json` pins the 40 ids as committed source.
+2. **Done.** `tools/lib/holdout.mjs` is the single definition of "the holdout is intact", and two
+   callers share it. `npm run validate` fails when the pin and `index.unused` stop agreeing as sets,
+   so a build that puts a holdout item on an exam, or that leaves a 41st item unused, is a
+   **validation failure**, not a warning. `npm run build-exams` calls the same function against the
+   composition it has just computed and **refuses to write** — before its first write, leaving all
+   sixty-three generated files exactly as they were. The failure therefore lands before the damage
+   rather than after it, and the builder and the validator cannot hold a second opinion about what a
+   violation is.
+3. **Outstanding, with the seed.** The seed marks those 40 rows `is_holdout = true`. Every selection
+   query in practice and domain mode filters `is_holdout = false` (PRD P2), and only the holdout
+   sitting reads them.
 
-1. Add **`data/holdout.json`** — the 40 ids, written once, committed, treated as source.
-2. Add a check to `npm run validate` (or `check-bank`) asserting **`holdout ≡ index.unused`** as
-   sets. A build that puts a holdout item on an exam, or that leaves a 41st item unused, is a
-   **validation failure**, not a warning.
-3. The seed marks those 40 rows `is_holdout = true`. Every selection query in practice and domain
-   mode filters `is_holdout = false` (PRD P2), and only the holdout sitting reads them.
-
-This is the first task of the build phase. It is cheap, and skipping it silently voids the project's
-single mitigation for its riskiest assumption.
+The builder's allocation is deliberately **not** taught to build around the pin. Refusing is enough,
+and teaching the composition to avoid the pinned ids would mean editing the most load-bearing code
+in the repo to defend against an event the refusal already prevents.
 
 ### 3.2 Option order on the sixteen exams
 
@@ -370,8 +376,10 @@ sitting keeps the flag no matter which attempt is finalised first. This is the p
 Playwright test covers end to end.
 
 **3. Keeping the app and the bank honest about the holdout.**
-The holdout is the project's only defence against its riskiest assumption, and it currently depends
-on a derived list (§3.1). It can be voided by an ordinary, well-intentioned `npm run build-exams`.
+The holdout is the project's only defence against its riskiest assumption, and it once depended on a
+derived list (§3.1) that an ordinary, well-intentioned `npm run build-exams` could void.
 *Plan:* pin it in `data/holdout.json`, assert set-equality with `index.unused` in `npm run validate`,
-carry `is_holdout` into Postgres, and filter on it in every selection query rather than trusting the
-seed. Three independent places would have to fail together for a holdout item to be served early.
+refuse the build itself on the same comparison, carry `is_holdout` into Postgres, and filter on it in
+every selection query rather than trusting the seed. The first three have shipped; the last two
+arrive with the seed. Three independent places would have to fail together for a holdout item to be
+served early.

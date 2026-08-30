@@ -37,7 +37,9 @@ async function build(cwd) {
   }
 }
 
-async function wrote(root) {
+// The builder's only outputs are exams/ and drills/. Neither exists in a fresh
+// workspace, so "the guard wrote nothing" is the assertion that neither appeared.
+async function generatedDirsIn(root) {
   const entries = await readdir(root);
   return entries.filter((e) => e === 'exams' || e === 'drills');
 }
@@ -73,7 +75,7 @@ test('a drifted pin stops the builder before it writes anything', async (t) => {
   // unused item stopped being pinned.
   assert.match(r.stderr, new RegExp(invented.replace(/\./g, '\\.')));
   assert.match(r.stderr, new RegExp(dropped.replace(/\./g, '\\.')));
-  assert.deepEqual(await wrote(root), [],
+  assert.deepEqual(await generatedDirsIn(root), [],
     'the builder wrote generated files despite refusing');
 });
 
@@ -86,7 +88,7 @@ test('an absent pin stops the builder rather than reading as agreement', async (
 
   assert.equal(r.code, 1, `expected a refusal, got:\n${r.stdout}${r.stderr}`);
   assert.match(r.stderr, /not pinned/i);
-  assert.deepEqual(await wrote(root), []);
+  assert.deepEqual(await generatedDirsIn(root), []);
 });
 
 test('a malformed pin stops the builder rather than reading as agreement', async (t) => {
@@ -98,7 +100,7 @@ test('a malformed pin stops the builder rather than reading as agreement', async
 
   assert.equal(r.code, 1, `expected a refusal, got:\n${r.stdout}${r.stderr}`);
   assert.match(r.stderr, /holdout\.json/);
-  assert.deepEqual(await wrote(root), []);
+  assert.deepEqual(await generatedDirsIn(root), []);
 });
 
 test('a pin that agrees builds the committed papers byte for byte', async (t) => {
@@ -111,8 +113,10 @@ test('a pin that agrees builds the committed papers byte for byte', async (t) =>
   const r = await build(root);
   assert.equal(r.code, 0, `expected a build, got:\n${r.stdout}${r.stderr}`);
 
+  // 61 documents plus the two index files. Asserted exactly, so a build that
+  // quietly produced fewer cannot pass by comparing a short list to itself.
   const built = [...await filesUnder(root, 'exams'), ...await filesUnder(root, 'drills')].sort();
-  assert.ok(built.length >= 63, `only ${built.length} generated file(s)`);
+  assert.equal(built.length, 63, `expected 63 generated files, got ${built.length}`);
   for (const file of built) {
     assert.equal(await readFile(join(root, file), 'utf8'), await readFile(join(repo, file), 'utf8'),
       `${file} differs from the committed copy`);
