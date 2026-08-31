@@ -515,3 +515,51 @@ every token change and invite hand-editing the generated file.
   `timestamp`, not `timestamptz`**, which is the single exception to §0's rule.
 - **Revisit if:** Better Auth changes how additional fields are declared, or the allowlist moves out
   of the user row.
+
+### [2026-08-31] The seed upserts; it cannot truncate
+- **Decision:** `npm run seed` upserts `question` and `exam`, replaces `question_option` and
+  `exam_item` outright, and deletes only the parent rows the bank no longer has — all in one
+  transaction, with the holdout count read back before it commits.
+- **Context:** [03-technical-design.md](03-technical-design.md) §3 specified "truncates the four
+  content tables and reinserts". Tested against the provisioned database: `TRUNCATE question` fails
+  with *"cannot truncate a table referenced in a foreign key constraint"*, and it fails on an **empty**
+  database, because the objection is `answer`'s foreign key rather than any row.
+- **Alternatives considered:** `TRUNCATE ... CASCADE`, and naming `answer` in the same `TRUNCATE`.
+  Both work, and both delete every attempt and answer — including the first-attempt scores, which are
+  the one thing here that cannot be regenerated. A content refresh that destroys irreplaceable
+  history to reload data the repo already holds is the worst trade available in this system. Also
+  considered: reconciling the child tables row by row, rejected because nothing references them, so
+  clearing them is simpler and equally correct.
+- **Reason:** the end state is identical and history survives. The property doc 03 §3 actually cares
+  about — a renamed question id failing loudly rather than orphaning answers — is *better* served:
+  the prune step deletes the vanished id, `ON DELETE RESTRICT` refuses while an answer points at it,
+  and the transaction rolls back with nothing lost.
+- **Consequence:** verified on 2026-08-31 — seeding twice produced identical content fingerprints,
+  and a reseed run with a user, an attempt and an answer present left all three, and the
+  `is_first_attempt` flag, untouched. Doc 03 §3 and doc 04 §7 have been corrected.
+- **Revisit if:** never, while `answer` references `question`.
+
+### [2026-08-31] The seed runs from CI, not from the Vercel build step
+- **Decision:** `npm run seed` will be invoked from GitHub Actions on push, not from the Vercel build
+  command. The script itself takes a connection string and a bank path and assumes nothing about its
+  host, so where it runs stays a deployment decision rather than a rewrite.
+- **Context:** [12-deployment.md](12-deployment.md) §3 has the build command run `db:migrate`, then
+  `seed`, then `next build`. Researched against Vercel's documentation before building it, and three
+  things came back.
+- **Alternatives considered:** keeping the seed in the Vercel build, as doc 12 §3 specifies.
+- **Reason:** it rests on two things the documentation does not confirm and one it contradicts.
+  (1) With Root Directory set to `app`, whether files outside it are readable is genuinely unclear —
+  the monorepo FAQ documents a setting, on by default since 2020, that permits it, while
+  *Configuring a Build* states flatly that an app "will not be able to access files outside of that
+  directory" and "cannot use `..`". The seed reads `../questions`. (2) Whether the build container
+  may reach an external database is documented in neither direction. (3) Worse than both: Vercel
+  automatically skips builds for projects a commit did not change, judged by the project's own
+  directory — so a commit touching only root-level `questions/**` may deploy nothing at all, leaving
+  production serving the previous seed while the repo says otherwise. A CI runner has the whole
+  repository checked out, reaching Neon over the internet is ordinary, and it runs on the push
+  regardless of what Vercel decides changed.
+- **Consequence:** seeding and deploying are no longer one ordered step, so for a short window the
+  new code may serve the previous seed. Accepted for a single-user study app. Doc 12 §3 is superseded
+  on this point; the workflow itself is not built yet — it belongs with the slice that deploys.
+- **Revisit if:** Vercel documents build-container database egress and resolves its own contradiction
+  about the root directory, and the ordering guarantee becomes worth having back.

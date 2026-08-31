@@ -78,10 +78,22 @@ exams/index.json    ─┼─→ npm run validate ─→ npm run seed ─→ Pos
 data/holdout.json   ─┘        (CI gate)        (idempotent)
 ```
 
-**`npm run seed` is idempotent and destructive-in-place.** It truncates the four content tables and
-reinserts inside one transaction. It never touches `user`, `attempt` or `answer`. Running it twice
-produces the same database; running it on a bank that fails validation is impossible because CI
-gates it.
+**`npm run seed` is idempotent and runs inside one transaction.** It never touches `user`,
+`session`, `account`, `verification`, `attempt` or `answer`. Running it twice produces the same
+database; running it on a bank that fails validation is impossible because CI gates it.
+
+**It upserts rather than truncating**, which is a correction to this document rather than a
+refinement of it. `TRUNCATE question` is refused by Postgres — *"cannot truncate a table referenced
+in a foreign key constraint"* — because `answer` references `question` and `attempt` references
+`exam`. The refusal is structural: it happens on an empty database, since the objection is the
+constraint and not the rows. The only ways to force it are `CASCADE` or naming `answer` in the same
+statement, and both delete the attempt history containing the first-attempt scores. So the seed
+upserts every row the bank has, replaces the two child tables outright (nothing references
+`question_option` or `exam_item`), and deletes only the parent rows the bank no longer has. A
+renamed question id is still the loud failure §3 promises — the old row is gone from the bank, and
+`ON DELETE RESTRICT` refuses to delete it while an answer points at it, rolling the whole
+transaction back. Verified against the provisioned database on 2026-08-31: a reseed with an attempt
+and an answer present left both, and the first-attempt flag, untouched.
 
 **Question identity is the JSON `id` string** — e.g. `q.linux.command-line.command-syntax.01`. It is
 the primary key in Postgres and the foreign key every answer points at. This means **renaming a

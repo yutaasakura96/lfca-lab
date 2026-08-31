@@ -75,7 +75,7 @@ describe('the sixteen papers', () => {
   });
 
   it('are 60 questions each', () => {
-    const wrong = examIndex.exams.filter((e) => e.items.length !== 60).map((e) => e.id);
+    const wrong = examIndex.exams.filter((e) => e.items.length !== 60).map((e) => e.name);
     expect(wrong).toEqual([]);
   });
 
@@ -95,7 +95,7 @@ describe('the sixteen papers', () => {
 
   it('put the correct option in a position that exists', () => {
     const wrong = examIndex.exams
-      .flatMap((e) => e.items.map((i) => ({ exam: e.id, ...i })))
+      .flatMap((e) => e.items.map((i) => ({ exam: e.name, ...i })))
       .filter((i) => !Number.isInteger(i.position) || i.position < 0 || i.position > 3)
       .map((i) => `${i.exam}:${i.id}`);
     expect(wrong).toEqual([]);

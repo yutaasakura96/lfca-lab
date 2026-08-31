@@ -154,7 +154,7 @@ the query that matters.
 
 | Column | Type | Null | Notes |
 | --- | --- | --- | --- |
-| `id` | text | no | **PK.** `exam-01` … `exam-16`, from `exams/index.json`. |
+| `id` | text | no | **PK.** `exam-01` … `exam-16`. Read from the `name` key in `exams/index.json` — the index does not call it `id`. |
 | `number` | smallint | no | 1–16, for ordering the list on E6 without parsing the id. |
 | `question_count` | smallint | no | 60 for all sixteen, stored rather than assumed. |
 | `created_at` | timestamptz | no | Seed run time. |
@@ -363,7 +363,7 @@ engaged with it.
 | `user` | Deleted only by hand, in SQL, and it cascades to sessions, accounts, attempts and answers. Deliberately not a feature: an accidental account deletion destroys the first-attempt scores, which are the one irreplaceable thing here (doc 03 §9). |
 | `session` | Expires at `expires_at` (30 days). Better Auth cleans up; expired rows are harmless. |
 | `verification` | Short-lived, cleaned by Better Auth. |
-| Content tables | Replaced wholesale on every `npm run seed`, inside one transaction. |
+| Content tables | Refreshed by every `npm run seed`, inside one transaction — upserted, not truncated, because truncating `question` is impossible while `answer` references it (doc 03 §3). |
 | OAuth tokens on `account` | Kept while the account exists. Excluded from logs and Sentry (doc 03 §9). |
 
 **Nothing expires on a schedule and there is no cron.** The only time-based behaviour in the system

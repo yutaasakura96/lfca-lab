@@ -69,7 +69,7 @@ export function loadItems(): BankItem[] {
 }
 
 export interface ExamIndex {
-  exams: { id: string; items: { id: string; position: number }[] }[];
+  exams: { name: string; items: { id: string; position: number }[] }[];
   unused: string[];
 }
 
