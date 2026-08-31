@@ -563,3 +563,30 @@ every token change and invite hand-editing the generated file.
   on this point; the workflow itself is not built yet — it belongs with the slice that deploys.
 - **Revisit if:** Vercel documents build-container database egress and resolves its own contradiction
   about the root directory, and the ordering guarantee becomes worth having back.
+
+### [2026-09-01] A small integration suite runs against real Postgres
+- **Decision:** `app/tests/integration/` runs against the Neon dev branch, seeded, covering attempt
+  creation and the selection queries. It is a second Vitest config, separate from the unit run, and
+  **skips cleanly** when `DATABASE_URL` is absent.
+- **Context:** [11-testing-plan.md](11-testing-plan.md) §4 listed "database queries against real
+  Postgres" as deliberately untested, for two reasons: too much CI apparatus for one user, and the
+  single Playwright run would exercise the unseen-first `LATERAL` join anyway. That row named the
+  accepted risk honestly and said to revisit "the moment that query is edited".
+- **Alternatives considered:** holding to doc 11 §4 and leaving the query uncovered until a UI slice
+  brings the browser test. Also considered: moving the unseen-first ordering out of SQL into the pure
+  layer, which would have collapsed the two seams into one — rejected because doc 04 §5.3 decided the
+  opposite deliberately, and overturning an approved schema decision to avoid writing a test is the
+  wrong trade.
+- **Reason:** both of doc 11's grounds fail here. The slice that wrote the query has no UI, so there
+  is no browser run to lean on, and the query is being *written* rather than edited — the moment the
+  row said to revisit. Decisively: two of this ticket's acceptance criteria are "practice-mode
+  selection never returns a holdout item" and the same for domain mode. Those are assertions about
+  query results. No pure function can make them, because the filter is a `WHERE` clause.
+- **Consequence:** the apparatus is smaller than doc 11 feared — one config file, a throwaway user
+  deleted by cascade, and read-mostly assertions. It found two real bugs on its first run that unit
+  tests structurally could not: raw `db.execute` returns unmapped columns, so `started_at` arrived as
+  a string and every timed sitting failed at creation; and Drizzle wraps driver errors, so the
+  first-attempt race detection was reading a SQLSTATE that was never there — the retry would have
+  looked implemented and never fired.
+- **Revisit if:** the browser test arrives and genuinely subsumes these assertions, which it will not
+  for the holdout filter.

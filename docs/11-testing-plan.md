@@ -73,7 +73,7 @@ Run before each deploy that touches the UI. Kept in `app/tests/manual-checklist.
 | Not tested | Why acceptable |
 | --- | --- |
 | React component rendering (unit) | The components are presentational over the design tokens; their failures are visible, and the manual checklist plus one E2E catch them. Component tests here would mostly assert markup. |
-| Database queries against real Postgres | Rejected in the interview as too much CI apparatus for one user. **The accepted risk is real**: the unseen-first `LATERAL` join in doc 04 §5.3 is exercised only by the E2E run and by use. Revisit the moment that query is edited. |
+| ~~Database queries against real Postgres~~ | **Superseded 2026-09-01.** This row rejected database tests on two grounds: too much apparatus for one user, and the E2E run would exercise the unseen-first `LATERAL` join anyway. Neither held when the query was written — the slice that built it has no UI and therefore no E2E run, and "selection never returns a holdout item" is a claim about query results that no pure function can make. A small integration suite now runs against the Neon dev branch. See the decision log. |
 | Better Auth's own flows | Library code with its own suite. Ours is the allowlist hook — covered by the manual check above, which is the one that matters. |
 | Load, performance, concurrency beyond two tabs | One user. Two-tab behaviour is covered by construction (a derived clock and an upsert), not by a test. |
 | Visual regression / screenshot diffing | The design is stable and pinned in doc 05; a screenshot suite would need maintaining more often than the UI changes. |
@@ -87,9 +87,14 @@ GitHub Actions on push and pull request, from the repo root:
 
 ```
 npm test && npm run validate && npm run check-bank     # the bank
-cd app && npm run test:unit && npm run build           # the app
-cd app && npm run test:e2e                             # Playwright, on a Neon preview branch
+cd app && npm run typecheck && npm run test:unit       # the app, needs no database
+cd app && npm run seed && npm run test:integration     # on a Neon preview branch
+cd app && npm run build && npm run test:e2e            # Playwright, once there is a UI
 ```
+
+The unit suite deliberately needs no database, so it runs anywhere and fails fast. The integration
+suite **skips cleanly** when `DATABASE_URL` is absent rather than erroring, so a contributor without a
+branch still gets a green run and an honest count of what was skipped.
 
 **A red suite blocks deploy** (doc 12). The bank checks run first and are the cheapest, so a holdout
 violation fails in seconds rather than after a browser run.

@@ -9,6 +9,14 @@ import {
   testUserId,
 } from './support.ts';
 
+/**
+ * Without a connection string there is nothing to integrate with, so this file
+ * skips rather than fails. The unit suite is the one that must run anywhere —
+ * a contributor with no database, or CI before its branch exists, should get a
+ * green run and an honest "skipped", not a wall of connection errors.
+ */
+const hasDatabase = Boolean(process.env.DATABASE_URL);
+
 // Attempt creation, against real Postgres.
 //
 // The pure rule is tested next door without a database. What can only be tested
@@ -19,12 +27,14 @@ import {
 const userId = testUserId('attempt');
 
 beforeAll(async () => {
+  if (!hasDatabase) return;
   await assertSeeded();
   await deleteAllTestUsers();
   await createTestUser(userId);
 });
 
 afterAll(async () => {
+  if (!hasDatabase) return;
   await deleteAllTestUsers();
   await pool.end();
 });
@@ -61,7 +71,7 @@ async function countAttempts(): Promise<number> {
   return r.rows[0]?.n ?? 0;
 }
 
-describe('starting an exam sitting', () => {
+describe.skipIf(!hasDatabase)('starting an exam sitting', () => {
   it('claims the first-attempt flag and starts the clock', async () => {
     const started = await createAttempt(db, {
       userId,
@@ -119,7 +129,7 @@ describe('starting an exam sitting', () => {
   });
 });
 
-describe('starting an unscored sitting', () => {
+describe.skipIf(!hasDatabase)('starting an unscored sitting', () => {
   it('never claims the flag, and has no clock', async () => {
     for (const mode of ['practice', 'holdout'] as const) {
       const started = await createAttempt(db, {
@@ -154,7 +164,7 @@ describe('starting an unscored sitting', () => {
   });
 });
 
-describe('the check constraints refuse an incoherent attempt', () => {
+describe.skipIf(!hasDatabase)('the check constraints refuse an incoherent attempt', () => {
   // These are the constraints doc 04 §5.1 calls "the schema, not decoration".
   // Asserting they bite is the difference between a rule and a comment.
   it('refuses an exam sitting with no paper', async () => {
