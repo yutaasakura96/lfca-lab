@@ -38,8 +38,13 @@ npm run build-exams   # DESTRUCTIVE — see the holdout gotcha below
 The app, from `app/` — its own `package.json`, own dependencies:
 
 ```bash
-npm run typecheck     # tsc --noEmit, strict
-npm run test:unit     # vitest run
+npm run typecheck        # tsc --noEmit, strict
+npm run test:unit        # vitest — pure, no database, runs anywhere
+npm run test:integration # vitest against the Neon dev branch; needs app/.env.local and a seeded db
+npm run db:generate      # drizzle-kit generate — writes a migration from the schema
+npm run db:migrate       # applies migrations to DATABASE_URL
+npm run auth:generate    # regenerates src/db/schema/auth.ts — GENERATED, never hand-edit
+npm run seed             # projects the bank into the content tables; upserts, never truncates
 ```
 
 See @docs/12-deployment.md §3 for the deploy order. The root `npm test` is scoped to
