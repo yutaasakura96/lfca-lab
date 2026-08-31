@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   DOMAINS,
   EXAM_WEIGHT_PERCENT,
-  QUESTIONS_PER_SITTING,
-  questionsPerSitting,
+  QUESTIONS_PER_WEIGHTED_SITTING,
+  weightedQuota,
   weightPercent,
 } from '../../src/domain/weights.ts';
 
@@ -38,13 +38,13 @@ describe('the published percentages', () => {
 
 describe('questions per sitting', () => {
   it('totals exactly the sitting size, with nothing left over', () => {
-    const total = DOMAINS.reduce((sum, d) => sum + questionsPerSitting(d), 0);
-    expect(total).toBe(QUESTIONS_PER_SITTING);
+    const total = DOMAINS.reduce((sum, d) => sum + weightedQuota(d), 0);
+    expect(total).toBe(QUESTIONS_PER_WEIGHTED_SITTING);
   });
 
   it('gives every domain at least one question', () => {
     for (const domain of DOMAINS) {
-      expect(questionsPerSitting(domain)).toBeGreaterThan(0);
+      expect(weightedQuota(domain)).toBeGreaterThan(0);
     }
   });
 
@@ -55,13 +55,13 @@ describe('questions per sitting', () => {
   // which is the same tolerance the sixteen papers were built to.
   it('stays within one question of the published percentage', () => {
     for (const domain of DOMAINS) {
-      const fromPercent = (weightPercent(domain) / 100) * QUESTIONS_PER_SITTING;
-      expect(Math.abs(questionsPerSitting(domain) - fromPercent)).toBeLessThanOrEqual(1);
+      const fromPercent = (weightPercent(domain) / 100) * QUESTIONS_PER_WEIGHTED_SITTING;
+      expect(Math.abs(weightedQuota(domain) - fromPercent)).toBeLessThanOrEqual(1);
     }
   });
 
   it('ranks the domains in the same order as the percentages', () => {
-    const byCount = [...DOMAINS].sort((a, b) => questionsPerSitting(b) - questionsPerSitting(a));
+    const byCount = [...DOMAINS].sort((a, b) => weightedQuota(b) - weightedQuota(a));
     const byPercent = [...DOMAINS].sort((a, b) => weightPercent(b) - weightPercent(a));
     expect(byCount).toEqual(byPercent);
   });
@@ -72,8 +72,8 @@ describe('purity', () => {
   // forever. Asserted here rather than assumed, because this module is the
   // first inhabitant of that layer and sets the precedent.
   it('returns the same answer every time it is asked', () => {
-    const once = DOMAINS.map(questionsPerSitting);
-    const twice = DOMAINS.map(questionsPerSitting);
+    const once = DOMAINS.map(weightedQuota);
+    const twice = DOMAINS.map(weightedQuota);
     expect(once).toEqual(twice);
   });
 });

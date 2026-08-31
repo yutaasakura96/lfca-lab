@@ -464,3 +464,26 @@ every token change and invite hand-editing the generated file.
   diff. A missing or malformed `data/holdout.json` stops the builder rather than reading as
   agreement.
 - **Revisit if:** never, while the holdout matters.
+
+### [2026-08-31] The root test script is scoped to the bank's own tests
+- **Decision:** the root `npm test` runs `node --test "tools/test/**/*.test.mjs"` rather than a bare
+  `node --test`. The two suites are separate and stay separate: the bank's runs on Node's test
+  runner, the app's on Vitest. This is the one edit to the root `package.json` that `app/` required,
+  and it adds no dependency — the root still declares none.
+- **Context:** `node --test` discovers `*.test.ts` anywhere beneath the working directory. The moment
+  `app/tests/` existed, the root suite found two Vitest files, tried to run them under Node's runner,
+  and died at `import { describe } from 'vitest'` — 341 tests, 2 failing, in a suite whose job is to
+  guard the holdout.
+- **Alternatives considered:** an exclusion flag — Node 25.1.0 has none that helps; `--test-skip-pattern`
+  does not apply, because the failure happens at module load before any test name exists. Naming the
+  app's tests `*.spec.ts`, which Node's default glob does not match while Vitest's default include
+  does — this would have left the root file literally untouched, and was rejected because it makes
+  the root's discovery rule an invisible constraint on the app's file naming, which is a worse thing
+  to forget than a line in a script.
+- **Consequence:** `docs/03-technical-design.md` §4 annotated `app/package.json` as "root
+  package.json untouched"; that annotation has been reworded to what actually matters, which is that
+  the root declares no dependencies. A root test file outside `tools/test/` is now invisible to the
+  suite — the `**` recurses, so subdirectories are covered, but a test placed elsewhere would be
+  silently skipped rather than failing loudly.
+- **Revisit if:** the bank ever grows tests outside `tools/test/`, or the app moves to a runner whose
+  files Node's discovery ignores.

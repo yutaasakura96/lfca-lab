@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test \"tools/test/*.test.mjs\"",
+    "test": "node --test \"tools/test/**/*.test.mjs\"",
     "validate": "node tools/validate.mjs",
     "generate": "node tools/generate-views.mjs",
     "check-guide": "node tools/check-guide.mjs",

@@ -1,4 +1,4 @@
-// The official domain weights, and what they mean for one sitting of 60.
+// The official domain weights, and what they mean for one weighted sitting.
 //
 // This is the first module of the pure layer, and it sets that layer's rule:
 // data in, data out. No database handle, no React, no reading of the clock. A
@@ -24,10 +24,25 @@ export const DOMAINS = ['sysadmin', 'cloud', 'linux', 'security', 'devops', 'pm'
 /** One of the six. */
 export type Domain = (typeof DOMAINS)[number];
 
-/** Every sitting composed by weight is this long. Exam and practice mode both. */
-export const QUESTIONS_PER_SITTING = 60;
+/**
+ * How long a sitting composed by the official weights is: exam mode and
+ * practice mode, both.
+ *
+ * Named for the *weighted* sitting specifically. Not every sitting is 60 — a
+ * domain sitting is 20, 40 or the whole domain, and the holdout is 40 — so a
+ * bare `QUESTIONS_PER_SITTING` would overclaim the one word the glossary pins
+ * hardest.
+ */
+export const QUESTIONS_PER_WEIGHTED_SITTING = 60;
 
-/** The pass mark's denominator is this same 60 — see `score`, not here. */
+/**
+ * The exam's published domain weights, as percentages. They total 100.
+ *
+ * Kept beside the quota table below rather than folded into it, because the two
+ * say different things: this is what the exam publishes, and the quota is what
+ * this project allocates. Holding both is what lets a test assert the second
+ * never drifts far from the first.
+ */
 export const EXAM_WEIGHT_PERCENT: Readonly<Record<Domain, number>> = {
   sysadmin: 30,
   cloud: 18,
@@ -38,7 +53,7 @@ export const EXAM_WEIGHT_PERCENT: Readonly<Record<Domain, number>> = {
 };
 
 /**
- * How many of a sitting's 60 questions come from each domain.
+ * How many of a weighted sitting's 60 questions come from each domain.
  *
  * Deliberately a table rather than `round(percent / 100 * 60)`. The percentages
  * do not divide 60 evenly — 18% of 60 is 10.8, 16% is 9.6 — so rounding each
@@ -48,7 +63,7 @@ export const EXAM_WEIGHT_PERCENT: Readonly<Record<Domain, number>> = {
  * actually built to, so a sitting composed here and a sitting read off a paper
  * have the same shape.
  */
-export const QUESTIONS_PER_DOMAIN: Readonly<Record<Domain, number>> = {
+export const WEIGHTED_QUOTA: Readonly<Record<Domain, number>> = {
   sysadmin: 18,
   cloud: 11,
   linux: 10,
@@ -57,12 +72,12 @@ export const QUESTIONS_PER_DOMAIN: Readonly<Record<Domain, number>> = {
   pm: 6,
 };
 
-/** The published percentage for one domain. */
+/** The exam's published percentage for one domain. */
 export function weightPercent(domain: Domain): number {
   return EXAM_WEIGHT_PERCENT[domain];
 }
 
-/** How many questions of one domain a 60-question sitting asks. */
-export function questionsPerSitting(domain: Domain): number {
-  return QUESTIONS_PER_DOMAIN[domain];
+/** How many questions of one domain a 60-question weighted sitting asks. */
+export function weightedQuota(domain: Domain): number {
+  return WEIGHTED_QUOTA[domain];
 }

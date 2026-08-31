@@ -13,12 +13,29 @@ import { describe, expect, it } from 'vitest';
 // A convention that is only written down erodes. This is the same technique the
 // bank's own suite uses to prove `validate` never reaches the 1,150-item
 // loader: read the source, look at what it imports, and fail on the imports
-// that would break the rule. Asserted over the text rather than by running
-// anything, so it cannot pass by accident.
+// that would break the rule.
+//
+// The rule enforced here is stricter than a blocklist, and deliberately so. A
+// list of forbidden packages only catches the violations someone thought of;
+// the first review of this file found that `import { db } from '../db/client.ts'`
+// sailed past every one of them. So the rule is an **allowlist**: a module in
+// the pure layer may import its own siblings and nothing else. A type-only
+// import is exempt, because `verbatimModuleSyntax` erases it and a type cannot
+// perform I/O.
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const appRoot = join(here, '..', '..');
-const domainDir = join(appRoot, 'src', 'domain');
+const srcDir = join(appRoot, 'src');
+const domainDir = join(srcDir, 'domain');
+
+interface Module {
+  /** Path relative to `app/`, for readable test names. */
+  file: string;
+  /** Source with comments removed, so prose about `Date.now()` is not a finding. */
+  code: string;
+  /** Every specifier the module imports for its *values*. */
+  valueImports: string[];
+}
 
 function filesUnder(dir: string): string[] {
   const out: string[] = [];
@@ -30,50 +47,100 @@ function filesUnder(dir: string): string[] {
   return out;
 }
 
-function importsOf(source: string): string[] {
-  return [...source.matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]+)['"]/g)]
-    .map((match) => match[1] as string);
+/**
+ * Strip comments before scanning. Without this the file's own explanation of
+ * why `Date.now()` is banned reads as a call to `Date.now()`.
+ */
+function stripComments(source: string): string {
+  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 }
 
-const domainFiles = filesUnder(domainDir);
+/**
+ * Specifiers imported for their values. `import type` is excluded: it is erased
+ * at compile time and cannot execute anything.
+ *
+ * Covers the four forms that actually load a module — static, side-effect,
+ * dynamic and `require` — because catching only the first would leave three
+ * ways to break the rule while the suite stayed green.
+ */
+function valueImportsOf(code: string): string[] {
+  const out: string[] = [];
+  const push = (m: RegExpMatchArray) => out.push(m[1] as string);
+
+  // import x from 'y' / import {x} from 'y' / export {x} from 'y' — but not `import type`.
+  for (const m of code.matchAll(/\b(?:import|export)\s+(?!type\s)[^'";]*?from\s*['"]([^'"]+)['"]/g)) push(m);
+  // import 'y'
+  for (const m of code.matchAll(/\bimport\s*['"]([^'"]+)['"]/g)) push(m);
+  // import('y')
+  for (const m of code.matchAll(/\bimport\s*\(\s*['"]([^'"]+)['"]/g)) push(m);
+  // require('y')
+  for (const m of code.matchAll(/\brequire\s*\(\s*['"]([^'"]+)['"]/g)) push(m);
+
+  return out;
+}
+
+function read(dir: string): Module[] {
+  return filesUnder(dir).map((path) => {
+    const code = stripComments(readFileSync(path, 'utf8'));
+    return { file: relative(appRoot, path), code, valueImports: valueImportsOf(code) };
+  });
+}
+
+const domainModules = read(domainDir);
+const srcModules = read(srcDir);
 
 describe('src/domain is pure', () => {
   it('has something in it to check', () => {
-    // Guards the rest of this file: an empty directory would make every
-    // assertion below pass vacuously.
-    expect(domainFiles.length).toBeGreaterThan(0);
+    // Guards every assertion below: an empty directory would pass vacuously.
+    expect(domainModules.length).toBeGreaterThan(0);
   });
 
-  it.each(domainFiles.map((f) => relative(appRoot, f)))('%s imports no I/O', (file) => {
-    const forbidden = /^(drizzle|drizzle-orm|pg|postgres|@neondatabase|@vercel\/postgres|node:fs|node:net|node:http)/;
-    for (const specifier of importsOf(readFileSync(join(appRoot, file), 'utf8'))) {
-      expect(specifier, `${file} reaches for I/O via ${specifier}`).not.toMatch(forbidden);
-    }
+  it.each(domainModules.map((m) => [m.file, m] as const))(
+    '%s imports nothing but its own siblings',
+    (_file, module) => {
+      // An allowlist, not a blocklist. Anything that is not a relative sibling
+      // — a package, a Node built-in, or a reach up into src/db — is a
+      // violation, including the ones nobody has thought of yet.
+      for (const specifier of module.valueImports) {
+        expect(specifier, `${module.file} imports ${specifier} for its value`).toMatch(/^\.\//);
+      }
+    },
+  );
+
+  it.each(domainModules.map((m) => [m.file, m] as const))(
+    '%s is deterministic — no clock, no randomness, no environment',
+    (_file, module) => {
+      // Same input, same output, forever. Time is a parameter; so is any
+      // shuffle seed. `select.ts` is the module this exists for: its tie-break
+      // is random by design, and that randomness belongs to its caller.
+      const banned: [RegExp, string][] = [
+        [/\bDate\s*\.\s*now\s*\(/, 'Date.now()'],
+        [/\bnew\s+Date\s*\(\s*\)/, 'new Date() with no argument'],
+        [/\bperformance\s*\.\s*now\s*\(/, 'performance.now()'],
+        [/\bMath\s*\.\s*random\s*\(/, 'Math.random()'],
+        [/\bcrypto\s*\.\s*randomUUID\s*\(/, 'crypto.randomUUID()'],
+        [/\bprocess\s*\.\s*env\b/, 'process.env'],
+      ];
+      for (const [pattern, what] of banned) {
+        expect(module.code, `${module.file} uses ${what}`).not.toMatch(pattern);
+      }
+    },
+  );
+});
+
+describe('the app does not reach into the bank at runtime', () => {
+  // Scoped to all of src/, not just src/domain — the criterion is about
+  // everything the app runs, and this guard should grow as src/ does. Tests may
+  // read the bank; the shipped code may not. Content reaches the app through
+  // the seed and the database, never by importing the build tooling.
+  it('has source to check', () => {
+    expect(srcModules.length).toBeGreaterThan(0);
   });
 
-  it.each(domainFiles.map((f) => relative(appRoot, f)))('%s imports no React', (file) => {
-    for (const specifier of importsOf(readFileSync(join(appRoot, file), 'utf8'))) {
-      expect(specifier, `${file} imports ${specifier}`).not.toMatch(/^react/);
-    }
-  });
-
-  it.each(domainFiles.map((f) => relative(appRoot, f)))('%s never reads the clock', (file) => {
-    // Time is a parameter. This is what makes "the tab was closed for ninety
-    // minutes" a test that runs in a millisecond rather than ninety minutes.
-    const source = readFileSync(join(appRoot, file), 'utf8');
-    expect(source, `${file} calls Date.now()`).not.toMatch(/\bDate\s*\.\s*now\s*\(/);
-    expect(source, `${file} constructs a Date with no argument`).not.toMatch(/\bnew\s+Date\s*\(\s*\)/);
-    expect(source, `${file} calls performance.now()`).not.toMatch(/\bperformance\s*\.\s*now\s*\(/);
-  });
-
-  it.each(domainFiles.map((f) => relative(appRoot, f)))('%s stays inside the app', (file) => {
-    // The bank's tooling is a sibling of this directory, and reaching into it
-    // at runtime would make the simulator depend on the build scripts rather
-    // than on the database they populate. Tests may read the bank; the domain
-    // layer may not.
-    for (const specifier of importsOf(readFileSync(join(appRoot, file), 'utf8'))) {
-      expect(specifier, `${file} reaches out of app/ via ${specifier}`)
-        .not.toMatch(/(^|\/)\.\.\/\.\.\/(tools|questions|exams|data|drills)/);
+  it.each(srcModules.map((m) => [m.file, m] as const))('%s stays inside app/', (_file, module) => {
+    for (const specifier of module.valueImports) {
+      expect(specifier, `${module.file} reaches the bank via ${specifier}`)
+        .not.toMatch(/\.\.\/(?:\.\.\/)*(?:tools|questions|exams|data|drills)(?:\/|$)/);
     }
   });
 });

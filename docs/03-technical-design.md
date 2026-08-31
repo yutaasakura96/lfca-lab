@@ -147,7 +147,7 @@ lfca-lab/
 ├── docs/                                                 # planning docs
 ├── design/                                               # tokens.css + prototype build
 └── app/                                                  # NEW — the simulator
-    ├── package.json                # its own deps; root package.json untouched
+    ├── package.json                # its own deps; the root declares none (see the log, 2026-08-31)
     ├── drizzle.config.ts
     ├── src/
     │   ├── app/                    # Next.js App Router
