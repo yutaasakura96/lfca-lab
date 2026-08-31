@@ -37,15 +37,27 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   intact"; `npm run validate` fails on drift (#2); and `npm run build-exams` now **refuses to write**
   on the same comparison, before its first write, so a rebuild that would promote a holdout item onto
   a paper leaves all sixty-three generated files untouched (#3). The remaining two of PRD §5's five
-  places — `is_holdout` in Postgres and the selection filter — arrive with the seed.
+  places — `is_holdout` in Postgres and the selection filter — arrived with the seed, in feature 2.
+- **Phase 6, feature 2 — the data spine.** Spec #5 and its eight children (#6–#13), all closed;
+  #1 and #4 closed with them. `app/` exists: TypeScript strict, Vitest, the pure domain layer
+  (weights, scoring, the derived clock, the first-attempt rule, selection composition), ten tables on
+  **Neon Postgres 18** from one committed migration, a seed that projects the bank, attempt creation,
+  and the selection queries. No UI, no sign-in, no deployment — as scoped.
+  **The holdout now has all three locks**, and they share no failure mode: the pinned file, the
+  builder's refusal, and the query's own `is_holdout = false`. Measured on the seeded database:
+  0 holdout items on any paper, 40 marked, 960 servable.
+  Suites: 339 bank · 124 app unit · 27 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass, and is driven by
 commands only you can type.
 
-The skills setup is done, and so is the first feature — pinning the holdout (see Done).
-**The next command is `/grill-with-docs`** on the feature after it, then `/to-spec` →
-`/to-tickets` → `/implement`.
+Features 1 and 2 are done (see Done). **The next command is `/grill-with-docs`** on feature 3 —
+the natural candidate is the first UI slice, which is also where sign-in, Vercel and the Google
+OAuth client finally have to be provisioned. Then `/to-spec` → `/to-tickets` → `/implement`.
+
+**Before connecting Vercel, merge `develop` into `main`.** Today that is a fast-forward of inert
+code; afterwards every such merge is a production deploy (doc 12 §3).
 
 Tickets land in **GitHub Issues**, so `/to-tickets` and `/triage` need `gh` authenticated. The five
 triage labels exist on the repo. Never put a secret from doc 12 §2 in an issue body — the repo is
@@ -55,9 +67,16 @@ Flow, context hygiene and phase boundaries:
 `~/Documents/GitHub/claude-setup-inventory/mattpocock-skills-guide.md`.
 
 ## Blocked
-Nothing. The holdout is pinned and both bank-side guards have shipped (see Done). What remains of
-PRD §5 is app-side and cannot start before `app/` exists: the seed marks the 40 rows
-`is_holdout = true`, and every selection query filters on it.
+Nothing. The holdout is fully defended and the data spine is built.
+
+Three findings from feature 2 are **carried, not lost** — each belongs to the slice that deploys:
+- **Doc 12 §2 lists one `DATABASE_URL`.** Neon routes schema migrations to the *direct* host and a
+  serverless runtime to the *pooled* one, so a second variable will be needed.
+- **Vercel skips builds for projects a commit did not touch**, judged by the project's own directory.
+  A commit touching only `questions/**` may deploy nothing, leaving production on the previous seed.
+  There is a setting for it.
+- **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
+  workflow itself is not written.
 
 ## Carrying
 
