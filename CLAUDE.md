@@ -35,7 +35,16 @@ npm run question-plan
 npm run build-exams   # DESTRUCTIVE — see the holdout gotcha below
 ```
 
-The app, from `app/` — see @docs/12-deployment.md §3 for the deploy order.
+The app, from `app/` — its own `package.json`, own dependencies:
+
+```bash
+npm run typecheck     # tsc --noEmit, strict
+npm run test:unit     # vitest run
+```
+
+See @docs/12-deployment.md §3 for the deploy order. The root `npm test` is scoped to
+`tools/test/*.test.mjs` **on purpose** — `node --test` would otherwise try to run the app's Vitest
+files and fail. The two suites are separate and stay separate.
 
 ## Where the design lives
 

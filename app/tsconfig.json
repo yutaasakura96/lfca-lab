@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Imports carry their ".ts" extension. Node can run TypeScript directly by
+    // stripping types, and when it does it requires the real extension — so the
+    // seed script stays runnable by `node` without a bundler standing behind it.
+    // Safe with noEmit: nothing here is compiled to a .js that would need the
+    // path rewritten.
+    "allowImportingTsExtensions": true,
+
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "noEmit": true
+  },
+  "include": ["src", "tests"]
+}

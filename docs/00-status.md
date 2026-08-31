@@ -85,7 +85,9 @@ PRD §5 is app-side and cannot start before `app/` exists: the seed marks the 40
 - Next.js App Router in **`app/`** in this repo · TypeScript strict · Drizzle + drizzle-kit ·
   **Postgres on Neon** · **Vercel** · Better Auth + Google OIDC behind an **`ALLOWED_EMAILS`
   allowlist that fails closed** · Sentry free tier · Vitest + one Playwright run.
-- **`app/` does not exist yet.** Doc 03 §4 is its spec.
+- **`app/` exists as of 2026-08-31** — `package.json`, TypeScript strict, Vitest, and the pure
+  domain layer's first module. No Next.js, no database client, no pages yet. Doc 03 §4 is still its
+  spec; the slice building it out is #5.
 - The bank is **seeded** into read-only content tables; the app never writes question content.
 - **The clock is derived from `started_at`**, never stored, never extended; expired attempts are
   finalised lazily on read. No cron anywhere in the system.
