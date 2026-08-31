@@ -487,3 +487,31 @@ every token change and invite hand-editing the generated file.
   silently skipped rather than failing loudly.
 - **Revisit if:** the bank ever grows tests outside `tools/test/`, or the app moves to a runner whose
   files Node's discovery ignores.
+
+### [2026-08-31] `allowlisted` is a Better Auth additional field, not a post-generation `ALTER`
+- **Decision:** the `user.allowlisted` column is declared in `app/src/auth.ts` as a
+  `user.additionalFields` entry, so Better Auth's own generator emits it into
+  `app/src/db/schema/auth.ts`. It reaches the database through the ordinary migration alongside
+  every other column.
+- **Context:** `docs/04-database-schema.md` §2 specified it as an `ALTER TABLE "user" ADD COLUMN`
+  applied *after* generation, on the reasoning that the auth tables are the library's and should not
+  be hand-edited.
+- **Alternatives considered:** the documented `ALTER` — it works exactly once. The next
+  `npm run auth:generate` rewrites the schema file from the library's definition, the column
+  disappears from the Drizzle model, and the following `drizzle-kit generate` produces a migration
+  that **drops** it. The column carries the flag deciding who may sign in, so the failure mode is a
+  silent widening of access at the moment someone regenerates a schema for an unrelated reason. Also
+  considered: hand-adding the column to the generated file, which has the same problem one step
+  earlier.
+- **Reason:** `additionalFields` is the library's own mechanism for exactly this, and it makes the
+  column survive regeneration. The spirit of doc 04 §2 — do not hand-edit the generated file — is
+  better served by this than by the `ALTER` it prescribed, because the `ALTER` leaves the generated
+  file and the database permanently disagreeing.
+- **Consequence:** `src/auth.ts` exists in a slice that authenticates nobody. It declares no
+  provider, no session policy and no allowlist hook, and is mounted on no route; it exists so the
+  generator knows the shape of four tables. Doc 04 §2 has been rewritten to match, including two
+  further divergences found by generating: the `account` table carries `issuer`,
+  `refresh_token_expires_at` and an unused `password` column, and **the auth tables' timestamps are
+  `timestamp`, not `timestamptz`**, which is the single exception to §0's rule.
+- **Revisit if:** Better Auth changes how additional fields are declared, or the allowlist moves out
+  of the user row.
