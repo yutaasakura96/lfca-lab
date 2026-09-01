@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getSessionCookie } from 'better-auth/cookies';
 
-// Middleware is a convenience, not a security boundary.
+// The proxy layer is a convenience, not a security boundary.
 //
 // It checks only for the *presence* of a session cookie — it does not validate
 // it, and it cannot, without a database round trip on every request. The real
@@ -15,7 +15,7 @@ import { getSessionCookie } from 'better-auth/cookies';
 // response — which is how a save failure turns into a confusing parse error
 // instead of an honest 401.
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const hasSessionCookie = getSessionCookie(request) !== null;
 
@@ -37,7 +37,7 @@ export function middleware(request: NextRequest) {
   // the `DELETE FROM session` that doc 08 §2 names as the recovery move. In
   // every one of those cases the cookie is present and the session is gone, so
   // the server sends you to sign-in, and a bounce here would send you straight
-  // back, forever. Presence-based middleware may guard a route; it must never
+  // back, forever. Presence-based routing may guard a route; it must never
   // redirect away from the one page that fixes a bad session.
   //
   // Sending an already-signed-in visitor to the home screen still happens — on
