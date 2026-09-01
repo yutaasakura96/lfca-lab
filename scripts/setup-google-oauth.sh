@@ -302,4 +302,12 @@ printf '    cd app && npm run dev\n\n'
 printf '  %sIf sign-in fails, in order of likelihood:%s\n' "$DIM" "$RESET"
 printf '    redirect_uri_mismatch  → the redirect URI is not character-identical\n'
 printf '    access_blocked         → you are not on the test-user list (stage 3)\n'
-printf '    signed in but refused  → your address is not in ALLOWED_EMAILS\n\n'
+printf '    signed in but refused  → your address is not in ALLOWED_EMAILS\n'
+printf '    consent asked again    → normal: Testing-status consent lapses after 7 days\n'
+printf '\n'
+printf '  %sERR_SSL_PROTOCOL_ERROR on localhost is the browser, not the app.%s\n' "$DIM" "$RESET"
+printf '    The dev server speaks plain http. Type the scheme in full —\n'
+printf '    http://localhost:3000 — and if it still upgrades, delete the cached\n'
+printf '    HSTS pin at chrome://net-internals/#hsts (enter "localhost").\n'
+printf '    Do NOT switch to 127.0.0.1: Google treats it as a different origin\n'
+printf '    from localhost, and only localhost is registered on the client.\n\n'
