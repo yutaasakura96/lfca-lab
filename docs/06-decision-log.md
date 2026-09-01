@@ -590,3 +590,34 @@ every token change and invite hand-editing the generated file.
   looked implemented and never fired.
 - **Revisit if:** the browser test arrives and genuinely subsumes these assertions, which it will not
   for the holdout filter.
+
+### [2026-09-02] Protecting `main` is a hook, not a permission rule
+- **Decision:** pushing moves from `ask` to `allow`, and
+  `.claude/hooks/pre-push-main-guard.sh` refuses any push that would update `main`. A second hook,
+  `stop-branch-drift.sh`, reports on Stop when `main` falls six or more commits behind `develop`, and
+  says nothing otherwise. Ordinary local git — `add`, `commit`, `merge --ff-only`, `switch`,
+  `checkout -b` — is allowed.
+- **Context:** every push prompted, including routine feature-branch and `develop` pushes, so the
+  prompt carried no decision. Meanwhile `main` drifted **ten commits** behind `develop` unnoticed.
+- **Alternatives considered:** a narrower permission glob putting only pushes to `main` in `ask`. It
+  cannot work — the same push is spelled `git push`, `... origin HEAD`, `... -u origin main` and
+  `... --all`, and a prefix pattern cannot see which branch the repository is on. Also considered:
+  adding a Stop hook reporting uncommitted and unpushed work — one **already exists** at user scope,
+  and its state file showed it had fired on context size and been ignored. Duplicating a hook that
+  works would not have fixed a reporting failure.
+- **Reason:** the guard is *stricter* than the prompt it replaces — it refuses `main` outright rather
+  than asking about every push — while removing prompts that carried no decision. The drift that
+  actually happened was invisible to the existing nudge, because `develop` was pushed every time:
+  "nothing unpushed" and "production is current" are different claims.
+- **Consequence:** `.claude/settings.json` is now **52 allow, 13 ask, 6 deny**, with two hooks.
+  `.claude/settings.local.json` emptied again — it had collected four rules from "always allow"
+  clicks, two of them throwaway `echo` commands; it refills on its own and is worth checking
+  periodically. `CLAUDE.md` gains a **Checkpoints** section, because what failed here was reporting
+  rather than tooling.
+  **Known limitation, found on the hook's first use:** it cannot distinguish an executed command from
+  one merely quoted inside a heredoc, so writing documentation *about* pushing through the shell is
+  refused. Heredoc bodies are now stripped before matching, which covers the common shape, but the
+  real answer is to write files with the editing tools rather than piping prose through Bash. Tests
+  for the guard live in a script file for the same reason — a command containing the string under
+  test blocks itself.
+- **Revisit if:** a second protected branch appears, or pushes to `develop` start deploying anything.
