@@ -17,3 +17,6 @@ app/.env.*
 
 # Vercel
 .vercel/
+
+# TypeScript incremental build state
+*.tsbuildinfo

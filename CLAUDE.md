@@ -90,6 +90,12 @@ Hand-maintained: `PROGRESS.md`, `README.md`, `study-guide/`.
 - **Renaming a question id is a destructive act.** The JSON `id` is the Postgres primary key and the
   foreign key every answer row points at. Renumbering the bank and keeping attempt history are
   mutually exclusive.
+- **`next dev` serving 404 for every route means a stale `.next` — delete it.** Seen once while
+  scaffolding: the dev server started clean, reported no error, and served 404 everywhere, with
+  `.next/dev/types/routes.d.ts` showing `type AppRoutes = never`. `rm -rf app/.next` fixed it and it
+  has not recurred. The root cause was never established — pinning `turbopack.root` was tried and
+  made no difference, so **do not** add one on this evidence. Check `routes.d.ts` first: `never`
+  there means Next found no routes, which is a discovery problem, not a routing one.
 - `PROGRESS.md` (171 KB) and `coverage-matrix.md` (84 KB) are large. Grep them; don't read them
   whole.
 - Exam and question content still discusses Docker, `node1`/`node2`, and systemd — that is LFCA

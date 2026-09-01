@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error — the bank's tooling is plain Node ESM with no type declarations.
-// Importing it untyped is the point: this is the *same function* the validator
-// and the exam builder call, and a TypeScript re-statement of it would be the
-// second opinion the shared function exists to prevent.
+// The bank's own tooling, imported as plain Node ESM. Untyped on purpose: this
+// is the *same function* the validator and the exam builder call, and a
+// TypeScript re-statement of it would be exactly the second opinion the shared
+// function exists to prevent. Reachable because `allowJs` is on — see tsconfig.
 import { checkHoldoutIntegrity, HOLDOUT_SIZE } from '../../../tools/lib/holdout.mjs';
 import { loadExamIndex, loadItems, loadPinnedHoldout } from '../bank.ts';
 

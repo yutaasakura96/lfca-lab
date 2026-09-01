@@ -1,31 +1,59 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "lib": ["ES2023"],
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "preserve",
     "moduleResolution": "bundler",
-    "types": ["node"],
-
+    "types": [
+      "node"
+    ],
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
-
     // Imports carry their ".ts" extension. Node can run TypeScript directly by
     // stripping types, and when it does it requires the real extension — so the
     // seed script stays runnable by `node` without a bundler standing behind it.
     // Safe with noEmit: nothing here is compiled to a .js that would need the
     // path rewritten.
     "allowImportingTsExtensions": true,
-
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-
-    "noEmit": true
+    "noEmit": true,
+    // Both added by `next dev` on first run, and kept deliberately rather than
+    // reverted. `allowJs` is what lets the app's tests import the bank's own
+    // plain-ESM tooling — the shared holdout function — instead of restating it
+    // in TypeScript. `incremental` is Next's requirement.
+    "allowJs": true,
+    "incremental": true
   },
-  "include": ["src", "tests", "scripts", "drizzle.config.ts", "vitest.config.ts", "vitest.integration.config.ts"]
+  "include": [
+    "src",
+    "tests",
+    "scripts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "drizzle.config.ts",
+    "next.config.ts",
+    "vitest.config.ts",
+    "vitest.integration.config.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
