@@ -1,40 +1,61 @@
-// Better Auth's configuration — and, for now, only enough of it to describe the
-// shape of four database tables.
+// Better Auth: Google sign-in, closed by an email allowlist.
 //
-// **Nothing here authenticates anyone.** There is no Google provider, no
-// allowlist hook, no session policy, and this module is not mounted on any
-// route. Sign-in is a later slice; the tables it will need are this one,
-// because a sitting belongs to a user and the attempt table cannot exist
-// without the user table to point at.
+// The allowlist is checked in `validateUserInfo`, which Better Auth documents as
+// running **before it creates a user, links an account, or signs a returning
+// user in**. That last clause is why this is the right hook rather than a
+// screen-level check: it runs on *every* sign-in, so tightening the list locks
+// out an account that already has a row, without anyone having to go and delete
+// it.
 //
-// The file exists because Better Auth's schema is the library's to define, not
-// ours. Its CLI reads this config and writes `src/db/schema/auth.ts`. Hand-
-// writing those four tables would mean maintaining a copy of someone else's
-// schema and discovering the differences at runtime.
+// Nothing here decides who is allowed. That rule lives in the pure layer and is
+// tested there against every near-miss; this file only supplies the environment
+// and refuses on the answer.
 
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { nextCookies } from 'better-auth/next-js';
 import { db } from './db/client.ts';
+import { isAllowed } from './domain/allowlist.ts';
+
+/**
+ * Read at call time, not at module load.
+ *
+ * A module-load read would bake in whatever the value was when the process
+ * started, which makes "tighten the list and restart" a subtly different
+ * operation from "tighten the list". Reading per sign-in means the deployed
+ * value is always the one that applies.
+ */
+function allowlist(): string | undefined {
+  return process.env.ALLOWED_EMAILS;
+}
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: 'pg' }),
+
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    },
+  },
+
+  session: {
+    // Thirty days. A 90-minute sitting can never be interrupted by an expiring
+    // session, and a candidate who studies weekly never signs in twice.
+    expiresIn: 60 * 60 * 24 * 30,
+    updateAge: 60 * 60 * 24,
+  },
+
   user: {
     additionalFields: {
       /**
-       * The allowlist flag, declared here rather than bolted on by a later
-       * migration.
-       *
-       * The schema document specifies it as an `ALTER TABLE` applied after
-       * generation. That would work exactly once: the next time the CLI
-       * regenerates this schema the column would vanish from the Drizzle
-       * definition, and the following `drizzle-kit generate` would produce a
-       * migration that drops it — from the table holding the flag that decides
-       * who may sign in. Declaring it as an additional field means the
-       * generator emits it, so it survives regeneration.
-       *
-       * Defence in depth, not the control itself: the sign-in hook is what
-       * stops a row being created at all. This is what stops a row that
+       * Defence in depth behind the check below, not the control itself. The
+       * hook is what stops a row existing; this is what stops a row that
        * somehow exists from acting.
+       *
+       * Declared here rather than added by a later migration: the schema file
+       * is generated, and an `ALTER` would be dropped by the next
+       * regeneration — see the decision log.
        */
       allowlisted: {
         type: 'boolean',
@@ -43,5 +64,38 @@ export const auth = betterAuth({
         input: false,
       },
     },
+
+    /**
+     * The gate. Returning an error here means Better Auth writes nothing —
+     * no user, no account, no session.
+     *
+     * The message deliberately says nothing about *why*. It does not echo the
+     * address back, does not distinguish "not on the list" from "list is
+     * empty", and offers nothing to probe: an unrecognised visitor should learn
+     * only that the app is private.
+     */
+    validateUserInfo: ({ user }) => {
+      if (isAllowed(user.email, user.emailVerified === true, allowlist())) return;
+
+      return {
+        error: 'not_allowlisted',
+        errorDescription: 'This app is private.',
+      };
+    },
   },
+
+  databaseHooks: {
+    user: {
+      create: {
+        // Reached only for identities the gate above already admitted, so this
+        // is always true at the moment it is written. It exists so that every
+        // later query can filter on a column rather than re-deriving the rule.
+        before: async (user) => ({ data: { ...user, allowlisted: true } }),
+      },
+    },
+  },
+
+  // Must be last: it lets Better Auth set cookies from server actions and
+  // route handlers in the App Router.
+  plugins: [nextCookies()],
 });
