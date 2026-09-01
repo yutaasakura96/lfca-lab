@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import '../styles/screens.css';
 import { ThemeToggle } from '../components/ThemeToggle.tsx';
 import { THEME_INIT_SCRIPT } from '../components/theme.ts';
 

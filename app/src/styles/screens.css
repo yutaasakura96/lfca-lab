@@ -1,0 +1,98 @@
+/* ============================================================
+   Screen-level layout, lifted from the design prototype.
+
+   `tokens.css` and `base.css` are copied byte-for-byte from design/ and a test
+   asserts it. These rules are different: they live inside the prototype's
+   artboard files (design/parts/*.part) rather than in a shared stylesheet, so
+   they cannot be copied wholesale or asserted the same way. They are
+   transcribed here unchanged.
+
+   The rule that still holds: every value below resolves to a token. If a new
+   number is needed, it belongs in tokens.css first, not here.
+
+   Source: design/parts/Main.part
+   ============================================================ */
+
+.page {
+  padding: var(--space-6);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.list { display: flex; flex-direction: column; }
+
+.erow {
+  display: grid;
+  grid-template-columns: 40px 1fr 150px 150px 232px;
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line-subtle);
+}
+.erow:first-child { border-top: 0; }
+.erow--head { padding-top: 0; padding-bottom: var(--space-2); border-top: 0; }
+
+.enum {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-0);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.score__num { font-size: var(--text-lg); font-weight: var(--weight-medium); color: var(--ink-primary); }
+.score__den { font-size: var(--text-xs); color: var(--ink-faint); }
+.score--first .score__num { font-size: var(--text-base); color: var(--ink-secondary); }
+
+.actions { display: flex; gap: var(--space-2); justify-content: flex-end; }
+.btn--sm { height: var(--control-h-md); padding: 0 var(--space-3); font-size: var(--text-xs); }
+
+/* ------------------------------------------------------------
+   Mobile. The prototype specifies phone artboards separately; the
+   five-column grid cannot survive a narrow screen, so below the breakpoint a
+   row becomes a stacked block with its own labels. Targets stay at least 44px
+   per the screen specifications.
+   ------------------------------------------------------------ */
+/* Shown only when the column headers are not. See the mobile block below. */
+.score__label { display: none; }
+
+@media (max-width: 720px) {
+  .page { padding: var(--space-4); }
+
+  /* The page header puts a title beside three figures. At this width they do
+     not fit on one line, and without wrapping the last one is simply cut off
+     the right edge. */
+  .pagehead { flex-wrap: wrap; gap: var(--space-4); }
+  .pagehead > * { flex: 1 1 100%; }
+
+  .erow {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-2);
+  }
+
+  /* The header row labels five columns that are now stacked, so it stops being
+     a header and starts being a lie. */
+  .erow--head { display: none; }
+
+  /* Which is why each score has to carry its own label here. Two numbers with
+     no way to tell best from first-attempt is worse than showing one: the
+     reader cannot tell whether they are improving or whether the honest number
+     is the good one. */
+  .score__label {
+    display: inline;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    margin-right: var(--space-2);
+  }
+
+  .actions { justify-content: flex-start; }
+  .actions .btn { min-height: 44px; }
+}
