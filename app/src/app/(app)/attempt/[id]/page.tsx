@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { db } from '../../../../db/client.ts';
+import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
 import { getPaperQuestions } from '../../../../db/queries/paper.ts';
-import { Stem } from '../../../../components/Stem.tsx';
+import { SittingQuestion } from '../../../../components/SittingQuestion.tsx';
 import { requireSession } from '../../../../lib/session.ts';
 
 export const metadata = { title: 'Sitting — LFCA Practice' };
@@ -11,12 +12,13 @@ export const metadata = { title: 'Sitting — LFCA Practice' };
  * The sitting.
  *
  * A server component, and that is the security design rather than a
- * performance choice: the answer key lives in columns this page's query never
- * selects, so there is no payload for it to travel in. What reaches the browser
- * is a stem and four option texts.
+ * performance choice: the answer key lives in columns this page's queries never
+ * select, so there is no payload for it to travel in. What reaches the browser
+ * is a stem, four option texts, and which option this candidate already chose.
  *
- * Navigation between questions and the clock arrive in their own slices; this
- * renders the first question of the paper.
+ * Answers and flags are read back from the database on every load, which is
+ * what makes a reload restore the sitting rather than reset it. Reaching the
+ * other fifty-nine questions, and the clock, arrive in their own slices.
  */
 export default async function Sitting({ params }: { params: Promise<{ id: string }> }) {
   const session = await requireSession();
@@ -29,41 +31,35 @@ export default async function Sitting({ params }: { params: Promise<{ id: string
   if (attempt === null) notFound();
   if (attempt.examId === null) notFound();
 
-  const questions = await getPaperQuestions(db, attempt.examId);
+  const [questions, answers] = await Promise.all([
+    getPaperQuestions(db, attempt.examId),
+    getAttemptAnswers(db, session.user.id, attempt.id),
+  ]);
+
   const question = questions[0];
   if (question === undefined) notFound();
 
+  const recorded = answers.find((a) => a.questionId === question.id);
+
   return (
     <div className="page">
-      <div className="row" style={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <div className="stack" style={{ gap: 'var(--space-1)' }}>
-          <span className="eyebrow">Exam {attempt.examId.replace('exam-', '')}</span>
-          <h1 className="h2">
-            Question {question.seq + 1}{' '}
-            <span className="meta" style={{ fontWeight: 'var(--weight-regular)' }}>
-              of {questions.length}
-            </span>
-          </h1>
-        </div>
-      </div>
+      <span className="eyebrow">Exam {attempt.examId.replace('exam-', '')}</span>
 
       <div className="card" style={{ marginTop: 'var(--space-5)', padding: 'var(--space-6)' }}>
-        <Stem text={question.stem} />
-
-        <div className="stack" style={{ gap: 'var(--space-2)', marginTop: 'var(--space-5)' }}>
-          {question.options.map((option, index) => (
-            <div className="opt opt--interactive" key={option.ref}>
-              <span className="mono" style={{ color: 'var(--ink-faint)' }}>
-                {String.fromCharCode(65 + index)}
-              </span>
-              <span>{option.text}</span>
-            </div>
-          ))}
-        </div>
+        <SittingQuestion
+          attemptId={attempt.id}
+          question={question}
+          total={questions.length}
+          initial={{
+            optionRef: recorded?.optionRef ?? null,
+            flagged: recorded?.flagged ?? false,
+          }}
+        />
       </div>
 
       <p className="meta" style={{ marginTop: 'var(--space-4)' }}>
-        Answering, flagging and the clock arrive next. Nothing is recorded yet.
+        Answers and flags are saved as you make them. Reaching the other questions and the clock
+        arrive next.
       </p>
     </div>
   );

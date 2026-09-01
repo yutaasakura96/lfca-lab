@@ -39,6 +39,20 @@ export function isScored(mode: AttemptMode): boolean {
 }
 
 /**
+ * Whether a sitting in this mode can flag questions for review.
+ *
+ * A separate question from `isScored`, though today the same two modes answer
+ * yes to both. Flagging follows **free navigation**, not scoring: you can flag
+ * a question because you can come back to it. Practice and domain mode are
+ * forward-only, so a flag there would be a mark on something already behind
+ * you. Reusing the scoring predicate would work until the first mode where the
+ * two diverge, and would then be wrong somewhere nobody was looking.
+ */
+export function allowsFlagging(mode: AttemptMode): boolean {
+  return mode === 'exam' || mode === 'holdout';
+}
+
+/**
  * How many questions a sitting asks, where the mode alone decides it.
  *
  * Domain mode is the exception — its length is chosen by the candidate and

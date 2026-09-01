@@ -54,18 +54,25 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
   by inserting a session row rather than driving Google; the holdout sitting, practice and domain
   modes **out**.
-  **Closed so far: #15 #16 #17 #18 #19.** The Google OAuth client is provisioned
+  **Closed so far: #15 #16 #17 #18 #19 #20.** The Google OAuth client is provisioned
   (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
   byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
-  with both scores, and a paper can be started and its first question rendered.
-  Suites: 339 bank · 199 app unit · 43 app integration.
+  with both scores, a paper can be started and its first question rendered, and **that question can
+  now be answered and flagged, durably**: two `PUT` endpoints upserting on
+  `(attempt_id, question_id)`, correctness denormalised from the bank inside the same statement and
+  never selected back, a flag that stores without inventing an answer, and a reload that restores
+  both. The screen updates on click and the write follows; until the outbox (#23) a failed write
+  rolls the value back to what the database last confirmed rather than letting the screen claim
+  something it does not hold.
+  Suites: 339 bank · 215 app unit · 58 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#20** (answer and flag, durably) and **#22** (the
-90-minute clock) — both unblocked and independent. Take #20 first: the clock is more meaningful once
-there is something on screen to lose, and the outbox (#23) waits behind the write path.
+**Feature 3 is mid-flight.** The frontier is **#21** (the navigator — reaching all sixty), **#22**
+(the 90-minute clock) and **#23** (the outbox), all three unblocked by #20. Take #21 first: the
+sitting currently renders question 1 and nothing else, so every other slice is being judged against
+one question.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 

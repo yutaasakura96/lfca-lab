@@ -116,7 +116,8 @@ export async function createAttempt(db: Db, input: NewAttempt): Promise<StartedA
 
 export interface AttemptRow {
   id: string;
-  mode: string;
+  /** The column is a Postgres enum, so this is one of the four and not a free string. */
+  mode: AttemptMode;
   examId: string | null;
   domain: string | null;
   questionCount: number;
@@ -144,7 +145,7 @@ export async function getAttemptForUser(
 
   const result = await db.execute<{
     id: string;
-    mode: string;
+    mode: AttemptMode;
     exam_id: string | null;
     domain: string | null;
     question_count: number;

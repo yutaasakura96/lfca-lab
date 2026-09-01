@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { claimsFirstAttempt } from '../../src/domain/first-attempt.ts';
 import {
+  allowsFlagging,
   ATTEMPT_MODES,
   HOLDOUT_QUESTION_COUNT,
   isScored,
@@ -51,6 +52,17 @@ describe('what each mode implies', () => {
     for (const mode of ATTEMPT_MODES) {
       expect(isScored(mode), mode).toBe(timeLimitFor(mode) !== null);
     }
+  });
+
+  it('allows flagging exactly where navigation is free', () => {
+    // Deliberately asserted mode by mode rather than against `isScored`. The
+    // two agree today, and writing the assertion as a comparison would make a
+    // future divergence pass silently — which is the whole reason flagging has
+    // its own predicate.
+    expect(allowsFlagging('exam')).toBe(true);
+    expect(allowsFlagging('holdout')).toBe(true);
+    expect(allowsFlagging('practice')).toBe(false);
+    expect(allowsFlagging('domain')).toBe(false);
   });
 
   it('asks 60 questions in exam and practice, 40 in the holdout', () => {

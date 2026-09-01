@@ -96,3 +96,60 @@
   .actions { justify-content: flex-start; }
   .actions .btn { min-height: 44px; }
 }
+
+/* ------------------------------------------------------------
+   The sitting.
+
+   Transcribed from design/parts/Exam.part's artboard-local CSS, unchanged.
+   The artboard's own `.page` is a two-column grid with the navigator rail
+   beside the question; the rail arrives with the navigator, so the page keeps
+   the single centred column defined above until it does.
+
+   Source: design/parts/Exam.part
+   ------------------------------------------------------------ */
+
+.qhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
+.opts { display: flex; flex-direction: column; gap: var(--space-3); }
+.footer {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line-subtle);
+}
+.kbd {
+  font-family: var(--font-mono); font-size: var(--text-2xs);
+  border: 1px solid var(--line-control); border-bottom-width: var(--space-0);
+  border-radius: var(--radius-sm);
+  padding: var(--space-0) var(--space-1);
+  color: var(--ink-secondary); background: var(--surface-inset);
+}
+.btn--flag { border-color: var(--flagged-line); background: var(--flagged-surface); color: var(--flagged-ink); }
+
+/* An option is a control, so it is a <button>: it has to be reachable by
+   keyboard and announce that it was pressed, and only a button does both
+   without being told. The prototype draws it as a div, so the browser's own
+   button styling is undone here — the appearance is base.css's `.opt`, whole
+   and untouched. */
+button.opt {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+/* A button may only contain phrasing content, so the prototype's <p> is a
+   <span> here. It still has to lay out as the paragraph it replaces. */
+button.opt .opt__text { display: block; }
+
+@media (max-width: 720px) {
+  /* The flag control sits opposite the question number on a wide screen. At
+     this width the pair no longer fits on one line, and the flag is the half
+     that gets clipped. */
+  .qhead { flex-wrap: wrap; gap: var(--space-3); }
+  .qhead .btn { min-height: 44px; }
+
+  /* The keyboard legend describes keys a phone does not have. */
+  .footer { flex-wrap: wrap; gap: var(--space-3); }
+  .keys { display: none; }
+  .footer .btn { min-height: 44px; }
+}
