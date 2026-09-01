@@ -20,3 +20,8 @@ app/.env.*
 
 # TypeScript incremental build state
 *.tsbuildinfo
+
+# Next.js writes this file itself, and rewrites it differently after `dev` than
+# after `build` — committing it means a permanent one-line diff that flips back
+# and forth. Typecheck passes without it; Next regenerates it on every run.
+app/next-env.d.ts
