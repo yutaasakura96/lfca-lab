@@ -39,6 +39,22 @@ export const auth = betterAuth({
     },
   },
 
+  onAPIError: {
+    /**
+     * Send a refused sign-in to our own screen.
+     *
+     * Without this, Better Auth renders its default error page — which shows
+     * the raw error code, offers "Go Home", and looks nothing like this app.
+     * Doc 08 §3 asks for the opposite: a plain, unhostile page with nothing to
+     * probe. Leaking an internal code on a stock error page is exactly what
+     * that requirement exists to prevent.
+     *
+     * Better Auth appends `?error=...` to this URL; the sign-in screen reads
+     * only whether an error happened, never what it said.
+     */
+    errorURL: '/sign-in',
+  },
+
   session: {
     // Thirty days. A 90-minute sitting can never be interrupted by an expiring
     // session, and a candidate who studies weekly never signs in twice.

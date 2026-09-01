@@ -4,14 +4,33 @@
     {
       "name": "app",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "cwd": "app",
+      "port": 3000
+    },
+    {
+      "name": "app-denied",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:denied"
+      ],
       "cwd": "app",
       "port": 3000
     },
     {
       "name": "design-preview",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "design"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4173",
+        "--directory",
+        "design"
+      ],
       "port": 4173
     }
   ]

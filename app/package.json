@@ -13,7 +13,8 @@
     "test:integration": "node --env-file=.env.local node_modules/vitest/vitest.mjs run --config vitest.integration.config.ts",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dev:denied": "ALLOWED_EMAILS=nobody@lfca.invalid next dev"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
