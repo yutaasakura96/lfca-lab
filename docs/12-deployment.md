@@ -43,6 +43,16 @@ Every one of these is set in Vercel per environment, and mirrored in `app/.env.l
 
 Four true secrets. None is ever committed; `.env*` is gitignored except `.env.example`.
 
+**Setting them up locally:** `scripts/setup-google-oauth.sh` walks the Google side and writes
+`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` and
+`ALLOWED_EMAILS` into `app/.env.local`. The secrets go from the console to the file without
+passing through a terminal echo or an agent's context. `DATABASE_URL` comes from the Neon setup.
+
+**Two things about Google that are not obvious and will waste an afternoon otherwise.** An app in
+*Testing* status serves only the accounts explicitly listed as test users — not adding your own
+address is the classic first failure. And in Testing, an authorisation **expires seven days after
+consent**, so being asked to consent again next week is the documented behaviour rather than a bug.
+
 **Rotation:** `BETTER_AUTH_SECRET` invalidates every session when changed — which is the intended
 emergency control, not a hazard. The Google client secret rotates in the Google console with a brief
 overlap. `DATABASE_URL` rotates by resetting the Neon role password.
