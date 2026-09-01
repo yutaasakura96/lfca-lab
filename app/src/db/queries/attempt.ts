@@ -113,3 +113,63 @@ export async function createAttempt(db: Db, input: NewAttempt): Promise<StartedA
     return await insert(db, input, false);
   }
 }
+
+export interface AttemptRow {
+  id: string;
+  mode: string;
+  examId: string | null;
+  domain: string | null;
+  questionCount: number;
+  startedAt: Date;
+  timeLimitSeconds: number | null;
+  submittedAt: Date | null;
+}
+
+/**
+ * One attempt, if it belongs to this candidate.
+ *
+ * The user id is part of the query rather than checked afterwards. That is the
+ * ownership rule doc 03 §9 calls the single most important check in the app,
+ * and expressing it here means a caller cannot forget it — asking for someone
+ * else's attempt returns nothing, and the screen turns that into a not-found.
+ */
+export async function getAttemptForUser(
+  db: Db,
+  userId: string,
+  attemptId: string,
+): Promise<AttemptRow | null> {
+  // Guarded before the query: a malformed id would otherwise reach Postgres and
+  // raise a type error rather than the honest "no such attempt".
+  if (!/^[0-9a-f-]{36}$/i.test(attemptId)) return null;
+
+  const result = await db.execute<{
+    id: string;
+    mode: string;
+    exam_id: string | null;
+    domain: string | null;
+    question_count: number;
+    started_at: Date | string;
+    time_limit_seconds: number | null;
+    submitted_at: Date | string | null;
+  }>(sql`
+    SELECT id, mode, exam_id, domain, question_count, started_at, time_limit_seconds, submitted_at
+    FROM attempt
+    WHERE id = ${attemptId}::uuid AND user_id = ${userId}
+  `);
+
+  const row = result.rows[0];
+  if (row === undefined) return null;
+
+  const asDate = (value: Date | string) => (value instanceof Date ? value : new Date(value));
+
+  return {
+    id: row.id,
+    mode: row.mode,
+    examId: row.exam_id,
+    domain: row.domain,
+    questionCount: row.question_count,
+    startedAt: asDate(row.started_at),
+    timeLimitSeconds: row.time_limit_seconds,
+    submittedAt: row.submitted_at === null ? null : asDate(row.submitted_at),
+  };
+}

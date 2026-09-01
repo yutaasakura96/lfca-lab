@@ -81,3 +81,24 @@ export async function listExams(db: Db, userId: string): Promise<ExamListRow[]> 
     openAttemptId: row.open_attempt_id,
   }));
 }
+
+/**
+ * The oldest unfinished sitting of one paper, if there is one.
+ *
+ * Scoped to the user, like everything attempt-shaped. Oldest rather than newest
+ * because a resume should return you to the sitting whose clock has been
+ * running longest — that is the one closest to expiring unnoticed.
+ */
+export async function openAttemptForExam(
+  db: Db,
+  userId: string,
+  examId: string,
+): Promise<string | null> {
+  const result = await db.execute<{ id: string }>(sql`
+    SELECT id FROM attempt
+    WHERE user_id = ${userId} AND exam_id = ${examId} AND submitted_at IS NULL
+    ORDER BY started_at ASC
+    LIMIT 1
+  `);
+  return result.rows[0]?.id ?? null;
+}

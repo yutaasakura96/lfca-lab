@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { StartExamButton } from '../../../components/StartExamButton.tsx';
 import { db } from '../../../db/client.ts';
 import { listExams } from '../../../db/queries/exams.ts';
 import { summariseExams } from '../../../domain/exam-summary.ts';
@@ -92,9 +93,11 @@ export default async function Exams() {
                   </span>
 
                   {paper.openAttemptId === null ? (
-                    <Link className="btn btn--sm" href={{ pathname: `/exams/${paper.id}/start` }}>
-                      {attempted ? 'Sit again' : 'Start'}
-                    </Link>
+                    <StartExamButton
+                      examId={paper.id}
+                      label={attempted ? 'Sit again' : 'Start'}
+                      className="btn btn--sm"
+                    />
                   ) : (
                     /*
                       A paper with a sitting still running offers to resume it,
