@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-08-30
+**Updated:** 2026-09-02
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -48,16 +48,29 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   0 holdout items on any paper, 40 marked, 960 servable.
   Suites: 339 bank · 124 app unit · 27 app integration.
 
+- **Phase 6, feature 3 — exam mode, in progress.** Spec **#14**, fourteen children (#15–#28).
+  Grilled to six settled decisions: the slice is **complete exam mode, E1–E7**, sign-in to review;
+  auth plus the exam list first, verified before any sitting work; **local only**, no Vercel;
+  responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
+  by inserting a session row rather than driving Google; the holdout sitting, practice and domain
+  modes **out**.
+  **Closed so far: #15 #16 #17 #18 #19.** The Google OAuth client is provisioned
+  (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
+  byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
+  with both scores, and a paper can be started and its first question rendered.
+  Suites: 339 bank · 199 app unit · 43 app integration.
+
 ## Next
-**Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass, and is driven by
-commands only you can type.
+**Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-Features 1 and 2 are done (see Done). **The next command is `/grill-with-docs`** on feature 3 —
-the natural candidate is the first UI slice, which is also where sign-in, Vercel and the Google
-OAuth client finally have to be provisioned. Then `/to-spec` → `/to-tickets` → `/implement`.
+**Feature 3 is mid-flight.** The frontier is **#20** (answer and flag, durably) and **#22** (the
+90-minute clock) — both unblocked and independent. Take #20 first: the clock is more meaningful once
+there is something on screen to lose, and the outbox (#23) waits behind the write path.
 
-**Before connecting Vercel, merge `develop` into `main`.** Today that is a fast-forward of inert
-code; afterwards every such merge is a production deploy (doc 12 §3).
+Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
+
+**Before connecting Vercel, merge `develop` into `main`.** Every such merge becomes a production
+deploy afterwards (doc 12 §3).
 
 Tickets land in **GitHub Issues**, so `/to-tickets` and `/triage` need `gh` authenticated. The five
 triage labels exist on the repo. Never put a secret from doc 12 §2 in an issue body — the repo is
@@ -77,6 +90,13 @@ Three findings from feature 2 are **carried, not lost** — each belongs to the 
   There is a setting for it.
 - **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
   workflow itself is not written.
+
+### Verified by hand, not by a test — re-run before any deploy
+- **The allowlist refuses an account and writes nothing.** Run `npm run dev:denied` in `app/` (or the
+  `app-denied` launch config), sign in, expect *"This app is private"*, then confirm in SQL that no
+  `user`, `account` or `session` row appeared. Passed 2026-09-01. This is the only check standing
+  between this app and a public one, and **no automated suite covers it** — the Playwright run signs
+  in by inserting a session row, so it never exercises the OAuth callback.
 
 ## Carrying
 
