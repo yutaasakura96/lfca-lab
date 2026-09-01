@@ -30,11 +30,20 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  if (pathname === '/sign-in') {
-    return hasSessionCookie
-      ? NextResponse.redirect(new URL('/', request.url))
-      : NextResponse.next();
-  }
+  // Sign-in is always reachable, cookie or not.
+  //
+  // Bouncing a cookie-holder away from here looks harmless and is not: a cookie
+  // can outlive its session row — after signing out, after an expiry, or after
+  // the `DELETE FROM session` that doc 08 §2 names as the recovery move. In
+  // every one of those cases the cookie is present and the session is gone, so
+  // the server sends you to sign-in, and a bounce here would send you straight
+  // back, forever. Presence-based middleware may guard a route; it must never
+  // redirect away from the one page that fixes a bad session.
+  //
+  // Sending an already-signed-in visitor to the home screen still happens — on
+  // the sign-in page itself, which asks the database rather than the cookie jar
+  // and so cannot be wrong about it.
+  if (pathname === '/sign-in') return NextResponse.next();
 
   if (!hasSessionCookie) {
     const signIn = new URL('/sign-in', request.url);
