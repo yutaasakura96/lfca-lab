@@ -3,7 +3,9 @@ import { db } from '../../../../db/client.ts';
 import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
 import { getPaperQuestions } from '../../../../db/queries/paper.ts';
-import { SittingQuestion } from '../../../../components/SittingQuestion.tsx';
+import type { RecordedState } from '../../../../domain/navigator.ts';
+import { passMark } from '../../../../domain/score.ts';
+import { Sitting } from '../../../../components/Sitting.tsx';
 import { requireSession } from '../../../../lib/session.ts';
 
 export const metadata = { title: 'Sitting — LFCA Practice' };
@@ -14,13 +16,16 @@ export const metadata = { title: 'Sitting — LFCA Practice' };
  * A server component, and that is the security design rather than a
  * performance choice: the answer key lives in columns this page's queries never
  * select, so there is no payload for it to travel in. What reaches the browser
- * is a stem, four option texts, and which option this candidate already chose.
+ * is sixty stems, four option texts each, and which option this candidate
+ * already chose.
  *
- * Answers and flags are read back from the database on every load, which is
- * what makes a reload restore the sitting rather than reset it. Reaching the
- * other fifty-nine questions, and the clock, arrive in their own slices.
+ * All sixty are sent at once because the navigator has to report on all sixty
+ * at once, and because doc 10 §4 is explicit that the paper is fetched once at
+ * start rather than a question at a time. Answers and flags are read back from
+ * the database on every load, which is what makes a reload restore the sitting
+ * rather than reset it. The clock arrives in its own slice.
  */
-export default async function Sitting({ params }: { params: Promise<{ id: string }> }) {
+export default async function SittingPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await requireSession();
   const { id } = await params;
 
@@ -36,31 +41,30 @@ export default async function Sitting({ params }: { params: Promise<{ id: string
     getAttemptAnswers(db, session.user.id, attempt.id),
   ]);
 
-  const question = questions[0];
-  if (question === undefined) notFound();
+  if (questions.length === 0) notFound();
 
-  const recorded = answers.find((a) => a.questionId === question.id);
+  // Every question gets an entry, answered or not, so the client never has to
+  // decide what a missing key means — and so a question with nothing recorded
+  // is unanswered rather than unknown.
+  const initial: Record<string, RecordedState> = {};
+  for (const question of questions) initial[question.id] = { optionRef: null, flagged: false };
+  for (const answer of answers) {
+    if (initial[answer.questionId] === undefined) continue;
+    initial[answer.questionId] = { optionRef: answer.optionRef, flagged: answer.flagged };
+  }
 
   return (
-    <div className="page">
+    <div className="page page--sitting">
       <span className="eyebrow">Exam {attempt.examId.replace('exam-', '')}</span>
 
-      <div className="card" style={{ marginTop: 'var(--space-5)', padding: 'var(--space-6)' }}>
-        <SittingQuestion
+      <div style={{ marginTop: 'var(--space-5)' }}>
+        <Sitting
           attemptId={attempt.id}
-          question={question}
-          total={questions.length}
-          initial={{
-            optionRef: recorded?.optionRef ?? null,
-            flagged: recorded?.flagged ?? false,
-          }}
+          passMark={passMark(questions.length)}
+          questions={questions}
+          initial={initial}
         />
       </div>
-
-      <p className="meta" style={{ marginTop: 'var(--space-4)' }}>
-        Answers and flags are saved as you make them. Reaching the other questions and the clock
-        arrive next.
-      </p>
     </div>
   );
 }

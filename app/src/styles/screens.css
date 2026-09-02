@@ -153,3 +153,107 @@ button.opt .opt__text { display: block; }
   .keys { display: none; }
   .footer .btn { min-height: 44px; }
 }
+
+/* ------------------------------------------------------------
+   The navigator.
+
+   Two components, not one at two widths: a rail that is always open beside the
+   question, and a sheet that opens over it. The switch between them is below.
+
+   Source: design/parts/Exam.part (rail) and design/parts/ExamPhone.part (sheet)
+   ------------------------------------------------------------ */
+
+/* The sitting is the one screen wide enough to need more than the 1120px the
+   rest of the app centres in: 470px of rail plus a full prose measure does not
+   fit inside it. Doc 10 §4 frames it at 1440. */
+.page--sitting { max-width: 1440px; }
+
+.sitting {
+  display: grid;
+  grid-template-columns: 1fr 470px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* A grid item's `min-width` defaults to `auto`, which is its *content's*
+   minimum — so a wide child pushes its own track wider instead of scrolling
+   inside it. Found by measuring: the sheet's tile grid stretched the 1fr column
+   past the viewport. The track is what should decide the width here. */
+.sitting > * { min-width: 0; }
+
+/* Sticky so the navigator stays reachable while the stem and four options
+   scroll past it. Sixty tiles you have to scroll back up to are sixty tiles
+   that do not help at ninety seconds a question. */
+.rail {
+  padding: var(--space-5);
+  position: sticky;
+  top: var(--space-6);
+}
+
+.railcount {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--line-subtle);
+  font-size: var(--text-sm);
+}
+
+/* A tile is a control, so it is a <button>; the prototype draws it as a div.
+   The appearance is base.css's `.tile`, whole and untouched — this only undoes
+   what the browser adds to a button. */
+button.tile {
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* ------------------------------------------------------------
+   Which navigator exists.
+
+   Two conditions, and the second is the one that matters. The width test is
+   ordinary layout: below about 1100px the rail's 470px leaves the stem too
+   narrow to read. The pointer test is doc 05's rule 12 — the 34px tile is
+   pointer-only and must never appear on a touch layout — so a tablet gets the
+   sheet at any width. `pointer: coarse` asks about the *primary* input, which
+   is what keeps a touchscreen laptop driven by its trackpad on the rail.
+   ------------------------------------------------------------ */
+
+.navsheet { display: none; }
+
+@media (max-width: 1100px), (pointer: coarse) {
+  .sitting { grid-template-columns: 1fr; }
+  .rail { display: none; }
+  .navsheet { display: block; }
+}
+
+.sheet {
+  border-top: 1px solid var(--line-subtle);
+  background: var(--surface-raised);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-3);
+  /* Last resort only. The grid below fits itself to the width, so this catches
+     a viewport too narrow even for one column rather than clipping a tile. */
+  overflow-x: auto;
+}
+
+/* As many 44px columns as fit, centred — seven at the 390px the prototype is
+   drawn at, which is what doc 10 §4 specifies, and six at 375px rather than
+   356px of grid in 343px of sheet. The count gives way before the target size
+   does: a tile here is 44px on every screen, because this is the touch layout
+   doc 05 rule 12 is about. */
+.grid60--touch {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--control-h-lg));
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+/* 44px, never 34: this grid is the touch layout doc 05 rule 12 is about. */
+.grid60--touch .tile {
+  width: var(--control-h-lg);
+  height: var(--control-h-lg);
+  font-size: var(--text-sm);
+}
