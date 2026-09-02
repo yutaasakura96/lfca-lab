@@ -204,13 +204,25 @@ client can re-derive the clock without a full page load.
 }
 ```
 
-`status` is `in_progress` | `submitted`. `serverNow` lets the client compute clock skew once and
-apply it to its own countdown — the display is then correct even on a machine with a wrong clock,
-while the actual expiry stays server-side.
+`status` is `in_progress` | `expired` | `submitted`. `serverNow` lets the client measure clock skew
+and apply it to its own countdown — the display is then correct even on a machine with a wrong clock,
+while the actual expiry stays server-side. It is measured **over the round trip**, not against the
+moment the reply landed, or the journey itself would be counted as skew and the countdown would read
+generously by exactly that much.
 
 When the server finds the attempt expired, this call **finalises it lazily** (doc 03 §6) and returns
 `status: "submitted"`; the client routes straight to review. This is the endpoint that implements
 "90 minutes elapsed while the tab was closed".
+
+**`expired` is the third value, and it exists because that finalisation is not built yet.** The
+lazy submit reuses the submit path, which belongs to a later slice; until then this endpoint reports
+the state honestly and **writes nothing**. An attempt that is past its deadline but not yet finalised
+is a real state — doc 03 §6 says so, and its score is already fully determined by its answer rows —
+and neither of the other two values describes it: `in_progress` would be false, and `submitted`
+would claim a row was written that was not. The client treats `expired` exactly as it treats
+`submitted`: stop accepting input. **When finalisation lands, `expired` stops being reachable**
+rather than changing meaning, because the same read that would return it will have submitted the
+attempt first. See the decision log, 2026-09-02.
 
 ---
 

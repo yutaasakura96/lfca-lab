@@ -654,3 +654,39 @@ every token change and invite hand-editing the generated file.
   reintroduce `require`.
 - **Revisit if:** `pg` v9 ships and its released semantics differ from what its v8 source and warning
   describe — re-read before upgrading, rather than trusting this entry.
+
+### [2026-09-02] At zero the sitting freezes; it does not route anywhere yet
+- **Decision:** when the derived clock reaches zero, the countdown holds at `00:00` in the critical
+  band, the options, the flag and the `1`–`4` / `F` keys stop accepting input, and a chip states that
+  the time has run out. `←` `→` still move, because the paper stays readable. Nothing navigates.
+  Alongside it, `GET /api/attempt/:id/state` is built per doc 07 §6 **minus the lazy finalisation
+  write**: it reports `expired` and writes nothing.
+- **Context:** #22's last acceptance criterion is "reaching zero stops accepting input and **routes to
+  the outcome**, rather than counting negative on screen". Submit (#24) and the review (#25) do not
+  exist, and #26 — auto-submit and lazy finalisation — is explicitly blocked on both. So the second
+  half of that criterion had no destination to name.
+- **Alternatives considered:** pulling #24 and #26 forward so zero actually closes the attempt and
+  lands somewhere — it would have made the criterion literally true, at the cost of writing the submit
+  path outside its own ticket, before the pre-submit review that shapes it, and inventing a screen
+  #25 owns. Also considered: showing a "reload to see where this stands" prompt, rejected because it
+  tells the reader to do something that currently does nothing.
+- **Reason:** the first half of the criterion — stops accepting input, does not count negative — is
+  fully met, and it is the half that protects anything. The second half is a destination, and the
+  ticket that owns the destination is the one that should build it. Nothing here has to be undone for
+  #26 to add it.
+- **Consequence:** an expired sitting can be opened, read and navigated indefinitely without being
+  finalised, which doc 03 §6 already says is correct — its score is fully determined by its answer
+  rows. The guarantee is not the freeze: the **server** refuses every write past the deadline with
+  `409 attempt_expired`, verified in the browser on a real expired sitting. The freeze is what stops
+  the screen offering an action the server would refuse.
+  **`status` therefore has a third value, `expired`**, which doc 07 §6 now documents rather than
+  leaving the handler to invent. Neither documented value describes an attempt past its deadline that
+  nothing has finalised: `in_progress` would be false and `submitted` would claim a row that was
+  never written. It stops being reachable when finalisation lands, rather than changing meaning.
+  A second access helper, `openAttemptForRead`, came with the endpoint — session, allowlist and
+  ownership, and none of the write path's state checks. Two helpers rather than a flag, because "is
+  it still open" is the question the write path exists to ask and the read path exists to answer;
+  refusing a resync on the very states it is asking about would leave the client unable to learn that
+  its sitting was over.
+- **Revisit if:** never — #26 supersedes the freeze by giving it somewhere to go, and adds the
+  finalisation write to the same endpoint.

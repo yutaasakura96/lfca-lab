@@ -54,7 +54,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
   by inserting a session row rather than driving Google; the holdout sitting, practice and domain
   modes **out**.
-  **Closed so far: #15 #16 #17 #18 #19 #20 #21.** The Google OAuth client is provisioned
+  **Closed so far: #15 #16 #17 #18 #19 #20 #21 #22.** The Google OAuth client is provisioned
   (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
   byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
   with both scores, a paper can be started and its first question rendered, and **that question can
@@ -78,23 +78,64 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   browser, both themes, at 1440 and 375: all five state combinations legible at `grayscale(1)`, a
   reload restoring answers and flags, `1`–`4` / `F` / `←` `→`, and every tile tabbable with the 2px
   ring at 2px offset.
-  Suites: 339 bank · 243 app unit · 61 app integration.
+  **The clock runs** (#22). It reaches the browser exactly as the paper does — computed on the server
+  from `started_at` and the limit, sent as **one absolute instant**, and never sent back. The browser
+  is told neither the start time nor the limit, so there is nothing on that side to recompute a
+  deadline from and no code path anywhere that can assign a later one; a resync corrects *now*, never
+  the deadline. `src/domain/clock.ts` grew the display half — `remainingToDeadline`, `clockBand`,
+  `formatRemaining`, `skewMillis`, `correctedNow` — and a test **parses `tokens.css`** and asserts the
+  two thresholds match `--clock-threshold-warning` / `--clock-threshold-critical`, so the ramp on
+  screen and the ramp in the code cannot drift.
+  Skew is measured, not assumed: the first render deliberately uses the server's own `now` so the
+  markup matches across hydration, and only then does the effect compare clocks and keep the
+  difference. `GET /api/attempt/:id/state` re-anchors it on tab focus and on reconnect — **built per
+  doc 07 §6 but without the lazy finalisation write**, which is #26's; it reports `expired` honestly
+  and writes nothing. Its read path is a **second, shorter helper** (`openAttemptForRead`): a
+  submitted or expired sitting is perfectly readable, and refusing on the two states a resync exists
+  to ask about would leave the client unable to find out its sitting was over.
+  **Doc 10 §4's sticky bar landed with it**, which is what let the counter stop being duplicated: the
+  bar owns it, and on a touch layout that counter *is* the sheet's trigger. Submit is deliberately
+  absent — a button that looked real and did nothing would be worse than its absence.
+  Verified in the browser, both themes, at 1440 and 375, on a real sitting watched from 07:01 down to
+  00:00: warning at 20:00 and critical at **5:00 exactly**, the three bands told apart at
+  `grayscale(1)`, the sheet pulled from the bar at 44px six-per-row, and at zero the clock **holds at
+  00:00** with options, flag and `1`–`4`/`F` all refused while `←` `→` still read. The server refuses
+  the write independently — `409 attempt_expired` — which is the guarantee; the freeze is the
+  courtesy.
+  Two things the review corrected, both worth naming. **05:00 exactly is warning, not critical** —
+  doc 05 §9's rows are `> 20:00`, `20:00 → 5:00`, `< 5:00`, so the warning row is inclusive at both
+  ends and 04:59 is the first critical second. And **skew is measured over the round trip**
+  (`skewOverRoundTrip`, Cristian's midpoint) rather than against the moment the reply landed: the
+  naive measurement folds the whole journey into the skew and errs *generously*, showing more time
+  than remains. The render-time anchor still carries that bias for one beat — it has no round trip to
+  measure — so the sitting resyncs immediately on mount to replace it. Resync listens on **three**
+  events, not two: `visibilitychange`, `online`, and `focus`, because switching to another
+  application with the tab still in front fires neither of the first two.
+  Suites: 339 bank · 270 app unit · 66 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#22** (the 90-minute clock) and **#23** (the outbox),
-both unblocked. The sitting now renders all sixty and reaches any of them, so both are being judged
-against a whole paper rather than one question.
+**Feature 3 is mid-flight.** The frontier is **#23** (the outbox), unblocked, and then **#24**
+(submit) — which is what #22 deliberately stopped short of. `src/lib/writes.ts` already classifies a
+failure as retryable or not, and `attempt_expired` is non-retryable on purpose: that distinction is
+what the outbox is built on.
 
-Three things #21 left, deliberately, each named so it is not assumed done:
+Of the three things #21 left, one is closed and two stand:
+- ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
+  owns the counter, and on touch that counter is the trigger — doc 10 §4's arrangement exactly.
 - **A reload returns to question 1, not to where you were.** PRD E5 wants position restored; there is
-  nowhere to store it, and inventing a column was outside #21. Decide it with #22 or #23.
-- **The sheet's trigger duplicates the question counter** on touch — it exists because the sticky top
-  bar doc 10 §4 pulls the sheet from does not exist yet. It goes away with the bar, in #22.
+  nowhere to store it, and inventing a column was outside #21. Still outstanding — #22 did not touch
+  it, because the clock is derived and position is not. It belongs with **#26**, which owns resume.
 - **`.grid60--touch` is `repeat(auto-fill, 44px)`, not the fixed seven** doc 10 §4 specifies: seven at
-  the 390px the prototype is drawn at, six at 375px. The column count gives way so the 44px target
-  never does. A divergence, chosen, not an oversight.
+  the 390px the prototype is drawn at, six at 375px. Re-measured at 375 during #22: still six. The
+  column count gives way so the 44px target never does. A divergence, chosen, not an oversight.
+
+**#22 left one thing named, so it is not assumed done:** the last acceptance criterion says reaching
+zero "routes to the outcome". There is no outcome yet — #24 submits and #25 reviews — so the sitting
+**freezes in place** instead: 00:00 held in the critical band, input refused, and no navigation
+invented. Owner's call, taken deliberately. **#26 adds the destination**, and nothing here has to be
+undone to do it.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 
@@ -123,17 +164,16 @@ Three findings from feature 2 are **carried, not lost** — each belongs to the 
 - **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
   workflow itself is not written.
 
-### One-line owner action outstanding — `app/.env.local`
-`DATABASE_URL` must change `sslmode=require` → **`sslmode=verify-full`** (doc 12 §2.1, and the log
-entry for 2026-09-02). Everything around it has landed: both docs, and
-`tests/integration/connection-string.test.ts`, **which fails until the edit is made** — that failure
-is the reminder, not a regression. Agents cannot make this edit: `.claude/settings.json` denies
-`app/.env.*`, correctly, because the file holds four secrets.
+### Done — `app/.env.local` now says `verify-full`
+The owner made the edit. Confirmed 2026-09-02 while building #22:
+`tests/integration/connection-string.test.ts` passes, and the running dev server emits **no**
+`pg` SSL warning — the warning that appears in older console history predates the edit. Agents could
+not make it themselves: `.claude/settings.json` denies `app/.env.*`, correctly, because the file
+holds four secrets.
 
-The change is verified behaviour-preserving, not merely believed to be: measured against the dev
-branch, `require` and `verify-full` hand `tls.connect` identical options, and a process using only
-`verify-full` connects with `authorized: true` and emits **zero** warnings. The same edit is needed in
-the Vercel environments when they exist.
+**Still outstanding for the deploy slice:** the same `sslmode=verify-full` is needed in all three
+Vercel environments when they exist, and doc 12 §2.1's rule is written per-string so it binds the
+pooled URL (§2.2) on arrival.
 
 ### Verified by hand, not by a test — re-run before any deploy
 - **The allowlist refuses an account and writes nothing.** Run `npm run dev:denied` in `app/` (or the

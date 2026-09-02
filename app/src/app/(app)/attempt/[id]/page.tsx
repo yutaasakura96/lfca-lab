@@ -3,6 +3,7 @@ import { db } from '../../../../db/client.ts';
 import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
 import { getPaperQuestions } from '../../../../db/queries/paper.ts';
+import { deadlineOf } from '../../../../domain/clock.ts';
 import type { RecordedState } from '../../../../domain/navigator.ts';
 import { passMark } from '../../../../domain/score.ts';
 import { Sitting } from '../../../../components/Sitting.tsx';
@@ -23,7 +24,14 @@ export const metadata = { title: 'Sitting — LFCA Practice' };
  * at once, and because doc 10 §4 is explicit that the paper is fetched once at
  * start rather than a question at a time. Answers and flags are read back from
  * the database on every load, which is what makes a reload restore the sitting
- * rather than reset it. The clock arrives in its own slice.
+ * rather than reset it.
+ *
+ * **The clock reaches the browser the same way the paper does**: computed here
+ * from `started_at` and the limit, and sent as one absolute instant. The
+ * browser is never told when the sitting began or how long it was given, so
+ * there is nothing on that side to recompute a deadline from — only one to
+ * count down to. `serverNow` travels with it so the countdown can be anchored
+ * on this machine's clock rather than the reader's.
  */
 export default async function SittingPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await requireSession();
@@ -53,18 +61,22 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
     initial[answer.questionId] = { optionRef: answer.optionRef, flagged: answer.flagged };
   }
 
+  // Dynamic by construction: the page reads the session and the clock, so it
+  // cannot be cached. Stating the instant it was rendered is what lets the
+  // browser correct its own.
+  const serverNow = new Date();
+
   return (
     <div className="page page--sitting">
-      <span className="eyebrow">Exam {attempt.examId.replace('exam-', '')}</span>
-
-      <div style={{ marginTop: 'var(--space-5)' }}>
-        <Sitting
-          attemptId={attempt.id}
-          passMark={passMark(questions.length)}
-          questions={questions}
-          initial={initial}
-        />
-      </div>
+      <Sitting
+        attemptId={attempt.id}
+        examNumber={attempt.examId.replace('exam-', '')}
+        passMark={passMark(questions.length)}
+        deadline={deadlineOf(attempt)?.toISOString() ?? null}
+        serverNow={serverNow.toISOString()}
+        questions={questions}
+        initial={initial}
+      />
     </div>
   );
 }

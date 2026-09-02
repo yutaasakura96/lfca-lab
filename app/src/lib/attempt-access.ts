@@ -1,10 +1,13 @@
-// The checks every attempt-scoped write makes, in one place.
+// The checks every attempt-scoped request makes, in one place.
 //
-// There are seven of them and they run in this order on every request: is the
-// body JSON, does it match its schema, is there a session, is that user allowed
-// here, does this attempt belong to them, is it still open, is its clock still
-// running — and, for the writes that name a question, is that question one of
-// this sitting's own.
+// A write runs seven of them, in this order: is the body JSON, does it match
+// its schema, is there a session, is that user allowed here, does this attempt
+// belong to them, is it still open, is its clock still running — and, for the
+// writes that name a question, is that question one of this sitting's own.
+//
+// A read runs the first half only. The last two are what a resync is asking
+// *about*, so refusing on them would leave the client unable to find out that
+// its sitting is over.
 //
 // Writing them once is not tidiness. Doc 03 §9 calls ownership the single most
 // important check in the app, and a check each handler re-implements is a check
@@ -22,9 +25,45 @@ export type AttemptAccess =
   | { ok: true; attempt: AttemptRow }
   | { ok: false; response: Response };
 
+export type AttemptRead =
+  | { ok: true; attempt: AttemptRow; userId: string }
+  | { ok: false; response: Response };
+
 export type AttemptWrite<T> =
   | { ok: true; attempt: AttemptRow; body: T }
   | { ok: false; response: Response };
+
+/**
+ * Load an attempt this request is allowed to *read*.
+ *
+ * Deliberately a shorter list than the write path's: session, allowlist,
+ * ownership, and nothing else. A submitted sitting and an expired one are
+ * perfectly readable — reporting that they are in that state is the whole
+ * point of the resync endpoint — whereas writing into either is refused. Two
+ * helpers rather than a flag, because "is it still open" is the question the
+ * write path exists to ask and the read path exists to answer.
+ *
+ * The 404-not-403 rule is unchanged and applies here for the same reason.
+ */
+export async function openAttemptForRead(attemptId: string): Promise<AttemptRead> {
+  const session = await getSession();
+  if (!session) {
+    return { ok: false, response: apiError(401, 'unauthenticated', 'Sign in to continue.') };
+  }
+  if ((session.user as { allowlisted?: boolean }).allowlisted !== true) {
+    return { ok: false, response: apiError(403, 'not_allowlisted', 'This app is private.') };
+  }
+
+  const attempt = await getAttemptForUser(db, session.user.id, attemptId);
+  if (attempt === null) {
+    return { ok: false, response: apiError(404, 'not_found', 'No such sitting.') };
+  }
+
+  // The user id is handed back rather than read again by the caller: every
+  // attempt-scoped query takes it, and a caller that has to fetch the session
+  // a second time is a caller that can fetch a different one.
+  return { ok: true, attempt, userId: session.user.id };
+}
 
 /**
  * Load an attempt this request is allowed to write to.

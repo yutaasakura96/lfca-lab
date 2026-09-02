@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { buildNavigator, patch, stateFor, type RecordedState } from '../domain/navigator.ts';
 import { put, type WriteFailure } from '../lib/writes.ts';
+import { ExamBar } from './ExamBar.tsx';
 import { NavigatorRail } from './NavigatorRail.tsx';
-import { NavigatorSheet } from './NavigatorSheet.tsx';
 import { SittingQuestion, type SittingOption } from './SittingQuestion.tsx';
+import { useClock } from './use-clock.ts';
 
 export interface PaperQuestion {
   id: string;
@@ -17,7 +18,17 @@ export interface PaperQuestion {
 
 export interface SittingProps {
   attemptId: string;
+  /** `07`, for the bar's own name for this paper. */
+  examNumber: string;
   passMark: number;
+  /**
+   * The instant this sitting closes, absolute and server-issued, or `null` for
+   * a sitting with no clock. The browser counts down to it and never sends it
+   * back — and there is no path anywhere in this component that replaces it.
+   */
+  deadline: string | null;
+  /** The server's own `now` at render, which is what the countdown is anchored to. */
+  serverNow: string;
   /** Every question on the paper, with nothing in it that gives an answer away. */
   questions: PaperQuestion[];
   /** What the database holds, keyed by question id — one entry per question. */
@@ -43,7 +54,15 @@ const CHOICE_KEYS = ['1', '2', '3', '4'];
  * §5 keeps attempt truth in exactly one place: Postgres, echoed optimistically
  * here. A second copy in the URL would be a second place it could be stale.
  */
-export function Sitting({ attemptId, passMark, questions, initial }: SittingProps) {
+export function Sitting({
+  attemptId,
+  examNumber,
+  passMark,
+  deadline,
+  serverNow,
+  questions,
+  initial,
+}: SittingProps) {
   // Sorted once, so the array index and the navigator's own ordering cannot
   // drift apart. The query already orders by seq; this makes it not matter.
   const paper = useMemo(() => [...questions].sort((a, b) => a.seq - b.seq), [questions]);
@@ -62,8 +81,69 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
   // same question and the same lane has spoken since.
   const tickets = useRef(new Map<string, number>());
 
+  const clock = useClock(deadline, serverNow);
+
   const question = paper[currentSeq];
   const model = buildNavigator(paper, recorded, currentSeq);
+
+  /**
+   * Put the countdown back on the server's clock.
+   *
+   * Called when the tab is looked at again and when the network comes back —
+   * the two moments where the browser's own reckoning is most likely to have
+   * drifted, because a background tab's timers are throttled and a sleeping
+   * machine's are stopped altogether. Both are display problems: the sitting
+   * closed when it closed, whatever this tab believed.
+   *
+   * A failed resync is silent. It leaves the countdown running on the last
+   * anchor, which is the honest fallback — and the server refuses writes into
+   * an expired sitting regardless of what this side thinks the time is.
+   */
+  const syncTo = clock.syncTo;
+  const resync = useCallback(async () => {
+    // Stamped before the request leaves, so the reply can be placed at the
+    // midpoint of the journey rather than at the moment it landed.
+    const sentAt = Date.now();
+    try {
+      const response = await fetch(`/api/attempt/${attemptId}/state`, { cache: 'no-store' });
+      if (!response.ok) return;
+      const state = (await response.json()) as { status?: string; serverNow?: string };
+      if (typeof state.serverNow !== 'string') return;
+      syncTo(
+        state.serverNow,
+        sentAt,
+        state.status === 'expired' || state.status === 'submitted',
+      );
+    } catch {
+      // Offline, most likely. The next `online` event tries again.
+    }
+    // `syncTo` rather than the whole clock: the clock is a fresh object every
+    // tick, and depending on it would tear down and re-register both listeners
+    // once a second for the length of the sitting.
+  }, [attemptId, syncTo]);
+
+  useEffect(() => {
+    function onVisible() {
+      if (document.visibilityState === 'visible') void resync();
+    }
+    // Once immediately, which replaces the render-time anchor — biased by the
+    // page load — with one measured over a round trip.
+    void resync();
+
+    // Three events, not two. `visibilitychange` covers a backgrounded tab and
+    // `online` covers a dropped connection, but switching to another
+    // *application* with this tab still in front fires neither — and a laptop
+    // that slept with the window in front is exactly the case the ticket is
+    // about. `focus` is what covers it.
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', resync);
+    window.addEventListener('online', resync);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', resync);
+      window.removeEventListener('online', resync);
+    };
+  }, [resync]);
 
   /**
    * One value that shows immediately and is written after.
@@ -108,6 +188,7 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
   }
 
   function answerQuestion(questionId: string, optionRef: string | null) {
+    if (clock.expired) return;
     void commit(
       questionId,
       'answer',
@@ -117,6 +198,7 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
   }
 
   function flagQuestion(questionId: string, flagged: boolean) {
+    if (clock.expired) return;
     void commit(
       questionId,
       'flag',
@@ -141,7 +223,11 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
       }
       if (question === undefined) return;
 
-      const choice = CHOICE_KEYS.indexOf(event.key);
+      // Past the deadline the arrows still move — the paper is readable, and
+      // there is nothing to protect about looking at it. `1`–`4` and `F` are
+      // refused here as well as in the handlers they call, so a held key
+      // cannot spend the whole sitting posting writes the server will refuse.
+      const choice = clock.expired ? -1 : CHOICE_KEYS.indexOf(event.key);
       if (choice !== -1) {
         const option = question.options[choice];
         if (option) {
@@ -150,7 +236,7 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
         }
         return;
       }
-      if (event.key === 'f' || event.key === 'F') {
+      if (!clock.expired && (event.key === 'f' || event.key === 'F')) {
         event.preventDefault();
         flagQuestion(question.id, !stateFor(recorded, question.id).flagged);
         return;
@@ -178,15 +264,18 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
   const current = stateFor(recorded, question.id);
 
   return (
-    <div className="sitting">
-      <div className="stack" style={{ gap: 'var(--space-4)' }}>
-        <NavigatorSheet
-          model={model}
-          total={paper.length}
-          currentNumber={currentSeq + 1}
-          onSelect={goTo}
-        />
+    <>
+      <ExamBar
+        examNumber={examNumber}
+        model={model}
+        total={paper.length}
+        currentNumber={currentSeq + 1}
+        band={clock.band}
+        display={clock.display}
+        onSelect={goTo}
+      />
 
+      <div className="sitting">
         <div className="card" style={{ padding: 'var(--space-6)' }}>
           <SittingQuestion
             question={question}
@@ -195,6 +284,7 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
             answer={current.optionRef}
             flagged={current.flagged}
             failure={failure}
+            expired={clock.expired}
             onAnswer={(optionRef) => answerQuestion(question.id, optionRef)}
             onFlag={(flagged) => flagQuestion(question.id, flagged)}
             onPrevious={() => goTo(currentSeq - 1)}
@@ -203,9 +293,9 @@ export function Sitting({ attemptId, passMark, questions, initial }: SittingProp
             hasNext={currentSeq < paper.length - 1}
           />
         </div>
-      </div>
 
-      <NavigatorRail model={model} passMark={passMark} onSelect={goTo} />
-    </div>
+        <NavigatorRail model={model} passMark={passMark} onSelect={goTo} />
+      </div>
+    </>
   );
 }

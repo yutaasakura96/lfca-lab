@@ -14,6 +14,11 @@ export interface SittingQuestionProps {
   answer: string | null;
   flagged: boolean;
   failure: WriteFailure | null;
+  /**
+   * The clock has run out. The paper stays readable and navigable; nothing on
+   * it can be changed any more.
+   */
+  expired: boolean;
   onAnswer: (optionRef: string | null) => void;
   onFlag: (flagged: boolean) => void;
   onPrevious: () => void;
@@ -56,6 +61,7 @@ export function SittingQuestion({
   answer,
   flagged,
   failure,
+  expired,
   onAnswer,
   onFlag,
   onPrevious,
@@ -77,6 +83,7 @@ export function SittingQuestion({
           type="button"
           className={flagged ? 'btn btn--flag' : 'btn'}
           aria-pressed={flagged}
+          disabled={expired}
           onClick={() => onFlag(!flagged)}
         >
           <svg
@@ -107,6 +114,7 @@ export function SittingQuestion({
               key={option.ref}
               className={chosen ? 'opt opt--interactive opt--selected' : 'opt opt--interactive'}
               aria-pressed={chosen}
+              disabled={expired}
               onClick={() => onAnswer(option.ref)}
             >
               <span className="opt__key">{String.fromCharCode(65 + index)}</span>
@@ -134,6 +142,19 @@ export function SittingQuestion({
           );
         })}
       </div>
+
+      {expired ? (
+        // Doc 05's `incorrect` family, the same one a save failure uses, and
+        // for a related reason: both say something about the sitting rather
+        // than about the answer. It states the fact and stops there — where
+        // this leads is the resume slice's to decide, and a link that guessed
+        // would be a link to nowhere.
+        <div className="row">
+          <span className="chip chip--incorrect" role="status">
+            This sitting&rsquo;s time has run out. Your answers are saved as they were.
+          </span>
+        </div>
+      ) : null}
 
       {failure === null ? null : (
         // The incorrect family, which is what doc 10 gives a save failure. It
@@ -164,7 +185,7 @@ export function SittingQuestion({
           <button
             type="button"
             className="btn btn--quiet"
-            disabled={answer === null}
+            disabled={expired || answer === null}
             onClick={() => onAnswer(null)}
           >
             Clear answer
