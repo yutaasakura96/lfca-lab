@@ -7,6 +7,7 @@ import { ExamBar } from './ExamBar.tsx';
 import { NavigatorRail } from './NavigatorRail.tsx';
 import { SittingQuestion, type SittingOption } from './SittingQuestion.tsx';
 import { useClock } from './use-clock.ts';
+import { useOutbox } from './use-outbox.ts';
 
 export interface PaperQuestion {
   id: string;
@@ -83,6 +84,11 @@ export function Sitting({
 
   const clock = useClock(deadline, serverNow);
 
+  // The queue of writes the server has not confirmed. It is created here rather
+  // than per question for the same reason the answers are: a question that
+  // owned its own retries would abandon them the moment the navigator moved on.
+  const outbox = useOutbox();
+
   const question = paper[currentSeq];
   const model = buildNavigator(paper, recorded, currentSeq);
 
@@ -122,9 +128,17 @@ export function Sitting({
     // once a second for the length of the sitting.
   }, [attemptId, syncTo]);
 
+  const flush = outbox.flush;
   useEffect(() => {
     function onVisible() {
       if (document.visibilityState === 'visible') void resync();
+    }
+    function onOnline() {
+      void resync();
+      // The connection is demonstrably back, so serving out the rest of a
+      // thirty-second backoff is pure cost — and thirty seconds is a long time
+      // to go on telling someone their answer is not saved when it could be.
+      flush();
     }
     // Once immediately, which replaces the render-time anchor — biased by the
     // page load — with one measured over a round trip.
@@ -137,25 +151,44 @@ export function Sitting({
     // about. `focus` is what covers it.
     document.addEventListener('visibilitychange', onVisible);
     window.addEventListener('focus', resync);
-    window.addEventListener('online', resync);
+    window.addEventListener('online', onOnline);
     return () => {
       document.removeEventListener('visibilitychange', onVisible);
       window.removeEventListener('focus', resync);
-      window.removeEventListener('online', resync);
+      window.removeEventListener('online', onOnline);
     };
-  }, [resync]);
+  }, [resync, flush]);
+
+  /**
+   * Closing the tab with writes still owed asks first.
+   *
+   * The queue is in memory and nowhere else (doc 03 §7), so closing the tab is
+   * the one action that can actually lose an answer. The browser decides the
+   * wording; all a page can do is say that there is something to lose.
+   */
+  const unsaved = outbox.pending > 0;
+  useEffect(() => {
+    if (!unsaved) return;
+    function warn(event: BeforeUnloadEvent) {
+      event.preventDefault();
+    }
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [unsaved]);
 
   /**
    * One value that shows immediately and is written after.
    *
-   * The rollback is the point. Until the outbox exists (#23), a failed write
-   * leaves the screen showing something the database does not hold, and a
-   * screen that claims a thing is recorded when it is not is the exact failure
-   * this project is organised against. So the value goes back to whatever the
-   * server last confirmed — for that lane only, since a failed flag must not
-   * revoke an answer that saved.
+   * **The outbox is what makes keeping the value honest.** A failed write used
+   * to be rolled back here, because a screen claiming a thing is recorded when
+   * it is not is the exact failure this project is organised against. That is
+   * still true of a write nothing will ever accept — so a refusal the server
+   * will repeat forever still puts the value back to what was last confirmed,
+   * for that lane only, since a failed flag must not revoke an answer that
+   * saved. What changed is the ordinary case: a dropped connection is no longer
+   * a reason to disown the answer, because the queue is still going to write it.
    */
-  async function commit(
+  function commit(
     questionId: string,
     lane: 'answer' | 'flag',
     apply: (before: RecordedState) => RecordedState,
@@ -167,24 +200,34 @@ export function Sitting({
 
     setRecorded((all) => patch(all, questionId, apply));
 
-    const failed = await send();
-    if (ticket !== tickets.current.get(key)) return;
+    outbox.send({
+      key,
+      send,
+      settled: (failed) => {
+        if (failed === null) {
+          // Applied to what the server had confirmed rather than to the screen:
+          // this write landed, whatever has been clicked since.
+          saved.current = patch(saved.current, questionId, apply);
+          setFailure(null);
+          return;
+        }
 
-    if (failed === null) {
-      saved.current = patch(saved.current, questionId, apply);
-      setFailure(null);
-      return;
-    }
+        // Only a permanent refusal reaches here — the queue keeps everything
+        // else. A later click on the same lane has already spoken for the
+        // screen, so a stale refusal must not pull it back.
+        if (ticket !== tickets.current.get(key)) return;
 
-    const confirmed = stateFor(saved.current, questionId);
-    setRecorded((all) =>
-      patch(all, questionId, (before) =>
-        lane === 'answer'
-          ? { ...before, optionRef: confirmed.optionRef }
-          : { ...before, flagged: confirmed.flagged },
-      ),
-    );
-    setFailure(failed);
+        const confirmed = stateFor(saved.current, questionId);
+        setRecorded((all) =>
+          patch(all, questionId, (before) =>
+            lane === 'answer'
+              ? { ...before, optionRef: confirmed.optionRef }
+              : { ...before, flagged: confirmed.flagged },
+          ),
+        );
+        setFailure(failed);
+      },
+    });
   }
 
   function answerQuestion(questionId: string, optionRef: string | null) {
@@ -272,6 +315,7 @@ export function Sitting({
         currentNumber={currentSeq + 1}
         band={clock.band}
         display={clock.display}
+        retrying={outbox.retrying}
         onSelect={goTo}
       />
 

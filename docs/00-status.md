@@ -54,7 +54,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
   by inserting a session row rather than driving Google; the holdout sitting, practice and domain
   modes **out**.
-  **Closed so far: #15 #16 #17 #18 #19 #20 #21 #22.** The Google OAuth client is provisioned
+  **Closed so far: #15 #16 #17 #18 #19 #20 #21 #22 #23.** The Google OAuth client is provisioned
   (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
   byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
   with both scores, a paper can be started and its first question rendered, and **that question can
@@ -111,15 +111,48 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   measure — so the sitting resyncs immediately on mount to replace it. Resync listens on **three**
   events, not two: `visibilitychange`, `online`, and `focus`, because switching to another
   application with the tab still in front fires neither of the first two.
-  Suites: 339 bank · 270 app unit · 66 app integration.
+  **The outbox landed** (#23). A failed answer or flag is no longer disowned: it stays on screen and
+  stays queued, and `src/lib/outbox.ts` keeps trying — 1s, 2s, 4s, 8s, 16s, then 30s forever. The
+  queue holds **at most one write per `${questionId}:${lane}`**, and that keying is what stops a
+  retry putting back an answer already changed: only the latest intention for a given thing is ever
+  owed. A pass attempts everything owed rather than stopping at the first failure, so a flag that
+  will not save cannot hold an answer hostage; a click *during* a backoff posts only itself, because
+  a full pass per click would cost the square of the number of clicks made while the network was
+  away. `attempt_expired` and every other non-retryable refusal is still rolled back, per lane, and
+  still says so on the question — the bar's chip is for writes that are still being tried.
+  **The rollback the screen used to do is gone, and that was the point.**
+  Doc 10 §4's chip now lives in the bar, outside `barwide` so a phone is not the layout that fails to
+  hear about a failed save; at 375px the bar takes a second line for it rather than shrinking the
+  counter and the clock for a state usually absent. `beforeunload` warns while anything is owed, and
+  a sustained failure reports **once per episode** at five consecutive failed passes (doc 03 §8's
+  threshold, with `console.error` standing in until Sentry exists).
+  The `online` event now flushes as well as resyncing: measured in the browser, a restored connection
+  sent the owed write at **0 ms** instead of serving out the remaining 7s of its backoff.
+  **Two stalls the review caught, both the same shape and both now regression-tested** — a queue left
+  holding writes with nothing scheduled to send them, which would have shown as a lost answer with no
+  chip and, once #24 lands, a submit blocked forever. A pass tracks what it has attempted **by write,
+  not by key**, or a click landing while that question's previous write is still in the air is walked
+  past and never sent — no network fault required, just changing an answer during an ordinary round
+  trip. And a single write sent on its own re-arms the wait if it finds none, because its backoff can
+  fire, or `online` can flush, while the request is still in the air.
+  Two knowing divergences are in the log rather than only in a comment (2026-09-03): the chip binds
+  to `retrying` rather than doc 03 §7's literal "outbox non-empty", and it sits outside `.barwide`
+  rather than beside the counts doc 10 §4 hides on touch.
+  Verified in the browser, both themes, at 1440 and 375, against a real sitting with `fetch` failing
+  for `PUT /api/attempt/*`: the chip appeared and did not flash on healthy writes, answering and
+  flagging continued, the clock ran through it (83:28 → 83:07 while failing), the backoff was
+  measured at 1.7 / 3.0 / 5.0 / 9.0s, a click during the outage sent one request rather than the
+  whole queue, and a reload after restoring showed the answer and the flag present.
+  **Submit is still absent** — #24's. The signal it needs exists: `outbox.pending` is the boolean
+  doc 03 §7 blocks on, and it is already threaded to the bar.
+  Suites: 339 bank · 291 app unit · 66 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#23** (the outbox), unblocked, and then **#24**
-(submit) — which is what #22 deliberately stopped short of. `src/lib/writes.ts` already classifies a
-failure as retryable or not, and `attempt_expired` is non-retryable on purpose: that distinction is
-what the outbox is built on.
+**Feature 3 is mid-flight.** The frontier is **#24** (submit) — what #22 deliberately stopped short
+of. Everything it needs from #23 is in place: `outbox.pending` is the count doc 03 §7 blocks submit
+on, and the button's own waiting label is the only part not written.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it

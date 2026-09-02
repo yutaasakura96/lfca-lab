@@ -13,6 +13,8 @@ export interface ExamBarProps {
   currentNumber: number;
   band: ClockBand;
   display: string;
+  /** A write has failed and is queued. Doc 10 §4's persistent save chip. */
+  retrying: boolean;
   onSelect: (seq: number) => void;
 }
 
@@ -33,7 +35,9 @@ export interface ExamBarProps {
  *
  * **Submit is not here yet.** Doc 10 puts it at the right-hand end, and it
  * arrives with the slice that can actually submit. A button that looked like
- * the real one and did nothing would be worse than its absence.
+ * the real one and did nothing would be worse than its absence. When it does
+ * arrive it reads the same signal the chip does — doc 03 §7 blocks submitting
+ * while anything is still owed.
  */
 export function ExamBar({
   examNumber,
@@ -42,6 +46,7 @@ export function ExamBar({
   currentNumber,
   band,
   display,
+  retrying,
   onSelect,
 }: ExamBarProps) {
   const [open, setOpen] = useState(false);
@@ -65,6 +70,18 @@ export function ExamBar({
         />
 
         <Clock band={band} display={display} />
+
+        {/* Doc 10 §4's error state, and the one it calls "the important one".
+            It sits outside `barwide` rather than beside the counts inside it,
+            because that group is what the phone layout gives up — and a save
+            failure is the last thing a narrow screen should be the one not to
+            hear about. Not dismissible: there is no control here to dismiss it
+            with, and it leaves when the write lands and not before. */}
+        {retrying ? (
+          <span className="chip chip--incorrect savechip" role="status">
+            Not saved &mdash; retrying
+          </span>
+        ) : null}
 
         <div className="row barwide" style={{ gap: 'var(--space-3)' }}>
           <span className="chip">

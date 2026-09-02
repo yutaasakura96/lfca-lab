@@ -308,11 +308,23 @@ button.tile {
 }
 .navbtn__of { color: var(--ink-muted); }
 
+/* The save chip, which is the one thing in this bar that is not always there.
+
+   It never shrinks and never wraps inside itself: at the width where the bar
+   runs out of room it is the bar that wraps, and the chip drops to a line of
+   its own rather than becoming three words on two lines beside a countdown. */
+.savechip { flex: 0 0 auto; }
+
 @media (max-width: 1100px), (pointer: coarse) {
   /* The exam's name and the two counts are what the phone bar gives up. The
      counts are not lost — the sheet this bar opens states all three. */
   .barwide { display: none; }
-  .bar--sitting { padding: var(--space-3) var(--space-4); }
+  /* Counter, clock and — when a write is owed — the chip. Three things do not
+     fit on 375px, so the bar is allowed a second line for the one that is only
+     sometimes there: the counter and the clock keep the first line at the size
+     they already are, rather than both shrinking for a state usually absent. */
+  .bar--sitting { padding: var(--space-3) var(--space-4); flex-wrap: wrap; row-gap: var(--space-2); }
+  .savechip { margin-inline: auto; }
   /* 30px of countdown does not share a 375px line with anything. */
   .clock { font-size: var(--text-lg); padding: var(--space-1) var(--space-3); }
 }

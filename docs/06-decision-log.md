@@ -690,3 +690,32 @@ every token change and invite hand-editing the generated file.
   its sitting was over.
 - **Revisit if:** never — #26 supersedes the freeze by giving it somewhere to go, and adds the
   finalisation write to the same endpoint.
+
+### [2026-09-03] The save chip reads "a write has failed", and sits outside the counts group
+- **Decision:** the outbox exposes two numbers — `pending`, every write the server has not confirmed,
+  and `retrying`, true once a write has failed and is waiting. **The chip binds to `retrying`;
+  submit will bind to `pending`.** The chip is rendered in the sitting bar but **outside
+  `.barwide`**, the group the touch layout hides, so it survives at 375px; the bar wraps to a second
+  line for it there.
+- **Context:** [03-technical-design.md](03-technical-design.md) §7 says to show the chip "while
+  outbox non-empty" and to block submit on the same condition.
+  [10-screen-specifications.md](10-screen-specifications.md) §4 places it "in the top bar next to the
+  counts", and calls the save-failure state "the important one".
+- **Alternatives considered:** binding the chip to `pending`, which is doc 03's literal words. It
+  works in doc 03's design because the *first* attempt happens outside the queue there, so a write is
+  in the outbox only because it failed. This implementation puts every write through the queue —
+  which is what stops a retry overwriting a newer click, and what makes one write per
+  `questionId:lane` expressible at all — so `pending` also counts the healthy write in the air, and
+  the chip would flash "not saved" on every click of an untroubled sitting. Also considered: leaving
+  the chip inside `.barwide` beside the counts, exactly as doc 10 draws it.
+- **Reason:** `retrying` is what doc 03's sentence *means* once the first attempt moved inside the
+  queue; `pending` still means what doc 03 wanted for submit, and blocking submit for the length of
+  one in-flight write is the behaviour §7 asks for by name. On the placement: doc 10 hides the counts
+  on touch, so "next to the counts" and "visible on a phone" cannot both hold, and a phone is the
+  worst screen to be the one that does not hear about a failed save.
+- **Consequence:** a divergence from doc 10 §4's arrangement, chosen rather than overlooked, in the
+  same spirit as the `.grid60--touch` column count. At 1440 the chip is where doc 10 puts it, between
+  the clock and the counts. Recorded here because the #22 freeze set the precedent that a knowing
+  divergence belongs in the log rather than only in a comment.
+- **Revisit if:** the submit button lands and wants the chip beside it, at which point the bar's
+  right-hand end is being redrawn anyway.

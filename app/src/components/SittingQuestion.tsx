@@ -13,6 +13,11 @@ export interface SittingQuestionProps {
   total: number;
   answer: string | null;
   flagged: boolean;
+  /**
+   * A write the server refused for a reason repeating cannot fix, and whose
+   * value has therefore been put back. Everything else — a dropped connection,
+   * a 5xx — is the outbox's, and says so in the bar rather than here.
+   */
   failure: WriteFailure | null;
   /**
    * The clock has run out. The paper stays readable and navigable; nothing on
@@ -34,9 +39,11 @@ function failureMessage(failure: WriteFailure): string {
     case 'attempt_already_submitted':
       return 'This sitting was already submitted.';
     default:
-      return failure.retryable
-        ? 'Not saved — put back as it was. Try again.'
-        : 'Not saved — put back as it was.';
+      // Everything else the server refuses outright — a question that is not on
+      // this paper, a body it would not parse. Both are bugs rather than
+      // anything a candidate can act on, so this says what happened to the
+      // value and does not invent an instruction.
+      return 'Not saved — put back as it was.';
   }
 }
 
@@ -159,6 +166,9 @@ export function SittingQuestion({
       {failure === null ? null : (
         // The incorrect family, which is what doc 10 gives a save failure. It
         // says nothing about the answer — only about whether it was written.
+        // Reached only by a refusal that will not change on a retry: the chip
+        // in the bar is where an ordinary failing write is reported, because
+        // that one is about the sitting rather than about this question.
         // Wrapped in a row so the chip hugs its text: a stack stretches its
         // children, and a pill the width of the page stops reading as a chip.
         <div className="row">
