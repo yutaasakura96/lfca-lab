@@ -54,7 +54,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
   by inserting a session row rather than driving Google; the holdout sitting, practice and domain
   modes **out**.
-  **Closed so far: #15 #16 #17 #18 #19 #20.** The Google OAuth client is provisioned
+  **Closed so far: #15 #16 #17 #18 #19 #20 #21.** The Google OAuth client is provisioned
   (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
   byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
   with both scores, a paper can be started and its first question rendered, and **that question can
@@ -64,15 +64,37 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   both. The screen updates on click and the write follows; until the outbox (#23) a failed write
   rolls the value back to what the database last confirmed rather than letting the screen claim
   something it does not hold.
-  Suites: 339 bank · 215 app unit · 58 app integration.
+  **All sixty are now reachable** (#21). The sitting holds the whole paper client-side — doc 10 §4
+  fetches it once at start — so the navigator can report on all sixty rather than on whichever is
+  rendered; answers and flags moved off the question and onto the sitting with them, keyed per
+  question *and* per lane, so a failed flag cannot roll back an answer that saved.
+  `src/domain/navigator.ts` decides the tiles and the three counts, and **asserts that a paper's
+  positions run 0…n-1** — the tile reports its `seq` and the sitting reads it back as an index, and
+  that assertion is the only reason those are the same number. A flagged-but-unanswered question
+  counts as *unanswered*, per doc 04 §6.
+  Rail and sheet are **two components, not one at two widths**; `screens.css` chooses between them on
+  `(max-width: 1100px), (pointer: coarse)`, and the pointer half is what actually keeps the 34px tile
+  off a touch screen (doc 05 rule 12) — a width query alone is only a proxy for it. Verified in the
+  browser, both themes, at 1440 and 375: all five state combinations legible at `grayscale(1)`, a
+  reload restoring answers and flags, `1`–`4` / `F` / `←` `→`, and every tile tabbable with the 2px
+  ring at 2px offset.
+  Suites: 339 bank · 243 app unit · 58 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#21** (the navigator — reaching all sixty), **#22**
-(the 90-minute clock) and **#23** (the outbox), all three unblocked by #20. Take #21 first: the
-sitting currently renders question 1 and nothing else, so every other slice is being judged against
-one question.
+**Feature 3 is mid-flight.** The frontier is **#22** (the 90-minute clock) and **#23** (the outbox),
+both unblocked. The sitting now renders all sixty and reaches any of them, so both are being judged
+against a whole paper rather than one question.
+
+Three things #21 left, deliberately, each named so it is not assumed done:
+- **A reload returns to question 1, not to where you were.** PRD E5 wants position restored; there is
+  nowhere to store it, and inventing a column was outside #21. Decide it with #22 or #23.
+- **The sheet's trigger duplicates the question counter** on touch — it exists because the sticky top
+  bar doc 10 §4 pulls the sheet from does not exist yet. It goes away with the bar, in #22.
+- **`.grid60--touch` is `repeat(auto-fill, 44px)`, not the fixed seven** doc 10 §4 specifies: seven at
+  the 390px the prototype is drawn at, six at 375px. The column count gives way so the 44px target
+  never does. A divergence, chosen, not an oversight.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 
