@@ -621,3 +621,36 @@ every token change and invite hand-editing the generated file.
   for the guard live in a script file for the same reason — a command containing the string under
   test blocks itself.
 - **Revisit if:** a second protected branch appears, or pushes to `develop` start deploying anything.
+
+### [2026-09-02] Connection strings say `sslmode=verify-full`, not the `require` alias
+- **Decision:** every Neon connection string in this project — `app/.env.local`, all three Vercel
+  environments, and the pooled URL that does not exist yet — carries `sslmode=verify-full`.
+  Docs 12 §2 and 03 §9 updated together so the two cannot disagree, and an integration test asserts
+  the shape of `DATABASE_URL` rather than trusting the docs.
+- **Context:** `pg` emits a warning on every server start (visible in the dev overlay as "1 Issue")
+  that `require`, `prefer` and `verify-ca` are currently aliases for `verify-full` and will adopt
+  libpq semantics in `pg` v9 / `pg-connection-string` v3.
+- **Alternatives considered:** silencing the warning and revisiting at the major bump — rejected
+  because the bump is precisely when nobody is looking at TLS; `uselibpqcompat=true&sslmode=require`,
+  the library's own other escape hatch, which pins today's *warning-free* behaviour but pins the
+  **weak** meaning; and pinning `pg` below v9, which trades a one-word edit for a frozen dependency
+  and would have to be undone anyway.
+- **Reason:** the failure mode is silent. Read in the installed source: under libpq semantics
+  `require` with no `sslrootcert` sets **`rejectUnauthorized = false`** — not weaker certificate
+  verification but none. Doc 03 §9 has Dependabot merging patch and minor automatically and majors
+  "read first", so the downgrade would arrive with a routine bump, with no warning left to print and
+  no test in the repo that would fail. Naming the mode is what survives the bump.
+- **Consequence:** provably behaviour-preserving today — measured 2026-09-02 against the dev branch,
+  both modes hand `tls.connect` identical options (no `rejectUnauthorized` override, no custom CA, no
+  `checkServerIdentity` override) and the chain verifies `YR2 ← Root YR ← ISRG Root X1` with
+  `authorized: true`. Neon documents `verify-full` and recommends it; its roots are public
+  Let's Encrypt, already in Node's trust store, so **no `sslrootcert` and no bundled certificate**.
+  `channel_binding=require` is unrelated and stays. `tests/integration/connection-string.test.ts` is
+  the new guard, and it lives in the integration suite because that is the suite that loads
+  `.env.local`.
+- **Not settled here:** the second, pooled connection string (doc 12 §2.2). It stays a deploy-slice
+  decision — nothing reads it until Vercel exists — but §2.1 is now written per-string rather than
+  per-variable, so it binds that URL on arrival instead of letting a freshly-pasted dashboard string
+  reintroduce `require`.
+- **Revisit if:** `pg` v9 ships and its released semantics differ from what its v8 source and warning
+  describe — re-read before upgrading, rather than trusting this entry.

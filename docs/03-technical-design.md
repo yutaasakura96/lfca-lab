@@ -312,7 +312,9 @@ whole attack surface:
 Drizzle parameterises every query; no string-concatenated SQL anywhere.
 
 **HTTPS.** Vercel terminates TLS and issues certificates; HTTP is redirected. Neon requires TLS on
-the connection string (`sslmode=require`). There is no local-only service exposed to the internet.
+the connection string, and this project asks for it by name: **`sslmode=verify-full`**, never the
+`require` alias whose meaning changes in `pg` v9 (doc 12 §2.1). There is no local-only service
+exposed to the internet.
 Cookies are `Secure`, `HttpOnly`, `SameSite=Lax`.
 
 **Sensitive data.** Deliberately minimal: an email address, a display name, a Google avatar URL, an

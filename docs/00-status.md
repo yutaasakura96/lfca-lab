@@ -78,7 +78,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   browser, both themes, at 1440 and 375: all five state combinations legible at `grayscale(1)`, a
   reload restoring answers and flags, `1`–`4` / `F` / `←` `→`, and every tile tabbable with the 2px
   ring at 2px offset.
-  Suites: 339 bank · 243 app unit · 58 app integration.
+  Suites: 339 bank · 243 app unit · 61 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
@@ -113,12 +113,27 @@ Nothing. The holdout is fully defended and the data spine is built.
 
 Three findings from feature 2 are **carried, not lost** — each belongs to the slice that deploys:
 - **Doc 12 §2 lists one `DATABASE_URL`.** Neon routes schema migrations to the *direct* host and a
-  serverless runtime to the *pooled* one, so a second variable will be needed.
+  serverless runtime to the *pooled* one, so a second variable will be needed. **Still outstanding,
+  now written down** — doc 12 §2.2. Deliberately not introduced early: nothing reads it until Vercel
+  exists. Doc 12 §2.1's `sslmode=verify-full` rule is written per-string, so it binds that URL when
+  it arrives rather than letting a freshly-pasted dashboard string reintroduce `sslmode=require`.
 - **Vercel skips builds for projects a commit did not touch**, judged by the project's own directory.
   A commit touching only `questions/**` may deploy nothing, leaving production on the previous seed.
   There is a setting for it.
 - **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
   workflow itself is not written.
+
+### One-line owner action outstanding — `app/.env.local`
+`DATABASE_URL` must change `sslmode=require` → **`sslmode=verify-full`** (doc 12 §2.1, and the log
+entry for 2026-09-02). Everything around it has landed: both docs, and
+`tests/integration/connection-string.test.ts`, **which fails until the edit is made** — that failure
+is the reminder, not a regression. Agents cannot make this edit: `.claude/settings.json` denies
+`app/.env.*`, correctly, because the file holds four secrets.
+
+The change is verified behaviour-preserving, not merely believed to be: measured against the dev
+branch, `require` and `verify-full` hand `tls.connect` identical options, and a process using only
+`verify-full` connects with `authorized: true` and emits **zero** warnings. The same edit is needed in
+the Vercel environments when they exist.
 
 ### Verified by hand, not by a test — re-run before any deploy
 - **The allowlist refuses an account and writes nothing.** Run `npm run dev:denied` in `app/` (or the

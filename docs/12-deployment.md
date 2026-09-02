@@ -32,7 +32,7 @@ Every one of these is set in Vercel per environment, and mirrored in `app/.env.l
 
 | Name | Purpose | Where the secret lives | Secret? |
 | --- | --- | --- | --- |
-| `DATABASE_URL` | Neon connection string, `sslmode=require` | Neon dashboard → Vercel env | **yes** |
+| `DATABASE_URL` | Neon connection string, `sslmode=verify-full` (§2.1) | Neon dashboard → Vercel env | **yes** |
 | `BETTER_AUTH_SECRET` | signs session tokens | generated once (`openssl rand -base64 32`), stored in Vercel | **yes** |
 | `BETTER_AUTH_URL` | canonical origin, for OAuth callbacks | plain config | no |
 | `GOOGLE_CLIENT_ID` | OIDC client | Google Cloud console | no |
@@ -52,6 +52,39 @@ passing through a terminal echo or an agent's context. `DATABASE_URL` comes from
 *Testing* status serves only the accounts explicitly listed as test users — not adding your own
 address is the classic first failure. And in Testing, an authorisation **expires seven days after
 consent**, so being asked to consent again next week is the documented behaviour rather than a bug.
+
+### 2.1 Every Neon connection string in this project says `sslmode=verify-full`
+
+**The rule is per-string, not per-variable**, and it is written that way because a second Neon URL is
+already known to be coming: schema migrations go to the *direct* host and a serverless runtime to the
+*pooled* one (§2.2). Whichever variable it lands in, it is pasted from the Neon dashboard — which
+hands out `sslmode=require` — and it gets the same treatment as this one.
+
+Neon supports `verify-full` and [recommends it](https://neon.com/docs/connect/connect-securely);
+its certificates chain to the public **ISRG Root X1** (Let's Encrypt), which ships in Node's bundled
+trust store, so **no `sslrootcert` is needed** — verified against the dev branch on 2026-09-02, chain
+`YR2 ← Root YR ← ISRG Root X1`, `authorized: true`. Keep `channel_binding=require` alongside it;
+Neon documents it as SCRAM-SHA-256-PLUS mutual authentication and it is orthogonal to `sslmode`.
+
+**Why the change is not cosmetic.** `node-postgres` today treats `require`, `prefer` and `verify-ca`
+as aliases for `verify-full`, and warns on every server start that it will stop doing so in
+`pg` v9 / `pg-connection-string` v3. Under those versions `sslmode=require` with no `sslrootcert`
+adopts libpq semantics and sets **`rejectUnauthorized = false`** — not weaker certificate
+verification but *none*, with no warning and no test failure. A routine Dependabot major bump (doc 03
+§9 merges patch and minor automatically) would therefore silently downgrade the connection. Saying
+`verify-full` is what survives that bump.
+
+Substituting it is provably behaviour-preserving **today**: both modes hand `tls.connect` identical
+options — no `rejectUnauthorized` override, no custom CA, no `checkServerIdentity` override — so the
+only thing that changes is the warning going away.
+
+### 2.2 The second connection string, still outstanding
+
+Neon routes schema migrations to the direct host and a serverless runtime to the pooled one, so
+`db:migrate` and the seed will want the direct URL while the deployed app wants `-pooler`. That
+second variable is **not** introduced here: nothing reads it until Vercel exists, and inventing it
+early would mean an unused secret in three environments. It belongs to the slice that deploys —
+where §2.1's rule applies to it on arrival.
 
 **Rotation:** `BETTER_AUTH_SECRET` invalidates every session when changed — which is the intended
 emergency control, not a hazard. The Google client secret rotates in the Google console with a brief
