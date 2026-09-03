@@ -1,5 +1,5 @@
 import type { WriteFailure } from '../lib/writes.ts';
-import { Stem } from './Stem.tsx';
+import { BankText, Stem } from './Stem.tsx';
 
 export interface SittingOption {
   ref: string;
@@ -150,7 +150,14 @@ export function SittingQuestion({
                     Selected
                   </span>
                 ) : null}
-                <span className="opt__text">{option.text}</span>
+                {/* The same markdown-ish prose the stem is, so it decodes the
+                    same way. `.opt__text` is a <span> here rather than the
+                    review's <p> — a button may only contain phrasing content —
+                    and screens.css gives it `display: block` so it still lays
+                    out as the paragraph it replaces. */}
+                <span className="opt__text">
+                  <BankText text={option.text} />
+                </span>
               </span>
             </button>
           );
