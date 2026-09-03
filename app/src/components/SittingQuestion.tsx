@@ -20,10 +20,16 @@ export interface SittingQuestionProps {
    */
   failure: WriteFailure | null;
   /**
-   * The clock has run out. The paper stays readable and navigable; nothing on
-   * it can be changed any more.
+   * The clock has run out — which is a *reason*, and it says so on screen.
+   * Kept apart from `locked` because a submitted sitting is equally unchangeable
+   * and running out of time is not why.
    */
   expired: boolean;
+  /**
+   * Nothing on this question can be changed any more, for whatever reason. The
+   * paper stays readable and navigable.
+   */
+  locked: boolean;
   onAnswer: (optionRef: string | null) => void;
   onFlag: (flagged: boolean) => void;
   onPrevious: () => void;
@@ -69,6 +75,7 @@ export function SittingQuestion({
   flagged,
   failure,
   expired,
+  locked,
   onAnswer,
   onFlag,
   onPrevious,
@@ -90,7 +97,7 @@ export function SittingQuestion({
           type="button"
           className={flagged ? 'btn btn--flag' : 'btn'}
           aria-pressed={flagged}
-          disabled={expired}
+          disabled={locked}
           onClick={() => onFlag(!flagged)}
         >
           <svg
@@ -121,7 +128,7 @@ export function SittingQuestion({
               key={option.ref}
               className={chosen ? 'opt opt--interactive opt--selected' : 'opt opt--interactive'}
               aria-pressed={chosen}
-              disabled={expired}
+              disabled={locked}
               onClick={() => onAnswer(option.ref)}
             >
               <span className="opt__key">{String.fromCharCode(65 + index)}</span>
@@ -195,7 +202,7 @@ export function SittingQuestion({
           <button
             type="button"
             className="btn btn--quiet"
-            disabled={expired || answer === null}
+            disabled={locked || answer === null}
             onClick={() => onAnswer(null)}
           >
             Clear answer

@@ -15,7 +15,17 @@ export interface ExamBarProps {
   display: string;
   /** A write has failed and is queued. Doc 10 §4's persistent save chip. */
   retrying: boolean;
+  /**
+   * Writes the server has not confirmed. Doc 03 §7 blocks submit while anything
+   * is owed — **including the healthy write still in the air**, which is why
+   * this is a different signal from `retrying` rather than the same one.
+   */
+  unsaved: number;
+  /** The submit request is in flight, or the sitting is already finalised. */
+  submitting: boolean;
+  submitted: boolean;
   onSelect: (seq: number) => void;
+  onSubmit: () => void;
 }
 
 /**
@@ -33,11 +43,15 @@ export interface ExamBarProps {
  * is the only counter here — the sheet's trigger used to carry a second copy
  * because this bar did not exist yet.
  *
- * **Submit is not here yet.** Doc 10 puts it at the right-hand end, and it
- * arrives with the slice that can actually submit. A button that looked like
- * the real one and did nothing would be worse than its absence. When it does
- * arrive it reads the same signal the chip does — doc 03 §7 blocks submitting
- * while anything is still owed.
+ * **Submit sits at the right-hand end**, where doc 10 puts it, and — like the
+ * save chip — outside the group the phone layout gives up: doc 10 §4's phone
+ * bar keeps the counter, the clock and Submit, and drops the rest.
+ *
+ * It is disabled while the outbox owes the server anything, and says which of
+ * the two waits it is in rather than only going grey. Doc 03 §7 blocks submit
+ * on the queue being non-empty, which deliberately includes the ordinary write
+ * still in the air: two seconds of waiting is cheaper than a sitting scored
+ * without its last answer.
  */
 export function ExamBar({
   examNumber,
@@ -47,7 +61,11 @@ export function ExamBar({
   band,
   display,
   retrying,
+  unsaved,
+  submitting,
+  submitted,
   onSelect,
+  onSubmit,
 }: ExamBarProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -105,6 +123,28 @@ export function ExamBar({
             <span className="mono">{model.flagged}</span>&nbsp;flagged
           </span>
         </div>
+
+        {/* Outside `barwide`, for the same reason the chip is: doc 10 §4's
+            phone bar keeps counter, clock and Submit, and a sitting you cannot
+            end from the screen you are sitting it on is not finishable. */}
+        <button
+          type="button"
+          className="btn btn--primary"
+          disabled={submitting || submitted || unsaved > 0}
+          onClick={onSubmit}
+        >
+          {/* Doc 03 §8: the existing disabled tokens and a changed label, no
+              spinner. The two waits are named apart because they are different
+              — one is this sitting's last answer being written, the other is
+              the sitting itself being scored. */}
+          {submitted
+            ? 'Submitted'
+            : submitting
+              ? 'Scoring…'
+              : unsaved > 0
+                ? 'Saving…'
+                : 'Submit exam'}
+        </button>
       </div>
 
       {/* Kept in the DOM only while open. A hidden grid of sixty buttons would

@@ -47,6 +47,54 @@ export function passMark(questionCount: number): number {
   return Math.ceil(questionCount * PASS_RATIO);
 }
 
+/**
+ * What a count of correct answers means.
+ *
+ * Split out from {@link scoreSitting} because the count and its meaning are
+ * decided in two different places by the time a sitting is finalised: the
+ * submit statement counts the correct rows in the same statement that writes
+ * `submitted_at`, so the count cannot be taken from a read that a late answer
+ * has already invalidated. The mark, the verdict and the percentage stay here,
+ * so there is still exactly one definition of each — and `scoreSitting` is that
+ * definition applied to answers rather than to a number.
+ */
+export function outcomeFor(score: number, questionCount: number): Score {
+  if (!Number.isInteger(questionCount) || questionCount <= 0) {
+    throw new Error(`A sitting asks at least one question; got ${questionCount}.`);
+  }
+  if (!Number.isInteger(score) || score < 0 || score > questionCount) {
+    // A score outside the paper is not a score to present cautiously. It means
+    // the count came from something other than this sitting's answers.
+    throw new Error(`A sitting of ${questionCount} question(s) cannot score ${score}.`);
+  }
+
+  const mark = passMark(questionCount);
+
+  return {
+    score,
+    questionCount,
+    passMark: mark,
+    // Compared against the count, never against the percentage. Deciding a pass
+    // on a rounded percentage is how 44.9% becomes 45%.
+    passed: score >= mark,
+    percent: Math.round((score / questionCount) * 1000) / 10,
+  };
+}
+
+/**
+ * Score a sitting from its answers.
+ *
+ * **Not the path a live submit takes**, and that is deliberate rather than
+ * accidental: `submitAttempt` counts the correct rows inside the statement that
+ * finalises the attempt, so the count and the `submitted_at` that stops further
+ * answers are decided at one instant and cannot disagree. This is the same rule
+ * written as a pure function — testable at 44/45/46, which a `count(*)` is not
+ * — and the integration suite runs the two against the same rows and requires
+ * them to agree. Doc 11 §1 says the danger here is a believed-wrong number with
+ * no oracle to check it against; two independent implementations made to agree
+ * is the nearest thing to one this system can have. Do not delete it for being
+ * uncalled by production code.
+ */
 export function scoreSitting({ answers, questionCount }: Sitting): Score {
   if (!Number.isInteger(questionCount) || questionCount <= 0) {
     throw new Error(`A sitting asks at least one question; got ${questionCount}.`);
@@ -60,16 +108,5 @@ export function scoreSitting({ answers, questionCount }: Sitting): Score {
     );
   }
 
-  const score = answers.filter((a) => a.isCorrect === true).length;
-  const mark = passMark(questionCount);
-
-  return {
-    score,
-    questionCount,
-    passMark: mark,
-    // Compared against the count, never against the percentage. Deciding a pass
-    // on a rounded percentage is how 44.9% becomes 45%.
-    passed: score >= mark,
-    percent: Math.round((score / questionCount) * 1000) / 10,
-  };
+  return outcomeFor(answers.filter((a) => a.isCorrect === true).length, questionCount);
 }

@@ -16,6 +16,7 @@ import type { Db } from '../client.ts';
 import { attempt } from '../schema/app.ts';
 import { deadlineOf } from '../../domain/clock.ts';
 import { timeLimitFor, type AttemptMode } from '../../domain/modes.ts';
+import type { SubmitReason } from '../../domain/submission.ts';
 import type { Domain } from '../../domain/weights.ts';
 
 /** Postgres's unique-violation SQLSTATE. */
@@ -124,6 +125,9 @@ export interface AttemptRow {
   startedAt: Date;
   timeLimitSeconds: number | null;
   submittedAt: Date | null;
+  /** Set with `submittedAt`, and null with it. Meaningless in an unscored mode. */
+  score: number | null;
+  submitReason: SubmitReason | null;
 }
 
 /**
@@ -152,8 +156,11 @@ export async function getAttemptForUser(
     started_at: Date | string;
     time_limit_seconds: number | null;
     submitted_at: Date | string | null;
+    score: number | null;
+    submit_reason: SubmitReason | null;
   }>(sql`
-    SELECT id, mode, exam_id, domain, question_count, started_at, time_limit_seconds, submitted_at
+    SELECT id, mode, exam_id, domain, question_count, started_at, time_limit_seconds, submitted_at,
+           score, submit_reason
     FROM attempt
     WHERE id = ${attemptId}::uuid AND user_id = ${userId}
   `);
@@ -172,5 +179,7 @@ export async function getAttemptForUser(
     startedAt: asDate(row.started_at),
     timeLimitSeconds: row.time_limit_seconds,
     submittedAt: row.submitted_at === null ? null : asDate(row.submitted_at),
+    score: row.score,
+    submitReason: row.submit_reason,
   };
 }

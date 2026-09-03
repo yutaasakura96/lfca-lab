@@ -719,3 +719,47 @@ every token change and invite hand-editing the generated file.
   divergence belongs in the log rather than only in a comment.
 - **Revisit if:** the submit button lands and wants the chip beside it, at which point the bar's
   right-hand end is being redrawn anyway.
+
+### [2026-09-03] Submit shows the score where it was pressed, and does not route
+- **Decision:** the submit confirmation becomes the outcome. On a successful submit the same dialog
+  replaces its tally and warning with the score — `n/60`, a percentage, pass or fail against the
+  mark — and its single onward action is **"Back to the sixteen exams"**, a screen that exists. The
+  sitting behind it freezes: input refused, and the countdown held at the reading it had when the
+  sitting closed rather than counting down over a paper that is already scored.
+- **Context:** #24's acceptance criteria include "the score is shown as a count out of 60 and a
+  percentage, with pass or fail against 45", but the review screen that doc 10 hands off to is
+  **#25**, and the auto-submit that doc 10 §6 assumes is **#26**.
+- **Alternatives considered:** routing to `/attempt/:id/review` and building enough of it to land on
+  — it would have meant writing #25's screen inside #24, before the ticket that owns it has been
+  read. Also considered: showing the score as a bare chip in the bar and leaving the dialog closed,
+  rejected because the one moment a candidate actually wants the number is the moment they pressed
+  the button.
+- **Reason:** the same precedent the clock's freeze set on 2026-09-02 — when the destination belongs
+  to another ticket, do not invent it; make the state honest where it is. Nothing here has to be
+  undone for #25 to arrive: it replaces one action's href.
+- **Consequence:** a sitting that was **already finalised when the page loads** — a reload after
+  submitting, or a second tab — now opens on its outcome rather than presenting as answerable. That
+  path was not in the ticket, but #24 is what created the state, and without it the screen shows a
+  running clock and an enabled Submit over a sitting the server has already closed.
+- **Revisit if:** never — #25 supersedes the action by giving it somewhere better to go.
+
+### [2026-09-03] Submit stays enabled on an expired sitting
+- **Decision:** the bar's Submit button is **not** disabled when the clock reaches zero. The server
+  records `submit_reason = 'expired'` from the attempt's own deadline whoever pressed it, so the
+  distinction PRD E6 needs is made by the clock rather than by the caller.
+- **Context:** [10-screen-specifications.md](10-screen-specifications.md) §6 draws the expired state
+  with "**Submit exam** is disabled".
+- **Alternatives considered:** following doc 10 §6 literally. It presumes its own first sentence —
+  *"Your exam was submitted automatically"* — and that automatic submit is **#26**. Disabling the
+  button before #26 exists would leave an expired sitting that nobody, including the person sitting
+  it, can ever close: doc 03 §6 permits an attempt to sit expired-but-unfinalised indefinitely, and
+  until finalisation is built, refusing the only manual route out makes that permanent.
+- **Reason:** the button is not offering something the server would refuse — the submit endpoint
+  finalises an expired attempt by design (doc 07 §5). It is the *answer* writes that are refused past
+  the deadline, and they still are.
+- **Consequence:** the dialog reads "Time expired" rather than "Before you submit", its secondary
+  action reads "Back to the paper" rather than "Keep working", and the outcome says the ninety
+  minutes are up. When #26 lands, an expired sitting is finalised on the next read and this button is
+  never reached in that state — the same way doc 07 §6's `expired` status stops being reachable.
+- **Revisit if:** #26 lands, at which point doc 10 §6's disabled button becomes correct again because
+  its premise is finally true.

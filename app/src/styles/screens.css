@@ -325,6 +325,138 @@ button.tile {
      they already are, rather than both shrinking for a state usually absent. */
   .bar--sitting { padding: var(--space-3) var(--space-4); flex-wrap: wrap; row-gap: var(--space-2); }
   .savechip { margin-inline: auto; }
+  /* Doc 10 §4 keeps Submit on the phone bar, so it is a touch target there —
+     the same 44px the counter beside it already is. */
+  .bar--sitting .btn { min-height: var(--control-h-lg); }
   /* 30px of countdown does not share a 375px line with anything. */
   .clock { font-size: var(--text-lg); padding: var(--space-1) var(--space-3); }
+}
+
+/* ------------------------------------------------------------
+   The submit confirmation, and the outcome it becomes.
+
+   Transcribed from design/parts/Submit.part's artboard-local CSS. One value
+   changes and it is named here: the prototype's `.scrim` is `position:
+   absolute` inside a fixed-size artboard, and in a real page that would scroll
+   away from a dialog it is supposed to hold attention on. It is `fixed` here,
+   above the sticky bar's own stacking level.
+
+   Source: design/parts/Submit.part
+   ------------------------------------------------------------ */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  /* Above the sitting bar, which is `z-index: 2` and sticky. */
+  z-index: 10;
+  background: var(--scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 620px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  /* A sixty-question tally with two jump rows can outgrow a short window; the
+     dialog scrolls inside itself rather than off the top of the viewport. */
+  max-height: calc(100vh - var(--space-6) * 2);
+  overflow-y: auto;
+}
+
+/* It takes focus when it opens, and it is not a control — the ring would draw a
+   box around the whole dialog and say nothing a reader does not already know. */
+.dialog:focus { outline: none; }
+
+.tally {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--line-subtle);
+  border-bottom: 1px solid var(--line-subtle);
+}
+.tally__cell { display: flex; flex-direction: column; gap: var(--space-1); }
+.tally__num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+/* The unanswered treatment itself — dashed, not coloured. Doc 05's rule is that
+   no state is carried by hue alone, and this is the panel that has to survive
+   being read quickly. */
+.warn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--unanswered-line);
+  border-style: var(--unanswered-border-style);
+  border-left: 3px dashed var(--ink-muted);
+}
+
+.jumps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+
+/* A jump target is the navigator's tile at chip size. The prototype draws it
+   inline; it is a real control here, so it is a button and says where it goes. */
+.tile--jump {
+  width: var(--control-h-sm);
+  height: var(--control-h-sm);
+  font-size: var(--text-2xs);
+}
+
+/* Doc 05 rule 12: the small tile is pointer-only. On a touch layout a jump
+   target is 44px like every other one, which is what makes the row need to
+   scroll rather than wrap. The condition is the navigator's own — a *pointer*
+   test, not a width one, because that is what the rule is actually about. */
+@media (max-width: 1100px), (pointer: coarse) {
+  .tile--jump {
+    width: var(--control-h-lg);
+    height: var(--control-h-lg);
+    font-size: var(--text-sm);
+  }
+  /* Every control in the dialog, by the same rule and the same condition — the
+     size a target needs is decided by what is pointing at it, not by how wide
+     the window happens to be. */
+  .dialog__actions .btn { min-height: var(--control-h-lg); }
+}
+
+.dialog__actions { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
+/* One action here is a link rather than a button: it navigates. It should not
+   also be underlined. */
+a.btn { text-decoration: none; }
+
+@media (max-width: 720px) {
+  /* Doc 10 §5's mobile: a bottom sheet rather than a centred dialog, full
+     width, with the actions stacked and the destructive one last. */
+  .scrim { align-items: flex-end; padding: 0; }
+  .dialog {
+    max-width: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 90vh;
+  }
+  /* Four figures do not fit across 375px — measured, and the last of them
+     ("Time left", the one under a running clock) was the half off the edge.
+     Two by two keeps all four readable rather than shrinking a countdown. */
+  .tally { grid-template-columns: repeat(2, 1fr); gap: var(--space-3) var(--space-4); }
+  .dialog__actions { flex-direction: column; }
+  .dialog__actions .btn { width: 100%; justify-content: center; }
+  /* The jump row scrolls sideways rather than wrapping into a block that pushes
+     the actions off the sheet. */
+  .jumps { flex-wrap: nowrap; overflow-x: auto; }
+  .jumps > * { flex: 0 0 auto; }
 }

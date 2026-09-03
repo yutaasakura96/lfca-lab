@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PASS_RATIO, passMark, scoreSitting } from '../../src/domain/score.ts';
+import { PASS_RATIO, outcomeFor, passMark, scoreSitting } from '../../src/domain/score.ts';
 import { QUESTIONS_PER_WEIGHTED_SITTING } from '../../src/domain/weights.ts';
 
 // The product is a scoreboard, and there is no external system to reconcile
@@ -115,5 +115,33 @@ describe('scoring is honest about bad input', () => {
 
   it('refuses a sitting of no questions', () => {
     expect(() => scoreSitting({ answers: [], questionCount: 0 })).toThrow();
+  });
+});
+
+describe('scoring a count the database counted', () => {
+  // The submit statement counts the correct rows itself, in the same statement
+  // that finalises the attempt, so the count and the finalisation cannot
+  // disagree about which answers were in. What that count *means* — the mark it
+  // is measured against, whether it passed, the percentage — still belongs
+  // here, and this is the seam that keeps one definition of all three.
+
+  it('agrees exactly with scoring the answers it counted', () => {
+    for (const correct of [0, 1, 44, 45, 46, 60]) {
+      const fromAnswers = scoreSitting({ answers: answers(correct, 0, 60 - correct), questionCount: 60 });
+      expect(outcomeFor(correct, 60)).toStrictEqual(fromAnswers);
+    }
+  });
+
+  it('passes at exactly the mark and not below it', () => {
+    expect(outcomeFor(44, 60).passed).toBe(false);
+    expect(outcomeFor(45, 60).passed).toBe(true);
+    expect(outcomeFor(30, 40).passed).toBe(true);
+    expect(outcomeFor(29, 40).passed).toBe(false);
+  });
+
+  it('refuses a count the sitting cannot have produced', () => {
+    expect(() => outcomeFor(61, 60)).toThrow();
+    expect(() => outcomeFor(-1, 60)).toThrow();
+    expect(() => outcomeFor(1.5, 60)).toThrow();
   });
 });

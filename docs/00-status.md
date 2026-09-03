@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-02
+**Updated:** 2026-09-03
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -145,14 +145,48 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   whole queue, and a reload after restoring showed the answer and the flag present.
   **Submit is still absent** — #24's. The signal it needs exists: `outbox.pending` is the boolean
   doc 03 §7 blocks on, and it is already threaded to the bar.
-  Suites: 339 bank · 291 app unit · 66 app integration.
+  **Submit landed** (#24). A sitting can now be finished, and the number that comes out of it is
+  decided in one statement: `UPDATE attempt SET submitted_at = now(), … score = (SELECT count(*) …)
+  WHERE id = $1 AND submitted_at IS NULL`. Counting **inside** the update rather than reading first
+  and writing second is what stops a sitting being finalised with a score that predates one of its
+  own answers; doc 07 §5 is corrected to match. A caller that updates zero rows is not an error — it
+  reads back what the first caller decided, so a double submit shows the same score rather than a
+  conflict. Verified: four `POST`s, one of them a pair fired together, all `200`, all `1/60`, and the
+  row rescored by none of them. `is_first_attempt` is not in the statement at all.
+  What the count *means* — the mark, the verdict, the percentage — stayed in `src/domain/score.ts`,
+  which now has `outcomeFor(score, questionCount)` beside `scoreSitting`. `scoreSitting` is no longer
+  on the live path and is **kept on purpose**: the integration suite runs it over the same answer
+  rows the SQL counted and requires the two to agree, which is the closest thing to doc 11 §1's
+  missing oracle this system can have. Its doc comment says so, so it is not deleted for looking dead.
+  Doc 10 §5's confirmation is the whole of the pre-submit review — tally, the dashed *unanswered*
+  panel with the arithmetic stated either way, and jump rows into both the blanks and the flags.
+  `src/domain/submission.ts` decides that arithmetic. Submitting with blanks is permitted and never
+  silent; blanks stay in the denominator, which is the point.
+  **#24 does not route anywhere, deliberately** — see the log (2026-09-03). The dialog becomes the
+  outcome, and its one onward action is the exam list. #25 replaces that action.
+  **Submit is left enabled on an expired sitting**, against doc 10 §6, because §6 presumes the
+  auto-submit that is #26's; disabling it now would make an expired sitting permanently unfinishable.
+  The reason is read from the clock, so `expired` is recorded whoever pressed it. Also in the log.
+  A sitting that is **already finalised when the page loads** opens on its outcome rather than
+  presenting as answerable — a reload used to show a running clock and a live Submit over a sitting
+  the server had already closed.
+  Verified in the browser, both themes, at 1440 and 375, on real sittings: the warning and its
+  jump rows, a queued write blocking submit with the button reading "Saving…" and the chip up, the
+  recovery, a failed submit leaving the dialog open with "Couldn't submit — your answers are saved.
+  Try again." and the button back, the expired variant reading "Time expired" at 00:00, and both
+  outcomes surviving a reload. At `grayscale(1)` the dashed panel, the flagged chip and the
+  destructive action are still told apart.
+  Suites: 339 bank · 307 app unit · 76 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#24** (submit) — what #22 deliberately stopped short
-of. Everything it needs from #23 is in place: `outbox.pending` is the count doc 03 §7 blocks submit
-on, and the button's own waiting label is the only part not written.
+**Feature 3 is mid-flight.** The frontier is **#25** (the review: every question, your answer, the
+correct one, and the `why` for all four options). #24 left it a single job to inherit — the outcome
+dialog's one action currently reads "Back to the sixteen exams", and #25 replaces its destination.
+**#26** (auto-submit and lazy finalisation) is then the last of the fourteen: it supersedes both the
+clock's freeze and the manual submit an expired sitting currently needs, and it owns restoring
+position on resume.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
@@ -164,11 +198,11 @@ Of the three things #21 left, one is closed and two stand:
   the 390px the prototype is drawn at, six at 375px. Re-measured at 375 during #22: still six. The
   column count gives way so the 44px target never does. A divergence, chosen, not an oversight.
 
-**#22 left one thing named, so it is not assumed done:** the last acceptance criterion says reaching
-zero "routes to the outcome". There is no outcome yet — #24 submits and #25 reviews — so the sitting
-**freezes in place** instead: 00:00 held in the critical band, input refused, and no navigation
-invented. Owner's call, taken deliberately. **#26 adds the destination**, and nothing here has to be
-undone to do it.
+**#22 left one thing named, and #24 has half-answered it.** The criterion said reaching zero "routes
+to the outcome". The sitting still **freezes in place** at 00:00 rather than navigating — but an
+expired sitting is no longer a dead end: Submit stays enabled, finalises it as `expired`, and shows
+the score. What is still missing is the *automatic* part, which is **#26**'s: today somebody has to
+press the button. Nothing here has to be undone to add it.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 

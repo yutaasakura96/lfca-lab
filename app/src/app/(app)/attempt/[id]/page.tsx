@@ -3,9 +3,10 @@ import { db } from '../../../../db/client.ts';
 import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
 import { getPaperQuestions } from '../../../../db/queries/paper.ts';
-import { deadlineOf } from '../../../../domain/clock.ts';
+import { deadlineOf, remainingToDeadline } from '../../../../domain/clock.ts';
 import type { RecordedState } from '../../../../domain/navigator.ts';
 import { passMark } from '../../../../domain/score.ts';
+import { outcomeOf, type SubmitOutcome } from '../../../../domain/submission.ts';
 import { Sitting } from '../../../../components/Sitting.tsx';
 import { requireSession } from '../../../../lib/session.ts';
 
@@ -66,6 +67,28 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
   // browser correct its own.
   const serverNow = new Date();
 
+  // A sitting that is already finalised opens on its score rather than on a
+  // question. Every write into it would be refused, so presenting it as
+  // answerable — with a countdown still running — would be the screen claiming
+  // something the server has already closed. The outcome is read from the row
+  // that recorded it; nothing is scored again here.
+  const finished: SubmitOutcome | null =
+    attempt.submittedAt === null || attempt.submitReason === null
+      ? null
+      : outcomeOf({
+          score: attempt.score,
+          questionCount: attempt.questionCount,
+          reason: attempt.submitReason,
+        });
+
+  // What the clock read at the moment it closed — the deadline measured against
+  // `submitted_at` rather than against now, so a page opened a day later shows
+  // the reading the sitting ended on rather than a large negative one.
+  const remainingAtClose =
+    attempt.submittedAt === null
+      ? null
+      : remainingToDeadline(deadlineOf(attempt), attempt.submittedAt);
+
   return (
     <div className="page page--sitting">
       <Sitting
@@ -76,6 +99,8 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
         serverNow={serverNow.toISOString()}
         questions={questions}
         initial={initial}
+        finished={finished}
+        remainingAtClose={remainingAtClose}
       />
     </div>
   );

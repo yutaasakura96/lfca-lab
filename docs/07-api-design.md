@@ -163,18 +163,42 @@ flagging — PRD §2).
 **Response `200`**
 
 ```json
-{ "submitted": true, "score": 52, "questionCount": 60, "passed": true, "passMark": 45 }
+{
+  "submitted": true, "score": 52, "questionCount": 60,
+  "passed": true, "passMark": 45, "percent": 86.7, "reason": "user"
+}
 ```
 
-For practice and domain mode: `{ "submitted": true, "score": null, "questionCount": 20 }` — those
-modes are not measured (PRD P1, D1).
+For practice and domain mode the four measured fields are null together:
+`{ "submitted": true, "score": null, "questionCount": 20, "passMark": null, "passed": null,
+"percent": null, "reason": "user" }` — those modes are not measured (PRD P1, D1).
+
+**`percent` and `reason` are two fields this section did not originally list**, added when it was
+built. `percent` because PRD E4 requires the score "as `n/60` **and a percentage**", and a
+percentage computed on the client would be a second place a displayed number is decided.
+`reason` because PRD E6 must not conflate finishing with running out of time, and the column that
+records the difference (doc 04 §5.1) is otherwise unreadable to the screen that reports it. Both are
+derived server-side from the row; neither is anything a client may send.
 
 **The concurrency contract.** Submission is one conditional update:
 
 ```sql
-UPDATE attempt SET submitted_at = now(), submit_reason = $reason, score = $score
+UPDATE attempt SET submitted_at = now(), submit_reason = $reason,
+  score = CASE WHEN $scored THEN (
+            SELECT count(*)::int FROM answer a
+            WHERE a.attempt_id = attempt.id AND a.is_correct
+          ) END
 WHERE id = $1 AND submitted_at IS NULL
 ```
+
+**The score is counted inside that statement rather than read first and written second**, which is a
+correction to this document rather than a refinement of it. A read-then-write leaves a window in
+which an answer commits between the two, and the update then finalises the sitting with a score that
+predates one of its own answers. Counting in the `UPDATE` decides the count and the `submitted_at`
+that stops further answers at one instant. What the count *means* — the mark, the verdict, the
+percentage — stays in `src/domain/score.ts`, and the integration suite runs that pure function over
+the same rows and requires the two to agree (doc 11 §1's oracle problem, answered as well as it can
+be).
 
 The caller that updates a row is the one that submitted. A caller that updates zero rows — the second
 click, the second tab — gets **`200`, not an error**, reading back the already-final result. PRD §5
@@ -184,6 +208,13 @@ created (doc 04 §5.2), so the flag does not depend on the order sittings are fi
 
 **Failures:** `401` · `404` · `409 outbox_pending` is **not** a server concern — the client blocks
 submit while its outbox is non-empty (doc 03 §7); the server has no way to know.
+
+**There is deliberately no `409 attempt_expired` here, and no `409 attempt_already_submitted`.**
+This is the one attempt-scoped write that loads its attempt through the *read* helper, because both
+of those refusals would be wrong: a second submit must be answered with the first one's score, and an
+expired sitting is precisely one that still needs finalising. The reason is read from the clock — a
+sitting past its deadline is recorded `expired` whoever pressed the button — never from the request,
+which has no body to say it in.
 
 ---
 

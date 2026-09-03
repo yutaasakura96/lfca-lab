@@ -2,10 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { buildNavigator, patch, stateFor, type RecordedState } from '../domain/navigator.ts';
-import { put, type WriteFailure } from '../lib/writes.ts';
+import { clockBand, formatRemaining } from '../domain/clock.ts';
+import type { SubmitOutcome } from '../domain/submission.ts';
+import { post, put, type WriteFailure } from '../lib/writes.ts';
 import { ExamBar } from './ExamBar.tsx';
 import { NavigatorRail } from './NavigatorRail.tsx';
 import { SittingQuestion, type SittingOption } from './SittingQuestion.tsx';
+import { SubmitDialog } from './SubmitDialog.tsx';
 import { useClock } from './use-clock.ts';
 import { useOutbox } from './use-outbox.ts';
 
@@ -34,6 +37,18 @@ export interface SittingProps {
   questions: PaperQuestion[];
   /** What the database holds, keyed by question id — one entry per question. */
   initial: Record<string, RecordedState>;
+  /**
+   * The score, when this sitting was already finalised before the page loaded —
+   * a reload after submitting, or a second tab. The sitting then opens showing
+   * its outcome rather than pretending to be answerable, which is what the
+   * server would refuse anyway.
+   */
+  finished: SubmitOutcome | null;
+  /**
+   * Seconds that were left when it closed, so the bar can hold the reading it
+   * had rather than counting down over a sitting that is already scored.
+   */
+  remainingAtClose: number | null;
 }
 
 /** The four keys the footer advertises. A legend without behaviour would be a lie. */
@@ -63,6 +78,8 @@ export function Sitting({
   serverNow,
   questions,
   initial,
+  finished,
+  remainingAtClose,
 }: SittingProps) {
   // Sorted once, so the array index and the navigator's own ordering cannot
   // drift apart. The query already orders by seq; this makes it not matter.
@@ -71,6 +88,20 @@ export function Sitting({
   const [currentSeq, setCurrentSeq] = useState(0);
   const [recorded, setRecorded] = useState(initial);
   const [failure, setFailure] = useState<WriteFailure | null>(null);
+
+  // Submitting is three states, not one flag: whether the dialog is open,
+  // whether the request is in the air, and what came back. They are kept apart
+  // because the dialog outlives the request — a failed submit leaves it open
+  // with the button back, and a successful one leaves it open showing the
+  // score.
+  // A sitting that arrives already finalised opens on its own outcome. There is
+  // nothing to confirm and nothing to answer; the dialog is the whole screen.
+  const [confirming, setConfirming] = useState(finished !== null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
+  const [outcome, setOutcome] = useState<SubmitOutcome | null>(finished);
+  /** Seconds left when the sitting closed. The clock holds this reading after. */
+  const [stoppedAt, setStoppedAt] = useState<number | null>(remainingAtClose);
 
   // What the server has actually confirmed, which is not what is on screen. A
   // rollback reads from here rather than from state, because state is the
@@ -91,6 +122,20 @@ export function Sitting({
 
   const question = paper[currentSeq];
   const model = buildNavigator(paper, recorded, currentSeq);
+
+  // Two ways a sitting stops taking answers, and they freeze the screen
+  // identically: the clock ran out, or it has been submitted. The server
+  // refuses either independently — `attempt_expired` and
+  // `attempt_already_submitted` — which is the actual guarantee. This is the
+  // courtesy that stops the screen offering an action the server would refuse.
+  const frozen = clock.expired || outcome !== null;
+
+  // Whether the clock is the *reason* it stopped taking answers. A sitting the
+  // candidate submitted with time to spare reads as expired to the resync —
+  // doc 07 §6 has it treat `submitted` exactly as it treats `expired` — and
+  // saying "your time has run out" over a sitting somebody chose to end would
+  // be the wrong explanation for the right state.
+  const ranOut = clock.expired && outcome?.reason !== 'user';
 
   /**
    * Put the countdown back on the server's clock.
@@ -231,7 +276,7 @@ export function Sitting({
   }
 
   function answerQuestion(questionId: string, optionRef: string | null) {
-    if (clock.expired) return;
+    if (frozen) return;
     void commit(
       questionId,
       'answer',
@@ -241,7 +286,7 @@ export function Sitting({
   }
 
   function flagQuestion(questionId: string, flagged: boolean) {
-    if (clock.expired) return;
+    if (frozen) return;
     void commit(
       questionId,
       'flag',
@@ -255,6 +300,47 @@ export function Sitting({
     setCurrentSeq(seq);
   }
 
+  /**
+   * Finalise the sitting.
+   *
+   * Deliberately **not** put through the outbox, though every other write here
+   * is. The outbox exists to keep trying without being asked, and a submit that
+   * retried itself would go on finalising a sitting somebody had walked away
+   * from. A failure says so and offers the button again — doc 10 §5's error
+   * state, whose first job is to say that the answers are safe, because they
+   * are: every one of them was durable when it was made.
+   *
+   * A double submit is not defended against here beyond the in-flight guard.
+   * It does not need to be: the endpoint answers the second caller with the
+   * first one's score (doc 07 §5), so the worst a second press can do is show
+   * the same number again.
+   */
+  async function submit() {
+    if (submitting || outcome !== null) return;
+    // Doc 03 §7: never while anything is owed. The button is already disabled;
+    // this is the same rule stated where it cannot be got round.
+    if (outbox.pending > 0) return;
+
+    setSubmitting(true);
+    setSubmitFailed(false);
+
+    const result = await post<SubmitOutcome>(`/api/attempt/${attemptId}/submit`);
+
+    setSubmitting(false);
+    if (result.ok) {
+      // The countdown is pinned at the instant the sitting closed. It is still
+      // derived from the deadline — nothing here can move that — but a sitting
+      // that is already scored has no time left to count, and a bar going on
+      // counting behind the score would be saying otherwise.
+      setStoppedAt(clock.remaining);
+      setOutcome(result.data);
+      return;
+    }
+    // The sitting is untouched — no navigation, no lost answers, and the dialog
+    // stays where it is.
+    setSubmitFailed(true);
+  }
+
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       // Never steal a keystroke from something being typed into, and never from
@@ -265,12 +351,17 @@ export function Sitting({
         return;
       }
       if (question === undefined) return;
+      // The dialog is modal, and it owns the keyboard while it is open — its
+      // own Escape included. Answering a question you cannot see, from behind a
+      // confirmation asking whether you are finished, is the one keystroke this
+      // screen must not accept.
+      if (confirming) return;
 
       // Past the deadline the arrows still move — the paper is readable, and
       // there is nothing to protect about looking at it. `1`–`4` and `F` are
       // refused here as well as in the handlers they call, so a held key
       // cannot spend the whole sitting posting writes the server will refuse.
-      const choice = clock.expired ? -1 : CHOICE_KEYS.indexOf(event.key);
+      const choice = frozen ? -1 : CHOICE_KEYS.indexOf(event.key);
       if (choice !== -1) {
         const option = question.options[choice];
         if (option) {
@@ -279,7 +370,7 @@ export function Sitting({
         }
         return;
       }
-      if (!clock.expired && (event.key === 'f' || event.key === 'F')) {
+      if (!frozen && (event.key === 'f' || event.key === 'F')) {
         event.preventDefault();
         flagQuestion(question.id, !stateFor(recorded, question.id).flagged);
         return;
@@ -313,11 +404,37 @@ export function Sitting({
         model={model}
         total={paper.length}
         currentNumber={currentSeq + 1}
-        band={clock.band}
-        display={clock.display}
+        band={stoppedAt === null ? clock.band : clockBand(stoppedAt)}
+        display={stoppedAt === null ? clock.display : formatRemaining(stoppedAt)}
         retrying={outbox.retrying}
+        unsaved={outbox.pending}
+        submitting={submitting}
+        submitted={outcome !== null}
         onSelect={goTo}
+        onSubmit={() => setConfirming(true)}
       />
+
+      {confirming ? (
+        <SubmitDialog
+          examNumber={examNumber}
+          tiles={model.tiles}
+          questionCount={paper.length}
+          timeLeft={stoppedAt === null ? clock.display : formatRemaining(stoppedAt)}
+          expired={ranOut}
+          outcome={outcome}
+          unsaved={outbox.pending}
+          retrying={outbox.retrying}
+          submitting={submitting}
+          failed={submitFailed}
+          onJump={(seq) => {
+            goTo(seq);
+            // You opened the review to get somewhere, not to read it twice.
+            setConfirming(false);
+          }}
+          onSubmit={() => void submit()}
+          onKeepWorking={() => setConfirming(false)}
+        />
+      ) : null}
 
       <div className="sitting">
         <div className="card" style={{ padding: 'var(--space-6)' }}>
@@ -328,7 +445,8 @@ export function Sitting({
             answer={current.optionRef}
             flagged={current.flagged}
             failure={failure}
-            expired={clock.expired}
+            expired={ranOut}
+            locked={frozen}
             onAnswer={(optionRef) => answerQuestion(question.id, optionRef)}
             onFlag={(flagged) => flagQuestion(question.id, flagged)}
             onPrevious={() => goTo(currentSeq - 1)}
