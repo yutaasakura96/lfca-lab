@@ -460,3 +460,157 @@ a.btn { text-decoration: none; }
   .jumps { flex-wrap: nowrap; overflow-x: auto; }
   .jumps > * { flex: 0 0 auto; }
 }
+
+/* ------------------------------------------------------------
+   The review.
+
+   Transcribed from design/parts/Review.part and ReviewPhone.part, whose
+   artboard-local CSS is where these rules live in the prototype. Values are the
+   prototype's, unchanged; every one resolves to a token.
+
+   Source: design/parts/Review.part, design/parts/ReviewPhone.part
+   ------------------------------------------------------------ */
+
+/* Like the sitting, the review is wider than the 1120px default: it carries a
+   rail beside a column whose prose measure is fixed at 68ch. */
+.page--review { max-width: 1440px; }
+
+.review {
+  display: grid;
+  grid-template-columns: 1fr 470px;
+  gap: var(--space-6);
+  align-items: start;
+  margin-top: var(--space-6);
+}
+/* A grid item's `min-width` defaults to its content's, which a 68ch measure
+   would then refuse to go below. Same fix as the sitting. */
+.review > * { min-width: 0; }
+
+.reviewrail { position: sticky; top: var(--space-5); }
+
+.result { display: grid; grid-template-columns: 300px 1fr; gap: var(--space-7); padding: var(--space-6); }
+.bigscore {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--text-3xl); font-weight: var(--weight-medium);
+  line-height: var(--leading-tight); letter-spacing: var(--tracking-display);
+}
+
+.passbar {
+  position: relative; height: var(--meter-h-lg);
+  border-radius: var(--radius-pill);
+  background: var(--surface-inset); border: 1px solid var(--line-subtle);
+}
+.passbar__fill {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  border-radius: var(--radius-pill); background: var(--incorrect-solid);
+}
+/* The prototype's bar is drawn on a failing sitting, so its fill is the
+   incorrect family throughout. A passing one is the correct family — the same
+   swap doc 05 §2.3 exists to make, and the verdict chip beside it says which in
+   words. */
+.passbar__fill--pass { background: var(--correct-solid); }
+.passbar__tick {
+  position: absolute; top: calc(var(--space-2) * -1); bottom: calc(var(--space-2) * -1);
+  width: var(--space-0); background: var(--ink-primary);
+}
+.passbar__label {
+  position: absolute; top: -26px; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: var(--text-2xs);
+  color: var(--ink-primary); white-space: nowrap;
+}
+
+.dgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-6); }
+.dcell {
+  display: grid; grid-template-columns: 1fr 74px; gap: var(--space-3);
+  align-items: center; padding: var(--space-3) 0;
+  border-top: 1px solid var(--line-subtle);
+}
+
+.filters { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.filter {
+  height: var(--control-h-md); padding: 0 var(--space-4);
+  border-radius: var(--radius-pill); border: 1px solid var(--line-control);
+  background: var(--surface-raised); color: var(--ink-secondary);
+  font-size: var(--text-sm); font-weight: var(--weight-medium);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+}
+.filter--on { background: var(--incorrect-solid); border-color: var(--incorrect-solid); color: var(--incorrect-on-solid); }
+
+.qcard { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
+.qcard__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-5);
+  padding-bottom: var(--space-4); border-bottom: 1px solid var(--line-subtle);
+}
+/* Doc 05 §8's unanswered treatment applied to the whole card: dashed, no fill,
+   and deliberately no hue of its own. It is what makes a blank legible as a
+   blank at a glance and in greyscale, rather than as another red card. */
+.qcard--blank { border-style: var(--unanswered-border-style); border-color: var(--line-control); }
+.blanknote {
+  margin: 0; padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line-control); border-style: var(--unanswered-border-style);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm); color: var(--ink-secondary);
+  max-width: var(--measure-ui);
+}
+.concept { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--ink-muted); word-break: break-all; }
+
+/* An anchor target under no sticky bar still wants room to breathe above it. */
+.qcard { scroll-margin-top: var(--space-5); }
+
+.emptyfilter {
+  margin: 0; padding: var(--space-7) var(--space-5);
+  text-align: center; color: var(--ink-muted); font-size: var(--text-sm);
+}
+
+/* The filter, in one place. Every card stays in the document; a hidden one is
+   removed from the accessibility tree along with the layout, which is what
+   `display: none` is for and `visibility` is not. */
+.qlist[data-filter='incorrect'] > .qcard[data-verdict='correct'] { display: none; }
+.qlist[data-filter='correct']   > .qcard:not([data-verdict='correct']) { display: none; }
+.qlist[data-filter='flagged']   > .qcard:not([data-flagged='true']) { display: none; }
+
+/* A rail tile is a control here, as it is in the navigator: it moves you to a
+   question. The prototype draws it as a div, so the button styling is undone
+   the same way `.tile` is undone for the sitting. */
+.reviewrail button.tile { appearance: none; -webkit-appearance: none; font: inherit; padding: 0; }
+.reviewrail .grid60 { grid-template-columns: repeat(10, var(--tile-size)); }
+
+@media (max-width: 1100px), (pointer: coarse) {
+  /* Doc 10 §8 drops the rail entirely on a phone rather than reflowing it. Its
+     Score / Needed / Gap are not lost: the big numeral is the score, the pass
+     bar is labelled with what was needed, and the verdict chip states the gap
+     in words. */
+  .review { grid-template-columns: 1fr; }
+  .reviewrail { display: none; }
+}
+
+@media (max-width: 720px) {
+  .result { grid-template-columns: 1fr; gap: var(--space-5); }
+  .dgrid { grid-template-columns: 1fr; }
+  .qcard { padding: var(--space-4); gap: var(--space-4); }
+  /* The head stacks rather than shrinking: the flagged chip is the half that
+     would otherwise be clipped, and it is the one carrying information. */
+  .qcard__head { flex-wrap: wrap; gap: var(--space-3); }
+
+  /* Doc 10 §8's phone treatment: the chips become a horizontal scroller at a
+     44px target rather than wrapping to three rows. */
+  .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: var(--space-1); }
+  .filter { height: var(--control-h-lg); min-height: 44px; white-space: nowrap; flex: none; }
+  .filterrow { gap: var(--space-3); }
+
+  /* Prose stays at 17px/1.65 — doc 05 §3 is explicit that the layout gives way
+     and the reading spec does not. So the layout gives way: the option row's
+     side padding drops one step on the scale, which is the only width left to
+     reclaim without changing the row's anatomy.
+
+     **Doc 10 §8 says the measure is "naturally ~40ch at this width". It is
+     not.** Its own phone artboard keeps the 28px key column and `--space-4`
+     padding inside a `--space-4` card inside a `--space-4` page, which leaves
+     about 27ch at 390px and less at 375. Measured here at 375 after this rule:
+     about 26ch on the option text. The sentence in doc 10 describes an
+     intention its artboard does not draw, and matching the artboard is the
+     right call — the alternative is restructuring the option row for one
+     breakpoint, against the drawing that specifies it. */
+  .qcard .opt { padding-left: var(--space-3); padding-right: var(--space-3); }
+  .qcard .opt__why { padding-left: var(--space-3); }
+}

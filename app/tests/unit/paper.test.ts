@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { orderOptionsForPaper, type AuthoredOption } from '../../src/domain/paper.ts';
+import {
+  layOutForPaper,
+  orderOptionsForPaper,
+  type AuthoredOption,
+} from '../../src/domain/paper.ts';
 
 const options: AuthoredOption[] = [
   { ref: 'o1', text: 'first', correct: false, position: 0 },
@@ -75,5 +79,33 @@ describe('refusing a question that cannot be laid out', () => {
 
     expect(() => orderOptionsForPaper(none, 0)).toThrow(/exactly one correct/);
     expect(() => orderOptionsForPaper(two, 0)).toThrow(/exactly one correct/);
+  });
+});
+
+describe('laying a question out for the review', () => {
+  // The review shows the same paper the candidate sat, with correctness and the
+  // `why` for all four options. It has to place them in the identical order, or
+  // the letter beside "Your answer" would name an option the candidate never
+  // pressed. The only way to guarantee that is for both to be the same
+  // placement, so this asserts they are.
+  const richer = options.map((o) => ({ ...o, why: `why ${o.ref}` }));
+
+  it('places options exactly where the sitting placed them', () => {
+    for (const slot of [0, 1, 2, 3]) {
+      expect(layOutForPaper(richer, slot).map((o) => o.ref), `slot ${slot}`).toEqual(
+        orderOptionsForPaper(options, slot).map((o) => o.ref),
+      );
+    }
+  });
+
+  it('keeps the fields the sitting deliberately strips', () => {
+    const laid = layOutForPaper(richer, 1);
+    expect(laid[1]).toMatchObject({ ref: 'o2', correct: true, why: 'why o2' });
+  });
+
+  it('refuses the same malformed input the sitting refuses', () => {
+    expect(() => layOutForPaper(richer.slice(0, 3), 0)).toThrow();
+    expect(() => layOutForPaper(richer, 4)).toThrow();
+    expect(() => layOutForPaper(richer.map((o) => ({ ...o, correct: false })), 0)).toThrow();
   });
 });

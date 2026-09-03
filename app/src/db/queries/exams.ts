@@ -25,6 +25,14 @@ export interface ExamListRow {
   firstAttemptScore: number | null;
   /** A sitting still in progress, if there is one — the paper offers to resume rather than restart. */
   openAttemptId: string | null;
+  /**
+   * The most recently finished sitting, if there is one — what "Review" opens.
+   *
+   * Most recent rather than best or first: the review is a reading of one
+   * sitting, and the one you most likely want back is the one you just did.
+   * Every sitting keeps its own URL, so nothing else is unreachable.
+   */
+  lastReviewableAttemptId: string | null;
 }
 
 /**
@@ -48,6 +56,7 @@ export async function listExams(db: Db, userId: string): Promise<ExamListRow[]> 
     best_score: number | null;
     first_attempt_score: number | null;
     open_attempt_id: string | null;
+    last_reviewable_attempt_id: string | null;
   }>(sql`
     SELECT
       e.id,
@@ -64,7 +73,16 @@ export async function listExams(db: Db, userId: string): Promise<ExamListRow[]> 
         WHERE o.user_id = ${userId} AND o.exam_id = e.id AND o.submitted_at IS NULL
         ORDER BY o.started_at ASC
         LIMIT 1
-      ) AS open_attempt_id
+      ) AS open_attempt_id,
+      (
+        -- The newest finished sitting. Newest here, oldest above: resuming
+        -- wants the sitting closest to expiring, and reviewing wants the one
+        -- just sat.
+        SELECT f.id FROM attempt f
+        WHERE f.user_id = ${userId} AND f.exam_id = e.id AND f.submitted_at IS NOT NULL
+        ORDER BY f.submitted_at DESC
+        LIMIT 1
+      ) AS last_reviewable_attempt_id
     FROM exam e
     LEFT JOIN attempt a ON a.exam_id = e.id AND a.user_id = ${userId}
     GROUP BY e.id, e.number, e.question_count
@@ -79,6 +97,7 @@ export async function listExams(db: Db, userId: string): Promise<ExamListRow[]> 
     bestScore: row.best_score,
     firstAttemptScore: row.first_attempt_score,
     openAttemptId: row.open_attempt_id,
+    lastReviewableAttemptId: row.last_reviewable_attempt_id,
   }));
 }
 

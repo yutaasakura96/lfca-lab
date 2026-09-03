@@ -416,6 +416,7 @@ export function Sitting({
 
       {confirming ? (
         <SubmitDialog
+          attemptId={attemptId}
           examNumber={examNumber}
           tiles={model.tiles}
           questionCount={paper.length}

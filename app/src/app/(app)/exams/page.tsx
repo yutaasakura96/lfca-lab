@@ -92,6 +92,19 @@ export default async function Exams() {
                     {attempted ? `${paper.attempts} attempt${paper.attempts === 1 ? '' : 's'}` : ''}
                   </span>
 
+                  {/* The ticket's criterion that the review is reachable again
+                      later, made true from the screen rather than only from a
+                      bookmark: a finished sitting is otherwise unreachable from
+                      here once it is no longer the open one. */}
+                  {paper.lastReviewableAttemptId === null ? null : (
+                    <Link
+                      className="btn btn--sm"
+                      href={{ pathname: `/attempt/${paper.lastReviewableAttemptId}/review` }}
+                    >
+                      Review
+                    </Link>
+                  )}
+
                   {paper.openAttemptId === null ? (
                     <StartExamButton
                       examId={paper.id}

@@ -44,6 +44,30 @@ export function orderOptionsForPaper(
   options: readonly AuthoredOption[],
   correctPosition: number,
 ): PresentedOption[] {
+  // Mapped down to ref and text — the stripping is here rather than at the
+  // caller so there is one place where the answer key stops travelling, and it
+  // is the same place that knows the answer.
+  return layOutForPaper(options, correctPosition).map(({ ref, text }) => ({ ref, text }));
+}
+
+/**
+ * The placement itself, keeping whatever the caller's options carry.
+ *
+ * Split out from {@link orderOptionsForPaper} for one reason: the review screen
+ * shows the same paper *with* correctness and the `why` for all four options,
+ * and it has to place them in the identical slots. A second implementation of
+ * this ordering would eventually disagree by one, and the symptom would be the
+ * review naming a letter the candidate never pressed — a wrong answer about
+ * what somebody did, on the screen they are there to learn from.
+ *
+ * So there is one placement and two projections of it. The sitting's projection
+ * is the one above, and it is still the only place correctness stops
+ * travelling: this function is deliberately not the export a page reaches for.
+ */
+export function layOutForPaper<T extends { correct: boolean; position: number }>(
+  options: readonly T[],
+  correctPosition: number,
+): T[] {
   if (options.length !== 4) {
     throw new Error(`A question has four options; got ${options.length}.`);
   }
@@ -58,15 +82,12 @@ export function orderOptionsForPaper(
   }
 
   const distractors = authored.filter((o) => !o.correct);
-  const laidOut: AuthoredOption[] = [];
+  const laidOut: T[] = [];
 
   for (let slot = 0; slot < 4; slot += 1) {
-    if (slot === correctPosition) laidOut.push(correct[0] as AuthoredOption);
-    else laidOut.push(distractors.shift() as AuthoredOption);
+    if (slot === correctPosition) laidOut.push(correct[0] as T);
+    else laidOut.push(distractors.shift() as T);
   }
 
-  // Mapped down to ref and text — the stripping is here rather than at the
-  // caller so there is one place where the answer key stops travelling, and it
-  // is the same place that knows the answer.
-  return laidOut.map(({ ref, text }) => ({ ref, text }));
+  return laidOut;
 }

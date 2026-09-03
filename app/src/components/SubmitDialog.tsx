@@ -9,6 +9,8 @@ import { reviewBeforeSubmit, type SubmitOutcome } from '../domain/submission.ts'
 const JUMPS_SHOWN = 8;
 
 export interface SubmitDialogProps {
+  /** Where the outcome's one action goes: this sitting's own review. */
+  attemptId: string;
   examNumber: string;
   tiles: NavigatorTile[];
   questionCount: number;
@@ -127,6 +129,7 @@ function Jumps({
  * time pressure.
  */
 export function SubmitDialog({
+  attemptId,
   examNumber,
   tiles,
   questionCount,
@@ -379,11 +382,17 @@ export function SubmitDialog({
         </div>
 
         <div className="dialog__actions">
-          {/* The review screen is the next slice's, and #22 set the precedent
-              for what to do meanwhile: name a destination that exists rather
-              than invent one. The exam list shows this score beside its
-              first-attempt number, which is the thing worth seeing next. */}
-          <Link className="btn btn--lg btn--primary" href="/exams">
+          {/* #25's whole inheritance from #24: this action's destination. The
+              number is here, but the reason for it — every question, what was
+              chosen, and the explanation for all four options — is one screen
+              away, and that screen is what the bank was written for. */}
+          <Link
+            className="btn btn--lg btn--primary"
+            href={{ pathname: `/attempt/${attemptId}/review` }}
+          >
+            See the full review
+          </Link>
+          <Link className="btn btn--lg" href="/exams">
             Back to the sixteen exams
           </Link>
         </div>
