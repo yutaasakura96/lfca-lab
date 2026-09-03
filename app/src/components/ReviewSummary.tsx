@@ -1,13 +1,16 @@
+import type { ReviewContext } from '../db/queries/review.ts';
 import {
   domainBreakdown,
   formatElapsed,
   passBar,
+  standingOf,
   verdictSummary,
   type ReviewedQuestion,
 } from '../domain/review.ts';
 import type { SubmitOutcome } from '../domain/submission.ts';
+import type { Domain } from '../domain/weights.ts';
 
-const DOMAIN_NAME: Readonly<Record<string, string>> = {
+const DOMAIN_NAME: Readonly<Record<Domain, string>> = {
   sysadmin: 'System Administration',
   cloud: 'Cloud Computing',
   linux: 'Linux Fundamentals',
@@ -23,9 +26,13 @@ export interface ReviewSummaryProps {
   elapsedSeconds: number;
   unanswered: number;
   flagged: number;
-  firstAttemptScore: number | null;
-  bestScore: number | null;
-  ordinal: number;
+  /**
+   * Where this sitting sits among the others, or `null` when it could not be
+   * read. Passed whole rather than unpacked into three props: they always
+   * travel together, and splitting them meant three `??` defaults at the call
+   * site, which is three places the fallback can drift.
+   */
+  context: ReviewContext | null;
 }
 
 /**
@@ -48,14 +55,13 @@ export function ReviewSummary({
   elapsedSeconds,
   unanswered,
   flagged,
-  firstAttemptScore,
-  bestScore,
-  ordinal,
+  context,
 }: ReviewSummaryProps) {
   const score = outcome.score ?? 0;
   const bar = passBar(score, outcome.questionCount);
   const verdict = verdictSummary(score, outcome.questionCount);
   const domains = domainBreakdown(questions);
+  const standing = standingOf(context?.ordinal ?? 1, context?.firstAttemptScore ?? null);
 
   return (
     <>
@@ -69,7 +75,11 @@ export function ReviewSummary({
           <div className="row" style={{ alignItems: 'baseline', gap: 'var(--space-3)' }}>
             <span className="bigscore">
               {score}
-              <span style={{ fontSize: 'var(--text-lg)', color: 'var(--ink-faint)' }}>
+              {/* `--ink-muted`, not `--ink-faint`. The prototype draws this
+                  denominator faint, but doc 05 §12 rule 11 forbids `--ink-faint`
+                  for text a user must read, and the denominator of a score is
+                  read — it is what makes the numeral beside it mean anything. */}
+              <span style={{ fontSize: 'var(--text-lg)', color: 'var(--ink-muted)' }}>
                 &thinsp;/&thinsp;{outcome.questionCount}
               </span>
             </span>
@@ -87,13 +97,18 @@ export function ReviewSummary({
             {/* The pair the whole project is arranged around. Best drifts to
                 100% by construction once re-sits are allowed; first-attempt does
                 not, and neither number means much shown alone. */}
-            {firstAttemptScore === null ? (
+            {standing === 'first-sitting' ? (
               <>This is the first sitting of this paper.</>
+            ) : standing === 'first-unfinalised' ? (
+              <>
+                An earlier sitting of this paper was never finished, so the first-attempt score is
+                still open. This was sitting <span className="mono">{context?.ordinal}</span>.
+              </>
             ) : (
               <>
-                First attempt <span className="mono">{firstAttemptScore}</span>. Best is now{' '}
-                <span className="mono">{bestScore ?? score}</span>. This was sitting{' '}
-                <span className="mono">{ordinal}</span>.
+                First attempt <span className="mono">{context?.firstAttemptScore}</span>. Best is
+                now <span className="mono">{context?.bestScore ?? score}</span>. This was sitting{' '}
+                <span className="mono">{context?.ordinal}</span>.
               </>
             )}
           </p>
@@ -119,7 +134,7 @@ export function ReviewSummary({
             </div>
           </div>
 
-          <div className="row statrow" style={{ gap: 'var(--space-7)', flexWrap: 'wrap' }}>
+          <div className="row" style={{ gap: 'var(--space-7)', flexWrap: 'wrap' }}>
             <Stat label="Time used" value={formatElapsed(elapsedSeconds)} />
             <Stat label="Left unanswered" value={String(unanswered)} />
             <Stat label="Flagged" value={String(flagged)} tone="var(--flagged-ink)" />
@@ -146,7 +161,7 @@ export function ReviewSummary({
               <div className="stack" style={{ gap: 'var(--space-2)' }}>
                 <div className="row" style={{ justifyContent: 'space-between', gap: 'var(--space-3)' }}>
                   <span style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--weight-medium)' }}>
-                    {DOMAIN_NAME[row.domain] ?? row.domain}
+                    {DOMAIN_NAME[row.domain]}
                   </span>
                   <span className="meta mono">{row.weightPercent}%</span>
                 </div>

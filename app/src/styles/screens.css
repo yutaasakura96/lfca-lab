@@ -514,7 +514,10 @@ a.btn { text-decoration: none; }
   width: var(--space-0); background: var(--ink-primary);
 }
 .passbar__label {
-  position: absolute; top: -26px; transform: translateX(-50%);
+  /* The prototype says -26px. Doc 05 §4 has no 26 on the scale and §12 rule 3
+     forbids a raw value where a token exists, so this is the neighbouring step.
+     Two pixels, and the label still clears the 14px track. */
+  position: absolute; top: calc(var(--space-5) * -1); transform: translateX(-50%);
   font-family: var(--font-mono); font-size: var(--text-2xs);
   color: var(--ink-primary); white-space: nowrap;
 }

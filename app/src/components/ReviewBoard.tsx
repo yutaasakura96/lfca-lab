@@ -4,10 +4,18 @@ import { useEffect, useState, type ReactNode } from 'react';
 import {
   DEFAULT_REVIEW_FILTER,
   REVIEW_FILTERS,
+  VERDICT_LABEL,
   type QuestionVerdict,
   type ReviewCounts,
   type ReviewFilter,
 } from '../domain/review.ts';
+
+/** The tile's fill, per verdict — the same three the card's head tile uses. */
+const TILE_MODIFIER: Readonly<Record<QuestionVerdict, string>> = {
+  correct: 'tile--correct',
+  incorrect: 'tile--incorrect',
+  unanswered: '',
+};
 
 /** One question as the rail draws it. Nothing about its content. */
 export interface ReviewTile {
@@ -45,8 +53,9 @@ const EMPTY_LABEL: Readonly<Record<ReviewFilter, string>> = {
 function FilterGlyph({ filter }: { filter: ReviewFilter }) {
   const common = {
     className: 'ico',
-    width: 13,
-    height: 13,
+    // 14, on doc 05 §12 rule 8's icon grid. The prototype draws these at 13.
+    width: 14,
+    height: 14,
     viewBox: '0 0 14 14',
     fill: 'none',
     stroke: 'currentColor',
@@ -186,21 +195,13 @@ export function ReviewBoard({
               <button
                 key={tile.number}
                 type="button"
-                className={[
-                  'tile',
-                  tile.verdict === 'correct'
-                    ? 'tile--correct'
-                    : tile.verdict === 'incorrect'
-                      ? 'tile--incorrect'
-                      : '',
-                  tile.flagged ? 'tile--flagged' : '',
-                ]
+                className={['tile', TILE_MODIFIER[tile.verdict], tile.flagged ? 'tile--flagged' : '']
                   .filter(Boolean)
                   .join(' ')}
                 onClick={() => jump(tile.number)}
-                aria-label={`Question ${tile.number}, ${
-                  tile.verdict === 'unanswered' ? 'not answered' : tile.verdict
-                }${tile.flagged ? ', flagged' : ''}`}
+                aria-label={`Question ${tile.number}, ${VERDICT_LABEL[tile.verdict]}${
+                  tile.flagged ? ', flagged' : ''
+                }`}
               >
                 {tile.number}
               </button>

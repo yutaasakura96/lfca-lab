@@ -115,6 +115,18 @@ export async function createAttempt(db: Db, input: NewAttempt): Promise<StartedA
   }
 }
 
+/**
+ * Whether a string could be an attempt id at all.
+ *
+ * Guarded before the query rather than after: a malformed id reaching Postgres
+ * raises a cast error rather than the honest "no such attempt", and a screen
+ * that turns a 500 into a not-found is doing it by accident. Shared so the
+ * three attempt-scoped readers cannot drift on what an id looks like.
+ */
+export function looksLikeAttemptId(value: string): boolean {
+  return /^[0-9a-f-]{36}$/i.test(value);
+}
+
 export interface AttemptRow {
   id: string;
   /** The column is a Postgres enum, so this is one of the four and not a free string. */
@@ -143,9 +155,7 @@ export async function getAttemptForUser(
   userId: string,
   attemptId: string,
 ): Promise<AttemptRow | null> {
-  // Guarded before the query: a malformed id would otherwise reach Postgres and
-  // raise a type error rather than the honest "no such attempt".
-  if (!/^[0-9a-f-]{36}$/i.test(attemptId)) return null;
+  if (!looksLikeAttemptId(attemptId)) return null;
 
   const result = await db.execute<{
     id: string;

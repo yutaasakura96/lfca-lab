@@ -763,3 +763,65 @@ every token change and invite hand-editing the generated file.
   never reached in that state — the same way doc 07 §6's `expired` status stops being reachable.
 - **Revisit if:** #26 lands, at which point doc 10 §6's disabled button becomes correct again because
   its premise is finally true.
+
+### [2026-09-04] The review is a route, and "Incorrect" on it means "did not earn the mark"
+- **Decision:** the review is a page at **`/attempt/[id]/review`**, not a state on the sitting. Its
+  filter row is doc 10 §8's — Incorrect · Correct · Flagged · All, opening on **Incorrect** — and
+  **"Incorrect" claims the blanks as well as the wrong answers**, so `correct + incorrect` always
+  sums to the paper. The card still labels a blank *not answered*.
+- **Context:** #24 left the outcome inside the submit dialog with one action reading "Back to the
+  sixteen exams", and the log entry of 2026-09-03 said #25 would replace that action. #25's first
+  acceptance criterion is "every question of the sitting appears, in the paper's order"; doc 10 §8's
+  is "default filter is Incorrect. Nobody opens this to admire the ones they got right."
+- **Alternatives considered:** the review as a state on `/attempt/[id]`, which would have satisfied
+  "reachable again later" only by re-entering the sitting, given #26 nowhere to land an
+  auto-submitted attempt, and made the review unlinkable. Defaulting the filter to **All**, which
+  reads the criterion literally at the cost of making the common question — what did I miss? — one
+  click of work. Leaving blanks out of Incorrect, so the chip's arithmetic matched its word.
+- **Reason:** a URL is what "reachable again later" means, and doc 03 §4 already named the path. On
+  the filter: a blank cost exactly what a wrong answer cost — the submit statement counts
+  `WHERE a.is_correct`, which counts neither `false` nor `null` — so excluding blanks would hide
+  misses from the default view of the screen that exists to show misses, and would leave
+  `correct + incorrect < 60` with nothing on screen explaining the gap. The grouping and the label
+  answer different questions, so they are allowed to differ.
+- **Consequence:** the submit dialog now offers **two** actions, "See the full review" beside the
+  retained "Back to the sixteen exams", rather than swapping the one. The exam list grew a **Review**
+  link per sat paper (`lastReviewableAttemptId`), because a finished sitting was otherwise
+  unreachable from any screen once it stopped being the open one — "reachable again later" would
+  have been true only by bookmark.
+- **Revisit if:** practice and domain mode arrive, which review unscored sittings and cannot use a
+  pass mark, a verdict chip or this filter row unchanged.
+
+### [2026-09-04] What doc 10 §8 asks for that the data cannot answer
+- **Decision:** four elements of doc 10 §8 are **not** built, and none is deferred pending effort —
+  each is missing an input. The **"Why this is the answer"** sunken panel is dropped and the concept
+  id moves into the card head; **Slowest question** is dropped from the result-card stats; the
+  **study-guide** and **Drill this competency** links are dropped; **Retake in practice mode** is
+  dropped. The **rail** is still dropped whole on a touch layout, as §8 says, but its Score / Needed
+  / Gap do **not** move into the result card.
+- **Alternatives considered:** keeping the sunken panel with only the concept id in it, or repeating
+  the correct option's `why` inside it as the "main rationale". Adding a per-question timing column
+  to make Slowest question computable.
+- **Reason:** the bank has no rationale field separate from the per-option `why`, and that text is
+  already shown in the correct option's own row — repeating it would print the same paragraph twice
+  per card, sixty times, on the screen the ticket calls the longest reading in the product. A panel
+  headed "Why this is the answer" containing one mono id is a heading that lies, and renaming it
+  invents a component doc 05 does not have. The study guide stays outside the app by standing
+  decision and drills are not in the app's v1, so both links would point nowhere. Practice mode is
+  outside feature 3. **Slowest question has no data at all**: `answer.answered_at` is set once, on
+  the first answer, and deliberately not advanced when the answer changes, because
+  least-recently-seen selection reads it — so nothing records how long a question took, and adding a
+  column for one stat is a schema change belonging to whoever wants it. On the rail: nothing needs to
+  move, because the big numeral **is** the score, the pass bar is labelled `Pass · 45` — which is
+  Needed — and the verdict chip states the gap in words ("4 short of the pass mark").
+- **Consequence:** two further measured divergences, recorded rather than left in a comment. **Time
+  used is capped at the sitting's own limit**: an expired sitting is finalised whenever somebody next
+  presses the button, so `submitted_at - started_at` measures the gap until they came back — observed
+  at **25:01:20** on a ninety-minute paper before the cap. And **doc 10 §8's claim that the prose
+  measure is "naturally ~40ch" on a phone is wrong about its own artboard**: `ReviewPhone.part` keeps
+  the 28px key column and `--space-4` padding inside a `--space-4` card inside a `--space-4` page,
+  which leaves about 27ch at 390px. Measured here at 375px, after dropping the option row's side
+  padding one step on the scale: about 26ch. Doc 05 §3 forbids shrinking prose to fit, so the layout
+  gave way as far as the scale allows and the artboard's anatomy was kept.
+- **Revisit if:** a per-question timing column is ever added for another reason, or the study guide
+  is linked per concept — the log's 2026-08-28 entry names that as the first thing to reconsider.

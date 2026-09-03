@@ -131,9 +131,7 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
             elapsedSeconds={elapsedSeconds}
             unanswered={unanswered}
             flagged={counts.flagged}
-            firstAttemptScore={context?.firstAttemptScore ?? null}
-            bestScore={context?.bestScore ?? null}
-            ordinal={context?.ordinal ?? 1}
+            context={context}
           />
         }
       >

@@ -20,6 +20,7 @@
 
 import { sql } from 'drizzle-orm';
 import type { Db } from '../client.ts';
+import { looksLikeAttemptId } from './attempt.ts';
 import { layOutForPaper } from '../../domain/paper.ts';
 import type { Domain } from '../../domain/weights.ts';
 
@@ -102,7 +103,7 @@ export async function getReviewQuestions(
   userId: string,
   attemptId: string,
 ): Promise<ReviewQuestion[]> {
-  if (!/^[0-9a-f-]{36}$/i.test(attemptId)) return [];
+  if (!looksLikeAttemptId(attemptId)) return [];
 
   const result = await db.execute<ReviewRow>(sql`
     SELECT
@@ -180,7 +181,7 @@ export async function getReviewContext(
   userId: string,
   attemptId: string,
 ): Promise<ReviewContext | null> {
-  if (!/^[0-9a-f-]{36}$/i.test(attemptId)) return null;
+  if (!looksLikeAttemptId(attemptId)) return null;
 
   const result = await db.execute<{
     ordinal: number;

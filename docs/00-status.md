@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-03
+**Updated:** 2026-09-04
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -54,7 +54,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   responsive throughout, emulation-verified until there is a deploy; one Playwright run that signs in
   by inserting a session row rather than driving Google; the holdout sitting, practice and domain
   modes **out**.
-  **Closed so far: #15 #16 #17 #18 #19 #20 #21 #22 #23.** The Google OAuth client is provisioned
+  **Closed so far: #15 #16 #17 #18 #19 #20 #21 #22 #23 #24 #25.** The Google OAuth client is provisioned
   (`scripts/setup-google-oauth.sh`), the app shell carries `tokens.css` and `base.css` copied
   byte-for-byte with a test asserting it, sign-in works behind the allowlist, the sixteen papers list
   with both scores, a paper can be started and its first question rendered, and **that question can
@@ -176,17 +176,53 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   Try again." and the button back, the expired variant reading "Time expired" at 00:00, and both
   outcomes surviving a reload. At `grayscale(1)` the dashed panel, the flagged chip and the
   destructive action are still told apart.
-  Suites: 339 bank · 307 app unit · 76 app integration.
+  **The review landed** (#25). A finished sitting can be read back, and the reason for **all four**
+  options is on it — PRD E4's requirement, and the reason the bank was written the way it was. It is
+  a **route**, `/attempt/[id]/review`, which doc 03 §4 already named: that is what makes it reachable
+  again later rather than only in the moment after submitting, and it is where #26 lands a sitting
+  that expired while the tab was closed. The submit dialog now offers it beside the exam list, and
+  the exam list grew a **Review** link per sat paper — without one, a finished sitting was
+  unreachable from any screen once it stopped being the open one.
+  **The answer key travels through a new query, not a loosened one.** `getPaperQuestions` still
+  strips correctness and never selects `why`; `getAttemptAnswers` still never selects `is_correct`.
+  `getReviewQuestions` is the one query in the app that returns the key, it derives the paper from
+  the attempt rather than taking an `examId` beside it — so one paper's questions can never be paired
+  with another sitting's answers — and it reads the sitting's **own** recorded correctness rather
+  than today's bank (doc 04 §5.3), which an integration test proves by forcing the two to disagree.
+  Options are laid out by the **same** function the sitting uses: `layOutForPaper` was extracted from
+  `orderOptionsForPaper`, so there is one placement and two projections of it. A second
+  implementation would have drifted by a slot eventually, and the symptom would have been the review
+  naming a letter the candidate never pressed.
+  Sixty cards are **server-rendered**; the only client state on the screen is which filter is
+  selected, applied as one attribute that CSS reads. Doc 10 §8's default of **Incorrect** stands, and
+  **it claims the blanks too**, so `correct + incorrect` always sums to the paper and no miss is
+  hidden from the default view — while the card still says *not answered* rather than inventing a
+  choice. Both decisions are in the log (2026-09-04), along with the four elements of doc 10 §8 that
+  have no input to draw on.
+  Verified in the browser, both themes, at 1440 and 375, on the three real submitted sittings: every
+  question in paper order, the `why` for all four options with inline code rendered rather than raw
+  backticks, the unanswered card dashed and uncoloured, all four option states told apart at
+  `grayscale(1)`, the empty filter state on a 0/60 sitting, the rail tile jump resetting the filter
+  and landing on its card, and focus rings at 2px/2px offset on every filter and tile.
+  **Two defects the browser found and one the review did.** `why` and option text rendered literal
+  backticks — only the stem decoded them — so `BankText` came out of `Stem`. **Time used read
+  25:01:20 on a ninety-minute paper**, because an expired sitting is finalised whenever somebody next
+  presses the button; it is capped at the limit now. And the first-attempt line said "this is the
+  first sitting of this paper" whenever `firstAttemptScore` was null — which is exactly what an
+  **abandoned** first sitting looks like, against PRD §5. `standingOf` branches on the ordinal now
+  and says the first attempt is still open. That path becomes reachable the moment #26 lands.
+  Suites: 339 bank · 356 app unit · 90 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#25** (the review: every question, your answer, the
-correct one, and the `why` for all four options). #24 left it a single job to inherit — the outcome
-dialog's one action currently reads "Back to the sixteen exams", and #25 replaces its destination.
-**#26** (auto-submit and lazy finalisation) is then the last of the fourteen: it supersedes both the
-clock's freeze and the manual submit an expired sitting currently needs, and it owns restoring
-position on resume.
+**Feature 3 is mid-flight.** The frontier is **#26** (auto-submit and lazy finalisation), the last
+of the fourteen that this slice blocks on. It supersedes both the clock's freeze and the manual
+submit an expired sitting currently needs; it owns restoring position on resume; and it now has
+somewhere to land — `/attempt/[id]/review` exists. Two things in the tree are waiting for it: the
+review redirects an unfinalised sitting back to `/attempt/[id]`, which stops being the right answer
+once a read finalises it, and `GET /api/attempt/:id/state` still reports `expired` without writing.
+**#27** (re-sits) and **#28** (the Playwright run and the manual checklist) follow.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it

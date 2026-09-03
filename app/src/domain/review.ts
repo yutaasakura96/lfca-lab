@@ -27,6 +27,26 @@ import { DOMAINS, weightPercent, type Domain } from './weights.ts';
  */
 export type QuestionVerdict = 'correct' | 'incorrect' | 'unanswered';
 
+/**
+ * The three verdicts in words.
+ *
+ * The written state lives in this layer for the reason `navigator.ts` gives:
+ * colour, border style and a glyph carry it visually, and this is the same
+ * information for greyscale and for a screen reader. Held here rather than
+ * spelled out at each of the three call sites — the card's heading, the card's
+ * tile, and the rail tile's label — because three copies of a ternary over the
+ * same union is three chances for one of them to call a blank incorrect.
+ *
+ * A blank is **"not answered"**, never "incorrect", even though it is grouped
+ * with the misses and scored as one. The label and the grouping answer
+ * different questions.
+ */
+export const VERDICT_LABEL: Readonly<Record<QuestionVerdict, string>> = {
+  correct: 'correct',
+  incorrect: 'incorrect',
+  unanswered: 'not answered',
+};
+
 /** What the review needs to know about one question. Nothing about its content. */
 export interface ReviewedQuestion {
   domain: Domain;
@@ -144,6 +164,31 @@ export function domainBreakdown(questions: readonly ReviewedQuestion[]): DomainR
   }
 
   return rows;
+}
+
+/**
+ * Which of the three things there is to say about this sitting's place in the
+ * paper's history.
+ *
+ * `first-unfinalised` exists because of a bug this replaced. The obvious
+ * branch — "no first-attempt score, therefore this is the first sitting" — is
+ * wrong: `firstAttemptScore` is `max(score) WHERE is_first_attempt`, and an
+ * **abandoned** first sitting has no score at all. So reviewing sitting two
+ * after abandoning sitting one announced "this is the first sitting of this
+ * paper", against PRD §5's rule that an abandoned attempt *is* the first
+ * attempt. The ordinal is what actually knows, and the missing score is a
+ * separate thing worth saying rather than a reason to say the wrong thing.
+ *
+ * It becomes reachable the moment #26 lands lazy finalisation, and it is the
+ * one number this project exists to keep honest.
+ */
+export type Standing = 'first-sitting' | 'first-unfinalised' | 'settled';
+
+export function standingOf(ordinal: number, firstAttemptScore: number | null): Standing {
+  if (ordinal <= 1) return 'first-sitting';
+  // `=== null`, not falsy: a first attempt that scored 0 is a real and settled
+  // number, and collapsing it into "not finalised" would hide the worst one.
+  return firstAttemptScore === null ? 'first-unfinalised' : 'settled';
 }
 
 export interface PassBar {

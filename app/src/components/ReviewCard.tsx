@@ -1,5 +1,12 @@
 import type { ReviewQuestion } from '../db/queries/review.ts';
-import { OPTION_ROLE_LABEL, optionRole, verdictOf, type OptionRole } from '../domain/review.ts';
+import {
+  OPTION_ROLE_LABEL,
+  VERDICT_LABEL,
+  optionRole,
+  verdictOf,
+  type OptionRole,
+  type QuestionVerdict,
+} from '../domain/review.ts';
 import { BankText, Stem } from './Stem.tsx';
 
 /**
@@ -73,6 +80,26 @@ const ROLE_CLASS: Readonly<Record<OptionRole, string>> = {
   'not-correct': 'opt opt--muted',
 };
 
+/** The tile's fill, per verdict. Unanswered is the bare tile: dashed, no hue. */
+const TILE_MODIFIER: Readonly<Record<QuestionVerdict, string>> = {
+  correct: 'tile--correct',
+  incorrect: 'tile--incorrect',
+  unanswered: '',
+};
+
+/**
+ * The glyph the head tile carries.
+ *
+ * A blank gets the **dash**, not a cross. Its tile is already dashed and
+ * uncoloured; a cross on top would say the candidate got it wrong rather than
+ * that they never answered it.
+ */
+const VERDICT_GLYPH: Readonly<Record<QuestionVerdict, OptionRole>> = {
+  correct: 'correct',
+  incorrect: 'chosen-wrong',
+  unanswered: 'not-correct',
+};
+
 /**
  * One question of a finished sitting, with all four explanations.
  *
@@ -91,13 +118,7 @@ export function ReviewCard({ question }: { question: ReviewQuestion }) {
   const verdict = verdictOf(question);
   const number = question.seq + 1;
 
-  const tile =
-    verdict === 'correct'
-      ? 'tile tile--correct'
-      : verdict === 'incorrect'
-        ? 'tile tile--incorrect'
-        : // Unanswered is the bare tile: dashed, no fill, deliberately no hue.
-          'tile';
+  const tile = `tile ${TILE_MODIFIER[verdict]}`.trimEnd();
 
   return (
     <article
@@ -112,27 +133,11 @@ export function ReviewCard({ question }: { question: ReviewQuestion }) {
       <div className="qcard__head">
         <div className="row" style={{ gap: 'var(--space-4)' }}>
           <span className={question.flagged ? `${tile} tile--flagged` : tile} aria-hidden="true">
-            <Glyph
-              role={
-                verdict === 'correct'
-                  ? 'correct'
-                  : verdict === 'incorrect'
-                    ? 'chosen-wrong'
-                    : // A dash, not a cross. The tile is dashed and uncoloured
-                      // already; a cross on it would say the candidate got it
-                      // wrong rather than that they never answered.
-                      'not-correct'
-              }
-            />
+            <Glyph role={VERDICT_GLYPH[verdict]} />
           </span>
           <span className="stack" style={{ gap: 'var(--space-0)' }}>
             <span className="eyebrow" id={`q${number}-label`}>
-              Question {number} &middot;{' '}
-              {verdict === 'correct'
-                ? 'correct'
-                : verdict === 'incorrect'
-                  ? 'incorrect'
-                  : 'not answered'}
+              Question {number} &middot; {VERDICT_LABEL[verdict]}
             </span>
             <span className="meta">
               {question.competency} &middot; {question.type}

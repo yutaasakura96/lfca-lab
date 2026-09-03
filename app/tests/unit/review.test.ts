@@ -2,12 +2,14 @@ import { describe, expect, it } from 'vitest';
 import {
   OPTION_ROLE_LABEL,
   REVIEW_FILTERS,
+  VERDICT_LABEL,
   countByFilter,
   domainBreakdown,
   formatElapsed,
   matchesFilter,
   optionRole,
   passBar,
+  standingOf,
   timeUsedSeconds,
   verdictOf,
   verdictSummary,
@@ -249,5 +251,46 @@ describe('how long the sitting was sat', () => {
 
   it('never reads negative', () => {
     expect(timeUsedSeconds(at(10), start, 5400)).toBe(0);
+  });
+});
+
+describe('where this sitting stands among the others', () => {
+  it('says so plainly when this is the first sitting', () => {
+    expect(standingOf(1, null)).toBe('first-sitting');
+  });
+
+  it('does not claim to be first merely because no first score exists yet', () => {
+    // The bug this function was extracted for. `firstAttemptScore` is
+    // `max(score) WHERE is_first_attempt`, and an abandoned first sitting has
+    // no score — so branching on it alone made sitting 2 announce itself as
+    // the first. PRD §5 is explicit that an abandoned attempt *is* the first
+    // attempt, and this is the one number the project exists to keep honest.
+    expect(standingOf(2, null)).toBe('first-unfinalised');
+  });
+
+  it('reports a settled pair once the first sitting has a score', () => {
+    expect(standingOf(2, 38)).toBe('settled');
+    expect(standingOf(9, 0)).toBe('settled');
+  });
+
+  it('treats a zero first-attempt score as a score, not as absent', () => {
+    // `0` is a real and different thing from "not finalised", and the two must
+    // not collapse through a falsy test.
+    expect(standingOf(3, 0)).toBe('settled');
+  });
+});
+
+describe('a question verdict in words', () => {
+  it('has wording for all three, so greyscale and a screen reader lose nothing', () => {
+    expect(VERDICT_LABEL.correct).toBe('correct');
+    expect(VERDICT_LABEL.incorrect).toBe('incorrect');
+    expect(VERDICT_LABEL.unanswered).toBe('not answered');
+  });
+
+  it('never calls a blank incorrect, whatever it scored as', () => {
+    // The card's label and the filter's grouping answer different questions:
+    // a blank is grouped with the misses because it cost a mark, and labelled
+    // "not answered" because that is what happened.
+    expect(VERDICT_LABEL.unanswered).not.toContain('incorrect');
   });
 });
