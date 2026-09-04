@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildNavigator,
   patch,
+  resumeSeq,
   stateFor,
   UNANSWERED,
   type NavigatorQuestion,
@@ -230,5 +231,64 @@ describe('every state is written out in words', () => {
   it('says which one is current', () => {
     expect(tiles[0]?.label).toMatch(/current/i);
     expect(tiles[1]?.label).not.toMatch(/current/i);
+  });
+});
+
+describe('resumeSeq', () => {
+  const at = (iso: string) => new Date(iso);
+
+  it('opens on question 1 when nothing has been touched', () => {
+    expect(resumeSeq(paper(60), [])).toBe(0);
+  });
+
+  it('returns to the question touched most recently, not the furthest reached', () => {
+    // Answered question 40, then went back and changed question 12. The
+    // sitting was left on 12, so that is where it resumes.
+    const seq = resumeSeq(paper(60), [
+      { questionId: 'q.39', updatedAt: at('2026-09-04T10:00:00Z') },
+      { questionId: 'q.11', updatedAt: at('2026-09-04T10:05:00Z') },
+    ]);
+    expect(seq).toBe(11);
+  });
+
+  it('counts a flag as a touch, since flagging is engaging with the question', () => {
+    // The row for a flagged-but-unanswered question exists precisely so the
+    // flag has somewhere to live (doc 04 §6), and it is written when the flag
+    // is set — so it dates the moment that question was last looked at.
+    expect(resumeSeq(paper(60), [{ questionId: 'q.6', updatedAt: at('2026-09-04T10:00:00Z') }])).toBe(
+      6,
+    );
+  });
+
+  it('ignores rows for questions this paper does not ask', () => {
+    // Answers are already scoped to one attempt, so a stray row should not
+    // arise — but resuming onto a question that is not on the paper would be a
+    // position the navigator refuses to build.
+    const seq = resumeSeq(paper(60), [
+      { questionId: 'q.2', updatedAt: at('2026-09-04T10:00:00Z') },
+      { questionId: 'q.not-on-this-paper', updatedAt: at('2026-09-04T11:00:00Z') },
+    ]);
+    expect(seq).toBe(2);
+  });
+
+  it('breaks a tie by taking the later question', () => {
+    const seq = resumeSeq(paper(60), [
+      { questionId: 'q.4', updatedAt: at('2026-09-04T10:00:00Z') },
+      { questionId: 'q.8', updatedAt: at('2026-09-04T10:00:00Z') },
+    ]);
+    expect(seq).toBe(8);
+  });
+
+  it('always returns a position the navigator will accept', () => {
+    const questions = paper(60);
+    const seq = resumeSeq(questions, [
+      { questionId: 'q.59', updatedAt: at('2026-09-04T10:00:00Z') },
+    ]);
+    expect(seq).toBe(59);
+    expect(() => buildNavigator(questions, {}, seq)).not.toThrow();
+  });
+
+  it('returns 0 for an empty paper rather than -1', () => {
+    expect(resumeSeq([], [{ questionId: 'q.0', updatedAt: at('2026-09-04T10:00:00Z') }])).toBe(0);
   });
 });

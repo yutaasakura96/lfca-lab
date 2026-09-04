@@ -24,6 +24,17 @@ export interface ExamBarProps {
   /** The submit request is in flight, or the sitting is already finalised. */
   submitting: boolean;
   submitted: boolean;
+  /**
+   * The clock has run out and the sitting is closing itself.
+   *
+   * Doc 10 §6 disables Submit on an expired sitting, and that is finally
+   * correct: its premise — that the sitting was submitted automatically — is
+   * what auto-submit provides. Before it existed the button had to stay
+   * enabled, or an expired sitting would have been permanently unfinishable.
+   * Now the dialog owns the retry, so a disabled button here offers nothing
+   * that is missing.
+   */
+  expired: boolean;
   onSelect: (seq: number) => void;
   onSubmit: () => void;
 }
@@ -64,6 +75,7 @@ export function ExamBar({
   unsaved,
   submitting,
   submitted,
+  expired,
   onSelect,
   onSubmit,
 }: ExamBarProps) {
@@ -130,7 +142,7 @@ export function ExamBar({
         <button
           type="button"
           className="btn btn--primary"
-          disabled={submitting || submitted || unsaved > 0}
+          disabled={submitting || submitted || expired || unsaved > 0}
           onClick={onSubmit}
         >
           {/* Doc 03 §8: the existing disabled tokens and a changed label, no
@@ -139,11 +151,13 @@ export function ExamBar({
               the sitting itself being scored. */}
           {submitted
             ? 'Submitted'
-            : submitting
-              ? 'Scoring…'
-              : unsaved > 0
-                ? 'Saving…'
-                : 'Submit exam'}
+            : expired
+              ? 'Time expired'
+              : submitting
+                ? 'Scoring…'
+                : unsaved > 0
+                  ? 'Saving…'
+                  : 'Submit exam'}
         </button>
       </div>
 

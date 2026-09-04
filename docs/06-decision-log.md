@@ -825,3 +825,67 @@ every token change and invite hand-editing the generated file.
   gave way as far as the scale allows and the artboard's anatomy was kept.
 - **Revisit if:** a per-question timing column is ever added for another reason, or the study guide
   is linked per concept — the log's 2026-08-28 entry names that as the first thing to reconsider.
+
+### [2026-09-04] Lazy finalisation happens on four touches, and resume position is derived
+- **Decision:** an expired sitting is closed by **whichever read reaches it first** — opening
+  `/attempt/[id]`, opening its review, a resync through `GET /api/attempt/:id/state`, or **listing the
+  sixteen papers**. All four go through one helper, `src/lib/auto-submit.ts`, which calls
+  `submitAttempt` — the same conditional `UPDATE` a manual submit uses, with the score counted inside
+  the statement. With the tab open, the countdown reaching zero submits the sitting itself and the
+  dialog becomes doc 10 §6's screen. **Resume position is derived from the answers** —
+  `resumeSeq` opens on the question whose row was written most recently — rather than stored in a
+  column.
+- **Context:** doc 03 §6 says an expired attempt is finalised "the next time it is touched — opened,
+  answered against, or listed", and doc 07 §6 says the resync is where "90 minutes elapsed while the
+  tab was closed" is implemented. Both were written before there was a submit path to reuse. PRD E5
+  additionally wants position restored, and #21 left that outstanding because there was nowhere to
+  put it.
+- **Alternatives considered.** *For finalisation:* leaving the exam list out, so only opening a
+  sitting closes it — rejected because an abandoned sitting would go on offering to be resumed on the
+  list, and its first-attempt score would go on reading as absent, on the one screen that exists to
+  show the honest number. Also considered finalising in the **answer** write path, which doc 03 §6's
+  wording includes: rejected as reachable only through a client that resyncs anyway, and it would
+  turn a refusal into a refusal-plus-a-write for no visible gain. *For position:* a `resume_seq`
+  column with a `PUT` on every arrow press — exact, and it restores a question you looked at without
+  answering, which the derived version cannot. Rejected for a migration on the table holding the
+  first-attempt scores, a seventh route handler, and a write on the hot path recording something
+  whose loss costs nothing. Also considered `localStorage`, rejected because it is per-browser and
+  doc 03 §5 keeps the theme as the only client state that outlives a page load.
+- **Reason:** one helper over one statement means the score, the reason and the first-attempt flag
+  cannot be decided two ways. On position: `answer.updated_at` already moves on every answer *and*
+  every flag, so the record of attention exists and is written anyway — a second write would be a
+  second thing to keep in step with it. The named limit is that a question looked at and left blank
+  leaves no row, so walking forward without answering and reloading returns to the last question
+  actually touched.
+- **Consequence:** three earlier entries are superseded, each exactly as it said it would be.
+  **The clock's freeze (2026-09-02)** gains its destination — at zero the sitting submits itself,
+  and the dialog reports it. **Submit enabled on an expired sitting (2026-09-03)** is reversed: doc
+  10 §6's disabled button is correct again, because its premise — that the sitting was submitted
+  automatically — is finally true, and the retry after a failed auto-submit lives in the dialog
+  rather than in the bar. **Doc 07 §6's `expired` status is gone rather than changed**: the read
+  that would have returned it now closes the attempt first. On the same reasoning the expired dialog
+  drops its jump rows and its cancel — doc 10 §6 says there is no way out, and a jump would close
+  the dialog holding the only retry. The review page no longer bounces an unfinalised sitting back
+  to the paper unless its clock is genuinely still running.
+- **Three divergences from doc 10 §6, recorded rather than left in a comment.** The outcome carries
+  the blanks panel but **not** the four-cell tally: the score line and the panel already state what
+  it cost, and "Time used" would need the sitting's limit threaded into a dialog that has no other
+  use for it. The panel **lists at most 24 blank numbers** before saying how many more — a sitting
+  nobody was present for is sixty blanks, and sixty numerals is a wall rather than a reading; the
+  heading states the count, and the list is the detail. And the outcome keeps **two** actions where
+  §6 says one: "See the full review" beside "Back to the sixteen exams". §6's reason for forbidding
+  a second action is that it already happened and offering a way *out* would be a lie — neither of
+  these is a way out, both are onward, and dropping the second would make the expired outcome the
+  one screen in the app from which the exam list is two clicks away.
+- **And one from doc 03 §7, which is a behaviour rather than a layout.** §7 blocks submit "while
+  outbox non-empty", and an **automatic** submit does not wait. Past the deadline every owed write
+  is one the server now refuses with `attempt_expired`, so waiting would hold the sitting open for
+  answers that can never land — and would make a sitting whose last write failed permanently
+  unclosable by its own clock. Before the deadline the wait is exactly right and is untouched: it is
+  still what the button blocks on.
+- **The sweep is one statement per sitting, not one transaction.** Two expired sittings are two
+  independent finalisations; wrapping them together would mean a failure on the second undoing the
+  first, which is worse than closing one of the two.
+- **Revisit if:** a per-question timing column is ever added (it would make "Time used" and doc 10
+  §8's *Slowest question* free), or resume-to-an-unanswered-question turns out to matter in use — at
+  which point the column is the answer and this entry is the argument against it to re-read.

@@ -163,3 +163,64 @@ export function buildNavigator(
 
   return { tiles, answered, unanswered: tiles.length - answered, flagged };
 }
+
+/**
+ * One question this sitting has a row for, and when that row was last written.
+ *
+ * `updatedAt` moves on every change of answer *and* every change of flag (doc
+ * 04 §5.3), which is exactly what makes it a record of attention rather than of
+ * answering. `answeredAt` deliberately does not move on a later change, because
+ * least-recently-seen selection reads it — so it is the wrong column for this.
+ */
+export interface TouchedQuestion {
+  questionId: string;
+  updatedAt: Date;
+}
+
+/**
+ * Where a resumed sitting opens.
+ *
+ * PRD E5 wants to close the tab at question 40 and come back to question 40.
+ * There is no column recording which question was on screen, and this derives
+ * the answer instead: the question whose row was written most recently is the
+ * one last engaged with. **Nothing is stored and no write happens on
+ * navigation** — the position is a reading of the answers, which are written
+ * anyway.
+ *
+ * The honest limit, stated rather than hidden: a question looked at and left
+ * blank leaves no row, so walking forward past forty without answering and
+ * then reloading returns to the last question actually touched. That is a
+ * weaker guarantee than a stored position, and the alternative was a write on
+ * every arrow press to record something a lost copy of which costs nothing.
+ *
+ * Falls back to the first question — a fresh sitting has touched nothing, and
+ * that is the same case as an interrupted one that answered nothing.
+ */
+export function resumeSeq(
+  questions: readonly NavigatorQuestion[],
+  touched: readonly TouchedQuestion[],
+): number {
+  const seqOf = new Map(questions.map((question) => [question.id, question.seq]));
+
+  let best = 0;
+  let bestAt = -Infinity;
+
+  for (const row of touched) {
+    const seq = seqOf.get(row.questionId);
+    // A row for a question this paper does not ask cannot be resumed onto —
+    // `buildNavigator` would refuse the position — so it is skipped rather
+    // than clamped.
+    if (seq === undefined) continue;
+
+    const at = row.updatedAt.getTime();
+    // Ties take the later question. Two rows written in the same millisecond
+    // is not a real sequence, and moving forward is the better guess than
+    // moving back.
+    if (at > bestAt || (at === bestAt && seq > best)) {
+      best = seq;
+      bestAt = at;
+    }
+  }
+
+  return best;
+}

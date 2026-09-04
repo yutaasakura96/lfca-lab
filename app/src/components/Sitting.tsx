@@ -26,6 +26,14 @@ export interface SittingProps {
   examNumber: string;
   passMark: number;
   /**
+   * Which question the sitting opens on.
+   *
+   * Derived on the server from the answers rather than stored (PRD E5), so it
+   * is an ordinary read with nothing to keep in step — there is no write on
+   * navigation, and no column that could disagree with the answers.
+   */
+  initialSeq: number;
+  /**
    * The instant this sitting closes, absolute and server-issued, or `null` for
    * a sitting with no clock. The browser counts down to it and never sends it
    * back — and there is no path anywhere in this component that replaces it.
@@ -74,6 +82,7 @@ export function Sitting({
   attemptId,
   examNumber,
   passMark,
+  initialSeq,
   deadline,
   serverNow,
   questions,
@@ -85,7 +94,7 @@ export function Sitting({
   // drift apart. The query already orders by seq; this makes it not matter.
   const paper = useMemo(() => [...questions].sort((a, b) => a.seq - b.seq), [questions]);
 
-  const [currentSeq, setCurrentSeq] = useState(0);
+  const [currentSeq, setCurrentSeq] = useState(initialSeq);
   const [recorded, setRecorded] = useState(initial);
   const [failure, setFailure] = useState<WriteFailure | null>(null);
 
@@ -160,11 +169,10 @@ export function Sitting({
       if (!response.ok) return;
       const state = (await response.json()) as { status?: string; serverNow?: string };
       if (typeof state.serverNow !== 'string') return;
-      syncTo(
-        state.serverNow,
-        sentAt,
-        state.status === 'expired' || state.status === 'submitted',
-      );
+      // One value to check rather than two: the endpoint finalises an expired
+      // sitting before it answers, so `expired` is no longer something it can
+      // report (doc 07 §6). Either it is still in progress or it is over.
+      syncTo(state.serverNow, sentAt, state.status === 'submitted');
     } catch {
       // Offline, most likely. The next `online` event tries again.
     }
@@ -220,6 +228,34 @@ export function Sitting({
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
   }, [unsaved]);
+
+  /**
+   * The clock closing the sitting, without anybody pressing anything.
+   *
+   * This is the automatic half of PRD E1 — "at 00:00 the attempt auto-submits
+   * with whatever has been answered" — and the half #22 left named. It fires
+   * once, guarded by a ref rather than by state, because a re-render between
+   * deciding to submit and the request leaving would otherwise fire it again.
+   *
+   * `clock.expired` is true either because the countdown reached zero here or
+   * because a resync said the server considers it over — a tab that slept past
+   * the deadline learns it on wake, and both routes arrive at the same place.
+   * Landing on the dialog rather than navigating is doc 10 §6's screen: it
+   * says the sitting was submitted automatically, shows what it scored, and
+   * offers the review. A failed auto-submit leaves that dialog open with the
+   * retry, which is §6's own error state.
+   */
+  const expired = clock.expired;
+  const closedItself = useRef(false);
+  useEffect(() => {
+    if (!expired || outcome !== null || closedItself.current) return;
+    closedItself.current = true;
+    setConfirming(true);
+    void submit(true);
+    // `submit` is recreated every render and is deliberately not a dependency:
+    // the ref above is what makes this happen once, and listing it would make
+    // the effect re-run on every render without changing that.
+  }, [expired, outcome]);
 
   /**
    * One value that shows immediately and is written after.
@@ -314,12 +350,18 @@ export function Sitting({
    * It does not need to be: the endpoint answers the second caller with the
    * first one's score (doc 07 §5), so the worst a second press can do is show
    * the same number again.
+   *
+   * **`auto` is the clock pressing it.** The one difference it makes is the
+   * outbox: an automatic submit does not wait for owed writes, because past the
+   * deadline the server refuses every one of them anyway (`attempt_expired`) —
+   * waiting would only postpone the sitting's own closing for writes that can
+   * never land. Before the deadline the wait is exactly right and is kept.
    */
-  async function submit() {
+  async function submit(auto = false) {
     if (submitting || outcome !== null) return;
     // Doc 03 §7: never while anything is owed. The button is already disabled;
     // this is the same rule stated where it cannot be got round.
-    if (outbox.pending > 0) return;
+    if (!auto && outbox.pending > 0) return;
 
     setSubmitting(true);
     setSubmitFailed(false);
@@ -410,6 +452,7 @@ export function Sitting({
         unsaved={outbox.pending}
         submitting={submitting}
         submitted={outcome !== null}
+        expired={clock.expired}
         onSelect={goTo}
         onSubmit={() => setConfirming(true)}
       />

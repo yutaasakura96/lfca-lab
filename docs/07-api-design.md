@@ -235,25 +235,28 @@ client can re-derive the clock without a full page load.
 }
 ```
 
-`status` is `in_progress` | `expired` | `submitted`. `serverNow` lets the client measure clock skew
+`status` is `in_progress` | `submitted`. `serverNow` lets the client measure clock skew
 and apply it to its own countdown — the display is then correct even on a machine with a wrong clock,
 while the actual expiry stays server-side. It is measured **over the round trip**, not against the
 moment the reply landed, or the journey itself would be counted as skew and the countdown would read
 generously by exactly that much.
 
 When the server finds the attempt expired, this call **finalises it lazily** (doc 03 §6) and returns
-`status: "submitted"`; the client routes straight to review. This is the endpoint that implements
-"90 minutes elapsed while the tab was closed".
+`status: "submitted"`. This is the endpoint that implements "90 minutes elapsed while the tab was
+closed" for a tab that is still open — a laptop woken with the sitting in front of it resyncs on
+`focus`, learns the sitting is over, and shows what it scored where it stands. It does **not**
+navigate: doc 10 §6 makes the expired dialog the destination, and a redirect out from under someone
+who has just come back to the page would take the number away before they read it. The redirect to
+review belongs to the *page* read (`/attempt/[id]`), which is the arrival PRD E5 describes.
 
-**`expired` is the third value, and it exists because that finalisation is not built yet.** The
-lazy submit reuses the submit path, which belongs to a later slice; until then this endpoint reports
-the state honestly and **writes nothing**. An attempt that is past its deadline but not yet finalised
-is a real state — doc 03 §6 says so, and its score is already fully determined by its answer rows —
-and neither of the other two values describes it: `in_progress` would be false, and `submitted`
-would claim a row was written that was not. The client treats `expired` exactly as it treats
-`submitted`: stop accepting input. **When finalisation lands, `expired` stops being reachable**
-rather than changing meaning, because the same read that would return it will have submitted the
-attempt first. See the decision log, 2026-09-02.
+**There was a third value, `expired`, and it is gone rather than changed.** It existed only for the
+window in which this endpoint reported an expired sitting without closing one, because the lazy
+submit reuses the submit path and that path belonged to a later slice. That slice has landed: the
+same read that would have returned `expired` now finalises the attempt first, so there is no longer
+a moment at which the value is true on the way out of this handler. An attempt past its deadline
+that nothing has touched is still a real state in the database (doc 03 §6) — it simply cannot be
+observed through this endpoint, because observing it through this endpoint ends it. See the decision
+log, 2026-09-02 and 2026-09-04.
 
 ---
 

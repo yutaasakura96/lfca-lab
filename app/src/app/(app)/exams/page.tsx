@@ -4,6 +4,7 @@ import { db } from '../../../db/client.ts';
 import { listExams } from '../../../db/queries/exams.ts';
 import { summariseExams } from '../../../domain/exam-summary.ts';
 import { passMark } from '../../../domain/score.ts';
+import { finaliseExpiredSittings } from '../../../lib/auto-submit.ts';
 import { requireSession } from '../../../lib/session.ts';
 
 export const metadata = { title: 'Practice exams — LFCA Practice' };
@@ -13,9 +14,17 @@ export const metadata = { title: 'Practice exams — LFCA Practice' };
  *
  * A server component: the query runs here, and only the rendered figures cross
  * to the browser. Scores are read, never computed on the client.
+ *
+ * **Listing is a touch, so this is where an abandoned sitting is closed.** Doc
+ * 03 §6 names listing alongside opening and answering against; without it a
+ * sitting whose ninety minutes ran out unattended would go on offering to be
+ * resumed here, and its first-attempt score would go on reading as absent — on
+ * the one screen that exists to show the honest number. Ahead of the query
+ * rather than after it, so the rows this page renders are the finalised ones.
  */
 export default async function Exams() {
   const session = await requireSession('/exams');
+  await finaliseExpiredSittings(db, session.user.id, new Date());
   const papers = await listExams(db, session.user.id);
   const summary = summariseExams(papers);
 

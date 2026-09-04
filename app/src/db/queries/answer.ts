@@ -42,6 +42,15 @@ export interface AnswerState {
   questionId: string;
   optionRef: string | null;
   flagged: boolean;
+  /**
+   * When this row was last written — by an answer or by a flag.
+   *
+   * Carried so a resumed sitting can open where it was left (PRD E5). It is
+   * `updated_at` rather than `answered_at` on purpose: `answered_at` is set
+   * once and deliberately not advanced, because least-recently-seen selection
+   * reads it, so it dates the first engagement rather than the last.
+   */
+  updatedAt: Date;
 }
 
 /**
@@ -143,8 +152,9 @@ export async function getAttemptAnswers(
     question_id: string;
     option_ref: string | null;
     flagged: boolean;
+    updated_at: Date | string;
   }>(sql`
-    SELECT a.question_id, a.option_ref, a.flagged
+    SELECT a.question_id, a.option_ref, a.flagged, a.updated_at
     FROM answer a
     JOIN attempt t ON t.id = a.attempt_id
     WHERE a.attempt_id = ${attemptId}::uuid AND t.user_id = ${userId}
@@ -154,6 +164,9 @@ export async function getAttemptAnswers(
     questionId: row.question_id,
     optionRef: row.option_ref,
     flagged: row.flagged,
+    // Raw SQL bypasses Drizzle's mapping, so the driver may hand this back as
+    // a string. Normalised here rather than at the three call sites.
+    updatedAt: row.updated_at instanceof Date ? row.updated_at : new Date(row.updated_at),
   }));
 }
 

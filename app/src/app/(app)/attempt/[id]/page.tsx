@@ -1,13 +1,14 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { db } from '../../../../db/client.ts';
 import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
 import { getPaperQuestions } from '../../../../db/queries/paper.ts';
 import { deadlineOf, remainingToDeadline } from '../../../../domain/clock.ts';
-import type { RecordedState } from '../../../../domain/navigator.ts';
+import { resumeSeq, type RecordedState } from '../../../../domain/navigator.ts';
 import { passMark } from '../../../../domain/score.ts';
 import { outcomeOf, type SubmitOutcome } from '../../../../domain/submission.ts';
 import { Sitting } from '../../../../components/Sitting.tsx';
+import { finaliseIfExpired } from '../../../../lib/auto-submit.ts';
 import { requireSession } from '../../../../lib/session.ts';
 
 export const metadata = { title: 'Sitting — LFCA Practice' };
@@ -33,20 +34,32 @@ export const metadata = { title: 'Sitting — LFCA Practice' };
  * there is nothing on that side to recompute a deadline from — only one to
  * count down to. `serverNow` travels with it so the countdown can be anchored
  * on this machine's clock rather than the reader's.
+ *
+ * **Opening a sitting is one of the touches that finalises it.** If the ninety
+ * minutes elapsed while the tab was closed, the attempt is already over: it is
+ * submitted as it stood, through the ordinary submit path, and this page sends
+ * the reader to the review rather than presenting a paper nothing can be
+ * written to. Only a sitting *this* read closed is redirected — one finalised
+ * on an earlier visit opens on its outcome, the same as any finished sitting
+ * being reopened.
  */
 export default async function SittingPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await requireSession();
   const { id } = await params;
 
-  const attempt = await getAttemptForUser(db, session.user.id, id);
+  const found = await getAttemptForUser(db, session.user.id, id);
 
   // Not found, never forbidden. A 403 would confirm the row exists and belongs
   // to somebody, which is exactly what an attacker probing ids wants to learn.
-  if (attempt === null) notFound();
-  if (attempt.examId === null) notFound();
+  if (found === null) notFound();
+  const examId = found.examId;
+  if (examId === null) notFound();
+
+  const { attempt, closedOnRead } = await finaliseIfExpired(db, found, new Date());
+  if (closedOnRead) redirect(`/attempt/${attempt.id}/review`);
 
   const [questions, answers] = await Promise.all([
-    getPaperQuestions(db, attempt.examId),
+    getPaperQuestions(db, examId),
     getAttemptAnswers(db, session.user.id, attempt.id),
   ]);
 
@@ -61,6 +74,11 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
     if (initial[answer.questionId] === undefined) continue;
     initial[answer.questionId] = { optionRef: answer.optionRef, flagged: answer.flagged };
   }
+
+  // Where the sitting reopens. Derived from the answers rather than stored:
+  // the question whose row was written most recently is the one last engaged
+  // with (PRD E5). A fresh sitting has touched nothing and opens on question 1.
+  const initialSeq = resumeSeq(questions, answers);
 
   // Dynamic by construction: the page reads the session and the clock, so it
   // cannot be cached. Stating the instant it was rendered is what lets the
@@ -93,8 +111,9 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
     <div className="page page--sitting">
       <Sitting
         attemptId={attempt.id}
-        examNumber={attempt.examId.replace('exam-', '')}
+        examNumber={examId.replace('exam-', '')}
         passMark={passMark(questions.length)}
+        initialSeq={initialSeq}
         deadline={deadlineOf(attempt)?.toISOString() ?? null}
         serverNow={serverNow.toISOString()}
         questions={questions}

@@ -211,34 +211,66 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   first sitting of this paper" whenever `firstAttemptScore` was null — which is exactly what an
   **abandoned** first sitting looks like, against PRD §5. `standingOf` branches on the ordinal now
   and says the first attempt is still open. That path becomes reachable the moment #26 lands.
-  Suites: 339 bank · 356 app unit · 90 app integration.
+  **Auto-submit and resume landed** (#26), and with them the last of the fourteen this slice blocks
+  on. A sitting whose ninety minutes ran out while nobody was watching is now closed by **whichever
+  read reaches it first** — opening the paper, opening its review, a resync, or **listing the sixteen
+  exams** — and every one of those goes through `src/lib/auto-submit.ts`, which calls the same
+  `submitAttempt` a manual submit calls. There is no second finalisation path, so the score, the
+  reason and the first-attempt flag cannot be decided two ways. Opening an expired sitting redirects
+  to its review; listing was included because an abandoned sitting would otherwise go on offering to
+  be resumed, with its first-attempt score reading as absent, on the one screen that exists to show
+  the honest number. **Nothing in the path writes `started_at` or the limit**, so there is still no
+  code that can extend a clock.
+  With the tab open, **the countdown reaching zero submits the sitting itself** — #22's missing
+  half — and the dialog becomes doc 10 §6's screen: "Your exam was submitted automatically", the
+  score, the dashed panel of blank question numbers, and the review. A failed auto-submit is §6's
+  own error state, with **Retry submit** and no way out; the jump rows and the cancel are gone,
+  because a jump would close the dialog holding the only retry. Doc 10 §6's **disabled Submit is
+  correct again** — its premise is finally true — which reverses the 2026-09-03 entry that left it
+  enabled. `GET /api/attempt/:id/state` no longer has an `expired` status: the read that would
+  return it closes the attempt first, so doc 07 §6 records the value as **gone rather than
+  changed**.
+  **Position is restored by derivation, not by a column** — `resumeSeq` opens the sitting on the
+  question whose answer row was written most recently, since `answer.updated_at` moves on every
+  answer and every flag and is written anyway. The named limit: a question looked at and left blank
+  leaves no row, so walking forward without answering and reloading returns to the last question
+  actually touched. That closes the second of #21's three leftovers. Grilled and chosen over a
+  `resume_seq` column and over `localStorage`; the log carries the argument.
+  Verified in the browser, both themes, at 1440 and 375, against real sittings: a reload returning
+  to question 8 with its flag, an aged sitting redirecting straight to a review reading **TIME
+  EXPIRED · 0/60 · time used 1:30:00**, the exam list sweep closing two long-abandoned sittings on
+  load (exam-08 and exam-10, first-attempt scores now recorded), the countdown reaching 00:00 and
+  submitting itself with exactly **one** `POST /submit`, and a blocked submit showing **Retry
+  submit** and then succeeding when the network came back. One defect the browser found: the blank
+  numerals were laid out in the jump row, whose flex line does not wrap a single long run of text —
+  measured at **516px inside a 375px dialog**. They are prose now, and the widest thing in that
+  dialog measures 342 at 375.
+  Suites: 339 bank · 364 app unit · 97 app integration.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** The frontier is **#26** (auto-submit and lazy finalisation), the last
-of the fourteen that this slice blocks on. It supersedes both the clock's freeze and the manual
-submit an expired sitting currently needs; it owns restoring position on resume; and it now has
-somewhere to land — `/attempt/[id]/review` exists. Two things in the tree are waiting for it: the
-review redirects an unfinalised sitting back to `/attempt/[id]`, which stops being the right answer
-once a read finalises it, and `GET /api/attempt/:id/state` still reports `expired` without writing.
-**#27** (re-sits) and **#28** (the Playwright run and the manual checklist) follow.
+**Feature 3 is mid-flight.** **Closed so far: #15–#26.** The frontier is **#27** (re-sits), then
+**#28** (the Playwright run and the manual checklist). Everything the slice blocks on is built:
+#26 was the last of them, and it took both things the tree was holding for it — the review no
+longer bounces an unfinalised sitting back to the paper unless its clock is genuinely still
+running, and the resync finalises rather than reporting `expired`.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
   owns the counter, and on touch that counter is the trigger — doc 10 §4's arrangement exactly.
-- **A reload returns to question 1, not to where you were.** PRD E5 wants position restored; there is
-  nowhere to store it, and inventing a column was outside #21. Still outstanding — #22 did not touch
-  it, because the clock is derived and position is not. It belongs with **#26**, which owns resume.
+- ~~**A reload returns to question 1, not to where you were.**~~ **Closed by #26.** Restored by
+  derivation rather than by a column: `resumeSeq` opens on the question whose answer row was written
+  most recently. A question looked at and left blank still leaves no trace — the named limit, and
+  the reason the column stays on the table if it ever matters.
 - **`.grid60--touch` is `repeat(auto-fill, 44px)`, not the fixed seven** doc 10 §4 specifies: seven at
   the 390px the prototype is drawn at, six at 375px. Re-measured at 375 during #22: still six. The
   column count gives way so the 44px target never does. A divergence, chosen, not an oversight.
 
-**#22 left one thing named, and #24 has half-answered it.** The criterion said reaching zero "routes
-to the outcome". The sitting still **freezes in place** at 00:00 rather than navigating — but an
-expired sitting is no longer a dead end: Submit stays enabled, finalises it as `expired`, and shows
-the score. What is still missing is the *automatic* part, which is **#26**'s: today somebody has to
-press the button. Nothing here has to be undone to add it.
+**#22's last criterion is closed.** It said reaching zero should route to the outcome. #24 made an
+expired sitting finishable by hand; **#26 made it finish itself** — at 00:00 the sitting submits and
+the dialog reports what it scored, which is doc 10 §6's screen rather than a navigation. Nothing
+from either ticket had to be undone.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 

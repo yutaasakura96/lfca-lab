@@ -255,11 +255,19 @@ describe.skipIf(!hasDatabase)('reading a sitting back', () => {
   it('carries no correctness — nothing on this path can leak the answer key', () => {
     // The shape is the guarantee. A sitting screen that never receives
     // correctness cannot show it by accident, whatever a later component does
-    // with the object.
+    // with the object. Listed exhaustively rather than by absence, so a column
+    // added to this query has to be looked at here before it ships.
+    // `updatedAt` earns its place: it is when the row was last written, which
+    // is what tells a resumed sitting where it was left (PRD E5).
     return getAttemptAnswers(db, userId, attemptId).then((state) => {
       expect(state.length).toBeGreaterThan(0);
       for (const entry of state) {
-        expect(Object.keys(entry).sort()).toEqual(['flagged', 'optionRef', 'questionId']);
+        expect(Object.keys(entry).sort()).toEqual([
+          'flagged',
+          'optionRef',
+          'questionId',
+          'updatedAt',
+        ]);
       }
     });
   });

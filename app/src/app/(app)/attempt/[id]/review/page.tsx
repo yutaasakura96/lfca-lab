@@ -14,6 +14,7 @@ import {
 } from '../../../../../domain/review.ts';
 import { passMark } from '../../../../../domain/score.ts';
 import { outcomeOf } from '../../../../../domain/submission.ts';
+import { finaliseIfExpired } from '../../../../../lib/auto-submit.ts';
 import { requireSession } from '../../../../../lib/session.ts';
 
 export const metadata = { title: 'Review — LFCA Practice' };
@@ -40,17 +41,24 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
   const session = await requireSession();
   const { id } = await params;
 
-  const attempt = await getAttemptForUser(db, session.user.id, id);
+  const found = await getAttemptForUser(db, session.user.id, id);
 
   // Not found, never forbidden — a 403 would confirm the row exists and belongs
   // to somebody, which is what probing ids is for.
-  if (attempt === null) notFound();
-  if (attempt.examId === null) notFound();
+  if (found === null) notFound();
+  const examId = found.examId;
+  if (examId === null) notFound();
 
-  // A sitting still in progress has nothing to review. Sent back to itself
-  // rather than shown an error: the paper is right there, and an expired
-  // sitting that nothing has finalised yet still has a Submit button on it.
-  // When #26 lands, that sitting is finalised on read and arrives here instead.
+  // Reading a review is a touch like any other: a sitting whose clock ran out
+  // while the tab was closed is finalised here rather than bounced back to a
+  // paper it can no longer answer. This is the arrival doc 03 §6's lazy
+  // finalisation was written for — landing straight on the review is what PRD
+  // E5 asks for in as many words.
+  const { attempt } = await finaliseIfExpired(db, found, new Date());
+
+  // A sitting genuinely still in progress has nothing to review. Sent back to
+  // itself rather than shown an error: the paper is right there, and its clock
+  // is still running.
   if (attempt.submittedAt === null || attempt.submitReason === null) {
     redirect(`/attempt/${attempt.id}`);
   }
@@ -100,7 +108,7 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
       >
         <div className="stack" style={{ gap: 'var(--space-2)' }}>
           <span className="eyebrow">Review</span>
-          <h1 className="h1">Practice exam {attempt.examId.replace('exam-', '')}</h1>
+          <h1 className="h1">Practice exam {examId.replace('exam-', '')}</h1>
           <p className="meta">
             Submitted{' '}
             <time dateTime={attempt.submittedAt.toISOString()}>
