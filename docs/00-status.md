@@ -247,11 +247,50 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   dialog measures 342 at 375.
   Suites: 339 bank · 364 app unit · 97 app integration.
 
+- **Phase 6, feature 3 — re-sits landed** (#27). Most of PRD E7 was already true and had been since
+  #18: the list offers **Sit again** on a sat paper, swaps it for **Resume** while a sitting of that
+  paper is still running, and `POST /api/attempt` refuses a second live sitting independently of
+  what either screen believed. `tests/integration/exams.test.ts` already asserted both directions of
+  the rule that matters — best rises on a better re-sit, and neither number moves on a worse one.
+  What was missing was the ticket's own first line: **"from the list *or from a review*"**. The
+  review now carries the action, and **its label is read rather than resolved after the press** —
+  `getReviewContext` grew an `openAttemptId` subquery, so the button says *Resume the open sitting*
+  or *Sit this paper again* before it is clicked. The endpoint's guard is still what makes two live
+  sittings impossible; the query is only what stops the word on the button being a lie.
+  **`is_first_attempt` is untouched on this path**, and that is the whole point: the flag was settled
+  when the earliest attempt was *created* (doc 04 §5.2), so nothing about re-sitting can reach it.
+  **Doc 07 §2 was corrected rather than the code.** It specified `409 attempt_in_progress`; the
+  shipped behaviour is `200 {attemptId, resumed: true}`, which is doc 07 §5's own reading of a no-op
+  applied one endpoint earlier — a double submit is answered with the first submit's score, and
+  *start a sitting of exam-07* is likewise already satisfied by the sitting that exists. In the log,
+  2026-09-04.
+  Verified in the browser, both themes, at 1440 and 375, against a real re-sit of exam-07 driven end
+  to end: the review's button started a second sitting, the **first** sitting's review then read
+  *"sitting 1 of 2"* with its action flipped to *Resume the open sitting* pointing at the new one,
+  and submitting the re-sit at **8/60** moved best from 2 to 8 while the first-attempt score stayed
+  at **2**. One defect the browser found: the new actions row is a `.row`, which does not wrap —
+  measured at 375 the pair wanted **371px inside a 343px content box** and the second button landed
+  12px past the page edge. It wraps now, the way the bar wraps for the save chip.
+  **Two the review found, and the second was the real one.** The first draft answered "is a sitting
+  of this paper open?" with a **fourth** copy of a predicate that already existed three times, so it
+  now calls `openAttemptForExam` — the same helper `POST /api/attempt` refuses a second live sitting
+  with. That helper had no direct test despite the route depending on it; it has four now.
+  And the review finalised only **its own** sitting (`finaliseIfExpired`), so a *sibling* sitting
+  whose ninety minutes lapsed unattended was still `submitted_at IS NULL` and read as "still
+  running" — the screen would have offered *Resume the open sitting* for a sitting that was over,
+  while suppressing the re-sit PRD E7 asks for. The page sweeps with `finaliseExpiredSittings`
+  ahead of the read now, as the exam list does, which makes `finaliseIfExpired` on this page a
+  strict no-op; it is gone rather than left as dead code under a comment claiming it acts. Still
+  **one finalisation path** — the sweep calls the same `submitAttempt`. Reproduced in the browser
+  against a real backdated sitting on exam-05: the review reads *Sit this paper again*, and the
+  stale sitting is closed `expired`.
+  Suites: 339 bank · 364 app unit · **102** app integration.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** **Closed so far: #15–#26.** The frontier is **#27** (re-sits), then
-**#28** (the Playwright run and the manual checklist). Everything the slice blocks on is built:
+**Feature 3 is mid-flight.** **Closed so far: #15–#27.** The frontier is **#28** (the Playwright run
+and the manual checklist), the last of feature 3. Everything the slice blocks on is built:
 #26 was the last of them, and it took both things the tree was holding for it — the review no
 longer bounces an unfinalised sitting back to the paper unless its clock is genuinely still
 running, and the resync finalises rather than reporting `expired`.
@@ -376,7 +415,11 @@ pooled URL (§2.2) on arrival.
   byte-match `exams/exam-NN.md`. The correct answer's slot always matches (doc 03 §3.2).
 
 ### Repo and tooling
-- Work sits on branch **`design/practice-app-system`**, unmerged. Nothing has been merged to `main`.
+- Work lands on **`develop`**, one branch per ticket, merged and pushed as each closes.
+  `design/practice-app-system` is the Phase 2–5 branch and is **history**, not the frontier.
+  **`main` is merged locally but has not been pushed** — `.claude/hooks/pre-push-main-guard.sh`
+  refuses it, so only the owner can. Check `git log origin/main..main` before assuming production is
+  current; it was one commit behind when #27 started.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
 - **No `.mcp.json`.** Add Neon MCP when the Neon project exists, Sentry MCP when the Sentry project

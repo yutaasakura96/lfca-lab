@@ -85,9 +85,28 @@ Creates an attempt and, for exam and holdout modes, freezes its clock by writing
 `deadline` is an ISO-8601 instant for `exam` (start + 90m) and `holdout` (start + 60m), `null`
 otherwise. The client counts down to it for display only; the server never trusts it back.
 
+**An exam sitting already in progress comes back `200`, not `409`** — a correction to this document
+rather than a refinement of it:
+
+```json
+{ "attemptId": "01936f2a-7c41-7a3e-9b52-0f1c8d4e6a10", "resumed": true }
+```
+
+This section originally specified `409 attempt_in_progress` carrying the same id. The reasoning that
+replaced it is doc 07 §5's, applied one endpoint earlier: *"start a sitting of exam-07"* is already
+satisfied by the sitting of exam-07 that exists, exactly as a second submit is answered with the
+first one's score rather than a conflict. Both are no-ops, and the honest reading of a no-op is that
+the caller gets the thing it asked for. The `409` would instead make every caller unpack an error
+body to find a perfectly good attempt — and there are two callers now (the exam list and the review,
+PRD E7), which is what forced the question. `resumed` distinguishes the two outcomes for a caller
+that cares; neither of the two does, because both simply navigate to `attemptId`.
+
+**Two live sittings of one paper is not a state this product has.** That is what the check protects,
+and it protects it whether or not the screen offered to start one — the list and the review both
+label the action from their own read of the open sitting, and the endpoint refuses independently of
+what either of them believed. See the decision log, 2026-09-04.
+
 **Failures:** `400 invalid_request` · `401` · `403 not_allowlisted` ·
-`409 attempt_in_progress` — an unsubmitted attempt already exists for this mode-and-target, and the
-client should resume it rather than start a second (the response carries its `attemptId`) ·
 `409 holdout_already_sat` — the holdout is a one-shot sitting (PRD H1); a second start is refused,
 and the screen offers its review instead.
 

@@ -1,8 +1,9 @@
 import { sql } from 'drizzle-orm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { db, pool } from '../../src/db/client.ts';
-import { listExams } from '../../src/db/queries/exams.ts';
+import { listExams, openAttemptForExam } from '../../src/db/queries/exams.ts';
 import { createAttempt } from '../../src/db/queries/attempt.ts';
+import { finaliseExpiredSittings } from '../../src/lib/auto-submit.ts';
 import {
   assertSeeded,
   createTestUser,
@@ -164,5 +165,74 @@ describe.skipIf(!hasDatabase)('the exam list', () => {
     expect(theirRows.find((r) => r.id === 'exam-05')?.bestScore).toBe(60);
     // And mine does not leak the other way either.
     expect(theirRows.find((r) => r.id === 'exam-01')?.attempts).toBe(0);
+  });
+});
+
+// `openAttemptForExam` is the one definition of "is a sitting of this paper still
+// running". Two screens label a button from it — the exam list and the review —
+// and `POST /api/attempt` refuses a second live sitting on it. Nothing tested it
+// directly until the review became its second caller.
+describe.skipIf(!hasDatabase)('the open sitting of one paper', () => {
+  const soloId = testUserId('exams-open');
+
+  beforeAll(async () => {
+    if (!hasDatabase) return;
+    await createTestUser(soloId);
+  });
+
+  it('is null when the paper has never been sat', async () => {
+    expect(await openAttemptForExam(db, soloId, 'exam-14')).toBeNull();
+  });
+
+  it('is the sitting while it runs, and null once it is finished', async () => {
+    const started = await createAttempt(db, {
+      userId: soloId,
+      mode: 'exam',
+      examId: 'exam-14',
+      questionCount: 60,
+    });
+
+    expect(await openAttemptForExam(db, soloId, 'exam-14')).toBe(started.id);
+
+    await submit(started.id, 30);
+    expect(await openAttemptForExam(db, soloId, 'exam-14')).toBeNull();
+  });
+
+  it('never reports another candidate\'s sitting', async () => {
+    const theirs = await createAttempt(db, {
+      userId: otherId,
+      mode: 'exam',
+      examId: 'exam-15',
+      questionCount: 60,
+    });
+
+    expect(theirs.id).not.toBeNull();
+    expect(await openAttemptForExam(db, soloId, 'exam-15')).toBeNull();
+  });
+
+  // The defect the review's re-sit action would otherwise have shown: a sibling
+  // sitting whose ninety minutes lapsed unattended is still `submitted_at IS
+  // NULL`, so it reads as "still running" and the screen offers to resume a
+  // sitting that is over — while suppressing the re-sit PRD E7 asks for. The
+  // sweep is what makes the question answerable honestly, which is why every
+  // screen that asks it sweeps first.
+  it('still reports a lapsed sitting until something finalises it, and not after', async () => {
+    const stale = await createAttempt(db, {
+      userId: soloId,
+      mode: 'exam',
+      examId: 'exam-16',
+      questionCount: 60,
+    });
+
+    // Ninety minutes and one second ago — past the limit, nothing having closed it.
+    await db.execute(sql`
+      UPDATE attempt SET started_at = now() - interval '90 minutes 1 second'
+      WHERE id = ${stale.id}
+    `);
+
+    expect(await openAttemptForExam(db, soloId, 'exam-16')).toBe(stale.id);
+
+    await finaliseExpiredSittings(db, soloId, new Date());
+    expect(await openAttemptForExam(db, soloId, 'exam-16')).toBeNull();
   });
 });

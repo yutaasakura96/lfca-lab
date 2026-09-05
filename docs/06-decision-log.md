@@ -889,3 +889,36 @@ every token change and invite hand-editing the generated file.
 - **Revisit if:** a per-question timing column is ever added (it would make "Time used" and doc 10
   §8's *Slowest question* free), or resume-to-an-unanswered-question turns out to matter in use — at
   which point the column is the answer and this entry is the argument against it to re-read.
+
+### [2026-09-04] A sitting already in progress is returned, not refused
+- **Decision:** `POST /api/attempt` for a paper with an unfinished sitting returns
+  **`200 {attemptId, resumed: true}`** carrying that sitting, rather than doc 07 §2's
+  `409 attempt_in_progress`. Doc 07 §2 is corrected to match the code. Alongside it, **the review
+  gains a re-sit action** (PRD E7) whose label is read from the query — `getReviewContext` grew an
+  `openAttemptId` subquery — so the screen says "Resume the open sitting" or "Sit this paper again"
+  before the press rather than discovering which it was afterwards.
+- **Context:** the behaviour shipped with #19 and went unremarked because the exam list was its only
+  caller, and the list never offers to start a sitting while one is open — it renders **Resume**
+  instead. #27 adds the review as a second caller, so the two had to agree about what the endpoint
+  does.
+- **Alternatives considered:** changing the code to the documented `409`, which is more precise about
+  what was refused — rejected because it makes every caller unpack an error body to find a perfectly
+  good attempt, and `StartExamButton`'s `!response.ok` branch would need a special case for the one
+  failure that is not a failure. Also considered leaving the review with no re-sit action, which
+  contradicts the ticket's first criterion outright; and rendering an unconditional "Sit this paper
+  again" and letting the server resolve it, which is one fewer subquery at the cost of a button that
+  silently resumes a forty-minute-old sitting while claiming to start a fresh one.
+- **Reason:** doc 07 §5 already settles this exact shape one endpoint later — a double submit is
+  answered with the first submit's score, not a conflict, because "the honest reading of *no-op* is
+  that the user sees their score". *Start a sitting of exam-07* is likewise already satisfied by the
+  sitting of exam-07 that exists. On the label: the endpoint's guard is what makes two live sittings
+  of one paper impossible, and it holds regardless of what the screen believed — but its answer
+  arrives after the click, and the word on the button has to be true before it.
+- **Consequence:** the check now sits behind two screens that both label it from their own read, and
+  neither read is what enforces it. Nothing about the first-attempt flag is touched on this path: it
+  was settled when the earliest attempt was *created* (doc 04 §5.2), so best score moves on a re-sit
+  and the honest number does not — asserted at both seams, in `tests/integration/exams.test.ts` for
+  the list and `tests/integration/review.test.ts` for the review.
+- **Revisit if:** practice, domain or holdout sittings become startable, at which point
+  `409 holdout_already_sat` is a genuine refusal — the holdout is one-shot, so there is no existing
+  sitting to hand back and the caller is asking for something it cannot have.

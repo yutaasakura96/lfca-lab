@@ -28,6 +28,8 @@ const intruderId = testUserId('review-intruder');
  * ordinal tests below means the first one rather than the first one they saw.
  */
 const historyId = testUserId('review-history');
+/** Kept apart so the attempt count below is not moved by another test's sitting. */
+const countId = testUserId('review-count');
 
 let paper: Awaited<ReturnType<typeof getPaperQuestions>>;
 /** Which option is right, per question id — read from the bank, never assumed. */
@@ -40,6 +42,7 @@ beforeAll(async () => {
   await createTestUser(userId);
   await createTestUser(intruderId);
   await createTestUser(historyId);
+  await createTestUser(countId);
 
   paper = await getPaperQuestions(db, 'exam-02');
 
@@ -248,5 +251,21 @@ describe.skipIf(!hasDatabase)('where a sitting sits among the others', () => {
   it('is null for a sitting belonging to another candidate', async () => {
     const mine = await sitting(1, 1, historyId);
     expect(await getReviewContext(db, intruderId, mine)).toBeNull();
+  });
+
+  // The ticket's criterion, asserted where the review reads it rather than only
+  // where the list does: quitting a sitting badly does not un-sit the paper.
+  it('counts an abandoned sitting among the attempts', async () => {
+    const finished = await sitting(5, 1, countId);
+    const before = (await getReviewContext(db, countId, finished))?.attempts;
+
+    await createAttempt(db, {
+      userId: countId,
+      mode: 'exam',
+      examId: 'exam-02',
+      questionCount: 60,
+    });
+
+    expect((await getReviewContext(db, countId, finished))?.attempts).toBe((before ?? 0) + 1);
   });
 });
