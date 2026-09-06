@@ -172,9 +172,15 @@ content in the bank (PRD E4).
 **`optionRef: null` in an unscored mode returns `{saved: true}` as well** — the one case this section
 did not originally type. Feedback is feedback *on a choice*, so a question whose answer has been
 cleared has nothing to report and no reason to hand out its key. The rule in the handler is not a
-second branch on the mode: it is that the verdict is **read back from the row**, and a cleared answer
-has none. Forward-only means the screen never sends it (doc 10 §7); the endpoint is public surface
-and answers anyway.
+second branch on the mode: it is that the write **returns its own verdict**, and a cleared answer has
+none. Forward-only means the screen never sends it (doc 10 §7); the endpoint is public surface and
+answers anyway.
+
+**`isCorrect` comes back from the `INSERT … RETURNING` that recorded it**, not from a read that
+follows. Two writes to one question can be in flight at once — the outbox sends a click made during
+a backoff on its own — so a second read would report whatever the row held by then, which is the
+*other* click's verdict. The `why` map is fetched separately and can be, because a question's key is
+a fact about the bank rather than about the sitting.
 
 **The write itself is not refused a second time in these modes.** A composed sitting is
 strictly forward and its screen does not offer to change a graded answer, but the endpoint stays the

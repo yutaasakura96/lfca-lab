@@ -1368,3 +1368,31 @@ not when it compiles. Each names the ticket that carries it out.*
   now lives with the two queries, mirroring `getSittingQuestions`.
 - **Revisit if:** a mode arrives that is scored *and* explains as it goes — `showsImmediateFeedback`
   is asserted mode by mode precisely so that divergence fails a test rather than passing silently.
+
+### [2026-09-07] The verdict comes back from the write, not from a read that follows
+- **Decision:** `recordAnswer` returns `{ result: 'saved', isCorrect }` from its own
+  `INSERT … RETURNING`, and the feedback query shrank to `getQuestionKey(db, questionId)` — no
+  attempt id, no join to `answer`, no verdict. The route composes the two. **A correction to the
+  entry above, made the same day by the code review that followed it.**
+- **Context:** as first written, the route wrote the answer and then read the verdict back in a
+  second query, on the stated rationale that the response should report what was *stored* rather
+  than what was sent. The rationale is right; the implementation did not deliver it. Two writes to
+  one question can be in flight at once — the outbox sends a click made during a backoff on its own
+  (doc 03 §7) — and the read reports whatever the row held by then. Request A writes `o1`, request B
+  writes `o3`, A reads back and answers with **`o3`'s verdict**, which the client renders against
+  the `o1` it sent: a right answer shown as wrong, or the reverse.
+- **Alternatives considered:** wrapping the write and the read in one transaction, which fixes the
+  race at the cost of a transaction on the hot path for a value the write already has; and leaving
+  it, on the grounds that forward-only means the screen never sends two writes for one question —
+  rejected because the outbox is not the screen, `put()` is shared by every mode, and the whole
+  ticket exists because a wrong answer here is silent.
+- **Reason:** `RETURNING` on the upsert reports the row *this statement* wrote, which is what the
+  candidate who made the click needs and is a stronger reading of "what was stored" than the read
+  ever was. It also let the key query stop knowing about attempts entirely: it takes a question id
+  and nothing else, so nothing in it can pair one sitting's click with another's.
+- **Consequence:** `WriteResult` is a discriminated object rather than a string union — three
+  assertions in `tests/integration/answer.test.ts` moved with it, and one of them now asserts the
+  property directly: two writes to one question, each reporting its own verdict. A cleared answer
+  reports `isCorrect: null`, so the `{saved: true}` reply for a clear falls out of the same value
+  rather than needing a branch of its own. Doc 07 §3 corrected.
+- **Revisit if:** never, while the outbox can have a write in flight.

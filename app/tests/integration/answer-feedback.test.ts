@@ -346,7 +346,14 @@ describe.skipIf(!hasDatabase)('flagging follows free navigation', () => {
   });
 
   it('writes nothing when it refuses', async () => {
-    await flag(practiceAttemptId, domainQuestionId, true);
+    // Deliberately a question this sitting **did** freeze, and the code is
+    // asserted. A question from another sitting would be refused one step
+    // earlier, by the membership check, and `setFlag` would never be reached —
+    // a different 409 wearing the same status, which this assertion could not
+    // tell apart.
+    const result = await flag(practiceAttemptId, practiceQuestionId, true);
+    expect((result.body.error as { code: string }).code).toBe('flagging_not_available');
+
     const rows = await db.execute<{ flagged: boolean }>(sql`
       SELECT flagged FROM answer
       WHERE attempt_id = ${practiceAttemptId}::uuid AND flagged

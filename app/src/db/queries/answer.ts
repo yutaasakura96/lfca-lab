@@ -22,8 +22,18 @@ import type { SittingIdentity } from './paper.ts';
 // yours" into the same empty result as "no such option", turning a clear
 // refusal into a misleading one.
 
-/** What a write can say back. `unknown_option` means the ref is not this question's. */
-export type WriteResult = 'saved' | 'unknown_option';
+/**
+ * What a write can say back.
+ *
+ * `unknown_option` means the ref is not this question's. A saved write carries
+ * **its own** verdict — the one this statement wrote, not the one the row
+ * happened to hold a moment later — which is what lets the caller report
+ * correctness without a second read that a concurrent write could answer
+ * differently. `isCorrect` is null exactly when the answer was cleared.
+ */
+export type WriteResult =
+  | { result: 'saved'; isCorrect: boolean | null }
+  | { result: 'unknown_option' };
 
 export interface AnswerWrite {
   attemptId: string;
@@ -69,11 +79,17 @@ export interface AnswerState {
  * `answered_at` is set once and then held by `COALESCE`. Every retry the outbox
  * makes is this exact call, and a retry that moved the timestamp would rewrite
  * what least-recently-seen selection reads.
+ *
+ * **The verdict comes back from `RETURNING`**, which is the same row the
+ * statement just wrote. Reading it in a second query instead would report
+ * whatever the row held by then — and two writes to one question can be in
+ * flight at once, because the outbox sends a click made during a backoff on its
+ * own. The caller would then hand the candidate the other click's verdict.
  */
 export async function recordAnswer(db: Db, write: AnswerWrite): Promise<WriteResult> {
   if (write.optionRef === null) return clearAnswer(db, write);
 
-  const result = await db.execute<{ question_id: string }>(sql`
+  const result = await db.execute<{ is_correct: boolean }>(sql`
     INSERT INTO answer (attempt_id, question_id, option_ref, is_correct, answered_at)
     SELECT ${write.attemptId}::uuid, ${write.questionId}, o.ref, o.correct, now()
     FROM question_option o
@@ -83,10 +99,13 @@ export async function recordAnswer(db: Db, write: AnswerWrite): Promise<WriteRes
           is_correct  = EXCLUDED.is_correct,
           answered_at = COALESCE(answer.answered_at, EXCLUDED.answered_at),
           updated_at  = now()
-    RETURNING question_id
+    RETURNING is_correct
   `);
 
-  return result.rows.length === 1 ? 'saved' : 'unknown_option';
+  const row = result.rows[0];
+  return row === undefined
+    ? { result: 'unknown_option' }
+    : { result: 'saved', isCorrect: row.is_correct };
 }
 
 /**
@@ -105,7 +124,8 @@ async function clearAnswer(db: Db, write: AnswerWrite): Promise<WriteResult> {
           is_correct = NULL,
           updated_at = now()
   `);
-  return 'saved';
+  // No verdict, because there is no longer a choice to have one.
+  return { result: 'saved', isCorrect: null };
 }
 
 /**

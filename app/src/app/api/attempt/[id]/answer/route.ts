@@ -1,6 +1,6 @@
 import { db } from '../../../../../db/client.ts';
 import { recordAnswer } from '../../../../../db/queries/answer.ts';
-import { getAnswerFeedback } from '../../../../../db/queries/feedback.ts';
+import { getQuestionKey } from '../../../../../db/queries/feedback.ts';
 import { showsImmediateFeedback } from '../../../../../domain/modes.ts';
 import { apiError } from '../../../../../lib/api.ts';
 import { openWriteForQuestion } from '../../../../../lib/attempt-access.ts';
@@ -48,7 +48,7 @@ export async function PUT(
     optionRef: write.body.optionRef,
   });
 
-  if (result === 'unknown_option') {
+  if (result.result === 'unknown_option') {
     return apiError(400, 'invalid_request', 'That question has no such option.');
   }
 
@@ -56,18 +56,23 @@ export async function PUT(
     return Response.json({ saved: true }, { status: 200 });
   }
 
-  // Read back rather than assembled from what was sent: the verdict reported is
-  // the one now stored, which is also the one the review will read later.
-  //
-  // `null` here is a question with no verdict recorded — an answer cleared
-  // rather than made. Feedback is feedback on a choice, so with no choice there
-  // is nothing to report, and the response is the same `{ saved: true }` a
-  // timed sitting gets, arrived at for an unrelated reason. Forward-only means
-  // the screen never sends it; the endpoint still has to answer honestly.
-  const feedback = await getAnswerFeedback(db, write.attempt.id, write.body.questionId);
-  if (feedback === null) {
+  // A cleared answer has no verdict, because feedback is feedback on a choice.
+  // The response is then the same `{ saved: true }` a timed sitting gets,
+  // arrived at for an unrelated reason — and the key is not handed out for a
+  // question just un-answered. Forward-only means the screen never sends this;
+  // the endpoint is public surface and answers honestly anyway.
+  if (result.isCorrect === null) {
     return Response.json({ saved: true }, { status: 200 });
   }
 
-  return Response.json({ saved: true, ...feedback }, { status: 200 });
+  // The verdict came back from the write that made it, so it is this click's
+  // own. Only the key is read here, and the key is a fact about the question
+  // rather than about the sitting — nothing in this second round trip can
+  // report one click's verdict against another's.
+  const key = await getQuestionKey(db, write.body.questionId);
+
+  return Response.json(
+    { saved: true, isCorrect: result.isCorrect, ...key },
+    { status: 200 },
+  );
 }

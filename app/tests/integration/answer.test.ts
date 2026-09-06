@@ -120,7 +120,7 @@ describe.skipIf(!hasDatabase)('recording an answer', () => {
       questionId: question.id,
       optionRef: correct,
     });
-    expect(result).toBe('saved');
+    expect(result).toEqual({ result: 'saved', isCorrect: true });
 
     const rows = await rowsFor(question.id);
     expect(rows).toHaveLength(1);
@@ -152,11 +152,21 @@ describe.skipIf(!hasDatabase)('recording an answer', () => {
     const correct = await correctRefOf(question.id);
     const wrong = ['o1', 'o2', 'o3', 'o4'].find((r) => r !== correct)!;
 
-    await recordAnswer(db, { attemptId, questionId: question.id, optionRef: wrong });
+    // Each write reports **its own** verdict, from its own `RETURNING`. Read in
+    // a second query instead, this would report whatever the row held by then —
+    // and two writes to one question can be in flight at once, because the
+    // outbox sends a click made during a backoff on its own.
+    const first = await recordAnswer(db, { attemptId, questionId: question.id, optionRef: wrong });
+    expect(first).toEqual({ result: 'saved', isCorrect: false });
     const before = await rowsFor(question.id);
     expect(before[0]!.is_correct).toBe(false);
 
-    await recordAnswer(db, { attemptId, questionId: question.id, optionRef: correct });
+    const second = await recordAnswer(db, {
+      attemptId,
+      questionId: question.id,
+      optionRef: correct,
+    });
+    expect(second).toEqual({ result: 'saved', isCorrect: true });
     const after = await rowsFor(question.id);
 
     expect(after).toHaveLength(1);
@@ -171,9 +181,11 @@ describe.skipIf(!hasDatabase)('recording an answer', () => {
     await recordAnswer(db, { attemptId, questionId: question.id, optionRef: 'o2' });
     await setFlag(db, { attemptId, questionId: question.id, flagged: true });
 
-    expect(await recordAnswer(db, { attemptId, questionId: question.id, optionRef: null })).toBe(
-      'saved',
-    );
+    // A cleared answer saves and reports no verdict, because there is no longer
+    // a choice to have one.
+    expect(
+      await recordAnswer(db, { attemptId, questionId: question.id, optionRef: null }),
+    ).toEqual({ result: 'saved', isCorrect: null });
 
     const rows = await rowsFor(question.id);
     expect(rows).toHaveLength(1);
@@ -192,7 +204,7 @@ describe.skipIf(!hasDatabase)('recording an answer', () => {
       optionRef: 'o9',
     });
 
-    expect(result).toBe('unknown_option');
+    expect(result).toEqual({ result: 'unknown_option' });
     expect(await rowsFor(question.id)).toHaveLength(0);
   });
 });

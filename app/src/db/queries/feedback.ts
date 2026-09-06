@@ -10,15 +10,19 @@
 // `withKey` flag would put the leak one wrong argument away, in a file every
 // mode reads from. Here, the *only* caller is the one branch that PRD E3 turns
 // on — and a timed sitting never reaches this file.
+//
+// **It takes a question and nothing else.** It does not know about attempts,
+// answers or candidates, because none of those change what the key is. The
+// verdict on a particular click is not read here at all: it comes back from the
+// write that made it (`recordAnswer`'s `RETURNING`), so no read here can report
+// one click's verdict against another's.
 
 import { sql } from 'drizzle-orm';
 import type { Db } from '../client.ts';
 import { assertOneKeyOfFour } from '../../domain/paper.ts';
 
-/** What a practice or domain answer is told about itself, immediately. */
-export interface AnswerFeedback {
-  /** As the sitting recorded it, read back rather than recomputed. */
-  isCorrect: boolean;
+/** A question's key, and why each of its four options is what it is. */
+export interface QuestionKey {
   correctRef: string;
   /**
    * The `why` for **all four** refs, not only the right one.
@@ -31,66 +35,35 @@ export interface AnswerFeedback {
   why: Record<string, string>;
 }
 
-interface FeedbackRow extends Record<string, unknown> {
+interface KeyRow extends Record<string, unknown> {
   ref: string;
   why: string;
   correct: boolean;
-  is_correct: boolean | null;
 }
 
 /**
- * What this sitting recorded for this question, and why every option is what it
- * is.
+ * What the bank says about one question: which option is right, and why each is
+ * what it is.
  *
- * **Returns `null` when no verdict is recorded**, which is not an error and not
- * a missing question: it is a question whose answer was cleared, or never made.
- * Feedback is feedback *on a choice*, so with no choice there is nothing to
- * report and the caller answers `{ saved: true }` — the same bytes a timed
- * sitting gets, arrived at for a different reason.
- *
- * `is_correct` is read back from the row rather than derived from the ref that
- * was just sent. The write denormalised it from the bank inside its own
- * statement (doc 04 §5.3), so reading it back reports what was *stored* — which
- * is also what the review will read months later. Deriving it here would create
- * a second opinion about the same click.
- *
- * Ownership is not in this query and does not need to be: the only caller has
- * already loaded the attempt through the session, and an attempt id that is not
- * the caller's matches no answer row here anyway.
+ * **Throws rather than returning null on a malformed question**, the same way
+ * the two paper projections do, and via the same guard — so the reads that
+ * serve a question cannot come to disagree about what a well-formed one is. By
+ * this point the candidate's answer is already written, which is the right way
+ * round: the write is what had to be durable, and a bank that could reach here
+ * is one `npm run seed` refused to load.
  */
-export async function getAnswerFeedback(
-  db: Db,
-  attemptId: string,
-  questionId: string,
-): Promise<AnswerFeedback | null> {
-  const result = await db.execute<FeedbackRow>(sql`
-    SELECT o.ref, o.why, o.correct, a.is_correct
-    FROM question_option o
-    LEFT JOIN answer a
-      ON a.attempt_id = ${attemptId}::uuid AND a.question_id = o.question_id
-    WHERE o.question_id = ${questionId}
-    ORDER BY o.position ASC
+export async function getQuestionKey(db: Db, questionId: string): Promise<QuestionKey> {
+  const result = await db.execute<KeyRow>(sql`
+    SELECT ref, why, correct FROM question_option
+    WHERE question_id = ${questionId}
+    ORDER BY position ASC
   `);
 
   const rows = result.rows;
-  if (rows.length === 0) return null;
-
-  // The answer row is joined one-to-one on the primary key, so every row
-  // carries the same verdict. A null one means nothing is recorded.
-  const isCorrect = rows[0]!.is_correct;
-  if (isCorrect === null) return null;
-
-  // The same guard the two paper projections use, so the three reads that serve
-  // a question cannot come to disagree about what a well-formed one is. It
-  // throws, and by this point the answer is already written — which is the
-  // right way round: the write is what had to be durable, and a bank that could
-  // reach here is one `npm run seed` refused to load.
   assertOneKeyOfFour(rows);
-  const correct = rows.find((row) => row.correct)!;
 
   return {
-    isCorrect,
-    correctRef: correct.ref,
+    correctRef: rows.find((row) => row.correct)!.ref,
     why: Object.fromEntries(rows.map((row) => [row.ref, row.why])),
   };
 }
