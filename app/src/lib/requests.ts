@@ -8,6 +8,7 @@
 // No I/O here, so these are unit-tested without a server or a database.
 
 import { z } from 'zod';
+import { DEFAULT_PRACTICE_LENGTH, DOMAINS } from '../domain/weights.ts';
 
 /**
  * A bank id: `q.` then dot-separated lowercase segments, e.g.
@@ -51,3 +52,40 @@ export const FlagRequest = z.object({
 });
 
 export type FlagRequestBody = z.infer<typeof FlagRequest>;
+
+/**
+ * Starting a sitting.
+ *
+ * The whole input surface, stated exactly, because it is the whole attack
+ * surface: a mode from a fixed set, a paper id matching a known shape, a domain
+ * from the six, and a length from three choices. Never a free integer, never a
+ * string that reaches a query unvalidated.
+ *
+ * A discriminated union rather than one object with optional fields, so *"a
+ * domain sitting has a domain"* is a fact the parser establishes rather than
+ * something the handler re-checks. The check constraints in doc 04 §5.1 say the
+ * same thing at the other end; this is what stops the round trip.
+ *
+ * **The two `length` fields are different types and deliberately not shared.**
+ * A weighted sitting is 20, 40 or 60 — lengths the composer must hit exactly. A
+ * domain sitting's `'all'` is not a length at all, it is a fact about the pool.
+ * Both default to 20, and practice's default is read from the one place it is
+ * decided rather than retyped here.
+ */
+export const StartAttemptRequest = z.discriminatedUnion('mode', [
+  z.object({ mode: z.literal('exam'), examId: z.string().regex(/^exam-\d{2}$/) }),
+  z.object({
+    mode: z.literal('practice'),
+    length: z
+      .union([z.literal(20), z.literal(40), z.literal(60)])
+      .default(DEFAULT_PRACTICE_LENGTH),
+  }),
+  z.object({ mode: z.literal('holdout') }),
+  z.object({
+    mode: z.literal('domain'),
+    domain: z.enum(DOMAINS),
+    length: z.union([z.literal(20), z.literal(40), z.literal('all')]).default(20),
+  }),
+]);
+
+export type StartAttemptRequestBody = z.infer<typeof StartAttemptRequest>;

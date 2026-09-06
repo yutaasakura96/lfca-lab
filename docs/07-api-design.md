@@ -74,7 +74,7 @@ Creates an attempt and, for exam and holdout modes, freezes its clock by writing
 | `mode` | `exam` \| `practice` \| `domain` \| `holdout` |
 | `examId` | required iff `mode = "exam"`; must match `exam-\d{2}` and exist |
 | `domain` | required iff `mode = "domain"`; one of the six |
-| `length` | `mode = "domain"` only: `20` \| `40` \| `"all"`. Default `20`. Ignored elsewhere — practice is 60, exam is 60, holdout is 40 |
+| `length` | `mode = "domain"`: `20` \| `40` \| `"all"`, default `20`. `mode = "practice"`: `20` \| `40` \| `60`, default `20`. Absent on the other two — exam is 60 and holdout is 40, and the mode alone decides it |
 
 **Response `201`**
 
@@ -84,6 +84,22 @@ Creates an attempt and, for exam and holdout modes, freezes its clock by writing
 
 `deadline` is an ISO-8601 instant for `exam` (start + 90m) and `holdout` (start + 60m), `null`
 otherwise. The client counts down to it for display only; the server never trusts it back.
+
+**This section said "practice is 60" until practice acquired a selector.** It is 20, 40 or 60 now,
+defaulting to 20 — and it was not the one-line change PRD §7 assumed, because the 18/11/10/8/7/6
+quota is pinned for 60 exactly and each shorter length needed its own pinned table. See the decision
+log, 2026-09-06.
+
+**`questionCount` is what was written down, never what was asked for.** For an exam it is the paper's
+60. For a composed sitting it is the number of `attempt_question` rows the start transaction wrote,
+which is the resolved length: a domain sitting of `"all"` has no asked-for number at all, and a pool
+that cannot fill a request is a fact about the bank rather than a failure — never an error, never
+padded. A composition of *nothing* is the one case that is not a short sitting but a broken bank, and
+it fails as `500 internal_error` with no attempt row written.
+
+**A composed sitting has no `resumed` short-circuit**, unlike an exam. There is no single sitting of
+"practice" to hand back — the request names a shape, not a paper — and two concurrent domain runs are
+not a state worth forbidding.
 
 **An exam sitting already in progress comes back `200`, not `409`** — a correction to this document
 rather than a refinement of it:

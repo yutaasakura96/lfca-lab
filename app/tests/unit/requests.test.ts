@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { AnswerRequest, FlagRequest } from '../../src/lib/requests.ts';
+import { AnswerRequest, FlagRequest, StartAttemptRequest } from '../../src/lib/requests.ts';
+import { DEFAULT_PRACTICE_LENGTH, DOMAINS } from '../../src/domain/weights.ts';
 import { loadItems } from '../bank.ts';
 
 // The write surface's shape, checked without a server.
@@ -111,5 +112,69 @@ describe('the flag request', () => {
       questionId: 'q.linux.command-line.awk.03',
       flagged: true,
     });
+  });
+});
+
+describe('the start request', () => {
+  it('defaults a practice sitting to the one place that length is decided', () => {
+    const parsed = StartAttemptRequest.safeParse({ mode: 'practice' });
+    expect(parsed.success && parsed.data).toEqual({
+      mode: 'practice',
+      length: DEFAULT_PRACTICE_LENGTH,
+    });
+  });
+
+  it('accepts each of the three weighted lengths, and nothing between them', () => {
+    for (const length of [20, 40, 60]) {
+      expect(StartAttemptRequest.safeParse({ mode: 'practice', length }).success, String(length))
+        .toBe(true);
+    }
+    // A free integer is the shape doc 03 §9 rules out by name: the composer
+    // pins a quota table per length, so a length with no table is a sitting
+    // with no shape.
+    for (const length of [0, 1, 19, 30, 61, 600, '20', null]) {
+      expect(StartAttemptRequest.safeParse({ mode: 'practice', length }).success, String(length))
+        .toBe(false);
+    }
+  });
+
+  it('defaults a domain sitting to twenty, and takes all six domains', () => {
+    for (const domain of DOMAINS) {
+      const parsed = StartAttemptRequest.safeParse({ mode: 'domain', domain });
+      expect(parsed.success && parsed.data).toEqual({ mode: 'domain', domain, length: 20 });
+    }
+  });
+
+  it("lets a domain sitting say 'all', and a practice sitting not", () => {
+    expect(
+      StartAttemptRequest.safeParse({ mode: 'domain', domain: 'security', length: 'all' }).success,
+    ).toBe(true);
+    // 'all' means "however many that domain has", which is a fact about one
+    // pool. A weighted sitting spans six, so there is nothing for it to mean.
+    expect(StartAttemptRequest.safeParse({ mode: 'practice', length: 'all' }).success).toBe(false);
+    // And 60 is not a domain length: doc 10 §3's control offers 20 / 40 / All.
+    expect(
+      StartAttemptRequest.safeParse({ mode: 'domain', domain: 'security', length: 60 }).success,
+    ).toBe(false);
+  });
+
+  it('refuses a domain sitting with no domain, and an unknown domain', () => {
+    expect(StartAttemptRequest.safeParse({ mode: 'domain' }).success).toBe(false);
+    expect(StartAttemptRequest.safeParse({ mode: 'domain', domain: 'networking' }).success)
+      .toBe(false);
+  });
+
+  it('refuses an exam sitting with no paper, and a paper that is not one of the sixteen', () => {
+    expect(StartAttemptRequest.safeParse({ mode: 'exam' }).success).toBe(false);
+    for (const examId of ['exam-1', 'exam-007', 'exam-07; drop', '../exam-07']) {
+      expect(StartAttemptRequest.safeParse({ mode: 'exam', examId }).success, examId).toBe(false);
+    }
+    expect(StartAttemptRequest.safeParse({ mode: 'exam', examId: 'exam-07' }).success).toBe(true);
+  });
+
+  it('refuses a mode that is not one of the four', () => {
+    for (const mode of ['drill', 'review', '', null, 60]) {
+      expect(StartAttemptRequest.safeParse({ mode }).success, String(mode)).toBe(false);
+    }
   });
 });

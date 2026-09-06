@@ -12,7 +12,8 @@
 // is not first.
 
 import { sql } from 'drizzle-orm';
-import type { Db } from '../client.ts';
+import type { Db, Executor } from '../client.ts';
+import { freezeAttemptQuestions } from './paper.ts';
 import { attempt } from '../schema/app.ts';
 import { deadlineOf } from '../../domain/clock.ts';
 import { timeLimitFor, type AttemptMode } from '../../domain/modes.ts';
@@ -55,7 +56,11 @@ function isFirstAttemptRace(error: unknown): boolean {
   return false;
 }
 
-async function insert(db: Db, input: NewAttempt, claimFirst: boolean): Promise<StartedAttempt> {
+async function insert(
+  executor: Executor,
+  input: NewAttempt,
+  claimFirst: boolean,
+): Promise<StartedAttempt> {
   const timeLimitSeconds = timeLimitFor(input.mode);
 
   // `NOT EXISTS` is evaluated by Postgres as part of the insert, so no caller
@@ -68,7 +73,7 @@ async function insert(db: Db, input: NewAttempt, claimFirst: boolean): Promise<S
   // Raw SQL bypasses Drizzle's column mapping, so these come back as the driver
   // produced them — `started_at` may be a string rather than a Date. Normalised
   // below rather than assumed, because a wrong `startedAt` is a wrong clock.
-  const rows = await db.execute<{
+  const rows = await executor.execute<{
     id: string;
     started_at: Date | string;
     is_first_attempt: boolean;
@@ -98,21 +103,86 @@ async function insert(db: Db, input: NewAttempt, claimFirst: boolean): Promise<S
 /**
  * Create an attempt, and settle the first-attempt flag while doing it.
  *
+ * Takes an {@link Executor} rather than the handle, so a caller composing a
+ * sitting can run this and {@link freezeAttemptQuestions} in one transaction.
+ *
  * Retried **once**, and only on the first-attempt index. A second failure is
  * not a race — it is a bug or a broken constraint, and swallowing it would hide
  * exactly the thing the index exists to surface.
+ *
+ * **The retry is exam-only, which is why the executor is safe.** A unique
+ * violation aborts the transaction it happened in, so a retry inside one would
+ * fail on a statement Postgres has already refused to accept. Only exam mode
+ * claims the flag and only exam mode can hit that index, and an exam sitting is
+ * created on its own — it has no `attempt_question` rows to write. If that ever
+ * changes, the retry has to move out of the transaction with it.
  */
-export async function createAttempt(db: Db, input: NewAttempt): Promise<StartedAttempt> {
+export async function createAttempt(executor: Executor, input: NewAttempt): Promise<StartedAttempt> {
   const wantsFirst = input.mode === 'exam';
   try {
-    return await insert(db, input, wantsFirst);
+    return await insert(executor, input, wantsFirst);
   } catch (error) {
     if (!wantsFirst || !isFirstAttemptRace(error)) throw error;
     // Somebody else claimed it between our subquery and our write. They were
     // earlier; we are not first. Recording that is the correct outcome, not a
     // consolation.
-    return await insert(db, input, false);
+    return await insert(executor, input, false);
   }
+}
+
+/**
+ * A sitting that composes its own questions: practice, domain, and — when it
+ * lands — the holdout.
+ *
+ * Exam mode is excluded at the type level rather than by a runtime check. A
+ * paper is stored once, in `exam_item`; writing sixty rows per exam sitting
+ * would give a paper's order two places it could be read from, which is two
+ * places it could be read from differently.
+ *
+ * There is no `questionCount` here because it is not the caller's to state —
+ * see {@link startComposedSitting}.
+ */
+export type ComposedAttempt = Omit<NewAttempt, 'questionCount' | 'examId' | 'mode'> & {
+  mode: Exclude<AttemptMode, 'exam'>;
+};
+
+/**
+ * Start a composed sitting: the attempt and the questions it asks, in one
+ * transaction.
+ *
+ * An attempt that exists without its questions is a sitting with nothing to
+ * show, and questions left behind by an insert that failed belong to no
+ * sitting. Neither is a state this product has, and the transaction is what
+ * makes that a fact rather than an intention.
+ *
+ * **`question_count` is `questionIds.length`, never the length that was asked
+ * for.** The two differ whenever a pool cannot fill a request — a domain
+ * sitting of `all` is *defined* that way — and a column that disagreed with the
+ * rows would break the one assumption the navigator rests on, that a sitting's
+ * positions run 0…n-1. Deriving it means the column records what was written
+ * down.
+ *
+ * **A composition of nothing is refused before the transaction opens.** It is
+ * unreachable against this bank, whose smallest non-holdout exam pool is a
+ * hundred against a quota of two, and reachable against a broken seed. Throwing
+ * says the bank is wrong rather than the request, and leaves no attempt row
+ * behind for a screen to find and fail to render.
+ */
+export async function startComposedSitting(
+  db: Db,
+  input: ComposedAttempt,
+  questionIds: readonly string[],
+): Promise<StartedAttempt> {
+  if (questionIds.length === 0) {
+    const what = input.domain ?? input.mode;
+    throw new Error(`Composed no questions for a ${what} sitting; the bank cannot fill it.`);
+  }
+
+  return db.transaction(async (tx) => {
+    const started = await createAttempt(tx, { ...input, questionCount: questionIds.length });
+    await freezeAttemptQuestions(tx, started.id, questionIds);
+    return started;
+  });
 }
 
 /**

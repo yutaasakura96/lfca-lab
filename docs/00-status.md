@@ -388,6 +388,42 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   sitting and its attempt both survived a full reseed intact.
   Suites: 339 bank · **397** app unit · **115** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — a practice or domain sitting can be started** (#33). `POST /api/attempt`
+  no longer refuses everything but exam mode. A practice sitting takes 20/40/60 and a domain sitting
+  20/40/all, both defaulting to **20**, and the attempt and its `attempt_question` rows are written
+  **in one transaction** — a sitting that exists without its questions is a sitting that cannot be
+  rendered.
+  The transaction is one function, `startComposedSitting`, and it exists because `createAttempt` now
+  takes an **executor** rather than the handle — the seam #31 built `freezeAttemptQuestions` for.
+  There is still **one attempt `INSERT`** for all four modes, so the six check constraints and the
+  first-attempt claim have one expression rather than two. That is safe only because **the
+  first-attempt retry is exam-only**: a unique violation aborts the transaction it happened in, and
+  only exam mode claims the flag — and an exam sitting is created alone, because its paper is
+  `exam_item`. The function's own comment says so, so a future mode that did both would find the
+  warning rather than the bug.
+  **`question_count` is what was frozen, never what was asked for.** The two differ whenever a pool
+  cannot fill a request — a domain sitting of `all` is *defined* that way — and a column disagreeing
+  with its rows would break the assumption the navigator rests on, that positions run 0…n-1. A
+  composition of **zero** is the one case that is a broken bank rather than a short sitting: it
+  throws before the transaction opens, so it reads as `500 internal_error` with no attempt row left
+  behind. Unreachable against this bank, whose smallest non-holdout exam pool is a hundred against a
+  quota of two.
+  There is deliberately **no `resumed` short-circuit** here, unlike a paper: the request names a
+  shape rather than a paper, so there is no single sitting of "practice" to hand back.
+  The start schema moved out of the route and into `src/lib/requests.ts` beside the other two, which
+  is what let the default and the two length unions be unit-tested without a server — practice's 20
+  is read from `DEFAULT_PRACTICE_LENGTH` rather than retyped, and a domain sitting's `'all'` and a
+  practice sitting's `60` are each refused by the other's union.
+  Verified against the seeded branch: all three practice lengths matching their pinned table domain
+  by domain **as read back from `attempt_question`**, a domain sitting of `all` recording the pool's
+  actual count, no holdout id in any of five composed sittings, and a set reading back identically
+  twice in its own order. **The rollback was verified rather than asserted** — with the transaction
+  removed the test fails on an orphan attempt row (11 where 10 were expected), which is exactly the
+  row a screen would find and fail to render.
+  Doc 07 §2 is corrected: it said "practice is 60", and it now carries the selector, what
+  `questionCount` means, and why there is no `resumed`.
+  Suites: 339 bank · **404** app unit · **126** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -403,7 +439,9 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order — #31 and #32 have no dependencies and can start immediately. Grilled to seven
+that dependency order. **#31, #32 and #33 are closed**; **#34 is the frontier**, and #29 (the 375px
+code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
+in a comment and confirmed not yet in the code. Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the
 2026-08-29 precedent; each names its ticket):
 

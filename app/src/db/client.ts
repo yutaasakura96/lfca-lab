@@ -28,6 +28,17 @@ export const db = drizzle(pool, { schema });
 export type Db = typeof db;
 
 /**
+ * Anything that can run a statement: the handle above, or a transaction opened
+ * on it.
+ *
+ * A query helper that takes this rather than {@link Db} can be composed into a
+ * caller's transaction — which is how a sitting and the questions it asks are
+ * written down together, or not at all. Helpers that *open* a transaction still
+ * take `Db`, because only the handle can.
+ */
+export type Executor = Pick<Db, 'execute'>;
+
+/**
  * Fail loudly, at the point of use, when there is nowhere to connect.
  *
  * Called by anything that actually talks to Postgres — the migration runner,

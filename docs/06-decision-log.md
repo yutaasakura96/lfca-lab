@@ -1152,3 +1152,39 @@ not when it compiles. Each names the ticket that carries it out.*
   unaffected — a domain never practised reads "0 of N seen" and "not started".
 - **Revisit if:** the study guide is ever linked per concept, which the 2026-08-28 entry names as the
   first thing to reconsider — a competency-level coverage view would then have somewhere to point.
+
+### [2026-09-06] A composed sitting is started by one function, and `question_count` is what it froze
+- **Decision:** `createAttempt` takes an **executor** rather than the handle — the same
+  `Pick<Db, 'execute'>` `freezeAttemptQuestions` already took — and one new function beside it,
+  `startComposedSitting`, opens the transaction and calls both. `question_count` is
+  `questionIds.length`, always, never the length that was asked for. A composition of **zero**
+  throws before the transaction opens, surfacing as `500 internal_error` with no attempt row
+  written. Ticket #33.
+- **Context:** #31 built `freezeAttemptQuestions` to take an executor specifically so this ticket
+  could join the two inserts; what was undecided was where the transaction goes and what
+  `question_count` means when the pool cannot fill the request.
+- **Alternatives considered.** *For the seam:* leaving `createAttempt` on `Db` and writing a second
+  transactional insert for composed modes — the exam path stays untouched, at the cost of a second
+  place the attempt `INSERT`, its six check constraints and the `started_at` normalisation are
+  written, kept in step by hand. Also considered opening the transaction in the route handler, which
+  puts a transaction boundary in a file whose job is parsing a body and choosing a status code, and
+  which #34's setup screens would have to repeat. *For zero:* a 4xx refusal, which needs an error
+  code doc 07 §1's table does not have and tells the candidate their request was wrong when the bank
+  is; and letting it through, which stores an attempt with `question_count` 0 and surfaces later as
+  an empty sitting screen rather than at the point the set was composed.
+- **Reason:** one attempt `INSERT` for all four modes is what keeps the check constraints and the
+  first-attempt claim from having two expressions. On the count: the two numbers differ whenever a
+  pool cannot fill a request — a domain sitting of `all` is *defined* that way — and a column that
+  disagreed with its rows would break the assumption the navigator rests on, that a sitting's
+  positions run 0…n-1. Deriving it means the column records what was written down rather than what
+  was hoped for.
+- **Consequence:** the executor is safe only because **the first-attempt retry is exam-only**. A
+  unique violation aborts the transaction it happened in, so a retry inside one would run against a
+  transaction Postgres has already refused; only exam mode claims the flag, only exam mode can hit
+  that index, and an exam sitting is created on its own because its paper is `exam_item`. Named in
+  the function's own comment, because a future mode that both claims the flag and freezes questions
+  would have to move the retry out. Verified rather than assumed: with the transaction removed, the
+  rollback test fails with an orphan attempt row (11 attempts where 10 were expected), which is the
+  row a screen would find and be unable to render.
+- **Revisit if:** a mode arrives that both claims a first-attempt flag and composes its own
+  questions — the holdout does not, since it is sat once and has no paper to be first at.

@@ -10,7 +10,7 @@
 // a column that is never read cannot be leaked by a careless spread.
 
 import { sql } from 'drizzle-orm';
-import type { Db } from '../client.ts';
+import type { Db, Executor } from '../client.ts';
 import {
   orderOptionsForPaper,
   presentInAuthoredOrder,
@@ -77,9 +77,6 @@ export async function getPaperQuestions(db: Db, examId: string): Promise<Sitting
 // and the set is written to `attempt_question` because it cannot be recovered
 // otherwise: `answer` records what was *answered*, and recomposing reads an
 // ordering that the act of answering changes.
-
-/** Anything that can run a statement: the handle, or a transaction on it. */
-type Executor = Pick<Db, 'execute'>;
 
 /**
  * Write down what a composed sitting asks, once, at start.
