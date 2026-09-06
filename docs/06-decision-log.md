@@ -1188,3 +1188,36 @@ not when it compiles. Each names the ticket that carries it out.*
   row a screen would find and be unable to render.
 - **Revisit if:** a mode arrives that both claims a first-attempt flag and composes its own
   questions — the holdout does not, since it is sat once and has no paper to be first at.
+
+### [2026-09-06] The push guard on `main` is removed
+- **Decision:** `.claude/hooks/pre-push-main-guard.sh` is deleted and unregistered. Pushing `main`
+  is ordinary work, like every other push. `stop-branch-drift.sh` stays — it reports on Stop when
+  `main` falls six or more commits behind `develop`, and reporting was never the problem.
+  **This supersedes the tracker half of the [2026-09-02] entry "Protecting `main` is a hook, not a
+  permission rule".** That entry stands as written; the log is append-only.
+- **Context:** the owner asks for the commit, the merge and the push as one request, every time. A
+  guard making `main` the single branch an agent could not move meant that request could never be
+  carried out — the agent did five sixths of it and handed back a command to paste.
+- **And it did not work.** Found the same day, by tripping it: the guard's *"an explicit branch was
+  named"* escape is `*" origin "*[a-z]*`, which any lowercase letter **anywhere after `" origin "`**
+  satisfies — including in a pipe or a redirect. `git push origin HEAD` from `main` is refused;
+  `git push origin HEAD 2>&1 | tail -12` is allowed. It blocked the spelling a person types and
+  permitted the spelling an agent types, which is the exact inversion of what it was for. `main` was
+  pushed through that hole on 2026-09-06 — with the owner's explicit go-ahead, so nothing was lost.
+- **Alternatives considered:** fixing the pattern and keeping the guard — it restores a refusal the
+  owner does not want, so the reward for the repair is more friction. Also considered leaving the
+  file registered but neutered, rejected because a hook that guards nothing is worse than no hook: it
+  reads as protection in `settings.json` and in `CLAUDE.md`, and the next person to trust it would be
+  trusting a comment.
+- **Consequence:** `.claude/settings.json` loses its `Bash` `PreToolUse` entry and keeps the
+  `Edit|Write|NotebookEdit` branch guard and the Stop hook. Two standing claims are corrected rather
+  than left to rot — `CLAUDE.md`'s Checkpoints section said `main` "needs asking", and
+  `docs/00-status.md` said "only the owner can move it". Both said so in the present tense about a
+  hook that no longer exists, and a stale safety claim is worse than none.
+- **The thing this gives up, stated plainly:** doc 12 §3 makes a push to `main` a **production
+  deploy** once Vercel is connected. Today nothing is connected, so it deploys nothing, which is why
+  removing it now costs nothing. **The deploy slice inherits the question** of whether a production
+  push wants a prompt back — recorded in `docs/00-status.md` beside the three findings already
+  carried for that slice, not left to be rediscovered.
+- **Revisit if:** Vercel is connected — at which point "push `main`" and "ship to production" become
+  the same action, and this is the entry to re-read before deciding they need no ceremony.

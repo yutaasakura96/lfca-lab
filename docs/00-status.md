@@ -507,7 +507,7 @@ Flow, context hygiene and phase boundaries:
 ## Blocked
 Nothing. The holdout is fully defended and the data spine is built.
 
-Three findings from feature 2 are **carried, not lost** — each belongs to the slice that deploys:
+Four findings are **carried, not lost** — each belongs to the slice that deploys:
 - **Doc 12 §2 lists one `DATABASE_URL`.** Neon routes schema migrations to the *direct* host and a
   serverless runtime to the *pooled* one, so a second variable will be needed. **Still outstanding,
   now written down** — doc 12 §2.2. Deliberately not introduced early: nothing reads it until Vercel
@@ -518,6 +518,13 @@ Three findings from feature 2 are **carried, not lost** — each belongs to the 
   There is a setting for it.
 - **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
   workflow itself is not written.
+- **Nothing gates a push to `main` any more**, and once Vercel is connected that push *is* a
+  production deploy (doc 12 §3). The hook that refused it was removed on 2026-09-06 — it was
+  friction against how the owner actually works, and it did not work anyway: its escape pattern
+  allowed any push whose command carried a lowercase letter after `" origin "`, which every piped
+  `git push origin HEAD | tail` does. **Decide at the deploy slice whether a production push wants a
+  prompt back**, with the fresh knowledge that it must not be a text match on the command. See the
+  decision log, 2026-09-06.
 
 ### Done — `app/.env.local` now says `verify-full`
 The owner made the edit. Confirmed 2026-09-02 while building #22:
@@ -603,10 +610,13 @@ pooled URL (§2.2) on arrival.
   **Only `develop` and `main` exist**, locally and on the remote — every merged ticket branch was
   deleted on 2026-09-06, including the Phase 2–5 `design/practice-app-system`. Their commits are
   reachable through `develop`'s history; nothing was lost.
-  **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `249826f`, level with
-  `develop`. It drifts silently, though: `.claude/hooks/pre-push-main-guard.sh` refuses any agent
-  push to it, so only the owner can move it, and it was one commit behind when #27 started. Check
-  `git log origin/main..main` before assuming production is current.
+  **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `27cd5de`, level with
+  `develop`. **The hook that refused agent pushes to it is gone**, removed the same day; pushing
+  `main` is now ordinary work, and `stop-branch-drift.sh` still reports on Stop when it falls six or
+  more commits behind. It has drifted before — one commit behind when #27 started — so check
+  `git log origin/main..main` before assuming production is current rather than trusting that
+  somebody pushed. **A push to `main` becomes a production deploy once Vercel is connected**
+  (doc 12 §3); whoever wires that slice decides whether it wants a prompt back.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
 - **`.mcp.json` holds Neon MCP and Playwright MCP.** Neon's was added when the project was

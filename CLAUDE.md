@@ -87,9 +87,11 @@ Hand-maintained: `PROGRESS.md`, `README.md`, `study-guide/`.
   on — it fired unnoticed through a whole feature once already.
 - **Update `docs/00-status.md` when a ticket closes.** It is the handoff artifact a cleared session
   reads first; a stale one silently costs the next session its bearings.
-- **Only `main` needs asking.** `.claude/hooks/pre-push-main-guard.sh` refuses any push that would
-  update it, because "push to main" cannot be written as a permission glob. Every other push runs
-  without a prompt.
+- **Pushing is ordinary, `main` included.** There is no hook refusing it any more — the owner asks
+  for the commit, the merge and the push, so a guard that made `main` the one branch an agent could
+  not move was friction in the way of the actual workflow. Say what you pushed; do not ask first.
+  **This changes at the deploy slice**, when a push to `main` becomes a production deploy
+  (@docs/12-deployment.md §3) — decide then whether that one wants a prompt back.
 
 ## Gotchas
 

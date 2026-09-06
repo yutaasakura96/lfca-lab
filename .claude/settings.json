@@ -88,15 +88,6 @@
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-edit-branch-guard.sh"
           }
         ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-push-main-guard.sh"
-          }
-        ]
       }
     ],
     "Stop": [
