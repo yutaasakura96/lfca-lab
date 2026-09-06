@@ -524,6 +524,16 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   reading the verdict back from the row rather than deriving it from what was sent. Doc 07 §3 gains
   both, and its `question_not_in_attempt` line gains the table branch.
   **No browser sweep**: #35 has no screen to drive, because the composed sitting screen is #36.
+  **The code review that followed found one real defect and corrected it** (`51c8521`, log entry the
+  same day). The verdict was read back in a *second* query after the write, on the rationale that
+  the response should report what was stored — right rationale, wrong implementation: two writes to
+  one question can be in flight at once, because the outbox sends a click made during a backoff on
+  its own, so the read reports the *other* click's verdict. It comes from the write's own
+  `INSERT … RETURNING` now, and `getQuestionKey` shrank to take a question id and nothing else — no
+  attempt, no join to `answer`, so nothing in it can pair one sitting's click with another's.
+  `WriteResult` became a discriminated object with it, and one assertion now pins the property
+  directly: two writes to one question, each reporting its own verdict. Both fixes were
+  mutation-checked.
   Suites: 339 bank · **419** app unit · **157** app integration · 1 app e2e.
 
 ## Next
