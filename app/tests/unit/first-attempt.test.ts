@@ -65,11 +65,21 @@ describe('what each mode implies', () => {
     expect(allowsFlagging('domain')).toBe(false);
   });
 
-  it('asks 60 questions in exam and practice, 40 in the holdout', () => {
+  it('asks 60 questions in exam and 40 in the holdout — the two modes that decide it', () => {
     expect(questionCountFor('exam')).toBe(60);
-    expect(questionCountFor('practice')).toBe(60);
     expect(questionCountFor('holdout')).toBe(HOLDOUT_QUESTION_COUNT);
     expect(HOLDOUT_QUESTION_COUNT).toBe(40);
+  });
+
+  it('refuses to answer for the two modes whose length the candidate chooses', () => {
+    // `questionCountFor` answered 60 for practice while 60 was practice's only
+    // length. It is now 20, 40 or 60, so the mode no longer determines it, and
+    // the narrowed parameter type is what stops a caller reading the old
+    // answer. Domain mode was already excluded for the same reason.
+    // @ts-expect-error practice's length is the candidate's choice, not the mode's
+    expect(() => questionCountFor('practice')).toBeDefined();
+    // @ts-expect-error domain mode's length is capped by the pool, not the mode
+    expect(() => questionCountFor('domain')).toBeDefined();
   });
 
   it('covers every mode — a new one cannot be added without deciding its clock', () => {

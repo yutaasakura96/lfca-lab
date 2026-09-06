@@ -55,9 +55,18 @@ export function allowsFlagging(mode: AttemptMode): boolean {
 /**
  * How many questions a sitting asks, where the mode alone decides it.
  *
- * Domain mode is the exception — its length is chosen by the candidate and
- * capped by the domain's pool — so it is not answered here.
+ * **Only two modes qualify.** Exam mode is always 60 and the holdout is always
+ * 40, so the mode is the whole answer. Domain mode's length is the candidate's
+ * choice capped by the pool, and practice mode's is the candidate's choice of
+ * 20, 40 or 60 (`WEIGHTED_SITTING_LENGTHS`) — for either of those the mode
+ * cannot answer, so the type refuses to be asked.
+ *
+ * Practice was excluded when its selector arrived, and the narrowing is the
+ * point: this function used to answer 60 for it, which was true while 60 was
+ * the only length. Leaving it would have left a function reporting a number
+ * correct for one of three choices, and the compiler now refuses the caller
+ * that would have read it.
  */
-export function questionCountFor(mode: Exclude<AttemptMode, 'domain'>): number {
+export function questionCountFor(mode: Exclude<AttemptMode, 'domain' | 'practice'>): number {
   return mode === 'holdout' ? HOLDOUT_QUESTION_COUNT : QUESTIONS_PER_WEIGHTED_SITTING;
 }

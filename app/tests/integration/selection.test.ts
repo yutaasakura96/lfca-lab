@@ -8,7 +8,12 @@ import {
   selectHoldoutQuestions,
   selectPracticeQuestions,
 } from '../../src/db/queries/selection.ts';
-import { DOMAINS, weightedQuota } from '../../src/domain/weights.ts';
+import {
+  DOMAINS,
+  QUESTIONS_PER_WEIGHTED_SITTING,
+  weightedQuota,
+  WEIGHTED_SITTING_LENGTHS,
+} from '../../src/domain/weights.ts';
 import { assertSeeded, createTestUser, deleteAllTestUsers, testUserId } from './support.ts';
 
 /**
@@ -72,7 +77,7 @@ describe.skipIf(!hasDatabase)('the holdout is never served', () => {
   });
 
   it('never appears in a practice sitting', async () => {
-    const picked = await selectPracticeQuestions(db, userId);
+    const picked = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     expect(picked.filter((id) => holdoutIds.has(id))).toEqual([]);
   });
 
@@ -106,7 +111,7 @@ describe.skipIf(!hasDatabase)('the holdout is never served', () => {
 
 describe.skipIf(!hasDatabase)('a practice sitting', () => {
   it('is exactly 60 questions, split by the official weights', async () => {
-    const picked = await selectPracticeQuestions(db, userId);
+    const picked = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     expect(picked).toHaveLength(60);
 
     const byDomain = await db.execute<{ domain: string; n: number }>(sql`
@@ -118,12 +123,43 @@ describe.skipIf(!hasDatabase)('a practice sitting', () => {
   });
 
   it('never repeats a question within one sitting', async () => {
-    const picked = await selectPracticeQuestions(db, userId);
+    const picked = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     expect(new Set(picked).size).toBe(picked.length);
   });
 
+  // 20 and 40 are the same query with a different quota, so what is worth
+  // asserting against the real database is that the length actually reaches it
+  // — a wrong length here would come back as a full-length sitting from a
+  // twenty-question request, which reads as working.
+  it('is exactly its chosen length, split by that length\'s table', async () => {
+    for (const length of WEIGHTED_SITTING_LENGTHS) {
+      const picked = await selectPracticeQuestions(db, userId, length);
+      expect(picked, `${length}`).toHaveLength(length);
+      expect(new Set(picked).size, `${length}`).toBe(length);
+
+      const byDomain = await db.execute<{ domain: string; n: number }>(sql`
+        SELECT domain, count(*)::int AS n FROM question WHERE id = ANY(${idArray(picked)}) GROUP BY domain
+      `);
+      for (const row of byDomain.rows) {
+        expect(row.n, `${row.domain} at ${length}`).toBe(
+          weightedQuota(row.domain as (typeof DOMAINS)[number], length),
+        );
+      }
+    }
+  });
+
+  it('serves no holdout item at any length', async () => {
+    for (const length of WEIGHTED_SITTING_LENGTHS) {
+      const picked = await selectPracticeQuestions(db, userId, length);
+      const flagged = await db.execute<{ n: number }>(sql`
+        SELECT count(*)::int AS n FROM question WHERE id = ANY(${idArray(picked)}) AND is_holdout
+      `);
+      expect(flagged.rows[0]?.n, `${length}`).toBe(0);
+    }
+  });
+
   it('draws only from the exam pool', async () => {
-    const picked = await selectPracticeQuestions(db, userId);
+    const picked = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     const offPool = await db.execute<{ n: number }>(sql`
       SELECT count(*)::int AS n FROM question WHERE id = ANY(${idArray(picked)}) AND pool <> 'exam'
     `);
@@ -134,8 +170,8 @@ describe.skipIf(!hasDatabase)('a practice sitting', () => {
     // The random tie-break. With every question unseen, order is entirely
     // random, so two 60-question draws from a 960-question pool matching
     // exactly would be an event worth investigating rather than a flake.
-    const first = await selectPracticeQuestions(db, userId);
-    const second = await selectPracticeQuestions(db, userId);
+    const first = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
+    const second = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     expect(first).not.toEqual(second);
   });
 });

@@ -325,6 +325,34 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   `.mcp.json` while there was. Corrected in both.
   Suites: 339 bank · 364 app unit · 102 app integration · **1 app e2e**.
 
+- **Phase 6, feature 4 — a practice sitting is 20, 40 or 60** (#32). PRD §7 assumption 2 is closed,
+  and **both** of its assumptions are now resolved. It was not the "one-line change" the PRD
+  assumed: `WEIGHTED_QUOTA` is hand-pinned for 60 exactly, and its own comment already recorded why
+  — the published percentages divide none of the three lengths evenly, so which domain absorbs the
+  remainder is a decision taken again per length. `WEIGHTED_QUOTA_BY_LENGTH` holds all three
+  (20 → 6/4/3/3/2/2, 40 → 12/7/6/6/5/4, 60 → the unchanged 18/11/10/8/7/6), and `WEIGHTED_QUOTA` is
+  now **defined as its 60 entry** rather than retyped, so the historical name and the table cannot
+  come to hold different numbers.
+  **`composeWeightedSitting` takes the quota table as an argument and reads its target length from
+  that table's own sum.** Reaching for the 60 constant in the redistribution loop is the bug this
+  shape rules out: a 20-question request would have come back 60 long the moment any domain ran
+  short, which reads as working. `selectPracticeQuestions` takes the length as a **required**
+  argument for the same reason — a default there would be a second place
+  `DEFAULT_PRACTICE_LENGTH` is decided, and the one the candidate's selector does not go through.
+  **`questionCountFor` no longer answers for practice.** It returned 60, which was true while 60 was
+  practice's only length; the parameter is narrowed to `'exam' | 'holdout'` — the two modes the mode
+  alone decides — so the compiler now refuses the caller that would read the old answer. The
+  now-false assertion is replaced by two `@ts-expect-error` ones that pin the narrowing itself.
+  One hazard the compiler caught rather than the tests: `DOMAINS.map(weightedQuota)` silently hands
+  `map`'s index to the new defaulted `length` parameter. The literal union `20 | 40 | 60` makes that
+  a type error, which is the only reason the default is safe; the call site is an arrow now and says
+  so.
+  Asserted over the **real bank**, not a fixture, at all three lengths: exactly that long, matching
+  its table domain by domain, no repeats, and no holdout id — plus the standing fact that this bank
+  never has to redistribute, since every domain covers its 60 quota. Integration adds the same
+  length-reaches-the-database check against the seeded branch.
+  Suites: 339 bank · **391** app unit · **104** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 

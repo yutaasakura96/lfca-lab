@@ -25,7 +25,7 @@ import {
   type CandidatesByDomain,
   type DomainLength,
 } from '../../domain/select.ts';
-import { DOMAINS, type Domain } from '../../domain/weights.ts';
+import { DOMAINS, quotaFor, type Domain, type WeightedSittingLength } from '../../domain/weights.ts';
 
 /**
  * Every question this candidate could be asked from one domain, best first.
@@ -61,8 +61,18 @@ export async function domainCandidates(db: Db, userId: string, domain: Domain): 
   return result.rows.map((r) => r.id);
 }
 
-/** A 60-question practice sitting, composed by the official weights. */
-export async function selectPracticeQuestions(db: Db, userId: string): Promise<string[]> {
+/**
+ * A practice sitting of 20, 40 or 60, composed by the official weights.
+ *
+ * The length is a required argument. A default here would be a second place
+ * `DEFAULT_PRACTICE_LENGTH` is decided, and the one the candidate's selector
+ * does not go through.
+ */
+export async function selectPracticeQuestions(
+  db: Db,
+  userId: string,
+  length: WeightedSittingLength,
+): Promise<string[]> {
   const lists = await Promise.all(DOMAINS.map((domain) => domainCandidates(db, userId, domain)));
 
   // Built key by key rather than via `Object.fromEntries`, which widens the key
@@ -74,7 +84,7 @@ export async function selectPracticeQuestions(db: Db, userId: string): Promise<s
     candidates[domain] = lists[i] as string[];
   });
 
-  return composeWeightedSitting(candidates satisfies CandidatesByDomain);
+  return composeWeightedSitting(candidates satisfies CandidatesByDomain, quotaFor(length));
 }
 
 /** A single-domain sitting of 20, 40, or the whole domain. */

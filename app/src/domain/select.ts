@@ -10,7 +10,7 @@
 // Nothing here shuffles. Two callers handing over the same candidates get the
 // same sitting, which is what makes a failure reproducible.
 
-import { DOMAINS, QUESTIONS_PER_WEIGHTED_SITTING, weightedQuota, type Domain } from './weights.ts';
+import { DOMAINS, type Domain, type DomainQuota } from './weights.ts';
 
 /** A domain's eligible questions, best candidate first. */
 export type CandidatesByDomain = Readonly<Record<Domain, readonly string[]>>;
@@ -36,10 +36,17 @@ export function composeDomainSitting(candidates: readonly string[], length: numb
 }
 
 /**
- * A 60-question sitting composed by the official domain weights.
+ * A sitting composed by the official domain weights, to the quota it is given.
  *
  * Each domain contributes its quota, taken off the top of its candidates so the
  * database's unseen-first ordering survives intact.
+ *
+ * **The quota table is a parameter, not a constant this function reaches for.**
+ * A weighted sitting is 20, 40 or 60 (`WEIGHTED_QUOTA_BY_LENGTH`), and the
+ * length is the candidate's choice for practice mode. Reading the 60 table here
+ * would make a 20-question request return 60 questions the moment any domain
+ * ran short — the redistribution below reads its target from the quota's own
+ * sum, so the two cannot disagree about how long the sitting is.
  *
  * **When a domain cannot fill its quota**, the shortfall is redistributed to the
  * domains that still have candidates, heaviest first. The alternative — a
@@ -50,10 +57,13 @@ export function composeDomainSitting(candidates: readonly string[], length: numb
  * against a quota of 6, so in practice it never fires. It exists so that a
  * future bank cannot produce a short sitting in silence.
  *
- * If the whole bank cannot fill 60, this returns everything there is. That is
- * the one case where a short sitting is the only honest answer.
+ * If the whole bank cannot fill the length, this returns everything there is.
+ * That is the one case where a short sitting is the only honest answer.
  */
-export function composeWeightedSitting(candidates: CandidatesByDomain): string[] {
+export function composeWeightedSitting(
+  candidates: CandidatesByDomain,
+  quota: DomainQuota,
+): string[] {
   const remaining = new Map<Domain, string[]>(
     DOMAINS.map((domain) => [domain, dedupe(candidates[domain])]),
   );
@@ -65,12 +75,13 @@ export function composeWeightedSitting(candidates: CandidatesByDomain): string[]
   };
 
   for (const domain of DOMAINS) {
-    takeFrom(domain, Math.min(weightedQuota(domain), (remaining.get(domain) as string[]).length));
+    takeFrom(domain, Math.min(quota[domain], (remaining.get(domain) as string[]).length));
   }
 
   // Redistribute any shortfall. One at a time, heaviest domain first, so the
   // borrowed questions land where the exam weights say they matter most.
-  while (picked.length < QUESTIONS_PER_WEIGHTED_SITTING) {
+  const length = DOMAINS.reduce((sum, domain) => sum + quota[domain], 0);
+  while (picked.length < length) {
     const donor = DOMAINS.find((d) => (remaining.get(d) as string[]).length > 0);
     if (donor === undefined) break;
     takeFrom(donor, 1);
