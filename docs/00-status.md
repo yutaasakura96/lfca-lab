@@ -328,10 +328,18 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is complete.** **Closed: #15–#28.** Exam mode runs end to end, from sign-in to review,
-and the path that matters most — resume and auto-submit — is covered by the one browser test doc 11
-§2 specifies. The next pass opens a new feature: **practice mode (P1, P3) and domain mode (D1)**, or
-**the holdout sitting (H1)**, or **the deploy slice**. Nothing in feature 3 is holding any of them.
+**Feature 3 is complete.** **Closed: #15–#28, and the parent spec #14 with them.** Exam mode runs
+end to end, from sign-in to review, and the path that matters most — resume and auto-submit — is
+covered by the one browser test doc 11 §2 specifies.
+
+**Feature 4 is chosen: practice mode (P1, P3) and domain mode (D1)**, as one slice — the two
+remaining unscored modes. Picked over the holdout sitting (H1) and the deploy slice on 2026-09-06,
+because it is the only one of the three that adds study capability rather than moving where the
+studying happens, and because domain mode at 20 questions is the sitting that gets done on a
+weeknight. The holdout is deliberately sat **last**, once; the deploy slice moves nothing but the
+URL. Neither is blocked by this, and both stay available.
+
+**No tickets exist for feature 4 yet.** The next session writes the spec first.
 
 **Before the deploy slice, re-read the three findings under Blocked** — they were carried through
 features 2 and 3 deliberately and each belongs to whoever wires Vercel.
