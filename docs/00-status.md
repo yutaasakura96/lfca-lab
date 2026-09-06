@@ -353,6 +353,41 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   length-reaches-the-database check against the seeded branch.
   Suites: 339 bank · **391** app unit · **104** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — a composed sitting is written down** (#31). `attempt_question
+  (attempt_id, seq, question_id, created_at)` — PK `(attempt_id, seq)`, unique on
+  `(attempt_id, question_id)`, cascade from the attempt and **RESTRICT** to the question — from one
+  reviewed additive migration, `0001_handy_rogue.sql`, applied. Doc 04 gains it as **§5.4**;
+  `answer` stays at §5.3 so the nine cross-references to it across the docs and the code still land.
+  §5.3's own "a third table is not worth it for one user" note is corrected in place: the reason was
+  never the one user, it was that exam mode already had `exam_item` and the composing modes did not
+  exist yet.
+  **The set cannot be recovered if it is not written down**, and not because recovering it would be
+  expensive: `answer` records what was *answered*, and the candidate ordering reads
+  `max(answered_at) NULLS FIRST`, so answering question 1 changes the ordering a recomposition would
+  read — `random()` re-rolls regardless. **Exam sittings get no rows**: `getSittingQuestions`
+  branches on mode, `exam_item` for a paper and `attempt_question` otherwise, so a paper's order is
+  never readable from two places.
+  **Two option projections, not one.** `presentInAuthoredOrder` joins `orderOptionsForPaper` in
+  `src/domain/paper.ts`: a paper reproduces the recorded slot of its key, a composed sitting has no
+  slot to reproduce and renders authored order (doc 03 §3.2). Routing the composed path through the
+  paper layout by handing it the key's own authored index would have worked and left the next reader
+  deducing that the placement was a deliberate no-op. Both now share `assertOneKeyOfFour`, so the
+  two reads that serve a question cannot come to disagree about what a well-formed one is — the
+  guard is repeated in the projection that has no use for correctness precisely so it is not
+  quietly absent from one of them.
+  `freezeAttemptQuestions` takes an **executor**, not the handle, so #33 can write it in the same
+  transaction as the attempt insert; it writes one multi-row `INSERT` rather than sixty round trips,
+  and sorts, dedupes and validates nothing — the composer already did, and the unique index is what
+  refuses a set the composer could only have produced by breaking.
+  Verified against the seeded branch: a frozen set reads back in its own order (not the ids' sort
+  order), identically on every read, with authored option order matched against
+  `question_option.position` and nothing but `ref`/`text` on the wire; a duplicate is refused; the
+  rows vanish with their attempt; deleting a question the sitting asked is refused by RESTRICT; an
+  exam sitting reads sixty from `exam_item` having frozen nothing, byte-identical to
+  `getPaperQuestions`. **And `npm run seed` leaves it alone** — measured, not assumed: a frozen
+  sitting and its attempt both survived a full reseed intact.
+  Suites: 339 bank · **397** app unit · **115** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 

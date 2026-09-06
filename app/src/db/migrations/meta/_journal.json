@@ -8,6 +8,13 @@
       "when": 1788179953160,
       "tag": "0000_wooden_lake",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788679118683,
+      "tag": "0001_handy_rogue",
+      "breakpoints": true
     }
   ]
 }

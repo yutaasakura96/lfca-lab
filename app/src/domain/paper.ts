@@ -51,6 +51,36 @@ export function orderOptionsForPaper(
 }
 
 /**
+ * Present a composed sitting's options: authored order, correctness stripped.
+ *
+ * The counterpart to {@link orderOptionsForPaper}, and the difference between
+ * them is the whole difference between a paper and a composed sitting. A paper
+ * records **where the correct option sits** (`exam_item.correct_position`), and
+ * reproducing that slot is what makes a re-sit the same paper. A practice or
+ * domain sitting has no paper — `attempt_question` stores which questions were
+ * asked and in what order, and nothing about the options — so there is no slot
+ * to reproduce and options render in the order the bank authored them.
+ *
+ * Two named projections rather than one, each saying which shape it serves.
+ * Routing a composed sitting through the paper layout by handing it the key's
+ * own authored index would work, and would leave the next reader deducing that
+ * the placement is a deliberate no-op.
+ *
+ * The two guards below are the paper layout's, deliberately repeated rather
+ * than skipped because this projection has no use for correctness. A question
+ * with the wrong number of options, or without exactly one right answer, is a
+ * data defect; the seed refuses to commit a bank carrying either, so neither is
+ * reachable — which is why they must not be quietly absent from one of the two
+ * reads that serve a question.
+ */
+export function presentInAuthoredOrder(options: readonly AuthoredOption[]): PresentedOption[] {
+  assertOneKeyOfFour(options);
+  return [...options]
+    .sort((a, b) => a.position - b.position)
+    .map(({ ref, text }) => ({ ref, text }));
+}
+
+/**
  * The placement itself, keeping whatever the caller's options carry.
  *
  * Split out from {@link orderOptionsForPaper} for one reason: the review screen
@@ -68,19 +98,13 @@ export function layOutForPaper<T extends { correct: boolean; position: number }>
   options: readonly T[],
   correctPosition: number,
 ): T[] {
-  if (options.length !== 4) {
-    throw new Error(`A question has four options; got ${options.length}.`);
-  }
   if (!Number.isInteger(correctPosition) || correctPosition < 0 || correctPosition > 3) {
     throw new Error(`The correct option sits at 0–3; got ${correctPosition}.`);
   }
+  assertOneKeyOfFour(options);
 
   const authored = [...options].sort((a, b) => a.position - b.position);
   const correct = authored.filter((o) => o.correct);
-  if (correct.length !== 1) {
-    throw new Error(`A question has exactly one correct option; got ${correct.length}.`);
-  }
-
   const distractors = authored.filter((o) => !o.correct);
   const laidOut: T[] = [];
 
@@ -90,4 +114,20 @@ export function layOutForPaper<T extends { correct: boolean; position: number }>
   }
 
   return laidOut;
+}
+
+/**
+ * Four options, exactly one of them right.
+ *
+ * Shared by both projections so the two reads that serve a question cannot come
+ * to disagree about what a well-formed one is.
+ */
+function assertOneKeyOfFour(options: readonly { correct: boolean }[]): void {
+  if (options.length !== 4) {
+    throw new Error(`A question has four options; got ${options.length}.`);
+  }
+  const correct = options.filter((o) => o.correct).length;
+  if (correct !== 1) {
+    throw new Error(`A question has exactly one correct option; got ${correct}.`);
+  }
 }

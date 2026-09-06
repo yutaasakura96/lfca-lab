@@ -7,9 +7,9 @@
 //   * **Content** — question, question_option, exam, exam_item. Read-only to
 //     the app, rewritten wholesale by the seed, and a projection of the repo.
 //     Losing all of it costs one `npm run seed`.
-//   * **User data** — attempt, answer. Never touched by the seed, never deleted
-//     by the app. The first-attempt scores live here and cannot be regenerated
-//     from anything.
+//   * **User data** — attempt, attempt_question, answer. Never touched by the
+//     seed, never deleted by the app. The first-attempt scores live here and
+//     cannot be regenerated from anything.
 //
 // The auth tables are Better Auth's and are generated, not written here.
 
@@ -214,6 +214,59 @@ export const attempt = pgTable(
     uniqueIndex('one_first_attempt_per_exam')
       .on(t.userId, t.examId)
       .where(sql`${t.isFirstAttempt}`),
+  ],
+);
+
+/**
+ * Which questions one composed sitting asked, and in what order.
+ *
+ * The counterpart to `exam_item`, deliberately the same shape, for the modes
+ * that have no fixed paper. A practice or domain sitting is composed at start —
+ * unseen-first, to a pinned quota, with `random()` breaking ties — and if that
+ * set is not written down it cannot be recovered. `answer` records what was
+ * *answered*, not what was *asked*, and recomposing is not merely lossy but
+ * impossible: `domainCandidates` orders by `max(answered_at) NULLS FIRST`, so
+ * answering question 1 changes the ordering a recomposition would read, and
+ * `random()` re-rolls regardless.
+ *
+ * **Exam sittings deliberately get no rows here.** Their paper is already
+ * stored once, in `exam_item`. Sixty rows per exam attempt would store a known
+ * constant per sitting and give a paper's order two places it could be read
+ * from, which is two places it could be read from differently. One read helper
+ * branches on mode; two tables stay.
+ *
+ * Nothing here records the option layout, because there is none to record: a
+ * composed sitting renders options in authored order (`presentInAuthoredOrder`),
+ * which is derivable from `question_option.position` on every read.
+ */
+export const attemptQuestion = pgTable(
+  'attempt_question',
+  {
+    attemptId: uuid('attempt_id')
+      .notNull()
+      .references(() => attempt.id, { onDelete: 'cascade' }),
+    /** 0 … question_count-1: the question's place in this sitting. */
+    seq: smallint('seq').notNull(),
+    /**
+     * Restrict, for the same reason `answer` and `exam_item` carry it: renaming
+     * a bank id must fail loudly rather than orphan a sitting that asked it.
+     */
+    questionId: text('question_id')
+      .notNull()
+      .references(() => question.id, { onDelete: 'restrict' }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.attemptId, t.seq] }),
+    /**
+     * A sitting cannot ask the same question twice. The composer dedupes, so
+     * this is the database refusing to hold a set the composer could only
+     * produce by breaking — which is what makes "never repeats a question
+     * within one sitting" a fact rather than a test result.
+     */
+    uniqueIndex('attempt_question_attempt_question_uidx').on(t.attemptId, t.questionId),
+    index('idx_attempt_question_question').on(t.questionId),
+    check('attempt_question_seq_non_negative', sql`${t.seq} >= 0`),
   ],
 );
 

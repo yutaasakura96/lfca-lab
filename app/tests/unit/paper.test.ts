@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   layOutForPaper,
   orderOptionsForPaper,
+  presentInAuthoredOrder,
   type AuthoredOption,
 } from '../../src/domain/paper.ts';
 
@@ -107,5 +108,47 @@ describe('laying a question out for the review', () => {
     expect(() => layOutForPaper(richer.slice(0, 3), 0)).toThrow();
     expect(() => layOutForPaper(richer, 4)).toThrow();
     expect(() => layOutForPaper(richer.map((o) => ({ ...o, correct: false })), 0)).toThrow();
+  });
+});
+
+describe('presenting a composed sitting\'s options', () => {
+  // Practice and domain sittings have no fixed paper, so there is no recorded
+  // slot for the key: options render in the order the bank authored them.
+  it('renders in authored order, whatever order the rows arrived in', () => {
+    const shuffled = [options[2], options[0], options[3], options[1]] as AuthoredOption[];
+    expect(presentInAuthoredOrder(shuffled).map((o) => o.ref)).toEqual(['o1', 'o2', 'o3', 'o4']);
+  });
+
+  it('carries only ref and text — correctness does not travel', () => {
+    for (const option of presentInAuthoredOrder(options)) {
+      expect(Object.keys(option).sort()).toEqual(['ref', 'text']);
+    }
+  });
+
+  it('keeps all four, without duplicating or dropping any', () => {
+    const refs = presentInAuthoredOrder(options).map((o) => o.ref);
+    expect([...refs].sort()).toEqual(['o1', 'o2', 'o3', 'o4']);
+  });
+
+  it('does not depend on where the correct option sits', () => {
+    // The whole difference from a paper: moving the key changes nothing here.
+    const keyLast = options.map((o) => ({ ...o, correct: o.position === 3 }));
+    expect(presentInAuthoredOrder(keyLast)).toEqual(presentInAuthoredOrder(options));
+  });
+
+  // The same two guards the paper layout applies, for the same reason: a
+  // malformed question is a data defect, and this is the read that would serve
+  // it. The seed cannot commit a bank that breaks either, so both are
+  // unreachable — which is exactly why they must not be quietly absent from
+  // one of the two projections.
+  it('refuses a question that does not have four options', () => {
+    expect(() => presentInAuthoredOrder(options.slice(0, 3))).toThrow(/four options/);
+  });
+
+  it('refuses a question without exactly one correct option', () => {
+    const none = options.map((o) => ({ ...o, correct: false }));
+    expect(() => presentInAuthoredOrder(none)).toThrow(/exactly one correct/);
+    const two = options.map((o) => ({ ...o, correct: o.position < 2 }));
+    expect(() => presentInAuthoredOrder(two)).toThrow(/exactly one correct/);
   });
 });
