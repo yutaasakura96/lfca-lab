@@ -339,7 +339,38 @@ studying happens, and because domain mode at 20 questions is the sitting that ge
 weeknight. The holdout is deliberately sat **last**, once; the deploy slice moves nothing but the
 URL. Neither is blocked by this, and both stay available.
 
-**No tickets exist for feature 4 yet.** The next session writes the spec first.
+**The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
+that dependency order — #31 and #32 have no dependencies and can start immediately. Grilled to seven
+settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the
+2026-08-29 precedent; each names its ticket):
+
+1. **A composed sitting is frozen in a new `attempt_question` table** (#31). Practice and domain
+   sittings are composed at start and today exist only in memory — `answer` records what was
+   *answered*, not what was *asked* — and recomposing cannot work, because `max(answered_at)` moves as
+   you answer and `random()` re-rolls. Exam sittings get no rows: their paper is `exam_item`.
+2. **A practice sitting is 20 / 40 / 60, default 20** (#32). **PRD §7 assumption 2 is closed, and both
+   assumptions are now resolved.** It was *not* the "one-line change" the PRD assumed — 18/11/10/8/7/6
+   is pinned for 60 exactly, so 20 and 40 each need their own pinned table.
+3. **Strictly forward, and no flagging** (#35, #36). Next only, no Previous, no tile jumps, rail not
+   clickable; `409 flagging_not_available` per doc 07 §4. **Doc 10 §7 contradicts the PRD on both
+   counts** and the board is corrected, not the PRD.
+4. **The unscored review shows counts, never a score** (#37, #38) — and **Incorrect does not claim the
+   blanks**, reversing the 2026-09-04 rule *for these modes only*. On an exam a blank cost what a
+   wrong answer cost; here nothing costs anything. `attempt.score` stays null, which doc 04 §5.1's
+   check constraint already enforces.
+5. **Doc 10 §3 loses four elements** (#34): both *Draw from* checkboxes (one is adaptive selection,
+   ruled out by name in CONTEXT.md; the other is a no-op), the scored "Recent:" row, and the mastery
+   meter (the readiness signal the 2026-08-28 decision declined). "X of Y seen" stays.
+
+Two further decisions are in the tickets rather than the log: the **answer key leak point** is #35 —
+`PUT /answer` branches on the mode read from the *database*, and its test asserts the negative on an
+exam attempt directly — and **#29 was retriaged rather than duplicated**, `ready-for-agent`, with the
+decided fix in a comment: `<wbr>` after path separators in `BankText` plus `overflow-wrap: anywhere`
+on `code`, so a path breaks at its separators and only a genuinely unbreakable identifier breaks
+arbitrarily.
+
+**No second Playwright run** (#39). Doc 11 §2 specifies one, covering the path where a bug costs a
+first-attempt score; nothing in an unclocked, unscored mode can.
 
 **Before the deploy slice, re-read the three findings under Blocked** — they were carried through
 features 2 and 3 deliberately and each belongs to whoever wires Vercel.

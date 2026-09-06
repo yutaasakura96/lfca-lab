@@ -189,10 +189,13 @@ importing external question banks, no offline support.
 
 ## 7. Open assumptions
 
-Flagged rather than invented. Neither blocks Phase 4.
+Flagged rather than invented. Neither blocks Phase 4. **Both are now resolved.**
 
 1. ~~**Domain mode session length is assumed to be 20 questions.**~~ **Resolved 2026-08-29:**
    a 20 / 40 / all-in-domain selector, defaulting to **20**. See `06-decision-log.md` and
    `10-screen-specifications.md` §3.
-2. **Practice mode is assumed to be 60 questions**, mirroring exam mode's composition. It may
-   want to be shorter. Same one-line change.
+2. ~~**Practice mode is assumed to be 60 questions**, mirroring exam mode's composition. It may
+   want to be shorter. Same one-line change.~~ **Resolved 2026-09-06:** a 20 / 40 / 60 selector,
+   defaulting to **20**. It was *not* a one-line change — the 18/11/10/8/7/6 quota is a hand-pinned
+   table for 60 exactly, because the published percentages do not divide 60 evenly, so 20 and 40 each
+   need their own pinned table. See `06-decision-log.md`.

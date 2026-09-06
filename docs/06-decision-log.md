@@ -1011,3 +1011,144 @@ every token change and invite hand-editing the generated file.
   three steps later that would read as a broken redirect.
 - **Revisit if:** the resync stops finalising, which would only happen if lazy finalisation moved —
   and doc 03 §6 has it on four reads deliberately.
+
+---
+
+*The five entries below were settled while speccing feature 4 (#30) and are recorded before their
+implementation, on the 2026-08-29 precedent — a product decision belongs in the log when it is taken,
+not when it compiles. Each names the ticket that carries it out.*
+
+### [2026-09-06] A composed sitting is frozen in `attempt_question`
+- **Decision:** a new table, `attempt_question (attempt_id, seq, question_id)`, PK `(attempt_id, seq)`,
+  unique on `(attempt_id, question_id)`, `question_id → question.id ON DELETE RESTRICT`. Written in
+  the same transaction as the attempt insert, for practice and domain sittings. **Exam sittings get no
+  rows in it** — their paper is already stored once, in `exam_item`. Ticket #31.
+- **Context:** exam mode reads its paper from `exam_item`; practice and domain sittings are composed
+  at start and today exist only in memory. `answer` rows record what was **answered**, not what was
+  **asked**, so a reload has nothing to rebuild the set from.
+- **Alternatives considered:** recomposing on read, with `random()` replaced by a tiebreak seeded on
+  the attempt id — it does not work and cannot be made to, because `domainCandidates` orders by
+  `max(answered_at) NULLS FIRST` and answering question 1 changes the ordering the recomposition would
+  read; freezing seen-ness too is the same storage problem one level down. Also considered an ordered
+  `question_ids text[]` on `attempt`: one migration column and no join, but it stores foreign keys
+  Postgres cannot enforce, so a renamed bank id would silently orphan inside the array instead of
+  failing loudly the way `answer.question_id`'s RESTRICT does — which is the guarantee doc 03 §3 is
+  built on. Also considered giving exam attempts rows too, for one uniform path: it stores a known
+  constant sixty times per sitting and gives a paper's order two places it can be read from.
+- **Reason:** mirroring `exam_item` means the paper query for these modes has the same shape as the
+  exam one, and `question_not_in_attempt` (doc 03 §9, doc 07 §3) becomes checkable in SQL rather than
+  re-derived from a composition nobody kept.
+- **Consequence:** this creates the third table doc 04 §5.3 declined as "not worth it for one user".
+  That note was right for the reason it did not give: exam mode had `exam_item`, and the unfixed modes
+  did not exist yet. Doc 04 gains an eleventh table and §5.3 is corrected when #31 lands. The seed is
+  untouched — it never writes user tables.
+- **Revisit if:** never, while practice and domain sittings are resumable.
+
+### [2026-09-06] A practice sitting is 20, 40 or 60, defaulting to 20 — PRD §7 assumption 2 closed
+- **Decision:** three pinned quota tables — 20 → 6/4/3/3/2/2, 40 → 12/7/6/6/5/4, 60 → the existing
+  18/11/10/8/7/6 — each summing exactly, asserted in a test rather than computed at runtime. Default
+  **20**. Ticket #32.
+- **Context:** PRD §7 assumption 2 called this "the same one-line change" that resolved assumption 1.
+  It is not. `WEIGHTED_QUOTA` is a hand-pinned table for 60 exactly, and its own comment records why:
+  the published percentages do not divide 60 evenly (18% of 60 is 10.8), so rounding each independently
+  gives 61, and which domain absorbs the remainder is a decision rather than an arithmetic accident.
+  A shorter sitting needs the same decision taken again, twice.
+- **Alternatives considered:** fixed 60 as assumed — no new arithmetic and no selector, and practice
+  is then exactly exam mode's shape without the clock, which is the clearest thing it can be; rejected
+  because it is the sitting that does not get done on a weeknight, which was the owner's own stated
+  reason for choosing this feature over the alternatives. Also considered fixed 20, which removes the
+  full-length untimed rehearsal — the one sitting shape that is exam mode minus the pressure.
+- **Reason:** the same reasoning that set domain mode's default on 2026-08-29. 20 is roughly a
+  15-minute sitting; 60 stays available for the rehearsal before the retake.
+- **Consequence:** PRD §7 assumption 2 struck through. **Both open assumptions are now resolved.**
+  `composeWeightedSitting` takes its quota table as an argument; the 60 behaviour is unchanged and its
+  existing assertions must still pass untouched.
+- **Revisit if:** completion data shows 20 is routinely abandoned or routinely too short — the same
+  trigger assumption 1 carries.
+
+### [2026-09-06] Practice and domain are strictly forward, and cannot flag
+- **Decision:** **Next only.** No Previous, no tile jumps, and an answer cannot be changed once
+  graded. The rail is the same `NavigatorTile` component in graded states, reporting progress and not
+  clickable. `PUT /api/attempt/:id/flag` returns `409 flagging_not_available`, exactly as doc 07 §4
+  already specifies. Tickets #35 and #36.
+- **Context:** PRD §2's table says "No — forward only" and its P1/D1 acceptance criteria say nothing
+  about navigation, so the precise rule was undecided. **Doc 10 §7 contradicts it on two counts** — it
+  draws a **Previous** button and a **Flag for review** control.
+- **Alternatives considered:** forward to answer, free to re-read — you could move back over questions
+  already answered but not change them; closer to the board, at the cost of a fourth navigation model
+  (exam free, this half-free, the review a filtered list) and a new reachability rule to state and
+  test. Also considered following doc 10 §7 literally and amending PRD §2: fewest components, since it
+  is exam mode's navigator with grading added, but it reopens a Phase-1 product decision to match a
+  prototype whose own scores and stats are invented sample data, and "commit to an answer" is the one
+  thing separating practice from reading the bank.
+- **Reason:** the board is Phase-2 work that predates the rule, so the board is corrected rather than
+  the PRD. Flagging follows rather than being decided separately: a flag is a mark to come back to,
+  and strictly-forward means there is no coming back. Re-reading is served by the review, which is a
+  route.
+- **Consequence:** doc 10 §7 loses **Previous** and **Flag for review**, and doc 10's cross-screen
+  rule 2 ("flag state persists across modes and is orthogonal to answered state") is **narrowed** to
+  what it can mean — a flag written in exam mode persists on its answer row, and no mode without free
+  navigation can create one. Resume position in these modes is the first unanswered question in `seq`
+  order, which is exact, unlike exam mode's derivation from `answer.updated_at`, because a question
+  cannot be passed without answering it. That closes the named limit of the 2026-09-04 entry for these
+  two modes only.
+- **Revisit if:** the holdout sitting (H1) reuses this screen — it will not; H1 is timed and scored
+  like exam mode, so it takes exam mode's navigator.
+
+### [2026-09-06] The unscored review shows counts, never a score, and does not claim its blanks
+- **Decision:** `/attempt/[id]/review` branches on mode. Dropped for unscored sittings: the big
+  numeral, the pass bar, the pass mark, the verdict chip, the first-attempt standing line, Time used,
+  the re-sit action. Kept: every question the sitting asked, in `seq` order, with the `why` for all
+  four options. The screen opens with a plain `14 correct · 3 incorrect · 3 not reached` — no
+  percentage, no pass mark, no delta. **`attempt.score` stays null.** The filter row is Incorrect ·
+  Correct · **Not reached** · All, and **Incorrect does not claim the blanks.** Tickets #37 and #38.
+- **Context:** the 2026-09-04 entry named this slice as its own revisit trigger — the review's pass
+  mark, verdict chip and Incorrect/Correct/Flagged/All row cannot be used unchanged for a sitting that
+  is not measured and has no flags. Separately, PRD P1 says "No score at the end — this mode is not
+  measured", while doc 10 §7 puts a running correct/incorrect chip pair in the top bar.
+- **Alternatives considered:** no counts anywhere, the strictest reading of PRD P1 — rejected because
+  you watched every one of those verdicts appear one at a time, so the sum is already known and
+  withholding it reads as coyness rather than principle. Also considered running chips with a silent
+  ending, which keeps "at the end" literal at the cost of the bar's last number being the number the
+  review declines to repeat, one scroll position apart. Also considered no review route at all, which
+  makes the wrong-option `why` text — the content the whole bank was written for — unreachable after
+  one showing.
+- **Reason:** what PRD P1 forbids is a *measurement*, and doc 04 §5.1's
+  `CHECK (score IS NULL OR mode IN ('exam','holdout'))` is what enforces that: the count can never
+  reach the exam list, a best-score comparison or a first-attempt flag. A sum of verdicts is not a
+  measurement. On the blanks: the 2026-09-04 rule exists because a blank on an exam cost exactly what
+  a wrong answer cost — the submit statement counts `WHERE a.is_correct`, which counts neither `false`
+  nor `null` — so excluding blanks would have hidden misses from the default view. Here nothing costs
+  anything, and a question you never reached is not a question you got wrong.
+- **Consequence:** the reversal is **mode-local**; the exam review is untouched and its existing tests
+  must still pass unchanged. A question the sitting asked but never reached — Save and exit at question
+  7 of 20 — renders as the dashed *not answered* card **with its explanations shown**: there is no key
+  to protect in an unscored sitting that is already over. `submit_reason` is always `user` in these
+  modes; `expired` is unreachable without a clock.
+- **Revisit if:** the holdout sitting lands, which is scored and takes the exam shape unchanged.
+
+### [2026-09-06] Doc 10 §3's setup screen loses four elements
+- **Decision:** `/domain` builds doc 10 §3's 3×2 grid — domain name, weight chip, competency tags,
+  "X of Y seen", "Last practised …" — plus the 20/40/All control and Start. `/practice` reuses the
+  length control at 20/40/60 with no grid. Home becomes doc 03 §4's "three modes + holdout", with the
+  holdout card **disabled** and naming what H1 is for. Ticket #34. **Cut:** both *Draw from*
+  checkboxes, the "Recent:" chip row, and the per-domain mastery meter.
+- **Context:** the same shape as the 2026-09-04 entry about doc 10 §8 — elements the data or the
+  standing constraints will not support, each missing an input rather than deferred for effort.
+- **Reason, one per cut.** *Previously missed* selects what to serve by past performance, which
+  CONTEXT.md rules out by name: "If a proposal starts using past performance to decide *what* to
+  serve, it is out of scope." *Unseen questions* is a no-op — the `LATERAL` ordering already exhausts
+  unseen before repeating anything (P3), so the checkbox would offer to turn on what cannot be turned
+  off. The "Recent:" row is specified as carrying *scores*, and there are none; without them it is a
+  list of dates. And the **mastery meter** is the readiness signal the 2026-08-28 decision declined to
+  build — "no readiness threshold, dashboard, or gating in the app". Coverage is a fact about what you
+  have done; mastery is a judgement about how well. "X of Y seen" stays; the meter goes.
+- **Alternatives considered:** keeping the mastery meter, which is computable from `answer.is_correct`
+  and is arguably the most useful thing on a screen whose job is choosing where you are weak — it was
+  put to the owner as its own option and declined. Also considered no setup screens at all, starting
+  from home: fastest path to a sitting, but it drops the one screen that helps choose a domain on
+  evidence.
+- **Consequence:** doc 10 §3 is corrected when #34 lands. The empty state PRD §4 requires is
+  unaffected — a domain never practised reads "0 of N seen" and "not started".
+- **Revisit if:** the study guide is ever linked per concept, which the 2026-08-28 entry names as the
+  first thing to reconsider — a competency-level coverage view would then have somewhere to point.
