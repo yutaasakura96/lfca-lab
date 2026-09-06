@@ -112,6 +112,21 @@ the app had silently admitted an account to its database.
 
 - [ ] Every screen beside doc 10, including its **empty, loading and error states** — the exam list
       with nothing sat, a 0/60 review's empty filter, and the page-level error state.
+- [ ] **Home** (doc 03 §4): four cards, three of them reaching a mode and the holdout one visibly
+      disabled and explaining itself. With an unfinished sitting, the *In progress* card names it
+      and resumes it; with none, the card is absent rather than empty.
+- [ ] **`/domain`** against doc 10 §3, on an account with **no history** — every card reads
+      "0 of N seen" and "Last practised not started", with the real N. A blank or a bare "0" here
+      is the failure PRD §4 names.
+- [ ] **`/domain` loading and error.** Neither is built (there is no `loading.tsx` or `error.tsx`
+      under the route), so both currently fall through to the App Router's own boundaries and doc
+      10 §3's *six skeleton cards* and *Retry panel* are unmet. Check what actually happens with
+      the database unreachable before the deploy slice, and either build them or cut them in doc 10
+      the way the four elements were cut.
+- [ ] **The "All N" chip is not a round number.** It must equal the domain's non-holdout exam pool,
+      and the six must sum to **960**. A larger number means the coverage query stopped counting
+      distinct questions — the bug of 2026-09-06, which inflates only for an account with history
+      and so hides from any test written against an empty one.
 - [ ] The review shows the `why` text for **all four** options, on an answered card and on a blank
       one (PRD E4).
 - [ ] Both numbers on the exam list, always together: best and first-attempt, with an unsat paper

@@ -15,8 +15,27 @@ import { DOMAINS, type Domain, type DomainQuota } from './weights.ts';
 /** A domain's eligible questions, best candidate first. */
 export type CandidatesByDomain = Readonly<Record<Domain, readonly string[]>>;
 
+/**
+ * The lengths a domain sitting can be, shortest first.
+ *
+ * `'all'` is not a length like the other two — it is a fact about the pool,
+ * resolved by {@link resolveDomainLength}. Kept as a values array, not only a
+ * type, so the selector the candidate goes through reads the same list the
+ * request schema validates against.
+ */
+export const DOMAIN_SITTING_LENGTHS = [20, 40, 'all'] as const;
+
 /** What the candidate may pick for a domain sitting. */
-export type DomainLength = 20 | 40 | 'all';
+export type DomainLength = (typeof DOMAIN_SITTING_LENGTHS)[number];
+
+/**
+ * What a domain sitting is unless the candidate says otherwise.
+ *
+ * Decided on 2026-08-29, and read from here by both the selector and the
+ * request schema — the same reason `DEFAULT_PRACTICE_LENGTH` exists rather
+ * than a `20` typed into each of them.
+ */
+export const DEFAULT_DOMAIN_LENGTH: DomainLength = 20;
 
 /**
  * How many questions a domain sitting actually asks.

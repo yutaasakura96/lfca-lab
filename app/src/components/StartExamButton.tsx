@@ -1,18 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useStartSitting } from './use-start-sitting.ts';
 
 /**
- * Starting a sitting is a write, so it is a POST — not a link.
+ * Start (or re-sit) one of the sixteen papers.
  *
- * A link would make starting an exam a GET, which browsers and prefetchers feel
- * free to issue on their own. An accidentally-started sitting is not harmless
- * here: it starts a 90-minute clock, and if it is the first attempt at that
- * paper it takes the first-attempt flag with it.
- *
- * Busy state is the disabled tokens and a changed label. No spinner — the
- * design system has no animated primitive.
+ * The POST, the busy label and the failure behaviour all live in
+ * {@link useStartSitting}, shared with the two composed modes — so what this
+ * component holds is the one thing that differs, which is the paper.
  */
 export function StartExamButton({
   examId,
@@ -23,37 +18,14 @@ export function StartExamButton({
   label: string;
   className: string;
 }) {
-  const router = useRouter();
-  const [busy, setBusy] = useState(false);
+  const { busy, start } = useStartSitting();
 
   return (
     <button
       type="button"
       className={className}
       disabled={busy}
-      onClick={async () => {
-        setBusy(true);
-        try {
-          const response = await fetch('/api/attempt', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ mode: 'exam', examId }),
-          });
-
-          if (!response.ok) {
-            setBusy(false);
-            router.refresh();
-            return;
-          }
-
-          const { attemptId } = (await response.json()) as { attemptId: string };
-          router.push(`/attempt/${attemptId}`);
-        } catch {
-          // The sitting was not started, so there is nothing to recover — the
-          // honest response is to let them try again.
-          setBusy(false);
-        }
-      }}
+      onClick={() => void start({ mode: 'exam', examId })}
     >
       {busy ? 'Starting…' : label}
     </button>

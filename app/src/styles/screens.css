@@ -617,3 +617,221 @@ a.btn { text-decoration: none; }
   .qcard .opt { padding-left: var(--space-3); padding-right: var(--space-3); }
   .qcard .opt__why { padding-left: var(--space-3); }
 }
+
+/* ─── Home, and the two setup screens ──────────────────────────────────────
+   Doc 03 §4's home ("three modes + holdout") and doc 10 §3's domain grid.
+
+   These declarations are the artboards' own — `design/parts/Domain.part` keeps
+   them in its `[CSS]` block rather than in `design/base.css`, and `base.css` is
+   copied here byte for byte with a test asserting it. So screen-local styles
+   land in this file, as `.erow` and `.filters` already do. Every value is a
+   token; nothing here invents one. */
+
+.setuppage { display: flex; flex-direction: column; gap: var(--space-6); }
+
+/* ── The mode chooser ── */
+
+.modes {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4); margin-top: var(--space-6);
+}
+.modecard {
+  padding: var(--space-5);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  align-items: flex-start;
+}
+.modecard > .btn { margin-top: auto; }
+.modelines {
+  margin: 0; padding-left: var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-1);
+  color: var(--ink-secondary); font-size: var(--text-sm); line-height: var(--leading-snug);
+}
+
+/* The holdout card is disabled, and says so in three ways at once: a chip that
+   states when it happens, prose that says why, and a control that carries the
+   disabled tokens. Colour alone would leave it reading as merely quiet. */
+.modecard--off { background: var(--surface-inset); }
+.modecard--off .btn {
+  color: var(--ink-faint); border-color: var(--line-subtle);
+  background: var(--surface-raised); cursor: not-allowed;
+}
+
+/* ── An unfinished sitting, offered back ── */
+
+.resume {
+  padding: var(--space-5);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-5); flex-wrap: wrap;
+  border-color: var(--accent-line); background: var(--accent-surface);
+}
+
+/* ── The length control ── */
+
+/* No `overflow: hidden` on the group, deliberately. Clipping the children to
+   the container's radius is the obvious way to build this, and it also clips
+   the focus ring — which then has to be drawn inset, at a negative offset, and
+   stops being the 2px/2px ring every other control in the app has. The corners
+   are rounded on the end segments instead. */
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line-control); border-radius: var(--radius-md);
+}
+.seg__opt {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: var(--control-h-lg); min-height: 44px; padding: 0 var(--space-4);
+  font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-medium);
+  background: var(--surface-raised); color: var(--ink-secondary);
+  border-left: 1px solid var(--line-control);
+  cursor: pointer;
+}
+.seg__opt:first-child {
+  border-left: 0;
+  border-top-left-radius: var(--radius-md); border-bottom-left-radius: var(--radius-md);
+}
+.seg__opt:last-child {
+  border-top-right-radius: var(--radius-md); border-bottom-right-radius: var(--radius-md);
+}
+.seg__opt--on { background: var(--accent-solid); color: var(--accent-on-solid); }
+.seg__opt:hover { background: var(--surface-hover); }
+.seg__opt--on:hover { background: var(--accent-solid); }
+
+/* The input is replaced by its label, never removed: it is what carries the
+   focus ring, the arrow keys and the announcement. Sizing it to the label is
+   what puts the ring where the reader is looking. */
+.seg__opt > input {
+  position: absolute; inset: 0; margin: 0;
+  appearance: none; -webkit-appearance: none;
+  border-radius: 0; cursor: pointer;
+}
+.seg__opt > input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+/* ── The domain grid (doc 10 §3) ── */
+
+.domgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.domcard {
+  position: relative;
+  padding: var(--space-5);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  cursor: pointer;
+}
+/* Selected takes the accent border and fill, per doc 10 §3 — but not the focus
+   ring the board draws with it. The board is showing one card that is both
+   selected and focused; painting a permanent ring on the selected card would
+   make keyboard focus unreadable, which is the one thing the ring is for. The
+   "Selected" chip is what carries the state without colour. */
+.domcard--on { border-color: var(--accent-solid); background: var(--accent-surface); }
+.domcard > input {
+  position: absolute; inset: 0; margin: 0;
+  appearance: none; -webkit-appearance: none;
+  border-radius: var(--radius-lg); cursor: pointer;
+}
+.domcard > input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+/* Everything except the input sits above it, so the text is selectable and the
+   chips are not swallowed — the input still receives the click, because it
+   fills the card behind them and the label forwards it either way. */
+.domcard > *:not(input) { position: relative; pointer-events: none; }
+
+/* In the flow, not pinned to a corner: the card's own `position: relative`
+   children rule would have overridden an absolute one anyway, and a reserved
+   slot means selecting a card cannot shift the six of them. */
+.dpick { min-height: var(--control-h-xs); display: flex; align-items: center; }
+.dchip { height: var(--control-h-xs); padding: 0 var(--space-2); font-size: var(--text-2xs); }
+
+.comps { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); }
+.comp {
+  font-size: var(--text-2xs); color: var(--ink-muted);
+  border: 1px solid var(--line-subtle); border-radius: var(--radius-sm);
+  padding: var(--space-0) var(--space-2);
+}
+
+.setup {
+  padding: var(--space-5) var(--space-6);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-6); flex-wrap: wrap;
+}
+.setup__controls { align-items: flex-end; }
+
+/* A third breakpoint, beside the established 720px and 1100px. It exists for
+   one step the other two cannot make: the domain grid going 3 → 2 columns
+   before it goes to 1. At 720 a three-column grid of these cards is already
+   unreadable, and jumping straight to one column wastes a tablet. */
+@media (max-width: 900px) {
+  .domgrid { grid-template-columns: repeat(2, 1fr); }
+  .modes { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  /* Doc 10 §3: the grid goes one column and the setup strip becomes a sticky
+     bottom bar, so Start stays reachable without scrolling past six cards.
+     Length stays in the strip rather than moving into the selected card — the
+     board moved it to make room for the *Draw from* checkboxes, and those are
+     cut. */
+  .domgrid { grid-template-columns: 1fr; }
+
+  /* The strip floats above the grid rather than bleeding to the page edge. A
+     negative margin here would have to equal `.page`'s padding, which is a
+     different token at this width than it is above it — and it was 16px wider
+     than the viewport when it did not. Gutters cannot overflow. */
+  .setup--sticky {
+    position: sticky; bottom: var(--space-4); z-index: 1;
+    box-shadow: var(--shadow-md);
+  }
+  .setup { padding: var(--space-4); gap: var(--space-3); }
+
+  /* Doc 10 §3 says the mobile strip carries "only the domain name and Start".
+     The whole desktop strip cost 246px of an 812px viewport, leaving barely
+     one card readable behind it — so the eyebrow, the competency line and the
+     availability chip go, and the length control joins Start on one row. Every
+     one of them is still on the cards themselves, a thumb away, and the length
+     control's own "All 288" states the availability the chip did. */
+  .setup__id .eyebrow, .setup__id .meta, .setup__avail { display: none; }
+  .setup__controls { width: 100%; justify-content: space-between; align-items: flex-end; }
+  .setup .h2 { font-size: var(--text-base); }
+  .setup .wideonly { display: none; }
+}
+
+/* `--control-h-lg` is pinned in tokens.css as the minimum touch target, so on a
+   touch layout every control on these three screens takes it. The width query
+   alone would be a proxy; the pointer half is what actually keeps a 36px button
+   off a phone, the same pairing the navigator uses. */
+@media (max-width: 720px), (pointer: coarse) {
+  .setuppage .btn,
+  .modes .btn,
+  .resume .btn,
+  .pagehead .btn {
+    height: var(--control-h-lg);
+    min-height: 44px;
+  }
+}
+
+/* Two labels, one shown. Above the narrow breakpoint the long one reads; at
+   375 the short one is what lets the length control and Start share a line. */
+.narrowonly { display: none; }
+@media (max-width: 720px), (pointer: coarse) {
+  .setup .narrowonly { display: inline; }
+}
+
+/* The note under a disabled Start. Full width so it sits below the controls
+   rather than squeezing them. */
+.setup__note { flex-basis: 100%; }
+
+/* A disabled primary button still reads as the live accent button: base.css's
+   `.btn[disabled]` changes ink and border but not background, and
+   `.btn--primary`'s accent fill wins. Corrected here and scoped to these
+   screens rather than in base.css, which is a byte-for-byte copy of
+   design/base.css with a test asserting it. */
+.setup .btn--primary[disabled],
+.modecard .btn[disabled] {
+  background: var(--surface-inset);
+  border-color: var(--line-subtle);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}

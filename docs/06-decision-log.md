@@ -1221,3 +1221,91 @@ not when it compiles. Each names the ticket that carries it out.*
   carried for that slice, not left to be rediscovered.
 - **Revisit if:** Vercel is connected — at which point "push `main`" and "ship to production" become
   the same action, and this is the entry to re-read before deciding they need no ceremony.
+
+### [2026-09-06] Doc 10 §3 loses four elements, and "seen" means answered
+- **Decision:** `/domain` builds doc 10 §3's grid and setup strip **without** both *Draw from*
+  checkboxes, the "Recent:" chip row and the per-domain mastery meter. `/practice` reuses the length
+  control at 20/40/60 with no grid. Home becomes doc 03 §4's three modes plus a **disabled** holdout
+  card. **"X of Y seen" counts questions with a non-null `answered_at`**, not questions with an
+  answer row. Ticket #34. *This is the entry the 2026-09-06 spec decision "Doc 10 §3's setup screen
+  loses four elements" said its ticket would carry; it records what building it settled as well.*
+- **Reason for the four cuts, one each.** *Previously missed* selects what to serve by past
+  performance, which `CONTEXT.md` rules out by name. *Unseen questions* is a no-op — the `LATERAL`
+  ordering already exhausts unseen before repeating anything (P3), so the checkbox offers to turn on
+  what cannot be turned off. The "Recent:" row is specified as carrying **scores**, and these modes
+  have none; without them it is a list of dates. And the **mastery meter** is the readiness signal
+  the 2026-08-28 decision declined — coverage is a fact about what you have done, mastery a
+  judgement about how well. Worth recording about the last one: the artboard's meter is *fed the
+  coverage percentage*, so beside "X of Y seen" it was already drawing the same fact twice.
+- **On "seen", which the ticket left loose.** #34's wording is "distinct questions in that domain
+  with an answer row for this user". That is not what selection means by it: `domainCandidates`
+  orders by `max(answered_at) NULLS FIRST`, and doc 04 §6 says a flagged-but-unanswered question
+  stays **unseen** "because the candidate never engaged with it". Counting the row would put a
+  different fact on the screen under the same word, and the only symptom would be a coverage number
+  that never quite matches what gets served. The looser reading was taken as loose rather than
+  decided.
+- **Alternatives considered.** Keeping the mastery meter — computable from `answer.is_correct`, and
+  arguably the most useful thing on a screen whose job is choosing where you are weak; put to the
+  owner as its own option while speccing and declined. Also considered no setup screens at all,
+  starting straight from home: the fastest path to a sitting, but it drops the one screen that helps
+  choose a domain on evidence.
+- **Where the two counts live: a new `src/db/queries/domains.ts`, not `selection.ts`.** Grilled and
+  chosen over adding a function to `selection.ts`, which would have kept every read that joins
+  `answer × attempt × question.domain` in one file. `selection.ts`'s own header pins its remit —
+  "the database answers which questions are eligible, and in what order" — and nothing in these two
+  reads chooses anything; they report history so a person can choose. Separate files are the
+  cheapest guard against the next reader wiring one into the other, which is exactly what
+  `CONTEXT.md` forbids. It also mirrors what already exists: `exams.ts` is the screen read for the
+  sixteen, and this is the screen read for the six.
+- **The domain's name and its competency tags are read from the bank, not typed into the app.**
+  `question.competency` is `"Security Fundamentals :: Compliance"`, so both halves are already
+  seeded; `split_part` gives the card its heading and its tags, and a label map that could drift
+  from the content never exists. `weightPercent` stays in the pure layer, because the published
+  percentage is a fact about the exam rather than about the bank.
+- **One bug the browser found that no test had.** The availability chip read **963** against a
+  measured pool of 960. The coverage query left-joins `answer`, which multiplies a question by its
+  answer rows, so a bare `count(*)` counted a question once per sitting that asked it — inflating
+  the pool **for exactly the candidate who has done the most work**, and advertising a sitting the
+  composer would not produce. `count(DISTINCT q.id)` fixes it. The integration test that would have
+  caught it only ran against an account with no history; there is now one that runs against an
+  account with repeats, and it was verified by removing the `DISTINCT` and watching it fail.
+- **Three divergences from doc 10 §3, chosen rather than overlooked**, all recorded in that section.
+  The selected card takes the accent border and fill but **not** the focus ring the board draws with
+  it — the board is showing one card that is both selected and focused, and a permanent ring on the
+  selected card is what makes keyboard focus unreadable. It gains a **"Selected" chip** instead, so
+  the state is not carried by colour alone (doc 05 rule 4); in dark theme the selected and
+  unselected fills differ by only 1.16:1, which is precisely why the word is there. And on mobile
+  the **Length control stays in the strip** rather than moving into the selected card: §3 moved it
+  to make room for the *Draw from* checkboxes, and those are cut.
+- **The home resume card carries no countdown, against doc 10 §2's rail.** Home is a server render,
+  so a countdown on it is a snapshot that goes on reading "12:48 left" long after it is false. Doc
+  11 §1's standard — a silently wrong number is worse than a crash, because it is believed —
+  applies hardest on the one card whose job is to say a clock is running. The live clock is one
+  click away, derived and resynced, where it can be right. Home **does** sweep expired sittings
+  before listing, as the exam list does, so nothing it offers to resume is already over.
+- **Start is shipped disabled, and that is the one place #34's own checklist is knowingly unmet.**
+  Its criterion reads "Start posts and navigates to the sitting". The endpoint does exactly that —
+  `201`, the attempt and its frozen set written in one transaction, verified in the browser — but
+  `/attempt/[id]` requires an `examId` and calls `notFound()` without one, so the navigation lands
+  on a **404**. Pressing it would therefore write a permanent sitting nobody can open, and home's
+  own new resume card would offer to resume it into the same 404. **There is no discard action
+  anywhere, by standing decision**, so every press before #36 would leave a row that never goes
+  away — in the table this project treats as the one irreplaceable thing it holds.
+  *Alternatives considered:* leaving Start working and recording the gap, which is the precedent the
+  2026-09-02 and 2026-09-03 entries set — but those left a *state* honest where it was, and this
+  would leave permanent rows behind instead. And building enough of `/attempt/[id]` to land on,
+  which is #36's screen (forward-only, graded feedback, no flagging) built inside #34, before its
+  ticket has been read. The criterion is unmet either way; this is the reading that costs nothing
+  that cannot be undone. `COMPOSED_SITTINGS_UNBUILT` in `src/components/use-start-sitting.ts` is one
+  constant both setup screens read, so #36 re-enables it in one edit, and a line under the button
+  says so rather than leaving a dead control.
+- **Two doc 10 §3 states are neither built nor cut**, and are recorded in §3 rather than left to be
+  rediscovered: its *Loading* six skeleton cards and its *Error* Retry panel. The route has no
+  `loading.tsx` and no `error.tsx`, and the page is a single server query with no streaming
+  boundary, so there is no moment at which skeletons would show. `app/tests/manual-checklist.md` §6
+  carries the check that decides which — build them, or cut them the way the four elements were.
+  §3's top bar is a third: it asks for a `Domain mode` chip and **Back to exams**, and the screen
+  carries a single **← Home**, which is the right action now that there is a home to go back to.
+- **Revisit if:** the study guide is ever linked per concept — the 2026-08-28 entry names that as
+  the first thing to reconsider, and a competency-level coverage view would then have somewhere to
+  point.

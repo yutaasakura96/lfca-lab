@@ -94,29 +94,61 @@ summary stats are dropped. The list paginates or lazy-loads; the phone board sho
 - Top bar with a `Domain mode` chip and **Back to exams**.
 - Page head: "Study by domain" + a lede noting the percentages are real exam weights.
 - **A 3×2 grid of domain cards**, `--space-4` gap. Each card: domain name + "N% of exam" chip; its
-  competencies as small outlined tags; then, pinned to the bottom, "X of Y seen", a mastery meter and
-  "Last practised …". The selected card takes `--accent-solid` border, `--accent-surface` fill and the
-  focus ring.
+  competencies as small outlined tags; then, pinned to the bottom, "X of Y seen" and
+  "Last practised …". The selected card takes `--accent-solid` border and `--accent-surface` fill,
+  plus a **"Selected" chip** — the state may not be carried by colour alone (doc 05 rule 4), and the
+  board's focus ring is *not* used for it: painting a permanent ring on the selected card is what
+  makes keyboard focus unreadable.
 - **A setup strip** (full-width card): the selected domain, an availability chip, its competency list,
-  then the controls — **Length** segmented control `20 / 40 / All N`, **Draw from** checkboxes
-  (*Unseen questions*, *Previously missed*), and **Start domain practice** at `--control-h-lg`.
-- A "Recent:" chip row of the last three domain sessions with their scores.
+  then the controls — **Length** segmented control `20 / 40 / All N`, and **Start domain practice**
+  at `--control-h-lg`.
 
 **Length default is 20.** (Decision 2026-08-29; closes the PRD §7 open assumption.)
+
+**Four elements of this section are cut, each for a reason rather than for effort** — settled while
+speccing feature 4 and implemented by #34. See the decision log, 2026-09-06.
+
+| Cut | Why |
+| --- | --- |
+| **Draw from → *Previously missed*** | Selects what to serve by past performance, which `CONTEXT.md` rules out by name. |
+| **Draw from → *Unseen questions*** | A no-op. The `LATERAL` ordering already exhausts unseen before repeating anything (P3), so the checkbox would offer to turn on what cannot be turned off. |
+| **The "Recent:" chip row "with their scores"** | There are no scores in these modes. Without them it is a list of dates. |
+| **The per-domain mastery meter** | Coverage is a fact about what you have done; mastery is a judgement about how well, and the 2026-08-28 decision declined to build a readiness signal. "X of Y seen" stays. |
+
+**"X of Y seen" means answered, not merely served.** `Y` is the domain's non-holdout exam pool — the
+same predicate selection filters by, so the "All N" chip advertises the sitting `length: 'all'`
+actually produces. `X` counts distinct questions with a **non-null `answered_at`**: a
+flagged-but-unanswered question is *unseen* to selection (doc 04 §6), and a card that counted it
+would report a different fact under the same word.
 
 **Components.** Card, chip, competency tag, meter, segmented control, checkbox, primary button.
 
 **States.**
-- *Empty* — a domain never practised shows "0 of N seen", an empty meter and "Last practised: not
-  started". With both *Draw from* filters on and no matching questions, **Start** disables and a line
-  under it reads "No unseen questions left in this domain — clear a filter to revise."
+- *Empty* — a domain never practised shows "0 of N seen" and "Last practised not started". The
+  disabled-**Start** case is gone with the *Draw from* filters: there is no filter left that can
+  empty a domain, and every domain's pool is a hundred or more.
 - *Loading* — six skeleton cards; the setup strip is hidden until a domain resolves.
 - *Error* — bank load failure replaces the grid with an `incorrect`-family panel and a **Retry**
   button. No partial grid.
 
-**Mobile.** Grid goes one column. The setup strip becomes a sticky bottom bar carrying only the domain
-name and **Start**; Length and Draw-from move into the selected card. The "Recent:" row scrolls
-horizontally.
+**Neither of those two is built as of #34, and neither is cut.** The route has no `loading.tsx` and
+no `error.tsx`, so both fall through to the App Router's own boundaries — the page is a single
+server query with no streaming boundary, so there is no moment at which six skeletons would be
+shown. They stay specified rather than deleted, and `app/tests/manual-checklist.md` §6 carries the
+check that decides which: build them, or cut them here the way the four elements above were cut.
+
+**The top bar diverges too.** §3 asks for a `Domain mode` chip and **Back to exams**; the screen
+carries a single **← Home**. Back-to-exams was the right action when the exam list *was* home; since
+#34 there is a home, and it is where the other modes are.
+
+**Mobile.** Grid goes one column. The setup strip becomes a sticky bottom bar carrying the domain
+name, **Length** and **Start** on two lines — 132px measured at 375. Length stays in the strip rather
+than moving into the selected card: the board moved it to make room for the *Draw from* checkboxes,
+and those are cut. The eyebrow, the competency line and the availability chip are dropped there (the
+cards carry all three, and "All N" states the availability), and **Start domain practice** shortens
+to **Start**, which is what lets the control and the button share a line. The strip keeps the page's
+own gutters rather than bleeding to the edge — a negative margin would have to equal `.page`'s
+padding, and that is a different token at this width.
 
 ---
 

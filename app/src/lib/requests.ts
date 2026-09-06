@@ -8,6 +8,7 @@
 // No I/O here, so these are unit-tested without a server or a database.
 
 import { z } from 'zod';
+import { DEFAULT_DOMAIN_LENGTH } from '../domain/select.ts';
 import { DEFAULT_PRACTICE_LENGTH, DOMAINS } from '../domain/weights.ts';
 
 /**
@@ -69,7 +70,7 @@ export type FlagRequestBody = z.infer<typeof FlagRequest>;
  * **The two `length` fields are different types and deliberately not shared.**
  * A weighted sitting is 20, 40 or 60 — lengths the composer must hit exactly. A
  * domain sitting's `'all'` is not a length at all, it is a fact about the pool.
- * Both default to 20, and practice's default is read from the one place it is
+ * Both default to 20, and both defaults are read from the one place each is
  * decided rather than retyped here.
  */
 export const StartAttemptRequest = z.discriminatedUnion('mode', [
@@ -84,7 +85,9 @@ export const StartAttemptRequest = z.discriminatedUnion('mode', [
   z.object({
     mode: z.literal('domain'),
     domain: z.enum(DOMAINS),
-    length: z.union([z.literal(20), z.literal(40), z.literal('all')]).default(20),
+    length: z
+      .union([z.literal(20), z.literal(40), z.literal('all')])
+      .default(DEFAULT_DOMAIN_LENGTH),
   }),
 ]);
 

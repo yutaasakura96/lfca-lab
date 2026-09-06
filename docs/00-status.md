@@ -424,6 +424,69 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   `questionCount` means, and why there is no `resumed`.
   Suites: 339 bank · **404** app unit · **126** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — the modes have a front door** (#34). `(app)/page.tsx` stops being a stub
+  linking to `/exams` and becomes doc 03 §4's home: Exam, Practice, Domain, and a **disabled**
+  holdout card that names what H1 is for and why it is not startable. `/practice` and `/domain` are
+  the setup routes, both behind the session gate.
+  **The two counts live in a new `src/db/queries/domains.ts`, not in `selection.ts`** — grilled and
+  decided before writing. `selection.ts`'s own header pins its remit to *which questions are
+  eligible, and in what order*; these reads choose nothing, they report history so a person can
+  choose, and keeping them out of that file is the cheapest guard against the next reader wiring one
+  into the other — the thing `CONTEXT.md` rules out by name. It mirrors `exams.ts` exactly: a screen
+  read for the sixteen there, a screen read for the six here, one query rather than six.
+  **The card's name and its competency tags are read from the bank**, not typed into the app:
+  `question.competency` is already `"Security Fundamentals :: Compliance"`, so `split_part` gives
+  both halves and a label map that could drift never exists. `weightPercent` stays in the pure layer,
+  because the published percentage is a fact about the exam rather than about the bank.
+  **"X of Y seen" means answered, not rowed.** #34's wording was "with an answer row"; that is not
+  what selection means — `domainCandidates` orders by `max(answered_at) NULLS FIRST`, and doc 04 §6
+  keeps a flagged-but-unanswered question *unseen* because the candidate never engaged with it. The
+  looser wording was taken as loose rather than decided; the card now predicts what the sitting
+  actually does.
+  **One bug the browser found that no test had.** The availability chip read **963** against a
+  measured pool of 960: the coverage query left-joins `answer`, which multiplies a question by its
+  answer rows, so `count(*)` counted a question once per sitting that asked it — inflating the pool
+  for exactly the candidate who has done the most work, and advertising a sitting the composer would
+  not produce. `count(DISTINCT q.id)` fixes it. The test that would have caught it only ran against
+  an account with no history; there is one against an account with repeats now, **verified by
+  removing the `DISTINCT` and watching it fail**.
+  Starting is one hook, `useStartSitting`, shared by all three buttons, so *"starting a sitting is a
+  POST, not a link"* is written once; `StartAttemptRequest`'s inferred type is its body type, so no
+  component restates the length unions.
+  Doc 10 §3 is corrected rather than the code, and the four cuts plus three chosen divergences are in
+  the log (2026-09-06): the selected card takes the accent border and fill but **not** the board's
+  focus ring — a permanent ring is what makes keyboard focus unreadable — and carries a **"Selected"
+  chip** instead, because in dark theme the two fills differ by 1.16:1 and doc 05 rule 4 forbids
+  colour alone. On mobile the Length control stays in the strip; §3 moved it to make room for the
+  *Draw from* checkboxes, and those are cut.
+  **Home's resume card carries no countdown**, against doc 10 §2's rail: home is a server render, so
+  a countdown there is a snapshot that goes on reading "12:48 left" long after it is false, and doc
+  11 §1's standard applies hardest on the card whose job is to say a clock is running. Home **does**
+  sweep expired sittings before listing, as the exam list does, so nothing it offers to resume is
+  already over.
+  Verified in the browser, both themes, at 1440 and 375: the six cards' availability summing to the
+  measured **960**, the grid one column at 375 with no horizontal overflow, every target ≥44px except
+  the shared `ThemeToggle` (36px, pre-existing, on every screen — **not fixed here**, because
+  resizing a shared control silently changes six other screens), focus rings measured at **2px solid
+  / 2px offset** on the card radios, the length control and both buttons, and the selected/unselected
+  states told apart at `grayscale(1)` — 5.5:1 in light and 4.79:1 in dark on the length control, and
+  by the word "Selected" on the card. The `.seg` group's `overflow: hidden` was removed so its ring
+  is a real 2px/2px ring rather than an inset one. A real domain sitting was started end to end
+  (`201`, redirect, the resume card naming the domain) and then removed, leaving the dev fixtures as
+  they were.
+  **Start ships disabled on both setup screens, and it is the one place #34's checklist is knowingly
+  unmet.** The endpoint works — `201`, attempt and frozen set in one transaction — but
+  `/attempt/[id]` requires an `examId` and calls `notFound()` without one, so the navigation lands on
+  a **404**; pressing it would leave a permanent sitting nobody can open, and home would offer to
+  resume it into the same 404, with no discard action anywhere to undo it. `COMPOSED_SITTINGS_UNBUILT`
+  in `src/components/use-start-sitting.ts` is the one constant both screens read, so **#36 re-enables
+  both in a single edit** — and a line under each button says so rather than leaving a dead control.
+  Two doc 10 §3 states are **neither built nor cut** and are now recorded in §3 rather than silently
+  unmet: its *Loading* skeletons and its *Error* Retry panel. `app/tests/manual-checklist.md` §6
+  carries the check that decides which, alongside new entries for home, `/domain`'s zero-history
+  state, and the "All N" chip summing to 960.
+  Suites: 339 bank · **416** app unit · **141** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -439,7 +502,7 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31, #32 and #33 are closed**; **#34 is the frontier**, and #29 (the 375px
+that dependency order. **#31, #32, #33 and #34 are closed**; **#35 is the frontier**, and #29 (the 375px
 code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
 in a comment and confirmed not yet in the code. Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the

@@ -13,6 +13,7 @@
 
 import { sql } from 'drizzle-orm';
 import type { Db, Executor } from '../client.ts';
+import { DOMAIN_NAME } from './domains.ts';
 import { freezeAttemptQuestions } from './paper.ts';
 import { attempt } from '../schema/app.ts';
 import { deadlineOf } from '../../domain/clock.ts';
@@ -262,4 +263,94 @@ export async function getAttemptForUser(
     score: row.score,
     submitReason: row.submit_reason,
   };
+}
+
+export interface OpenSittingRow {
+  id: string;
+  mode: AttemptMode;
+  /** The paper's number, for the card that names it. `null` outside exam mode. */
+  examNumber: number | null;
+  /** The domain being drilled, or `null`. */
+  domain: Domain | null;
+  /**
+   * That domain's name as the bank spells it — "Security Fundamentals".
+   *
+   * Read from `question.competency`'s own first half, the same way
+   * `listDomains` reads it, rather than from a label map in the app. A card
+   * that says only "Domain practice" does not tell you which one you left.
+   */
+  domainName: string | null;
+  questionCount: number;
+  /** Questions with an answer chosen. A flag alone is not progress. */
+  answered: number;
+  /** Questions marked to come back to. Always zero outside exam mode — those modes cannot flag. */
+  flagged: number;
+  /**
+   * Whether this sitting has a clock running against it.
+   *
+   * Read from `time_limit_seconds`, which is the column that decides it (doc 04
+   * §5.1), rather than from the mode — so the holdout is timed here the day it
+   * arrives, without this file learning a fourth thing about modes.
+   */
+  timed: boolean;
+  startedAt: Date;
+}
+
+/**
+ * Every sitting this candidate has left unfinished, oldest first.
+ *
+ * Oldest first for the reason `openAttemptForExam` gives: the sitting whose
+ * clock has been running longest is the one closest to expiring unnoticed, so
+ * it is the one to offer back first.
+ *
+ * Scoped to one user in the `WHERE`, not checked afterwards — a resume card
+ * offering somebody else's sitting is exactly the ownership failure doc 03 §9
+ * calls the most important check in the app.
+ *
+ * **This does not finalise anything.** An expired sitting would still be listed
+ * here as open, because being past its deadline is not the same as being
+ * finalised (doc 03 §6). The caller sweeps first, as the exam list does — which
+ * keeps one finalisation path rather than adding a second inside a read.
+ */
+export async function listOpenSittings(db: Db, userId: string): Promise<OpenSittingRow[]> {
+  const result = await db.execute<{
+    id: string;
+    mode: AttemptMode;
+    exam_number: number | null;
+    domain: Domain | null;
+    domain_name: string | null;
+    time_limit_seconds: number | null;
+    question_count: number;
+    answered: number;
+    flagged: number;
+    started_at: Date | string;
+  }>(sql`
+    SELECT
+      t.id, t.mode, e.number AS exam_number, t.domain, t.question_count, t.started_at,
+      t.time_limit_seconds,
+      -- The same split listDomains reads its headings with, shared so the two
+      -- cannot come to parse the bank's competency format differently.
+      (SELECT ${DOMAIN_NAME} FROM question q WHERE q.domain = t.domain LIMIT 1) AS domain_name,
+      count(a.question_id) FILTER (WHERE a.option_ref IS NOT NULL)::int AS answered,
+      count(a.question_id) FILTER (WHERE a.flagged)::int AS flagged
+    FROM attempt t
+    LEFT JOIN exam e ON e.id = t.exam_id
+    LEFT JOIN answer a ON a.attempt_id = t.id
+    WHERE t.user_id = ${userId} AND t.submitted_at IS NULL
+    GROUP BY t.id, t.mode, e.number, t.domain, t.question_count, t.started_at, t.time_limit_seconds
+    ORDER BY t.started_at ASC
+  `);
+
+  return result.rows.map((row) => ({
+    id: row.id,
+    mode: row.mode,
+    examNumber: row.exam_number,
+    domain: row.domain,
+    domainName: row.domain_name,
+    timed: row.time_limit_seconds !== null,
+    questionCount: row.question_count,
+    answered: row.answered,
+    flagged: row.flagged,
+    startedAt: row.started_at instanceof Date ? row.started_at : new Date(row.started_at),
+  }));
 }
