@@ -41,6 +41,7 @@ The app, from `app/` — its own `package.json`, own dependencies:
 npm run typecheck        # tsc --noEmit, strict
 npm run test:unit        # vitest — pure, no database, runs anywhere
 npm run test:integration # vitest against the Neon dev branch; needs app/.env.local and a seeded db
+npm run test:e2e         # builds, then the one Playwright run on :3100 against the same branch
 npm run db:generate      # drizzle-kit generate — writes a migration from the schema
 npm run db:migrate       # applies migrations to DATABASE_URL
 npm run auth:generate    # regenerates src/db/schema/auth.ts — GENERATED, never hand-edit
@@ -127,11 +128,9 @@ Architecture, schema, API and deployment are specified. Point at them; don't res
 
 ## Tooling not wired yet, and its trigger
 
-No `.mcp.json` — nothing to connect to yet. Add, at the moment each becomes real:
+`.mcp.json` holds **Neon MCP** and **Playwright MCP** — both triggers have fired. One left:
 
-- **Neon MCP** when the Neon project exists (branch-per-PR, point-in-time restore — doc 12 §1, §5)
 - **Sentry MCP** when the Sentry project exists (doc 12 §6)
-- **Playwright MCP** when the one e2e run is being written (doc 11)
 
 ## Agent skills
 

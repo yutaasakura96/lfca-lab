@@ -89,12 +89,24 @@ GitHub Actions on push and pull request, from the repo root:
 npm test && npm run validate && npm run check-bank     # the bank
 cd app && npm run typecheck && npm run test:unit       # the app, needs no database
 cd app && npm run seed && npm run test:integration     # on a Neon preview branch
-cd app && npm run build && npm run test:e2e            # Playwright, once there is a UI
+cd app && npm run test:e2e                            # builds, then the one Playwright run
 ```
 
-The unit suite deliberately needs no database, so it runs anywhere and fails fast. The integration
-suite **skips cleanly** when `DATABASE_URL` is absent rather than erroring, so a contributor without a
-branch still gets a green run and an honest count of what was skipped.
+**`npm run test:e2e` runs `next build` itself**, which is a correction to this section rather than a
+refinement of it: it originally read `npm run build && npm run test:e2e`, and that builds twice. The
+build belongs inside the script because the alternative is a stale `.next` silently being what the
+one browser test in the repo exercises — a failure that looks like a passing suite. Playwright then
+serves it with `next start` on **port 3100**, deliberately not 3000: the run signs in by inserting a
+session row, so it never touches an OAuth redirect and has no claim on the port the Google client is
+registered against.
+
+The browser run reuses the **same database** as the integration suite, under its own `e2e-` user
+prefix — which is why the two lines above are ordered as they are, with one `seed` serving both. A
+distinct prefix is what keeps their teardowns apart: each deletes every user carrying its own prefix.
+
+All three app suites **skip cleanly** when `DATABASE_URL` is absent rather than erroring, so a
+contributor without a branch still gets a green run and an honest count of what was skipped. The unit
+suite deliberately needs no database at all, so it runs anywhere and fails fast.
 
 **A red suite blocks deploy** (doc 12). The bank checks run first and are the cheapest, so a holdout
 violation fails in seconds rather than after a browser run.

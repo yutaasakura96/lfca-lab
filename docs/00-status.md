@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-04
+**Updated:** 2026-09-06
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -286,14 +286,55 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   stale sitting is closed `expired`.
   Suites: 339 bank · 364 app unit · **102** app integration.
 
+- **Phase 6, feature 3 — the browser run and the checklist landed** (#28). The last of feature 3.
+  One Playwright test walks doc 09's Flow B end to end: start exam-07, answer six and flag two,
+  **close the browser context**, come back twenty minutes later, find position, answers, flags and a
+  genuinely reduced clock restored, run past ninety minutes, watch the app close the sitting itself,
+  read the review, and press submit a second time to no effect. It passes in about 12 seconds.
+  **It signs in by inserting a `session` row** — sessions are database-backed, so a row plus its
+  cookie is a session by every definition the app uses, and driving Google would make the most
+  important test in the repo also the flakiest. The cookie's *name* comes from the library; its
+  *value* is the one fact about Better Auth reproduced anywhere here, and the reproduction is
+  bounded rather than trusted — a format change lands the first navigation on `/sign-in` and fails
+  the first assertion. **Time travel is an `UPDATE` to `started_at`**: no fake timers, nothing
+  waited out, which works only because the clock is derived.
+  It reuses the integration suite's database under its own **`e2e-` prefix**, because doc 11 §5 runs
+  both against one branch and each cleans up by deleting every user carrying its prefix — a shared
+  prefix would let either teardown cut the other's rows out. Both suites still skip cleanly with no
+  `DATABASE_URL`. Every number it asserts is asserted against the row, not the screen; the screen is
+  asked only what a browser can answer.
+  **Two real findings, both in the log.** `src/auth.ts` never set `baseURL`, so Better Auth took the
+  session cookie's `__Secure-` prefix from `NODE_ENV` rather than from the origin — which makes a
+  production build served over http unable to hold a session at all. It names `BETTER_AUTH_URL` now.
+  Production and dev are unchanged, measured rather than assumed: the dev cookie is still
+  `better-auth.session_token` and a session minted under it gets `GET /exams` → `200`.
+  And the run failed twice on something worth keeping: **closing a context fires the sitting's
+  resync, and a resync finalises an expired sitting** — the server was still serving that request
+  when the clock was wound forward, so the resync closed the sitting ~110ms before the page read
+  that the test exists to check. The run drains in flight before it moves the clock, and asserts the
+  sitting is still open as the guard on that wait.
+  `app/tests/manual-checklist.md` carries what no test should judge. **§0 states plainly that the
+  OAuth callback and the allowlist hook have no automated coverage in any suite**, and **§1 is the
+  allowlist, first**, requiring SQL proof that no `user`, `account` or `session` row was created —
+  including the unset-variable case, which must still fail closed. Inferring it from the screen is a
+  different assertion: a hook that wrote the row before rendering the refusal would look identical
+  from the browser.
+  **Playwright MCP is wired**, on the trigger `CLAUDE.md` recorded — "when the e2e run is written",
+  which was this ticket. `.mcp.json` already held Neon MCP: it was added when the Neon project was
+  provisioned and the docs were never updated, so both `CLAUDE.md` and this file said there was no
+  `.mcp.json` while there was. Corrected in both.
+  Suites: 339 bank · 364 app unit · 102 app integration · **1 app e2e**.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
-**Feature 3 is mid-flight.** **Closed so far: #15–#27.** The frontier is **#28** (the Playwright run
-and the manual checklist), the last of feature 3. Everything the slice blocks on is built:
-#26 was the last of them, and it took both things the tree was holding for it — the review no
-longer bounces an unfinalised sitting back to the paper unless its clock is genuinely still
-running, and the resync finalises rather than reporting `expired`.
+**Feature 3 is complete.** **Closed: #15–#28.** Exam mode runs end to end, from sign-in to review,
+and the path that matters most — resume and auto-submit — is covered by the one browser test doc 11
+§2 specifies. The next pass opens a new feature: **practice mode (P1, P3) and domain mode (D1)**, or
+**the holdout sitting (H1)**, or **the deploy slice**. Nothing in feature 3 is holding any of them.
+
+**Before the deploy slice, re-read the three findings under Blocked** — they were carried through
+features 2 and 3 deliberately and each belongs to whoever wires Vercel.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
@@ -350,11 +391,14 @@ Vercel environments when they exist, and doc 12 §2.1's rule is written per-stri
 pooled URL (§2.2) on arrival.
 
 ### Verified by hand, not by a test — re-run before any deploy
-- **The allowlist refuses an account and writes nothing.** Run `npm run dev:denied` in `app/` (or the
-  `app-denied` launch config), sign in, expect *"This app is private"*, then confirm in SQL that no
-  `user`, `account` or `session` row appeared. Passed 2026-09-01. This is the only check standing
-  between this app and a public one, and **no automated suite covers it** — the Playwright run signs
-  in by inserting a session row, so it never exercises the OAuth callback.
+- **The allowlist refuses an account and writes nothing.** Now §1 of
+  [`../app/tests/manual-checklist.md`](../app/tests/manual-checklist.md), written out in full with
+  the SQL: `npm run dev:denied` in `app/` (or the `app-denied` launch config), sign in, expect
+  *"This app is private"*, then confirm in SQL that the `user`, `account` and `session` counts are
+  **unchanged** — not that no row appeared for that address. Passed 2026-09-01. This is the only
+  check standing between this app and a public one, and **no automated suite covers it or the OAuth
+  callback** — the Playwright run signs in by inserting a session row. The checklist says so in its
+  own §0 rather than leaving it to be rediscovered.
 
 ## Carrying
 
@@ -425,8 +469,9 @@ pooled URL (§2.2) on arrival.
   `git log origin/main..main` before assuming production is current.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
-- **No `.mcp.json`.** Add Neon MCP when the Neon project exists, Sentry MCP when the Sentry project
-  exists, Playwright MCP when the e2e run is written. context7 is already user-scoped.
+- **`.mcp.json` holds Neon MCP and Playwright MCP.** Neon's was added when the project was
+  provisioned and went unrecorded here; Playwright's arrived with #28 on its stated trigger. Add
+  Sentry MCP when the Sentry project exists. context7 is already user-scoped.
 - Editing on `main` is blocked by a hook. Branch first.
 - `.claude/launch.json` serves the `design/` static preview on :4173. Tracked; the artboards it
   serves are not — run `node design/build.mjs` first.

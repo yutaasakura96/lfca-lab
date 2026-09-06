@@ -922,3 +922,92 @@ every token change and invite hand-editing the generated file.
 - **Revisit if:** practice, domain or holdout sittings become startable, at which point
   `409 holdout_already_sat` is a genuine refusal — the holdout is one-shot, so there is no existing
   sitting to hand back and the caller is asking for something it cannot have.
+
+### [2026-09-06] The browser run signs in by inserting a session row, and mints its own cookie
+- **Decision:** `app/tests/e2e/` runs against the **same `DATABASE_URL`** the integration suite
+  uses, under its own `e2e-` user prefix, and signs in by inserting a `session` row and handing the
+  browser the cookie that row implies. The cookie's **name** comes from the library
+  (`getCookies(...).sessionToken.name`); its **value** — `token.base64(HMAC-SHA-256(token, secret))`,
+  URI-encoded — is reproduced with `node:crypto`, because `better-call`'s own signer is not in that
+  package's exports map. Time travel is an `UPDATE` to `started_at`; there are no fake timers and
+  nothing waits out a clock.
+- **Alternatives considered.** *For the database:* a Neon branch created and dropped per run
+  (strongest isolation, at the cost of an API token in CI, a full seed on every browser run, and a
+  branch that leaks when the run is killed) and a local ephemeral Postgres (a second engine to keep
+  in step with the schema, and the only place in this repo not testing against real Neon). Both
+  contradict doc 11 §5, which already orders `seed && test:integration` then `build && test:e2e`
+  against one branch. *For signing in:* the committed version of the throwaway route used by hand
+  while #26 was being built — nothing reproduced, but an **auth-bypass endpoint in shipped code**,
+  gated by an environment variable, in an app whose whole security posture is that an allowlist is
+  the only thing between it and a public one. Also considered reaching into `auth.$context`'s
+  internal adapter, which needs no reproduction and no shipped route but pulls the Next-flavoured
+  auth config into a plain Node process and depends on undocumented internals.
+- **Reason:** sessions are database-backed (doc 08 §2), so a row plus its cookie **is** a session by
+  every definition the app uses — there is nothing simulated about it. Driving Google would make the
+  most important test in the repo also the flakiest and would make it depend on a third party being
+  up. The one reproduced fact is bounded rather than trusted: if Better Auth ever changes the cookie
+  format, the run's first navigation lands on `/sign-in` and its first assertion fails loudly, at
+  the one place in the repo that would notice.
+- **Consequence:** a distinct prefix per suite, because doc 11 §5 runs both against one database and
+  each cleans up by deleting every user carrying its prefix — a shared prefix would let either
+  teardown cut the other's rows out from under it. And the cost is named where it will be read:
+  `app/tests/manual-checklist.md` §0 states plainly that **the OAuth callback and the allowlist hook
+  have no automated coverage in any suite**, and §1 is the allowlist check, first, requiring SQL
+  proof that no `user`, `account` or `session` row was created — inferring it from the screen is a
+  different assertion, and a hook that wrote the row before rendering the refusal would look
+  identical from the browser.
+- **Revisit if:** Better Auth publishes its cookie signer, at which point the reproduction goes.
+
+### [2026-09-06] `src/auth.ts` names its `baseURL`, so the cookie prefix follows the origin
+- **Decision:** `baseURL: process.env.BETTER_AUTH_URL` is passed to `betterAuth()`. It was never set
+  before.
+- **Context:** found while writing the browser run, in the installed source rather than by guess.
+  Better Auth decides the session cookie's `__Secure-` prefix from `options.baseURL` — https gets
+  it, http does not — and **falls back to `NODE_ENV === 'production'` when the option is absent**
+  (`cookies/index.mjs`, `isProduction` from `@better-auth/core/env`). Under `next start` that names
+  the cookie `__Secure-better-auth.session_token` with `secure: true`, which no browser accepts over
+  plain http — so a minted session could not be set at all.
+- **Alternatives considered:** running the browser test against `next dev`, which sidesteps it with
+  no production change but reverses doc 11 §5's `build && test:e2e` and leaves the one browser test
+  in the repo unable to see anything the App Router does differently when built. And an explicit
+  `advanced: { useSecureCookies: process.env.E2E !== '1' }`, which is narrow and obvious at the call
+  site but puts a test flag into the file that decides who may sign in, where a mis-set variable in
+  production silently drops `Secure` from the session cookie.
+- **Reason:** this is the documented option and doc 12 §2 already makes `BETTER_AUTH_URL` the
+  canonical origin, so naming it is configuration rather than a workaround. Deciding a cookie's
+  security attribute from the scheme it will actually be served over is also simply more correct
+  than deciding it from a build flag.
+- **Consequence:** measured, not assumed. Production is unchanged — its `BETTER_AUTH_URL` is https,
+  so the prefix is still applied. Local dev is unchanged: verified against the running dev server on
+  2026-09-06, the cookie name is still `better-auth.session_token` and a session minted under it is
+  accepted, `GET /exams` → `200`. The only behaviour that moved is the case that was broken. It also
+  settles the library's standing "Base URL is not set" warning, which is the same omission seen from
+  the other side.
+- **Revisit if:** never — the option is what the library asks for.
+
+### [2026-09-06] The browser run leaves the sitting before it moves the clock
+- **Decision:** the run navigates the resumed page to `/exams` before closing its context, and then
+  **asserts the sitting is still unfinalised** before opening it again.
+- **Context:** the run failed twice, and the diagnosis is worth keeping because it is a genuine
+  property of the system rather than a test artefact. Closing a context makes the sitting fire its
+  `visibilitychange` resync; `GET /api/attempt/:id/state` **finalises an expired sitting** (doc 07
+  §6); and Node does not abandon a request handler because the client went away. So that request was
+  still being served when the `UPDATE` landed, and the **resync** closed the sitting — measured at
+  ~110ms after the write — rather than the page read the test exists to check. The row was correct
+  either way; what was wrong was which of the four touches did it, and the page's redirect to review
+  fires only for the read that closed it.
+- **Alternatives considered:** dropping the redirect assertion and checking only that the row ends
+  up `expired` — it passes under either touch, and gives up PRD E5's "go straight to review", which
+  is the arrival the ticket names. Also considered leaving the resumed page open and firing the
+  resync deliberately, which is deterministic in the opposite direction: the resync then always
+  wins, and the page read is never the closing touch.
+- **Reason:** navigating away unmounts the sitting, whose cleanup removes those listeners, so the
+  resync is never issued at all — and `goto` is awaited, so the one request that navigation does make
+  has been served before the clock moves. A one-second drain was written first and then replaced:
+  it made the race *unlikely* rather than impossible, and the ticket asks for **no waiting**. It is
+  also what a candidate would actually do — go back to the list.
+- **Consequence:** the guard stays regardless. If anything ever touches the sitting in that window
+  again, the run fails on a one-line assertion that says so, rather than on a redirect assertion
+  three steps later that would read as a broken redirect.
+- **Revisit if:** the resync stops finalising, which would only happen if lazy finalisation moved —
+  and doc 03 §6 has it on four reads deliberately.

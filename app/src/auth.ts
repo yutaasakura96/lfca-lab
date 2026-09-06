@@ -32,6 +32,24 @@ function allowlist(): string | undefined {
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: 'pg' }),
 
+  /**
+   * The canonical origin, named rather than inferred.
+   *
+   * Better Auth decides the session cookie's `__Secure-` prefix from this: an
+   * `https://` origin gets it, an `http://` one does not. **With the option
+   * absent it falls back to `NODE_ENV === 'production'` instead**, which is the
+   * same answer in every deployed environment and the wrong one for a
+   * production build served over http — the shape the browser test runs in,
+   * where a `__Secure-` cookie is refused outright.
+   *
+   * Production is unaffected: doc 12 §2 makes `BETTER_AUTH_URL` an https origin
+   * there, so the prefix is applied exactly as before. Local dev is unaffected
+   * for the mirrored reason. Naming it also settles the library's standing
+   * "Base URL is not set" warning, which is this same omission seen from the
+   * other side.
+   */
+  baseURL: process.env.BETTER_AUTH_URL,
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID ?? '',
