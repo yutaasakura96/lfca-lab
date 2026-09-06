@@ -416,10 +416,13 @@ pooled URL (§2.2) on arrival.
 
 ### Repo and tooling
 - Work lands on **`develop`**, one branch per ticket, merged and pushed as each closes.
-  `design/practice-app-system` is the Phase 2–5 branch and is **history**, not the frontier.
-  **`main` is merged locally but has not been pushed** — `.claude/hooks/pre-push-main-guard.sh`
-  refuses it, so only the owner can. Check `git log origin/main..main` before assuming production is
-  current; it was one commit behind when #27 started.
+  **Only `develop` and `main` exist**, locally and on the remote — every merged ticket branch was
+  deleted on 2026-09-06, including the Phase 2–5 `design/practice-app-system`. Their commits are
+  reachable through `develop`'s history; nothing was lost.
+  **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `249826f`, level with
+  `develop`. It drifts silently, though: `.claude/hooks/pre-push-main-guard.sh` refuses any agent
+  push to it, so only the owner can move it, and it was one commit behind when #27 started. Check
+  `git log origin/main..main` before assuming production is current.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
 - **No `.mcp.json`.** Add Neon MCP when the Neon project exists, Sentry MCP when the Sentry project
