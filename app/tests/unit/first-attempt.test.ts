@@ -6,6 +6,7 @@ import {
   HOLDOUT_QUESTION_COUNT,
   isScored,
   questionCountFor,
+  showsImmediateFeedback,
   timeLimitFor,
 } from '../../src/domain/modes.ts';
 
@@ -63,6 +64,28 @@ describe('what each mode implies', () => {
     expect(allowsFlagging('holdout')).toBe(true);
     expect(allowsFlagging('practice')).toBe(false);
     expect(allowsFlagging('domain')).toBe(false);
+  });
+
+  it('explains as you go in exactly the two unmeasured modes', () => {
+    // PRD E3: a timed sitting says nothing about correctness between start and
+    // submit, or its score stops meaning anything. Asserted mode by mode, and
+    // deliberately not as `!isScored(mode)` — the two agree today, and a
+    // comparison would let a future divergence pass in the one place where
+    // being wrong is silent.
+    expect(showsImmediateFeedback('practice')).toBe(true);
+    expect(showsImmediateFeedback('domain')).toBe(true);
+    expect(showsImmediateFeedback('exam')).toBe(false);
+    expect(showsImmediateFeedback('holdout')).toBe(false);
+  });
+
+  it('never explains a mode it scores', () => {
+    // The invariant behind the mode-by-mode assertions above: whatever modes
+    // exist, a sitting that produces a number must not be told the answers on
+    // the way to it. A fifth mode that broke this would fail here rather than
+    // in a response body nobody reads.
+    for (const mode of ATTEMPT_MODES) {
+      if (isScored(mode)) expect(showsImmediateFeedback(mode), mode).toBe(false);
+    }
   });
 
   it('asks 60 questions in exam and 40 in the holdout — the two modes that decide it', () => {

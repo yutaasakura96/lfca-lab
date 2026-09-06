@@ -119,10 +119,12 @@ export function layOutForPaper<T extends { correct: boolean; position: number }>
 /**
  * Four options, exactly one of them right.
  *
- * Shared by both projections so the two reads that serve a question cannot come
- * to disagree about what a well-formed one is.
+ * Shared by every projection so the reads that serve a question cannot come to
+ * disagree about what a well-formed one is. Exported for the third of them —
+ * the immediate feedback a practice or domain answer gets back, which has no
+ * layout to compute and still must not name a key it cannot find.
  */
-function assertOneKeyOfFour(options: readonly { correct: boolean }[]): void {
+export function assertOneKeyOfFour(options: readonly { correct: boolean }[]): void {
   if (options.length !== 4) {
     throw new Error(`A question has four options; got ${options.length}.`);
   }

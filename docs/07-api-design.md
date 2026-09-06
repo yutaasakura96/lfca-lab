@@ -169,9 +169,27 @@ and nothing else — not a correctness flag, not a running total, no `why`. The 
 **all four** options, not just the correct one, because the wrong-option text is the most valuable
 content in the bank (PRD E4).
 
+**`optionRef: null` in an unscored mode returns `{saved: true}` as well** — the one case this section
+did not originally type. Feedback is feedback *on a choice*, so a question whose answer has been
+cleared has nothing to report and no reason to hand out its key. The rule in the handler is not a
+second branch on the mode: it is that the verdict is **read back from the row**, and a cleared answer
+has none. Forward-only means the screen never sends it (doc 10 §7); the endpoint is public surface
+and answers anyway.
+
+**The write itself is not refused a second time in these modes.** A composed sitting is
+strictly forward and its screen does not offer to change a graded answer, but the endpoint stays the
+idempotent upsert it is in every mode: the outbox retries the identical write, so a
+"you already answered that" refusal would turn a 200 lost in transit into a permanent failure on the
+client. Forward-only is a rule about the screen, not a second server state. See the decision log,
+2026-09-07.
+
 **Failures:** `400` · `401` · `404 not_found` · `409 attempt_already_submitted` ·
 `409 attempt_expired` — the clock ran out; the client stops accepting input and routes to review ·
-`409 question_not_in_attempt` — the question is not one of this attempt's own (doc 03 §9).
+`409 question_not_in_attempt` — the question is not one of this attempt's own (doc 03 §9), checked
+against `exam_item` for an exam sitting and against `attempt_question` for a composed one (doc 04
+§5.4). One helper makes that branch, the same one the paper read makes, because two callers deciding
+separately which table to ask would be two chances to ask the wrong one — and the wrong one answers
+*no*, which reads as a well-behaved refusal rather than as a bug.
 
 ---
 

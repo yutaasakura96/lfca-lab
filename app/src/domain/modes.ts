@@ -53,6 +53,25 @@ export function allowsFlagging(mode: AttemptMode): boolean {
 }
 
 /**
+ * Whether a sitting in this mode is told, as it goes, whether it was right.
+ *
+ * **This is the predicate PRD E3 rests on.** A timed sitting must stay silent
+ * about correctness between start and submit, or the score stops meaning
+ * anything; practice and domain mode exist to say so immediately (P1, D1).
+ *
+ * The third predicate over the same two modes, and deliberately not one of the
+ * other two. `isScored` is about what the sitting produces at the end and
+ * `allowsFlagging` about whether you can come back — this is about what leaves
+ * the server on every click. Collapsing them would work until the first mode
+ * where any two diverge, and the failure there is silent: a response carrying
+ * the answer key mid-exam looks exactly like a response that does not, unless
+ * somebody reads the bytes.
+ */
+export function showsImmediateFeedback(mode: AttemptMode): boolean {
+  return mode === 'practice' || mode === 'domain';
+}
+
+/**
  * How many questions a sitting asks, where the mode alone decides it.
  *
  * **Only two modes qualify.** Exam mode is always 60 and the holdout is always

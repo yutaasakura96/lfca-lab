@@ -16,12 +16,11 @@
 // clock is derived (doc 03 §6). If that ever stopped being true, this file
 // would stop working, which is the right way round.
 
-import { randomUUID, createHmac } from 'node:crypto';
 import { sql } from 'drizzle-orm';
-import { getCookies } from 'better-auth/cookies';
 import type { BrowserContext, Cookie } from '@playwright/test';
 import { db } from '../../src/db/client.ts';
 import { createTestUser, deleteUsersWithPrefix } from '../support/users.ts';
+import { mintSession } from '../support/sessions.ts';
 
 export { assertSeeded, hasDatabase } from '../support/users.ts';
 
@@ -44,58 +43,28 @@ export function deleteAllE2EUsers(): Promise<void> {
 }
 
 /**
- * The session cookie, as Better Auth would have written it.
- *
- * The name comes from the library (`getCookies`), so a rename or a change of
- * prefix arrives here rather than being silently missed. The **value** is
- * reproduced: `better-call` signs cookies as `value.base64(HMAC-SHA-256)` and
- * then URI-encodes the pair, and its signer is not in that package's exports
- * map — so this is the one fact about the library hardcoded anywhere in the
- * suite.
- *
- * That reproduction is bounded rather than trusted. If the format ever changes,
- * the run's first navigation lands on `/sign-in` and the first assertion fails
- * loudly, at the one place in the repo that would notice.
- *
- * `baseURL` is passed because it is what decides the `__Secure-` prefix — see
- * the comment on `baseURL` in `src/auth.ts`. Passing the same origin the server
- * is running under is what keeps the two in step.
- */
-function sessionCookieName(baseURL: string): string {
-  return getCookies({ baseURL }).sessionToken.name;
-}
-
-function signCookieValue(value: string, secret: string): string {
-  const signature = createHmac('sha256', secret).update(value).digest('base64');
-  return encodeURIComponent(`${value}.${signature}`);
-}
-
-/**
  * Insert a session row for the e2e candidate and hand its cookie to the
- * browser context. Thirty days, matching the app's own policy, so nothing in
- * this run can be interrupted by an expiry.
+ * browser context.
+ *
+ * The minting lives in `../support/sessions.ts`, shared with the integration
+ * suite for the same reason the user helpers are shared: the reproduction of
+ * Better Auth's cookie format is one fact, and one fact wants one copy. What is
+ * owned here is only the shape Playwright wants it in.
+ *
+ * `baseURL` is passed through because it is what decides the `__Secure-`
+ * prefix — see the comment on `baseURL` in `src/auth.ts`. Passing the same
+ * origin the server is running under is what keeps the two in step.
  */
 export async function signIn(context: BrowserContext, baseURL: string): Promise<void> {
-  const secret = process.env.BETTER_AUTH_SECRET;
-  if (!secret) {
-    throw new Error('BETTER_AUTH_SECRET is not set; the session cookie cannot be signed.');
-  }
-
-  const token = randomUUID();
-  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-
-  await db.execute(sql`
-    INSERT INTO session (id, user_id, token, expires_at, created_at, updated_at)
-    VALUES (${randomUUID()}, ${E2E_USER_ID}, ${token}, ${expiresAt}, now(), now())
-  `);
+  const session = await mintSession(E2E_USER_ID, baseURL);
 
   const url = new URL(baseURL);
   const cookie: Cookie = {
-    name: sessionCookieName(baseURL),
-    value: signCookieValue(token, secret),
+    name: session.cookieName,
+    value: session.cookieValue,
     domain: url.hostname,
     path: '/',
-    expires: Math.floor(expiresAt.getTime() / 1000),
+    expires: Math.floor(session.expiresAt.getTime() / 1000),
     httpOnly: true,
     secure: url.protocol === 'https:',
     sameSite: 'Lax',

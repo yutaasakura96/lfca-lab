@@ -1309,3 +1309,62 @@ not when it compiles. Each names the ticket that carries it out.*
 - **Revisit if:** the study guide is ever linked per concept — the 2026-08-28 entry names that as
   the first thing to reconsider, and a competency-level coverage view would then have somewhere to
   point.
+
+### [2026-09-07] The feedback branch is a database read, and the negative is asserted on the bytes
+- **Decision:** `PUT /api/attempt/:id/answer` branches on `attempt.mode` read from the row the
+  request already loaded to prove ownership, through one pure predicate,
+  `showsImmediateFeedback` — a **third** predicate over the same two modes, deliberately not
+  `!isScored`. The answer key travels through a **second** key-returning query, `feedback.ts`, and
+  the assertion that a timed sitting's response does not contain it is made against the **real
+  exported route handler**, in the integration suite, on the parsed body. Ticket #35.
+- **Context:** doc 07 §3 already specified the two response shapes and the branch. What was
+  undecided was where the branch's predicate lives, where the key-returning query lives, and — the
+  question that actually mattered — how the negative gets asserted, since no integration test in the
+  repo had ever invoked a route handler.
+- **On the test seam, which is the whole ticket.** *Alternatives considered:* extracting the
+  response-building into a function taking `(db, attempt, body)` and testing that — simpler, no
+  mocking, and it asserts the same bytes, but it asserts them about a function the route happens to
+  call today; a handler that stopped calling it would still pass. Also considered leaving it to the
+  screen, which is what a component test would do and is precisely the assertion the ticket forbids:
+  *"not 'the client doesn't render it' — the bytes must not be there."*
+  **Chosen:** drive the exported `PUT`. `next/headers` is mocked in that one file because it throws
+  outside a request scope; everything below it is real — a real `session` row, the real allowlist
+  check, real ownership, and the branch reading the real column. The cost is one `vi.mock` and the
+  integration suite gaining a share in the cookie reproduction the browser run already owns, which
+  moved to `tests/support/sessions.ts` alongside the user helpers: one fact about Better Auth, one
+  copy, two consumers.
+- **The tests were mutation-checked rather than trusted for passing first time.** With
+  `showsImmediateFeedback` forced true, three exam-mode assertions fail; with the membership check
+  forced true, both refusals fail. A test that has never been seen red is a claim, not a check.
+  The exam-mode assertion is written as `toEqual({ saved: true })` on the **whole body** rather than
+  as three absent field names, so a fourth field added later fails here — which is the failure mode
+  the ticket exists for.
+- **The endpoint stays an idempotent upsert in the composed modes too.** *Alternatives considered:*
+  refusing a second answer to an already-graded question, which would put decision 3's
+  *"an answer cannot be changed once graded"* in the server rather than only in the screen.
+  **Rejected:** the outbox retries the identical write (doc 03 §7), so a refusal would turn a `200`
+  lost in transit into a permanent client-side failure with the chip up and nothing to clear it. It
+  would also need an error code doc 07 §1's table does not have. Forward-only is a rule about the
+  screen; idempotency is the contract that makes every retry in this system safe, and it is worth
+  more.
+- **A cleared answer in an unscored mode returns `{saved: true}`.** *Alternatives considered:* the
+  full shape with `isCorrect: null`, so the client never branches on shape within one mode; and a
+  `400`, on the grounds that un-answering is not an action these modes have — rejected because the
+  schema is shared with exam mode, so the refusal would be a runtime branch making one body legal in
+  one mode and illegal in another. **Chosen** because feedback is feedback *on a choice*, and there
+  is no reason to hand out the key for a question just un-answered. It costs nothing at the call
+  site: it falls out of reading the verdict **back from the row** rather than deriving it from what
+  was sent, so a cleared answer has no verdict and there is no second branch to write. Unreachable
+  from #36's screen either way.
+- **`review.ts` stopped being "the one query in the app that returns the answer key"** and its header
+  says so rather than being quietly outgrown. The two are separate on purpose: a single query with a
+  `withKey` flag would put the leak one wrong argument away, in a file every mode reads from.
+  `getPaperQuestions` still strips correctness at the boundary and still never selects `why`;
+  `getAttemptAnswers` still never selects `is_correct`. A timed sitting reaches neither key query.
+- **One thing found rather than decided.** `openWriteForQuestion` established membership as
+  `attempt.examId !== null && isQuestionOnPaper(...)`, so **every write a composed sitting made was
+  refused** with `409 question_not_in_attempt`. Correct while `attempt_question` did not exist, wrong
+  from the moment #31 landed, and invisible until now because #34 ships Start disabled. The branch
+  now lives with the two queries, mirroring `getSittingQuestions`.
+- **Revisit if:** a mode arrives that is scored *and* explains as it goes — `showsImmediateFeedback`
+  is asserted mode by mode precisely so that divergence fails a test rather than passing silently.

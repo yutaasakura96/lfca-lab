@@ -1,10 +1,12 @@
 // Reading a finished sitting back, in full.
 //
-// This is the one query in the app that returns the answer key. That is the
-// point of it — PRD E4 wants the `why` for **all four** options, because the
-// wrong-option text explaining why a misconception is tempting is the most
-// valuable content in the bank — and it is why this is a **new** query rather
-// than `getPaperQuestions` with its stripping relaxed.
+// This is one of the two queries in the app that return the answer key — the
+// other is `feedback.ts`, which serves one question at a time to the modes that
+// explain as they go. It was the only one until practice and domain mode
+// existed. That is the point of it — PRD E4 wants the `why` for **all four**
+// options, because the wrong-option text explaining why a misconception is
+// tempting is the most valuable content in the bank — and it is why this is a
+// **new** query rather than `getPaperQuestions` with its stripping relaxed.
 //
 // Those two paths stay as they are: `getPaperQuestions` strips correctness at
 // the boundary and never selects `why` at all, and `getAttemptAnswers` never

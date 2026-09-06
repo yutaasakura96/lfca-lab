@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-06
+**Updated:** 2026-09-07
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -487,6 +487,45 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   state, and the "All N" chip summing to 960.
   Suites: 339 bank · **416** app unit · **141** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — the answer response branches on the stored mode** (#35). The one place in
+  this slice where a bug is silent. `PUT /api/attempt/:id/answer` reads `attempt.mode` off the row
+  the request already had to load to prove ownership: exam and holdout get `{saved: true}` and
+  nothing else, practice and domain get the verdict, the key and the `why` for **all four** options.
+  The predicate is `showsImmediateFeedback` in the pure layer — a **third** predicate over the same
+  two modes, deliberately not `!isScored`, and asserted mode by mode so a future divergence fails a
+  test rather than passing in a response body nobody reads.
+  **The negative is asserted on the bytes, against the real exported route handler.** No integration
+  test in this repo had ever invoked one; this file does, with `next/headers` mocked and everything
+  below it real — a real `session` row, the real allowlist check, real ownership, the real column.
+  The exam-mode assertion is `toEqual({ saved: true })` on the **whole body**, so a fourth field
+  added later fails here. A wrong answer and a right one are asserted **byte-identical**, so
+  correctness cannot be inferred from the shape either. The cookie minting moved to
+  `tests/support/sessions.ts` beside the user helpers: one fact about Better Auth, one copy, two
+  consumers.
+  **The tests were mutation-checked rather than trusted for passing first time** — forcing
+  `showsImmediateFeedback` true fails three exam assertions; forcing the membership check true fails
+  both refusals.
+  **One bug found rather than decided.** `openWriteForQuestion` established membership as
+  `attempt.examId !== null && isQuestionOnPaper(...)`, so **every write a composed sitting made was
+  refused** `409 question_not_in_attempt`. Correct while `attempt_question` did not exist, wrong from
+  the moment #31 landed, invisible until now because #34 ships Start disabled. The branch lives with
+  the two queries now, mirroring `getSittingQuestions`: `exam_item` for a paper, `attempt_question`
+  for a composed sitting.
+  The answer key travels through a **second** key-returning query, `src/db/queries/feedback.ts`;
+  `review.ts`'s header no longer claims to be the only one. `getPaperQuestions` still strips
+  correctness and never selects `why`, `getAttemptAnswers` still never selects `is_correct`, and a
+  timed sitting reaches neither key query. Flagging was already refused correctly by
+  `allowsFlagging`; it now has the tests that prove it, in all three modes, including that a refused
+  flag **writes nothing**.
+  Two decisions are in the log (2026-09-07), both about what the endpoint does that the screen never
+  will: the write **stays an idempotent upsert** in composed modes rather than refusing a second
+  answer — the outbox retries the identical write, so a refusal would turn a lost `200` into a
+  permanent client failure — and a **cleared answer returns `{saved: true}`**, which falls out of
+  reading the verdict back from the row rather than deriving it from what was sent. Doc 07 §3 gains
+  both, and its `question_not_in_attempt` line gains the table branch.
+  **No browser sweep**: #35 has no screen to drive, because the composed sitting screen is #36.
+  Suites: 339 bank · **419** app unit · **157** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -502,7 +541,9 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31, #32, #33 and #34 are closed**; **#35 is the frontier**, and #29 (the 375px
+that dependency order. **#31–#35 are closed**; **#36 is the frontier** — and it is the ticket that
+flips `COMPOSED_SITTINGS_UNBUILT` to `false`, which is the one edit that makes both setup screens'
+Start buttons live. #29 (the 375px
 code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
 in a comment and confirmed not yet in the code. Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the

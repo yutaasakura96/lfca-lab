@@ -1,5 +1,7 @@
 import { db } from '../../../../../db/client.ts';
 import { recordAnswer } from '../../../../../db/queries/answer.ts';
+import { getAnswerFeedback } from '../../../../../db/queries/feedback.ts';
+import { showsImmediateFeedback } from '../../../../../domain/modes.ts';
 import { apiError } from '../../../../../lib/api.ts';
 import { openWriteForQuestion } from '../../../../../lib/attempt-access.ts';
 import { AnswerRequest } from '../../../../../lib/requests.ts';
@@ -14,9 +16,16 @@ import { AnswerRequest } from '../../../../../lib/requests.ts';
  *
  * **This response is where PRD E3 is enforced.** A timed sitting gets
  * `{ saved: true }` and nothing else: no correctness, no running total, no
- * explanation. Immediate feedback belongs to practice and domain mode, and the
- * branch that decides it will read `attempt.mode` from the database — never
- * anything the client sent.
+ * explanation. Practice and domain mode get all four options explained, which
+ * is the whole of what those modes are for (P1, D1).
+ *
+ * **The branch reads `attempt.mode` from the database**, off the row this
+ * request already had to load to prove ownership. Nothing the caller sent
+ * reaches it — not a field, not a header, not a query parameter — and there is
+ * no argument to this handler that could move it. That is deliberate, because
+ * this is the one response in the app whose being wrong is silent: a body
+ * carrying the key mid-exam looks exactly like a body that does not, unless
+ * somebody reads the bytes. The integration suite reads the bytes.
  */
 export async function PUT(
   request: Request,
@@ -43,5 +52,22 @@ export async function PUT(
     return apiError(400, 'invalid_request', 'That question has no such option.');
   }
 
-  return Response.json({ saved: true }, { status: 200 });
+  if (!showsImmediateFeedback(write.attempt.mode)) {
+    return Response.json({ saved: true }, { status: 200 });
+  }
+
+  // Read back rather than assembled from what was sent: the verdict reported is
+  // the one now stored, which is also the one the review will read later.
+  //
+  // `null` here is a question with no verdict recorded — an answer cleared
+  // rather than made. Feedback is feedback on a choice, so with no choice there
+  // is nothing to report, and the response is the same `{ saved: true }` a
+  // timed sitting gets, arrived at for an unrelated reason. Forward-only means
+  // the screen never sends it; the endpoint still has to answer honestly.
+  const feedback = await getAnswerFeedback(db, write.attempt.id, write.body.questionId);
+  if (feedback === null) {
+    return Response.json({ saved: true }, { status: 200 });
+  }
+
+  return Response.json({ saved: true, ...feedback }, { status: 200 });
 }

@@ -15,7 +15,7 @@
 
 import type { z } from 'zod';
 import { db } from '../db/client.ts';
-import { isQuestionOnPaper } from '../db/queries/answer.ts';
+import { isQuestionInSitting } from '../db/queries/answer.ts';
 import { getAttemptForUser, type AttemptRow } from '../db/queries/attempt.ts';
 import { hasExpired } from '../domain/clock.ts';
 import { apiError } from './api.ts';
@@ -128,9 +128,13 @@ export async function openAttemptForWrite(
  * The membership check is the one worth stating out loud. It is not "does this
  * question exist" — *is it one of the sixty this sitting put on screen*.
  * Without the distinction an attempt could be padded with answers to questions
- * it never asked, and its score would count something other than the paper. A
- * sitting with no recorded paper cannot establish membership at all, so it is
- * refused rather than trusted.
+ * it never asked, and its score would count something other than the paper.
+ *
+ * Which table answers that depends on the mode, and the branch lives with the
+ * two queries rather than here. This file used to ask `exam_item` and nothing
+ * else, so a composed sitting — which has no paper — was refused on every
+ * write it made. That was correct while `attempt_question` did not exist and
+ * wrong the moment it did.
  *
  * `message` is the schema's own refusal wording, because "that is not an
  * answer this app can record" and "that is not a flag this app can record" are
@@ -161,10 +165,7 @@ export async function openWriteForQuestion<T extends { questionId: string }>(
   if (!access.ok) return access;
 
   const { attempt } = access;
-  const onPaper =
-    attempt.examId !== null &&
-    (await isQuestionOnPaper(db, attempt.examId, parsed.data.questionId));
-  if (!onPaper) {
+  if (!(await isQuestionInSitting(db, attempt, parsed.data.questionId))) {
     return {
       ok: false,
       response: apiError(

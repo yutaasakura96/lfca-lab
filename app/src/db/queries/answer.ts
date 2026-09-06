@@ -12,6 +12,7 @@
 
 import { sql } from 'drizzle-orm';
 import type { Db } from '../client.ts';
+import type { SittingIdentity } from './paper.ts';
 
 // The two write functions below take an attempt id without a user id, and that
 // is the one place in this file where ownership is not in the SQL. It is
@@ -188,4 +189,49 @@ export async function isQuestionOnPaper(
     WHERE exam_id = ${examId} AND question_id = ${questionId}
   `);
   return result.rows.length === 1;
+}
+
+/**
+ * The same question about a composed sitting, asked of the set it froze.
+ *
+ * A practice or domain sitting has no paper, so membership is a fact about
+ * `attempt_question` — which is the table's second reason for existing, after
+ * being the only record of what was asked. Before it, this question was not
+ * answerable in SQL for these modes at all.
+ */
+export async function isQuestionInComposedSitting(
+  db: Db,
+  attemptId: string,
+  questionId: string,
+): Promise<boolean> {
+  const result = await db.execute<{ ok: boolean }>(sql`
+    SELECT true AS ok FROM attempt_question
+    WHERE attempt_id = ${attemptId}::uuid AND question_id = ${questionId}
+  `);
+  return result.rows.length === 1;
+}
+
+/**
+ * Is this question one of the sitting's own, whichever table holds its set?
+ *
+ * The branch that {@link getSittingQuestions} makes for reading, made once here
+ * for writing, and on the same rule: exam mode reads `exam_item`, every other
+ * mode reads `attempt_question`. Two callers deciding separately which table to
+ * ask would be two chances to ask the wrong one — and the wrong one answers
+ * *no*, which reads as a well-behaved refusal rather than as a bug.
+ */
+export async function isQuestionInSitting(
+  db: Db,
+  attempt: SittingIdentity,
+  questionId: string,
+): Promise<boolean> {
+  if (attempt.mode !== 'exam') {
+    return isQuestionInComposedSitting(db, attempt.id, questionId);
+  }
+
+  // Unreachable: `attempt_exam_iff_exam_mode` makes the two inseparable. A
+  // sitting that cannot say which paper it is cannot establish membership, so
+  // it refuses rather than admitting everything.
+  if (attempt.examId === null) return false;
+  return isQuestionOnPaper(db, attempt.examId, questionId);
 }
