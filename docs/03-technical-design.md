@@ -142,8 +142,23 @@ balance the bank was built to have.
 order, and parsing generated markdown to recover it would make the app depend on a rendering format
 it should not know about.
 
-In practice and domain mode there is no fixed paper, so options render in **authored order** —
-`data` order, not shuffled. The bank's authoring already varies which option is correct.
+In practice and domain mode there is no fixed paper, so there is no recorded slot — and this
+section originally concluded that options should therefore render in **authored order**, on the
+grounds that "the bank's authoring already varies which option is correct".
+
+**That is false, and it was measured rather than argued.** In all **1,150** questions the key is
+authored *first*, because the option carrying `provenance_kind: key` is written as `o1`. The sixteen
+papers are unaffected — the builder shuffles, and `exams/index.json` is balanced exactly
+240/240/240/240 — but a composed sitting rendered in authored order puts **every** correct answer at
+A, which makes practice and domain mode answerable without reading the options.
+
+So a composed sitting **derives** a slot instead of reading one: `slotForComposedSitting` hashes
+`attemptId:questionId` (FNV-1a with a murmur3 avalanche, then mod 4) and the result goes through the
+same `layOutForPaper` a paper's recorded slot does. One placement, two sources for the one number it
+needs. It is stable — a reload and the later review lay the same question out the same way, which
+matters because the verdict bar names a letter — and it is stored nowhere, so doc 04 §5.4's
+"nothing here records the option layout" still holds. Found while building #36; see the decision
+log, 2026-09-07.
 
 ---
 

@@ -59,9 +59,48 @@ export async function put(url: string, body: unknown): Promise<WriteFailure | nu
 export type PostResult<T> = { ok: true; data: T } | { ok: false; failure: WriteFailure };
 
 export async function post<T>(url: string): Promise<PostResult<T>> {
+  return sendReading<T>('POST', url, undefined);
+}
+
+/**
+ * The same `PUT` as {@link put}, keeping what came back.
+ *
+ * `put` throws the success body away, which is right for every write in a timed
+ * sitting: `{ saved: true }` is the whole of it, and a caller that read it would
+ * have nothing to do with what it read. In practice and domain mode the reply
+ * *is* the feedback — the verdict, the key and the `why` for all four options
+ * (doc 07 §3) — and it is the only source of it. The client never re-derives
+ * correctness, because it has never been sent the answer key to derive it from.
+ *
+ * Two functions rather than one that sometimes returns a body, because the
+ * distinction is which endpoint is being called rather than what a caller feels
+ * like doing with the reply — and a `put` whose result was usually ignored is a
+ * `put` whose result eventually gets ignored where it matters.
+ */
+export async function putReading<T>(url: string, body: unknown): Promise<PostResult<T>> {
+  return sendReading<T>('PUT', url, body);
+}
+
+/**
+ * One request, and its answer read either way.
+ *
+ * The failure half is deliberately identical to {@link put}'s — same codes, same
+ * `retryable` rule — because the outbox has to be able to hold writes made
+ * through either without knowing which. One error shape, read in one place.
+ */
+async function sendReading<T>(
+  method: 'POST' | 'PUT',
+  url: string,
+  body: unknown,
+): Promise<PostResult<T>> {
   let response: Response;
   try {
-    response = await fetch(url, { method: 'POST' });
+    response = await fetch(
+      url,
+      body === undefined
+        ? { method }
+        : { method, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) },
+    );
   } catch {
     return { ok: false, failure: { code: 'network', retryable: true } };
   }

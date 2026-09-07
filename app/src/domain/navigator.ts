@@ -72,6 +72,15 @@ export interface NavigatorTile {
   answered: boolean;
   flagged: boolean;
   current: boolean;
+  /**
+   * What the question scored, in a mode that grades as it goes.
+   *
+   * **Undefined in a timed sitting**, and that is PRD E3 expressed in the type
+   * rather than in a comment: an exam's navigator has no verdict to report,
+   * because the server has not told the browser one. It is also undefined for a
+   * question answered in a graded sitting whose write has not come back yet.
+   */
+  verdict?: 'correct' | 'incorrect' | undefined;
   /** The tile's whole state in words. Survives greyscale and a screen reader. */
   label: string;
 }
@@ -223,4 +232,156 @@ export function resumeSeq(
   }
 
   return best;
+}
+
+// ── The graded navigator ──────────────────────────────────────────────────
+//
+// Practice and domain sittings say whether each answer was right the moment it
+// is given (PRD P1, D1), so their navigator reports something an exam's cannot:
+// what each question *scored*. It is the same tile with a third state added
+// rather than a second component, because a tile is a tile — and the counts it
+// carries are decided here for the reason every other count in this app is.
+//
+// **There is no flag anywhere in this half.** These modes are strictly forward
+// (decision log, 2026-09-06), and a flag is a mark to come back to.
+
+/** What a graded sitting holds for one question: the choice, and what it scored. */
+export interface GradedRecord {
+  optionRef: string | null;
+  /**
+   * The verdict the server recorded for this click — `answer.is_correct`, never
+   * anything re-derived here. Null exactly when nothing has been answered, or
+   * while the write that will decide it is still in the air.
+   */
+  isCorrect: boolean | null;
+}
+
+const UNGRADED: GradedRecord = { optionRef: null, isCorrect: null };
+
+export function gradedStateFor(
+  all: Readonly<Record<string, GradedRecord>>,
+  questionId: string,
+): GradedRecord {
+  return all[questionId] ?? UNGRADED;
+}
+
+/** One question's graded state replaced, the rest of the sitting untouched. */
+export function patchGraded(
+  all: Readonly<Record<string, GradedRecord>>,
+  questionId: string,
+  apply: (before: GradedRecord) => GradedRecord,
+): Record<string, GradedRecord> {
+  return { ...all, [questionId]: apply(gradedStateFor(all, questionId)) };
+}
+
+export interface GradedNavigatorModel {
+  tiles: NavigatorTile[];
+  correct: number;
+  incorrect: number;
+  /** Questions with no answer yet. Doc 10 §7's third count. */
+  remaining: number;
+}
+
+/**
+ * The navigator for a graded sitting.
+ *
+ * Built on the same assertion `buildNavigator` makes — positions run 0…n-1 —
+ * because the same thing rests on it: a tile reports its `seq` and the sitting
+ * reads that back as an array index.
+ *
+ * **An answered question whose verdict has not come back yet counts as
+ * neither.** It is `answered`, so it is not remaining; it has no `verdict`, so
+ * it is in neither the correct nor the incorrect column. The three counts
+ * therefore sum to the sitting only once every write has landed, which is the
+ * honest arithmetic: a verdict this screen has not been told cannot be put in a
+ * column. It is normally one question for one round trip.
+ */
+export function buildGradedNavigator(
+  questions: readonly NavigatorQuestion[],
+  graded: Readonly<Record<string, GradedRecord>>,
+  currentSeq: number,
+): GradedNavigatorModel {
+  const ordered = [...questions].sort((a, b) => a.seq - b.seq);
+
+  for (const [index, question] of ordered.entries()) {
+    if (question.seq !== index) {
+      throw new Error(
+        `A sitting's positions run 0 to n-1; found ${question.seq} where ${index} was expected.`,
+      );
+    }
+  }
+
+  if (!Number.isInteger(currentSeq) || currentSeq < 0 || currentSeq >= ordered.length) {
+    throw new Error(
+      `The current question must be in the sitting; got ${currentSeq} of ${ordered.length}.`,
+    );
+  }
+
+  let correct = 0;
+  let incorrect = 0;
+  let remaining = 0;
+
+  const tiles = ordered.map((question) => {
+    const state = gradedStateFor(graded, question.id);
+    const answered = state.optionRef !== null;
+    const verdict =
+      !answered || state.isCorrect === null
+        ? undefined
+        : state.isCorrect
+          ? ('correct' as const)
+          : ('incorrect' as const);
+
+    if (!answered) remaining += 1;
+    else if (verdict === 'correct') correct += 1;
+    else if (verdict === 'incorrect') incorrect += 1;
+
+    const tile = {
+      questionId: question.id,
+      seq: question.seq,
+      number: question.seq + 1,
+      answered,
+      // Structurally absent rather than merely false: these modes cannot flag.
+      flagged: false,
+      current: question.seq === currentSeq,
+      verdict,
+    };
+
+    return { ...tile, label: describeGraded(tile) };
+  });
+
+  return { tiles, correct, incorrect, remaining };
+}
+
+function describeGraded(tile: Omit<NavigatorTile, 'label'>): string {
+  const parts = [`Question ${tile.number}`];
+  if (tile.verdict !== undefined) parts.push(tile.verdict);
+  else if (tile.answered) parts.push('answered, awaiting its verdict');
+  else parts.push('not answered yet');
+  if (tile.current) parts.push('current question');
+  return parts.join(', ');
+}
+
+/**
+ * Where a resumed composed sitting opens: the first question with no answer.
+ *
+ * **Exact, unlike exam mode's derivation.** `resumeSeq` above reads the most
+ * recently written row because an exam lets you walk past a question without
+ * answering it, so there is nothing else to read. A composed sitting is
+ * strictly forward: a question cannot be passed without being answered, so
+ * "the first unanswered one" *is* where you were.
+ *
+ * Falls back to the last question when every one has been answered — there is
+ * no unanswered question to open on, and the last one is where the candidate
+ * stood. A sitting with no questions cannot be rendered and is refused
+ * upstream; this returns 0 rather than inventing a position for it.
+ */
+export function firstUnansweredSeq(
+  questions: readonly NavigatorQuestion[],
+  graded: Readonly<Record<string, GradedRecord>>,
+): number {
+  const ordered = [...questions].sort((a, b) => a.seq - b.seq);
+  if (ordered.length === 0) return 0;
+
+  const found = ordered.find((question) => gradedStateFor(graded, question.id).optionRef === null);
+  return found?.seq ?? ordered[ordered.length - 1]!.seq;
 }

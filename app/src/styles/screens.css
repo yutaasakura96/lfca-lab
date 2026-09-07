@@ -835,3 +835,81 @@ a.btn { text-decoration: none; }
   color: var(--ink-faint);
   cursor: not-allowed;
 }
+
+/* ------------------------------------------------------------
+   The composed sitting — practice and domain.
+
+   Doc 10 §7. The same two-column frame as the timed sitting, with two
+   differences that are the modes' own rather than the layout's.
+
+   **The rail drops below the question rather than becoming a sheet.** A sheet
+   exists so sixty tiles can be reached without leaving the question; these
+   tiles cannot be reached at all — they report progress, and a composed sitting
+   is strictly forward — so there is nothing to pull up and nothing to dismiss.
+   Doc 10 §7's mobile note says so: the rail drops below.
+
+   **There is no clock rule here**, in either arrangement, because there is no
+   clock. Doc 10's first cross-screen rule is that none renders in these modes.
+
+   Source: design/parts/Practice.part
+   ------------------------------------------------------------ */
+
+/* Doc 10 §7's verdict bar: a left-ruled panel, in the family of the verdict it
+   is reporting. The words carry the verdict on their own — the rule is doc 05
+   §8's, and this is the most colour-forward element on the screen. */
+.verdictbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--incorrect-solid);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--incorrect-surface);
+}
+.verdictbar__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--incorrect-ink);
+}
+.verdictbar--correct { border-left-color: var(--correct-solid); background: var(--correct-surface); }
+.verdictbar--correct .verdictbar__head { color: var(--correct-ink); }
+
+/* The counter in this bar is a reading, not the sheet's trigger. It keeps
+   `.navbtn`'s shape so the two bars sit at the same height, and gives up the
+   pointer affordances a control has. */
+.bar--sitting > span.navbtn { cursor: default; gap: var(--space-2); }
+
+@media (max-width: 1100px), (pointer: coarse) {
+  /* Below the question, not hidden and not a sheet. The rule above this one
+     hides *every* rail at this width, because the timed sitting replaces its
+     own with a sheet — this rail has no sheet to be replaced by, so it is put
+     back. Found by measuring: without it the whole session card was 0×0. */
+  .sitting--composed { grid-template-columns: 1fr; }
+  .sitting--composed .rail { display: block; position: static; }
+
+  /* Doc 05 rule 12: the 34px tile is pointer-only, so on the layout that may be
+     touched the grid gives up its column count rather than its target size —
+     the same trade `.grid60--touch` makes in the sheet. These tiles are not
+     controls, but a 34px glyph is as hard to *read* as it is to hit. */
+  .gradedgrid {
+    grid-template-columns: repeat(auto-fill, var(--control-h-lg));
+    justify-content: center;
+  }
+  .gradedgrid .tile {
+    width: var(--control-h-lg);
+    height: var(--control-h-lg);
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 720px) {
+  /* The same reclamation the review's cards make, for the same reason: prose
+     stays at 17px/1.65 (doc 05 §3), so the layout is what gives way. */
+  .sitting--composed .opt { padding-left: var(--space-3); padding-right: var(--space-3); }
+  .sitting--composed .opt__why { padding-left: var(--space-3); }
+  .verdictbar { padding: var(--space-3) var(--space-4); }
+}

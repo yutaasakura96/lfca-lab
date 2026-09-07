@@ -1,12 +1,20 @@
 import { notFound, redirect } from 'next/navigation';
 import { db } from '../../../../db/client.ts';
 import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
-import { getAttemptForUser } from '../../../../db/queries/attempt.ts';
-import { getPaperQuestions } from '../../../../db/queries/paper.ts';
+import { getAttemptForUser, type AttemptRow } from '../../../../db/queries/attempt.ts';
+import { getQuestionKey, getRecordedVerdicts } from '../../../../db/queries/feedback.ts';
+import { getComposedQuestions, getPaperQuestions } from '../../../../db/queries/paper.ts';
 import { deadlineOf, remainingToDeadline } from '../../../../domain/clock.ts';
-import { resumeSeq, type RecordedState } from '../../../../domain/navigator.ts';
+import {
+  firstUnansweredSeq,
+  resumeSeq,
+  type GradedRecord,
+  type RecordedState,
+} from '../../../../domain/navigator.ts';
 import { passMark } from '../../../../domain/score.ts';
 import { outcomeOf, type SubmitOutcome } from '../../../../domain/submission.ts';
+import { ComposedSitting } from '../../../../components/ComposedSitting.tsx';
+import type { AnswerFeedback } from '../../../../components/ComposedQuestion.tsx';
 import { Sitting } from '../../../../components/Sitting.tsx';
 import { finaliseIfExpired } from '../../../../lib/auto-submit.ts';
 import { requireSession } from '../../../../lib/session.ts';
@@ -52,7 +60,28 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
   // Not found, never forbidden. A 403 would confirm the row exists and belongs
   // to somebody, which is exactly what an attacker probing ids wants to learn.
   if (found === null) notFound();
+
+  // One route, two screens, and the branch is the stored mode — the same column
+  // the answer endpoint branches its response on. A timed sitting has a paper,
+  // a clock and a submit; a composed one has a frozen question set, no clock at
+  // all, and its marking as it goes. They share the outbox, the tile and the
+  // bank's prose rendering and almost nothing else, so they are two components
+  // rather than one holding both sets of behaviour behind flags.
+  if (found.mode === 'exam') return examSitting(session.user.id, found);
+  if (found.mode === 'holdout') {
+    // The holdout is composed like these two and timed and scored like an exam
+    // (PRD H1), so it belongs to neither screen unchanged. It cannot be started
+    // — #34 ships its card disabled — so this is a guard rather than a gap, and
+    // a guard is what stops it silently rendering without the clock it must
+    // have on the day somebody builds the way in.
+    notFound();
+  }
+  return composedSitting(session.user.id, found);
+}
+
+async function examSitting(userId: string, found: AttemptRow) {
   const examId = found.examId;
+  // Unreachable: `attempt_exam_iff_exam_mode` makes mode and paper inseparable.
   if (examId === null) notFound();
 
   const { attempt, closedOnRead } = await finaliseIfExpired(db, found, new Date());
@@ -60,7 +89,7 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
 
   const [questions, answers] = await Promise.all([
     getPaperQuestions(db, examId),
-    getAttemptAnswers(db, session.user.id, attempt.id),
+    getAttemptAnswers(db, userId, attempt.id),
   ]);
 
   if (questions.length === 0) notFound();
@@ -120,6 +149,91 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
         initial={initial}
         finished={finished}
         remainingAtClose={remainingAtClose}
+      />
+    </div>
+  );
+}
+
+
+/**
+ * A practice or domain sitting.
+ *
+ * **Nothing here reads a clock, and there is nothing to finalise.** Those
+ * modes carry `time_limit_seconds = null` (doc 04 §5.1), so they never expire
+ * and no lazy submit applies — which is why `finaliseIfExpired` is absent
+ * rather than called and ignored.
+ *
+ * What crosses to the browser is the frozen set of questions, the choices
+ * already made, and **the verdict of each of those choices** — which is not the
+ * answer key: it says whether the option this candidate picked was right, on a
+ * question they have already been told about to their face. Nothing is sent
+ * about a question they have not answered.
+ */
+async function composedSitting(userId: string, attempt: AttemptRow) {
+  // A finished sitting has nothing to answer, so it goes to its review — the
+  // route that reads a sitting back. **That screen is #38's**: it branches on
+  // `examId` today and 404s on a composed sitting. The state is unreachable
+  // from any screen in this slice, because Finish is #37's; this is the guard
+  // that will still be right when both land.
+  if (attempt.submittedAt !== null) redirect(`/attempt/${attempt.id}/review`);
+
+  const [questions, verdicts] = await Promise.all([
+    getComposedQuestions(db, attempt.id),
+    getRecordedVerdicts(db, userId, attempt.id),
+  ]);
+
+  // An attempt whose questions are missing cannot be rendered. It is not a
+  // state this app can produce — the set is written in the same transaction as
+  // the attempt (doc 04 §5.4) — so it is refused rather than repaired.
+  if (questions.length === 0) notFound();
+
+  // Every question gets an entry, answered or not, so the client never has to
+  // decide what a missing key means.
+  const initial: Record<string, GradedRecord> = {};
+  for (const question of questions) initial[question.id] = { optionRef: null, isCorrect: null };
+  for (const verdict of verdicts) {
+    if (initial[verdict.questionId] === undefined) continue;
+    initial[verdict.questionId] = {
+      optionRef: verdict.optionRef,
+      isCorrect: verdict.isCorrect,
+    };
+  }
+
+  // Where it reopens: the first question with no answer. Exact here, unlike
+  // exam mode's derivation, because strictly forward means a question cannot be
+  // passed without being answered (decision log, 2026-09-06).
+  const resumeAt = questions[firstUnansweredSeq(questions, initial)]!;
+
+  // The one question whose key may be needed at load, and only when every
+  // question has been answered so there is no unanswered one to open on. One
+  // question's worth of key, never the whole sitting's.
+  const resumedState = initial[resumeAt.id]!;
+  const resumed =
+    resumedState.optionRef === null || resumedState.isCorrect === null
+      ? null
+      : {
+          questionId: resumeAt.id,
+          feedback: {
+            isCorrect: resumedState.isCorrect,
+            ...(await getQuestionKey(db, resumeAt.id)),
+          } satisfies AnswerFeedback,
+        };
+
+  // Read from the bank rather than from a label map in the app: the competency
+  // is already `"Security Fundamentals :: Compliance"`, so its first half is
+  // the domain's own name and there is no table here that could drift from the
+  // content (the same call #34 made for the domain cards).
+  const domainName = questions[0]!.competency.split(' :: ')[0] ?? 'Domain';
+
+  return (
+    <div className="page page--sitting">
+      <ComposedSitting
+        attemptId={attempt.id}
+        title={attempt.mode === 'domain' ? domainName : 'Practice'}
+        modeLabel={attempt.mode === 'domain' ? 'Domain mode' : 'Practice mode'}
+        questions={questions}
+        initial={initial}
+        resumed={resumed}
       />
     </div>
   );

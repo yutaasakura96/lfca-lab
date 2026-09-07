@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   layOutForPaper,
   orderOptionsForPaper,
-  presentInAuthoredOrder,
+  presentForComposedSitting,
+  slotForComposedSitting,
   type AuthoredOption,
 } from '../../src/domain/paper.ts';
 
@@ -111,29 +112,79 @@ describe('laying a question out for the review', () => {
   });
 });
 
-describe('presenting a composed sitting\'s options', () => {
-  // Practice and domain sittings have no fixed paper, so there is no recorded
-  // slot for the key: options render in the order the bank authored them.
-  it('renders in authored order, whatever order the rows arrived in', () => {
+describe("presenting a composed sitting's options", () => {
+  const attempt = '01a07bec-28eb-7af8-a568-43d92f73b05b';
+
+  it('puts the key at its derived slot, not at the one the bank authored', () => {
+    // The reason this projection exists at all. Measured across the whole bank:
+    // the key is authored first in all 1,150 questions, so authored order would
+    // put every correct answer at A.
+    const slots = new Set<number>();
+    for (let n = 0; n < 200; n += 1) {
+      const laid = presentForComposedSitting(options, attempt, `q.${n}`);
+      slots.add(laid.findIndex((o) => o.ref === 'o2'));
+    }
+    expect([...slots].sort()).toEqual([0, 1, 2, 3]);
+  });
+
+  it('lays the same question out the same way every time', () => {
+    // The verdict bar names a letter. A reload that moved the options would
+    // make that sentence wrong about what the candidate saw.
+    const once = presentForComposedSitting(options, attempt, 'q.linux.awk.03');
+    const again = presentForComposedSitting(options, attempt, 'q.linux.awk.03');
+    expect(again).toEqual(once);
+  });
+
+  it('lays one question out differently in two different sittings', () => {
+    // Not a security property — the key never crosses to the browser during a
+    // sitting — but a re-sit that reproduced the first sitting's letters would
+    // be answerable from memory of the letter rather than of the answer.
+    const layouts = new Set(
+      ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((id) =>
+        presentForComposedSitting(options, id, 'q.linux.awk.03')
+          .map((o) => o.ref)
+          .join(''),
+      ),
+    );
+    expect(layouts.size).toBeGreaterThan(1);
+  });
+
+  it('does not depend on the order the rows arrived in', () => {
     const shuffled = [options[2], options[0], options[3], options[1]] as AuthoredOption[];
-    expect(presentInAuthoredOrder(shuffled).map((o) => o.ref)).toEqual(['o1', 'o2', 'o3', 'o4']);
+    expect(presentForComposedSitting(shuffled, attempt, 'q.1')).toEqual(
+      presentForComposedSitting(options, attempt, 'q.1'),
+    );
   });
 
   it('carries only ref and text — correctness does not travel', () => {
-    for (const option of presentInAuthoredOrder(options)) {
+    for (const option of presentForComposedSitting(options, attempt, 'q.1')) {
       expect(Object.keys(option).sort()).toEqual(['ref', 'text']);
     }
   });
 
   it('keeps all four, without duplicating or dropping any', () => {
-    const refs = presentInAuthoredOrder(options).map((o) => o.ref);
+    const refs = presentForComposedSitting(options, attempt, 'q.1').map((o) => o.ref);
     expect([...refs].sort()).toEqual(['o1', 'o2', 'o3', 'o4']);
   });
 
-  it('does not depend on where the correct option sits', () => {
-    // The whole difference from a paper: moving the key changes nothing here.
-    const keyLast = options.map((o) => ({ ...o, correct: o.position === 3 }));
-    expect(presentInAuthoredOrder(keyLast)).toEqual(presentInAuthoredOrder(options));
+  it('keeps the three distractors in their authored order around the key', () => {
+    // The same rule the paper layout follows, so the two placements are one.
+    const laid = presentForComposedSitting(options, attempt, 'q.1').map((o) => o.ref);
+    const distractors = laid.filter((ref) => ref !== 'o2');
+    expect(distractors).toEqual(['o1', 'o3', 'o4']);
+  });
+
+  it('spreads the key across all four slots roughly evenly over the bank', () => {
+    // Not a uniformity proof — a 32-bit hash mod four is not one — but a
+    // distribution this far off would mean the letter carried information.
+    const counts = [0, 0, 0, 0];
+    for (let n = 0; n < 4000; n += 1) {
+      counts[slotForComposedSitting(attempt, `q.domain.concept.${n}`)]! += 1;
+    }
+    for (const count of counts) {
+      expect(count).toBeGreaterThan(800);
+      expect(count).toBeLessThan(1200);
+    }
   });
 
   // The same two guards the paper layout applies, for the same reason: a
@@ -142,13 +193,15 @@ describe('presenting a composed sitting\'s options', () => {
   // unreachable — which is exactly why they must not be quietly absent from
   // one of the two projections.
   it('refuses a question that does not have four options', () => {
-    expect(() => presentInAuthoredOrder(options.slice(0, 3))).toThrow(/four options/);
+    expect(() => presentForComposedSitting(options.slice(0, 3), attempt, 'q.1')).toThrow(
+      /four options/,
+    );
   });
 
   it('refuses a question without exactly one correct option', () => {
     const none = options.map((o) => ({ ...o, correct: false }));
-    expect(() => presentInAuthoredOrder(none)).toThrow(/exactly one correct/);
+    expect(() => presentForComposedSitting(none, attempt, 'q.1')).toThrow(/exactly one correct/);
     const two = options.map((o) => ({ ...o, correct: o.position < 2 }));
-    expect(() => presentInAuthoredOrder(two)).toThrow(/exactly one correct/);
+    expect(() => presentForComposedSitting(two, attempt, 'q.1')).toThrow(/exactly one correct/);
   });
 });

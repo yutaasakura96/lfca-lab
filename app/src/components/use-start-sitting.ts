@@ -5,23 +5,6 @@ import { useState } from 'react';
 import type { StartAttemptRequestBody } from '../lib/requests.ts';
 
 /**
- * Whether a composed sitting has anywhere to open yet.
- *
- * `POST /api/attempt` already starts practice and domain sittings correctly —
- * the attempt and its frozen question set are written in one transaction, and
- * #33's integration suite proves it. What does not exist is the *screen*:
- * `/attempt/[id]` requires an `examId` and calls `notFound()` without one. So
- * pressing Start today would write a permanent sitting nobody can open, and
- * home would then offer to resume it into the same 404 — and there is no
- * discard action anywhere, by standing decision, so those rows would never go
- * away.
- *
- * Both setup screens read this, so re-enabling with #36 is one edit. See the
- * decision log, 2026-09-06.
- */
-export const COMPOSED_SITTINGS_UNBUILT = true;
-
-/**
  * Starting a sitting is a write, so it is a POST — not a link.
  *
  * A link would make starting a sitting a GET, which browsers and prefetchers

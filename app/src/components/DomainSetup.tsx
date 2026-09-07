@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { LengthChoice } from './LengthChoice.tsx';
-import { COMPOSED_SITTINGS_UNBUILT, useStartSitting } from './use-start-sitting.ts';
+import { useStartSitting } from './use-start-sitting.ts';
 import { DEFAULT_DOMAIN_LENGTH, DOMAIN_SITTING_LENGTHS, type DomainLength } from '../domain/select.ts';
 import type { Domain } from '../domain/weights.ts';
 
@@ -42,9 +42,6 @@ export interface DomainCard {
  * **Selection is client state, not a URL parameter.** All six cards' figures
  * are already rendered, so choosing between them changes nothing the server
  * knows — and nothing links to a pre-selected domain.
- *
- * **Start is disabled until the composed sitting screen exists** (#35, #36) —
- * see {@link COMPOSED_SITTINGS_UNBUILT}.
  */
 export function DomainSetup({ domains }: { domains: NonEmptyDomains }) {
   const [selected, setSelected] = useState<Domain>(domains[0].domain);
@@ -165,7 +162,7 @@ export function DomainSetup({ domains }: { domains: NonEmptyDomains }) {
           <button
             type="button"
             className="btn btn--primary btn--lg"
-            disabled={busy || COMPOSED_SITTINGS_UNBUILT}
+            disabled={busy}
             onClick={() => void start({ mode: 'domain', domain: selected, length })}
           >
             {busy ? (
@@ -182,12 +179,6 @@ export function DomainSetup({ domains }: { domains: NonEmptyDomains }) {
             )}
           </button>
         </div>
-
-        {COMPOSED_SITTINGS_UNBUILT ? (
-          <span className="meta setup__note">
-            Domain sittings arrive with the next slice.
-          </span>
-        ) : null}
       </div>
     </>
   );

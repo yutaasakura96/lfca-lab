@@ -235,9 +235,13 @@ export const attempt = pgTable(
  * from, which is two places it could be read from differently. One read helper
  * branches on mode; two tables stay.
  *
- * Nothing here records the option layout, because there is none to record: a
- * composed sitting renders options in authored order (`presentInAuthoredOrder`),
- * which is derivable from `question_option.position` on every read.
+ * Nothing here records the option layout, because there is none to record. A
+ * composed sitting places the key at a slot **derived** from the attempt and
+ * the question id (`presentForComposedSitting`) — stable across reloads and
+ * across the review, and stored nowhere. That derivation replaced authored
+ * order, which was the same reasoning from a false premise: the bank authors
+ * the key first in all 1,150 questions, so authored order put every correct
+ * answer at A.
  */
 export const attemptQuestion = pgTable(
   'attempt_question',

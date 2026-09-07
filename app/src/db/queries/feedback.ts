@@ -67,3 +67,62 @@ export async function getQuestionKey(db: Db, questionId: string): Promise<Questi
     why: Object.fromEntries(rows.map((row) => [row.ref, row.why])),
   };
 }
+
+/** One question this sitting answered, and what that answer scored. */
+export interface RecordedVerdict {
+  questionId: string;
+  optionRef: string;
+  /**
+   * The row's own denormalised column (doc 04 §5.3), not a comparison made
+   * here against today's bank. A sitting records what was true when it was sat.
+   */
+  isCorrect: boolean;
+}
+
+/**
+ * What a graded sitting has scored so far, restored on load.
+ *
+ * **This is not the key**, and it is worth being exact about the difference:
+ * the key says which option is right, this says whether the option *this
+ * candidate chose* was. It reveals nothing about a question they have not
+ * answered — which is the whole of what a graded sitting has already told them
+ * to their face, one click at a time.
+ *
+ * It lives in this file rather than beside {@link getAttemptAnswers} because
+ * that query's promise is that it never selects `is_correct`, and a sitting
+ * that must stay silent until submit is the only caller it has. Two files, two
+ * promises, and the timed path reaches neither of the ones here.
+ *
+ * Takes the candidate, not just the attempt: ownership is expressed in the
+ * query rather than checked before it, so somebody else's sitting reads as
+ * empty rather than as somebody else's verdicts.
+ *
+ * Rows with no chosen option are left out. There is nothing to report about
+ * them, and a `null` verdict on the wire would be a third state the tile has to
+ * tell apart from "not answered".
+ */
+export async function getRecordedVerdicts(
+  db: Db,
+  userId: string,
+  attemptId: string,
+): Promise<RecordedVerdict[]> {
+  const result = await db.execute<{
+    question_id: string;
+    option_ref: string;
+    is_correct: boolean;
+  }>(sql`
+    SELECT a.question_id, a.option_ref, a.is_correct
+    FROM answer a
+    JOIN attempt t ON t.id = a.attempt_id
+    WHERE a.attempt_id = ${attemptId}::uuid
+      AND t.user_id = ${userId}
+      AND a.option_ref IS NOT NULL
+      AND a.is_correct IS NOT NULL
+  `);
+
+  return result.rows.map((row) => ({
+    questionId: row.question_id,
+    optionRef: row.option_ref,
+    isCorrect: row.is_correct,
+  }));
+}

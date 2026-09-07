@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { LengthChoice } from './LengthChoice.tsx';
-import { COMPOSED_SITTINGS_UNBUILT, useStartSitting } from './use-start-sitting.ts';
+import { useStartSitting } from './use-start-sitting.ts';
 import {
   DEFAULT_PRACTICE_LENGTH,
   WEIGHTED_SITTING_LENGTHS,
@@ -19,9 +19,6 @@ import {
  * No domain grid here. A practice sitting draws on all six by the official
  * weights, which is a fact about the mode rather than something to choose — the
  * page states it in prose above.
- *
- * **Start is disabled until a composed sitting has a screen** — see
- * {@link COMPOSED_SITTINGS_UNBUILT}.
  */
 export function PracticeSetup() {
   const [length, setLength] = useState<WeightedSittingLength>(DEFAULT_PRACTICE_LENGTH);
@@ -42,14 +39,11 @@ export function PracticeSetup() {
         <button
           type="button"
           className="btn btn--primary btn--lg"
-          disabled={busy || COMPOSED_SITTINGS_UNBUILT}
+          disabled={busy}
           onClick={() => void start({ mode: 'practice', length })}
         >
           {busy ? 'Starting…' : 'Start practice'}
         </button>
-        {COMPOSED_SITTINGS_UNBUILT ? (
-          <span className="meta">Practice sittings arrive with the next slice.</span>
-        ) : null}
       </div>
     </div>
   );

@@ -251,17 +251,24 @@ submitted automatically." + **Retry submit**, and the answers stay in local stor
 **Domain mode reuses this screen unchanged** — only the header label and the question pool differ.
 
 **Layout regions.**
-- **Top bar:** exam name, `Practice mode` chip, "No time limit · answers revealed as you go"; right —
-  a running `correct` chip and `incorrect` chip, and **Save and exit**. *No clock anywhere.*
-- **Main column:** counter + competency + progress meter; **Flag for review**; the stem; then a
+- **Top bar:** the sitting's name, `Practice mode` chip, "No time limit · answers revealed as you go";
+  right — a running `correct` chip and `incorrect` chip, and **Save and exit**. *No clock anywhere.*
+- **Main column:** counter + competency + concept id + progress meter; the stem; then a
   **verdict bar** — a left-ruled `incorrect` panel reading "Not quite. The answer is A." with a second
   line noting every option is explained below; then the four option rows in their graded states, each
-  carrying its explanation; then a sunken **"Why this is the answer"** panel with the main rationale,
-  the concept id in mono, and a study-guide link; then a footer with `Enter` / `F` hints and
-  **Previous** · **Next question**.
-- **Right rail, 470px:** a *This session* card — the 60-tile grid in graded states (check / cross
-  glyphs, current tile ringed, ungraded tiles plain) and Correct / Incorrect / Remaining counts; below
-  it a *Weakest so far* card grouping misses by competency with a **Drill these after the run** button.
+  carrying its explanation; then a footer with `1`–`4` / `Enter` hints and **Next question**.
+- **Right rail, 470px:** a *This session* card — the tile grid in graded states (check / cross glyphs,
+  current tile ringed, ungraded tiles plain), a legend, and Correct / Incorrect / Remaining counts.
+
+**Four elements this section drew are cut, each missing an input rather than deferred for effort**
+— the same shape as §8's cuts, and recorded in the decision log (2026-09-07) with §3's.
+
+| Cut | Why |
+| --- | --- |
+| **Previous** | Strictly forward is the rule (decision log, 2026-09-06). The board predates it; the board is corrected, not the PRD. Re-reading is the review, which is a route. |
+| **Flag for review** | A flag is a mark to come back to, and there is no coming back. `PUT /flag` answers `409 flagging_not_available` in these modes, as doc 07 §4 already specified. |
+| The sunken **"Why this is the answer"** panel, with its study-guide link | The bank has no rationale separate from the per-option `why`, and that text is already in the correct option's own row — a panel under that heading would print the same paragraph twice. The study guide stays outside the app by standing decision, so the link points nowhere. The concept id moves into the question head, as §8's did. |
+| The **Weakest so far** card and **Drill these after the run** | Drills are markdown in the repo and outside the app; the button has no destination. Grouping misses by competency to say where you are weak is a readiness judgement, which the 2026-08-28 decision declined and #34 declined again when it cut the mastery meter. |
 
 **All four options always show an explanation**, including the ones nobody chose ("Not correct" +
 dash glyph + why it is tempting). This is the product's whole point; it is not optional.
@@ -271,8 +278,14 @@ options are interactive. *Loading* — as exam mode: whole set fetched up front.
 progress save shows the same non-dismissible "Not saved — retrying" chip; grading is local so
 feedback still appears.
 
-**Mobile.** Rail drops below the question as two stacked cards. Verdict bar goes full width. The
-option rows keep the 17px prose. Footer becomes a fixed bottom bar with **Next question** full width.
+**Mobile.** Rail drops below the question — **one card, not two**, since the second is cut above; it
+is put back explicitly, because the rule that swaps the timed sitting's rail for a sheet hides every
+`.rail` at that width and this rail has no sheet to be replaced by. Verdict bar goes full width. The
+option rows keep the 17px prose, so the layout gives way instead (doc 05 §3), exactly as §8's cards
+do. The mode chip stays on the phone bar even though the timed bar gives up its paper's name: a
+countdown and a Submit say what screen a timed sitting is, and here the chip is the only thing that
+does. Measured at 375: no horizontal overflow, tiles at 44px five to a row — the count gives way
+before the target size, the same trade `.grid60--touch` makes.
 
 ---
 

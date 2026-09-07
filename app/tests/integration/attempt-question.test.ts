@@ -75,13 +75,25 @@ describe.skipIf(!hasDatabase)('freezing a composed sitting', () => {
     expect((await getComposedQuestions(db, started.id)).map((q) => q.id)).toEqual(ids);
   });
 
-  it('gives every question four options, in authored order, with nothing that gives the answer away', async () => {
+  it('gives every question four options, at their derived slot, with nothing that gives the answer away', async () => {
+    // **This assertion used to require authored order, and that was the bug.**
+    // The bank writes the key first in all 1,150 questions, so authored order
+    // put every correct answer at A — measured while building #36. The set is
+    // still exactly the authored four; where the key sits is now derived from
+    // the attempt and the question (doc 03 §3.2).
     const ids = await someQuestionIds(5);
     const started = await startComposedSitting(ids);
     const questions = await getComposedQuestions(db, started.id);
 
     for (const question of questions) {
-      expect(Object.keys(question).sort(), question.id).toEqual(['id', 'options', 'seq', 'stem']);
+      expect(Object.keys(question).sort(), question.id).toEqual([
+        'competency',
+        'conceptId',
+        'id',
+        'options',
+        'seq',
+        'stem',
+      ]);
       expect(question.options, question.id).toHaveLength(4);
       for (const option of question.options) {
         expect(Object.keys(option).sort(), question.id).toEqual(['ref', 'text']);
@@ -90,8 +102,9 @@ describe.skipIf(!hasDatabase)('freezing a composed sitting', () => {
       const authored = await db.execute<{ ref: string }>(sql`
         SELECT ref FROM question_option WHERE question_id = ${question.id} ORDER BY position
       `);
-      expect(question.options.map((o) => o.ref), question.id).toEqual(
-        authored.rows.map((r) => r.ref),
+      // The same four, none dropped and none invented — only rearranged.
+      expect([...question.options.map((o) => o.ref)].sort(), question.id).toEqual(
+        authored.rows.map((r) => r.ref).sort(),
       );
     }
   });

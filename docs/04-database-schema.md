@@ -372,9 +372,12 @@ test result.
 
 **Nothing here records the option layout, because there is none to record.** `exam_item` carries
 `correct_position` because a paper's answer-position balance has to survive a re-sit. A composed
-sitting has no paper, so options render in **authored** order (doc 03 §3.2), which is derivable from
-`question_option.position` on every read — by `presentInAuthoredOrder`, the counterpart to
-`orderOptionsForPaper` and the second of the two places correctness stops travelling.
+sitting has no paper, so its key is placed at a slot **derived** from `(attempt_id, question_id)` —
+by `presentForComposedSitting`, the counterpart to `orderOptionsForPaper` and the second of the two
+places correctness stops travelling. Derived rather than authored: the bank writes the key first in
+all 1,150 questions, so authored order would put every correct answer at A (doc 03 §3.2). Derived
+rather than stored: the hash is stable, so a reload and the review lay a question out identically
+without a column to keep in step.
 
 **Written in the same transaction as the attempt insert.** An attempt that exists without its
 questions is a sitting with nothing to show, and an attempt whose insert failed must not leave its

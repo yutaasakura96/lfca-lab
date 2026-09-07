@@ -536,6 +536,62 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   mutation-checked.
   Suites: 339 bank · **419** app unit · **157** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — a composed sitting can be sat** (#36). **Start works.** Both setup screens'
+  buttons are live, and `COMPOSED_SITTINGS_UNBUILT` is *deleted* rather than set to `false` — a dead
+  constant gating two `disabled` expressions reads as a protection that no longer protects.
+  `/attempt/[id]` branches on the stored `mode` and a practice or domain sitting renders through four
+  new components (`ComposedSitting`, `ComposedQuestion`, `ComposedBar`, `SessionRail`) rather than
+  through the timed sitting with its clock, flagging, free navigation and submit dialog behind flags.
+  **No clock is structural, not conditional**: `ComposedBar` is not passed a deadline and there is no
+  prop it could be passed one through. The two screens share the outbox, `writes.ts`,
+  `NavigatorTile`, `Stem`/`BankText` and the option-role vocabulary; `Glyph` came out of `ReviewCard`
+  so the check, the cross and the dash cannot be drawn two ways.
+  **One finding reversed a shipped decision.** Measured against both the source JSON and the seeded
+  database: in **all 1,150** questions the key is authored **first**. The sixteen papers are fine —
+  the builder shuffles, and `index.json` is balanced exactly 240/240/240/240 — but #31 had a composed
+  sitting render in *authored* order, on doc 03 §3.2's claim that "the bank's authoring already
+  varies which option is correct", which is false. As specified, **every practice and domain answer
+  would have been A**. The slot is now **derived** — `slotForComposedSitting` hashes
+  `attemptId:questionId` and hands the result to the same `layOutForPaper` a paper's recorded slot
+  does — so #31's "nothing here records the option layout" stays true, and a reload lays a question
+  out identically because the verdict bar names a letter. Docs 03 §3.2 and 04 §5.4 corrected; the
+  integration assertion that *required* authored order is inverted and was watched failing against
+  the old projection.
+  Forward-only throughout: no Previous, no tile jumps (the rail's tiles are `<span>`s, so they are
+  not sixty tab stops refusing every press), and an answer locks on the **click** rather than on the
+  reply — the window before the mark is exactly the window in which an answer must not be
+  changeable. The verdict is never decided client-side; between click and reply the screen says
+  *"Marking your answer…"* and claims nothing. **Next does not wait for the verdict**, so a dropped
+  connection cannot strand a sitting on one question. Resume opens on the **first unanswered**
+  question — exact here, unlike exam mode's derivation. On reload `getRecordedVerdicts` restores the
+  verdict of every answered question (not the key: whether the option *this candidate chose* was
+  right) and the full key for the resumed question only, which arises in exactly one case: when
+  every question has been answered.
+  **Doc 10 §7 loses four elements**, recorded in §7 with the reason for each: Previous, Flag for
+  review, the sunken "Why this is the answer" panel with its study-guide link, and the *Weakest so
+  far* card with *Drill these after the run*. Two chosen divergences: the mode chip stays on the
+  phone bar, and the composed rail is put back explicitly at narrow widths — the rule that swaps the
+  timed rail for a sheet hides every `.rail`, and this one has no sheet to replace it. Without that
+  the session card measured **0×0**.
+  Verified in the browser, both themes, at 1440 and 375, against real practice and domain sittings
+  driven end to end: no clock and no flag control anywhere, feedback with the `why` for all four
+  options, a reload restoring position/tiles/counts, `1`–`4` answering, `Enter`/`→` advancing, `←`
+  and `f` doing nothing, a graded answer refusing to be changed, the outbox chip appearing and the
+  answer landing when the connection came back, and a permanent refusal putting the answer back with
+  the options interactive again. At 375: no horizontal overflow, rail below the question, tiles 44px
+  five to a row, and the only target under 44px is the shared `ThemeToggle` (36px, pre-existing on
+  every screen). At `grayscale(1)` all four option states and both tile verdicts are told apart —
+  the correct and incorrect fills are near-identical greys, which is why the tiles and the legend
+  carry the glyph. Focus rings resolve to the shared 2px/2px rule on every control. Exam mode
+  re-checked and untouched: the outcome dialog, the clock, sixty clickable tiles, and a review of 60
+  cards with 240 explanations.
+  **Two things #36 does not do, both by ticket boundary:** there is no Finish or Save and exit (#37),
+  so a composed sitting cannot yet be closed; and a finished one redirects to `/attempt/[id]/review`,
+  which 404s until **#38** — unreachable from any screen in this slice, and the guard that will
+  still be right when both land. A **holdout** sitting `notFound()`s here: composed like these two,
+  timed and scored like an exam, belonging to neither screen unchanged.
+  Suites: 339 bank · **444** app unit · **167** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -551,9 +607,9 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31–#35 are closed**; **#36 is the frontier** — and it is the ticket that
-flips `COMPOSED_SITTINGS_UNBUILT` to `false`, which is the one edit that makes both setup screens'
-Start buttons live. #29 (the 375px
+that dependency order. **#31–#36 are closed**; **#37 is the frontier** — Finish and Save and exit,
+which a composed sitting has no way to be closed without, and which #38's review is waiting on.
+#29 (the 375px
 code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
 in a comment and confirmed not yet in the code. Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the

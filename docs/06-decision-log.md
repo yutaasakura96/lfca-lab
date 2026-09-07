@@ -1396,3 +1396,99 @@ not when it compiles. Each names the ticket that carries it out.*
   reports `isCorrect: null`, so the `{saved: true}` reply for a clear falls out of the same value
   rather than needing a branch of its own. Doc 07 §3 corrected.
 - **Revisit if:** never, while the outbox can have a write in flight.
+
+### [2026-09-07] The composed sitting is its own screen, and its option order is derived
+- **Decision:** practice and domain sittings render through **new components** —
+  `ComposedSitting`, `ComposedQuestion`, `ComposedBar`, `SessionRail` — rather than through the timed
+  sitting with its clock, flagging, free navigation and submit dialog behind flags. `/attempt/[id]`
+  branches on the stored `mode`, the same column the answer endpoint branches its response on.
+  Ticket #36.
+- **Alternatives considered:** one `Sitting` taking a mode, with each of those four conditional —
+  fewer files and one place navigation lives, at the cost of putting clock and flag code on a render
+  path that must never show them, and of making every future exam-mode change something to re-reason
+  about against a mode with none of its behaviour. Also considered a shared shell with two question
+  components, which still leaves the shell holding the clock, the resync effect and the submit dialog
+  for a mode that wants none of them.
+- **Reason:** doc 10's first cross-screen rule is that **no clock renders in these modes at all** —
+  not stopped, not greyed — and that is worth being structural rather than a prop that must never be
+  true. `ComposedBar` is not passed a deadline and there is no prop it could be passed one through.
+  The two screens still share everything that is genuinely one thing: the outbox, `writes.ts`,
+  `NavigatorTile`, `Stem`/`BankText`, and the option-role vocabulary in `src/domain/review.ts`. The
+  glyph came out of `ReviewCard` into `Glyph.tsx` for the same reason — two copies would eventually
+  draw a blank's dash as a cross on one of the two screens, and telling those apart is what the
+  drawing is *for*.
+
+- **And the finding that changed a shipped decision: the bank authors the key first, every time.**
+  Measured while building this, against both the source JSON and the seeded database: in **all
+  1,150** questions the correct option is authored at index 0, because the option carrying
+  `provenance_kind: key` is written as `o1`. The sixteen papers are unaffected — the builder shuffles
+  and `exams/index.json` is balanced exactly **240 / 240 / 240 / 240** — but #31 decided a composed
+  sitting renders in **authored order**, and doc 03 §3.2 justified that with a sentence that is
+  simply false: *"The bank's authoring already varies which option is correct."* As specified,
+  **every practice and domain question's answer would have been A**, which makes both modes
+  answerable without reading the options.
+- **Decision:** the slot is **derived**, not recorded and not authored. `slotForComposedSitting`
+  hashes `attemptId:questionId` — FNV-1a with a murmur3 avalanche before the modulo, because FNV's
+  low bits alone reached only two of the four slots — and the result goes through the same
+  `layOutForPaper` a paper's recorded slot does. One placement, two sources for the one number it
+  needs.
+- **Alternatives considered:** a `correct_position` column on `attempt_question`, shuffled at
+  composition and written in the freeze transaction, mirroring `exam_item` exactly — the strongest
+  guarantee, at the cost of a migration on a table that shipped four commits ago and of reversing
+  #31's explicit "nothing here records the option layout, because there is none to record". And
+  reordering the options in the 1,150 source files, which fixes it everywhere at once but rewrites
+  the source of truth to solve a rendering problem the papers already solve.
+- **Reason:** derivation keeps #31's decision true as written — there is still no slot to *record*,
+  because the slot is a function of the sitting rather than a fact about it — and it is available
+  anywhere both ids are known, which is what #38's review will need. **Stability is the requirement
+  rather than a nicety:** the verdict bar names a letter ("the answer is A"), so a reload that moved
+  the options would make that sentence wrong about what the candidate saw. `Math.random()` and
+  anything reading a clock are ruled out by `src/domain/` being pure (doc 03 §4) as well as by that.
+- **Consequence:** docs 03 §3.2 and 04 §5.4 are corrected rather than left carrying the false
+  premise, and the integration assertion that *required* authored order is inverted — it now asserts
+  the four slots all occur over twenty real questions, verified by watching it fail against the old
+  projection. Measured in the browser on a real 20-question domain sitting: answering `1` seven times
+  scored 2, where authored order would have scored 7.
+
+- **What the screen does, and the two rules that shaped it.** The choice is echoed the instant it is
+  clicked and the options lock **then**, not when the reply lands: forward-only means committing to
+  an answer, and a window in which it could be changed while the write was in the air is exactly the
+  window in which it could be changed after seeing nothing and before seeing the mark. But the
+  **verdict is never decided on the client** — there is no answer key in the component's props to
+  derive one from — so between the click and the reply the screen says *"Marking your answer…"* and
+  claims nothing. **Next does not wait for the verdict either**, so a connection that is down cannot
+  strand a sitting on one question; the mark still lands where the reader is, if they are still
+  there.
+- **On reload, verdicts for all and the key for one.** `getRecordedVerdicts` returns
+  `answer.is_correct` for every answered question — which is not the key: it says whether the option
+  *this candidate chose* was right, on a question they were already told about to their face. The
+  full key is fetched for the resumed question only, and that arises in exactly one case, because
+  resume opens on the **first unanswered** question: when every question has been answered and there
+  is none to open on. *Alternatives considered:* restoring the full key and all four explanations for
+  every answered question — uniform, one query, and what #38's review will read anyway, but it puts
+  up to sixty questions' worth of answer key on the wire for a screen that renders one at a time and
+  cannot navigate back to the rest.
+- **Doc 10 §7 loses four elements**, recorded in that section: **Previous** and **Flag for review**
+  (the 2026-09-06 rule; the board predates it and the board is corrected), the sunken **"Why this is
+  the answer"** panel with its study-guide link (no rationale exists separate from the per-option
+  `why` already on screen, and the guide is outside the app by standing decision — the concept id
+  moves into the question head as §8's did), and the **Weakest so far** card with **Drill these after
+  the run** (drills are outside the app so the button has no destination, and grouping misses by
+  competency to say where you are weak is the readiness judgement the 2026-08-28 decision declined
+  and #34 declined again).
+- **Two divergences from §7 chosen rather than overlooked.** The **mode chip stays on the phone bar**
+  although the timed bar gives up its paper's name there — a countdown and a Submit say what screen a
+  timed sitting is, and here the chip is the only thing that does. And the **rail is put back
+  explicitly at narrow widths**: the rule that swaps the timed rail for a sheet hides every `.rail`,
+  and this one has no sheet to be replaced by. Found by measuring — without it the whole session card
+  was 0×0.
+- **`COMPOSED_SITTINGS_UNBUILT` is deleted rather than set to `false`.** #34 shipped it as one
+  constant both setup screens read so that this ticket could re-enable Start in one edit. A dead
+  `false` gating two `disabled` expressions is worse than none: it reads in the source as a
+  protection that is no longer protecting anything.
+- **A finished composed sitting redirects to `/attempt/[id]/review`, which 404s until #38.** The
+  state is unreachable from any screen in this slice — Finish is #37's — and the redirect is the
+  guard that will still be right when both land. **Holdout sittings `notFound()` here**: composed
+  like these two, timed and scored like an exam, and belonging to neither screen unchanged.
+- **Revisit if:** the holdout sitting is built, which needs a third arrangement — this screen's
+  composition with the timed screen's clock and submit.

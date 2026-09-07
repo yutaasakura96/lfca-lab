@@ -13,7 +13,7 @@ import { sql } from 'drizzle-orm';
 import type { Db, Executor } from '../client.ts';
 import {
   orderOptionsForPaper,
-  presentInAuthoredOrder,
+  presentForComposedSitting,
   type PresentedOption,
 } from '../../domain/paper.ts';
 import type { AttemptMode } from '../../domain/modes.ts';
@@ -114,7 +114,29 @@ interface ComposedRow extends Record<string, unknown> {
   question_id: string;
   seq: number;
   stem: string;
+  competency: string;
+  concept_id: string;
   options: { ref: string; text: string; correct: boolean; position: number }[];
+}
+
+/**
+ * A composed sitting's question, with the two identifying facts its screen
+ * shows and a paper's does not.
+ *
+ * Doc 10 §7 puts the competency in the question head, and the concept id joins
+ * it there for the reason the review's does (decision log, 2026-09-04): the
+ * sunken panel doc 10 draws around it has no rationale to hold, so the id sits
+ * with the rest of the identifying metadata rather than under a heading that
+ * would be lying about what is in it.
+ *
+ * Neither is anything an exam sitting shows, so neither is added to
+ * {@link SittingQuestion} — a field nobody reads is a field somebody later
+ * renders.
+ */
+export interface ComposedQuestion extends SittingQuestion {
+  /** `Linux Fundamentals :: Command Line`. Both halves, as the bank writes it. */
+  competency: string;
+  conceptId: string;
 }
 
 /**
@@ -125,18 +147,24 @@ interface ComposedRow extends Record<string, unknown> {
  * question when it sees one, and then dropped before anything is returned. The
  * `why` text is never selected at all.
  *
- * Options come back in **authored** order, which is what a sitting with no
- * paper means — there is no recorded slot to reproduce.
+ * Options are placed at a slot **derived** from the attempt and the question
+ * (`slotForComposedSitting`) rather than at a recorded one. There is no slot to
+ * record for a sitting with no paper — but the bank authors the key first in
+ * all 1,150 questions, so authored order would put every correct answer at A.
+ * The derivation is stable, so a reload lays the same question out the same
+ * way and the verdict bar's "the answer is A" stays true.
  */
 export async function getComposedQuestions(
   db: Db,
   attemptId: string,
-): Promise<SittingQuestion[]> {
+): Promise<ComposedQuestion[]> {
   const result = await db.execute<ComposedRow>(sql`
     SELECT
       aq.question_id,
       aq.seq,
       q.stem,
+      q.competency,
+      q.concept_id,
       json_agg(
         json_build_object('ref', o.ref, 'text', o.text, 'correct', o.correct, 'position', o.position)
         ORDER BY o.position
@@ -145,7 +173,7 @@ export async function getComposedQuestions(
     JOIN question q ON q.id = aq.question_id
     JOIN question_option o ON o.question_id = q.id
     WHERE aq.attempt_id = ${attemptId}::uuid
-    GROUP BY aq.question_id, aq.seq, q.stem
+    GROUP BY aq.question_id, aq.seq, q.stem, q.competency, q.concept_id
     ORDER BY aq.seq ASC
   `);
 
@@ -153,7 +181,9 @@ export async function getComposedQuestions(
     id: row.question_id,
     seq: row.seq,
     stem: row.stem,
-    options: presentInAuthoredOrder(row.options),
+    competency: row.competency,
+    conceptId: row.concept_id,
+    options: presentForComposedSitting(row.options, attemptId, row.question_id),
   }));
 }
 
