@@ -224,11 +224,14 @@ async function composedSitting(userId: string, attempt: AttemptRow) {
   // every write into it would be refused, so presenting it as answerable would
   // be the screen claiming something the server has already ended.
   //
-  // **This used to redirect to `/attempt/[id]/review`**, which was right while
-  // the state was unreachable — Finish is what makes it reachable, and that
-  // route still 404s on a composed sitting until #38. #38 decides whether the
-  // redirect comes back; until then a reload after finishing has to arrive
-  // somewhere that exists.
+  // **#36 redirected here and #37 stopped, because the review 404'd. #38 built
+  // the review and the redirect stays gone.** Three reasons, none of them the
+  // 404 any more: the timed sitting has opened on its outcome since #24, so a
+  // redirect would make the two modes differ on reload for no reason but the
+  // order they were written; the three counts *are* the ending of a sitting
+  // that is not scored, and a redirect goes straight past them; and the outcome
+  // now offers the review as its own action, so nothing is out of reach — it is
+  // one press rather than none, on a screen somebody has just arrived back at.
   //
   // A boolean rather than the timed page's `SubmitOutcome`, because there is no
   // outcome to carry: `score` is null by doc 04 §5.1's check constraint, and

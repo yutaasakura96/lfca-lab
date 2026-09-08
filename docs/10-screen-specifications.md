@@ -276,10 +276,12 @@ dash glyph + why it is tempting). This is the product's whole point; it is not o
 **Closing the run.** **Save and exit** in the bar and the last question's **Finish this run** open the
 same dialog and take the same action; only what it says differs. It confirms first — this is the one
 irreversible thing on the screen, since there is no discard in this app and no reopening a closed
-sitting — then, on success, **becomes the outcome**: `Correct · Incorrect · Not reached`, and one
-action back to the modes. That is the call #24 made when its own destination belonged to a later
-ticket; the unscored review is #38's, and it adds *See the full review* beside that action rather
-than replacing this screen.
+sitting — then, on success, **becomes the outcome**: `Correct · Incorrect · Not reached`, and two
+actions, **Back to the modes** and **See the full review** (§8a). That is the call #24 made when its
+own destination belonged to a later ticket; #38 added the second action beside the first rather than
+replacing this screen with a redirect, because the counts *are* the ending of a run that is not
+scored and a redirect goes straight past them. Both actions are onward, which is the same reading
+#26's expired outcome took of §6's "one action".
 
 Three things it deliberately does not say, all forbidden rather than merely absent: **no score, no
 percentage, no pass mark** (PRD P1; doc 04 §5.1's check constraint keeps the column agreeing). The
@@ -349,6 +351,51 @@ actions to the bottom of the list. The result card stacks: numerals, chip, pass 
 a 2×2 grid. Filter chips become a horizontal scroller (`overflow-x: auto`, 44px tall). Question cards
 go full width with `--space-4` padding; **prose stays at 17px/1.65** — the measure is naturally ~40ch
 at this width, which is within spec. The "By domain" grid goes one column.
+
+### 8a. The same screen for a run that is not measured
+
+Practice and domain sittings review through **this screen**, on the same route, branching on the
+stored `mode`. Everything above describes the scored half. What follows is the whole of the
+difference, and every item is either forbidden by PRD P1 (these modes are not measured) or has no
+input to draw on.
+
+**Gone from the result card, and nothing replaces them one for one:** the `41 / 60` numeral, the
+percentage, the pass bar, the pass mark, the verdict chip, the first-attempt-to-best line, Time
+used, Left unanswered, Flagged, and the re-sit action. What stands in their place is the run's own
+name, the number of questions it asked, one sentence saying nothing here is scored, and
+**`Correct · Incorrect · Not reached`** — the same three counts, drawn by the same component, that
+the finish dialog showed when the run was closed (doc 10 §7). They are counts of verdicts the
+candidate watched appear one at a time; they are not a measurement, and `attempt.score` stays null
+throughout, which doc 04 §5.1's check constraint enforces rather than trusts.
+
+**The By-domain card is gone too**, which is a cut rather than an omission. `correct/total` per
+domain with a meter that turns at 75% is a per-domain score against a pass ratio — the mastery
+signal the 2026-08-28 decision declined and §3 declined again for the domain cards. Coverage is a
+fact about what you have done; mastery is a judgement about how well.
+
+**Filter row: Incorrect *(default)* · Correct · Not reached · All.** Flagged is gone because
+nothing in these modes can be flagged — `PUT /flag` refuses them (doc 07 §4) — and a filter that
+could only ever be empty is a control that does nothing. **Incorrect does not claim the blanks
+here**, reversing §8's rule for this mode only: on a paper a blank cost exactly what a wrong answer
+cost, so hiding it would hide a miss; in a forward-only run nothing cost anything, and a question
+never reached is not one that was got wrong. The three views then partition the run, which the
+scored pair also does — both readings keep `correct + incorrect (+ unreached)` summing to the
+sitting.
+
+**A question the run never reached** renders as the existing dashed card with **its explanations
+shown** — there is no key to protect in a run that is already over — and it is labelled *not
+reached* rather than *not answered*. "Not answered" attributes a decision; Save and exit at
+question 7 of 20 leaves thirteen nobody was ever shown.
+
+**Top bar:** the run's name, the mode, the finish time, and a single **Back to the modes**. There is
+no re-sit and there could not be a truthful one — these modes name a *shape* rather than a paper
+(doc 07 §2), so "sit this again" has no referent; the next run is chosen on `/practice` or
+`/domain`. There is no "sitting 3 of 7" either: that counts sittings of the same paper, and there
+is none.
+
+**Rail:** unchanged — the tile grid, the legend (with *Not reached* as its third entry) and the tile
+jump, all of which §8's Kept list keeps. Its closing block is the three counts instead of
+Score / Needed / Gap.
 
 ---
 

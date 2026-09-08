@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+  ALL_REVIEW_FILTERS,
   OPTION_ROLE_LABEL,
   REVIEW_FILTERS,
+  UNSCORED_REVIEW_FILTERS,
+  UNSCORED_VERDICT_LABEL,
   VERDICT_LABEL,
   countByFilter,
   domainBreakdown,
@@ -9,8 +12,10 @@ import {
   matchesFilter,
   optionRole,
   passBar,
+  reviewFiltersFor,
   standingOf,
   timeUsedSeconds,
+  verdictLabels,
   verdictOf,
   verdictSummary,
   type ReviewedQuestion,
@@ -43,7 +48,7 @@ describe('what one question scored', () => {
   });
 });
 
-describe('the filter row', () => {
+describe('the filter row, on a scored sitting', () => {
   const sitting: ReviewedQuestion[] = [
     q({ verdict: 'correct' }),
     q({ verdict: 'correct', flagged: true }),
@@ -54,22 +59,22 @@ describe('the filter row', () => {
   it('counts incorrect as everything that did not earn the mark', () => {
     // The decision this screen turns on: a blank cost a mark exactly as a wrong
     // answer did, so hiding it from the default view would hide a miss.
-    expect(countByFilter(sitting).incorrect).toBe(2);
+    expect(countByFilter(sitting, true).incorrect).toBe(2);
   });
 
   it('leaves correct and incorrect summing to the whole sitting', () => {
-    const counts = countByFilter(sitting);
+    const counts = countByFilter(sitting, true);
     expect(counts.correct + counts.incorrect).toBe(sitting.length);
     expect(counts.all).toBe(sitting.length);
   });
 
   it('counts flagged across every verdict, because flagging is orthogonal', () => {
-    expect(countByFilter(sitting).flagged).toBe(2);
+    expect(countByFilter(sitting, true).flagged).toBe(2);
   });
 
   it('shows a question under exactly the filters that claim it', () => {
     const blank = q({ verdict: 'unanswered', flagged: true });
-    expect(REVIEW_FILTERS.filter((f) => matchesFilter(blank, f))).toEqual([
+    expect(REVIEW_FILTERS.filter((f) => matchesFilter(blank, f, true))).toEqual([
       'incorrect',
       'flagged',
       'all',
@@ -77,7 +82,70 @@ describe('the filter row', () => {
   });
 
   it('counts nothing in an empty sitting rather than failing', () => {
-    expect(countByFilter([])).toEqual({ incorrect: 0, correct: 0, flagged: 0, all: 0 });
+    expect(countByFilter([], true)).toEqual({
+      incorrect: 0,
+      correct: 0,
+      flagged: 0,
+      unreached: 0,
+      all: 0,
+    });
+  });
+
+  it('offers doc 10 §8s four views, opening on the misses', () => {
+    expect(reviewFiltersFor(true)).toEqual(['incorrect', 'correct', 'flagged', 'all']);
+  });
+});
+
+describe('the filter row, on an unscored sitting', () => {
+  // Save and exit at question three of five: two answered, three never reached.
+  const run: ReviewedQuestion[] = [
+    q({ verdict: 'correct' }),
+    q({ verdict: 'incorrect' }),
+    q({ verdict: 'unanswered' }),
+    q({ verdict: 'unanswered' }),
+    q({ verdict: 'unanswered' }),
+  ];
+
+  it('does not let incorrect claim the questions never reached', () => {
+    // The reversal, and the only behaviour `scored` changes. Nothing cost
+    // anything here, so a question never put in front of anybody is not one
+    // that was got wrong.
+    expect(countByFilter(run, false).incorrect).toBe(1);
+    expect(countByFilter(run, true).incorrect, 'the scored reading is untouched').toBe(4);
+  });
+
+  it('partitions the sitting three ways, always', () => {
+    const counts = countByFilter(run, false);
+    expect(counts.correct + counts.incorrect + counts.unreached).toBe(counts.all);
+    expect(counts.all).toBe(run.length);
+  });
+
+  it('leaves nothing flagged, because nothing in these modes can be', () => {
+    expect(countByFilter(run, false).flagged).toBe(0);
+  });
+
+  it('shows a question never reached under exactly two of its four views', () => {
+    const blank = q({ verdict: 'unanswered' });
+    expect(UNSCORED_REVIEW_FILTERS.filter((f) => matchesFilter(blank, f, false))).toEqual([
+      'unreached',
+      'all',
+    ]);
+  });
+
+  it('swaps Flagged for Not reached and changes nothing else', () => {
+    expect(reviewFiltersFor(false)).toEqual(['incorrect', 'correct', 'unreached', 'all']);
+  });
+
+  it('agrees with the scored reading on everything but the blanks', () => {
+    for (const question of run) {
+      for (const filter of ALL_REVIEW_FILTERS) {
+        if (filter === 'incorrect' && question.verdict === 'unanswered') continue;
+        expect(
+          matchesFilter(question, filter, false),
+          `${filter} on a ${question.verdict} question`,
+        ).toBe(matchesFilter(question, filter, true));
+      }
+    }
   });
 });
 
@@ -292,5 +360,20 @@ describe('a question verdict in words', () => {
     // a blank is grouped with the misses because it cost a mark, and labelled
     // "not answered" because that is what happened.
     expect(VERDICT_LABEL.unanswered).not.toContain('incorrect');
+    expect(UNSCORED_VERDICT_LABEL.unanswered).not.toContain('incorrect');
+  });
+
+  it('says a blank in a forward-only run was never reached, not left unanswered', () => {
+    // "Not answered" attributes a decision. Save and exit at question 7 of 20
+    // leaves thirteen nobody was ever shown.
+    expect(UNSCORED_VERDICT_LABEL.unanswered).toBe('not reached');
+    expect(verdictLabels(false).unanswered).toBe('not reached');
+    expect(verdictLabels(true).unanswered).toBe('not answered');
+  });
+
+  it('says the other two the same way in both, so only the blank moved', () => {
+    for (const verdict of ['correct', 'incorrect'] as const) {
+      expect(UNSCORED_VERDICT_LABEL[verdict]).toBe(VERDICT_LABEL[verdict]);
+    }
   });
 });

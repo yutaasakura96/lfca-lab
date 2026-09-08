@@ -575,6 +575,16 @@ a.btn { text-decoration: none; }
 .qlist[data-filter='incorrect'] > .qcard[data-verdict='correct'] { display: none; }
 .qlist[data-filter='correct']   > .qcard:not([data-verdict='correct']) { display: none; }
 .qlist[data-filter='flagged']   > .qcard:not([data-flagged='true']) { display: none; }
+.qlist[data-filter='unreached'] > .qcard:not([data-verdict='unanswered']) { display: none; }
+
+/* The one rule that differs by mode, and it is the reversal this screen turns
+   on: on a paper a blank cost exactly what a wrong answer cost, so Incorrect
+   claims it; in a run that is not measured nothing cost anything, and a
+   question never reached is not one that was got wrong. `matchesFilter` makes
+   the same distinction for the counts, from the same `scored` flag. */
+.qlist[data-scored='false'][data-filter='incorrect'] > .qcard[data-verdict='unanswered'] {
+  display: none;
+}
 
 /* A rail tile is a control here, as it is in the navigator: it moves you to a
    question. The prototype draws it as a div, so the button styling is undone

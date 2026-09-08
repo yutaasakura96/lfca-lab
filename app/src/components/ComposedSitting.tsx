@@ -357,6 +357,7 @@ export function ComposedSitting({
 
       {confirming ? (
         <FinishDialog
+          attemptId={attemptId}
           title={title}
           counts={{
             correct: model.correct,

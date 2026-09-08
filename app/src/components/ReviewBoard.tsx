@@ -3,8 +3,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import {
   DEFAULT_REVIEW_FILTER,
-  REVIEW_FILTERS,
-  VERDICT_LABEL,
+  reviewFiltersFor,
+  verdictLabels,
   type QuestionVerdict,
   type ReviewCounts,
   type ReviewFilter,
@@ -27,11 +27,27 @@ export interface ReviewTile {
 export interface ReviewBoardProps {
   counts: ReviewCounts;
   tiles: ReviewTile[];
-  score: number;
-  passMark: number;
-  /** The result and by-domain cards, rendered on the server and passed through. */
+  /**
+   * Whether this sitting was measured — the one thing the whole screen's
+   * vocabulary turns on.
+   *
+   * It selects the four filters, the word for a blank, and whether Incorrect
+   * claims the blanks (through the CSS below, and through the counts the caller
+   * computed with the same flag). One prop rather than four label maps threaded
+   * in, because the four always move together and there is exactly one thing
+   * that decides them.
+   */
+  scored: boolean;
+  /**
+   * The rail's closing block: Score / Needed / Gap on a paper, the three counts
+   * on a run that is not measured. Passed in rather than branched on here,
+   * because a pass mark must not be somewhere an unscored review could reach
+   * it by getting one condition wrong.
+   */
+  railFooter: ReactNode;
+  /** The result card(s), rendered on the server and passed through. */
   summary: ReactNode;
-  /** All sixty cards, rendered on the server. This component only hides some. */
+  /** Every card, rendered on the server. This component only hides some. */
   children: ReactNode;
 }
 
@@ -39,15 +55,29 @@ const FILTER_LABEL: Readonly<Record<ReviewFilter, string>> = {
   incorrect: 'Incorrect',
   correct: 'Correct',
   flagged: 'Flagged',
+  unreached: 'Not reached',
   all: 'All',
 };
 
-/** What an empty result means, said specifically rather than as "nothing here". */
+/**
+ * What an empty result means, said specifically rather than as "nothing here".
+ *
+ * Two of the five differ by mode, and both would otherwise be wrong rather than
+ * merely off-key: an unscored run has no "paper", and its Incorrect view can be
+ * empty while questions were left unreached — so "every question was answered
+ * correctly" would be a false statement, not a stiff one.
+ */
 const EMPTY_LABEL: Readonly<Record<ReviewFilter, string>> = {
   incorrect: 'Nothing missed — every question on this paper was answered correctly.',
   correct: 'Nothing correct on this sitting.',
   flagged: 'No flagged questions in this attempt.',
+  unreached: 'You reached every question in this run.',
   all: 'This sitting has no questions.',
+};
+
+const UNSCORED_EMPTY_LABEL: Readonly<Partial<Record<ReviewFilter, string>>> = {
+  incorrect: 'Nothing missed — every question you answered in this run was correct.',
+  correct: 'Nothing correct in this run.',
 };
 
 function FilterGlyph({ filter }: { filter: ReviewFilter }) {
@@ -84,6 +114,15 @@ function FilterGlyph({ filter }: { filter: ReviewFilter }) {
       </svg>
     );
   }
+  if (filter === 'unreached') {
+    // The dashed ring the finish dialog's unreached panel uses, so the two
+    // screens draw the same idea the same way.
+    return (
+      <svg {...common} strokeWidth="1.8">
+        <circle cx="7" cy="7" r="4.4" strokeDasharray="2.4 2.2" />
+      </svg>
+    );
+  }
   return null;
 }
 
@@ -97,22 +136,25 @@ function FilterGlyph({ filter }: { filter: ReviewFilter }) {
  * bundle: sixty questions with four explanations each is a great deal of prose
  * to ship twice.
  *
- * The default is Incorrect, per doc 10 §8 — nobody opens this to admire the
- * ones they got right. "Incorrect" here claims the blanks too; see the header of
- * `domain/review.ts` for why hiding them from this view would be the wrong
- * behaviour on the screen that exists to show misses.
+ * The default is Incorrect in both modes, per doc 10 §8 — nobody opens this to
+ * admire the ones they got right. On a paper "Incorrect" claims the blanks too
+ * and on an unscored run it does not; the header of `domain/review.ts` argues
+ * both, and `scored` is the one prop that carries the difference here.
  */
 export function ReviewBoard({
   counts,
   tiles,
-  score,
-  passMark,
+  scored,
+  railFooter,
   summary,
   children,
 }: ReviewBoardProps) {
   const [filter, setFilter] = useState<ReviewFilter>(DEFAULT_REVIEW_FILTER);
   const [jumpTo, setJumpTo] = useState<number | null>(null);
   const shown = counts[filter];
+  const filters = reviewFiltersFor(scored);
+  const labels = verdictLabels(scored);
+  const emptyLabel = (scored ? undefined : UNSCORED_EMPTY_LABEL[filter]) ?? EMPTY_LABEL[filter];
 
   /**
    * The scroll happens **after** the filter has been committed to the DOM, not
@@ -153,7 +195,7 @@ export function ReviewBoard({
           style={{ justifyContent: 'space-between', gap: 'var(--space-5)', flexWrap: 'wrap' }}
         >
           <div className="filters" role="group" aria-label="Show which questions">
-            {REVIEW_FILTERS.map((option) => (
+            {filters.map((option) => (
               <button
                 key={option}
                 type="button"
@@ -174,13 +216,22 @@ export function ReviewBoard({
           </span>
         </div>
 
-        {shown === 0 ? (
-          <p className="emptyfilter">{EMPTY_LABEL[filter]}</p>
-        ) : null}
+        {shown === 0 ? <p className="emptyfilter">{emptyLabel}</p> : null}
 
         {/* The filter is an attribute here and the hiding is in `screens.css`.
-            Every card stays in the document; only its display changes. */}
-        <div className="qlist stack" data-filter={filter} style={{ gap: 'var(--space-6)' }}>
+            Every card stays in the document; only its display changes.
+
+            `data-scored` rides along because one of those rules differs by
+            mode: on an unscored run, Incorrect hides the questions never
+            reached as well as the correct ones. Keeping it in CSS is what keeps
+            the whole reading — sixty questions, four explanations each — out of
+            the JavaScript bundle. */}
+        <div
+          className="qlist stack"
+          data-filter={filter}
+          data-scored={scored ? 'true' : 'false'}
+          style={{ gap: 'var(--space-6)' }}
+        >
           {children}
         </div>
       </div>
@@ -199,7 +250,7 @@ export function ReviewBoard({
                   .filter(Boolean)
                   .join(' ')}
                 onClick={() => jump(tile.number)}
-                aria-label={`Question ${tile.number}, ${VERDICT_LABEL[tile.verdict]}${
+                aria-label={`Question ${tile.number}, ${labels[tile.verdict]}${
                   tile.flagged ? ', flagged' : ''
                 }`}
               >
@@ -233,25 +284,21 @@ export function ReviewBoard({
             </span>
             <span className="legend__item">
               <span className="legend__swatch" />
-              Not answered
+              {/* Capitalised from the same source the tiles and the cards read,
+                  so the legend cannot come to name a state differently from the
+                  thing it is explaining. */}
+              {labels.unanswered.charAt(0).toUpperCase() + labels.unanswered.slice(1)}
             </span>
           </div>
 
-          <div style={{ marginTop: 'var(--space-4)' }}>
-            <RailCount label="Score" value={String(score)} />
-            <RailCount label="Needed" value={String(passMark)} />
-            <RailCount
-              label="Gap"
-              value={score >= passMark ? `+${score - passMark}` : String(score - passMark)}
-            />
-          </div>
+          <div style={{ marginTop: 'var(--space-4)' }}>{railFooter}</div>
         </div>
       </aside>
     </div>
   );
 }
 
-function RailCount({ label, value }: { label: string; value: string }) {
+export function RailCount({ label, value }: { label: string; value: string }) {
   return (
     <div className="railcount">
       <span style={{ color: 'var(--ink-secondary)' }}>{label}</span>

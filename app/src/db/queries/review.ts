@@ -23,7 +23,8 @@
 import { sql } from 'drizzle-orm';
 import type { Db } from '../client.ts';
 import { looksLikeAttemptId } from './attempt.ts';
-import { layOutForPaper } from '../../domain/paper.ts';
+import { layOutForPaper, slotForComposedSitting } from '../../domain/paper.ts';
+import type { SittingIdentity } from './paper.ts';
 import type { Domain } from '../../domain/weights.ts';
 
 /** One option, as the review shows it: the answer, and why each one is what it is. */
@@ -158,6 +159,123 @@ export async function getReviewQuestions(
     // `flagged = false` says.
     flagged: row.flagged ?? false,
   }));
+}
+
+/**
+ * The composed row, spelled out rather than `Omit`ed from {@link ReviewRow}.
+ *
+ * `ReviewRow` carries an index signature — `db.execute` requires one — and
+ * `Omit` over that keeps the signature and loses every named field, so the
+ * whole projection silently becomes `unknown`. Two columns are genuinely absent
+ * here: `correct_position`, which only a paper has, and `flagged`, which cannot
+ * be true in these modes.
+ */
+interface ComposedReviewRow extends Record<string, unknown> {
+  question_id: string;
+  seq: number;
+  stem: string;
+  competency: string;
+  type: string;
+  concept_id: string;
+  domain: Domain;
+  options: { ref: string; text: string; correct: boolean; why: string; position: number }[];
+  option_ref: string | null;
+  is_correct: boolean | null;
+}
+
+/**
+ * Every question one **composed** sitting asked, with everything the review
+ * needs to explain it.
+ *
+ * The counterpart to {@link getReviewQuestions}, and the same shape from a
+ * different table — `attempt_question` rather than `exam_item`, for the modes
+ * that have no fixed paper (doc 04 §5.4). It mirrors `getComposedQuestions` in
+ * `paper.ts` exactly as the paper review mirrors `getPaperQuestions`: the
+ * sitting's projection strips correctness and never selects `why`, and this one
+ * returns both, because the sitting is over and the key *is* the content.
+ *
+ * Options are laid out at the **derived** slot, from the same
+ * `slotForComposedSitting` the sitting used, through the same
+ * `layOutForPaper`. That is not a nicety: the verdict bar named a letter while
+ * the run was on ("the answer is A"), and a review that laid the same question
+ * out differently would be telling the candidate they pressed something they
+ * did not.
+ *
+ * **`flagged` is not selected, because it cannot be true.** Practice and domain
+ * mode are strictly forward and `PUT /flag` refuses them with
+ * `409 flagging_not_available` (doc 07 §4), so every row in one of these
+ * sittings carries `flagged = false`. Reading the column would suggest it is a
+ * thing that varies here.
+ */
+export async function getComposedReviewQuestions(
+  db: Db,
+  userId: string,
+  attemptId: string,
+): Promise<ReviewQuestion[]> {
+  if (!looksLikeAttemptId(attemptId)) return [];
+
+  const result = await db.execute<ComposedReviewRow>(sql`
+    SELECT
+      aq.question_id,
+      aq.seq,
+      q.stem,
+      q.competency,
+      q.type,
+      q.concept_id,
+      q.domain,
+      json_agg(
+        json_build_object(
+          'ref', o.ref, 'text', o.text, 'correct', o.correct,
+          'why', o.why, 'position', o.position
+        )
+        ORDER BY o.position
+      ) AS options,
+      a.option_ref,
+      a.is_correct
+    FROM attempt t
+    JOIN attempt_question aq ON aq.attempt_id = t.id
+    JOIN question q ON q.id = aq.question_id
+    JOIN question_option o ON o.question_id = q.id
+    LEFT JOIN answer a ON a.attempt_id = t.id AND a.question_id = aq.question_id
+    WHERE t.id = ${attemptId}::uuid AND t.user_id = ${userId}
+    GROUP BY aq.question_id, aq.seq, q.stem, q.competency, q.type,
+             q.concept_id, q.domain, a.option_ref, a.is_correct
+    ORDER BY aq.seq ASC
+  `);
+
+  return result.rows.map((row) => ({
+    id: row.question_id,
+    seq: row.seq,
+    stem: row.stem,
+    competency: row.competency,
+    type: row.type,
+    conceptId: row.concept_id,
+    domain: row.domain,
+    options: layOutForPaper(
+      row.options,
+      slotForComposedSitting(attemptId, row.question_id),
+    ).map(({ ref, text, correct, why }) => ({ ref, text, correct, why })),
+    optionRef: row.option_ref,
+    isCorrect: row.is_correct,
+    flagged: false,
+  }));
+}
+
+/**
+ * The questions this sitting asked, from whichever table holds them.
+ *
+ * The branch lives here for the reason `getSittingQuestions` gives: two callers
+ * deciding separately which table to ask would be two chances to ask the wrong
+ * one, and the wrong one answers with **no rows** — which reads as a
+ * well-behaved not-found rather than as a bug.
+ */
+export async function getSittingReviewQuestions(
+  db: Db,
+  userId: string,
+  attempt: SittingIdentity,
+): Promise<ReviewQuestion[]> {
+  if (attempt.mode !== 'exam') return getComposedReviewQuestions(db, userId, attempt.id);
+  return getReviewQuestions(db, userId, attempt.id);
 }
 
 /**

@@ -133,7 +133,26 @@ the app had silently admitted an account to its database.
       is the one screen where one could plausibly be added by accident. The three counts must sum to
       the sitting's length once every write has landed.
 - [ ] The review shows the `why` text for **all four** options, on an answered card and on a blank
-      one (PRD E4).
+      one (PRD E4, P1) — in **both** reviews, scored and unscored.
+- [ ] **The unscored review carries no measurement either** (doc 10 §8a). Open a finished practice
+      or domain run's review and confirm what is *absent*: no `n/20` numeral, no percentage, no pass
+      bar, no "Pass · N" label, no verdict chip, no by-domain meters, no Time used, and no re-sit
+      button. What is present is the run's name, the question count, and
+      `Correct · Incorrect · Not reached`. It is the same route as the exam review, so an accidental
+      un-branching would show up here as a pass mark appearing on an unmeasured run.
+- [ ] **Incorrect does not claim the blanks on an unscored run**, and does on a paper. Save and exit
+      a 20-question practice run at question 8 and read the filter chips: `Incorrect 3 · Correct 4 ·
+      Not reached 13 · All 20`, the three summing to 20, and the default view showing **3** cards
+      rather than 16. Then open any exam review and confirm `Incorrect` there still counts every
+      blank. The reversal is mode-local (decision log, 2026-09-09) and this is the one check that
+      sees both readings of the same rule.
+- [ ] **A question never reached reads as never reached**, not as unanswered and not as wrong: the
+      card head says *not reached*, the note says it cost nothing, the tile's label and the rail
+      legend say *Not reached* — and its four explanations are shown anyway, because there is no key
+      left to protect.
+- [ ] **Both empty filter states on an unscored run.** A run finished with every question answered
+      shows *Not reached 0* and, when pressed, a centred line rather than a blank region; a run with
+      nothing right shows the same for Correct. Blank regions are the failure doc 10 §8 names.
 - [ ] Both numbers on the exam list, always together: best and first-attempt, with an unsat paper
       reading as words rather than as a zero.
 

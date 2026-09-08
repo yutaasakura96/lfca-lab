@@ -3,9 +3,12 @@
 import Link from 'next/link';
 import { useId } from 'react';
 import { finishSummary, type FinishCounts } from '../domain/submission.ts';
+import { CountTally } from './CountTally.tsx';
 import { ModalShell } from './ModalShell.tsx';
 
 export interface FinishDialogProps {
+  /** Where the review of this run lives, once it has one. */
+  attemptId: string;
   /** `Practice` or the domain's own name — what this sitting is called. */
   title: string;
   counts: FinishCounts;
@@ -63,10 +66,11 @@ function DashedRing() {
  * condition away from a screen that must never show one.
  *
  * **The same dialog reports the outcome**, which is the call #24 made when its
- * own destination belonged to a later ticket: the unscored review is #38's, so
- * the summary is shown where the button was pressed and its one onward action
- * is a screen that exists. #38 adds *See the full review* beside it — one
- * action, not a rewrite.
+ * own destination belonged to a later ticket: the summary is shown where the
+ * button was pressed rather than behind a redirect. #38 added *See the full
+ * review* beside the way home, which was the whole of what it had left to
+ * inherit — the counts stay here, because they are the ending of a sitting that
+ * is not scored, and a redirect would have gone straight past them.
  *
  * **The counts come from the screen, not from the reply.** They have to: doc 07
  * §5 answers an unscored submit with the four measured fields null, and it is
@@ -75,6 +79,7 @@ function DashedRing() {
  * this screen, one at a time, as it was earned.
  */
 export function FinishDialog({
+  attemptId,
   title,
   counts,
   questionCount,
@@ -98,24 +103,11 @@ export function FinishDialog({
 
   function tally() {
     return (
-      <div className="tally tally--three">
-        <div className="tally__cell">
-          <span className="eyebrow">Correct</span>
-          <span className="tally__num" style={{ color: 'var(--correct-ink)' }}>
-            {summary.correct}
-          </span>
-        </div>
-        <div className="tally__cell">
-          <span className="eyebrow">Incorrect</span>
-          <span className="tally__num" style={{ color: 'var(--incorrect-ink)' }}>
-            {summary.incorrect}
-          </span>
-        </div>
-        <div className="tally__cell">
-          <span className="eyebrow">Not reached</span>
-          <span className="tally__num">{summary.unreached}</span>
-        </div>
-      </div>
+      <CountTally
+        correct={summary.correct}
+        incorrect={summary.incorrect}
+        unreached={summary.unreached}
+      />
     );
   }
 
@@ -250,9 +242,22 @@ export function FinishDialog({
 
         {tally()}
 
+        {/* Two actions, both onward — the same reading #26's expired outcome
+            took of doc 10 §6's "one action". Neither is a way *out* of
+            something that already happened; dropping the review would make this
+            the one screen in the app from which the thing it is about is two
+            clicks away. The review is the primary of the two because it is
+            where the `why` for all four options lives, which is what the bank
+            was written for (PRD E4, P1). */}
         <div className="dialog__actions">
-          <Link className="btn btn--lg btn--primary" href="/">
+          <Link className="btn btn--lg" href="/">
             Back to the modes
+          </Link>
+          <Link
+            className="btn btn--lg btn--primary"
+            href={{ pathname: `/attempt/${attemptId}/review` }}
+          >
+            See the full review
           </Link>
         </div>
       </>

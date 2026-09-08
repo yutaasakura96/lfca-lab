@@ -638,6 +638,70 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   focus, is still labelled by its own heading, and still refuses Escape when the sitting is over.
   Suites: 339 bank · **450** app unit · **174** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — an unscored run can be read back** (#38). `/attempt/[id]/review` stops
+  404ing on a composed sitting: it is **one route and two screens**, branching on the stored `mode`
+  — the same column `/attempt/[id]` and `PUT /answer` already branch on. Everything the ticket
+  calls Kept is shared: the sixty-or-twenty cards in `seq` order, the `why` for **all four**
+  options, the option states, the rail and its tile jump.
+  **The reversal is the whole of the decision.** On a paper "Incorrect" claims the blanks, because a
+  blank cost exactly what a wrong answer cost. On an unscored run it does not — nothing cost
+  anything, and a question never *reached* is not one that was got wrong — so the blanks get a
+  filter of their own and the three views **partition** the run: `Incorrect · Correct · Not reached
+  · All`, opening on the misses as a paper does. Flagged is gone, because `PUT /flag` refuses these
+  modes outright and a filter that could only ever be empty is a control that does nothing.
+  It is carried by **one `scored` argument through one predicate** — `matchesFilter`,
+  `countByFilter`, and the CSS reading the same flag off `data-scored`, so the cards and the counts
+  cannot disagree about what a filter means. Required rather than defaulted, on #32's reasoning: a
+  default makes one mode's reading the silent one. Mutation-checked — forcing the predicate to
+  ignore `scored` fails three unit assertions and leaves every scored one green, which **is** the
+  criterion that the exam review is untouched. Measured in the browser on the same twenty rows: 3
+  visible under Incorrect against **16** with `data-scored` flipped.
+  **Dropped from the result card**, each either forbidden by PRD P1 or without an input: the
+  numeral, the percentage, the pass bar, the pass mark, the verdict chip, the first-attempt standing
+  line, Time used, Left unanswered, Flagged, the re-sit action — **and the by-domain card**, which
+  the ticket named neither way. `domainBreakdown` reports `correct/total` per domain with a meter
+  that turns at 75%: a pass ratio applied six times, which is the mastery signal the 2026-08-28
+  decision declined and #34 declined again. Put to the owner as its own option and cut. What stands
+  in its place is the run's name, its question count, and `Correct · Incorrect · Not reached` —
+  drawn by the **same `CountTally`** the finish dialog draws, so the two screens cannot come to
+  describe the same run differently. `attempt.score` stays null throughout.
+  **One `ReviewCard` with a two-word difference, not a second card.** `scored` changes what a blank
+  is called (*not reached*, never *not answered* — the latter attributes a decision nobody made)
+  and the note under it. The option rows, the stem, the glyphs and the four states are the valuable
+  part; two copies of those is the failure `Glyph` and `ModalShell` were extracted to prevent, and
+  the symptom would be a blank's dash drawn as a cross on one of the two screens.
+  **The composed review reads through a second query, not a loosened one:**
+  `getComposedReviewQuestions` over `attempt_question`, `getReviewQuestions` over `exam_item`, and
+  `getSittingReviewQuestions` making the branch once — the shape `getSittingQuestions` already has.
+  It lays options out at the **derived** slot, from the same `slotForComposedSitting` through the
+  same `layOutForPaper` the run used, which is the claim the new integration file exists to make:
+  the verdict bar named a letter while the run was on, so a review placing the key one slot over
+  would tell the candidate they pressed something they never pressed. Mutation-checked by forcing
+  authored order and watching two assertions go red. It does not select `flagged` at all.
+  **The reload path stays as #37 left it** — a finalised composed sitting opens on its outcome and
+  is **not** redirected here. #37 handed the question to this ticket; the answer is that the timed
+  sitting has opened on its outcome since #24, that the three counts *are* the ending of a run that
+  is not scored, and that the outcome now carries the review as its own action. Put to the owner
+  before building. The dialog now has **two actions, both onward** — *Back to the modes* and *See
+  the full review*, the review primary because that is where the `why` for all four options lives.
+  Verified in the browser, both themes, at 1440 and 375, on **two real sittings driven end to end**
+  — a practice run saved and exited at question 8 of 20 (4/3/13) and a domain run of IT Project
+  Management finished at 20 of 20 (3/17/0): every question in `seq` order, the key at C rather than
+  A on a card nobody answered, all four explanations on a never-reached card, the CSS hiding
+  measured at 3/4/13/20 against the chips' own counts, both empty filter states rendering the
+  centred line, a reload opening on the outcome rather than a 404, and the rail legend reading *Not
+  reached*. Contrast computed rather than eyeballed on the new elements — the lowest pair is
+  **6.15:1** (the selected chip in dark) — and every state is labelled and glyphed, so `grayscale(1)`
+  loses nothing. At 375: no horizontal overflow, the rail dropped as §8 specifies with the counts
+  already in the result card, and the only sub-44px target is the shared `ThemeToggle` (36px,
+  pre-existing on every screen).
+  **The exam review was re-checked and is untouched**, measured rather than assumed: `Incorrect 60 ·
+  Correct 0 · Flagged 0 · All 60`, blanks still claimed by Incorrect, *not answered* still the
+  label, "It scored as incorrect" still the note, pass bar, verdict chip, by-domain meters and
+  Score/Needed/Gap all present.
+  Doc 10 gains **§8a** and its §7 closing paragraph is corrected.
+  Suites: 339 bank · **459** app unit · **189** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -653,8 +717,10 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31–#37 are closed**; **#38 is the frontier** — the unscored review, which
-is also what decides whether a finished composed sitting goes back to redirecting there.
+that dependency order. **#31–#38 are closed**; **#39 is the frontier** — the manual checklist, the
+browser sweep and the docs, the last of feature 4. #38 also settled the question #37 handed it: a
+finished composed sitting **keeps** opening on its outcome rather than going back to redirecting to
+the review, which now exists and is reachable from that outcome's own action.
 #29 (the 375px
 code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
 in a comment and confirmed not yet in the code. Grilled to seven
@@ -674,7 +740,10 @@ settled decisions, five of them in the log under 2026-09-06 (recorded before imp
 4. **The unscored review shows counts, never a score** (#37, #38) — and **Incorrect does not claim the
    blanks**, reversing the 2026-09-04 rule *for these modes only*. On an exam a blank cost what a
    wrong answer cost; here nothing costs anything. `attempt.score` stays null, which doc 04 §5.1's
-   check constraint already enforces.
+   check constraint already enforces. **Shipped in #38, and the by-domain card went with it** — a
+   per-domain `correct/total` against a pass ratio is the mastery signal declined twice already. The
+   reversal is one `scored` argument through one predicate, and the exam review is measurably
+   untouched. Doc 10 §8a.
 5. **Doc 10 §3 loses four elements** (#34): both *Draw from* checkboxes (one is adaptive selection,
    ruled out by name in CONTEXT.md; the other is a no-op), the scored "Recent:" row, and the mastery
    meter (the readiness signal the 2026-08-28 decision declined). "X of Y seen" stays.

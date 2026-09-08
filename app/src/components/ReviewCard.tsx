@@ -1,8 +1,8 @@
 import type { ReviewQuestion } from '../db/queries/review.ts';
 import {
   OPTION_ROLE_LABEL,
-  VERDICT_LABEL,
   optionRole,
+  verdictLabels,
   verdictOf,
   type OptionRole,
   type QuestionVerdict,
@@ -69,11 +69,27 @@ const VERDICT_GLYPH: Readonly<Record<QuestionVerdict, OptionRole>> = {
  * The card is the reason the bank was written the way it was. PRD E4 requires
  * the `why` for **all four** options — the wrong-option text explains why a
  * misconception is tempting, and a review showing only the correct answer's
- * explanation would waste the most valuable content there is here.
+ * explanation would waste the most valuable content there is here. That is
+ * true of an unscored run as well (PRD P1), which is why this is **one card
+ * with a two-word difference** rather than a second one: the option rows, the
+ * stem, the glyphs and the states are the valuable part, and two copies of
+ * those would eventually draw a blank's dash as a cross on one of the two
+ * screens.
+ *
+ * `scored` changes exactly what a blank is called and what the note under it
+ * says. On a paper a blank cost a mark; in a strictly-forward run nothing cost
+ * anything and the question was very likely never put in front of anybody.
  */
-export function ReviewCard({ question }: { question: ReviewQuestion }) {
+export function ReviewCard({
+  question,
+  scored,
+}: {
+  question: ReviewQuestion;
+  scored: boolean;
+}) {
   const verdict = verdictOf(question);
   const number = question.seq + 1;
+  const labels = verdictLabels(scored);
 
   const tile = `tile ${TILE_MODIFIER[verdict]}`.trimEnd();
 
@@ -94,7 +110,7 @@ export function ReviewCard({ question }: { question: ReviewQuestion }) {
           </span>
           <span className="stack" style={{ gap: 'var(--space-0)' }}>
             <span className="eyebrow" id={`q${number}-label`}>
-              Question {number} &middot; {VERDICT_LABEL[verdict]}
+              Question {number} &middot; {labels[verdict]}
             </span>
             <span className="meta">
               {question.competency} &middot; {question.type}
@@ -122,9 +138,16 @@ export function ReviewCard({ question }: { question: ReviewQuestion }) {
         // The ticket's rule, said out loud rather than implied by an absence:
         // a blank is a blank, never wrong-by-omission with an invented choice.
         // Dashed and uncoloured, per doc 05 §8's unanswered treatment.
+        //
+        // The unscored wording says the two things that are different about it
+        // and neither of which is cosmetic: nothing was lost, and the sitting
+        // is forward-only so the question was almost certainly never shown.
+        // "It scored as incorrect" would be false here — `attempt.score` is
+        // null and the check constraint keeps it that way.
         <p className="blanknote">
-          You did not answer this question. It scored as incorrect; the answer and all four
-          explanations are below.
+          {scored
+            ? 'You did not answer this question. It scored as incorrect; the answer and all four explanations are below.'
+            : 'You never reached this question, and nothing here is scored, so it cost you nothing. The answer and all four explanations are below.'}
         </p>
       ) : null}
 

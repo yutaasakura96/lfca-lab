@@ -5,8 +5,8 @@
 // checkable by calling it. But this module also decides something subtler than
 // a number, and it is worth naming at the top of the file.
 //
-// **"Incorrect" here means *did not earn the mark*.** A question left blank cost
-// exactly what a wrong answer cost — the submit statement counts
+// **On a scored sitting, "incorrect" means *did not earn the mark*.** A question
+// left blank cost exactly what a wrong answer cost — the submit statement counts
 // `WHERE a.is_correct`, so a blank and a wrong answer are the same to it — and
 // doc 10 §8 opens this screen filtered to Incorrect on the grounds that nobody
 // reviews the ones they got right. If blanks fell outside that filter they
@@ -14,6 +14,21 @@
 // show misses, and correct + incorrect would stop summing to the paper. So the
 // filter claims them, and the card still says *unanswered* rather than
 // inventing a choice: the grouping and the label answer different questions.
+//
+// **On an unscored sitting it does not, and that reversal is the whole of what
+// this module knows about mode.** Practice and domain sittings are not measured
+// (PRD P1, D1) and `attempt.score` stays null by doc 04 §5.1's own check
+// constraint, so nothing cost anything — and a question you never *reached* is
+// not a question you got wrong. It gets its own filter, `unreached`, and the
+// three then partition the sitting rather than two of them doing it.
+//
+// The reversal is a single `scored` argument threaded through one predicate,
+// deliberately, rather than a second set of functions. Two predicates would be
+// two definitions of `correct` as well as two of `incorrect`, and the one that
+// drifted would be the one nobody was looking at. It is required rather than
+// defaulted for the reason #32's length argument is: a default would make one
+// mode's reading the silent one, and the silent one is always the mode the
+// author was not thinking about.
 
 import { PASS_RATIO, passMark } from './score.ts';
 import { DOMAINS, weightPercent, type Domain } from './weights.ts';
@@ -47,6 +62,29 @@ export const VERDICT_LABEL: Readonly<Record<QuestionVerdict, string>> = {
   unanswered: 'not answered',
 };
 
+/**
+ * The same three, as an unscored sitting says them.
+ *
+ * **Only one entry differs**, and it is written out in full rather than spread
+ * over the map above with an override, because the two are read side by side
+ * when somebody is deciding what a screen says. A blank on a paper is a
+ * question the candidate *did not answer* — they could have, at any point, and
+ * chose not to. A blank in a strictly-forward run is a question they never
+ * arrived at: Save and exit at question 7 of 20 leaves thirteen that were never
+ * put in front of anybody, and calling those "not answered" would attribute a
+ * decision nobody made.
+ */
+export const UNSCORED_VERDICT_LABEL: Readonly<Record<QuestionVerdict, string>> = {
+  correct: 'correct',
+  incorrect: 'incorrect',
+  unanswered: 'not reached',
+};
+
+/** Which vocabulary this sitting's verdicts are said in. */
+export function verdictLabels(scored: boolean): Readonly<Record<QuestionVerdict, string>> {
+  return scored ? VERDICT_LABEL : UNSCORED_VERDICT_LABEL;
+}
+
 /** What the review needs to know about one question. Nothing about its content. */
 export interface ReviewedQuestion {
   domain: Domain;
@@ -74,23 +112,65 @@ export function verdictOf(recorded: {
   return recorded.isCorrect === true ? 'correct' : 'incorrect';
 }
 
-/** The four views of a sitting, in the order doc 10 §8 puts them. */
+/** The four views of a scored sitting, in the order doc 10 §8 puts them. */
 export const REVIEW_FILTERS = ['incorrect', 'correct', 'flagged', 'all'] as const;
 
-export type ReviewFilter = (typeof REVIEW_FILTERS)[number];
+/**
+ * The four an unscored sitting offers instead.
+ *
+ * `flagged` is gone because there is nothing to flag: practice and domain mode
+ * are strictly forward, so `PUT /flag` refuses them outright (doc 07 §4) and
+ * every row in one of these sittings has `flagged = false`. A filter that could
+ * only ever be empty would be a control that does nothing.
+ *
+ * `unreached` takes its place rather than merely filling the gap. It is what
+ * `incorrect` stopped claiming, so the three views partition the sitting — see
+ * this file's header.
+ */
+export const UNSCORED_REVIEW_FILTERS = ['incorrect', 'correct', 'unreached', 'all'] as const;
 
-/** Doc 10 §8: the screen opens on the misses. */
+export type ReviewFilter =
+  | (typeof REVIEW_FILTERS)[number]
+  | (typeof UNSCORED_REVIEW_FILTERS)[number];
+
+/** Every filter either mode offers, for the reads that must cover all of them. */
+export const ALL_REVIEW_FILTERS = [
+  'incorrect',
+  'correct',
+  'flagged',
+  'unreached',
+  'all',
+] as const satisfies readonly ReviewFilter[];
+
+/** Which four this sitting's review shows. */
+export function reviewFiltersFor(scored: boolean): readonly ReviewFilter[] {
+  return scored ? REVIEW_FILTERS : UNSCORED_REVIEW_FILTERS;
+}
+
+/** Doc 10 §8: the screen opens on the misses, in both modes. */
 export const DEFAULT_REVIEW_FILTER: ReviewFilter = 'incorrect';
 
-/** Whether one question belongs in one view. See this file's header on `incorrect`. */
-export function matchesFilter(question: ReviewedQuestion, filter: ReviewFilter): boolean {
+/**
+ * Whether one question belongs in one view.
+ *
+ * `scored` changes exactly one answer — whether a blank is a miss — and this
+ * file's header is where that is argued. Everything else is the same question
+ * asked of the same three verdicts.
+ */
+export function matchesFilter(
+  question: ReviewedQuestion,
+  filter: ReviewFilter,
+  scored: boolean,
+): boolean {
   switch (filter) {
     case 'all':
       return true;
     case 'correct':
       return question.verdict === 'correct';
     case 'incorrect':
-      return question.verdict !== 'correct';
+      return scored ? question.verdict !== 'correct' : question.verdict === 'incorrect';
+    case 'unreached':
+      return question.verdict === 'unanswered';
     case 'flagged':
       return question.flagged;
   }
@@ -105,12 +185,22 @@ export type ReviewCounts = Record<ReviewFilter, number>;
  * anything, and it is also the only way to know an empty result is empty rather
  * than broken. Derived from the same predicate the filtering uses, so the
  * number on the chip and the cards behind it cannot disagree.
+ *
+ * **Every filter is counted, not only the four the caller will draw.** Each of
+ * the five is a true statement about the sitting under `scored` — an unscored
+ * one really does have no flags, and a paper really does have a reachable count
+ * of blanks — so counting them all costs one pass and removes the second place
+ * a screen could ask for a number this function declined to compute. Which four
+ * appear is {@link reviewFiltersFor}'s business, not this one's.
  */
-export function countByFilter(questions: readonly ReviewedQuestion[]): ReviewCounts {
-  const counts = { incorrect: 0, correct: 0, flagged: 0, all: 0 } as ReviewCounts;
+export function countByFilter(
+  questions: readonly ReviewedQuestion[],
+  scored: boolean,
+): ReviewCounts {
+  const counts = { incorrect: 0, correct: 0, flagged: 0, unreached: 0, all: 0 } as ReviewCounts;
   for (const question of questions) {
-    for (const filter of REVIEW_FILTERS) {
-      if (matchesFilter(question, filter)) counts[filter] += 1;
+    for (const filter of ALL_REVIEW_FILTERS) {
+      if (matchesFilter(question, filter, scored)) counts[filter] += 1;
     }
   }
   return counts;

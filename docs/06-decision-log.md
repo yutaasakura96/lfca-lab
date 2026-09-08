@@ -1563,3 +1563,78 @@ not when it compiles. Each names the ticket that carries it out.*
 - **Revisit if:** #38 lands — that is the ticket that decides whether the reload path goes back to
   being a redirect, and it is the one that adds the second action.
 
+
+### [2026-09-09] The unscored review reverses "Incorrect claims the blanks", for these two modes only
+- **Decision:** `/attempt/[id]/review` branches on the stored `mode`. An unscored run's filter row is
+  Incorrect · Correct · **Not reached** · All, opening on Incorrect as a paper's does — and
+  **Incorrect claims only the wrong answers**, which reverses the 2026-09-04 rule. The blanks get a
+  filter of their own, so the three views partition the run. Ticket #38.
+- **Context:** the 2026-09-04 entry named this slice as its own revisit trigger. Its rule exists
+  because a blank on a paper cost exactly what a wrong answer cost — the submit statement counts
+  `WHERE a.is_correct`, which counts neither `false` nor `null` — so excluding blanks would have
+  hidden misses from the default view of the screen that exists to show misses, and left
+  `correct + incorrect < 60` with nothing on screen explaining the gap.
+- **Reason:** neither half of that argument survives the move. Nothing cost anything here —
+  `attempt.score` is null and doc 04 §5.1's `CHECK (score IS NULL OR mode IN ('exam','holdout'))`
+  keeps it so — and the sum is not left broken, because `unreached` takes what `incorrect` gave up.
+  Underneath, the two are not even the same population: a blank on a paper is a question the
+  candidate *could* have answered at any point and did not, while a strictly-forward run's blanks
+  are questions nobody was ever shown. Grouping the second with the misses would attribute a
+  decision that was never made.
+- **Alternatives considered:** keeping the scored rule for uniformity, so one predicate serves both —
+  it makes Save and exit at question 7 of 20 open on thirteen cards headed "incorrect" about
+  questions the candidate never saw, which is the screen lying about what happened. And dropping the
+  fourth filter rather than replacing Flagged, leaving three — rejected because the blanks then have
+  no view at all and the counts stop summing on screen.
+- **The reversal is one `scored` argument through one predicate**, not a second set of functions:
+  `matchesFilter(question, filter, scored)` and `countByFilter(questions, scored)`, with the CSS
+  reading the same flag off `data-scored` so the cards and the counts cannot disagree about what a
+  filter means. Two predicates would have been two definitions of `correct` as well as two of
+  `incorrect`, and the one that drifted would be the one nobody was looking at. It is **required
+  rather than defaulted**, on #32's reasoning: a default makes one mode's reading the silent one,
+  and the silent one is always the mode the author was not thinking about. Mutation-checked —
+  forcing the predicate to ignore `scored` fails three unit assertions and leaves every scored one
+  green, which is the acceptance criterion that the exam review is untouched.
+- **One card with a two-word difference, not a second card.** `ReviewCard` takes `scored` and
+  changes what a blank is called (*not reached*, not *not answered*) and what the note under it
+  says. The option rows, the stem, the glyphs and the four states are the valuable part and are
+  identical; two copies of those is the failure `Glyph` and `ModalShell` were extracted to prevent —
+  and the symptom would be a blank's dash drawn as a cross on one of the two screens, which is
+  exactly the distinction the drawing is *for*.
+- **The by-domain card is cut, which the ticket does not name either way.** `domainBreakdown`
+  reports `correct/total` per domain and whether each slice `meetsMark` — a pass ratio applied six
+  times. That is a per-domain score, and it is the mastery signal the 2026-08-28 decision declined
+  and #34 declined again when it cut the meter from `/domain`'s cards. *Alternative considered,* and
+  put to the owner as its own option: keeping it without `meetsMark`, as coverage. Declined —
+  coverage is a fact about what you have done, and `correct/total` is a judgement about how well.
+- **The composed review reads through a second query, not a loosened one**, mirroring how the
+  sitting reads: `getComposedReviewQuestions` over `attempt_question`, `getReviewQuestions` over
+  `exam_item`, and `getSittingReviewQuestions` making the branch once — the same shape
+  `getSittingQuestions` has, for the same reason. It lays options out at the **derived** slot, from
+  the same `slotForComposedSitting` through the same `layOutForPaper` the run used, which is the
+  claim this slice's integration file exists to make: the verdict bar named a letter while the run
+  was on, so a review placing the key one slot over would tell the candidate they pressed something
+  they never pressed. Mutation-checked by forcing authored order and watching two assertions go red.
+  It does not select `flagged` at all — `PUT /flag` refuses these modes (doc 07 §4), so the column
+  cannot be true, and reading it would suggest it varies.
+- **The reload path stays as #37 left it: a finalised composed sitting opens on its outcome and is
+  not redirected here.** #36 redirected, #37 stopped because this route 404'd, and #37's entry handed
+  the question to this ticket. Three reasons, none of them the 404 any more: the timed sitting has
+  opened on its outcome since #24, so redirecting would make the two modes differ on reload for no
+  reason but the order they were written; the three counts *are* the ending of a run that is not
+  scored, and a redirect goes straight past them; and the outcome now carries the review as its own
+  action, so nothing is out of reach. *Alternative considered:* the redirect, which is #37's ticket
+  text read literally — it also makes the sitting's own URL bounce, so a bookmark to it can never
+  land again.
+- **Two actions on the outcome dialog, both onward** — *Back to the modes* and *See the full
+  review*, the review primary because it is where the `why` for all four options lives. The same
+  reading #26's expired outcome took of doc 10 §6's "one action": neither is a way *out* of something
+  that already happened, and dropping the second would make this the one screen in the app from
+  which the thing it is about is two clicks away.
+- **Consequence:** doc 10 gains **§8a** and its §7 closing paragraph is corrected. The exam review is
+  untouched in behaviour — its pass bar, verdict chip, Flagged filter and Incorrect-claims-blanks
+  rule all still hold, and `tests/unit/review.test.ts`'s assertions about them are unchanged apart
+  from passing `true` where they used to rely on there being only one reading.
+- **Revisit if:** the holdout sitting (H1) is built — it is composed like these two and **scored**
+  like an exam, so it takes the scored branch of this screen, and `isScored(mode)` is already what
+  decides that.
