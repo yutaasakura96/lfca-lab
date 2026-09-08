@@ -385,6 +385,10 @@ button.tile {
   border-top: 1px solid var(--line-subtle);
   border-bottom: 1px solid var(--line-subtle);
 }
+/* An unscored sitting has three counts, not four: there is no clock to report
+   time left from and no flags to count. A fourth empty column would read as a
+   figure that failed to load. */
+.tally--three { grid-template-columns: repeat(3, 1fr); }
 .tally__cell { display: flex; flex-direction: column; gap: var(--space-1); }
 .tally__num {
   font-family: var(--font-mono);

@@ -12,6 +12,13 @@ export interface ComposedBarProps {
   currentNumber: number;
   /** A write has failed and is queued. Doc 10 §4's persistent save chip. */
   retrying: boolean;
+  /** Writes the server has not confirmed. Doc 03 §7 blocks closing on these. */
+  unsaved: number;
+  /** The finish request is in flight. */
+  submitting: boolean;
+  /** The sitting is closed. The dialog in front of it is reporting, not asking. */
+  submitted: boolean;
+  onFinish: () => void;
 }
 
 /**
@@ -24,10 +31,10 @@ export interface ComposedBarProps {
  * this component to have no way to draw one: it is not passed a deadline, and
  * there is no prop it could be passed one through.
  *
- * There is no Submit either, yet. **Finish and Save and exit are #37's**, and a
- * button that looked real and did nothing would be worse than its absence —
- * the same call the clock's freeze made before it had a destination. The bar
- * gains its right-hand end when there is something for it to do.
+ * What is here is doc 10 §7's **Save and exit**, at the right-hand end. It is
+ * the only way out of a run that is not on its last question, and it is the
+ * same action the last question's Finish takes — one dialog, one submit path,
+ * whichever button opened it.
  *
  * The save chip is here rather than on the question, and outside the group the
  * narrow layout gives up, for the reason recorded on 2026-09-03: a phone is the
@@ -40,6 +47,10 @@ export function ComposedBar({
   total,
   currentNumber,
   retrying,
+  unsaved,
+  submitting,
+  submitted,
+  onFinish,
 }: ComposedBarProps) {
   return (
     <div className="sittingbar">
@@ -83,6 +94,19 @@ export function ComposedBar({
             <span className="mono">{model.incorrect}</span>&nbsp;incorrect
           </span>
         </div>
+
+        {/* Doc 10 §7's Save and exit. Disabled while a write is owed, for doc
+            03 §7's reason: a sitting closed with an answer still in the air is
+            a sitting whose record is missing one. The label says which of the
+            two waits it is, exactly as the exam bar's Submit does. */}
+        <button
+          type="button"
+          className="btn"
+          disabled={submitting || submitted || unsaved > 0}
+          onClick={onFinish}
+        >
+          {submitting ? 'Finishing…' : unsaved > 0 ? 'Saving…' : 'Save and exit'}
+        </button>
       </div>
     </div>
   );

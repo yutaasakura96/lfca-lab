@@ -592,6 +592,52 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   timed and scored like an exam, belonging to neither screen unchanged.
   Suites: 339 bank · **444** app unit · **167** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — a composed sitting can be closed** (#37). The bar's **Save and exit** and
+  the last question's **Finish this run** open one dialog, take one `POST /api/attempt/:id/submit`,
+  and land in one place. It matters more than it looks: a composed sitting carries
+  `time_limit_seconds = null`, so nothing expires and no lazy finalisation applies — **this is the
+  only path by which one ever closes**, and without it every practice attempt stayed
+  `submitted_at IS NULL` for ever, on the partial index home reads on every render.
+  **The dialog becomes the outcome**, which is #24's call made again: the unscored review is #38's,
+  so the summary is shown where the button was pressed and its one action goes to a screen that
+  exists. #38 adds *See the full review* beside it. Redirecting as the ticket's last line says would
+  have ended every run on a 404 for one slice — and the counts *are* the ending of a sitting that is
+  not scored.
+  **That reverses a line #36 shipped deliberately.** `/attempt/[id]` no longer redirects a finalised
+  composed sitting to its review; it opens on the outcome, as the timed sitting has since #24. #36
+  chose the redirect while the state was unreachable — Finish is what makes it reachable.
+  **Three numbers, and nothing that could be read as a fourth.** `Correct · Incorrect · Not reached`,
+  decided by `finishSummary` in the pure layer, with a unit test asserting its **returned keys** so a
+  mark, a percentage or a verdict cannot be added without failing. `unreached` reads the navigator's
+  `remaining` rather than `questionCount - correct - incorrect`, so an answer whose verdict is still
+  in the air is never reported as a question never reached — measured in the browser at 4/15/0 with
+  one write owed and 4/16/0 once it landed. `attempt.score` stays null throughout; doc 04 §5.1's
+  check constraint is what makes that a fact rather than a habit.
+  **The negative is asserted on the bytes**, against the real exported route handler, `toEqual` on
+  the whole body so a fifth field fails there — mutation-checked by making `outcomeOf` compute a
+  pass mark and watching it go red. Its own component rather than `SubmitDialog` with six regions
+  behind a flag, for the reason #36 made two sittings rather than one.
+  Verified in the browser, both themes, at 1440 and 375, on four real sittings driven end to end:
+  Save and exit at question 4 of 20 with the unreached panel and the danger treatment, Finish at 20
+  of 20 with neither, Escape closing the confirmation but not the outcome, the sitting behind frozen
+  (no option buttons, both actions disabled), a reload opening on the outcome rather than a 404,
+  home no longer offering it, and the row reading `score NULL · submit_reason user`. With `PUT`
+  failing: the chip up, both buttons reading "Saving…" and disabled, the dialog stating which wait
+  it is, and the count moving 15 → 16 when the write landed. With `POST /submit` failing: the dialog
+  held open with "Couldn't finish — your answers are saved. Try again." and the button back, then
+  succeeding on retry. Contrast measured on the dialog in both themes — the lowest pair is 6.21:1;
+  at `grayscale(1)` the three counts are told apart by their own labels, which is doc 05's rule.
+  **The code review found four things and two test gaps**, all fixed and re-verified in the browser:
+  a `submitFailed` never reset, so reopening the dialog after a failed close said "Couldn't finish"
+  over a sitting nothing had tried to finish; three `finishSummary` fields nothing read; the modal
+  shell duplicated verbatim across both dialogs, now `ModalShell` — focus-in and Escape are exactly
+  what two copies rot into disagreeing about silently; and a `SubmitOutcome` threaded through three
+  components only ever compared to null, now a boolean. The Save-and-exit test asserts #37's own
+  figure (seven answered, **thirteen** unreached), and the exam-list check runs a domain sitting as
+  well as a practice one. Exam mode re-checked on the shared shell: its outcome dialog still takes
+  focus, is still labelled by its own heading, and still refuses Escape when the sitting is over.
+  Suites: 339 bank · **450** app unit · **174** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -607,8 +653,8 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31–#36 are closed**; **#37 is the frontier** — Finish and Save and exit,
-which a composed sitting has no way to be closed without, and which #38's review is waiting on.
+that dependency order. **#31–#37 are closed**; **#38 is the frontier** — the unscored review, which
+is also what decides whether a finished composed sitting goes back to redirecting there.
 #29 (the 375px
 code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
 in a comment and confirmed not yet in the code. Grilled to seven

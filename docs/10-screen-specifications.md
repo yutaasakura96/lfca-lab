@@ -273,10 +273,27 @@ submitted automatically." + **Retry submit**, and the answers stay in local stor
 **All four options always show an explanation**, including the ones nobody chose ("Not correct" +
 dash glyph + why it is tempting). This is the product's whole point; it is not optional.
 
+**Closing the run.** **Save and exit** in the bar and the last question's **Finish this run** open the
+same dialog and take the same action; only what it says differs. It confirms first — this is the one
+irreversible thing on the screen, since there is no discard in this app and no reopening a closed
+sitting — then, on success, **becomes the outcome**: `Correct · Incorrect · Not reached`, and one
+action back to the modes. That is the call #24 made when its own destination belonged to a later
+ticket; the unscored review is #38's, and it adds *See the full review* beside that action rather
+than replacing this screen.
+
+Three things it deliberately does not say, all forbidden rather than merely absent: **no score, no
+percentage, no pass mark** (PRD P1; doc 04 §5.1's check constraint keeps the column agreeing). The
+tally is not a measurement — every verdict in it appeared on screen, one at a time, as it was
+earned. There is no jump row in the unreached panel either: strictly forward means there is nowhere
+to jump.
+
 **States.** *Empty* — before answering, the verdict bar and all four explanations are absent and the
 options are interactive. *Loading* — as exam mode: whole set fetched up front. *Error* — a failed
 progress save shows the same non-dismissible "Not saved — retrying" chip; grading is local so
-feedback still appears.
+feedback still appears. Closing waits for it (doc 03 §7), and the dialog's own button says which
+wait it is. A failed close keeps the dialog open with the button back and says the answers are safe,
+which they are. *Closed* — a sitting already finalised when the page loads opens on its outcome
+rather than presenting as answerable, exactly as the timed sitting does.
 
 **Mobile.** Rail drops below the question — **one card, not two**, since the second is cut above; it
 is put back explicitly, because the rule that swaps the timed sitting's rail for a sheet hides every

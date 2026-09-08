@@ -36,7 +36,11 @@ export interface ComposedQuestionProps {
   failure: WriteFailure | null;
   onAnswer: (optionRef: string) => void;
   onNext: () => void;
+  /** Open the dialog that closes the sitting. The bar's Save and exit does the same. */
+  onFinish: () => void;
   hasNext: boolean;
+  /** The sitting is closed. Nothing here is a control any more. */
+  closed: boolean;
 }
 
 /** Which of doc 05 §8's families dresses a graded option row. The review's map. */
@@ -94,9 +98,14 @@ export function ComposedQuestion({
   failure,
   onAnswer,
   onNext,
+  onFinish,
   hasNext,
+  closed,
 }: ComposedQuestionProps) {
-  const locked = answer !== null;
+  // Answering locks the options; so does the sitting being over. The second is
+  // the stronger claim and arrives from outside — a question left unanswered on
+  // a closed sitting must not still read as four buttons.
+  const locked = answer !== null || closed;
   const correctIndex =
     feedback === null ? -1 : question.options.findIndex((o) => o.ref === feedback.correctRef);
   const correctLetter = correctIndex === -1 ? '' : String.fromCharCode(65 + correctIndex);
@@ -272,19 +281,43 @@ export function ComposedQuestion({
           <span className="kbd">3</span>
           <span className="kbd">4</span>
           <span className="meta">choose</span>
-          <span className="kbd">&crarr;</span>
-          <span className="kbd">&rarr;</span>
-          <span className="meta">next</span>
+          {/* The legend states what the keys do here, and on the last question
+              they do nothing — a hint for a key that is refused is worse than
+              no hint, because it reads as the key being broken. */}
+          {hasNext ? (
+            <>
+              <span className="kbd">&crarr;</span>
+              <span className="kbd">&rarr;</span>
+              <span className="meta">next</span>
+            </>
+          ) : null}
         </div>
         <div className="row" style={{ gap: 'var(--space-2)' }}>
-          <button
-            type="button"
-            className="btn btn--primary"
-            disabled={!hasNext || answer === null}
-            onClick={onNext}
-          >
-            Next question
-          </button>
+          {/* On the last question Next has nowhere to go, so it is Finish
+              instead — the same action the bar's Save and exit takes, and the
+              same dialog. It does not require an answer: a question left blank
+              on the last screen is exactly what Save and exit is for, and a
+              disabled button would be the one place a sitting could not be
+              closed from. */}
+          {hasNext ? (
+            <button
+              type="button"
+              className="btn btn--primary"
+              disabled={answer === null || closed}
+              onClick={onNext}
+            >
+              Next question
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn btn--primary"
+              disabled={closed}
+              onClick={onFinish}
+            >
+              Finish this run
+            </button>
+          )}
         </div>
       </div>
     </div>

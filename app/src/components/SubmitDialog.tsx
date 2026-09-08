@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useId, useRef } from 'react';
+import { useId } from 'react';
 import type { NavigatorTile } from '../domain/navigator.ts';
+import { ModalShell } from './ModalShell.tsx';
 import { reviewBeforeSubmit, type SubmitOutcome } from '../domain/submission.ts';
 
 /** How many jump targets the row shows before it says how many more there are. */
@@ -163,7 +164,6 @@ export function SubmitDialog({
   onKeepWorking,
 }: SubmitDialogProps) {
   const titleId = useId();
-  const dialog = useRef<HTMLDivElement>(null);
 
   const review = reviewBeforeSubmit(
     {
@@ -176,44 +176,14 @@ export function SubmitDialog({
   const unanswered = tiles.filter((tile) => !tile.answered);
   const flagged = tiles.filter((tile) => tile.flagged);
 
-  // Focus moves into the dialog on open, and Escape leaves it. Both are the
-  // dialog's own to provide: this is drawn over a sitting that is still fully
-  // keyboard-operable underneath, and a modal that leaves focus behind it is a
-  // modal a keyboard user has to hunt for.
-  useEffect(() => {
-    dialog.current?.focus();
-  }, []);
-
   // Nothing to escape back to once the sitting is over, whether it was
   // submitted or the clock ended it.
   const settled = outcome !== null || expired;
 
-  useEffect(() => {
-    if (settled) return;
-    function onKey(event: KeyboardEvent) {
-      if (event.key !== 'Escape') return;
-      event.preventDefault();
-      onKeepWorking();
-    }
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [settled, onKeepWorking]);
-
   return (
-    <div className="scrim">
-      <div
-        className="dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        tabIndex={-1}
-        ref={dialog}
-      >
-        {outcome === null
-          ? confirmation()
-          : result(outcome)}
-      </div>
-    </div>
+    <ModalShell titleId={titleId} dismissible={!settled} onDismiss={onKeepWorking}>
+      {outcome === null ? confirmation() : result(outcome)}
+    </ModalShell>
   );
 
   function confirmation() {

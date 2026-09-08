@@ -1492,3 +1492,74 @@ not when it compiles. Each names the ticket that carries it out.*
   like these two, timed and scored like an exam, and belonging to neither screen unchanged.
 - **Revisit if:** the holdout sitting is built, which needs a third arrangement — this screen's
   composition with the timed screen's clock and submit.
+
+### [2026-09-08] An unscored sitting is closed by one dialog, and that dialog is the outcome
+- **Decision:** the bar's **Save and exit** and the last question's **Finish this run** open the
+  same `FinishDialog`, take the same `POST /api/attempt/:id/submit`, and land in the same place — the
+  dialog itself, which replaces its confirmation with `Correct · Incorrect · Not reached` and one
+  action back to the modes. Ticket #37.
+- **Context:** #37's last line is "Lands on `/attempt/[id]/review`", and that route 404s on a
+  composed sitting until **#38**. A composed sitting never expires, so nothing finalises it lazily
+  and this is the only path by which one ever closes: without it every practice attempt stays
+  `submitted_at IS NULL` for ever, on the partial index home reads on every render.
+- **Alternatives considered:** redirecting to the review as the ticket says, which is literal and
+  which #36's finished-sitting redirect already pointed at — rejected because for one slice the run
+  would end on a 404, and the counts are *the whole ending* of a sitting that is not scored, so they
+  would be lost with no way back to them. Also considered redirecting home, which avoids the 404 at
+  the cost of the run ending with no report of how it went at all.
+- **Reason:** the 2026-09-03 precedent exactly. When the destination belongs to another ticket, do
+  not invent it — make the state honest where it is, and leave the later ticket one action's
+  destination to change. Nothing here has to be undone for #38: it adds *See the full review* beside
+  what is already there.
+- **Consequence, and it reverses a line #36 shipped deliberately.** `/attempt/[id]` no longer
+  redirects a finalised composed sitting to its review; it **opens on the outcome**, the way the
+  timed sitting has since #24. #36 chose the redirect while the state was unreachable and documented
+  it as the guard that stays right — Finish is what makes it reachable, and a reload landing on a
+  404 would have made the summary readable exactly once, only if you did not refresh. #38 decides
+  whether the redirect comes back.
+- **One dialog for both buttons, not two paths.** Finish on the last question could have submitted
+  straight away — nothing is being abandoned there, so nothing needs warning about — at the cost of
+  two submit paths and two places an outcome can appear. Both are irreversible in the same way, so
+  both get the same pause; only the wording and the button's treatment change (`btn--primary` when
+  the run is complete, `btn--danger` when questions are being left behind, so the destructive
+  treatment is not taught to be ignored where it matters).
+- **Its own component rather than `SubmitDialog` with the measured half hidden.** That dialog is
+  exam-shaped throughout — pass mark, percentage, verdict chip, flagged row, jump buttons — and each
+  of those is either forbidden here (PRD P1) or impossible here (strictly forward). Six regions
+  behind a flag would leave the pass mark one wrong condition away from a screen that must never
+  show one.
+- **The counts come from the screen, not from the reply**, and they have to: doc 07 §5 answers an
+  unscored submit with the four measured fields null, which is right — a count in that payload would
+  be a score arriving under another name. `finishSummary` is where the arithmetic is decided, and a
+  unit test asserts its **returned keys** so a mark, a percentage or a verdict cannot be added to it
+  without failing. `unreached` reads the navigator's `remaining` rather than
+  `questionCount - correct - incorrect`, so an answer whose verdict is still in the air is never
+  reported as a question the candidate never reached — the case measured in the browser, where the
+  dialog read 4 / 15 / 0 with one write owed and 4 / 16 / 0 once it landed.
+- **The negative is asserted on the bytes**, in the integration suite, against the real exported
+  route handler — `toEqual` on the whole body, so a fifth field added later fails there. Verified by
+  mutation: making `outcomeOf` compute a pass mark for an unscored sitting turns that assertion red
+  with `passMark: 15`.
+- **The code review that followed corrected four things**, all the same day.
+  **`submitFailed` was never reset**, so pressing *Keep going* after a failed close and reopening the
+  dialog said "Couldn't finish" over a sitting nothing had tried to finish — a failure belongs to the
+  attempt that produced it. **`finishSummary` returned three fields nothing read** (`answered`,
+  `unmarked`, `questionCount`); the guard that made `unmarked` worth computing stays as a guard, and
+  the returned shape is now exactly what the dialog shows — which also makes the "says nothing about
+  a mark" key-set assertion tighter. **The modal shell came out into `ModalShell`**: the scrim, the
+  box, focus-in and Escape were verbatim in both dialogs and neither had a reason to differ, and
+  a11y behaviour is exactly what two copies rot into disagreeing about silently — the same call
+  `Glyph` came out of `ReviewCard` on. Nothing about what either dialog *says* is shared; PRD P1 is
+  the reason they differ. And **`SubmitOutcome | null` was threaded through three components and only
+  ever compared to null** — there is nothing in an unscored outcome to show, so it is a boolean.
+  Two test gaps closed with them: the Save-and-exit case now asserts #37's own figure (seven answered,
+  **thirteen** unreached, rather than six and fourteen), and the exam-list check now runs a domain
+  sitting as well as a practice one, since the ticket asks about both modes.
+- **One limit is recorded rather than fixed.** A write that never lands blocks Finish for as long as
+  the tab is open, and unlike a timed sitting there is no clock to close it anyway. That is doc 03
+  §7's rule applied as #37 asks for it — "Submit blocks while the outbox is non-empty, exactly as
+  exam mode does" — and the escape is the one the queue already has: it is in memory and nowhere
+  else, so a reload drops it and the sitting closes.
+- **Revisit if:** #38 lands — that is the ticket that decides whether the reload path goes back to
+  being a redirect, and it is the one that adds the second action.
+

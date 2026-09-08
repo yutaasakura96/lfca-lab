@@ -127,6 +127,11 @@ the app had silently admitted an account to its database.
       and the six must sum to **960**. A larger number means the coverage query stopped counting
       distinct questions — the bug of 2026-09-06, which inflates only for an account with history
       and so hides from any test written against an empty one.
+- [ ] **The unscored close says no number that could be read as a score.** Finish or Save and exit
+      a practice run and read the outcome: `Correct · Incorrect · Not reached` and nothing else — no
+      percentage, no `n/20`, no pass mark, no verdict chip. PRD P1 forbids the measurement, and this
+      is the one screen where one could plausibly be added by accident. The three counts must sum to
+      the sitting's length once every write has landed.
 - [ ] The review shows the `why` text for **all four** options, on an answered card and on a blank
       one (PRD E4).
 - [ ] Both numbers on the exam list, always together: best and first-attempt, with an unsat paper

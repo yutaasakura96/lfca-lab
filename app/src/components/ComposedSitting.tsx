@@ -8,9 +8,10 @@ import {
   patchGraded,
   type GradedRecord,
 } from '../domain/navigator.ts';
-import { putReading, type WriteFailure } from '../lib/writes.ts';
+import { post, putReading, type WriteFailure } from '../lib/writes.ts';
 import { ComposedBar } from './ComposedBar.tsx';
 import { ComposedQuestion, type AnswerFeedback } from './ComposedQuestion.tsx';
+import { FinishDialog } from './FinishDialog.tsx';
 import { SessionRail } from './SessionRail.tsx';
 import type { SittingOption } from './SittingQuestion.tsx';
 import { useOutbox } from './use-outbox.ts';
@@ -47,6 +48,16 @@ export interface ComposedSittingProps {
    * navigate back to the rest.
    */
   resumed: { questionId: string; feedback: AnswerFeedback } | null;
+  /**
+   * This sitting was already closed when the page opened — a reload after
+   * finishing, or a second tab.
+   *
+   * It then opens on its summary rather than presenting as answerable, exactly
+   * as the timed one does. Every write into it would be refused, so offering
+   * the questions would be the screen claiming something the server has
+   * already closed.
+   */
+  finished: boolean;
 }
 
 /** The keys that choose an option. A legend without behaviour would be a lie. */
@@ -80,6 +91,7 @@ export function ComposedSitting({
   questions,
   initial,
   resumed,
+  finished,
 }: ComposedSittingProps) {
   // Sorted once, so the array index and the navigator's own ordering cannot
   // drift apart. The query already orders by seq; this makes it not matter.
@@ -88,6 +100,15 @@ export function ComposedSitting({
   const [graded, setGraded] = useState(initial);
   const [currentSeq, setCurrentSeq] = useState(() => firstUnansweredSeq(questions, initial));
   const [failure, setFailure] = useState<Record<string, WriteFailure>>({});
+
+  // Closing the sitting is four states, not one flag: whether the dialog is
+  // open, whether the request is in flight, whether the last one failed, and
+  // what came back. They are separate because the dialog outlives the request —
+  // a failure leaves it open with the button back, which is where the retry is.
+  const [confirming, setConfirming] = useState(finished);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
+  const [closed, setClosed] = useState(finished);
 
   /**
    * The key and the four explanations, per question, as they arrive.
@@ -147,6 +168,7 @@ export function ComposedSitting({
    * the same question, so it can only come back with the same verdict.
    */
   function answerQuestion(questionId: string, optionRef: string) {
+    if (closed) return;
     if (gradedStateFor(graded, questionId).optionRef !== null) return;
 
     setGraded((all) => patchGraded(all, questionId, (before) => ({ ...before, optionRef })));
@@ -212,6 +234,56 @@ export function ComposedSitting({
     });
   }
 
+  /**
+   * Close the sitting.
+   *
+   * Deliberately **not** put through the outbox, though every answer here is.
+   * The outbox exists to keep trying without being asked, and a close that
+   * retried itself would go on finalising a run somebody had walked away from.
+   * A failure says so and offers the button again.
+   *
+   * There is no automatic half to this, and there cannot be: these modes carry
+   * `time_limit_seconds = null` (doc 04 §5.1), so nothing expires, no lazy
+   * finalisation applies, and this is the only way a composed sitting ever
+   * closes. That is precisely why the ticket exists — without it every practice
+   * attempt would stay `submitted_at IS NULL` for ever, on the partial index
+   * home reads to ask what is still open.
+   *
+   * A double press needs no defence beyond the in-flight guard: the endpoint
+   * answers the second caller with what the first one recorded (doc 07 §5).
+   *
+   * **Waiting on the outbox has no automatic rescue here**, unlike a timed
+   * sitting, where the clock closes the sitting whether or not writes are owed
+   * (decision log, 2026-09-04). A write that never lands therefore blocks this
+   * button for as long as the tab is open. That is doc 03 §7's rule applied as
+   * #37 asks for it, and the escape is the one the queue already has: it lives
+   * in memory and nowhere else, so a reload drops it and the sitting can be
+   * closed — losing the write that was never going to land anyway.
+   */
+  async function finish() {
+    if (submitting || closed) return;
+    // Doc 03 §7: never while anything is owed. The buttons are already
+    // disabled; this is the same rule where it cannot be got round.
+    if (outbox.pending > 0) return;
+
+    setSubmitting(true);
+    setSubmitFailed(false);
+
+    // Nothing in the reply is read: doc 07 §5 answers an unscored submit with
+    // the four measured fields null, and the counts on screen are the sitting's
+    // own. What matters is that it landed.
+    const result = await post<unknown>(`/api/attempt/${attemptId}/submit`);
+
+    setSubmitting(false);
+    if (result.ok) {
+      setClosed(true);
+      return;
+    }
+    // The sitting is untouched — no navigation, no lost answers, and the dialog
+    // stays where it is.
+    setSubmitFailed(true);
+  }
+
   function goNext() {
     setCurrentSeq((seq) => (seq + 1 < sitting.length ? seq + 1 : seq));
   }
@@ -226,6 +298,11 @@ export function ComposedSitting({
         return;
       }
       if (question === undefined) return;
+      // The dialog is modal and owns the keyboard while it is open, its own
+      // Escape included. Answering a question you cannot see, from behind a
+      // confirmation asking whether you are finished, is the one keystroke this
+      // screen must not accept. A closed sitting takes none of them at all.
+      if (confirming || closed) return;
 
       const answered = gradedStateFor(graded, question.id).optionRef !== null;
 
@@ -272,7 +349,36 @@ export function ComposedSitting({
         total={sitting.length}
         currentNumber={currentSeq + 1}
         retrying={outbox.retrying}
+        unsaved={outbox.pending}
+        submitting={submitting}
+        submitted={closed}
+        onFinish={() => setConfirming(true)}
       />
+
+      {confirming ? (
+        <FinishDialog
+          title={title}
+          counts={{
+            correct: model.correct,
+            incorrect: model.incorrect,
+            remaining: model.remaining,
+          }}
+          questionCount={sitting.length}
+          closed={closed}
+          unsaved={outbox.pending}
+          retrying={outbox.retrying}
+          submitting={submitting}
+          failed={submitFailed}
+          onFinish={() => void finish()}
+          onKeepGoing={() => {
+            setConfirming(false);
+            // A failure belongs to the attempt that produced it. Left standing,
+            // reopening the dialog would say "Couldn't finish" over a sitting
+            // nothing had yet tried to finish.
+            setSubmitFailed(false);
+          }}
+        />
+      ) : null}
 
       <div className="sitting sitting--composed">
         <div className="card" style={{ padding: 'var(--space-6)' }}>
@@ -287,7 +393,9 @@ export function ComposedSitting({
             failure={failure[question.id] ?? null}
             onAnswer={(optionRef) => answerQuestion(question.id, optionRef)}
             onNext={goNext}
+            onFinish={() => setConfirming(true)}
             hasNext={currentSeq < sitting.length - 1}
+            closed={closed}
           />
         </div>
 

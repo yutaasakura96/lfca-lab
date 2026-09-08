@@ -158,10 +158,11 @@ async function examSitting(userId: string, found: AttemptRow) {
 /**
  * A practice or domain sitting.
  *
- * **Nothing here reads a clock, and there is nothing to finalise.** Those
+ * **Nothing here reads a clock, and nothing here finalises anything.** Those
  * modes carry `time_limit_seconds = null` (doc 04 §5.1), so they never expire
  * and no lazy submit applies — which is why `finaliseIfExpired` is absent
- * rather than called and ignored.
+ * rather than called and ignored. A composed sitting closes exactly once, when
+ * the candidate says so, and that is the only path there is.
  *
  * What crosses to the browser is the frozen set of questions, the choices
  * already made, and **the verdict of each of those choices** — which is not the
@@ -170,13 +171,6 @@ async function examSitting(userId: string, found: AttemptRow) {
  * about a question they have not answered.
  */
 async function composedSitting(userId: string, attempt: AttemptRow) {
-  // A finished sitting has nothing to answer, so it goes to its review — the
-  // route that reads a sitting back. **That screen is #38's**: it branches on
-  // `examId` today and 404s on a composed sitting. The state is unreachable
-  // from any screen in this slice, because Finish is #37's; this is the guard
-  // that will still be right when both land.
-  if (attempt.submittedAt !== null) redirect(`/attempt/${attempt.id}/review`);
-
   const [questions, verdicts] = await Promise.all([
     getComposedQuestions(db, attempt.id),
     getRecordedVerdicts(db, userId, attempt.id),
@@ -225,6 +219,23 @@ async function composedSitting(userId: string, attempt: AttemptRow) {
   // content (the same call #34 made for the domain cards).
   const domainName = questions[0]!.competency.split(' :: ')[0] ?? 'Domain';
 
+  // A sitting that is already closed opens on its summary rather than on a
+  // question — the same call the timed sitting makes, for the same reason:
+  // every write into it would be refused, so presenting it as answerable would
+  // be the screen claiming something the server has already ended.
+  //
+  // **This used to redirect to `/attempt/[id]/review`**, which was right while
+  // the state was unreachable — Finish is what makes it reachable, and that
+  // route still 404s on a composed sitting until #38. #38 decides whether the
+  // redirect comes back; until then a reload after finishing has to arrive
+  // somewhere that exists.
+  //
+  // A boolean rather than the timed page's `SubmitOutcome`, because there is no
+  // outcome to carry: `score` is null by doc 04 §5.1's check constraint, and
+  // the counts the summary shows are the sitting's own answer rows, already on
+  // their way to the client as verdicts.
+  const finished = attempt.submittedAt !== null;
+
   return (
     <div className="page page--sitting">
       <ComposedSitting
@@ -234,6 +245,7 @@ async function composedSitting(userId: string, attempt: AttemptRow) {
         questions={questions}
         initial={initial}
         resumed={resumed}
+        finished={finished}
       />
     </div>
   );

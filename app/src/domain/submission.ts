@@ -118,3 +118,73 @@ export function reviewBeforeSubmit(
     canStillPass: counts.answered >= mark,
   };
 }
+
+/** What the graded navigator already counts. Nothing else is needed. */
+export interface FinishCounts {
+  correct: number;
+  incorrect: number;
+  /** Questions with no answer at all — doc 10 §7's third count. */
+  remaining: number;
+}
+
+export interface FinishSummary {
+  correct: number;
+  incorrect: number;
+  /** What finishing now would leave unasked. */
+  unreached: number;
+  /** Nothing left unreached. The Finish case rather than the Save-and-exit one. */
+  complete: boolean;
+}
+
+/**
+ * What an unscored sitting says before it is closed, and after.
+ *
+ * The counterpart to {@link reviewBeforeSubmit}, and the whole of the
+ * difference is what it refuses to compute. There is no pass mark here, no
+ * percentage, no verdict and no best-possible: PRD P1 says these modes are not
+ * measured, doc 04 §5.1's `CHECK (score IS NULL OR mode IN ('exam','holdout'))`
+ * makes the column agree, and a summary that quietly derived one would be the
+ * one place the measurement came back. A test asserts the returned keys for
+ * exactly that reason.
+ *
+ * A tally of verdicts is not a measurement. Every one of these appeared on
+ * screen, one at a time, as it was earned; the sum is already known and
+ * withholding it would read as coyness rather than as principle (decision log,
+ * 2026-09-06).
+ *
+ * **`unreached` is the number that has to be right.** Save and exit is
+ * irreversible — there is no discard in this app and no reopening a submitted
+ * sitting — so undercounting what is being abandoned closes a sitting somebody
+ * meant to keep. It is `remaining` rather than `questionCount - correct -
+ * incorrect`, so an answer whose verdict has not come back yet is never
+ * reported as a question the candidate never reached. That gap is real and
+ * normal — the graded navigator puts an answer still in the air in neither
+ * verdict column — which is why the three returned counts do not have to sum
+ * to the sitting, and why the subtraction is not the definition.
+ */
+export function finishSummary(counts: FinishCounts, questionCount: number): FinishSummary {
+  if (!Number.isInteger(questionCount) || questionCount <= 0) {
+    throw new Error(`A sitting asks at least one question; got ${questionCount}.`);
+  }
+  for (const [name, value] of Object.entries(counts)) {
+    if (!Number.isInteger(value) || value < 0 || value > questionCount) {
+      throw new Error(`A sitting of ${questionCount} question(s) cannot have ${value} ${name}.`);
+    }
+  }
+
+  const answered = questionCount - counts.remaining;
+  if (counts.correct + counts.incorrect > answered) {
+    // More verdicts than answers. The counts did not come from one sitting.
+    throw new Error(
+      `A sitting of ${questionCount} cannot hold ${counts.correct + counts.incorrect} ` +
+        `verdict(s) against ${answered} answer(s).`,
+    );
+  }
+
+  return {
+    correct: counts.correct,
+    incorrect: counts.incorrect,
+    unreached: counts.remaining,
+    complete: counts.remaining === 0,
+  };
+}
