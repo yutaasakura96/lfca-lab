@@ -847,8 +847,17 @@ arbitrarily.
 **No second Playwright run** (#39). Doc 11 §2 specifies one, covering the path where a bug costs a
 first-attempt score; nothing in an unclocked, unscored mode can.
 
-**Before the deploy slice, re-read the three findings under Blocked** — they were carried through
-features 2 and 3 deliberately and each belongs to whoever wires Vercel.
+**Feature 5 is chosen: the deploy slice.** Picked over the holdout sitting (H1) on 2026-09-09. The
+2026-09-06 note that it "moves nothing but the URL" was written against a slice that *added* study
+capability; against H1 that comparison no longer holds. Every screen through features 3 and 4 was
+verified at 375px by **emulation against `localhost`**, and none of it has ever been reachable from
+a phone — which is where a 20-question domain sitting actually gets done. H1 stays available and
+unblocked, and is deliberately sat **last**, once the sixteen papers are worked, so building it now
+would build well ahead of using it.
+
+**Re-read the four findings under Blocked before speccing this** — they were carried through
+features 2, 3 and 4 deliberately and each belongs to whoever wires Vercel. *This line said
+"three" until 2026-09-09; Blocked has listed four since the push guard was removed on 2026-09-06.*
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
