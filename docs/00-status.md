@@ -808,7 +808,7 @@ that dependency order. **#31–#39 are closed.** #38 settled the question #37 ha
 composed sitting **keeps** opening on its outcome rather than going back to redirecting to the
 review, which now exists and is reachable from that outcome's own action.
 
-**Feature 4 is complete. #29 is closed, and #30 closes with it.** Practice and domain mode run
+**Feature 4 is complete. #29 and the parent #30 are both closed.** Practice and domain mode run
 end to end — chosen from home, composed and frozen, sat forward-only with the answer and all four
 explanations on every question, closed by hand, and read back with counts rather than a score.
 The last of it was the 375px code-run overflow; see the feature-4 entry above for what landed.
