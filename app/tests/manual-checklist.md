@@ -71,33 +71,55 @@ the app had silently admitted an account to its database.
 
 ## 2. Themes and colour
 
-- [ ] Every screen in **both themes**: sign-in, exam list, sitting, submit dialog (all four of its
-      states), review. Toggle with the control in the app, not with the OS, then once with the OS to
-      confirm the default follows the system.
+- [ ] Every screen in **both themes**: sign-in, home, exam list, `/practice`, `/domain`, the timed
+      sitting, the submit dialog (all four of its states), the composed sitting, the finish dialog
+      (both its confirmations and both its outcomes), and **both** reviews, scored and unscored.
+      Toggle with the control in the app, not with the OS, then once with the OS to confirm the
+      default follows the system.
 - [ ] No colour, spacing, radius or font value used outside `src/styles/tokens.css`. Grep the diff
       for a raw hex code before believing this.
 - [ ] **If any colour token changed**, re-run the Phase 3 contrast check — 40 pairs, both themes,
       4.5:1 for text and 3:1 for non-text. A token change without this is not finished.
 - [ ] Every state legible at `filter: grayscale(1)`: correct, incorrect, flagged, unanswered,
       current, and the three clock bands. Colour is never the only signal (doc 05 rule 4).
+- [ ] The same at `grayscale(1)` for what only the composed modes draw: the four option states
+      during feedback, both rail verdicts, and **not reached** against **incorrect**. The correct
+      and incorrect fills are near-identical greys, so the glyph and the written label are what
+      carry these — if the tiles read alike with colour removed, the glyph is missing, not the hue.
 
 ## 3. Keyboard and focus
 
 - [ ] Focus ring visible on **every** control in both themes, 2px at 2px offset, never removed
       (doc 05 §7.3). Includes navigator tiles, review filters, and the option buttons.
-- [ ] A full sitting driven by keyboard alone: `Tab` to reach everything, `1`–`4` to choose,
-      `F` to flag, `←` `→` to move, and Submit reachable and operable.
-- [ ] The submit dialog traps focus while open and returns it to the button on close.
-- [ ] Every navigator tile is tabbable, and the sheet's contents are not tab stops while closed.
+- [ ] A full **timed** sitting driven by keyboard alone: `Tab` to reach everything, `1`–`4` to
+      choose, `F` to flag, `←` `→` to move, and Submit reachable and operable.
+- [ ] A **composed** sitting driven by keyboard alone: `1`–`4` to choose, `Enter` or `→` to
+      advance — and `←` and `f` doing **nothing**, which is the forward-only rule felt rather than
+      read. A key that silently works here is the defect; a key that does nothing is the spec.
+- [ ] The submit dialog and the finish dialog both trap focus while open and return it to the
+      button on close. Escape closes a confirmation and is refused on an outcome — the sitting is
+      already over, so there is nothing to go back to.
+- [ ] Every navigator tile is tabbable **in exam mode**, and the sheet's contents are not tab stops
+      while closed. In a composed sitting the tiles are `<span>`s and **must not** be tab stops:
+      tabbing through the sitting reaches the options, Save and exit and Next, and does not walk
+      sixty tiles that would refuse every press.
 
 ## 4. Mobile and pointer
 
-- [ ] At 375px: the navigator becomes a **sheet**, not a rail, and the sheet's trigger is the
-      question counter in the bar.
+- [ ] At 375px in a **timed** sitting: the navigator becomes a **sheet**, not a rail, and the
+      sheet's trigger is the question counter in the bar.
+- [ ] At 375px in a **composed** sitting the rail is **still a rail**, dropped below the question —
+      there is no sheet in these modes, so the rule that hides every `.rail` on a narrow layout is
+      overridden here deliberately. Measure it: a session card of `0×0` is what its absence looks
+      like, and it looks like nothing at all.
 - [ ] Every target on a touch layout is **≥44px**. The 34px rail tile never appears on a coarse
-      pointer — check with a real touch device or pointer emulation, not with width alone.
-- [ ] Nothing overflows the page horizontally at 375px, on every screen. The bar wraps for the save
-      chip rather than shrinking the clock.
+      pointer — check with a real touch device or pointer emulation, not with width alone. The one
+      standing exception is the shared `ThemeToggle` at 36px, which is pre-existing and on every
+      screen; anything else under 44px is new and is a defect.
+- [ ] Nothing overflows the page horizontally at 375px, on every screen — home, both setup screens,
+      both sittings, both reviews. The bar wraps for the save chip rather than shrinking the clock.
+      Compare `document.documentElement.scrollWidth` against `window.innerWidth` rather than
+      judging by eye; a few pixels of overflow are invisible and still wrong.
 
 ## 5. The save failure
 
@@ -107,6 +129,14 @@ the app had silently admitted an account to its database.
       hides, deliberately (decision log, 2026-09-03).
 - [ ] Submit is blocked while a write is owed, and the button reads "Saving…".
 - [ ] Restore the network: the chip clears, and a reload shows the answers and flags are there.
+- [ ] The same in a **composed** sitting: the chip appears, answering keeps working, **Save and
+      exit** and **Finish this run** both read "Saving…" and are disabled, and the finish dialog
+      states which wait it is. There is no clock here to keep running, and no clock to close the
+      sitting either — so a write that never lands blocks Finish for as long as the tab is open.
+      That is the known limit (decision log, 2026-09-08), and the escape is that the queue is in
+      memory: a reload drops it and the sitting closes.
+- [ ] A **permanently refused** write — not a retryable one — puts the answer back and leaves the
+      options interactive again. The screen must not go on showing a choice the database refused.
 
 ## 6. Against the specifications
 
@@ -158,9 +188,111 @@ the app had silently admitted an account to its database.
 
 ---
 
+## 7. The composed sitting — practice and domain
+
+The two unscored modes. Everything here is a **negative**: the value of these checks is what is
+absent, and an absence is exactly what a passing suite does not notice. Run them on a real sitting
+of each mode, started from home, not on a screenshot.
+
+### 7.1 No clock, anywhere
+
+- [ ] **No countdown, no deadline, no elapsed time on any composed screen** — not stopped, not
+      greyed out, not `--:--`. `ComposedBar` is never handed a deadline and has no prop to receive
+      one through, so a clock appearing here is a component that should not be on the screen at
+      all. Search the rendered text for a `MM:SS` pattern rather than looking for one.
+- [ ] The bar carries the position, the two running counts, the mode chip and **Save and exit** —
+      and on a phone the chip stays, unlike the timed bar which gives up its paper's name there.
+- [ ] In SQL, `time_limit_seconds IS NULL` on the attempt. A composed sitting never expires, so it
+      is never finalised lazily; the only way one closes is a person pressing a button.
+
+### 7.2 Feedback, on every option, straight away
+
+- [ ] Answering shows the verdict **and the `why` for all four options**, including the three
+      nobody chose — that wrong-option text is the most valuable content in the bank (PRD E4, P1).
+      Not just the correct one, and not just the one that was picked.
+- [ ] Between the click and the reply the screen says **"Marking your answer…"** and claims
+      nothing. The verdict is never decided in the browser; there is no key in the component's
+      props to decide it from.
+- [ ] The verdict names a **letter** ("The answer is D"), and that letter still names the same
+      option after a reload and again in the review. The slot is derived from the attempt and the
+      question, so it is stable — if it moves, the review will tell the candidate they pressed
+      something they never pressed.
+- [ ] **The key is not always A.** The bank authors the correct option first in all 1,150
+      questions, so a run whose answers were all at A would mean the derived slot is not being
+      applied. Over twenty questions expect all four letters to occur.
+
+### 7.3 Forward only, and no flagging
+
+- [ ] The footer offers **Next question** and nothing else — no Previous, at any position. On the
+      last question it reads **Finish this run**.
+- [ ] **No flag control exists.** Not disabled — absent. The word "flag" does not appear on the
+      screen, and `f` does nothing.
+- [ ] The rail's tiles are **not clickable and not focusable**: they report progress and refuse to
+      be a way back. Clicking one does nothing at all.
+- [ ] A graded answer **cannot be changed**. The options lock on the click that answers, not on
+      the reply — the window before the mark is exactly the window in which an answer must not be
+      changeable.
+
+### 7.4 The three counts, and nothing that could be read as a fourth
+
+- [ ] The bar's running counts and the rail's `Correct · Incorrect · Remaining` agree with each
+      other and, once every write has landed, sum to the sitting's length.
+- [ ] Both closes show `Correct · Incorrect · Not reached` and **nothing else** — no percentage, no
+      `n/20`, no pass mark, no verdict chip. PRD P1 forbids the measurement, and this is the screen
+      where one could most plausibly be added by accident.
+- [ ] **Not reached is not derived by subtraction.** With a write still owed, the dialog must not
+      report the question it is owed for as one the candidate never reached — watch the counts move
+      as the write lands rather than reading them once.
+- [ ] **Finish** on the last question takes the primary treatment; **Save and exit** with questions
+      left behind takes the danger treatment and adds the unreached panel. The destructive
+      treatment appears where something is actually being left behind, so it is not taught to be
+      ignored.
+- [ ] In SQL, **`score IS NULL`** on every practice and domain attempt, and `submit_reason` is
+      `user`. `expired` is unreachable without a clock.
+
+### 7.5 The negatives that only SQL can settle
+
+Run these against the same `DATABASE_URL` the app is using. Each is a claim the screen cannot make.
+
+```sql
+SELECT
+  (SELECT count(*) FROM attempt_question aq JOIN question q ON q.id = aq.question_id
+     WHERE q.is_holdout)                                              AS holdout_served,
+  (SELECT count(*) FROM attempt
+     WHERE mode IN ('practice','domain') AND score IS NOT NULL)       AS composed_scored,
+  (SELECT count(*) FROM attempt
+     WHERE mode IN ('practice','domain') AND is_first_attempt)        AS composed_claiming_first,
+  (SELECT count(*) FROM attempt_question aq JOIN attempt a ON a.id = aq.attempt_id
+     WHERE a.mode = 'exam')                                           AS exam_rows_frozen;
+```
+
+- [ ] **`holdout_served` is 0.** This is the whole point of the holdout and the third of its three
+      locks — the pinned file, the builder's refusal, and the query's own `is_holdout = false`.
+      Zero here against 40 marked holdout questions is the check; inferring it from a sitting that
+      happened not to show one is not.
+- [ ] **`composed_scored` is 0.** Doc 04 §5.1's check constraint enforces it, so a non-zero here
+      means the constraint is gone, not that a screen is wrong.
+- [ ] **`composed_claiming_first` is 0.** The first-attempt flag is exam-only and is settled at
+      creation; nothing about a practice run can reach it.
+- [ ] **`exam_rows_frozen` is 0.** A paper's order lives in `exam_item` and must never be readable
+      from two tables — two places to read it from is two places to read it from *differently*.
+- [ ] The frozen set matches its pinned quota **domain by domain**, read back from
+      `attempt_question` rather than from the request: 60 → 18/11/10/8/7/6, 40 → 12/7/6/6/5/4,
+      20 → 6/4/3/3/2/2, and a domain sitting entirely in its own domain. `question_count` equals
+      the number of rows actually frozen, never the length that was asked for.
+
+---
+
 ## What the browser run already covers — don't re-check by hand
 
 `npm run test:e2e` walks start → answer → flag → close the browser → resume with time genuinely
 gone → past the deadline → auto-submitted as it stood → review → a second submit that changes
 nothing. If that suite is green, none of that path needs a manual pass; spend the time on the
 sections above, which no suite can reach.
+
+**It walks exam mode only, and there is deliberately no second run.** Doc 11 §2 specifies one
+browser test, covering the path where a bug costs a first-attempt score — and nothing in an
+unclocked, unscored mode can cost one. So the composed modes have **no browser coverage at all**:
+§7 is the whole of it, and its SQL half is not optional decoration but the only place several of
+those claims can be settled. The unit and integration suites cover the pure decisions and the
+queries beneath both modes; what they cannot see is a screen, which is why §7 exists.

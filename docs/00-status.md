@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-07
+**Updated:** 2026-09-09
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -702,6 +702,52 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   Doc 10 gains **§8a** and its §7 closing paragraph is corrected.
   Suites: 339 bank · **459** app unit · **189** app integration · 1 app e2e.
 
+- **Phase 6, feature 4 — the checklist, the sweep and the docs** (#39). The last of feature 4, and
+  the ticket with no code in it: what it produces is **evidence**, and a record of what the suites
+  structurally cannot see.
+  `app/tests/manual-checklist.md` gains **§7, the composed sitting**, in five parts — no clock,
+  feedback on every option, forward-only and no flagging, the three counts, and the negatives only
+  SQL can settle. Every item is written as a **negative**, because that is what these two modes
+  are: the value is in what is absent, and an absence is exactly what a passing suite does not
+  notice. §2, §3, §4 and §5 were extended in place rather than duplicated — the theme sweep now
+  names all eleven screens, the keyboard pass names `←` and `f` **doing nothing** as the spec
+  rather than as a gap, §4 records that the composed rail is still a rail at 375px, and §5 gains
+  the composed save-failure and the known Finish-blocked-forever limit with its escape.
+  **§6 keeps its number deliberately** — three docs cite it, one of them the append-only decision
+  log — so the new section is §7 rather than a renumbering that would make a log entry false.
+  The closing section now says plainly that **the browser run walks exam mode only**, so the
+  composed modes have no browser coverage at all and §7 is the whole of it.
+  **The sweep was run, not described.** Both themes, 1440 and 375, on **three real sittings driven
+  end to end from home**: a domain run of 20 (SysAdmin) answered to the end and finished, a
+  practice run of **60** answered to the end and finished, and a practice run of 20 saved and
+  exited at question 7 to exercise the partial case. Measured rather than eyeballed: no `MM:SS`
+  anywhere in a composed sitting, zero focusable rail tiles, tiles 44×44 rendered as `<span>`, the
+  word "flag" absent from the document, no Previous at any position, `scrollWidth == innerWidth ==
+  375` on every screen, and the only sub-44px target the shared 36px `ThemeToggle`.
+  **The two readings of one rule were seen side by side, which is the check worth keeping.** The
+  partial practice run's review reads `Incorrect 5 · Correct 2 · Not reached 13 · All 20`, they
+  partition, `data-scored="false"`, and the default view shows **5** cards — the wrong answers
+  only. The exam-07 review, opened immediately after, reads `Incorrect 52 · Correct 8 · Flagged 0 ·
+  All 60` with `data-scored="true"`, its default showing **52** — the 30 blanks claimed, the label
+  still *not answered*, the pass bar, `8/60` and `13.3%` all present. The reversal is mode-local
+  and the exam review is untouched, measured rather than assumed.
+  **The negatives were confirmed in SQL, not from the screen** (dev branch, `br-noisy-credit`):
+  **0** holdout ids across all 100 `attempt_question` rows against 40 marked holdout questions;
+  **0** practice or domain attempts carrying a score; **0** claiming a first-attempt flag; **0**
+  carrying a clock; and **0** exam rows in `attempt_question`, so a paper's order is still readable
+  from exactly one table. The frozen sets match their pinned quotas **read back from the rows**:
+  the 60 at 18/11/10/8/7/6, the 20 at 6/4/3/3/2/2, and the domain run 20 of 20 in its own domain,
+  with `question_count` equal to the rows actually frozen in all three.
+  A reload of a finalised composed sitting **opens on its outcome** — not a 404, not a redirect —
+  with zero option buttons behind it, which is #38's decision holding in the browser.
+  `CONTEXT.md` gains the two terms this slice actually moved: **composed sitting**, and **not
+  reached vs unanswered**, which are two different facts about a blank and are now written down as
+  such rather than left to be inferred from which review you happen to be reading.
+  **Nothing was found that needed fixing**, and the ticket carries no code change — worth saying
+  plainly rather than leaving the absence of a diff to look like an absence of work.
+  Suites re-measured rather than carried forward: **339** bank · **459** app unit · **189** app
+  integration · **1** app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -717,13 +763,20 @@ weeknight. The holdout is deliberately sat **last**, once; the deploy slice move
 URL. Neither is blocked by this, and both stay available.
 
 **The spec is written and the tickets exist.** Parent **#30**, ten children: **#31–#39 and #29**, in
-that dependency order. **#31–#38 are closed**; **#39 is the frontier** — the manual checklist, the
-browser sweep and the docs, the last of feature 4. #38 also settled the question #37 handed it: a
-finished composed sitting **keeps** opening on its outcome rather than going back to redirecting to
-the review, which now exists and is reachable from that outcome's own action.
-#29 (the 375px
-code-run overflow) stays takeable at any time — no dependencies, `ready-for-agent`, its fix decided
-in a comment and confirmed not yet in the code. Grilled to seven
+that dependency order. **#31–#39 are closed.** #38 settled the question #37 handed it: a finished
+composed sitting **keeps** opening on its outcome rather than going back to redirecting to the
+review, which now exists and is reachable from that outcome's own action.
+
+**Feature 4 is complete but for #29, and #30 closes when it does.** Practice and domain mode run
+end to end — chosen from home, composed and frozen, sat forward-only with the answer and all four
+explanations on every question, closed by hand, and read back with counts rather than a score.
+**#29 (the 375px code-run overflow) is the only thing standing between here and closing the parent**
+— no dependencies, `ready-for-agent`, its fix decided in a comment on the issue (`<wbr>` after path
+separators in `BankText` plus `overflow-wrap: anywhere` on `code`) and **confirmed still absent from
+the code during #39's sweep**: `getComputedStyle(code).overflowWrap` is `normal`. It did not
+reproduce on the three sittings swept, because none of their 76 code spans happened to carry a long
+enough space-free run — which is the reason it is a real bug rather than a fixed one, and the reason
+it needs a question chosen for it rather than a sweep. Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the
 2026-08-29 precedent; each names its ticket):
 

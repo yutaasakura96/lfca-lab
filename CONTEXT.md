@@ -38,6 +38,7 @@ Content tables are read-only to the app; user tables are never touched by the se
 | **Competency** | The finer grouping inside a domain (`Linux Fundamentals :: Command Line`). 22 of them. Not a level anything is selected by. |
 | **Concept** | A `concept_id` from `data/topics/`. The study guide's unit. The simulator carries it but does not select by it. |
 | **Paper** / **exam** | One of the sixteen fixed sets of 60, `exam-01`…`exam-16`. Fixed composition, fixed order. Never generated on the fly. |
+| **Composed sitting** | A sitting whose questions were chosen at start rather than read off a paper — practice, domain and holdout. Its set is **frozen** into `attempt_question` in the same transaction as the attempt, because it cannot be recovered afterwards. A paper's order lives in `exam_item` and a composed sitting's in `attempt_question`; one read helper branches on mode, and neither table is ever asked about the other's sittings. |
 | **The holdout** | The **40 exam-pool items pinned by id in `data/holdout.json`.** A committed decision, never served in practice or domain mode, sat exactly once. It is the project's only defence against its riskiest assumption. Treat any change near it as a change to the project's thesis. |
 | **`unused`** | The `unused` key in `exams/index.json` — **the items the sixteen papers happened not to use**, recomputed by every `npm run build-exams`. A residue, not a decision. It is equal to the holdout today and `npm run validate` fails if it ever stops being; **the two words are never interchangeable**, because the whole point of pinning is that a residue can drift and a commitment cannot. |
 
@@ -54,6 +55,7 @@ Content tables are read-only to the app; user tables are never touched by the se
 | **Auto-submit** | What happens to an expired attempt — finalised **lazily**, on the next read. There is no cron in this system. |
 | **The outbox** | The in-memory queue of failed answer writes, retried with backoff behind an idempotent upsert. Deliberately not persisted. |
 | **The chip** | The "Not saved — retrying" indicator. Non-dismissible, never blocks answering, never pauses the clock. |
+| **Not reached** vs **unanswered** | Two different facts, and the words are not interchangeable. On a **paper** every question could have been answered at any point, so a blank is **unanswered** and cost exactly what a wrong answer cost — the review's *Incorrect* claims it. In a **composed** sitting, which is strictly forward, a blank is a question nobody was ever shown: it is **not reached**, it cost nothing, and *Incorrect* does not claim it. One `scored` argument through one predicate decides both readings, so the two can never drift apart. |
 
 ---
 
