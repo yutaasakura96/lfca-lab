@@ -120,6 +120,16 @@ the app had silently admitted an account to its database.
       both sittings, both reviews. The bar wraps for the save chip rather than shrinking the clock.
       Compare `document.documentElement.scrollWidth` against `window.innerWidth` rather than
       judging by eye; a few pixels of overflow are invisible and still wrong.
+- [ ] A long backticked path stays **inside its option card** at 375px. This is the check a sweep
+      does not make for you: it needs a question chosen for its content, because most code spans in
+      the bank are short enough to fit whatever the rule says. `BankText` emits `<wbr>` after each
+      `/`, `:`, `.` and `-`, and `code` carries `overflow-wrap: anywhere` as the backstop for an
+      identifier with no separator in it. Both are asserted in `tests/unit/inline-code.test.ts`; what
+      the browser adds is **where the break lands**. Open the review of a sitting that asked
+      `q.pm.software-application-architecture.http-methods-and-status-codes.01`, switch the filter to
+      **All**, and compare a code span's right edge with its `.opt`'s content box. A path should
+      break at a slash — `/proc/` · `sys/net/ipv4/` · `ip_local_port_range` — and only a genuinely
+      unbreakable name like `KbdInteractiveAuthentication` should break mid-word.
 
 ## 5. The save failure
 

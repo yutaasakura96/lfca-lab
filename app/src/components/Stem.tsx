@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { splitInlineCode } from '../lib/inline-code.ts';
+import { splitInlineCode, splitOnSeparators } from '../lib/inline-code.ts';
 
 /**
  * Bank prose with its backticked code rendered as code.
@@ -18,7 +18,9 @@ export function BankText({ text }: { text: string }): ReactNode {
   return splitInlineCode(text).map((segment, i) =>
     segment.code ? (
       <code className="mono" key={i}>
-        {segment.text}
+        {splitOnSeparators(segment.text).flatMap((run, j) =>
+          j === 0 ? [run] : [<wbr key={j} />, run],
+        )}
       </code>
     ) : (
       <span key={i}>{segment.text}</span>

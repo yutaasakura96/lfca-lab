@@ -748,6 +748,47 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   Suites re-measured rather than carried forward: **339** bank · **459** app unit · **189** app
   integration · **1** app e2e.
 
+- **Phase 6, feature 4 — a long path stays inside its card** (#29). The last child of #30, and the
+  one #39's sweep could not find: most code spans in the bank are short enough to fit whatever the
+  rule says, so this needed **questions chosen for their content** rather than another sweep.
+  The fix is the one decided on the issue, in two halves that do different jobs. `BankText` emits
+  **`<wbr>` after each `/`, `:`, `.` and `-`**, so a path breaks where a reader of commands would
+  have broken it; and `design/base.css`'s `code` rule gains **`overflow-wrap: anywhere`** as the
+  backstop for a name with no separator in it. **Both are load-bearing, measured rather than
+  argued:** with the backstop alone, `/proc/sys/net/ipv4/ip_local_port_range` breaks as
+  `/proc/sys/net/ipv4/ip_loc` · `al_port_range` — mid-segment, which is the readability cost the
+  ticket weighed the fix against — and with both it breaks `/proc/` · `sys/net/ipv4/` ·
+  `ip_local_port_range`. `KbdInteractiveAuthentication` breaks mid-word either way, because there
+  is nowhere else, which is exactly the division of labour intended.
+  A **run of separators stays whole**, so `https://` wraps as a unit rather than leaving `https:`
+  at the end of a line looking like a different URL. `_` is deliberately not a separator —
+  `ip_local_port_range` reads as one name, and the backstop already covers it.
+  The CSS is a **design-system change, not an app one**: `design/base.css` edited and re-copied, and
+  the #16 byte-for-byte assertion is what proves the copy — verified by mutation, since removing the
+  rule from the app's copy fails **both** that assertion and the new one that reads the rule.
+  **Measured against the whole bank rather than the ticket's five questions**, and a sixth turned
+  up: `/run/systemd/resolve/io.systemd.Resolve` at **39** characters, longer than anything the
+  ticket listed. Across 1,150 items there are 5,518 space-free code words; splitting drops the
+  longest unbreakable run from 39 to **28** — `KbdInteractiveAuthentication`, the backstop's own
+  case. Two of the six sit on papers never sat (exam-01, exam-06), and **starting those to look at a
+  rendering rule would have burned two first-attempt scores**, so they were rendered through the
+  real `ReviewCard` on a scratch route instead, which was deleted before the commit.
+  Verified in the browser at 375px, both themes, with the pre-fix rendering reconstructed on the
+  same page for a real before/after: **9 code spans spilling, up to 148px, and a page
+  `scrollWidth` of 481 against a 375 viewport — 0 spilling and 375 after.** The ticket said it
+  never overflowed the viewport; on a review showing all four explanations it does, which is
+  recorded here rather than left standing. The reviews of three **already-submitted sittings** on
+  the owner's own account were measured the same way — exam-14 (36px × 3 → 0), exam-08 (36 → 0),
+  exam-05 (29 → 0) — and dark theme came back 0. **Nothing was written to verify this**: no sitting
+  was started, and the attempt count stood at 14 before and after.
+  **The guarantee is a property, not a measurement**, which is what covers the sitting screen whose
+  card is padded differently: `overflow-wrap: anywhere` shrinks min-content to one character, so a
+  code span cannot exceed its box at any width. Squeezed to 241 / 200 / 140 / 80 / **40**px, the
+  38-character path never spilled once.
+  `app/tests/manual-checklist.md` §4 gains the check, written so it names the question to open —
+  a sweep will not find this on its own.
+  Suites: 339 bank · **470** app unit · 189 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -767,16 +808,11 @@ that dependency order. **#31–#39 are closed.** #38 settled the question #37 ha
 composed sitting **keeps** opening on its outcome rather than going back to redirecting to the
 review, which now exists and is reachable from that outcome's own action.
 
-**Feature 4 is complete but for #29, and #30 closes when it does.** Practice and domain mode run
+**Feature 4 is complete. #29 is closed, and #30 closes with it.** Practice and domain mode run
 end to end — chosen from home, composed and frozen, sat forward-only with the answer and all four
 explanations on every question, closed by hand, and read back with counts rather than a score.
-**#29 (the 375px code-run overflow) is the only thing standing between here and closing the parent**
-— no dependencies, `ready-for-agent`, its fix decided in a comment on the issue (`<wbr>` after path
-separators in `BankText` plus `overflow-wrap: anywhere` on `code`) and **confirmed still absent from
-the code during #39's sweep**: `getComputedStyle(code).overflowWrap` is `normal`. It did not
-reproduce on the three sittings swept, because none of their 76 code spans happened to carry a long
-enough space-free run — which is the reason it is a real bug rather than a fixed one, and the reason
-it needs a question chosen for it rather than a sweep. Grilled to seven
+The last of it was the 375px code-run overflow; see the feature-4 entry above for what landed.
+Grilled to seven
 settled decisions, five of them in the log under 2026-09-06 (recorded before implementation, on the
 2026-08-29 precedent; each names its ticket):
 
