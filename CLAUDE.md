@@ -90,8 +90,10 @@ Hand-maintained: `PROGRESS.md`, `README.md`, `study-guide/`.
 - **Pushing is ordinary, `main` included.** There is no hook refusing it any more — the owner asks
   for the commit, the merge and the push, so a guard that made `main` the one branch an agent could
   not move was friction in the way of the actual workflow. Say what you pushed; do not ask first.
-  **This changes at the deploy slice**, when a push to `main` becomes a production deploy
-  (@docs/12-deployment.md §3) — decide then whether that one wants a prompt back.
+  **Decided at the deploy slice: it stays ordinary, even once a push to `main` is a production
+  deploy** (@docs/12-deployment.md §3). No hook, no manual promotion, no disabled auto-deploy — the
+  rollback is Vercel's *Promote to Production*, seconds and no rebuild, and the failure this repo has
+  actually had is `main` drifting **behind** `develop`. See the decision log, 2026-09-11.
 
 ## Gotchas
 
@@ -132,7 +134,17 @@ Architecture, schema, API and deployment are specified. Point at them; don't res
 
 `.mcp.json` holds **Neon MCP** and **Playwright MCP** — both triggers have fired. One left:
 
-- **Sentry MCP** when the Sentry project exists (doc 12 §6)
+- **Sentry MCP** when the Sentry project exists (doc 12 §6) — the deploy slice's last ticket creates it
+
+**The Neon CLI is installed but unauthenticated.** It is `neon` v4.14.0, installed globally — the
+`neon` npm package *is* the CLI now, so looking for `neonctl` finds nothing. `~/.config/neon/` is
+empty and dated 2026-08-31: a login was started and abandoned. `neon auth` is a browser flow and is
+the owner's to complete. Org `org-tiny-fire-00617341`, project `wispy-bird-80472699`.
+
+**Neither the CLI nor Neon MCP has a permission rule**, and the MCP announces "Write mode active.
+Destructive tools are exposed" on connection. The deploy slice gives both the split `gh` has: reads
+allowed, every write at `ask`. Until then, treat any `neon` write as needing the owner's say-so —
+these are the tools that can delete the branch holding the first-attempt scores.
 
 ## Agent skills
 

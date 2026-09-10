@@ -439,5 +439,9 @@ migrate` applies it. Migrations are **committed and reviewed as SQL**, never app
 `push`-style sync — the schema is not something to discover after the fact when it holds the only
 copy of the first-attempt scores.
 
-CI runs migrations against a Neon **preview branch** before production (doc 12). The order on deploy
-is: migrate, then seed, then release. A migration that fails leaves the previous release serving.
+**This said "CI runs migrations against a Neon preview branch before production".** There are no
+preview branches — doc 12 §1 records why — and migrations run against production from a GitHub
+Actions workflow on push to git `main`, using the direct (`DATABASE_URL_UNPOOLED`) host. The workflow
+and the Vercel build run concurrently rather than in order, so a failed migration does not stop the
+new code being served; that is what makes doc 12 §3's rule load-bearing, that a migration must be
+backward-compatible with the release currently serving. A rename is two deploys, always.

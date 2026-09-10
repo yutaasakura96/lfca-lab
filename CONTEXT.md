@@ -78,6 +78,15 @@ a conversation in a pull request.
 
 ---
 
+## Words about deploying
+
+| Term | Means |
+| --- | --- |
+| **Branch** | Ambiguous on its own, and never used bare. A **git branch** is code: `main` and `develop`, the only two that exist. A **Neon branch** is a copy of the database. They are named after the git branch they serve — Neon `main` backs git `main`, Neon `develop` backs local work — so that "which branch" is answerable without asking "whose branch". Say *git branch* or *Neon branch* whenever both senses are in the room. |
+| **Production** | The deployment served from git `main`, backed by the Neon `main` branch. It is the only deployed environment; there are no per-PR previews, because a Google redirect URI cannot be wildcarded and a Vercel preview hostname changes per deployment. |
+
+---
+
 ## Conventions
 
 - **Database:** snake_case columns, singular table names, `timestamptz` always UTC, bank ids as

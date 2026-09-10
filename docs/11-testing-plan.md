@@ -83,14 +83,27 @@ Run before each deploy that touches the UI. Kept in `app/tests/manual-checklist.
 
 ## 5. CI
 
-GitHub Actions on push and pull request, from the repo root:
+GitHub Actions on push, from the repo root. **What is built is the first two lines only:**
 
 ```
 npm test && npm run validate && npm run check-bank     # the bank
 cd app && npm run typecheck && npm run test:unit       # the app, needs no database
-cd app && npm run seed && npm run test:integration     # on a Neon preview branch
-cd app && npm run test:e2e                            # builds, then the one Playwright run
+
+# NOT in CI — both need a seeded branch and a credential CI deliberately does not hold:
+# cd app && npm run seed && npm run test:integration
+# cd app && npm run test:e2e
 ```
+
+**The last two lines are run locally, not in CI**, and that is a decision rather than an omission
+(decision log, 2026-09-11). Both need `DATABASE_URL` as a repository secret and a seeded Neon branch
+— precisely the apparatus §4 originally declined for one user, and which the 2026-09-01 entry
+admitted only for a claim no pure function could make. The three cheap suites run in seconds, need no
+credential, and are what makes doc 12 §3's "CI gates the deploy" true for the first time; there was
+no `.github/` directory at all until the deploy slice, so it had never been true before.
+
+**Node is pinned in the workflow.** `npm run seed` executes `scripts/seed.ts` directly, which needs
+Node ≥23.6 for unflagged type stripping, and `--env-file-if-exists` needs ≥20.12. Both are silently
+absent on an older major, and the failure is a parse error in a workflow nobody is watching.
 
 **`npm run test:e2e` runs `next build` itself**, which is a correction to this section rather than a
 refinement of it: it originally read `npm run build && npm run test:e2e`, and that builds twice. The
@@ -101,8 +114,10 @@ session row, so it never touches an OAuth redirect and has no claim on the port 
 registered against.
 
 The browser run reuses the **same database** as the integration suite, under its own `e2e-` user
-prefix — which is why the two lines above are ordered as they are, with one `seed` serving both. A
-distinct prefix is what keeps their teardowns apart: each deletes every user carrying its own prefix.
+prefix — which is why the two commented lines above are ordered as they are, with one `seed` serving
+both. A distinct prefix is what keeps their teardowns apart: each deletes every user carrying its own
+prefix. That database is the Neon **`develop`** branch; production is the Neon **`main`** branch and
+no suite has ever pointed at it.
 
 All three app suites **skip cleanly** when `DATABASE_URL` is absent rather than erroring, so a
 contributor without a branch still gets a green run and an honest count of what was skipped. The unit

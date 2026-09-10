@@ -14,7 +14,7 @@ API: [07-api-design.md](07-api-design.md) · Decisions: [06-decision-log.md](06-
 | Framework | **Next.js, App Router** | One deployable holds UI and writes. Better Auth ships a first-class Next.js integration, so the auth half is configuration rather than plumbing. Server components mean the question bank — including the answer key — is read on the server and only the rendered stem and option text cross to the browser. *Rejected:* React Router 7 (equivalent shape, smaller auth-plus-Postgres ecosystem), a Vite SPA with a separate API (two deploy targets, hand-rolled browser sessions, and an API surface with no second consumer), SvelteKit (the design system and screen specs are written in React-shaped component language). |
 | Language | **TypeScript, strict** | The question JSON has a real shape (§3). Typing it once at the seed boundary is what stops a malformed item reaching a render. |
 | Data access | **Drizzle ORM** + `drizzle-kit` migrations | SQL-shaped and typed end to end; Better Auth has an official Drizzle adapter, so the auth tables are generated rather than hand-written. Migrations are plain readable SQL files. *Rejected:* Prisma (heavier serverless runtime, schema language that is not SQL), raw Kysely/`postgres.js` (Better Auth's table set becomes yours to migrate by hand). |
-| Database | **Postgres** (Neon) | Decided in Phase 1 and not reopened. The honest case against SQLite is not scale — it is that this is one of two projects the owner keeps, it may open up later, and Neon's branch-per-preview costs nothing. See the decision log. |
+| Database | **Postgres** (Neon) | Decided in Phase 1 and not reopened. The honest case against SQLite is not scale — it is that this is one of two projects the owner keeps, it may open up later, and Neon's branching costs nothing. See the decision log. *This cell said "branch-per-preview" until 2026-09-11; there are no preview environments (doc 12 §1), but branching is still what makes the dev/production split free.* |
 | Auth | **Better Auth + Google OIDC**, email allowlist | Decided in Phase 1, overruled twice when deferral was proposed. See [08-auth-and-permissions.md](08-auth-and-permissions.md). |
 | Styling | **Plain CSS**, `design/tokens.css` copied in verbatim | The design system is already expressed as custom properties. A utility framework would re-express values that are already pinned, which is exactly the drift [05-design-system.md](05-design-system.md) exists to prevent. No Tailwind, no CSS-in-JS. |
 | Hosting | **Vercel** (app) + **Neon** (Postgres) | §10. |
@@ -305,8 +305,8 @@ introduce its first one. It applies in exactly three places: sign-in, start-atte
 
 *Mandatory section. Answered concretely, including the parts that are uncomfortable.*
 
-**Where secrets live.** Vercel environment variables, per environment (Production / Preview /
-Development), and `app/.env.local` locally — gitignored, with `app/.env.example` committed carrying
+**Where secrets live.** Vercel environment variables (**Production only** — there are no preview
+environments, doc 12 §1), and `app/.env.local` locally — gitignored, with `app/.env.example` committed carrying
 names and empty values only. Nothing secret is ever committed. Full inventory in
 [12-deployment.md](12-deployment.md). The Google client secret, the Neon connection string, the
 Better Auth secret and the Sentry auth token are the four that matter.

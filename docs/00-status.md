@@ -855,9 +855,27 @@ a phone — which is where a 20-question domain sitting actually gets done. H1 s
 unblocked, and is deliberately sat **last**, once the sixteen papers are worked, so building it now
 would build well ahead of using it.
 
-**Re-read the four findings under Blocked before speccing this** — they were carried through
-features 2, 3 and 4 deliberately and each belongs to whoever wires Vercel. *This line said
-"three" until 2026-09-09; Blocked has listed four since the push guard was removed on 2026-09-06.*
+**The four carried findings under Blocked are settled**, grilled on 2026-09-11 ahead of the spec.
+Three of the four were not what they said — read what each turned out to be rather than what it
+claimed. *This line said "three" until 2026-09-09, and "re-read them before speccing this" until
+2026-09-11.*
+
+**The slice is grilled and the decisions are recorded** — nine entries in the decision log under
+2026-09-11, on the 2026-08-29 precedent of writing a decision down when it is taken rather than when
+it compiles. In short: **two environments, not three** (Google forbids wildcard redirect URIs and
+Vercel mints a hostname per preview, so sign-in on a preview cannot work); **the Neon root branch
+stays production** and the attempt history is copied into it by the `pg_dump`/`pg_restore` doc 12 §5
+already requires as a rehearsal, so the promotion *is* the restore test; **two connection strings**
+under Neon's own names; **migrate and seed from a separate Actions workflow**, with a reduced CI that
+holds no database credential; **no ceremony on a push to `main`**; **Sentry last**; and the **Neon CLI
+and MCP get `gh`'s permission split**. Docs 11 §5 and 12 §§1, 2, 2.1, 2.2, 3 and 5 are corrected to
+match. Acceptance is a **real 20-question domain sitting completed on a phone against production** —
+not an exam sitting, which would spend a first-attempt score to test a deployment.
+
+**Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
+2026-08-31 and abandoned — `~/.config/neon/` is empty), creating the Vercel project, adding the
+production redirect URI in the Google console, setting the Vercel environment variables, and signing
+in with a non-allowlisted account for the §1 allowlist check.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
@@ -890,24 +908,39 @@ Flow, context hygiene and phase boundaries:
 ## Blocked
 Nothing. The holdout is fully defended and the data spine is built.
 
-Four findings are **carried, not lost** — each belongs to the slice that deploys:
-- **Doc 12 §2 lists one `DATABASE_URL`.** Neon routes schema migrations to the *direct* host and a
-  serverless runtime to the *pooled* one, so a second variable will be needed. **Still outstanding,
-  now written down** — doc 12 §2.2. Deliberately not introduced early: nothing reads it until Vercel
-  exists. Doc 12 §2.1's `sslmode=verify-full` rule is written per-string, so it binds that URL when
-  it arrives rather than letting a freshly-pasted dashboard string reintroduce `sslmode=require`.
-- **Vercel skips builds for projects a commit did not touch**, judged by the project's own directory.
-  A commit touching only `questions/**` may deploy nothing, leaving production on the previous seed.
-  There is a setting for it.
-- **The seed will run from GitHub Actions**, not the Vercel build step — decided and recorded; the
-  workflow itself is not written.
-- **Nothing gates a push to `main` any more**, and once Vercel is connected that push *is* a
-  production deploy (doc 12 §3). The hook that refused it was removed on 2026-09-06 — it was
-  friction against how the owner actually works, and it did not work anyway: its escape pattern
-  allowed any push whose command carried a lowercase letter after `" origin "`, which every piped
-  `git push origin HEAD | tail` does. **Decide at the deploy slice whether a production push wants a
-  prompt back**, with the fresh knowledge that it must not be a text match on the command. See the
-  decision log, 2026-09-06.
+Four findings were **carried, not lost**, each belonging to the slice that deploys.
+**All four are now settled** — grilled on 2026-09-11, ahead of the spec, with nine entries in the
+decision log. Kept here with what each turned out to be, because three of the four were not what they
+said.
+
+- ~~**Doc 12 §2 lists one `DATABASE_URL`.**~~ **Settled.** Two strings, under Neon's own names:
+  `DATABASE_URL` (pooled, the app) and `DATABASE_URL_UNPOOLED` (direct, `drizzle-kit migrate` and the
+  seed). Doc 12 §2.2 is rewritten as resolved. **One thing stays open as a test rather than a
+  decision:** Neon never states `verify-full` for the `-pooler` host specifically, and its own pooling
+  examples use `sslmode=require` — so the pooled string is measured before doc 12 §2.1 is asserted
+  over it, the way the direct one was on 2026-09-02.
+- ~~**Vercel skips builds for projects a commit did not touch.**~~ **Likely inapplicable, and the
+  finding was probably backwards.** That behaviour is Vercel's *"skipping unaffected projects"*, which
+  **requires an npm/yarn/pnpm/Bun workspace**; this repo has none, and Vercel documents non-workspace
+  changes as "global changes" that "deploy all applications". Verify against the real project once it
+  exists rather than building a fix for it. If `ignoreCommand` is ever needed: its exit codes are
+  **inverted** — `0` skips, `1` builds — and the documented default example runs *inside* the Root
+  Directory, so it would miss `questions/**` precisely when it matters.
+- ~~**The seed will run from GitHub Actions.**~~ **Settled**, and the workflow is now specified: a
+  **separate** `deploy.yml` on push to git `main`, holding `DATABASE_URL_UNPOOLED` as a repository
+  secret, running migrate then seed. The test CI holds no database credential at all. **One of that
+  decision's three original reasons has evaporated and is recorded rather than left standing:** the
+  root-directory contradiction is *moot here* — measured against the tree, every relative import in
+  `app/src` resolves inside `app/src`, and the only file reading `design/` is
+  `tests/unit/design-tokens.test.ts`, a test rather than part of `next build`. The other two reasons
+  stand.
+- ~~**Nothing gates a push to `main` any more.**~~ **Settled: nothing will.** No hook, no manual
+  promotion, no disabled auto-deploy. The recovery is better than the prevention — Vercel's *Promote
+  to Production* is seconds and needs no rebuild — and the failure this repo has actually had is the
+  opposite one, `main` drifting **behind** `develop`, ten commits at one point. Checked and rejected
+  along the way: the dashboard control is "Auto-assign **Custom** Production Domains" and its
+  behaviour on a project with no custom domain is **undocumented**. `stop-branch-drift.sh` stays and
+  is now the more useful of the two guards.
 
 ### Done — `app/.env.local` now says `verify-full`
 The owner made the edit. Confirmed 2026-09-02 while building #22:
@@ -990,9 +1023,13 @@ pooled URL (§2.2) on arrival.
 
 ### Repo and tooling
 - Work lands on **`develop`**, one branch per ticket, merged and pushed as each closes.
-  **Only `develop` and `main` exist**, locally and on the remote — every merged ticket branch was
-  deleted on 2026-09-06, including the Phase 2–5 `design/practice-app-system`. Their commits are
-  reachable through `develop`'s history; nothing was lost.
+  **This said "only `develop` and `main` exist" and that is stale** — the sweep on 2026-09-06 deleted
+  every ticket branch that existed *then*, including the Phase 2–5 `design/practice-app-system`, but
+  `feature/37-finish-composed-sitting` landed afterwards and is still present **locally and on
+  origin**. Its commits are reachable through `develop`; the branch is simply undeleted. Sweep it
+  with the deploy slice.
+  **No pull request has ever been opened on this repository** — zero, all-time — which is the fact
+  that cut preview environments out of feature 5 (decision log, 2026-09-11).
   **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `27cd5de`, level with
   `develop`. **The hook that refused agent pushes to it is gone**, removed the same day; pushing
   `main` is now ordinary work, and `stop-branch-drift.sh` still reports on Stop when it falls six or
@@ -1004,7 +1041,14 @@ pooled URL (§2.2) on arrival.
   alongside mattpocock (guide §10).
 - **`.mcp.json` holds Neon MCP and Playwright MCP.** Neon's was added when the project was
   provisioned and went unrecorded here; Playwright's arrived with #28 on its stated trigger. Add
-  Sentry MCP when the Sentry project exists. context7 is already user-scoped.
+  Sentry MCP when the Sentry project exists — which the deploy slice's last ticket creates.
+  context7 is already user-scoped.
+  **The Neon CLI is installed and was not recorded here either**: `neon` v4.14.0 globally (the `neon`
+  npm package *is* the CLI; `neonctl` is the old name), **unauthenticated** — `~/.config/neon/` is
+  empty and dated 2026-08-31. Neither it nor Neon MCP has a single permission rule today, and the MCP
+  announces "Write mode active. Destructive tools are exposed" on connection. The deploy slice gives
+  both `gh`'s split: reads allowed, every write at `ask`. Org `org-tiny-fire-00617341`, project
+  `wispy-bird-80472699` (`lfca-simulator`, Postgres 18, Free plan).
 - Editing on `main` is blocked by a hook. Branch first.
 - `.claude/launch.json` serves the `design/` static preview on :4173. Tracked; the artboards it
   serves are not — run `node design/build.mjs` first.

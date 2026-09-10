@@ -7,20 +7,36 @@
 
 ## 1. Environments
 
-| | Local | Preview | Production |
-| --- | --- | --- | --- |
-| App | `next dev` on `localhost:3000` | Vercel preview, per pull request | Vercel, `main` |
-| Database | Neon **dev branch** | Neon **branch per PR**, created and dropped by the integration | Neon primary |
-| Content | seeded from the working tree | seeded from the PR's tree | seeded from `main` |
-| Google OAuth | same client, `localhost:3000` in redirect URIs | same client, Vercel preview URL pattern | same client, production URL |
-| `ALLOWED_EMAILS` | the owner | the owner | the owner |
-| Sentry | **disabled** (`SENTRY_DSN` unset) | enabled, `environment=preview` | enabled, `environment=production` |
+| | Local | Production |
+| --- | --- | --- |
+| App | `next dev` on `localhost:3000` | Vercel, git `main` |
+| Database | Neon **`develop`** branch | Neon **`main`** branch (the project's root) |
+| Content | seeded from the working tree | seeded from git `main` by the deploy workflow (§3) |
+| Google OAuth | same client, `localhost:3000` in redirect URIs | same client, the production URL |
+| `ALLOWED_EMAILS` | the owner | the owner |
+| `BETTER_AUTH_SECRET` | its own value | **its own, different value** (§2) |
+| Sentry | **disabled** (`SENTRY_DSN` unset) | enabled, `environment=production` |
 
-**What actually differs:** the database branch and whether Sentry is on. Nothing else — no feature
-flags, no mock providers, no seeded fake users. A preview that behaves differently from production is
-a preview that proves nothing.
+**What actually differs:** the database branch, the signing secret, and whether Sentry is on. Nothing
+else — no feature flags, no mock providers, no seeded fake users.
 
-**One Google OAuth client, three redirect URIs.** A second client would be a second secret to rotate
+**This table had a third column, and it is gone rather than deferred.** It specified a Preview
+environment with a Neon branch per pull request and "same client, Vercel preview URL pattern". There
+is no such pattern: **Google forbids wildcards in redirect URIs** — a URI "cannot contain … Wildcard
+characters (`'*'`)", and scheme, case and trailing slash "must all match" — while Vercel mints a new
+hostname per preview deployment. Sign-in on a preview is therefore impossible without assigning a
+custom domain to a branch, which §7 declines to buy. Neon's Free plan separately caps a project at
+**ten branches** and refuses creation past it. And no pull request has ever been opened on this
+repository. See the decision log, 2026-09-11.
+
+**Non-production deployments are turned off**, in `vercel.json`'s `git.deploymentEnabled`, so a push
+to `develop` mints no public URL. What is deployed is always whatever is on git `main`.
+
+**"Branch" means two things here and is never used bare** — a git branch is code, a Neon branch is a
+copy of the database. They are named after each other on purpose: Neon `main` backs git `main`, Neon
+`develop` backs local work. See `CONTEXT.md`.
+
+**One Google OAuth client, two redirect URIs.** A second client would be a second secret to rotate
 for no benefit at this size.
 
 ---
@@ -32,8 +48,9 @@ Every one of these is set in Vercel per environment, and mirrored in `app/.env.l
 
 | Name | Purpose | Where the secret lives | Secret? |
 | --- | --- | --- | --- |
-| `DATABASE_URL` | Neon connection string, `sslmode=verify-full` (§2.1) | Neon dashboard → Vercel env | **yes** |
-| `BETTER_AUTH_SECRET` | signs session tokens | generated once (`openssl rand -base64 32`), stored in Vercel | **yes** |
+| `DATABASE_URL` | Neon **pooled** string (`-pooler` host), `sslmode=verify-full` (§2.1). Read by the app. | Neon dashboard → Vercel env | **yes** |
+| `DATABASE_URL_UNPOOLED` | Neon **direct** string, same rules. Read by `drizzle-kit migrate` and `npm run seed` (§2.2). | Neon dashboard → Vercel env **and GitHub Actions secrets** | **yes** |
+| `BETTER_AUTH_SECRET` | signs session tokens | generated **per environment** (`openssl rand -base64 32`) — a different value locally and in production | **yes** |
 | `BETTER_AUTH_URL` | canonical origin, for OAuth callbacks | plain config | no |
 | `GOOGLE_CLIENT_ID` | OIDC client | Google Cloud console | no |
 | `GOOGLE_CLIENT_SECRET` | OIDC client | Google Cloud console → Vercel env | **yes** |
@@ -41,7 +58,18 @@ Every one of these is set in Vercel per environment, and mirrored in `app/.env.l
 | `SENTRY_DSN` | error reporting | Sentry project settings | no (public by design) |
 | `SENTRY_AUTH_TOKEN` | source-map upload at build | Sentry → Vercel env, **build-time only** | **yes** |
 
-Four true secrets. None is ever committed; `.env*` is gitignored except `.env.example`.
+Five true secrets, and one of them lives in two places. None is ever committed; `.env*` is gitignored
+except `.env.example`.
+
+**`DATABASE_URL_UNPOOLED` is also a GitHub Actions repository secret**, because the deploy workflow
+(§3) is what runs the migration and the seed. This repository is public; Actions secrets are
+encrypted and this is the ordinary mechanism, but it is a new place a production credential lives and
+it is listed here rather than left to be discovered.
+
+**`BETTER_AUTH_SECRET` is two values, not one.** This section used to say "generated once", which
+read as a single shared value. Rotating it is described below as the intended emergency control — and
+with one value, rotating production to kill a session also signs the owner out locally, while the
+value guarding the public URL would be one that had sat in a file on a laptop for months.
 
 **Setting them up locally:** `scripts/setup-google-oauth.sh` walks the Google side and writes
 `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` and
@@ -55,10 +83,15 @@ consent**, so being asked to consent again next week is the documented behaviour
 
 ### 2.1 Every Neon connection string in this project says `sslmode=verify-full`
 
-**The rule is per-string, not per-variable**, and it is written that way because a second Neon URL is
-already known to be coming: schema migrations go to the *direct* host and a serverless runtime to the
-*pooled* one (§2.2). Whichever variable it lands in, it is pasted from the Neon dashboard — which
-hands out `sslmode=require` — and it gets the same treatment as this one.
+**The rule is per-string, not per-variable**, and it was written that way because a second Neon URL
+was known to be coming. It has arrived (§2.2). Both are pasted from the Neon dashboard — which hands
+out `sslmode=require` — and both get the same treatment.
+
+**With one caveat that is a test, not an assumption.** Neon recommends `verify-full` host-agnostically
+but never states it for the **`-pooler`** host specifically, and its own connection-pooling examples
+use `sslmode=require`. `verify-full` adds hostname verification, and the pooler is a different
+hostname. The pooled string is therefore to be verified against `verify-full` the way the direct one
+was on 2026-09-02 — measured, not believed — before this rule is asserted over it.
 
 Neon supports `verify-full` and [recommends it](https://neon.com/docs/connect/connect-securely);
 its certificates chain to the public **ISRG Root X1** (Let's Encrypt), which ships in Node's bundled
@@ -78,15 +111,24 @@ Substituting it is provably behaviour-preserving **today**: both modes hand `tls
 options — no `rejectUnauthorized` override, no custom CA, no `checkServerIdentity` override — so the
 only thing that changes is the warning going away.
 
-### 2.2 The second connection string, still outstanding
+### 2.2 The second connection string, resolved
 
-Neon routes schema migrations to the direct host and a serverless runtime to the pooled one, so
-`db:migrate` and the seed will want the direct URL while the deployed app wants `-pooler`. That
-second variable is **not** introduced here: nothing reads it until Vercel exists, and inventing it
-early would mean an unused secret in three environments. It belongs to the slice that deploys —
-where §2.1's rule applies to it on arrival.
+`DATABASE_URL` carries the **pooled** (`-pooler`) host and is what the app reads. **`DATABASE_URL_UNPOOLED`**
+carries the **direct** host and is what `drizzle-kit migrate` and `npm run seed` read. Both endpoints
+always exist for a branch — "the pooled endpoint is always available" — so this is two spellings of
+one database, not two databases.
 
-**Rotation:** `BETTER_AUTH_SECRET` invalidates every session when changed — which is the intended
+**The names are Neon's own**, set by its Vercel integration, adopted here so that nothing has to be
+renamed if that integration is ever added.
+
+**How strong the migration guidance actually is.** Neon's direction to use the direct host for schema
+migrations is a hedged table row — *"Schema migrations | Direct | Tools may not support transaction
+pooling"* — not a documented failure, and drizzle-kit is named nowhere in it. The mechanism is real
+though: session-level advisory locks and `SET`/`RESET` are both documented as unsupported on pooled
+connections, and migration tools use them. Splitting the two strings costs one variable and removes
+the question.
+
+**Rotation:** `BETTER_AUTH_SECRET` invalidates every session in that environment when changed — which is the intended
 emergency control, not a hazard. The Google client secret rotates in the Google console with a brief
 overlap. `DATABASE_URL` rotates by resetting the Neon role password.
 
@@ -94,27 +136,41 @@ overlap. `DATABASE_URL` rotates by resetting the Neon role password.
 
 ## 3. Deploying
 
-Vercel's GitHub integration. **Push to `main` deploys production; a pull request deploys a preview.**
-Root Directory is `app`.
+Vercel's GitHub integration. **Push to git `main` deploys production.** Nothing else deploys —
+non-production deployments are off (§1). Root Directory is `app`.
 
-The build command runs the ordered steps, and **any failure stops the release** — the previous
-deployment keeps serving:
+**The build command is `next build` and nothing else.** This section used to put `db:migrate` and
+`seed` ahead of it in the Vercel build; they run from **GitHub Actions** instead, in a workflow of
+their own triggered by the same push. The reasoning is the 2026-08-31 decision-log entry: Vercel's own
+docs contradict each other about whether a build with Root Directory `app` can read `../questions`,
+build-container database egress is documented in neither direction, and Vercel may decide a commit
+touching only `questions/**` changed nothing about this project. A runner has the whole repository
+checked out and ordinary internet access, and it runs on the push regardless of what Vercel concludes.
 
-```bash
-npm run db:migrate     # drizzle-kit migrate — additive, reviewed SQL
-npm run seed           # truncate + reinsert content tables, one transaction
-next build
+```
+push to git main
+  |-- Vercel:  next build -> deploy                 (nothing else in the build)
+  '-- Actions: npm run db:migrate; npm run seed     (against DATABASE_URL_UNPOOLED)
 ```
 
-Migrations run **before** the new code is live, so they must be backward-compatible with the release
-currently serving — additive columns, no renames in the same deploy as the code that depends on them.
-A rename is two deploys, always.
+**The two race, and that is accepted.** For a short window the new code may serve the previous seed.
+This is why migrations must be backward-compatible with the release currently serving — additive
+columns, **no renames in the same deploy as the code that depends on them.** A rename is two deploys,
+always.
 
-`npm run seed` never touches `user`, `attempt` or `answer` (doc 04 §0). It is safe to run on every
-deploy, and running it every time is what keeps the database from silently diverging from the bank.
+`npm run seed` never touches `user`, `attempt`, `answer` or `attempt_question` (doc 04 §0, §7). It
+upserts rather than truncating (doc 03 §3), so it is safe on every deploy, and running it every time
+is what keeps the database from silently diverging from the bank.
 
-**CI gates the deploy** (doc 11 §5): the bank checks, the unit suite, the build, and the Playwright
-run against a Neon preview branch. Red suite, no deploy.
+**Both scripts read `--env-file-if-exists`, not `--env-file`**, so one script serves both a laptop and
+a runner where the environment supplies the variables.
+
+**CI gates the deploy, and it is smaller than doc 11 §5 specifies:** the bank checks, `typecheck` and
+the app's unit suite — the three that need no database. The integration suite and the Playwright run
+stay local, because both need a seeded branch and a credential the test workflow deliberately does not
+hold. Red suite, no deploy. Node is **pinned** in every workflow: `npm run seed` executes
+`scripts/seed.ts` directly, which needs Node ≥23.6 for unflagged type stripping and fails as a parse
+error on an older major.
 
 ---
 
@@ -160,10 +216,22 @@ pg_dump "$DATABASE_URL" --table=attempt --table=answer --table='"user"' --table=
 Monthly, kept off Neon. Two hundred rows of attempt history is nothing to store and the only thing
 here that cannot be regenerated from the repo.
 
-**The restore has to be tested, once, before it matters:** create a Neon branch, restore the dump
-into it, point a local `next dev` at it, and confirm the exam list still shows the right first-attempt
-scores. An untested backup is a belief, not a backup. This is a checklist item for the first week
-after launch, not a someday.
+**The restore has to be tested, once, before it matters** — and it is tested by being *used*. The
+first production database is created by running exactly the dump above against the Neon `develop`
+branch and restoring it into the Neon `main` branch, which is where the owner's five first-attempt
+scores (exams 05, 07, 08, 10 and 14) come from. The source branch is not deleted, so a bad restore
+costs nothing and can be looked at again. Confirm afterwards that the exam list shows those five
+first-attempt scores unchanged.
+
+An untested backup is a belief, not a backup — so the promotion is deliberately arranged to be the
+rehearsal, rather than leaving a separate rehearsal to be remembered in the first week after launch.
+See the decision log, 2026-09-11.
+
+**Why the root branch is the destination rather than the source.** Neon states unconditionally that a
+project's root branch **cannot be deleted**, and separately that a branch with children cannot be
+deleted either. Promoting the child instead — which Neon does permit — would have left the root
+sitting permanently at the head of the project as the undeletable parent of production. Copying into
+the root costs one `pg_restore`; the alternative costs a permanent misnamed branch.
 
 ---
 

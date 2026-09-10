@@ -1638,3 +1638,265 @@ not when it compiles. Each names the ticket that carries it out.*
 - **Revisit if:** the holdout sitting (H1) is built — it is composed like these two and **scored**
   like an exam, so it takes the scored branch of this screen, and `isScored(mode)` is already what
   decides that.
+
+---
+
+*The nine entries below were settled while grilling feature 5 (the deploy slice) and are recorded
+before their implementation, on the 2026-08-29 precedent. Several rest on facts verified against
+Vercel's, Neon's and Google's own documentation during the session; where a fact could not be
+verified it is named as unverified rather than assumed.*
+
+### [2026-09-11] Two environments, not three — preview deployments are cut
+- **Decision:** local and production. No per-pull-request preview deployments, no Neon branch per
+  preview, and non-production Vercel deployments are turned **off** in committed configuration
+  (`vercel.json`'s `git.deploymentEnabled`), so a push to `develop` mints no public URL.
+  **Doc 12 §1's three-environment table is corrected rather than built to.**
+- **Context:** doc 12 §1 specifies Preview as a first-class environment — a Neon branch per pull
+  request, created and dropped by the integration, and "same Google client, Vercel preview URL
+  pattern". Two facts kill it, and one makes it pointless.
+- **The blocking fact: Google forbids wildcards in redirect URIs.** Google's web-server OAuth
+  documentation states a redirect URI "cannot contain … Wildcard characters (`'*'`)" and that "the
+  `http` or `https` scheme, case, and trailing slash … must all match". Vercel mints a **new
+  hostname per preview deployment**. So there is no "preview URL pattern" to register — sign-in on a
+  preview cannot work at all unless a *custom domain is assigned to a branch*, which doc 12 §7
+  deliberately declines to buy. Google documents no ephemeral-hostname mechanism; that gap is
+  **unverified rather than known absent**, but nothing in the OAuth docs offers one.
+- **The second fact: Neon's Free plan caps branches at ten per project**, refuses creation past it,
+  and cannot sell more on Free — on 0.5 GB of storage and 100 CU-hours a month that preview branches
+  also consume. Branch cleanup is not pull-request-driven either: the Vercel-managed integration's
+  deletion follows Vercel's six-month deployment retention.
+- **And the workflow does not exist.** **Zero pull requests have ever been opened on this
+  repository**, in six phases and five features. Every ticket branch goes to `develop` and is merged
+  locally. A per-PR environment is apparatus for a workflow that has never once been used.
+- **Alternatives considered:** building doc 12 §1 as written — blocked outright by the redirect URI
+  rule, not merely expensive. And one **persistent** preview on `develop` with its own Neon branch
+  and its own registered redirect URI, which is buildable and was the strongest alternative: rejected
+  because `develop` is where you already work and `main` is one merge behind it, so the staging URL
+  would show what you had just been looking at on `localhost`, at the cost of a third environment's
+  variables, a third Neon branch and a third redirect URI to keep in step.
+- **Consequence, stated plainly:** there is no way to see a change in a production-like environment
+  before it *is* production. That is accepted because the rollback is Vercel's *Promote to
+  Production* on the previous build — seconds, no rebuild (doc 12 §4) — and because the app has one
+  user, who is also the person who pushed.
+- **Revisit if:** a custom domain is bought for another reason, at which point assigning one to a
+  branch makes a stable preview host free; or if the app opens to other users and pull requests start
+  being used.
+
+### [2026-09-11] The Neon root branch stays production, and the promotion *is* the restore test
+- **Decision:** the project's **root branch remains production**, and the four user tables — `user`,
+  `account`, `attempt`, `answer` — are copied into it from the development branch using doc 12 §5's
+  own `pg_dump`/`pg_restore`. The two Neon branches are renamed to match the git branches they serve:
+  `main` and `develop`. The source branch keeps every row throughout; nothing is deleted.
+- **Context:** the Neon project `lfca-simulator` (`wispy-bird-80472699`, Postgres 18, Free) has
+  exactly two branches. `production` (`br-jolly-mode`) is the root and default: an untouched
+  2026-08-30 snapshot, one migration behind, **80 CPU-seconds used, zero bytes transferred, no
+  attempt rows**. `dev` (`br-noisy-credit`) is its child and holds all the real work — 9,314
+  CPU-seconds, and the **five first-attempt scores** on exams 05, 07, 08, 10 and 14. Whichever branch
+  becomes production decides where the one irreplaceable thing in this system lives.
+- **This decision was taken twice.** The first answer was to promote the child — designate `dev` the
+  default, rename it, and delete the root — on the reasoning that it moves zero irreplaceable rows
+  and discards a branch containing nothing. **Then the mechanism was verified and the premise
+  failed.** Neon documents, unconditionally, that a project's root branch **cannot be deleted**; the
+  two listed exceptions (backup branches, schema-only branches) do not apply, and nothing states that
+  moving the default designation away makes it deletable. Independently, "You cannot delete a branch
+  that has child branches", and parentage does not follow the default designation — so the root would
+  remain, permanently, as the parent of production.
+- **Reason:** the first answer's whole case was "the root is discardable". It is not. Its real price
+  is a permanently undeletable branch sitting at the head of the project, named for a role it no
+  longer has, with production hanging off it as a child — the exact confusion the rename was
+  introduced to remove. The copy's price is one `pg_restore`, and **its source is never deleted**: if
+  the restore is wrong, nothing has been lost and it can be looked at again.
+- **What tipped it:** doc 12 §5 already requires this exact command to be run once, as a *rehearsed*
+  restore, and says flatly that "an untested backup is a belief, not a backup". Doing the promotion
+  with it makes the first real use of the backup path a supervised one, with the original still
+  present — a rehearsal that also accomplishes something is strictly better than a rehearsal.
+- **Verified rather than assumed:** designating a non-root branch as default *is* permitted ("you can
+  designate any branch as your project's default branch") and renaming is permitted "including your
+  project's default branch" — so the rejected option was possible, just not worth its topology.
+  **Unverified:** what setting a new default does to the endpoint host or whether it causes downtime;
+  the docs are silent, so the connection strings are to be copied before and after and compared.
+- **Revisit if:** never for this project. The branches are named and production is the root; there is
+  nothing left to promote.
+
+### [2026-09-11] Two connection strings, under Neon's own names
+- **Decision:** **`DATABASE_URL`** carries the **pooled** (`-pooler`) host and is what the app reads;
+  **`DATABASE_URL_UNPOOLED`** carries the **direct** host and is what `drizzle-kit migrate` and
+  `npm run seed` read. Doc 12 §2.2's carried finding is closed. Doc 12 §2.1's per-string
+  `sslmode=verify-full` rule binds both — with one caveat below.
+- **Context:** §2.2 was written to say a second string was coming and to stop a freshly-pasted
+  dashboard string reintroducing `sslmode=require` on arrival. Production is that arrival.
+- **The names are not invented.** `DATABASE_URL` and `DATABASE_URL_UNPOOLED` are exactly what Neon's
+  own Vercel integration sets, so adopting them means nothing has to be renamed if that integration
+  is ever added. Both endpoints always exist for a branch — "The pooled endpoint is always
+  available" — so this is two spellings of one database, not two databases.
+- **Alternatives considered:** one variable on the direct host everywhere, which is genuinely
+  defensible at one user and removes a whole variable from three places — rejected because doc 03
+  §10 already names Neon's connection ceiling as the first thing that breaks under load, a serverless
+  function can open a connection per invocation, and the failure would only appear under the one
+  condition that cannot be reproduced locally. And one variable on the pooled host everywhere,
+  rejected on the migration guidance below.
+- **How strong that guidance actually is, stated honestly:** Neon's direction to use the direct host
+  for schema migrations is a **hedged table row** — "Schema migrations | Direct | Tools may not
+  support transaction pooling" — not a documented failure, and **drizzle-kit is named nowhere**. The
+  underlying mechanism is real, though: session-level advisory locks and `SET`/`RESET` are both
+  documented as unsupported on pooled connections, and migration tools use them.
+- **One thing is unverified and must be tested, not asserted:** Neon recommends `verify-full`
+  host-agnostically but **never states it for the `-pooler` host specifically**, and its own
+  connection-pooling examples use `sslmode=require`. `verify-full` adds hostname verification and the
+  pooler is a different hostname. The pooled string is therefore to be tested against `verify-full`
+  before doc 12 §2.1 is asserted over it — the same way the direct string was measured on 2026-09-02
+  rather than believed.
+- **Revisit if:** the app stops being serverless, at which point the pooler stops earning its place.
+
+### [2026-09-11] Migrations and the seed run from a deploy workflow, not from CI and not from Vercel
+- **Decision:** a **separate** GitHub Actions workflow on push to `main` runs `db:migrate` then
+  `seed` against `DATABASE_URL_UNPOOLED`, held as a repository secret. The test CI (below) holds no
+  database credential at all. `db:migrate` and `seed` change from `--env-file=.env.local` to
+  **`--env-file-if-exists`**, so one script serves both a laptop and a runner.
+- **Context:** the 2026-08-31 entry decided the seed runs from CI rather than the Vercel build step,
+  for three reasons that all still hold. This entry does not reverse it; it settles the part that was
+  left open — *which* workflow, and with what credential.
+- **Reason for separating it from the test CI:** the reduced CI below deliberately holds no
+  `DATABASE_URL`, because the suites that need one also need a seeded branch. A deploy workflow
+  needing a single secret is a different problem from a test suite needing a seeded database, and
+  keeping them apart is what keeps the gate fast and credential-free.
+- **One of the 2026-08-31 entry's three reasons has since evaporated, and is recorded rather than
+  left standing.** It cited Vercel's contradiction about whether a build with Root Directory `app`
+  can read `../questions`. That contradiction is still in Vercel's docs — *Configuring a Build* says
+  a project "will not be able to access files outside of that directory … cannot use `..`", while
+  the monorepo FAQ documents an "Include source files outside of the Root Directory" setting
+  "enabled by default" since 2020 — but **it is moot here**: measured against the tree, every
+  relative import in `app/src` resolves inside `app/src`, and the only file that reads `design/` is
+  `tests/unit/design-tokens.test.ts`, which is a test rather than part of `next build`. The other two
+  reasons — undocumented build-container egress, and Vercel deciding a commit changed nothing — are
+  untouched, and the second is itself now doubtful (below).
+- **`--env-file-if-exists` rather than parallel `:ci` scripts:** the pattern already exists three
+  lines above in the same `package.json`, on `test:e2e`. Two variants would be two places the
+  connection logic can drift, and the CI one is the copy nobody runs by hand.
+- **Alternatives considered:** running both by hand from the laptop after each deploy — the honest
+  fallback, rejected because doc 03 §3 says running the seed on every deploy is precisely what keeps
+  the database from silently diverging from the bank, and a step you must remember is a step that
+  diverges. And putting them in the Vercel build command, which doc 12 §3 still specifies and which
+  this entry supersedes.
+- **Consequence:** a **production** database URL now lives in GitHub Actions secrets, on a **public**
+  repository. Encrypted and standard, but it is a new place a secret lives and it belongs in doc 12
+  §2's inventory rather than being discovered later. And the deploy and the seed race — Vercel builds
+  while the workflow migrates — which the 2026-08-31 entry already accepted: for a short window the
+  new code may serve the previous seed, which is why doc 12 §3 forbids a rename in the same deploy as
+  the code depending on it.
+- **Revisit if:** Vercel documents build-container database egress and resolves its own root-directory
+  contradiction, and the ordering guarantee becomes worth having back.
+
+### [2026-09-11] CI is the three suites that need no database
+- **Decision:** GitHub Actions on push runs the bank checks, `typecheck` and the app's unit suite.
+  The integration suite and the Playwright run stay local. Node is **pinned** in the workflow and
+  recorded in an `engines` field. **Doc 11 §5's four-line pipeline is corrected to what is built.**
+- **Context:** doc 11 §5 specifies the full pipeline and doc 12 §3 says "CI gates the deploy". There
+  is **no `.github/` directory in this repository at all**, so neither has ever been true.
+- **Reason:** the integration and browser suites need a `DATABASE_URL` secret and a seeded branch —
+  the apparatus doc 11 §4 originally declined for one user, and which the 2026-09-01 entry admitted
+  only for a claim no pure function could make. The three cheap suites catch what would otherwise
+  ship, run in seconds, and are what makes doc 12 §3's sentence true for the first time.
+- **Alternatives considered:** the full four lines, which is the strongest gate and the one doc 11
+  §5 asks for — deferred rather than rejected, since it needs the deploy workflow's secret pattern
+  working first. And no CI at all, connecting Vercel and leaving the pipeline to its own feature,
+  rejected because the deploy is exactly what makes an unnoticed red suite expensive.
+- **On pinning Node:** there is no `engines` field anywhere and the local runtime is v25.1.0.
+  `npm run seed` executes `scripts/seed.ts` **directly**, which needs Node ≥23.6 for unflagged type
+  stripping, and `--env-file-if-exists` needs ≥20.12. Both are silently absent on an older major, and
+  the failure would be a parse error in a workflow nobody is watching. Vercel is unaffected: it runs
+  only `next build`, which needs neither.
+- **Revisit if:** the integration suite's assertions start covering something the manual checklist
+  cannot, at which point the secret is worth adding and doc 11 §5 gets built as written.
+
+### [2026-09-11] A push to `main` gets no ceremony
+- **Decision:** nothing gates a push to `main`, including once it is a production deploy. No hook, no
+  manual promotion step, no disabled auto-deploy. **This closes the question the 2026-09-06 entry
+  handed to this slice.**
+- **Context:** the push guard was removed on 2026-09-06 as friction that also did not work — its
+  escape pattern allowed any push whose command carried a lowercase letter after `" origin "`, so it
+  refused the spelling a person types and permitted the spelling an agent types. That entry named the
+  deploy slice as the place to decide whether a production push wants a prompt back, "with the fresh
+  knowledge that it must not be a text match on the command".
+- **Reason:** the recovery is already better than the prevention. Vercel's *Promote to Production* on
+  the last good build is seconds and needs no rebuild (doc 12 §4), and migrations are additive by
+  rule, so step 1 of the rollback is sufficient in almost every case. Against that, the failure this
+  repository has actually had is the **opposite** one: `main` drifting behind `develop`, unnoticed,
+  ten commits at one point and one commit as recently as #27. A prompt that makes pushing `main`
+  slightly harder pushes directly on the failure mode that has occurred, to defend against one that
+  has not.
+- **Alternatives considered:** a hook keyed on something real rather than a text match — buildable,
+  but it restores a refusal the owner has said gets in the way, and the reward for repairing it is
+  more friction. And turning off Vercel's auto-deploy so builds are promoted by hand: attractive
+  until checked, because the dashboard control is "Auto-assign **Custom** Production Domains" and its
+  behaviour on a project with no custom domain is **undocumented**; the unambiguous lever is
+  `vercel.json`'s `git.deploymentEnabled`, which is the same file already being used to turn preview
+  deployments off — and pointing it at `main` would mean no deploy happens at all without a manual
+  step, which is a worse shape than a prompt.
+- **Consequence:** `stop-branch-drift.sh` stays and is now the more useful of the two guards, because
+  the drift it reports on is the thing that actually goes wrong.
+- **Revisit if:** a second person can push, at which point "who deployed this" stops having one
+  answer.
+
+### [2026-09-11] Environment variables: `BETTER_AUTH_URL` is typed, and the signing secret is per-environment
+- **Decision:** `BETTER_AUTH_URL` is a hardcoded plain variable per environment, not derived from
+  Vercel's `VERCEL_PROJECT_PRODUCTION_URL`. `BETTER_AUTH_SECRET` is **two distinct values**, one
+  local and one production, generated separately.
+- **On the URL:** the 2026-09-06 entry made this load-bearing — Better Auth takes the session
+  cookie's `__Secure-` prefix from `options.baseURL`, so a wrong value makes a session impossible to
+  hold rather than merely mislabelled. It also has to match, character for character including
+  trailing slash, a redirect URI typed by hand into the Google console. Deriving it means a value
+  computed in two places must agree with a third that was typed, and doc 12 §2 already calls it plain
+  config. *Alternative considered:* deriving it, which survives a project rename automatically — a
+  scenario that does not happen and would need the Google console edited by hand anyway.
+- **On the secret:** doc 12 §2 says "generated once … stored in Vercel", which reads as one value
+  shared with `.env.local` but never says. It should be two, because doc 12 calls rotating it "the
+  intended emergency control": with one value, rotating production to kill a session also signs you
+  out locally, and the value protecting the public URL would be one that has sat in a file on a
+  laptop for months. *Alternative considered:* one shared value, which is one fewer secret — rejected
+  for two lines of cost against an emergency control that would otherwise not be one.
+- **Revisit if:** never; both are one-line configuration.
+
+### [2026-09-11] Sentry ships in this slice, last
+- **Decision:** Sentry is part of the deploy slice and is its **final** ticket, after the app is
+  reachable and proven on a phone. Sentry MCP is added with it, on the trigger `CLAUDE.md` already
+  records. Locally it stays disabled; production is the only environment that reports.
+- **Context:** nothing Sentry-shaped is installed — a single `console.error` stands in, in
+  `use-outbox.ts`, placed there by #23 as the five-consecutive-failure report doc 03 §8 specifies.
+- **Reason:** doc 12 §6's argument is that for a one-user app the user is the monitor for everything
+  except the failure the user cannot see — "the save failure at question 40 of a first attempt … the
+  one thing that costs a number that cannot be recovered". This slice is precisely what makes that
+  plausible: it moves the app off `localhost` onto a phone on a mobile network, which is the first
+  environment where an answer write can fail for reasons nothing in the room explains.
+- **Why last rather than first:** it needs a provider signup, an SDK, `beforeSend` scrubbing (doc 03
+  §9 requires emails and tokens excluded and `sendDefaultPii: false`) and a build-time auth token for
+  source maps. None of that is needed for the thing this slice exists for, and ordering it last means
+  a signup can never block a phone sitting.
+- **Alternatives considered:** its own feature afterwards, which is cleaner as a slice boundary but
+  leaves a production app holding irreplaceable numbers reporting nothing for however long that
+  takes. And cutting it for v1 with the console stand-in kept, rejected because a `console.error` in
+  a browser nobody is looking at is not a report.
+- **Revisit if:** never — doc 03 §1 chose Sentry in Phase 4 and this only settles when.
+
+### [2026-09-11] The Neon CLI and MCP get the same permission split `gh` got
+- **Decision:** `neon auth` is completed, the org (`org-tiny-fire-00617341`) and project
+  (`wispy-bird-80472699`) ids are recorded in the docs, and `.claude/settings.json` gains rules on
+  the same split as `gh`: reads allowed, **every write at `ask`** — `neon branches delete`,
+  `neon projects delete`, `neon roles reset-password` and the rest.
+- **Context:** both were further along than the docs claimed, and neither was usable. The CLI **is**
+  installed globally as `neon` v4.14.0 — the `neon` npm package is the CLI now, which is why looking
+  for `neonctl` found nothing — but it is **unauthenticated**: `~/.config/neon/` is empty and dated
+  2026-08-31, so a login was started that day and abandoned. Neon MCP is registered in `.mcp.json`
+  and answering, but its first call failed for want of an `org_id` that was written down nowhere.
+- **Reason:** `gh` was given exactly this treatment on 2026-08-30 because it writes to a **public
+  issue tracker**. These two can delete the branch holding the first-attempt scores. The Neon MCP
+  server announces "Write mode active. Destructive tools are exposed" on connection, and until now
+  neither it nor the CLI had a single rule against them.
+- **Alternatives considered:** authenticating and leaving it there, which is what "set up" would
+  ordinarily mean — rejected because the gap is not access, it is that unattended destructive access
+  now exists over the one database this project treats as unrecoverable. And skipping the CLI on the
+  grounds that the MCP covers it, rejected because the MCP was unusable for want of an id and the CLI
+  is what a person reaches for when an agent is not in the room.
+- **Consequence:** `neon auth` is a browser flow and is the owner's to complete; it belongs in the
+  slice's wizard alongside creating the Vercel project and adding the Google redirect URI.
+- **Revisit if:** never, while the CLI can delete a branch.
