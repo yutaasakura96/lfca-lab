@@ -258,3 +258,84 @@ Vercel's generated `*.vercel.app` hostname is sufficient for v1 — nothing abou
 on a custom domain, and a custom domain would mean a DNS record and a certificate to maintain for an
 audience of one. Revisit if the app opens to other users, at which point `BETTER_AUTH_URL` and the
 Google redirect URI change together.
+
+---
+
+## 8. Neon tooling — the identifiers, and what an agent may do unattended
+
+### 8.1 The identifiers, so no session rediscovers them
+
+Read from the live account on 2026-09-12, not copied from an older note.
+
+| | |
+| --- | --- |
+| Organization | `org-tiny-fire-00617341` |
+| Project | `wispy-bird-80472699` — `lfca-simulator`, Postgres **18**, `aws-ap-southeast-1`, Free plan |
+| Neon branch backing git `main` | `br-jolly-mode-b39c5rdo` — **named `production` today**, the project's root and default branch |
+| Neon branch backing local work | `br-noisy-credit-b37kait6` — **named `dev` today**, child of the root |
+| History retention | **21,600 seconds — 6 hours**, which is §5's measured figure, re-measured |
+
+**The full branch ids carry a suffix** (`-b39c5rdo`, `-b37kait6`) that the short forms in older notes
+drop. The API and the CLI want the full id. The names are the ones §1 renames to `main` and `develop`;
+the ids do not change with a rename, which is why they are what is recorded here.
+
+The same organization holds two unrelated projects, `portfolio-v2` and `bugstack`. A rule written for
+"the Neon project" therefore has to be a rule about *every* project, because the credential reaches
+all three.
+
+### 8.2 Reads are allowed; every write asks
+
+`.claude/settings.json` gives the Neon CLI and the Neon MCP server the split the GitHub CLI has had
+since 2026-08-30: listing and describing runs unattended, and anything that changes state, reveals a
+secret, or executes SQL requires the owner's say-so.
+
+Three things about how it is written are worth reading before editing it.
+
+**The MCP rules wildcard the server segment** — `mcp__*__delete_branch`, not `mcp__Neon__delete_branch`.
+The same Neon tools reach a session under two names: `mcp__Neon__…` from this repository's `.mcp.json`,
+and under an opaque connector id from a claude.ai connector. A rule naming one of them guards the copy
+that happens not to be in use.
+
+**That it works was measured, not assumed** — the claim is worth nothing if the pattern is matched
+segment by segment, since `*` would then be a server literally called `*`. Read out of the installed
+CLI: a rule is compiled to a regular expression anchored over the **whole** tool name, its literal
+parts escaped and its `*` joined with `.*`, so `mcp__*__delete_branch` becomes
+`^mcp__.*__delete_branch$`. Claude Code's own documented example agrees — `mcp__*` is said to match
+"every MCP tool across all servers", which it can only do by spanning the server segment.
+
+**An `allow` rule cannot do the same, and that is a refusal rather than an omission.** The CLI rejects
+a wildcard in an allow rule's *server* segment — *"An allow pattern must name the scope it widens"* —
+while permitting one in its **tool** segment, so `mcp__Neon__list_*` is legal and `mcp__*__list_branches`
+is discarded when settings load. A read arriving through a connector therefore prompts. **The allow
+list still names every read in full rather than collapsing to `list_*` and `get_*`**, because
+`get_connection_string` is itself at `ask`: a tidier `mcp__Neon__get_*` would put an allow rule and an
+ask rule over the same tool, and nothing in this file should depend on which of the two wins.
+
+**`run_sql`, `run_sql_transaction` and `neon psql` are writes**, whatever the statement says, because
+nothing inspects the statement. So is **`explain_sql_statement`**: `EXPLAIN ANALYZE` executes what it
+explains. And **`get_connection_string` and `neon connection-string` ask** although they change
+nothing — they hand out a password, which is the one thing §2 keeps out of every file an agent reads.
+
+**`neon auth` itself asks.** It opens a browser and waits; an agent that runs it hangs until it times
+out, which is exactly what happened while this ticket was being written.
+
+`app/tests/unit/neon-permissions.test.ts` asserts the file rather than trusting it — every destructive
+command and tool resolves to a prompt under both server shapes, no allow rule reaches one, the reads
+still run, and neither of the two traps above is open: no allow rule globs a server segment, and no
+allowed read is also claimed by an ask rule. Every assertion was mutation-checked — removing an ask
+rule, adding a broad `Bash(neon:*)` allow, adding `mcp__*__list_branches` to allow, and allowing
+`get_connection_string` each turned it red.
+
+**What this does not do, stated plainly.** A session running in bypass-permissions mode is not
+prompted by any of it. These rules bind the sessions that prompt, which is every ordinary one; they
+are not a substitute for the owner reading what a destructive command is about to do.
+
+### 8.3 The two steps that are the owner's
+
+1. **`neon auth`** — a browser flow. It was started on 2026-08-31 and abandoned, leaving
+   `~/.config/neon/` empty, so every CLI command that talks to the API currently opens a browser
+   instead of answering. Afterwards `neon me` returns without one, and `neon projects list` and
+   `neon branches list --project-id wispy-bird-80472699` return the rows in §8.1.
+2. **Watch a destructive command prompt.** In an ordinary (non-bypass) session, ask for
+   `neon branches delete br-noisy-credit-b37kait6`, confirm the prompt appears, and decline it. The
+   test above proves the rule matches; only a real session proves the prompt fires.

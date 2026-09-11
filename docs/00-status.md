@@ -789,6 +789,54 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   a sweep will not find this on its own.
   Suites: 339 bank · **470** app unit · 189 app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — the tools that can delete the scores now ask first** (#41). The first of
+  thirteen, and first on purpose: every ticket after it operates on the database holding the five
+  first-attempt scores, so the guard exists before the surgery rather than after it.
+  `.claude/settings.json` gives the Neon CLI and the Neon MCP server the split `gh` has had since
+  2026-08-30 — **88 allow, 110 ask, 6 deny** — and doc 12 gains **§8** with the identifiers read
+  from the live account rather than copied from an older note: org `org-tiny-fire-00617341`, project
+  `wispy-bird-80472699`, and the two **Neon** branches **with the id suffixes the short forms drop**,
+  `br-jolly-mode-b39c5rdo` (`production`, the root) and `br-noisy-credit-b37kait6` (`dev`).
+  **The obvious spelling of the MCP rules would have guarded nothing.** The same Neon tools reach a
+  session under two names — `mcp__Neon__…` from `.mcp.json`, and an opaque connector id from
+  claude.ai — so the rules **wildcard the server segment** and name Neon's own tools exactly
+  (`mcp__*__delete_branch`, `mcp__*__reset_from_parent`). Grilled to three options before writing;
+  the log carries why naming both, or naming `Neon` alone, were rejected.
+  **That the wildcard actually matches was measured, not assumed** — segment-by-segment matching
+  would have made every one of those rules inert while the file read as protection. The installed
+  CLI compiles a rule to one anchored expression over the **whole** tool name, so
+  `mcp__*__delete_branch` is `^mcp__.*__delete_branch$`. The same read corrected a claim this ticket
+  had already written down: an `allow` rule **may** glob its tool segment (`mcp__Neon__list_*`) and
+  is *refused* only on its server segment. The allow list still names every read in full anyway,
+  because `get_connection_string` is at `ask` and a tidy `get_*` would put the two lists over one
+  tool.
+  **Four things that read as reads and are not**, each now at `ask`: `run_sql` and `neon psql`
+  (nothing inspects the statement), **`explain_sql_statement`** (`EXPLAIN ANALYZE` executes what it
+  explains), `get_connection_string` and `neon connection-string` (they hand out a password, the one
+  thing the `.env` denials exist to keep out of context), and **`neon auth` itself**, which opens a
+  browser and waits — as it did, hanging, at the start of this ticket.
+  `app/tests/unit/neon-permissions.test.ts` asserts the committed file rather than trusting it: every
+  destructive command and tool resolves to a prompt under **both** server names, no allow rule
+  reaches one, and the reads still run. Mutation-checked both ways — removing one ask rule, and
+  adding a broad `Bash(neon:*)` allow, each turn it red.
+  **Three of the ticket's criteria are the owner's and are not met**, said plainly rather than left
+  to look done: `neon auth` is a browser flow (`~/.config/neon/` is still empty); `neon projects
+  list` and `neon branches list` therefore have not been run, so the identifiers above were read
+  through the MCP's tools instead — verified live either way, not trusted from the docs that already
+  carried them; and *watching* a destructive command prompt cannot be done from a
+  bypass-permissions session, which is prompted by none of this. Doc 12 §8.3 carries all three with
+  the exact commands.
+  **The review found four things**, all fixed and re-checked. `neon --help` was read to line 80 and
+  the output ran past it, so **`neon deploy`, `neon env`, `neon buckets` and `neon bootstrap`** had
+  no rule — unmatched commands fail closed to a prompt, so this was a hole in the enumeration rather
+  than an open door, and `neon status` joined the reads with them. The test hand-rolled one matcher
+  for two grammars, which hid the trap above: an allow rule globbing its server segment is
+  *discarded*, so the obvious next edit — `mcp__*__list_branches`, to stop a connector's reads
+  prompting — would have left the file claiming a rule Claude Code had thrown away, with the suite
+  green. Two assertions close it. And `SERVERS` in the test pinned the real connector id that the
+  log had just refused to pin in `settings.json`; it asserts the property with a synthetic id now.
+  Suites: 339 bank · **659** app unit · 189 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -872,10 +920,19 @@ and MCP get `gh`'s permission split**. Docs 11 §5 and 12 §§1, 2, 2.1, 2.2, 3 
 match. Acceptance is a **real 20-question domain sitting completed on a phone against production** —
 not an exam sitting, which would spend a first-attempt score to test a deployment.
 
+**The tickets exist: parent #40, thirteen children #41–#53, in dependency order.** **#41 is closed**
+— the Neon CLI and the Neon MCP server are behind `gh`'s permission split, and the identifiers are
+recorded in doc 12 §8 rather than rediscovered. **#42 is next**: name the two Neon branches after
+the git branches they serve, and *measure* whether `sslmode=verify-full` holds on the pooled host
+rather than asserting it. Copy both connection strings before and after any branch operation and
+compare — what a branch operation does to the endpoint host is undocumented.
+
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
-2026-08-31 and abandoned — `~/.config/neon/` is empty), creating the Vercel project, adding the
-production redirect URI in the Google console, setting the Vercel environment variables, and signing
-in with a non-allowlisted account for the §1 allowlist check.
+2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`
+command prompt in an ordinary session (doc 12 §8.3 — a bypass-permissions session is prompted by
+nothing, so no agent can make that check), creating the Vercel project, adding the production
+redirect URI in the Google console, setting the Vercel environment variables, and signing in with a
+non-allowlisted account for the §1 allowlist check.
 
 Of the three things #21 left, one is closed and two stand:
 - ~~**The sheet's trigger duplicates the question counter.**~~ **Closed by #22.** The bar exists, it
@@ -1043,12 +1100,17 @@ pooled URL (§2.2) on arrival.
   provisioned and went unrecorded here; Playwright's arrived with #28 on its stated trigger. Add
   Sentry MCP when the Sentry project exists — which the deploy slice's last ticket creates.
   context7 is already user-scoped.
-  **The Neon CLI is installed and was not recorded here either**: `neon` v4.14.0 globally (the `neon`
-  npm package *is* the CLI; `neonctl` is the old name), **unauthenticated** — `~/.config/neon/` is
-  empty and dated 2026-08-31. Neither it nor Neon MCP has a single permission rule today, and the MCP
-  announces "Write mode active. Destructive tools are exposed" on connection. The deploy slice gives
-  both `gh`'s split: reads allowed, every write at `ask`. Org `org-tiny-fire-00617341`, project
-  `wispy-bird-80472699` (`lfca-simulator`, Postgres 18, Free plan).
+  **The Neon CLI is `neon` v4.14.0, installed globally** (the `neon` npm package *is* the CLI;
+  `neonctl` is the old name) and **still unauthenticated** — `~/.config/neon/` was empty and dated
+  2026-08-31 when #41 landed, so every command that talks to the API opens a browser. `neon auth` is
+  the owner's.
+  **Both the CLI and Neon MCP now have `gh`'s split** (#41): reads allowed, every write at `ask`,
+  which is what the MCP's "Write mode active. Destructive tools are exposed" banner asks for. The
+  MCP rules **wildcard the server segment**, because the same tools arrive both as `mcp__Neon__…`
+  from `.mcp.json` and under a claude.ai connector's opaque id. Identifiers, the rules and their two
+  limits: [12-deployment.md §8](12-deployment.md). Org `org-tiny-fire-00617341`, project
+  `wispy-bird-80472699` (`lfca-simulator`, Postgres 18, Free plan), branches
+  `br-jolly-mode-b39c5rdo` (`production`, root) and `br-noisy-credit-b37kait6` (`dev`).
 - Editing on `main` is blocked by a hook. Branch first.
 - `.claude/launch.json` serves the `design/` static preview on :4173. Tracked; the artboards it
   serves are not — run `node design/build.mjs` first.

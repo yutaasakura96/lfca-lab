@@ -38,6 +38,23 @@ That last row is the check that defends the project's riskiest assumption (doc 0
 the app's suite **and** in `npm run validate` at the repo root, because either one alone can be
 skipped by working in the other half.
 
+**One row in that table is not about a number, and it is deliberate.** `src/domain/` is where this
+plan puts its effort because that is where a wrong number is believed — but the deploy slice adds a
+second thing that fails silently, which is **committed configuration**. A reverted flag, a stale
+Node version, a permission rule whose `*` moved: each is one character away, and none of them fails
+a suite that only exercises the app. So the unit suite also asserts files in the repository, in the
+shape `design-tokens.test.ts` established — read the committed file, assert an external observable
+fact about it, need no database.
+
+| Unit | What is asserted |
+| --- | --- |
+| `neon-permissions.test.ts` | Every destructive `neon` command and Neon MCP tool resolves to a prompt in `.claude/settings.json`, under **both** names a Neon tool arrives under; no allow rule reaches one; the reads still run; and neither of doc 12 §8.2's two traps is open. |
+| `design-tokens.test.ts` | `tokens.css` and `base.css` are byte-identical to `design/`. |
+
+These assert the artefact, never a live system: a test that opens a socket proves today's behaviour,
+which is not what is at risk. What is at risk is somebody changing a line and nothing complaining.
+Ticket #45 extends the first of them with the deploy slice's remaining committed configuration.
+
 **Playwright, one end-to-end run**, covering the path nothing else covers:
 
 > sign in → start exam 07 → answer six questions → flag two → close the context → reopen →

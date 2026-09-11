@@ -138,13 +138,18 @@ Architecture, schema, API and deployment are specified. Point at them; don't res
 
 **The Neon CLI is installed but unauthenticated.** It is `neon` v4.14.0, installed globally — the
 `neon` npm package *is* the CLI now, so looking for `neonctl` finds nothing. `~/.config/neon/` is
-empty and dated 2026-08-31: a login was started and abandoned. `neon auth` is a browser flow and is
-the owner's to complete. Org `org-tiny-fire-00617341`, project `wispy-bird-80472699`.
+empty and dated 2026-08-31: a login was started and abandoned. `neon auth` is a browser flow, is the
+owner's to complete, and is itself at `ask` so an agent cannot start one and hang. Org
+`org-tiny-fire-00617341`, project `wispy-bird-80472699`, **Neon** branches `br-jolly-mode-b39c5rdo`
+and `br-noisy-credit-b37kait6` — @docs/12-deployment.md §8.1 carries them in full.
 
-**Neither the CLI nor Neon MCP has a permission rule**, and the MCP announces "Write mode active.
-Destructive tools are exposed" on connection. The deploy slice gives both the split `gh` has: reads
-allowed, every write at `ask`. Until then, treat any `neon` write as needing the owner's say-so —
-these are the tools that can delete the branch holding the first-attempt scores.
+**Both now have the split `gh` has** — reads allowed, every write at `ask` — which is what the MCP's
+own "Write mode active. Destructive tools are exposed" banner asks for. The rules, the identifiers
+and the two checks only the owner can run are @docs/12-deployment.md §8;
+`app/tests/unit/neon-permissions.test.ts` asserts them. Two things it does not cover: a
+bypass-permissions session is prompted by none of it, and a Neon **read** arriving through a
+claude.ai connector rather than `.mcp.json` prompts, because an `allow` rule may glob its tool
+segment but never its server segment.
 
 ## Agent skills
 

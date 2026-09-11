@@ -1900,3 +1900,72 @@ verified it is named as unverified rather than assumed.*
 - **Consequence:** `neon auth` is a browser flow and is the owner's to complete; it belongs in the
   slice's wizard alongside creating the Vercel project and adding the Google redirect URI.
 - **Revisit if:** never, while the CLI can delete a branch.
+
+### [2026-09-12] The Neon rules wildcard the server, and the CLI's own login is behind a prompt
+- **Decision:** `.claude/settings.json` gives the Neon CLI and the Neon MCP server `gh`'s split —
+  reads allowed, every write at `ask`. The MCP rules name Neon's own tool names with the **server
+  segment wildcarded** (`mcp__*__delete_branch`, not `mcp__Neon__delete_branch`).
+  `app/tests/unit/neon-permissions.test.ts` asserts the committed file in both directions. The
+  identifiers are recorded in doc 12 §8.1. Ticket #41; this is the 2026-09-11 entry's decision
+  carried out, plus the two things building it settled.
+- **Context, and the reason the obvious spelling is wrong:** the Neon tools reaching a session come
+  under **two** names. `.mcp.json` declares a server called `Neon`, and a claude.ai connector exposes
+  the same server under an opaque id (`mcp__0e2230bb-…__delete_branch`). `claude mcp list` shows only
+  the first, and reports it *pending approval* — so a rule written for `mcp__Neon__…` alone would have
+  guarded the copy that was not the one in use, and read in the settings file as protection.
+- **Alternatives considered:** naming both, which is complete today at the cost of pinning a personal,
+  opaque connector id inside a committed project file — and a connector re-registered under a new id
+  escapes it silently. And naming `Neon` only, recording the connector as a known gap: the smallest
+  config, and the one the 2026-09-06 entry's own reasoning rules out — *"a hook that guards nothing is
+  worse than no hook"*. Put to the owner as three options; the wildcard was chosen.
+- **Why it is not over-broad:** the wildcard is in the server segment only, and every rule names a
+  Neon tool exactly (`reset_from_parent`, `run_sql`, `set_default_branch`). Nothing else installed
+  here answers to those names, so an unrelated server is not caught by them.
+- **That the wildcard matches was measured, not assumed**, because the whole decision is worthless if
+  a rule is matched segment by segment — `*` would then be a server literally called `*`, and all
+  sixty rules would be inert while the file read as protection. Read out of the installed CLI: a rule
+  is compiled to one anchored expression over the **whole** tool name, its literal parts escaped and
+  its `*` joined with `.*`, so `mcp__*__delete_branch` is `^mcp__.*__delete_branch$`. Claude Code's
+  own documented example agrees — `mcp__*` matches "every MCP tool across all servers", which it can
+  only do by spanning the server segment.
+- **The asymmetry, kept rather than worked around — and narrower than this entry first claimed.** An
+  `allow` rule **may** glob its *tool* segment (`mcp__Neon__list_*`); it is refused only on its
+  *server* segment, with *"An allow pattern must name the scope it widens"*, and such a rule is
+  discarded when settings load. So a read arriving through a connector prompts, which errs safely and
+  is left alone. **The allow list still names every read in full rather than collapsing to `list_*`
+  and `get_*`**: `get_connection_string` is itself at `ask`, so a tidier `get_*` would put an allow
+  rule and an ask rule over one tool, and nothing here should depend on which of those two wins. A
+  test asserts the two lists stay disjoint, so that independence is a fact rather than an intention.
+- **Four classifications worth stating, because each reads as a read and is not.** `run_sql`,
+  `run_sql_transaction` and `neon psql` are writes whatever the statement says, since nothing inspects
+  it. **`explain_sql_statement` is a write**: `EXPLAIN ANALYZE` executes what it explains.
+  **`get_connection_string` and `neon connection-string` ask** although they change nothing — they
+  hand out a password, which is the one thing the `Read(./**/.env)` denials exist to keep out of an
+  agent's context. And **`neon auth` asks**: it opens a browser and waits, which is exactly how this
+  ticket started, with the command hanging until it timed out.
+- **The CLI has no `neon roles reset-password`.** The 2026-09-11 entry named it as a write to gate;
+  at v4.14.0 `neon roles` is `list`, `create`, `delete` and nothing else. A rule for a command that
+  does not exist is dead weight, so none was written — the password reset is
+  `mcp__*__reset_postgres_role_password`, which is covered.
+- **Consequence:** `.claude/settings.json` is now **89 allow, 114 ask, 6 deny**. Every assertion was
+  mutation-checked rather than trusted for passing first time: removing `mcp__*__delete_branch` from
+  `ask`, adding a broad `Bash(neon:*)` to `allow`, adding `mcp__*__list_branches` to `allow`, and
+  allowing `get_connection_string` each turn it red.
+- **The code review found four things**, and two of them are the reason this entry is longer than the
+  decision. **`neon --help` was read to line 80 and its output ran past it**, so `neon deploy`,
+  `neon env`, `neon buckets` and `neon bootstrap` had no rule; an unmatched command still prompts by
+  default, so this was a gap in the enumeration rather than an open door, and it is recorded because
+  the next person extending these rules will read the same help. **The test hand-rolled one matcher
+  for two grammars**, which is what hid the trap above: it would have counted a discarded
+  `mcp__*__list_branches` allow rule as protection and stayed green — *"listed and absent at once"*,
+  which its own header warns against. Two assertions close it. Also: `SERVERS` in the test pinned the
+  real connector id this entry refuses to pin in `settings.json`, and now asserts the property with a
+  synthetic one; and doc 11 §2 gains the committed-configuration tests, which it had never described.
+- **What this does not do, recorded rather than left to be discovered:** a session in
+  bypass-permissions mode is prompted by none of it, so the ticket's "watch a destructive command
+  prompt" check is the owner's, in an ordinary session, and doc 12 §8.3 carries it with the exact
+  command. **`neon auth` is also still the owner's** — `~/.config/neon/` was empty and dated
+  2026-08-31 when this landed, and every CLI command that talks to the API opens a browser until it
+  is done.
+- **Revisit if:** `allow` rules gain tool-name globs, at which point the connector's reads stop
+  prompting and this asymmetry goes.
