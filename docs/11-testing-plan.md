@@ -50,6 +50,7 @@ fact about it, need no database.
 | --- | --- |
 | `neon-permissions.test.ts` | Every destructive `neon` command and Neon MCP tool resolves to a prompt in `.claude/settings.json`, under **both** names a Neon tool arrives under; no allow rule reaches one; the reads still run; and neither of doc 12 §8.2's two traps is open. |
 | `design-tokens.test.ts` | `tokens.css` and `base.css` are byte-identical to `design/`. |
+| `backup-command.test.ts` | Doc 12 §5's `pg_dump` command names every table the migrations create that is not listed as excluded **with a reason**, dumps over the direct host, and keeps `PGSSLROOTCERT=system` rather than downgrading `sslmode`. Derived from the migrations' own `CREATE TABLE` statements, so **the next table added fails this test by name** — which is the check `attempt_question` went eleven days without. |
 
 These assert the artefact, never a live system: a test that opens a socket proves today's behaviour,
 which is not what is at risk. What is at risk is somebody changing a line and nothing complaining.
