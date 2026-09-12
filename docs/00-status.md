@@ -1140,12 +1140,17 @@ and MCP get `gh`'s permission split**. Docs 11 §5 and 12 §§1, 2, 2.1, 2.2, 3 
 match. Acceptance is a **real 20-question domain sitting completed on a phone against production** —
 not an exam sitting, which would spend a first-attempt score to test a deployment.
 
-**The tickets exist: parent #40, thirteen children #41–#53, in dependency order.** **#41 is closed**
-— the Neon CLI and the Neon MCP server are behind `gh`'s permission split, and the identifiers are
-recorded in doc 12 §8 rather than rediscovered. **#42 is closed** — the Neon branches are `main` and
-`develop`, a rename was measured to move no endpoint host, and `verify-full` was measured to hold on
-the pooler. **#43 is closed** — the repo speaks two connection strings with no fallback between them,
-and the migration and seed scripts no longer hardcode a local env file. **#44 is closed** — production
+**The tickets exist: parent #40, thirteen children #41–#53, in dependency order.** **#41's work has
+landed but the ticket stays open** — the Neon CLI and the Neon MCP server are behind `gh`'s permission
+split and the identifiers are recorded in doc 12 §8 rather than rediscovered, but two criteria are the
+owner's and are unmet: `neon auth` (a browser flow — `~/.config/neon/` is still empty, re-checked
+2026-09-12) and watching a destructive `neon` command prompt in an ordinary non-bypass session. *This
+line read "#41 is closed" until 2026-09-12; it was not, and a handoff artifact claiming a ticket is
+closed when its open criteria are the reader's own is the worst kind of stale.* **#42 is closed** —
+the Neon branches are `main` and `develop`, a rename was measured to move no endpoint host, and
+`verify-full` was measured to hold on the pooler, structurally rather than luckily. **#43 is closed**
+— the repo speaks two connection strings with no fallback between them, and the migration and seed
+scripts no longer hardcode a local env file. **#44 is closed** — production
 exists, holds the bank and the account, and carries **no exam attempts at all**, so all sixteen papers
 are still honest. **#45 is closed** — `.github/workflows/ci.yml` exists, so "CI gates the deploy" is
 true for the first time, and the pin, the script flags and the absent credential are asserted rather
