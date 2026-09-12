@@ -51,7 +51,7 @@ fact about it, need no database.
 | `neon-permissions.test.ts` | Every destructive `neon` command and Neon MCP tool resolves to a prompt in `.claude/settings.json`, under **both** names a Neon tool arrives under; no allow rule reaches one; the reads still run; and neither of doc 12 §8.2's two traps is open. |
 | `design-tokens.test.ts` | `tokens.css` and `base.css` are byte-identical to `design/`. |
 | `backup-command.test.ts` | Doc 12 §5's `pg_dump` command names every table the migrations create that is not listed as excluded **with a reason**, dumps over the direct host, and keeps `PGSSLROOTCERT=system` rather than downgrading `sslmode`. Derived from the migrations' own `CREATE TABLE` statements, so **the next table added fails this test by name** — which is the check `attempt_question` went eleven days without. |
-| `deploy-config.test.ts` | Every script in `app/package.json` that passes an env file uses the **conditional** form, derived from the manifest rather than from a list of script names. `.github/workflows/ci.yml` runs the three database-free suites, runs none of the three that write or read a database, holds no repository secret at all, and **pins a Node major strictly above the manifest's floor major** — so every version that pin can resolve to satisfies `engines.node`, whatever the runner picks. |
+| `deploy-config.test.ts` | Every script in `app/package.json` that passes an env file uses the **conditional** form, derived from the manifest rather than from a list of script names. `.github/workflows/ci.yml` runs the three database-free suites, runs none of the three that write or read a database, holds no repository secret at all, and **pins a Node major strictly above the manifest's floor major** — so every version that pin can resolve to satisfies `engines.node`, whatever the runner picks. And `app/vercel.json` builds with `next build` alone, sets `git.deploymentEnabled` to a **branch map rather than the boolean that would also stop `main`**, denies by default, and grants **exactly one** exception — the last of those being an assertion whose only job is to refuse a second `true`. |
 
 These assert the artefact, never a live system: a test that opens a socket proves today's behaviour,
 which is not what is at risk. What is at risk is somebody changing a line and nothing complaining.
@@ -130,8 +130,14 @@ cd app && npm run typecheck && npm run test:unit       # the app, needs no datab
 (decision log, 2026-09-11). Both need `DATABASE_URL` as a repository secret and a seeded Neon branch
 — precisely the apparatus §4 originally declined for one user, and which the 2026-09-01 entry
 admitted only for a claim no pure function could make. The three cheap suites run in seconds, need no
-credential, and are what made doc 12 §3's "CI gates the deploy" true for the first time; there was
-no `.github/` directory at all until the deploy slice, so it had never been true before.
+credential, and they run on every push; there was no `.github/` directory at all until the deploy
+slice.
+
+**They do not, however, gate anything, and doc 12 §3 said they did until #46 corrected it.** Vercel
+builds on the push and this workflow runs on the same push — they race, and nothing couples them. CI
+is a signal on the commit, not a gate in front of the deploy; the recovery is *Promote to Production*
+(doc 12 §4). Said here as well as there because this is the section a reader consults to find out what
+the suites are *for*.
 
 **One job, not three in parallel**, and the step order is the claim: the bank checks run first
 because they are the cheapest and they are the ones defending the holdout, so a holdout violation
@@ -169,5 +175,7 @@ All three app suites **skip cleanly** when `DATABASE_URL` is absent rather than 
 contributor without a branch still gets a green run and an honest count of what was skipped. The unit
 suite deliberately needs no database at all, so it runs anywhere and fails fast.
 
-**A red suite blocks deploy** (doc 12). The bank checks run first and are the cheapest, so a holdout
-violation fails in seconds rather than after a browser run.
+**A red suite does not block the deploy** — see above, and doc 12 §3. *This line read "A red suite
+blocks deploy (doc 12)" until #46*, which is the same claim from the other end and was wrong for the
+same reason. The bank checks still run first and are still the cheapest, so a holdout violation is
+reported in seconds rather than after a browser run; what it buys is a fast answer, not a refusal.

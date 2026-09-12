@@ -2261,3 +2261,102 @@ verified it is named as unverified rather than assumed.*
   at which point the secret is worth adding and doc 11 §5's last two lines get built as written — and the
   "holds no repository secret at all" assertion becomes the thing to loosen deliberately rather than
   quietly.
+
+### [2026-09-13] CI does not gate the deploy, and the claim is corrected rather than made true
+- **Decision:** doc 12 §3's *"CI gates the deploy … Red suite, no deploy"* is **rewritten to say the
+  opposite**, because it is not true and cannot be made true in the shape this slice chose. Vercel's
+  GitHub integration builds on the push and `.github/workflows/ci.yml` runs on the same push; they
+  race, and nothing couples them. CI is a **signal on the commit**, and the recovery is §4's *Promote
+  to Production*. Doc 11 §5's mirror-image claim, the workflow's own header comment and one comment in
+  `deploy-config.test.ts` are corrected with it. Ticket #46.
+- **Context:** #45 made half of that sentence true by creating the workflow — there had been no
+  `.github/` directory at all — and this is the other half, found while reading Vercel's documentation
+  to build #46 rather than after a bad deploy. **The sentence has now been false in two distinct ways**,
+  and separating them matters: the first was an absence a ticket could fix, the second is a property of
+  the platform that no workflow could.
+- **The mechanism that would couple them exists and does not fit.** Vercel's **Deployment Checks**
+  imports GitHub Actions results, but it *"will hold each production deployment until all required
+  checks pass before assigning it to your **custom production domains**"*, and its documented
+  prerequisite is that *"automatic aliasing for production is turned on"*. Doc 12 §7 declines a custom
+  domain for an audience of one — so the gate would hold a build back from a domain that does not
+  exist, and the prerequisite is the very control the 2026-09-11 entry examined and found undocumented
+  on a project without one. Read before deciding, not assumed.
+- **Alternatives considered.** *Buy a custom domain*, turn on automatic aliasing and configure
+  Deployment Checks — this is the mechanism as designed, and it was rejected because it reverses §7 for
+  a DNS record and a certificate maintained for one user, and it holds only the *promotion*: the build
+  still happens. *Turn Vercel's git integration off entirely* (`git.deploymentEnabled: false`) and
+  deploy from the workflow with `vercel deploy --prebuilt --prod` as a step **after** the suites — this
+  genuinely makes CI a gate, because the deploy becomes a later step in the same job, and it is the
+  strongest option on the table. Rejected for #46: it needs a `VERCEL_TOKEN` repository secret, which
+  reverses #45's *"holds no repository secret at all"* eleven days after that was asserted and tested,
+  and it collides with #48's deploy workflow, which is the ticket that should decide it if anyone does.
+  *Defer the question to a new child of #40*, rejected because it leaves a known-false safety claim
+  standing in a doc, which is the thing this repository has now caught and corrected three times.
+- **Reason:** the 2026-09-11 entry already made this trade, in the entry that declined to put a prompt
+  in front of a push to `main`: the recovery is better than the prevention — *Promote to Production* is
+  seconds and needs no rebuild — and **the failure this repository has actually had is `main` drifting
+  behind `develop`**, ten commits at one point, never a red suite reaching production. Nothing about
+  the arrangement changes; what changes is that the doc now describes it.
+- **Consequence:** #46's acceptance criterion *"CI is observed gating the deploy: a red suite, no
+  deploy"* is **unmeetable as written** and is recorded as such rather than quietly ticked. What is
+  observed instead is the true statement — a deploy proceeding independently of the run — and the docs
+  say so in three places. A reader who wants the gate has the second option above written down with its
+  price.
+- **Revisit if:** #48 lands and its deploy workflow makes a `VERCEL_TOKEN` secret ordinary anyway, at
+  which point deploying from Actions costs one step rather than a reversal, and this is the entry to
+  re-read.
+
+### [2026-09-13] `git.deploymentEnabled` is a branch map denying by default, and `vercel.json` sits inside the Root Directory
+- **Decision:** `app/vercel.json` carries
+  `{"git": {"deploymentEnabled": {"**": false, "main": true}}}` and pins `"buildCommand": "next build"`.
+  Five assertions in `app/tests/unit/deploy-config.test.ts` hold both. Ticket #46.
+- **The obvious spelling would have broken production silently.** Doc 12 §1 has said since Phase 4 that
+  *"non-production deployments are turned off, in `vercel.json`'s `git.deploymentEnabled`"*, which reads
+  as a flag. Vercel documents the property as *"`Object` of key branch identifier `String` and value
+  `Boolean`, or `Boolean`"* — and a bare `false` *"turn[s] off automatic deployments for **all**
+  branches"*, `main` included. There is no boolean meaning "non-production only". A reader following
+  the prose would have stopped production deploying and seen no error, only a production that quietly
+  stopped moving. §1 now carries the map and the trap; the test's first assertion refuses a boolean by
+  name.
+- **Alternatives considered.** `{"develop": false}` — Vercel's own documented example shape, no glob,
+  no uncertainty, and it satisfies #46's observable criterion exactly. Rejected because the claim in §1
+  is not *"`develop` does not deploy"* but *"what is deployed is always whatever is on `main`"*: a
+  pushed ticket branch would still mint a public URL, and two of the last five ticket branches had
+  remote copies. And `{"develop": false, "feature/*": false, "feature/**": false}` — no reliance on a
+  glob spanning a slash, at the cost of an enumeration that goes stale the first time a branch is named
+  something else, which is the failure `neon --help` already produced once in #41.
+- **The named risk, and why it is acceptable:** Vercel documents minimatch syntax but does not specify
+  whether `**` spans the `/` in `feature/46-…`. minimatch's `**` does; their matcher is not written
+  down. **It is falsifiable but not yet falsified**, and saying which matters: the observation needs a
+  branch pushed *while Vercel is connected*, and Vercel is not connected during the agent half of #46.
+  A push of `develop` settles that the file is read at all (§3.1); the first push of a `feature/NN-…`
+  branch after the project exists — #47's, in the ordinary course — is what settles whether `**` spans
+  the slash. If it turns out not to, the repair is one line: add `"feature/*"` beside it. `main` wins
+  its exception by the documented rule that a branch matching several patterns deploys if **any**
+  matched pattern is `true`.
+- **A fifth assertion exists only to refuse a second `true`.** The per-branch rows would still pass
+  with `"develop": true` sitting beside the other two; the one that reads back the enabled list and
+  requires it to equal `["main"]` would not. Mutation-checked: that mutation fails exactly one test,
+  and it is that one.
+- **`vercel.json` is at `app/vercel.json`, and the placement is evidence rather than a documented
+  rule.** Vercel says only that the file *"should be created in your project's root directory"* — the
+  ambiguous phrase exactly where this project has two candidate meanings. What settles it is their
+  monorepo documentation showing the file at `apps/web/vercel.json`, which is a Root Directory rather
+  than a repository root. **So it is verified by observation, not by the test:** nothing in
+  `deploy-config.test.ts` can assert that Vercel *read* the file, and the check that can is the one #46
+  already requires — push `develop`, watch no deployment appear. Wrong placement fails loudly and
+  immediately, which is the only reason resting on an inference is acceptable. Doc 12 gains §3.1 saying
+  so, so that whoever moves the file knows a green suite is not confirmation.
+- **The build command is pinned rather than detected**, although detection produces the same string.
+  What detection does not do is refuse a dashboard edit appending to it — and doc 12 §3 spent three
+  paragraphs on why `db:migrate` and `seed` do not belong in the build. A value living only in a
+  dashboard is a value with no diff.
+- **Mutation-checked six ways**, each red attributed: the boolean trap (4 tests), the `main` exception
+  removed (2), `**` replaced by a literal `develop` (1), a second exception added (1), the build command
+  growing a seed (1), and the file deleted (5). **The #45 restore trap was avoided rather than
+  rediscovered** — `app/vercel.json` is untracked, so `git checkout --` would have restored nothing;
+  per-file copies were used, and `cp` turned out to be aliased to `cp -i` and refused every restore.
+  The matrix survives that only because each mutation writes the whole file rather than amending it,
+  which was checked by diffing the file against its original afterwards rather than assumed.
+- **Revisit if:** Vercel documents whether `**` spans a slash in a branch pattern, or a branch naming
+  convention arrives that the observation on this ticket did not cover.

@@ -1013,7 +1013,10 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   so doc 12 §3's "CI gates the deploy" — written in Phase 4 — was false for the whole of features 3,
   4 and half of 5. **One job on every push**, the bank checks first, then `npm ci` and the app's
   `typecheck` and unit suite. It **holds no repository secret**, which is the half that matters: the
-  gate cannot reach the database it gates. The integration suite and the browser run stay local, and
+  suite reporting on a commit cannot reach the database that commit's deploy will serve. *#46 found
+  that the sentence was false a second way and corrected it — Vercel builds on the push and the
+  workflow runs on the same push, so nothing here gates anything; read the feature-5 entry for #46.*
+  The integration suite and the browser run stay local, and
   the workflow asserts their *absence* rather than merely omitting them.
   **One job rather than three in parallel, and the order is the claim.** doc 11 §5 says the bank runs
   first so a holdout violation fails in seconds; sequential steps keep that literally. The bank half
@@ -1152,10 +1155,35 @@ the Neon branches are `main` and `develop`, a rename was measured to move no end
 — the repo speaks two connection strings with no fallback between them, and the migration and seed
 scripts no longer hardcode a local env file. **#44 is closed** — production
 exists, holds the bank and the account, and carries **no exam attempts at all**, so all sixteen papers
-are still honest. **#45 is closed** — `.github/workflows/ci.yml` exists, so "CI gates the deploy" is
-true for the first time, and the pin, the script flags and the absent credential are asserted rather
-than trusted. **#46 is next, and it is the one that connects Vercel** — after which a push to `main`
-is a production deploy.
+are still honest. **#45 is closed** — `.github/workflows/ci.yml` exists and runs the three
+database-free suites on every push, and the pin, the script flags and the absent credential are
+asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
+first time; #46 established that it did not and could not — see below.*
+
+**#46 is in progress, and its committed half has landed.** `app/vercel.json` turns non-production
+deployments off (`{"**": false, "main": true}` — a **branch map**, because a bare `false` would stop
+`main` too) and pins the build command to `next build` alone; five new assertions in
+`deploy-config.test.ts` hold both, mutation-checked six ways. **`develop` has been merged into `main`
+and pushed**, so the configuration is on the branch that deploys *before* Vercel is connected.
+**And #46's headline is a correction, not a feature:** doc 12 §3's *"CI gates the deploy — red suite,
+no deploy"* is false and unmeetable in this project's shape, because Vercel builds on the push while
+the workflow runs on the same push and nothing couples them. Deployment Checks is the mechanism and it
+holds a build back only from a **custom production domain**, which §7 declines to buy. Docs 11 §5,
+12 §3, the workflow header and a test comment are corrected; two decision-log entries carry the
+argument and the rejected alternative (deploy from Actions with a `VERCEL_TOKEN`, which #48 may revisit).
+
+**What remains of #46 is the owner's**, and none of it is blocked by anything above: create the Vercel
+project against `yutaasakura96/lfca-lab` with **Root Directory `app`**, set the five production
+variables #46 owns — `DATABASE_URL` and `DATABASE_URL_UNPOOLED` (both `sslmode=verify-full` **and**
+`channel_binding=require`, from `app/.env.main`), `ALLOWED_EMAILS`, `GOOGLE_CLIENT_ID`,
+`GOOGLE_CLIENT_SECRET` — and leave the build command alone, since `vercel.json` now pins it. The other
+two variables (`BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`) are **#47's**: both need a hostname that does
+not exist until the first deploy. Then three observations close the ticket: the production URL
+redirects to `/sign-in`; a push to `develop` mints **no** deployment — which is also the only proof
+that Vercel read `app/vercel.json` at all (doc 12 §3.1); and a content-only commit still deploys,
+confirming the carried "skipping unaffected projects" finding, which Vercel's own docs already settle —
+it requires an npm/yarn/pnpm/Bun **workspace**, this repo has none, and non-workspace changes are
+documented as "global changes" that "deploy all applications".
 
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
 2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`
@@ -1182,8 +1210,12 @@ from either ticket had to be undone.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and pushed.
 
-**Before connecting Vercel, merge `develop` into `main`.** Every such merge becomes a production
-deploy afterwards (doc 12 §3).
+**`develop` is merged into `main` and pushed — this step is done, not outstanding.** It was done
+before Vercel is connected, deliberately and in two passes: #45's workflow went first so `main` would
+carry it from the first deploy, and #46's `vercel.json` went with the same reasoning — the branch map
+that stops `develop` deploying has to be on `main` *before* the project exists, or connecting mints a
+URL for every branch in the window between. Every such merge becomes a production deploy once Vercel
+is connected (doc 12 §3).
 
 Tickets land in **GitHub Issues**, so `/to-tickets` and `/triage` need `gh` authenticated. The five
 triage labels exist on the repo. Never put a secret from doc 12 §2 in an issue body — the repo is

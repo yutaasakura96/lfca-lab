@@ -29,8 +29,25 @@ custom domain to a branch, which §7 declines to buy. Neon's Free plan separatel
 **ten branches** and refuses creation past it. And no pull request has ever been opened on this
 repository. See the decision log, 2026-09-11.
 
-**Non-production deployments are turned off**, in `vercel.json`'s `git.deploymentEnabled`, so a push
-to `develop` mints no public URL. What is deployed is always whatever is on git `main`.
+**Non-production deployments are turned off**, in `app/vercel.json`'s `git.deploymentEnabled`, so a
+push to `develop` mints no public URL. What is deployed is always whatever is on git `main`.
+
+**That sentence has no single-boolean spelling, and the obvious one is a trap.** Vercel documents the
+property as *"`Object` of key branch identifier `String` and value `Boolean`, or `Boolean`"*, and
+setting it to a bare `false` *"turn[s] off automatic deployments for **all** branches"* — `main`
+included. A reader who takes the paragraph above literally would stop production deploying and see no
+error, only a production that quietly stopped moving. So it is a **branch map, denying by default**:
+
+```json
+{ "git": { "deploymentEnabled": { "**": false, "main": true } } }
+```
+
+`main` wins its own exception by Vercel's documented rule that a branch matching several patterns
+deploys if **any** matched pattern is `true`. Deny-by-default rather than naming `develop`, because
+the claim above is not *"`develop` does not deploy"* — it is *"what is deployed is always whatever is
+on `main`"*, and naming `develop` alone would let a pushed ticket branch mint a public URL. Four of
+`app/tests/unit/deploy-config.test.ts`'s assertions hold this shape, including one whose only job is
+to refuse a **second** `true`.
 
 **"Branch" means two things here and is never used bare** — a git branch is code, a Neon branch is a
 copy of the database. They are named after each other on purpose: Neon `main` backs git `main`, Neon
@@ -253,18 +270,40 @@ as a side effect. Harmless — Vercel runs only `next build`, which needs neithe
 `--env-file-if-exists` — but it is a decision the field makes, not a fact it merely states. `24.x`
 was rejected as the value because it would warn on the owner's own Node 25.
 
-**CI gates the deploy, and it is smaller than doc 11 §5 specifies:** the bank checks, `typecheck` and
-the app's unit suite — the three that need no database. The integration suite and the Playwright run
-stay local, because both need a seeded branch and a credential the test workflow deliberately does not
-hold. Red suite, no deploy. Node is **pinned** in every workflow: `npm run seed` executes
-`scripts/seed.ts` directly, which needs Node ≥23.6 for unflagged type stripping and fails as a parse
-error on an older major.
+**CI does not gate the deploy. This section said it did from the day it was written, and the sentence
+was false in two different ways.** The first was fixed on 2026-09-12 and the second on 2026-09-13, and
+they are worth separating because only one of them was an absence.
 
-**This section said "CI gates the deploy" from the day it was written, and it was not true until
-2026-09-12** — there was no `.github/` directory in this repository at all. It is
-`.github/workflows/ci.yml` now: one job on every push, the bank checks first, then `npm ci` and the
-app's `typecheck` and unit suite. It holds **no repository secret**, which is the half that matters:
-the gate cannot reach the database it gates.
+**It was false for want of a workflow until 2026-09-12** — there was no `.github/` directory in this
+repository at all. It is `.github/workflows/ci.yml` now: one job on every push, the bank checks first,
+then `npm ci` and the app's `typecheck` and unit suite — smaller than doc 11 §5 specifies, because the
+integration suite and the Playwright run both need a seeded branch and a credential this workflow
+deliberately does not hold. It holds **no repository secret**, so the suite that reports on a commit
+cannot reach the database that commit's deploy will serve.
+
+**And it was false for want of a mechanism, which no workflow could have fixed.** Vercel's GitHub
+integration builds on the push; the workflow runs on the same push. **They race, and nothing couples
+them** — a red suite deploys anyway, and the deployment is live before the run finishes. There is no
+setting in `vercel.json` that makes a deployment wait on a GitHub check.
+
+**The mechanism that would couple them exists and does not fit here**, which is why this is a
+correction rather than a ticket. Vercel's **Deployment Checks** imports GitHub Actions results, but it
+*"will hold each production deployment until all required checks pass before assigning it to your
+**custom production domains**"* — and §7 declines a custom domain for an audience of one. Its
+documented prerequisite is *"automatic aliasing for production is turned on"*, which is the same
+control the 2026-09-11 decision already examined and found undocumented on a project with no custom
+domain. So the gate would hold a build back from a domain that does not exist.
+
+**What stands in its place is §4, and it always was.** *Promote to Production* on the last good build
+is seconds and needs no rebuild, which is the same trade the 2026-09-11 decision made when it declined
+to put a prompt in front of a push to `main`: the recovery is better than the prevention, and the
+failure this repository has actually had is `main` drifting **behind** `develop`, never a red suite
+reaching production. CI is a **signal** — it says on the commit whether the suites passed, which is
+what a person reads before deciding whether to roll back. Calling it a gate was the thing that had to
+change, not the arrangement.
+
+Node is **pinned** in the workflow: `npm run seed` executes `scripts/seed.ts` directly, which needs
+Node ≥23.6 for unflagged type stripping and fails as a parse error on an older major.
 
 **The pin is `24.x`, and that number is a consequence of the field above rather than a free choice.**
 Root Directory is `app`, so `engines.node` is the manifest Vercel reads, and `>=23.6.0` resolves there
@@ -273,6 +312,27 @@ deploy they gate. It is **strictly above** the manifest's floor major on purpose
 `24.x` pin can resolve to satisfies `>=23.6.0`, whereas a `23.x` pin could legally resolve to 23.0.0
 and fall below it. `app/tests/unit/deploy-config.test.ts` asserts exactly that relationship, so the
 pin and the manifest cannot drift — and it runs inside this workflow to do it.
+
+### 3.1 `vercel.json` lives inside the Root Directory, and only a push proves it was read
+
+The file is **`app/vercel.json`**, not one at the repository root. Vercel's own documentation says
+only that it *"should be created in your project's root directory"*, which is the ambiguous phrase
+exactly where it needs not to be — this project has a repository root and a configured Root Directory
+and they are different places. What settles it is that Vercel's monorepo documentation shows the file
+at `apps/web/vercel.json`, which is that project's Root Directory rather than the repository root.
+
+**So the placement is evidence, not a documented rule, and it is verified by observation rather than
+by the test.** `deploy-config.test.ts` asserts what the file *says*; nothing in it can assert that
+Vercel read the file. The check that does is the one #46 requires anyway: **push `develop` and watch
+no deployment appear.** If the file were in the wrong place, `develop` would deploy — a loud,
+immediate failure rather than a silent one, which is the only reason it is acceptable to rest a
+placement on an inference. Recorded here so that a future reader who moves the file knows what to
+re-observe, and does not take a green suite as confirmation.
+
+**The build command is pinned here too**, as `next build`, rather than left to framework detection.
+Detection produces the same string today; what it does not do is refuse a dashboard edit that appends
+something to it. §3 above spent three paragraphs on why `db:migrate` and `seed` do not belong in the
+build, and a value that lives only in a dashboard is a value with no diff.
 
 ---
 

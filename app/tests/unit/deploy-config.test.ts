@@ -35,6 +35,13 @@ const repoRoot = join(appRoot, '..');
 
 const CI_WORKFLOW = join(repoRoot, '.github', 'workflows', 'ci.yml');
 
+// Inside the Root Directory, not at the repository root. Vercel's own monorepo
+// documentation shows the file at `apps/web/vercel.json` — the Root Directory of
+// that project — and this project's Root Directory is `app`. Doc 12 §3.1 records
+// that the placement was *observed* rather than deduced: a push to `develop`
+// minting no deployment is what proves the file was read at all.
+const VERCEL_CONFIG = join(appRoot, 'vercel.json');
+
 const manifest = JSON.parse(readFileSync(join(appRoot, 'package.json'), 'utf8')) as {
   engines: { node: string };
   scripts: Record<string, string>;
@@ -43,8 +50,8 @@ const manifest = JSON.parse(readFileSync(join(appRoot, 'package.json'), 'utf8'))
 const workflow = (): string => {
   expect(
     existsSync(CI_WORKFLOW),
-    '.github/workflows/ci.yml is missing. It is what makes doc 12 §3\'s "CI gates the deploy" true; '
-      + 'without it nothing runs the three database-free suites on a push.',
+    '.github/workflows/ci.yml is missing. It is what runs the three database-free suites on a push '
+      + '— the signal doc 12 §3 describes. It is not a gate, and that section says so since #46.',
   ).toBe(true);
 
   return readFileSync(CI_WORKFLOW, 'utf8');
@@ -142,9 +149,14 @@ describe('CI runs the three suites that need no database', () => {
   it('holds no database credential, and no repository secret at all', () => {
     // Scoped to this workflow by name rather than to the whole of `.github/`,
     // because #48 adds a deploy workflow that deliberately *does* hold
-    // DATABASE_URL_UNPOOLED as a repository secret. The claim being made here is
-    // about the test gate: a red suite must be able to block a deploy without
-    // this workflow ever being able to touch the database it gates.
+    // DATABASE_URL_UNPOOLED as a repository secret.
+    //
+    // **This comment used to end "a red suite must be able to block a deploy",
+    // and that was never true.** Vercel's git integration builds on the push and
+    // this workflow runs on the same push; they race, and nothing couples them
+    // (doc 12 §3). The claim actually being made here is narrower and still
+    // worth making: the suite that reports on a commit cannot reach the database
+    // that commit's deploy will serve.
     const text = workflow();
 
     expect(
@@ -235,5 +247,90 @@ describe('the workflow and the manifest cannot drift about Node', () => {
         + '`npm run seed` fails as a parse error rather than as a missing runtime. Pin a major above '
         + 'the floor major.',
     ).toBeGreaterThan(floorMajor);
+  });
+});
+
+describe('only git main deploys, and the build command is the framework build alone', () => {
+  // The one setting in this slice that is a *dashboard toggle* by default. It is
+  // committed instead, so it is reviewable in a diff and cannot be changed by
+  // somebody clicking through project settings — which is the same reasoning
+  // that put the Neon permission split in `.claude/settings.json` rather than in
+  // a habit.
+  //
+  // **`git.deploymentEnabled` has no single-boolean spelling for what is wanted
+  // here**, and getting that wrong is silent in the worst direction. Vercel
+  // documents the type as an object of branch→boolean *or* a boolean, and a bare
+  // `false` turns off automatic deployments for **all** branches — `main`
+  // included. A reader who takes doc 12 §1's prose ("non-production deployments
+  // are turned off") literally and writes `false` gets a repository that deploys
+  // nothing at all, and the symptom is a production that silently stops moving.
+
+  const config = (): { buildCommand?: unknown; git?: { deploymentEnabled?: unknown } } => {
+    expect(
+      existsSync(VERCEL_CONFIG),
+      'app/vercel.json is missing. It is what turns non-production deployments off (doc 12 §1) and '
+        + 'pins the build command to the framework build alone (doc 12 §3). Without it every push to '
+        + 'every branch mints a public URL, and the build command reverts to whatever the dashboard '
+        + 'says — which is the state doc 12 §3 exists to prevent, since it once specified a build '
+        + 'that ran `db:migrate` and `seed` first.',
+    ).toBe(true);
+
+    return JSON.parse(readFileSync(VERCEL_CONFIG, 'utf8')) as ReturnType<typeof config>;
+  };
+
+  it('builds with `next build` and nothing else', () => {
+    // Pinned rather than left to framework detection. Detection would produce
+    // the same string today; what it would not do is refuse a dashboard edit
+    // appending `&& npm run seed`, which is precisely the arrangement doc 12 §3
+    // superseded and the 2026-08-31 decision moved to a workflow.
+    expect(
+      config().buildCommand,
+      'app/vercel.json does not pin `next build` as the build command. Migrations and the seed run '
+        + 'from a workflow (#48, decision log 2026-08-31), never from the build.',
+    ).toBe('next build');
+  });
+
+  it('is a branch map, not the boolean that would also stop main', () => {
+    expect(
+      config().git?.deploymentEnabled,
+      'app/vercel.json sets git.deploymentEnabled to a boolean. Vercel documents `false` as turning '
+        + 'off automatic deployments for **every** branch, main included — so this does not disable '
+        + 'non-production deployments, it disables production too, and nothing would ever deploy '
+        + 'again. It must be an object keyed by branch.',
+    ).toBeTypeOf('object');
+  });
+
+  it.each([
+    { branch: '**', enabled: false, why: 'nothing deploys unless a rule says otherwise' },
+    { branch: 'main', enabled: true, why: 'main is the exception, and the only one' },
+  ])('$branch → $enabled — $why', ({ branch, enabled }) => {
+    // Deny by default, with one exception, because doc 12 §1's claim is not
+    // "develop does not deploy" but "what is deployed is always whatever is on
+    // main". Naming `develop` alone would satisfy the observable criterion and
+    // leave a pushed ticket branch minting a public URL — and two of the last
+    // five ticket branches had remote copies.
+    //
+    // `main` wins its own exception by Vercel's documented rule that a branch
+    // matching several rules deploys if **any** matched rule is true.
+    expect(
+      (config().git?.deploymentEnabled as Record<string, boolean>)[branch],
+      `app/vercel.json does not map the branch pattern \`${branch}\` to ${enabled}. `
+        + 'Doc 12 §1 requires that only git main deploys.',
+    ).toBe(enabled);
+  });
+
+  it('grants no second exception — main is the only branch that deploys', () => {
+    // The assertion above would still pass with `"develop": true` sitting beside
+    // the other two. This is the one that would not.
+    const enabled = Object.entries(config().git?.deploymentEnabled as Record<string, boolean>)
+      .filter(([, on]) => on)
+      .map(([branch]) => branch);
+
+    expect(
+      enabled,
+      `app/vercel.json enables deployments for ${enabled.join(', ')}. Only main may deploy: doc 12 §1 `
+        + 'cut preview environments outright, because a Google redirect URI cannot be wildcarded and '
+        + 'Vercel mints a hostname per deployment, so sign-in on any other host cannot work.',
+    ).toEqual(['main']);
   });
 });

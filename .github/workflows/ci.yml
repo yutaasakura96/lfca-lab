@@ -1,11 +1,17 @@
-# The gate. doc 12 §3 has said "CI gates the deploy" since it was written; there
-# was no .github/ directory in this repository at all until now, so it had never
-# once been true.
+# The signal — not a gate, which this file's own header claimed until #46.
+#
+# doc 12 §3 said "CI gates the deploy" from the day it was written. It was false
+# for want of this file until #45, and false for want of a mechanism until #46
+# corrected the sentence: Vercel builds on the push, this workflow runs on the
+# same push, they race, and nothing couples them. A red run here does not stop a
+# deploy. What it does is say so on the commit, which is what somebody reads
+# before deciding to roll back (doc 12 §4).
 #
 # What runs here is the three suites that need no database — doc 11 §5's first
 # two lines. The integration suite and the browser run stay local: both need a
 # seeded Neon branch and a credential this workflow deliberately does not hold,
-# and holding one would give the gate write access to the database it gates.
+# so the suite reporting on a commit cannot reach the database that commit's
+# deploy will serve.
 #
 # The bank goes first because it is the cheapest and it is the one defending the
 # holdout: a holdout violation fails in seconds rather than after a typecheck.
