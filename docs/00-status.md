@@ -1257,11 +1257,13 @@ per-string, it binds the pooled URL (§2.2), and #42 measured that it actually h
 
 ### Repo and tooling
 - Work lands on **`develop`**, one branch per ticket, merged and pushed as each closes.
-  **This said "only `develop` and `main` exist" and that is stale** — the sweep on 2026-09-06 deleted
-  every ticket branch that existed *then*, including the Phase 2–5 `design/practice-app-system`, but
-  `feature/37-finish-composed-sitting` landed afterwards and is still present **locally and on
-  origin**. Its commits are reachable through `develop`; the branch is simply undeleted. Sweep it
-  with the deploy slice.
+  **Only `develop` and `main` exist again**, locally and on origin, as of 2026-09-12. This line had
+  said so, then recorded that it was stale: the 2026-09-06 sweep deleted every ticket branch existing
+  *then*, and five landed afterwards — `feature/37-finish-composed-sitting` and the deploy slice's
+  `feature/41` through `feature/44`. All five were confirmed fully merged into `develop`
+  (`git branch --no-merged develop` empty) before deletion, so every commit is still reachable; two
+  of them had remote copies, and those went with them. **Sweep at the end of each ticket rather than
+  at the end of a slice** — that is what let four accumulate.
   **No pull request has ever been opened on this repository** — zero, all-time — which is the fact
   that cut preview environments out of feature 5 (decision log, 2026-09-11).
   **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `27cd5de`, level with
