@@ -1969,3 +1969,68 @@ verified it is named as unverified rather than assumed.*
   is done.
 - **Revisit if:** `allow` rules gain tool-name globs, at which point the connector's reads stop
   prompting and this asymmetry goes.
+
+### [2026-09-12] The Neon branches are named after the git branches, and `verify-full` holds on the pooler
+- **Decision:** the two Neon branches are renamed to the git branches they back — `production` →
+  **`main`** (the root, still default) and `dev` → **`develop`**. Doc 12 §2.1's standing caveat about
+  the pooled host is **settled by measurement and removed**: `sslmode=verify-full` holds on the
+  `-pooler` host, so §2.1's per-string rule binds the pooled URL with no exception. Ticket #42.
+- **Context:** §2.1 was deliberately written per-string rather than per-variable so it would bind the
+  second connection string on arrival, and it then declined to assert itself over the pooled host —
+  Neon recommends `verify-full` host-agnostically but never states it for `-pooler`, and its own
+  connection-pooling examples use `sslmode=require`. `verify-full` adds hostname verification and the
+  pooler is a different hostname, so the honest position was that nothing downstream could assert a
+  rule about the pooled string until somebody looked.
+- **The answer is structural, not a lucky observation, and that is the part worth keeping.** Every
+  endpoint in this project is served **one wildcard certificate for the proxy domain** — leaf CN and
+  sole SAN `*.c-4.ap-southeast-1.aws.neon.tech` — and `-pooler` is a suffix on the **leftmost label**.
+  So `ep-…-pooler.c-4.…` and `ep-….c-4.…` are both single labels under that wildcard and match it
+  equally: the pooler is not a different certificate, it is a different name on the same one. Four
+  hosts for four, TLSv1.3, chain `YR2 ← Root YR ← ISRG Root X1`, `authorized: true`. There is no
+  documented exception to write down, which is the outcome this ticket was prepared to accept the
+  other way.
+- **How it was measured, and why the method is the decision.** `verify-full` means chain verification
+  plus hostname verification, and **both happen in the TLS handshake before authentication** — so no
+  credential is needed to observe either. The probe made the Postgres `SSLRequest` by hand and handed
+  the upgraded socket to `tls.connect` with `rejectUnauthorized: true` and `servername` set, which is
+  the option pair node-postgres builds for `verify-full`. *Alternatives considered:* a live `pg`
+  connection over the pooled string, which is what "a real connection" sounds like — rejected because
+  it needs a password, and doc 12 §8.2 put `get_connection_string` behind a prompt specifically to
+  keep a role password out of an agent's context; the auth attempt also confounds the thing being
+  measured, since a TLS failure and an auth failure are different errors for different reasons. Also
+  considered having the owner run the `pg` version, which is strictly more work for a fact the
+  handshake already settles.
+- **The check was proved non-vacuous rather than trusted for going green**, on this repo's standing
+  habit. Run against the served certificate, Node's own `checkServerIdentity` **rejects** a deeper
+  label (`deeper.label.c-4.…`) and a different proxy shard (`ep-…-pooler.c-9.…`) with *"Hostname/IP
+  does not match certificate's altnames"*, while accepting both real hosts. A strict pass that
+  accepted everything would have looked identical from the verdict alone.
+- **The probe is a throwaway and is not committed**, which is the same call
+  `connection-string.test.ts` already made in its own header: *"It asserts the string, not the socket
+  — a live connection proves today's behaviour, which is not what is at risk."* Doc 11 §2 says the
+  same thing as a rule. What is at risk is somebody pasting a fresh dashboard string that says
+  `require`, and the committed guard for that is the test, which **#43** extends to both strings.
+  *Alternative considered:* committing it under `tools/` so the rename question could be re-measured
+  later — rejected because a committed socket-opening script contradicts that rule and invites being
+  run as a check it was never meant to be. What the repo keeps instead is §2.1's note on **what would
+  break it**: Neon moving the pooler to a different parent domain, or issuing it its own certificate.
+- **What the rename did to the endpoint hosts: nothing, measured rather than assumed.** Neon does not
+  document this, so both endpoint records were captured in full before and after and compared. The
+  hosts are identical and so is every other field, **including the endpoints' own `updated_at`** — the
+  rename did not touch the endpoint records at all; only the branch rows moved. The root kept
+  `primary: true, default: true`. Connection strings carry the endpoint host and never the branch
+  name, so nothing holding one needs re-pasting, `app/.env.local` included. The four hosts were
+  re-measured against `verify-full` afterwards regardless, because *the host is unchanged* and *it
+  still verifies* are two claims and only one of them was being asserted.
+- **One measured thing that contradicts the endpoint record**, recorded because the next reader will
+  see the flag before they see this: both endpoints report **`pooler_enabled: false`** and the pooled
+  host answers anyway. That is Neon's "the pooled endpoint is always available" holding in practice,
+  and it means the flag is not what decides whether a `-pooler` host exists — so it is not a
+  precondition to check before using one.
+- **The `channel_binding=require` criterion is the owner's**, and is the one thing here an agent
+  cannot settle: it is a fact about four strings, and the strings are secrets. It was checked by a
+  throwaway that reads them from a `read -s` prompt and prints **only the query parameters** — no
+  host, no role, no password — so neither the shell history nor this repository's transcript ever held
+  one.
+- **Revisit if:** Neon changes the pooler's hostname shape, which is the single assumption the whole
+  measurement rests on.

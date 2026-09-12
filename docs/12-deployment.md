@@ -87,17 +87,59 @@ consent**, so being asked to consent again next week is the documented behaviour
 was known to be coming. It has arrived (§2.2). Both are pasted from the Neon dashboard — which hands
 out `sslmode=require` — and both get the same treatment.
 
-**With one caveat that is a test, not an assumption.** Neon recommends `verify-full` host-agnostically
-but never states it for the **`-pooler`** host specifically, and its own connection-pooling examples
-use `sslmode=require`. `verify-full` adds hostname verification, and the pooler is a different
-hostname. The pooled string is therefore to be verified against `verify-full` the way the direct one
-was on 2026-09-02 — measured, not believed — before this rule is asserted over it.
+**The caveat this section carried is settled, and the answer is structural rather than lucky.** Neon
+recommends `verify-full` host-agnostically but never states it for the **`-pooler`** host
+specifically, and its own connection-pooling examples use `sslmode=require` — so the rule was held
+open until the pooled host was measured the way the direct one was on 2026-09-02. **Measured
+2026-09-12 on all four hosts — pooled and direct, both branches: `verify-full` holds on the pooler.**
+
+It holds because **the pooler is not a different certificate.** Every endpoint in this project is
+served one wildcard certificate for the proxy domain — leaf CN and sole SAN
+`*.c-4.ap-southeast-1.aws.neon.tech` — and `-pooler` is a suffix on the **leftmost label**, so
+`ep-…-pooler.c-4.…` and `ep-….c-4.…` are both single labels under that wildcard and match it equally.
+There is no exception to write down. TLSv1.3 throughout, chain `YR2 ← Root YR ← ISRG Root X1`,
+`authorized: true`, four hosts for four.
+
+**The measurement needed no password, which is why it could be made at all.** `verify-full` means
+chain verification *plus* hostname verification, and both happen in the TLS handshake **before**
+authentication — so the Postgres `SSLRequest` was made by hand and the upgraded socket handed to
+`tls.connect` with `rejectUnauthorized: true` and `servername` set, which is the option pair
+node-postgres builds for `verify-full`. No connection string, no credential, nothing for §8.2's
+`get_connection_string` prompt to protect. **And the check is not vacuous**, which was verified
+rather than assumed: run against the served certificate, Node's own `checkServerIdentity` rejects a
+deeper label (`deeper.label.c-4.…`) and a different proxy shard (`ep-…-pooler.c-9.…`) with
+*"Hostname/IP does not match certificate's altnames"*, while accepting both real hosts.
+
+**What would break it, named so a future reader knows what to re-measure** rather than inheriting a
+fact with no expiry: Neon moving the pooler to a different parent domain, or issuing it a
+certificate of its own. The wildcard is one level deep, so a pooled host at `…-pooler.pooler.c-4.…`
+would fail hostname verification while the direct host kept working — which would present as the
+pooler being down.
+
+**One thing measured along the way that contradicts the endpoint record.** Both endpoints report
+**`pooler_enabled: false`**, and the pooled host answers anyway — which is Neon's "the pooled
+endpoint is always available" (§2.2) holding in practice. The flag is not what decides whether the
+`-pooler` host exists, so it is not something to check before using one.
+
+**The measurement was a throwaway and is not in the repo, deliberately.** A script that opens a
+socket proves today's behaviour, which is not what is at risk; what is at risk is somebody pasting a
+fresh dashboard string that says `require`. The committed guard is
+`app/tests/integration/connection-string.test.ts`, which asserts the *string*, and #43 extends it to
+both.
 
 Neon supports `verify-full` and [recommends it](https://neon.com/docs/connect/connect-securely);
 its certificates chain to the public **ISRG Root X1** (Let's Encrypt), which ships in Node's bundled
-trust store, so **no `sslrootcert` is needed** — verified against the dev branch on 2026-09-02, chain
-`YR2 ← Root YR ← ISRG Root X1`, `authorized: true`. Keep `channel_binding=require` alongside it;
+trust store, so **no `sslrootcert` is needed** — verified against the Neon `develop` branch (named
+`dev` at the time) on 2026-09-02, chain `YR2 ← Root YR ← ISRG Root X1`, `authorized: true`, and
+re-measured on both branches and both hosts on 2026-09-12. Keep `channel_binding=require` alongside it;
 Neon documents it as SCRAM-SHA-256-PLUS mutual authentication and it is orthogonal to `sslmode`.
+
+**`channel_binding` is a fact about the strings, not about the hosts, so it is checked differently
+and is partly the owner's.** The Neon `develop` **direct** string is settled and stays settled:
+`connection-string.test.ts` asserts it on every integration run, and that run is green. The other
+three come from the dashboard and are confirmed by dumping **only their query parameters** — no host,
+no role, no password — so the check can be made without a connection string entering an agent's
+context or a shell history. #43 turns the result into the committed assertion for both variables.
 
 **Why the change is not cosmetic.** `node-postgres` today treats `require`, `prefer` and `verify-ca`
 as aliases for `verify-full`, and warns on every server start that it will stop doing so in
@@ -271,13 +313,30 @@ Read from the live account on 2026-09-12, not copied from an older note.
 | --- | --- |
 | Organization | `org-tiny-fire-00617341` |
 | Project | `wispy-bird-80472699` — `lfca-simulator`, Postgres **18**, `aws-ap-southeast-1`, Free plan |
-| Neon branch backing git `main` | `br-jolly-mode-b39c5rdo` — **named `production` today**, the project's root and default branch |
-| Neon branch backing local work | `br-noisy-credit-b37kait6` — **named `dev` today**, child of the root |
+| Neon branch backing git `main` | `br-jolly-mode-b39c5rdo` — **named `main`**, the project's root and default branch |
+| Neon branch backing local work | `br-noisy-credit-b37kait6` — **named `develop`**, child of the root |
+| Endpoint for Neon `main` | `ep-weathered-base-b3vtd226` — direct `ep-weathered-base-b3vtd226.c-4.ap-southeast-1.aws.neon.tech`, pooled `ep-weathered-base-b3vtd226-pooler.c-4.…` |
+| Endpoint for Neon `develop` | `ep-royal-butterfly-b37l4m4q` — direct `ep-royal-butterfly-b37l4m4q.c-4.ap-southeast-1.aws.neon.tech`, pooled `ep-royal-butterfly-b37l4m4q-pooler.c-4.…` |
 | History retention | **21,600 seconds — 6 hours**, which is §5's measured figure, re-measured |
 
-**The full branch ids carry a suffix** (`-b39c5rdo`, `-b37kait6`) that the short forms in older notes
-drop. The API and the CLI want the full id. The names are the ones §1 renames to `main` and `develop`;
-the ids do not change with a rename, which is why they are what is recorded here.
+**The branches carried the names `production` and `dev` until 2026-09-12**, when they were renamed to
+the git branches they serve, per `CONTEXT.md`'s rule that "which branch" should be answerable without
+asking "whose branch". **The full branch ids carry a suffix** (`-b39c5rdo`, `-b37kait6`) that the
+short forms in older notes drop. The API and the CLI want the full id, and the ids did not change
+with the rename — which is why they are what is recorded here.
+
+**What a rename does to the endpoint host was undocumented, so it was measured: nothing.** Both
+endpoint records were captured in full before and after and compared — the hosts are identical, and
+so is every other field including the endpoints' own `updated_at`, so the rename did not touch the
+endpoint records at all. Only the branch rows' `updated_at` moved. The root also kept
+`primary: true, default: true`. Connection strings carry the **endpoint** host, never the branch
+name, so **nothing that holds a connection string needs re-pasting because of this rename** —
+`app/.env.local` included. The four hosts were re-measured against `verify-full` afterwards anyway
+(§2.1), because "the host is unchanged" and "it still verifies" are two claims.
+
+**The endpoint hosts are recorded above and are not secrets.** A connection string is a secret
+because it carries a role password; the host half of it is what `list_postgres_endpoints` returns
+unprompted, and having it written down is what let §2.1's measurement happen without one.
 
 The same organization holds two unrelated projects, `portfolio-v2` and `bugstack`. A rule written for
 "the Neon project" therefore has to be a rule about *every* project, because the credential reaches

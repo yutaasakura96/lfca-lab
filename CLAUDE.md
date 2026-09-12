@@ -141,7 +141,9 @@ Architecture, schema, API and deployment are specified. Point at them; don't res
 empty and dated 2026-08-31: a login was started and abandoned. `neon auth` is a browser flow, is the
 owner's to complete, and is itself at `ask` so an agent cannot start one and hang. Org
 `org-tiny-fire-00617341`, project `wispy-bird-80472699`, **Neon** branches `br-jolly-mode-b39c5rdo`
-and `br-noisy-credit-b37kait6` — @docs/12-deployment.md §8.1 carries them in full.
+(named **`main`**, the root) and `br-noisy-credit-b37kait6` (named **`develop`**) — renamed
+2026-09-12 from `production` and `dev` to match the git branches they back.
+@docs/12-deployment.md §8.1 carries them, and both endpoint hosts, in full.
 
 **Both now have the split `gh` has** — reads allowed, every write at `ask` — which is what the MCP's
 own "Write mode active. Destructive tools are exposed" banner asks for. The rules, the identifiers

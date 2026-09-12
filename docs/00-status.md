@@ -837,6 +837,61 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   log had just refused to pin in `settings.json`; it asserts the property with a synthetic id now.
   Suites: 339 bank · **659** app unit · 189 app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — the Neon branches are named, and the pooler question is answered** (#42).
+  The second of thirteen. The rename is the small half: `production` → **`main`** (the root, still
+  `primary: true, default: true`) and `dev` → **`develop`**, so `CONTEXT.md`'s rule that "which
+  branch" is answerable without asking "whose branch" is true of the account and not only of the
+  docs. The ids did not move and were never going to — `br-jolly-mode-b39c5rdo` and
+  `br-noisy-credit-b37kait6` are what the API and the CLI want, which is why doc 12 §8.1 records
+  those rather than the names.
+  **What a rename does to the endpoint host is undocumented, so it was measured: nothing.** Both
+  endpoint records were captured in full before and after and diffed — identical hosts, and
+  identical in every other field **including the endpoints' own `updated_at`**, so the rename did not
+  touch those records at all; only the branch rows moved. A connection string carries the *endpoint*
+  host and never the branch name, so **nothing holding one needed re-pasting**, `app/.env.local`
+  included. The four hosts were re-measured against `verify-full` afterwards anyway, because *the
+  host is unchanged* and *it still verifies* are two claims.
+  **The measurement was the real work, and it came back with no exception to write down.** Doc 12
+  §2.1 had held its own rule open over the pooled host since 2026-09-02 — Neon recommends
+  `verify-full` host-agnostically but never states it for `-pooler`, and its own pooling examples use
+  `sslmode=require`. **It holds**, on pooled and direct for both branches, TLSv1.3, chain
+  `YR2 ← Root YR ← ISRG Root X1`, `authorized: true`. And it holds **structurally rather than
+  luckily**, which is the part worth keeping: every endpoint here is served **one wildcard
+  certificate for the proxy domain** — leaf CN and sole SAN `*.c-4.ap-southeast-1.aws.neon.tech` —
+  and `-pooler` is a suffix on the **leftmost label**, so `ep-…-pooler.c-4.…` and `ep-….c-4.…` are
+  both single labels under that wildcard and match it equally. The pooler is not a different
+  certificate; it is a different name on the same one.
+  **It was measured with no password, which is the only reason it could be measured at all.**
+  `verify-full` is chain verification plus hostname verification, and both happen in the TLS
+  handshake **before** authentication — so the probe made the Postgres `SSLRequest` by hand and handed
+  the upgraded socket to `tls.connect` with `rejectUnauthorized: true` and `servername` set, the
+  option pair node-postgres builds for `verify-full`. No connection string, no credential, nothing
+  for doc 12 §8.2's `get_connection_string` prompt to protect — and no auth attempt to confound a TLS
+  failure with an auth one.
+  **The check was proved non-vacuous rather than trusted for going green.** Against the served
+  certificate, Node's own `checkServerIdentity` **rejects** a deeper label (`deeper.label.c-4.…`) and
+  a different proxy shard (`ep-…-pooler.c-9.…`) with *"Hostname/IP does not match certificate's
+  altnames"*, while accepting both real hosts. A strict pass that accepted everything would have
+  looked identical from the verdict alone.
+  **The probe is a throwaway and is deliberately not committed** — the same call
+  `connection-string.test.ts` already makes in its own header, *"It asserts the string, not the
+  socket — a live connection proves today's behaviour, which is not what is at risk"*, and doc 11 §2
+  as a rule. What is at risk is a fresh dashboard string saying `require`; the committed guard for
+  that is the test, and **#43** extends it to both strings. What the repo keeps instead is §2.1's
+  note on **what would break the finding**: Neon moving the pooler to a different parent domain, or
+  issuing it its own certificate. The wildcard is one level deep, so a host at
+  `…-pooler.pooler.c-4.…` would fail hostname verification while the direct host kept working —
+  presenting as the pooler being down.
+  **One measured fact that contradicts the endpoint record**, written down because the next reader
+  meets the flag before they meet the explanation: both endpoints report **`pooler_enabled: false`**
+  and the pooled host answers anyway. That is Neon's "the pooled endpoint is always available"
+  holding in practice, so the flag is not a precondition to check before using a `-pooler` host.
+  Docs 12 §2.1 and §8.1 rewritten, §8.1 gaining both endpoint hosts — not secrets, and having them
+  written down is what let the measurement happen without one. `CLAUDE.md` and this file's carrying
+  notes corrected; one adjacent staleness fixed while passing, the Blocked section's "all three
+  Vercel environments", which the 2026-09-11 preview decision had already made two-thirds wrong.
+  Suites unchanged and re-run: 339 bank · 659 app unit · 189 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -922,10 +977,11 @@ not an exam sitting, which would spend a first-attempt score to test a deploymen
 
 **The tickets exist: parent #40, thirteen children #41–#53, in dependency order.** **#41 is closed**
 — the Neon CLI and the Neon MCP server are behind `gh`'s permission split, and the identifiers are
-recorded in doc 12 §8 rather than rediscovered. **#42 is next**: name the two Neon branches after
-the git branches they serve, and *measure* whether `sslmode=verify-full` holds on the pooled host
-rather than asserting it. Copy both connection strings before and after any branch operation and
-compare — what a branch operation does to the endpoint host is undocumented.
+recorded in doc 12 §8 rather than rediscovered. **#42 is closed** — the Neon branches are `main` and
+`develop`, a rename was measured to move no endpoint host, and `verify-full` was measured to hold on
+the pooler. **#43 is next**: the repo speaks two connection strings, and the migration and seed
+scripts stop hardcoding a local env file so a runner can execute them. Its
+connection-string test now has a measured fact to encode rather than an open question.
 
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
 2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`
@@ -972,10 +1028,13 @@ said.
 
 - ~~**Doc 12 §2 lists one `DATABASE_URL`.**~~ **Settled.** Two strings, under Neon's own names:
   `DATABASE_URL` (pooled, the app) and `DATABASE_URL_UNPOOLED` (direct, `drizzle-kit migrate` and the
-  seed). Doc 12 §2.2 is rewritten as resolved. **One thing stays open as a test rather than a
-  decision:** Neon never states `verify-full` for the `-pooler` host specifically, and its own pooling
-  examples use `sslmode=require` — so the pooled string is measured before doc 12 §2.1 is asserted
-  over it, the way the direct one was on 2026-09-02.
+  seed). Doc 12 §2.2 is rewritten as resolved. ~~**One thing stays open as a test rather than a
+  decision:** Neon never states `verify-full` for the `-pooler` host specifically.~~ **Measured and
+  closed by #42, 2026-09-12: `verify-full` holds on the pooler**, on all four hosts, and it holds
+  *structurally* — every endpoint is served one wildcard certificate for the proxy domain
+  (`*.c-4.ap-southeast-1.aws.neon.tech`) and `-pooler` is a suffix on the leftmost label, so the
+  pooler is not a different certificate but a different name on the same one. Doc 12 §2.1's rule
+  binds the pooled URL with no exception. Nothing is left open here.
 - ~~**Vercel skips builds for projects a commit did not touch.**~~ **Likely inapplicable, and the
   finding was probably backwards.** That behaviour is Vercel's *"skipping unaffected projects"*, which
   **requires an npm/yarn/pnpm/Bun workspace**; this repo has none, and Vercel documents non-workspace
@@ -1006,9 +1065,10 @@ The owner made the edit. Confirmed 2026-09-02 while building #22:
 not make it themselves: `.claude/settings.json` denies `app/.env.*`, correctly, because the file
 holds four secrets.
 
-**Still outstanding for the deploy slice:** the same `sslmode=verify-full` is needed in all three
-Vercel environments when they exist, and doc 12 §2.1's rule is written per-string so it binds the
-pooled URL (§2.2) on arrival.
+**Still outstanding for the deploy slice:** the same `sslmode=verify-full` is needed on both strings
+in the **one** Vercel environment there will be — the 2026-09-11 decision cut previews, so "all three
+environments", which this line said until #42, was already stale. Doc 12 §2.1's rule is written
+per-string, it binds the pooled URL (§2.2), and #42 measured that it actually holds there.
 
 ### Verified by hand, not by a test — re-run before any deploy
 - **The allowlist refuses an account and writes nothing.** Now §1 of
@@ -1110,7 +1170,9 @@ pooled URL (§2.2) on arrival.
   from `.mcp.json` and under a claude.ai connector's opaque id. Identifiers, the rules and their two
   limits: [12-deployment.md §8](12-deployment.md). Org `org-tiny-fire-00617341`, project
   `wispy-bird-80472699` (`lfca-simulator`, Postgres 18, Free plan), branches
-  `br-jolly-mode-b39c5rdo` (`production`, root) and `br-noisy-credit-b37kait6` (`dev`).
+  `br-jolly-mode-b39c5rdo` (**`main`**, root) and `br-noisy-credit-b37kait6` (**`develop`**) —
+  renamed from `production` and `dev` by #42, which also measured that a rename moves no endpoint
+  host, so nothing holding a connection string needed re-pasting.
 - Editing on `main` is blocked by a hook. Branch first.
 - `.claude/launch.json` serves the `design/` static preview on :4173. Tracked; the artboards it
   serves are not — run `node design/build.mjs` first.
