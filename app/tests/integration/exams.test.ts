@@ -224,9 +224,19 @@ describe.skipIf(!hasDatabase)('the open sitting of one paper', () => {
       questionCount: 60,
     });
 
-    // Ninety minutes and one second ago — past the limit, nothing having closed it.
+    // Long past the limit, nothing having closed it. **Three hours rather than
+    // ninety minutes and one second**, because the two sides of this test read
+    // different clocks: `now()` is Postgres's and the `new Date()` below is this
+    // machine's, and the sweep compares one against the other exactly as the
+    // three production call sites do. A one-second margin between independently
+    // sourced clocks is not a margin — measured 2026-09-13, this laptop had
+    // drifted 2.07s behind Neon, which put the deadline in the past by database
+    // time and in the future by laptop time, and the sweep correctly declined to
+    // finalise. The subject here is expired versus not, never expired by exactly
+    // one second, so the margin is widened to match `auto-submit.test.ts`'s own
+    // three hours rather than the test being taught which clock to trust.
     await db.execute(sql`
-      UPDATE attempt SET started_at = now() - interval '90 minutes 1 second'
+      UPDATE attempt SET started_at = now() - interval '3 hours'
       WHERE id = ${stale.id}
     `);
 
