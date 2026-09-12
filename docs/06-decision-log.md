@@ -2105,3 +2105,92 @@ verified it is named as unverified rather than assumed.*
   three users it does not have is worse than no export.
 - **Revisit if:** Vercel's available majors change such that `>=23.6.0` no longer resolves to a
   supported one — the failure would be at build time and loud, but this is the line to re-read.
+
+### [2026-09-12] Production starts with no exam attempts, and the backup command had three defects
+- **Decision:** the Neon `main` branch was migrated, seeded and restored into on 2026-09-12, in that
+  order. The **full** fixed dump was restored — `user`, `account`, `attempt`, `answer`,
+  `attempt_question` — and then one explicit statement, `DELETE FROM attempt WHERE mode = 'exam'`,
+  removed the eleven development exam sittings. Production holds the account and the three composed
+  sittings; **all sixteen papers are unsat**. `develop` keeps every row. Ticket #44.
+- **Context, and it is not what the ticket, doc 12 §5 or `00-status.md` said.** All three named "the
+  owner's five first-attempt scores (exams 05, 07, 08, 10 and 14)". Measured before copying anything:
+  **nine** rows carried `is_first_attempt` — exams 05, 07, 08, 09, 10, 11, 12, 13 and 14 — and every
+  one was made between 2026-09-02 and 09-03 while driving features 3 and 4 through a browser.
+  **Exams 12, 13 and 14 had zero answers.** 08, 09 and 11 had one each. exam-05 was twelve answers in
+  three minutes. Only exam-10 (52 of 60, expired after nine hours) resembles a sitting, and it was
+  made while testing the auto-submit sweep.
+- **Why that is a decision and not a tidy-up.** `is_first_attempt` is set at creation and never
+  rewritten (doc 04 §5.2), and there is deliberately no discard action anywhere. So the moment those
+  rows reach production, **nine of the sixteen papers can never produce an honest first-attempt score
+  again** — six of them pinned at 0/60 having never been answered. That is the one number this
+  product exists to produce, and the one thing in it that cannot be regenerated. Provisioning is the
+  only moment at which the question can be asked at all.
+- **Alternatives considered.** *Copy everything*, which is the ticket read literally and the strictest
+  reading of "first-attempt scoring cannot be dodged" — rejected because that standing rule is about
+  **the candidate abandoning a sitting that is going badly**, which is a thing the app must refuse;
+  it is not about which database becomes production, a choice made once, before production exists,
+  by the person who created the rows knowing exactly what they were. Keeping them would satisfy the
+  rule's letter while destroying the thing the rule protects. *Copy `user` and `account` only* and
+  leave the history behind — cleanest, and it was the other genuine option, but the restore would
+  then never carry `attempt_question`, so the operation meant to test the fixed dump command would
+  not have tested the fix. *Copy selectively*, keeping the sittings that look genuine — rejected
+  because "genuine" is a judgement, and hand-editing the dump defeats the rehearsal outright.
+- **The chosen shape gets both:** the command runs exactly as documented, over all five tables, and
+  what production keeps is then decided in the open, in one statement, recorded here.
+- **The three composed sittings stay**, and that is not an inconsistency. They carry no
+  `is_first_attempt`, no score, and no paper — doc 04 §5.1's
+  `CHECK (score IS NULL OR mode IN ('exam','holdout'))` guarantees the first two — so nothing about
+  them can be burned. Their 87 answers are real answered questions, and unseen-first ordering is
+  strictly better for knowing about them.
+- **`session` is not in the backup and was not copied.** A session is one browser (doc 08 §2);
+  signing in again is the intended recovery, and copying six dev sessions into production would hand
+  a laptop's cookies authority over it.
+
+- **The documented `pg_dump` carried three defects, and doc 12 arranges for its first real use to be
+  the operation that creates production** — so each was load-bearing rather than cosmetic.
+  1. **It did not name `attempt_question`**, which arrived with the composed modes after §5 was
+     written. That table is the only record of what a composed sitting *asked*; it cannot be
+     recomposed, because the candidate ordering reads `max(answered_at)` and answering changes it.
+     A restore without it yields attempts whose `question_count` disagrees with zero rows.
+  2. **It said `$DATABASE_URL`, which since #43 is the pooled host.** Neon states it outright —
+     *"Avoid using `pg_dump` over a pooled connection string … Use an unpooled connection string
+     instead"*, citing two PgBouncer issues. Before #43 the two were one variable and the command was
+     right by accident; splitting them is what made it wrong.
+  3. **It needed `PGSSLROOTCERT=system`, which only running it reveals.** §2.1's finding that Neon's
+     chain ends at ISRG Root X1 and needs no `sslrootcert` is a fact about **node-postgres**, which
+     verifies against Node's bundled trust store. `pg_dump` is libpq, which under `verify-full` looks
+     for `~/.postgresql/root.crt` and refuses when it is absent. The same string works from the app
+     and fails from the backup. The fix points libpq at the OS store, which already holds that root —
+     **not** `sslmode=require`, which is how this gets "fixed" under pressure and is the exact
+     downgrade §2.1 exists to prevent.
+- **Also found by running it:** Homebrew's `postgresql@17` `pg_dump` aborts against this Postgres 18
+  server, while `/opt/homebrew/opt/libpq/bin/pg_dump` is 18.0 and works. And `pg_restore`'s default
+  TOC order is alphabetical — `account` is entry 3512 against `"user"` at 3513 — so the child would
+  be restored before its parent. The restore reorders the list explicitly with `-l` / `-L` rather
+  than hoping.
+- **`app/tests/unit/backup-command.test.ts` is what stops this recurring**, in the committed-artefact
+  shape doc 11 §2 describes. It derives the table set from the migrations' own `CREATE TABLE`
+  statements and fails unless every table is either named in the backup command or listed as excluded
+  **with a reason** — so the failure lands on whoever adds the next table, which is the only moment
+  anyone will be thinking about it. Mutation-checked four ways; the decisive one is that adding a
+  `study_note` table to a migration fails the test by name. `attempt_question` went eleven days
+  without that check, and the symptom would first have appeared on the worst day this project can
+  have.
+- **The production credentials never entered an agent's context, and nobody typed them.** A Neon
+  branch copies its parent's roles **including their passwords**, and `develop` is a child of `main`
+  — both branches' `neondb_owner` rows carry the identical `created_at`/`updated_at` of
+  2026-08-30T23:12:44Z, which is the root's, so neither has been reset. `main`'s strings were
+  therefore derived from `develop`'s inside a subprocess by rewriting the endpoint id in the
+  **hostname only**, and verified by connecting. *Alternative considered:* `get_connection_string`,
+  which is one call and puts a production role password in the transcript — the thing doc 12 §8.2 put
+  that tool behind a prompt to prevent. Also considered having the owner paste both strings at a
+  `read -s` prompt, which was the plan until the inheritance was noticed; it is strictly more work
+  for the same guarantee.
+- **They live in `app/.env.main`, and the name matters.** Not `.env.production` or
+  `.env.production.local`: Next.js auto-loads both under `next build` / `next start`, and the browser
+  suite runs exactly that pair — so either name would point the e2e teardown, which deletes every
+  user carrying its prefix, at production. `app/.env.*` is already gitignored and already denied to
+  agent reads.
+- **Revisit if:** never for the promotion. The first time the backup is *restored in anger* is the
+  next thing to verify — this rehearsal proved the dump and the restore, not the judgement of a
+  person doing it at speed under stress.

@@ -952,6 +952,62 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   rule, the `pg` empty-string hazard, the third moved script and the Vercel side effect.
   Suites: 339 bank · 659 app unit · **194** app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — production exists, and the backup command stops being broken** (#44). The
+  fourth of thirteen. Neon `main` was migrated, seeded and restored into on 2026-09-12, **in that
+  order** — the user tables reference the content tables under `RESTRICT`, so any other order fails
+  on the foreign keys. `main` turned out to be emptier than the ticket said: not "one migration
+  behind" but branched before *any* migration, with no `question` table and no `attempt` table, so
+  both migrations applied. The seed reported **1150 question(s), 4600 option(s), 16 paper(s), 960
+  paper item(s), 40 holdout** — the measured figures unchanged, its own holdout assertion green.
+  **The ticket, doc 12 §5 and this file all said "the owner's five first-attempt scores (exams 05,
+  07, 08, 10 and 14)". There were nine, and not one of them was a study sitting** — measured before
+  anything was copied. Exams 05, 07, 08, 09, 10, 11, 12, 13 and 14 carried `is_first_attempt`, every
+  one created 2026-09-02 → 09-03 while driving features 3 and 4 through a browser; **12, 13 and 14
+  had zero answers**, 08, 09 and 11 had one each, and only exam-10 (52 of 60, expired after nine
+  hours) resembles a sitting at all. Since the flag is set at creation and never rewritten and there
+  is no discard action anywhere, letting those rows into production would have burned the honest
+  first-attempt number on **nine of the sixteen papers**, six of them pinned at 0/60 unanswered.
+  **So production starts with no exam attempts.** The full fixed dump was restored — all five tables,
+  so the rehearsal exercised the command as documented — and then one explicit
+  `DELETE FROM attempt WHERE mode = 'exam'` removed the eleven development sittings, `answer` and
+  `attempt_question` cascading. What production keeps is the account and the **three composed
+  sittings**, which carry no first-attempt flag, no score and no paper, and whose 87 answers are real
+  history unseen-first can use. `develop` is untouched and keeps all nine. Put to the owner as its
+  own decision before anything was copied; the log carries the argument, 2026-09-12.
+  **The documented `pg_dump` carried three defects, not the one the ticket named.** It did not name
+  `attempt_question`; it said `$DATABASE_URL`, which since #43 is the **pooled** host, against Neon's
+  own *"Avoid using `pg_dump` over a pooled connection string"*; and it needed
+  **`PGSSLROOTCERT=system`**, which only running it reveals — §2.1's "no `sslrootcert` is needed" is
+  a fact about **node-postgres** and its bundled trust store, while `pg_dump` is libpq and refuses
+  outright when `~/.postgresql/root.crt` is absent. The same string works from the app and fails from
+  the backup, and the tempting fix is the `sslmode=require` downgrade §2.1 exists to prevent.
+  Two more found by running it rather than reading it: Homebrew's `postgresql@17` `pg_dump` aborts
+  against this Postgres 18 server (`/opt/homebrew/opt/libpq/bin/pg_dump` is 18.0 and works), and
+  **`pg_restore`'s default TOC order is alphabetical** — `account` is entry 3512 against `"user"` at
+  3513 — so the child restores before its parent. The restore reorders with `-l` / `-L` explicitly.
+  **`app/tests/unit/backup-command.test.ts` is what stops it recurring**, in the committed-artefact
+  shape doc 11 §2 describes: it derives the table set from the migrations' own `CREATE TABLE`
+  statements and fails unless every table is either in the backup command or listed as excluded
+  **with a reason**, so the failure lands on whoever adds the next table. Mutation-checked four ways;
+  the decisive one is that adding a `study_note` table to a migration fails it **by name**.
+  `attempt_question` went eleven days without that check.
+  **No credential entered an agent's context and none was typed.** A Neon branch copies its parent's
+  roles including their passwords, and both branches' `neondb_owner` rows carry the identical
+  `created_at`/`updated_at` of 2026-08-30T23:12:44Z — the root's — so `main`'s strings were derived
+  from `develop`'s inside a subprocess by rewriting the endpoint id in the **hostname only**, and
+  verified by connecting. They live in **`app/.env.main`**, deliberately not `.env.production.local`:
+  Next.js auto-loads that under `next build`/`next start`, which is exactly what the browser suite
+  runs, and its teardown deletes every user carrying its prefix.
+  **Verified in SQL on both branches, not inferred:** content 1150 / 4600 / 16 / 960 with 40 holdout;
+  `user` and `account` identical to `develop`; **0** sessions copied; **0** exam attempts, **0** rows
+  carrying `is_first_attempt`, **0** carrying a score; all 100 `attempt_question` rows present with
+  every sitting's `seq` running 0…n-1 with no gaps and `question_count` equal to its row count; **0**
+  holdout ids among them; and `develop` still at 14 / 189 / 100 / 1 with its nine flags.
+  Doc 12 §5 rewritten, its dump command fixed three ways, and §2's **Rotation** paragraph moved back
+  up from the foot of §2.2 with its "`DATABASE_URL` rotates" singular corrected — both strings carry
+  the same role and rotate together.
+  Suites: 339 bank · **663** app unit · 194 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -1040,7 +1096,9 @@ not an exam sitting, which would spend a first-attempt score to test a deploymen
 recorded in doc 12 §8 rather than rediscovered. **#42 is closed** — the Neon branches are `main` and
 `develop`, a rename was measured to move no endpoint host, and `verify-full` was measured to hold on
 the pooler. **#43 is closed** — the repo speaks two connection strings with no fallback between them,
-and the migration and seed scripts no longer hardcode a local env file. **#44 is next.**
+and the migration and seed scripts no longer hardcode a local env file. **#44 is closed** — production
+exists, holds the bank and the account, and carries **no exam attempts at all**, so all sixteen papers
+are still honest. **#45 is next.**
 
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
 2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`

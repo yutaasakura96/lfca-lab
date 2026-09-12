@@ -81,6 +81,17 @@ passing through a terminal echo or an agent's context. `DATABASE_URL` comes from
 address is the classic first failure. And in Testing, an authorisation **expires seven days after
 consent**, so being asked to consent again next week is the documented behaviour rather than a bug.
 
+**Rotation.** `BETTER_AUTH_SECRET` invalidates every session in that environment when changed — which
+is the intended emergency control, not a hazard. The Google client secret rotates in the Google
+console with a brief overlap. **Both database strings rotate together**, by resetting the Neon role
+password: they are two spellings of one database (§2.2) and they carry the same role, so a rotation
+that re-pasted only one would leave the other authenticating with a password that no longer exists —
+and the half that broke would be whichever of the app and the seed ran next.
+
+**This paragraph is about every secret in the table above, and it used to sit at the foot of §2.2**,
+where it read as a fact about the second connection string alone. Moved back to the §2 level with
+#44, which is also where the "`DATABASE_URL` rotates" singular was noticed.
+
 ### 2.1 Every Neon connection string in this project says `sslmode=verify-full`
 
 **The rule is per-string, not per-variable**, and it was written that way because a second Neon URL
@@ -196,10 +207,6 @@ precisely `-pooler` on the leftmost label, which is §2.1's structural finding t
 which catches the mistake actually available when adding a second variable: pasting one string into
 both names, which every parameter assertion would pass.
 
-**Rotation:** `BETTER_AUTH_SECRET` invalidates every session in that environment when changed — which is the intended
-emergency control, not a hazard. The Google client secret rotates in the Google console with a brief
-overlap. `DATABASE_URL` rotates by resetting the Neon role password.
-
 ---
 
 ## 3. Deploying
@@ -290,19 +297,84 @@ So the `pg_dump` below is not a belt-and-braces extra. **It is the backup.** The
 irreplaceable and cheap to copy:
 
 ```bash
-pg_dump "$DATABASE_URL" --table=attempt --table=answer --table='"user"' --table=account \
+PGSSLROOTCERT=system pg_dump "$DATABASE_URL_UNPOOLED" \
+  --table=attempt --table=answer --table=attempt_question --table='"user"' --table=account \
   -Fc -f "lfca-$(date -u +%Y%m%d).dump"
 ```
 
 Monthly, kept off Neon. Two hundred rows of attempt history is nothing to store and the only thing
 here that cannot be regenerated from the repo.
 
+**That command carried two defects until #44, and both were load-bearing rather than cosmetic**,
+because doc 12 arranges for its first real use to be the operation that creates production.
+
+**It did not name `attempt_question`.** That table arrived with the composed modes (doc 04 §5.4),
+after this section was written, and it holds the frozen question set of every practice, domain and
+holdout sitting — the one thing about a composed sitting that **cannot be recomposed**, because the
+candidate ordering reads `max(answered_at)` and answering changes it. A restore without it produces
+attempts whose `question_count` disagrees with zero rows, which breaks the assumption the navigator
+rests on that a sitting's positions run 0…n-1, and renders a composed review empty. `session` and
+`verification` stay out deliberately: a session is one browser, and signing in again is the
+intended recovery rather than a loss.
+
+**And it said `$DATABASE_URL`, which since #43 is the pooled host.** Neon states it directly —
+*"Avoid using `pg_dump` over a pooled connection string … Use an unpooled connection string
+instead"*, citing two PgBouncer issues — so the backup has to name `DATABASE_URL_UNPOOLED`, the same
+host `drizzle-kit migrate` and the seed already take (§2.2). Before #43 the two were one variable and
+the command was right by accident; splitting them is what made it wrong.
+
+**Use a `pg_dump` whose major is at least the server's.** Neon serves **Postgres 18.6** here, and
+`pg_dump` refuses a server newer than itself — on this machine `pg_dump` on `PATH` is Homebrew's
+`postgresql@17` and aborts, while `/opt/homebrew/opt/libpq/bin/pg_dump` is 18.0 and works. A stale
+client presents as a version-mismatch abort, which is loud; it is recorded here only so the next
+reader does not spend the afternoon on it.
+
+**And `PGSSLROOTCERT=system` is load-bearing, which only running the command reveals.** §2.1's
+finding that Neon's chain ends at **ISRG Root X1** and needs no `sslrootcert` is a fact about
+**node-postgres**, which verifies against Node's *bundled* trust store. `pg_dump` is libpq, and libpq
+under `sslmode=verify-full` looks for **`~/.postgresql/root.crt`** and fails outright when it is
+absent: *"root certificate file … does not exist"*. The same connection string therefore works from
+the app and fails from the backup. The fix is to point libpq at the OS trust store, which already
+holds that root — **not** to drop the string to `sslmode=require`, which is how this would usually
+get "fixed" under time pressure, and which §2.1 exists to prevent. Measured 2026-09-12: with it, the
+dump of Neon `develop` succeeded over `verify-full` with channel binding required.
+
 **The restore has to be tested, once, before it matters** — and it is tested by being *used*. The
-first production database is created by running exactly the dump above against the Neon `develop`
-branch and restoring it into the Neon `main` branch, which is where the owner's five first-attempt
-scores (exams 05, 07, 08, 10 and 14) come from. The source branch is not deleted, so a bad restore
-costs nothing and can be looked at again. Confirm afterwards that the exam list shows those five
-first-attempt scores unchanged.
+first production database was created on **2026-09-12** by running exactly the dump above against the
+Neon `develop` branch and restoring it into the Neon `main` branch. **Order: migrate → seed →
+restore**, never any other, because the user tables reference the content tables under `RESTRICT`.
+The source branch was not deleted, so a bad restore cost nothing and can be looked at again.
+
+**Restore the data in foreign-key order explicitly.** `pg_restore`'s default is the dump's own TOC
+order, which is alphabetical — measured here, `account` is entry 3512 and `"user"` is 3513, so the
+child would be restored before its parent, and `answer` likewise before `attempt`. The restore builds
+a list with `pg_restore -l`, reorders it to `user, account, attempt, answer, attempt_question`, and
+replays it with `--data-only -L`. `--data-only` is what lets a full dump be restored into a database
+the migration has already given a schema.
+
+**This section said "the owner's five first-attempt scores (exams 05, 07, 08, 10 and 14)". There were
+nine, and none of them was a study sitting** — measured before the copy rather than trusted. Nine
+rows carried `is_first_attempt`: exams 05, 07, 08, 09, 10, 11, 12, 13 and 14, every one created
+between 2026-09-02 and 09-03 while driving features 3 and 4 through a browser. **Exams 12, 13 and 14
+had zero answers**; 08, 09 and 11 had one each. Only exam-10 (52 of 60 answered, expired) resembles a
+sitting at all.
+
+So **production starts with no exam attempts.** The full fixed dump was restored — all five tables,
+so the rehearsal exercised the command as documented — and then one explicit statement,
+`DELETE FROM attempt WHERE mode = 'exam'`, removed the eleven development sittings, `answer` and
+`attempt_question` cascading with them. What production holds is the account, and the three composed
+sittings, which carry no first-attempt semantics and no score and whose answered questions are true
+history that unseen-first selection can use. **All sixteen papers are still unsat**, which is the only
+state in which the honest number this product exists to produce can still be produced. `develop` keeps
+every row, so the record of what was done while building is not lost — it simply is not production.
+See the decision log, 2026-09-12.
+
+**Verified in SQL, not inferred from a screen**, on both branches: content 1150 / 4600 / 16 / 960 with
+40 holdout marked; `user` and `account` identical to `develop`; **0** sessions copied, so signing in
+to production mints a fresh one; **0** exam attempts, **0** rows carrying `is_first_attempt`, **0**
+attempts carrying a score; all 100 `attempt_question` rows present with each sitting's `seq` running
+0…n-1 with no gaps and `question_count` equal to its row count; **0** holdout ids among them; and
+`develop` still at 14 attempts, 189 answers, 100 frozen rows and its nine first-attempt rows.
 
 An untested backup is a belief, not a backup — so the promotion is deliberately arranged to be the
 rehearsal, rather than leaving a separate rehearsal to be remembered in the first week after launch.
