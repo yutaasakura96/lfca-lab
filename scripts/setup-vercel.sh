@@ -336,10 +336,24 @@ printf '\n'
 warn "ALLOWED_EMAILS is the only thing between this app and a public one."
 note "An empty or unset value refuses EVERY sign-in, which is the safe default (doc 08 §3)."
 printf '\n'
-note "Deliberately NOT set here — both are #47's, and both need a hostname that"
-note "does not exist until the first successful deploy:"
+step "Production signing secret — generated here, never shown, never the local value:"
+if $VERCEL env ls production --cwd "$ROOT_DIR" 2>/dev/null | grep -qE '^\s*BETTER_AUTH_SECRET\s'; then
+  note "BETTER_AUTH_SECRET is already set in production — left alone, because"
+  note "rotating it signs every session out (doc 12 §2). Rotate deliberately, not on a re-run."
+elif openssl rand -base64 32 | tr -d '\n' \
+     | $VERCEL env add BETTER_AUTH_SECRET production --cwd "$ROOT_DIR" >/dev/null 2>&1; then
+  printf '  %s✓ set%s BETTER_AUTH_SECRET in Vercel production %s(generated, not shown)%s\n' \
+    "$GREEN" "$RESET" "$DIM" "$RESET"
+else
+  SKIPPED+=("BETTER_AUTH_SECRET (generate with openssl rand -base64 32 and add in the dashboard)")
+  warn "could not set BETTER_AUTH_SECRET"
+fi
+note "Without it Better Auth refuses to run in production and /sign-in returns 500 —"
+note "which is what the first working deployment did."
+printf '\n'
+note "Deliberately NOT set here — #47's, because it needs the hostname this"
+note "deployment is about to create:"
 note "  BETTER_AUTH_URL     the canonical origin"
-note "  BETTER_AUTH_SECRET  production-only, different from the local value"
 printf '\n'
 pause "Press Enter to redeploy and check the sign-in redirect"
 

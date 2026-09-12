@@ -2392,3 +2392,22 @@ verified it is named as unverified rather than assumed.*
   mapping table.
 - **Revisit if:** Vercel documents whether import-time detection follows the Root Directory, at which
   point the comment's explanation can stop saying "inferred".
+
+### [2026-09-13] `BETTER_AUTH_SECRET` belongs to #46, not #47
+- **Decision:** the production signing secret is set in #46. `scripts/setup-vercel.sh` generates it
+  with `openssl rand -base64 32` and pipes it into `vercel env add`, and **leaves an existing value
+  alone on a re-run**, because rotating it signs every session out (doc 12 §2). This corrects the split
+  written earlier the same day, which gave the secret to #47. Chosen by the owner.
+- **Context:** the first Next.js build deployed and redirected `/` and `/exams` to `/sign-in` —
+  #46's written criterion — but `/sign-in` itself returned **500**. The runtime log was unambiguous:
+  *"You are using the default secret. Please set `BETTER_AUTH_SECRET`"*. Better Auth refuses the
+  built-in default in production.
+- **Why the earlier split was wrong:** it grouped the two Better Auth variables together because both
+  are auth configuration. Only `BETTER_AUTH_URL` depends on the hostname; the secret depends on nothing.
+  Leaving it for #47 would have shipped a sign-in page that could not render.
+- **Alternatives considered:** leaving production with a broken sign-in page until #47 starts — meets
+  #46's criterion to the letter while serving a 500. And adding the stage for the owner to run, which
+  gets the same result with an extra round trip for a value no human ever needs to see.
+- **Verified:** after the redeploy `/sign-in` returns `200` and renders "Continue with Google". The
+  local secret is unchanged, so the two environments still hold different values, as #47 requires.
+- **Revisit if:** never.

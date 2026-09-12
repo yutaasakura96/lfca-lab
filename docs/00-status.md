@@ -1177,8 +1177,16 @@ argument and the rejected alternative (deploy from Actions with a `VERCEL_TOKEN`
 production variables are set, but **both deployments failed**: the Framework Preset read `Other`, so
 Vercel looked for a static `public/` folder. `app/vercel.json` now pins `"framework": "nextjs"`, with
 an assertion. `vercel link` had also appended a blanket `.env*` to `.gitignore` that silently overrode
-the `!app/.env.example` exception — dropped, keeping only its `.vercel` line. **To finish: re-run
-stages 6 and 7**, which is a redeploy and the `develop` observation.
+the `!app/.env.example` exception — dropped, keeping only its `.vercel` line. **Fixed and redeployed: production is live.**
+`/` and `/exams` return `307` to `/sign-in?next=…`, and `/sign-in` returns `200` rendering "Continue
+with Google". Getting there needed **`BETTER_AUTH_SECRET` moved from #47 into #46**: without it Better
+Auth refuses to run in production ("You are using the default secret") and `/sign-in` returned 500.
+It was scoped to #47 on the wrong reasoning — only `BETTER_AUTH_URL` needs the hostname. A fresh
+production-only value was generated and piped in, never displayed; the local one is unchanged. #47
+keeps `BETTER_AUTH_URL`, the Google redirect URI, and actually signing in. **One #46 observation is
+still the owner's:** stage 7 — an empty commit to `develop`, watched producing no deployment. The push
+of `c138891` moved both branches at one commit and produced no Preview, but a shared SHA is weak
+evidence.
 
 **What remains of #46 is the owner's, and `scripts/setup-vercel.sh` walks all of it** — seven stages,
 preflight through the two observations, with the five variables piped from `app/.env.main` and

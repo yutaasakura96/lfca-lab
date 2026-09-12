@@ -330,7 +330,7 @@ placement on an inference. Recorded here so that a future reader who moves the f
 re-observe, and does not take a green suite as confirmation.
 
 **`scripts/setup-vercel.sh` walks the half of this that is the owner's**, the way
-`scripts/setup-google-oauth.sh` walks the Google side, and for the same reason: the five variables go
+`scripts/setup-google-oauth.sh` walks the Google side, and for the same reason: the five copied variables and a freshly generated `BETTER_AUTH_SECRET` go
 from `app/.env.main` and `app/.env.local` into Vercel **piped**, so no production credential passes
 through a browser field, a terminal echo or an agent's context. Seven stages. It refuses to start
 unless `app/vercel.json` is already on `main` in the expected shape — connecting the project before
