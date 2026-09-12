@@ -30,3 +30,4 @@ app/next-env.d.ts
 app/test-results/
 app/playwright-report/
 app/blob-report/
+.vercel

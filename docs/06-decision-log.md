@@ -2360,3 +2360,35 @@ verified it is named as unverified rather than assumed.*
   which was checked by diffing the file against its original afterwards rather than assumed.
 - **Revisit if:** Vercel documents whether `**` spans a slash in a branch pattern, or a branch naming
   convention arrives that the observation on this ticket did not cover.
+
+### [2026-09-13] The framework is pinned, after the first production deployment failed without it
+- **Decision:** `app/vercel.json` gains `"framework": "nextjs"`, asserted in `deploy-config.test.ts`.
+  Found on the owner's first run of `scripts/setup-vercel.sh`, ticket #46.
+- **What happened.** The project was created with Root Directory `app` and all five production
+  variables set correctly — both measured, not assumed. **Both deployments failed** with *"No Output
+  Directory named 'public' found after the Build completed"*: `vercel project inspect` showed
+  **Framework Preset `Other`**, which serves a static `public/` folder and has never heard of `.next`.
+- **Why, and how sure.** Vercel detects the preset at import. The repository root declares no `next`
+  dependency; `app/package.json` does. The preset reading `Other` with Root Directory already `app`
+  means detection did not follow the Root Directory — most plausibly because it ran against the root
+  before the Root Directory was edited in the same import screen. **That ordering is inferred**: it was
+  not watched, and Vercel does not document it. What *was* measured rules out the first suspect: the
+  wizard runs the CLI from inside `app/`, which Vercel's monorepo docs advise against, but the
+  git-import deployment never touched the CLI and failed identically.
+- **Alternatives considered:** changing the preset in the dashboard, which fixes this project and
+  leaves the failure waiting for the next one, with no diff recording that it was ever set. Rejected on
+  the reasoning that already put `buildCommand` and `git.deploymentEnabled` in this file.
+- **Mutation-checked**: removing `framework`, setting it to `null` (Vercel's documented spelling of
+  "Other"), and a trailing-space slug each fail the new assertion.
+- **A second defect from the same run, in `.gitignore`.** `vercel link` appended two lines, `.vercel`
+  and a blanket `.env*`. The second sits *after* `!app/.env.example`, and in gitignore the last match
+  wins — measured with `check-ignore --no-index`, it made `app/.env.example` ignored. Git kept tracking
+  the file only because it was already indexed, so nothing would have failed until someone recreated it.
+  Every env file was already covered by the existing rules, so `.env*` added nothing: dropped, `.vercel`
+  kept. **Worth knowing for next time: the CLI edits `.gitignore` without asking**, and a plain
+  `git check-ignore` cannot catch this, because it never reports a tracked file as ignored.
+- **Measured along the way:** the project's Node.js version reads **24.x**, which is doc 12 §3's
+  prediction that `engines.node >=23.6.0` resolves there — now observed rather than read from a
+  mapping table.
+- **Revisit if:** Vercel documents whether import-time detection follows the Root Directory, at which
+  point the comment's explanation can stop saying "inferred".

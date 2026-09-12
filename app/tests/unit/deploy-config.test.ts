@@ -265,7 +265,11 @@ describe('only git main deploys, and the build command is the framework build al
   // are turned off") literally and writes `false` gets a repository that deploys
   // nothing at all, and the symptom is a production that silently stops moving.
 
-  const config = (): { buildCommand?: unknown; git?: { deploymentEnabled?: unknown } } => {
+  const config = (): {
+    framework?: unknown;
+    buildCommand?: unknown;
+    git?: { deploymentEnabled?: unknown };
+  } => {
     expect(
       existsSync(VERCEL_CONFIG),
       'app/vercel.json is missing. It is what turns non-production deployments off (doc 12 §1) and '
@@ -277,6 +281,27 @@ describe('only git main deploys, and the build command is the framework build al
 
     return JSON.parse(readFileSync(VERCEL_CONFIG, 'utf8')) as ReturnType<typeof config>;
   };
+
+  it('is built as Next.js, not left to framework detection', () => {
+    // **The first production deployment failed on exactly this**, and the
+    // failure did not mention Next.js at all: "No Output Directory named
+    // 'public' found after the Build completed". Vercel detects the preset when
+    // a project is imported — from the repository root, before Root Directory is
+    // changed to `app` — and the root declares no `next` dependency, so it chose
+    // **Other**, which serves a static `public/` folder. Changing Root Directory
+    // afterwards does not re-run detection. Both the git-import deployment and
+    // the CLI redeploy errored identically, which is what ruled out the CLI.
+    //
+    // `framework` in this file overrides the dashboard preset on every
+    // deployment, so the fix is committed rather than a setting somebody has to
+    // remember to change on the next project.
+    expect(
+      config().framework,
+      'app/vercel.json does not pin `"framework": "nextjs"`. Without it Vercel may detect the preset '
+        + 'from the repository root, choose "Other", and fail every build looking for a `public/` '
+        + 'directory — which is what the first production deployment did (doc 12 §3.1).',
+    ).toBe('nextjs');
+  });
 
   it('builds with `next build` and nothing else', () => {
     // Pinned rather than left to framework detection. Detection would produce

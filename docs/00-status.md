@@ -1172,6 +1172,14 @@ holds a build back only from a **custom production domain**, which §7 declines 
 12 §3, the workflow header and a test comment are corrected; two decision-log entries carry the
 argument and the rejected alternative (deploy from Actions with a `VERCEL_TOKEN`, which #48 may revisit).
 
+**The first run of the wizard found a defect, and it is fixed.** The Vercel project exists
+(`lfca-lab`, Root Directory `app`, Node 24.x — doc 12 §3's prediction, now measured) and all five
+production variables are set, but **both deployments failed**: the Framework Preset read `Other`, so
+Vercel looked for a static `public/` folder. `app/vercel.json` now pins `"framework": "nextjs"`, with
+an assertion. `vercel link` had also appended a blanket `.env*` to `.gitignore` that silently overrode
+the `!app/.env.example` exception — dropped, keeping only its `.vercel` line. **To finish: re-run
+stages 6 and 7**, which is a redeploy and the `develop` observation.
+
 **What remains of #46 is the owner's, and `scripts/setup-vercel.sh` walks all of it** — seven stages,
 preflight through the two observations, with the five variables piped from `app/.env.main` and
 `app/.env.local` so no production credential passes through a browser field. Run it from the repo

@@ -338,6 +338,17 @@ that is what would mint a public URL for every branch — and its last stage pus
 `develop` and has you watch the Deployments tab, which is §3.1's observation. It sets **no** GitHub
 secret: the one that will exist is #48's.
 
+**So is the framework, and the first production deployment is why.** Both the git-import
+deployment and the CLI redeploy failed with *"No Output Directory named 'public' found after the
+Build completed"* — an error that never mentions Next.js. The project's **Framework Preset read
+`Other`**, which serves a static `public/` folder. Vercel detects the preset when a project is
+imported, and it evidently read the **repository root** — which declares no `next` dependency — rather
+than the Root Directory set during that same import; changing Root Directory does not re-run
+detection. *That ordering is inferred rather than documented or watched*: what was measured is the
+preset reading `Other` with Root Directory already `app`, and both deployments failing identically,
+which is what ruled out the CLI. `"framework": "nextjs"` overrides the dashboard preset on every
+deployment, so the fix is committed rather than a setting to remember next time.
+
 **The build command is pinned here too**, as `next build`, rather than left to framework detection.
 Detection produces the same string today; what it does not do is refuse a dashboard edit that appends
 something to it. §3 above spent three paragraphs on why `db:migrate` and `seed` do not belong in the
