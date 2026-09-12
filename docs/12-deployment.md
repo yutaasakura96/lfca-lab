@@ -260,6 +260,20 @@ hold. Red suite, no deploy. Node is **pinned** in every workflow: `npm run seed`
 `scripts/seed.ts` directly, which needs Node ≥23.6 for unflagged type stripping and fails as a parse
 error on an older major.
 
+**This section said "CI gates the deploy" from the day it was written, and it was not true until
+2026-09-12** — there was no `.github/` directory in this repository at all. It is
+`.github/workflows/ci.yml` now: one job on every push, the bank checks first, then `npm ci` and the
+app's `typecheck` and unit suite. It holds **no repository secret**, which is the half that matters:
+the gate cannot reach the database it gates.
+
+**The pin is `24.x`, and that number is a consequence of the field above rather than a free choice.**
+Root Directory is `app`, so `engines.node` is the manifest Vercel reads, and `>=23.6.0` resolves there
+to the latest 24.x — so pinning 24.x in CI means the suites run under the major that compiles the
+deploy they gate. It is **strictly above** the manifest's floor major on purpose: every version a
+`24.x` pin can resolve to satisfies `>=23.6.0`, whereas a `23.x` pin could legally resolve to 23.0.0
+and fall below it. `app/tests/unit/deploy-config.test.ts` asserts exactly that relationship, so the
+pin and the manifest cannot drift — and it runs inside this workflow to do it.
+
 ---
 
 ## 4. Rollback — written before the first deploy

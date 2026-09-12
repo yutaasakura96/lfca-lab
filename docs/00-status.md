@@ -1008,6 +1008,55 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   the same role and rotate together.
   Suites: 339 bank · **663** app unit · 194 app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — the gate exists, and the configuration is asserted** (#45). The fifth of
+  thirteen. `.github/workflows/ci.yml` is the first `.github/` anything this repository has ever had,
+  so doc 12 §3's "CI gates the deploy" — written in Phase 4 — was false for the whole of features 3,
+  4 and half of 5. **One job on every push**, the bank checks first, then `npm ci` and the app's
+  `typecheck` and unit suite. It **holds no repository secret**, which is the half that matters: the
+  gate cannot reach the database it gates. The integration suite and the browser run stay local, and
+  the workflow asserts their *absence* rather than merely omitting them.
+  **One job rather than three in parallel, and the order is the claim.** doc 11 §5 says the bank runs
+  first so a holdout violation fails in seconds; sequential steps keep that literally. The bank half
+  installs nothing — measured rather than assumed: the root declares no dependencies and every import
+  under `tools/` is a `node:` builtin — so `npm ci` happens only for the app, after the bank has had
+  its say.
+  **Node is pinned at `24.x`, and the number is a consequence rather than a preference.** Root
+  Directory is `app`, so `engines.node` is the manifest **Vercel** reads and it resolves `>=23.6.0`
+  there to the latest 24.x — so CI now typechecks under the major that compiles the deploy it gates.
+  `actions/setup-node` would take the range itself through `node-version-file`, which cannot drift and
+  was verified to read `engines.node` — but **a range is not a pin**: it resolves to the newest
+  satisfying major on the runner that day (the action's own matrix example already lists 26), so a
+  Node release would change CI's runtime with no diff. Both actions are pinned to their current
+  majors, `checkout@v7` and `setup-node@v7`, read from the tag lists rather than from memory.
+  **`app/tests/unit/deploy-config.test.ts` is a fourth committed-configuration test, not an extension
+  of the first** — which reverses what `neon-permissions.test.ts`'s own header and doc 11 §2 both
+  said. Nothing in this seam is about Neon: it is npm script flags and a GitHub workflow, and a file
+  named `neon-permissions` that also asserts a Node version is one the next reader does not grep. Both
+  claims corrected in place; #46 adds its `deploymentEnabled` assertion to the new file.
+  It asserts: every script passing an env file uses the **conditional** form — derived from the
+  manifest rather than from a list of three names, so a fourth script is covered the day it is added;
+  the workflow runs the three database-free suites and **none** of `test:integration`, `test:e2e`,
+  `seed` or `db:migrate`; it references no secret at all; and **the pinned major is strictly above the
+  manifest's floor major**, which is the assertion worth the most — `23.x` against `>=23.6.0` would
+  pass a same-major check while 23.0.0, a version that pin can legally resolve to, does not satisfy
+  the floor. One major above means every version on the pinned line clears it whatever the runner
+  picks. Both grammars are matched strictly and an unrecognised form **fails** rather than being
+  forgiven; it reads the workflow as text, not parsed YAML, because there is no YAML parser here and
+  every fact is one line.
+  **Written test-first and watched red before the workflow existed** — 13 failing, 5 passing, the five
+  being the env-file assertions #43 had already made true. Then mutation-checked **sixteen ways**,
+  each red attributed to the assertion that should catch it: the mandatory `--env-file` form on `seed`
+  and on `db:migrate`, every env-file flag gone, the `node-version` line deleted, the pin lowered to
+  `23.x`, the pin replaced by `node-version-file`, the floor raised to `>=24.6.0`, the floor rewritten
+  `^23.6.0`, the trigger respelled `on: [push]`, a connection string added, an unrelated secret added,
+  the integration suite added, the seed added, `check-bank` dropped, `typecheck` dropped, and the
+  workflow deleted. **The first run of that matrix was worthless and nearly passed as evidence:** it
+  restored with `git checkout -- <workflow> <manifest>`, the workflow was untracked, git failed on
+  that pathspec and restored **neither** file — so every later mutation stacked on an already-broken
+  manifest. Re-run with per-file copies. In the log, 2026-09-12.
+  Docs 11 §2 and §5 and 12 §3 corrected to what shipped.
+  Suites: 339 bank · **681** app unit · 194 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -1098,7 +1147,10 @@ recorded in doc 12 §8 rather than rediscovered. **#42 is closed** — the Neon 
 the pooler. **#43 is closed** — the repo speaks two connection strings with no fallback between them,
 and the migration and seed scripts no longer hardcode a local env file. **#44 is closed** — production
 exists, holds the bank and the account, and carries **no exam attempts at all**, so all sixteen papers
-are still honest. **#45 is next.**
+are still honest. **#45 is closed** — `.github/workflows/ci.yml` exists, so "CI gates the deploy" is
+true for the first time, and the pin, the script flags and the absent credential are asserted rather
+than trusted. **#46 is next, and it is the one that connects Vercel** — after which a push to `main`
+is a production deploy.
 
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
 2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`

@@ -35,8 +35,12 @@ import { describe, expect, it } from 'vitest';
 // of this.
 //
 // Ticket #45 owns the wider committed-configuration seam — the `--env-file-if-exists`
-// flags, the Node pin, and `deploymentEnabled`. It extends this file rather than
-// adding a second one of the same kind.
+// flags, the Node pin, and `deploymentEnabled`. **It has its own file**,
+// `deploy-config.test.ts`, rather than extending this one as this comment used to
+// say: nothing in that seam is about Neon, and a file named for Neon permissions
+// that also asserts a workflow's Node version is a file the next reader does not
+// think to grep. Same shape, same standard, different subject. See the decision
+// log, 2026-09-12.
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const repoRoot = join(here, '..', '..', '..');

@@ -2194,3 +2194,70 @@ verified it is named as unverified rather than assumed.*
 - **Revisit if:** never for the promotion. The first time the backup is *restored in anger* is the
   next thing to verify — this rehearsal proved the dump and the restore, not the judgement of a
   person doing it at speed under stress.
+
+### [2026-09-12] CI is one job on every push, the Node pin is `24.x`, and the configuration test is its own file
+- **Decision:** `.github/workflows/ci.yml` — one job, triggered by `on: push`, running the bank checks,
+  then `npm ci`, `typecheck` and the app's unit suite, holding **no repository secret**. Node pinned at
+  **`24.x`**. The committed-configuration assertions go in a **new** `app/tests/unit/deploy-config.test.ts`
+  rather than into `neon-permissions.test.ts`. Ticket #45.
+- **Context:** doc 12 §3 has claimed "CI gates the deploy" since it was written in Phase 4, and there was
+  no `.github/` directory in this repository at all, so the sentence had never once been true. The
+  2026-09-11 entry settled *what* CI runs; this settles the three things building it asked.
+- **The test is a fourth file, which reverses a recorded intention.** `neon-permissions.test.ts` said in
+  its own header that #45 "extends this file rather than adding a second one of the same kind", and doc 11
+  §2 said the same. *Alternatives considered:* doing exactly that, which costs no doc corrections and
+  keeps all committed configuration in one place — rejected because nothing in this seam is about Neon:
+  these are npm script flags and a GitHub workflow, and a file named `neon-permissions` that also asserts
+  a Node version is one the next reader does not think to grep. Also considered extending **and renaming**
+  to `committed-config.test.ts`, which is one honest file — rejected because it renames a file named in
+  doc 11 §2, in this log's own 2026-09-12 entry and in `00-status.md`, and a rename shows in the diff as a
+  delete-plus-add that hides what actually changed. The shape is what was worth sharing, not the file.
+- **The pin is `24.x` rather than the manifest's own range.** *Alternatives considered:*
+  `node-version-file: app/package.json`, which **does** work — verified against the action's own
+  documentation, which reads `volta.node`, then `devEngines.runtime`, then `engines.node` — and which
+  cannot drift from the manifest because there is no second number. Rejected because **a range is not a
+  pin**: `setup-node`'s version input takes semver ranges, so `>=23.6.0` resolves to whatever the newest
+  satisfying major is on the runner that day (the action's own matrix example already lists 26), and a
+  Node release would then change CI's runtime with no diff to show for it — in a workflow nobody watches,
+  which is the exact failure doc 12 §3 pins Node against. Also considered `25.x`, matching the owner's own
+  laptop so a green run here means a green run there — rejected because 24.x is what **Vercel** resolves
+  `engines.node` to for the production build (doc 12 §3), so pinning it means the suites run under the
+  major that compiles the deploy they gate, and CI is not left as the one environment on a Node nothing
+  else in the pipeline uses.
+- **The comparison is strictly-greater, and that is the whole strength of it.** The test requires the
+  pinned major to be **above** the manifest's floor major, not equal to it: `23.x` against a floor of
+  `>=23.6.0` would pass a same-major check while 23.0.0 — a version that pin can legally resolve to —
+  does not satisfy the floor. One major above means every version on the pinned line clears it whatever
+  the runner picks. Both grammars are matched strictly and a file that stops using the form the test
+  understands **fails** rather than being forgiven, because a changed form is exactly the moment a human
+  should re-read the comparison and there is no semver parser here to fall back on.
+- **One job, not three in parallel, and the order is the point.** doc 11 §5 says the bank checks run
+  first "so a holdout violation fails in seconds rather than after a browser run". A single job with
+  sequential steps keeps that property literally; parallel jobs would give up the ordering to save a few
+  seconds on the one outcome nobody minds waiting for. The bank half installs nothing, which is what
+  makes it cheap — the root declares no dependencies and every import under `tools/` is a `node:`
+  builtin, measured rather than assumed.
+- **`on: push` with no `pull_request` trigger.** Zero pull requests have ever been opened on this
+  repository, which is the same fact that cut preview environments out of this slice (2026-09-11). A
+  trigger for an event that has never occurred would gate nothing.
+- **It reads the workflow as text, not as parsed YAML.** There is no YAML parser in the app's dependency
+  tree and adding one to read six lines would be a dependency taken on for a test; every fact asserted is
+  a single line. The accepted cost is that an equally valid respelling — `on: [push]` for `on: push` —
+  fails here, which is the same deliberate strictness as the Node grammar.
+- **Both actions are pinned to their current majors**, `actions/checkout@v7` and `actions/setup-node@v7`,
+  read from the tag lists rather than assumed — a version that does not exist fails the workflow at
+  startup, which is a cheap mistake to make from memory.
+- **Verified by mutation, sixteen ways, and the first attempt at that was invalid.** Each assertion was
+  broken in turn and watched go red, by name: the mandatory `--env-file` form on `seed` and on
+  `db:migrate`, every env-file flag removed, the `node-version` line deleted, the pin lowered to `23.x`,
+  the pin replaced with `node-version-file`, the manifest floor raised to `>=24.6.0`, the floor rewritten
+  as `^23.6.0`, the trigger respelled `on: [push]`, a connection string added, an unrelated secret added,
+  the integration suite added, the seed added, `check-bank` dropped, `typecheck` dropped, and the workflow
+  deleted. **Worth recording because it nearly passed unnoticed:** the matrix's first run restored its
+  files with `git checkout -- <workflow> <manifest>`, and the workflow was untracked — so git failed on
+  that pathspec and restored **neither** file, leaving every later mutation stacked on a manifest that was
+  already wrong. The reds were real and the attribution was worthless. Re-run with per-file copies.
+- **Revisit if:** the integration suite's assertions start covering something the manual checklist cannot,
+  at which point the secret is worth adding and doc 11 §5's last two lines get built as written — and the
+  "holds no repository secret at all" assertion becomes the thing to loosen deliberately rather than
+  quietly.

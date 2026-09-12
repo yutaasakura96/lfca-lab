@@ -1,0 +1,55 @@
+# The gate. doc 12 §3 has said "CI gates the deploy" since it was written; there
+# was no .github/ directory in this repository at all until now, so it had never
+# once been true.
+#
+# What runs here is the three suites that need no database — doc 11 §5's first
+# two lines. The integration suite and the browser run stay local: both need a
+# seeded Neon branch and a credential this workflow deliberately does not hold,
+# and holding one would give the gate write access to the database it gates.
+#
+# The bank goes first because it is the cheapest and it is the one defending the
+# holdout: a holdout violation fails in seconds rather than after a typecheck.
+# It also installs nothing — the root declares no dependencies, every import in
+# tools/ is a node: builtin.
+#
+# Node is pinned. `app/tests/unit/deploy-config.test.ts` asserts that the pin
+# below and app/package.json's engines.node cannot drift apart, and runs in this
+# workflow to do it.
+
+name: CI
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Bank, typecheck, app unit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # 24.x, not the manifest's own >=23.6.0 range: Root Directory is `app`,
+          # so engines.node is the manifest Vercel reads, and it resolves that
+          # range to the latest 24.x. This pins CI to the major that compiles the
+          # deploy it gates.
+          node-version: '24.x'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # The bank — no install, and the first thing to fail.
+      - run: npm test
+      - run: npm run validate
+      - run: npm run check-bank
+
+      # The app.
+      - run: npm ci
+        working-directory: app
+      - run: npm run typecheck
+        working-directory: app
+      - run: npm run test:unit
+        working-directory: app

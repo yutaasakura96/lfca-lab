@@ -51,10 +51,23 @@ fact about it, need no database.
 | `neon-permissions.test.ts` | Every destructive `neon` command and Neon MCP tool resolves to a prompt in `.claude/settings.json`, under **both** names a Neon tool arrives under; no allow rule reaches one; the reads still run; and neither of doc 12 §8.2's two traps is open. |
 | `design-tokens.test.ts` | `tokens.css` and `base.css` are byte-identical to `design/`. |
 | `backup-command.test.ts` | Doc 12 §5's `pg_dump` command names every table the migrations create that is not listed as excluded **with a reason**, dumps over the direct host, and keeps `PGSSLROOTCERT=system` rather than downgrading `sslmode`. Derived from the migrations' own `CREATE TABLE` statements, so **the next table added fails this test by name** — which is the check `attempt_question` went eleven days without. |
+| `deploy-config.test.ts` | Every script in `app/package.json` that passes an env file uses the **conditional** form, derived from the manifest rather than from a list of script names. `.github/workflows/ci.yml` runs the three database-free suites, runs none of the three that write or read a database, holds no repository secret at all, and **pins a Node major strictly above the manifest's floor major** — so every version that pin can resolve to satisfies `engines.node`, whatever the runner picks. |
 
 These assert the artefact, never a live system: a test that opens a socket proves today's behaviour,
 which is not what is at risk. What is at risk is somebody changing a line and nothing complaining.
-Ticket #45 extends the first of them with the deploy slice's remaining committed configuration.
+
+**`deploy-config.test.ts` is a fourth file rather than an extension of the first**, which reverses
+what that file's own header and this paragraph used to say. The seam is real and the shape is shared,
+but nothing in it is about Neon — these are npm script flags and a GitHub workflow — and a file named
+`neon-permissions` that also asserts a Node version is one the next reader does not think to grep.
+#46 adds its `deploymentEnabled` assertion here. See the decision log, 2026-09-12.
+
+**It asserts the workflow as text, not as parsed YAML**, deliberately: there is no YAML parser in the
+app's dependency tree, and adding one to read six lines would be a dependency taken on for a test.
+Every fact it asserts is a single line. The cost is that a workflow reshaped into an equally valid
+spelling — `on: [push]` for `on: push` — fails here; that is the intended behaviour rather than a
+limitation, for the same reason the Node grammar is matched strictly. A changed form is exactly the
+moment a human should re-read the comparison.
 
 **Playwright, one end-to-end run**, covering the path nothing else covers:
 
@@ -101,7 +114,8 @@ Run before each deploy that touches the UI. Kept in `app/tests/manual-checklist.
 
 ## 5. CI
 
-GitHub Actions on push, from the repo root. **What is built is the first two lines only:**
+GitHub Actions on push, from the repo root — **`.github/workflows/ci.yml`, which exists as of
+2026-09-12.** One job, steps in this order. **What is built is the first two lines only:**
 
 ```
 npm test && npm run validate && npm run check-bank     # the bank
@@ -116,12 +130,26 @@ cd app && npm run typecheck && npm run test:unit       # the app, needs no datab
 (decision log, 2026-09-11). Both need `DATABASE_URL` as a repository secret and a seeded Neon branch
 — precisely the apparatus §4 originally declined for one user, and which the 2026-09-01 entry
 admitted only for a claim no pure function could make. The three cheap suites run in seconds, need no
-credential, and are what makes doc 12 §3's "CI gates the deploy" true for the first time; there was
+credential, and are what made doc 12 §3's "CI gates the deploy" true for the first time; there was
 no `.github/` directory at all until the deploy slice, so it had never been true before.
 
-**Node is pinned in the workflow.** `npm run seed` executes `scripts/seed.ts` directly, which needs
-Node ≥23.6 for unflagged type stripping, and `--env-file-if-exists` needs ≥20.12. Both are silently
-absent on an older major, and the failure is a parse error in a workflow nobody is watching.
+**One job, not three in parallel**, and the step order is the claim: the bank checks run first
+because they are the cheapest and they are the ones defending the holdout, so a holdout violation
+fails in seconds rather than behind a typecheck. The bank half installs nothing — the root declares
+no dependencies and every import under `tools/` is a `node:` builtin — so `npm ci` happens only for
+the app, after the bank has already had its say.
+
+**Node is pinned in the workflow, at `24.x`.** `npm run seed` executes `scripts/seed.ts` directly,
+which needs Node ≥23.6 for unflagged type stripping, and `--env-file-if-exists` needs ≥20.12. Both
+are silently absent on an older major, and the failure is a parse error in a workflow nobody is
+watching. **`24.x` rather than the manifest's own range**, for the reason doc 12 §3 records: Root
+Directory is `app`, so `engines.node` is the manifest Vercel reads and it resolves `>=23.6.0` there
+to the latest 24.x — pinning the same major means CI typechecks under the major that compiles the
+deploy it gates. `actions/setup-node` would take the range directly through `node-version-file`
+(verified: it reads `volta.node`, then `devEngines.runtime`, then `engines.node`), and that cannot
+drift — but **a range is not a pin**: it resolves to whatever the newest satisfying major is on the
+runner that day, so a Node release would change CI's runtime with no diff to show for it.
+`deploy-config.test.ts` is what keeps the pin and the manifest from drifting apart instead.
 
 **`npm run test:e2e` runs `next build` itself**, which is a correction to this section rather than a
 refinement of it: it originally read `npm run build && npm run test:e2e`, and that builds twice. The
