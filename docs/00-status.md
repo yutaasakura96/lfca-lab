@@ -1172,7 +1172,10 @@ holds a build back only from a **custom production domain**, which §7 declines 
 12 §3, the workflow header and a test comment are corrected; two decision-log entries carry the
 argument and the rejected alternative (deploy from Actions with a `VERCEL_TOKEN`, which #48 may revisit).
 
-**What remains of #46 is the owner's**, and none of it is blocked by anything above: create the Vercel
+**What remains of #46 is the owner's, and `scripts/setup-vercel.sh` walks all of it** — seven stages,
+preflight through the two observations, with the five variables piped from `app/.env.main` and
+`app/.env.local` so no production credential passes through a browser field. Run it from the repo
+root. In outline it is: create the Vercel
 project against `yutaasakura96/lfca-lab` with **Root Directory `app`**, set the five production
 variables #46 owns — `DATABASE_URL` and `DATABASE_URL_UNPOOLED` (both `sslmode=verify-full` **and**
 `channel_binding=require`, from `app/.env.main`), `ALLOWED_EMAILS`, `GOOGLE_CLIENT_ID`,
