@@ -170,6 +170,32 @@ though: session-level advisory locks and `SET`/`RESET` are both documented as un
 connections, and migration tools use them. Splitting the two strings costs one variable and removes
 the question.
 
+**There is no fallback from `DATABASE_URL_UNPOOLED` to `DATABASE_URL`, and that absence is the
+feature.** `requireDirectDatabaseUrl()` in `app/src/db/client.ts` throws, and `drizzle.config.ts`
+carries the same refusal of its own — not an import, because importing the helper would pull `pg`,
+`drizzle-orm` and the whole schema graph into whatever bundle drizzle-kit builds that config with. It
+is a refusal at all rather than `?? ''` because **`pg` reads an empty connection string as *use the
+`PG*` defaults***: a runner missing the secret would aim at localhost and report a connection error
+rather than a missing credential. `drizzle-kit generate` writes SQL from the schema and opens nothing,
+so it is the one command exempt.
+
+**The seed holds its own pool, on the direct host**, rather than the app's handle from
+`src/db/client.ts`. That handle is the pooled one and is imported by every route, page and query
+helper; a `makeDb(url)` factory there would have saved one construction line and handed all of them a
+way to build a handle pointing anywhere. Nothing under `src/` can reach the direct host.
+
+**Both environments point `DATABASE_URL` at a pooled host**, local included, so the pooler is
+exercised every day rather than only in the environment that cannot be debugged from. The integration
+and browser suites therefore run over it too.
+
+**`app/tests/integration/connection-string.test.ts` asserts both strings under one gate.** The gate is
+`DATABASE_URL`, so a contributor with no Neon branch still gets a green run; but *given* a database,
+both are required rather than each skipped when absent — a skipped half would report green over
+exactly the state in which the seed refuses to run. It also asserts that the two hostnames differ by
+precisely `-pooler` on the leftmost label, which is §2.1's structural finding turned into a check, and
+which catches the mistake actually available when adding a second variable: pasting one string into
+both names, which every parameter assertion would pass.
+
 **Rotation:** `BETTER_AUTH_SECRET` invalidates every session in that environment when changed — which is the intended
 emergency control, not a hazard. The Google client secret rotates in the Google console with a brief
 overlap. `DATABASE_URL` rotates by resetting the Neon role password.
@@ -205,7 +231,20 @@ upserts rather than truncating (doc 03 §3), so it is safe on every deploy, and 
 is what keeps the database from silently diverging from the bank.
 
 **Both scripts read `--env-file-if-exists`, not `--env-file`**, so one script serves both a laptop and
-a runner where the environment supplies the variables.
+a runner where the environment supplies the variables. **`test:integration` moved with them**, which
+was not a tidiness pass: under the mandatory form a missing `.env.local` makes the command itself exit
+`ENOENT`, so doc 11 §5's standing claim that the app suites "skip cleanly when `DATABASE_URL` is
+absent" could never actually be observed. Measured after the change: 18 files, 190 tests, all skipped,
+nothing failed.
+
+**`app/package.json` declares `engines.node` as `>=23.6.0`** — the true floor, because `npm run seed`
+executes `scripts/seed.ts` directly and unflagged type stripping arrives in 23.6. One thing about that
+is not obvious and is recorded rather than left to be discovered: **Root Directory is `app`, so this is
+the manifest Vercel reads**, and Vercel offers only 20.x, 22.x and 24.x. Per its own documented
+mapping a range like `>=20.0.0` resolves to the latest 24.x, so this pins the production build to 24.x
+as a side effect. Harmless — Vercel runs only `next build`, which needs neither type stripping nor
+`--env-file-if-exists` — but it is a decision the field makes, not a fact it merely states. `24.x`
+was rejected as the value because it would warn on the owner's own Node 25.
 
 **CI gates the deploy, and it is smaller than doc 11 §5 specifies:** the bank checks, `typecheck` and
 the app's unit suite — the three that need no database. The integration suite and the Playwright run

@@ -892,6 +892,66 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   Vercel environments", which the 2026-09-11 preview decision had already made two-thirds wrong.
   Suites unchanged and re-run: 339 bank · 659 app unit · 189 app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — the repo speaks two connection strings** (#43). The third of thirteen, and a
+  prefactoring: make the change easy, then make the easy change. `DATABASE_URL` is now the **pooled**
+  (`-pooler`) host and is what the app reads — **in both environments**, so the pooler is exercised
+  every day rather than only in the one that cannot be debugged from; `DATABASE_URL_UNPOOLED` is the
+  **direct** host and is read by `drizzle-kit migrate` and `npm run seed`, and by nothing else.
+  **There is no fallback between them, and the absence is the feature.** `requireDirectDatabaseUrl()`
+  throws rather than reaching for the pooled string, so a runner missing the secret fails where it can
+  be seen instead of migrating production over the pooler and reporting success. The cost was accepted
+  rather than discovered: both scripts stopped working on the laptop until `app/.env.local` gained the
+  variable.
+  **`drizzle.config.ts` carries the same refusal of its own** rather than importing the helper — that
+  import would pull `pg`, `drizzle-orm` and the whole schema graph into whatever bundle drizzle-kit
+  builds the config with. And it is a refusal rather than the `?? ''` the first draft had, because
+  **`pg` reads an empty connection string as *use the `PG*` defaults***: a runner missing the secret
+  would have aimed at localhost and presented as a connection error rather than a missing credential.
+  `generate` opens nothing and is the one command exempt — verified, and it wrote no file.
+  **The seed holds its own pool.** It had imported `db` and `pool` from `src/db/client.ts`, so the
+  moment `DATABASE_URL` meant *pooled* it would have run its one long multi-statement transaction over
+  the pooler with nothing saying so. A `makeDb(url)` factory in `client.ts` was rejected: that module
+  is imported by every route, page and integration test, and it would have handed all of them a way to
+  build a handle pointing anywhere. Nothing under `src/` can reach the direct host.
+  **Three scripts moved to `--env-file-if-exists`, not two.** `test:integration` went with the two
+  database scripts because under the mandatory form a missing `.env.local` exits `ENOENT` before vitest
+  starts — so doc 11 §5's standing claim that the app suites "skip cleanly when `DATABASE_URL` is
+  absent" had never been observable. Measured after the change: **18 files, 190 tests, all skipped,
+  nothing failed.**
+  **`app/package.json` declares `engines.node` as `>=23.6.0`** — the true floor, since `npm run seed`
+  executes `scripts/seed.ts` directly and unflagged type stripping arrives in 23.6. One thing about
+  that is not obvious and is written down rather than left to be found: **Root Directory is `app`, so
+  this is the manifest Vercel reads**, and Vercel offers only 20.x, 22.x and 24.x — per its own
+  documented mapping this range resolves to the latest 24.x, pinning the production build as a side
+  effect. Harmless, since Vercel runs only `next build`. `24.x` was rejected as the value: it would
+  warn on every `npm install` on the owner's Node 25.
+  **The test asserts both strings under one gate**, and the gate is `DATABASE_URL` so a contributor
+  with no Neon branch still gets a green run. Given a database, both are **required** rather than each
+  skipped when absent — a skipped half would have reported green over exactly the state in which the
+  seed refuses to run, closing the ticket's criterion while never once executing. It also asserts the
+  two hostnames differ by precisely `-pooler` on the leftmost label, which is #42's structural finding
+  turned into a check and catches the mistake actually available here: pasting one string into both
+  names, which every parameter assertion would pass.
+  **Two things the machine found that reasoning had not.** Parsing the connection string in the suite
+  *body* broke the skip — **`describe.skipIf` still runs its callback at collection time**, a skipped
+  suite being one whose tests do not execute rather than one whose body is never read — so `new URL('')`
+  threw and a machine with no database saw *1 file failed, 186 skipped*. The parse moved inside each
+  test. And the seed's pool, built at module load, threw **outside** the `catch` at the foot of the
+  file, printing a stack trace where every other seed failure prints one `ERROR` line; it is built
+  inside `main()` now, still before a single bank file is read.
+  **Mutation-checked rather than trusted for passing first time**, both new claims: breaking the
+  `-pooler` expectation turns the relationship test red, and breaking the `sslmode` expectation turns
+  **two** tests red — one per string — which is what proves the direct-host block genuinely executes
+  rather than being registered and skipped.
+  Verified end to end against Neon `develop`: `db:migrate` applied over the direct host, `npm run seed`
+  reported **1150 question(s), 4600 option(s), 16 paper(s), 960 paper item(s), 40 holdout** — the
+  measured figures unchanged — and both refuse with one named line and exit 1 when the variable is
+  absent. The integration and browser suites now run **over the pooler** for the first time, and both
+  are green.
+  `app/.env.example` gains the new name with an empty value; docs 12 §2.2 and §3 record the no-fallback
+  rule, the `pg` empty-string hazard, the third moved script and the Vercel side effect.
+  Suites: 339 bank · 659 app unit · **194** app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -979,9 +1039,8 @@ not an exam sitting, which would spend a first-attempt score to test a deploymen
 — the Neon CLI and the Neon MCP server are behind `gh`'s permission split, and the identifiers are
 recorded in doc 12 §8 rather than rediscovered. **#42 is closed** — the Neon branches are `main` and
 `develop`, a rename was measured to move no endpoint host, and `verify-full` was measured to hold on
-the pooler. **#43 is next**: the repo speaks two connection strings, and the migration and seed
-scripts stop hardcoding a local env file so a runner can execute them. Its
-connection-string test now has a measured fact to encode rather than an open question.
+the pooler. **#43 is closed** — the repo speaks two connection strings with no fallback between them,
+and the migration and seed scripts no longer hardcode a local env file. **#44 is next.**
 
 **Steps only the owner can do**, and worth a `/wizard`: finishing `neon auth` (a browser flow, started
 2026-08-31 and abandoned — `~/.config/neon/` is still empty after #41), watching a destructive `neon`

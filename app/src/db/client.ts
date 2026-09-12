@@ -14,12 +14,20 @@ import { Pool } from 'pg';
 import * as schema from './schema.ts';
 
 /**
- * The direct (unpooled) Neon connection is the right one here: Neon's own
- * documentation routes schema migrations to the direct host, because tools that
- * hold a transaction open across statements do not survive transaction pooling.
- * When the app is deployed and serving requests it will want a second, pooled
- * URL alongside this one — recorded in the deployment doc rather than guessed
- * at now.
+ * `DATABASE_URL` is the **pooled** (`-pooler`) Neon host, and this is the app's
+ * handle: every route, page and query helper reaches Postgres through it. The
+ * pooler is what a serverless function should hold, because it can open a
+ * connection per invocation and Neon's connection ceiling is the first thing
+ * that breaks under load (doc 03 §10).
+ *
+ * The direct host lives in `DATABASE_URL_UNPOOLED` and is read by
+ * `drizzle-kit migrate` and the seed — see {@link requireDirectDatabaseUrl}.
+ * Nothing in `src/` builds a handle to it, deliberately: two spellings of one
+ * database are worth having, and a second way to reach the wrong one is not.
+ *
+ * Local and production both point this at a pooled host, so the pooler is
+ * exercised every day rather than only in the environment that cannot be
+ * debugged from.
  */
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -39,17 +47,33 @@ export type Db = typeof db;
 export type Executor = Pick<Db, 'execute'>;
 
 /**
- * Fail loudly, at the point of use, when there is nowhere to connect.
+ * The **direct** (non-`-pooler`) host — the other spelling of the same database
+ * — failing loudly at the point of use when it is absent.
  *
- * Called by anything that actually talks to Postgres — the migration runner,
- * the seed, the integration tests. Keeping the check here rather than at import
- * means the failure names the thing you were trying to do.
+ * `DATABASE_URL_UNPOOLED` is read by `drizzle-kit migrate` and by the seed, and
+ * by nothing else. Neon routes schema migrations to the direct host because
+ * session-level advisory locks and `SET`/`RESET` are unsupported on a pooled
+ * connection and migration tools use both; the seed holds one long
+ * multi-statement transaction, which is the same shape. This function is the
+ * seed's way in. `drizzle.config.ts` repeats the check rather than importing it,
+ * and says there why.
+ *
+ * **There is no fallback to `DATABASE_URL`, and that is the point.** A runner
+ * missing this secret must fail where it can be seen, rather than migrating
+ * production over the pooler and reporting success.
+ *
+ * *A `requireDatabaseUrl()` stood beside this and is gone rather than kept: the
+ * seed was its only caller, and its comment claimed the migration runner and the
+ * integration tests too, which was never true. A dead export asserting three
+ * users it does not have is worse than no export.*
  */
-export function requireDatabaseUrl(): string {
-  const url = process.env.DATABASE_URL;
+export function requireDirectDatabaseUrl(): string {
+  const url = process.env.DATABASE_URL_UNPOOLED;
   if (!url) {
     throw new Error(
-      'DATABASE_URL is not set. Put the Neon dev branch connection string in app/.env.local.',
+      'DATABASE_URL_UNPOOLED is not set. Schema migrations and the seed read the ' +
+        'direct (non `-pooler`) Neon host. Add it to app/.env.local, or to the ' +
+        "workflow's secrets. See docs/12-deployment.md §2.2.",
     );
   }
   return url;

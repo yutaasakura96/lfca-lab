@@ -30,10 +30,40 @@
 // them.
 
 import { notInArray, sql } from 'drizzle-orm';
-import { db, pool, requireDatabaseUrl } from '../src/db/client.ts';
+import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
+import { requireDirectDatabaseUrl } from '../src/db/client.ts';
+import * as schema from '../src/db/schema.ts';
 import { exam, examItem, question, questionOption } from '../src/db/schema/app.ts';
 import { defaultBankRoot, loadBank } from './bank.ts';
 import { HOLDOUT_SIZE, projectBank, type Projection } from './projection.ts';
+
+/** The seed's handle. Deliberately not the `Db` exported by `src/db/client.ts`. */
+type SeedDb = NodePgDatabase<typeof schema>;
+
+/**
+ * The seed's own pool, on the **direct** Neon host — not the app's pooled one
+ * from `src/db/client.ts`.
+ *
+ * `write()` below is one long multi-statement transaction over the whole bank,
+ * which is the shape Neon's guidance routes to the direct connection. The pool
+ * is private to this script rather than exported from `client.ts` as a factory,
+ * so that nothing under `src/` gains a way to build a handle to a host of its
+ * choosing. The cost is this construction line existing twice; the tables are
+ * named explicitly in every statement below, so the two cannot quietly diverge
+ * about what they are pointed at.
+ *
+ * Called from {@link main} rather than at module load, and that is not style:
+ * `requireDirectDatabaseUrl()` throws, and a module-level throw escapes the
+ * `catch` at the foot of this file — so a missing credential printed a stack
+ * trace where every other seed failure prints one `ERROR` line. It is still the
+ * first thing `main` does, before a single bank file is read, so the failure
+ * lands before the work rather than after it.
+ */
+function openDatabase(): { db: SeedDb; pool: Pool } {
+  const pool = new Pool({ connectionString: requireDirectDatabaseUrl() });
+  return { db: drizzle(pool, { schema }), pool };
+}
 
 /** Postgres caps a statement at 65,535 bind parameters; stay well under it. */
 const CHUNK = 500;
@@ -44,7 +74,7 @@ function chunked<T>(rows: T[]): T[][] {
   return out;
 }
 
-async function write(projection: Projection): Promise<void> {
+async function write(db: SeedDb, projection: Projection): Promise<void> {
   await db.transaction(async (tx) => {
     // Clear the two child tables outright. Nothing references `question_option`
     // or `exam_item` — no foreign key points at them — so they can be replaced
@@ -113,11 +143,20 @@ async function write(projection: Projection): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  requireDatabaseUrl();
+  // First, before a single bank file is read: a missing credential fails here.
+  const { db, pool } = openDatabase();
   const bankRoot = process.argv[2] ?? defaultBankRoot;
 
+  try {
+    await seed(db, bankRoot);
+  } finally {
+    await pool.end();
+  }
+}
+
+async function seed(db: SeedDb, bankRoot: string): Promise<void> {
   const projection = projectBank(loadBank(bankRoot));
-  await write(projection);
+  await write(db, projection);
 
   const [counts] = await db
     .select({
@@ -140,6 +179,4 @@ try {
 } catch (error) {
   console.error(`ERROR  ${error instanceof Error ? error.message : String(error)}`);
   process.exitCode = 1;
-} finally {
-  await pool.end();
 }

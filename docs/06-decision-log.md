@@ -2034,3 +2034,74 @@ verified it is named as unverified rather than assumed.*
   one.
 - **Revisit if:** Neon changes the pooler's hostname shape, which is the single assumption the whole
   measurement rests on.
+
+### [2026-09-12] Two strings with no fallback between them, and the seed keeps its own pool
+- **Decision:** `DATABASE_URL` is the **pooled** host and is what the app reads, in *both*
+  environments. **`DATABASE_URL_UNPOOLED`** is the **direct** host and is read by `drizzle-kit migrate`
+  and `npm run seed`, by nothing else, and **with no fallback**. The seed builds its own `Pool` from it
+  rather than sharing `src/db/client.ts`'s handle. `db:migrate`, `seed` and `test:integration` move to
+  `--env-file-if-exists`. `app/package.json` declares `engines.node` as `>=23.6.0`. Ticket #43.
+- **Context:** the 2026-09-11 entry decided the two variables and their names; what it left open was
+  what happens when the second one is missing, and where the seed's handle comes from — `scripts/seed.ts`
+  imported `db` and `pool` from `client.ts`, so the moment `DATABASE_URL` meant *pooled*, the seed
+  would have started running its one long multi-statement transaction over the pooler without anything
+  saying so.
+- **On the missing variable.** *Alternatives considered:* falling back to `DATABASE_URL` with a console
+  warning, which keeps the laptop working through the change and closes every criterion in one session
+  — rejected because a runner missing the secret would then migrate and seed over whatever
+  `DATABASE_URL` happened to be, succeed, and leave the warning in a log nobody reads. Also considered
+  falling back only when `process.env.CI` is unset, which keeps both properties at the cost of
+  behaviour that differs by environment, in the environment that is hardest to debug.
+  **Chosen:** `requireDirectDatabaseUrl()` throws and names the variable. The cost is real and was
+  accepted rather than discovered: both scripts stop working on the owner's laptop until
+  `app/.env.local` gains the variable, which is a file agents are denied and the owner owns.
+- **`drizzle.config.ts` carries the refusal itself rather than importing the helper**, because
+  importing it would pull `pg`, `drizzle-orm` and the whole schema graph into whatever bundle
+  drizzle-kit builds that config with — a new coupling to save one duplicated sentence. And it is a
+  refusal rather than the `?? ''` the first draft had: **`pg` reads an empty connection string as
+  *use the `PG*` defaults***, so a runner missing the secret would aim at localhost and present as a
+  connection error rather than a missing credential. `generate` opens nothing and is exempt.
+- **On the seed's handle.** *Alternatives considered:* a `makeDb(url)` factory exported from
+  `client.ts`, so the drizzle construction is written once — rejected because `client.ts` is imported
+  by every route, page and integration test, and it would then hand all of them a way to build a handle
+  pointing anywhere, including one careless argument later at Neon `main` from a test. Also considered
+  leaving the seed on the shared pooled handle, which is one file changed and contradicts the ticket:
+  session-level advisory locks and `SET`/`RESET` are documented as unsupported on a pooled connection,
+  and a long multi-statement transaction is that shape. **Chosen:** a private pool in `seed.ts`.
+  Nothing under `src/` can reach the direct host. The cost is one construction line existing twice, and
+  every statement in the seed names its tables explicitly, so the copies cannot quietly diverge about
+  what they point at.
+- **The test requires both strings under one gate, and asserts how they relate.** The gate stays
+  `DATABASE_URL`, because that is what "is there a database here at all" means for every other file in
+  the suite. *Alternative considered:* a second `describe.skipIf(!process.env.DATABASE_URL_UNPOOLED)`,
+  which is green today — and would close the ticket's "asserts both strings" criterion while the second
+  half had never once executed. It also asserts the two hostnames differ by exactly `-pooler` on the
+  leftmost label, which is #42's structural finding turned into a check and catches the mistake
+  actually available here: pasting one string into both names, which every parameter assertion would
+  pass. Hostnames are not secrets — doc 12 §8.1 records all four — so a failure may print them.
+- **One thing the browser of this repo's own habits caught, measured rather than reasoned about.**
+  Parsing the connection string in the suite *body* broke the skip: **`describe.skipIf` still runs its
+  callback at collection time** — a skipped suite is one whose tests do not execute, not one whose body
+  is never read — so `new URL('')` threw and the run reported *1 file failed, 186 skipped* on a machine
+  with no database. The parse moved inside each test, and the no-database run is now 18 files and 190
+  tests skipped with nothing failed.
+- **`test:integration` moved to `--env-file-if-exists` although #43 named only the two database
+  scripts.** Under the mandatory form a missing `.env.local` exits `ENOENT` before vitest starts, so
+  doc 11 §5's standing claim that the app suites skip cleanly without `DATABASE_URL` was not observable
+  — the criterion could be asserted but never watched.
+- **`engines.node` is `>=23.6.0`, and that value decides something it does not mention.** The floor is
+  real: `npm run seed` executes `scripts/seed.ts` directly and unflagged type stripping arrives in
+  23.6. But **Root Directory is `app`, so this is the manifest Vercel reads**, and Vercel offers only
+  20.x, 22.x and 24.x; per its documented mapping this range resolves to the latest 24.x, pinning the
+  production build as a side effect. Harmless, since Vercel runs only `next build`. *Alternative
+  considered:* `"24.x"`, which is Vercel's own grammar and unambiguous there — rejected because it
+  would warn on every `npm install` on the owner's Node 25, and because it overstates a floor that is
+  about one script rather than about the app.
+- **`requireDatabaseUrl()` is deleted rather than kept.** The seed was its only caller and now wants the
+  direct host, so this ticket is what made it dead. Its doc comment claimed the migration runner and the
+  integration tests as callers too, which was never true — the app reads `DATABASE_URL` through the pool
+  and the suites gate on it themselves. This repo does keep deliberately-dead code where it earns its
+  place (`scoreSitting` is the integration suite's oracle, and says so), but a dead export asserting
+  three users it does not have is worse than no export.
+- **Revisit if:** Vercel's available majors change such that `>=23.6.0` no longer resolves to a
+  supported one — the failure would be at build time and loud, but this is the line to re-read.
