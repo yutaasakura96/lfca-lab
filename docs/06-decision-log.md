@@ -2306,7 +2306,7 @@ verified it is named as unverified rather than assumed.*
   which point deploying from Actions costs one step rather than a reversal, and this is the entry to
   re-read.
 
-### [2026-09-13] `git.deploymentEnabled` is a branch map denying by default, and `vercel.json` sits inside the Root Directory
+### [2026-09-13] `git.deploymentEnabled` is a branch map, and `vercel.json` sits in the Root Directory
 - **Decision:** `app/vercel.json` carries
   `{"git": {"deploymentEnabled": {"**": false, "main": true}}}` and pins `"buildCommand": "next build"`.
   Five assertions in `app/tests/unit/deploy-config.test.ts` hold both. Ticket #46.
