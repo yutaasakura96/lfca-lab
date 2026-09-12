@@ -1183,10 +1183,14 @@ with Google". Getting there needed **`BETTER_AUTH_SECRET` moved from #47 into #4
 Auth refuses to run in production ("You are using the default secret") and `/sign-in` returned 500.
 It was scoped to #47 on the wrong reasoning — only `BETTER_AUTH_URL` needs the hostname. A fresh
 production-only value was generated and piped in, never displayed; the local one is unchanged. #47
-keeps `BETTER_AUTH_URL`, the Google redirect URI, and actually signing in. **One #46 observation is
-still the owner's:** stage 7 — an empty commit to `develop`, watched producing no deployment. The push
-of `c138891` moved both branches at one commit and produced no Preview, but a shared SHA is weak
-evidence.
+keeps `BETTER_AUTH_URL`, the Google redirect URI, and actually signing in. **Stage 7 passed, 2026-09-13:** an
+empty commit (`e3adb13`) pushed to `develop` alone produced **no deployment in three minutes**, and
+Vercel posted no status and created no GitHub Deployment on it — while every `main` commit it built
+carries both ("Vercel is deploying your app" → "Deployment has completed"). That control is what makes
+the absence meaningful: Vercel saw the push and declined it. So non-production deployments are off,
+**and `app/vercel.json` is demonstrably read** from inside the Root Directory (doc 12 §3.1). Every #46
+criterion is now either met or recorded as unmeetable (CI gating). Still open, and #47's rather than
+#46's: whether `**` spans the slash in a `feature/…` branch name.
 
 **What remains of #46 is the owner's, and `scripts/setup-vercel.sh` walks all of it** — seven stages,
 preflight through the two observations, with the five variables piped from `app/.env.main` and

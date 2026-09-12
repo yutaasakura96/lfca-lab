@@ -2411,3 +2411,21 @@ verified it is named as unverified rather than assumed.*
 - **Verified:** after the redeploy `/sign-in` returns `200` and renders "Continue with Google". The
   local secret is unchanged, so the two environments still hold different values, as #47 requires.
 - **Revisit if:** never.
+
+### [2026-09-13] `app/vercel.json` is read, observed rather than inferred
+- **Observation, not a new decision.** It closes the risk the earlier entry the same day named: the
+  file's placement inside the Root Directory rested on Vercel's monorepo example rather than a
+  documented rule. Ticket #46.
+- **What was done:** an empty commit, `e3adb13`, pushed to `develop` alone, with `main` left at
+  `1d10b8d`. Watched for three minutes against the list of deployments recorded before the push.
+- **Result:** no deployment. GitHub shows no Vercel commit status and no GitHub Deployment on
+  `e3adb13` — only the Actions check.
+- **Why that absence counts:** the control. `1d10b8d`, `c138891` and `5ca613e` on `main` each carry a
+  Vercel status ("Vercel is deploying your app" → "Deployment has completed") and a Production GitHub
+  Deployment. The integration demonstrably receives pushes and reports on the ones it builds, so its
+  silence on `develop` is `{"**": false, "main": true}` being applied, not a webhook that never
+  arrived. A dashboard with no new row could not have told those two apart.
+- **Consequence:** the placement stays `app/vercel.json`, and doc 12 §3.1 records the observation and
+  the better method.
+- **Still unobserved:** whether `**` spans the `/` in `feature/…`. `develop` has no slash, so this
+  proves nothing about that; the first `feature/` branch pushed while the project exists settles it.

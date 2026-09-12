@@ -329,6 +329,13 @@ immediate failure rather than a silent one, which is the only reason it is accep
 placement on an inference. Recorded here so that a future reader who moves the file knows what to
 re-observe, and does not take a green suite as confirmation.
 
+**Observed 2026-09-13, and it holds.** An empty commit pushed to `develop` alone produced no deployment
+in three minutes. The check has a control, which is what makes an absence evidence: every commit
+Vercel built on `main` carries a GitHub commit status from Vercel and a GitHub Deployment record, and
+the `develop` commit carries neither. **Commit statuses are the better check than the dashboard** — a
+missing row in a list looks the same whether Vercel declined the push or never received it, whereas
+the statuses on a neighbouring `main` commit prove the integration was listening.
+
 **`scripts/setup-vercel.sh` walks the half of this that is the owner's**, the way
 `scripts/setup-google-oauth.sh` walks the Google side, and for the same reason: the five copied variables and a freshly generated `BETTER_AUTH_SECRET` go
 from `app/.env.main` and `app/.env.local` into Vercel **piped**, so no production credential passes
