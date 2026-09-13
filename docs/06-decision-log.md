@@ -2429,3 +2429,21 @@ verified it is named as unverified rather than assumed.*
   the better method.
 - **Still unobserved:** whether `**` spans the `/` in `feature/…`. `develop` has no slash, so this
   proves nothing about that; the first `feature/` branch pushed while the project exists settles it.
+
+### [2026-09-13] `**` spans the slash, and #47's history criterion is corrected rather than met
+- **Observation:** `feature/47-production-sign-in`, pushed at `6c213c0`, produced no Vercel status
+  and no GitHub Deployment; `baf1405` on `main` carries both. `{"**": false, "main": true}` covers
+  slashed ticket branches, so the repair the 2026-09-13 branch-map entry held ready — adding
+  `"feature/*"` — is not made. Ticket #47.
+- **Decision:** #47's "the five known first-attempt scores read correctly" is replaced with an
+  assertion of what production holds: signing in lands on the restored account with no new `user`
+  or `account` row (checked in SQL against a baseline taken before the sign-in), all sixteen papers
+  unsat, and `/domain` reflecting the three copied composed sittings. Chosen by the owner.
+- **Reason:** #44 found the "five" were nine development sittings and started production with no
+  exam attempts on purpose. A criterion naming scores that were deliberately not copied could only
+  be met by undoing that decision.
+- **Alternatives considered:** dropping the criterion, which would leave the one thing worth proving
+  unproved — that Google signs into the restored row rather than creating a second user; and keeping
+  the text with a note in the docs, which leaves a public issue asserting something false.
+- **Verified:** `user` 1 → 1, `account` 1 → 1, `session` 0 → 1 on the restored allowlisted row,
+  whose `updated_at` did not move; attempts, answers and exam attempts unchanged.

@@ -1203,8 +1203,10 @@ Vercel posted no status and created no GitHub Deployment on it — while every `
 carries both ("Vercel is deploying your app" → "Deployment has completed"). That control is what makes
 the absence meaningful: Vercel saw the push and declined it. So non-production deployments are off,
 **and `app/vercel.json` is demonstrably read** from inside the Root Directory (doc 12 §3.1). Every #46
-criterion is now either met or recorded as unmeetable (CI gating). Still open, and #47's rather than
-#46's: whether `**` spans the slash in a `feature/…` branch name.
+criterion is now either met or recorded as unmeetable (CI gating). **Settled by #47, 2026-09-13: `**` spans
+the slash.** `feature/47-production-sign-in` was pushed at `6c213c0` and after more than three
+minutes carried no Vercel status and no GitHub Deployment, against `baf1405` on `main` carrying both.
+No `"feature/*"` entry is needed.
 
 **What remains of #46 is the owner's, and `scripts/setup-vercel.sh` walks all of it** — seven stages,
 preflight through the two observations, with the five variables piped from `app/.env.main` and

@@ -336,6 +336,12 @@ the `develop` commit carries neither. **Commit statuses are the better check tha
 missing row in a list looks the same whether Vercel declined the push or never received it, whereas
 the statuses on a neighbouring `main` commit prove the integration was listening.
 
+**And `**` spans a slash, observed the same day.** Vercel documents minimatch syntax for these keys
+without saying whether `**` matches across `/`. `feature/47-production-sign-in`, pushed at `6c213c0`,
+carried no Vercel status and no GitHub Deployment after more than three minutes, with `baf1405` on
+`main` as the control carrying both. So the deny-by-default map covers slashed ticket branches as
+written, and `"feature/*"` is not needed beside it.
+
 **`scripts/setup-vercel.sh` walks the half of this that is the owner's**, the way
 `scripts/setup-google-oauth.sh` walks the Google side, and for the same reason: the five copied variables and a freshly generated `BETTER_AUTH_SECRET` go
 from `app/.env.main` and `app/.env.local` into Vercel **piped**, so no production credential passes
