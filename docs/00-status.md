@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-09
+**Updated:** 2026-09-13
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -1160,7 +1160,21 @@ database-free suites on every push, and the pin, the script flags and the absent
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
 
-**#46 is in progress, and its committed half has landed.** `app/vercel.json` turns non-production
+**#47 — sign-in works on production, 2026-09-13.** The redirect URI is Better Auth's default path,
+read from its docs rather than assumed: `https://lfca-lab-six.vercel.app/api/auth/callback/google`,
+added by the owner to the **existing** Google client beside the localhost one. `BETTER_AUTH_URL` was
+set to `https://lfca-lab-six.vercel.app` from the CLI — plain config, not a secret — and production
+was redeployed, because an environment variable only reaches a new build. The owner signed in, and
+the session held across a reload and a new tab. **Verified in SQL against a baseline taken before
+the sign-in**, not inferred from the screen: `user` 1 → 1, `account` 1 → 1, `session` 0 → **1**,
+on the restored, allowlisted user row, whose `updated_at` did not move; 0 exam attempts, 3 sittings
+and 87 answers unchanged. So Google signs into the account #44 restored rather than minting a second
+one. **One criterion was corrected rather than met:** the issue said "the five known first-attempt
+scores read correctly", and production deliberately holds no exam attempts (#44) — it now asserts
+what production holds. The signing-secret criterion was already done in #46.
+
+**#46 is closed** (2026-09-13, with the unmeetable CI-gating criterion recorded on the issue). The
+paragraphs below are its record. `app/vercel.json` turns non-production
 deployments off (`{"**": false, "main": true}` — a **branch map**, because a bare `false` would stop
 `main` too) and pins the build command to `next build` alone; five new assertions in
 `deploy-config.test.ts` hold both, mutation-checked six ways. **`develop` has been merged into `main`
