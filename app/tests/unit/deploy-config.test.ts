@@ -34,6 +34,7 @@ const appRoot = join(here, '..', '..');
 const repoRoot = join(appRoot, '..');
 
 const CI_WORKFLOW = join(repoRoot, '.github', 'workflows', 'ci.yml');
+const DEPLOY_WORKFLOW = join(repoRoot, '.github', 'workflows', 'deploy.yml');
 
 // Inside the Root Directory, not at the repository root. Vercel's own monorepo
 // documentation shows the file at `apps/web/vercel.json` — the Root Directory of
@@ -247,6 +248,134 @@ describe('the workflow and the manifest cannot drift about Node', () => {
         + '`npm run seed` fails as a parse error rather than as a missing runtime. Pin a major above '
         + 'the floor major.',
     ).toBeGreaterThan(floorMajor);
+  });
+});
+
+describe('the deploy workflow migrates and seeds production, and holds only that credential', () => {
+  // #48. The one workflow in this repository that writes to the Neon `main`
+  // branch, so every assertion here is about what could make it write the wrong
+  // thing, from the wrong ref, or with more than it needs. It races the Vercel
+  // build on the same push and that is accepted (doc 12 §3) — which is why
+  // migrations must be backward-compatible with the release currently serving.
+
+  const deploy = (): string => {
+    expect(
+      existsSync(DEPLOY_WORKFLOW),
+      '.github/workflows/deploy.yml is missing. Without it a push to main deploys new code and never '
+        + 'migrates or seeds, so production silently diverges from the bank (doc 12 §3, #48).',
+    ).toBe(true);
+
+    // Comment lines dropped, because the header names the commands it explains
+    // and an ordering assertion must read the steps, not the prose about them.
+    return readFileSync(DEPLOY_WORKFLOW, 'utf8')
+      .split('\n')
+      .filter((line) => !/^\s*#/.test(line))
+      .join('\n');
+  };
+
+  it('runs on a push to main and on nothing else', () => {
+    const text = deploy();
+
+    expect(
+      text,
+      '.github/workflows/deploy.yml does not carry `on: push: branches: [main]`. A push to any other '
+        + 'branch must never reach production; if the trigger was respelled, read it, then teach this '
+        + 'test the new form.',
+    ).toMatch(/^on:\s*\n\s+push:\s*\n\s+branches:\s*\[\s*main\s*\]\s*$/m);
+
+    // `workflow_dispatch` lets the person dispatching pick the ref, so it would
+    // seed production from any branch. `pull_request` would run it from one.
+    expect(text, 'deploy.yml can be dispatched by hand, which lets it seed production from any ref.')
+      .not.toContain('workflow_dispatch');
+    expect(text, 'deploy.yml runs on pull requests, which would seed production from a branch.')
+      .not.toContain('pull_request');
+  });
+
+  it('checks the bank, then migrates, then seeds — in that order', () => {
+    // The bank checks come first because CI gates nothing (doc 12 §3): this is
+    // the only place a malformed bank or a holdout violation can be stopped
+    // before it reaches production's content tables. Migrate before seed because
+    // the seed writes the columns the migration creates.
+    const text = deploy();
+    const ORDER = ['npm test', 'npm run validate', 'npm run check-bank', 'npm run db:migrate', 'npm run seed'];
+    const at = ORDER.map((command) => ({ command, index: text.indexOf(command) }));
+
+    for (const { command, index } of at) {
+      expect(index, `.github/workflows/deploy.yml does not run \`${command}\`.`).toBeGreaterThan(-1);
+    }
+
+    expect(
+      at.map(({ command }) => command),
+      `.github/workflows/deploy.yml runs these out of order: ${[...at].sort((a, b) => a.index - b.index).map((s) => s.command).join(' → ')}.`,
+    ).toEqual([...at].sort((a, b) => a.index - b.index).map(({ command }) => command));
+  });
+
+  it('runs no test suite that needs a database', () => {
+    const text = deploy();
+
+    expect(text, 'deploy.yml runs the integration suite, which would point its teardown at production.')
+      .not.toContain('test:integration');
+    expect(text, 'deploy.yml runs the browser suite, which would point its teardown at production.')
+      .not.toContain('test:e2e');
+  });
+
+  it('references exactly one secret, the direct connection string', () => {
+    // The pooled string is the app's (doc 12 §2.2); migrations and the seed read
+    // the direct host and refuse to fall back. A second secret here is a second
+    // production credential living in GitHub, which doc 12 §2 would have to list.
+    const secrets = [...deploy().matchAll(/secrets\.([A-Za-z0-9_]+)/g)].map((m) => m[1]);
+
+    expect(secrets.length, 'deploy.yml references no secret, so migrate and seed cannot connect.')
+      .toBeGreaterThan(0);
+    expect(
+      [...new Set(secrets)],
+      'deploy.yml references a secret other than DATABASE_URL_UNPOOLED. Doc 12 §2 lists that as the '
+        + 'only production credential held in GitHub Actions.',
+    ).toEqual(['DATABASE_URL_UNPOOLED']);
+  });
+
+  it('hands the secret to no step before the dependencies are installed', () => {
+    // Step-scoped, not job-scoped. A job-level `env:` would sit above the steps
+    // in the file and give the credential to `npm ci` — every install script in
+    // the dependency tree — and to the bank checks, none of which need it.
+    const text = deploy();
+
+    expect(
+      text.indexOf('secrets.'),
+      'deploy.yml exposes DATABASE_URL_UNPOOLED before `npm ci`. Scope it to the migrate and seed steps.',
+    ).toBeGreaterThan(text.indexOf('npm ci'));
+  });
+
+  it('queues runs rather than cancelling one mid-seed', () => {
+    // Two quick pushes to main must not migrate or seed at once, and a newer run
+    // must not kill an older one partway through a migration. The seed is one
+    // transaction, so a cancel would roll back cleanly — but a queue costs nothing
+    // and leaves nothing to reason about.
+    const text = deploy();
+
+    expect(text, 'deploy.yml has no `concurrency:` group, so two pushes can seed at once.')
+      .toMatch(/^concurrency:/m);
+    expect(text, 'deploy.yml cancels an in-progress run. Queue instead.')
+      .toMatch(/cancel-in-progress:\s*false/);
+  });
+
+  it('pins the same Node major as CI', () => {
+    // The seed runs `scripts/seed.ts` directly, so Node below 23.6 is a parse
+    // error. CI's pin is already asserted against the manifest above; equality
+    // with it is what carries that guarantee to this workflow.
+    const pin = (text: string, file: string): string => {
+      expect(text, `${file} sets node-version-file, which is a range rather than a pin.`)
+        .not.toContain('node-version-file');
+      const match = /node-version:\s*'(\d+)\.x'/.exec(text);
+      expect(match, `${file} has no \`node-version: 'MAJOR.x'\` pin.`).not.toBeNull();
+      return match![1]!;
+    };
+
+    expect(
+      pin(deploy(), 'deploy.yml'),
+      '.github/workflows/deploy.yml pins a different Node major from ci.yml. The seed would then run '
+        + 'under a runtime no suite was checked against.',
+    ).toBe(pin(workflow(), 'ci.yml'));
   });
 });
 

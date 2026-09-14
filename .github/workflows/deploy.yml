@@ -1,0 +1,68 @@
+# The bank reaches production on every push to main — #48, doc 12 §3.
+#
+# Separate from ci.yml on purpose. CI holds no credential, so the suite that
+# reports on a commit cannot reach the database that commit's deploy will serve.
+# This workflow holds exactly one: DATABASE_URL_UNPOOLED, the direct host, which
+# `drizzle-kit migrate` and `npm run seed` read and refuse to fall back from
+# (doc 12 §2.2). It is a repository secret and is listed in doc 12 §2.
+#
+# It races the Vercel build on the same push, and that is accepted: for a short
+# window the new code may serve the previous seed. That is why a migration must
+# be backward-compatible with the release currently serving, and a rename is two
+# deploys, always.
+#
+# The bank checks run first because CI gates nothing (doc 12 §3): this is the
+# one place a malformed bank or a holdout violation is stopped before it reaches
+# production's content tables. drizzle-kit applies every pending migration in one
+# transaction, so a failed migration rolls back whole and the seed never runs.
+#
+# `app/tests/unit/deploy-config.test.ts` asserts the trigger, the order, the one
+# secret and its scope, the queue, and the Node pin against ci.yml.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  migrate-and-seed:
+    name: Bank checks, migrate, seed
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # The same pin as ci.yml, asserted equal. The seed executes
+          # scripts/seed.ts directly, which needs Node >=23.6.
+          node-version: '24.x'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # The bank — no install, and nothing here can see the credential.
+      - run: npm test
+      - run: npm run validate
+      - run: npm run check-bank
+
+      - run: npm ci
+        working-directory: app
+
+      # The credential is scoped to these two steps and no others.
+      - run: npm run db:migrate
+        working-directory: app
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+
+      - run: npm run seed
+        working-directory: app
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}

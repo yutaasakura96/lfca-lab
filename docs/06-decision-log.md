@@ -2447,3 +2447,30 @@ verified it is named as unverified rather than assumed.*
   the text with a note in the docs, which leaves a public issue asserting something false.
 - **Verified:** `user` 1 → 1, `account` 1 → 1, `session` 0 → 1 on the restored allowlisted row,
   whose `updated_at` did not move; attempts, answers and exam attempts unchanged.
+
+### [2026-09-14] The deploy workflow checks the bank before it seeds, and a failed migration is observed on main
+- **Decision:** `.github/workflows/deploy.yml` runs `npm test`, `validate` and `check-bank`, then
+  `npm ci`, `db:migrate` and `seed`, in one job on a push to `main`. The failed-migration criterion is
+  observed by pushing a migration that fails to `main` and removing it in the next commit. Both
+  chosen by the owner. Ticket #48.
+- **On the bank checks.** Doc 03 §3 said a seed on an invalid bank "is impossible because CI gates
+  it", and #46 established that CI gates nothing. *Alternatives considered:* migrate and seed only,
+  as #48 is worded, relying on the seed's own holdout and one-key assertions; and triggering on
+  `workflow_run` after CI goes green, which reuses typecheck and unit as well but adds a layer that
+  is harder to reason about and lags the seed behind the push. The checks install nothing and take
+  seconds, and a red one stops the job before the credential is used.
+- **On the failed migration.** Measured in the installed source: drizzle-kit applies every pending
+  migration inside one `session.transaction` (`drizzle-orm/pg-core/dialect.js`), so a failure rolls
+  back whole and the seed step never starts. The criterion said "the previous deployment keeps
+  serving", which the race makes inaccurate — the new build still goes live; what keeps serving is
+  the **site, on the unchanged schema**. *Alternatives considered:* running the failing migration
+  against a throwaway Neon branch through `workflow_dispatch`, which never touches production but
+  proves only the rollback; and recording the source reading as sufficient. Rejected for leaving the
+  site half unobserved, and `workflow_dispatch` is refused outright for letting the dispatcher pick
+  the ref.
+- **Defaults taken without asking**, each asserted: the secret is step-scoped so `npm ci` never sees
+  it; runs queue rather than cancel; and it is a repository secret rather than one scoped to the
+  `Production` environment Vercel created, whose Deployment records are what doc 12 §3.1's
+  observation reads.
+- **Revisit if:** a second secret is ever needed here, at which point doc 12 §2's inventory and the
+  one-secret assertion change together.

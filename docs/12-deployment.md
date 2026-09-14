@@ -245,6 +245,20 @@ push to git main
   '-- Actions: npm run db:migrate; npm run seed     (against DATABASE_URL_UNPOOLED)
 ```
 
+**The workflow is `.github/workflows/deploy.yml`, built in #48**, and five things about it are
+deliberate. It **runs the bank checks first** — `npm test`, `validate`, `check-bank` — because CI
+gates nothing, so this is the only place a malformed bank or a holdout violation is stopped before
+it reaches the content tables. **The secret is scoped to the migrate and seed steps**, never the job,
+so `npm ci` and every install script in the dependency tree never see it. **It triggers on a push to
+`main` and nothing else** — no `workflow_dispatch`, which would let whoever dispatches choose the ref
+and seed production from a branch. **Runs queue** (`concurrency`, `cancel-in-progress: false`), so
+two quick pushes never migrate at once. And **a failed migration rolls back whole**: drizzle-kit
+applies every pending migration in one transaction (`drizzle-orm/pg-core/dialect.js`), and the seed
+is a later step that does not run. It is a **repository** secret rather than one scoped to the
+`Production` environment, because Vercel created that environment for its own GitHub Deployments —
+using it would add Deployment records to the check §3.1 reads. `deploy-config.test.ts` asserts all
+of it, mutation-checked nine ways.
+
 **The two race, and that is accepted.** For a short window the new code may serve the previous seed.
 This is why migrations must be backward-compatible with the release currently serving — additive
 columns, **no renames in the same deploy as the code that depends on them.** A rename is two deploys,
@@ -349,7 +363,7 @@ through a browser field, a terminal echo or an agent's context. Seven stages. It
 unless `app/vercel.json` is already on `main` in the expected shape — connecting the project before
 that is what would mint a public URL for every branch — and its last stage pushes an empty commit to
 `develop` and has you watch the Deployments tab, which is §3.1's observation. It sets **no** GitHub
-secret: the one that will exist is #48's.
+secret: the one that exists is #48's, and it is set by the owner, piped rather than pasted.
 
 **So is the framework, and the first production deployment is why.** Both the git-import
 deployment and the CLI redeploy failed with *"No Output Directory named 'public' found after the

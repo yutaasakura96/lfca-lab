@@ -80,7 +80,10 @@ data/holdout.json   ─┘        (CI gate)        (idempotent)
 
 **`npm run seed` is idempotent and runs inside one transaction.** It never touches `user`,
 `session`, `account`, `verification`, `attempt` or `answer`. Running it twice produces the same
-database; running it on a bank that fails validation is impossible because CI gates it.
+database. **It never runs on a bank that fails validation**, and the reason is not the one this
+sentence used to give ("because CI gates it" — CI gates nothing, doc 12 §3): the deploy workflow
+runs `npm test`, `validate` and `check-bank` as its own first steps, and the seed is a later step in
+the same job (#48).
 
 **It upserts rather than truncating**, which is a correction to this document rather than a
 refinement of it. `TRUNCATE question` is refused by Postgres — *"cannot truncate a table referenced
