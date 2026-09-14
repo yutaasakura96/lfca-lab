@@ -193,7 +193,7 @@ Study it: [03-cloud-computing/budgeting.md#c-cloud.budgeting.budgets-and-cost-al
 Short options take one hyphen and a single letter, and may be clustered behind one hyphen, so `ls -la` is exactly `ls -l -a`. Long options take two hyphens and a whole word and may never be clustered this way. Written without clustering, the same request is `ls -l`.
 
 - **A.** Clustering does not fold case; `-a` and `-A` are different options with different meanings for dotfiles.
-- **B.** Correct. Short options take one hyphen each and may be clustered behind a single hyphen, so `-la` is exactly `-l -a`. [#48 deploy check]
+- **B.** Correct. Short options take one hyphen each and may be clustered behind a single hyphen, so `-la` is exactly `-l -a`.
 - **C.** A single hyphen introduces a cluster of short options; a long option always needs two hyphens.
 - **D.** Every letter after the single hyphen is parsed as its own clustered option, not as text handed to the command.
 

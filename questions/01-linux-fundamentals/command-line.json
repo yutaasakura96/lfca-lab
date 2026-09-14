@@ -13,7 +13,7 @@
           "ref": "o1",
           "text": "`-l` and `-a`, clustered behind one leading hyphen",
           "correct": true,
-          "why": "Short options take one hyphen each and may be clustered behind a single hyphen, so `-la` is exactly `-l -a`. [#48 deploy check]",
+          "why": "Short options take one hyphen each and may be clustered behind a single hyphen, so `-la` is exactly `-l -a`.",
           "provenance": {
             "kind": "key"
           }
