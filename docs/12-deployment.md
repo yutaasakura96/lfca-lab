@@ -259,6 +259,17 @@ is a later step that does not run. It is a **repository** secret rather than one
 using it would add Deployment records to the check §3.1 reads. `deploy-config.test.ts` asserts all
 of it, mutation-checked nine ways.
 
+**Observed on `main`, 2026-09-14, not inferred.** A push with nothing pending ran green. A marker in one
+`why` reached Neon `main` and its revert took it back out, both read in SQL. A migration of `SELECT 1/0`
+failed `db:migrate`, the seed was skipped, `__drizzle_migrations` stayed at two rows, and Vercel
+deployed the same commit while the site answered `307` on `/` and `200` on `/sign-in`. **What stays
+up is the site on the old schema, not the previous deployment** — the race means the new build goes
+live either way, which is why §3's backward-compatibility rule carries the weight. Two things worth
+knowing: drizzle-kit's progress spinner swallows the SQL error, so a failed run's log shows only the
+exit code; and **a `why` edit is not content-only** — the papers render it, so `npm test` refuses the
+push until `npm run build-exams` has regenerated them, which is how the first attempt at this
+observation went red without touching the database.
+
 **The two race, and that is accepted.** For a short window the new code may serve the previous seed.
 This is why migrations must be backward-compatible with the release currently serving — additive
 columns, **no renames in the same deploy as the code that depends on them.** A rename is two deploys,

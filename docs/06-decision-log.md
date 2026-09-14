@@ -2474,3 +2474,13 @@ verified it is named as unverified rather than assumed.*
   observation reads.
 - **Revisit if:** a second secret is ever needed here, at which point doc 12 §2's inventory and the
   one-secret assertion change together.
+- **What the observations found, recorded the same day.** The failed-migration run behaved as the
+  source said: `db:migrate` failed, `seed` was skipped, the migrations table stayed at two rows, and the
+  site served throughout. The content check went red first, and **by an agent slip rather than a design
+  flaw**: a chain of `npm test | grep … && git push` treated grep finding "fail 1" as success and pushed
+  a `why` edit whose papers had not been regenerated. The deploy workflow's own `npm test` refused it
+  and never reached the credential — the first real instance of the check this entry added doing its
+  job. Put to the owner; fixed forward with `npm run build-exams`, whose diff was read before commit
+  (only exam-08's answers and their embedded copy), then observed and reverted. **Consequence for
+  anyone editing the bank:** a question's text is rendered into generated papers, so a content change
+  and `build-exams` belong in one commit, and verification commands check exit codes, not grep output.

@@ -1160,6 +1160,23 @@ database-free suites on every push, and the pin, the script flags and the absent
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
 
+**#48 — the bank reaches production on every push, 2026-09-14.** `.github/workflows/deploy.yml`
+runs on a push to `main` only: the bank checks, `npm ci`, `db:migrate`, `seed`, with
+`DATABASE_URL_UNPOOLED` as a repository secret scoped to the last two steps (piped in by the owner,
+never displayed), runs queued, Node 24.x asserted equal to CI. Seven assertions in
+`deploy-config.test.ts`, mutation-checked nine ways. **All three observations were made on `main`:**
+`80dad0a` ran green with nothing pending (seeded 1150 / 4600 / 16 / 960 / 40); a marker appended to one
+`why` reached Neon `main` (SQL, 13:08:38Z) and its revert `446688a` restored the original (13:14:53Z);
+and a migration of `SELECT 1/0` (`da820a1`) failed `db:migrate`, skipped `seed`, left
+`__drizzle_migrations` at **2** rows, and the site answered 307 / 200 throughout — removed in
+`21f6bb6`, green again. **One unplanned red on `main`, and it was the gate working:** `81a1b62` edited
+the `why` without regenerating the papers, which render it — `npm test` failed, every later step was
+skipped, and the credential was never used. Fixed forward with `npm run build-exams` (diff: only
+`exam-08-answers.md` and its embedded copy in `index.json`). So **a content edit to the bank is not
+content-only**: it needs `build-exams` in the same commit. Production after all of it: 1 user, 0 exam
+attempts, 3 sittings, 87 answers — unchanged. #48's failed-migration criterion now says *the site*
+keeps serving rather than *the previous deployment*, which the race makes untrue.
+
 **#47 — sign-in works on production, 2026-09-13.** The redirect URI is Better Auth's default path,
 read from its docs rather than assumed: `https://lfca-lab-six.vercel.app/api/auth/callback/google`,
 added by the owner to the **existing** Google client beside the localhost one. `BETTER_AUTH_URL` was
