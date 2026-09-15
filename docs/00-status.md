@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-13
+**Updated:** 2026-09-15
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -1160,6 +1160,16 @@ database-free suites on every push, and the pin, the script flags and the absent
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
 
+**#49 — production refuses a non-allowlisted account, proved in SQL, 2026-09-15.** Checklist §1a
+carries the procedure, the query and the result. A second Google account was refused against the
+`ALLOWED_EMAILS` value already saved in Vercel, with `?denied=1` the only thing in the URL. Then the
+variable was **removed** and production redeployed, and the owner's own account was refused. Then it
+was restored, piped from `app/.env.local`, redeployed, and the owner landed on home. Neon `main`
+before and after every step: `user` 1, `account` 1, newest rows still 2026-09-01; `session` 1 → 1
+→ 1 → **2**, the one new session belonging to the allowlisted user. **An emptied list does not sign
+an existing session out**: the guard reads `user.allowlisted`, which is why every sign-in ran from a
+private window. Log entry 2026-09-15. This unblocks #50.
+
 **#48 — the bank reaches production on every push, 2026-09-14.** `.github/workflows/deploy.yml`
 runs on a push to `main` only: the bank checks, `npm ci`, `db:migrate`, `seed`, with
 `DATABASE_URL_UNPOOLED` as a repository secret scoped to the last two steps (piped in by the owner,
@@ -1337,7 +1347,8 @@ per-string, it binds the pooled URL (§2.2), and #42 measured that it actually h
   [`../app/tests/manual-checklist.md`](../app/tests/manual-checklist.md), written out in full with
   the SQL: `npm run dev:denied` in `app/` (or the `app-denied` launch config), sign in, expect
   *"This app is private"*, then confirm in SQL that the `user`, `account` and `session` counts are
-  **unchanged** — not that no row appeared for that address. Passed 2026-09-01. This is the only
+  **unchanged** — not that no row appeared for that address. Passed 2026-09-01 locally, and
+  **on production 2026-09-15** (§1a, #49), fail-closed case included. This is the only
   check standing between this app and a public one, and **no automated suite covers it or the OAuth
   callback** — the Playwright run signs in by inserting a session row. The checklist says so in its
   own §0 rather than leaving it to be rediscovered.

@@ -67,6 +67,63 @@ the app had silently admitted an account to its database.
 - [ ] With the address restored to the list, the same account signs in and lands on the home
       screen, and `user.allowlisted` is `true` for it.
 
+### 1a. The same check on production
+
+Production's `ALLOWED_EMAILS` is a different variable in a different environment, and a variable
+that silently failed to save looks identical to one that saved correctly until somebody tries. So
+§1 is repeated against `https://lfca-lab-six.vercel.app` and Neon `main`, with two differences:
+the refused account is a **second Google account** against the value already saved in Vercel,
+not a swapped list, and the fail-closed case **removes the variable** rather than blanking it.
+
+Run every sign-in from a **private window**. An existing session is not re-checked against the
+variable — the session guard reads `user.allowlisted`, not `ALLOWED_EMAILS` — so a signed-in
+browser proves nothing about the gate.
+
+The count query, run against Neon `main` (`br-jolly-mode-b39c5rdo`) before and after every step.
+The `max(created_at)` columns are what make "unchanged" mean unchanged rather than a delete and an
+insert that happened to balance:
+
+```sql
+SELECT (SELECT count(*) FROM "user")                AS users,
+       (SELECT count(*) FROM account)               AS accounts,
+       (SELECT count(*) FROM session)               AS sessions,
+       (SELECT count(*) FROM "user" WHERE allowlisted) AS allowlisted_users,
+       (SELECT max(created_at) FROM "user")         AS user_latest,
+       (SELECT max(created_at) FROM account)        AS account_latest,
+       (SELECT max(created_at) FROM session)        AS session_latest,
+       now()                                        AS measured_at;
+```
+
+1. **Baseline.** Run the query.
+2. **Refusal.** Sign in with a Google account that is not on the list. The screen reads "This app
+   is private" and echoes nothing. Run the query: every column but `measured_at` is identical.
+3. **Fail closed.** Remove the variable and redeploy — a changed variable reaches only a new build:
+
+   ```bash
+   npx --yes vercel@latest env rm ALLOWED_EMAILS production --yes --cwd app
+   npx --yes vercel@latest redeploy https://lfca-lab-six.vercel.app --target production --cwd app
+   ```
+
+   Sign in with the **allowlisted** account. It is refused. Run the query: unchanged.
+4. **Restore**, piped from `app/.env.local` so the address never reaches a terminal or a transcript,
+   and redeploy:
+
+   ```bash
+   grep -E '^ALLOWED_EMAILS=' app/.env.local | tail -n1 | cut -d= -f2- | sed -E 's/^"//; s/"$//' | tr -d '\n' \
+     | npx --yes vercel@latest env add ALLOWED_EMAILS production --force --cwd app
+   npx --yes vercel@latest redeploy https://lfca-lab-six.vercel.app --target production --cwd app
+   ```
+
+   Sign in with the allowlisted account. It lands on home. Run the query: `users` and `accounts`
+   unchanged, `sessions` up by exactly one, `allowlisted_users` unchanged.
+
+**Last run: 2026-09-15, passed, #49.** Baseline 1 user / 1 account / 1 session / 1 allowlisted,
+newest user and account 2026-09-01, newest session 2026-09-13.
+Refusal (a second Google account, 12:17Z): identical, the URL carrying only `?denied=1`.
+Removed (the owner's own account, 12:23Z): refused, identical, `user.updated_at` unmoved.
+Restored (12:28Z): home screen, 1 / 1 / **2** / 1, the new session at 12:27:47Z on the allowlisted
+user, no new `user` or `account` row.
+
 ---
 
 ## 2. Themes and colour

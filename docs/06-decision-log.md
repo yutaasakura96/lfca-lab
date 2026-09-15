@@ -2484,3 +2484,20 @@ verified it is named as unverified rather than assumed.*
   (only exam-08's answers and their embedded copy), then observed and reverted. **Consequence for
   anyone editing the bank:** a question's text is rendered into generated papers, so a content change
   and `build-exams` belong in one commit, and verification commands check exit codes, not grep output.
+
+### [2026-09-15] Production's allowlist is refused with a second account, and failed closed by removal
+- **Decision:** the refusal was proved by a second real Google account against the `ALLOWED_EMAILS`
+  value already saved in Vercel, and the fail-closed case by **removing** the variable, redeploying,
+  and signing in with the owner's own account. Both chosen by the owner. Ticket #49.
+- **Alternatives considered:** the owner's own account against a swapped list, which is what §1 does
+  locally — rejected because it checks a value typed for the test rather than the one already saved,
+  and a variable that silently failed to save is the risk #49 names. And blanking the variable
+  rather than removing it, which mirrors the fat-fingered deploy doc 08 §3 warns about but depends on
+  Vercel accepting an empty value, which was not verified; the code reads both identically.
+- **The proof is the counts plus the newest `created_at` per table**, so a delete and an insert that
+  balanced could not pass as unchanged. The restore was piped from `app/.env.local`, so the address
+  entered neither a terminal nor a transcript.
+- **Worth knowing:** an existing session survives an emptied list, because the session guard reads
+  `user.allowlisted` rather than the variable. Removing the variable closes the door to new sign-ins;
+  it does not sign anyone out. Rotating `BETTER_AUTH_SECRET` or `DELETE FROM session` is what does.
+- **Revisit if:** the allowlist ever gains a second address, which is a new value to re-prove.
