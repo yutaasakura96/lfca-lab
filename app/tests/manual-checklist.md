@@ -348,6 +348,83 @@ SELECT
       20 → 6/4/3/3/2/2, and a domain sitting entirely in its own domain. `question_count` equals
       the number of rows actually frozen, never the length that was asked for.
 
+### 7a. A domain sitting of 20, on a phone, against production
+
+Everything above was verified at 375px by **emulation** against `localhost`, on a connection that
+never drops. This is the same sitting on a real device, over a real mobile network, against
+`https://lfca-lab-six.vercel.app` and Neon `main` (`br-jolly-mode-b39c5rdo`). It is the deploy
+slice's acceptance test (#50). **Never an exam sitting** — that would spend a first-attempt score
+to test a deployment.
+
+**Wi-Fi off for the whole run**, so every request goes over cellular. The drop is **Airplane mode**,
+which cuts every radio at once; turning off cellular alone lets Wi-Fi quietly come back and makes
+the check prove nothing.
+
+The count query, before the run and after it:
+
+```sql
+SELECT (SELECT count(*) FROM attempt)                             AS attempts,
+       (SELECT count(*) FROM attempt WHERE mode = 'exam')         AS exam_attempts,
+       (SELECT count(*) FROM attempt WHERE mode = 'domain')       AS domain_attempts,
+       (SELECT count(*) FROM attempt WHERE submitted_at IS NULL)  AS open_attempts,
+       (SELECT count(*) FROM attempt WHERE is_first_attempt)      AS first_attempt_rows,
+       (SELECT count(*) FROM attempt_question)                    AS frozen_rows,
+       (SELECT count(*) FROM answer)                              AS answers,
+       (SELECT max(created_at) FROM attempt)                      AS attempt_latest,
+       (SELECT count(*) FROM attempt_question aq JOIN question q ON q.id = aq.question_id
+          WHERE q.is_holdout)                                     AS holdout_served,
+       now()                                                      AS measured_at;
+```
+
+1. **Baseline.** Run the count query.
+2. **Start.** On the phone: home → Domain → any domain → length **20** → Start. The sitting opens on
+   question 1 with no clock anywhere.
+3. **Light theme, forward.** Answer about half the questions. Each shows the verdict, the letter,
+   and the `why` for **all four** options. Every tap target is comfortable; nothing scrolls sideways.
+4. **Reload.** Pull to refresh mid-run. It reopens on the **first unanswered** question, with the
+   rail's tiles and the bar's counts as they were.
+5. **The drop.** Airplane mode **on**. Answer a question: the **"Not saved — retrying"** chip
+   appears, and Next still works. Answer one more. Airplane mode **off**: the chip clears and the
+   counts catch up.
+6. **Dark theme.** Switch with the in-app toggle and answer the rest in dark.
+7. **Finish.** *Finish this run* on question 20. The outcome reads `Correct · Incorrect · Not
+   reached` and nothing else, summing to 20.
+8. **Review.** *See the full review*, read it back in both themes: every card's four explanations,
+   the letters matching what was pressed.
+9. **SQL.** Run the count query: `attempts`, `domain_attempts` and `frozen_rows` up by exactly 1, 1
+   and 20, `answers` up by 20; `exam_attempts`, `first_attempt_rows`, `open_attempts` and `holdout_served` unchanged.
+   Then the sitting itself:
+
+   ```sql
+   SELECT a.mode, a.domain, a.question_count, a.time_limit_seconds, a.score, a.is_first_attempt,
+          a.submit_reason, a.submitted_at IS NOT NULL                              AS submitted,
+          (SELECT count(*) FROM attempt_question aq WHERE aq.attempt_id = a.id)    AS frozen,
+          (SELECT count(DISTINCT q.domain) FROM attempt_question aq
+             JOIN question q ON q.id = aq.question_id WHERE aq.attempt_id = a.id)  AS frozen_domains,
+          (SELECT min(seq) || '..' || max(seq) FROM attempt_question aq
+             WHERE aq.attempt_id = a.id)                                           AS seq_range,
+          (SELECT count(*) FROM answer w WHERE w.attempt_id = a.id
+             AND w.option_ref IS NOT NULL)                                         AS answered,
+          (SELECT count(*) FROM answer w WHERE w.attempt_id = a.id AND w.is_correct) AS correct
+   FROM attempt a
+   WHERE a.mode = 'domain'
+   ORDER BY a.created_at DESC
+   LIMIT 1;
+   ```
+
+   `question_count` 20, `frozen` 20, `frozen_domains` 1, `seq_range` `0..19`, `answered` 20,
+   `correct` equal to the outcome's Correct, **`score` null, `is_first_attempt` false,
+   `time_limit_seconds` null**, `submit_reason` `user`.
+
+**Last run: 2026-09-15, passed, #50.** A SysAdmin sitting of 20 on the owner's phone, over
+cellular: started 21:50:24Z, finished 21:55:15Z, the owner reporting every step above as seen,
+including the chip under Airplane mode and the reload. Baseline (12:53Z) 3 attempts / 0 exam /
+1 domain / 0 open / 0 first-attempt / 100 frozen / 87 answers / 0 holdout served. After (21:59Z)
+**4 / 0 / 2 / 0 / 0 / 120 / 107 / 0**. The sitting: `question_count` 20, frozen 20 in 1 domain,
+`seq` 0..19, answered 20, correct **6** (the owner's own recollection of the outcome),
+`score` null, `is_first_attempt` false, `time_limit_seconds` null, `submit_reason` `user`.
+The screen-side steps are the owner's report; SQL confirms only what they left in the database.
+
 ---
 
 ## What the browser run already covers — don't re-check by hand

@@ -2501,3 +2501,19 @@ verified it is named as unverified rather than assumed.*
   `user.allowlisted` rather than the variable. Removing the variable closes the door to new sign-ins;
   it does not sign anyone out. Rotating `BETTER_AUTH_SECRET` or `DELETE FROM session` is what does.
 - **Revisit if:** the allowlist ever gains a second address, which is a new value to re-prove.
+
+### [2026-09-15] The phone acceptance run is one sitting, dropped by Airplane mode, and lives in checklist §7a
+- **Decision:** #50 was run as a single 20-question domain sitting on the owner's phone, on cellular
+  with Wi-Fi off, the connection dropped with **Airplane mode**, and both themes checked by switching
+  the **in-app toggle** partway through. The procedure and its dated result live in
+  `app/tests/manual-checklist.md` §7a. All three chosen by the owner. Ticket #50.
+- **Alternatives considered:** turning off cellular alone, which lets Wi-Fi reconnect without
+  saying so and proves nothing; walking out of signal, which is realistic but can't be timed or
+  confirmed; one sitting per theme, which adds a second production attempt and tests nothing extra;
+  and recording it in doc 12 or the status file only, against the #49 precedent of a repeatable
+  checklist section.
+- **What the evidence is:** the SQL on Neon `main` (counts before and after, and the sitting's own
+  row) is measured. The screen-side steps (chip, reload position, readability, themes) are the
+  owner's report, not a recording. §7a says which is which.
+- **Revisit if:** the app gains a second device class worth covering, or a deploy changes the
+  sitting screens, at which point §7a is re-run.

@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-15
+**Updated:** 2026-09-16
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -1159,6 +1159,16 @@ are still honest. **#45 is closed** — `.github/workflows/ci.yml` exists and ru
 database-free suites on every push, and the pin, the script flags and the absent credential are
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
+
+**#50 — a 20-question domain sitting, sat on a phone against production, 2026-09-15.** The slice's
+acceptance test. Checklist §7a carries the procedure, both queries and the result. The owner sat a
+SysAdmin run of 20 over cellular with Wi-Fi off, reloaded mid-run, dropped the connection with
+Airplane mode (chip up, answering continued, the answers landed), switched theme partway through,
+finished, and read the review in both themes, and reported nothing wrong. **Confirmed in SQL on Neon
+`main`**: attempts 3 → 4, frozen rows 100 → 120, answers 87 → 107; the sitting frozen at 20 in one
+domain, `seq` 0..19, 20 answered, 6 correct, score null, no first-attempt flag, no time limit,
+`submit_reason` `user`; still **0** exam attempts and **0** holdout questions served. The screen-side
+steps are the owner's report rather than a recording. Log entry 2026-09-15. This unblocks #51 and #52.
 
 **#49 — production refuses a non-allowlisted account, proved in SQL, 2026-09-15.** Checklist §1a
 carries the procedure, the query and the result. A second Google account was refused against the
