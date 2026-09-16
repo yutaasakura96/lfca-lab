@@ -528,6 +528,15 @@ gh run list --commit "$(git rev-parse main)" \
       serves new code over the *previous* seed. That is the state this box exists to catch, and it
       is invisible from the screen.
 
+**First run: 2026-09-16, passed, #51 — against the deploy of the commit that added this section.**
+`31fd5f0`: three workflow rows (`CI` twice, once per branch, and `Deploy`), all green; the seed
+reported `1150 question(s), 4600 option(s), 16 paper(s), 960 paper item(s), 40 holdout`;
+`__drizzle_migrations` at **2** against two files on disk, its newest row still 2026-09-06, so
+nothing was pending and nothing applied; Vercel's commit status `success`; and `/` `307`,
+`/sign-in` `200`, `/exams` `307`. No bank content changed, so the last box did not apply. Unlike
+§1a, §7a and §8.2, this is a **recurring** check rather than a proof — the line records that it has
+been exercised once end to end, not that it need not be run again.
+
 ### 8.2 The rollback — *Promote to Production*
 
 Doc 12 §4 makes this the whole recovery for anything that is not a migration, and the 2026-09-13

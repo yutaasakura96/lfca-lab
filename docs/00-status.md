@@ -1176,6 +1176,11 @@ session's own handoff note:* `gh run list --commit` does not "return nothing in 
 it returns nothing for an **abbreviated** SHA and works on the full forty characters, which is the
 GitHub API rather than a repo quirk. The doc had recorded a real observation under a wrong
 diagnosis and prescribed a worse workaround for it.
+**§8.1 was itself run, against the deploy of the commit that added it** — `31fd5f0`, 2026-09-16:
+three workflow rows all green, the seed's five figures unchanged, `__drizzle_migrations` at 2
+against two files with its newest row still 2026-09-06, Vercel's commit status `success`, and
+`307` / `200` / `307`. Recorded in §8.1 as a *first* run rather than a last one, because unlike
+§1a, §7a and §8.2 it is a recurring check rather than a proof.
 **§8.2 is the rollback, and it was run.** Doc 12 §4 has made *Promote to Production* the whole
 recovery since Phase 4 and the 2026-09-13 decision made it the thing standing in place of a CI
 gate, and it had never once been exercised — doc 12 §5's "a belief, not a backup", one control
