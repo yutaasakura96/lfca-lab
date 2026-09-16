@@ -84,7 +84,11 @@ hardest thing in the app and the only place a bug costs a first-attempt score.
 
 ## 3. Tested manually, from a written checklist
 
-Run before each deploy that touches the UI. Kept in `app/tests/manual-checklist.md`.
+Kept in `app/tests/manual-checklist.md`. **Its §0–§7 run before** each deploy that touches the UI
+— bar §1a and §7a, which are production checks kept beside the things they check. **Its §8 runs
+after** a deploy, because nothing gates this one (doc 12 §3) and the only protection is somebody
+looking at what landed. Those three are the only parts of the list that are about a deployment
+rather than about the app.
 
 - [ ] Both themes, on every screen. No token used outside `styles/tokens.css`.
 - [ ] Contrast re-verified **if any colour token changed** — the 40-pair check from Phase 3.
@@ -96,6 +100,12 @@ Run before each deploy that touches the UI. Kept in `app/tests/manual-checklist.
 - [ ] Sign in with a **non-allowlisted** Google account → denied screen, and **no `user` row is
       created** (checked in SQL, not inferred from the screen).
 - [ ] Screens against doc 10 side by side, including empty and error states.
+- [ ] **After a push to `main`:** both workflows green on that SHA, the seed reporting the bank's
+      own figures unchanged, `__drizzle_migrations` matching the files on disk, Vercel's commit
+      status present, and the site answering. Checklist §8.1.
+- [ ] **The rollback**, rehearsed rather than first attempted under pressure — *Promote to
+      Production* moves the alias in seconds without rebuilding, and moves back. Checklist §8.2;
+      run 2026-09-16.
 
 ---
 

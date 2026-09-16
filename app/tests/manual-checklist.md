@@ -1,6 +1,10 @@
 # Manual checklist
 
-Run before any deploy that touches the UI, and after any change to `tokens.css`.
+**§0–§7 run before** any deploy that touches the UI, and after any change to `tokens.css` —
+**except §1a and §7a**, which are production checks kept beside the things they check rather than
+gathered into §8, because three other docs cite them by number. **§8 runs after** a push to `main`
+has deployed. Those three are the only parts of this list that are about a deployment rather than
+about the app.
 Doc 11 §3 is this list's spec; doc 11 §4 says what is deliberately not automated and why.
 
 Tick a box only for something you watched happen. "It probably still works" is what this
@@ -20,6 +24,12 @@ Two things in this app have **no automated coverage in any suite**, and it is no
   during a real OAuth sign-in. The unit suite tests the *rule* (`src/domain/allowlist.ts`) against
   every near-miss; nothing tests that the hook is wired to it, or that Better Auth honours a refusal
   by writing nothing.
+
+- **Any environment but the local one.** The unit suite needs no database; the integration suite
+  and the browser run both point at Neon **`develop`**, and CI holds no database credential at all
+  (doc 11 §5). **No suite has ever run against production or touched Neon `main`.** So everything
+  §1–§7 establishes, it establishes about `localhost` — §8 is where the deployment itself is
+  checked, and §1a and §7a are the two places a section above it is repeated against production.
 
 The allowlist is the only thing standing between this app and a public one (doc 03 §9, doc 08 §3).
 So it is checked here, by hand, first, and in SQL — because the two claims are different.
@@ -163,6 +173,12 @@ user, no new `user` or `account` row.
 
 ## 4. Mobile and pointer
 
+Every box here is satisfied by **emulation against `localhost`**, which is how all of it was
+checked through features 3 and 4. Emulation gives you a coarse pointer and a 375px viewport; it
+does not give you a mobile radio, the browser chrome a phone actually reserves, or a tab the OS
+may background. §7a is the same width on a real device over cellular, and the two are not
+interchangeable — run this list here, and read §7a for what only the device could answer.
+
 - [ ] At 375px in a **timed** sitting: the navigator becomes a **sheet**, not a rail, and the
       sheet's trigger is the question counter in the bar.
 - [ ] At 375px in a **composed** sitting the rail is **still a rail**, dropped below the question —
@@ -204,6 +220,12 @@ user, no new `user` or `account` row.
       memory: a reload drops it and the sitting closes.
 - [ ] A **permanently refused** write — not a retryable one — puts the answer back and leaves the
       options interactive again. The screen must not go on showing a choice the database refused.
+
+**Killing the network in devtools is not the failure this is for.** It fails a request immediately
+and cleanly; a radio going away can leave one hanging until it times out, and reaching Airplane
+mode means backgrounding the tab, which throttles the timer the backoff runs on. §7a step 5 is the
+radio version, on the device where this will actually happen. Do both — this one is repeatable and
+costs nothing, and that one is the real thing.
 
 ## 6. Against the specifications
 
@@ -427,6 +449,152 @@ The screen-side steps are the owner's report; SQL confirms only what they left i
 
 ---
 
+## 8. Production — the pipeline, and the way back
+
+Three things in this list are facts about a deployment rather than about the app, so none of them
+can be run against `localhost`. Two already have homes, and keep them:
+
+- **The allowlist against the variable actually saved in Vercel** — **§1a**, beside §1, because it
+  is the same check in a different environment.
+- **A real device on a real network, and the outbox on a mobile connection** — **§7a**, inside §7,
+  because what it exercises is a composed sitting.
+- **The pipeline itself** — the deploy, and the rollback. That has no home anywhere else, and §8 is
+  it.
+
+Everything else — §1 through §7, those two subsections aside — runs against `localhost`, and did.
+
+**Nothing gates the deploy.** Vercel builds on the push and `.github/workflows/ci.yml` runs on the
+same push; they race, and nothing couples them (doc 12 §3, corrected by #46). A red suite deploys
+anyway, and the deployment is live before the run finishes. So the whole of the protection is §8.1
+— somebody looking afterwards — and §8.2, the way back when they do not like what they find.
+
+### 8.1 After every push to `main`
+
+Run this **after** the push. It is the only part of this list that is.
+
+`gh run list --commit` needs the **full 40-character SHA**. An abbreviated one returns nothing at
+all, silently — that is the GitHub API, not this repository, and mistaking it for a repository quirk
+sends you to `--branch main --limit N`, which quietly stops finding the commit once N runs have
+landed on top of it:
+
+```bash
+gh run list --commit "$(git rev-parse main)" \
+  --json headSha,name,conclusion,status \
+  --jq '.[] | "\(.name) \(.status) \(.conclusion)"'
+```
+
+- [ ] **Both workflows completed and green on that SHA** — a `CI` row and a `Deploy` row. A commit
+      sitting on `develop` as well shows `CI` **twice**, once per branch, which is not a fault. What
+      must be there is the `Deploy` row: it is the one carrying the migration and the seed, and its
+      absence means the bank never reached production however green the rest looks.
+- [ ] **The seed reported the bank unchanged.** In the `Deploy` run's *Bank checks, migrate, seed*
+      job, the last line of `npm run seed` reads
+      `seeded: 1150 question(s), 4600 option(s), 16 paper(s), 960 paper item(s), 40 holdout`.
+      Any other figure means either the bank changed in this commit — in which case it is the
+      number you intended — or the seed applied partly. There is no third reading.
+- [ ] **`__drizzle_migrations` matches the files on disk**: one row per file in
+      `app/src/db/migrations/`, moving only when a migration was added. **Two files, two rows, as
+      of 2026-09-16.** This query is not optional tidiness — **drizzle-kit's progress spinner
+      swallows the SQL error** (doc 12 §3), so a failed migration's log shows an exit code and
+      nothing else, and this is where you find out what actually landed.
+
+  ```sql
+  SELECT count(*) AS applied,
+         max(to_timestamp(created_at / 1000)) AS latest
+  FROM drizzle.__drizzle_migrations;
+  ```
+
+- [ ] **Vercel saw the push.** The commit carries a Vercel commit status and a GitHub Deployment
+      record. #46 used the *absence* of both to prove `develop` does not deploy — so on `main`
+      their absence means Vercel never received the push, not that it declined it.
+- [ ] **The site answers.** Three requests, and they cost nothing:
+
+  ```bash
+  for u in / /sign-in /exams; do
+    curl -s -o /dev/null -w "$u %{http_code} %{redirect_url}\n" "https://lfca-lab-six.vercel.app$u"
+  done
+  ```
+
+  `/` and `/exams` redirect `307` to `/sign-in?next=…`, and `/sign-in` answers `200`. A `500` there
+  is what a missing `BETTER_AUTH_SECRET` looked like in #46. The other failure worth recognising is
+  not visible from here at all: a build that fails with *"No Output Directory named 'public'"* — a
+  lost `"framework": "nextjs"` — leaves the **previous** deployment serving all three of these
+  perfectly, and is only visible in the `Deploy` run and the Vercel build log.
+
+- [ ] **If the commit changed question content, it also ran `npm run build-exams`.** The papers
+      render the `why` text, so a content edit is never content-only. Without it the deploy
+      workflow's own `npm test` fails and **every later step is skipped, the credential included**
+      — #48 saw exactly that. The site deploys anyway, because the two race, so production then
+      serves new code over the *previous* seed. That is the state this box exists to catch, and it
+      is invisible from the screen.
+
+### 8.2 The rollback — *Promote to Production*
+
+Doc 12 §4 makes this the whole recovery for anything that is not a migration, and the 2026-09-13
+decision made it the thing standing in place of a CI gate. An unexercised recovery is doc 12 §5's
+"a belief, not a backup" applied one control over — so it is rehearsed here rather than first
+attempted under pressure.
+
+**Nothing the browser receives names the deployment.** The response headers carry `x-vercel-id`,
+which is a request id and not a deployment id, and the HTML's asset paths are content hashes under
+`/_next/static/immutable/` — so two builds whose *compiled* source is identical are
+indistinguishable over the wire, which is every docs-only commit this repository makes. The alias
+is the fact, and `inspect` is how you read it:
+
+```bash
+npx --yes vercel@latest inspect https://lfca-lab-six.vercel.app --cwd app  # which build is live
+npx --yes vercel@latest ls --cwd app                                       # all of them, newest first
+npx --yes vercel@latest promote <deployment url> --yes --cwd app           # move the alias
+```
+
+**The list is not a history of good builds, and this is the part that will bite.** It holds every
+production deployment ever made, deliberately broken ones included, and two are still sitting in it:
+
+- **`lfca-47z8aeqia`**, 2026-09-15 — #49's redeploy with **`ALLOWED_EMAILS` removed**. This is the
+  hazard. It promotes cleanly, serves every page, and then refuses every sign-in **including
+  yours**: doc 08 §3 fails closed, which is correct behaviour and a total lockout at the same time.
+- **`lfca-klock56zp`**, 2026-09-13 — a build that failed while the Framework Preset read `Other`
+  (#46). Harmless: it is `● Error` and never built, so it cannot be promoted at all.
+
+The lockout is **inferred rather than measured**: #49 established that a changed variable reaches
+only a new build, which is true only if each deployment carries its own snapshot of the
+environment. So age and status in `vercel ls` are not enough — check the candidate against
+`git log` and know what that commit was before you move the alias onto it.
+
+- [ ] `inspect` the alias and **write down the deployment it names**. That is what you are coming
+      back to, and after the first promote nothing on the site will tell you what it was.
+- [ ] `promote` the previous deployment. It takes seconds and **does not rebuild**.
+- [ ] `inspect` the alias again: it names the deployment you promoted.
+- [ ] The site answers — the three curls from §8.1, `307` / `200` / `307`.
+- [ ] `promote` the one you wrote down. `inspect` again, and curl again. All three hostnames come
+      back with it.
+- [ ] Nothing in the database moved. A promote moves an alias; it runs no migration and no seed.
+
+**What this proves, and what it does not.** It proves the mechanism, the timing, and that the alias
+returns. It does **not** prove that an arbitrary older build tolerates today's schema, and it
+cannot — two adjacent builds here differ by documentation only, so nothing migrated between them.
+That property is held by doc 12 §3's rule instead: migrations are additive, and a rename is two
+deploys. Step 1 of doc 12 §4 is sufficient precisely because of it. A rollback across a
+**destructive** migration is doc 12 §4 steps 2 and 3, needs a Neon point-in-time branch inside the
+**6-hour** history window, and nothing here rehearses it.
+
+**Last run: 2026-09-16, passed, #51.** Alias on `dpl_45agcydu…` (`lfca-2de1y2543`, commit
+`8721e95`) at 01:16:19Z. Promoted `lfca-imh8avcp7` (`8ebe05e`) at 01:16:34.9Z; the CLI reported
+success in **2s**, and the alias named it at 01:16:42Z. At 01:16:51Z the older build served `/` →
+`307 /sign-in?next=%2F` and `/sign-in` → `200` rendering "Continue with Google". Promoted
+`lfca-2de1y2543` back at 01:16:55.8Z, success in **2s**; at 01:17:14Z the alias and all three
+hostnames were on it again, with `/` at `307`, `/sign-in` at `200`, and `/exams` redirecting to
+`/sign-in?next=%2Fexams`. **The 21 seconds between the two `promote` commands is measured; how long
+production actually served the older build is not** — the alias was *seen* on it at 01:16:42Z and
+seen back on `8721e95` at 01:17:14Z, and nothing observed either flip, so the true window lies
+somewhere inside that. What is measured is the **2s** each promote took. Neither rebuilt anything:
+the Duration column of `vercel ls` puts a build in this project at 15–44s. Neon `main` before and
+after: 1 user,
+1 account, 4 attempts, 0 exam, 0 first-attempt, 120 frozen, 107 answers, 1150 questions, 40
+holdout, 2 migrations — unchanged, as a promote cannot change them.
+
+---
+
 ## What the browser run already covers — don't re-check by hand
 
 `npm run test:e2e` walks start → answer → flag → close the browser → resume with time genuinely
@@ -440,3 +608,12 @@ unclocked, unscored mode can cost one. So the composed modes have **no browser c
 §7 is the whole of it, and its SQL half is not optional decoration but the only place several of
 those claims can be settled. The unit and integration suites cover the pure decisions and the
 queries beneath both modes; what they cannot see is a screen, which is why §7 exists.
+
+**And it runs in one environment, which is the other half of the same sentence.** `npm run test:e2e`
+builds and serves the app on `localhost:3100` against the Neon **`develop`** branch, under its own
+`e2e-` user prefix; the integration suite uses that same branch; the unit suite reaches no database
+at all; and CI runs the three that need no credential (doc 11 §5). **Nothing automated has ever run
+against `https://lfca-lab-six.vercel.app` or read Neon `main`**, and nothing is going to — CI
+deliberately holds no production credential, and a suite that seeded or signed in against
+production would write to the database holding the first-attempt scores. So the deployment is
+covered by §8, §1a and §7a, by hand, or it is not covered.

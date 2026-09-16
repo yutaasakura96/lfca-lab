@@ -2517,3 +2517,88 @@ verified it is named as unverified rather than assumed.*
   owner's report, not a recording. §7a says which is which.
 - **Revisit if:** the app gains a second device class worth covering, or a deploy changes the
   sitting screens, at which point §7a is re-run.
+
+### [2026-09-16] The rollback is rehearsed rather than described, and checklist §8.1 makes that file a post-deploy list too
+- **Decision:** `app/tests/manual-checklist.md` gains **§8, Production**, in two halves: **§8.1**, a
+  standing check run **after** every push to `main`, and **§8.2**, the *Promote to Production*
+  rollback — **which was executed, not merely written down**. No existing section is renumbered, and
+  §1a and §7a stay where they are. All three chosen by the owner. Ticket #51.
+- **Context:** #51 names four things production can answer that `localhost` cannot. Three of them
+  already had homes — §1a is the allowlist against the live variable, and §7a covers both the real
+  device and the outbox on a mobile connection. Only the pipeline had none. And two of the ticket's
+  seven criteria were already satisfied when it was picked up: the feature-4 branch was swept long
+  ago, and this file's branch claim was already true.
+- **On the shape.** *Alternatives considered:* gathering every production check into §8 as §8.1 and
+  §8.2, so there is one place to look — rejected by #51's own fourth criterion, since the decision
+  log and `00-status.md` cite §1a and §7a **by number** and the log is append-only, so moving them
+  would make a committed entry false. And extending §6 rather than adding a section, which loses the
+  one thing the ticket names first. So §8 owns only what has no home and points at the other two.
+- **On §8.1 being a post-deploy list.** The file's opening line has always read "Run before any
+  deploy". §8.1 cannot: it reads workflow conclusions, a seed's own output and a live URL, none of
+  which exist until the push has happened. *Alternatives considered:* recording the deploy path as a
+  one-off proof citing #48's three observations, which keeps the file one kind of list and leaves a
+  future reader nothing to check after a push. **The reason it earns the split is #46:** nothing
+  gates this deploy — Vercel builds on the push while the workflow runs on the same push, and they
+  race — so somebody looking afterwards *is* the protection, and until now nothing told them what to
+  look at. The header now says which sections run when.
+- **On running the rollback.** Doc 12 §4 has made *Promote to Production* the whole recovery since
+  Phase 4, and the 2026-09-13 decision made it the thing standing in place of a CI gate — and it had
+  never been exercised. That is doc 12 §5's "an untested backup is a belief, not a backup" applied
+  one control over, and it follows the slice's own habit: #44 rehearsed the restore by doing it, #46
+  watched `develop` not deploy, #48 pushed a failing migration to `main`, #49 removed a live
+  variable, #50 sat on a phone. *Alternatives considered:* writing the procedure unrun, which leaves
+  the recovery proven only by Vercel's documentation; and a read-only check that the deployments
+  exist, which proves they are listed and not that promoting one works.
+- **Measured, 2026-09-16.** The alias moved off `8721e95` onto `8ebe05e` in **2s** with no rebuild
+  (the Duration column of `vercel ls` puts a build here at 15–44s), the older build served `/` →
+  `307 /sign-in?next=%2F` and `/sign-in` → `200`, and `8721e95` came back in another **2s** with all
+  three hostnames. **The 21 seconds between the two commands is measured; the window production
+  actually spent on the older build is not** — nothing observed either flip of the alias, and §8.2
+  says so rather than rounding an inference into a figure. Neon `main` was identical before and
+  after — 1 user,
+  4 attempts, 0 exam, 0 first-attempt, 120 frozen, 107 answers, 2 migrations — as a promote moves an
+  alias and runs neither a migration nor a seed.
+- **What the rehearsal does not prove, said in §8.2 rather than left to be assumed:** the two
+  adjacent builds differ by documentation only, so nothing migrated between them and this cannot
+  show that an older build tolerates today's schema. Doc 12 §3's additive-migration rule holds that
+  instead, which is exactly why step 1 of doc 12 §4 is usually sufficient. A rollback across a
+  **destructive** migration is doc 12 §4 steps 2–3, inside Neon's 6-hour window, and nothing
+  rehearses it.
+- **Two findings that reading doc 12 would not have produced.** **Nothing the browser receives names
+  the deployment** — `x-vercel-id` is a request id, and the assets are content hashes under
+  `/_next/static/immutable/` — so `vercel inspect` on the alias is the only authoritative check, and
+  two builds whose compiled source matches are indistinguishable over the wire, which is every
+  docs-only commit this repository makes. And **the promote list is not a history of good builds**:
+  it still holds `lfca-47z8aeqia`, #49's redeploy with `ALLOWED_EMAILS` **removed**, which would
+  refuse every sign-in **including the owner's**, and `lfca-klock56zp`, an `● Error` build from the
+  framework-preset failure, which cannot be promoted at all. §8.2 names both, says which is the
+  hazard, and says to check a candidate against `git log` before moving the alias onto it. The lockout is marked **inferred, not measured**: it follows from #49's
+  finding that a changed variable reaches only a new build, which holds only if each deployment
+  carries its own environment snapshot. Deliberately promoting it to confirm would be a rehearsal
+  that locks the owner out of production, which is not a rehearsal worth having.
+- **The review found §8.1's first command wrong, and the error arrived from outside the repo.** It
+  read *"`gh run list --commit <sha>` returns nothing in this repository"*, carried in from this
+  session's handoff note and written down as a repo fact without being tested. It returns nothing
+  for an **abbreviated** SHA and works on the full forty characters — a property of the GitHub API.
+  A real observation under a wrong diagnosis is worse than no observation: it prescribed
+  `--branch main --limit N`, which silently stops finding the commit once N runs have landed on top
+  of it, and matched commits by prefix. Recorded because the failure was the reasoning, not the
+  fact — CLAUDE.md's "don't assume, verify" applies to a claim inherited from a previous session
+  exactly as it does to one recalled from memory.
+- **Three sections extended in place, per the ticket's third criterion.** §0 gains the environment
+  axis — no suite has ever run against production or touched Neon `main`. §4 says its 375px boxes
+  are satisfied by **emulation**, which gives a coarse pointer but no radio, no phone browser chrome
+  and no backgrounded tab. §5 says killing the network in devtools is a different failure from a
+  radio drop: one fails fast, the other can hang, and reaching Airplane mode backgrounds the tab the
+  backoff timer runs in. The closing section carries the fifth criterion in full.
+- **Four stale claims were fixed while passing, three of them in `00-status.md`.** `origin/main` was
+  recorded at `27cd5de` "as of 2026-09-06" and is at `8721e95` — six tickets stale, on the one line
+  whose job is to say whether production is current. "A push to `main` becomes a production deploy
+  **once Vercel is connected**" has been past tense since #46. The branch claim was true but four
+  days old, and is now re-verified against `git ls-remote --heads` rather than a local list. And the
+  carried suite count said **681** app unit where the suite reports **694**, because #46 and #48 both
+  added assertions without re-measuring — found by running all four suites rather than copying the
+  line forward.
+- **Revisit if:** a destructive migration is ever deployed, at which point §8.2's unrehearsed half
+  becomes the half that matters and doc 12 §4 steps 2–3 want the same treatment this entry gave
+  step 1.

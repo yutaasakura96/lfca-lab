@@ -399,6 +399,19 @@ build, and a value that lives only in a dashboard is a value with no diff.
 **Code:** Vercel → Deployments → *Promote to Production* on the last good build. Seconds, no rebuild.
 This is the whole rollback for anything that is not a migration.
 
+**It has been rehearsed, and the procedure is `app/tests/manual-checklist.md` §8.2** — written
+before it was needed rather than improvised when it is, on the same reasoning §5 gives for the
+backup. Measured 2026-09-16: **2s each way, no rebuild**, and Neon `main` identical throughout,
+because a promote moves an alias and runs neither a migration nor a seed. How long production
+actually served the older build was **not** observed, and §8.2 declines to round the 21 seconds
+between the two commands into a figure for it. The CLI form is
+`npx --yes vercel@latest promote <deployment url> --yes --cwd app`, and **`vercel inspect` on
+`https://lfca-lab-six.vercel.app` is the only way to know which build is live** — nothing the
+browser receives names the deployment. And **the deployment list is not a history of good builds**
+— §8.2 names the two deliberately broken ones still in it, of which one is an actual hazard: a
+redeploy carrying **no `ALLOWED_EMAILS`**, which promotes cleanly and then refuses every sign-in,
+the owner's included. Check a candidate against `git log` before moving the alias onto it.
+
 **Migration:** there is no `down` migration and none will be written — a down migration is a script
 that has never been run pretending it will work under pressure. Instead:
 

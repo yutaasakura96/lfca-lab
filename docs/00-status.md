@@ -1160,6 +1160,69 @@ database-free suites on every push, and the pin, the script flags and the absent
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
 
+**#51 — the checklist covers production, and the rollback was exercised rather than described,
+2026-09-16.** `app/tests/manual-checklist.md` gains **§8, Production** — and nothing else moved
+number, because three docs cite these sections and one of them is the append-only log. §8 owns only
+what has no home: **§1a** already covered the allowlist against the live hostname and **§7a** the
+real device on a real network, so §8 points at both rather than restating them, and carries the
+pipeline itself. **§8.1 is a standing check run *after* a push to `main`** — the file's first line
+changed to say so, since §0–§7 are a pre-deploy list. It exists because #46 established that
+nothing gates the deploy: both workflows green on that SHA, the seed's
+`1150 / 4600 / 16 / 960 / 40` unchanged,
+`__drizzle_migrations` matching the files on disk — **two and two, measured** — Vercel's commit
+status present, the site answering, and `build-exams` in the same commit as any content edit.
+*The review caught the first command in that section being wrong, and the error came in from this
+session's own handoff note:* `gh run list --commit` does not "return nothing in this repository" —
+it returns nothing for an **abbreviated** SHA and works on the full forty characters, which is the
+GitHub API rather than a repo quirk. The doc had recorded a real observation under a wrong
+diagnosis and prescribed a worse workaround for it.
+**§8.2 is the rollback, and it was run.** Doc 12 §4 has made *Promote to Production* the whole
+recovery since Phase 4 and the 2026-09-13 decision made it the thing standing in place of a CI
+gate, and it had never once been exercised — doc 12 §5's "a belief, not a backup", one control
+over. Measured: the alias moved off `8721e95` to `8ebe05e` in **2s** with no rebuild, the older
+build served `/` → `307 /sign-in?next=%2F` and `/sign-in` → `200`, and `8721e95` came back in
+another **2s** with all three hostnames. **The 21 seconds between the two commands is measured; how
+long production actually served the older build is not**, and §8.2 says so rather than rounding an
+inference into a figure — nothing observed either flip of the alias. Neon `main` was identical
+before and after, as a promote cannot touch it.
+**Two things it names that reading doc 12 would not have found.** *Nothing the browser receives
+names the deployment* — `x-vercel-id` is a request id and the assets are content hashes — so
+`vercel inspect` on the alias is the only authoritative check, and two docs-only-apart builds are
+indistinguishable over the wire. And **the promote list is not a history of good builds**: it still
+holds `lfca-47z8aeqia`, #49's redeploy with `ALLOWED_EMAILS` **removed**, which would refuse every
+sign-in including the owner's, and `lfca-klock56zp`, a `● Error` build from the framework-preset
+failure that cannot be promoted at all. §8.2 names both and says which is the hazard. The lockout is
+marked **inferred, not measured** — it follows from #49's
+finding that a changed variable reaches only a new build, which is only true if each deployment
+carries its own environment snapshot.
+**What the rehearsal does not prove is said plainly**: the two adjacent builds differ by
+documentation only, so nothing migrated between them and it cannot show that an older build
+tolerates today's schema. Doc 12 §3's additive-migration rule holds that instead, and a rollback
+across a *destructive* migration is doc 12 §4 steps 2–3, inside Neon's **6-hour** window, rehearsed
+by nothing.
+**Three sections were extended in place rather than duplicated.** §0 gains the environment axis —
+no suite has ever run against production or touched Neon `main`. §4 says its 375px boxes are
+satisfied by **emulation**, which gives a coarse pointer but no radio, no phone chrome and no
+backgrounded tab. §5 says killing the network in devtools is not the failure it is for — that one
+fails fast, a radio can hang, and reaching Airplane mode backgrounds the tab the backoff timer runs
+in. The closing section carries #51's fifth criterion in full: the browser run builds and serves on
+`localhost:3100` against Neon **`develop`**, the integration suite uses the same branch, the unit
+suite reaches no database, CI holds no credential — and nothing automated will ever run against
+production, because a suite that seeded or signed in there would write to the database holding the
+first-attempt scores.
+**Two of its seven criteria were already met and are recorded as such rather than ticked twice:**
+only `develop` and `main` exist, re-verified against `git ls-remote --heads`, and the status file's
+branch claim was already true. **Three adjacent stale claims in this file were fixed while passing**
+— `origin/main` was recorded at `27cd5de` "as of 2026-09-06" and is at `8721e95`, six tickets
+stale on the one line whose job is to say whether production is current; and "a push to `main`
+becomes a production deploy **once Vercel is connected**" has been in the past tense since #46.
+**A fourth stale number was found by running the suites rather than carrying them forward.** This
+file has said `681 app unit` since #45; the true figure is **694**, because #46 added six
+`deploy-config` assertions and #48 added seven, and neither entry re-measured. #51 adds no test —
+it is a documentation ticket — so the whole of that gap predates it.
+Suites re-measured, all green: **339** bank · **694** app unit · **194** app integration · **1**
+app e2e.
+
 **#50 — a 20-question domain sitting, sat on a phone against production, 2026-09-15.** The slice's
 acceptance test. Checklist §7a carries the procedure, both queries and the result. The owner sat a
 SysAdmin run of 20 over cellular with Wi-Fi off, reloaded mid-run, dropped the connection with
@@ -1423,7 +1486,9 @@ per-string, it binds the pooled URL (§2.2), and #42 measured that it actually h
 
 ### Repo and tooling
 - Work lands on **`develop`**, one branch per ticket, merged and pushed as each closes.
-  **Only `develop` and `main` exist again**, locally and on origin, as of 2026-09-12. This line had
+  **Only `develop` and `main` exist, locally and on origin — re-verified 2026-09-16** against
+  `git ls-remote --heads` rather than trusting a local list, with `git branch --no-merged develop`
+  empty. The per-ticket sweep has held for the six that landed since: #45 through #50. This line had
   said so, then recorded that it was stale: the 2026-09-06 sweep deleted every ticket branch existing
   *then*, and five landed afterwards — `feature/37-finish-composed-sitting` and the deploy slice's
   `feature/41` through `feature/44`. All five were confirmed fully merged into `develop`
@@ -1432,13 +1497,16 @@ per-string, it binds the pooled URL (§2.2), and #42 measured that it actually h
   at the end of a slice** — that is what let four accumulate.
   **No pull request has ever been opened on this repository** — zero, all-time — which is the fact
   that cut preview environments out of feature 5 (decision log, 2026-09-11).
-  **`main` is current and pushed** as of 2026-09-06 — `origin/main` is at `27cd5de`, level with
-  `develop`. **The hook that refused agent pushes to it is gone**, removed the same day; pushing
+  **`main` is current and pushed** — `main`, `origin/main`, `develop` and `origin/develop` are all
+  at `8721e95`, measured 2026-09-16. *This line said `27cd5de` and "as of 2026-09-06" until #51;
+  it had been six tickets stale, on the one claim whose whole job is to say whether production is
+  current.* **The hook that refused agent pushes to it is gone**, removed 2026-09-06; pushing
   `main` is now ordinary work, and `stop-branch-drift.sh` still reports on Stop when it falls six or
   more commits behind. It has drifted before — one commit behind when #27 started — so check
   `git log origin/main..main` before assuming production is current rather than trusting that
-  somebody pushed. **A push to `main` becomes a production deploy once Vercel is connected**
-  (doc 12 §3); whoever wires that slice decides whether it wants a prompt back.
+  somebody pushed. **A push to `main` *is* a production deploy** — Vercel was connected in #46, and
+  the 2026-09-11 decision settled that it gets no prompt. What it gets instead is
+  `app/tests/manual-checklist.md` **§8.1**, run after the push.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
 - **`.mcp.json` holds Neon MCP and Playwright MCP.** Neon's was added when the project was
