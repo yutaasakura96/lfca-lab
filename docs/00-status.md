@@ -1060,6 +1060,54 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   Docs 11 §2 and §5 and 12 §3 corrected to what shipped.
   Suites: 339 bank · **681** app unit · 194 app integration · 1 app e2e.
 
+- **Phase 6, feature 5 — Sentry reports the failure the candidate cannot see** (#52). The last of
+  thirteen, and last on purpose: a provider signup must never stand between the owner and the phone
+  sitting (#50). `@sentry/nextjs` in all three runtimes, **on exactly when a DSN is set** — which is
+  Vercel production and nowhere else, so local work and both database-touching suites report nothing
+  without a flag anybody has to remember. The `console.error` that stood in for doc 03 §8's
+  five-consecutive-failure report since #23 is now a real event, wrapped so that **Sentry failing is
+  a silent no-op**: an exception raised while reporting a problem would come out of the retry timer,
+  on the one path whose job is to keep answering possible while the network is away.
+  **Errors only** — no tracing, no Session Replay, no Logs. Replay is not a default; it arrives only
+  by adding `replayIntegration()`, so what keeps it out is that `src/lib/sentry-options.ts` adds no
+  integrations at all, and `tests/unit/sentry-options.test.ts` asserts that **emptiness** rather
+  than the absence of one named integration, so a future addition has to come past it.
+  **The scrubber is on both hooks, not one.** `scrubEvent` — the pure domain function #52 required,
+  landed in `ba53162` — is `beforeSend` *and* `beforeBreadcrumb`, client and server, asserted by
+  **identity** so a second scrubber written inline in provider configuration fails the test. A
+  breadcrumb carries a token as readily as an event does: a fetch breadcrumb records whatever URL it
+  was given. Sentry's own server-side scrubbing stays **on** behind it, two independent layers.
+  **The client reports through a tunnel on this app's own origin**, `/monitoring`, because ad and
+  content blockers drop direct ingest and the one report doc 12 §6 exists for is a *client* event.
+  Fixed string rather than Sentry's auto-generated route, because the proxy has to exclude it by
+  name and a name that changes per build cannot be excluded — and `deploy-config.test.ts` ties the
+  two files to that one string, since the drift is silent: nothing throws, the report simply never
+  arrives.
+  Users are identified by **database id** — `sendDefaultPii` false, the id set in `requireSession`
+  after both of its refusals and in the browser from the `(app)` layout, never the email (doc 03 §9).
+  **Three findings the machine produced and reading would not have.** `withSentryConfig` imported
+  from the package root is **deprecated and stops working in v11**, which the build says on every run
+  while the docs still show the root import — it comes from `@sentry/nextjs/config` now, and the
+  build is clean. `exactOptionalPropertyTypes` refuses `org: undefined`, so the three build options
+  are spread in only when set. And the one that cost two runs of the wizard:
+  **`vercel env add` refuses a `NEXT_PUBLIC_` name and exits 0 anyway** —
+  `{"status": "action_required", "reason": "public_prefix_requires_type"}`, nothing saved, success
+  reported. `--type config` is the fix, and the wizard now **reads every name back** from
+  `vercel env ls` rather than believing an exit code.
+  **The `cp -i` trap invalidated the mutation matrix, as `git checkout --` did in #45.** Ten
+  mutations stacked because every restore was silently refused, so each attribution after the first
+  was worthless. Re-run with `command cp -f` and a diff against the copy after **every** restore:
+  ten mutations, ten attributable failures, green baseline.
+  `scripts/setup-sentry.sh` is the owner's half — seven stages, values piped from a hidden prompt
+  straight into Vercel so no DSN or token passes through a terminal echo or an agent's context.
+  **Sentry MCP is in `.mcp.json`**, scoped to the org and project in its URL, which is the only place
+  those two slugs are committed — `withSentryConfig` reads them from the environment.
+  **Outstanding, and the ticket stays open for it:** the deliberate production error, which is a
+  route that throws only for the signed-in allowlisted user, committed to `main` and reverted in the
+  next commit (#48's precedent), then observed arriving in Sentry with nothing sensitive in it.
+  Docs 11 §2, 12 §§1, 2 and 6 corrected; the decision log carries the argument, 2026-09-18.
+  Suites: 339 bank · **736** app unit · 194 app integration · 1 app e2e.
+
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
 
@@ -1514,10 +1562,11 @@ per-string, it binds the pooled URL (§2.2), and #42 measured that it actually h
   `app/tests/manual-checklist.md` **§8.1**, run after the push.
 - **`mattpocock-skills` on, `superpowers` and `frontend-design` off** — never run superpowers here
   alongside mattpocock (guide §10).
-- **`.mcp.json` holds Neon MCP and Playwright MCP.** Neon's was added when the project was
-  provisioned and went unrecorded here; Playwright's arrived with #28 on its stated trigger. Add
-  Sentry MCP when the Sentry project exists — which the deploy slice's last ticket creates.
-  context7 is already user-scoped.
+- **`.mcp.json` holds Neon MCP, Playwright MCP and Sentry MCP.** Neon's was added when the project
+  was provisioned and went unrecorded here; Playwright's arrived with #28 on its stated trigger;
+  Sentry's with #52, on the trigger `CLAUDE.md` recorded — the Sentry project existing. It is
+  scoped to the organization and project in its URL, which is the only place those slugs are
+  committed. context7 is already user-scoped.
   **The Neon CLI is `neon` v4.14.0, installed globally** (the `neon` npm package *is* the CLI;
   `neonctl` is the old name) and **still unauthenticated** — `~/.config/neon/` was empty and dated
   2026-08-31 when #41 landed, so every command that talks to the API opens a browser. `neon auth` is

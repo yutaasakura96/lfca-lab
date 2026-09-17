@@ -15,7 +15,7 @@
 | Google OAuth | same client, `localhost:3000` in redirect URIs | same client, the production URL |
 | `ALLOWED_EMAILS` | the owner | the owner |
 | `BETTER_AUTH_SECRET` | its own value | **its own, different value** (§2) |
-| Sentry | **disabled** (`SENTRY_DSN` unset) | enabled, `environment=production` |
+| Sentry | **disabled** (`NEXT_PUBLIC_SENTRY_DSN` unset) | enabled, `environment=production` |
 
 **What actually differs:** the database branch, the signing secret, and whether Sentry is on. Nothing
 else — no feature flags, no mock providers, no seeded fake users.
@@ -72,10 +72,33 @@ Every one of these is set in Vercel per environment, and mirrored in `app/.env.l
 | `GOOGLE_CLIENT_ID` | OIDC client | Google Cloud console | no |
 | `GOOGLE_CLIENT_SECRET` | OIDC client | Google Cloud console → Vercel env | **yes** |
 | `ALLOWED_EMAILS` | the allowlist (doc 08 §3) | Vercel env | no, but **load-bearing** |
-| `SENTRY_DSN` | error reporting | Sentry project settings | no (public by design) |
+| `NEXT_PUBLIC_SENTRY_DSN` | error reporting, in every runtime (§6) | Sentry project settings → Vercel env | no (public by design) |
 | `SENTRY_AUTH_TOKEN` | source-map upload at build | Sentry → Vercel env, **build-time only** | **yes** |
+| `SENTRY_ORG` | the Sentry organization slug, read by `withSentryConfig` at build | Sentry → Vercel env | no |
+| `SENTRY_PROJECT` | the Sentry project slug, same | Sentry → Vercel env | no |
 
-Five true secrets, and one of them lives in two places. None is ever committed; `.env*` is gitignored
+Five true secrets, and one of them lives in two places.
+
+**The DSN is one variable, not two, and the name is `NEXT_PUBLIC_`-prefixed on purpose.** This
+section said `SENTRY_DSN` until #52. The browser needs it at build time to be inlined into the
+bundle, which is what the prefix means to Next; the server reads the same variable rather than a
+second one, so the two runtimes cannot end up pointed at different projects. A DSN names a project
+to write to and carries no authority to read anything back — every browser application on Sentry
+ships one — which is why it is not in the secret column.
+
+**And the prefix has to be declared to Vercel, which the first run of `scripts/setup-sentry.sh`
+found the hard way.** `vercel env add NEXT_PUBLIC_SENTRY_DSN production` answers
+`{"status": "action_required", "reason": "public_prefix_requires_type"}`, refuses to guess whether
+a `NEXT_PUBLIC_` name is meant to be exposed, **saves nothing — and exits 0.** The value must be
+sent with **`--type config`** (readable, and therefore inlinable) rather than the CLI's default of
+`secret` (hidden, and useless to a browser). The wizard now reads every name back from
+`vercel env ls` after writing it, because an exit code is not evidence that anything was stored.
+
+**The two slugs are plain configuration and are deliberately not committed.** `withSentryConfig`
+reads them from the environment, so the only copy that decides a build lives beside the token it is
+used with. They *are* written down in one place — `.mcp.json`'s Sentry URL, which cannot take them
+from the environment — and a stale slug there fails loudly on the next tool call rather than
+silently. None is ever committed; `.env*` is gitignored
 except `.env.example`.
 
 **`DATABASE_URL_UNPOOLED` is also a GitHub Actions repository secret**, because the deploy workflow
@@ -542,6 +565,34 @@ worth automating is the failure the user cannot see:
 | --- | --- | --- |
 | Unhandled exceptions, client and server | **Sentry**, alert to email | The save failure at question 40 of a first attempt. The one thing that costs a number that cannot be recovered. |
 | 5 consecutive answer-write failures on one attempt | Sentry event (doc 03 §8) | Distinguishes a flaky tunnel from a broken write path. |
+
+**Errors, and nothing else** (#52): no tracing, no Session Replay, no Logs. Replay is not a default —
+it arrives only by adding `replayIntegration()` — so what keeps it out is that
+`app/src/lib/sentry-options.ts` adds no integrations at all, and `tests/unit/sentry-options.test.ts`
+asserts that emptiness rather than the absence of one named integration.
+
+**Every event and every breadcrumb goes through `app/src/domain/scrub.ts` first**, on both
+`beforeSend` and `beforeBreadcrumb`, client and server. Breadcrumbs are half of that on purpose: a
+fetch breadcrumb records whatever URL it was given. Sentry's own server-side scrubbing stays **on**
+behind it as a second layer, so a miss in one is caught by the other. The scrubber is a pure
+function in the domain layer rather than a closure in provider configuration, which is what makes it
+testable at all.
+
+**The client reports through a tunnel on this app's own origin**, `/monitoring`, set as
+`withSentryConfig`'s `tunnelRoute` and excluded by name from `src/proxy.ts`'s matcher. Ad and
+content blockers drop requests to `sentry.io`, and the one report doc 12 §6 exists for — the outbox's
+five-failure event — is a client-side event. The route is a fixed string rather than
+auto-generated because a name that changes per build cannot be excluded from a matcher; a test ties
+the two files together, since the drift would be silent (nothing throws, the report simply never
+arrives).
+
+**Users are identified by database id and by nothing else** — `sendDefaultPii` is false, which is
+what would otherwise attach the IP address and the request headers. The id is set on the server in
+`requireSession`, after both of its refusals, and in the browser from the `(app)` layout.
+
+**Sentry failing is a silent no-op.** The outbox's report is wrapped: an exception raised while
+reporting a problem would come out of the retry timer, on the one path whose job is to keep
+answering possible while the network is away.
 | Failed deploy or red CI | GitHub / Vercel notifications | Default channels; no extra setup. |
 | Neon compute-hour and storage ceiling | Neon dashboard, checked when a bill or a limit warning arrives | The first thing that breaks under any real load (doc 03 §10). |
 

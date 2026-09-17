@@ -2602,3 +2602,83 @@ verified it is named as unverified rather than assumed.*
 - **Revisit if:** a destructive migration is ever deployed, at which point §8.2's unrehearsed half
   becomes the half that matters and doc 12 §4 steps 2–3 want the same treatment this entry gave
   step 1.
+
+### [2026-09-18] Sentry takes errors only, scrubs them in the domain layer, and reports through a tunnel
+- **Decision:** `@sentry/nextjs` in all three runtimes, **enabled exactly when a DSN is set** — which
+  is production and nowhere else. **Errors only:** no tracing, no Session Replay, no Logs. Every
+  event and every breadcrumb passes through `src/domain/scrub.ts` on the way out, client and server,
+  with Sentry's own server-side scrubbing left **on** behind it. The client reports through a
+  **fixed tunnel route** on this app's own origin, `/monitoring`, excluded by name from the proxy.
+  Users are identified by database id. The deliberate production error is a route committed to
+  `main` and reverted in the next commit. Ticket #52.
+- **Context:** the last ticket of the slice, deliberately — a provider signup must never stand
+  between the owner and the phone sitting (#50). Until now a single `console.error` stood in for doc
+  03 §8's five-consecutive-failure report, which is the one failure the candidate cannot see and
+  the whole reason doc 12 §6 asks for Sentry at all.
+- **On the tunnel.** *Alternatives considered:* direct ingest to `sentry.io`, which is one fewer
+  moving part and the default — rejected because ad and content blockers drop it, and the report
+  that matters here is a **client-side** event: a browser whose writes are failing is exactly the
+  browser most likely to have its report dropped too, and the failure is invisible in both
+  directions. Also considered `tunnelRoute: true`, Sentry's auto-generated route, which needs no
+  name — rejected because the name changes per build and **the proxy has to exclude it**, so an
+  unexcluded tunnel would have the proxy redirect an unauthenticated report to `/sign-in`. Nothing
+  throws in that case; the report is simply never delivered, which is why
+  `deploy-config.test.ts` now ties the two files to one string.
+- **On errors only.** Tracing and Replay are the two things a Sentry setup acquires by default
+  elsewhere. Doc 12 §6 named what is worth automating and it is one failure; performance data for
+  one user on one laptop measures nothing, and a session recording of the owner sitting an exam is
+  a privacy cost with no reader. **Replay is not a default** — it arrives only by adding
+  `replayIntegration()` — so what keeps it out is that `sentry-options.ts` adds no integrations at
+  all, and the test asserts that *emptiness* rather than the absence of one named integration, so a
+  future addition has to come past it.
+- **On the scrubber's placement**, which the ticket settled before any of this: it is a pure
+  function in the domain layer, not a closure in provider configuration, because a scrubber written
+  inline is a scrubber nothing can test. It is wired into **`beforeBreadcrumb` as well as
+  `beforeSend`** — a breadcrumb is as capable of carrying a token as an event is, since a fetch
+  breadcrumb records whatever URL it was given, and the breadcrumb half is the one an
+  implementation forgets. Sentry's own scrubbing stays on as a second layer rather than being
+  turned off as redundant: two independent layers are the point, and the app's is the one that runs
+  before anything leaves the machine.
+- **Two mutants survived the scrubber's first test matrix and both changed the code** (landed in
+  `ba53162`, recorded here because that commit had no log entry). An `email` **key** rule was
+  redundant with the text rule that redacts an address from any string, so removing the key rule
+  broke nothing — it is gone rather than left as a rule the suite cannot justify. And the mutant
+  that mutated the input in place survived until a test asserted on a **dirty** event that the
+  input was not modified; a clean-event test cannot see that, because a clean event and its copy
+  are identical either way.
+- **Defaults taken without asking, stated because they are decisions.** The DSN is one variable,
+  `NEXT_PUBLIC_SENTRY_DSN`, read by the browser *and* the server — two variables could point at two
+  projects. `enabled` follows whether that variable is set, so Sentry is off locally and in both
+  database-touching suites without a flag anybody has to remember. `sendDefaultPii` is false, which
+  is what would otherwise attach the IP address and the request headers. The user id is set in
+  `requireSession` **after** both of its refusals, and in the browser from the `(app)` layout —
+  never the email (doc 03 §9).
+- **Three things the machine found that reading would not have.**
+  **`withSentryConfig` imported from the package root is deprecated** and stops working in v11,
+  which the build says on every run while the documentation still shows the root import; it comes
+  from `@sentry/nextjs/config` now. **`exactOptionalPropertyTypes` refuses `org: undefined`**, so
+  the three build options are spread in only when set — which also lets the plugin fall back to its
+  own environment variables, where an explicit `undefined` would be a value. And the one that cost
+  a re-run: **`vercel env add` refuses a `NEXT_PUBLIC_` name and exits 0 anyway**, answering
+  `{"status": "action_required", "reason": "public_prefix_requires_type"}` and saving nothing. The
+  wizard reported the DSN set, twice, while production never held it; the fix is `--type config`,
+  and the lesson is that the wizard now **reads every name back** from `vercel env ls` rather than
+  believing an exit code. Doc 12 §2 carries all three.
+- **The `cp -i` trap caught the mutation matrix a second time.** #45's matrix was invalidated by
+  `git checkout --` restoring nothing on an untracked file; this one was invalidated by `cp` being
+  aliased to `cp -i`, which asked for confirmation nobody answered and restored nothing — so ten
+  mutations stacked and every attribution after the first was worthless. The re-run uses
+  `command cp -f` **and diffs each file against its copy after every restore**, which is the part
+  that would have caught both. A mutation matrix that does not verify its own restores is a matrix
+  that reports whatever the last mutation did.
+- **On proving it in production.** *Alternatives considered:* a one-off `vercel deploy --prod` from
+  the unmerged branch, which never touches `main` — rejected because it mints a production build
+  git cannot account for, and leaves another hazard in the promote list beside the two doc 12 §8.2
+  already names. And deliberately failing outbox writes against production, which exercises the
+  real report rather than a synthetic one — rejected because the only honest way to fail those
+  writes is to break something production needs. **Chosen:** a route that throws only for the
+  signed-in allowlisted user, committed to `main` and reverted in the next commit, which is #48's
+  precedent for observing a thing that can only be observed in production.
+- **Revisit if:** the app opens to other users — at which point the tunnel starts carrying other
+  people's events through this origin, and `sendDefaultPii` and the scrubber are the two lines to
+  re-read rather than the first two to relax.

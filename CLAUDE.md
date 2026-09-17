@@ -130,11 +130,12 @@ Architecture, schema, API and deployment are specified. Point at them; don't res
   @docs/12-deployment.md
 - @CONTEXT.md — shared vocabulary
 
-## Tooling not wired yet, and its trigger
+## Tooling, and the trigger each one waited for
 
-`.mcp.json` holds **Neon MCP** and **Playwright MCP** — both triggers have fired. One left:
-
-- **Sentry MCP** when the Sentry project exists (doc 12 §6) — the deploy slice's last ticket creates it
+`.mcp.json` holds **Neon MCP**, **Playwright MCP** and **Sentry MCP** — every trigger has fired.
+Sentry's arrived with #52, scoped to the org and project in its URL (`mcp.sentry.dev/mcp/<org>/<project>`),
+which is the one place those two slugs are committed: `withSentryConfig` reads them from the
+environment, and this URL cannot.
 
 **The Neon CLI is installed but unauthenticated.** It is `neon` v4.14.0, installed globally — the
 `neon` npm package *is* the CLI now, so looking for `neonctl` finds nothing. `~/.config/neon/` is
