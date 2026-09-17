@@ -200,22 +200,40 @@ in_production() {
   $VERCEL env ls production --cwd "$ROOT_DIR" 2>/dev/null | grep -qE "^\s*${1}\s"
 }
 
-# push_value NAME VALUE — pipe one value into Vercel production. Never echoed;
-# `--force` overwrites, so a re-run replaces rather than duplicates.
+# push_value NAME VALUE [EXTRA…] — pipe one value into Vercel production. Never
+# echoed; `--force` overwrites, so a re-run replaces rather than duplicates.
+# EXTRA is passed through to `vercel env add` — `--type config` for the DSN.
+#
+# **The exit code is not the check, and that is not caution but experience.**
+# Measured 2026-09-18: `vercel env add NEXT_PUBLIC_SENTRY_DSN production` prints
+# `{"status": "action_required", "reason": "public_prefix_requires_type"}`,
+# saves nothing, and **exits 0**. The first run of this wizard reported the DSN
+# set twice over while production never held it. So every value is read back
+# from the listing — which prints names, never values — and a name that is not
+# there is a failure however cheerfully the CLI exited.
 push_value() {
-  local name="$1" value="$2"
+  local name="$1" value="$2"; shift 2
   if [[ -z "$value" ]]; then
     SKIPPED+=("$name (no value given)")
     warn "$name was empty; skipping"
     return 0
   fi
-  if printf '%s' "$value" | $VERCEL env add "$name" production --force --cwd "$ROOT_DIR" >/dev/null 2>&1; then
+
+  local output status=0
+  output=$(printf '%s' "$value" | $VERCEL env add "$name" production --force "$@" --cwd "$ROOT_DIR" 2>&1) || status=$?
+
+  if [[ $status -eq 0 ]] && in_production "$name"; then
     printf '  %s✓ set%s %s in Vercel production %s(%d chars, not shown)%s\n' \
       "$GREEN" "$RESET" "$name" "$DIM" "${#value}" "$RESET"
-  else
-    SKIPPED+=("$name (vercel env add failed — add it in the dashboard)")
-    warn "could not set $name — see the dashboard"
+    return 0
   fi
+
+  SKIPPED+=("$name (not saved — see the message above)")
+  warn "$name did NOT save. What the CLI said:"
+  # The value is never in this output — the CLI echoes the name and its own
+  # refusal, not what was piped in.
+  printf '%s\n' "$output" | grep -vE '^(Vercel CLI|Retrieving|Saving|Next steps:|- |  vercel)' \
+    | sed '/^[[:space:]]*$/d' | head -12 | sed 's/^/    /'
 }
 
 banner "Sentry for production — lfca-lab #52"
@@ -301,7 +319,13 @@ if [[ ! "${SENTRY_DSN_VALUE:-}" =~ ^https://[^@]+@[^/]+/[0-9]+$ ]]; then
   warn "that does not look like a DSN (https://key@host/digits)"
   confirm "Send it anyway?" || die "Stopped before sending a malformed DSN."
 fi
-push_value NEXT_PUBLIC_SENTRY_DSN "${SENTRY_DSN_VALUE:-}"
+# `--type config` is required rather than stylistic. The CLI refuses to store a
+# NEXT_PUBLIC_ name without being told which it is — `config` (readable, and
+# therefore inlinable into the browser bundle) or `secret` (hidden, and useless
+# to a browser). A DSN is the first: it names a project to write to and carries
+# no authority to read anything back, which is why every browser app on Sentry
+# ships one.
+push_value NEXT_PUBLIC_SENTRY_DSN "${SENTRY_DSN_VALUE:-}" --type config
 unset SENTRY_DSN_VALUE
 printf '\n'
 pause "Press Enter for the build-time auth token"

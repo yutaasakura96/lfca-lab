@@ -4,6 +4,10 @@
       "type": "http",
       "url": "https://mcp.neon.tech/mcp"
     },
+    "Sentry": {
+      "type": "http",
+      "url": "https://mcp.sentry.dev/mcp/personal-projects-ge/lfca-lab"
+    },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@0.0.80"]
