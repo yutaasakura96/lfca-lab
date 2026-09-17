@@ -488,3 +488,56 @@ describe('only git main deploys, and the build command is the framework build al
     ).toEqual(['main']);
   });
 });
+
+describe('the Sentry tunnel is excluded from the proxy, by the name it actually has', () => {
+  // Two files have to agree about one string, and nothing else makes them.
+  //
+  // `next.config.ts` mounts Sentry's tunnel at a fixed route, and `proxy.ts`
+  // must leave that route alone. If they drift — a rename in one, not the other
+  // — the proxy starts redirecting unauthenticated error reports to the
+  // sign-in page, and the failure is invisible in exactly the case worth
+  // reporting: nothing throws, the report is simply never delivered.
+  //
+  // Read as text rather than imported: importing `next.config.ts` would run the
+  // Sentry build plugin inside the unit suite, which is a build tool loaded to
+  // read one string.
+
+  const tunnelRoute = (): string => {
+    const source = readFileSync(join(appRoot, 'next.config.ts'), 'utf8');
+    const match = /tunnelRoute:\s*'([^']+)'/.exec(source);
+
+    expect(
+      match,
+      "app/next.config.ts has no `tunnelRoute: '…'`. Doc 12 §6 requires a fixed tunnel route: an ad "
+        + 'or content blocker drops direct ingest, and the outbox report is a client-side event. An '
+        + 'auto-generated route (`tunnelRoute: true`) cannot be excluded from the proxy, because its '
+        + 'name changes per build.',
+    ).not.toBeNull();
+
+    return match![1]!;
+  };
+
+  const matcher = (): string => {
+    const source = readFileSync(join(appRoot, 'src', 'proxy.ts'), 'utf8');
+    const match = /matcher:\s*\['([^']+)'\]/.exec(source);
+
+    expect(match, 'app/src/proxy.ts has no single-entry `matcher: [\'…\']`.').not.toBeNull();
+
+    return match![1]!;
+  };
+
+  it('mounts the tunnel at a fixed path', () => {
+    expect(tunnelRoute()).toMatch(/^\/[a-z0-9-]+$/);
+  });
+
+  it('leaves that exact path out of the proxy', () => {
+    const route = tunnelRoute().replace(/^\//, '');
+
+    expect(
+      matcher(),
+      `app/src/proxy.ts does not exclude \`${route}\`, which is where app/next.config.ts mounts the `
+        + 'Sentry tunnel. An error report from a browser with no session would be redirected to '
+        + '/sign-in instead of reaching Sentry — silently, since nothing throws.',
+    ).toContain(`?!${route}|`);
+  });
+});

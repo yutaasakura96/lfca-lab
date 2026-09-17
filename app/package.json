@@ -31,6 +31,7 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.75.0",
     "better-auth": "^1.7.2",
     "drizzle-orm": "^0.45.2",
     "next": "^16.3.4",

@@ -58,5 +58,13 @@ export function proxy(request: NextRequest) {
 export const config = {
   // Everything except Next's own assets and the favicon. Listing what to skip
   // rather than what to guard means a new route is protected by default.
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  //
+  // `monitoring` is the exception that is not an asset: it is Sentry's tunnel
+  // (next.config.ts's `tunnelRoute`), and the proxy must not touch it. It is
+  // not an `/api/` path, so the rules above would redirect an unauthenticated
+  // browser's error report to the sign-in page — losing exactly the report that
+  // is worth having, since a browser whose session has gone is a browser with
+  // something to say. Excluding it costs nothing: the tunnel forwards to Sentry
+  // and reads nothing of this app's.
+  matcher: ['/((?!monitoring|_next/static|_next/image|favicon.ico).*)'],
 };

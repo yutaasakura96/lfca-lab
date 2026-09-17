@@ -6,6 +6,7 @@
 
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import * as Sentry from '@sentry/nextjs';
 import { auth } from '../auth.ts';
 
 export async function getSession() {
@@ -33,6 +34,11 @@ export async function requireSession(next?: string) {
   if ((session.user as { allowlisted?: boolean }).allowlisted !== true) {
     redirect('/sign-in?denied=1');
   }
+
+  // Anything reported from here on belongs to this id — and to nothing else
+  // about them (doc 03 §9). Set after the two refusals rather than before, so a
+  // session that is about to be rejected never tags an event.
+  Sentry.setUser({ id: session.user.id });
 
   return session;
 }

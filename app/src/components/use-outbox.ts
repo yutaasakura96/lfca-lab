@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 import { createOutbox, type Outbox, type OutboxState, type OutboxWrite } from '../lib/outbox.ts';
 
 export interface OutboxHandle extends OutboxState {
@@ -36,9 +37,23 @@ export function useOutbox(): OutboxHandle {
     onSustained: (failure, failures) => {
       // Doc 03 §8 wants one Sentry event here, not one per retry, so that a
       // tunnel that flaps does not spam and a broken write path reports once.
-      // Sentry does not exist yet (doc 12 §6), so this is the console standing
-      // in for it — deliberately once per episode, on the same threshold.
-      console.error(`outbox: ${failures} consecutive failed passes (${failure.code})`);
+      // This is doc 12 §6's whole reason for Sentry existing: the save failure
+      // at question 40 of a first attempt is the one failure the candidate
+      // cannot see, and by definition nobody is reading a console when it
+      // happens.
+      //
+      // Wrapped, because Sentry failing must be a silent no-op (doc 03 §2). An
+      // exception here would come out of the retry timer, on a path whose whole
+      // job is to keep answering possible while the network is away — reporting
+      // a problem must never become one.
+      try {
+        Sentry.captureMessage(
+          `outbox: ${failures} consecutive failed passes (${failure.code})`,
+          'error',
+        );
+      } catch {
+        // Nothing to do, and nowhere to say it.
+      }
     },
   });
 
