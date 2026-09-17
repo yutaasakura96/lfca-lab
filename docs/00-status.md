@@ -1106,7 +1106,7 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   route that throws only for the signed-in allowlisted user, committed to `main` and reverted in the
   next commit (#48's precedent), then observed arriving in Sentry with nothing sensitive in it.
   Docs 11 §2, 12 §§1, 2 and 6 corrected; the decision log carries the argument, 2026-09-18.
-  Suites: 339 bank · **736** app unit · 194 app integration · 1 app e2e.
+  Suites: 339 bank · **730** app unit · 194 app integration · 1 app e2e.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.
