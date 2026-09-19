@@ -1222,6 +1222,13 @@ database-free suites on every push, and the pin, the script flags and the absent
 asserted rather than trusted. *This line said the workflow made "CI gates the deploy" true for the
 first time; #46 established that it did not and could not — see below.*
 
+**#52 is closed, 2026-09-19** — Sentry reports production errors, client and server, scrubbed in
+the domain layer; the feature-5 entry above is its record. **Open under #40: #53** (the docs
+close-out, now unblocked) and **#41**, whose two remaining steps are the owner's (doc 12 §8.3).
+Only `develop` and `main` exist; `feature/52-sentry` was swept when #52 closed. Sentry MCP was
+signed into from a terminal but had not reached the session that closed #52 — a fresh session
+should have its tools.
+
 **#51 — the checklist covers production, and the rollback was exercised rather than described,
 2026-09-16.** `app/tests/manual-checklist.md` gains **§8, Production** — and nothing else moved
 number, because three docs cite these sections and one of them is the append-only log. §8 owns only
