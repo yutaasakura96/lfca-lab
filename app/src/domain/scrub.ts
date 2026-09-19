@@ -17,7 +17,9 @@
 //
 // 1. **A field named for a secret loses its value**, whatever the value is.
 //    `cookies`, `Cookie`, `Set-Cookie`, `Authorization`, `accessToken` — the
-//    name is the evidence, so the value is not inspected.
+//    name is the evidence, so the value is not inspected. So does a header
+//    that says where the candidate is: the client address and everything
+//    Vercel geolocates from it.
 // 2. **Every string is searched for the shapes of a secret**: an email
 //    address, a Google access or refresh token, a `name=value` pair whose name
 //    says token, secret, password or session, and the password half of a
@@ -32,6 +34,17 @@ export const FILTERED = '[Filtered]';
 // it sits, `user.email` included, and a key rule that no event could tell apart
 // from the text rule is one the mutation check could not hold in place.
 const SENSITIVE_KEY = /token|secret|passw|cookie|authorization|api[-_]?key|dsn/i;
+
+// Where the candidate is. Vercel stamps every request with the client's address
+// and what it derives from it — city, latitude, longitude, postcode — and the
+// server SDK forwards request headers whatever `sendDefaultPii` says. Found in
+// the first production event rather than predicted (#52). Sentry's own "Prevent
+// Storing of IP Addresses" caught the address and not the rest, so this rule is
+// here rather than left to that setting: the dashboard is the second layer.
+//
+// Anchored and named exactly, unlike the rule above: `X-Vercel-Id` must survive,
+// because it is what ties an event to Vercel's own log line.
+const LOCATION_KEY = /^(?:x-vercel-ip-.+|x-vercel-proxied-for|x-forwarded-for|x-real-ip)$/i;
 
 /**
  * Order matters. The connection-string rule runs before the email rule, or
@@ -57,7 +70,7 @@ function scrubValue(value: unknown): unknown {
 
   const out: Record<string, unknown> = {};
   for (const [key, inner] of Object.entries(value)) {
-    out[key] = SENSITIVE_KEY.test(key) ? FILTERED : scrubValue(inner);
+    out[key] = SENSITIVE_KEY.test(key) || LOCATION_KEY.test(key) ? FILTERED : scrubValue(inner);
   }
   return out;
 }

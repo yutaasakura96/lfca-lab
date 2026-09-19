@@ -153,3 +153,53 @@ describe('the other secrets this app holds', () => {
     expect(out.message).toContain('ep-x.neon.tech');
   });
 });
+
+describe('where the candidate is', () => {
+  // Found in production, not predicted (#52): the server event carried Vercel's
+  // IP-geolocation headers — city, latitude, longitude, postcode — unscrubbed.
+  // `sendDefaultPii: false` does not strip request headers on the server path,
+  // and Sentry's "Prevent Storing of IP Addresses" covers the address, not
+  // what was derived from it. Location is personal data the app has no use for.
+  const LOCATED = {
+    request: {
+      headers: {
+        'X-Vercel-Ip-City': 'Shibuya',
+        'X-Vercel-Ip-Latitude': '35.6620',
+        'X-Vercel-Ip-Longitude': '139.7038',
+        'X-Vercel-Ip-Postal-Code': '150-0002',
+        'X-Vercel-Ip-Country-Region': '13',
+        'X-Vercel-Ip-Timezone': 'Asia/Tokyo',
+        'X-Vercel-Proxied-For': '203.0.113.7',
+        'X-Forwarded-For': '203.0.113.7',
+        'X-Real-Ip': '203.0.113.7',
+        'X-Vercel-Id': 'hnd1::iad1::abc-123',
+        'User-Agent': 'phone',
+      },
+    },
+  };
+
+  it.each(['Shibuya', '35.6620', '139.7038', '150-0002', 'Asia/Tokyo'])(
+    'loses %s from the geolocation headers',
+    (value) => {
+      expect(leaks(scrubEvent(LOCATED), value)).toBe(false);
+    },
+  );
+
+  it('loses the client address from every header that forwards it', () => {
+    expect(leaks(scrubEvent(LOCATED), '203.0.113.7')).toBe(false);
+  });
+
+  it('is matched by header name whatever its case', () => {
+    const out = scrubEvent({ request: { headers: { 'x-vercel-ip-city': 'Shibuya', 'x-forwarded-for': '203.0.113.7' } } });
+    expect(leaks(out, 'Shibuya')).toBe(false);
+    expect(leaks(out, '203.0.113.7')).toBe(false);
+  });
+
+  it('keeps the headers that say nothing about the person', () => {
+    // The request id is what ties a Sentry event to Vercel's own log line —
+    // filtering it would cost the one cross-reference a failed write needs.
+    const out = scrubEvent(LOCATED);
+    expect(out.request.headers['X-Vercel-Id']).toBe('hnd1::iad1::abc-123');
+    expect(out.request.headers['User-Agent']).toBe('phone');
+  });
+});
