@@ -3,7 +3,7 @@
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build
-**Updated:** 2026-09-16
+**Updated:** 2026-09-19
 
 ## Done
 - **Phase 1 — Brief + PRD.** [01-project-brief.md](01-project-brief.md),
@@ -1102,11 +1102,25 @@ modes (exam, practice, domain) replacing the sixteen static markdown practice ex
   straight into Vercel so no DSN or token passes through a terminal echo or an agent's context.
   **Sentry MCP is in `.mcp.json`**, scoped to the org and project in its URL, which is the only place
   those two slugs are committed — `withSentryConfig` reads them from the environment.
-  **Outstanding, and the ticket stays open for it:** the deliberate production error, which is a
-  route that throws only for the signed-in allowlisted user, committed to `main` and reverted in the
-  next commit (#48's precedent), then observed arriving in Sentry with nothing sensitive in it.
-  Docs 11 §2, 12 §§1, 2 and 6 corrected; the decision log carries the argument, 2026-09-18.
-  Suites: 339 bank · **730** app unit · 194 app integration · 1 app e2e.
+  **The deliberate production error was run, and it found what no test could.** A route throwing
+  only behind the session gate went to `main` in `174a7df` and was read back from **Sentry's own
+  API**, not the alert email. Both events arrived scrubbed, tagged `production`, the user an id and
+  nothing else, and source-mapped to TypeScript. **`sendDefaultPii: false` did not keep the session
+  cookie off the server event** — `scrub.ts` did. But the server event also carried the owner's
+  **location**: Vercel's `X-Vercel-Ip-City`, `-Latitude`, `-Longitude`, `-Postal-Code` and the rest,
+  which neither `sendDefaultPii` nor Sentry's IP setting reaches. A third scrubber rule, `LOCATION_KEY`,
+  now filters those and the address-forwarding headers while keeping `X-Vercel-Id` (`bc55f49`,
+  written test-first, mutation-checked seven ways), and a fresh production event **measured all ten
+  location headers `[Filtered]`**. The probe route is removed.
+  **Two limits accepted and recorded, by the owner's choice.** One of three server probes never
+  reached Sentry — never sent rather than filtered, most likely a function frozen before the SDK
+  flushed, which is inferred rather than measured; the client path, which carries the outbox report,
+  delivered every event through the tunnel. And Vercel's runtime log holds error messages
+  unscrubbed, since the scrubber guards only the path to Sentry. Decision log, 2026-09-19.
+  **One defect of this ticket's own docs was fixed while passing**: `ea81a53` had inserted doc 12 §6's
+  new prose inside the monitoring table, stranding its last two rows below it.
+  Docs 11 §2, 12 §§1, 2 and 6 corrected; the decision log carries the argument, 2026-09-18 and -19.
+  Suites: 339 bank · **738** app unit · 194 app integration · 1 app e2e.
 
 ## Next
 **Phase 6 — Build.** Planning is complete. Phase 6 repeats, one feature per pass.

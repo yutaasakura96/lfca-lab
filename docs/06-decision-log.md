@@ -2682,3 +2682,47 @@ verified it is named as unverified rather than assumed.*
 - **Revisit if:** the app opens to other users — at which point the tunnel starts carrying other
   people's events through this origin, and `sendDefaultPii` and the scrubber are the two lines to
   re-read rather than the first two to relax.
+
+### [2026-09-19] The production error found a leak the tests could not, and one lost server event is accepted
+- **What was observed.** The deliberate error was triggered on production from `174a7df` and read back
+  from Sentry's own API rather than from the alert email. Both events arrived with the probe values
+  scrubbed (`session=[Filtered] · [Filtered]`), `environment: production`, the user an id and nothing
+  else, and stack traces source-mapped to TypeScript. The **session cookie was captured by the server
+  SDK despite `sendDefaultPii: false`** — it was our scrubber that turned it into `[Filtered]`, after
+  which Sentry discarded it as an invalid cookie. `X-Vercel-Oidc-Token` was filtered by the `token`
+  key rule, `X-Vercel-Proxy-Signature` by Sentry's own defaults, and `X-Vercel-Proxied-For` stored as
+  `[ip]` by the dashboard setting. The probe strings appear in the raw events only as stack-frame
+  **source context**, which Sentry reads from the uploaded source maps — the committed code, not
+  anything the app sent — and the one real address in them is Sentry's own record of the git commit
+  author, attached to the release.
+- **What was not caught: the candidate's location.** The server event carried Vercel's IP-geolocation
+  headers — `X-Vercel-Ip-City`, `-Latitude`, `-Longitude`, `-Postal-Code`, `-Country-Region`,
+  `-Timezone` — unscrubbed. Neither `sendDefaultPii` nor "Prevent Storing of IP Addresses" reaches
+  them. **Decision:** a third key rule in `src/domain/scrub.ts`, `LOCATION_KEY`, filtering
+  `x-vercel-ip-*`, `x-vercel-proxied-for`, `x-forwarded-for` and `x-real-ip` in any case. Anchored and
+  named exactly, so **`X-Vercel-Id` survives** — it is what ties an event to Vercel's own log line.
+  Chosen by the owner. *Alternative considered:* recording it as accepted, on the grounds that an
+  approximate location for a single-user app is low stakes — rejected because #52's criterion is
+  "personally-identifying data off by default", and the fix is one rule in the tested layer.
+  Eleven tests written first and watched fail, then a seven-way mutation check with every restore
+  diffed. **Verified on production** from `bc55f49`: a fresh server event arrived with all ten
+  location headers `[Filtered]` and `X-Vercel-Id` kept.
+- **Accepted: one server event was lost.** Of three server probes, the one at 03:24:58 UTC never
+  reached Sentry — Vercel's log shows the error thrown, and Sentry's own stats show nothing accepted
+  and nothing dropped for that hour, so it was never sent rather than filtered. The likeliest cause is
+  the function being frozen before the SDK flushed its queue, and **that is inferred, not measured**.
+  *Alternative considered:* investigating before closing #52. Rejected, and chosen by the owner,
+  because the report doc 12 §6 exists for — the outbox's five-failure event — is a **client** event,
+  and every client event so far (five, across two rounds) arrived through the tunnel, which forwards
+  to Sentry rather than depending on a server function's flush. One loss in three is not enough to
+  diagnose; the honest next step if it recurs is the SDK's `debug` output read against a transport
+  log, not a guessed fix.
+- **Recorded rather than fixed: Vercel's runtime log holds error messages unscrubbed.** The probe's
+  message reached Vercel's log verbatim, because Next writes server errors to the console and the
+  scrubber sits only on the path to Sentry. Nothing real leaked — the only such values were the
+  probe's fake ones — but a secret interpolated into a thrown message would land in Vercel's logs
+  regardless of anything in `scrub.ts`. Outside #52's scope, which is what reaches Sentry.
+- **The probe route is removed** in the commit after this entry's fix landed, on #48's precedent.
+- **Revisit if:** a server-side error that should have been reported is found missing from Sentry —
+  at which point `debug: true` for one deploy is the measurement, and this entry's inference is what
+  it tests.

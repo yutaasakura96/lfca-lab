@@ -565,6 +565,8 @@ worth automating is the failure the user cannot see:
 | --- | --- | --- |
 | Unhandled exceptions, client and server | **Sentry**, alert to email | The save failure at question 40 of a first attempt. The one thing that costs a number that cannot be recovered. |
 | 5 consecutive answer-write failures on one attempt | Sentry event (doc 03 §8) | Distinguishes a flaky tunnel from a broken write path. |
+| Failed deploy or red CI | GitHub / Vercel notifications | Default channels; no extra setup. |
+| Neon compute-hour and storage ceiling | Neon dashboard, checked when a bill or a limit warning arrives | The first thing that breaks under any real load (doc 03 §10). |
 
 **Errors, and nothing else** (#52): no tracing, no Session Replay, no Logs. Replay is not a default —
 it arrives only by adding `replayIntegration()` — so what keeps it out is that
@@ -586,15 +588,26 @@ auto-generated because a name that changes per build cannot be excluded from a m
 the two files together, since the drift would be silent (nothing throws, the report simply never
 arrives).
 
-**Users are identified by database id and by nothing else** — `sendDefaultPii` is false, which is
-what would otherwise attach the IP address and the request headers. The id is set on the server in
+**Users are identified by database id and by nothing else** — `sendDefaultPii` is false. **It does
+not keep request headers or the cookie off a server event**, measured on production (#52): the server
+SDK attached the session cookie and Vercel's full header set, and `scrub.ts` is what stripped them.
+The first production event also carried the candidate's **location** — Vercel's `X-Vercel-Ip-City`,
+`-Latitude`, `-Longitude`, `-Postal-Code` and the rest — which neither `sendDefaultPii` nor Sentry's
+"Prevent Storing of IP Addresses" reaches; a third scrubber rule now filters those and the
+address-forwarding headers, and keeps `X-Vercel-Id`, which ties an event to Vercel's own log. The id is set on the server in
 `requireSession`, after both of its refusals, and in the browser from the `(app)` layout.
 
 **Sentry failing is a silent no-op.** The outbox's report is wrapped: an exception raised while
 reporting a problem would come out of the retry timer, on the one path whose job is to keep
 answering possible while the network is away.
-| Failed deploy or red CI | GitHub / Vercel notifications | Default channels; no extra setup. |
-| Neon compute-hour and storage ceiling | Neon dashboard, checked when a bill or a limit warning arrives | The first thing that breaks under any real load (doc 03 §10). |
+
+**Two known limits, recorded rather than fixed** (decision log, 2026-09-19). **A server event can be
+lost:** one of three server probes never reached Sentry — never sent, not filtered — most likely a
+function frozen before the SDK flushed, which is inferred rather than measured. The client path,
+which carries the outbox report, delivered every event through the tunnel. If a server error is ever
+found missing, `debug: true` for one deploy is the measurement. And **Vercel's own runtime log holds
+error messages unscrubbed**, because Next writes server errors to the console and `scrub.ts` guards
+only the path to Sentry — so a secret interpolated into a thrown message lands there regardless.
 
 **Deliberately not monitored:** uptime pings, web vitals, page analytics. Uptime for a one-user study
 app is discovered by the one user opening it; analytics would measure the owner.
