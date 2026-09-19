@@ -658,9 +658,10 @@ name, so **nothing that holds a connection string needs re-pasting because of th
 because it carries a role password; the host half of it is what `list_postgres_endpoints` returns
 unprompted, and having it written down is what let §2.1's measurement happen without one.
 
-The same organization holds two unrelated projects, `portfolio-v2` and `bugstack`. A rule written for
-"the Neon project" therefore has to be a rule about *every* project, because the credential reaches
-all three.
+The same organization holds other, unrelated projects — `portfolio-v2` and `bugstack` when this was
+written, and `kioku` and `suburi` as well by 2026-09-19, five in all. A rule written for "the Neon
+project" therefore has to be a rule about *every* project, because the credential reaches all of
+them.
 
 ### 8.2 Reads are allowed; every write asks
 
@@ -711,10 +712,12 @@ are not a substitute for the owner reading what a destructive command is about t
 
 ### 8.3 The two steps that are the owner's
 
-1. **`neon auth`** — a browser flow. It was started on 2026-08-31 and abandoned, leaving
-   `~/.config/neon/` empty, so every CLI command that talks to the API currently opens a browser
-   instead of answering. Afterwards `neon me` returns without one, and `neon projects list` and
-   `neon branches list --project-id wispy-bird-80472699` return the rows in §8.1.
+1. **`neon auth`** — a browser flow. **Done 2026-09-19** (#41): started from a session and approved
+   by the owner in the browser, which is the half no agent can do. It had been started on 2026-08-31
+   and abandoned. Measured afterwards: `neon me` answers without a browser,
+   `neon branches list --project-id wispy-bird-80472699` returns `main` (default) and `develop` with
+   the ids in §8.1, and `neon projects list` needs **`--org-id org-tiny-fire-00617341`** — without it
+   v4.14.0 stops to ask which organization, which hangs an unattended shell.
 2. **Watch a destructive command prompt.** In an ordinary (non-bypass) session, ask for
    `neon branches delete br-noisy-credit-b37kait6`, confirm the prompt appears, and decline it. The
    test above proves the rule matches; only a real session proves the prompt fires.

@@ -137,10 +137,11 @@ Sentry's arrived with #52, scoped to the org and project in its URL (`mcp.sentry
 which is the one place those two slugs are committed: `withSentryConfig` reads them from the
 environment, and this URL cannot.
 
-**The Neon CLI is installed but unauthenticated.** It is `neon` v4.14.0, installed globally — the
-`neon` npm package *is* the CLI now, so looking for `neonctl` finds nothing. `~/.config/neon/` is
-empty and dated 2026-08-31: a login was started and abandoned. `neon auth` is a browser flow, is the
-owner's to complete, and is itself at `ask` so an agent cannot start one and hang. Org
+**The Neon CLI is installed and authenticated** (2026-09-19, #41). It is `neon` v4.14.0, installed
+globally — the `neon` npm package *is* the CLI now, so looking for `neonctl` finds nothing.
+`neon auth` is a browser flow and stays at `ask`: an agent may start it, but only the owner can
+approve it, and an unapproved one hangs. `neon projects list` prompts for an organization unless
+given `--org-id`. Org
 `org-tiny-fire-00617341`, project `wispy-bird-80472699`, **Neon** branches `br-jolly-mode-b39c5rdo`
 (named **`main`**, the root) and `br-noisy-credit-b37kait6` (named **`develop`**) — renamed
 2026-09-12 from `production` and `dev` to match the git branches they back.
