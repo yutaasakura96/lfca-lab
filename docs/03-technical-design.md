@@ -30,16 +30,16 @@ flowchart TD
     subgraph repo["This repo (source of truth for content)"]
         JSON["questions/**.json<br/>exams/index.json<br/>data/holdout.json"]
     end
-    subgraph ci["GitHub Actions"]
-        VAL["npm run validate<br/>npm run check-bank<br/>holdout integrity check"]
-        SEED["npm run seed"]
+    subgraph ci["GitHub Actions: deploy.yml, on push to git main"]
+        VAL["npm test<br/>npm run validate<br/>npm run check-bank"]
+        SEED["npm run db:migrate<br/>npm run seed"]
     end
     subgraph vercel["Vercel"]
         APP["Next.js App Router<br/>RSC render + route handlers"]
     end
     subgraph neon["Neon Postgres"]
-        CONTENT[("content tables<br/>question, option, exam, exam_item<br/>READ-ONLY to the app")]
-        USER[("user tables<br/>user, session, attempt, answer<br/>read/write")]
+        CONTENT[("content tables<br/>question, question_option, exam, exam_item<br/>READ-ONLY to the app")]
+        USER[("user tables<br/>user, session, account, attempt,<br/>answer, attempt_question<br/>read/write")]
     end
     BROWSER["Browser<br/>question UI, clock display, outbox"]
     GOOGLE["Google OIDC"]
@@ -52,8 +52,13 @@ flowchart TD
     APP <--> USER
     APP <--> GOOGLE
     APP --> SENTRY
-    BROWSER --> SENTRY
+    BROWSER -.via /monitoring on the app's own origin.-> APP
 ```
+
+**The diagram was redrawn at the close of feature 5 (#53)**, where it had a browser reporting to
+Sentry directly and a "CI" box that gated the seed. The browser reports through a tunnel route on
+this app's origin, because ad blockers drop direct ingest (doc 12 §6); and the box that validates and
+seeds is the **deploy** workflow, which races Vercel's build rather than preceding it (doc 12 §3).
 
 **What talks to what, and what happens when it is down.**
 
@@ -75,7 +80,7 @@ The app is read-only over the bank (PRD X2). Content moves in one direction, at 
 ```
 questions/**/*.json ─┐
 exams/index.json    ─┼─→ npm run validate ─→ npm run seed ─→ Postgres content tables
-data/holdout.json   ─┘        (CI gate)        (idempotent)
+data/holdout.json   ─┘   (deploy.yml, first)    (idempotent)
 ```
 
 **`npm run seed` is idempotent and runs inside one transaction.** It never touches `user`,
@@ -342,10 +347,17 @@ configured with `sendDefaultPii: false` and identifies users by database id, not
 encrypts at rest. Application-level column encryption is **not** used: it would protect against a
 threat (a stolen Neon snapshot) that also yields the key, and would make every query worse.
 
-**Dependency updates.** **Dependabot**, weekly, grouped, on `app/package.json`. Security advisories
-open immediately. Patch and minor updates are merged once CI is green; majors are read first. The
-named manual cadence for anything Dependabot cannot do: a `npm audit` and a Next.js release-note read
-on the first weekend of each month, for as long as the app is in use.
+**Dependency updates.** **Dependabot**, weekly, grouped, on `app/` and on the workflows' actions,
+configured in `.github/dependabot.yml` — which did not exist until #53, although this paragraph
+described it from Phase 4. Its pull requests open against **`develop`**, never `main`, because merging
+into `main` is a production deploy (doc 12 §3). **Nothing merges automatically**: this paragraph said
+patch and minor would be "merged once CI is green", and CI gates nothing (doc 12 §3), so an automatic
+merge would be an unreviewed deploy the moment `develop` next reached `main`. Majors arrive ungrouped,
+one pull request each, and are read first. **Vulnerability alerts are on; automated security-fix pull
+requests are off**, because those ignore `target-branch` and always open against the default branch.
+The named manual cadence for anything Dependabot cannot do: a `npm audit` and a Next.js release-note
+read on the first weekend of each month, for as long as the app is in use. See the decision log,
+2026-09-19.
 
 **The single worst thing an attacker could do, and what stops it.**
 
@@ -359,8 +371,11 @@ Stopping it rests on three layers, in order of importance:
 2. **Ownership checks on every attempt-scoped query**, not just at the page level. Enforced by
    routing every such query through helpers in `src/db/queries/` that take a session and refuse to
    compile a query without one.
-3. **Nightly Neon backups with a tested restore** (doc 12) — because the second-worst actor here is
-   a bad migration written by the owner, and it is far more likely than an attacker.
+3. **A monthly `pg_dump` of the user tables, kept off Neon, with a restore that has been run**
+   (doc 12 §5) — because the second-worst actor here is a bad migration written by the owner, and it
+   is far more likely than an attacker. *This said "nightly Neon backups" until #53.* Neon's own
+   point-in-time history is **six hours** on the Free plan, so it is an undo for the same morning, not
+   a backup; the dump is the backup, and it was proven by being used to create production.
 
 Rate limiting is deliberately absent in v1. It is unnecessary behind an allowlist of one, and is the
 first thing to add if sign-up opens.

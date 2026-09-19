@@ -197,7 +197,7 @@ as aliases for `verify-full`, and warns on every server start that it will stop 
 `pg` v9 / `pg-connection-string` v3. Under those versions `sslmode=require` with no `sslrootcert`
 adopts libpq semantics and sets **`rejectUnauthorized = false`** — not weaker certificate
 verification but *none*, with no warning and no test failure. A routine Dependabot major bump (doc 03
-§9 merges patch and minor automatically) would therefore silently downgrade the connection. Saying
+§9; `.github/dependabot.yml` exists since #53) would therefore silently downgrade the connection. Saying
 `verify-full` is what survives that bump.
 
 Substituting it is provably behaviour-preserving **today**: both modes hand `tls.connect` identical

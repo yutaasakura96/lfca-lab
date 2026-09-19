@@ -137,7 +137,7 @@ the query that matters.
 
 | Column | Type | Null | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `question_id` | text | no | — | → `question.id` **ON DELETE CASCADE**. Cascade is right here: options have no meaning without their question, and the seed's truncate-and-reinsert relies on it. |
+| `question_id` | text | no | — | → `question.id` **ON DELETE CASCADE**. Cascade is right here: options have no meaning without their question, and the seed replaces a question's options outright on every run (doc 03 §3), which this makes safe. |
 | `ref` | text | no | — | `o1`–`o4`, the bank's own option reference. |
 | `position` | smallint | no | — | 0–3, the option's index in **authored** order. Practice and domain mode render by this. Exam mode re-orders per doc 03 §3.2. |
 | `text` | text | no | — | The option text. |

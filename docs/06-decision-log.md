@@ -2726,3 +2726,56 @@ verified it is named as unverified rather than assumed.*
 - **Revisit if:** a server-side error that should have been reported is found missing from Sentry —
   at which point `debug: true` for one deploy is the measurement, and this entry's inference is what
   it tests.
+
+### [2026-09-19] Dependabot targets `develop`, nothing merges automatically, and alerts replace security-fix PRs
+- **Decision:** `.github/dependabot.yml` — weekly version updates, grouped, for `app/` (npm) and for
+  the workflows' actions, **every entry opened against `develop`**. Patch and minor updates are grouped
+  into one pull request per ecosystem; majors arrive one per dependency. **Nothing auto-merges.**
+  Vulnerability alerts are turned **on** in the repository's settings; automated security-fix pull
+  requests stay **off**. `deploy-config.test.ts` asserts the entries and their target branch,
+  mutation-checked five ways. Ticket #53; each part chosen by the owner.
+- **Context:** doc 03 §9 has described Dependabot since Phase 4 — weekly, grouped, "security advisories
+  open immediately", patch and minor "merged once CI is green" — and doc 12 §2.1 argues
+  `sslmode=verify-full` from the major bump it would deliver. Measured at #53's close-out sweep:
+  **no `.github/dependabot.yml`, vulnerability alerts disabled (`404`), automated security fixes
+  disabled.** None of it had ever existed.
+- **On the target branch.** A version-update pull request opens against the default branch unless
+  told otherwise, and the default branch is `main`, so merging one would be a production deploy that
+  went around `develop` — `main` ahead of `develop`, the reverse of the drift this repository has
+  actually had. `target-branch: develop` sends an update down the path every other change takes.
+- **On automatic merging.** Doc 03 §9's "merged once CI is green" assumed CI was a gate. It is not
+  (2026-09-13), so an auto-merge is a merge that nothing reviewed, deployed the next time `develop`
+  reaches `main`. Removed from doc 03 rather than built.
+- **On security updates**, which is the part the documentation settled: GitHub states that
+  security-update pull requests **ignore `target-branch` and always use the default branch**. Turning
+  them on would put pull requests against `main` again by the one route the config cannot redirect.
+  *Alternatives considered:* both on, which is faster to a fix and splits `main` from `develop`; and
+  both off, which leaves doc 03's advisory claim to be deleted. **Chosen:** alerts on, so an advisory
+  reaches the owner, and the next weekly version update to `develop` carries the fixed version.
+- **Also rejected:** correcting the docs to a manual cadence and adding nothing, and deferring to its
+  own ticket. Both leave doc 12 §2.1's argument resting on a mechanism that does not exist.
+- **Consequence:** Dependabot's pull requests are the first ever opened on this repository, which
+  ends the "no pull request has ever been opened" fact the 2026-09-11 preview decision cited — that
+  decision stands on Google's redirect-URI rule, not on the count. `dependabot/…` git branches now
+  exist transiently; `vercel.json`'s `"**": false` keeps them from deploying, and `CONTEXT.md` says so.
+- **Revisit if:** CI ever becomes a gate, at which point automatic patch merges into `develop` are
+  worth reconsidering.
+
+### [2026-09-19] Feature 5 closes, and the status file is condensed rather than appended to
+- **Decision:** `docs/00-status.md` is rewritten as a short handoff — where things stand, what not to
+  re-derive, what is next — with each feature reduced to a paragraph naming its issues and its log
+  dates. It had grown to about 1,600 lines of per-ticket narrative. Chosen by the owner. Ticket #53.
+- **Reason:** the file's job is to be read first by a cleared session, and at that length it was the
+  most expensive thing to read and the likeliest to be stale — this ticket found three stale lines in
+  it, as #51 had found three before. The narrative it held is already in this log, in the issues and
+  in `git log`, so condensing it loses no record.
+- **Alternatives considered:** appending a close-out entry and fixing the stale lines, which removes
+  nothing and leaves the next feature to append another few hundred lines to the same file.
+- **Also settled by the close-out sweep, each a claim describing something that did not exist:**
+  `CLAUDE.md` still called the app "planned, not yet created"; doc 03 §2's diagram had the browser
+  reporting to Sentry directly and a "CI gate" box ahead of the seed; doc 03 §9 promised **nightly**
+  Neon backups where doc 12 §5 specifies a monthly `pg_dump` and Neon's history is six hours; and
+  doc 04 §3.2 still said the seed truncates, which it cannot. All corrected in place.
+- **The two carried measurements needed no new record.** Whether `verify-full` holds on the pooler and
+  what a branch operation does to an endpoint were both settled by #42 on 2026-09-12 — see that day's
+  entry and doc 12 §§2.1, 8.1 — and no caveat standing in for either remained anywhere.

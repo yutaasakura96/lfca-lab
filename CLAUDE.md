@@ -7,7 +7,7 @@ a study guide, a 1,150-question bank, sixteen practice exams, and targeted drill
 zero dependencies.
 
 **The app** (`app/`) — a Next.js exam simulator over that bank. Its own `package.json`; Vercel's
-Root Directory is `app`. Planned in full, not yet created.
+Root Directory is `app`. In production at <https://lfca-lab-six.vercel.app> since feature 5.
 
 The two-node Docker practice lab that used to live here is now its own repo:
 `~/Documents/GitHub/linux-lab` (github.com/yutaasakura96/linux-lab).
