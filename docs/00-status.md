@@ -86,7 +86,8 @@ against production (#50). Log: 2026-09-11 → 2026-09-19.
 - **Close-out** (#53). Dependabot configured — weekly, grouped, **opened against `develop`**, nothing
   auto-merged; vulnerability alerts on, security-fix PRs off (they ignore `target-branch`). Stale
   claims corrected in `CLAUDE.md`, `CONTEXT.md` and docs 03, 04, 11, 12. This file condensed.
-  **#41: `neon auth` done; one owner-only step left, see Next.**
+  **#41's owner-only steps are done:** the CLI is authenticated, and a destructive command was
+  watched prompting and denied.
 
 Suites, re-measured 2026-09-19: **339** bank · **740** app unit · **194** app integration · **1** e2e.
 
@@ -104,8 +105,8 @@ like practice, timed and scored like an exam — and `409 holdout_already_sat` (
 
 The owner's own work in the meantime is sitting the sixteen papers on production.
 
-**#41 — one owner-only step left:** `neon auth` is done (2026-09-19). Watching a destructive `neon`
-command prompt in an ordinary (non-bypass) session is not — doc 12 §8.3 step 2.
+**#41 is complete** (2026-09-19): `neon auth` approved, and a destructive `neon` command was
+watched prompting in a non-bypass session and denied. Doc 12 §8.3.
 
 Run `/implement <n>` per ticket. Each one ends committed, merged into `develop` and `main`, pushed,
 checklist §8.1 run, and its branch swept.

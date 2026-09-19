@@ -721,3 +721,6 @@ are not a substitute for the owner reading what a destructive command is about t
 2. **Watch a destructive command prompt.** In an ordinary (non-bypass) session, ask for
    `neon branches delete br-noisy-credit-b37kait6`, confirm the prompt appears, and decline it. The
    test above proves the rule matches; only a real session proves the prompt fires.
+   **Done 2026-09-19** (#41): the session was switched out of bypass mode, the delete was attempted,
+   the prompt appeared, the owner denied it, and `neon branches list` afterwards still showed both
+   branches `ready`. Re-run it after any edit to the Neon rules in `.claude/settings.json`.
