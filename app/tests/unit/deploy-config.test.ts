@@ -541,3 +541,53 @@ describe('the Sentry tunnel is excluded from the proxy, by the name it actually 
     ).toContain(`?!${route}|`);
   });
 });
+
+describe('Dependabot opens its updates against develop, never main', () => {
+  // Doc 03 §9 promised Dependabot from Phase 4 and nothing configured it until
+  // #53. What matters about the file is where its pull requests land: by
+  // default a version update targets the repository's default branch, which is
+  // `main`, and merging anything into `main` is a production deploy (doc 12 §3).
+  // So every update entry names `develop`, and an update reaches production the
+  // way every other change does — merged into develop, then develop into main,
+  // then checklist §8.1.
+  //
+  // Security-update pull requests ignore `target-branch` and always open against
+  // the default branch, which is why they are left off in the repository's
+  // settings while vulnerability alerts are on. That half is a setting rather
+  // than a file, so it cannot be asserted here; the decision log, 2026-09-19,
+  // records it.
+
+  const DEPENDABOT = join(repoRoot, '.github', 'dependabot.yml');
+
+  const config = (): string => {
+    expect(
+      existsSync(DEPENDABOT),
+      '.github/dependabot.yml is missing. Doc 03 §9 names Dependabot as how dependency updates '
+        + 'arrive, and doc 12 §2.1 argues `sslmode=verify-full` from the major bump it would bring.',
+    ).toBe(true);
+
+    return readFileSync(DEPENDABOT, 'utf8');
+  };
+
+  const entries = (): string[] => config().split(/^\s*- package-ecosystem:/m).slice(1);
+
+  it('watches the app manifest and the workflows', () => {
+    const ecosystems = entries().map((entry) => {
+      const ecosystem = /^\s*"?([a-z-]+)"?/.exec(entry)?.[1];
+      const directory = /^\s*directory:\s*"?([^"\s]+)"?/m.exec(entry)?.[1];
+      return `${ecosystem} ${directory}`;
+    });
+
+    expect(ecosystems.sort()).toEqual(['github-actions /', 'npm /app']);
+  });
+
+  it('targets develop on every entry', () => {
+    for (const entry of entries()) {
+      expect(
+        entry,
+        'A Dependabot entry has no `target-branch: "develop"`. Without it the pull request opens '
+          + 'against main, and merging it deploys production around develop.',
+      ).toMatch(/^\s*target-branch:\s*"?develop"?\s*$/m);
+    }
+  });
+});

@@ -1,0 +1,30 @@
+# Weekly, grouped version updates, opened against develop rather than main.
+# Merging into main is a production deploy (doc 12 §3), so an update takes the
+# same path as any other change: develop, then main, then checklist §8.1.
+# Nothing auto-merges — CI is a signal, not a gate (doc 12 §3).
+#
+# The root package.json declares no dependencies, so the bank has no entry.
+# Security-update PRs ignore target-branch and would open against main; they
+# are off in the repository settings, and vulnerability alerts are on instead.
+# See the decision log, 2026-09-19. app/tests/unit/deploy-config.test.ts
+# asserts the entries and their target branch.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/app"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+    groups:
+      app:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]
