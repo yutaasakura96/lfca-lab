@@ -114,8 +114,8 @@ build fails loudly rather than orphaning answers silently.
 PRD §5 requires the 40 holdout items to be defined **by identity**, so that a future
 `npm run build-exams` cannot quietly promote one onto an exam. They were once derived —
 `tools/build-exams.mjs` wrote `exams/index.json.unused` as *whatever the composition left over*, 40
-ids that were correct but were a residue rather than a commitment. Two of the three steps below have
-shipped; the third belongs to the seed and waits on `app/`.
+ids that were correct but were a residue rather than a commitment. All three steps below have
+shipped. *This said the third "waits on `app/`" until #61*; it landed with the seed in feature 2.
 
 1. **Done.** `data/holdout.json` pins the 40 ids as committed source.
 2. **Done.** `tools/lib/holdout.mjs` is the single definition of "the holdout is intact", and two
@@ -126,9 +126,12 @@ shipped; the third belongs to the seed and waits on `app/`.
    sixty-three generated files exactly as they were. The failure therefore lands before the damage
    rather than after it, and the builder and the validator cannot hold a second opinion about what a
    violation is.
-3. **Outstanding, with the seed.** The seed marks those 40 rows `is_holdout = true`. Every selection
-   query in practice and domain mode filters `is_holdout = false` (PRD P2), and only the holdout
-   sitting reads them.
+3. **Done, with the seed (feature 2).** The seed marks those 40 rows `is_holdout = true` and reads
+   the count back before it commits, aborting on anything but 40. Every selection query in practice
+   and domain mode filters `is_holdout = false` (PRD P2). **One query reads them deliberately**:
+   `selectHoldoutQuestions`, the only reader of the pin, which refuses anything but exactly forty
+   before a transaction opens and is called only by the holdout start (#57). That is the holdout
+   being *used* for what it was reserved for, not a fourth lock being weakened.
 
 The builder's allocation is deliberately **not** taught to build around the pin. Refusing is enough,
 and teaching the composition to avoid the pinned ids would mean editing the most load-bearing code
@@ -427,6 +430,7 @@ The holdout is the project's only defence against its riskiest assumption, and i
 derived list (§3.1) that an ordinary, well-intentioned `npm run build-exams` could void.
 *Plan:* pin it in `data/holdout.json`, assert set-equality with `index.unused` in `npm run validate`,
 refuse the build itself on the same comparison, carry `is_holdout` into Postgres, and filter on it in
-every selection query rather than trusting the seed. The first three have shipped; the last two
-arrive with the seed. Three independent places would have to fail together for a holdout item to be
+every selection query rather than trusting the seed. All five have shipped — the last two with the
+seed in feature 2 — and the holdout sitting (feature 6) reads the forty through one query of its own.
+Three independent places would have to fail together for a holdout item to be
 served early.

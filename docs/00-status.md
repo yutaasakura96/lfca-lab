@@ -2,7 +2,7 @@
 
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
-**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57–#60 of #57–#61 done.**
+**Phase:** 6 — Build. **Features 1–6 are done.** The holdout is built and deployed, not yet sat.
 **Production:** <https://lfca-lab-six.vercel.app>, deployed from git `main`.
 **Updated:** 2026-09-21
 
@@ -46,7 +46,7 @@ reads, resume by derivation, re-sits, and the one Playwright run (doc 09 Flow B)
 2026-09-06.
 
 ### Feature 4 — practice and domain mode, P1–P3, D1 · #29–#39
-Home with the four modes (holdout disabled), setup screens, practice at 20/40/60 and domain at
+Home with the four modes (holdout disabled until feature 6), setup screens, practice at 20/40/60 and domain at
 20/40/all, a composed sitting **frozen** in `attempt_question`, forward-only with feedback on every
 answer, closed by *Save and exit* or *Finish*, and read back with `Correct · Incorrect · Not reached`
 — never a score. The bank authors every key first, so a composed sitting **derives** its key's slot
@@ -89,66 +89,42 @@ against production (#50). Log: 2026-09-11 → 2026-09-19.
   **#41's owner-only steps are done:** the CLI is authenticated, and a destructive command was
   watched prompting and denied.
 
-Suites, re-measured 2026-09-21 (#60): **339** bank · **764** app unit · **235** app integration · **1** e2e.
+### Feature 6 — the holdout sitting, H1 · #56–#61
+The holdout can be sat: forty pinned questions, sixty minutes, pass at 30, sat once. **Built and
+deployed, not yet sat** — that is the owner's, after the sixteen papers. Spec and every rejected
+alternative: **#56**. Log: 2026-09-20 (five entries, recorded at close) and 2026-09-21.
 
-### Feature 6 — the holdout sitting, H1 · #56–#61 · in progress
-Spec and every rejected alternative: **#56**. Log: 2026-09-21.
+- **Start** (#57). `POST /api/attempt {mode:"holdout"}` freezes the forty and a 3600s clock in one
+  transaction; a running holdout comes back `200 {resumed:true}`, a sat one `409
+  holdout_already_sat`; the request is `strictObject`. **Migration 0002, `one_holdout_per_user`**,
+  makes a second holdout row impossible on every path, superseding #56's "no migration".
+- **Sitting** (#58). The timed arrangement over the frozen set, read by `loadTimedSitting`; every
+  word comes from `timedSittingCopy`, the exam's pinned verbatim.
+- **Review** (#59). The scored branch, via `loadScoredReview`; `paper: null` removes the re-sit, the
+  ordinal, the first-attempt line and the by-domain card together.
+- **Home** (#60). The card's three states from the pure `holdoutCard`; only the dialog posts;
+  `loadHome` sweeps first. **#61 separated the dialog's buttons** after a production mis-press:
+  Cancel primary, the confirm `btn--danger` reading *Start the 60-minute clock*, opposite ends.
+- **Close-out** (#61). Docs 02 H1, 03 §3.1, 04 §5.1, 07 §2, 10 (§2a, §4a, §8b), 11 and checklist
+  **§9** corrected or written. Checklist §9.3 — the production `409` and result card — is
+  **deferred, not proved**, until the real sitting.
 
-- **#57 done.** `POST /api/attempt` with `{mode:"holdout"}` freezes the forty pinned ids and a
-  3600-second clock in one transaction. Running holdout → `200 {attemptId, resumed:true}`; sat →
-  `409 holdout_already_sat`; a `length` (or any other key) → `400`, the holdout variant alone being
-  `strictObject`. `selectHoldoutQuestions` refuses anything but exactly forty. **Migration 0002 adds
-  `one_holdout_per_user`**, a partial unique index, because the route's read-then-insert let two
-  concurrent starts write two holdouts; a lost race is answered from a second read. Applied to Neon
-  `develop`; reaches Neon `main` with the deploy workflow.
-- **#58 done.** `/attempt/[id]` renders a holdout in the timed arrangement — 60:00 clock, free
-  navigation, flags, submit — over its frozen `attempt_question` set, slots derived. The page's read
-  is `loadTimedSitting` (`src/lib/timed-sitting.ts`), shared with exam mode, and the payload is
-  asserted key by key in `holdout-sitting.test.ts`. The screen's words come from
-  `timedSittingCopy` (`src/domain/timed-sitting.ts`); the exam's are pinned verbatim. **Until #59,
-  a holdout's outcome offers only *Back to home*, and an expired holdout opens on its outcome
-  instead of redirecting** — `reviewable: false` in that one function is what #59 flips.
-- **#59 done.** `/attempt/[id]/review` renders a submitted holdout on the scored branch over its
-  frozen set: n/40, Pass · 30, the verdict chip, the Flagged filter, blanks claimed by Incorrect,
-  options at the sitting's derived slot. The read is `loadScoredReview`
-  (`src/lib/scored-review.ts`); its `paper` is `null` for the holdout, which removes the re-sit, the
-  ordinal, the first-attempt line and the by-domain card together. The composed review query now
-  reads `answer.flagged`. `reviewable` is `true` for the holdout, so the outcome links to the review
-  and an expired holdout closed on read is sent there.
-- **#60 done.** Home's holdout card is live in three states, decided by the pure `holdoutCard`
-  (`src/domain/holdout.ts`) from `holdoutStanding`, whose `sat` now carries the finished row rather
-  than a boolean. **Never sat** → *Start the holdout* opens `HoldoutStart`'s one-shot dialog (one-shot,
-  sixty minutes, abandoning still counts), and only the dialog's button posts; Cancel and Escape
-  wrote no rows, **checked in SQL** on develop. **Running** → *Resume*, straight to the sitting, no
-  dialog; the sitting is also in the band above. **Sat** → n/40, Pass or No pass as a word, pass
-  mark 30, the UTC day, and *See the full review* — which satisfies #59's last criterion. Home's read
-  is `loadHome` (`src/lib/home.ts`), which sweeps before both reads, so a lapsed holdout reads as
-  the result. `.modecard--off` is gone.
+Suites, re-measured 2026-09-21 (#61): **339** bank · **764** app unit · **235** app integration · **1** e2e.
 
 ---
 
 ## Next
 
-**`/implement 61`** — the doc corrections below, doc 10's home section for the live holdout card,
-and checklist coverage for the holdout, including #56's production boundary. Then feature 6 closes.
+**Re-run checklist §9.2 on production after #61 deploys** — card, dialog on the new buttons,
+**Cancel**, then `SELECT count(*) FROM attempt WHERE mode = 'holdout'` on Neon `main` → 0. The
+owner's sign-in; the owner's press.
 
-**#60's production check is done** (2026-09-21): the owner opened the card and dialog on production
-and pressed **Cancel**, and Neon `main` shows no holdout attempt. The first try pressed *Start* by
-mistake; that attempt was deleted by hand before anything in it was seen (decision log, same day).
-#61 should decide whether the dialog's two buttons need more separation.
+**Then no ticket is open.** The owner's own work is sitting the sixteen papers on production, then
+the holdout, then running checklist §9.3 and booking the retake. Anything new starts with a spec.
 
-**Doc corrections owed to #61**, accumulated rather than made (as #57 instructs): doc 07 §2's
-`409 holdout_already_sat` is narrowed to *sat*, with a running holdout returned `200 {resumed:true}`,
-and the holdout gains the `resumed` short-circuit §2 says composed sittings lack; doc 07 §2's
-holdout request refuses unknown keys; doc 04 §5.1 gains `one_holdout_per_user`; #56's "no
-migration needed" is superseded by migration 0002; doc 10 §8 gains the holdout's scored review — no
-re-sit, no standing line, no by-domain card (#59); doc 10's home section gains the holdout card's
-three states and its dialog, and loses the disabled card (#60).
-
-**Verification boundary (#56):** develop proves start / submit / 409 / result freely; production gets
-card + dialog + **Cancel** only. The real press is the owner's, once, after the sixteen papers.
-
-The owner's own work in the meantime is sitting the sixteen papers on production.
+**Verification boundary (#56), standing:** develop proves start / submit / 409 / result freely;
+production gets card + dialog + **Cancel** only. The real press is the owner's, once, after the
+sixteen papers.
 
 **#41 is complete** (2026-09-19): `neon auth` approved, and a destructive `neon` command was
 watched prompting in a non-bypass session and denied. Doc 12 §8.3.

@@ -70,6 +70,18 @@ spelling — `on: [push]` for `on: push` — fails here; that is the intended be
 limitation, for the same reason the Node grammar is matched strictly. A changed form is exactly the
 moment a human should re-read the comparison.
 
+**The holdout's one-shot is asserted in the integration suite, against Neon `develop`, as rows**
+(feature 6). `holdout-start.test.ts` drives the real exported route handler through all three
+outcomes — `201` writing one attempt and forty frozen rows set-equal to `data/holdout.json`, `200
+{resumed: true}` writing nothing, `409 holdout_already_sat` writing nothing — plus the strict request
+and the race `one_holdout_per_user` decides. `holdout-sitting.test.ts` walks the sitting's payload
+key by key for any key, `why` or running score, and asserts the answer body is exactly
+`{saved: true}`. `holdout-review.test.ts` asserts the review's `paper` is `null` and its option slots
+match the sitting's. `holdout-card.test.ts` reaches each card state through `loadHome`. The unit
+suite holds `holdoutCard` and the verbatim exam wording in `timed-sitting.test.ts`. No
+committed-configuration assertion was added. **No second browser run**: the holdout shares the exam
+path's derived clock, outbox and conditional submit, which the one Playwright run already walks.
+
 **Playwright, one end-to-end run**, covering the path nothing else covers:
 
 > sign in → start exam 07 → answer six questions → flag two → close the context → reopen →
@@ -89,7 +101,9 @@ Kept in `app/tests/manual-checklist.md`. **Its §0–§7 run before** each deplo
 — bar §1a and §7a, which are production checks kept beside the things they check. **Its §8 runs
 after** a deploy, because nothing gates this one (doc 12 §3) and the only protection is somebody
 looking at what landed. Those three are the only parts of the list that are about a deployment
-rather than about the app.
+rather than about the app. **Its §9 is the holdout**, which runs on the boundary #56 set: freely on
+Neon `develop`, card-dialog-Cancel on production at a ticket close, and the production `409` and
+result card only after the real sitting — **deferred, not proved**, and the section says so.
 
 - [ ] Both themes, on every screen. No token used outside `styles/tokens.css`.
 - [ ] Contrast re-verified **if any colour token changed** — the 40-pair check from Phase 3.
@@ -104,6 +118,8 @@ rather than about the app.
 - [ ] **After a push to `main`:** both workflows green on that SHA, the seed reporting the bank's
       own figures unchanged, `__drizzle_migrations` matching the files on disk, Vercel's commit
       status present, and the site answering. Checklist §8.1.
+- [ ] **The holdout**, checklist §9: the three card states and the dialog on develop; on production
+      only the card, the dialog and **Cancel**, with Neon `main` reading zero holdout rows.
 - [ ] **The rollback**, rehearsed rather than first attempted under pressure — *Promote to
       Production* moves the alias in seconds without rebuilding, and moves back. Checklist §8.2;
       run 2026-09-16.

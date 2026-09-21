@@ -245,7 +245,7 @@ CHECK (score IS NULL OR score BETWEEN 0 AND question_count)
 | `idx_attempt_user_exam` on `(user_id, exam_id, submitted_at DESC)` | E6's exam list: best score, first-attempt score and attempt count for all sixteen, in one pass. |
 | `idx_attempt_open` on `(user_id, submitted_at)` **WHERE `submitted_at IS NULL`** | "Do I have an attempt in progress?" — asked on every home-screen render. Partial index; at most a handful of rows ever qualify. |
 
-**One unique index, and it earns its place:**
+**A unique index, and it earns its place:**
 
 ```sql
 CREATE UNIQUE INDEX one_first_attempt_per_exam
@@ -256,6 +256,22 @@ CREATE UNIQUE INDEX one_first_attempt_per_exam
 PRD §5 requires the first-attempt flag to be set exactly once per exam. §5.2 explains when it is
 set and why; this index is what makes a race a database error instead of a silently corrupted honest
 number — the one number in this product that cannot be regenerated.
+
+**A second unique index arrived with the holdout** (migration 0002, #57):
+
+```sql
+CREATE UNIQUE INDEX one_holdout_per_user
+  ON attempt (user_id)
+  WHERE mode = 'holdout';
+```
+
+One holdout per candidate **ever** — keyed on the mode alone, not on `submitted_at IS NULL`, because
+a finished holdout and a running one are both *the* holdout. The start route reads the candidate's
+standing and then inserts, and two starts — a double press, two tabs — could both read "never sat";
+this index makes the second insert a database error on every code path, the pattern
+`one_first_attempt_per_exam` set, and the route answers the loser from a second read. *#56 said the
+holdout needed no migration; this index is why that was superseded.* See the decision log,
+2026-09-21.
 
 ### 5.2 When `is_first_attempt` is set — at start, not at submit
 

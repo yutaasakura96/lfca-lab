@@ -134,6 +134,19 @@ readiness signal untainted by memory before I book the retake.*
 **Acceptance:** Presented as a distinct, clearly-labelled sitting, timed like exam mode
 (pro-rata: 40 questions, 60 minutes), scored, reviewed the same way. The app records that it
 has been sat and does not hide that fact afterwards.
+**Built — feature 6 (#56–#61), 2026-09-21.** Shipped as specified and deployed; **not yet sat**,
+which is the owner's, after the sixteen papers. What building it settled:
+- Pass mark **30 of 40**, the pro-rata 75% rounded up. The sitting takes exam mode's arrangement —
+  clock, free navigation, flags, no feedback until submit, auto-submit when the sixty minutes lapse.
+- Home's holdout card is live from the start, in three states: *Start the holdout*, *Resume* while
+  running, and the **result, permanently**, once sat — `n/40`, pass or no pass, the day, and the
+  review. There is **no data gate**: it is startable before the sixteen papers are sat, because
+  gating on them is the readiness gating the 2026-08-28 decision declined.
+- The guard is a **confirmation dialog** stating it is one-shot, sixty minutes, and that abandoning
+  it still counts; only the dialog's button creates the sitting.
+- A start while it is **running** hands that sitting back; only a **sat** holdout is refused. One
+  holdout per candidate is enforced by a unique index, not only by the start route's read.
+- The review has **no re-sit**, no first-attempt line and no by-domain card.
 
 ### Cross-cutting
 

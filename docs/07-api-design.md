@@ -47,7 +47,7 @@ explaining.
 | 401 | No valid session | `unauthenticated` |
 | 403 | Signed in but not allowlisted | `not_allowlisted` |
 | 404 | Attempt does not exist **or is not yours** | `not_found` |
-| 409 | State conflict — already submitted, expired, question not on this attempt | `attempt_already_submitted`, `attempt_expired`, `question_not_in_attempt` |
+| 409 | State conflict — already submitted, expired, question not on this attempt, holdout already sat, flag in an unflaggable mode | `attempt_already_submitted`, `attempt_expired`, `question_not_in_attempt`, `holdout_already_sat`, `flagging_not_available` |
 | 500 | Anything unhandled | `internal_error` |
 
 **404 is deliberately used for another user's attempt.** A 403 there confirms the row exists.
@@ -97,9 +97,25 @@ that cannot fill a request is a fact about the bank rather than a failure — ne
 padded. A composition of *nothing* is the one case that is not a short sitting but a broken bank, and
 it fails as `500 internal_error` with no attempt row written.
 
-**A composed sitting has no `resumed` short-circuit**, unlike an exam. There is no single sitting of
-"practice" to hand back — the request names a shape, not a paper — and two concurrent domain runs are
-not a state worth forbidding.
+**A practice or domain sitting has no `resumed` short-circuit**, unlike an exam. There is no single
+sitting of "practice" to hand back — the request names a shape, not a paper — and two concurrent
+domain runs are not a state worth forbidding.
+
+**The holdout is the exception, although it is composed.** Exactly one holdout sitting can ever
+exist per candidate, so the request names *that* sitting the way `examId` names a paper — which
+makes it more like a paper than like a practice run. A start while it is running comes back
+`200 {attemptId, resumed: true}`, exactly as an exam does; only a **finished** one is refused (below).
+*This paragraph said "a composed sitting has no `resumed` short-circuit" without an exception until
+#61*; the behaviour shipped with #57.
+
+**The holdout request is strict.** `{"mode": "holdout"}` and nothing else: a `length`, or any other
+key, is `400 invalid_request`. The mode alone decides everything about a holdout, so a request
+carrying more is asking for a holdout that does not exist. The other three variants still strip
+unknown keys, as Zod does by default.
+
+**Two starts cannot both win.** `one_holdout_per_user` (doc 04 §5.1) makes a second holdout row a
+database error on every code path; a start that loses that race is answered from a second read,
+with the winner's id and `resumed: true`, exactly as if it had lost before reading at all.
 
 **An exam sitting already in progress comes back `200`, not `409`** — a correction to this document
 rather than a refinement of it:
@@ -123,8 +139,12 @@ label the action from their own read of the open sitting, and the endpoint refus
 what either of them believed. See the decision log, 2026-09-04.
 
 **Failures:** `400 invalid_request` · `401` · `403 not_allowlisted` ·
-`409 holdout_already_sat` — the holdout is a one-shot sitting (PRD H1); a second start is refused,
-and the screen offers its review instead.
+`409 holdout_already_sat` — the holdout is a one-shot sitting (PRD H1), and a start after it has been
+**sat** — submitted by the candidate or closed by its clock — is refused; home's card offers its
+review instead. **Sat, not started**: a holdout still running is handed back with `200` (above), so
+the code means exactly what its name says. *This line read as a refusal of any second start until
+#61* — the 2026-09-04 decision-log entry predicted a flat refusal, reasoning about the already-sat
+case only; #56 settled the in-progress case the other way. See the decision log, 2026-09-20.
 
 ---
 

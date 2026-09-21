@@ -83,6 +83,49 @@ two-column grid, then a three-up action row at `--control-h-lg`. The `#` column,
 summary stats are dropped. The list paginates or lazy-loads; the phone board shows four rows and a
 "Exams 05 to 16 below" marker.
 
+### 2a. Home as built — the four modes, and the holdout card
+
+**No board.** §2 is the sixteen-paper list, which since #34 lives at `/exams`; home is doc 03 §4's
+"three modes + holdout", and the prototype never drew it. This subsection records what was built,
+so the holdout's card has a specification to be checked against (#60, #61).
+
+**Layout.** Page head, then an *In progress* band listing every open sitting — any mode, holdout
+included — then four cards: Exam, Practice, Domain, and the holdout. Each card is a heading, three
+short lines and one button.
+
+**The holdout card has three states, and moves forward through them only.** The state is decided by
+the pure `holdoutCard` (`src/domain/holdout.ts`) from one read of the candidate's standing.
+
+| State | Chip | Body | Button |
+| --- | --- | --- | --- |
+| **Never sat** | `Sat once` (unanswered family) | What the forty are, that it is timed and scored pro rata (sixty minutes, pass at 30), and what it is for | **Start the holdout** — opens the dialog below; writes nothing |
+| **Running** | `In progress` (accent) | That the one sitting is underway and its clock kept running | **Resume** — straight to `/attempt/:id`, no dialog |
+| **Sat** | `Pass` or `No pass`, in words | `n/40` in mono, the pass mark 30, the UTC day it was sat, "Sat once, and this is its only score" | **See the full review** |
+
+**Sat is permanent.** There is no fourth state that offers Start again and no reset anywhere; the
+result is the number the feature exists to produce, and a card that went back to Start or went dark
+would hide it. An open holdout appears **both** in the band and on the card, which is what the exam
+list already does. Home sweeps expired sittings before reading, so a holdout whose sixty minutes ran
+out unattended reads as its result, never as *Resume*.
+
+**The dialog** is `ModalShell` with its own words — eyebrow, "Start the holdout?", one sentence
+("Forty questions you have never been shown, scored against a pass mark of 30.") and three facts on
+their own lines: **One-shot**, **Sixty minutes** (the clock does not stop if the tab closes),
+**Abandoning it still counts**. **Only its confirm button posts.** Escape and **Cancel** close it and
+write nothing, until the request is in flight; then both buttons disable and Escape stops working,
+because there is nothing left to cancel.
+
+**Its two buttons are deliberately hard to confuse** (#61, after a mis-press on production —
+decision log, 2026-09-21): **Cancel** is the primary, the confirm is `btn--danger` and reads
+**Start the 60-minute clock** rather than repeating the card's words, and on desktop the two sit at
+opposite ends of the row. On a phone they stack full-width, Cancel first and the confirm last, as
+every dialog in the app does (§5).
+
+**Divergences, each chosen.** There is **no data gate**: the card is live however many papers have
+been sat, because gating on the sixteen is the readiness gating the 2026-08-28 decision declined; the
+dialog is the only guard. And the holdout has **no row on `/exams`** — it is not a paper and has no
+best and first-attempt pair to put in one.
+
 ---
 
 ## 3. Domain mode — setup
@@ -187,6 +230,24 @@ card padding needs the rest. A narrower rail overflows.
 the top bar (`23/60` with a chevron); in the sheet the tiles are `--control-h-lg` (44px), seven per
 row. Top bar keeps counter, clock and Submit. A fixed bottom action bar carries flag / Previous /
 Next at 44px. Keyboard hints are dropped.
+
+### 4a. The holdout sitting — the third arrangement
+
+**No board.** The holdout is **composed** like a practice run — its forty questions frozen into
+`attempt_question` at start, option slots derived per sitting — and **timed, freely navigable,
+flaggable and scored** like a paper. It renders through this screen's component unchanged in
+behaviour (#58): the clock, the navigator, flags, the outbox chip, Submit, the confirmation (§5) and
+the expired outcome (§6).
+
+**What differs is words and numbers, and all of them come from one function**, `timedSittingCopy`
+(`src/domain/timed-sitting.ts`): the bar reads **Holdout** with a `Holdout` chip, Submit reads
+**Submit holdout**, the confirmation says the holdout cannot be sat again, the outcome says this is
+its only score, the clock starts at **60:00**, the navigator's count is **Needed to pass 30**, and
+the way onward is **Back to home**. The minutes are read from the attempt's own limit rather than
+typed. The exam's wording is pinned verbatim in a unit test, so the two cannot drift into each other.
+
+**Divergence:** the grid holds forty tiles rather than sixty, so the rail's last row is short. Nothing
+else about the layout changes.
 
 ---
 
@@ -397,12 +458,31 @@ is none.
 jump, all of which §8's Kept list keeps. Its closing block is the three counts instead of
 Score / Needed / Gap.
 
+### 8b. The holdout's review — scored, with no paper
+
+A submitted holdout reviews on **§8's scored branch**, over its frozen set, with options at the
+sitting's derived slot (#59): `n/40`, the percentage, the verdict chip, the pass bar labelled
+**Pass · 30**, the Flagged filter, and *Incorrect* claiming the blanks exactly as on a paper — a
+blank here cost what a wrong answer cost.
+
+**Gone, all together, because each belongs to a paper and the holdout has none** (the read's `paper`
+is `null`, and all four hang off it):
+
+- **the re-sit action** — the one thing this screen must never offer for the holdout;
+- **the attempt ordinal** ("sitting 3 of 7");
+- **the first-attempt line** — a sitting sat once has no first attempt to tell from a best;
+- **the By-domain card** — it says "weighted as the real exam is", and the forty are what the
+  sixteen papers left over (sysadmin 12, security 12, devops 8, cloud 4, pm 4, **no Linux**), so the
+  caption would be false and a four-question slice too small to judge.
+
+The top bar's way onward is **Back to home**.
+
 ---
 
 ## Cross-screen rules
 
-1. **The clock appears only in exam mode.** Practice and domain mode must not show one, not even
-   greyed.
+1. **The clock appears only in the timed sittings — exam mode and the holdout (§4a).** Practice and
+   domain mode must not show one, not even greyed.
 2. **Flag state persists across modes and is orthogonal to answered state.**
 3. **Every screen is reachable in both themes**; theme is a user preference, not a per-screen choice.
 4. **Every list of questions uses the same navigator tile component** — five states, one implementation.

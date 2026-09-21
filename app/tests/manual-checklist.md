@@ -4,7 +4,8 @@
 **except §1a and §7a**, which are production checks kept beside the things they check rather than
 gathered into §8, because three other docs cite them by number. **§8 runs after** a push to `main`
 has deployed. Those three are the only parts of this list that are about a deployment rather than
-about the app.
+about the app. **§9 is the holdout**, and runs on its own boundary: §9.1 on develop, §9.2 on
+production at a ticket close, §9.3 only after the real sitting.
 Doc 11 §3 is this list's spec; doc 11 §4 says what is deliberately not automated and why.
 
 Tick a box only for something you watched happen. "It probably still works" is what this
@@ -29,7 +30,8 @@ Two things in this app have **no automated coverage in any suite**, and it is no
   and the browser run both point at Neon **`develop`**, and CI holds no database credential at all
   (doc 11 §5). **No suite has ever run against production or touched Neon `main`.** So everything
   §1–§7 establishes, it establishes about `localhost` — §8 is where the deployment itself is
-  checked, and §1a and §7a are the two places a section above it is repeated against production.
+  checked, §1a and §7a are the two places a section above it is repeated against production, and
+  §9.2–§9.3 are the holdout's production checks, on a boundary of their own.
 
 The allowlist is the only thing standing between this app and a public one (doc 03 §9, doc 08 §3).
 So it is checked here, by hand, first, and in SQL — because the two claims are different.
@@ -604,6 +606,88 @@ holdout, 2 migrations — unchanged, as a promote cannot change them.
 
 ---
 
+## 9. The holdout — one sitting, and a boundary
+
+The holdout is sat **once**, and there is no discard action anywhere. So this section is the one
+place in the list where *where* a check runs matters more than *what* it checks. The boundary,
+settled in #56 and not to be widened:
+
+```
+develop     start / submit / 409 / result card   — freely, repeatedly      (§9.1)
+production  card + dialog, then Cancel           — at ticket close         (§9.2)
+production  409 + result card                    — after the real sitting  (§9.3, DEFERRED)
+```
+
+The integration suite already proves the one-shot **as rows** on Neon `develop` — start, hand-back,
+`409`, the forty set-equal to `data/holdout.json`, the race under `one_holdout_per_user`, the
+`{saved: true}` answer body. What no suite sees is a screen, and production.
+
+### 9.1 On develop — as often as wanted
+
+Use a throwaway `itest-` user (a session minted through `app/tests/support/sessions.ts` works on any
+localhost port), never the owner's account, so a sat holdout costs nothing. The row query, run
+before and after the dialog steps:
+
+```sql
+SELECT count(*) AS holdouts,
+       (SELECT count(*) FROM attempt_question aq JOIN attempt a ON a.id = aq.attempt_id
+         WHERE a.user_id = '<user id>' AND a.mode = 'holdout') AS frozen
+FROM attempt WHERE user_id = '<user id>' AND mode = 'holdout';
+```
+
+- [ ] **Never sat:** the card shows `Sat once`, three lines, and **Start the holdout**.
+- [ ] Pressing it opens the dialog; the three facts — one-shot, sixty minutes, abandoning counts —
+      are each on their own line.
+- [ ] **The two buttons are hard to confuse:** Cancel is the primary, at the left; the confirm is
+      the danger treatment, at the right, and reads **Start the 60-minute clock**. At 375px they
+      stack full-width, Cancel first.
+- [ ] **Cancel** and **Escape** each close the dialog and write **nothing** — `0` and `0` in SQL.
+- [ ] The confirm shows *Starting…* with both buttons disabled, then lands on the sitting: bar reads
+      **Holdout**, clock at **60:00**, forty tiles, **Needed to pass 30**.
+- [ ] Home now shows **Resume** on the card *and* the sitting in the *In progress* band. Resume goes
+      straight to the sitting with no dialog.
+- [ ] Answer some, flag two, reload: position, answers, flags and the reduced clock are restored.
+- [ ] Submit: the confirmation says the holdout cannot be sat again; the outcome shows `n/40` and
+      **See the full review**.
+- [ ] The review: `Pass · 30` on the bar, the Flagged filter counting the two, and **no** re-sit,
+      ordinal, first-attempt line or by-domain card anywhere.
+- [ ] Home's card is the **result**: `n/40`, Pass or No pass in words, pass mark 30, the UTC day,
+      **See the full review**. Nothing on home offers Start again.
+- [ ] **Expiry:** with a second throwaway user, start, then `UPDATE attempt SET started_at =
+      started_at - interval '61 minutes'` on that row, and load home — the card reads the result,
+      closed `expired`, never *Resume*.
+
+### 9.2 On production — at ticket close, and nothing more
+
+Sign in as the owner. **Press Cancel. Never the confirm.**
+
+- [ ] The card shows `Sat once` and **Start the holdout**; the dialog opens and reads as in §9.1.
+- [ ] **Cancel** closes it. Then, on Neon `main`:
+      `SELECT count(*) FROM attempt WHERE mode = 'holdout'` → **0**.
+
+*Run 2026-09-21 for #60, on the dialog as it then was: the first try pressed the confirm by mistake,
+and that attempt — no answers, question 1 unread — was deleted by hand at the owner's request
+(decision log, same day); the re-run pressed Cancel and read 0. The dialog's buttons were separated
+by #61 because of it. Re-run §9.2 after the #61 deploy, on the new buttons.*
+
+### 9.3 On production — the `409` and the result card: **DEFERRED, not proved**
+
+**These two are not verified, and closing feature 6 does not verify them.** They can only be seen
+on production after the owner's **real** holdout sitting, which comes after the sixteen papers and
+may be weeks away. Rehearsing them would spend the sitting they exist to protect. Tick them when
+that sitting happens, not before — a box ticked here on the strength of develop would be exactly
+the stale safety claim this repository has caught and corrected three times.
+
+- [ ] After the real sitting, home's card on production reads the result — `n/40`, the verdict in
+      words, pass mark 30, the day — and **See the full review** opens it.
+- [ ] Nothing on production offers Start again. The card has no Start button to press, so the
+      refusal is asked for directly — **only once the result card is showing**, when it can write
+      nothing: in the signed-in tab's console,
+      `await fetch('/api/attempt', {method: 'POST', headers: {'content-type': 'application/json'}, body: '{"mode":"holdout"}'}).then(r => r.status)`
+      answers **409**, and Neon `main` still holds exactly **one** holdout row for the owner.
+
+---
+
 ## What the browser run already covers — don't re-check by hand
 
 `npm run test:e2e` walks start → answer → flag → close the browser → resume with time genuinely
@@ -625,4 +709,4 @@ at all; and CI runs the three that need no credential (doc 11 §5). **Nothing au
 against `https://lfca-lab-six.vercel.app` or read Neon `main`**, and nothing is going to — CI
 deliberately holds no production credential, and a suite that seeded or signed in against
 production would write to the database holding the first-attempt scores. So the deployment is
-covered by §8, §1a and §7a, by hand, or it is not covered.
+covered by §8, §1a, §7a and §9.2–§9.3, by hand, or it is not covered.

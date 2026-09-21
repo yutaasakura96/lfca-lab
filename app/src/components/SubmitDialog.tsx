@@ -138,11 +138,10 @@ function Jumps({
  * first-attempt score becomes something you can dodge by never finishing — but
  * it is never silent.
  *
- * **The same dialog reports the outcome.** Doc 10 §5 hands off to a review
- * screen that does not exist yet, and #22 set the precedent for that situation:
- * do not invent another ticket's destination. So the score is shown here, in
- * place, and the one onward action is a screen that does exist. When the review
- * lands it replaces that action; nothing here has to be undone to do it.
+ * **The same dialog reports the outcome.** It was built before the review
+ * screen doc 10 §5 hands off to, on #22's precedent of not inventing another
+ * ticket's destination, so the score is shown here, in place. The review has
+ * since landed as an onward action beside the way back, gated by `reviewable`.
  *
  * The unanswered panel is the *unanswered treatment itself* — a dashed border
  * and a dashed ring — rather than a colour, because doc 05's rule is that no
@@ -449,8 +448,9 @@ export function SubmitDialog({
               number is here, but the reason for it — every question, what was
               chosen, and the explanation for all four options — is one screen
               away, and that screen is what the bank was written for. */}
-          {/* The holdout's review is #59's. Until it exists nothing points at
-              it, and the way home is the one action — the #37 precedent. */}
+          {/* `reviewable` is true for both timed modes since #59 built the
+              holdout's review; it stays a gate so that a sitting without a
+              review can never be pointed at a 404 (the #37 precedent). */}
           {copy.reviewable ? (
             <Link
               className="btn btn--lg btn--primary"

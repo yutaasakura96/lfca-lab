@@ -114,8 +114,8 @@ export async function POST(request: Request): Promise<Response> {
   // a *finished* holdout is refused, which keeps `holdout_already_sat` meaning
   // already sat rather than already started.
   //
-  // This narrows doc 07 §2, which reads as a flat refusal of any second start.
-  // The doc is corrected with the feature's close-out (#61), not here.
+  // Doc 07 §2 carries this rule; it read as a flat refusal of any second start
+  // until #61 corrected it.
   //
   // The read is a courtesy, not the guard. Two starts can both read "never
   // sat"; `one_holdout_per_user` is what refuses the second insert, and the

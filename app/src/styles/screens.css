@@ -439,6 +439,9 @@ button.tile {
 }
 
 .dialog__actions { display: flex; justify-content: flex-end; gap: var(--space-3); }
+/* The holdout's confirmation: the safe press and the one-shot press at
+   opposite ends, so a hand aimed at one does not land on the other. */
+.dialog__actions--apart { justify-content: space-between; }
 
 /* One action here is a link rather than a button: it navigates. It should not
    also be underlined. */

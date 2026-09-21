@@ -258,9 +258,9 @@ function ResumeCard({ sitting }: { sitting: OpenSittingRow }) {
  * What to call one unfinished sitting, and what mode to say it is.
  *
  * One exhaustive switch rather than three cascades on `mode`. The exhaustive
- * part is the point: the holdout is a mode this product has and has not built,
- * and a chain of ternaries silently called it "Practice mode" — a switch that
- * must return makes the next mode a compile error instead.
+ * part is the point: before the holdout was built a chain of ternaries silently
+ * called it "Practice mode" — a switch that must return makes the next mode a
+ * compile error instead.
  */
 function describeSitting(sitting: OpenSittingRow): { title: string; mode: string } {
   switch (sitting.mode) {

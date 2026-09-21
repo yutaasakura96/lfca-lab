@@ -71,18 +71,29 @@ function HoldoutDialog({ onCancel }: { onCancel: () => void }) {
         </li>
       </ul>
 
-      <div className="dialog__actions">
-        <button type="button" className="btn btn--lg" disabled={busy} onClick={onCancel}>
-          Cancel
-        </button>
+      {/* One press here was already made by mistake on production (decision
+          log, 2026-09-21), so the two are made hard to confuse (#61): Cancel
+          is the primary, Start takes the danger treatment an irreversible
+          press gets elsewhere, the two sit at opposite ends rather than side
+          by side, and Start no longer repeats the words of the card button
+          that opened the dialog. */}
+      <div className="dialog__actions dialog__actions--apart">
         <button
           type="button"
           className="btn btn--lg btn--primary"
           disabled={busy}
+          onClick={onCancel}
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          className="btn btn--lg btn--danger"
+          disabled={busy}
           onClick={() => void start({ mode: 'holdout' })}
         >
           {/* Doc 03 §8: the disabled tokens and a changed label. No spinner. */}
-          {busy ? 'Starting…' : 'Start the holdout'}
+          {busy ? 'Starting…' : 'Start the 60-minute clock'}
         </button>
       </div>
     </ModalShell>

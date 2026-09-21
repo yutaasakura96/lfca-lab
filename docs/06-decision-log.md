@@ -2965,3 +2965,105 @@ verified it is named as unverified rather than assumed.*
 - **The production check is therefore still owed:** card, dialog, **Cancel**, then SQL showing 0.
 - **Revisit if:** it happens again — at that point the dialog's two buttons are too easy to confuse,
   and the fix is in the dialog, not in more SQL.
+
+---
+
+*The five entries below were settled while grilling feature 6 (#56) on 2026-09-20 and are dated
+then, but recorded at its close (#61) — after the fact, which reverses the 2026-08-29 precedent of
+recording a decision when it is taken. The spec in #56 carried them in the meantime; these entries
+are where they stay once the issue is closed.*
+
+### [2026-09-20] A holdout already running is handed back; only a sat one is refused
+- **Decision:** `POST /api/attempt` with `mode: "holdout"` answers a **running** holdout with
+  `200 {attemptId, resumed: true}` and refuses only a **sat** one — submitted, or closed by its
+  clock — with `409 holdout_already_sat`. Built by #57; doc 07 §2 corrected by #61.
+- **What it narrows:** doc 07 §2's `409 holdout_already_sat`, which read as a refusal of any second
+  start, and the 2026-09-04 entry's prediction that the holdout would be "a genuine refusal". That
+  entry reasoned about the *already sat* case only; a running holdout — started, tab closed, clock
+  going — is a third state it never considered. It also narrows doc 07 §2's "a composed sitting has
+  no `resumed` short-circuit": the holdout is composed, but exactly one can ever exist, so the
+  request names that sitting as `examId` names a paper.
+- **Alternatives considered:** `409` for both states, which would make the error say "already sat"
+  about a sitting that has not been, and leave a live sixty-minute holdout reachable only through
+  home's resume band. And a distinct `holdout_in_progress` code carrying the attempt id — a new code
+  in doc 07 §1's table, and every caller unpacking an error body to find a perfectly good attempt,
+  which is exactly what the 2026-09-04 entry rejected when it replaced `409 attempt_in_progress`.
+- **Reason:** it mirrors exam mode, keeps the code meaning what its name says, and is the only shape
+  that cannot strand the one sitting that can never be redone.
+- **Revisit if:** the holdout ever gets a second sitting per candidate — which would abandon what it is.
+
+### [2026-09-20] The start guard is a confirmation dialog, not a data gate
+- **Decision:** home's holdout card is live from the day it ships, however many papers have been
+  sat. *Start the holdout* opens a dialog stating it is one-shot, sixty minutes, and that abandoning
+  it still counts; **only the dialog's button posts.** Built by #60.
+- **Alternatives considered:** gating the card on all sixteen papers being sat — the readiness
+  gating the 2026-08-28 decision declined, and it would refuse an early sitting chosen deliberately.
+  A gate **and** a dialog, which inherits the gate's objection. A typed confirmation, which is
+  friction on the one press that should be deliberate but not an ordeal.
+- **Reason:** the irreversible press is made deliberate by being the second one, after the three
+  facts that make it irreversible have been read; nothing is decided for the candidate about when
+  they are ready.
+- **Consequence:** the dialog is the whole of the guard, which is why a mis-press on it mattered —
+  see the 2026-09-21 entries.
+- **Revisit if:** the dialog is mis-pressed again after #61's separation.
+
+### [2026-09-20] The home card becomes the result, permanently
+- **Decision:** once sat, the holdout card shows `n/40`, Pass or No pass in words, the pass mark,
+  the day, and *See the full review* — for good. It never offers Start again and never goes dark.
+  Built by #60.
+- **Alternatives considered:** a seventeenth row on the exam list — the holdout is not a paper and
+  has no best and first-attempt pair. A line in both places — two places for one number to be read
+  from. Reverting the card to disabled once sat — which hides the number the whole feature exists to
+  produce. And, for the running state, keeping *Start* and letting the dialog resume, or dropping the
+  card to disabled while in progress; both make the button's word false before it is pressed
+  (2026-09-04), and the second makes the card that explains the holdout go dark at the one moment it
+  is being used.
+- **Reason:** the number stays where it was last looked for, and the card moves forward through its
+  three states only.
+- **Revisit if:** never, while the holdout is sat once.
+
+### [2026-09-20] Verification stops at the dialog on production
+- **Decision:** start, submit, the `409` and the result card are proved freely on Neon `develop`.
+  On production the check is the card, the dialog, and **Cancel**, at ticket close. The production
+  `409` and result card are confirmed only as a by-product of the owner's real sitting, and checklist
+  §9.3 carries them as **deferred, not proved**. Written into the checklist by #61.
+- **Alternatives considered:** making the real sitting the acceptance criterion, on the #44 and #50
+  precedent where the rehearsal was the real operation — it does not carry, because #44's restore
+  and #50's domain sitting could both be redone and this cannot, and it would spend the readiness
+  signal before the sixteen papers are worked. And touching production not at all beyond the
+  deploy — which ships the card and the dialog, the two things the candidate meets first,
+  unlooked-at.
+- **Reason:** verifying the feature must not spend the sitting the feature exists for.
+- **Consequence:** feature 6 closes with two production checks unticked on purpose. The
+  2026-09-21 mis-press showed the boundary is only as good as the press it ends on.
+- **Revisit if:** the owner sits the holdout — §9.3 is then run and ticked.
+
+### [2026-09-20] The two home tickets are one
+- **Decision:** the live holdout card and its result state are a single ticket, #60, rather than a
+  ticket that makes the card startable followed by one that shows the result.
+- **Alternatives considered:** the split, which gives two smaller diffs.
+- **Reason:** a card that could start the holdout without knowing how to show it sat would, between
+  the two tickets, go back to offering *Start* — which the endpoint refuses with `409` — or go dark,
+  over the one number the feature produces. Both halves read the same standing and render the same
+  component; splitting them means shipping a state known to be wrong.
+- **Consequence:** five tickets rather than six, ordered start, sitting, review, home, docs, so that
+  no affordance ever points at a 404.
+- **Revisit if:** never; the feature is closed.
+
+### [2026-09-21] The holdout dialog's buttons are made hard to confuse
+- **Decision:** in `HoldoutStart`'s dialog, **Cancel** becomes the primary, the confirm takes
+  `btn--danger` and reads **Start the 60-minute clock** instead of repeating the card's *Start the
+  holdout*, and on desktop the two sit at opposite ends of the row (`dialog__actions--apart`). On a
+  phone they stack full-width, Cancel first, as every dialog in the app does. Chosen by the owner.
+  Ticket #61, carrying the question the 2026-09-21 mis-press entry raised.
+- **Alternatives considered:** a confirmation checkbox that must be ticked before Start enables —
+  the strongest guard, and a third press on top of the two the 2026-09-20 decision already asks for;
+  relabelling only, which leaves the confirm primary and adjacent to Cancel; and leaving it, on the
+  grounds that one mis-press is one.
+- **Reason:** the confirm echoed the words of the button that opened the dialog and sat beside the
+  safe action in the same visual weight — the shape a hand repeats without reading. The danger
+  treatment is what `FinishDialog` and `SubmitDialog` already use for an irreversible press, so no
+  new token or component was invented.
+- **Consequence:** doc 10 §2a and checklist §9.1 describe the new buttons, and §9.2 is to be re-run
+  on production after this deploys.
+- **Revisit if:** it is mis-pressed again — at which point the checkbox is the next step.
