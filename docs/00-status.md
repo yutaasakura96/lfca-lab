@@ -115,11 +115,10 @@ Suites, re-measured 2026-09-21 (#61): **339** bank · **764** app unit · **235*
 
 ## Next
 
-**Re-run checklist §9.2 on production after #61 deploys** — card, dialog on the new buttons,
-**Cancel**, then `SELECT count(*) FROM attempt WHERE mode = 'holdout'` on Neon `main` → 0. The
-owner's sign-in; the owner's press.
+**Checklist §9.2 re-run on production after #61 — done 2026-09-21**: Cancel pressed on the new
+buttons, Neon `main` read back **0** holdout attempts.
 
-**Then no ticket is open.** The owner's own work is sitting the sixteen papers on production, then
+**No ticket is open.** The owner's own work is sitting the sixteen papers on production, then
 the holdout, then running checklist §9.3 and booking the retake. Anything new starts with a spec.
 
 **Verification boundary (#56), standing:** develop proves start / submit / 409 / result freely;

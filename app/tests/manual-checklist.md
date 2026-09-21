@@ -670,6 +670,12 @@ and that attempt — no answers, question 1 unread — was deleted by hand at th
 (decision log, same day); the re-run pressed Cancel and read 0. The dialog's buttons were separated
 by #61 because of it. Re-run §9.2 after the #61 deploy, on the new buttons.*
 
+*Re-run 2026-09-21 on `f93ac09`, on #61's buttons: the owner opened the card and the dialog and
+pressed **Cancel**. Read back at 10:35 UTC over a read-only transaction on the Neon `main` pooled
+endpoint (`ep-weathered-base-b3vtd226-pooler`): **0** holdout attempts, 0 orphaned
+`attempt_question` rows, 4 attempts in total (unchanged), 40 pinned holdout questions, 3
+migrations. The screen-side steps are the owner's report; the counts are measured.*
+
 ### 9.3 On production — the `409` and the result card: **DEFERRED, not proved**
 
 **These two are not verified, and closing feature 6 does not verify them.** They can only be seen
