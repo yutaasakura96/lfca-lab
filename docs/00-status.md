@@ -2,7 +2,7 @@
 
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
-**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57 of #57–#61 done.**
+**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57 and #58 of #57–#61 done.**
 **Production:** <https://lfca-lab-six.vercel.app>, deployed from git `main`.
 **Updated:** 2026-09-21
 
@@ -89,7 +89,7 @@ against production (#50). Log: 2026-09-11 → 2026-09-19.
   **#41's owner-only steps are done:** the CLI is authenticated, and a destructive command was
   watched prompting and denied.
 
-Suites, re-measured 2026-09-19: **339** bank · **740** app unit · **194** app integration · **1** e2e.
+Suites, re-measured 2026-09-21 (#58): **339** bank · **753** app unit · **221** app integration · **1** e2e.
 
 ### Feature 6 — the holdout sitting, H1 · #56–#61 · in progress
 Spec and every rejected alternative: **#56**. Log: 2026-09-21.
@@ -101,17 +101,26 @@ Spec and every rejected alternative: **#56**. Log: 2026-09-21.
   `one_holdout_per_user`**, a partial unique index, because the route's read-then-insert let two
   concurrent starts write two holdouts; a lost race is answered from a second read. Applied to Neon
   `develop`; reaches Neon `main` with the deploy workflow.
+- **#58 done.** `/attempt/[id]` renders a holdout in the timed arrangement — 60:00 clock, free
+  navigation, flags, submit — over its frozen `attempt_question` set, slots derived. The page's read
+  is `loadTimedSitting` (`src/lib/timed-sitting.ts`), shared with exam mode, and the payload is
+  asserted key by key in `holdout-sitting.test.ts`. The screen's words come from
+  `timedSittingCopy` (`src/domain/timed-sitting.ts`); the exam's are pinned verbatim. **Until #59,
+  a holdout's outcome offers only *Back to home*, and an expired holdout opens on its outcome
+  instead of redirecting** — `reviewable: false` in that one function is what #59 flips.
 
 ---
 
 ## Next
 
-**`/implement 58`** — the holdout sitting: the exam arrangement over a frozen set. Then #59 (review),
-#60 (home card), #61 (docs). The order is a dependency order: home lands last so no affordance ever
+**`/implement 59`** — the holdout review (scored, over the frozen set). Then #60 (home card), #61
+(docs). The order is a dependency order: home lands last so no affordance ever
 points at a 404. Read #56 first; do not re-derive it.
 
-**Until #58 lands, a holdout can be started only by a hand-made `POST`, and `/attempt/[id]` still
-`notFound()`s it.** Nothing in the UI reaches the endpoint — home's card is still `modecard--off`.
+**A holdout can still be started only by a hand-made `POST`** — home's card is `modecard--off` until
+#60. Once started it can be sat and submitted; `/attempt/[id]/review` still `notFound()`s it, which
+is #59's. #59 should set `reviewable: true` for the holdout in `timedSittingCopy`, which restores the
+outcome's *See the full review* and the closed-on-read redirect together.
 
 **Doc corrections owed to #61**, accumulated rather than made (as #57 instructs): doc 07 §2's
 `409 holdout_already_sat` is narrowed to *sat*, with a running holdout returned `200 {resumed:true}`,

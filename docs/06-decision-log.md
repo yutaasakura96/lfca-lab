@@ -2826,3 +2826,44 @@ verified it is named as unverified rather than assumed.*
   `resumed` short-circuit, the strict request) and doc 04 §5.1 (the index).
 - **Revisit if:** the holdout ever needs a second sitting per candidate — which would be a decision
   to abandon what the holdout is, and this index is where that would have to be argued.
+
+### [2026-09-21] The holdout takes the timed screen, points at no review yet, and names itself
+- **Decision:** `/attempt/[id]` renders a holdout through the same `Sitting` component an exam
+  paper uses — clock, free navigation, flags, submit — reading the frozen `attempt_question` set.
+  The page's read moves into `loadTimedSitting` (`src/lib/timed-sitting.ts`) for both modes, and the
+  screen's words come from one pure function, `timedSittingCopy`. **Until #59 builds the holdout
+  review, nothing points at it:** the outcome's only action is *Back to home*, and a holdout that
+  this read closed by expiry opens on its outcome rather than redirecting. Both chosen by the owner.
+  Ticket #58.
+- **On the missing review.** *Alternatives considered:* linking and redirecting to the review
+  anyway, since the holdout is unreachable from any screen until #60 — less code, but it knowingly
+  ships a 404 destination, which is what #56's ticket order exists to prevent; and building #59
+  first, which inverts a dependency order (the review needs a sitting). **Chosen:** the #37
+  precedent (2026-09-08) — make the state honest where it is, and leave the later ticket one flag to
+  change. `reviewable` in `timedSittingCopy` gates both the link and the redirect, so they cannot
+  come back separately.
+- **On the words.** The timed screen spelled a paper's words inline — *Practice exam 07*, *Exam
+  mode*, *Submit exam*, "recorded against your best and first attempts", "the ninety minutes are
+  up", *Back to the sixteen exams*. For a holdout each is false. The table was put to the owner and
+  accepted: **Holdout** as title and chip, *Submit holdout*, "The holdout cannot be sat again" in
+  the confirmation, "this is the holdout's only score" on the outcome, and the minutes read from the
+  attempt's own limit rather than typed. The exam's wording is pinned verbatim in
+  `tests/unit/timed-sitting.test.ts`, which is what keeps "exam tests pass untouched" true of words
+  as well as behaviour. One sentence the table missed was found in the browser — "cannot pass this
+  exam" in the confirmation's arithmetic — and takes the sitting's noun.
+- **Why a loader, which #58 did not ask for.** Its criterion is that no key, no `why` and no running
+  score is reachable, **asserted on the payload, not on the render** — and the page is a server
+  component, which the suite cannot render. Lifting the read into a function the page spreads into
+  `Sitting` and nothing else makes the payload a value a test can walk, key path by key path. It
+  also rebuilds each question field by field: the composed read carries the competency and concept
+  id for the practice screen, and the timed screen shows neither.
+- **Measured rather than assumed:** `finaliseExpiredSittings` has no mode filter, and a holdout is
+  closed by all four touches — opening, resync, the listing sweep and the button — each recorded
+  `expired`. An answer past the deadline is refused `409 attempt_expired` and moves nothing.
+- **Mutation-checked seven ways**, each red attributed and every restore diffed. The first run
+  reported seven survivors, and all seven were the harness: under zsh, `$U` is one word, so every
+  "test command" was a command that did not exist and printed no failures. Re-run under `bash -c`.
+  That is the shell fact `00-status.md` already carries, biting a mutation matrix for the third
+  time after #45 and #52.
+- **Revisit if:** #59 lands — `reviewable: true` for the holdout is the whole of its inheritance
+  from this entry.

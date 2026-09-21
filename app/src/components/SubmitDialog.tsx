@@ -5,6 +5,7 @@ import { useId } from 'react';
 import type { NavigatorTile } from '../domain/navigator.ts';
 import { ModalShell } from './ModalShell.tsx';
 import { reviewBeforeSubmit, type SubmitOutcome } from '../domain/submission.ts';
+import type { TimedSittingCopy } from '../domain/timed-sitting.ts';
 
 /** How many jump targets the row shows before it says how many more there are. */
 const JUMPS_SHOWN = 8;
@@ -23,7 +24,8 @@ const BLANKS_LISTED = 24;
 export interface SubmitDialogProps {
   /** Where the outcome's one action goes: this sitting's own review. */
   attemptId: string;
-  examNumber: string;
+  /** What this sitting is called, and where its outcome leads. */
+  copy: TimedSittingCopy;
   tiles: NavigatorTile[];
   questionCount: number;
   /** `MM:SS` left, or empty in a sitting with no clock. */
@@ -149,7 +151,7 @@ function Jumps({
  */
 export function SubmitDialog({
   attemptId,
-  examNumber,
+  copy,
   tiles,
   questionCount,
   timeLeft,
@@ -192,7 +194,7 @@ export function SubmitDialog({
         <div className="stack" style={{ gap: 'var(--space-3)' }}>
           <span className="eyebrow">{expired ? 'Time expired' : 'Before you submit'}</span>
           <h2 className="h1" id={titleId}>
-            {expired ? `Practice exam ${examNumber}` : `Submit practice exam ${examNumber}?`}
+            {expired ? copy.title : copy.confirmTitle}
           </h2>
           <p
             className="prose"
@@ -204,10 +206,10 @@ export function SubmitDialog({
                 error state §6 describes, worded so that the first thing read
                 is that nothing was lost. */}
             {!expired
-              ? 'This ends the sitting. Every answer is revealed at once and the score is recorded against your best and first attempts. You cannot come back and change anything.'
+              ? copy.confirmBody
               : failed
-                ? 'The ninety minutes are up, and this sitting could not be submitted automatically. Nothing has been lost — every answer was recorded as it was made. Try again.'
-                : 'The ninety minutes are up. This sitting is being submitted as it stands, with the questions never reached marked incorrect.'}
+                ? `The ${copy.minutes} minutes are up, and this sitting could not be submitted automatically. Nothing has been lost — every answer was recorded as it was made. Try again.`
+                : `The ${copy.minutes} minutes are up. This sitting is being submitted as it stands, with the questions never reached marked incorrect.`}
           </p>
         </div>
 
@@ -270,7 +272,7 @@ export function SubmitDialog({
                 <>
                   Blank answers are marked incorrect. With {review.answered} answered you can reach
                   at most {review.bestPossible} of the {review.passMark} needed to pass, so
-                  submitting now cannot pass this exam.
+                  submitting now cannot pass this {copy.noun}.
                 </>
               )}
             </p>
@@ -371,7 +373,7 @@ export function SubmitDialog({
             {final.reason === 'expired' ? 'Time expired' : 'Submitted'}
           </span>
           <h2 className="h1" id={titleId}>
-            Practice exam {examNumber}
+            {copy.title}
           </h2>
           {scored ? (
             <div className="row" style={{ gap: 'var(--space-4)', flexWrap: 'wrap' }}>
@@ -395,8 +397,8 @@ export function SubmitDialog({
             style={{ fontSize: 'var(--text-base)', lineHeight: 'var(--leading-normal)' }}
           >
             {final.reason === 'expired'
-              ? 'Your exam was submitted automatically. The ninety minutes are up; answers save as they are made, so everything chosen is recorded, and questions never reached are marked incorrect.'
-              : 'This sitting is recorded. Questions left blank are marked incorrect, and the first-attempt score for this paper is unchanged by any later sitting.'}
+              ? `Your ${copy.noun} was submitted automatically. The ${copy.minutes} minutes are up; answers save as they are made, so everything chosen is recorded, and questions never reached are marked incorrect.`
+              : copy.finishedBody}
           </p>
         </div>
 
@@ -427,16 +429,18 @@ export function SubmitDialog({
                 ? `, and ${unanswered.length - BLANKS_LISTED} more`
                 : null}
             </p>
-            <p
-              className="meta"
-              style={{
-                fontSize: 'var(--text-sm)',
-                lineHeight: 'var(--leading-normal)',
-                color: 'var(--ink-secondary)',
-              }}
-            >
-              The review explains every one of them, along with why each wrong option is tempting.
-            </p>
+            {copy.reviewable ? (
+              <p
+                className="meta"
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  lineHeight: 'var(--leading-normal)',
+                  color: 'var(--ink-secondary)',
+                }}
+              >
+                The review explains every one of them, along with why each wrong option is tempting.
+              </p>
+            ) : null}
           </div>
         ) : null}
 
@@ -445,14 +449,21 @@ export function SubmitDialog({
               number is here, but the reason for it — every question, what was
               chosen, and the explanation for all four options — is one screen
               away, and that screen is what the bank was written for. */}
+          {/* The holdout's review is #59's. Until it exists nothing points at
+              it, and the way home is the one action — the #37 precedent. */}
+          {copy.reviewable ? (
+            <Link
+              className="btn btn--lg btn--primary"
+              href={{ pathname: `/attempt/${attemptId}/review` }}
+            >
+              See the full review
+            </Link>
+          ) : null}
           <Link
-            className="btn btn--lg btn--primary"
-            href={{ pathname: `/attempt/${attemptId}/review` }}
+            className={copy.reviewable ? 'btn btn--lg' : 'btn btn--lg btn--primary'}
+            href={{ pathname: copy.back.href }}
           >
-            See the full review
-          </Link>
-          <Link className="btn btn--lg" href="/exams">
-            Back to the sixteen exams
+            {copy.back.label}
           </Link>
         </div>
       </>

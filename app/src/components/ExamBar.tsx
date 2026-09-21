@@ -3,11 +3,12 @@
 import { useId, useState } from 'react';
 import type { ClockBand } from '../domain/clock.ts';
 import type { NavigatorModel } from '../domain/navigator.ts';
+import type { TimedSittingCopy } from '../domain/timed-sitting.ts';
 import { Clock } from './Clock.tsx';
 import { NavigatorSheetPanel, NavigatorSheetTrigger } from './NavigatorSheet.tsx';
 
 export interface ExamBarProps {
-  examNumber: string;
+  copy: TimedSittingCopy;
   model: NavigatorModel;
   total: number;
   currentNumber: number;
@@ -65,7 +66,7 @@ export interface ExamBarProps {
  * without its last answer.
  */
 export function ExamBar({
-  examNumber,
+  copy,
   model,
   total,
   currentNumber,
@@ -86,8 +87,8 @@ export function ExamBar({
     <div className="sittingbar">
       <div className="bar bar--sitting">
         <div className="row barwide" style={{ gap: 'var(--space-4)' }}>
-          <span className="brandmark__name">Practice exam {examNumber}</span>
-          <span className="chip chip--accent">Exam mode</span>
+          <span className="brandmark__name">{copy.title}</span>
+          <span className="chip chip--accent">{copy.modeLabel}</span>
           <span className="meta">No feedback until you submit</span>
         </div>
 
@@ -157,7 +158,7 @@ export function ExamBar({
                 ? 'Scoring…'
                 : unsaved > 0
                   ? 'Saving…'
-                  : 'Submit exam'}
+                  : copy.submitLabel}
         </button>
       </div>
 

@@ -1,23 +1,14 @@
 import { notFound, redirect } from 'next/navigation';
 import { db } from '../../../../db/client.ts';
-import { getAttemptAnswers } from '../../../../db/queries/answer.ts';
 import { getAttemptForUser, type AttemptRow } from '../../../../db/queries/attempt.ts';
 import { getQuestionKey, getRecordedVerdicts } from '../../../../db/queries/feedback.ts';
-import { getComposedQuestions, getPaperQuestions } from '../../../../db/queries/paper.ts';
-import { deadlineOf, remainingToDeadline } from '../../../../domain/clock.ts';
-import {
-  firstUnansweredSeq,
-  resumeSeq,
-  type GradedRecord,
-  type RecordedState,
-} from '../../../../domain/navigator.ts';
-import { passMark } from '../../../../domain/score.ts';
-import { outcomeOf, type SubmitOutcome } from '../../../../domain/submission.ts';
+import { getComposedQuestions } from '../../../../db/queries/paper.ts';
+import { firstUnansweredSeq, type GradedRecord } from '../../../../domain/navigator.ts';
 import { ComposedSitting } from '../../../../components/ComposedSitting.tsx';
 import type { AnswerFeedback } from '../../../../components/ComposedQuestion.tsx';
 import { Sitting } from '../../../../components/Sitting.tsx';
-import { finaliseIfExpired } from '../../../../lib/auto-submit.ts';
 import { requireSession } from '../../../../lib/session.ts';
+import { loadTimedSitting } from '../../../../lib/timed-sitting.ts';
 
 export const metadata = { title: 'Sitting — LFCA Practice' };
 
@@ -62,98 +53,32 @@ export default async function SittingPage({ params }: { params: Promise<{ id: st
   if (found === null) notFound();
 
   // One route, two screens, and the branch is the stored mode — the same column
-  // the answer endpoint branches its response on. A timed sitting has a paper,
-  // a clock and a submit; a composed one has a frozen question set, no clock at
-  // all, and its marking as it goes. They share the outbox, the tile and the
+  // the answer endpoint branches its response on. A timed sitting has a clock,
+  // free navigation, flags and a submit; a practice or domain one has no clock
+  // at all, and its marking as it goes. They share the outbox, the tile and the
   // bank's prose rendering and almost nothing else, so they are two components
   // rather than one holding both sets of behaviour behind flags.
-  if (found.mode === 'exam') return examSitting(session.user.id, found);
-  if (found.mode === 'holdout') {
-    // The holdout is composed like these two and timed and scored like an exam
-    // (PRD H1), so it belongs to neither screen unchanged. It cannot be started
-    // — #34 ships its card disabled — so this is a guard rather than a gap, and
-    // a guard is what stops it silently rendering without the clock it must
-    // have on the day somebody builds the way in.
-    notFound();
+  //
+  // The holdout is composed like practice and timed and scored like an exam
+  // (PRD H1), so it takes the timed screen over its frozen set — free
+  // navigation and flags included (decision log, 2026-09-06).
+  if (found.mode === 'exam' || found.mode === 'holdout') {
+    return timedSitting(session.user.id, found);
   }
   return composedSitting(session.user.id, found);
 }
 
-async function examSitting(userId: string, found: AttemptRow) {
-  const examId = found.examId;
-  // Unreachable: `attempt_exam_iff_exam_mode` makes mode and paper inseparable.
-  if (examId === null) notFound();
-
-  const { attempt, closedOnRead } = await finaliseIfExpired(db, found, new Date());
-  if (closedOnRead) redirect(`/attempt/${attempt.id}/review`);
-
-  const [questions, answers] = await Promise.all([
-    getPaperQuestions(db, examId),
-    getAttemptAnswers(db, userId, attempt.id),
-  ]);
-
-  if (questions.length === 0) notFound();
-
-  // Every question gets an entry, answered or not, so the client never has to
-  // decide what a missing key means — and so a question with nothing recorded
-  // is unanswered rather than unknown.
-  const initial: Record<string, RecordedState> = {};
-  for (const question of questions) initial[question.id] = { optionRef: null, flagged: false };
-  for (const answer of answers) {
-    if (initial[answer.questionId] === undefined) continue;
-    initial[answer.questionId] = { optionRef: answer.optionRef, flagged: answer.flagged };
-  }
-
-  // Where the sitting reopens. Derived from the answers rather than stored:
-  // the question whose row was written most recently is the one last engaged
-  // with (PRD E5). A fresh sitting has touched nothing and opens on question 1.
-  const initialSeq = resumeSeq(questions, answers);
-
-  // Dynamic by construction: the page reads the session and the clock, so it
-  // cannot be cached. Stating the instant it was rendered is what lets the
-  // browser correct its own.
-  const serverNow = new Date();
-
-  // A sitting that is already finalised opens on its score rather than on a
-  // question. Every write into it would be refused, so presenting it as
-  // answerable — with a countdown still running — would be the screen claiming
-  // something the server has already closed. The outcome is read from the row
-  // that recorded it; nothing is scored again here.
-  const finished: SubmitOutcome | null =
-    attempt.submittedAt === null || attempt.submitReason === null
-      ? null
-      : outcomeOf({
-          score: attempt.score,
-          questionCount: attempt.questionCount,
-          reason: attempt.submitReason,
-        });
-
-  // What the clock read at the moment it closed — the deadline measured against
-  // `submitted_at` rather than against now, so a page opened a day later shows
-  // the reading the sitting ended on rather than a large negative one.
-  const remainingAtClose =
-    attempt.submittedAt === null
-      ? null
-      : remainingToDeadline(deadlineOf(attempt), attempt.submittedAt);
+async function timedSitting(userId: string, found: AttemptRow) {
+  const load = await loadTimedSitting(db, userId, found, new Date());
+  if (load.kind === 'missing') notFound();
+  if (load.kind === 'closed-on-read') redirect(`/attempt/${load.attemptId}/review`);
 
   return (
     <div className="page page--sitting">
-      <Sitting
-        attemptId={attempt.id}
-        examNumber={examId.replace('exam-', '')}
-        passMark={passMark(questions.length)}
-        initialSeq={initialSeq}
-        deadline={deadlineOf(attempt)?.toISOString() ?? null}
-        serverNow={serverNow.toISOString()}
-        questions={questions}
-        initial={initial}
-        finished={finished}
-        remainingAtClose={remainingAtClose}
-      />
+      <Sitting {...load.data} />
     </div>
   );
 }
-
 
 /**
  * A practice or domain sitting.

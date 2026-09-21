@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { buildNavigator, patch, stateFor, type RecordedState } from '../domain/navigator.ts';
 import { clockBand, formatRemaining } from '../domain/clock.ts';
 import type { SubmitOutcome } from '../domain/submission.ts';
+import type { TimedSittingCopy } from '../domain/timed-sitting.ts';
 import { post, put, type WriteFailure } from '../lib/writes.ts';
 import { ExamBar } from './ExamBar.tsx';
 import { NavigatorRail } from './NavigatorRail.tsx';
@@ -22,8 +23,8 @@ export interface PaperQuestion {
 
 export interface SittingProps {
   attemptId: string;
-  /** `07`, for the bar's own name for this paper. */
-  examNumber: string;
+  /** What the bar and the dialog call this sitting — a paper, or the holdout. */
+  copy: TimedSittingCopy;
   passMark: number;
   /**
    * Which question the sitting opens on.
@@ -80,7 +81,7 @@ const CHOICE_KEYS = ['1', '2', '3', '4'];
  */
 export function Sitting({
   attemptId,
-  examNumber,
+  copy,
   passMark,
   initialSeq,
   deadline,
@@ -442,7 +443,7 @@ export function Sitting({
   return (
     <>
       <ExamBar
-        examNumber={examNumber}
+        copy={copy}
         model={model}
         total={paper.length}
         currentNumber={currentSeq + 1}
@@ -460,7 +461,7 @@ export function Sitting({
       {confirming ? (
         <SubmitDialog
           attemptId={attemptId}
-          examNumber={examNumber}
+          copy={copy}
           tiles={model.tiles}
           questionCount={paper.length}
           timeLeft={stoppedAt === null ? clock.display : formatRemaining(stoppedAt)}
