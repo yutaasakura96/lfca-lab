@@ -17,6 +17,7 @@ import { DOMAIN_NAME } from './domains.ts';
 import { freezeAttemptQuestions } from './paper.ts';
 import { attempt } from '../schema/app.ts';
 import { deadlineOf } from '../../domain/clock.ts';
+import type { HoldoutResult, HoldoutStanding } from '../../domain/holdout.ts';
 import { timeLimitFor, type AttemptMode } from '../../domain/modes.ts';
 import type { SubmitReason } from '../../domain/submission.ts';
 import type { Domain } from '../../domain/weights.ts';
@@ -360,14 +361,6 @@ export async function listOpenSittings(db: Db, userId: string): Promise<OpenSitt
   }));
 }
 
-/** Where one candidate stands with the holdout, which can only ever be sat once. */
-export interface HoldoutStanding {
-  /** The holdout sitting still running, if there is one. */
-  openId: string | null;
-  /** Whether a holdout sitting has been finalised — by a submit or by its clock. */
-  sat: boolean;
-}
-
 /**
  * The two facts a holdout start turns on, read in one statement so they come
  * from one snapshot and cannot disagree about which rows exist.
@@ -375,7 +368,10 @@ export interface HoldoutStanding {
  * The counterpart to `openAttemptForExam`, with a second question the sixteen
  * never ask: a paper can be re-sat, so its guard only needs to find the open
  * sitting; the holdout cannot, so its guard also needs to know whether one is
- * already finished. Home's holdout card turns on the same three states.
+ * already finished. Home's holdout card turns on the same three states, and
+ * needs the finished sitting's score and day, so `sat` carries the row rather
+ * than a boolean (#60) — one read for both callers, not a second one that could
+ * see a different snapshot.
  *
  * **An expired sitting nobody has touched is still `openId`**, because being
  * past its deadline is not the same as being finalised (doc 03 §6). Handing it
@@ -384,17 +380,67 @@ export interface HoldoutStanding {
  * {@link listOpenSittings} does not.
  */
 export async function holdoutStanding(db: Db, userId: string): Promise<HoldoutStanding> {
-  const result = await db.execute<{ open_id: string | null; sat: boolean }>(sql`
+  const result = await db.execute<{
+    open_id: string | null;
+    sat_id: string | null;
+    sat_score: number | null;
+    sat_question_count: number | null;
+    sat_submitted_at: Date | string | null;
+  }>(sql`
     SELECT
       (SELECT id FROM attempt
         WHERE user_id = ${userId} AND mode = 'holdout' AND submitted_at IS NULL
         ORDER BY started_at ASC
         LIMIT 1) AS open_id,
-      EXISTS (SELECT 1 FROM attempt
-        WHERE user_id = ${userId} AND mode = 'holdout' AND submitted_at IS NOT NULL) AS sat
+      sat.id AS sat_id,
+      sat.score AS sat_score,
+      sat.question_count AS sat_question_count,
+      sat.submitted_at AS sat_submitted_at
+    FROM (SELECT 1) AS one
+    LEFT JOIN LATERAL (
+      SELECT id, score, question_count, submitted_at FROM attempt
+      WHERE user_id = ${userId} AND mode = 'holdout' AND submitted_at IS NOT NULL
+      ORDER BY submitted_at ASC
+      LIMIT 1
+    ) AS sat ON true
   `);
   const row = result.rows[0];
-  return { openId: row?.open_id ?? null, sat: row?.sat === true };
+  return { openId: row?.open_id ?? null, sat: finishedHoldout(row) };
+}
+
+export type { HoldoutStanding };
+
+/**
+ * The finished holdout as the card needs it, or `null` if none is finished.
+ *
+ * A finished holdout with no score is refused rather than read as zero: the
+ * submit statement scores every scored mode in the same `UPDATE` that closes it
+ * (doc 07 §5), so a null here means the row came from somewhere else, and a
+ * card reading "0/40 · No pass" over it would be a number that is believed.
+ */
+function finishedHoldout(
+  row:
+    | {
+        sat_id: string | null;
+        sat_score: number | null;
+        sat_question_count: number | null;
+        sat_submitted_at: Date | string | null;
+      }
+    | undefined,
+): HoldoutResult | null {
+  if (!row || row.sat_id === null) return null;
+  if (row.sat_score === null || row.sat_question_count === null || row.sat_submitted_at === null) {
+    throw new Error(`Holdout sitting ${row.sat_id} is finished but carries no score.`);
+  }
+  const at = row.sat_submitted_at;
+  return {
+    attemptId: row.sat_id,
+    score: row.sat_score,
+    questionCount: row.sat_question_count,
+    // Raw `db.execute` returns unmapped columns, so a timestamp can arrive as a
+    // string (decision log, 2026-09-01).
+    submittedAt: at instanceof Date ? at : new Date(at),
+  };
 }
 
 /**

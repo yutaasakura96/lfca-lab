@@ -37,7 +37,7 @@ vi.mock('../../src/db/queries/attempt.ts', async (importOriginal) => {
     holdoutStanding: async (...args: Parameters<typeof real.holdoutStanding>) => {
       if (standing.staleOnce) {
         standing.staleOnce = false;
-        return { openId: null, sat: false };
+        return { openId: null, sat: null };
       }
       return real.holdoutStanding(...args);
     },

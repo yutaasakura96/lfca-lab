@@ -2909,3 +2909,40 @@ verified it is named as unverified rather than assumed.*
 - **Owed to #61:** doc 10 §8 gains the holdout's shape of the scored review.
 - **Revisit if:** a second paperless scored sitting ever appears — `paper` is where it would have to
   say which of a paper's parts it has.
+
+### [2026-09-21] The holdout card reads one snapshot, and the dialog is the only thing that posts
+- **Decision:** home's holdout card takes its state from a pure `holdoutCard` over
+  `holdoutStanding`, whose `sat` field now carries the finished sitting's id, score, length and
+  `submitted_at` instead of a boolean. Home's read moves into `loadHome`, which sweeps expired
+  sittings before both of its reads. *Start the holdout* opens `HoldoutStart`'s dialog; only the
+  dialog's button posts. Ticket #60; the three states, the dialog and the absence of a data gate
+  are #56's and were not re-opened.
+- **Why the standing carries the row.** The result card needs a score and a day, and a second query
+  for them could read a different snapshot from the one that decided "sat". *Alternative
+  considered:* keeping `sat: boolean` beside a new `result` field — two fields that could disagree.
+  The start route's check reads the same, now as `!== null`; the one test mock that returned
+  `sat: false` returns `sat: null`.
+- **A finished holdout with no score throws** rather than rendering 0/40. The submit statement
+  scores every scored mode in the `UPDATE` that closes it, so a null means the row came from
+  somewhere else, and a card reading "0/40 · No pass" over it is a number that would be believed.
+- **Sat wins over running in `holdoutCard`**, as it does in the start route. Both at once is what
+  `one_holdout_per_user` forbids; if it were ever found, the card must not offer to resume what the
+  endpoint would refuse.
+- **The day is UTC and says so**, following the review's `SubmittedAt`. The page is a server render
+  with no idea of the reader's zone, so a local day would need the browser.
+- **The dialog's buttons both disable while the POST is in flight**, and Escape stops closing it.
+  Once the request is made there is nothing to cancel.
+- **`.modecard--off` is deleted**, since nothing renders it. `.modecard .btn[disabled]` stays: the
+  dialog renders inside the card, and its busy buttons take that rule.
+- **Verified on develop, in the browser and in SQL:** Cancel and Escape left the throwaway user with
+  zero attempts and zero frozen rows; confirm showed "Starting…" and landed on the sitting; home then
+  showed *Resume* in the card and in the band; backdating `started_at` 61 minutes made home's sweep
+  close it `expired`, and the card read 0/40, No pass, linking to a review that renders. 44px
+  targets and no overflow at 375px in both themes.
+- **Mutation-checked three ways**, each restore diffed: running checked before sat fails the
+  both-states assertion; a pass mark of 45 fails two; dropping the sweep from `loadHome` fails the
+  lapsed-holdout assertion.
+- **Not done here, and owed:** #56's production check — card, dialog, **Cancel**, and SQL on Neon
+  `main` showing no holdout row — needs the owner's sign-in.
+- **Revisit if:** the holdout ever needs a second sitting per candidate, which is the same trigger
+  as the 2026-09-21 index entry.

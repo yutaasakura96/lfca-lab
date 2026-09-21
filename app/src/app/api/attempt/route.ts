@@ -153,7 +153,7 @@ export async function POST(request: Request): Promise<Response> {
  * holdout?" is still no.
  */
 function answerFromStanding(standing: HoldoutStanding): Response | null {
-  if (standing.sat) {
+  if (standing.sat !== null) {
     return apiError(409, 'holdout_already_sat', 'The holdout has already been sat.');
   }
   if (standing.openId !== null) {

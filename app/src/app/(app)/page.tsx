@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { HoldoutStart } from '../../components/HoldoutStart.tsx';
 import { SignOutButton } from '../../components/SignOutButton.tsx';
 import { db } from '../../db/client.ts';
-import { listOpenSittings, type OpenSittingRow } from '../../db/queries/attempt.ts';
-import { finaliseExpiredSittings } from '../../lib/auto-submit.ts';
+import type { OpenSittingRow } from '../../db/queries/attempt.ts';
+import type { HoldoutCard as HoldoutCardState } from '../../domain/holdout.ts';
+import { loadHome } from '../../lib/home.ts';
 import { requireSession } from '../../lib/session.ts';
 
 export const metadata = { title: 'LFCA Practice' };
@@ -10,16 +13,15 @@ export const metadata = { title: 'LFCA Practice' };
 /**
  * Doc 03 §4's home: three modes, and the holdout that is sat last.
  *
- * **Listing open sittings is a touch, so this sweeps first**, exactly as the
- * exam list does. Without it a sitting whose ninety minutes ran out unattended
- * would go on offering to be resumed from the first screen after sign-in. The
- * sweep is the same one finalisation path — it calls `submitAttempt` — so the
- * score, the reason and the first-attempt flag are still decided in one place.
+ * **Listing open sittings is a touch, so `loadHome` sweeps first**, exactly as
+ * the exam list does. Without it a sitting whose clock ran out unattended would
+ * go on offering to be resumed from the first screen after sign-in. The sweep
+ * is the same one finalisation path — it calls `submitAttempt` — so the score,
+ * the reason and the first-attempt flag are still decided in one place.
  */
 export default async function Home() {
   const session = await requireSession();
-  await finaliseExpiredSittings(db, session.user.id, new Date());
-  const open = await listOpenSittings(db, session.user.id);
+  const { open, holdout } = await loadHome(db, session.user.id, new Date());
 
   return (
     <div className="page">
@@ -80,38 +82,7 @@ export default async function Home() {
           ]}
         />
 
-        {/*
-          Disabled rather than absent. The holdout is the project's answer to
-          its riskiest assumption, and a candidate who does not know it is
-          waiting cannot plan around it — but it is sat once, so an easy way in
-          from the first screen after sign-in is precisely what must not exist.
-        */}
-        <div className="card modecard modecard--off" aria-labelledby="holdout-title">
-          <div className="row" style={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
-            <h2 className="h2" id="holdout-title">
-              The holdout
-            </h2>
-            <span className="chip chip--unanswered">Sat once, at the end</span>
-          </div>
-          <ul className="modelines">
-            <li>Forty questions no exam, practice or domain sitting can ever serve.</li>
-            <li>Timed and scored like an exam, pro rata: forty questions, sixty minutes.</li>
-            <li>
-              A readiness signal untainted by memory. Kept for the week before the retake, which is
-              why it is not startable yet.
-            </li>
-          </ul>
-          {/*
-            A real disabled button, not a span dressed as one. It is announced
-            as a disabled button, it cannot be focused or activated, and it
-            needs no ARIA to say so — the earlier `aria-disabled` beside
-            `role="presentation"` contradicted itself, since presentation
-            strips the very semantics the attribute was decorating.
-          */}
-          <button type="button" className="btn" disabled>
-            Not yet available
-          </button>
-        </div>
+        <HoldoutCard card={holdout} />
       </div>
     </div>
   );
@@ -144,6 +115,109 @@ function ModeCard({
       <Link className="btn btn--primary" href={{ pathname: href }}>
         {action}
       </Link>
+    </div>
+  );
+}
+
+/**
+ * The holdout, in whichever of its three states it is in (#60).
+ *
+ * The card labels itself from its own read, because the word on the button has
+ * to be true before it is pressed (2026-09-04): **Start** only while nothing
+ * exists, **Resume** while a clock is running — straight to the sitting, no
+ * dialog, since "abandoning still counts" is the wrong thing to say about a
+ * sitting already underway — and the **result** for good once sat. There is no
+ * fourth state that offers Start again, and no reset anywhere.
+ *
+ * Every state carries its meaning in words — the chip, the lines, the button —
+ * so none of it rests on colour (doc 05 rule 4).
+ */
+function HoldoutCard({ card }: { card: HoldoutCardState }) {
+  switch (card.kind) {
+    case 'never':
+      return (
+        <div className="card modecard" aria-labelledby="holdout-title">
+          <HoldoutHead chip={<span className="chip chip--unanswered">Sat once</span>} />
+          <ul className="modelines">
+            <li>Forty questions no exam, practice or domain sitting can ever serve.</li>
+            <li>Timed and scored like an exam, pro rata: sixty minutes, pass at 30.</li>
+            <li>
+              A readiness signal untainted by memory, for when the sixteen papers are done and
+              the retake is close.
+            </li>
+          </ul>
+          <HoldoutStart />
+        </div>
+      );
+    case 'running':
+      return (
+        <div className="card modecard" aria-labelledby="holdout-title">
+          <HoldoutHead chip={<span className="chip chip--accent">In progress</span>} />
+          <ul className="modelines">
+            <li>Your one sitting of the holdout is underway.</li>
+            <li>Its sixty minutes kept running while you were away, and still are.</li>
+          </ul>
+          <Link className="btn btn--primary" href={{ pathname: `/attempt/${card.attemptId}` }}>
+            Resume
+          </Link>
+        </div>
+      );
+    case 'sat':
+      return (
+        <div className="card modecard" aria-labelledby="holdout-title">
+          <HoldoutHead
+            chip={
+              <span className={card.passed ? 'chip chip--correct' : 'chip chip--incorrect'}>
+                {card.passed ? 'Pass' : 'No pass'}
+              </span>
+            }
+          />
+          <div className="row" style={{ alignItems: 'baseline', gap: 'var(--space-2)' }}>
+            <span
+              className="mono"
+              style={{
+                fontSize: 'var(--text-2xl)',
+                fontWeight: 'var(--weight-medium)',
+                color: 'var(--ink-primary)',
+              }}
+            >
+              {card.score}
+            </span>
+            <span className="mono" style={{ fontSize: 'var(--text-lg)', color: 'var(--ink-muted)' }}>
+              /{card.questionCount}
+            </span>
+          </div>
+          <ul className="modelines">
+            <li>
+              Pass mark <span className="mono">{card.passMark}</span>. Sat on{' '}
+              <time className="mono" dateTime={card.day}>
+                {card.day}
+              </time>{' '}
+              UTC.
+            </li>
+            <li>Sat once, and this is its only score.</li>
+          </ul>
+          <Link
+            className="btn btn--primary"
+            href={{ pathname: `/attempt/${card.attemptId}/review` }}
+          >
+            See the full review
+          </Link>
+        </div>
+      );
+  }
+}
+
+function HoldoutHead({ chip }: { chip: ReactNode }) {
+  return (
+    <div
+      className="row"
+      style={{ justifyContent: 'space-between', alignItems: 'baseline', gap: 'var(--space-3)' }}
+    >
+      <h2 className="h2" id="holdout-title">
+        The holdout
+      </h2>
+      {chip}
     </div>
   );
 }

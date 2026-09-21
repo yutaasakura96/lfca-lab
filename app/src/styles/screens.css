@@ -661,15 +661,6 @@ a.btn { text-decoration: none; }
   color: var(--ink-secondary); font-size: var(--text-sm); line-height: var(--leading-snug);
 }
 
-/* The holdout card is disabled, and says so in three ways at once: a chip that
-   states when it happens, prose that says why, and a control that carries the
-   disabled tokens. Colour alone would leave it reading as merely quiet. */
-.modecard--off { background: var(--surface-inset); }
-.modecard--off .btn {
-  color: var(--ink-faint); border-color: var(--line-subtle);
-  background: var(--surface-raised); cursor: not-allowed;
-}
-
 /* ── An unfinished sitting, offered back ── */
 
 .resume {
