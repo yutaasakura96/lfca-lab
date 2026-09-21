@@ -2946,3 +2946,22 @@ verified it is named as unverified rather than assumed.*
   `main` showing no holdout row — needs the owner's sign-in.
 - **Revisit if:** the holdout ever needs a second sitting per candidate, which is the same trigger
   as the 2026-09-21 index entry.
+
+### [2026-09-21] An accidental production holdout start was deleted by hand, before anything was seen
+- **What happened:** during #56's production check, the owner pressed the dialog's *Start the
+  holdout* instead of **Cancel**. Neon `main` gained attempt `01a0c2e1-6cf4-7f9a-b120-e663f9a32c6e`,
+  started 07:32:28 UTC, running, with 40 frozen `attempt_question` rows, **no answer rows, no flags,
+  no score**. The owner confirmed they did not read question 1.
+- **Decision:** deleted by hand, at the owner's explicit request, in one transaction on Neon `main`:
+  `DELETE FROM attempt WHERE id = … AND mode = 'holdout' AND submitted_at IS NULL`, committed only
+  because it matched exactly one row. The frozen rows went with it by cascade. Read back afterwards:
+  0 holdout attempts, 0 orphaned frozen rows, 4 attempts in total (as before the start), 40 pinned
+  holdout questions.
+- **Why this is not the discard action the product refuses.** That refusal is about a candidate
+  dodging a sitting that is going badly. This sitting was about a minute old, nothing in it had been
+  answered or read, and the owner judged that the holdout's forty questions are still unseen. Doc 04
+  §7 already names hand-written SQL as the only way a user row is ever removed. The app still has no
+  discard action, and none was added.
+- **The production check is therefore still owed:** card, dialog, **Cancel**, then SQL showing 0.
+- **Revisit if:** it happens again — at that point the dialog's two buttons are too easy to confuse,
+  and the fix is in the dialog, not in more SQL.
