@@ -132,9 +132,10 @@ Spec and every rejected alternative: **#56**. Log: 2026-09-21.
 **`/implement 61`** — the doc corrections below, doc 10's home section for the live holdout card,
 and checklist coverage for the holdout, including #56's production boundary. Then feature 6 closes.
 
-**#60's production check is the owner's, and is owed** (#56's boundary): on production, open home,
-read the holdout card, press *Start the holdout*, read the dialog, press **Cancel** — and confirm in
-SQL on Neon `main` that no holdout attempt exists. Signing in to production is the owner's.
+**#60's production check is done** (2026-09-21): the owner opened the card and dialog on production
+and pressed **Cancel**, and Neon `main` shows no holdout attempt. The first try pressed *Start* by
+mistake; that attempt was deleted by hand before anything in it was seen (decision log, same day).
+#61 should decide whether the dialog's two buttons need more separation.
 
 **Doc corrections owed to #61**, accumulated rather than made (as #57 instructs): doc 07 §2's
 `409 holdout_already_sat` is narrowed to *sat*, with a running holdout returned `200 {resumed:true}`,
