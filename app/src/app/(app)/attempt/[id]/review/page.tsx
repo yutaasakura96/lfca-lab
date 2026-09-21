@@ -7,23 +7,20 @@ import { StartExamButton } from '../../../../../components/StartExamButton.tsx';
 import { UnscoredReviewSummary } from '../../../../../components/UnscoredReviewSummary.tsx';
 import { db } from '../../../../../db/client.ts';
 import { getAttemptForUser, type AttemptRow } from '../../../../../db/queries/attempt.ts';
-import { openAttemptForExam } from '../../../../../db/queries/exams.ts';
 import {
-  getReviewContext,
   getSittingReviewQuestions,
   type ReviewQuestion,
 } from '../../../../../db/queries/review.ts';
 import { isScored } from '../../../../../domain/modes.ts';
 import {
   countByFilter,
-  timeUsedSeconds,
   verdictOf,
   type ReviewCounts,
   type ReviewedQuestion,
 } from '../../../../../domain/review.ts';
 import { passMark } from '../../../../../domain/score.ts';
-import { outcomeOf } from '../../../../../domain/submission.ts';
 import { finaliseExpiredSittings } from '../../../../../lib/auto-submit.ts';
+import { loadScoredReview, type ReviewedPaper } from '../../../../../lib/scored-review.ts';
 import { requireSession } from '../../../../../lib/session.ts';
 
 export const metadata = { title: 'Review — LFCA Practice' };
@@ -46,9 +43,9 @@ export const metadata = { title: 'Review — LFCA Practice' };
  *
  * **One route, two screens, and the branch is the stored mode** — the same
  * column `/attempt/[id]` and the answer endpoint branch on. A scored sitting
- * gets a score, a pass mark, a verdict and its place in the paper's history; an
- * unscored one gets three counts and none of those, because PRD P1 says it is
- * not measured. They share the cards, the filters, the rail and the tile jump,
+ * gets a score, a pass mark, a verdict and — a paper only — its place in the
+ * paper's history; an unscored one gets three counts and none of those,
+ * because PRD P1 says it is not measured. They share the cards, the filters, the rail and the tile jump,
  * which is everything the ticket calls Kept.
  */
 export default async function ReviewPage({ params }: { params: Promise<{ id: string }> }) {
@@ -105,11 +102,20 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
     flagged: question.flagged,
   }));
 
-  if (scored) return examReview(session.user.id, attempt, questions, reviewed, counts, tiles);
+  if (scored) return scoredReview(session.user.id, attempt, questions, reviewed, counts, tiles);
   return unscoredReview(attempt, questions, counts, tiles);
 }
 
-async function examReview(
+/**
+ * A paper or the holdout, read back.
+ *
+ * Both are scored, so both get the number, the pass bar, the verdict and the
+ * Flagged filter. Only a paper has a history: the re-sit, the ordinal and the
+ * first-attempt line all hang off `paper`, which the holdout does not have —
+ * it is sat once, so there is no truthful re-sit to offer and no first attempt
+ * to tell from a best (#59).
+ */
+async function scoredReview(
   userId: string,
   attempt: AttemptRow,
   questions: ReviewQuestion[],
@@ -117,36 +123,13 @@ async function examReview(
   counts: ReviewCounts,
   tiles: ReviewTile[],
 ) {
-  const examId = attempt.examId;
-  // Unreachable: `attempt_exam_iff_exam_mode` makes mode and paper inseparable,
-  // and the holdout — scored, but with no paper — cannot yet be started.
-  if (examId === null) notFound();
-  // Narrowed by the caller's own guard; restated for the type.
-  if (attempt.submittedAt === null || attempt.submitReason === null) notFound();
-
-  const [context, openAttemptId] = await Promise.all([
-    getReviewContext(db, userId, attempt.id),
-    // The existing helper, not a fourth copy of its predicate. "The oldest
-    // unfinished sitting of this paper" is one question, and the API route that
-    // refuses a second live sitting already asks it this way.
-    openAttemptForExam(db, userId, examId),
-  ]);
-
-  const outcome = outcomeOf({
-    score: attempt.score,
-    questionCount: attempt.questionCount,
-    reason: attempt.submitReason,
-  });
+  const load = await loadScoredReview(db, userId, attempt);
+  if (load.kind === 'missing') notFound();
+  const { title, back, submittedAt, outcome, elapsedSeconds, paper } = load.data;
 
   const unanswered = reviewed.filter((q) => q.verdict === 'unanswered').length;
   const score = outcome.score ?? 0;
   const mark = outcome.passMark ?? passMark(attempt.questionCount);
-
-  const elapsedSeconds = timeUsedSeconds(
-    attempt.startedAt,
-    attempt.submittedAt,
-    attempt.timeLimitSeconds,
-  );
 
   return (
     <div className="page page--review">
@@ -156,13 +139,13 @@ async function examReview(
       >
         <div className="stack" style={{ gap: 'var(--space-2)' }}>
           <span className="eyebrow">Review</span>
-          <h1 className="h1">Practice exam {examId.replace('exam-', '')}</h1>
+          <h1 className="h1">{title}</h1>
           <p className="meta">
-            Submitted <SubmittedAt at={attempt.submittedAt} />
-            {context === null ? null : (
+            Submitted <SubmittedAt at={submittedAt} />
+            {paper === null || paper.context === null ? null : (
               <>
                 {' '}
-                &middot; sitting {context.ordinal} of {context.attempts}
+                &middot; sitting {paper.context.ordinal} of {paper.context.attempts}
               </>
             )}
           </p>
@@ -173,7 +156,8 @@ async function examReview(
           wrong. Best score moves; the first-attempt score does not, whatever
           this sitting or the next one scores, because the flag was settled when
           the earliest attempt was *created* (doc 04 §5.2) and nothing on this
-          path touches it.
+          path touches it. A paper only: the holdout has no `paper`, and so no
+          re-sit anywhere on this screen.
 
           Which of the two things this offers is read from the query, not left
           to the server to resolve after the press. `POST /api/attempt` does
@@ -189,17 +173,11 @@ async function examReview(
           shrink a control.
         */}
         <div className="row" style={{ gap: 'var(--space-3)', flexWrap: 'wrap' }}>
-          <Link className="btn" href="/exams">
-            Back to the sixteen exams
+          <Link className="btn" href={{ pathname: back.href }}>
+            {back.label}
           </Link>
 
-          {openAttemptId === null ? (
-            <StartExamButton examId={examId} label="Sit this paper again" className="btn" />
-          ) : (
-            <Link className="btn btn--primary" href={{ pathname: `/attempt/${openAttemptId}` }}>
-              Resume the open sitting
-            </Link>
-          )}
+          <ResitAction paper={paper} />
         </div>
       </div>
 
@@ -224,7 +202,7 @@ async function examReview(
             elapsedSeconds={elapsedSeconds}
             unanswered={unanswered}
             flagged={counts.flagged}
-            context={context}
+            paper={paper}
           />
         }
       >
@@ -233,6 +211,19 @@ async function examReview(
         ))}
       </ReviewBoard>
     </div>
+  );
+}
+
+/** A paper's re-sit, or nothing: the holdout has no paper and no truthful re-sit. */
+function ResitAction({ paper }: { paper: ReviewedPaper | null }) {
+  if (paper === null) return null;
+  if (paper.openAttemptId === null) {
+    return <StartExamButton examId={paper.examId} label="Sit this paper again" className="btn" />;
+  }
+  return (
+    <Link className="btn btn--primary" href={{ pathname: `/attempt/${paper.openAttemptId}` }}>
+      Resume the open sitting
+    </Link>
   );
 }
 

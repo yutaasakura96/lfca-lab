@@ -2867,3 +2867,45 @@ verified it is named as unverified rather than assumed.*
   time after #45 and #52.
 - **Revisit if:** #59 lands — `reviewable: true` for the holdout is the whole of its inheritance
   from this entry.
+
+### [2026-09-21] The holdout review takes the scored branch, and everything a paper owned hangs off one field
+- **Decision:** `/attempt/[id]/review` renders a submitted holdout on the scored branch, over its
+  frozen `attempt_question` set. The branch's read moves into `loadScoredReview`
+  (`src/lib/scored-review.ts`), whose `paper` field is `null` for the holdout — and the re-sit, the
+  ordinal, the first-attempt line and the by-domain card all hang off it. `reviewable` flips to
+  `true` for the holdout in `timedSittingCopy`, restoring the outcome's *See the full review* and
+  the closed-on-read redirect together, as #58 left them to do. Ticket #59.
+- **One field rather than three conditions.** The scored branch was written when a paper was the
+  only scored sitting, so its re-sit, its `getReviewContext` story and its title all assumed one.
+  Offering a re-sit is the single thing the holdout review must never do, and a sitting sat once has
+  no first attempt to tell from a best. Gating all of it on `paper === null` means the absences
+  cannot come back one at a time. *Alternative considered:* branching on `mode` at each site in the
+  page, which is less code and three places to forget one.
+- **The by-domain card is hidden for the holdout**, which the ticket did not name. It says
+  "weighted as the real exam is" and draws each domain's official share, and the holdout's forty
+  are what the sixteen papers left over — sysadmin 12, security 12, devops 8, cloud 4, pm 4, and
+  **no Linux at all** — so the caption is false and a four-question slice is too small to judge.
+  Found by the spec review; chosen by the owner. *Alternatives considered:* keeping the counts
+  without the weights and meters, which is more component work for slices that stay small; and
+  keeping it as is, which leaves a false caption on the one sitting whose number is meant to be
+  trusted.
+- **The composed review query now reads `answer.flagged`.** It was left out, with a comment saying
+  it could not be true, while practice and domain were the only composed modes — both refuse flags.
+  The holdout takes the timed arrangement, flags included, so without the column its Flagged filter
+  would always read zero. Practice and domain rows still carry `false`, so their reviews are
+  unchanged.
+- **The loader is the test seam, for #58's reason:** the page is a server component the suite
+  cannot render, so "no re-sit anywhere" is asserted as `paper: null` in
+  `tests/integration/holdout-review.test.ts`, beside the exam path's unchanged `paper`. The slot
+  claim compares every question's option order with what the sitting's own read laid out.
+- **Mutation-checked three ways**, each restore diffed: forcing authored option order fails both
+  slot assertions; dropping the `flagged` read fails the flag and count assertions; reverting
+  `reviewable` fails the closed-on-read assertion.
+- **Seen in the browser** on a throwaway `itest-` user's submitted holdout on Neon `develop`:
+  *Holdout*, 27/40, "3 short of the pass mark", Pass · 30, Flagged 2, 13 incorrect + 27 correct,
+  no re-sit, no standing line, and the finished sitting's outcome linking to the review. Port 3000
+  was held by another project's dev server, so the preview ran on a temporary launch entry,
+  reverted afterwards.
+- **Owed to #61:** doc 10 §8 gains the holdout's shape of the scored review.
+- **Revisit if:** a second paperless scored sitting ever appears — `paper` is where it would have to
+  say which of a paper's parts it has.

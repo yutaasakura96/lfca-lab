@@ -43,9 +43,9 @@ export type TimedSittingLoad =
  * Read a timed sitting for its screen, finalising it first if its clock ran out.
  *
  * **Opening a sitting is one of the four touches that finalise it** (doc 03
- * §6). A sitting this read closed is sent to its review — when it has one. The
- * holdout's review is #59's, so until then an expired holdout opens on its
- * outcome instead, which is what every other finished sitting does on reload.
+ * §6). A sitting this read closed is sent to its review, which both timed
+ * modes have had since #59. `copy.reviewable` still gates it, so a sitting
+ * whose review does not exist opens on its outcome rather than a 404.
  */
 export async function loadTimedSitting(
   db: Db,

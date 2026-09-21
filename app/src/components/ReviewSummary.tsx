@@ -1,4 +1,4 @@
-import type { ReviewContext } from '../db/queries/review.ts';
+import type { ReviewedPaper } from '../lib/scored-review.ts';
 import {
   domainBreakdown,
   formatElapsed,
@@ -27,12 +27,17 @@ export interface ReviewSummaryProps {
   unanswered: number;
   flagged: number;
   /**
-   * Where this sitting sits among the others, or `null` when it could not be
-   * read. Passed whole rather than unpacked into three props: they always
-   * travel together, and splitting them meant three `??` defaults at the call
-   * site, which is three places the fallback can drift.
+   * The paper this was a sitting of, with where it sits among the others —
+   * `context` is `null` when it could not be read. Passed whole rather than
+   * unpacked into three props: they always travel together, and splitting them
+   * meant three `??` defaults at the call site, which is three places the
+   * fallback can drift.
+   *
+   * **`null` for the holdout**, which has no paper: it is sat once, so there is
+   * no first attempt to tell from a best and no standing line is drawn, and its
+   * forty are not weighted like a paper, so no by-domain card either (#59).
    */
-  context: ReviewContext | null;
+  paper: Pick<ReviewedPaper, 'context'> | null;
 }
 
 /**
@@ -55,8 +60,9 @@ export function ReviewSummary({
   elapsedSeconds,
   unanswered,
   flagged,
-  context,
+  paper,
 }: ReviewSummaryProps) {
+  const context = paper?.context ?? null;
   const score = outcome.score ?? 0;
   const bar = passBar(score, outcome.questionCount);
   const verdict = verdictSummary(score, outcome.questionCount);
@@ -93,25 +99,27 @@ export function ReviewSummary({
           >
             {verdict.text}
           </span>
-          <p className="meta" style={{ marginTop: 'var(--space-2)', maxWidth: 'var(--measure-ui)' }}>
-            {/* The pair the whole project is arranged around. Best drifts to
-                100% by construction once re-sits are allowed; first-attempt does
-                not, and neither number means much shown alone. */}
-            {standing === 'first-sitting' ? (
-              <>This is the first sitting of this paper.</>
-            ) : standing === 'first-unfinalised' ? (
-              <>
-                An earlier sitting of this paper was never finished, so the first-attempt score is
-                still open. This was sitting <span className="mono">{context?.ordinal}</span>.
-              </>
-            ) : (
-              <>
-                First attempt <span className="mono">{context?.firstAttemptScore}</span>. Best is
-                now <span className="mono">{context?.bestScore ?? score}</span>. This was sitting{' '}
-                <span className="mono">{context?.ordinal}</span>.
-              </>
-            )}
-          </p>
+          {paper === null ? null : (
+            <p className="meta" style={{ marginTop: 'var(--space-2)', maxWidth: 'var(--measure-ui)' }}>
+              {/* The pair the whole project is arranged around. Best drifts to
+                  100% by construction once re-sits are allowed; first-attempt does
+                  not, and neither number means much shown alone. */}
+              {standing === 'first-sitting' ? (
+                <>This is the first sitting of this paper.</>
+              ) : standing === 'first-unfinalised' ? (
+                <>
+                  An earlier sitting of this paper was never finished, so the first-attempt score is
+                  still open. This was sitting <span className="mono">{context?.ordinal}</span>.
+                </>
+              ) : (
+                <>
+                  First attempt <span className="mono">{context?.firstAttemptScore}</span>. Best is
+                  now <span className="mono">{context?.bestScore ?? score}</span>. This was sitting{' '}
+                  <span className="mono">{context?.ordinal}</span>.
+                </>
+              )}
+            </p>
+          )}
         </div>
 
         <div className="stack" style={{ gap: 'var(--space-5)', paddingTop: 'var(--space-5)' }}>
@@ -142,57 +150,63 @@ export function ReviewSummary({
         </div>
       </div>
 
-      <div className="card" style={{ padding: 'var(--space-6)' }}>
-        <div
-          className="row"
-          style={{
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
-            marginBottom: 'var(--space-4)',
-            gap: 'var(--space-4)',
-          }}
-        >
-          <h2 className="h2">By domain</h2>
-          <span className="meta">weighted as the real exam is</span>
-        </div>
-        <div className="dgrid">
-          {domains.map((row) => (
-            <div className="dcell" key={row.domain}>
-              <div className="stack" style={{ gap: 'var(--space-2)' }}>
-                <div className="row" style={{ justifyContent: 'space-between', gap: 'var(--space-3)' }}>
-                  <span style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--weight-medium)' }}>
-                    {DOMAIN_NAME[row.domain]}
-                  </span>
-                  <span className="meta mono">{row.weightPercent}%</span>
+      {/* A paper only. Its sixty follow the official weights, which is what the
+          caption says; the holdout's forty are whatever the sixteen papers left
+          over — no Linux at all, four each of Cloud and PM — so the caption would
+          be false and each slice too small to judge (#59). */}
+      {paper === null ? null : (
+        <div className="card" style={{ padding: 'var(--space-6)' }}>
+          <div
+            className="row"
+            style={{
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+              marginBottom: 'var(--space-4)',
+              gap: 'var(--space-4)',
+            }}
+          >
+            <h2 className="h2">By domain</h2>
+            <span className="meta">weighted as the real exam is</span>
+          </div>
+          <div className="dgrid">
+            {domains.map((row) => (
+              <div className="dcell" key={row.domain}>
+                <div className="stack" style={{ gap: 'var(--space-2)' }}>
+                  <div className="row" style={{ justifyContent: 'space-between', gap: 'var(--space-3)' }}>
+                    <span style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--weight-medium)' }}>
+                      {DOMAIN_NAME[row.domain]}
+                    </span>
+                    <span className="meta mono">{row.weightPercent}%</span>
+                  </div>
+                  <div className="meter">
+                    <div
+                      className={
+                        row.meetsMark
+                          ? 'meter__fill meter__fill--correct'
+                          : 'meter__fill meter__fill--incorrect'
+                      }
+                      style={{ width: `${row.percent}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="meter">
-                  <div
-                    className={
-                      row.meetsMark
-                        ? 'meter__fill meter__fill--correct'
-                        : 'meter__fill meter__fill--incorrect'
-                    }
-                    style={{ width: `${row.percent}%` }}
-                  />
-                </div>
+                {/* The count, not only the meter. A bar at 60% and a bar at 62%
+                    are indistinguishable at this width, and in greyscale the two
+                    fill colours are as well — so the number is what carries it. */}
+                <span
+                  className="mono"
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    textAlign: 'right',
+                    color: row.meetsMark ? 'var(--correct-ink)' : 'var(--incorrect-ink)',
+                  }}
+                >
+                  {row.correct}/{row.total}
+                </span>
               </div>
-              {/* The count, not only the meter. A bar at 60% and a bar at 62%
-                  are indistinguishable at this width, and in greyscale the two
-                  fill colours are as well — so the number is what carries it. */}
-              <span
-                className="mono"
-                style={{
-                  fontSize: 'var(--text-sm)',
-                  textAlign: 'right',
-                  color: row.meetsMark ? 'var(--correct-ink)' : 'var(--incorrect-ink)',
-                }}
-              >
-                {row.correct}/{row.total}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

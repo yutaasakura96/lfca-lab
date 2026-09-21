@@ -2,7 +2,7 @@
 
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
-**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57 and #58 of #57–#61 done.**
+**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57, #58 and #59 of #57–#61 done.**
 **Production:** <https://lfca-lab-six.vercel.app>, deployed from git `main`.
 **Updated:** 2026-09-21
 
@@ -89,7 +89,7 @@ against production (#50). Log: 2026-09-11 → 2026-09-19.
   **#41's owner-only steps are done:** the CLI is authenticated, and a destructive command was
   watched prompting and denied.
 
-Suites, re-measured 2026-09-21 (#58): **339** bank · **753** app unit · **221** app integration · **1** e2e.
+Suites, re-measured 2026-09-21 (#59): **339** bank · **754** app unit · **231** app integration · **1** e2e.
 
 ### Feature 6 — the holdout sitting, H1 · #56–#61 · in progress
 Spec and every rejected alternative: **#56**. Log: 2026-09-21.
@@ -108,25 +108,32 @@ Spec and every rejected alternative: **#56**. Log: 2026-09-21.
   `timedSittingCopy` (`src/domain/timed-sitting.ts`); the exam's are pinned verbatim. **Until #59,
   a holdout's outcome offers only *Back to home*, and an expired holdout opens on its outcome
   instead of redirecting** — `reviewable: false` in that one function is what #59 flips.
+- **#59 done.** `/attempt/[id]/review` renders a submitted holdout on the scored branch over its
+  frozen set: n/40, Pass · 30, the verdict chip, the Flagged filter, blanks claimed by Incorrect,
+  options at the sitting's derived slot. The read is `loadScoredReview`
+  (`src/lib/scored-review.ts`); its `paper` is `null` for the holdout, which removes the re-sit, the
+  ordinal, the first-attempt line and the by-domain card together. The composed review query now
+  reads `answer.flagged`. `reviewable` is `true` for the holdout, so the outcome links to the review
+  and an expired holdout closed on read is sent there.
 
 ---
 
 ## Next
 
-**`/implement 59`** — the holdout review (scored, over the frozen set). Then #60 (home card), #61
-(docs). The order is a dependency order: home lands last so no affordance ever
-points at a 404. Read #56 first; do not re-derive it.
+**`/implement 60`** — the holdout card on home, and its one-shot dialog. Then #61 (docs). Home
+lands last so no affordance ever points at a 404. Read #56 first; do not re-derive it. #59's "reachable
+from the home result card" criterion is #60's to satisfy — the review itself is at
+`/attempt/[id]/review` and needs only a link.
 
 **A holdout can still be started only by a hand-made `POST`** — home's card is `modecard--off` until
-#60. Once started it can be sat and submitted; `/attempt/[id]/review` still `notFound()`s it, which
-is #59's. #59 should set `reviewable: true` for the holdout in `timedSittingCopy`, which restores the
-outcome's *See the full review* and the closed-on-read redirect together.
+#60. Once started it can be sat, submitted and reviewed.
 
 **Doc corrections owed to #61**, accumulated rather than made (as #57 instructs): doc 07 §2's
 `409 holdout_already_sat` is narrowed to *sat*, with a running holdout returned `200 {resumed:true}`,
 and the holdout gains the `resumed` short-circuit §2 says composed sittings lack; doc 07 §2's
 holdout request refuses unknown keys; doc 04 §5.1 gains `one_holdout_per_user`; #56's "no
-migration needed" is superseded by migration 0002.
+migration needed" is superseded by migration 0002; doc 10 §8 gains the holdout's scored review — no
+re-sit, no standing line, no by-domain card (#59).
 
 **Verification boundary (#56):** develop proves start / submit / 409 / result freely; production gets
 card + dialog + **Cancel** only. The real press is the owner's, once, after the sixteen papers.

@@ -166,9 +166,8 @@ export async function getReviewQuestions(
  *
  * `ReviewRow` carries an index signature — `db.execute` requires one — and
  * `Omit` over that keeps the signature and loses every named field, so the
- * whole projection silently becomes `unknown`. Two columns are genuinely absent
- * here: `correct_position`, which only a paper has, and `flagged`, which cannot
- * be true in these modes.
+ * whole projection silently becomes `unknown`. One column is genuinely absent
+ * here: `correct_position`, which only a paper has.
  */
 interface ComposedReviewRow extends Record<string, unknown> {
   question_id: string;
@@ -181,6 +180,7 @@ interface ComposedReviewRow extends Record<string, unknown> {
   options: { ref: string; text: string; correct: boolean; why: string; position: number }[];
   option_ref: string | null;
   is_correct: boolean | null;
+  flagged: boolean | null;
 }
 
 /**
@@ -189,8 +189,8 @@ interface ComposedReviewRow extends Record<string, unknown> {
  *
  * The counterpart to {@link getReviewQuestions}, and the same shape from a
  * different table — `attempt_question` rather than `exam_item`, for the modes
- * that have no fixed paper (doc 04 §5.4). It mirrors `getComposedQuestions` in
- * `paper.ts` exactly as the paper review mirrors `getPaperQuestions`: the
+ * that have no fixed paper (doc 04 §5.4): practice, domain and the holdout. It
+ * mirrors `getComposedQuestions` in `paper.ts` exactly as the paper review mirrors `getPaperQuestions`: the
  * sitting's projection strips correctness and never selects `why`, and this one
  * returns both, because the sitting is over and the key *is* the content.
  *
@@ -201,11 +201,12 @@ interface ComposedReviewRow extends Record<string, unknown> {
  * out differently would be telling the candidate they pressed something they
  * did not.
  *
- * **`flagged` is not selected, because it cannot be true.** Practice and domain
- * mode are strictly forward and `PUT /flag` refuses them with
- * `409 flagging_not_available` (doc 07 §4), so every row in one of these
- * sittings carries `flagged = false`. Reading the column would suggest it is a
- * thing that varies here.
+ * **`flagged` is read, because the holdout may flag.** It was left out while
+ * practice and domain were the only composed modes: they are strictly forward
+ * and `PUT /flag` refuses them with `409 flagging_not_available` (doc 07 §4),
+ * so every row in one of them still carries `flagged = false`. The holdout
+ * takes the timed arrangement, flags included, and its review's Flagged filter
+ * would be empty without the column (#59).
  */
 export async function getComposedReviewQuestions(
   db: Db,
@@ -231,7 +232,8 @@ export async function getComposedReviewQuestions(
         ORDER BY o.position
       ) AS options,
       a.option_ref,
-      a.is_correct
+      a.is_correct,
+      a.flagged
     FROM attempt t
     JOIN attempt_question aq ON aq.attempt_id = t.id
     JOIN question q ON q.id = aq.question_id
@@ -239,7 +241,7 @@ export async function getComposedReviewQuestions(
     LEFT JOIN answer a ON a.attempt_id = t.id AND a.question_id = aq.question_id
     WHERE t.id = ${attemptId}::uuid AND t.user_id = ${userId}
     GROUP BY aq.question_id, aq.seq, q.stem, q.competency, q.type,
-             q.concept_id, q.domain, a.option_ref, a.is_correct
+             q.concept_id, q.domain, a.option_ref, a.is_correct, a.flagged
     ORDER BY aq.seq ASC
   `);
 
@@ -257,7 +259,7 @@ export async function getComposedReviewQuestions(
     ).map(({ ref, text, correct, why }) => ({ ref, text, correct, why })),
     optionRef: row.option_ref,
     isCorrect: row.is_correct,
-    flagged: false,
+    flagged: row.flagged ?? false,
   }));
 }
 

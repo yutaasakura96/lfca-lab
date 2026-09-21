@@ -231,7 +231,7 @@ describe.skipIf(!hasDatabase)('what a running holdout sends the browser', () => 
 
   it('names itself the holdout, and marks against thirty', () => {
     expect(data.copy.title).toBe('Holdout');
-    expect(data.copy.reviewable).toBe(false);
+    expect(data.copy.reviewable).toBe(true);
     expect(data.passMark).toBe(30);
   });
 
@@ -365,8 +365,13 @@ describe.skipIf(!hasDatabase)('a holdout whose sixty minutes ran out', () => {
     expect(await row(attemptId)).toEqual(before);
   });
 
-  it('is closed by opening it, and opens on its outcome rather than a review that does not exist yet', async () => {
+  // #58 opened this on its outcome, because the review did not exist yet; #59
+  // built it, so the read that closes it now sends it there, as a paper's does.
+  it('is closed by opening it, which sends it to its review; reopened, it shows its outcome', async () => {
     const { userId, attemptId } = await expiredHoldout('hsit-open');
+    expect(await open(userId, attemptId)).toEqual({ kind: 'closed-on-read', attemptId });
+    expect(await row(attemptId)).toMatchObject({ submit_reason: 'expired', score: 1 });
+
     const load = await open(userId, attemptId);
     expect(load.kind).toBe('ready');
     if (load.kind !== 'ready') return;

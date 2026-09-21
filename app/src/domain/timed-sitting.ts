@@ -30,9 +30,10 @@ export interface TimedSittingCopy {
   finishedBody: string;
   /**
    * Whether the outcome may offer this sitting's review, and whether a sitting
-   * closed by the clock on arrival may be sent there. False for the holdout
-   * until #59 builds its review: nothing may point at a 404 (#56, and the #37
-   * precedent in the decision log, 2026-09-08).
+   * closed by the clock on arrival may be sent there. True for both since #59
+   * built the holdout's review; it was false for the holdout until then, because
+   * nothing may point at a 404 (#56, and the #37 precedent in the decision log,
+   * 2026-09-08).
    */
   reviewable: boolean;
   /** The outcome's way onward. */
@@ -81,7 +82,7 @@ export function timedSittingCopy(sitting: {
       noun: 'holdout',
       finishedBody:
         "This sitting is recorded. Questions left blank are marked incorrect, and this is the holdout's only score.",
-      reviewable: false,
+      reviewable: true,
       back: { href: '/', label: 'Back to home' },
     };
   }

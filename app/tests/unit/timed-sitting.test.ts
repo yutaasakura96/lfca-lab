@@ -51,10 +51,10 @@ describe('the holdout', () => {
     expect(copy.minutes).toBe('sixty');
   });
 
-  // #59 builds the holdout review. Until then nothing may point at it, so the
-  // outcome's one action is home — the #37 precedent (decision log, 2026-09-08).
-  it('offers no review yet, and goes home', () => {
-    expect(copy.reviewable).toBe(false);
+  // #58 shipped this false, on the #37 precedent (decision log, 2026-09-08):
+  // nothing may point at a review that does not exist. #59 built it.
+  it('offers its review, and goes home rather than to the sixteen', () => {
+    expect(copy.reviewable).toBe(true);
     expect(copy.back).toEqual({ href: '/', label: 'Back to home' });
   });
 });
