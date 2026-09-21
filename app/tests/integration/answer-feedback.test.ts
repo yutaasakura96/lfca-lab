@@ -34,7 +34,7 @@ vi.mock('next/headers', () => ({
 const { db, pool } = await import('../../src/db/client.ts');
 const { createAttempt, startComposedSitting } = await import('../../src/db/queries/attempt.ts');
 const { getPaperQuestions, getSittingQuestions } = await import('../../src/db/queries/paper.ts');
-const { selectDomainQuestions, selectPracticeQuestions } = await import(
+const { selectDomainQuestions, selectHoldoutQuestions, selectPracticeQuestions } = await import(
   '../../src/db/queries/selection.ts'
 );
 const { PUT: putAnswer } = await import('../../src/app/api/attempt/[id]/answer/route.ts');
@@ -62,6 +62,11 @@ let practiceQuestionId: string;
 let practiceCorrectRef: string;
 let practiceWrongRef: string;
 let domainQuestionId: string;
+
+let holdoutAttemptId: string;
+let holdoutQuestionId: string;
+let holdoutCorrectRef: string;
+let holdoutWrongRef: string;
 
 beforeAll(async () => {
   if (!hasDatabase) return;
@@ -100,6 +105,14 @@ beforeAll(async () => {
   );
   domainAttemptId = domain.id;
   domainQuestionId = domainIds[0]!;
+
+  const holdoutIds = await selectHoldoutQuestions(db);
+  const holdout = await startComposedSitting(db, { userId, mode: 'holdout' }, holdoutIds);
+  holdoutAttemptId = holdout.id;
+  holdoutQuestionId = holdoutIds[0]!;
+  const holdoutKey = await keyFor(holdoutQuestionId);
+  holdoutCorrectRef = holdoutKey.correct;
+  holdoutWrongRef = holdoutKey.wrong;
 });
 
 afterAll(async () => {
@@ -228,6 +241,30 @@ describe.skipIf(!hasDatabase)('an exam answer says nothing but that it saved', (
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ saved: true });
+  });
+});
+
+// PRD E3 for the one sitting where a leak cannot be re-sat away. The holdout is
+// composed like a practice run — its questions come from `attempt_question`,
+// not a paper — and that is precisely the resemblance that must not reach the
+// response: the branch reads `showsImmediateFeedback`, never "is it composed".
+describe.skipIf(!hasDatabase)('a holdout answer says nothing but that it saved', () => {
+  it('returns exactly { saved: true }, right or wrong', async () => {
+    const wrong = await answer(holdoutAttemptId, {
+      questionId: holdoutQuestionId,
+      optionRef: holdoutWrongRef,
+    });
+    const right = await answer(holdoutAttemptId, {
+      questionId: holdoutQuestionId,
+      optionRef: holdoutCorrectRef,
+    });
+
+    expect(wrong.status).toBe(200);
+    expect(right.status).toBe(200);
+    // The whole body, as the exam assertion above is: no `isCorrect`, no
+    // `correctRef`, no `why`, and nothing added later either.
+    expect(wrong.body).toEqual({ saved: true });
+    expect(right.body).toEqual({ saved: true });
   });
 });
 

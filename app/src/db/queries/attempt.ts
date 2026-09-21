@@ -24,6 +24,7 @@ import type { Domain } from '../../domain/weights.ts';
 /** Postgres's unique-violation SQLSTATE. */
 const UNIQUE_VIOLATION = '23505';
 const FIRST_ATTEMPT_INDEX = 'one_first_attempt_per_exam';
+const ONE_HOLDOUT_INDEX = 'one_holdout_per_user';
 
 export interface NewAttempt {
   userId: string;
@@ -47,14 +48,18 @@ export interface StartedAttempt {
  * Drizzle wraps driver errors, so the SQLSTATE and the constraint name live on
  * the `cause`, not on the error handed to the caller. Checking only the outer
  * error silently never matches — the retry would look implemented and never
- * fire. Both levels are walked for that reason.
+ * fire. Every level is walked for that reason.
  */
-function isFirstAttemptRace(error: unknown): boolean {
+function violatesUniqueIndex(error: unknown, index: string): boolean {
   for (let e: unknown = error; e != null; e = (e as { cause?: unknown }).cause) {
     const { code, constraint } = e as { code?: string; constraint?: string };
-    if (code === UNIQUE_VIOLATION && constraint === FIRST_ATTEMPT_INDEX) return true;
+    if (code === UNIQUE_VIOLATION && constraint === index) return true;
   }
   return false;
+}
+
+function isFirstAttemptRace(error: unknown): boolean {
+  return violatesUniqueIndex(error, FIRST_ATTEMPT_INDEX);
 }
 
 async function insert(
@@ -353,4 +358,66 @@ export async function listOpenSittings(db: Db, userId: string): Promise<OpenSitt
     flagged: row.flagged,
     startedAt: row.started_at instanceof Date ? row.started_at : new Date(row.started_at),
   }));
+}
+
+/** Where one candidate stands with the holdout, which can only ever be sat once. */
+export interface HoldoutStanding {
+  /** The holdout sitting still running, if there is one. */
+  openId: string | null;
+  /** Whether a holdout sitting has been finalised — by a submit or by its clock. */
+  sat: boolean;
+}
+
+/**
+ * The two facts a holdout start turns on, read in one statement so they come
+ * from one snapshot and cannot disagree about which rows exist.
+ *
+ * The counterpart to `openAttemptForExam`, with a second question the sixteen
+ * never ask: a paper can be re-sat, so its guard only needs to find the open
+ * sitting; the holdout cannot, so its guard also needs to know whether one is
+ * already finished. Home's holdout card turns on the same three states.
+ *
+ * **An expired sitting nobody has touched is still `openId`**, because being
+ * past its deadline is not the same as being finalised (doc 03 §6). Handing it
+ * back is right: the page it is handed to sweeps it first, and lands on its
+ * outcome. This read does not finalise anything, exactly as
+ * {@link listOpenSittings} does not.
+ */
+export async function holdoutStanding(db: Db, userId: string): Promise<HoldoutStanding> {
+  const result = await db.execute<{ open_id: string | null; sat: boolean }>(sql`
+    SELECT
+      (SELECT id FROM attempt
+        WHERE user_id = ${userId} AND mode = 'holdout' AND submitted_at IS NULL
+        ORDER BY started_at ASC
+        LIMIT 1) AS open_id,
+      EXISTS (SELECT 1 FROM attempt
+        WHERE user_id = ${userId} AND mode = 'holdout' AND submitted_at IS NOT NULL) AS sat
+  `);
+  const row = result.rows[0];
+  return { openId: row?.open_id ?? null, sat: row?.sat === true };
+}
+
+/**
+ * Start the holdout, or report that another start got there first.
+ *
+ * `null` means `one_holdout_per_user` refused the insert: a start that read
+ * "never sat" lost to one that wrote before it. The transaction has already
+ * rolled back, so nothing of the loser's is left behind — and the caller's
+ * honest answer is whatever `holdoutStanding` says *now*, which is the
+ * winner's sitting, running or finished. Any other failure is thrown.
+ *
+ * Kept here rather than in the route so the index's name never leaves the
+ * file that knows what the indexes are.
+ */
+export async function startHoldoutSitting(
+  db: Db,
+  userId: string,
+  questionIds: readonly string[],
+): Promise<StartedAttempt | null> {
+  try {
+    return await startComposedSitting(db, { userId, mode: 'holdout' }, questionIds);
+  } catch (error) {
+    if (violatesUniqueIndex(error, ONE_HOLDOUT_INDEX)) return null;
+    throw error;
+  }
 }

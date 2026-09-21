@@ -2779,3 +2779,50 @@ verified it is named as unverified rather than assumed.*
 - **The two carried measurements needed no new record.** Whether `verify-full` holds on the pooler and
   what a branch operation does to an endpoint were both settled by #42 on 2026-09-12 — see that day's
   entry and doc 12 §§2.1, 8.1 — and no caveat standing in for either remained anywhere.
+
+### [2026-09-21] The holdout is one row per candidate, enforced by an index, and started by a strict request
+- **Decision:** `POST /api/attempt` starts the holdout as #56 specifies — `201` on a first start,
+  `200 {attemptId, resumed: true}` while one is running, `409 holdout_already_sat` once one is sat —
+  and **migration 0002 adds `one_holdout_per_user`**, `UNIQUE ON attempt (user_id) WHERE mode =
+  'holdout'`. The holdout variant of `StartAttemptRequest` alone is `strictObject`, and
+  `selectHoldoutQuestions` refuses anything but exactly forty. Ticket #57; the index and the
+  strictness were each chosen by the owner.
+- **Why an index, when #56 said no migration was needed.** Both halves of the code review found the
+  same thing independently: the route reads `holdoutStanding` and then inserts, and two starts — a
+  double press on the one-shot dialog, or two tabs — can both read "never sat" and both write. For a
+  paper that costs a second live sitting; here it spends the one thing that cannot be redone. The
+  index makes the second insert a database error on every code path, which is the pattern
+  `one_first_attempt_per_exam` already set (doc 04 §5.2), and the loser is answered from a second
+  read, exactly as if it had lost before reading at all. *Alternatives considered:* a
+  `pg_advisory_xact_lock` on the user inside the start transaction, which needs no migration but
+  protects only the callers that remember to take it; and recording the race as a known limit,
+  rejected because its consequence is the one this feature exists to prevent. The migration is
+  additive and neither Neon branch held a holdout row when it was written, so it builds on both.
+- **One holdout per candidate *ever*, not one open one.** A finished holdout and a running one are
+  both *the* holdout, so the index is keyed on the mode alone rather than on `submitted_at IS NULL`.
+  It changed one existing test, `attempt.test.ts`, whose two holdout cases shared a user; the second
+  now has its own.
+- **Why only the holdout request is strict.** Zod strips unknown keys, so `{mode:"holdout",
+  length:20}` parsed to a bare holdout and returned `201`. The holdout is the one mode where the mode
+  alone decides everything, so a request carrying anything else is asking for a holdout that does
+  not exist. *Alternative considered:* all four variants strict — consistent, but it changes exam,
+  practice and domain behaviour inside a slice that puts them out of scope; left as a decision of its
+  own.
+- **Why the exact-forty guard lives in the query.** `startComposedSitting` refuses only *zero*,
+  which is the right bar for a practice run; a 39-question holdout would be written down and spent.
+  `selectHoldoutQuestions` is the only reader of the pin, so refusing there is before any transaction
+  opens. It takes an `Executor` so the refusal is tested inside a transaction.
+- **An incident, and the rule it produced.** That test's first draft let the refusal cause its own
+  rollback. Its red run — before the guard existed — therefore **committed** the `UPDATE`, and Neon
+  `develop` marked 39 holdout rows until `npm run seed` restored the pin (verified set-equal
+  afterwards; the host was `develop`'s, production was never touched). The test now throws its own
+  sentinel so the rollback is unconditional, and every mutation that removed the guard left the bank
+  at forty. A test whose cleanup depends on the code under test being right does its damage exactly
+  when that code is wrong.
+- **A race test that passed without the fix was replaced.** Two concurrent `POST`s serialised well
+  enough to pass with no index at all. The race is now reproduced by its cause — a partial mock makes
+  the route's first standing read stale — and the insert meets the real index.
+- **Owed to #61, not corrected here, as #57 instructs:** doc 07 §2 (the narrowed `409`, the new
+  `resumed` short-circuit, the strict request) and doc 04 §5.1 (the index).
+- **Revisit if:** the holdout ever needs a second sitting per candidate — which would be a decision
+  to abandon what the holdout is, and this index is where that would have to be argued.

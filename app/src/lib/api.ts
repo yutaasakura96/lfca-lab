@@ -14,6 +14,7 @@ export type ErrorCode =
   | 'attempt_expired'
   | 'question_not_in_attempt'
   | 'flagging_not_available'
+  | 'holdout_already_sat'
   | 'internal_error';
 
 export function apiError(status: number, code: ErrorCode, message: string): Response {

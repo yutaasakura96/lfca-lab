@@ -15,6 +15,13 @@
       "when": 1788679118683,
       "tag": "0001_handy_rogue",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789958706043,
+      "tag": "0002_broken_sphinx",
+      "breakpoints": true
     }
   ]
 }

@@ -1,13 +1,20 @@
 import { db } from '../../../db/client.ts';
-import { createAttempt, startComposedSitting } from '../../../db/queries/attempt.ts';
+import {
+  createAttempt,
+  holdoutStanding,
+  startComposedSitting,
+  startHoldoutSitting,
+  type HoldoutStanding,
+} from '../../../db/queries/attempt.ts';
 import { openAttemptForExam } from '../../../db/queries/exams.ts';
 import {
   selectDomainQuestions,
+  selectHoldoutQuestions,
   selectPracticeQuestions,
 } from '../../../db/queries/selection.ts';
 import { questionCountFor } from '../../../domain/modes.ts';
 import { getSession } from '../../../lib/session.ts';
-import { apiError, type ErrorCode } from '../../../lib/api.ts';
+import { apiError } from '../../../lib/api.ts';
 import { StartAttemptRequest } from '../../../lib/requests.ts';
 
 export async function POST(request: Request): Promise<Response> {
@@ -98,10 +105,59 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  // The holdout arrives with its own slice — it is sat once, so starting one
-  // means refusing a second, and that refusal has nowhere to live yet. Refused
-  // explicitly rather than half-implemented, so a caller gets a clear answer
-  // instead of an attempt it cannot use.
-  const notYet: ErrorCode = 'invalid_request';
-  return apiError(400, notYet, 'The holdout sitting cannot be started yet.');
+  // The holdout: forty pinned questions, sixty minutes, sat once.
+  //
+  // Three outcomes, and the middle one is the one worth reading. A holdout that
+  // is *running* — started, tab closed, clock still going — is handed back, as
+  // an exam paper's open sitting is. Refusing it would strand the one sitting
+  // that can never be redone, reachable only through home's resume band. Only
+  // a *finished* holdout is refused, which keeps `holdout_already_sat` meaning
+  // already sat rather than already started.
+  //
+  // This narrows doc 07 §2, which reads as a flat refusal of any second start.
+  // The doc is corrected with the feature's close-out (#61), not here.
+  //
+  // The read is a courtesy, not the guard. Two starts can both read "never
+  // sat"; `one_holdout_per_user` is what refuses the second insert, and the
+  // loser is then answered from a second read, exactly as if it had lost the
+  // race before reading at all.
+  const existing = answerFromStanding(await holdoutStanding(db, userId));
+  if (existing) return existing;
+
+  // Composed, then written whole, as a practice sitting is. The query refuses
+  // anything but exactly forty, so a broken bank fails here — before the
+  // transaction opens, with no attempt row left behind.
+  const composed = await selectHoldoutQuestions(db);
+  const started = await startHoldoutSitting(db, userId, composed);
+  if (started === null) {
+    const winner = answerFromStanding(await holdoutStanding(db, userId));
+    if (winner) return winner;
+    throw new Error('The holdout index refused a start, and no holdout sitting exists.');
+  }
+
+  return Response.json(
+    {
+      attemptId: started.id,
+      questionCount: composed.length,
+      deadline: started.deadline?.toISOString() ?? null,
+    },
+    { status: 201 },
+  );
+}
+
+/**
+ * What an existing holdout sitting means for a start, or `null` if there is none.
+ *
+ * `sat` is checked first. Both at once is a state `one_holdout_per_user` makes
+ * impossible, and if it were ever found, the honest answer to "may I start the
+ * holdout?" is still no.
+ */
+function answerFromStanding(standing: HoldoutStanding): Response | null {
+  if (standing.sat) {
+    return apiError(409, 'holdout_already_sat', 'The holdout has already been sat.');
+  }
+  if (standing.openId !== null) {
+    return Response.json({ attemptId: standing.openId, resumed: true }, { status: 200 });
+  }
+  return null;
 }

@@ -172,6 +172,22 @@ describe('the start request', () => {
     expect(StartAttemptRequest.safeParse({ mode: 'exam', examId: 'exam-07' }).success).toBe(true);
   });
 
+  // The holdout's size is the mode's, never the caller's. A `length` here is a
+  // caller believing it can ask for a different holdout, and a schema that
+  // stripped the field would answer that belief with a 201. Every other key is
+  // refused for the same reason: the request has exactly one thing to say.
+  it('takes a holdout sitting with no other field, and refuses one that names a length', () => {
+    const parsed = StartAttemptRequest.safeParse({ mode: 'holdout' });
+    expect(parsed.success && parsed.data).toEqual({ mode: 'holdout' });
+
+    for (const length of [20, 40, 60, 'all']) {
+      expect(StartAttemptRequest.safeParse({ mode: 'holdout', length }).success, String(length))
+        .toBe(false);
+    }
+    expect(StartAttemptRequest.safeParse({ mode: 'holdout', examId: 'exam-07' }).success)
+      .toBe(false);
+  });
+
   it('refuses a mode that is not one of the four', () => {
     for (const mode of ['drill', 'review', '', null, 60]) {
       expect(StartAttemptRequest.safeParse({ mode }).success, String(mode)).toBe(false);

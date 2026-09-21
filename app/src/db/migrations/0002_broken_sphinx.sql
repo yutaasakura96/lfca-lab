@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "one_holdout_per_user" ON "attempt" USING btree ("user_id") WHERE "attempt"."mode" = 'holdout';

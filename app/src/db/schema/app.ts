@@ -214,6 +214,17 @@ export const attempt = pgTable(
     uniqueIndex('one_first_attempt_per_exam')
       .on(t.userId, t.examId)
       .where(sql`${t.isFirstAttempt}`),
+    /**
+     * The holdout is sat once, and this is what makes that a fact rather than
+     * a check. The start route reads before it writes, and two starts — a
+     * double press, two tabs — can both read "never sat". One row per
+     * candidate, ever, whatever its state: an open holdout and a finished one
+     * are both the one holdout, so the second insert is a database error on
+     * every code path, including any that forget to ask first.
+     */
+    uniqueIndex('one_holdout_per_user')
+      .on(t.userId)
+      .where(sql`${t.mode} = 'holdout'`),
   ],
 );
 

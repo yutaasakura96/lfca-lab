@@ -98,9 +98,10 @@ describe('unanswered questions', () => {
 });
 
 describe('scoring the 40-question holdout', () => {
-  it('fails at 29 and passes at 30', () => {
+  it('fails at 29 and passes at 30 and 31', () => {
     expect(scoreSitting({ answers: answers(29, 0, 11), questionCount: 40 }).passed).toBe(false);
     expect(scoreSitting({ answers: answers(30, 0, 10), questionCount: 40 }).passed).toBe(true);
+    expect(scoreSitting({ answers: answers(31, 0, 9), questionCount: 40 }).passed).toBe(true);
   });
 
   it('is a percentage of 40, not of 60', () => {

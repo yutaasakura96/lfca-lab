@@ -17,7 +17,7 @@
 // here would collapse three checks into two.
 
 import { sql } from 'drizzle-orm';
-import type { Db } from '../client.ts';
+import type { Db, Executor } from '../client.ts';
 import {
   composeDomainSitting,
   composeWeightedSitting,
@@ -26,6 +26,7 @@ import {
   type DomainLength,
 } from '../../domain/select.ts';
 import { DOMAINS, quotaFor, type Domain, type WeightedSittingLength } from '../../domain/weights.ts';
+import { HOLDOUT_QUESTION_COUNT } from '../../domain/modes.ts';
 
 /**
  * Every question this candidate could be asked from one domain, best first.
@@ -104,11 +105,29 @@ export async function selectDomainQuestions(
  *
  * Ordered by id rather than randomly. This is sat once and scored, so it is a
  * fixed paper like the sixteen — a stable order means the sitting can be
- * resumed and reviewed against a known sequence.
+ * resumed and reviewed against a known sequence. Nor is it unseen-first: every
+ * holdout item is unseen by construction, so there is nothing to order by.
+ *
+ * **Anything but exactly forty is refused, not handed out.** Unreachable
+ * against a healthy bank — the seed will not commit unless forty rows are
+ * marked — and the one failure this sitting cannot recover from: a
+ * wrong-sized holdout would be written down, sat, and spent. Refusing here,
+ * in the only reader, is before any start transaction opens, so no attempt
+ * row is left behind. `startComposedSitting`'s own guard is only against
+ * *zero*, which is the right bar for a practice run and far too low for this.
+ *
+ * Takes an executor rather than the handle so a caller inside a transaction
+ * can ask it — which is how the refusal is tested without changing the bank.
  */
-export async function selectHoldoutQuestions(db: Db): Promise<string[]> {
-  const result = await db.execute<{ id: string }>(sql`
+export async function selectHoldoutQuestions(executor: Executor): Promise<string[]> {
+  const result = await executor.execute<{ id: string }>(sql`
     SELECT id FROM question WHERE is_holdout = true ORDER BY id
   `);
-  return result.rows.map((r) => r.id);
+  const ids = result.rows.map((r) => r.id);
+  if (ids.length !== HOLDOUT_QUESTION_COUNT) {
+    throw new Error(
+      `The bank marks ${ids.length} holdout questions, not ${HOLDOUT_QUESTION_COUNT}; refusing to compose a holdout sitting.`,
+    );
+  }
+  return ids;
 }

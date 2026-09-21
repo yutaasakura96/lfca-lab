@@ -142,8 +142,15 @@ describe.skipIf(!hasDatabase)('starting an unscored sitting', () => {
     }
   });
 
+  // Its own candidate: `one_holdout_per_user` allows one holdout per candidate,
+  // ever, and the test above has already spent this file's user's.
   it('times the holdout at sixty minutes', async () => {
-    const started = await createAttempt(db, { userId, mode: 'holdout', questionCount: 40 });
+    const holdoutUserId = await createTestUser(testUserId('attempt-holdout'));
+    const started = await createAttempt(db, {
+      userId: holdoutUserId,
+      mode: 'holdout',
+      questionCount: 40,
+    });
     expect((started.deadline as Date).getTime() - started.startedAt.getTime()).toBe(3600 * 1000);
   });
 

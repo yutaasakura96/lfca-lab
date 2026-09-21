@@ -2,9 +2,9 @@
 
 **Project:** An LFCA exam simulator built on this repo's existing 1,150-question bank — three
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
-**Phase:** 6 — Build. **Features 1–5 are done; feature 6 is not yet chosen.**
+**Phase:** 6 — Build. **Features 1–5 are done; feature 6 (H1, the holdout sitting) is in progress — #57 of #57–#61 done.**
 **Production:** <https://lfca-lab-six.vercel.app>, deployed from git `main`.
-**Updated:** 2026-09-19
+**Updated:** 2026-09-21
 
 This file is the handoff a cleared session reads first. It says where things stand and what not to
 re-derive; it is not the history. **The history is the decision log** ([06-decision-log.md](06-decision-log.md)),
@@ -91,17 +91,36 @@ against production (#50). Log: 2026-09-11 → 2026-09-19.
 
 Suites, re-measured 2026-09-19: **339** bank · **740** app unit · **194** app integration · **1** e2e.
 
+### Feature 6 — the holdout sitting, H1 · #56–#61 · in progress
+Spec and every rejected alternative: **#56**. Log: 2026-09-21.
+
+- **#57 done.** `POST /api/attempt` with `{mode:"holdout"}` freezes the forty pinned ids and a
+  3600-second clock in one transaction. Running holdout → `200 {attemptId, resumed:true}`; sat →
+  `409 holdout_already_sat`; a `length` (or any other key) → `400`, the holdout variant alone being
+  `strictObject`. `selectHoldoutQuestions` refuses anything but exactly forty. **Migration 0002 adds
+  `one_holdout_per_user`**, a partial unique index, because the route's read-then-insert let two
+  concurrent starts write two holdouts; a lost race is answered from a second read. Applied to Neon
+  `develop`; reaches Neon `main` with the deploy workflow.
+
 ---
 
 ## Next
 
-**Choose feature 6.** Grill before speccing, as every feature so far has been.
+**`/implement 58`** — the holdout sitting: the exam arrangement over a frozen set. Then #59 (review),
+#60 (home card), #61 (docs). The order is a dependency order: home lands last so no affordance ever
+points at a 404. Read #56 first; do not re-derive it.
 
-The one product story left unbuilt is **H1, the holdout sitting** — 40 questions, 60 minutes,
-scored, sat **once**. It was deliberately kept for last: it is the readiness check before booking
-the retake, and it is only meaningful once the sixteen papers have been worked, which they have not
-(production holds no exam attempts). It needs a third arrangement of the sitting screen — composed
-like practice, timed and scored like an exam — and `409 holdout_already_sat` (doc 07 §2).
+**Until #58 lands, a holdout can be started only by a hand-made `POST`, and `/attempt/[id]` still
+`notFound()`s it.** Nothing in the UI reaches the endpoint — home's card is still `modecard--off`.
+
+**Doc corrections owed to #61**, accumulated rather than made (as #57 instructs): doc 07 §2's
+`409 holdout_already_sat` is narrowed to *sat*, with a running holdout returned `200 {resumed:true}`,
+and the holdout gains the `resumed` short-circuit §2 says composed sittings lack; doc 07 §2's
+holdout request refuses unknown keys; doc 04 §5.1 gains `one_holdout_per_user`; #56's "no
+migration needed" is superseded by migration 0002.
+
+**Verification boundary (#56):** develop proves start / submit / 409 / result freely; production gets
+card + dialog + **Cancel** only. The real press is the owner's, once, after the sixteen papers.
 
 The owner's own work in the meantime is sitting the sixteen papers on production.
 
@@ -188,6 +207,9 @@ Nothing.
 - A stale `app/.next` breaks typecheck after a route is deleted; `rm -rf app/.next`.
 - `gh run list --commit` needs the full 40-character SHA. Check `$?`, never a grep of piped output.
 - `vercel env add` needs `--type config` for a `NEXT_PUBLIC_` name, and exits 0 when it refuses.
+- A test that writes the **content** tables of Neon `develop` must roll back unconditionally —
+  throw its own sentinel — never rely on the code under test to throw. #57's first draft did, and
+  its red run committed and left `develop` marking 39 holdout rows until `npm run seed` repaired it.
 
 ---
 

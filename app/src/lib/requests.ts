@@ -81,7 +81,12 @@ export const StartAttemptRequest = z.discriminatedUnion('mode', [
       .union([z.literal(20), z.literal(40), z.literal(60)])
       .default(DEFAULT_PRACTICE_LENGTH),
   }),
-  z.object({ mode: z.literal('holdout') }),
+  // Strict, and the only variant that is. The holdout is the one mode where the
+  // mode alone decides everything — forty questions, sixty minutes, one sitting
+  // — so a request carrying anything else is a caller asking for a holdout that
+  // does not exist. The other three strip unknown keys as they always have;
+  // tightening them is a decision of its own, not one to ride in with this.
+  z.strictObject({ mode: z.literal('holdout') }),
   z.object({
     mode: z.literal('domain'),
     domain: z.enum(DOMAINS),
