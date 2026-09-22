@@ -109,7 +109,7 @@ alternative: **#56**. Log: 2026-09-20 (five entries, recorded at close) and 2026
   **§9** corrected or written. Checklist §9.3 — the production `409` and result card — is
   **deferred, not proved**, until the real sitting.
 
-Suites, re-measured 2026-09-22 (#63, on better-auth 1.7.5): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
+Suites, re-measured 2026-09-22 (#63 and #55, on better-auth 1.7.5 and vitest 5.0.1): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
 
 ---
 
@@ -136,10 +136,12 @@ schema that still has it. Shipped with the regenerated `auth.ts` and **migration
 index, then the column) in **one deploy** — an owner-approved exception to doc 12 §3's two-deploy
 rule, since the race can only fail the OAuth callback. The `auth` CLI is now a devDependency, so
 `npm run auth:generate` works. Log 2026-09-22.
-**Still open:** #55, vitest 4 → 5, against `develop`. It needs #54's better-auth (1.7.2's
-`peerOptional` vitest range stops at `^4`), so Dependabot must rebase it first. Unit and typecheck
-were green under vitest 5 on #54's deps; **integration under vitest 5 is not yet run.** The owner's
-global npm 11.3.0 crashes resolving vitest 5 (`reading 'edgesOut'` in arborist); npm 12.0.2 does not.
+**#55, vitest 4 → 5 — done 2026-09-22** (`a71126d`, fast-forward, no schema change). Verified on
+its head before merging: typecheck, 766 unit, 236 integration against Neon `develop`; the e2e run
+does not use vitest and was not re-run. Checklist §8.1 passed on the deploy: CI and Deploy green,
+seed line unchanged, `__drizzle_migrations` at **5** against five files. The owner's global npm
+11.3.0 crashes in `npm install` resolving vitest 5 (`reading 'edgesOut'` in arborist); `npm ci`
+works, and npm 12.0.2 resolves it cleanly. **No Dependabot PRs open.**
 
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.
