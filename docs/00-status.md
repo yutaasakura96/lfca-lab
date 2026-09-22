@@ -118,8 +118,13 @@ Suites, re-measured 2026-09-21 (#61): **339** bank · **764** app unit · **235*
 **Checklist §9.2 re-run on production after #61 — done 2026-09-21**: Cancel pressed on the new
 buttons, Neon `main` read back **0** holdout attempts.
 
-**No ticket is open.** The owner's own work is sitting the sixteen papers on production, then
-the holdout, then running checklist §9.3 and booking the retake. Anything new starts with a spec.
+**Open: #62, the `recall` pool** (specced 2026-09-22). The owner's 25 recalled practice questions
+become a new pool that practice and domain mode serve; papers, holdout and exam mode are untouched.
+Ticket A (pool, migration 0003, selection, bank checks) before ticket B (convert the 25 and check
+every key). Read #62 first; the source file is `~/Downloads/LFCA-Practice-Exam-1.md`, outside the repo.
+
+The owner's own work is sitting the sixteen papers on production, then the holdout, then running
+checklist §9.3 and booking the retake.
 
 **Verification boundary (#56), standing:** develop proves start / submit / 409 / result freely;
 production gets card + dialog + **Cancel** only. The real press is the owner's, once, after the
