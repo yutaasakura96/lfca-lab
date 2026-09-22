@@ -3148,3 +3148,46 @@ are where they stay once the issue is closed.*
   that a standing alert can be ignored.
 - **Revisit if:** drizzle-kit 1.0 goes stable (the esbuild-kit dependency goes with the upgrade),
   or anything here starts calling esbuild's `serve`.
+
+### [2026-09-22] better-auth 1.7.5 and the `account.issuer` drop ship in one deploy
+- **Decision:** Dependabot's `app` group (#54 — better-auth 1.7.2 → 1.7.5, next 16.3.5, react
+  19.3.0, zod 4.6.5, `@types/*`) lands together with the regenerated `src/db/schema/auth.ts` and
+  migration 0004, which drops `account_issuer_accountId_uidx` and then `account.issuer`. **One push
+  to `main`**, although doc 12 §3 says a destructive schema change is two deploys. The `auth` CLI
+  becomes a devDependency so `npm run auth:generate` works. Chosen by the owner. Ticket #63.
+- **Why #54 could not merge as it stood.** Its CI was green because CI runs no database suite. On
+  Neon `develop`, `test:integration` failed at startup: *"Drizzle schema mismatch — Required columns
+  Better Auth never writes: account.issuer"*. better-auth 1.7.0–1.7.2 added a `NOT NULL`
+  `account.issuer` and a unique index on `(issuer, account_id)`; 1.7.3 removed both (its 1.7 upgrade
+  guide, "Account identity keeps the provider key"), and 1.7.5 refuses to run against a schema that
+  still holds the column. Merged alone, #54 would have broken production sign-in.
+- **Why one deploy, against doc 12 §3.** Vercel and the migration race (doc 12 §3), and both
+  orders were read out of the installed source rather than assumed. 1.7.5's startup check
+  (`findDrizzleSchemaProblems` in `@better-auth/drizzle-adapter`) compares the library's expectation
+  with the **Drizzle schema object**, not the live database — so the new build starts whichever
+  order the race runs in. New code on the old schema fails only an `account` **insert**, since
+  `issuer` is still `NOT NULL` and 1.7.5 never writes it. Old code on the new schema fails any
+  `account` **read**, since 1.7.2's Drizzle schema still names a column that is gone. **Both are on
+  the OAuth callback only**; a signed-in page reads `session` and `user`, which 0004 does not touch. Production
+  has one candidate, who holds a live session and has no reason to pass through the callback in the
+  minute the race lasts. So the window costs nothing unless someone signs in during it; **the owner
+  does not sign in to production while the deploy runs.** And once both halves have landed, #47's
+  observation — signing in with the restored account writes no new `account` row — is the check
+  that the callback works on the new schema.
+- **Alternatives considered:** the two-deploy shape — a hand-written migration relaxing `issuer` to
+  nullable first, the drop a deploy later. It honours §3 literally, but a hand-written migration puts
+  drizzle-kit's snapshot out of step with the database, so the next `db:generate` would either emit
+  the relax again or miss the drop — a cost that outlives the one window it protects. And pinning
+  better-auth at 1.7.2 and closing #54, which leaves the whole `app` group behind a column the
+  library itself has withdrawn.
+- **Verified before deploying:** on Neon `develop`, 0004 applied, `account.issuer` and its index
+  gone, five migrations recorded, the one account intact; typecheck, 766 unit and 236 integration
+  green. `backup-command.test.ts` still passes — 0004 adds no table.
+- **`auth` as a devDependency rather than `npx auth@<version>` in the script.** The package pins
+  `better-auth` exactly, so installing it keeps the two in lockstep and Dependabot's `app` group
+  (`patterns: ["*"]`) bumps both together. A version in a script string is one nobody bumps. The
+  cost is about 900 lockfile lines of dev-only dependencies (Babel, Prettier), none of which reaches
+  the production bundle.
+- **Revisit if:** another auth-table change arrives with a non-empty `account` write path in play —
+  a second user, or a second provider — at which point the race is no longer free and §3's two
+  deploys apply.

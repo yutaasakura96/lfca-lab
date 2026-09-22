@@ -109,7 +109,7 @@ alternative: **#56**. Log: 2026-09-20 (five entries, recorded at close) and 2026
   **§9** corrected or written. Checklist §9.3 — the production `409` and result card — is
   **deferred, not proved**, until the real sitting.
 
-Suites, re-measured 2026-09-22 (#62 ticket B): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
+Suites, re-measured 2026-09-22 (#63, on better-auth 1.7.5): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
 
 ---
 
@@ -129,8 +129,17 @@ Log 2026-09-22 (two entries).
 **Dependabot alert #1 — dismissed 2026-09-22** as `not_used`: esbuild 0.18.20 arrives only via
 `@esbuild-kit/esm-loader`, which drizzle-kit declares and never imports, and nothing calls esbuild's
 `serve`. No dependency changed; revisit at drizzle-kit 1.0 stable. Log 2026-09-22.
-**Still open:** the two Dependabot branches against `develop` (`app-1c168707c7` and
-`vitest-5.0.1`) — read each before merging, per doc 03 §9.
+
+**#63, better-auth 1.7.5 — done 2026-09-22.** Dependabot's `app` group (#54) broke sign-in on its
+own: better-auth 1.7.3 withdrew the `account.issuer` column 1.7.0 added, and 1.7.5 refuses a Drizzle
+schema that still has it. Shipped with the regenerated `auth.ts` and **migration 0004** (drop the
+index, then the column) in **one deploy** — an owner-approved exception to doc 12 §3's two-deploy
+rule, since the race can only fail the OAuth callback. The `auth` CLI is now a devDependency, so
+`npm run auth:generate` works. Log 2026-09-22.
+**Still open:** #55, vitest 4 → 5, against `develop`. It needs #54's better-auth (1.7.2's
+`peerOptional` vitest range stops at `^4`), so Dependabot must rebase it first. Unit and typecheck
+were green under vitest 5 on #54's deps; **integration under vitest 5 is not yet run.** The owner's
+global npm 11.3.0 crashes resolving vitest 5 (`reading 'edgesOut'` in arborist); npm 12.0.2 does not.
 
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.
