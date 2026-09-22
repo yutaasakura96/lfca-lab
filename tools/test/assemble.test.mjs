@@ -95,6 +95,34 @@ test('no supplement item reaches an exam or the unused list', async () => {
   assert.ok(!unused.some((i) => i.pool === 'supplement'));
 });
 
+// #62. A recall item is served by practice and domain mode only. It must never
+// reach a paper or the unused list — the unused list is compared with the
+// pinned holdout, so a recall item there would fail validate — and the drills
+// stay the study material they were, byte for byte.
+function recallItem(ctx, n) {
+  const base = ctx.items[n];
+  return { ...base, id: `${base.id}-recall`, pool: 'recall', stem: `Recalled stem ${n}` };
+}
+
+test('no recall item reaches an exam or the unused list', async () => {
+  const ctx = await syntheticContext();
+  ctx.items.push(recallItem(ctx, 0), recallItem(ctx, 500));
+  const { exams, unused } = partitionIntoExams(ctx);
+  assert.ok(!exams.flatMap((e) => e.items).some((i) => i.pool === 'recall'));
+  assert.ok(!unused.some((i) => i.pool === 'recall'));
+});
+
+test('recall items leave every generated document byte-identical', async () => {
+  const ctx = await syntheticContext();
+  const before = buildAll(ctx);
+  ctx.items.push(recallItem(ctx, 0), recallItem(ctx, 500), recallItem(ctx, 900));
+  const after = buildAll(ctx);
+  assert.deepEqual(after.exams, before.exams);
+  assert.deepEqual(after.drills, before.drills);
+  assert.deepEqual(after.unused, before.unused);
+  assert.deepEqual(after.documents, before.documents);
+});
+
 test('every exam matches the pinned per-exam composition table exactly', async () => {
   const ctx = await syntheticContext();
   const domainOf = new Map(ctx.dataset.topics.map((t) => [t.id, t.domain]));

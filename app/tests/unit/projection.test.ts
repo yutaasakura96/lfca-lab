@@ -56,6 +56,16 @@ describe('what the seed refuses to insert', () => {
     expect(() => assertWellFormed(item())).not.toThrow();
   });
 
+  // #62. The owner's recalled questions are their own pool; anything else is
+  // still a typo the seed must not insert.
+  it('accepts a recall-pool item', () => {
+    expect(() => assertWellFormed(item({ pool: 'recall' }))).not.toThrow();
+  });
+
+  it('refuses an unknown pool', () => {
+    expect(() => assertWellFormed(item({ pool: 'practice' }))).toThrow(/unknown pool "practice"/);
+  });
+
   it('refuses a question without four options', () => {
     expect(() => assertWellFormed(item({ options: item().options.slice(0, 3) })))
       .toThrow(/3 option\(s\); every question has 4/);

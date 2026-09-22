@@ -158,7 +158,7 @@ speccing feature 4 and implemented by #34. See the decision log, 2026-09-06.
 | **The "Recent:" chip row "with their scores"** | There are no scores in these modes. Without them it is a list of dates. |
 | **The per-domain mastery meter** | Coverage is a fact about what you have done; mastery is a judgement about how well, and the 2026-08-28 decision declined to build a readiness signal. "X of Y seen" stays. |
 
-**"X of Y seen" means answered, not merely served.** `Y` is the domain's non-holdout exam pool — the
+**"X of Y seen" means answered, not merely served.** `Y` is the domain's non-holdout exam and recall pools (#62) — the
 same predicate selection filters by, so the "All N" chip advertises the sitting `length: 'all'`
 actually produces. `X` counts distinct questions with a **non-null `answered_at`**: a
 flagged-but-unanswered question is *unseen* to selection (doc 04 §6), and a card that counted it

@@ -11,6 +11,17 @@ import { QUESTIONS_PER_WEIGHTED_SITTING } from './weights.ts';
 export const ATTEMPT_MODES = ['exam', 'practice', 'domain', 'holdout'] as const;
 export type AttemptMode = (typeof ATTEMPT_MODES)[number];
 
+/**
+ * The pools a composed practice or domain sitting draws on (#62).
+ *
+ * `exam` is the 1,000 the sixteen papers and the holdout come from; `recall` is
+ * the owner's recalled questions. The `supplement` is left out on purpose: its
+ * 150 items were never matched to the weight table or checked as fit to serve.
+ * One list, read by both the selection query and the coverage count, so the
+ * "All N" a domain card advertises is the pool its sitting actually draws on.
+ */
+export const COMPOSED_POOLS = ['exam', 'recall'] as const;
+
 /** The holdout is forty questions, sat once. */
 export const HOLDOUT_QUESTION_COUNT = 40;
 

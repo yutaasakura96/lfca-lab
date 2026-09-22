@@ -12,7 +12,7 @@ import { DOMAINS, type Domain } from '../src/domain/weights.ts';
 
 export const HOLDOUT_SIZE = 40;
 
-const POOLS = ['exam', 'supplement'] as const;
+const POOLS = ['exam', 'supplement', 'recall'] as const;
 const TYPES = ['application', 'discrimination', 'diagnostic', 'command', 'recall'] as const;
 
 export interface QuestionRow {

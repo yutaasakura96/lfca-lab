@@ -14,7 +14,8 @@
 // with each other about what "seen" means.
 
 import { sql } from 'drizzle-orm';
-import type { Db } from '../client.ts';
+import type { Executor } from '../client.ts';
+import { COMPOSED_POOLS } from '../../domain/modes.ts';
 import { DOMAINS, type Domain } from '../../domain/weights.ts';
 
 /**
@@ -75,7 +76,7 @@ export interface DomainListRow {
  * A domain never touched comes back `0` and `null`, so the screen can say
  * "0 of N seen" and "not started" rather than showing a blank (PRD §4).
  */
-export async function listDomains(db: Db, userId: string): Promise<DomainListRow[]> {
+export async function listDomains(db: Executor, userId: string): Promise<DomainListRow[]> {
   const result = await db.execute<{
     domain: Domain;
     name: string;
@@ -106,7 +107,7 @@ export async function listDomains(db: Db, userId: string): Promise<DomainListRow
       ON a.question_id = q.id
      AND a.answered_at IS NOT NULL
      AND a.attempt_id IN (SELECT t.id FROM attempt t WHERE t.user_id = ${userId})
-    WHERE q.pool = 'exam' AND q.is_holdout = false
+    WHERE q.pool = ANY(${sql.param([...COMPOSED_POOLS])}::pool[]) AND q.is_holdout = false
     GROUP BY q.domain
     -- Ordered against the one place the order is decided. The Postgres enum
     -- declares the six in a different order from DOMAINS, and DOMAINS is the

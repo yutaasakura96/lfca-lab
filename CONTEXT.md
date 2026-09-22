@@ -33,7 +33,7 @@ Content tables are read-only to the app; user tables are never touched by the se
 | **Option** | One of a question's four choices. Always four. Exactly one is correct. |
 | **`why` text** | The per-option explanation. **Every** option has one, including wrong ones — the wrong-option text is the most valuable content in the bank, and any screen that shows only the correct answer's explanation is wrong. |
 | **Provenance** | How a distractor was constructed: `key`, `sibling`, `misconception`, `variant`, `confusable`. Authored, seeded, not yet shown in the UI. |
-| **Pool** | `exam` (1,000 items) or `supplement` (150). Only the exam pool composes exams, practice and domain sessions. |
+| **Pool** | `exam` (1,000 items), `supplement` (150) or `recall`. Only the exam pool composes the sixteen papers and the holdout. **`recall`** holds the owner's questions recalled from their LFCA sitting, AI-rephrased and key-checked (#62); practice and domain sessions draw on `exam` and `recall` together, under the same weights. The `supplement` is served nowhere in the app. |
 | **Domain** | One of six, always by slug: `linux`, `sysadmin`, `cloud`, `security`, `devops`, `pm`. Never "category", never "section". |
 | **Competency** | The finer grouping inside a domain (`Linux Fundamentals :: Command Line`). 22 of them. Not a level anything is selected by. |
 | **Concept** | A `concept_id` from `data/topics/`. The study guide's unit. The simulator carries it but does not select by it. |

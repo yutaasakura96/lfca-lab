@@ -42,7 +42,9 @@ export const domainEnum = pgEnum('domain', [
   'devops',
   'pm',
 ]);
-export const poolEnum = pgEnum('pool', ['exam', 'supplement']);
+// `recall` (#62): the owner's recalled questions, served by practice and domain
+// mode alongside `exam`, never by a paper.
+export const poolEnum = pgEnum('pool', ['exam', 'supplement', 'recall']);
 export const questionTypeEnum = pgEnum('question_type', [
   'application',
   'discrimination',

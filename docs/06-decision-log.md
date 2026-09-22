@@ -3067,3 +3067,33 @@ are where they stay once the issue is closed.*
 - **Consequence:** doc 10 §2a and checklist §9.1 describe the new buttons, and §9.2 is to be re-run
   on production after this deploys.
 - **Revisit if:** it is mis-pressed again — at which point the checkbox is the next step.
+
+### [2026-09-22] The recalled questions are a third pool, `recall`, served by practice and domain mode
+- **Decision:** the owner's 25 recalled questions enter the bank as a new pool, **`recall`**,
+  which practice and domain mode serve alongside `exam` under the unchanged 18/11/10/8/7/6 tables.
+  No paper, no drill, no derived allocation and the holdout never touch it. Ticket A of #62 builds
+  the pool with no content: migration 0003 (`ALTER TYPE pool ADD VALUE 'recall'`, additive),
+  `COMPOSED_POOLS` in `src/domain/modes.ts` read by both `domainCandidates` and `listDomains`, and
+  the bank tooling taught the third value. Ticket B authors the 25. Chosen by the owner.
+- **Alternatives considered.** *The `exam` pool* — refused by the build by design: the sixteen
+  papers take exactly 960 exam items and the rest must equal the 40 pinned holdout ids, so 25 more
+  would leave 65 and `build-exams` refuses. That guard is the holdout's second lock and stays
+  untouched. *The `supplement`* — never served; widening practice and domain to it would also pull
+  in its 150 items, which were never matched to the weight table or checked as fit to serve.
+- **The drills leave `recall` out**, which the spec implied rather than named: it asks for papers
+  and drills byte-identical, and the drill builder read every item regardless of pool, so without a
+  filter ticket B would have rewritten them. `assemble.test.mjs` asserts every generated document
+  is unchanged by adding recall items.
+- **The two queries share one list rather than two literals.** The coverage count's comment already
+  promised it used "the same predicate `domainCandidates` selects by"; with two pools that promise
+  becomes a list that can drift, so it is one constant. The holdout filter stays inline in each
+  query, as the third lock requires. Both queries and the two selectors now take an `Executor`
+  rather than the handle, so the test below can run them inside a transaction.
+- **The drill filter names the pools it keeps** (`exam`, `supplement`) rather than excluding
+  `recall`, so a fourth pool is left out of the drills until someone decides to put it in.
+- **The integration test writes the content tables, and rolls back by its own sentinel.** Ticket A
+  has no recall rows to serve, so one is inserted and every other PM exam item moved to the
+  supplement inside a transaction the test always aborts — the #57 rule. Mutation-checked three
+  ways: either query back on `pool = 'exam'` fails it, and so does the drill filter's removal.
+- **Revisit if:** a "recalled questions only" run is ever wanted — it is a pool filter away, and out
+  of #62's scope.

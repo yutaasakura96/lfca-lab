@@ -1,7 +1,7 @@
 // Composing a sitting from candidates the database has already ordered.
 //
 // The division of labour matters. The query decides *which* questions are
-// eligible and in *what order* — non-holdout, exam pool, unseen before seen,
+// eligible and in *what order* — non-holdout, exam and recall pools, unseen before seen,
 // then least recently seen. This module decides *how many* of each to take. The
 // ordering stays in SQL because that is where "unseen first" is expressible as
 // one pass over an index; the arithmetic lives here because that is where it
@@ -72,7 +72,7 @@ export function composeDomainSitting(candidates: readonly string[], length: numb
  * 57-question sitting — would quietly change what a score means, and a score
  * that quietly changes meaning is the failure this project is organised to
  * avoid. The redistribution is reachable only if a domain's entire non-holdout
- * exam pool is smaller than its quota; the smallest pool in the bank is 100
+ * candidate pool is smaller than its quota; the smallest pool in the bank is 100
  * against a quota of 6, so in practice it never fires. It exists so that a
  * future bank cannot produce a short sitting in silence.
  *

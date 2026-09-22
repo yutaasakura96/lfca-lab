@@ -4,7 +4,7 @@
 modes (exam, practice, domain) replacing the sixteen static markdown practice exams.
 **Phase:** 6 — Build. **Features 1–6 are done.** The holdout is built and deployed, not yet sat.
 **Production:** <https://lfca-lab-six.vercel.app>, deployed from git `main`.
-**Updated:** 2026-09-21
+**Updated:** 2026-09-22
 
 This file is the handoff a cleared session reads first. It says where things stand and what not to
 re-derive; it is not the history. **The history is the decision log** ([06-decision-log.md](06-decision-log.md)),
@@ -109,7 +109,7 @@ alternative: **#56**. Log: 2026-09-20 (five entries, recorded at close) and 2026
   **§9** corrected or written. Checklist §9.3 — the production `409` and result card — is
   **deferred, not proved**, until the real sitting.
 
-Suites, re-measured 2026-09-21 (#61): **339** bank · **764** app unit · **235** app integration · **1** e2e.
+Suites, re-measured 2026-09-22 (#62 ticket A): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
 
 ---
 
@@ -120,8 +120,14 @@ buttons, Neon `main` read back **0** holdout attempts.
 
 **Open: #62, the `recall` pool** (specced 2026-09-22). The owner's 25 recalled practice questions
 become a new pool that practice and domain mode serve; papers, holdout and exam mode are untouched.
-Ticket A (pool, migration 0003, selection, bank checks) before ticket B (convert the 25 and check
-every key). Read #62 first; the source file is `~/Downloads/LFCA-Practice-Exam-1.md`, outside the repo.
+**Ticket A is built** (2026-09-22, branch `feature/62-recall-pool`): migration 0003 adds the enum
+value (applied to Neon `develop`, not yet `main`), `COMPOSED_POOLS` in `src/domain/modes.ts` feeds
+selection and coverage, the bank tooling accepts `recall`, and drills keep only `exam` and
+`supplement`, so `build-exams` produces no diff. Log 2026-09-22. **Next is ticket B**: convert the 25
+and check every key against a primary source, with the doubted-key list going to the owner before
+commit. When B lands, bank-integrity's `{exam: 1000, supplement: 150}` gains `recall: 25` and PRD §2's
+"Exam pool available" column wants the recall counts. The source file is
+`~/Downloads/LFCA-Practice-Exam-1.md`, outside the repo.
 
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.

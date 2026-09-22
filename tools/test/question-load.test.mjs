@@ -37,11 +37,17 @@ test('the enumerations are the documented sets', () => {
     ['recall', 'application', 'command', 'diagnostic', 'discrimination']);
   assert.deepEqual(PROVENANCE_KINDS,
     ['key', 'confusable', 'sibling', 'lookalike', 'variant', 'misconception']);
-  assert.deepEqual(POOLS, ['exam', 'supplement']);
+  assert.deepEqual(POOLS, ['exam', 'supplement', 'recall']);
 });
 
 test('a sound item validates clean', () => {
   assert.deepEqual(validateItem(sound(), 0), []);
+});
+
+// The owner's recalled questions (#62): a third pool, served by practice and
+// domain mode and never by a paper.
+test('a recall-pool item validates clean', () => {
+  assert.deepEqual(validateItem({ ...sound(), pool: 'recall' }, 0), []);
 });
 
 test('a missing required field is reported by name', () => {

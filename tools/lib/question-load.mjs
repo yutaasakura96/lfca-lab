@@ -3,7 +3,9 @@ import { posix } from 'node:path';
 
 export const ITEM_TYPES = ['recall', 'application', 'command', 'diagnostic', 'discrimination'];
 export const PROVENANCE_KINDS = ['key', 'confusable', 'sibling', 'lookalike', 'variant', 'misconception'];
-export const POOLS = ['exam', 'supplement'];
+// `recall` (#62) holds the owner's recalled practice questions. Practice and
+// domain mode serve it; no paper, drill or derived allocation counts it.
+export const POOLS = ['exam', 'supplement', 'recall'];
 
 const REQUIRED_STRING = ['id', 'concept_id', 'pool', 'type', 'stem', 'rationale', 'guide_anchor'];
 const OPTION_REFS = ['o1', 'o2', 'o3', 'o4'];

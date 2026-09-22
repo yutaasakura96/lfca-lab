@@ -17,7 +17,7 @@
 // here would collapse three checks into two.
 
 import { sql } from 'drizzle-orm';
-import type { Db, Executor } from '../client.ts';
+import type { Executor } from '../client.ts';
 import {
   composeDomainSitting,
   composeWeightedSitting,
@@ -26,7 +26,7 @@ import {
   type DomainLength,
 } from '../../domain/select.ts';
 import { DOMAINS, quotaFor, type Domain, type WeightedSittingLength } from '../../domain/weights.ts';
-import { HOLDOUT_QUESTION_COUNT } from '../../domain/modes.ts';
+import { COMPOSED_POOLS, HOLDOUT_QUESTION_COUNT } from '../../domain/modes.ts';
 
 /**
  * Every question this candidate could be asked from one domain, best first.
@@ -44,7 +44,11 @@ import { HOLDOUT_QUESTION_COUNT } from '../../domain/modes.ts';
  * composing a weighted sitting needs spares to redistribute when another domain
  * runs short. A domain holds at most a few hundred rows.
  */
-export async function domainCandidates(db: Db, userId: string, domain: Domain): Promise<string[]> {
+export async function domainCandidates(
+  db: Executor,
+  userId: string,
+  domain: Domain,
+): Promise<string[]> {
   const result = await db.execute<{ id: string }>(sql`
     SELECT q.id
     FROM question q
@@ -55,7 +59,7 @@ export async function domainCandidates(db: Db, userId: string, domain: Domain): 
       WHERE a.question_id = q.id AND t.user_id = ${userId}
     ) s ON true
     WHERE q.domain = ${domain}::domain
-      AND q.pool = 'exam'
+      AND q.pool = ANY(${sql.param([...COMPOSED_POOLS])}::pool[])
       AND q.is_holdout = false
     ORDER BY s.last_seen ASC NULLS FIRST, random()
   `);
@@ -70,7 +74,7 @@ export async function domainCandidates(db: Db, userId: string, domain: Domain): 
  * does not go through.
  */
 export async function selectPracticeQuestions(
-  db: Db,
+  db: Executor,
   userId: string,
   length: WeightedSittingLength,
 ): Promise<string[]> {
@@ -90,7 +94,7 @@ export async function selectPracticeQuestions(
 
 /** A single-domain sitting of 20, 40, or the whole domain. */
 export async function selectDomainQuestions(
-  db: Db,
+  db: Executor,
   userId: string,
   domain: Domain,
   length: DomainLength,

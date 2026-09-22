@@ -274,10 +274,15 @@ export function buildAll(ctx) {
     documents.push({ name: `exams/${exam.name}-answers.md`, kind: 'answers', text: renderAnswerKey(exam, ctx, positions) });
   }
 
+  // Drills are study material over the exam and supplement pools, named rather
+  // than "everything but recall" so a future pool is left out until someone
+  // decides otherwise. Recall items (#62) are served by the app only, so adding
+  // them changes no generated file.
+  const drillable = ctx.items.filter((i) => i.pool === 'exam' || i.pool === 'supplement');
   const drillSpecs = [];
   for (const domain of ctx.dataset.competencies.domains) {
     for (const competency of domain.competencies) {
-      const items = ctx.items.filter((i) => {
+      const items = drillable.filter((i) => {
         const t = byId.get(i.concept_id);
         return t && t.domain === domain.name && t.competency === competency.name;
       });
@@ -288,14 +293,14 @@ export function buildAll(ctx) {
         items,
       });
     }
-    const domainItems = ctx.items.filter((i) => byId.get(i.concept_id)?.domain === domain.name);
+    const domainItems = drillable.filter((i) => byId.get(i.concept_id)?.domain === domain.name);
     drillSpecs.push({
       name: `by-domain/${domain.file.replace(/\.json$/, '')}`,
       title: domain.name,
       items: domainItems,
     });
   }
-  const weakItems = ctx.items.filter((i) => {
+  const weakItems = drillable.filter((i) => {
     const t = byId.get(i.concept_id);
     return t && ['System Administration Fundamentals::Networking',
       'Cloud Computing Fundamentals::Networking',

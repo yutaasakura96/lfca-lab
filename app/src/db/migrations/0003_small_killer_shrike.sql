@@ -1,0 +1,1 @@
+ALTER TYPE "public"."pool" ADD VALUE 'recall';

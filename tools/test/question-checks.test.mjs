@@ -371,6 +371,23 @@ test('the fixture bank passes every check in this task', async () => {
   }
 });
 
+// #62. The allocation derives exam and supplement counts per concept; a
+// recall item is outside both, so it must count towards neither.
+test('q-count-derived and the supplement total ignore recall items', async () => {
+  const baseline = await fixture();
+  const ctx = await mutated((bank) => {
+    const extra = structuredClone(bank[0].items[0]);
+    extra.id = extra.id.replace(/\d{2}$/, '98');
+    extra.pool = 'recall';
+    extra.stem = 'A recalled stem, unlike any other in the fixture.';
+    bank[0].items.push(extra);
+  });
+  assert.deepEqual(checkCountDerived(ctx, {}), []);
+  const supplementFindings = (c) =>
+    checkDomainDistribution(c, {}).filter((f) => /supplement/.test(f.message));
+  assert.deepEqual(supplementFindings(ctx), supplementFindings(baseline));
+});
+
 test('q-domain-distribution passes on the real dataset only when the pool matches the weights', async () => {
   const dataset = await loadDataset('data');
   const ctx = bankContext({ dataset, bank: [] });

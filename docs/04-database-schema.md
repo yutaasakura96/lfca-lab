@@ -114,7 +114,7 @@ every one with exactly four options, none missing `why` text.**
 | `concept_id` | text | no | — | e.g. `linux.command-line.command-syntax`. Not a foreign key — concepts live in `data/topics/` and are not seeded. |
 | `competency` | text | no | — | e.g. `Linux Fundamentals :: Command Line`. 22 distinct values. |
 | `domain` | `domain` enum | no | — | `linux \| sysadmin \| cloud \| security \| devops \| pm`. Derived by the seed from the id's second segment; the seed **fails** on an unrecognised segment rather than defaulting. |
-| `pool` | `pool` enum | no | — | `exam \| supplement`. 1,000 exam / 150 supplement. |
+| `pool` | `pool` enum | no | — | `exam \| supplement \| recall`. 1,000 exam / 150 supplement / the owner's recalled questions. `recall` arrived with migration 0003 (#62), additive; practice and domain mode serve `exam` and `recall`, no paper serves `recall`, and nothing in the app serves `supplement`. |
 | `type` | `question_type` enum | no | — | `application \| discrimination \| diagnostic \| command \| recall`. |
 | `difficulty` | smallint | no | — | 1–5, `CHECK (difficulty BETWEEN 1 AND 5)`. |
 | `stem` | text | no | — | Markdown-ish; contains backticked code. Rendered as text with inline code, never as raw HTML. |
@@ -126,7 +126,7 @@ every one with exactly four options, none missing `why` text.**
 | Index | Justifies |
 | --- | --- |
 | pk on `id` | Every answer join and every review render. |
-| `idx_question_selection` on `(domain, is_holdout, pool)` | The selection query in practice and domain mode: `WHERE domain = $1 AND is_holdout = false AND pool = 'exam'`. This is the only hot query in the app that is not a primary-key lookup. |
+| `idx_question_selection` on `(domain, is_holdout, pool)` | The selection query in practice and domain mode: `WHERE domain = $1 AND is_holdout = false AND pool IN ('exam','recall')`. This is the only hot query in the app that is not a primary-key lookup. |
 
 At 1,150 rows Postgres will often sequential-scan this anyway. The index is cheap, and it documents
 the query that matters.
@@ -343,7 +343,7 @@ LEFT JOIN LATERAL (
   FROM answer a JOIN attempt t ON t.id = a.attempt_id
   WHERE a.question_id = q.id AND t.user_id = $user
 ) s ON true
-WHERE q.domain = $domain AND q.pool = 'exam' AND q.is_holdout = false
+WHERE q.domain = $domain AND q.pool IN ('exam', 'recall') AND q.is_holdout = false
 ORDER BY s.last_seen ASC NULLS FIRST, random()
 LIMIT $quota;
 ```

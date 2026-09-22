@@ -8,6 +8,7 @@ import {
   selectHoldoutQuestions,
   selectPracticeQuestions,
 } from '../../src/db/queries/selection.ts';
+import { listDomains } from '../../src/db/queries/domains.ts';
 import {
   DOMAINS,
   QUESTIONS_PER_WEIGHTED_SITTING,
@@ -158,10 +159,11 @@ describe.skipIf(!hasDatabase)('a practice sitting', () => {
     }
   });
 
-  it('draws only from the exam pool', async () => {
+  it('draws only from the exam and recall pools', async () => {
     const picked = await selectPracticeQuestions(db, userId, QUESTIONS_PER_WEIGHTED_SITTING);
     const offPool = await db.execute<{ n: number }>(sql`
-      SELECT count(*)::int AS n FROM question WHERE id = ANY(${idArray(picked)}) AND pool <> 'exam'
+      SELECT count(*)::int AS n FROM question
+      WHERE id = ANY(${idArray(picked)}) AND pool NOT IN ('exam', 'recall')
     `);
     expect(offPool.rows[0]?.n).toBe(0);
   });
@@ -190,13 +192,63 @@ describe.skipIf(!hasDatabase)('a domain sitting', () => {
     expect(wrong.rows[0]?.n).toBe(0);
   });
 
-  it('never exceeds the domain\'s non-holdout exam pool', async () => {
+  it('never exceeds the domain\'s non-holdout exam and recall pools', async () => {
     const all = await selectDomainQuestions(db, userId, 'pm', 'all');
     const available = await db.execute<{ n: number }>(sql`
       SELECT count(*)::int AS n FROM question
-      WHERE domain = 'pm' AND pool = 'exam' AND is_holdout = false
+      WHERE domain = 'pm' AND pool IN ('exam', 'recall') AND is_holdout = false
     `);
     expect(all).toHaveLength(available.rows[0]?.n as number);
+  });
+});
+
+// #62. The recall pool is served by practice and domain mode, and the holdout
+// still never is. Ticket A lands with no recall rows, so one is written here —
+// inside a transaction rolled back **unconditionally**, by this test's own
+// sentinel, so the shared bank on `develop` is left exactly as it was whatever
+// the code under test does (the #57 lesson). Every other PM exam item is moved
+// to the supplement for the length of the transaction, which leaves the recall
+// item the only PM question either composer can take: a 20-question practice
+// sitting wants two PM questions, so it must take it and fill the rest from
+// another domain.
+describe.skipIf(!hasDatabase)('the recall pool', () => {
+  const RECALL_ID = 'q.pm.itest-recall.01';
+
+  it('is served by practice and domain mode, beside a holdout that never is', async () => {
+    const rollback = new Error('rolled back on purpose');
+    let practice: string[] = [];
+    let domainAll: string[] = [];
+    let pmAvailable: number | undefined;
+
+    await expect(
+      db.transaction(async (tx) => {
+        await tx.execute(sql`
+          INSERT INTO question (id, concept_id, competency, domain, pool, type, difficulty, stem)
+          SELECT ${RECALL_ID}, concept_id, competency, domain, 'recall', type, difficulty,
+                 'A recalled stem.'
+          FROM question WHERE domain = 'pm' LIMIT 1
+        `);
+        await tx.execute(sql`
+          UPDATE question SET pool = 'supplement'
+          WHERE domain = 'pm' AND pool = 'exam' AND is_holdout = false
+        `);
+        practice = await selectPracticeQuestions(tx, userId, 20);
+        domainAll = await selectDomainQuestions(tx, userId, 'pm', 'all');
+        pmAvailable = (await listDomains(tx, userId)).find((d) => d.domain === 'pm')?.available;
+        throw rollback;
+      }),
+    ).rejects.toBe(rollback);
+
+    expect(practice).toHaveLength(20);
+    expect(practice).toContain(RECALL_ID);
+    expect(practice.filter((id) => holdoutIds.has(id))).toEqual([]);
+    expect(domainAll).toEqual([RECALL_ID]);
+    expect(pmAvailable).toBe(1);
+
+    const left = await db.execute<{ n: number }>(sql`
+      SELECT count(*)::int AS n FROM question WHERE id = ${RECALL_ID}
+    `);
+    expect(left.rows[0]?.n).toBe(0);
   });
 });
 

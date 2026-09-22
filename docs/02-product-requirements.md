@@ -26,7 +26,7 @@ clock, and when feedback appears — not in how a question renders or where the 
 | Feedback | After submit, all at once | Immediately per question | Immediately per question |
 | Score | Yes, against 45/60 | No | No |
 | Free navigation + flagging | Yes | No — forward only | No — forward only |
-| Source | One of the 16 fixed exams | Exam pool, weighted | That domain's pool |
+| Source | One of the 16 fixed exams | Exam and recall pools, weighted | That domain's exam and recall pools |
 
 **Official weights, and what they mean per 60-question sitting.** These are the real exam's
 published weights; the sixteen generated exams already match them to within one question.
@@ -103,13 +103,16 @@ updates; first-attempt does not.
 **P1 · `MUST` — Answer a weighted set with immediate feedback.**
 *As the candidate, I want a 60-question set composed like the real exam but with the answer
 revealed as I go, so that I learn continuously instead of waiting 90 minutes.*
-**Acceptance:** 60 questions drawn from the exam pool in the weights of §2 (18/11/10/8/7/6).
+**Acceptance:** 60 questions drawn from the exam and recall pools in the weights of §2 (18/11/10/8/7/6).
 On answering, the app immediately shows correct or incorrect plus the `why` for all options.
 No clock. No score at the end — this mode is not measured.
 
 **P2 · `MUST` — Never be served the 40 holdout items.**
 **Acceptance:** The 40 unused pool items are excluded from practice and domain mode selection
 and from all sixteen exams. They are reachable only through the holdout sitting (H1).
+*Since #62 practice and domain mode also draw on the **`recall`** pool — the owner's recalled
+questions — which no paper uses and the holdout never contains. Neither mode draws on the
+`supplement`.*
 
 **P3 · `SHOULD` — Prefer questions I haven't seen.**
 *As the candidate, I want practice mode to reach for unseen questions before repeating ones,
