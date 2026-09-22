@@ -126,6 +126,12 @@ sources (two keys changed, two doubted and approved). The bank is **1,175** ques
 line reads `1175 question(s), 4700 option(s), 16 paper(s), 960 paper item(s), 40 holdout`.
 Log 2026-09-22 (two entries).
 
+**Dependabot alert #1 — dismissed 2026-09-22** as `not_used`: esbuild 0.18.20 arrives only via
+`@esbuild-kit/esm-loader`, which drizzle-kit declares and never imports, and nothing calls esbuild's
+`serve`. No dependency changed; revisit at drizzle-kit 1.0 stable. Log 2026-09-22.
+**Still open:** the two Dependabot branches against `develop` (`app-1c168707c7` and
+`vitest-5.0.1`) — read each before merging, per doc 03 §9.
+
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.
 

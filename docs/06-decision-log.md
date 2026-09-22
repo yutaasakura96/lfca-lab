@@ -3125,3 +3125,26 @@ are where they stay once the issue is closed.*
 - **Verified:** `build-exams` produced no diff; `validate`, `check-bank` and `check-guide` green;
   Neon `develop` reads 1000 exam, 150 supplement, 25 recall, 40 holdout. Three integration tests
   that counted `pool = 'exam'` alone now count the two served pools.
+
+### [2026-09-22] Dependabot alert #1 is dismissed as unreachable, not fixed by an override
+- **Decision:** GHSA-67mh-4wv8-2f99 (esbuild ≤0.24.2, moderate) is dismissed on GitHub as
+  `not_used`. No dependency changes. Chosen by the owner.
+- **The path:** of four esbuild copies in `app/`, only **0.18.20** is vulnerable, and it arrives
+  only through `drizzle-kit` → `@esbuild-kit/esm-loader` → `@esbuild-kit/core-utils`. The other
+  three — drizzle-kit's own 0.25.12, and 0.28.2 under `tsx` and `vite` — are patched.
+- **Why unreachable, measured rather than assumed.** `drizzle-kit@0.31.10` declares
+  `@esbuild-kit/esm-loader` in its `package.json` and imports it from **no file** in the package, so
+  0.18.20 is installed and never loaded. Independently, the flaw is `Access-Control-Allow-Origin: *`
+  on esbuild's **serve** API, and nothing in this repo runs esbuild's dev server — drizzle-kit uses
+  esbuild to load `drizzle.config.ts`, and the app's dev server is Next's. The dependency is
+  dev-only, so nothing of it reaches the production bundle.
+- **No fix exists upstream.** `npm audit`'s suggestion is a downgrade to `drizzle-kit@0.18.1`.
+  `0.31.11`, released 2026-09-21, still declares esbuild-kit (itself deprecated, "merged into tsx").
+  The `1.0.0` beta/rc line drops it for `jiti` and `esbuild ^0.25.10`, but is not stable.
+- **Alternatives considered:** an `overrides` entry forcing `@esbuild-kit/core-utils`'s esbuild to
+  `^0.25` — clears the alert for real at near-zero risk, since the package never loads, but it is a
+  permanent lockfile edit made to silence code that never runs, and one someone must remember to
+  remove. And leaving the alert open until drizzle-kit 1.0 is stable, which is honest but teaches
+  that a standing alert can be ignored.
+- **Revisit if:** drizzle-kit 1.0 goes stable (the esbuild-kit dependency goes with the upgrade),
+  or anything here starts calling esbuild's `serve`.
