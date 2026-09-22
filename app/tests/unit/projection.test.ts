@@ -115,8 +115,8 @@ describe('projecting the whole bank', () => {
 
   it('produces the measured row counts', () => {
     const projection = projectBank(bank);
-    expect(projection.questions).toHaveLength(1150);
-    expect(projection.options).toHaveLength(4600);
+    expect(projection.questions).toHaveLength(1175);
+    expect(projection.options).toHaveLength(4700);
     expect(projection.exams).toHaveLength(16);
     expect(projection.examItems).toHaveLength(960);
   });

@@ -5,7 +5,7 @@
 | Concept | Domain | Weight | Competency | Objective | LFS200 | External docs | Candidate | Depth | Confidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | linux.linux-operating-system.operating-system | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | FULLY COVERED | 2 | 0 | 3 | HIGH |
-| linux.linux-operating-system.kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | FULLY COVERED | 3 | 0 | 3 | HIGH |
+| linux.linux-operating-system.kernel | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | FULLY COVERED | 5 | 0 | 3 | HIGH |
 | linux.linux-operating-system.kernel-space-vs-user-space | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 3 | 0 | 3 | HIGH |
 | linux.linux-operating-system.system-call | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | PARTIALLY COVERED | 2 | 0 | 1 | MEDIUM |
 | linux.linux-operating-system.shell | Linux Fundamentals | 16% | Linux Operating System | Linux Operating System | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -327,7 +327,7 @@
 | cloud.networking.private-service-endpoints | Cloud Computing Fundamentals | 18% | Networking | Networking | NOT COVERED | 6 | 0 | 2 | MEDIUM |
 | security.security.cia-triad | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
 | security.security.authentication-vs-authorization | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
-| security.security.accounting-and-auditing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
+| security.security.accounting-and-auditing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 6 | 0 | 3 | HIGH |
 | security.security.principle-of-least-privilege | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.defense-in-depth | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
 | security.security.zero-trust | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | MEDIUM |
@@ -337,7 +337,7 @@
 | security.security.password-hashing-and-salting | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
 | security.security.single-sign-on | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 2 | MEDIUM |
 | security.security.public-key-authentication | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
-| security.security.symmetric-vs-asymmetric-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 2 | 0 | 3 | HIGH |
+| security.security.symmetric-vs-asymmetric-encryption | Security Fundamentals | 14% | Security | Security | NOT COVERED | 3 | 0 | 3 | HIGH |
 | security.security.encryption-at-rest-vs-in-transit | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 2 | HIGH |
 | security.security.hashing | Security Fundamentals | 14% | Security | Security | NOT COVERED | 4 | 0 | 3 | HIGH |
 | security.security.digital-certificates-and-certificate-authorities | Security Fundamentals | 14% | Security | Security | NOT COVERED | 1 | 0 | 3 | HIGH |
@@ -413,7 +413,7 @@
 | devops.devops-basics.language-package-managers | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 3 | 0 | 3 | MEDIUM |
 | devops.devops-basics.infrastructure-as-code | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | PARTIALLY COVERED | 1 | 0 | 3 | HIGH |
 | devops.devops-basics.idempotency-in-automation | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
-| devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 1 | MEDIUM |
+| devops.devops-basics.observability | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 4 | 0 | 1 | MEDIUM |
 | devops.devops-basics.monolith-vs-microservices | DevOps Fundamentals | 12% | DevOps Basics | DevOps Basics | NOT COVERED | 2 | 0 | 2 | HIGH |
 | devops.git-concepts.version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | FULLY COVERED | 2 | 0 | 3 | HIGH |
 | devops.git-concepts.distributed-vs-centralized-version-control | DevOps Fundamentals | 12% | Git Concepts | Git Concepts | NOT COVERED | 2 | 0 | 2 | MEDIUM |
@@ -525,7 +525,7 @@
 | pm.open-source-software-and-licensing.proprietary-software | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | MENTIONED ONLY | 2 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.source-code-and-binaries | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 4 | 0 | 2 | MEDIUM |
 | pm.open-source-software-and-licensing.permissive-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 4 | 0 | 3 | HIGH |
-| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 3 | 0 | 3 | HIGH |
+| pm.open-source-software-and-licensing.copyleft-licenses | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 4 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.gpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | PARTIALLY COVERED | 4 | 0 | 3 | HIGH |
 | pm.open-source-software-and-licensing.lgpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 4 | 0 | 1 | MEDIUM |
 | pm.open-source-software-and-licensing.agpl | IT Project Management Fundamentals | 10% | Open Source Software and Licensing | Open Source Software and Licensing | NOT COVERED | 2 | 0 | 1 | MEDIUM |

@@ -13694,6 +13694,227 @@
           "https://www.freedesktop.org/software/systemd/man/latest/systemd.net-naming-scheme.html"
         ]
       }
+    },
+    {
+      "id": "q.sysadmin.networking.ss-and-netstat.05",
+      "concept_id": "sysadmin.networking.ss-and-netstat",
+      "pool": "recall",
+      "type": "command",
+      "difficulty": 4,
+      "stem": "Which command shows which TCP ports are currently listening?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "ss -tln",
+          "correct": true,
+          "why": "`-t` selects TCP sockets, `-l` limits the output to listening sockets and `-n` prints port numbers instead of service names.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "ip route",
+          "correct": false,
+          "why": "`ip route` prints the routing table, which says where packets are sent, not which local ports have a process listening on them.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.routing-table"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "ps aux",
+          "correct": false,
+          "why": "`ps aux` lists running processes; a server process can be in that list and still not be bound to any port.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.process"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "traceroute",
+          "correct": false,
+          "why": "`traceroute` maps the hops to a remote host; it says nothing about sockets open on the local machine.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.traceroute"
+          }
+        }
+      ],
+      "rationale": "`ss` reports socket statistics, and `-l` restricts it to listening sockets; with `-t` (TCP) and `-n` (numeric ports) it lists every TCP port a local process is waiting on, and adding `-u` includes UDP. It is the modern replacement for `netstat -tulpn`, and adding `-p` names the owning process, as in `ss -tulpn`.",
+      "source_ids": [
+        "man7-ss"
+      ],
+      "guide_anchor": "02-system-administration/networking.md#c-sysadmin.networking.ss-and-netstat",
+      "comparison_block": null,
+      "commands_covered": [
+        "ss -tulpn"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against ss(8): -l displays only listening sockets, -t displays TCP sockets, -n does not resolve service names. The source key was ss -tuln; -u adds UDP, which the stem does not ask for, so the key was narrowed to ss -tln. o2 ip route prints routes, o3 ps aux lists processes whether or not they are bound to a port, o4 traceroute maps remote hops. No distractor is defensible.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/ss.8.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.networking.default-gateway.05",
+      "concept_id": "sysadmin.networking.default-gateway",
+      "pool": "recall",
+      "type": "diagnostic",
+      "difficulty": 3,
+      "stem": "A device can reach machines on its own network but nothing on other networks. What is most likely misconfigured?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Its default gateway",
+          "correct": true,
+          "why": "Traffic for other networks is sent to the default gateway; if that route is missing or wrong, local delivery works and everything off-subnet fails.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Its DNS server setting",
+          "correct": false,
+          "why": "A DNS fault breaks name lookups for local and remote hosts alike, and connections by IP address would still work; it does not split local from remote.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.dns"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Its MAC address",
+          "correct": false,
+          "why": "The MAC address is used for delivery on the local link; a wrong one would break local traffic first, which is the part that works here.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.mac-address"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Its DHCP lease time",
+          "correct": false,
+          "why": "Lease time only decides how long the address is held before renewal; the device has a working address, as its local traffic shows.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.dhcp-lease"
+          }
+        }
+      ],
+      "rationale": "A host delivers directly to addresses on its own subnet and hands everything else to the default gateway. Working local traffic with no off-subnet reachability is the signature of a missing or wrong default route, which `ip route show default` displays.",
+      "source_ids": [
+        "rfc-1122-host-requirements",
+        "man7-ip-route"
+      ],
+      "guide_anchor": "02-system-administration/networking.md#c-sysadmin.networking.default-gateway",
+      "comparison_block": null,
+      "commands_covered": [
+        "ip route show default"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against RFC 1122 section 3.3.1: a destination on a connected network is sent directly, otherwise it is routed to a gateway. ip-route(8) documents the default prefix. o2: a DNS fault breaks names but not connections by IP and does not split local from remote. o3: a wrong MAC breaks local delivery first. o4: lease time does not affect routing. A wrong subnet mask could also cause the symptom but is not offered.",
+        "sources_read": [
+          "https://www.rfc-editor.org/rfc/rfc1122",
+          "https://man7.org/linux/man-pages/man8/ip-route.8.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.networking.dhcp.05",
+      "concept_id": "sysadmin.networking.dhcp",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which protocol automatically assigns IP addresses to devices on a network?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "DHCP",
+          "correct": true,
+          "why": "DHCP leases an IP address, along with settings such as the default gateway and DNS servers, to each host that asks for one.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "DNS",
+          "correct": false,
+          "why": "DNS translates names into addresses; it never gives a host its own address, which is the classic confusion with DHCP.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "sysadmin.networking.dns"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "NAT",
+          "correct": false,
+          "why": "NAT rewrites addresses in packets as they cross a router so many hosts can share one public address; it assigns nothing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.nat"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "ARP",
+          "correct": false,
+          "why": "ARP finds the MAC address that belongs to an IP address already in use on the local link; it does not hand out addresses.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.networking.arp"
+          }
+        }
+      ],
+      "rationale": "The Dynamic Host Configuration Protocol automatically allocates network addresses and passes configuration parameters to hosts. DNS resolves names, NAT translates addresses at a router and ARP maps IP addresses to MAC addresses, but none of them allocates an address.",
+      "source_ids": [
+        "rfc-2131-dhcp",
+        "rfc-1034-dns-concepts"
+      ],
+      "guide_anchor": "02-system-administration/networking.md#c-sysadmin.networking.dhcp",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against RFC 2131: DHCP provides automatic allocation of reusable network addresses and additional configuration options. o2: RFC 1034 describes DNS as name resolution. o3 NAT translates addresses at a router and o4 ARP maps IP to MAC addresses; neither assigns addresses. No distractor is defensible.",
+        "sources_read": [
+          "https://www.rfc-editor.org/rfc/rfc2131",
+          "https://www.rfc-editor.org/rfc/rfc1034"
+        ]
+      }
     }
   ]
 }

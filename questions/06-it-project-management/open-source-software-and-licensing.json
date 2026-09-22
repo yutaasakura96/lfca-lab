@@ -2285,6 +2285,81 @@
           "https://www.apache.org/licenses/contributor-agreements.html"
         ]
       }
+    },
+    {
+      "id": "q.pm.open-source-software-and-licensing.copyleft-licenses.03",
+      "concept_id": "pm.open-source-software-and-licensing.copyleft-licenses",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which license type requires that derivative works be released under the same open license?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Copyleft, such as the GPL",
+          "correct": true,
+          "why": "Copyleft requires that a modified version, when it is distributed, carries the same license terms, which is the GPL's central condition.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Permissive, such as MIT",
+          "correct": false,
+          "why": "Permissive licenses let a derivative be released under other terms, including closed ones, provided the notice is kept.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "pm.open-source-software-and-licensing.permissive-licenses"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Proprietary",
+          "correct": false,
+          "why": "A proprietary license keeps the source closed and usually forbids derivatives altogether, the opposite of requiring an open license.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.open-source-software-and-licensing.proprietary-software"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Public domain dedication",
+          "correct": false,
+          "why": "A public domain work carries no license conditions at all, so nothing forces a derivative to stay open.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.open-source-software-and-licensing.creative-commons-and-public-domain"
+          }
+        }
+      ],
+      "rationale": "Copyleft licenses such as the GNU GPL let anyone use, modify and distribute the software, on the condition that distributed modified versions are released under the same license. Permissive licenses impose no such condition, and public domain works impose none at all.",
+      "source_ids": [
+        "gnu-copyleft",
+        "gnu-gpl-3",
+        "gnu-gpl-faq"
+      ],
+      "guide_anchor": "06-it-project-management/open-source-software-and-licensing.md#c-pm.open-source-software-and-licensing.copyleft-licenses",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against GNU's copyleft page, which requires all modified and extended versions to be free as well, and the GPL FAQ, under which distributed modified versions must be licensed under the GPL. The stem's 'released' means distributed, and the key's why states the distribution condition. o2 permissive licenses allow other terms. o3 proprietary licenses keep source closed. o4 public domain carries no conditions. No distractor is defensible.",
+        "sources_read": [
+          "https://www.gnu.org/licenses/copyleft.html",
+          "https://www.gnu.org/licenses/gpl-faq.html",
+          "https://www.gnu.org/licenses/gpl-3.0.html"
+        ]
+      }
     }
   ]
 }

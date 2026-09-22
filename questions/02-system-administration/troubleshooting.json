@@ -1756,6 +1756,82 @@
           "https://man7.org/linux/man-pages/man5/resolv.conf.5.html"
         ]
       }
+    },
+    {
+      "id": "q.sysadmin.troubleshooting.service-will-not-start.03",
+      "concept_id": "sysadmin.troubleshooting.service-will-not-start",
+      "pool": "recall",
+      "type": "diagnostic",
+      "difficulty": 4,
+      "stem": "A service failed to start. Where do you look first on a systemd system?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "journalctl -u myservice",
+          "correct": true,
+          "why": "The journal holds the unit's own output, including the error the daemon printed as it exited, filtered here to that one unit.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "systemctl daemon-reload",
+          "correct": false,
+          "why": "daemon-reload makes systemd re-read unit files after an edit; it changes state rather than showing why the start failed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.daemon-reload"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "cat /etc/crontab",
+          "correct": false,
+          "why": "`/etc/crontab` holds system-wide cron schedules, which have nothing to do with a systemd unit failing to start.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.cron"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "free -h",
+          "correct": false,
+          "why": "Memory is a later check if the logs point to an out-of-memory kill; free memory does not say why this unit failed.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.out-of-memory-and-the-oom-killer"
+          }
+        }
+      ],
+      "rationale": "On systemd the failed unit's messages are captured by the journal, and `journalctl -u` filters them to that unit, which usually shows the exact reason it exited. It pairs with `systemctl status`, which shows the unit state and its last few log lines, before any guessing about memory, schedules or configuration reloads.",
+      "source_ids": [
+        "man-journalctl",
+        "man-systemctl"
+      ],
+      "guide_anchor": "02-system-administration/troubleshooting.md#c-sysadmin.troubleshooting.service-will-not-start",
+      "comparison_block": null,
+      "commands_covered": [
+        "journalctl -u",
+        "systemctl status"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against journalctl(1), where -u shows messages for the specified systemd unit. systemctl(1) says status shows runtime status followed by recent journal data, so systemctl status is an equally defensible first check; it is not among the options and the rationale pairs the two, so the key remains the single best answer. o2 daemon-reload re-reads unit files; o3 /etc/crontab holds system cron schedules; o4 free reports memory, not the failure cause. Framing flagged to the owner.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "https://man7.org/linux/man-pages/man1/systemctl.1.html"
+        ]
+      }
     }
   ]
 }

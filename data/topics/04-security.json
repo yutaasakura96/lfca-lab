@@ -90,7 +90,9 @@
         "nist-csrc-glossary-audit",
         "nist-csrc-glossary-accountability",
         "nist-sp-800-53r5",
-        "nist-sp-800-100"
+        "nist-sp-800-100",
+        "man-auditd-8",
+        "man-auditctl-8"
       ],
       "candidate_evidence": [],
       "commands": [],
@@ -424,7 +426,8 @@
       "lfs200_sources": [],
       "additional_sources": [
         "rfc-8446-tls13",
-        "nist-sp-800-57p1r5"
+        "nist-sp-800-57p1r5",
+        "nist-csrc-glossary-asymmetric-cryptography"
       ],
       "candidate_evidence": [],
       "commands": [],

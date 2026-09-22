@@ -8407,6 +8407,80 @@
           "https://man7.org/linux/man-pages/man5/services.5.html"
         ]
       }
+    },
+    {
+      "id": "q.linux.command-line.awk.04",
+      "concept_id": "linux.command-line.awk",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "What does the AWK tool primarily do?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Extract and manipulate columns or fields in text",
+          "correct": true,
+          "why": "awk splits each input line into fields and runs pattern-action rules over them, as in `awk '{print $3}'` printing the third field.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Compress and archive files",
+          "correct": false,
+          "why": "Archiving and compression are the jobs of tar, gzip and similar tools; awk reads and reports on text, it does not pack files.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.command-line.archiving-and-compression"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Edit files interactively in the terminal",
+          "correct": false,
+          "why": "Interactive editing is what vi, vim and nano do; awk runs a program over its input without an editing session.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.command-line.text-editors"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Sort lines and remove duplicates",
+          "correct": false,
+          "why": "Sorting and de-duplicating are the main jobs of sort and uniq; awk can do both, but its characteristic job is splitting lines into fields.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.command-line.cut-sort-uniq-and-wc"
+          }
+        }
+      ],
+      "rationale": "awk is a pattern-scanning and processing language: it reads text line by line, splits each record into fields such as `$1` and `$3`, and applies actions to the lines that match a pattern. Selecting and reshaping columns is its characteristic use.",
+      "source_ids": [
+        "gnu-gawk-manual",
+        "posix-awk"
+      ],
+      "guide_anchor": "01-linux-fundamentals/command-line.md#c-linux.command-line.awk",
+      "comparison_block": null,
+      "commands_covered": [
+        "awk '{print $3}'"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against POSIX awk, which describes a language specialized for textual data manipulation, programs being patterns and corresponding actions over fields. o2 archiving and o3 interactive editing are other tools' jobs. o4: awk can de-duplicate with a common idiom, so its why was reworded to say sorting and de-duplicating are sort and uniq's main jobs; with 'primarily' in the stem it is not defensible as the answer.",
+        "sources_read": [
+          "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html"
+        ]
+      }
     }
   ]
 }

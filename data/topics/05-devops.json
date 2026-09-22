@@ -797,7 +797,9 @@
       "lfs200_sources": [],
       "additional_sources": [
         "cncf-glossary-observability",
-        "otel-observability-primer"
+        "otel-observability-primer",
+        "kube-state-metrics-readme",
+        "metrics-server-readme"
       ],
       "candidate_evidence": [],
       "commands": [],

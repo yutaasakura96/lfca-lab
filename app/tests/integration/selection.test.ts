@@ -203,11 +203,12 @@ describe.skipIf(!hasDatabase)('a domain sitting', () => {
 });
 
 // #62. The recall pool is served by practice and domain mode, and the holdout
-// still never is. Ticket A lands with no recall rows, so one is written here —
+// still never is. A synthetic recall row is written here —
 // inside a transaction rolled back **unconditionally**, by this test's own
 // sentinel, so the shared bank on `develop` is left exactly as it was whatever
-// the code under test does (the #57 lesson). Every other PM exam item is moved
-// to the supplement for the length of the transaction, which leaves the recall
+// the code under test does (the #57 lesson). Every other PM exam and recall item
+// — the bank's own recall items included — is moved to the supplement first, for
+// the length of the transaction, which leaves the synthetic recall
 // item the only PM question either composer can take: a 20-question practice
 // sitting wants two PM questions, so it must take it and fill the rest from
 // another domain.
@@ -223,14 +224,14 @@ describe.skipIf(!hasDatabase)('the recall pool', () => {
     await expect(
       db.transaction(async (tx) => {
         await tx.execute(sql`
+          UPDATE question SET pool = 'supplement'
+          WHERE domain = 'pm' AND pool IN ('exam', 'recall') AND is_holdout = false
+        `);
+        await tx.execute(sql`
           INSERT INTO question (id, concept_id, competency, domain, pool, type, difficulty, stem)
           SELECT ${RECALL_ID}, concept_id, competency, domain, 'recall', type, difficulty,
                  'A recalled stem.'
           FROM question WHERE domain = 'pm' LIMIT 1
-        `);
-        await tx.execute(sql`
-          UPDATE question SET pool = 'supplement'
-          WHERE domain = 'pm' AND pool = 'exam' AND is_holdout = false
         `);
         practice = await selectPracticeQuestions(tx, userId, 20);
         domainAll = await selectDomainQuestions(tx, userId, 'pm', 'all');

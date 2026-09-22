@@ -6114,6 +6114,226 @@
           "https://www.cve.org/About/Overview"
         ]
       }
+    },
+    {
+      "id": "q.security.security.accounting-and-auditing.04",
+      "concept_id": "security.security.accounting-and-auditing",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "You need to record who accessed a sensitive file and when, for a compliance audit. Which tool is designed for this?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "`auditd`, the Linux audit daemon",
+          "correct": true,
+          "why": "auditd writes the kernel audit subsystem's records to disk, and a watch rule on the file records each access with the user and a timestamp.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "`journalctl`, reading the systemd journal",
+          "correct": false,
+          "why": "The journal holds service and system log messages; nothing writes an entry there when an ordinary file is read, so it cannot answer who opened the file.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.journald"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "`rsyslog`, forwarding syslog messages",
+          "correct": false,
+          "why": "rsyslog routes messages that programs choose to log; file reads are not syslog events, so there is nothing for it to forward.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.syslog-and-severity-levels"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "`last`, listing recent logins",
+          "correct": false,
+          "why": "`last` shows who logged in and when, which is session accounting, not a record of which files each user touched.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.command-line.who-is-logged-in"
+          }
+        }
+      ],
+      "rationale": "The Linux audit framework is the purpose-built accounting tool for this: a watch rule on the path, set with `auditctl -w` or the equivalent syscall rule, makes the kernel generate an audit record for every matching access, and auditd writes each one to disk with the user, the process and the time. General logs only contain what services decide to log, and login history stops at the session boundary.",
+      "source_ids": [
+        "man-auditd-8",
+        "man-auditctl-8",
+        "nist-csrc-glossary-audit"
+      ],
+      "guide_anchor": "04-security/security.md#c-security.security.accounting-and-auditing",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against auditd(8), the userspace component of the Linux Auditing System that writes audit records to disk, and auditctl(8), whose -w option places a watch on a path. auditctl(8) marks -p deprecated in favour of the syscall form, so the rationale names both. o2 and o3: ordinary file reads produce no journal or syslog entry. o4: last reports logins and sessions only. No distractor is defensible.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man8/auditd.8.html",
+          "https://man7.org/linux/man-pages/man8/auditctl.8.html",
+          "https://csrc.nist.gov/glossary/term/audit"
+        ]
+      }
+    },
+    {
+      "id": "q.security.security.symmetric-vs-asymmetric-encryption.03",
+      "concept_id": "security.security.symmetric-vs-asymmetric-encryption",
+      "pool": "recall",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "In public key cryptography, which statement is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Data encrypted with a public key is decrypted with the matching private key",
+          "correct": true,
+          "why": "Asymmetric encryption uses a key pair: anyone can encrypt with the published public key, and only the holder of the matching private key can decrypt.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "The same key both encrypts and decrypts the data",
+          "correct": false,
+          "why": "One shared key for both directions is symmetric encryption, the other half of the comparison, not public key cryptography.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.symmetric-vs-asymmetric-encryption"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "The public key must be kept secret, like a password",
+          "correct": false,
+          "why": "The public key is meant to be distributed; it is the private key that must stay secret, as in SSH public key authentication.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.public-key-authentication"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Public key encryption and hashing are the same operation",
+          "correct": false,
+          "why": "Encryption is reversible by whoever holds the right key, while a hash is a one-way digest that no key turns back into the input.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.hashing"
+          }
+        }
+      ],
+      "rationale": "Public key (asymmetric) cryptography uses two mathematically related keys. What is encrypted with the public key can only be decrypted with the matching private key, so the public key can be shared openly while the private key is kept secret. That is the property that separates it from symmetric encryption and from hashing.",
+      "source_ids": [
+        "nist-csrc-glossary-asymmetric-cryptography",
+        "nist-sp-800-57p1r5"
+      ],
+      "guide_anchor": "04-security/security.md#c-security.security.symmetric-vs-asymmetric-encryption",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the NIST CSRC glossary, which defines asymmetric cryptography as using two separate keys, one to encrypt or sign and one to decrypt. o2 is symmetric encryption; o3 reverses which key is secret; o4 confuses reversible encryption with one-way hashing. The stem concerns encryption, so signing with the private key does not undermine the key. No distractor is defensible.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/asymmetric_cryptography",
+          "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final"
+        ]
+      }
+    },
+    {
+      "id": "q.security.security.cia-triad.03",
+      "concept_id": "security.security.cia-triad",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "In the CIA triad, ensuring data has not been altered improperly refers to:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Integrity",
+          "correct": true,
+          "why": "Integrity is protection against improper modification or destruction of information, so it is the property violated when data is altered.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Confidentiality",
+          "correct": false,
+          "why": "Confidentiality is about who may read or disclose the data; data can stay secret and still be altered.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.cia-triad"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Availability",
+          "correct": false,
+          "why": "Availability is timely and reliable access to the data; it says nothing about whether the content is correct.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.cia-triad"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Authentication",
+          "correct": false,
+          "why": "Authentication verifies an identity; it is a control that supports the triad, not one of its three properties.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.authentication-vs-authorization"
+          }
+        }
+      ],
+      "rationale": "The CIA triad is confidentiality, integrity and availability. Integrity means guarding against improper modification or destruction of information, so data not having been altered improperly is integrity.",
+      "source_ids": [
+        "nist-sp-800-53r5"
+      ],
+      "guide_anchor": "04-security/security.md#c-security.security.cia-triad",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the NIST CSRC glossary, sourcing SP 800-53 Rev. 5: integrity is guarding against improper information modification or destruction. Availability is timely and reliable access. o2 concerns disclosure, not alteration. o4 authentication verifies identity and is not one of the three properties. No distractor is defensible.",
+        "sources_read": [
+          "https://csrc.nist.gov/glossary/term/integrity",
+          "https://csrc.nist.gov/glossary/term/availability"
+        ]
+      }
     }
   ]
 }

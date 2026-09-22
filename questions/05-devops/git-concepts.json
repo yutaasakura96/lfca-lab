@@ -2924,6 +2924,83 @@
           "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
         ]
       }
+    },
+    {
+      "id": "q.devops.git-concepts.branch.03",
+      "concept_id": "devops.git-concepts.branch",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "In Git, what lets a developer work on a feature in isolation without affecting the main line of code?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A branch",
+          "correct": true,
+          "why": "A branch is a movable pointer to a line of commits, so work committed on it leaves the main branch untouched until it is merged.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A commit",
+          "correct": false,
+          "why": "A commit is one recorded snapshot; commits land on whichever branch is checked out, so they do not isolate anything by themselves.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.git-concepts.commit"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A clone",
+          "correct": false,
+          "why": "A clone copies a whole repository; Git's mechanism for isolating a line of work, in a clone or anywhere else, is a branch.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.git-concepts.clone-vs-fork"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A stash",
+          "correct": false,
+          "why": "A stash shelves uncommitted changes temporarily; it is not a line of history a feature can be developed on.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.git-concepts.stash"
+          }
+        }
+      ],
+      "rationale": "A Git branch is a lightweight movable pointer to a commit. New commits advance only the branch that is checked out, so a feature branch diverges from the main line and rejoins it only when merged, which is what makes branching the tool for isolated work, as with `git branch` or `git switch -c`.",
+      "source_ids": [
+        "progit-branching-basics",
+        "git-branch",
+        "git-stash"
+      ],
+      "guide_anchor": "05-devops/git-concepts.md#c-devops.git-concepts.branch",
+      "comparison_block": null,
+      "commands_covered": [
+        "git branch"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against Pro Git 3.1: a branch is a lightweight movable pointer to a commit, and basic branching shows feature work merged back later. o2 a commit lands on the checked-out branch. o4 git-stash stashes changes in a dirty working directory away. o3 a separate clone does isolate work in fork workflows, so its why was reworded to name the branch as Git's isolation mechanism; branch remains the best answer.",
+        "sources_read": [
+          "https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell",
+          "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging",
+          "https://git-scm.com/docs/git-stash"
+        ]
+      }
     }
   ]
 }

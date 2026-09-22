@@ -62,7 +62,9 @@
       "additional_sources": [
         "kernel-readme",
         "man-syscalls-2",
-        "man-uname-1"
+        "man-uname-1",
+        "lkmpg-introduction",
+        "man-init-module-2"
       ],
       "candidate_evidence": [],
       "commands": [

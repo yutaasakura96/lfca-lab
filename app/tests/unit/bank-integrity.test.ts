@@ -23,8 +23,8 @@ const examIndex = loadExamIndex();
 const pinned = loadPinnedHoldout();
 
 describe('the bank', () => {
-  it('holds 1,150 questions', () => {
-    expect(items.length).toBe(1150);
+  it('holds 1,175 questions', () => {
+    expect(items.length).toBe(1175);
   });
 
   it('gives every question a unique id', () => {
@@ -62,10 +62,10 @@ describe('the bank', () => {
     expect(wrong).toEqual([]);
   });
 
-  it('splits into a 1,000-item exam pool and a 150-item supplement', () => {
+  it('splits into a 1,000-item exam pool, a 150-item supplement and 25 recalled questions', () => {
     const byPool = new Map<string, number>();
     for (const item of items) byPool.set(item.pool, (byPool.get(item.pool) ?? 0) + 1);
-    expect(Object.fromEntries(byPool)).toEqual({ exam: 1000, supplement: 150 });
+    expect(Object.fromEntries(byPool)).toEqual({ exam: 1000, supplement: 150, recall: 25 });
   });
 });
 

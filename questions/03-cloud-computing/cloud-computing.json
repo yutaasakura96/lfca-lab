@@ -4108,6 +4108,79 @@
           "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
         ]
       }
+    },
+    {
+      "id": "q.cloud.cloud-computing.container-vs-virtual-machine.04",
+      "concept_id": "cloud.cloud-computing.container-vs-virtual-machine",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A container is lighter than a virtual machine mainly because:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "It shares the host's kernel instead of running its own OS",
+          "correct": true,
+          "why": "A container is an isolated process tree on the host kernel, so there is no guest kernel to boot and no guest OS to hold in memory.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "It includes a full guest operating system",
+          "correct": false,
+          "why": "A full guest OS is what a virtual machine carries, and it is the reason a VM is the heavier of the two.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "cloud.cloud-computing.virtual-machine"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "It requires a Type 1 hypervisor to run",
+          "correct": false,
+          "why": "Hypervisors run virtual machines; a container does not require one and normally runs directly on the host kernel.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.cloud-computing.hypervisor"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "It emulates hardware more efficiently than a hypervisor",
+          "correct": false,
+          "why": "A container emulates no hardware; it isolates processes on the real kernel, which is why it avoids the virtualisation layer entirely.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.cloud-computing.virtualization"
+          }
+        }
+      ],
+      "rationale": "A virtual machine virtualises hardware and boots a complete guest operating system with its own kernel. A container packages only the application and its dependencies and runs as isolated processes on the host's kernel, so it starts faster and uses less memory and disk.",
+      "source_ids": [
+        "cncf-glossary-container",
+        "cncf-glossary-virtualization"
+      ],
+      "guide_anchor": "03-cloud-computing/cloud-computing.md#c-cloud.cloud-computing.container-vs-virtual-machine",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the CNCF glossary, which describes a container as a running process managed by the operating system, with containers sharing the same operating system, and virtual machines as isolated operating systems. o2 describes a VM. o3's why was softened because sandboxed runtimes can use a hypervisor, but a container does not require one. o4: a container emulates no hardware. No distractor is defensible.",
+        "sources_read": [
+          "https://glossary.cncf.io/container/",
+          "https://glossary.cncf.io/virtualization/"
+        ]
+      }
     }
   ]
 }

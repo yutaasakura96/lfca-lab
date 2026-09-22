@@ -24,6 +24,7 @@
 | lf-objectives-2025 | LFCA Program Changes | The Linux Foundation | 1 | 2025-07 | 2026-08-09 | https://training.linuxfoundation.org/lfca-program-changes-2025/ |
 | lfs200-course | Fundamentals of Open Source IT and Cloud Computing (LFS200) — course content | The Linux Foundation | 1 | — | 2026-08-10 | https://trainingportal.linuxfoundation.org/learn/course/fundamentals-of-open-source-it-and-cloud-computing-lfs200 |
 | linux-foundation-about | About The Linux Foundation | The Linux Foundation | 1 | — | 2026-08-10 | https://www.linuxfoundation.org/about |
+| nist-csrc-glossary-asymmetric-cryptography | NIST CSRC Glossary — asymmetric cryptography | NIST | 1 | — | 2026-09-22 | https://csrc.nist.gov/glossary/term/asymmetric_cryptography |
 | nist-sp-800-146 | NIST SP 800-146: Cloud Computing Synopsis and Recommendations | National Institute of Standards and Technology | 1 | 2012-05 | 2026-08-18 | https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-146.pdf |
 | posix-ex | POSIX.1-2024 (Issue 8), ex — text editor | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ex.html |
 | posix-ls | POSIX.1-2024 (Issue 8), ls — list directory contents | The Open Group / IEEE | 1 | — | 2026-08-18 | https://pubs.opengroup.org/onlinepubs/9799919799/utilities/ls.html |
@@ -270,6 +271,7 @@
 | gnu-agpl-3 | GNU Affero General Public License, version 3 | Free Software Foundation | 2 | — | 2026-08-18 | https://www.gnu.org/licenses/agpl-3.0.en.html |
 | gnu-android-freedom | Android and Users' Freedom | GNU Project / Free Software Foundation | 2 | — | 2026-08-17 | https://www.gnu.org/philosophy/android-and-users-freedom.html |
 | gnu-bash-manual | GNU Bash Reference Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/bash/manual/bash.html |
+| gnu-copyleft | What is Copyleft? — GNU Project | Free Software Foundation | 2 | — | 2026-09-22 | https://www.gnu.org/licenses/copyleft.html |
 | gnu-coreutils-manual | GNU Coreutils Manual | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/coreutils/manual/coreutils.html |
 | gnu-diffutils-manual | GNU Diffutils Manual (Comparing and Merging Files) | Free Software Foundation / GNU Project | 2 | — | 2026-08-10 | https://www.gnu.org/software/diffutils/manual/diffutils.html |
 | gnu-find-man | find(1) — search for files in a directory hierarchy | GNU findutils / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/find.1.html |
@@ -330,11 +332,14 @@
 | kernel-org-about | About the Linux Kernel Archives (kernel.org) | Linux Kernel Organization / kernel.org | 2 | — | 2026-08-17 | https://www.kernel.org/category/about.html |
 | kernel-readme | Linux kernel release 6.x README (admin-guide) | Linux kernel project (kernel.org) | 2 | — | 2026-08-10 | https://www.kernel.org/doc/html/latest/admin-guide/README.html |
 | kernel-sysctl-vm | Linux kernel admin guide: Documentation for /proc/sys/vm (OOM controls) | Linux kernel documentation | 2 | — | 2026-08-10 | https://docs.kernel.org/admin-guide/sysctl/vm.html |
+| kube-state-metrics-readme | kube-state-metrics README — metrics about the state of Kubernetes objects | Kubernetes SIG Instrumentation | 2 | — | 2026-09-22 | https://github.com/kubernetes/kube-state-metrics/blob/main/README.md |
 | linux-kvm-main | KVM — Kernel-based Virtual Machine (project home) | KVM project | 2 | — | 2026-08-18 | https://www.linux-kvm.org/page/Main_Page |
 | linux-relnotes-0-01 | Notes for Linux release 0.01 | Linus Torvalds / kernel.org historic archive | 2 | — | 2026-08-17 | https://mirrors.edge.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01 |
 | man-anacron-8 | anacron(8) — runs commands periodically on machines not running continuously | cronie project / Linux man-pages | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/anacron.8.html |
 | man-apropos | apropos(1) — search the manual page names and descriptions | man-db | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/apropos.1.html |
 | man-arch-1 | arch(1) — print machine hardware name (same as uname -m) | GNU coreutils / Linux man-pages | 2 | — | 2026-08-17 | https://man7.org/linux/man-pages/man1/arch.1.html |
+| man-auditctl-8 | auditctl(8) — control the kernel audit system; -w places a watch on a path | Linux Audit project / man-pages | 2 | — | 2026-09-22 | https://man7.org/linux/man-pages/man8/auditctl.8.html |
+| man-auditd-8 | auditd(8) — the Linux audit daemon, which writes audit records to disk | Linux Audit project / man-pages | 2 | — | 2026-09-22 | https://man7.org/linux/man-pages/man8/auditd.8.html |
 | man-bash-1 | bash(1) — GNU Bourne-Again Shell manual page | GNU Project / Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/bash.1.html |
 | man-capabilities-7 | capabilities(7) - overview of Linux capabilities (CAP_NET_BIND_SERVICE) | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man7/capabilities.7.html |
 | man-cat-1 | cat(1) — concatenate files and print on the standard output | GNU coreutils | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/cat.1.html |
@@ -372,6 +377,7 @@
 | man-hostname-5 | hostname(5) — local hostname configuration file | systemd project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man5/hostname.5.html |
 | man-hostnamectl-1 | hostnamectl(1) — control the system hostname | systemd project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man1/hostnamectl.1.html |
 | man-id-1 | id(1) — print real and effective user and group IDs | Linux man-pages project | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man1/id.1.html |
+| man-init-module-2 | init_module(2) — load a kernel module into kernel space | Linux man-pages project | 2 | — | 2026-09-22 | https://man7.org/linux/man-pages/man2/init_module.2.html |
 | man-inode-7 | inode(7) — file inode, mode bits, SUID/SGID/sticky semantics | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/inode.7.html |
 | man-ip-7 | ip(7) — Linux IPv4 protocol implementation (privileged ports) | Linux man-pages project | 2 | — | 2026-08-10 | https://man7.org/linux/man-pages/man7/ip.7.html |
 | man-iptables-8 | iptables(8) - administration tool for IPv4/IPv6 packet filtering and NAT | man7.org / netfilter | 2 | — | 2026-08-18 | https://man7.org/linux/man-pages/man8/iptables.8.html |
@@ -472,6 +478,7 @@
 | man7-traceroute | traceroute(8) - print the route packets trace to network host | Linux man-pages project | 2 | — | 2026-08-10 | https://www.man7.org/linux/man-pages/man8/traceroute.8.html |
 | man7-wget | wget(1) - The non-interactive network downloader | GNU Wget / Linux man-pages project | 2 | — | 2026-08-18 | https://www.man7.org/linux/man-pages/man1/wget.1.html |
 | maven-dependency-mechanism | Introduction to the Dependency Mechanism | Apache Software Foundation | 2 | 2024-01 | 2026-08-11 | https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html |
+| metrics-server-readme | Kubernetes Metrics Server README — resource metrics for autoscaling | Kubernetes SIGs | 2 | — | 2026-09-22 | https://github.com/kubernetes-sigs/metrics-server/blob/master/README.md |
 | microsoft-microservices-architecture-style | Microservices architecture style - Azure Architecture Center | Microsoft | 2 | — | 2026-08-12 | https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices |
 | microsoft-three-tier-architecture-model | Using a Three-Tier Architecture Model - Win32 apps | Microsoft | 2 | 2018-05 | 2026-08-11 | https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model |
 | mitre-attack-privilege-escalation | MITRE ATT&CK — Privilege Escalation (TA0004) | MITRE | 2 | — | 2026-08-18 | https://attack.mitre.org/tactics/TA0004/ |
@@ -665,6 +672,7 @@
 | wayland-architecture | Wayland Architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-10 | https://wayland.freedesktop.org/architecture.html |
 | wayland-home | Wayland — a replacement for the X11 window system protocol and architecture | Wayland project / freedesktop.org | 2 | — | 2026-08-17 | https://wayland.freedesktop.org/ |
 | xorg-wiki | X.Org — open source implementation of the X Window System | X.Org Foundation | 2 | — | 2026-08-10 | https://www.x.org/wiki/ |
+| lkmpg-introduction | The Linux Kernel Module Programming Guide — what a kernel module is | sysprog21 (LKMPG maintainers) | 3 | — | 2026-09-22 | https://sysprog21.github.io/lkmpg/ |
 | nmap-host-discovery | Nmap Network Scanning — Host Discovery (ICMP echo and firewalls) | Nmap Project (Gordon Lyon) | 3 | — | 2026-08-18 | https://nmap.org/book/man-host-discovery.html |
 | rfc-5517-private-vlans | RFC 5517: Cisco Systems' Private VLANs -- Scalable Security in a Multi-Client Environment | IETF | 3 | — | 2026-08-18 | https://www.rfc-editor.org/rfc/rfc5517.html |
 | verizon-dbir | Verizon 2026 Data Breach Investigations Report (DBIR) | Verizon Business | 3 | — | 2026-08-11 | https://www.verizon.com/business/resources/reports/2026-dbir-data-breach-investigations-report.pdf |

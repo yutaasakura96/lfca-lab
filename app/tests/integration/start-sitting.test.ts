@@ -148,7 +148,7 @@ describe.skipIf(!hasDatabase)('starting a domain sitting', () => {
   // `all` is the one length that is a fact about the pool rather than a number
   // the candidate picked, so what matters is that the column records what was
   // actually written down — never the number asked for, because none was.
-  it('takes the whole non-holdout exam pool for `all`, and records that count', async () => {
+  it('takes the whole non-holdout exam and recall pools for `all`, and records that count', async () => {
     const composed = await selectDomainQuestions(db, userId, 'pm', 'all');
     const started = await startComposedSitting(
       db,
@@ -158,7 +158,7 @@ describe.skipIf(!hasDatabase)('starting a domain sitting', () => {
 
     const available = await db.execute<{ n: number }>(sql`
       SELECT count(*)::int AS n FROM question
-      WHERE domain = 'pm' AND pool = 'exam' AND is_holdout = false
+      WHERE domain = 'pm' AND pool IN ('exam', 'recall') AND is_holdout = false
     `);
 
     const stored = await frozenIds(started.id);

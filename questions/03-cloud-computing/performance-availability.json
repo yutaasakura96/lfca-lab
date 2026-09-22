@@ -2463,6 +2463,77 @@
           "https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html"
         ]
       }
+    },
+    {
+      "id": "q.cloud.performance-availability.scalability-vs-elasticity.03",
+      "concept_id": "cloud.performance-availability.scalability-vs-elasticity",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 2,
+      "stem": "A cloud system automatically adds servers during a traffic spike and removes them afterward. This capability is called:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Elasticity",
+          "correct": true,
+          "why": "Capacity that grows and shrinks automatically with demand, in both directions, is elasticity.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Redundancy",
+          "correct": false,
+          "why": "Redundancy is spare, duplicated capacity kept for failure tolerance; it does not change with load.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.high-availability"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Vertical scaling",
+          "correct": false,
+          "why": "Vertical scaling makes one server bigger; adding and removing whole servers is horizontal and, when automatic, elastic.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.vertical-scaling"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "CapEx",
+          "correct": false,
+          "why": "CapEx is a spending model for buying capacity up front; it is the opposite of paying for servers only while demand needs them.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.budgeting.capex-vs-opex"
+          }
+        }
+      ],
+      "rationale": "NIST defines rapid elasticity as capabilities that can be provisioned and released, in some cases automatically, to scale rapidly outward and inward with demand. Adding servers for a spike and removing them afterward, without an operator, is that capability.",
+      "source_ids": [
+        "nist-sp-800-145"
+      ],
+      "guide_anchor": "03-cloud-computing/performance-availability.md#c-cloud.performance-availability.scalability-vs-elasticity",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against NIST SP 800-145: rapid elasticity is capabilities provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand. o2 redundancy is fault-tolerance capacity. o3 vertical scaling enlarges one server. o4 CapEx is an up-front spending model. No distractor is defensible.",
+        "sources_read": [
+          "https://csrc.nist.gov/pubs/sp/800/145/final"
+        ]
+      }
     }
   ]
 }

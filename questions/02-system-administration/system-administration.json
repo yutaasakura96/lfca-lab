@@ -9708,6 +9708,371 @@
           "https://man7.org/linux/man-pages/man5/proc.5.html"
         ]
       }
+    },
+    {
+      "id": "q.sysadmin.system-administration.signals.03",
+      "concept_id": "sysadmin.system-administration.signals",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "A process is frozen and ignoring a normal stop request. Which signal forcibly terminates it without letting it clean up?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "SIGKILL",
+          "correct": true,
+          "why": "SIGKILL (signal 9, sent with `kill -9`) cannot be caught, blocked or ignored, so the kernel ends the process with no chance to run cleanup handlers.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "SIGTERM",
+          "correct": false,
+          "why": "SIGTERM is the default signal of `kill` and asks politely; a process can catch or ignore it, which is exactly what this one is doing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.signals"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "SIGHUP",
+          "correct": false,
+          "why": "SIGHUP reports a closed terminal and is conventionally used to tell a daemon to reload its configuration; it can be caught and does not force anything.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.daemon"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "SIGINT",
+          "correct": false,
+          "why": "SIGINT is the interrupt sent by Ctrl-C to a foreground job; like SIGTERM it can be caught or ignored by the process.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.foreground-and-background-jobs"
+          }
+        }
+      ],
+      "rationale": "SIGKILL and SIGSTOP are the two signals that cannot be caught, blocked or ignored, and SIGKILL is the one that terminates. Because the process never gets control back, it cannot flush buffers or remove lock files, which is why SIGTERM is tried first and `kill -9` kept for a process that ignores it.",
+      "source_ids": [
+        "man-signal-7",
+        "man-kill-1"
+      ],
+      "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.signals",
+      "comparison_block": null,
+      "commands_covered": [
+        "kill -9"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against signal(7), which states SIGKILL and SIGSTOP cannot be caught, blocked, or ignored, and lists SIGKILL as signal 9 with action Term. o2: kill(1) sends TERM when no signal is specified, and SIGTERM can be caught. o3: signal(7) describes SIGHUP as hangup on the controlling terminal; the daemon-reload use is worded as a convention. o4: SIGINT is interrupt from keyboard and can be caught. No distractor is defensible.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man7/signal.7.html",
+          "https://man7.org/linux/man-pages/man1/kill.1.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.system-administration.crontab-syntax.03",
+      "concept_id": "sysadmin.system-administration.crontab-syntax",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 5,
+      "stem": "Which cron schedule runs a job at 3:30 AM every Monday?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "30 3 * * 1",
+          "correct": true,
+          "why": "The fields are minute, hour, day of month, month and day of week: minute 30, hour 3, any date, any month, day of week 1, which is Monday.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "3 30 * * 1",
+          "correct": false,
+          "why": "This swaps the first two fields; the first field is the minute, and 30 is not a valid hour, so crontab refuses the entry.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "guide:02-system-administration/system-administration.md#c-sysadmin.system-administration.crontab-syntax"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "30 3 1 * 1",
+          "correct": false,
+          "why": "With both day fields restricted, cron runs the job when either matches, so this also runs at 03:30 on the first of every month.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.crontab-syntax"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "30 3 * * 0",
+          "correct": false,
+          "why": "Day of week 0 is Sunday, not Monday; in cron both 0 and 7 mean Sunday and Monday is 1.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.cron"
+          }
+        }
+      ],
+      "rationale": "A crontab time specification has five fields in the order minute, hour, day of month, month and day of week, and day of week counts from 0 (Sunday), so Monday is 1. 3:30 AM every Monday is therefore `30 3 * * 1`, with both date fields left as `*`.",
+      "source_ids": [
+        "man-crontab-5"
+      ],
+      "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.crontab-syntax",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against crontab(5): fields are minute, hour, day of month, month, day of week; hour is 0-23; day of week 0-7 with 0 or 7 Sunday, so Monday is 1. o2 puts 30 in the hour field, outside 0-23, so crontab refuses it. o3 restricts both day fields, and crontab(5) states the command runs when either field matches the current time, so it also fires on the first of each month. o4 uses 0, which is Sunday. No distractor is defensible.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man5/crontab.5.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.system-administration.raid-levels.03",
+      "concept_id": "sysadmin.system-administration.raid-levels",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Which RAID level provides redundancy by mirroring data across two disks?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "RAID 1",
+          "correct": true,
+          "why": "RAID 1 writes identical copies of the data to both disks, so the array survives the loss of either one.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "RAID 0",
+          "correct": false,
+          "why": "RAID 0 stripes data across the disks with no copy and no parity, so losing any disk loses the array.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.raid-levels"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "RAID 5",
+          "correct": false,
+          "why": "RAID 5 protects data with parity distributed across at least three disks, not with a mirror.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.raid-levels"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "RAID 6",
+          "correct": false,
+          "why": "RAID 6 uses two independent parity blocks, needing two drives beyond the data it stores; it tolerates two failures but does not mirror.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.raid-levels"
+          }
+        }
+      ],
+      "rationale": "RAID 1 is mirroring: every write goes to both disks, so either disk alone holds a complete copy. Striping (RAID 0) adds no redundancy, and RAID 5 and RAID 6 get their redundancy from parity rather than from a mirror.",
+      "source_ids": [
+        "man-md-4",
+        "rh-raid-levels"
+      ],
+      "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.raid-levels",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against Red Hat's RAID documentation, where level 1 writes identical data to each member disk, and md(4), which calls RAID1 a mirrored set. o2 RAID 0 has no redundancy. o3 RAID 5 uses parity. o4: md(4) says RAID6 handles the loss of any two devices using N+2 drives, and Red Hat calls it a parity scheme, not a mirror; its why was reworded from a four-disk minimum to the N+2 statement the sources support. The source's RAID 10 distractor was replaced because RAID 10 also mirrors.",
+        "sources_read": [
+          "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_storage_devices/managing-raid_managing-storage-devices",
+          "https://man7.org/linux/man-pages/man4/md.4.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.system-administration.systemd.03",
+      "concept_id": "sysadmin.system-administration.systemd",
+      "pool": "recall",
+      "type": "command",
+      "difficulty": 3,
+      "stem": "Which command makes a service start automatically at every boot?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "systemctl enable",
+          "correct": true,
+          "why": "enable creates the symlinks from the unit's install target, so systemd starts it on every boot; it does not start it right now.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "systemctl start",
+          "correct": false,
+          "why": "start runs the unit immediately but leaves boot behaviour unchanged, so the service is not running after the next reboot.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "guide:02-system-administration/system-administration.md#c-sysadmin.system-administration.systemd"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "systemctl status",
+          "correct": false,
+          "why": "status only reports the unit's state, including whether it is enabled; it changes nothing.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.troubleshooting.service-will-not-start"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "systemctl reload",
+          "correct": false,
+          "why": "reload asks a running service to re-read its own configuration; it has no effect on whether the unit starts at boot.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.service"
+          }
+        }
+      ],
+      "rationale": "`systemctl enable` hooks a unit into the boot sequence by creating symlinks from its `[Install]` section, while `systemctl start` only runs it now. The two are independent, which is why `systemctl enable --now` exists to do both.",
+      "source_ids": [
+        "systemd-systemctl-1"
+      ],
+      "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.systemd",
+      "comparison_block": null,
+      "commands_covered": [
+        "systemctl"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against systemctl(1): enable creates symlinks as encoded in the [Install] sections, and --now also starts the unit. o2 start runs the unit now without changing boot behaviour. o3 status only reports state. o4 reload asks the service to re-read its configuration. No distractor is defensible.",
+        "sources_read": [
+          "https://www.freedesktop.org/software/systemd/man/latest/systemctl.html"
+        ]
+      }
+    },
+    {
+      "id": "q.sysadmin.system-administration.symbolic-vs-numeric-chmod.03",
+      "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 5,
+      "stem": "You must give a file's owner read and write, the group read only, and others no access. Which numeric mode is correct?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "640",
+          "correct": true,
+          "why": "Owner read and write is 4+2=6, group read is 4 and others nothing is 0, so `chmod 640 file` sets exactly this.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "604",
+          "correct": false,
+          "why": "The digits are owner, group, others in that order; this gives others read and the group nothing, the reverse of what was asked.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "guide:02-system-administration/system-administration.md#c-sysadmin.system-administration.symbolic-vs-numeric-chmod"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "755",
+          "correct": false,
+          "why": "7 adds execute for the owner and 5 gives group and others read and execute, which is far more than asked.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.read-write-execute-permissions"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "660",
+          "correct": false,
+          "why": "The second 6 gives the group write as well as read, and the requirement was group read only.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "sysadmin.system-administration.symbolic-vs-numeric-chmod"
+          }
+        }
+      ],
+      "rationale": "Numeric `chmod` uses one octal digit per class in the order owner, group, others, each the sum of read (4), write (2) and execute (1). Owner read and write is 6, group read is 4 and others none is 0, giving `640`.",
+      "source_ids": [
+        "man-chmod-1"
+      ],
+      "guide_anchor": "02-system-administration/system-administration.md#c-sysadmin.system-administration.symbolic-vs-numeric-chmod",
+      "comparison_block": null,
+      "commands_covered": [
+        "chmod"
+      ],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against chmod(1): a numeric mode adds the values 4, 2 and 1, with digits for the owner, the file's group, and other users, giving 6, 4, 0. o2 604 swaps group and others. o3 755 adds execute and grants more. o4 660 gives the group write. No distractor is defensible.",
+        "sources_read": [
+          "https://man7.org/linux/man-pages/man1/chmod.1.html"
+        ]
+      }
     }
   ]
 }

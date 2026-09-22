@@ -7979,6 +7979,102 @@
       "category": "primary-documentation",
       "authority_tier": 2,
       "notes": "States that ATDD 'involves team members with different perspectives (customer, development, testing) collaborating to write acceptance tests in advance of implementing the corresponding functionality,' and that those tests 'act as a form of requirements to describe how the system will function, as well as serve as a way of verifying that the system functions as intended.' Carries the agreed-before-work-starts property at story level. Added 2026-08-19: the Scrum Guide, previously cited for the acceptance-criteria concept, never uses the phrase 'acceptance criteria'."
+    },
+    {
+      "id": "man-auditd-8",
+      "title": "auditd(8) — the Linux audit daemon, which writes audit records to disk",
+      "url": "https://man7.org/linux/man-pages/man8/auditd.8.html",
+      "organization": "Linux Audit project / man-pages",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States that auditd \"is the userspace component to the Linux Auditing System\" and writes audit records to disk. Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "man-auditctl-8",
+      "title": "auditctl(8) — control the kernel audit system; -w places a watch on a path",
+      "url": "https://man7.org/linux/man-pages/man8/auditctl.8.html",
+      "organization": "Linux Audit project / man-pages",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Documents \"-w path  Place a watch on path\", and marks -p deprecated in favour of the syscall form. Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "lkmpg-introduction",
+      "title": "The Linux Kernel Module Programming Guide — what a kernel module is",
+      "url": "https://sysprog21.github.io/lkmpg/",
+      "organization": "sysprog21 (LKMPG maintainers)",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 3,
+      "notes": "States modules \"can be loaded and unloaded into the kernel upon demand\", contrasted with building monolithic kernels. Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "man-init-module-2",
+      "title": "init_module(2) — load a kernel module into kernel space",
+      "url": "https://man7.org/linux/man-pages/man2/init_module.2.html",
+      "organization": "Linux man-pages project",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States init_module \"loads an ELF image into kernel space\". Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "nist-csrc-glossary-asymmetric-cryptography",
+      "title": "NIST CSRC Glossary — asymmetric cryptography",
+      "url": "https://csrc.nist.gov/glossary/term/asymmetric_cryptography",
+      "organization": "NIST",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 1,
+      "notes": "Defines cryptography using two separate keys, one to encrypt or sign and one to decrypt. Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "kube-state-metrics-readme",
+      "title": "kube-state-metrics README — metrics about the state of Kubernetes objects",
+      "url": "https://github.com/kubernetes/kube-state-metrics/blob/main/README.md",
+      "organization": "Kubernetes SIG Instrumentation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States kube-state-metrics \"listens to the Kubernetes API server and generates metrics about the state of the objects\". Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "metrics-server-readme",
+      "title": "Kubernetes Metrics Server README — resource metrics for autoscaling",
+      "url": "https://github.com/kubernetes-sigs/metrics-server/blob/master/README.md",
+      "organization": "Kubernetes SIGs",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "States Metrics Server is a \"source of container resource metrics for Kubernetes built-in autoscaling pipelines\". Added 2026-09-22 by the #62 recall-pool verification pass."
+    },
+    {
+      "id": "gnu-copyleft",
+      "title": "What is Copyleft? — GNU Project",
+      "url": "https://www.gnu.org/licenses/copyleft.html",
+      "organization": "Free Software Foundation",
+      "published": null,
+      "updated": null,
+      "accessed": "2026-09-22",
+      "category": "primary-documentation",
+      "authority_tier": 2,
+      "notes": "Defines copyleft as requiring all modified and extended versions of the program to be free as well. Added 2026-09-22 by the #62 recall-pool verification pass."
     }
   ]
 }

@@ -109,7 +109,7 @@ alternative: **#56**. Log: 2026-09-20 (five entries, recorded at close) and 2026
   **§9** corrected or written. Checklist §9.3 — the production `409` and result card — is
   **deferred, not proved**, until the real sitting.
 
-Suites, re-measured 2026-09-22 (#62 ticket A): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
+Suites, re-measured 2026-09-22 (#62 ticket B): **343** bank · **766** app unit · **236** app integration · **1** e2e (not re-run; exam path untouched).
 
 ---
 
@@ -118,16 +118,13 @@ Suites, re-measured 2026-09-22 (#62 ticket A): **343** bank · **766** app unit 
 **Checklist §9.2 re-run on production after #61 — done 2026-09-21**: Cancel pressed on the new
 buttons, Neon `main` read back **0** holdout attempts.
 
-**Open: #62, the `recall` pool** (specced 2026-09-22). The owner's 25 recalled practice questions
-become a new pool that practice and domain mode serve; papers, holdout and exam mode are untouched.
-**Ticket A is built** (2026-09-22, branch `feature/62-recall-pool`): migration 0003 adds the enum
-value (applied to Neon `develop`, not yet `main`), `COMPOSED_POOLS` in `src/domain/modes.ts` feeds
-selection and coverage, the bank tooling accepts `recall`, and drills keep only `exam` and
-`supplement`, so `build-exams` produces no diff. Log 2026-09-22. **Next is ticket B**: convert the 25
-and check every key against a primary source, with the doubted-key list going to the owner before
-commit. When B lands, bank-integrity's `{exam: 1000, supplement: 150}` gains `recall: 25` and PRD §2's
-"Exam pool available" column wants the recall counts. The source file is
-`~/Downloads/LFCA-Practice-Exam-1.md`, outside the repo.
+**#62, the `recall` pool — done 2026-09-22.** Ticket A (`81d2537`) built the pool: migration 0003,
+`COMPOSED_POOLS` in `src/domain/modes.ts`, bank tooling, drills limited to `exam` and `supplement`.
+Ticket B converted the owner's 25 recalled questions into `recall` items: stems and keys kept,
+weak distractors rewritten, difficulty derived from the concept, every key checked against primary
+sources (two keys changed, two doubted and approved). The bank is **1,175** questions; the seed
+line reads `1175 question(s), 4700 option(s), 16 paper(s), 960 paper item(s), 40 holdout`.
+Log 2026-09-22 (two entries).
 
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.
@@ -158,7 +155,7 @@ Nothing.
   40-question holdout and by first-attempt scoring. Do not weaken either.
 
 ### The bank
-- 537 concepts, **1,150 questions** (1,000 `exam` pool + 150 `supplement`), 16 exams, drills, guide.
+- 537 concepts, **1,175 questions** (1,000 `exam` pool + 150 `supplement` + 25 `recall`), 16 exams, drills, guide.
 - The 16 exams are a clean partition: **960 distinct questions, zero overlap, 40 pool items unused**
   — the holdout. They match the official weights to within one question
   (SysAdmin 18 / Cloud 11 / Linux 10 / Security 8 / DevOps 7 / PM 6, per 60).

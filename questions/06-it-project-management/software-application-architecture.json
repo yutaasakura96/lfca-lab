@@ -1225,6 +1225,77 @@
           "https://www.rfc-editor.org/rfc/rfc9110.html"
         ]
       }
+    },
+    {
+      "id": "q.pm.software-application-architecture.three-tier-architecture.02",
+      "concept_id": "pm.software-application-architecture.three-tier-architecture",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "An application is split into a web frontend, a backend service, and a separate database. This is an example of which architecture?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Three-tier",
+          "correct": true,
+          "why": "The frontend is the presentation tier, the backend service is the application tier, and the database is the data tier: three logical tiers.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Monolithic",
+          "correct": false,
+          "why": "A monolith builds and deploys the application logic as one unit; here the frontend, the backend and the database are already separate parts.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.software-application-architecture.monolithic-architecture"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Microservices",
+          "correct": false,
+          "why": "Microservices split the backend into many independently deployed services; this design has one backend service, not many.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.software-application-architecture.microservices"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Two-tier client-server",
+          "correct": false,
+          "why": "Two-tier puts the client directly against the data server; here a separate backend sits between the frontend and the database, which makes a third tier.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "pm.software-application-architecture.client-server-model"
+          }
+        }
+      ],
+      "rationale": "Three-tier architecture separates presentation, application logic and data into distinct tiers. A web frontend, a backend service and a separate database map one-to-one onto those tiers, so the design is three-tier.",
+      "source_ids": [
+        "microsoft-three-tier-architecture-model"
+      ],
+      "guide_anchor": "06-it-project-management/software-application-architecture.md#c-pm.software-application-architecture.three-tier-architecture",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against Microsoft's three-tier architecture model, which names the presentation tier, the middle or business services tier, and the data tier as logical layers. o4: the same page contrasts client-server with a fat client and no middle tier, so two-tier is wrong here. o2: a monolith is one deployable unit, which this is not. o3: microservices would need many backend services, not one. No distractor is defensible.",
+        "sources_read": [
+          "https://learn.microsoft.com/en-us/windows/win32/cossdk/using-a-three-tier-architecture-model"
+        ]
+      }
     }
   ]
 }

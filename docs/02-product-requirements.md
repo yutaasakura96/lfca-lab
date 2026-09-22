@@ -31,14 +31,18 @@ clock, and when feedback appears — not in how a question renders or where the 
 **Official weights, and what they mean per 60-question sitting.** These are the real exam's
 published weights; the sixteen generated exams already match them to within one question.
 
-| Domain | Weight | Per 60 | Exam pool available |
-|---|---|---|---|
-| System Administration | 30% | 18 | 300 |
-| Cloud Computing | 18% | 11 | 180 |
-| Linux Fundamentals | 16% | 10 | 160 |
-| Security | 14% | 8 | 140 |
-| DevOps | 12% | 7 | 120 |
-| IT Project Management | 10% | 6 | 100 |
+| Domain | Weight | Per 60 | Exam pool available | Recall pool |
+|---|---|---|---|---|
+| System Administration | 30% | 18 | 300 | 9 |
+| Cloud Computing | 18% | 11 | 180 | 2 |
+| Linux Fundamentals | 16% | 10 | 160 | 2 |
+| Security | 14% | 8 | 140 | 3 |
+| DevOps | 12% | 7 | 120 | 6 |
+| IT Project Management | 10% | 6 | 100 | 3 |
+
+*The recall column arrived with #62: the owner's 25 recalled questions, served by practice and
+domain mode beside the exam pool and on no paper. Practice and domain selection draws from both
+columns; the holdout's 40 are inside the exam-pool figures and excluded from selection.*
 
 ---
 

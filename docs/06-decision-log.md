@@ -3097,3 +3097,31 @@ are where they stay once the issue is closed.*
   ways: either query back on `pool = 'exam'` fails it, and so does the drill filter's removal.
 - **Revisit if:** a "recalled questions only" run is ever wanted — it is a pool filter away, and out
   of #62's scope.
+
+### [2026-09-22] The 25 recalled questions keep their stems and keys; weak distractors are rewritten
+- **Decision:** ticket B of #62 adds the owner's 25 recalled questions as `recall`-pool items, one
+  per existing concept, mapped with the owner. Each keeps its source stem, question style and key;
+  distractors that were throwaways or also defensible are replaced with plausible options that carry
+  real provenance. Difficulty is the concept's `required_depth`, as `q-difficulty-derived` requires
+  of every item. All three chosen by the owner.
+- **Alternatives considered:** keeping all four source options verbatim, the most faithful reading —
+  rejected because throwaway distractors ("Compress files", "The sticky bit") have no honest
+  provenance to give, and two items had a second defensible answer (three-tier against
+  client-server; RAID 1 against RAID 10). Rewriting every item in the bank's style — rejected
+  because resemblance to the real sitting is the reason the items exist. For difficulty, exempting
+  `recall` from `q-difficulty-derived` so each item is judged 2–3 — rejected as a pool-specific
+  carve-out in the checker for a field nothing in the app reads.
+- **No concept was invented.** kube-state-metrics has no concept of its own; the item sits under
+  `devops.devops-basics.observability`, with the project README registered as a source.
+- **The key check changed two keys and doubted two.** Three independent verifiers checked every key
+  and distractor against primary documentation; none was refuted. `ss -tuln` became `ss -tln`
+  because the stem asks for TCP only; `journalctl -u servicename` became `journalctl -u myservice`
+  for the length cue. Kept with the owner's approval: the pipeline-order item, whose order is a
+  convention rather than a documented rule, and the "where do you look first" item, which the
+  guide would answer with `systemctl status` — not an option there.
+- **Options made only of a command or a number are written as plain text.** `normalizeStem`
+  replaces every code span with one token, so four code-span options normalize identically and
+  fail `q-distractor-distinct`. The `why` texts keep their code spans.
+- **Verified:** `build-exams` produced no diff; `validate`, `check-bank` and `check-guide` green;
+  Neon `develop` reads 1000 exam, 150 supplement, 25 recall, 40 holdout. Three integration tests
+  that counted `pool = 'exam'` alone now count the two served pools.

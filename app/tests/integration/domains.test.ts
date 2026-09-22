@@ -175,10 +175,10 @@ describe.skipIf(!hasDatabase)('listDomains', () => {
   it('never counts a holdout item toward availability', async () => {
     const rows = await listDomains(db, freshId);
     const overlap = await db.execute<{ n: number }>(sql`
-      SELECT count(*)::int AS n FROM question WHERE is_holdout AND pool = 'exam'
+      SELECT count(*)::int AS n FROM question WHERE is_holdout AND pool IN ('exam', 'recall')
     `);
     const totals = await db.execute<{ n: number }>(sql`
-      SELECT count(*)::int AS n FROM question WHERE pool = 'exam'
+      SELECT count(*)::int AS n FROM question WHERE pool IN ('exam', 'recall')
     `);
 
     const advertised = rows.reduce((sum, row) => sum + row.available, 0);

@@ -2102,7 +2102,8 @@
       "additional_sources": [
         "gnu-gpl-3",
         "gnu-gpl-faq",
-        "gnu-agpl-3"
+        "gnu-agpl-3",
+        "gnu-copyleft"
       ],
       "candidate_evidence": [],
       "commands": [],

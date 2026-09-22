@@ -2494,6 +2494,371 @@
           "https://glossary.cncf.io/monolithic-apps/"
         ]
       }
+    },
+    {
+      "id": "q.devops.devops-basics.pipeline.03",
+      "concept_id": "devops.devops-basics.pipeline",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 3,
+      "stem": "Put the deployment pipeline stages in the correct order.",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Compile, test, build image, push to registry, deploy",
+          "correct": true,
+          "why": "Each stage consumes the previous one's output: tested code goes into the image, the image is published to the registry, and the deploy pulls it from there.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Compile, build image, deploy, test, push to registry",
+          "correct": false,
+          "why": "Testing after the deploy means untested code has already reached the environment, and the deploy cannot pull an image that has not been pushed yet.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "guide:05-devops/devops-basics.md#c-devops.devops-basics.pipeline"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Build image, compile, test, deploy, push to registry",
+          "correct": false,
+          "why": "The image packages the compiled artifact, so it cannot be built before compilation, and pushing after deploying leaves the deploy nothing to pull.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.containers.container-image"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Compile, test, deploy, build image, push to registry",
+          "correct": false,
+          "why": "A container deploy runs an image that the platform pulls from a registry, so the image must be built and pushed before the deploy, not after it.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.containers.registry"
+          }
+        }
+      ],
+      "rationale": "A pipeline is a sequence of stages where each stage takes the previous stage's artifact. In the common order, code is compiled and tested, the tested build is packaged as an image, the image is pushed to a registry, and the deploy pulls that exact image. A stage that depends on an artifact cannot come before the stage that produces it.",
+      "source_ids": [
+        "jenkins-pipeline-doc",
+        "gitlab-ci-yaml"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.pipeline",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "The Jenkins and GitLab references describe pipelines as sequential stages but prescribe no single order; compile, test, image, push, deploy is a common convention, and many pipelines test the built image instead. The key is still the only option respecting artifact dependencies: the image after compilation and the deploy after the push. o2, o3 and o4 each place a stage before the stage that produces its input. The rationale says 'the common order' accordingly. Confirmed as the single best answer among the four; framing flagged to the owner.",
+        "sources_read": [
+          "https://www.jenkins.io/doc/book/pipeline/",
+          "https://docs.gitlab.com/ci/yaml/"
+        ]
+      }
+    },
+    {
+      "id": "q.devops.devops-basics.deployment-environments.02",
+      "concept_id": "devops.devops-basics.deployment-environments",
+      "pool": "recall",
+      "type": "application",
+      "difficulty": 2,
+      "stem": "What is the best-practice network design for development, staging, and production environments?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Separate, isolated networks per environment, with production strictly separated",
+          "correct": true,
+          "why": "Isolation keeps a mistake or a compromise in development or staging from reaching production systems and production data.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "One shared network for all three environments, to simplify management",
+          "correct": false,
+          "why": "A shared network lets any development host reach production directly, so one careless test or compromised laptop can affect live systems.",
+          "provenance": {
+            "kind": "misconception",
+            "documented_at": "guide:05-devops/devops-basics.md#c-devops.devops-basics.deployment-environments"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Production and development on one network, with staging kept separate",
+          "correct": false,
+          "why": "This isolates the wrong pair: development is the least controlled environment and it is left adjacent to production.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "security.security.firewalls-and-network-segmentation"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "All three inside the production network, so staging matches it exactly",
+          "correct": false,
+          "why": "Parity is about matching software and configuration, not about sharing production's network; putting non-production hosts there removes the boundary entirely.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.developer-environments-and-parity"
+          }
+        }
+      ],
+      "rationale": "Development, staging and production are kept on separate, isolated networks, with production most strictly separated, so that faults, experiments and compromises in non-production environments cannot reach live systems. NIST SP 800-53 expresses the same separation in CM-4(1), separate test environments, SA-3(1), protecting preproduction environments, and SC-32, system partitioning. Environment parity is achieved through matching configuration, not through a shared network.",
+      "source_ids": [
+        "nist-sp-800-53r5",
+        "twelve-factor-dev-prod-parity"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.deployment-environments",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against NIST SP 800-53 Rev. 5: CM-4(1) requires analyzing changes in a separate test environment before the operational one, SA-3(1) protects preproduction environments commensurate with risk, and SC-32 partitions components into separate domains or environments. o2 and o3 leave development adjacent to production. o4: Twelve-Factor dev/prod parity concerns time, personnel and tools gaps, not a shared network. The rationale now names the controls.",
+        "sources_read": [
+          "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+          "https://12factor.net/dev-prod-parity"
+        ]
+      }
+    },
+    {
+      "id": "q.devops.devops-basics.continuous-integration.03",
+      "concept_id": "devops.devops-basics.continuous-integration",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "Continuous Integration (CI) is best described as:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Frequently merging code and running automated tests to catch problems early",
+          "correct": true,
+          "why": "CI is merging small changes into the shared branch often, with an automated build and test on each merge so integration problems surface immediately.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Automatically deploying every passing change to production",
+          "correct": false,
+          "why": "Releasing each passing change to production with no human step is continuous deployment, a practice that builds on CI.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-deployment"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Defining servers and networks in version-controlled files",
+          "correct": false,
+          "why": "Describing infrastructure in versioned files is infrastructure as code; it can run inside a CI pipeline but is not what CI means.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.infrastructure-as-code"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Keeping every change releasable, one approval away from production",
+          "correct": false,
+          "why": "Keeping software always releasable with a manual release decision is continuous delivery, the step after CI.",
+          "provenance": {
+            "kind": "confusable",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        }
+      ],
+      "rationale": "Continuous integration is the practice of integrating code changes into a shared repository frequently, each change verified by an automated build and tests. It is about integrating and verifying early; releasing is the job of continuous delivery and continuous deployment.",
+      "source_ids": [
+        "cncf-glossary-continuous-integration",
+        "cncf-glossary-continuous-delivery",
+        "cncf-glossary-continuous-deployment"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.continuous-integration",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-b",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the CNCF glossary, which defines continuous integration as integrating code changes as regularly as possible and producing a tested artifact for a CD system. o2 is continuous deployment, deploying directly to production; o4 is continuous delivery; o3 is infrastructure as code. No distractor is defensible.",
+        "sources_read": [
+          "https://glossary.cncf.io/continuous-integration/",
+          "https://glossary.cncf.io/continuous-delivery/",
+          "https://glossary.cncf.io/continuous-deployment/"
+        ]
+      }
+    },
+    {
+      "id": "q.devops.devops-basics.observability.02",
+      "concept_id": "devops.devops-basics.observability",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 1,
+      "stem": "kube-state-metrics is used to:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Generate metrics about the state of Kubernetes objects for monitoring",
+          "correct": true,
+          "why": "kube-state-metrics watches the Kubernetes API and exposes metrics about objects such as deployments, pods and nodes for a monitoring system to scrape.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Provide CPU and memory usage for autoscaling",
+          "correct": false,
+          "why": "Resource usage for autoscaling comes from metrics-server; kube-state-metrics reports object state, not CPU and memory consumption.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "cloud.performance-availability.auto-scaling"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Store and serve container images for the cluster's nodes",
+          "correct": false,
+          "why": "Images are stored in a registry; kube-state-metrics holds no images and only reports on cluster objects.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.containers.registry"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Collect and store the log lines written by every pod",
+          "correct": false,
+          "why": "Pod logs are written by the container runtime and collected by a logging agent; kube-state-metrics produces metrics, not logs.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.containers.container-logs-and-exec"
+          }
+        }
+      ],
+      "rationale": "kube-state-metrics is a Kubernetes add-on that listens to the API server and generates metrics about the state of objects, such as desired versus available replicas or pod phase, for monitoring systems like Prometheus. It is distinct from metrics-server, which supplies CPU and memory usage to the autoscaling pipeline.",
+      "source_ids": [
+        "kube-state-metrics-readme",
+        "metrics-server-readme"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#s-devops-basics-automation",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the kube-state-metrics README: it listens to the Kubernetes API server and generates metrics about the state of objects such as deployments, nodes and pods. o2: the metrics-server README calls it a source of container resource metrics for built-in autoscaling pipelines. o3: images live in a registry. o4: logs are written by the runtime and collected by an agent; its why was corrected. No distractor is defensible.",
+        "sources_read": [
+          "https://github.com/kubernetes/kube-state-metrics/blob/main/README.md",
+          "https://github.com/kubernetes-sigs/metrics-server/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "id": "q.devops.devops-basics.infrastructure-as-code.03",
+      "concept_id": "devops.devops-basics.infrastructure-as-code",
+      "pool": "recall",
+      "type": "recall",
+      "difficulty": 3,
+      "stem": "A team wants repeatable, version-controlled server setup instead of manual configuration. This practice is called:",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "Infrastructure as code",
+          "correct": true,
+          "why": "Infrastructure as code describes servers and their setup in version-controlled files that a tool applies the same way every time.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "Continuous delivery",
+          "correct": false,
+          "why": "Continuous delivery keeps application changes always releasable; it may use infrastructure as code but names a release practice.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-delivery"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "Continuous integration",
+          "correct": false,
+          "why": "Continuous integration is merging and testing application code frequently, not defining how servers are built.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.devops-basics.continuous-integration"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "Containerization",
+          "correct": false,
+          "why": "Containerization packages an application with its dependencies; it does not describe or provision the servers underneath.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "devops.containers.container"
+          }
+        }
+      ],
+      "rationale": "Infrastructure as code manages infrastructure through definition files kept under version control, so environments are built the same way every time and changes are reviewed like code. An infrastructure-as-code tool applies those definitions instead of an operator configuring servers by hand.",
+      "source_ids": [
+        "cncf-glossary-iac"
+      ],
+      "guide_anchor": "05-devops/devops-basics.md#c-devops.devops-basics.infrastructure-as-code",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-c",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the CNCF glossary: infrastructure as code stores the definition of infrastructure as files under version control, replacing manual provisioning. Configuration management is not among the options, so nothing competes with the key. o2 and o3 are release and integration practices; o4 packages applications and provisions no servers. An unsourced tool name was removed from the rationale.",
+        "sources_read": [
+          "https://glossary.cncf.io/infrastructure-as-code/"
+        ]
+      }
     }
   ]
 }

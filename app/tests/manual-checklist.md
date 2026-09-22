@@ -491,7 +491,8 @@ gh run list --commit "$(git rev-parse main)" \
       absence means the bank never reached production however green the rest looks.
 - [ ] **The seed reported the bank unchanged.** In the `Deploy` run's *Bank checks, migrate, seed*
       job, the last line of `npm run seed` reads
-      `seeded: 1150 question(s), 4600 option(s), 16 paper(s), 960 paper item(s), 40 holdout`.
+      `seeded: 1175 question(s), 4700 option(s), 16 paper(s), 960 paper item(s), 40 holdout`
+      (1,150 until #62 added the 25 `recall` items).
       Any other figure means either the bank changed in this commit — in which case it is the
       number you intended — or the seed applied partly. There is no third reading.
 - [ ] **`__drizzle_migrations` matches the files on disk**: one row per file in

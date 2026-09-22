@@ -3733,6 +3733,81 @@
           "https://man7.org/linux/man-pages/man1/nproc.1.html"
         ]
       }
+    },
+    {
+      "id": "q.linux.linux-operating-system.kernel.03",
+      "concept_id": "linux.linux-operating-system.kernel",
+      "pool": "recall",
+      "type": "discrimination",
+      "difficulty": 3,
+      "stem": "Which statement best describes the architecture of the Linux kernel?",
+      "options": [
+        {
+          "ref": "o1",
+          "text": "A monolithic kernel that can load and unload modules while running",
+          "correct": true,
+          "why": "Linux runs its core, drivers and file systems in one kernel address space, and extends itself at runtime with loadable modules rather than separate user-space servers.",
+          "provenance": {
+            "kind": "key"
+          }
+        },
+        {
+          "ref": "o2",
+          "text": "A microkernel that runs drivers and file systems as user-space servers",
+          "correct": false,
+          "why": "That is the microkernel design; in Linux drivers and file systems run in kernel space, which is the monolithic side of the kernel-space and user-space split.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.linux-operating-system.kernel-space-vs-user-space"
+          }
+        },
+        {
+          "ref": "o3",
+          "text": "A hybrid kernel of the kind Windows NT uses",
+          "correct": false,
+          "why": "Hybrid is the label usually given to the Windows NT family; Linux keeps its subsystems in a single kernel image plus modules and is not described that way.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.linux-operating-system.kernel"
+          }
+        },
+        {
+          "ref": "o4",
+          "text": "A monolithic kernel that must be rebuilt to add any new driver",
+          "correct": false,
+          "why": "Monolithic does not mean static: a driver built as a module is inserted into the running kernel with no rebuild and no reboot.",
+          "provenance": {
+            "kind": "sibling",
+            "concept_id": "linux.linux-operating-system.device-drivers-and-kernel-modules"
+          }
+        }
+      ],
+      "rationale": "The Linux kernel is monolithic: scheduling, memory management, drivers and file systems all execute in kernel space as one program. It is not static, though, because code built as a loadable kernel module can be added to and removed from the running kernel.",
+      "source_ids": [
+        "lkmpg-introduction",
+        "man-init-module-2",
+        "man-modprobe-8"
+      ],
+      "guide_anchor": "01-linux-fundamentals/linux-operating-system.md#c-linux.linux-operating-system.kernel",
+      "comparison_block": null,
+      "commands_covered": [],
+      "waived_source": false,
+      "verification": {
+        "agent_label": "verify-recall-a",
+        "verdict": "confirmed",
+        "checked": [
+          "key",
+          "o2",
+          "o3",
+          "o4"
+        ],
+        "reasoning": "Key checked against the Linux Kernel Module Programming Guide, which says modules can be loaded and unloaded upon demand in contrast with building monolithic kernels, and against init_module(2) and modprobe(8) for runtime loading into kernel space. The originally cited kernel README does not say monolithic, so sources were replaced. o2 is the microkernel design; o4 is refuted by runtime module loading; o3's hybrid label for Windows NT is conventional usage, hedged in its why. No distractor is defensible.",
+        "sources_read": [
+          "https://sysprog21.github.io/lkmpg/",
+          "https://man7.org/linux/man-pages/man2/init_module.2.html",
+          "https://man7.org/linux/man-pages/man8/modprobe.8.html"
+        ]
+      }
     }
   ]
 }
