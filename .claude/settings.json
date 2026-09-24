@@ -241,8 +241,7 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": false,
-    "superpowers@claude-plugins-official": false,
-    "mattpocock-skills@claude-plugins-official": true
+    "superpowers@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
