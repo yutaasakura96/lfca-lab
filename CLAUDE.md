@@ -19,6 +19,10 @@ The two-node Docker practice lab that used to live here is now its own repo:
 - Write tests before implementation where there's a natural seam.
 - Review the diff against repo standards and the original request before saying it's done.
 - For work spanning sessions, write a spec and tickets first.
+- Verify platform, framework and model capability claims against current official documentation
+  before treating them as design facts; mark anything unverified as such.
+- After the final UI edit, rerun the browser flow and inspect the rendered page and console before
+  declaring the ticket complete.
 
 ## Commands
 
