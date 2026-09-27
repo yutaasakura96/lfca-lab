@@ -43,6 +43,29 @@ const DEPLOY_WORKFLOW = join(repoRoot, '.github', 'workflows', 'deploy.yml');
 // minting no deployment is what proves the file was read at all.
 const VERCEL_CONFIG = join(appRoot, 'vercel.json');
 
+// Doc 12 §8.1 is the one committed place the Neon endpoint hosts are written
+// down, and the host carries the AWS region. The function region is derived
+// from it below rather than typed twice, so that moving the database to another
+// region fails this test instead of silently leaving the functions an ocean
+// away — which is the state this assertion was added to end.
+const DEPLOYMENT_DOC = join(repoRoot, 'docs', '12-deployment.md');
+
+// Vercel's region codes, from https://vercel.com/docs/regions. Only the AWS
+// regions Neon offers in this hemisphere are listed; a Neon region absent from
+// this map fails loudly with the code to add, rather than defaulting to
+// something plausible.
+const VERCEL_REGION_FOR_AWS: Readonly<Record<string, string>> = {
+  'ap-southeast-1': 'sin1',
+  'ap-southeast-2': 'syd1',
+  'ap-northeast-1': 'hnd1',
+  'ap-northeast-2': 'icn1',
+  'ap-south-1': 'bom1',
+  'us-east-1': 'iad1',
+  'us-west-2': 'pdx1',
+  'eu-central-1': 'fra1',
+  'eu-west-1': 'dub1',
+};
+
 const manifest = JSON.parse(readFileSync(join(appRoot, 'package.json'), 'utf8')) as {
   engines: { node: string };
   scripts: Record<string, string>;
@@ -397,6 +420,7 @@ describe('only git main deploys, and the build command is the framework build al
   const config = (): {
     framework?: unknown;
     buildCommand?: unknown;
+    regions?: unknown;
     git?: { deploymentEnabled?: unknown };
   } => {
     expect(
@@ -442,6 +466,53 @@ describe('only git main deploys, and the build command is the framework build al
       'app/vercel.json does not pin `next build` as the build command. Migrations and the seed run '
         + 'from a workflow (#48, decision log 2026-08-31), never from the build.',
     ).toBe('next build');
+  });
+
+  it('runs its functions in the region the database is in', () => {
+    // **Measured on production, 2026-09-27**: `x-vercel-id: hnd1::iad1::` — the
+    // request entered at Tokyo and the function ran in Washington, D.C., while
+    // Neon serves `ap-southeast-1`. Vercel defaults new projects to `iad1`
+    // explicitly "to ensure they are located close to most external data
+    // sources, which are hosted on the East Coast of the USA", which is an
+    // assumption this project does not meet and never did.
+    //
+    // The cost is not one hop. `PUT /api/attempt/:id/answer` makes **four**
+    // sequential round trips — the session read, the ownership read, the
+    // membership check, and the upsert — and a composed sitting adds a fifth
+    // for the key. Every one of them crossed the Pacific twice, sixty times per
+    // paper.
+    //
+    // Singapore rather than Tokyo, although the candidate sits in Japan: the
+    // database round trips multiply and the single browser→function hop does
+    // not. Putting the function next to the data turns four ocean crossings
+    // into four same-region hops and leaves one ocean crossing for the HTML.
+    const hosts = readFileSync(DEPLOYMENT_DOC, 'utf8');
+    const awsRegions = [...hosts.matchAll(/\.c-\d+\.([a-z]+-[a-z]+-\d+)\.aws\.neon\.tech/g)]
+      .map(([, region]) => region);
+
+    expect(
+      [...new Set(awsRegions)],
+      'docs/12-deployment.md §8.1 no longer records exactly one Neon AWS region in its endpoint '
+        + 'hosts. That table is what this test derives the function region from, so that the two '
+        + 'cannot drift. Update §8.1 first, then this expectation.',
+    ).toHaveLength(1);
+
+    const expected = VERCEL_REGION_FOR_AWS[awsRegions[0]!];
+
+    expect(
+      expected,
+      `Neon serves ${awsRegions[0]}, which is not in VERCEL_REGION_FOR_AWS. Add its Vercel region `
+        + 'code from https://vercel.com/docs/regions rather than leaving the functions wherever '
+        + 'Vercel put them.',
+    ).toBeTypeOf('string');
+
+    expect(
+      config().regions,
+      `app/vercel.json does not pin \`"regions": ["${expected}"]\`. Neon serves ${awsRegions[0]} `
+        + '(doc 12 §8.1), and an unpinned project runs its functions in iad1 — so every one of the '
+        + "answer route's four sequential queries crosses the Pacific twice, sixty times per paper. "
+        + 'Hobby allows exactly one region, which is all this needs.',
+    ).toEqual([expected]);
   });
 
   it('is a branch map, not the boolean that would also stop main', () => {

@@ -3191,3 +3191,37 @@ are where they stay once the issue is closed.*
 - **Revisit if:** another auth-table change arrives with a non-empty `account` write path in play —
   a second user, or a second provider — at which point the race is no longer free and §3's two
   deploys apply.
+
+### [2026-09-27] The functions move to `sin1`, beside the database, and Tokyo is not the answer
+- **Decision:** `app/vercel.json` pins `"regions": ["sin1"]`. Vercel's `sin1` is `ap-southeast-1`,
+  which is where Neon serves both branches (doc 12 §8.1), so the function and its data are in one
+  region. `deploy-config.test.ts` derives the expected code from §8.1's endpoint hosts rather than
+  hardcoding it. Doc 12 gains §3.2.
+- **Context:** the owner reported the app felt slow. Measured on production rather than guessed:
+  `x-vercel-id: hnd1::iad1::` — the request entered at Tokyo and the function executed in
+  Washington, D.C., while the database sat in Singapore. There was no `regions` key, so this was
+  Vercel's default, which its docs justify as being "close to most external data sources, which are
+  hosted on the East Coast of the USA" — an assumption this project has never met.
+- **Why it was worth a deploy rather than a note.** The tax is per round trip, not per request, and
+  `PUT /api/attempt/:id/answer` makes **four sequential** ones: the session read, the ownership
+  read, the membership check and the upsert, with a fifth for the key in a composed sitting. At a
+  Virginia↔Singapore round trip each, that is most of a second of pure network per answer click,
+  sixty times per paper — on the hot path of the one screen where the product's only irreplaceable
+  number is produced. **The queries were never the problem** and none changed: they are single
+  aggregate statements, run under `Promise.all` where they can be.
+- **Alternatives considered.** **`hnd1` (Tokyo)**, which is where the candidate is and where the
+  request already enters — rejected because it optimises the one hop that happens once and leaves
+  the four that multiply, so a fast first byte would sit in front of four slow queries. **Moving
+  the Neon project to `ap-northeast-1`** so both are in Tokyo, which is the genuinely optimal shape
+  and was the strongest alternative: rejected for this change because Neon cannot move a project's
+  region, so it means a new project and a `pg_dump`/`pg_restore` of production — the doc 12 §5
+  procedure — to buy roughly 70ms on a single hop after `sin1` has already removed the four. It is
+  the thing to do if the app ever feels slow again, not before. **Collapsing the four round trips**
+  into fewer queries, which helps in any region — rejected as the first move because it is a change
+  to the auth and ownership path, which is the code doc 03 §9 calls the single most important check
+  in the app, to buy less than a region move costs one line.
+- **Not fixed, and recorded rather than left to be rediscovered:** Neon's Free plan suspends a
+  compute after five minutes idle, so the first request after a break still wakes it — 2.46s cold
+  against 0.39s warm, both measured before the move. That is a plan limit, not a placement one.
+- **Revisit if:** the app feels slow again after this — at which point the Neon region move above is
+  the next lever, and it is a migration rather than a config line.

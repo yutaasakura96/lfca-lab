@@ -415,6 +415,41 @@ Detection produces the same string today; what it does not do is refuse a dashbo
 something to it. §3 above spent three paragraphs on why `db:migrate` and `seed` do not belong in the
 build, and a value that lives only in a dashboard is a value with no diff.
 
+### 3.2 The functions run in `sin1`, beside the database
+
+`"regions": ["sin1"]`. Vercel's `sin1` **is** `ap-southeast-1` — the region §8.1 records Neon in —
+so the function and the database are in one place.
+
+**It was `iad1` until 2026-09-27, and that was the default rather than a decision.** Vercel defaults
+new projects to Washington, D.C. explicitly *"to ensure they are located close to most external data
+sources, which are hosted on the East Coast of the USA"*, an assumption this project has never met.
+Measured on production: `x-vercel-id: hnd1::iad1::` — the request entered at Tokyo and the function
+ran in Virginia, while its data sat in Singapore.
+
+**The cost was not one hop, which is why it was worth a deploy.** `PUT /api/attempt/:id/answer`
+makes **four sequential round trips** — the session read, the ownership read, the membership check,
+and the upsert (a composed sitting adds a fifth for the key) — and each one crossed the Pacific
+twice, sixty times per paper. Every page render pays the same tax two or three times over. The
+queries themselves were never the problem: they are single aggregate statements run under
+`Promise.all` where they can be, and none of that changed here.
+
+**Singapore rather than Tokyo, although the candidate sits in Japan.** The database round trips
+multiply and the single browser→function hop does not, so putting the function next to the data
+turns four ocean crossings into four same-region hops and leaves one crossing for the HTML. Pinning
+`hnd1` would have inverted that — a fast first byte and four slow queries behind it.
+
+**Hobby allows exactly one region**, which is all this needs; two would be a Pro feature and would
+not help, since there is one database to be near.
+
+`deploy-config.test.ts` **derives** the expected code from §8.1's endpoint hosts rather than
+hardcoding it, so a Neon region change fails the suite with the Vercel code to use instead of
+silently leaving the functions an ocean away again. A Neon region absent from its map fails loudly
+rather than defaulting to something plausible.
+
+**What this does not fix: the cold first hit.** Neon's Free plan suspends a compute after five
+minutes idle, so the first request after a break still wakes it — measured at 2.46s against 0.39s
+warm, both before the move. That is a plan limit, not a placement one, and it is left as it is.
+
 ---
 
 ## 4. Rollback — written before the first deploy
