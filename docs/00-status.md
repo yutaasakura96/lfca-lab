@@ -141,7 +141,21 @@ its head before merging: typecheck, 766 unit, 236 integration against Neon `deve
 does not use vitest and was not re-run. Checklist §8.1 passed on the deploy: CI and Deploy green,
 seed line unchanged, `__drizzle_migrations` at **5** against five files. The owner's global npm
 11.3.0 crashes in `npm install` resolving vitest 5 (`reading 'edgesOut'` in arborist); `npm ci`
-works, and npm 12.0.2 resolves it cleanly. **No Dependabot PRs open.**
+works, and npm 12.0.2 resolves it cleanly. **Two Dependabot PRs open** as of 2026-09-27: the `app`
+group (#64) and `@sentry/nextjs` 11.0.0 (#65), both against `develop`, neither reviewed.
+
+**Function region pinned to `sin1` — done 2026-09-27** (`f973727`), on the owner's report that the
+app felt slow. Measured, not guessed: `x-vercel-id: hnd1::iad1::` — the request entered at Tokyo and
+the function ran in **Virginia**, while Neon serves **`ap-southeast-1`**. There was no `regions` key,
+so this was Vercel's default. The tax is per round trip, and `PUT /answer` makes **four sequential**
+ones (five in a composed sitting), each crossing the Pacific twice, sixty times per paper.
+`app/vercel.json` now pins `"regions": ["sin1"]`; `deploy-config.test.ts` **derives** the expected
+code from doc 12 §8.1's Neon hosts so the two cannot drift. Doc 12 gains **§3.2**. Verified after the
+deploy: `hnd1::sin1::`, and `/sign-in` — which touches no database — went 0.39s → 0.27s, the
+Japan↔Virginia versus Japan↔Singapore difference on the one hop. **The four-round-trip win is
+unmeasured from outside**, since it needs a session; it is inferred from the count. Log 2026-09-27.
+*Not fixed:* Neon Free suspends a compute after 5 minutes idle, so the first hit after a break still
+wakes it (2.46s cold against 0.39s warm). A plan limit, not a placement one.
 
 The owner's own work is sitting the sixteen papers on production, then the holdout, then running
 checklist §9.3 and booking the retake.
